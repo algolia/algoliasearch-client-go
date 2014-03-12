@@ -3,6 +3,7 @@ package main
 import "net/http"
 import "io/ioutil"
 import "log"
+import "encoding/json"
 
 type Transport struct {
   httpClient *http.Client
@@ -22,7 +23,7 @@ func NewTransport(appID, apiKey string) *Transport {
   return transport
 }
 
-func (t *Transport) request(method, path, body string) (string){
+func (t *Transport) request(method, path, body string) interface{}{
   if (body == "") {
     body = "test"
   }
@@ -41,5 +42,12 @@ func (t *Transport) request(method, path, body string) (string){
   if err != nil {
     log.Fatal(err)
   }
-  return string(res)
+  var jsonResp interface{}
+  err = json.Unmarshal(res, &jsonResp)
+  if err != nil {
+    log.Fatal(err)
+  }
+  return jsonResp
 }
+
+

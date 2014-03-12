@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestInd(t *testing.T) {
+func TestListIndex(t *testing.T) {
   var name = "test "
   var client = NewClient("", "")
   var index = client.initIndex(name)
