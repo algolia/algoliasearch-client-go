@@ -24,7 +24,7 @@ func (c *Client) listKeys() interface{} {
 }
 
 func (c *Client) addKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) interface{} {
-  var body map[string]interface{}
+  body := make(map[string]interface{})
   body["acl"] = acl
   body["maxHitsPerQuery"] = maxHitsPerQuery
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
