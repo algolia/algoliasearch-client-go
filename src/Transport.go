@@ -2,6 +2,7 @@ package main
 
 import "net/http"
 import "io/ioutil"
+import "bytes"
 import "log"
 import "encoding/json"
 
@@ -23,11 +24,13 @@ func NewTransport(appID, apiKey string) *Transport {
   return transport
 }
 
-func (t *Transport) request(method, path, body string) interface{}{
-  if (body == "") {
-    body = "test"
+func (t *Transport) request(method, path string, body interface{}) interface{}{
+  bodyBytes, err := json.Marshal(body)
+  if err != nil {
+    log.Fatal(err)
   }
-  req, err := http.NewRequest(method, t.host[0] + path, nil)
+  reader := bytes.NewReader(bodyBytes)
+  req, err := http.NewRequest(method, t.host[0] + path, reader)
   if err != nil {
     log.Fatal(err)
   }
