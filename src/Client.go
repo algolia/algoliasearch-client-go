@@ -40,3 +40,11 @@ func (c *Client) getKey(key string) interface{} {
 func (c *Client) deleteKey(key string) interface{} {
   return c.transport.request("DELETE", "/1/keys/" + key, "")
 }
+
+func (c *Client) getLogs(offset, length int, onlyErrors bool) interface{} {
+  body := make(map[string]interface{})
+  body["offset"] = offset
+  body["length"] = length
+  body["onlyErrors"] = onlyErrors
+  return c.transport.request("GET", "/1/logs", body)
+}
