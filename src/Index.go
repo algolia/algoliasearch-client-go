@@ -1,6 +1,7 @@
 package main
 
 import "net/url"
+import "time"
 
 type Index struct {
   name string
@@ -42,6 +43,17 @@ func (i *Index) setSettings(settings interface{}) interface{} {
 
 func (i *Index) getStatus(taskID string) interface{} {
   return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/task/" + taskID, "")
+}
+
+func (i *Index) waitTask(task interface{}) interface{} {
+  for true {
+    status := i.getStatus(task.(map[string]interface{})["taskID"].(string))
+    if status.(map[string]interface{})["status"] == "published" {
+      break
+    }
+    time.Sleep(time.Duration(100) * time.Millisecond) 
+  }
+  return task
 }
 
 func (i *Index) listIndexKeys() interface{} {
