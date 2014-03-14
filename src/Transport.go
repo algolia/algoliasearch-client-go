@@ -1,6 +1,7 @@
 package main
 
 import "net/http"
+import "net/url"
 import "io/ioutil"
 import "bytes"
 import "log"
@@ -24,6 +25,13 @@ func NewTransport(appID, apiKey string) *Transport {
   return transport
 }
 
+func (t *Transport) urlEncode(value string) string {
+  v := url.Values{}
+  v.Add("", value)
+  encoded := v.Encode()
+  return encoded[1:len(encoded)] 
+}
+
 func (t *Transport) request(method, path string, body interface{}) interface{}{
   bodyBytes, err := json.Marshal(body)
   if err != nil {
@@ -44,6 +52,10 @@ func (t *Transport) request(method, path string, body interface{}) interface{}{
   resp.Body.Close()
   if err != nil {
     log.Fatal(err)
+  }
+  if resp.StatusCode >= 300 {
+    log.Fatal(req.URL)
+    log.Fatal(resp.Status)
   }
   var jsonResp interface{}
   err = json.Unmarshal(res, &jsonResp)

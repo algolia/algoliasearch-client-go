@@ -10,7 +10,7 @@ func initTest(t *testing.T) (*Client, *Index) {
     t.Fatalf("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
   }
   client := NewClient(appID, apiKey)
-  index := client.initIndex("àlgol?à")
+  index := client.initIndex("àlgol?à-go")
   return client, index
 }
 
@@ -19,7 +19,7 @@ func TestClear(t *testing.T) {
   object := make(map[string]interface{})
   _ = index.addObject(object)
   _ = index.clearIndex()
-  //TODO check index
+  //TODO
 }
 
 func TestAddObject(t *testing.T) {
@@ -27,7 +27,7 @@ func TestAddObject(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   _ = index.addObject(object)
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "algolia"
   _ = index.addObject(object)
   //TODO check index
 }
@@ -36,7 +36,7 @@ func TestUpdateObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "algolia"
   _ = index.addObject(object)
   object["name"] = "Roger"
   _ = index.updateObject(object)
@@ -48,7 +48,7 @@ func TestPartialUpdateObject(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["job"] = "Knight"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "algolia"
   _ = index.addObject(object)
   delete(object, "job")
   object["name"] = "Roger"
@@ -61,9 +61,9 @@ func TestGetObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "algolia"
   _ = index.addObject(object)
-  _ = index.getObject("à/go/?à")
+  _ = index.getObject("algolia")
   //TODO check return
 }
 
@@ -71,9 +71,9 @@ func TestDeleteObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "algolia"
   _ = index.addObject(object)
-  _ = index.deleteObject("à/go/?à")
+  _ = index.deleteObject("algolia")
   //TODO check return
 }
 
@@ -90,7 +90,7 @@ func TestSetSettings(t *testing.T) {
   //TODO check return
 }
 
-func TestGetLog(t *testing.T) {
+func TestGetLogs(t *testing.T) {
   client, _ := initTest(t)
   logs := client.getLogs(0, 100, false)
   if _, ok := logs.(map[string]interface{})["logs"]; !ok {
@@ -110,23 +110,11 @@ func TestQuery(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "algolia"
   _ = index.addObject(object)
   query := make(map[string]interface{})
   query["query"] = ""
   _ = index.query(query)
-  //TODO
-}
-
-func TestQueryPost(t *testing.T) {
-  _, index := initTest(t)
-  object := make(map[string]interface{})
-  object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
-  _ = index.addObject(object)
-  query := make(map[string]interface{})
-  query["query"] = ""
-  _ = index.queryPost(query)
   //TODO
 }
 
@@ -136,8 +124,8 @@ func TestCopy(t *testing.T) {
   //TODO
 }
 
-func TestMove(t *testing.T) {
-  _, index := initTest(t)
-  _ = index.move("àlgo?à2-go")
+//func TestMove(t *testing.T) {
+//  _, index := initTest(t)
+//  _ = index.move("àlgo?à2-go")
   //TODO
-}
+//}

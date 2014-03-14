@@ -1,6 +1,5 @@
 package main
 
-import "net/url"
 import "time"
 
 type Index struct {
@@ -13,7 +12,7 @@ func NewIndex(name string, client *Client) *Index {
   index := new(Index)
   index.name = name
   index.client = client
-  index.nameEncoded = url.QueryEscape(name)
+  index.nameEncoded = client.transport.urlEncode(name)
   return index
 }
 
@@ -26,11 +25,11 @@ func (i *Index) clearIndex() interface{} {
 }
 
 func (i *Index) getObject(objectID string) interface{} {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + url.QueryEscape(objectID), "")
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID), "")
 }
 
 func (i *Index) deleteObject(objectID string) interface{} {
-  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/" +  url.QueryEscape(objectID), "")
+  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/" +  i.client.transport.urlEncode(objectID), "")
 }
 
 func (i *Index) getSettings() interface{} {
@@ -73,20 +72,20 @@ func (i *Index) addObject(object interface{}) interface{} {
   path := "/1/indexes/" + i.nameEncoded
   if id, ok := object.(map[string]interface{})["objectID"]; ok {
     method = "PUT"
-    path = path + "/" + url.QueryEscape(id.(string))
+    path = path + "/" + i.client.transport.urlEncode(id.(string))
   }
   return i.client.transport.request(method, path, object)
 }
 
 func (i *Index) updateObject(object interface{}) interface{} {
   id := object.(map[string]interface{})["objectID"]
-  path := "/1/indexes/" + i.nameEncoded + "/" + url.QueryEscape(id.(string))
+  path := "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(id.(string))
   return i.client.transport.request("PUT", path, object)
 }
 
 func (i *Index) partialUpdateObject(object interface{}) interface{} {
   id := object.(map[string]interface{})["objectID"]
-  path := "/1/indexes/" + i.nameEncoded + "/" + url.QueryEscape(id.(string)) + "/partial"
+  path := "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(id.(string)) + "/partial"
   return i.client.transport.request("POST", path, object)
 }
 
@@ -99,10 +98,6 @@ func (i *Index) browse(page, hitsPerPage int) interface{} {
 
 func (i *Index) query(query interface{}) interface{} {
   return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded, query)
-}
-
-func (i *Index) queryPost(query interface{}) interface{} {
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/query", query)
 }
 
 func (i *Index) operation(name, op string) interface{} {
