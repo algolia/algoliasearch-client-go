@@ -16,29 +16,32 @@ type Transport struct {
 
 func NewTransport(appID, apiKey string) *Transport {
   transport := new(Transport)
-  var tr = &http.Transport{}
   transport.appID = appID
   transport.apiKey = apiKey
-  transport.httpClient = &http.Client{Transport: tr}
+  transport.httpClient = &http.Client{}
   transport.host = [3]string{"https://" + appID + "-1.algolia.io", "https://" + appID + "-2.algolia.io", "https://" + appID + "-3.algolia.io", }
     //TODO Suffle
   return transport
 }
 
 func (t *Transport) urlEncode(value string) string {
-  v := url.Values{}
-  v.Add("", value)
-  encoded := v.Encode()
-  return encoded[1:len(encoded)] 
+  return url.QueryEscape(value)
 }
 
 func (t *Transport) request(method, path string, body interface{}) interface{}{
-  bodyBytes, err := json.Marshal(body)
-  if err != nil {
-    log.Fatal(err)
+  var req *http.Request
+  var err error
+  if body != nil {
+    bodyBytes, err := json.Marshal(body)
+    if err != nil {
+      log.Fatal(err)
+    }
+    reader := bytes.NewReader(bodyBytes)
+    req, err = http.NewRequest(method, t.host[0] + path, reader)
+  } else {
+    req, err = http.NewRequest(method, t.host[0] + path, nil)
   }
-  reader := bytes.NewReader(bodyBytes)
-  req, err := http.NewRequest(method, t.host[0] + path, reader)
+  req.URL.Path = path //Fix for urlencoding
   if err != nil {
     log.Fatal(err)
   }
@@ -54,8 +57,7 @@ func (t *Transport) request(method, path string, body interface{}) interface{}{
     log.Fatal(err)
   }
   if resp.StatusCode >= 300 {
-    log.Fatal(req.URL)
-    log.Fatal(resp.Status)
+    log.Fatal(resp.Status + ": " + req.URL.Host + req.URL.Path + " | " + string(res))
   }
   var jsonResp interface{}
   err = json.Unmarshal(res, &jsonResp)

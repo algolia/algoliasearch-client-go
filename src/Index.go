@@ -1,6 +1,8 @@
 package main
 
 import "time"
+import "strconv"
+import "net/url"
 
 type Index struct {
   name string
@@ -17,36 +19,36 @@ func NewIndex(name string, client *Client) *Index {
 }
 
 func (i *Index) deleteIndex() interface{} {
-  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded, "")
+  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded, nil)
 }
 
 func (i *Index) clearIndex() interface{} {
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/clear", "")
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/clear", nil)
 }
 
 func (i *Index) getObject(objectID string) interface{} {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID), "")
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID), nil)
 }
 
 func (i *Index) deleteObject(objectID string) interface{} {
-  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/" +  i.client.transport.urlEncode(objectID), "")
+  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/" +  i.client.transport.urlEncode(objectID), nil)
 }
 
 func (i *Index) getSettings() interface{} {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/settings", "")
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/settings", nil)
 }
 
 func (i *Index) setSettings(settings interface{}) interface{} {
   return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/settings", settings)
 }
 
-func (i *Index) getStatus(taskID string) interface{} {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/task/" + taskID, "")
+func (i *Index) getStatus(taskID float64) interface{} {
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/task/" + strconv.FormatFloat(taskID, 'f', -1, 64), nil)
 }
 
 func (i *Index) waitTask(task interface{}) interface{} {
   for true {
-    status := i.getStatus(task.(map[string]interface{})["taskID"].(string))
+    status := i.getStatus(task.(map[string]interface{})["taskID"].(float64))
     if status.(map[string]interface{})["status"] == "published" {
       break
     }
@@ -56,15 +58,15 @@ func (i *Index) waitTask(task interface{}) interface{} {
 }
 
 func (i *Index) listIndexKeys() interface{} {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys", "")
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys", nil)
 }
 
 func (i *Index) getIndexKey(key string) interface{} {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys/" + key , "")
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys/" + key , nil)
 }
 
 func (i *Index) deleteIndexKey(key string) interface{} {
-  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/keys/" + key , "")
+  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/keys/" + key , nil)
 }
 
 func (i *Index) addObject(object interface{}) interface{} {
@@ -97,7 +99,13 @@ func (i *Index) browse(page, hitsPerPage int) interface{} {
 }
 
 func (i *Index) query(query interface{}) interface{} {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded, query)
+  v := url.Values{}
+  for key, value := range query.(map[string]interface{}) {
+    v.Add(key, value.(string))
+  }
+  body := make(map[string]interface{})
+  body["params"] = v.Encode()
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/query", body)
 }
 
 func (i *Index) operation(name, op string) interface{} {
