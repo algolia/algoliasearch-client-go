@@ -12,7 +12,7 @@ func NewClient(appID, apiKey string) *Client {
 }
 
 func (c *Client) listIndexes() (interface{}, error) {
-     return c.transport.request("GET", "/1/indexes", "")
+     return c.transport.request("GET", "/1/indexes", nil)
 }
 
 func (c *Client) initIndex(indexName string) *Index {
@@ -20,7 +20,7 @@ func (c *Client) initIndex(indexName string) *Index {
 }
 
 func (c *Client) listKeys() (interface{}, error) {
-  return c.transport.request("GET", "/1/keys", "")
+  return c.transport.request("GET", "/1/keys", nil)
 }
 
 func (c *Client) addKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -34,11 +34,11 @@ func (c *Client) addKey(acl, indexes []string, validity int, maxQueriesPerIPPerH
 }
 
 func (c *Client) getKey(key string) (interface{}, error) {
-  return c.transport.request("GET", "/1/keys/" + key, "")
+  return c.transport.request("GET", "/1/keys/" + key, nil)
 }
 
 func (c *Client) deleteKey(key string) (interface{}, error) {
-  return c.transport.request("DELETE", "/1/keys/" + key, "")
+  return c.transport.request("DELETE", "/1/keys/" + key, nil)
 }
 
 func (c *Client) getLogs(offset, length int, onlyErrors bool) (interface{}, error) {

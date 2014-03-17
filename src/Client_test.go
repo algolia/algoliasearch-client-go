@@ -44,6 +44,27 @@ func shouldFloat(json interface{}, attr string, value float64, msg string, t *te
   }
 }
 
+func shouldContainString(json interface{}, attr string, value string, msg string, t *testing.T) {
+  array := json.([]interface{})
+  for i := range array {
+    val, ok := array[i].(map[string]interface{})[attr]
+    if ok && value == val.(string) {
+      return
+    }
+  }
+  t.Fatalf(msg + ", expected: " + value + " in the array.")
+}
+
+func shouldNotContainString(json interface{}, attr string, value string, msg string, t *testing.T) {
+  array := json.([]interface{})
+  for i := range array {
+    val, ok := array[i].(map[string]interface{})[attr]
+    if ok && value == val.(string) {
+      t.Fatalf(msg + ", expected: " + value + " in the array.")
+    }
+  }
+}
+
 func TestClear(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
@@ -320,6 +341,65 @@ func TestMove(t *testing.T) {
   indexMove.deleteIndex()
 }
 
+func TestAddIndexKey(t *testing.T) {
+  _, index := initTest(t)
+  acl := []string{"search"}
+  newKey, err := index.addKey(acl, 1, 100, 100)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  key, err := index.getIndexKey(newKey.(map[string]interface{})["key"].(string))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldStr(key, "value", newKey.(map[string]interface{})["key"].(string), "Unable to get a key", t)
+  list, err := index.listIndexKeys()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldContainString(list.(map[string]interface{})["keys"], "value", newKey.(map[string]interface{})["key"].(string), "Unable to add a key", t)
+  _, err = index.deleteIndexKey(newKey.(map[string]interface{})["key"].(string))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  list, err = index.listIndexKeys()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldNotContainString(list.(map[string]interface{})["keys"], "value", newKey.(map[string]interface{})["key"].(string), "Unable to add a key", t)
+  index.deleteIndex() 
+}
+
+func TestAddKey(t *testing.T) {
+  client, index := initTest(t)
+  acl := []string{"search"}
+  indexes := []string{index.name}
+  newKey, err := client.addKey(acl, indexes, 1, 100, 100)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  key, err := client.getKey(newKey.(map[string]interface{})["key"].(string))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldStr(key, "value", newKey.(map[string]interface{})["key"].(string), "Unable to get a key", t)
+  list, err := client.listKeys()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldContainString(list.(map[string]interface{})["keys"], "value", newKey.(map[string]interface{})["key"].(string), "Unable to add a key", t)
+  _, err = client.deleteKey(newKey.(map[string]interface{})["key"].(string))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  list, err = client.listKeys()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldNotContainString(list.(map[string]interface{})["keys"], "value", newKey.(map[string]interface{})["key"].(string), "Unable to add a key", t)
+}
+
+/*
 func TestKeepAlive(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
@@ -333,4 +413,4 @@ func TestKeepAlive(t *testing.T) {
   for i := 0; i < 100; i++ {
     index.query(query)
   }
-}
+}*/
