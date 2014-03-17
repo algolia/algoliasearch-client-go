@@ -48,10 +48,25 @@ func TestClear(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  index.waitTask(index.addObject(object))
+  resp, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  index.waitTask(resp)
+  resp, err = index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   time.Sleep(time.Duration(100) * time.Millisecond) 
-  index.waitTask(index.clearIndex())
-  results := index.query(make(map[string]interface{}))
+  resp, err = index.clearIndex()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  index.waitTask(resp)
+  results, err := index.query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldFloat(results, "nbHits", 0, "Unable to clear the index", t)
   index.deleteIndex()
 }
@@ -60,11 +75,20 @@ func TestAddObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  _ = index.addObject(object)
+  _, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.addObject(object)
-  results := index.query(make(map[string]interface{}))
+  _, err = index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  results, err := index.query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldFloat(results, "nbHits", 2, "Unable to clear the index", t)
   index.deleteIndex()
 }
@@ -74,10 +98,19 @@ func TestUpdateObject(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.addObject(object)
+  _, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   object["name"] = "Roger"
-  _ = index.updateObject(object)
-  results := index.query(make(map[string]interface{}))
+  _, err = index.updateObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  results, err := index.query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   hits := results.(map[string]interface{})["hits"]
   shouldStr(hits.([]interface{})[0], "name", "Roger", "Unable to update an object", t)
   shouldNotHave(hits.([]interface{})[0], "job", "Unable to update an object", t)
@@ -90,11 +123,20 @@ func TestPartialUpdateObject(t *testing.T) {
   object["name"] = "John Snow"
   object["job"] = "Knight"
   object["objectID"] = "àlgol?à"
-  _ = index.addObject(object)
+  _, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   delete(object, "job")
   object["name"] = "Roger"
-  _ = index.partialUpdateObject(object)
-  results := index.query(make(map[string]interface{}))
+  _, err = index.partialUpdateObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  results, err := index.query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   hits := results.(map[string]interface{})["hits"]
   shouldStr(hits.([]interface{})[0], "name", "Roger", "Unable to update an object", t)
   index.deleteIndex()
@@ -106,8 +148,22 @@ func TestGetObject(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.waitTask(index.addObject(object))
-  obj := index.getObject("àlgol?à")
+  resp, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.waitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  resp, err = index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  obj, err := index.getObject("àlgol?à")
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldStr(obj, "name", "John Snow", "Unable to update an object", t)
   index.deleteIndex()
 }
@@ -117,9 +173,26 @@ func TestDeleteObject(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.waitTask(index.addObject(object))
-  _ = index.waitTask(index.deleteObject("àlgol?à"))
-  results := index.query(make(map[string]interface{}))
+  resp, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.waitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  resp, err = index.deleteObject("àlgol?à")
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.waitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  results, err := index.query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldFloat(results, "nbHits", 0, "Unable to clear the index", t)
   index.deleteIndex()
 }
@@ -128,15 +201,28 @@ func TestSetSettings(t *testing.T) {
   _, index := initTest(t)
   settings := make(map[string]interface{})
   settings["hitsPerPage"] = 30
-  _ = index.waitTask(index.setSettings(settings))
-  settingsChanged := index.getSettings()
+  resp, err := index.setSettings(settings)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.waitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  settingsChanged, err := index.getSettings()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldFloat(settingsChanged, "hitsPerPage", 30, "Unable to change setting", t)
   index.deleteIndex()
 }
 
 func TestGetLogs(t *testing.T) {
   client, _ := initTest(t)
-  logs := client.getLogs(0, 100, false)
+  logs, err := client.getLogs(0, 100, false)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldHave(logs, "logs", "Unable to get logs", t)
 }
 
@@ -145,8 +231,18 @@ func TestBrowse(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.waitTask(index.addObject(object))
-  items := index.browse(1, 1)
+  resp, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.waitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  items, err := index.browse(1, 1)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldHave(items, "hits", "Unable to browse index", t)
   index.deleteIndex()
 }
@@ -156,12 +252,18 @@ func TestQuery(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.addObject(object)
+  _, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   query := make(map[string]interface{})
   query["query"] = ""
   query["attributesToRetrieve"] = "*"
   query["getRankingInfo"] = 1
-  results := index.query(query)
+  results, err := index.query(query)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldFloat(results, "nbHits", 1, "Unable to query an index", t)
 }
 
@@ -170,10 +272,23 @@ func TestCopy(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.addObject(object)
-  _ = index.waitTask(index.copy("àlgo?à2-go"))
+  _, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  resp, err := index.copy("àlgo?à2-go")
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.waitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   indexCopy := client.initIndex("àlgo?à2-go")
-  results := indexCopy.query(make(map[string]interface{}))
+  results, err := indexCopy.query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldFloat(results, "nbHits", 1, "Unable to copy an index", t)
   index.deleteIndex()
   indexCopy.deleteIndex()
@@ -184,10 +299,23 @@ func TestMove(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.addObject(object)
-  _ = index.waitTask(index.move("àlgo?à2-go"))
+  _, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  resp, err := index.move("àlgo?à2-go")
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.waitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   indexMove := client.initIndex("àlgo?à2-go")
-  results := indexMove.query(make(map[string]interface{}))
+  results, err := indexMove.query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   shouldFloat(results, "nbHits", 1, "Unable to move an index", t)
   indexMove.deleteIndex()
 }
@@ -197,7 +325,10 @@ func TestKeepAlive(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _ = index.addObject(object)
+  _, err := index.addObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   query := make(map[string]interface{})
   for i := 0; i < 100; i++ {
     index.query(query)

@@ -4,15 +4,15 @@ import "net/http"
 import "net/url"
 import "io/ioutil"
 import "bytes"
-import "log"
 import "encoding/json"
 import "strconv"
+import "errors"
 
 type Transport struct {
   httpClient *http.Client
   appID string
   apiKey string
-  host [3]string
+  hosts [3]string
 }
 
 func NewTransport(appID, apiKey string) *Transport {
@@ -21,7 +21,7 @@ func NewTransport(appID, apiKey string) *Transport {
   transport.apiKey = apiKey
   tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
-  transport.host = [3]string{"https://" + appID + "-1.algolia.io", "https://" + appID + "-2.algolia.io", "https://" + appID + "-3.algolia.io", }
+  transport.hosts = [3]string{"https://" + appID + "-1.algolia.io", "https://" + appID + "-2.algolia.io", "https://" + appID + "-3.algolia.io", }
     //TODO Suffle
   return transport
 }
@@ -30,53 +30,65 @@ func (t *Transport) urlEncode(value string) string {
   return url.QueryEscape(value)
 }
 
-func (t *Transport) request(method, path string, body interface{}) interface{}{
+func (t *Transport) request(method, path string, body interface{}) (interface{}, error) {
+  for it := range t.hosts {
+    req, err := t.buildRequest(method, t.hosts[it], path, body)
+    if err != nil {
+      return nil, err
+    }
+    req = t.addHeaders(req)
+    resp, err := t.httpClient.Do(req)
+    if err != nil {
+      return nil, err
+    }
+    if resp.StatusCode == 124 ||  resp.StatusCode == 503 { //timeout or unavailable
+      continue
+    }
+    return t.handleResponse(resp)
+  }
+  return nil, errors.New("Cannot reach any host.")
+}
+
+func (t *Transport) buildRequest(method, host, path string, body interface{}) (*http.Request, error) {
   var req *http.Request
   var err error
-  var bodyBytes []byte
   if body != nil {
     bodyBytes, err := json.Marshal(body)
     if err != nil {
-      log.Fatal(err)
+      return nil, errors.New("Invalid JSON in the query")
     }
     reader := bytes.NewReader(bodyBytes)
-    req, err = http.NewRequest(method, t.host[0] + path, reader)
+    req, err = http.NewRequest(method, host + path, reader)
     req.Header.Add("Content-Length", strconv.Itoa(len(string(bodyBytes))))
     req.Header.Add("Content-Type", "application/json; charset=utf-8")
   } else {
-    req, err = http.NewRequest(method, t.host[0] + path, nil)
+    req, err = http.NewRequest(method, host + path, nil)
   }
-  if err != nil {
-    log.Fatal(err)
-  }
+  return req, err
+}
+
+func (t *Transport) addHeaders(req *http.Request) *http.Request {
   req.Header.Add("X-Algolia-API-Key", t.apiKey)
   req.Header.Add("X-Algolia-Application-Id", t.appID)
   req.Header.Add("Connection", "keep-alive") 
-  req.Header.Add("User-Agent", "Algolia for go")
-  resp, err := t.httpClient.Do(req)
-  if err != nil {
-    log.Fatal(err)
-  }
+  req.Header.Add("User-Agent", "Algolia for go 1.0")
+  return req
+}
+
+func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
   res, err := ioutil.ReadAll(resp.Body)
   resp.Body.Close()
   if err != nil {
-    log.Fatal(err)
-  }
-  if resp.StatusCode >= 300 {
-    var str string
-    if body == nil {
-      str = "nil"
-    } else {
-      str = "notnil"
-    }
-    log.Fatal(resp.Status + " on "+ method + ": " + req.URL.Host + req.URL.Path + "\n" + string(res) + string(bodyBytes) + "\n" + str)
+    return nil, err
   }
   var jsonResp interface{}
   err = json.Unmarshal(res, &jsonResp)
   if err != nil {
-    log.Fatal(err)
+    return nil, errors.New("Invalid JSON in the response") 
   }
-  return jsonResp
+  if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+    return jsonResp, nil
+  } else {
+    return nil, errors.New(string(res))
+  }
 }
-
-
