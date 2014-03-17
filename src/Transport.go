@@ -7,6 +7,8 @@ import "bytes"
 import "encoding/json"
 import "strconv"
 import "errors"
+import "math/rand"
+import "time"
 
 type Transport struct {
   httpClient *http.Client
@@ -21,8 +23,10 @@ func NewTransport(appID, apiKey string) *Transport {
   transport.apiKey = apiKey
   tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
-  transport.hosts = [3]string{"https://" + appID + "-1.algolia.io", "https://" + appID + "-2.algolia.io", "https://" + appID + "-3.algolia.io", }
-    //TODO Suffle
+  rand := rand.New(rand.NewSource(time.Now().Unix()))
+  perm := rand.Perm(3)
+  suffix := [3]string{"-1.algolia.io", "-2.algolia.io", "-3.algolia.io"}
+  transport.hosts = [3]string{"https://" + appID + suffix[perm[0]], "https://" + appID + suffix[perm[1]], "https://" + appID + suffix[perm[2]], }
   return transport
 }
 
