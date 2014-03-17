@@ -12,7 +12,7 @@ func initTest(t *testing.T) (*Client, *Index) {
     t.Fatalf("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
   }
   client := NewClient(appID, apiKey)
-  index := client.initIndex("algolia-go")
+  index := client.initIndex("àlgol?à-go")
   return client, index
 }
 
@@ -61,7 +61,8 @@ func TestAddObject(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   _ = index.addObject(object)
-  object["objectID"] = "à/go/?à"
+  object["name"] = "John Snow"
+  object["objectID"] = "àlgol?à"
   _ = index.addObject(object)
   results := index.query(make(map[string]interface{}))
   shouldFloat(results, "nbHits", 2, "Unable to clear the index", t)
@@ -72,7 +73,7 @@ func TestUpdateObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.addObject(object)
   object["name"] = "Roger"
   _ = index.updateObject(object)
@@ -88,7 +89,7 @@ func TestPartialUpdateObject(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["job"] = "Knight"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.addObject(object)
   delete(object, "job")
   object["name"] = "Roger"
@@ -104,9 +105,9 @@ func TestGetObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.waitTask(index.addObject(object))
-  obj := index.getObject("à/go/?à")
+  obj := index.getObject("àlgol?à")
   shouldStr(obj, "name", "John Snow", "Unable to update an object", t)
   index.deleteIndex()
 }
@@ -115,9 +116,9 @@ func TestDeleteObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.waitTask(index.addObject(object))
-  _ = index.waitTask(index.deleteObject("à/go/?à"))
+  _ = index.waitTask(index.deleteObject("àlgol?à"))
   results := index.query(make(map[string]interface{}))
   shouldFloat(results, "nbHits", 0, "Unable to clear the index", t)
   index.deleteIndex()
@@ -143,7 +144,7 @@ func TestBrowse(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.waitTask(index.addObject(object))
   items := index.browse(1, 1)
   shouldHave(items, "hits", "Unable to browse index", t)
@@ -154,11 +155,11 @@ func TestQuery(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.addObject(object)
   query := make(map[string]interface{})
   query["query"] = ""
-  query["attributesToRetieve"] = "*"
+  query["attributesToRetrieve"] = "*"
   query["getRankingInfo"] = 1
   results := index.query(query)
   shouldFloat(results, "nbHits", 1, "Unable to query an index", t)
@@ -168,7 +169,7 @@ func TestCopy(t *testing.T) {
   client, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.addObject(object)
   _ = index.waitTask(index.copy("àlgo?à2-go"))
   indexCopy := client.initIndex("àlgo?à2-go")
@@ -182,11 +183,23 @@ func TestMove(t *testing.T) {
   client, index := initTest(t)
   object := make(map[string]interface{})
   object["name"] = "John Snow"
-  object["objectID"] = "à/go/?à"
+  object["objectID"] = "àlgol?à"
   _ = index.addObject(object)
   _ = index.waitTask(index.move("àlgo?à2-go"))
   indexMove := client.initIndex("àlgo?à2-go")
   results := indexMove.query(make(map[string]interface{}))
   shouldFloat(results, "nbHits", 1, "Unable to move an index", t)
   indexMove.deleteIndex()
+}
+
+func TestKeepAlive(t *testing.T) {
+  _, index := initTest(t)
+  object := make(map[string]interface{})
+  object["name"] = "John Snow"
+  object["objectID"] = "àlgol?à"
+  _ = index.addObject(object)
+  query := make(map[string]interface{})
+  for i := 0; i < 100; i++ {
+    index.query(query)
+  }
 }

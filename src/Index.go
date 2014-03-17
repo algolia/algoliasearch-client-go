@@ -3,6 +3,7 @@ package main
 import "time"
 import "strconv"
 import "net/url"
+import "reflect"
 
 type Index struct {
   name string
@@ -92,16 +93,19 @@ func (i *Index) partialUpdateObject(object interface{}) interface{} {
 }
 
 func (i *Index) browse(page, hitsPerPage int) interface{} {
-  body := make(map[string]interface{})
-  body["page"] = page
-  body["hitsPerPage"] = hitsPerPage
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse", body)
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse?page=" + strconv.Itoa(page) + "&hitsPerPage=" + strconv.Itoa(hitsPerPage) , nil)
 }
 
 func (i *Index) query(query interface{}) interface{} {
   v := url.Values{}
   for key, value := range query.(map[string]interface{}) {
-    v.Add(key, value.(string))
+    if reflect.TypeOf(value).Name() == "string" {
+      v.Add(key, value.(string))
+    } else if reflect.TypeOf(value).Name() == "float64" {
+      v.Add(key, strconv.FormatFloat(value.(float64), 'f', -1, 64))
+    } else {
+      v.Add(key, strconv.Itoa(value.(int)))
+    }
   }
   body := make(map[string]interface{})
   body["params"] = v.Encode()
