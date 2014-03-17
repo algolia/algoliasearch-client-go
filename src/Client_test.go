@@ -399,6 +399,86 @@ func TestAddKey(t *testing.T) {
   shouldNotContainString(list.(map[string]interface{})["keys"], "value", newKey.(map[string]interface{})["key"].(string), "Unable to add a key", t)
 }
 
+func TestAddObjects(t *testing.T) {
+  _, index := initTest(t)
+  objects := make([]interface{}, 2)
+
+  object := make(map[string]interface{})
+  object["name"] = "John"
+  object["city"] = "San Francisco"
+  objects[0] = object
+
+  object = make(map[string]interface{})
+  object["name"] = "Roger"
+  object["city"] = "New York"
+  objects[1] = object
+  task, err := index.AddObjects(objects)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  index.WaitTask(task)
+  results, err := index.Query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldFloat(results, "nbHits", 2, "Unable to add objects", t)
+  index.Delete()
+}
+
+func TestUpdateObjects(t *testing.T) {
+  _, index := initTest(t)
+  objects := make([]interface{}, 2)
+
+  object := make(map[string]interface{})
+  object["name"] = "John"
+  object["city"] = "San Francisco"
+  object["objectID"] = "àlgo?à-1"
+  objects[0] = object
+
+  object = make(map[string]interface{})
+  object["name"] = "Roger"
+  object["city"] = "New York"
+  object["objectID"] = "àlgo?à-2"
+  objects[1] = object
+  task, err := index.UpdateObjects(objects)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  index.WaitTask(task)
+  results, err := index.Query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldFloat(results, "nbHits", 2, "Unable to update objects", t)
+  index.Delete()
+}
+
+func TestPartialUpdateObjects(t *testing.T) {
+  _, index := initTest(t)
+  objects := make([]interface{}, 2)
+
+  object := make(map[string]interface{})
+  object["name"] = "John"
+  object["objectID"] = "àlgo?à-1"
+  objects[0] = object
+
+  object = make(map[string]interface{})
+  object["name"] = "Roger"
+  object["objectID"] = "àlgo?à-2"
+  objects[1] = object
+  task, err := index.PartialUpdateObjects(objects)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  index.WaitTask(task)
+  results, err := index.Query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldFloat(results, "nbHits", 2, "Unable to partial update objects", t)
+  index.Delete()
+}
+
 /*
 func TestKeepAlive(t *testing.T) {
   _, index := initTest(t)

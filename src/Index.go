@@ -95,6 +95,44 @@ func (i *Index) PartialUpdateObject(object interface{}) (interface{}, error) {
   return i.client.transport.request("POST", path, object)
 }
 
+func (i *Index) AddObjects(objects interface{}) (interface{}, error) {
+  return i.sameBatch(objects, "addObject")
+}
+
+func (i *Index) UpdateObjects(objects interface{}) (interface{}, error) {
+  return i.sameBatch(objects, "updateObject")
+}
+
+func (i *Index) PartialUpdateObjects(objects interface{}) (interface{}, error) {
+  return i.sameBatch(objects, "partialUpdateObject")
+}
+
+func (i *Index) sameBatch(objects interface{}, action string) (interface{}, error) {
+  length := len(objects.([]interface{}))
+  method := make([]string, length)
+  for i := range method {
+    method[i] = action
+  }
+  return i.Batch(objects, method)
+}
+
+func (i *Index) Batch(objects interface{}, actions []string) (interface{}, error) {
+  array := objects.([]interface{})
+  queries := make([]map[string]interface{}, len(array))
+  for i := range array {
+    queries[i] = make(map[string]interface{})
+    queries[i]["action"] = actions[i]
+    queries[i]["body"] = array[i]
+  }
+  return i.customBatch(queries)
+}
+
+func (i *Index) customBatch(queries interface{}) (interface{}, error) {
+  request :=  make(map[string]interface{})
+  request["requests"] = queries
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/batch", request)
+}
+
 func (i *Index) Browse(page, hitsPerPage int) (interface{}, error) {
   return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse?page=" + strconv.Itoa(page) + "&hitsPerPage=" + strconv.Itoa(hitsPerPage) , nil)
 }
