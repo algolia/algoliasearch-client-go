@@ -11,19 +11,19 @@ func NewClient(appID, apiKey string) *Client {
   return client
 }
 
-func (c *Client) listIndexes() (interface{}, error) {
+func (c *Client) ListIndexes() (interface{}, error) {
      return c.transport.request("GET", "/1/indexes", nil)
 }
 
-func (c *Client) initIndex(indexName string) *Index {
+func (c *Client) InitIndex(indexName string) *Index {
   return NewIndex(indexName, c)
 }
 
-func (c *Client) listKeys() (interface{}, error) {
+func (c *Client) ListKeys() (interface{}, error) {
   return c.transport.request("GET", "/1/keys", nil)
 }
 
-func (c *Client) addKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
+func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
   body := make(map[string]interface{})
   body["acl"] = acl
   body["maxHitsPerQuery"] = maxHitsPerQuery
@@ -33,15 +33,15 @@ func (c *Client) addKey(acl, indexes []string, validity int, maxQueriesPerIPPerH
   return c.transport.request("POST", "/1/keys/", body)
 }
 
-func (c *Client) getKey(key string) (interface{}, error) {
+func (c *Client) GetKey(key string) (interface{}, error) {
   return c.transport.request("GET", "/1/keys/" + key, nil)
 }
 
-func (c *Client) deleteKey(key string) (interface{}, error) {
+func (c *Client) DeleteKey(key string) (interface{}, error) {
   return c.transport.request("DELETE", "/1/keys/" + key, nil)
 }
 
-func (c *Client) getLogs(offset, length int, onlyErrors bool) (interface{}, error) {
+func (c *Client) GetLogs(offset, length int, onlyErrors bool) (interface{}, error) {
   body := make(map[string]interface{})
   body["offset"] = offset
   body["length"] = length
