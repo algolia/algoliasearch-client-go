@@ -1,4 +1,4 @@
-package main
+package algoliasearch
 
 import "net/http"
 import "net/url"

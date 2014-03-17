@@ -1,8 +1,10 @@
-SRC=$(wildcard src/*.go)
+SRC=$(wildcard *.go)
 PROJECT=algoliasearch
 
+.PHONY: test algoliasearch
+
 algoliasearch: ${SRC}
-	go build ${SRC}
+	go build test/algoliasearch.go
 
 test: ${SRC}
 	go test ${SRC}

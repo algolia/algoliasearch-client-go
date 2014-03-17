@@ -1,4 +1,4 @@
-package main
+package algoliasearch
 
 import "time"
 import "strconv"
