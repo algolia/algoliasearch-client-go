@@ -186,6 +186,11 @@ func TestGetObject(t *testing.T) {
     t.Fatalf(err.Error())
   }
   shouldStr(obj, "name", "John Snow", "Unable to update an object", t)
+  obj, err = index.GetObject("àlgol?à", "name")
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldStr(obj, "name", "John Snow", "Unable to update an object", t)
   index.Delete()
 }
 

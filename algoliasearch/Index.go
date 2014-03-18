@@ -27,8 +27,12 @@ func (i *Index) Clear() (interface{}, error) {
   return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/clear", nil)
 }
 
-func (i *Index) GetObject(objectID string) (interface{}, error) {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID), nil)
+func (i *Index) GetObject(objectID string, attribute ...string) (interface{}, error) {
+  v := url.Values{}
+  if len(attribute) > 0 {
+    v.Add("attribute", attribute[0])
+  }
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID) + "?" + v.Encode(), nil)
 }
 
 func (i *Index) DeleteObject(objectID string) (interface{}, error) {
