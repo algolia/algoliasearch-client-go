@@ -4,6 +4,7 @@ import "time"
 import "strconv"
 import "net/url"
 import "reflect"
+import "errors"
 
 type Index struct {
   name string
@@ -29,6 +30,9 @@ func (i *Index) Clear() (interface{}, error) {
 
 func (i *Index) GetObject(objectID string, attribute ...string) (interface{}, error) {
   v := url.Values{}
+  if len(attribute) > 1 {
+    return nil, errors.New("Too many parametter")
+  }
   if len(attribute) > 0 {
     v.Add("attribute", attribute[0])
   }
@@ -111,7 +115,13 @@ func (i *Index) PartialUpdateObjects(objects interface{}) (interface{}, error) {
   return i.sameBatch(objects, "partialUpdateObject")
 }
 
-func (i *Index) DeleteObjects(objects interface{}) (interface{}, error) {
+func (i *Index) DeleteObjects(objectIDs []string) (interface{}, error) {
+  objects := make([]interface{}, len(objectIDs))
+  for i := range objectIDs {
+    object := make(map[string]interface{})
+    object["objectID"] = objectIDs[i]
+    objects[i] = object
+  }
   return i.sameBatch(objects, "deleteObject")
 }
 
@@ -145,17 +155,20 @@ func (i *Index) Browse(page, hitsPerPage int) (interface{}, error) {
   return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse?page=" + strconv.Itoa(page) + "&hitsPerPage=" + strconv.Itoa(hitsPerPage) , nil)
 }
 
-func (i *Index) Query(query interface{}) (interface{}, error) {
+func (i *Index) Search(query string, params interface{}) (interface{}, error) {
   v := url.Values{}
-  for key, value := range query.(map[string]interface{}) {
-    if reflect.TypeOf(value).Name() == "string" {
-      v.Add(key, value.(string))
-    } else if reflect.TypeOf(value).Name() == "float64" {
-      v.Add(key, strconv.FormatFloat(value.(float64), 'f', -1, 64))
-    } else {
-      v.Add(key, strconv.Itoa(value.(int)))
+  if params != nil {
+    for key, value := range params.(map[string]interface{}) {
+      if reflect.TypeOf(value).Name() == "string" {
+        v.Add(key, value.(string))
+      } else if reflect.TypeOf(value).Name() == "float64" {
+        v.Add(key, strconv.FormatFloat(value.(float64), 'f', -1, 64))
+      } else {
+        v.Add(key, strconv.Itoa(value.(int)))
+      }
     }
   }
+  v.Add("query", query)
   body := make(map[string]interface{})
   body["params"] = v.Encode()
   return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/query", body)

@@ -84,7 +84,7 @@ func TestClear(t *testing.T) {
     t.Fatalf(err.Error())
   }
   index.WaitTask(resp)
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -106,7 +106,7 @@ func TestAddObject(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -128,7 +128,7 @@ func TestUpdateObject(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -154,7 +154,7 @@ func TestPartialUpdateObject(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -194,6 +194,14 @@ func TestGetObject(t *testing.T) {
   index.Delete()
 }
 
+func TestGetObjectError(t *testing.T) {
+  _, index := initTest(t)
+  _, err := index.GetObject("", "test", "test")
+  if err == nil {
+    t.Fatalf("GetObject variadic args checking failed")
+  }
+}
+
 func TestDeleteObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
@@ -215,7 +223,7 @@ func TestDeleteObject(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -282,11 +290,10 @@ func TestQuery(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  query := make(map[string]interface{})
-  query["query"] = ""
-  query["attributesToRetrieve"] = "*"
-  query["getRankingInfo"] = 1
-  results, err := index.Query(query)
+  params := make(map[string]interface{})
+  params["attributesToRetrieve"] = "*"
+  params["getRankingInfo"] = 1
+  results, err := index.Search("", params)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -311,7 +318,7 @@ func TestCopy(t *testing.T) {
     t.Fatalf(err.Error())
   }
   indexCopy := client.InitIndex("àlgo?à2-go")
-  results, err := indexCopy.Query(make(map[string]interface{}))
+  results, err := indexCopy.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -338,7 +345,7 @@ func TestMove(t *testing.T) {
     t.Fatalf(err.Error())
   }
   indexMove := client.InitIndex("àlgo?à2-go")
-  results, err := indexMove.Query(make(map[string]interface{}))
+  results, err := indexMove.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -422,7 +429,7 @@ func TestAddObjects(t *testing.T) {
     t.Fatalf(err.Error())
   }
   index.WaitTask(task)
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -453,7 +460,7 @@ func TestUpdateObjects(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -482,7 +489,7 @@ func TestPartialUpdateObjects(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -511,7 +518,8 @@ func TestDeleteObjects(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  task, err = index.DeleteObjects(objects)
+  objectIDs := []string{"àlgo?à-1", "àlgo?à-2"}
+  task, err = index.DeleteObjects(objectIDs)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -519,7 +527,7 @@ func TestDeleteObjects(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  results, err := index.Query(make(map[string]interface{}))
+  results, err := index.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
   }
