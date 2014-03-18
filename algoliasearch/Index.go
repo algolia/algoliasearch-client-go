@@ -107,6 +107,10 @@ func (i *Index) PartialUpdateObjects(objects interface{}) (interface{}, error) {
   return i.sameBatch(objects, "partialUpdateObject")
 }
 
+func (i *Index) DeleteObjects(objects interface{}) (interface{}, error) {
+  return i.sameBatch(objects, "deleteObject")
+}
+
 func (i *Index) sameBatch(objects interface{}, action string) (interface{}, error) {
   length := len(objects.([]interface{}))
   method := make([]string, length)

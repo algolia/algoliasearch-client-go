@@ -444,7 +444,10 @@ func TestUpdateObjects(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  index.WaitTask(task)
+  _, err = index.WaitTask(task)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   results, err := index.Query(make(map[string]interface{}))
   if err != nil {
     t.Fatalf(err.Error())
@@ -470,7 +473,10 @@ func TestPartialUpdateObjects(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  index.WaitTask(task)
+  _, err = index.WaitTask(task)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
   results, err := index.Query(make(map[string]interface{}))
   if err != nil {
     t.Fatalf(err.Error())
@@ -478,6 +484,44 @@ func TestPartialUpdateObjects(t *testing.T) {
   shouldFloat(results, "nbHits", 2, "Unable to partial update objects", t)
   index.Delete()
 }
+
+func TestDeleteObjects(t *testing.T) {
+  _, index := initTest(t)
+  objects := make([]interface{}, 2)
+
+  object := make(map[string]interface{})
+  object["name"] = "John"
+  object["objectID"] = "àlgo?à-1"
+  objects[0] = object
+
+  object = make(map[string]interface{})
+  object["name"] = "Roger"
+  object["objectID"] = "àlgo?à-2"
+  objects[1] = object
+  task, err := index.PartialUpdateObjects(objects)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(task)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  task, err = index.DeleteObjects(objects)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(task)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  results, err := index.Query(make(map[string]interface{}))
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldFloat(results, "nbHits", 0, "Unable to partial update objects", t)
+  index.Delete()
+}
+
 
 /*
 func TestKeepAlive(t *testing.T) {
