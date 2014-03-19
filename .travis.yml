@@ -8,9 +8,12 @@ install:
  - go get github.com/hailiang/goveralls
 
 script:
- - go test algoliasearch/*.go -covermode=count -coverprofile=profile.cov
+ - cd algoliasearch
+ - go test -covermode=count -coverprofile=profile.cov
 
-after_scripts:
+after_script:
+ - export PATH=$PATH:$HOME/gopath/bin/
+ - cd algoliasearch
  - goveralls -coverprofile=profile.cov -service=travis-ci
 
 env:
