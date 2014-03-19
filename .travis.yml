@@ -1,0 +1,23 @@
+language: go
+
+go:
+- 1.0
+- 1.1
+- tip
+
+install:
+ - go get code.google.com/p/go.tools/cmd/cover
+ - go get github.com/hailiang/goveralls
+
+script:
+ - go test algoliasearch/*.go -covermode=count -coverprofile=profile.cov
+
+after_scripts:
+ - goveralls -coverprofile=profile.cov -service=travis-ci
+
+env:
+  global:
+  - secure: EFXN8fPOXGeE29NANRa/Ll/eEQomh6D6/9gp4bHNxfDwz1b5YXxiLtpnJHLNWFQK1tf8Aq+lo0ZoRUbIhOaGBxa2umRzzIbmtguhLQ62Jw7ccJYM05ea3l7qmiPAVmEAhLfmgzChZc5fN5KwjQcZrc3Ar5N7eeg+u7chihBQ+YQ=
+  - secure: p+UPmTICmBr6cmPkCDTdr1ZVgOm+OCqmjnaLo87isTPs1loXNLTp7w04Gp2L0h5qSHmItmDWsyYW13powhuPt0/EH5Tuc3/o88LhrHwOaUOEfgV+Fhql2KUdvG3tgRMh6ASU6kx+nJr1KS7CvsOSpUffrvVhrc5FbERCDKO+Juo=
+
+  
