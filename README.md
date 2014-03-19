@@ -20,7 +20,7 @@ Algolia’s Search API makes it easy to deliver a great search experience in you
 This Go client let you easily use the Algolia Search API from your backend. It wraps [Algolia's REST API](http://www.algolia.com/doc/rest_api).
 
 
-
+[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)[![Coverage Status](https://coveralls.io/repos/algolia/algoliasearch-client-go/badge.png)](https://coveralls.io/r/algolia/algoliasearch-client-go)
 
 
 
@@ -318,6 +318,10 @@ You can easily retrieve an object using its `objectID` and optionnaly a list of 
 ```go
 // Retrieves all attributes
 res, err := index.GetObject("myID")
+// Retrieves firstname and lastname attributes
+res, err = index.GetObject("myID", "firstname,lastname")
+// Retrieves only the firstname attribute
+res, err = index.GetObject("myID", "firstname")
 ```
 
 Delete an object
@@ -521,10 +525,8 @@ You can also create an API Key with advanced restrictions:
 
 ```go
 // Creates a new index specific API key valid for 300 seconds, with a rate limit of 100 calls per hour per IP and a maximum of 20 hits
-acl := make([]string, 1)
-acl[0] = "search"
-indexes := make([]string, 1)
-indexes[0] = "myIndex"
+acl := []string{"search"}
+indexes := []string{"myIndex"}
 key, err := client.AddKey(acl, indexes, 300, 100, 20)
 fmt.Printf(key.(map[string]interface{})["key"].(string))
 ```
@@ -641,9 +643,11 @@ You can retrieve the logs of your last 1000 API calls and browse them using the 
 
 ```go
 // Get last 10 log entries
-res, err := client.GetLogs(0, 10)
+res, err := client.GetLogs(0, 10, false)
 // Get last 100 log entries
-res, err = client.GetLogs(0, 100)
+res, err = client.GetLogs(0, 100, false)
+// Get last 100 log errors
+res, err = client.GetLogs(0, 100, true)
 ```
 
 
