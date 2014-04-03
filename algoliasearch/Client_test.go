@@ -1,7 +1,6 @@
 package algoliasearch
 
 import "syscall"
-import "time"
 import "strconv"
 import "testing"
 
@@ -73,12 +72,10 @@ func TestClear(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  index.WaitTask(resp)
-  resp, err = index.AddObject(object)
+  resp, err = index.WaitTask(resp)
   if err != nil {
     t.Fatalf(err.Error())
   }
-  time.Sleep(time.Duration(100) * time.Millisecond) 
   resp, err = index.Clear()
   if err != nil {
     t.Fatalf(err.Error())
@@ -355,6 +352,17 @@ func TestMove(t *testing.T) {
 
 func TestAddIndexKey(t *testing.T) {
   _, index := initTest(t)
+  object := make(map[string]interface{})
+  object["name"] = "John Snow"
+  resp, err := index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  resp, err = index.WaitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+
   acl := []string{"search"}
   newKey, err := index.AddKey(acl, 300, 100, 100)
   if err != nil {
