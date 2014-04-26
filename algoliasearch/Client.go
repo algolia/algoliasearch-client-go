@@ -72,3 +72,24 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, tagFilters string, userTok
   return hex.EncodeToString(h.Sum(nil)), nil
 }
 
+func (c *Client) MultipleQueries(queries []interface{}, indexNameKey ...string) (interface{}, error) {
+  if len(indexNameKey) > 1 {
+    return "", errors.New("Too many parametters")
+  }
+  var nameKey string
+  if len(indexNameKey) == 1 {
+    nameKey = indexNameKey[0]
+  } else {
+    nameKey = "indexName"
+  }
+  requests := make([]map[string]interface{}, len(queries))
+  for i := range queries {
+    requests[i] = make(map[string]interface{})
+    requests[i]["indexName"] = queries[i].(map[string]interface{})[nameKey].(string)
+    delete(queries[i].(map[string]interface{}), nameKey)
+    requests[i]["params"] = c.transport.EncodeParams(queries[i])
+  }
+  body := make(map[string]interface{})
+  body["requests"] = requests
+  return c.transport.request("POST", "/1/indexes/*/queries", body)
+}

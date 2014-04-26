@@ -99,7 +99,11 @@ func TestAddObject(t *testing.T) {
   }
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _, err = index.AddObject(object)
+  resp, err := index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(resp)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -121,7 +125,11 @@ func TestUpdateObject(t *testing.T) {
     t.Fatalf(err.Error())
   }
   object["name"] = "Roger"
-  _, err = index.UpdateObject(object)
+  resp, err := index.UpdateObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(resp)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -147,7 +155,11 @@ func TestPartialUpdateObject(t *testing.T) {
   }
   delete(object, "job")
   object["name"] = "Roger"
-  _, err = index.PartialUpdateObject(object)
+  resp, err := index.PartialUpdateObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(resp)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -283,7 +295,11 @@ func TestQuery(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _, err := index.AddObject(object)
+  resp, err := index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(resp)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -572,3 +588,28 @@ func TestGenerateSecuredApiKey(t *testing.T) {
   }
 }
 
+func TestMultipleQueries(t *testing.T) {
+  client, index := initTest(t)
+  object := make(map[string]interface{})
+  object["name"] = "John Snow"
+  resp, err := index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  resp, err = index.WaitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+
+  query := make(map[string]interface{})
+  query["indexName"] = "àlgol?à-go"
+  query["query"] = ""
+  queries := make([]interface{}, 1)
+  queries[0] = query
+  res, err := client.MultipleQueries(queries)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldFloat(res.(map[string]interface{})["results"].([]interface{})[0], "nbHits", 1, "Unable to query multiple indexes", t)
+  index.Delete()
+}

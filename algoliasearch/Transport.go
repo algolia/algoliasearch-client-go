@@ -9,6 +9,7 @@ import "strconv"
 import "errors"
 import "math/rand"
 import "time"
+import "reflect"
 
 type Transport struct {
   httpClient *http.Client
@@ -26,12 +27,29 @@ func NewTransport(appID, apiKey string) *Transport {
   rand := rand.New(rand.NewSource(time.Now().Unix()))
   perm := rand.Perm(3)
   suffix := [3]string{"-1.algolia.io", "-2.algolia.io", "-3.algolia.io"}
-  transport.hosts = [3]string{"https://" + appID + suffix[perm[0]], "https://" + appID + suffix[perm[1]], "https://" + appID + suffix[perm[2]], }
+  //transport.hosts = [3]string{"https://" + appID + suffix[perm[0]], "https://" + appID + suffix[perm[1]], "https://" + appID + suffix[perm[2]], }
+  transport.hosts = [3]string{appID + suffix[perm[0]], appID + suffix[perm[1]], appID + suffix[perm[2]], }
   return transport
 }
 
 func (t *Transport) urlEncode(value string) string {
   return url.QueryEscape(value)
+}
+
+func (t *Transport) EncodeParams(params interface{}) string {
+  v := url.Values{}
+  if params != nil {
+    for key, value := range params.(map[string]interface{}) {
+      if reflect.TypeOf(value).Name() == "string" {
+        v.Add(key, value.(string))
+      } else if reflect.TypeOf(value).Name() == "float64" {
+        v.Add(key, strconv.FormatFloat(value.(float64), 'f', -1, 64))
+      } else {
+        v.Add(key, strconv.Itoa(value.(int)))
+      }
+    }
+  }
+  return v.Encode()
 }
 
 func (t *Transport) request(method, path string, body interface{}) (interface{}, error) {
@@ -62,11 +80,18 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
       return nil, errors.New("Invalid JSON in the query")
     }
     reader := bytes.NewReader(bodyBytes)
-    req, err = http.NewRequest(method, host + path, reader)
+    req, err = http.NewRequest(method, "https://" + host + path, reader)
     req.Header.Add("Content-Length", strconv.Itoa(len(string(bodyBytes))))
     req.Header.Add("Content-Type", "application/json; charset=utf-8")
   } else {
-    req, err = http.NewRequest(method, host + path, nil)
+    req, err = http.NewRequest(method, "https://" + host + path, nil)
+  }
+  if path == "/1/indexes/*/queries" {
+    req.URL = &url.URL{
+       Scheme: "https",
+       Host: host,
+       Opaque: "//" + host + path, //Remove url encoding
+     }
   }
   return req, err
 }

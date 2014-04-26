@@ -3,7 +3,6 @@ package algoliasearch
 import "time"
 import "strconv"
 import "net/url"
-import "reflect"
 import "errors"
 
 type Index struct {
@@ -156,21 +155,12 @@ func (i *Index) Browse(page, hitsPerPage int) (interface{}, error) {
 }
 
 func (i *Index) Search(query string, params interface{}) (interface{}, error) {
-  v := url.Values{}
-  if params != nil {
-    for key, value := range params.(map[string]interface{}) {
-      if reflect.TypeOf(value).Name() == "string" {
-        v.Add(key, value.(string))
-      } else if reflect.TypeOf(value).Name() == "float64" {
-        v.Add(key, strconv.FormatFloat(value.(float64), 'f', -1, 64))
-      } else {
-        v.Add(key, strconv.Itoa(value.(int)))
-      }
-    }
+  if params == nil {
+    params = make(map[string]interface{})
   }
-  v.Add("query", query)
+  params.(map[string]interface{})["query"] = query
   body := make(map[string]interface{})
-  body["params"] = v.Encode()
+  body["params"] = i.client.transport.EncodeParams(params)
   return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/query", body)
 }
 
