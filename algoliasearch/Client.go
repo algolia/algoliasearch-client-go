@@ -1,5 +1,11 @@
 package algoliasearch
 
+import (
+"crypto/hmac"
+"crypto/sha256"
+"encoding/hex"
+"errors"
+)
 
 type Client struct {
   transport *Transport
@@ -48,3 +54,21 @@ func (c *Client) GetLogs(offset, length int, onlyErrors bool) (interface{}, erro
   body["onlyErrors"] = onlyErrors
   return c.transport.request("GET", "/1/logs", body)
 }
+
+func (c *Client) GenerateSecuredApiKey(apiKey string, tagFilters string, userToken ...string) (string, error) {
+  if len(userToken) > 1 {
+    return "", errors.New("Too many parameters")
+  }
+  key := []byte(apiKey)
+  h := hmac.New(sha256.New, key)
+  var userTokenStr string
+  if len(userToken) == 1 {
+    userTokenStr = userToken[0]
+  } else {
+    userTokenStr = ""
+  }
+  message := tagFilters + userTokenStr
+  h.Write([]byte(message))
+  return hex.EncodeToString(h.Sum(nil)), nil
+}
+
