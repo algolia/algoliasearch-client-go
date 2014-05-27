@@ -389,7 +389,7 @@ func TestAddIndexKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  time.Sleep(100 * time.Millisecond)
+  time.Sleep(1000 * time.Millisecond)
   key, err := index.GetKey(newKey.(map[string]interface{})["key"].(string))
   if err != nil {
     t.Fatalf(err.Error())
@@ -404,7 +404,7 @@ func TestAddIndexKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  time.Sleep(100 * time.Millisecond)
+  time.Sleep(1000 * time.Millisecond)
   list, err = index.ListKeys()
   if err != nil {
     t.Fatalf(err.Error())
@@ -421,7 +421,7 @@ func TestAddKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  time.Sleep(100 * time.Millisecond)
+  time.Sleep(1000 * time.Millisecond)
   key, err := client.GetKey(newKey.(map[string]interface{})["key"].(string))
   if err != nil {
     t.Fatalf(err.Error())
@@ -436,7 +436,7 @@ func TestAddKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  time.Sleep(100 * time.Millisecond)
+  time.Sleep(1000 * time.Millisecond)
   list, err = client.ListKeys()
   if err != nil {
     t.Fatalf(err.Error())
