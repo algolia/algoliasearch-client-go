@@ -3,6 +3,7 @@ package algoliasearch
 import "syscall"
 import "strconv"
 import "testing"
+import "time"
 
 func initTest(t *testing.T) (*Client, *Index) {
   appID, haveAppID := syscall.Getenv("ALGOLIA_APPLICATION_ID")
@@ -345,7 +346,11 @@ func TestMove(t *testing.T) {
   object := make(map[string]interface{})
   object["name"] = "John Snow"
   object["objectID"] = "àlgol?à"
-  _, err := index.AddObject(object)
+  task, err := index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(task)
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -384,6 +389,7 @@ func TestAddIndexKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
+  time.Sleep(100 * time.Millisecond)
   key, err := index.GetKey(newKey.(map[string]interface{})["key"].(string))
   if err != nil {
     t.Fatalf(err.Error())
@@ -398,6 +404,7 @@ func TestAddIndexKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
+  time.Sleep(100 * time.Millisecond)
   list, err = index.ListKeys()
   if err != nil {
     t.Fatalf(err.Error())
@@ -414,6 +421,7 @@ func TestAddKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
+  time.Sleep(100 * time.Millisecond)
   key, err := client.GetKey(newKey.(map[string]interface{})["key"].(string))
   if err != nil {
     t.Fatalf(err.Error())
@@ -428,6 +436,7 @@ func TestAddKey(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
+  time.Sleep(100 * time.Millisecond)
   list, err = client.ListKeys()
   if err != nil {
     t.Fatalf(err.Error())
