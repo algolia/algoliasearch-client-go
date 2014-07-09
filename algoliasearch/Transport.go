@@ -10,6 +10,7 @@ import "errors"
 import "math/rand"
 import "time"
 import "reflect"
+import "strings"
 
 type Transport struct {
   httpClient *http.Client
@@ -86,7 +87,7 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
   } else {
     req, err = http.NewRequest(method, "https://" + host + path, nil)
   }
-  if path == "/1/indexes/*/queries" {
+  if strings.Contains(path, "/*/") {
     req.URL = &url.URL{
        Scheme: "https",
        Host: host,

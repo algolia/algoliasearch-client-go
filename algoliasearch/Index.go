@@ -38,6 +38,19 @@ func (i *Index) GetObject(objectID string, attribute ...string) (interface{}, er
   return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID) + "?" + v.Encode(), nil)
 }
 
+func (i *Index) GetObjects(objectIDs ...string) (interface{}, error) {
+  requests := make([]interface{}, len(objectIDs))
+  for it := range objectIDs {
+    object := make(map[string]interface{})
+    object["indexName"] = i.name
+    object["objectID"] = objectIDs[it]
+    requests[it] = object
+  }
+  body := make(map[string]interface{})
+  body["requests"] = requests
+  return i.client.transport.request("POST", "/1/indexes/*/objects", body);
+}
+
 func (i *Index) DeleteObject(objectID string) (interface{}, error) {
   return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/" +  i.client.transport.urlEncode(objectID), nil)
 }
@@ -122,6 +135,40 @@ func (i *Index) DeleteObjects(objectIDs []string) (interface{}, error) {
     objects[i] = object
   }
   return i.sameBatch(objects, "deleteObject")
+}
+
+func (i *Index) DeleteByQuery(query string, params map[string]interface{}) (interface{}, error) {
+  if (params == nil) {
+    params = make(map[string]interface{})
+  }
+  params["attributesToRetrieve"] = "[\"objectID\"]"
+  params["hitsPerPage"] = 1000
+
+  results, error := i.Search(query, params)
+  if error != nil {
+    return results, error
+  }
+  for results.(map[string]interface{})["nbHits"].(float64) != 0 {
+    objectIDs := make([]string, len(results.(map[string]interface{})["hits"].([]interface{})))
+    for i := range results.(map[string]interface{})["hits"].([]interface{}) {
+      hits := results.(map[string]interface{})["hits"].([]interface{})[i].(map[string]interface{})
+      objectIDs[i] = hits["objectID"].(string)
+    }
+    task, error := i.DeleteObjects(objectIDs)
+    if error != nil {
+      return task, error
+    }
+     
+    _, error = i.WaitTask(task)
+    if error != nil {
+      return nil, error
+    }
+    results, error = i.Search(query, params)
+    if error != nil {
+      return results, error
+    }
+  }
+  return nil, nil
 }
 
 func (i *Index) sameBatch(objects interface{}, action string) (interface{}, error) {

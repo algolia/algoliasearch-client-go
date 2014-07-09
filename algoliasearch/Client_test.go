@@ -212,6 +212,37 @@ func TestGetObjectError(t *testing.T) {
   }
 }
 
+func TestGetObjects(t *testing.T) {
+  _, index := initTest(t)
+  object := make(map[string]interface{})
+  object["name"] = "Los Angeles"
+  object["objectID"] = "1"
+  resp, err := index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  object = make(map[string]interface{})
+  object["name"] = "San Francisco"
+  object["objectID"] = "2"
+  resp, err = index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  res, err := index.GetObjects("1", "2")
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldStr(res.(map[string]interface{})["results"].([]interface{})[0], "name", "Los Angeles", "Unable to get objects", t)
+  shouldStr(res.(map[string]interface{})["results"].([]interface{})[1], "name", "San Francisco", "Unable to get objects", t)
+
+  index.Delete()
+}
+
+
 func TestDeleteObject(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})
@@ -565,6 +596,41 @@ func TestDeleteObjects(t *testing.T) {
     t.Fatalf(err.Error())
   }
   shouldFloat(results, "nbHits", 0, "Unable to partial update objects", t)
+  index.Delete()
+}
+
+func TestDeleteByQuery(t *testing.T) {
+  _, index := initTest(t)
+  objects := make([]interface{}, 3)
+
+  object := make(map[string]interface{})
+  object["name"] = "San Jose"
+  objects[0] = object
+
+  object = make(map[string]interface{})
+  object["name"] = "Washington"
+  objects[1] = object
+
+  object = make(map[string]interface{})
+  object["name"] = "San Francisco"
+  objects[2] = object
+  task, err := index.AddObjects(objects)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(task)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.DeleteByQuery("San", nil)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  results, err := index.Search("", nil)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldFloat(results, "nbHits", 1, "Unable to delete by query", t)
   index.Delete()
 }
 
