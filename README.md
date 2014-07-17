@@ -338,6 +338,12 @@ res, err = index.GetObject("myID", "firstname,lastname")
 res, err = index.GetObject("myID", "firstname")
 ```
 
+You can also retrieve a set of objects:
+
+```go
+res, err = index.GetObjects([2]string{"myObj1", "myObj2"})
+```
+
 Delete an object
 -------------
 
