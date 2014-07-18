@@ -39,6 +39,7 @@ Table of Content
 1. [Search](#search)
 1. [Get an object](#get-an-object)
 1. [Delete an object](#delete-an-object)
+1. [Delete by query](#delete-by-query)
 1. [Index settings](#index-settings)
 1. [List indexes](#list-indexes)
 1. [Delete an index](#delete-an-index)
@@ -321,6 +322,27 @@ The server response will look like:
 ```
 
 
+Multi-queries
+--------------
+
+You can send multiple queries with a single API call using a batch of queries:
+
+```go
+// perform 3 queries in a single API call:
+//  - 1st query targets index `categories`
+//  - 2nd and 3rd queries target index `products`
+
+queries := make([]interface{}, 3)
+
+queries[0] = map[string]interface{}{"indexName": "categories", "query": myQueryString, "hitsPerPage": 3}
+queries[1] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 3, "tagFilters": "promotion"}
+queries[2] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 10}
+
+res, err := client.MultipleQueries(queries)
+```
+
+
+
 
 
 
@@ -352,6 +374,18 @@ You can delete an object using its `objectID`:
 ```go
 res, err := index.DeleteObject("myID")
 ```
+
+
+Delete by query
+-------------
+
+You can delete all objects matching a single query with the following code. Internally, the API client performs the query, delete all matching hits, wait until the deletions have been applied and so on.
+
+```go
+params := make(map[string]interface{})
+res, err := index.DeleteByQuery("john", params)
+```
+
 
 Index Settings
 -------------
