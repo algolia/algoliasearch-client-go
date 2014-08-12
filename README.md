@@ -154,17 +154,18 @@ res, err = index.Query("jim", nil)
 Documentation
 ================
 
-Check our [online documentation](http://www.algolia.com/doc/go):
- * [Initial Import](http://www.algolia.com/doc/go#InitialImport)
- * [Ranking &amp; Relevance](http://www.algolia.com/doc/go#RankingRelevance)
- * [Indexing](http://www.algolia.com/doc/go#Indexing)
- * [Search](http://www.algolia.com/doc/go#Search)
- * [Sorting](http://www.algolia.com/doc/go#Sorting)
- * [Filtering](http://www.algolia.com/doc/go#Filtering)
- * [Faceting](http://www.algolia.com/doc/go#Faceting)
- * [Geo-Search](http://www.algolia.com/doc/go#Geo-Search)
- * [Security](http://www.algolia.com/doc/go#Security)
+Check our [online documentation](http://www.algolia.com/doc/guides/go):
+ * [Initial Import](http://www.algolia.com/doc/guides/go#InitialImport)
+ * [Ranking &amp; Relevance](http://www.algolia.com/doc/guides/go#RankingRelevance)
+ * [Indexing](http://www.algolia.com/doc/guides/go#Indexing)
+ * [Search](http://www.algolia.com/doc/guides/go#Search)
+ * [Sorting](http://www.algolia.com/doc/guides/go#Sorting)
+ * [Filtering](http://www.algolia.com/doc/guides/go#Filtering)
+ * [Faceting](http://www.algolia.com/doc/guides/go#Faceting)
+ * [Geo-Search](http://www.algolia.com/doc/guides/go#Geo-Search)
+ * [Security](http://www.algolia.com/doc/guides/go#Security)
  * [REST API](http://www.algolia.com/doc/rest)
+
 
 Tutorials
 ================
