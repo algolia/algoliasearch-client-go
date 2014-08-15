@@ -688,3 +688,43 @@ func TestMultipleQueries(t *testing.T) {
   shouldFloat(res.(map[string]interface{})["results"].([]interface{})[0], "nbHits", 1, "Unable to query multiple indexes", t)
   index.Delete()
 }
+
+func TestFacets(t *testing.T) {
+  _, index := initTest(t)
+  
+  settings := map[string]interface{}{"attributesForFacetting" : []string{"f", "g"}}
+  _, err := index.SetSettings(settings)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+
+  _, err = index.AddObject(map[string]interface{}{"f": "f1", "g":"g1"})
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.AddObject(map[string]interface{}{"f": "f1", "g":"g2"})
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.AddObject(map[string]interface{}{"f": "f2", "g":"g2"})
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  task, err := index.AddObject(map[string]interface{}{"f": "f3", "g":"g2"})
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(task)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+
+  res, err := index.Search("", map[string]interface{}{"facets": "f", "facetFilters":[]string {"f:f1"}})
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldFloat(res, "nbHits", 2, "Unable to filter facets", t)
+
+  
+  index.Delete()
+}

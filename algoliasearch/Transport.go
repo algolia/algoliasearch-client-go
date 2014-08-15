@@ -45,8 +45,11 @@ func (t *Transport) EncodeParams(params interface{}) string {
         v.Add(key, value.(string))
       } else if reflect.TypeOf(value).Name() == "float64" {
         v.Add(key, strconv.FormatFloat(value.(float64), 'f', -1, 64))
-      } else {
+      } else if reflect.TypeOf(value).Name() == "int" {
         v.Add(key, strconv.Itoa(value.(int)))
+      } else {
+        jsonValue, _ := json.Marshal(value)
+        v.Add(key, string(jsonValue[:]))
       }
     }
   }
