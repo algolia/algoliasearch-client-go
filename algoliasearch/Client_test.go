@@ -431,6 +431,18 @@ func TestAddIndexKey(t *testing.T) {
     t.Fatalf(err.Error())
   }
   shouldContainString(list.(map[string]interface{})["keys"], "value", newKey.(map[string]interface{})["key"].(string), "Unable to add a key", t)
+
+  _, err = index.UpdateKey(newKey.(map[string]interface{})["key"].(string), []string{"addObject"}, 300, 100, 100)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  time.Sleep(1000 * time.Millisecond)
+  list, err = index.ListKeys()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldContainString(list.(map[string]interface{})["keys"], "value", newKey.(map[string]interface{})["key"].(string), "Unable to add a key", t)
+
   _, err = index.DeleteKey(newKey.(map[string]interface{})["key"].(string))
   if err != nil {
     t.Fatalf(err.Error())
@@ -458,6 +470,13 @@ func TestAddKey(t *testing.T) {
     t.Fatalf(err.Error())
   }
   shouldStr(key, "value", newKey.(map[string]interface{})["key"].(string), "Unable to get a key", t)
+
+  _, err = client.UpdateKey(newKey.(map[string]interface{})["key"].(string), []string{"addObject"}, indexes, 300, 100, 100)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  time.Sleep(1000 * time.Millisecond)
+
   list, err := client.ListKeys()
   if err != nil {
     t.Fatalf(err.Error())

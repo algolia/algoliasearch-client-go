@@ -39,6 +39,17 @@ func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerH
   return c.transport.request("POST", "/1/keys/", body)
 }
 
+func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
+  body := make(map[string]interface{})
+  body["acl"] = acl
+  body["maxHitsPerQuery"] = maxHitsPerQuery
+  body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
+  body["validity"] = validity
+  body["indexes"] = indexes
+  return c.transport.request("PUT", "/1/keys/" + key, body)
+}
+
+
 func (c *Client) GetKey(key string) (interface{}, error) {
   return c.transport.request("GET", "/1/keys/" + key, nil)
 }

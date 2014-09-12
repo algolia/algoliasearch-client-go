@@ -234,3 +234,12 @@ func (i *Index) AddKey(acl []string, validity int, maxQueriesPerIPPerHour int, m
   body["validity"] = validity
   return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/keys", body)
 }
+
+func (i *Index) UpdateKey(key string, acl []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
+  body := make(map[string]interface{})
+  body["acl"] = acl
+  body["maxHitsPerQuery"] = maxHitsPerQuery
+  body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
+  body["validity"] = validity
+  return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/keys/" + key, body)
+}
