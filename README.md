@@ -654,6 +654,14 @@ key, err := client.AddKey(acl, indexes, 300, 100, 20)
 fmt.Printf(key.(map[string]interface{})["key"].(string))
 ```
 
+Update the rights of an existing key:
+```go
+// Update an existing index specific API key valid for 300 seconds, with a rate limit of 100 calls per hour per IP and a maximum of 20 hits
+acl := []string{"search"}
+indexes := []string{"myIndex"}
+key, err := client.UpdateKey(acl, indexes, 300, 100, 20)
+fmt.Printf(key.(map[string]interface{})["key"].(string))
+```
 Get the rights of a given key:
 ```go
 // Gets the rights of a global key
