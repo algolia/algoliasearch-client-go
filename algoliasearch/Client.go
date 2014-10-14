@@ -17,6 +17,10 @@ func NewClient(appID, apiKey string) *Client {
   return client
 }
 
+func (c *Client) setExtraHeader(key string, value string) {
+  c.transport.setExtraHeader(key, value)
+}
+
 func (c *Client) ListIndexes() (interface{}, error) {
      return c.transport.request("GET", "/1/indexes", nil)
 }

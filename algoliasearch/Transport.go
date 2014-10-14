@@ -16,6 +16,7 @@ type Transport struct {
   httpClient *http.Client
   appID string
   apiKey string
+  headers map[string]string
   hosts [3]string
 }
 
@@ -35,6 +36,10 @@ func NewTransport(appID, apiKey string) *Transport {
 
 func (t *Transport) urlEncode(value string) string {
   return url.QueryEscape(value)
+}
+
+func (t *Transport) setExtraHeader(key string, value string) {
+  t.headers[key] = value
 }
 
 func (t *Transport) EncodeParams(params interface{}) string {
@@ -105,6 +110,9 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
   req.Header.Add("X-Algolia-Application-Id", t.appID)
   req.Header.Add("Connection", "keep-alive") 
   req.Header.Add("User-Agent", "Algolia for go 1.0")
+  for key := range t.headers {
+    req.Header.Add(key, t.headers[key])
+  }
   return req
 }
 
