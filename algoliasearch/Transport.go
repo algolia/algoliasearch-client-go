@@ -12,6 +12,10 @@ import "time"
 import "reflect"
 import "strings"
 
+const (
+  version = "1.0.0"
+)
+
 type Transport struct {
   httpClient *http.Client
   appID string
@@ -109,7 +113,7 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
   req.Header.Add("X-Algolia-API-Key", t.apiKey)
   req.Header.Add("X-Algolia-Application-Id", t.appID)
   req.Header.Add("Connection", "keep-alive") 
-  req.Header.Add("User-Agent", "Algolia for go 1.0")
+  req.Header.Add("User-Agent", "Algolia for go " + version)
   for key := range t.headers {
     req.Header.Add(key, t.headers[key])
   }
