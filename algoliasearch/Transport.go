@@ -76,10 +76,9 @@ func (t *Transport) request(method, path string, body interface{}) (interface{},
     if err != nil {
       return nil, err
     }
-    if resp.StatusCode == 124 ||  resp.StatusCode == 503 { //timeout or unavailable
-      continue
+    if resp.StatusCode == 200 || resp.StatusCode == 201 || resp.StatusCode == 400 ||  resp.StatusCode == 403 || resp.StatusCode == 404 { // Bad request, not found, forbidden
+      return t.handleResponse(resp)
     }
-    return t.handleResponse(resp)
   }
   return nil, errors.New("Cannot reach any host.")
 }
