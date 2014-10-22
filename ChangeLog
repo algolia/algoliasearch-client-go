@@ -1,5 +1,8 @@
 CHANGELOG
 
+2014-10-22 1.0.1
+      * Fix the retry on other hosts for some http codes
+
 2014-10-16 1.0.0
 
       * Stable release
