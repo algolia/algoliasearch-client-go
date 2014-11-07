@@ -4,6 +4,19 @@ import "syscall"
 import "strconv"
 import "testing"
 import "time"
+import "strings"
+
+func safeName(name string) string {
+  travis, haveTravis := syscall.Getenv("TRAVIS");
+  buildId, haveBuildId := syscall.Getenv("TRAVIS_JOB_NUMBER");
+  if !haveTravis || !haveBuildId || travis != "true" {
+    return name;
+  }
+  ids := strings.Split(buildId, ".");
+  id := ids[len(ids) - 1];
+  
+  return name + "_travis-" + id;
+}
 
 func initTest(t *testing.T) (*Client, *Index) {
   appID, haveAppID := syscall.Getenv("ALGOLIA_APPLICATION_ID")
@@ -12,7 +25,8 @@ func initTest(t *testing.T) (*Client, *Index) {
     t.Fatalf("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
   }
   client := NewClient(appID, apiKey)
-  index := client.InitIndex("àlgol?à-go")
+  index := client.InitIndex(safeName("àlgol?à-go"))
+
   return client, index
 }
 
@@ -362,7 +376,7 @@ func TestCopy(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  indexCopy := client.InitIndex("àlgo?à2-go")
+  indexCopy := client.InitIndex(safeName("àlgo?à2-go"))
   results, err := indexCopy.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
@@ -393,7 +407,7 @@ func TestMove(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  indexMove := client.InitIndex("àlgo?à2-go")
+  indexMove := client.InitIndex(safeName("àlgo?à2-go"))
   results, err := indexMove.Search("", nil)
   if err != nil {
     t.Fatalf(err.Error())
