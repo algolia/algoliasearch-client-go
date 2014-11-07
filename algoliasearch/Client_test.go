@@ -368,7 +368,7 @@ func TestCopy(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  resp, err := index.Copy("àlgo?à2-go")
+  resp, err := index.Copy(safeName("àlgo?à2-go"))
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -399,7 +399,7 @@ func TestMove(t *testing.T) {
   if err != nil {
     t.Fatalf(err.Error())
   }
-  resp, err := index.Move("àlgo?à2-go")
+  resp, err := index.Move(safeName("àlgo?à2-go"))
   if err != nil {
     t.Fatalf(err.Error())
   }
@@ -710,7 +710,7 @@ func TestMultipleQueries(t *testing.T) {
   }
 
   query := make(map[string]interface{})
-  query["indexName"] = "àlgol?à-go"
+  query["indexName"] = safeName("àlgol?à-go")
   query["query"] = ""
   queries := make([]interface{}, 1)
   queries[0] = query
