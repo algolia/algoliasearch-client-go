@@ -17,6 +17,12 @@ func NewClient(appID, apiKey string) *Client {
   return client
 }
 
+func NewClientWithHosts(appID, apiKey string, hosts []string) *Client {
+  client := new(Client)
+  client.transport = NewTransportWithHosts(appID, apiKey, hosts)
+  return client
+}
+
 func (c *Client) setExtraHeader(key string, value string) {
   c.transport.setExtraHeader(key, value)
 }

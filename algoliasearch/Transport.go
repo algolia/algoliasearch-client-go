@@ -21,7 +21,7 @@ type Transport struct {
   appID string
   apiKey string
   headers map[string]string
-  hosts [3]string
+  hosts []string
 }
 
 func NewTransport(appID, apiKey string) *Transport {
@@ -34,7 +34,25 @@ func NewTransport(appID, apiKey string) *Transport {
   perm := rand.Perm(3)
   suffix := [3]string{"-1.algolia.io", "-2.algolia.io", "-3.algolia.io"}
   //transport.hosts = [3]string{"https://" + appID + suffix[perm[0]], "https://" + appID + suffix[perm[1]], "https://" + appID + suffix[perm[2]], }
-  transport.hosts = [3]string{appID + suffix[perm[0]], appID + suffix[perm[1]], appID + suffix[perm[2]], }
+  transport.hosts = make([]string, 3)
+  transport.hosts[0] = appID + suffix[perm[0]]
+  transport.hosts[1] = appID + suffix[perm[1]]
+  transport.hosts[2] = appID + suffix[perm[2]]
+  return transport
+}
+
+func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
+  transport := new(Transport)
+  transport.appID = appID
+  transport.apiKey = apiKey
+  tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
+  transport.httpClient = &http.Client{Transport: tr}
+  rand := rand.New(rand.NewSource(time.Now().Unix()))
+  perm := rand.Perm(len(hosts))
+  transport.hosts = make([]string, len(hosts))
+  for i, v := range perm {
+    transport.hosts[v] = hosts[i]
+  }
   return transport
 }
 
