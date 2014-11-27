@@ -11,6 +11,8 @@ import "math/rand"
 import "time"
 import "reflect"
 import "strings"
+// Fix certificates
+import _ "crypto/sha512"
 
 const (
   version = "1.0.1"
