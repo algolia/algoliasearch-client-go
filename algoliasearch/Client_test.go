@@ -4,7 +4,6 @@ import "syscall"
 import "strconv"
 import "testing"
 import "time"
-import "strings"
 
 func safeName(name string) string {
   travis, haveTravis := syscall.Getenv("TRAVIS");
@@ -12,10 +11,8 @@ func safeName(name string) string {
   if !haveTravis || !haveBuildId || travis != "true" {
     return name;
   }
-  ids := strings.Split(buildId, ".");
-  id := ids[len(ids) - 1];
   
-  return name + "_travis-" + id;
+  return name + "_travis-" + buildId;
 }
 
 func initTest(t *testing.T) (*Client, *Index) {
