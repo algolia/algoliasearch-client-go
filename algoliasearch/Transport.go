@@ -15,7 +15,7 @@ import "strings"
 import _ "crypto/sha512"
 
 const (
-  version = "1.0.2"
+  version = "1.1.0"
 )
 
 type Transport struct {
