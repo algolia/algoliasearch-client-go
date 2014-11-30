@@ -34,7 +34,7 @@ func NewTransport(appID, apiKey string) *Transport {
   transport.httpClient = &http.Client{Transport: tr}
   rand := rand.New(rand.NewSource(time.Now().Unix()))
   perm := rand.Perm(3)
-  suffix := [3]string{"-1.algolia.io", "-2.algolia.io", "-3.algolia.io"}
+  suffix := [3]string{"-1.algolia.net", "-2.algolia.net", "-3.algolia.net"}
   //transport.hosts = [3]string{"https://" + appID + suffix[perm[0]], "https://" + appID + suffix[perm[1]], "https://" + appID + suffix[perm[2]], }
   transport.hosts = make([]string, 3)
   transport.hosts[0] = appID + suffix[perm[0]]

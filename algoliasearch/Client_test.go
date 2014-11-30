@@ -23,9 +23,9 @@ func initTest(t *testing.T) (*Client, *Index) {
   }
   client := NewClient(appID, apiKey)
   hosts := make([]string, 3)
-  hosts[0] = appID + "-1.algolia.io"
-  hosts[1] = appID + "-2.algolia.io"
-  hosts[2] = appID + "-3.algolia.io"
+  hosts[0] = appID + "-1.algolia.net"
+  hosts[1] = appID + "-2.algolia.net"
+  hosts[2] = appID + "-3.algolia.net"
   client = NewClientWithHosts(appID, apiKey, hosts)
   index := client.InitIndex(safeName("àlgol?à-go"))
 
