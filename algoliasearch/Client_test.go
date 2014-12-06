@@ -310,7 +310,7 @@ func TestSetSettings(t *testing.T) {
 
 func TestGetLogs(t *testing.T) {
   client, _ := initTest(t)
-  logs, err := client.GetLogs(0, 100, false)
+  logs, err := client.GetLogs(0, 100, "all")
   if err != nil {
     t.Fatalf(err.Error())
   }

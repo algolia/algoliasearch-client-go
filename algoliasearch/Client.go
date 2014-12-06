@@ -68,11 +68,11 @@ func (c *Client) DeleteKey(key string) (interface{}, error) {
   return c.transport.request("DELETE", "/1/keys/" + key, nil)
 }
 
-func (c *Client) GetLogs(offset, length int, type string) (interface{}, error) {
+func (c *Client) GetLogs(offset, length int, logType string) (interface{}, error) {
   body := make(map[string]interface{})
   body["offset"] = offset
   body["length"] = length
-  body["type"] = type
+  body["type"] = logType
   return c.transport.request("GET", "/1/logs", body)
 }
 
