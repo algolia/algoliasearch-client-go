@@ -28,8 +28,8 @@ func (c *Client) SetExtraHeader(key string, value string) {
   c.transport.setExtraHeader(key, value)
 }
 
-func (c *Client) SetTimeout(timeout int) {
-  c.transport.setTimeout(time.Duration(timeout) * time.Millisecond)
+func (c *Client) SetTimeout(connectTimeout int, readTimeout int) {
+  c.transport.setTimeout(time.Duration(connectTimeout) * time.Millisecond, time.Duration(readTimeout) * time.Millisecond)
 }
 
 func (c *Client) ListIndexes() (interface{}, error) {

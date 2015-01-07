@@ -22,7 +22,7 @@ func initTest(t *testing.T) (*Client, *Index) {
     t.Fatalf("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
   }
   client := NewClient(appID, apiKey)
-  client.SetTimeout(20000)
+  client.SetTimeout(1000, 10000)
   hosts := make([]string, 3)
   hosts[0] = appID + "-1.algolia.net"
   hosts[1] = appID + "-2.algolia.net"

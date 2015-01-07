@@ -30,7 +30,7 @@ func NewTransport(appID, apiKey string) *Transport {
   transport := new(Transport)
   transport.appID = appID
   transport.apiKey = apiKey
-  tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
+  tr := &http.Transport{TLSHandshakeTimeout: time.Second, ResponseHeaderTimeout: time.Duration(10) * time.Second, DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
   rand := rand.New(rand.NewSource(time.Now().Unix()))
   perm := rand.Perm(3)
@@ -47,7 +47,7 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
   transport := new(Transport)
   transport.appID = appID
   transport.apiKey = apiKey
-  tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
+  tr := &http.Transport{TLSHandshakeTimeout: time.Second, ResponseHeaderTimeout: time.Duration(10) * time.Second, DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
   rand := rand.New(rand.NewSource(time.Now().Unix()))
   perm := rand.Perm(len(hosts))
@@ -58,8 +58,9 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
   return transport
 }
 
-func (t *Transport) setTimeout(timeout time.Duration) {
-  t.httpClient.Timeout = timeout
+func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Duration) {
+  t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
+  t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
 }
 
 func (t *Transport) urlEncode(value string) string {
