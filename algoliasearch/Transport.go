@@ -58,6 +58,10 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
   return transport
 }
 
+func (t *Transport) setTimeout(timeout time.Duration) {
+  t.httpClient.Timeout = timeout
+}
+
 func (t *Transport) urlEncode(value string) string {
   return url.QueryEscape(value)
 }

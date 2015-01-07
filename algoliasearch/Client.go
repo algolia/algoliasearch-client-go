@@ -5,6 +5,7 @@ import (
 "crypto/sha256"
 "encoding/hex"
 "errors"
+"time"
 )
 
 type Client struct {
@@ -23,8 +24,12 @@ func NewClientWithHosts(appID, apiKey string, hosts []string) *Client {
   return client
 }
 
-func (c *Client) setExtraHeader(key string, value string) {
+func (c *Client) SetExtraHeader(key string, value string) {
   c.transport.setExtraHeader(key, value)
+}
+
+func (c *Client) SetTimeout(timeout int) {
+  c.transport.setTimeout(time.Duration(timeout) * time.Millisecond)
 }
 
 func (c *Client) ListIndexes() (interface{}, error) {
