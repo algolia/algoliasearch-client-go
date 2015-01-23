@@ -11,6 +11,7 @@ import "math/rand"
 import "time"
 import "reflect"
 import "strings"
+import "fmt"
 // Fix certificates
 import _ "crypto/sha512"
 
@@ -91,6 +92,7 @@ func (t *Transport) EncodeParams(params interface{}) string {
 }
 
 func (t *Transport) request(method, path string, body interface{}) (interface{}, error) {
+  errorMsg := ""
   for it := range t.hosts {
     req, err := t.buildRequest(method, t.hosts[it], path, body)
     if err != nil {
@@ -99,13 +101,18 @@ func (t *Transport) request(method, path string, body interface{}) (interface{},
     req = t.addHeaders(req)
     resp, err := t.httpClient.Do(req)
     if err != nil {
-      return nil, err
+      if len(errorMsg) > 0 {
+        errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, t.hosts[it], err)
+      } else {
+        errorMsg = fmt.Sprintf("%s:%s", t.hosts[it], err)
+      }
+      continue
     }
     if resp.StatusCode == 200 || resp.StatusCode == 201 || resp.StatusCode == 400 ||  resp.StatusCode == 403 || resp.StatusCode == 404 { // Bad request, not found, forbidden
       return t.handleResponse(resp)
     }
   }
-  return nil, errors.New("Cannot reach any host.")
+  return nil, errors.New(fmt.Sprintf("Cannot reach any host. (%s)", errorMsg))
 }
 
 func (t *Transport) buildRequest(method, host, path string, body interface{}) (*http.Request, error) {
