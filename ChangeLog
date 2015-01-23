@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.1.1 (2015-11-23)
+------------------
+
+- Fix the retry for a network error
+
+- Drop Go 1.2 support
+
+- Add timeout
+
 1.1.0 (2014-11-30)
 ------------------
 

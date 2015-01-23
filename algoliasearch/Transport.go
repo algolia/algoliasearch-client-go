@@ -16,7 +16,7 @@ import "fmt"
 import _ "crypto/sha512"
 
 const (
-  version = "1.1.0"
+  version = "1.1.1"
 )
 
 type Transport struct {
