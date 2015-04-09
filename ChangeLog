@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2.0 (2015-04-09)
+------------------
+
+- New implementation for the retry on another DNS
+
 1.1.1 (2015-11-23)
 ------------------
 
