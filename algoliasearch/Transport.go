@@ -7,7 +7,6 @@ import "bytes"
 import "encoding/json"
 import "strconv"
 import "errors"
-import "math/rand"
 import "time"
 import "reflect"
 import "strings"
@@ -16,7 +15,13 @@ import "fmt"
 import _ "crypto/sha512"
 
 const (
-  version = "1.1.1"
+  version = "1.2.1"
+)
+
+const (
+  search = 1 << iota
+  write
+  read
 )
 
 type Transport struct {
@@ -25,22 +30,27 @@ type Transport struct {
   apiKey string
   headers map[string]string
   hosts []string
+  hostsProvided bool
+  connectTimeout time.Duration
+  buildReadTimeout time.Duration
+  searchReadTimeout time.Duration
 }
 
 func NewTransport(appID, apiKey string) *Transport {
   transport := new(Transport)
   transport.appID = appID
   transport.apiKey = apiKey
-  tr := &http.Transport{TLSHandshakeTimeout: time.Second, ResponseHeaderTimeout: time.Duration(10) * time.Second, DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
+  tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
-  rand := rand.New(rand.NewSource(time.Now().Unix()))
-  perm := rand.Perm(3)
-  suffix := [3]string{"-1.algolia.net", "-2.algolia.net", "-3.algolia.net"}
   //transport.hosts = [3]string{"https://" + appID + suffix[perm[0]], "https://" + appID + suffix[perm[1]], "https://" + appID + suffix[perm[2]], }
   transport.hosts = make([]string, 3)
-  transport.hosts[0] = appID + suffix[perm[0]]
-  transport.hosts[1] = appID + suffix[perm[1]]
-  transport.hosts[2] = appID + suffix[perm[2]]
+  transport.hosts[0] = appID + "-1.algolianet.com"
+  transport.hosts[1] = appID + "-2.algolianet.com"
+  transport.hosts[2] = appID + "-3.algolianet.com"
+  transport.hostsProvided = false
+  transport.connectTimeout = 1 * time.Second
+  transport.buildReadTimeout = 30 * time.Second
+  transport.searchReadTimeout = 5 * time.Second
   return transport
 }
 
@@ -48,20 +58,23 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
   transport := new(Transport)
   transport.appID = appID
   transport.apiKey = apiKey
-  tr := &http.Transport{TLSHandshakeTimeout: time.Second, ResponseHeaderTimeout: time.Duration(10) * time.Second, DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
+  tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
-  rand := rand.New(rand.NewSource(time.Now().Unix()))
-  perm := rand.Perm(len(hosts))
-  transport.hosts = make([]string, len(hosts))
-  for i, v := range perm {
-    transport.hosts[v] = hosts[i]
-  }
+  transport.hosts = hosts
+  transport.hostsProvided = true
+  transport.connectTimeout = 2 * time.Second
+  transport.buildReadTimeout = 30 * time.Second
+  transport.searchReadTimeout = 5 * time.Second
   return transport
 }
 
 func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Duration) {
-  t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
-  t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
+  t.connectTimeout = connectTimeout
+  t.buildReadTimeout = readTimeout
+}
+
+func (t *Transport) setSearchTimeout(searchTimeout time.Duration) {
+  t.searchReadTimeout = searchTimeout
 }
 
 func (t *Transport) urlEncode(value string) string {
@@ -91,8 +104,38 @@ func (t *Transport) EncodeParams(params interface{}) string {
   return v.Encode()
 }
 
-func (t *Transport) request(method, path string, body interface{}) (interface{}, error) {
+func (t *Transport) request(method, path string, body interface{}, typeCall int) (interface{}, error) {
+  var host string
   errorMsg := ""
+  t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = t.connectTimeout
+  if typeCall == write  {
+    host = t.appID + ".algolia.net"
+    t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = t.searchReadTimeout
+  } else {
+    host = t.appID + "-dsn.algolia.net"
+    if (typeCall == read) {
+      t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = t.buildReadTimeout
+    } else {
+      t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = t.searchReadTimeout
+    }
+  }
+  if ! t.hostsProvided {
+    req, err := t.buildRequest(method, host, path, body)
+    if err != nil {
+      return nil, err
+    }
+    req = t.addHeaders(req)
+    resp, err := t.httpClient.Do(req)
+    if err != nil {
+      if len(errorMsg) > 0 {
+        errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, host, err)
+      } else {
+        errorMsg = fmt.Sprintf("%s:%s", host, err)
+      }
+    } else if (resp.StatusCode / 100) == 2 || (resp.StatusCode / 100) == 4 { // Bad request, not found, forbidden
+      return t.handleResponse(resp)
+    }
+  }
   for it := range t.hosts {
     req, err := t.buildRequest(method, t.hosts[it], path, body)
     if err != nil {
@@ -108,7 +151,7 @@ func (t *Transport) request(method, path string, body interface{}) (interface{},
       }
       continue
     }
-    if resp.StatusCode == 200 || resp.StatusCode == 201 || resp.StatusCode == 400 ||  resp.StatusCode == 403 || resp.StatusCode == 404 { // Bad request, not found, forbidden
+    if (resp.StatusCode / 100) == 2 || (resp.StatusCode / 100) == 4 { // Bad request, not found, forbidden
       return t.handleResponse(resp)
     }
   }
@@ -137,6 +180,8 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
        Opaque: "//" + host + path, //Remove url encoding
      }
   }
+  t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout += 2 * time.Second
+  t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = 10 * time.Second
   return req, err
 }
 

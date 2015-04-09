@@ -33,7 +33,7 @@ func (c *Client) SetTimeout(connectTimeout int, readTimeout int) {
 }
 
 func (c *Client) ListIndexes() (interface{}, error) {
-     return c.transport.request("GET", "/1/indexes", nil)
+     return c.transport.request("GET", "/1/indexes", nil, read)
 }
 
 func (c *Client) InitIndex(indexName string) *Index {
@@ -41,7 +41,7 @@ func (c *Client) InitIndex(indexName string) *Index {
 }
 
 func (c *Client) ListKeys() (interface{}, error) {
-  return c.transport.request("GET", "/1/keys", nil)
+  return c.transport.request("GET", "/1/keys", nil, read)
 }
 
 func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -51,7 +51,7 @@ func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerH
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
   body["indexes"] = indexes
-  return c.transport.request("POST", "/1/keys/", body)
+  return c.transport.request("POST", "/1/keys/", body, read)
 }
 
 func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -61,16 +61,16 @@ func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQ
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
   body["indexes"] = indexes
-  return c.transport.request("PUT", "/1/keys/" + key, body)
+  return c.transport.request("PUT", "/1/keys/" + key, body, write)
 }
 
 
 func (c *Client) GetKey(key string) (interface{}, error) {
-  return c.transport.request("GET", "/1/keys/" + key, nil)
+  return c.transport.request("GET", "/1/keys/" + key, nil, read)
 }
 
 func (c *Client) DeleteKey(key string) (interface{}, error) {
-  return c.transport.request("DELETE", "/1/keys/" + key, nil)
+  return c.transport.request("DELETE", "/1/keys/" + key, nil, write)
 }
 
 func (c *Client) GetLogs(offset, length int, logType string) (interface{}, error) {
@@ -78,7 +78,7 @@ func (c *Client) GetLogs(offset, length int, logType string) (interface{}, error
   body["offset"] = offset
   body["length"] = length
   body["type"] = logType
-  return c.transport.request("GET", "/1/logs", body)
+  return c.transport.request("GET", "/1/logs", body, write)
 }
 
 func (c *Client) GenerateSecuredApiKey(apiKey string, tagFilters string, userToken ...string) (string, error) {
@@ -117,5 +117,5 @@ func (c *Client) MultipleQueries(queries []interface{}, indexNameKey ...string) 
   }
   body := make(map[string]interface{})
   body["requests"] = requests
-  return c.transport.request("POST", "/1/indexes/*/queries", body)
+  return c.transport.request("POST", "/1/indexes/*/queries", body, search)
 }

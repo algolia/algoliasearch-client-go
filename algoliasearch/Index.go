@@ -20,11 +20,11 @@ func NewIndex(name string, client *Client) *Index {
 }
 
 func (i *Index) Delete() (interface{}, error) {
-  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded, nil)
+  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded, nil, write)
 }
 
 func (i *Index) Clear() (interface{}, error) {
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/clear", nil)
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/clear", nil, write)
 }
 
 func (i *Index) GetObject(objectID string, attribute ...string) (interface{}, error) {
@@ -35,7 +35,7 @@ func (i *Index) GetObject(objectID string, attribute ...string) (interface{}, er
   if len(attribute) > 0 {
     v.Add("attribute", attribute[0])
   }
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID) + "?" + v.Encode(), nil)
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(objectID) + "?" + v.Encode(), nil, read)
 }
 
 func (i *Index) GetObjects(objectIDs ...string) (interface{}, error) {
@@ -48,23 +48,23 @@ func (i *Index) GetObjects(objectIDs ...string) (interface{}, error) {
   }
   body := make(map[string]interface{})
   body["requests"] = requests
-  return i.client.transport.request("POST", "/1/indexes/*/objects", body);
+  return i.client.transport.request("POST", "/1/indexes/*/objects", body, read);
 }
 
 func (i *Index) DeleteObject(objectID string) (interface{}, error) {
-  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/" +  i.client.transport.urlEncode(objectID), nil)
+  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/" +  i.client.transport.urlEncode(objectID), nil, write)
 }
 
 func (i *Index) GetSettings() (interface{}, error) {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/settings", nil)
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/settings", nil, read)
 }
 
 func (i *Index) SetSettings(settings interface{}) (interface{}, error) {
-  return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/settings", settings)
+  return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/settings", settings, write)
 }
 
 func (i *Index) getStatus(taskID float64) (interface{}, error) {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/task/" + strconv.FormatFloat(taskID, 'f', -1, 64), nil)
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/task/" + strconv.FormatFloat(taskID, 'f', -1, 64), nil, read)
 }
 
 func (i *Index) WaitTask(task interface{}) (interface{}, error) {
@@ -82,15 +82,15 @@ func (i *Index) WaitTask(task interface{}) (interface{}, error) {
 }
 
 func (i *Index) ListKeys() (interface{}, error) {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys", nil)
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys", nil, read)
 }
 
 func (i *Index) GetKey(key string) (interface{}, error) {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys/" + key , nil)
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/keys/" + key , nil, read)
 }
 
 func (i *Index) DeleteKey(key string) (interface{}, error) {
-  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/keys/" + key , nil)
+  return i.client.transport.request("DELETE", "/1/indexes/" + i.nameEncoded + "/keys/" + key , nil, write)
 }
 
 func (i *Index) AddObject(object interface{}) (interface{}, error) {
@@ -100,19 +100,19 @@ func (i *Index) AddObject(object interface{}) (interface{}, error) {
     method = "PUT"
     path = path + "/" + i.client.transport.urlEncode(id.(string))
   }
-  return i.client.transport.request(method, path, object)
+  return i.client.transport.request(method, path, object, write)
 }
 
 func (i *Index) UpdateObject(object interface{}) (interface{}, error) {
   id := object.(map[string]interface{})["objectID"]
   path := "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(id.(string))
-  return i.client.transport.request("PUT", path, object)
+  return i.client.transport.request("PUT", path, object, write)
 }
 
 func (i *Index) PartialUpdateObject(object interface{}) (interface{}, error) {
   id := object.(map[string]interface{})["objectID"]
   path := "/1/indexes/" + i.nameEncoded + "/" + i.client.transport.urlEncode(id.(string)) + "/partial"
-  return i.client.transport.request("POST", path, object)
+  return i.client.transport.request("POST", path, object, write)
 }
 
 func (i *Index) AddObjects(objects interface{}) (interface{}, error) {
@@ -194,11 +194,11 @@ func (i *Index) Batch(objects interface{}, actions []string) (interface{}, error
 func (i *Index) customBatch(queries interface{}) (interface{}, error) {
   request :=  make(map[string]interface{})
   request["requests"] = queries
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/batch", request)
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/batch", request, write)
 }
 
 func (i *Index) Browse(page, hitsPerPage int) (interface{}, error) {
-  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse?page=" + strconv.Itoa(page) + "&hitsPerPage=" + strconv.Itoa(hitsPerPage) , nil)
+  return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse?page=" + strconv.Itoa(page) + "&hitsPerPage=" + strconv.Itoa(hitsPerPage) , nil, read)
 }
 
 func (i *Index) Search(query string, params interface{}) (interface{}, error) {
@@ -208,14 +208,14 @@ func (i *Index) Search(query string, params interface{}) (interface{}, error) {
   params.(map[string]interface{})["query"] = query
   body := make(map[string]interface{})
   body["params"] = i.client.transport.EncodeParams(params)
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/query", body)
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/query", body, search)
 }
 
 func (i *Index) operation(name, op string) (interface{}, error) {
   body := make(map[string]interface{})
   body["operation"] = op
   body["destination"] = name
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/operation", body)
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/operation", body, write)
 }
 
 func (i *Index) Copy(name string) (interface{}, error) {
@@ -232,7 +232,7 @@ func (i *Index) AddKey(acl []string, validity int, maxQueriesPerIPPerHour int, m
   body["maxHitsPerQuery"] = maxHitsPerQuery
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/keys", body)
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/keys", body, write)
 }
 
 func (i *Index) UpdateKey(key string, acl []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -241,5 +241,5 @@ func (i *Index) UpdateKey(key string, acl []string, validity int, maxQueriesPerI
   body["maxHitsPerQuery"] = maxHitsPerQuery
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
-  return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/keys/" + key, body)
+  return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/keys/" + key, body, write)
 }
