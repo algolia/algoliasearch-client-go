@@ -6,6 +6,7 @@ import (
 "encoding/hex"
 "errors"
 "time"
+"reflect"
 )
 
 type Client struct {
@@ -51,7 +52,11 @@ func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerH
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
   body["indexes"] = indexes
-  return c.transport.request("POST", "/1/keys/", body, read)
+  return c.AddAPIKey(body)
+}
+
+func (c *Client) AddAPIKey(params interface{}) (interface{}, error) {
+  return c.transport.request("POST", "/1/keys/", params, read)
 }
 
 func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -61,7 +66,11 @@ func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQ
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
   body["indexes"] = indexes
-  return c.transport.request("PUT", "/1/keys/" + key, body, write)
+  return c.UpdateAPIKey(key, body)
+}
+
+func (c *Client) UpdateAPIKey(key string, params interface{}) (interface{}, error) {
+  return c.transport.request("PUT", "/1/keys/" + key, params, write)
 }
 
 
@@ -81,7 +90,7 @@ func (c *Client) GetLogs(offset, length int, logType string) (interface{}, error
   return c.transport.request("GET", "/1/logs", body, write)
 }
 
-func (c *Client) GenerateSecuredApiKey(apiKey string, tagFilters string, userToken ...string) (string, error) {
+func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userToken ...string) (string, error) {
   if len(userToken) > 1 {
     return "", errors.New("Too many parameters")
   }
@@ -93,20 +102,28 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, tagFilters string, userTok
   } else {
     userTokenStr = ""
   }
-  message := tagFilters + userTokenStr
+  if reflect.TypeOf(public).Name() != "string" {
+    public = c.transport.EncodeParams(public)
+  }
+
+  message := public.(string) + userTokenStr
   h.Write([]byte(message))
   return hex.EncodeToString(h.Sum(nil)), nil
 }
 
-func (c *Client) MultipleQueries(queries []interface{}, indexNameKey ...string) (interface{}, error) {
-  if len(indexNameKey) > 1 {
+func (c *Client) MultipleQueries(queries []interface{}, optionals ...string) (interface{}, error) {
+  if len(optionals) > 2 {
     return "", errors.New("Too many parametters")
   }
   var nameKey string
-  if len(indexNameKey) == 1 {
-    nameKey = indexNameKey[0]
+  if len(optionals) >= 1 {
+    nameKey = optionals[0]
   } else {
     nameKey = "indexName"
+  }
+  var strategy string = "none"
+  if len(optionals) == 2 {
+    strategy = optionals[1]
   }
   requests := make([]map[string]interface{}, len(queries))
   for i := range queries {
@@ -117,5 +134,5 @@ func (c *Client) MultipleQueries(queries []interface{}, indexNameKey ...string) 
   }
   body := make(map[string]interface{})
   body["requests"] = requests
-  return c.transport.request("POST", "/1/indexes/*/queries", body, search)
+  return c.transport.request("POST", "/1/indexes/*/queries?strategy=" + strategy, body, search)
 }

@@ -689,7 +689,10 @@ func TestKeepAlive(t *testing.T) {
 
 func TestGenerateSecuredApiKey(t *testing.T) {
   client, _ := initTest(t)
-  key, _ := client.GenerateSecuredApiKey("my_api_key", "(public,user1)")
+  query := make(map[string]interface{})
+  query["hitsPerPage"] = 20
+  key, _ := client.GenerateSecuredApiKey("my_api_key", query)
+  key, _ = client.GenerateSecuredApiKey("my_api_key", "(public,user1)")
   if "1fd74b206c64fb49fdcd7a5f3004356cd3bdc9d9aba8733656443e64daafc417" != key {
     t.Fatalf("Invalid key: " + key)
   }

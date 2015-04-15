@@ -232,7 +232,11 @@ func (i *Index) AddKey(acl []string, validity int, maxQueriesPerIPPerHour int, m
   body["maxHitsPerQuery"] = maxHitsPerQuery
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
-  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/keys", body, write)
+  return i.AddAPIKey(body)
+}
+
+func (i *Index) AddAPIKey(params interface{}) (interface{}, error) {
+  return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/keys", params, write)
 }
 
 func (i *Index) UpdateKey(key string, acl []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -241,5 +245,9 @@ func (i *Index) UpdateKey(key string, acl []string, validity int, maxQueriesPerI
   body["maxHitsPerQuery"] = maxHitsPerQuery
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
-  return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/keys/" + key, body, write)
+  return i.UpdateAPIKey(key, body)
+}
+
+func (i *Index) UpdateAPIKey(key string, params interface{}) (interface{}, error) {
+  return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/keys/" + key, params, write)
 }
