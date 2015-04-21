@@ -188,10 +188,10 @@ func (i *Index) Batch(objects interface{}, actions []string) (interface{}, error
     queries[i]["action"] = actions[i]
     queries[i]["body"] = array[i]
   }
-  return i.customBatch(queries)
+  return i.CustomBatch(queries)
 }
 
-func (i *Index) customBatch(queries interface{}) (interface{}, error) {
+func (i *Index) CustomBatch(queries interface{}) (interface{}, error) {
   request :=  make(map[string]interface{})
   request["requests"] = queries
   return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/batch", request, write)
@@ -232,10 +232,10 @@ func (i *Index) AddKey(acl []string, validity int, maxQueriesPerIPPerHour int, m
   body["maxHitsPerQuery"] = maxHitsPerQuery
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
-  return i.AddAPIKey(body)
+  return i.AddKeyWithParam(body)
 }
 
-func (i *Index) AddAPIKey(params interface{}) (interface{}, error) {
+func (i *Index) AddKeyWithParam(params interface{}) (interface{}, error) {
   return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/keys", params, write)
 }
 
@@ -245,9 +245,9 @@ func (i *Index) UpdateKey(key string, acl []string, validity int, maxQueriesPerI
   body["maxHitsPerQuery"] = maxHitsPerQuery
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
-  return i.UpdateAPIKey(key, body)
+  return i.UpdateKeyWithParam(key, body)
 }
 
-func (i *Index) UpdateAPIKey(key string, params interface{}) (interface{}, error) {
+func (i *Index) UpdateKeyWithParam(key string, params interface{}) (interface{}, error) {
   return i.client.transport.request("PUT", "/1/indexes/" + i.nameEncoded + "/keys/" + key, params, write)
 }

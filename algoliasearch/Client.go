@@ -52,10 +52,10 @@ func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerH
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
   body["indexes"] = indexes
-  return c.AddAPIKey(body)
+  return c.AddKeyWithParam(body)
 }
 
-func (c *Client) AddAPIKey(params interface{}) (interface{}, error) {
+func (c *Client) AddKeyWithParam(params interface{}) (interface{}, error) {
   return c.transport.request("POST", "/1/keys/", params, read)
 }
 
@@ -66,10 +66,10 @@ func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQ
   body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
   body["validity"] = validity
   body["indexes"] = indexes
-  return c.UpdateAPIKey(key, body)
+  return c.UpdateKeyWithParam(key, body)
 }
 
-func (c *Client) UpdateAPIKey(key string, params interface{}) (interface{}, error) {
+func (c *Client) UpdateKeyWithParam(key string, params interface{}) (interface{}, error) {
   return c.transport.request("PUT", "/1/keys/" + key, params, write)
 }
 
