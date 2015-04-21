@@ -136,3 +136,9 @@ func (c *Client) MultipleQueries(queries []interface{}, optionals ...string) (in
   body["requests"] = requests
   return c.transport.request("POST", "/1/indexes/*/queries?strategy=" + strategy, body, search)
 }
+
+func (i *Index) CustomBatch(queries interface{}) (interface{}, error) {
+  request :=  make(map[string]interface{})
+  request["requests"] = queries
+  return i.client.transport.request("POST", "/1/indexes/*/batch", request, write)
+}
