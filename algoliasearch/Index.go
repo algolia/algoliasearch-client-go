@@ -1,9 +1,12 @@
 package algoliasearch
 
-import "time"
-import "strconv"
-import "net/url"
-import "errors"
+import (
+"time"
+"strconv"
+"net/url"
+"errors"
+"reflect"
+)
 
 type Index struct {
   name string
@@ -68,17 +71,28 @@ func (i *Index) getStatus(taskID float64) (interface{}, error) {
 }
 
 func (i *Index) WaitTask(task interface{}) (interface{}, error) {
+  if reflect.TypeOf(task).Name() == "float64" {
+    return  i.WaitTaskWithInit(task.(float64), 100)
+  }
+  return  i.WaitTaskWithInit(task.(map[string]interface{})["taskID"].(float64), 100)
+}
+
+func (i *Index) WaitTaskWithInit(taskID float64, timeToWait float64) (interface{}, error) {
   for true {
-    status, err := i.getStatus(task.(map[string]interface{})["taskID"].(float64))
+    status, err := i.getStatus(taskID)
     if err != nil {
       return nil, err
     }
     if status.(map[string]interface{})["status"] == "published" {
-      break
+      return status, nil
     }
-    time.Sleep(time.Duration(100) * time.Millisecond) 
+    time.Sleep(time.Duration(timeToWait) * time.Millisecond)
+    timeToWait = timeToWait * 2;
+    if (timeToWait > 10000) {
+      timeToWait = 10000
+    }
   }
-  return task, nil
+  return nil, errors.New("Code not reachable")
 }
 
 func (i *Index) ListKeys() (interface{}, error) {
