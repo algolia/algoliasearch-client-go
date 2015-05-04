@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.2.1 (2014-05-04)
+------------------
+
+- Add new methods to add/update api key
+- Add batch method to target multiple indices
+- Add strategy parameter for the multipleQueries
+- Add new method to generate secured api key from query parameters
+
 1.2.0 (2015-04-09)
 ------------------
 
