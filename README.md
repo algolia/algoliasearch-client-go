@@ -8,9 +8,7 @@
 Our Go client lets you easily use the [Algolia Search API](https://www.algolia.com/doc/rest_api) from your backend. It wraps the [Algolia Search REST API](http://www.algolia.com/doc/rest_api).
 
 
-Supported version:![Supported version](https://img.shields.io/badge/Go-%3E=1.3-green.svg)
-
-[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)[![Coverage Status](https://coveralls.io/repos/algolia/algoliasearch-client-go/badge.png)](https://coveralls.io/r/algolia/algoliasearch-client-go)
+[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)[![Coverage Status](https://coveralls.io/repos/algolia/algoliasearch-client-go/badge.png)](https://coveralls.io/r/algolia/algoliasearch-client-go) ![Supported version](https://img.shields.io/badge/Go-%3E=1.3-green.svg)
 
 
 
@@ -462,6 +460,8 @@ queries[2] = map[string]interface{}{"indexName": "products", "query": myQueryStr
 
 res, err := client.MultipleQueries(queries)
 ```
+
+The resulting JSON answer contains a ```results``` array storing the underlying queries answers. The answers order is the same than the requests order.
 
 You can specify a strategy to optimize your multiple queries:
 - **none**: Execute the sequence of queries until the end.
