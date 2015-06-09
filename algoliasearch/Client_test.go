@@ -339,6 +339,35 @@ func TestBrowse(t *testing.T) {
   index.Delete()
 }
 
+func TestBrowseWithCursor(t *testing.T) {
+  _, index := initTest(t)
+  object := make(map[string]interface{})
+  object["name"] = "John Snow"
+  object["objectID"] = "àlgol?à"
+  resp, err := index.AddObject(object)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  _, err = index.WaitTask(resp)
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  items, err := index.BrowseAll(map[string]interface{}{"query": ""})
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  hit, err := items.Next()
+  if err != nil {
+    t.Fatalf(err.Error())
+  }
+  shouldStr(hit, "name", "John Snow", "Unable to browse index with cursor", t)
+  hit, err = items.Next()
+  if err == nil {
+    t.Fatalf("Should contains only one elt")
+  }
+  index.Delete()
+}
+
 func TestQuery(t *testing.T) {
   _, index := initTest(t)
   object := make(map[string]interface{})

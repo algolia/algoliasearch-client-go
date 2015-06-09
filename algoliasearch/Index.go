@@ -211,8 +211,26 @@ func (i *Index) CustomBatch(queries interface{}) (interface{}, error) {
   return i.client.transport.request("POST", "/1/indexes/" + i.nameEncoded + "/batch", request, write)
 }
 
+// Deprecated use BrowseFrom or BrowseAll
 func (i *Index) Browse(page, hitsPerPage int) (interface{}, error) {
   return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse?page=" + strconv.Itoa(page) + "&hitsPerPage=" + strconv.Itoa(hitsPerPage) , nil, read)
+}
+
+func (i *Index) makeIndexIterator(params interface{}, cursor string) (*IndexIterator, error) {
+  it := new(IndexIterator)
+  it.answer = map[string]interface{} {"cursor": cursor}
+  it.pos = 0
+  it.index = i
+  ok := it.loadNextPage()
+  return it, ok
+}
+
+func (i *Index) BrowseFrom(params interface{}, cursor string) (*IndexIterator, error) {
+ return i.makeIndexIterator(params, cursor)
+}
+
+func (i *Index) BrowseAll(params interface{}) (*IndexIterator, error) {
+ return i.BrowseFrom(params, "")
 }
 
 func (i *Index) Search(query string, params interface{}) (interface{}, error) {
