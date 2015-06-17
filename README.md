@@ -610,7 +610,15 @@ res, err := index.Clear()
 Wait indexing
 -------------
 
-All write operations return a `taskID` when the job is securely stored on our infrastructure but not when the job is published in your index. Even if it's extremely fast, you can easily ensure indexing is complete using the `waitTask` method on the `taskID` returned by a write operation.
+All write operations in Algolia are asynchronous by design.
+
+It means that when you add or update an object to your index, our servers will
+reply to your request with a `taskID` as soon as they understood the write
+operation.
+
+The actual insert and indexing will be done after replying to your code.
+
+You can wait for a task to complete using the `waitTask` method on the `taskID` returned by a write operation.
 
 For example, to wait for indexing of a new object:
 ```go
@@ -621,8 +629,8 @@ task, _ := index.AddObject(object)
 _, err := index.WaitTask(task)
 ```
 
-
-If you want to ensure multiple objects have been indexed, you only need check the biggest taskID.
+If you want to ensure multiple objects have been indexed, you only need to check
+the biggest `taskID`.
 
 Batch writes
 -------------
