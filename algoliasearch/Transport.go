@@ -42,6 +42,7 @@ func NewTransport(appID, apiKey string) *Transport {
   transport.apiKey = apiKey
   tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
+  transport.headers = make(map[string]string)
   //transport.hosts = [3]string{"https://" + appID + suffix[perm[0]], "https://" + appID + suffix[perm[1]], "https://" + appID + suffix[perm[2]], }
   transport.hosts = make([]string, 3)
   transport.hosts[0] = appID + "-1.algolianet.com"
@@ -60,6 +61,7 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
   transport.apiKey = apiKey
   tr := &http.Transport{DisableKeepAlives: false, MaxIdleConnsPerHost: 2}
   transport.httpClient = &http.Client{Transport: tr}
+  transport.headers = make(map[string]string)
   transport.hosts = hosts
   transport.hostsProvided = true
   transport.connectTimeout = 2 * time.Second
@@ -188,7 +190,7 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 func (t *Transport) addHeaders(req *http.Request) *http.Request {
   req.Header.Add("X-Algolia-API-Key", t.apiKey)
   req.Header.Add("X-Algolia-Application-Id", t.appID)
-  req.Header.Add("Connection", "keep-alive") 
+  req.Header.Add("Connection", "keep-alive")
   req.Header.Add("User-Agent", "Algolia for go " + version)
   for key := range t.headers {
     req.Header.Add(key, t.headers[key])
@@ -205,7 +207,7 @@ func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
   var jsonResp interface{}
   err = json.Unmarshal(res, &jsonResp)
   if err != nil {
-    return nil, errors.New("Invalid JSON in the response") 
+    return nil, errors.New("Invalid JSON in the response")
   }
   if resp.StatusCode >= 200 && resp.StatusCode < 300 {
     return jsonResp, nil
