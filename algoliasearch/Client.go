@@ -111,6 +111,10 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
   return hex.EncodeToString(h.Sum(nil)), nil
 }
 
+func (c *Client) EncodeParams(body interface{}) (string) {
+  return c.transport.EncodeParams(body)
+}
+
 func (c *Client) MultipleQueries(queries []interface{}, optionals ...string) (interface{}, error) {
   if len(optionals) > 2 {
     return "", errors.New("Too many parametters")
