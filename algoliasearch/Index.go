@@ -219,18 +219,24 @@ func (i *Index) Browse(page, hitsPerPage int) (interface{}, error) {
 func (i *Index) makeIndexIterator(params interface{}, cursor string) (*IndexIterator, error) {
   it := new(IndexIterator)
   it.answer = map[string]interface{} {"cursor": cursor}
+  it.params = params
   it.pos = 0
   it.index = i
   ok := it.loadNextPage()
   return it, ok
 }
 
-func (i *Index) BrowseFrom(params interface{}, cursor string) (*IndexIterator, error) {
- return i.makeIndexIterator(params, cursor)
+func (i *Index) BrowseFrom(params interface{}, cursor string) (interface{}, error) {
+  if (len(cursor) != 0) {
+    cursor = "&cursor=" + cursor
+  } else {
+    cursor = ""
+  }
+ return i.client.transport.request("GET", "/1/indexes/" + i.nameEncoded + "/browse?" + i.client.transport.EncodeParams(params) + cursor, nil, read)
 }
 
 func (i *Index) BrowseAll(params interface{}) (*IndexIterator, error) {
- return i.BrowseFrom(params, "")
+ return i.makeIndexIterator(params, "")
 }
 
 func (i *Index) Search(query string, params interface{}) (interface{}, error) {

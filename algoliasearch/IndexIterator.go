@@ -6,7 +6,7 @@ import (
 
 type IndexIterator struct {
   answer interface{}
-  params string
+  params interface{}
   pos int
   index *Index
 }
@@ -39,13 +39,8 @@ func (it *IndexIterator) GetCursor() (string, bool) {
 
 func (it *IndexIterator) loadNextPage() (error) {
 	it.pos = 0
-	cursor, ok := it.GetCursor()
-	if (ok && len(cursor) != 0) {
-		cursor = "&cursor=" + cursor	
-	} else {
-		cursor = ""
-	}
-	answer, err := it.index.client.transport.request("GET", "/1/indexes/" + it.index.nameEncoded + "/browse?" + it.params + cursor, nil, read) 
+	cursor, _ := it.GetCursor()
+	answer, err := it.index.BrowseFrom(it.params, cursor)
 	it.answer = answer
 	return err
 }
