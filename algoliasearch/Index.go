@@ -162,11 +162,10 @@ func (i *Index) DeleteByQuery(query string, params map[string]interface{}) (inte
 	if error != nil {
 		return results, error
 	}
-	for results.(map[string]interface{})["nbHits"].(float64) != 0 {
-		objectIDs := make([]string, len(results.(map[string]interface{})["hits"].([]interface{})))
-		for i := range results.(map[string]interface{})["hits"].([]interface{}) {
-			hits := results.(map[string]interface{})["hits"].([]interface{})[i].(map[string]interface{})
-			objectIDs[i] = hits["objectID"].(string)
+	for results.NbHits != 0 {
+		objectIDs := make([]string, len(results.Hits))
+		for i, hit := range results.Hits {
+			objectIDs[i] = hit["objectID"].(string)
 		}
 		task, error := i.DeleteObjects(objectIDs)
 		if error != nil {
@@ -239,14 +238,19 @@ func (i *Index) BrowseAll(params interface{}) (*IndexIterator, error) {
 	return i.makeIndexIterator(params, "")
 }
 
-func (i *Index) Search(query string, params interface{}) (interface{}, error) {
+func (i *Index) Search(query string, params interface{}) (result SearchResult, err error) {
 	if params == nil {
 		params = make(map[string]interface{})
 	}
 	params.(map[string]interface{})["query"] = query
 	body := make(map[string]interface{})
 	body["params"] = i.client.transport.EncodeParams(params)
-	return i.client.transport.request("POST", "/1/indexes/"+i.nameEncoded+"/query", body, search)
+	returned, err := i.client.transport.request("POST", "/1/indexes/"+i.nameEncoded+"/query", body, search)
+	if err != nil {
+		return
+	}
+	result = returned.(SearchResult)
+	return
 }
 
 func (i *Index) operation(name, op string) (interface{}, error) {

@@ -205,13 +205,13 @@ func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	var jsonResp interface{}
-	err = json.Unmarshal(res, &jsonResp)
+	var result SearchResult
+	err = json.Unmarshal(res, &result)
 	if err != nil {
 		return nil, errors.New("Invalid JSON in the response")
 	}
 	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
-		return jsonResp, nil
+		return result, nil
 	} else {
 		return nil, errors.New(string(res))
 	}
