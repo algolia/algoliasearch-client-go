@@ -1,6 +1,9 @@
 package algoliasearch
 
-import "net/http"
+import (
+	"net"
+	"net/http"
+)
 import "net/url"
 import "io/ioutil"
 import "bytes"
@@ -39,12 +42,16 @@ func NewTransport(appID, apiKey string) *Transport {
 	transport.appID = appID
 	transport.apiKey = apiKey
 	tr := &http.Transport{
-		DisableKeepAlives:     false,
-		MaxIdleConnsPerHost:   2,
+		DisableKeepAlives:   false,
+		MaxIdleConnsPerHost: 2,
+		Dial: (&net.Dialer{
+			Timeout:   15 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).Dial,
 		TLSHandshakeTimeout:   time.Second * 2,
 		ResponseHeaderTimeout: time.Second * 10}
 
-	transport.httpClient = &http.Client{Transport: tr}
+	transport.httpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
 	transport.headers = make(map[string]string)
 	transport.hosts = make([]string, 3)
 	transport.hosts[0] = appID + "-1.algolianet.com"
@@ -59,12 +66,16 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 	transport.appID = appID
 	transport.apiKey = apiKey
 	tr := &http.Transport{
-		DisableKeepAlives:     false,
-		MaxIdleConnsPerHost:   2,
+		DisableKeepAlives:   false,
+		MaxIdleConnsPerHost: 2,
+		Dial: (&net.Dialer{
+			Timeout:   15 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).Dial,
 		TLSHandshakeTimeout:   time.Second * 2,
 		ResponseHeaderTimeout: time.Second * 10}
 
-	transport.httpClient = &http.Client{Transport: tr}
+	transport.httpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
 	transport.headers = make(map[string]string)
 	transport.hosts = hosts
 	transport.hostsProvided = true
