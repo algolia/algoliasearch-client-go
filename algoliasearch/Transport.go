@@ -41,7 +41,7 @@ func NewTransport(appID, apiKey string) *Transport {
 	tr := &http.Transport{
 		DisableKeepAlives:     false,
 		MaxIdleConnsPerHost:   2,
-		TLSHandshakeTimeout:   time.Second,
+		TLSHandshakeTimeout:   time.Second * 2,
 		ResponseHeaderTimeout: time.Second * 10}
 
 	transport.httpClient = &http.Client{Transport: tr}
@@ -61,7 +61,7 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 	tr := &http.Transport{
 		DisableKeepAlives:     false,
 		MaxIdleConnsPerHost:   2,
-		TLSHandshakeTimeout:   time.Second,
+		TLSHandshakeTimeout:   time.Second * 2,
 		ResponseHeaderTimeout: time.Second * 10}
 
 	transport.httpClient = &http.Client{Transport: tr}
@@ -178,8 +178,6 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 			Opaque: "//" + host + path, //Remove url encoding
 		}
 	}
-	t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout += 2 * time.Second
-	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = 10 * time.Second
 	return req, err
 }
 
