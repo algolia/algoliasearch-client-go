@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
+	"net/http"
 	"reflect"
 	"time"
 	"strings"
@@ -33,6 +34,10 @@ func (c *Client) SetExtraHeader(key string, value string) {
 
 func (c *Client) SetTimeout(connectTimeout int, readTimeout int) {
 	c.transport.setTimeout(time.Duration(connectTimeout)*time.Millisecond, time.Duration(readTimeout)*time.Millisecond)
+}
+
+func (c *Client) SetHTTPClient(client *http.Client) {
+	c.transport.httpClient = client
 }
 
 func (c *Client) ListIndexes() (interface{}, error) {

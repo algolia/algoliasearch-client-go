@@ -1,6 +1,8 @@
 package algoliasearch
 
 import (
+	"golang.org/x/net/context"
+	"google.golang.org/appengine/urlfetch"
 	"net"
 	"net/http"
 )
@@ -83,8 +85,17 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 }
 
 func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Duration) {
-	t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
-	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
+	switch transport := t.httpClient.Transport.(type) {
+	case *http.Transport:
+		transport.TLSHandshakeTimeout = connectTimeout
+		transport.ResponseHeaderTimeout = readTimeout
+
+	case *urlfetch.Transport:
+		transport.Context, _ = context.WithTimeout(transport.Context, readTimeout)
+
+	default:
+		panic("unknown type for http client transport")
+	}
 }
 
 func (t *Transport) urlEncode(value string) string {
