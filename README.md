@@ -386,7 +386,7 @@ You can use the following optional arguments:
   * **none**: If none of the query terms were found.
  * **attributesToSnippet**: A string that contains the list of attributes to snippet alongside the number of words to return (syntax is `attributeName:nbWords`). Attributes are separated by commas (Example: `attributesToSnippet=name:10,content:10`). <br/>You can also use a string array encoding (Example: `attributesToSnippet: ["name:10","content:10"]`). By default, no snippet is computed.
  * **getRankingInfo**: If set to 1, the result hits will contain ranking information in the **_rankingInfo** attribute.
- 
+
 
 #### Numeric Search Parameters
  * **numericFilters**: A string that contains the comma separated list of numeric filters you want to apply. The filter syntax is `attributeName` followed by `operand` followed by `value`. Supported operands are `<`, `<=`, `=`, `>` and `>=`.
@@ -968,7 +968,3 @@ res, err = client.GetLogs(0, 100, false)
 // Get last 100 log errors
 res, err = client.GetLogs(0, 100, true)
 ```
-
-
-
-
