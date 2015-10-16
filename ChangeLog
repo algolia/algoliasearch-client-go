@@ -1,7 +1,14 @@
 Changelog
 =========
 
+1.4.0 (2014-10-16)
+------------------
+
+- Add new secured api keys
+- Fix bug with distinct in deleteByQuery
+
 1.3.0 (2014-07-07)
+------------------
 
 - Add new browse methods
 
