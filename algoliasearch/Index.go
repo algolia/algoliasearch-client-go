@@ -157,6 +157,7 @@ func (i *Index) DeleteByQuery(query string, params map[string]interface{}) (inte
 	}
 	params["attributesToRetrieve"] = "[\"objectID\"]"
 	params["hitsPerPage"] = 1000
+	params["distinct"] = false
 
 	results, error := i.Search(query, params)
 	if error != nil {
