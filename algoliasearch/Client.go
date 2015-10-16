@@ -7,6 +7,8 @@ import (
 	"errors"
 	"reflect"
 	"time"
+	"strings"
+	"encoding/base64"
 )
 
 type Client struct {
@@ -93,21 +95,35 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
 	if len(userToken) > 1 {
 		return "", errors.New("Too many parameters")
 	}
-	key := []byte(apiKey)
-	h := hmac.New(sha256.New, key)
+
 	var userTokenStr string
+	var message string
 	if len(userToken) == 1 {
 		userTokenStr = userToken[0]
 	} else {
 		userTokenStr = ""
 	}
-	if reflect.TypeOf(public).Name() != "string" {
-		public = c.transport.EncodeParams(public)
+	if reflect.TypeOf(public).Name() != "string" { // QueryParameters
+		if len(userTokenStr) != 0 {
+			public.(map[string]interface{})["userToken"] = userTokenStr
+		}
+		message = c.transport.EncodeParams(public)
+	} else if strings.Contains(public.(string), "=") && len(userTokenStr) != 0 { // Url encoded query parameters
+		message = public.(string) + "userToken=" + c.transport.urlEncode(userTokenStr)
+	} else { // TagFilters
+		queryParameters := make(map[string]interface{})
+		queryParameters["tagFilters"] = public
+		if len(userTokenStr) != 0 {
+			queryParameters["userToken"] = userTokenStr
+		}
+		message = c.transport.EncodeParams(queryParameters)
 	}
 
-	message := public.(string) + userTokenStr
+	key := []byte(apiKey)
+	h := hmac.New(sha256.New, key)
 	h.Write([]byte(message))
-	return hex.EncodeToString(h.Sum(nil)), nil
+	securedKey := hex.EncodeToString(h.Sum(nil))
+	return base64.StdEncoding.EncodeToString([]byte(securedKey + message)), nil
 }
 
 func (c *Client) EncodeParams(body interface{}) string {

@@ -713,19 +713,28 @@ func TestKeepAlive(t *testing.T) {
   }
 }*/
 
-func TestGenerateSecuredApiKey(t *testing.T) {
+func TestGenerateNewSecuredApiKey(t *testing.T) {
 	client, _ := initTest(t)
-	query := make(map[string]interface{})
-	query["hitsPerPage"] = 20
-	key, _ := client.GenerateSecuredApiKey("my_api_key", query)
-	key, _ = client.GenerateSecuredApiKey("my_api_key", "(public,user1)")
-	if "1fd74b206c64fb49fdcd7a5f3004356cd3bdc9d9aba8733656443e64daafc417" != key {
-		t.Fatalf("Invalid key: " + key)
+	key, _ := client.GenerateSecuredApiKey("182634d8894831d5dbce3b3185c50881", "(public,user1)")
+	expected := "MDZkNWNjNDY4M2MzMDA0NmUyNmNkZjY5OTMzYjVlNmVlMTk1NTEwMGNmNTVjZmJhMmIwOTIzYjdjMTk2NTFiMnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjk="
+	if expected != key {
+		t.Fatalf("Invalid key: " + key + " != " + expected)
 	}
-	key, _ = client.GenerateSecuredApiKey("my_api_key", "(public,user1)", "user1")
-	if "5d50c79541de552654e3fad2091c38a457b56992d61b342fb09da8c42fbbe043" != key {
-		t.Fatalf("Invalid key: " + key)
-	}
+	key, _ = client.GenerateSecuredApiKey("182634d8894831d5dbce3b3185c50881", map[string]interface{}{"tagFilters": "(public,user1)"})
+	expected = "MDZkNWNjNDY4M2MzMDA0NmUyNmNkZjY5OTMzYjVlNmVlMTk1NTEwMGNmNTVjZmJhMmIwOTIzYjdjMTk2NTFiMnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjk="
+    if expected != key {
+    	t.Fatalf("Invalid key: " + key + " != " + expected)
+    }
+    key, _ = client.GenerateSecuredApiKey("182634d8894831d5dbce3b3185c50881", map[string]interface{}{"tagFilters": "(public,user1)", "userToken": "42"})
+    expected = "OGYwN2NlNTdlOGM2ZmM4MjA5NGM0ZmYwNTk3MDBkNzMzZjQ0MDI3MWZjNTNjM2Y3YTAzMWM4NTBkMzRiNTM5YnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjkmdXNlclRva2VuPTQy"
+    if expected != key {
+    	t.Fatalf("Invalid key: " + key + " != " + expected)
+    }
+    key, _ = client.GenerateSecuredApiKey("182634d8894831d5dbce3b3185c50881", map[string]interface{}{"tagFilters": "(public,user1)"}, "42")
+    expected = "OGYwN2NlNTdlOGM2ZmM4MjA5NGM0ZmYwNTk3MDBkNzMzZjQ0MDI3MWZjNTNjM2Y3YTAzMWM4NTBkMzRiNTM5YnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjkmdXNlclRva2VuPTQy"
+    if expected != key {
+    	t.Fatalf("Invalid key: " + key + " != " + expected)
+    }
 }
 
 func TestMultipleQueries(t *testing.T) {
