@@ -12,31 +12,31 @@ import (
 )
 
 type Client struct {
-	transport *Transport
+	Transport *Transport
 }
 
 func NewClient(appID, apiKey string) *Client {
 	client := new(Client)
-	client.transport = NewTransport(appID, apiKey)
+	client.Transport = NewTransport(appID, apiKey)
 	return client
 }
 
 func NewClientWithHosts(appID, apiKey string, hosts []string) *Client {
 	client := new(Client)
-	client.transport = NewTransportWithHosts(appID, apiKey, hosts)
+	client.Transport = NewTransportWithHosts(appID, apiKey, hosts)
 	return client
 }
 
 func (c *Client) SetExtraHeader(key string, value string) {
-	c.transport.setExtraHeader(key, value)
+	c.Transport.setExtraHeader(key, value)
 }
 
 func (c *Client) SetTimeout(connectTimeout int, readTimeout int) {
-	c.transport.setTimeout(time.Duration(connectTimeout)*time.Millisecond, time.Duration(readTimeout)*time.Millisecond)
+	c.Transport.setTimeout(time.Duration(connectTimeout)*time.Millisecond, time.Duration(readTimeout)*time.Millisecond)
 }
 
 func (c *Client) ListIndexes() (interface{}, error) {
-	return c.transport.request("GET", "/1/indexes", nil, read)
+	return c.Transport.request("GET", "/1/indexes", nil, read)
 }
 
 func (c *Client) InitIndex(indexName string) *Index {
@@ -44,7 +44,7 @@ func (c *Client) InitIndex(indexName string) *Index {
 }
 
 func (c *Client) ListKeys() (interface{}, error) {
-	return c.transport.request("GET", "/1/keys", nil, read)
+	return c.Transport.request("GET", "/1/keys", nil, read)
 }
 
 func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -58,7 +58,7 @@ func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerH
 }
 
 func (c *Client) AddKeyWithParam(params interface{}) (interface{}, error) {
-	return c.transport.request("POST", "/1/keys/", params, read)
+	return c.Transport.request("POST", "/1/keys/", params, read)
 }
 
 func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
@@ -72,15 +72,15 @@ func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQ
 }
 
 func (c *Client) UpdateKeyWithParam(key string, params interface{}) (interface{}, error) {
-	return c.transport.request("PUT", "/1/keys/"+key, params, write)
+	return c.Transport.request("PUT", "/1/keys/"+key, params, write)
 }
 
 func (c *Client) GetKey(key string) (interface{}, error) {
-	return c.transport.request("GET", "/1/keys/"+key, nil, read)
+	return c.Transport.request("GET", "/1/keys/"+key, nil, read)
 }
 
 func (c *Client) DeleteKey(key string) (interface{}, error) {
-	return c.transport.request("DELETE", "/1/keys/"+key, nil, write)
+	return c.Transport.request("DELETE", "/1/keys/"+key, nil, write)
 }
 
 func (c *Client) GetLogs(offset, length int, logType string) (interface{}, error) {
@@ -88,7 +88,7 @@ func (c *Client) GetLogs(offset, length int, logType string) (interface{}, error
 	body["offset"] = offset
 	body["length"] = length
 	body["type"] = logType
-	return c.transport.request("GET", "/1/logs", body, write)
+	return c.Transport.request("GET", "/1/logs", body, write)
 }
 
 func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userToken ...string) (string, error) {
@@ -107,16 +107,16 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
 		if len(userTokenStr) != 0 {
 			public.(map[string]interface{})["userToken"] = userTokenStr
 		}
-		message = c.transport.EncodeParams(public)
+		message = c.Transport.EncodeParams(public)
 	} else if strings.Contains(public.(string), "=") && len(userTokenStr) != 0 { // Url encoded query parameters
-		message = public.(string) + "userToken=" + c.transport.urlEncode(userTokenStr)
+		message = public.(string) + "userToken=" + c.Transport.urlEncode(userTokenStr)
 	} else { // TagFilters
 		queryParameters := make(map[string]interface{})
 		queryParameters["tagFilters"] = public
 		if len(userTokenStr) != 0 {
 			queryParameters["userToken"] = userTokenStr
 		}
-		message = c.transport.EncodeParams(queryParameters)
+		message = c.Transport.EncodeParams(queryParameters)
 	}
 
 	key := []byte(apiKey)
@@ -127,7 +127,7 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
 }
 
 func (c *Client) EncodeParams(body interface{}) string {
-	return c.transport.EncodeParams(body)
+	return c.Transport.EncodeParams(body)
 }
 
 func (c *Client) MultipleQueries(queries []interface{}, optionals ...string) (interface{}, error) {
@@ -149,15 +149,15 @@ func (c *Client) MultipleQueries(queries []interface{}, optionals ...string) (in
 		requests[i] = make(map[string]interface{})
 		requests[i]["indexName"] = queries[i].(map[string]interface{})[nameKey].(string)
 		delete(queries[i].(map[string]interface{}), nameKey)
-		requests[i]["params"] = c.transport.EncodeParams(queries[i])
+		requests[i]["params"] = c.Transport.EncodeParams(queries[i])
 	}
 	body := make(map[string]interface{})
 	body["requests"] = requests
-	return c.transport.request("POST", "/1/indexes/*/queries?strategy="+strategy, body, search)
+	return c.Transport.request("POST", "/1/indexes/*/queries?strategy="+strategy, body, search)
 }
 
 func (c *Client) CustomBatch(queries interface{}) (interface{}, error) {
 	request := make(map[string]interface{})
 	request["requests"] = queries
-	return c.transport.request("POST", "/1/indexes/*/batch", request, write)
+	return c.Transport.request("POST", "/1/indexes/*/batch", request, write)
 }
