@@ -29,7 +29,7 @@ const (
 )
 
 type Transport struct {
-	httpClient    *http.Client
+	HttpClient    *http.Client
 	appID         string
 	apiKey        string
 	headers       map[string]string
@@ -38,9 +38,9 @@ type Transport struct {
 }
 
 func NewTransport(appID, apiKey string) *Transport {
-	transport := new(Transport)
-	transport.appID = appID
-	transport.apiKey = apiKey
+	Transport := new(Transport)
+	Transport.appID = appID
+	Transport.apiKey = apiKey
 	tr := &http.Transport{
 		DisableKeepAlives:   false,
 		MaxIdleConnsPerHost: 2,
@@ -51,20 +51,20 @@ func NewTransport(appID, apiKey string) *Transport {
 		TLSHandshakeTimeout:   time.Second * 2,
 		ResponseHeaderTimeout: time.Second * 10}
 
-	transport.httpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
-	transport.headers = make(map[string]string)
-	transport.hosts = make([]string, 3)
-	transport.hosts[0] = appID + "-1.algolianet.com"
-	transport.hosts[1] = appID + "-2.algolianet.com"
-	transport.hosts[2] = appID + "-3.algolianet.com"
-	transport.hostsProvided = false
-	return transport
+	Transport.HttpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
+	Transport.headers = make(map[string]string)
+	Transport.hosts = make([]string, 3)
+	Transport.hosts[0] = appID + "-1.algolianet.com"
+	Transport.hosts[1] = appID + "-2.algolianet.com"
+	Transport.hosts[2] = appID + "-3.algolianet.com"
+	Transport.hostsProvided = false
+	return Transport
 }
 
 func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
-	transport := new(Transport)
-	transport.appID = appID
-	transport.apiKey = apiKey
+	Transport := new(Transport)
+	Transport.appID = appID
+	Transport.apiKey = apiKey
 	tr := &http.Transport{
 		DisableKeepAlives:   false,
 		MaxIdleConnsPerHost: 2,
@@ -75,16 +75,16 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 		TLSHandshakeTimeout:   time.Second * 2,
 		ResponseHeaderTimeout: time.Second * 10}
 
-	transport.httpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
-	transport.headers = make(map[string]string)
-	transport.hosts = hosts
-	transport.hostsProvided = true
-	return transport
+	Transport.HttpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
+	Transport.headers = make(map[string]string)
+	Transport.hosts = hosts
+	Transport.hostsProvided = true
+	return Transport
 }
 
 func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Duration) {
-	t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
-	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
+	t.HttpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
+	t.HttpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
 }
 
 func (t *Transport) urlEncode(value string) string {
@@ -129,7 +129,7 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 			return nil, err
 		}
 		req = t.addHeaders(req)
-		resp, err := t.httpClient.Do(req)
+		resp, err := t.HttpClient.Do(req)
 		if err != nil {
 			if len(errorMsg) > 0 {
 				errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, host, err)
@@ -149,7 +149,7 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 			return nil, err
 		}
 		req = t.addHeaders(req)
-		resp, err := t.httpClient.Do(req)
+		resp, err := t.HttpClient.Do(req)
 		if err != nil {
 			if len(errorMsg) > 0 {
 				errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, t.hosts[it], err)
