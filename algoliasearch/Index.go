@@ -110,10 +110,6 @@ func (i *Index) DeleteKey(key string) (interface{}, error) {
 func (i *Index) AddObject(object interface{}) (interface{}, error) {
 	method := "POST"
 	path := "/1/indexes/" + i.nameEncoded
-	if id, ok := object.(map[string]interface{})["objectID"]; ok {
-		method = "PUT"
-		path = path + "/" + i.client.transport.urlEncode(id.(string))
-	}
 	return i.client.transport.request(method, path, object, write)
 }
 
