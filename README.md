@@ -22,6 +22,7 @@ Table of Contents
 
 1. [Setup](#setup)
 1. [Quick Start](#quick-start)
+
 1. [Online documentation](#documentation)
 1. [Tutorials](#tutorials)
 
@@ -52,6 +53,7 @@ Table of Contents
 Setup
 -------------
 To setup your project, follow these steps:
+
 
 
 
@@ -148,6 +150,8 @@ function searchCallback(err, content) {
 }
 </script>
 ```
+
+
 
 
 
@@ -549,7 +553,7 @@ res, err := index.DeleteByQuery("john", params)
 Index Settings
 -------------
 
-You can retrieve all settings using the `` function. The result will contain the following attributes:
+You can retrieve all settings using the `GetSettings` function. The result will contain the following attributes:
 
 
 #### Indexing parameters
@@ -611,7 +615,7 @@ You can decide to have the same priority for two attributes by passing them in t
  * **advancedSyntax**: Enable the advanced query syntax. Defaults to 0 (false).
 
   * **Phrase query:** a phrase query defines a particular sequence of terms. A phrase query is build by Algolia's query parser for words surrounded by `"`. For example, `"search engine"` will retrieve records having `search` next to `engine` only. Typo-tolerance is disabled on phrase queries.
-  
+
   * **Prohibit operator:** The prohibit operator excludes records that contain the term after the `-` symbol. For example `search -engine` will retrieve records containing `search` but not `engine`.
  * **replaceSynonymsInHighlight**: (boolean) If set to false, words matched via synonyms expansion will not be replaced by the matched synonym in the highlighted result. Default to true.
  * **maxValuesPerFacet**: (integer) Limit the number of facet values returned for each facet. For example: `maxValuesPerFacet=10` will retrieve max 10 values per facet.
@@ -641,7 +645,7 @@ res, err := index.SetSettings(settings)
 
 List indices
 -------------
-You can list all your indices along with their associated information (number of entries, disk size, etc.) with the `` method:
+You can list all your indices along with their associated information (number of entries, disk size, etc.) with the `ListIndexes` method:
 
 ```go
 res, err := client.ListIndexes()
@@ -694,10 +698,10 @@ Batch writes
 
 You may want to perform multiple operations with one API call to reduce latency.
 We expose four methods to perform batch operations:
- * **AddObjects:** Add an array of objects using automatic `objectID` assignment.
- * **UpdateObjects:** Add or update an array of objects that contains an `objectID` attribute.
- * **DeleteObjects:** Delete an array of objectIDs.
- * **PartialUpdateObjects:** Partially update an array of objects that contain an `objectID` attribute (only specified attributes will be updated).
+ * `AddObjects`: Add an array of objects using automatic `objectID` assignment.
+ * `UpdateObjects`: Add or update an array of objects that contains an `objectID` attribute.
+ * `DeleteObjects`: Delete an array of objectIDs.
+ * `PartialUpdateObjects`: Partially update an array of objects that contain an `objectID` attribute (only specified attributes will be updated).
 
 Example using automatic `objectID` assignment:
 ```go
@@ -918,11 +922,24 @@ res, err := client.InitIndex("MyNewIndex").Move("MyIndex")
 Backup / Retrieve of all index content
 -------------
 
-You can retrieve all index content for backup purposes or for SEO using the browse method.
-This method can retrieve up to 1,000 objects per call and supports full text search and filters but the distinct feature is not available
-Unlike the search method, the sort by typo, proximity, geo distance and matched words is not applied, the hits are only sorted by numeric attributes specified in the ranking and the custom ranking.
+The `search` method cannot return more than 1,000 results. If you need to
+retrieve all the content of your index (for backup, SEO purposes or for running
+a script on it), you should use the `browse` method instead. This method lets
+you retrieve objects beyond the 1,000 limit.
 
-You can browse the index:
+This method is optimized for speed. To make it fast, distinct, typo-tolerance,
+word proximity, geo distance and number of matched words are disabled. Results
+are still returned ranked by attributes and custom ranking.
+
+
+It will return a `cursor` alongside your data, that you can then use to retrieve
+the next chunk of your records.
+
+You can specify custom parameters (like `page` or `hitsPerPage`) on your first
+`browse` call, and these parameters will then be included in the `cursor`. Note
+that it is not possible to access records beyond the 1,000th on the first call.
+
+Example:
 
 ```go
 // Iterate with a filter over the index
@@ -938,6 +955,7 @@ for {
 res, err := index.BrowseFrom(map[string]interface{}{"query": "text", "numericFilters": "i<42", "")
 fmt.Printf(res.(map[string]interface{})["cursor"])
 ```
+
 
 
 
@@ -972,6 +990,8 @@ res, err = client.GetLogs(0, 100, false)
 // Get last 100 log errors
 res, err = client.GetLogs(0, 100, true)
 ```
+
+
 
 
 
