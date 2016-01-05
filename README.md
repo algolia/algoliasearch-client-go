@@ -694,10 +694,10 @@ Batch writes
 
 You may want to perform multiple operations with one API call to reduce latency.
 We expose four methods to perform batch operations:
- * ``: Add an array of objects using automatic `objectID` assignment.
- * ``: Add or update an array of objects that contains an `objectID` attribute.
- * ``: Delete an array of objectIDs.
- * ``: Partially update an array of objects that contain an `objectID` attribute (only specified attributes will be updated).
+ * **AddObjects:** Add an array of objects using automatic `objectID` assignment.
+ * **UpdateObjects:** Add or update an array of objects that contains an `objectID` attribute.
+ * **DeleteObjects:** Delete an array of objectIDs.
+ * **PartialUpdateObjects:** Partially update an array of objects that contain an `objectID` attribute (only specified attributes will be updated).
 
 Example using automatic `objectID` assignment:
 ```go
