@@ -108,8 +108,12 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
 			public.(map[string]interface{})["userToken"] = userTokenStr
 		}
 		message = c.transport.EncodeParams(public)
-	} else if strings.Contains(public.(string), "=") && len(userTokenStr) != 0 { // Url encoded query parameters
-		message = public.(string) + "userToken=" + c.transport.urlEncode(userTokenStr)
+	} else if strings.Contains(public.(string), "=") { // Url encoded query parameters
+		if (len(userTokenStr) != 0) {
+			message = public.(string) + "&" + c.transport.EncodeParams("userToken=" + c.transport.urlEncode(userTokenStr))
+		} else {
+			message = public.(string)
+		}
 	} else { // TagFilters
 		queryParameters := make(map[string]interface{})
 		queryParameters["tagFilters"] = public

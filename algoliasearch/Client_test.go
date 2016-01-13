@@ -720,6 +720,11 @@ func TestGenerateNewSecuredApiKey(t *testing.T) {
 	if expected != key {
 		t.Fatalf("Invalid key: " + key + " != " + expected)
 	}
+	key, _ = client.GenerateSecuredApiKey("182634d8894831d5dbce3b3185c50881", "tagFilters=%28public%2Cuser1%29")
+	expected = "MDZkNWNjNDY4M2MzMDA0NmUyNmNkZjY5OTMzYjVlNmVlMTk1NTEwMGNmNTVjZmJhMmIwOTIzYjdjMTk2NTFiMnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjk="
+	if expected != key {
+		t.Fatalf("Invalid key: " + key + " != " + expected)
+	}
 	key, _ = client.GenerateSecuredApiKey("182634d8894831d5dbce3b3185c50881", map[string]interface{}{"tagFilters": "(public,user1)"})
 	expected = "MDZkNWNjNDY4M2MzMDA0NmUyNmNkZjY5OTMzYjVlNmVlMTk1NTEwMGNmNTVjZmJhMmIwOTIzYjdjMTk2NTFiMnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjk="
     if expected != key {
