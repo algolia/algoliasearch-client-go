@@ -47,6 +47,14 @@ func (c *Client) ListKeys() (interface{}, error) {
 	return c.transport.request("GET", "/1/keys", nil, read)
 }
 
+func (c *Client) MoveIndex(source string, destination string) (interface{}, error) {
+	return c.InitIndex(source).Move(destination)
+}
+
+func (c *Client) CopyIndex(source string, destination string) (interface{}, error) {
+	return c.InitIndex(source).Copy(destination)
+}
+
 func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
 	body := make(map[string]interface{})
 	body["acl"] = acl

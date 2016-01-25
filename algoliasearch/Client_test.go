@@ -389,7 +389,7 @@ func TestQuery(t *testing.T) {
 	shouldFloat(results, "nbHits", 1, "Unable to query an index", t)
 }
 
-func TestCopy(t *testing.T) {
+func TestIndexCopy(t *testing.T) {
 	client, index := initTest(t)
 	object := make(map[string]interface{})
 	object["name"] = "John Snow"
@@ -416,7 +416,34 @@ func TestCopy(t *testing.T) {
 	indexCopy.Delete()
 }
 
-func TestMove(t *testing.T) {
+func TestCopy(t *testing.T) {
+	client, index := initTest(t)
+	object := make(map[string]interface{})
+	object["name"] = "John Snow"
+	object["objectID"] = "àlgol?à"
+	_, err := index.AddObject(object)
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	resp, err := client.CopyIndex(safeName("àlgol?à-go"), safeName("àlgo?à2-go"))
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	_, err = index.WaitTask(resp)
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	indexCopy := client.InitIndex(safeName("àlgo?à2-go"))
+	results, err := indexCopy.Search("", nil)
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	shouldFloat(results, "nbHits", 1, "Unable to copy an index", t)
+	index.Delete()
+	indexCopy.Delete()
+}
+
+func TestIndexMove(t *testing.T) {
 	client, index := initTest(t)
 	object := make(map[string]interface{})
 	object["name"] = "John Snow"
@@ -444,6 +471,33 @@ func TestMove(t *testing.T) {
 	}
 	shouldFloat(results, "nbHits", 1, "Unable to move an index", t)
 	indexMove.Delete()
+}
+
+func TestMove(t *testing.T) {
+	client, index := initTest(t)
+	object := make(map[string]interface{})
+	object["name"] = "John Snow"
+	object["objectID"] = "àlgol?à"
+	_, err := index.AddObject(object)
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	resp, err := client.MoveIndex(safeName("àlgol?à-go"), safeName("àlgo?à2-go"))
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	_, err = index.WaitTask(resp)
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	indexCopy := client.InitIndex(safeName("àlgo?à2-go"))
+	results, err := indexCopy.Search("", nil)
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	shouldFloat(results, "nbHits", 1, "Unable to copy an index", t)
+	index.Delete()
+	indexCopy.Delete()
 }
 
 func TestAddIndexKey(t *testing.T) {
