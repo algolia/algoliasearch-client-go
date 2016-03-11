@@ -1,6 +1,7 @@
 package algoliasearch
 
 import (
+	"io"
 	"net"
 	"net/http"
 )
@@ -139,6 +140,7 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 		} else if (resp.StatusCode/100) == 2 || (resp.StatusCode/100) == 4 { // Bad request, not found, forbidden
 			return t.handleResponse(resp)
 		} else {
+			io.Copy(ioutil.Discard, resp.Body)
 			resp.Body.Close()
 		}
 	}
@@ -161,6 +163,7 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 		if (resp.StatusCode/100) == 2 || (resp.StatusCode/100) == 4 { // Bad request, not found, forbidden
 			return t.handleResponse(resp)
 		} else {
+			io.Copy(ioutil.Discard, resp.Body)
 			resp.Body.Close()
 		}
 	}
