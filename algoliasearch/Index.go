@@ -126,6 +126,13 @@ func (i *Index) PartialUpdateObject(object interface{}) (interface{}, error) {
 	return i.client.transport.request("POST", path, object, write)
 }
 
+// BatchResponse is the response body of a successful call to
+// Algolia's batch write route
+type BatchResponse struct {
+	TaskID    int64
+	ObjectIDs []string
+}
+
 func (i *Index) AddObjects(objects interface{}) (interface{}, error) {
 	return i.sameBatch(objects, "addObject")
 }
@@ -148,19 +155,11 @@ func (i *Index) DeleteObjects(objectIDs []string) (interface{}, error) {
 	return i.sameBatch(objects, "deleteObject")
 }
 
-// AgBatchResponse is the response body of a successful call to
-// Algolia's batch write route, which is called from UpdateFiles
-// and RemoveFiles
-type AgBatchResponse struct {
-	TaskID    int64
-	ObjectIDs []string
-}
-
 // MakeBatchResponse takes in an interface{} from an Algolia response and
-// converts it to an AgBatchResponse struct. If the response was not valid,
+// converts it to an BatchResponse struct. If the response was not valid,
 // an error is returned.
-func MakeBatchResponse(res interface{}) (*AgBatchResponse, error) {
-	agBatchResponse := AgBatchResponse{}
+func MakeBatchResponse(res interface{}) (*BatchResponse, error) {
+	batchResponse := BatchResponse{}
 	resMap, ok := res.(map[string]interface{})
 	if !ok {
 		return nil, errors.New("Invalid response type")
@@ -168,7 +167,7 @@ func MakeBatchResponse(res interface{}) (*AgBatchResponse, error) {
 
 	if tID, ok := resMap["taskID"]; ok {
 		if taskID, ok := tID.(float64); ok {
-			agBatchResponse.TaskID = int64(taskID)
+			batchResponse.TaskID = int64(taskID)
 		} else {
 			return nil, fmt.Errorf("Algolia task response had non-numeric task ID, (type %d)", tID)
 		}
@@ -196,14 +195,14 @@ func MakeBatchResponse(res interface{}) (*AgBatchResponse, error) {
 					index++
 				}
 			}
-			agBatchResponse.ObjectIDs = ids
+			batchResponse.ObjectIDs = ids
 		} else {
 			return nil, fmt.Errorf("Algolia task response had object IDs of wrong type; (type %T)", oIDs)
 		}
 	} else {
 		return nil, errors.New("Algolia task response had no object IDs")
 	}
-	return &agBatchResponse, nil
+	return &batchResponse, nil
 }
 
 func (i *Index) DeleteByQuery(query string, params map[string]interface{}) (interface{}, error) {
