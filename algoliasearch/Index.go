@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"errors"
+	"fmt"
 	"net/url"
 	"reflect"
 	"strconv"
@@ -145,6 +146,64 @@ func (i *Index) DeleteObjects(objectIDs []string) (interface{}, error) {
 		objects[i] = object
 	}
 	return i.sameBatch(objects, "deleteObject")
+}
+
+// AgBatchResponse is the response body of a successful call to
+// Algolia's batch write route, which is called from UpdateFiles
+// and RemoveFiles
+type AgBatchResponse struct {
+	TaskID    int64
+	ObjectIDs []string
+}
+
+// MakeBatchResponse takes in an interface{} from an Algolia response and
+// converts it to an AgBatchResponse struct. If the response was not valid,
+// an error is returned.
+func MakeBatchResponse(res interface{}) (*AgBatchResponse, error) {
+	agBatchResponse := AgBatchResponse{}
+	resMap, ok := res.(map[string]interface{})
+	if !ok {
+		return nil, errors.New("Invalid response type")
+	}
+
+	if tID, ok := resMap["taskID"]; ok {
+		if taskID, ok := tID.(float64); ok {
+			agBatchResponse.TaskID = int64(taskID)
+		} else {
+			return nil, fmt.Errorf("Algolia task response had non-numeric task ID, (type %d)", tID)
+		}
+	} else {
+		return nil, errors.New("Algolia task response had no task ID")
+	}
+
+	if oIDs, ok := resMap["objectIDs"]; ok {
+		if objectIDs, ok := oIDs.([]interface{}); ok {
+			numStringIDs := 0
+			for _, id := range objectIDs {
+				if _, ok := id.(string); ok {
+					numStringIDs++
+				} else {
+					return nil,
+						fmt.Errorf("Algolia object ID %v could not be converted to a string (type %T)", id, ok)
+				}
+			}
+
+			ids := make([]string, numStringIDs)
+			index := 0
+			for _, id := range objectIDs {
+				if strID, ok := id.(string); ok {
+					ids[index] = strID
+					index++
+				}
+			}
+			agBatchResponse.ObjectIDs = ids
+		} else {
+			return nil, fmt.Errorf("Algolia task response had object IDs of wrong type; (type %T)", oIDs)
+		}
+	} else {
+		return nil, errors.New("Algolia task response had no object IDs")
+	}
+	return &agBatchResponse, nil
 }
 
 func (i *Index) DeleteByQuery(query string, params map[string]interface{}) (interface{}, error) {
