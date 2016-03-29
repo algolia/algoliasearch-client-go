@@ -225,7 +225,7 @@ func (i *Index) makeIndexIterator(params interface{}, cursor string) (*IndexIter
 
 func (i *Index) BrowseFrom(params interface{}, cursor string) (interface{}, error) {
 	if len(cursor) != 0 {
-		cursor = "&cursor=" + cursor
+		cursor = "&cursor=" + i.client.transport.urlEncode(cursor)
 	} else {
 		cursor = ""
 	}
