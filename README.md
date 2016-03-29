@@ -2244,7 +2244,7 @@ Example:
 
 ```go
 // Iterate with a filter over the index
-items, err := index.BrowseAll(map[string]interface{}{"query": "text", "numericFilters": "i<42"}
+items, err := index.BrowseAll(map[string]interface{}{"query": "text", "numericFilters": "i<42"})
 for {
 	hit, err := items.Next()
 	if err {
@@ -2253,7 +2253,7 @@ for {
 }
 
 // Retrieve the next cursor from the browse method
-res, err := index.BrowseFrom(map[string]interface{}{"query": "text", "numericFilters": "i<42", "")
+res, err := index.BrowseFrom(map[string]interface{}{"query": "text", "numericFilters": "i<42"}, "")
 fmt.Printf(res.(map[string]interface{})["cursor"])
 ```
 
