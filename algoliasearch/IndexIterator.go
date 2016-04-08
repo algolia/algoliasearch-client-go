@@ -8,7 +8,7 @@ type IndexIterator struct {
 	answer interface{}
 	params interface{}
 	pos    int
-	index  *Index
+	index  AlgoliaIndex
 }
 
 func (it *IndexIterator) Next() (interface{}, error) {

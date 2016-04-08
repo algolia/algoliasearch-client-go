@@ -11,6 +11,27 @@ import (
 	"encoding/base64"
 )
 
+type AlgoliaClient interface {
+	SetExtraHeader(key string, value string)
+	SetTimeout(connectTimeout int, readTimeout int)
+	ListIndexes() (interface{}, error)
+	InitIndex(indexName string) AlgoliaIndex
+	ListKeys() (interface{}, error)
+	MoveIndex(source string, destination string) (interface{}, error)
+	CopyIndex(source string, destination string) (interface{}, error)
+	AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error)
+	AddKeyWithParam(params interface{}) (interface{}, error)
+	UpdateKey(key string, acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error)
+	UpdateKeyWithParam(key string, params interface{}) (interface{}, error)
+	GetKey(key string) (interface{}, error)
+	DeleteKey(key string) (interface{}, error)
+	GetLogs(offset, length int, logType string) (interface{}, error)
+	GenerateSecuredApiKey(apiKey string, public interface{}, userToken ...string) (string, error)
+	EncodeParams(body interface{}) string
+	MultipleQueries(queries []interface{}, optionals ...string) (interface{}, error)
+	CustomBatch(queries interface{}) (interface{}, error)
+}
+
 type Client struct {
 	transport *Transport
 }
@@ -39,7 +60,7 @@ func (c *Client) ListIndexes() (interface{}, error) {
 	return c.transport.request("GET", "/1/indexes", nil, read)
 }
 
-func (c *Client) InitIndex(indexName string) *Index {
+func (c *Client) InitIndex(indexName string) AlgoliaIndex {
 	return NewIndex(indexName, c)
 }
 
