@@ -30,7 +30,7 @@ func initTest(t *testing.T) (*Client, *Index) {
 	client = NewClientWithHosts(appID, apiKey, hosts)
 	index := client.InitIndex(safeName("àlgol?à-go"))
 
-	return client, index
+	return client, index.(*Index)
 }
 
 func shouldHave(json interface{}, attr, msg string, t *testing.T) {
