@@ -3,12 +3,13 @@ package algoliasearch
 import (
 	"crypto/hmac"
 	"crypto/sha256"
+	"encoding/base64"
 	"encoding/hex"
 	"errors"
+	"net/http"
 	"reflect"
-	"time"
 	"strings"
-	"encoding/base64"
+	"time"
 )
 
 type Client struct {
@@ -25,6 +26,10 @@ func NewClientWithHosts(appID, apiKey string, hosts []string) *Client {
 	client := new(Client)
 	client.transport = NewTransportWithHosts(appID, apiKey, hosts)
 	return client
+}
+
+func (c *Client) SetHttpClient(cl *http.Client) {
+	c.transport.httpClient = cl
 }
 
 func (c *Client) SetExtraHeader(key string, value string) {
@@ -117,8 +122,8 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
 		}
 		message = c.transport.EncodeParams(public)
 	} else if strings.Contains(public.(string), "=") { // Url encoded query parameters
-		if (len(userTokenStr) != 0) {
-			message = public.(string) + "&" + c.transport.EncodeParams("userToken=" + c.transport.urlEncode(userTokenStr))
+		if len(userTokenStr) != 0 {
+			message = public.(string) + "&" + c.transport.EncodeParams("userToken="+c.transport.urlEncode(userTokenStr))
 		} else {
 			message = public.(string)
 		}
