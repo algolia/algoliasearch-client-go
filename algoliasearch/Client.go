@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
+	"net/http"
 	"reflect"
 	"strings"
 	"time"
@@ -25,6 +26,10 @@ func NewClientWithHosts(appID, apiKey string, hosts []string) *Client {
 	client := new(Client)
 	client.transport = NewTransportWithHosts(appID, apiKey, hosts)
 	return client
+}
+
+func (c *Client) SetHttpClient(cl *http.Client) {
+	c.transport.httpClient = cl
 }
 
 func (c *Client) SetExtraHeader(key string, value string) {
