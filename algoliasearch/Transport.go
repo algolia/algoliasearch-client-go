@@ -12,7 +12,6 @@ import "encoding/json"
 import "strconv"
 import "errors"
 import "time"
-import "reflect"
 import "strings"
 import "fmt"
 
@@ -38,10 +37,7 @@ type Transport struct {
 	hostsProvided bool
 }
 
-func NewTransport(appID, apiKey string) *Transport {
-	transport := new(Transport)
-	transport.appID = appID
-	transport.apiKey = apiKey
+func newHTTPClient() *http.Client {
 	tr := &http.Transport{
 		DisableKeepAlives:   false,
 		MaxIdleConnsPerHost: 2,
@@ -50,9 +46,19 @@ func NewTransport(appID, apiKey string) *Transport {
 			KeepAlive: 30 * time.Second,
 		}).Dial,
 		TLSHandshakeTimeout:   time.Second * 2,
-		ResponseHeaderTimeout: time.Second * 10}
+		ResponseHeaderTimeout: time.Second * 10,
+	}
+	return &http.Client{
+		Transport: tr,
+		Timeout:   time.Second * 15,
+	}
+}
 
-	transport.httpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
+func NewTransport(appID, apiKey string) *Transport {
+	transport := new(Transport)
+	transport.appID = appID
+	transport.apiKey = apiKey
+	transport.httpClient = newHTTPClient()
 	transport.headers = make(map[string]string)
 	transport.hosts = make([]string, 3)
 	transport.hosts[0] = appID + "-1.algolianet.com"
@@ -66,17 +72,7 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 	transport := new(Transport)
 	transport.appID = appID
 	transport.apiKey = apiKey
-	tr := &http.Transport{
-		DisableKeepAlives:   false,
-		MaxIdleConnsPerHost: 2,
-		Dial: (&net.Dialer{
-			Timeout:   15 * time.Second,
-			KeepAlive: 30 * time.Second,
-		}).Dial,
-		TLSHandshakeTimeout:   time.Second * 2,
-		ResponseHeaderTimeout: time.Second * 10}
-
-	transport.httpClient = &http.Client{Transport: tr, Timeout: time.Second * 15}
+	transport.httpClient = newHTTPClient()
 	transport.headers = make(map[string]string)
 	transport.hosts = hosts
 	transport.hostsProvided = true
@@ -100,13 +96,14 @@ func (t *Transport) EncodeParams(params interface{}) string {
 	v := url.Values{}
 	if params != nil {
 		for key, value := range params.(map[string]interface{}) {
-			if reflect.TypeOf(value).Name() == "string" {
-				v.Add(key, value.(string))
-			} else if reflect.TypeOf(value).Name() == "float64" {
-				v.Add(key, strconv.FormatFloat(value.(float64), 'f', -1, 64))
-			} else if reflect.TypeOf(value).Name() == "int" {
-				v.Add(key, strconv.Itoa(value.(int)))
-			} else {
+			switch value := value.(type) {
+			case string:
+				v.Add(key, value)
+			case float64:
+				v.Add(key, strconv.FormatFloat(value, 'f', -1, 64))
+			case int:
+				v.Add(key, strconv.Itoa(value))
+			default:
 				jsonValue, _ := json.Marshal(value)
 				v.Add(key, string(jsonValue[:]))
 			}
