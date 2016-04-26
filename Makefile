@@ -1,13 +1,11 @@
-SRC=$(wildcard algoliasearch/*.go)
 PROJECT=algoliasearch
 
-.PHONY: test algoliasearch
+install:
+	go install ./$(PROJECT)
 
-algoliasearch: ${SRC}
-	go build test/test_readme.go
+test: test-unit
 
-test: ${SRC}
-	go test ${SRC}
+test-unit:
+	go test ./$(PROJECT)
 
-clean:
-	${RM} ${PROJECT}
+.PHONY: install test clean
