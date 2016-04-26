@@ -1,22 +1,20 @@
 package algoliasearch
 
 import (
+	"bytes"
+	_ "crypto/sha512" // Fix certificates
+	"encoding/json"
+	"errors"
+	"fmt"
 	"io"
+	"io/ioutil"
 	"net"
 	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
+	"time"
 )
-import "net/url"
-import "io/ioutil"
-import "bytes"
-import "encoding/json"
-import "strconv"
-import "errors"
-import "time"
-import "strings"
-import "fmt"
-
-// Fix certificates
-import _ "crypto/sha512"
 
 const (
 	version = "1.4.0"
