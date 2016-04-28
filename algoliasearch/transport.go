@@ -26,6 +26,7 @@ const (
 	read
 )
 
+// Transport defines low level functions to trade with Algolia servers.
 type Transport struct {
 	httpClient    *http.Client
 	appID         string
@@ -35,6 +36,7 @@ type Transport struct {
 	hostsProvided bool
 }
 
+// newHTTPClient creates and initializes an http.Client with sane defaults.
 func newHTTPClient() *http.Client {
 	tr := &http.Transport{
 		DisableKeepAlives:   false,
@@ -52,6 +54,9 @@ func newHTTPClient() *http.Client {
 	}
 }
 
+// NewTransport creates and initializes a new Transport targeting the Algolia
+// application `appID` using the API key `apiKey`. The hosts are deduced
+// from `appID`.
 func NewTransport(appID, apiKey string) *Transport {
 	transport := new(Transport)
 	transport.appID = appID
@@ -66,6 +71,9 @@ func NewTransport(appID, apiKey string) *Transport {
 	return transport
 }
 
+// NewTransportWithHosts creates and initializes a new Transport targeting the
+// Algolia application `appID` using the API key `apiKey` via the
+// specified `hosts`.
 func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 	transport := new(Transport)
 	transport.appID = appID
@@ -77,19 +85,24 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 	return transport
 }
 
+// setTimeout changes the timeouts used by the underlying HTTP client.
 func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Duration) {
 	t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
 	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
 }
 
+// urlEncode encodes `value` to be URL-safe.
 func (t *Transport) urlEncode(value string) string {
 	return url.QueryEscape(value)
 }
 
+// setExtraHeader adds a custom header to be used when exchanging with Algolia
+// servers.
 func (t *Transport) setExtraHeader(key string, value string) {
 	t.headers[key] = value
 }
 
+// EncodeParams transforms `params` to a URL-safe string.
 func (t *Transport) EncodeParams(params interface{}) string {
 	v := url.Values{}
 	if params != nil {
@@ -110,6 +123,9 @@ func (t *Transport) EncodeParams(params interface{}) string {
 	return v.Encode()
 }
 
+// request performs a `method` HTTP request at `path` sending `body`. `typeCall`
+// represents the operation intended on the Algolia servers and can be one of
+// the following constants: `search`, `write` or `read`.
 func (t *Transport) request(method, path string, body interface{}, typeCall int) (interface{}, error) {
 	var host string
 	errorMsg := ""
@@ -165,6 +181,8 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 	return nil, errors.New(fmt.Sprintf("Cannot reach any host. (%s)", errorMsg))
 }
 
+// buildRequest builds an http.Request object. The built request uses
+// `method`, tries to reach `path` at `host`, sending `body`.
 func (t *Transport) buildRequest(method, host, path string, body interface{}) (*http.Request, error) {
 	var req *http.Request
 	var err error
@@ -190,6 +208,8 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 	return req, err
 }
 
+// addHeaders adds the mandatory Algolia headers and the custom headers of `t`
+// to `req`.
 func (t *Transport) addHeaders(req *http.Request) *http.Request {
 	req.Header.Add("X-Algolia-API-Key", t.apiKey)
 	req.Header.Add("X-Algolia-Application-Id", t.appID)
@@ -201,6 +221,10 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
 	return req
 }
 
+// handleResponse takes care of reading a response as JSON, and returns the
+// parsed object. If the status code of the response indicates a failed request,
+// or if the body of the response is not a valid JSON object, an error is
+// returned.
 func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
 	res, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
