@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"reflect"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -77,7 +78,7 @@ func (i *Index) DeleteObject(objectID string) (interface{}, error) {
 
 // GetSettings retrieves the index settings.
 func (i *Index) GetSettings() (interface{}, error) {
-	return i.client.transport.request("GET", "/1/indexes/"+i.nameEncoded+"/settings", nil, read)
+	return i.client.transport.request("GET", "/1/indexes/"+i.nameEncoded+"/settings?getVersion=2", nil, read)
 }
 
 // SetSettings changes the index settings.
@@ -374,4 +375,82 @@ func (i *Index) operation(name, op string) (interface{}, error) {
 	}
 
 	return i.client.transport.request("POST", "/1/indexes/"+i.nameEncoded+"/operation", body, write)
+}
+
+// SearchSynonyms returns the synonyms matching `query` whose types match
+// `types`. To retrieve the first page, `page` should be set to 0. `hitsPerPage`
+// specifies how much synonym sets will be returned by page.
+// An error is returned if the underlying HTTP call does not yield a 200
+// status code.
+func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage int) (interface{}, error) {
+	body := map[string]interface{}{
+		"query":       query,
+		"type":        strings.Join(types, ","),
+		"page":        page,
+		"hitsPerPage": hitsPerPage,
+	}
+
+	return i.client.transport.request("POST", "/1/indexes/"+i.nameEncoded+"/synonyms/search", body, search)
+}
+
+// GetSynonym retrieves the synonym identified by `objectID`.
+// An error is returned if the underlying HTTP call does not yield a 200
+// status code.
+func (i *Index) GetSynonym(objectID string) (interface{}, error) {
+	encodedID := i.client.transport.urlEncode(objectID)
+	return i.client.transport.request("GET", "/1/indexes/"+i.nameEncoded+"/synonyms/"+encodedID, nil, read)
+}
+
+// DeleteSynonym removes the synonym identified by `objectID`.
+// The deletion can be forwarded to the index slaves of the index
+// with `forwardToSlaves`.
+// An error is returned if the underlying HTTP call does not yield a 200
+// status code.
+func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (interface{}, error) {
+	encodedID := i.client.transport.urlEncode(objectID)
+	params := i.client.EncodeParams(map[string]interface{}{
+		"forwardToSlaves": strconv.FormatBool(forwardToSlaves),
+	})
+
+	return i.client.transport.request("DELETE", "/1/indexes/"+i.nameEncoded+"/synonyms/"+encodedID+"?"+params, nil, write)
+}
+
+// ClearSynonyms removes all synonyms from the index. The clear operation can
+// be forwarded to the index slaves of the index using `forwardToSlaves`.
+// An error is returned if the underlying HTTP call does not yield a 200
+// status code.
+func (i *Index) ClearSynonyms(forwardToSlaves bool) (interface{}, error) {
+	params := i.client.EncodeParams(map[string]interface{}{
+		"forwardToSlaves": strconv.FormatBool(forwardToSlaves),
+	})
+
+	return i.client.transport.request("POST", "/1/indexes/"+i.nameEncoded+"/synonyms/clear?"+params, nil, write)
+}
+
+// BatchSynonyms adds all `synonyms` to the index. The index can be cleared
+// before by setting `replaceExistingSynonyms` to `true`. The optional clear
+// operation and the additions can be forwarded to the index slaves
+// with `forwardToSlaves`
+// An error is returned if the underlying HTTP call does not yield a 200
+// status code.
+func (i *Index) BatchSynonyms(synonyms []interface{}, replaceExistingSynonyms, forwardToSlaves bool) (interface{}, error) {
+	params := i.client.EncodeParams(map[string]interface{}{
+		"forwardToSlaves":         strconv.FormatBool(forwardToSlaves),
+		"replaceExistingSynonyms": strconv.FormatBool(replaceExistingSynonyms),
+	})
+
+	return i.client.transport.request("POST", "/1/indexes/"+i.nameEncoded+"/synonyms/batch?"+params, synonyms, write)
+}
+
+// SaveSynonym adds the given `synonym` to be identified `objectID`.
+// This addition can be forwarded to the index slaves using `forwardToSlaves`.
+// An error is returned if the underlying HTTP call does not yield a 200
+// status code.
+func (i *Index) SaveSynonym(objectID string, synonym interface{}, forwardToSlaves bool) (interface{}, error) {
+	encodedID := i.client.EncodeParams(objectID)
+	params := i.client.EncodeParams(map[string]interface{}{
+		"forwardToSlaves": strconv.FormatBool(forwardToSlaves),
+	})
+
+	return i.client.transport.request("PUT", "/1/indexes/"+i.nameEncoded+"/synonyms/"+encodedID+"?"+params, synonym, write)
 }
