@@ -4,6 +4,8 @@ import (
 	"errors"
 )
 
+// IndexIterator is used to iterate over indices when using `Browse`-like
+// functions.
 type IndexIterator struct {
 	answer interface{}
 	params interface{}
@@ -11,6 +13,7 @@ type IndexIterator struct {
 	index  *Index
 }
 
+// Next iterates to the next result and move the cursor.
 func (it *IndexIterator) Next() (interface{}, error) {
 	var err error
 	for err == nil {
@@ -28,6 +31,8 @@ func (it *IndexIterator) Next() (interface{}, error) {
 	return nil, err
 }
 
+// GetCursor returns the current underlying cursor. The returned boolean is set
+// to `false` if the end of the index has been reached.
 func (it *IndexIterator) GetCursor() (string, bool) {
 	cursor, ok := it.answer.(map[string]interface{})["cursor"]
 	cursorStr := ""
@@ -37,6 +42,7 @@ func (it *IndexIterator) GetCursor() (string, bool) {
 	return cursorStr, ok
 }
 
+// loadNextPage loads the next page of results and resets the cursor position.
 func (it *IndexIterator) loadNextPage() error {
 	it.pos = 0
 	cursor, _ := it.GetCursor()
