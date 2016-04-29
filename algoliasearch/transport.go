@@ -28,12 +28,12 @@ const (
 
 // Transport defines low level functions to trade with Algolia servers.
 type Transport struct {
-	httpClient    *http.Client
-	appID         string
 	apiKey        string
+	appID         string
 	headers       map[string]string
 	hosts         []string
 	hostsProvided bool
+	httpClient    *http.Client
 }
 
 // newHTTPClient creates and initializes an http.Client with sane defaults.
@@ -58,31 +58,32 @@ func newHTTPClient() *http.Client {
 // application `appID` using the API key `apiKey`. The hosts are deduced
 // from `appID`.
 func NewTransport(appID, apiKey string) *Transport {
-	transport := new(Transport)
-	transport.appID = appID
-	transport.apiKey = apiKey
-	transport.httpClient = newHTTPClient()
-	transport.headers = make(map[string]string)
-	transport.hosts = make([]string, 3)
-	transport.hosts[0] = appID + "-1.algolianet.com"
-	transport.hosts[1] = appID + "-2.algolianet.com"
-	transport.hosts[2] = appID + "-3.algolianet.com"
-	transport.hostsProvided = false
-	return transport
+	return &Transport{
+		apiKey:  apiKey,
+		appID:   appID,
+		headers: make(map[string]string),
+		hosts: []string{
+			appID + "-1.algolianet.com",
+			appID + "-2.algolianet.com",
+			appID + "-3.algolianet.com",
+		},
+		hostsProvided: false,
+		httpClient:    newHTTPClient(),
+	}
 }
 
 // NewTransportWithHosts creates and initializes a new Transport targeting the
 // Algolia application `appID` using the API key `apiKey` via the
 // specified `hosts`.
 func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
-	transport := new(Transport)
-	transport.appID = appID
-	transport.apiKey = apiKey
-	transport.httpClient = newHTTPClient()
-	transport.headers = make(map[string]string)
-	transport.hosts = hosts
-	transport.hostsProvided = true
-	return transport
+	return &Transport{
+		apiKey:        apiKey,
+		appID:         appID,
+		headers:       make(map[string]string),
+		hosts:         hosts,
+		hostsProvided: true,
+		httpClient:    newHTTPClient(),
+	}
 }
 
 // setTimeout changes the timeouts used by the underlying HTTP client.
@@ -123,9 +124,9 @@ func (t *Transport) EncodeParams(params interface{}) string {
 	return v.Encode()
 }
 
-// request performs a `method` HTTP request at `path` sending `body`. `typeCall`
-// represents the operation intended on the Algolia servers and can be one of
-// the following constants: `search`, `write` or `read`.
+// request performs a `method` HTTP request at `path` sending `body`.
+// `typeCall` represents the operation intended on the Algolia servers and can
+// be one of the following constants: `search`, `write` or `read`.
 func (t *Transport) request(method, path string, body interface{}, typeCall int) (interface{}, error) {
 	var host string
 	errorMsg := ""
@@ -140,8 +141,10 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 		if err != nil {
 			return nil, err
 		}
+
 		req = t.addHeaders(req)
 		resp, err := t.httpClient.Do(req)
+
 		if err != nil {
 			if len(errorMsg) > 0 {
 				errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, host, err)
@@ -156,21 +159,24 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 		}
 	}
 
-	for it := range t.hosts {
-		req, err := t.buildRequest(method, t.hosts[it], path, body)
+	for _, host := range t.hosts {
+		req, err := t.buildRequest(method, host, path, body)
 		if err != nil {
 			return nil, err
 		}
+
 		req = t.addHeaders(req)
 		resp, err := t.httpClient.Do(req)
+
 		if err != nil {
 			if len(errorMsg) > 0 {
-				errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, t.hosts[it], err)
+				errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, host, err)
 			} else {
-				errorMsg = fmt.Sprintf("%s:%s", t.hosts[it], err)
+				errorMsg = fmt.Sprintf("%s:%s", host, err)
 			}
 			continue
 		}
+
 		if (resp.StatusCode/100) == 2 || (resp.StatusCode/100) == 4 { // Bad request, not found, forbidden
 			return t.handleResponse(resp)
 		} else {
@@ -178,19 +184,22 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 			resp.Body.Close()
 		}
 	}
+
 	return nil, errors.New(fmt.Sprintf("Cannot reach any host. (%s)", errorMsg))
 }
 
-// buildRequest builds an http.Request object. The built request uses
-// `method`, tries to reach `path` at `host`, sending `body`.
+// buildRequest builds an http.Request object. The built request uses `method`,
+// tries to reach `path` at `host`, sending `body`.
 func (t *Transport) buildRequest(method, host, path string, body interface{}) (*http.Request, error) {
 	var req *http.Request
 	var err error
+
 	if body != nil {
 		bodyBytes, err := json.Marshal(body)
 		if err != nil {
 			return nil, errors.New("Invalid JSON in the query")
 		}
+
 		reader := bytes.NewReader(bodyBytes)
 		req, err = http.NewRequest(method, "https://"+host+path, reader)
 		req.Header.Add("Content-Length", strconv.Itoa(len(string(bodyBytes))))
@@ -198,6 +207,7 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 	} else {
 		req, err = http.NewRequest(method, "https://"+host+path, nil)
 	}
+
 	if strings.Contains(path, "/*/") {
 		req.URL = &url.URL{
 			Scheme: "https",
@@ -205,6 +215,7 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 			Opaque: "//" + host + path, //Remove url encoding
 		}
 	}
+
 	return req, err
 }
 
@@ -215,9 +226,11 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
 	req.Header.Add("X-Algolia-Application-Id", t.appID)
 	req.Header.Add("Connection", "keep-alive")
 	req.Header.Add("User-Agent", "Algolia for go "+version)
+
 	for key := range t.headers {
 		req.Header.Add(key, t.headers[key])
 	}
+
 	return req
 }
 
@@ -231,11 +244,12 @@ func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	var jsonResp interface{}
-	err = json.Unmarshal(res, &jsonResp)
-	if err != nil {
+	if err = json.Unmarshal(res, &jsonResp); err != nil {
 		return nil, errors.New("Invalid JSON in the response")
 	}
+
 	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
 		return jsonResp, nil
 	} else {
