@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"math/rand"
 	"net"
 	"net/http"
 	"net/url"
@@ -58,15 +59,22 @@ func newHTTPClient() *http.Client {
 // application `appID` using the API key `apiKey`. The hosts are deduced
 // from `appID`.
 func NewTransport(appID, apiKey string) *Transport {
+	hosts := []string{
+		appID + "-1.algolianet.com",
+		appID + "-2.algolianet.com",
+		appID + "-3.algolianet.com",
+	}
+
+	randHosts := make([]string, len(hosts))
+	for i, v := range rand.Perm(len(hosts)) {
+		randHosts[i] = hosts[v]
+	}
+
 	return &Transport{
-		apiKey:  apiKey,
-		appID:   appID,
-		headers: make(map[string]string),
-		hosts: []string{
-			appID + "-1.algolianet.com",
-			appID + "-2.algolianet.com",
-			appID + "-3.algolianet.com",
-		},
+		apiKey:        apiKey,
+		appID:         appID,
+		headers:       make(map[string]string),
+		hosts:         randHosts,
 		hostsProvided: false,
 		httpClient:    newHTTPClient(),
 	}
