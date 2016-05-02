@@ -135,7 +135,7 @@ func (t *Transport) EncodeParams(params interface{}) string {
 // request performs a `method` HTTP request at `path` sending `body`.
 // `typeCall` represents the operation intended on the Algolia servers and can
 // be one of the following constants: `search`, `write` or `read`.
-func (t *Transport) request(method, path string, body interface{}, typeCall int) (interface{}, error) {
+func (t *Transport) request(method, path string, body interface{}, typeCall int) ([]byte, error) {
 	var host string
 	errorMsg := ""
 	if typeCall == write {
@@ -246,7 +246,7 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
 // parsed object. If the status code of the response indicates a failed request,
 // or if the body of the response is not a valid JSON object, an error is
 // returned.
-func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
+func (t *Transport) handleResponse(resp *http.Response) ([]byte, error) {
 	res, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
 	if err != nil {
@@ -259,7 +259,7 @@ func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
 	}
 
 	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
-		return jsonResp, nil
+		return res, nil
 	} else {
 		return nil, errors.New(string(res))
 	}
