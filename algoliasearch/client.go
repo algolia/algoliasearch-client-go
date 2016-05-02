@@ -21,17 +21,17 @@ type Client struct {
 // NewClient creates a new Client from the provided `appID` and `apiKey`. The
 // default hosts are used for the transport layer.
 func NewClient(appID, apiKey string) *Client {
-	client := new(Client)
-	client.transport = NewTransport(appID, apiKey)
-	return client
+	return &Client{
+		transport: NewTransport(appID, apiKey),
+	}
 }
 
 // NewClientWithHosts creates a new Client from the provided `appID,` `apiKey`,
 // and `hosts` used to connect to the Algolia servers.
 func NewClientWithHosts(appID, apiKey string, hosts []string) *Client {
-	client := new(Client)
-	client.transport = NewTransportWithHosts(appID, apiKey, hosts)
-	return client
+	return &Client{
+		transport: NewTransportWithHosts(appID, apiKey, hosts),
+	}
 }
 
 // SetExtraHeader allows to set custom headers while reaching out to
@@ -76,12 +76,14 @@ func (c *Client) CopyIndex(source string, destination string) (interface{}, erro
 // which the key is to be valid in seconds, `maxQueriesPerIPPerHour` and
 // `maxHitsPerQuery` as rate limiters.
 func (c *Client) AddKey(acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
-	body := make(map[string]interface{})
-	body["acl"] = acl
-	body["maxHitsPerQuery"] = maxHitsPerQuery
-	body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
-	body["validity"] = validity
-	body["indexes"] = indexes
+	body := map[string]interface{}{
+		"acl":                    acl,
+		"maxHitsPerQuery":        maxHitsPerQuery,
+		"maxQueriesPerIPPerHour": maxQueriesPerIPPerHour,
+		"validity":               validity,
+		"indexes":                indexes,
+	}
+
 	return c.AddKeyWithParam(body)
 }
 
@@ -96,12 +98,14 @@ func (c *Client) AddKeyWithParam(params interface{}) (interface{}, error) {
 // which the key is to be valid in seconds, `maxQueriesPerIPPerHour` and
 // `maxHitsPerQuery` as rate limiters.
 func (c *Client) UpdateKey(key string, acl, indexes []string, validity int, maxQueriesPerIPPerHour int, maxHitsPerQuery int) (interface{}, error) {
-	body := make(map[string]interface{})
-	body["acl"] = acl
-	body["maxHitsPerQuery"] = maxHitsPerQuery
-	body["maxQueriesPerIPPerHour"] = maxQueriesPerIPPerHour
-	body["validity"] = validity
-	body["indexes"] = indexes
+	body := map[string]interface{}{
+		"acl":                    acl,
+		"maxHitsPerQuery":        maxHitsPerQuery,
+		"maxQueriesPerIPPerHour": maxQueriesPerIPPerHour,
+		"validity":               validity,
+		"indexes":                indexes,
+	}
+
 	return c.UpdateKeyWithParam(key, body)
 }
 
@@ -124,10 +128,12 @@ func (c *Client) DeleteKey(key string) (interface{}, error) {
 // GetLogs retrieves the `length` latest logs, starting at `offset`. Logs can
 // be filtered by type via `logType` being either "query", "build" or "error".
 func (c *Client) GetLogs(offset, length int, logType string) (interface{}, error) {
-	body := make(map[string]interface{})
-	body["offset"] = offset
-	body["length"] = length
-	body["type"] = logType
+	body := map[string]interface{}{
+		"offset": offset,
+		"length": length,
+		"type":   logType,
+	}
+
 	return c.transport.request("GET", "/1/logs", body, write)
 }
 
@@ -149,6 +155,7 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
 	} else {
 		userTokenStr = ""
 	}
+
 	if reflect.TypeOf(public).Name() != "string" { // QueryParameters
 		if len(userTokenStr) != 0 {
 			public.(map[string]interface{})["userToken"] = userTokenStr
@@ -173,6 +180,7 @@ func (c *Client) GenerateSecuredApiKey(apiKey string, public interface{}, userTo
 	h := hmac.New(sha256.New, key)
 	h.Write([]byte(message))
 	securedKey := hex.EncodeToString(h.Sum(nil))
+
 	return base64.StdEncoding.EncodeToString([]byte(securedKey + message)), nil
 }
 
@@ -190,32 +198,42 @@ func (c *Client) MultipleQueries(queries []interface{}, optionals ...string) (in
 	if len(optionals) > 2 {
 		return "", errors.New("Too many parameters")
 	}
+
 	var nameKey string
 	if len(optionals) >= 1 {
 		nameKey = optionals[0]
 	} else {
 		nameKey = "indexName"
 	}
+
 	strategy := "none"
 	if len(optionals) == 2 {
 		strategy = optionals[1]
 	}
+
 	requests := make([]map[string]interface{}, len(queries))
-	for i := range queries {
-		requests[i] = make(map[string]interface{})
-		requests[i]["indexName"] = queries[i].(map[string]interface{})[nameKey].(string)
+	for i := range requests {
+		requests[i] = map[string]interface{}{
+			"indexName": queries[i].(map[string]interface{})[nameKey].(string),
+		}
+
 		delete(queries[i].(map[string]interface{}), nameKey)
 		requests[i]["params"] = c.transport.EncodeParams(queries[i])
 	}
-	body := make(map[string]interface{})
-	body["requests"] = requests
+
+	body := map[string]interface{}{
+		"requests": requests,
+	}
+
 	return c.transport.request("POST", "/1/indexes/*/queries?strategy="+strategy, body, search)
 }
 
 // CustomBatch performs all queries in `queries`. Each query should contain
 // the targeted index, as well as the type of operation wanted.
 func (c *Client) CustomBatch(queries interface{}) (interface{}, error) {
-	request := make(map[string]interface{})
-	request["requests"] = queries
+	request := map[string]interface{}{
+		"requests": queries,
+	}
+
 	return c.transport.request("POST", "/1/indexes/*/batch", request, write)
 }
