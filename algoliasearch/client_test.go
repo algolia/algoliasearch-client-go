@@ -1,9 +1,12 @@
 package algoliasearch
 
-import "syscall"
+import (
+	"syscall"
+	"time"
+)
+
 import "strconv"
 import "testing"
-import "time"
 
 func safeName(name string) string {
 	travis, haveTravis := syscall.Getenv("TRAVIS")
@@ -859,4 +862,73 @@ func TestFacets(t *testing.T) {
 	shouldFloat(res, "nbHits", 2, "Unable to filter facets", t)
 
 	index.Delete()
+}
+
+func TestSynonyms(t *testing.T) {
+	_, index := initTest(t)
+
+	task, err := index.Clear()
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	index.WaitTask(task)
+
+	task, err = index.AddObject(map[string]string{
+		"name": "589 Howard St., San Francisco",
+	})
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	index.WaitTask(task)
+
+	task, err = index.BatchSynonyms([]interface{}{
+		map[string]interface{}{
+			"objectID": "city", "type": "synonym",
+			"synonyms": []string{"San Francisco", "SF"}},
+		map[string]interface{}{
+			"objectID": "street", "type": "altCorrection1",
+			"word": "Street", "corrections": []string{"St"}},
+	}, false, false)
+
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	index.WaitTask(task)
+
+	task, err = index.GetSynonym("city")
+	if err != nil {
+		t.Fatal(task)
+	}
+	shouldStr(task, "objectID", "city", "objectID", t)
+
+	task, err = index.Search("Howard Street SF", nil)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	shouldFloat(task, "nbHits", 1, "first nbHits", t)
+
+	task, err = index.DeleteSynonym("street", false)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	index.WaitTask(task)
+
+	task, err = index.SearchSynonyms("", []string{"synonym"}, 0, 5)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	shouldFloat(task, "nbHits", 1, "second nbHits", t)
+
+	task, err = index.ClearSynonyms(false)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	index.WaitTask(task)
+
+	task, err = index.SearchSynonyms("", []string{}, 0, 5)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	shouldFloat(task, "nbHits", 0, "third nbHits", t)
 }
