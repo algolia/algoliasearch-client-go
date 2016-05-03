@@ -143,7 +143,7 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params map[string]interfac
 		req[k] = v
 	}
 	req["tagFilters"] = strings.Join(params["tagFilters"].([]string), ",")
-	message := c.transport.EncodeParams(req)
+	message := encodeParams(req)
 
 	h := hmac.New(sha256.New, []byte(apiKey))
 	h.Write([]byte(message))
@@ -178,7 +178,7 @@ func (c *Client) MultipleQueries(queries []map[string]interface{}, indexField, s
 			"indexName": q[indexField].(string),
 		}
 
-		requests[i]["params"] = c.transport.EncodeParams(q)
+		requests[i]["params"] = encodeParams(q)
 	}
 
 	body := map[string]interface{}{
