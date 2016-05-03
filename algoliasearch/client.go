@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"reflect"
 	"strings"
@@ -236,4 +237,14 @@ func (c *Client) CustomBatch(queries interface{}) (interface{}, error) {
 	}
 
 	return c.transport.request("POST", "/1/indexes/*/batch", request, write)
+}
+
+func (c *Client) request(res interface{}, method, path string, body interface{}, typeCall int) error {
+	r, err := c.transport.request(method, path, body, typeCall)
+
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(r, res)
 }
