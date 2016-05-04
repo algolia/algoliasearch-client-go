@@ -2,10 +2,6 @@ package algoliasearch
 
 import "fmt"
 
-func wrongType(expected, key string) error {
-	return fmt.Errorf("Expected type `%s` for `%s`", expected, key)
-}
-
-func unknownField(field string) error {
-	return fmt.Errorf("Unexpected field `%s`", field)
+func invalidParameter(p string) error {
+	return fmt.Errorf("`%s` doesn't exist or doesn't have the right type", p)
 }
