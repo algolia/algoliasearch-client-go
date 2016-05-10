@@ -197,10 +197,10 @@ func (c *Client) MultipleQueries(queries []map[string]interface{}, indexField, s
 
 // Batch performs all queries in `queries`. Each query should contain the
 // targeted index, as well as the type of operation wanted.
-func (c *Client) Batch(records []BatchRecord) (res CustomBatchRes, err error) {
+func (c *Client) Batch(records []BatchOperationIndexed) (res MultipleBatchRes, err error) {
 	// TODO: Use check functions of index.go
 
-	request := map[string][]BatchRecord{
+	request := map[string][]BatchOperationIndexed{
 		"requests": records,
 	}
 

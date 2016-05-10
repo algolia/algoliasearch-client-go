@@ -15,8 +15,3 @@ type UpdateObjectRes struct {
 type DeleteRes struct {
 	DeletedAt string `json:"deletedAt"`
 }
-
-type BatchRes struct {
-	ObjectIDs []string `json:"objectIDs"`
-	TaskID    int64    `json:"taskID"`
-}
