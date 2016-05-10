@@ -121,7 +121,7 @@ func (i *Index) WaitTask(taskID int64) error {
 		// Increase the upper boundary used to generate the sleep
 		// duration
 		if maxDuration < 10*time.Minute {
-			maxDuration <<= 1
+			maxDuration *= 2
 		}
 	}
 
