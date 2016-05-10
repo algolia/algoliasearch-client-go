@@ -1,6 +1,6 @@
 package algoliasearch
 
-type GetLogsRes struct {
+type getLogsRes struct {
 	Logs []LogRes `json:"logs"`
 }
 
