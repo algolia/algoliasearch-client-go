@@ -130,22 +130,18 @@ func (i *Index) WaitTask(taskID int64) error {
 
 // ListKeys lists all the keys that can access the index.
 func (i *Index) ListKeys() (keys []Key, err error) {
-	res := make(map[string][]Key)
+	var res listKeysRes
 
 	path := i.route + "/keys"
 	if err = i.client.request(&res, "GET", path, nil, read); err != nil {
 		return
 	}
 
-	var ok bool
-	if keys, ok = res["keys"]; !ok {
-		err = fmt.Errorf("Unexpected response from the API (`keys` field not found)")
-	}
-
+	keys = res.Keys
 	return
 }
 
-func (i *Index) AddKey(k Key) (res KeyRes, err error) {
+func (i *Index) AddKey(k Key) (res AddKeyRes, err error) {
 	path := i.route + "/keys"
 	err = i.client.request(&res, "POST", path, k, read)
 	return
