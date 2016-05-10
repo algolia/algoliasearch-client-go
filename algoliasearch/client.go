@@ -47,10 +47,11 @@ func (c *Client) SetTimeout(connectTimeout, readTimeout int) {
 
 // ListIndexes returns the list of all indexes belonging to this Algolia
 // application.
-func (c *Client) ListIndexes() (res []IndexRes, err error) {
-	l := listIndexesRes{}
-	err = c.request(&l, "GET", "/1/indexes", nil, read)
-	res = l.items
+func (c *Client) ListIndexes() (indexes []IndexRes, err error) {
+	var res listIndexesRes
+
+	err = c.request(&res, "GET", "/1/indexes", nil, read)
+	indexes = res.items
 	return
 }
 
@@ -122,12 +123,15 @@ func (c *Client) DeleteKey(key string) (res DeleteRes, err error) {
 
 // GetLogs retrieves the `length` latest logs, starting at `offset`. Logs can
 // be filtered by type via `logType` being either "query", "build" or "error".
-func (c *Client) GetLogs(params map[string]interface{}) (res GetLogsRes, err error) {
+func (c *Client) GetLogs(params map[string]interface{}) (logs []LogRes, err error) {
+	var res getLogsRes
+
 	if err = checkGetLogs(params); err != nil {
 		return
 	}
 
 	err = c.request(&res, "GET", "/1/logs", params, write)
+	logs = res.Logs
 	return
 }
 
@@ -137,15 +141,12 @@ func (c *Client) GetLogs(params map[string]interface{}) (res GetLogsRes, err err
 // or query parameters used to restrict access to certain records are specified
 // via the `public` argument. A single `userToken` may be supplied, in order to
 // use rate limited access.
-func (c *Client) GenerateSecuredAPIKey(apiKey string, params map[string]interface{}) (string, error) {
-	if err := checkGenerateSecuredAPIKey(params); err != nil {
-		return "", nil
+func (c *Client) GenerateSecuredAPIKey(apiKey string, params map[string]interface{}) (key string, err error) {
+	if err = checkGenerateSecuredAPIKey(params); err != nil {
+		return
 	}
 
-	req := make(map[string]interface{})
-	for k, v := range params {
-		req[k] = v
-	}
+	req := duplicateMap(params)
 	req["tagFilters"] = strings.Join(params["tagFilters"].([]string), ",")
 	message := encodeParams(req)
 
@@ -153,7 +154,8 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params map[string]interfac
 	h.Write([]byte(message))
 	securedKey := hex.EncodeToString(h.Sum(nil))
 
-	return base64.StdEncoding.EncodeToString([]byte(securedKey + message)), nil
+	key = base64.StdEncoding.EncodeToString([]byte(securedKey + message))
+	return
 }
 
 // MultipleQueries performs all the queries specified in `queries` and
@@ -180,16 +182,15 @@ func (c *Client) MultipleQueries(queries []map[string]interface{}, indexField, s
 	for i, q := range queries {
 		requests[i] = map[string]string{
 			"indexName": q[indexField].(string),
+			"params":    encodeParams(q),
 		}
-
-		requests[i]["params"] = encodeParams(q)
 	}
 
 	body := map[string]interface{}{
 		"requests": requests,
 	}
 
-	m := multipleQueriesRes{}
+	var m multipleQueriesRes
 	err = c.request(&m, "POST", "/1/indexes/*/queries?strategy="+strategy, body, search)
 	res = m.results
 	return
