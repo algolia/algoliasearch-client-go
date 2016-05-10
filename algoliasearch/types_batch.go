@@ -1,12 +1,32 @@
 package algoliasearch
 
-type CustomBatchRes struct {
+type BatchOperation struct {
+	Action string      `json:"action"`
+	Body   interface{} `json:"body,omitempty"`
+}
+
+type BatchOperationIndexed struct {
+	BatchOperation
+	IndexName string `json:"indexName"`
+}
+
+type BatchRes struct {
 	ObjectIDs []string `json:"objectIDs"`
 	TaskID    int64    `json:"taskID"`
 }
 
-type BatchRecord struct {
-	Action    string                 `json:"action"`
-	Body      map[string]interface{} `json:"body"`
-	IndexName string                 `json:"indexName"`
+type MultipleBatchRes struct {
+	ObjectIDs []string         `json:"objectIDs"`
+	TaskID    map[string]int64 `json:"taskID"`
+}
+
+func newBatchOperations(objects []Object, action string) []BatchOperation {
+	operations := make([]BatchOperation, len(objects))
+
+	for i, o := range objects {
+		operations[i].Action = action
+		operations[i].Body = o
+	}
+
+	return operations
 }
