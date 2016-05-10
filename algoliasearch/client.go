@@ -61,7 +61,7 @@ func (c *Client) InitIndex(name string) Index {
 // ListKeys returns all the API keys available for this Algolia application.
 func (c *Client) ListKeys() (res ListKeysRes, err error) {
 	err = c.request(&res, "GET", "/1/keys", nil, read)
-	return keys, err
+	return
 }
 
 // MoveIndex renames the index named `source` as `destination`.
