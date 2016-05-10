@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -59,8 +60,11 @@ func (c *Client) InitIndex(name string) Index {
 }
 
 // ListKeys returns all the API keys available for this Algolia application.
-func (c *Client) ListKeys() (res ListKeysRes, err error) {
+func (c *Client) ListKeys() (keys []Key, err error) {
+	var res listKeysRes
+
 	err = c.request(&res, "GET", "/1/keys", nil, read)
+	keys = res.Keys
 	return
 }
 
@@ -79,10 +83,7 @@ func (c *Client) CopyIndex(source, destination string) (interface{}, error) {
 // AddKey creates a new API key from the supplied `ACL` and the specified
 // optional parameters.
 func (c *Client) AddKey(ACL []string, params map[string]interface{}) (res AddKeyRes, err error) {
-	req := map[string]interface{}{}
-	for k, v := range params {
-		req[k] = v
-	}
+	req := duplicateMap(params)
 	req["acl"] = ACL
 
 	if err = checkKey(req); err != nil {
@@ -100,19 +101,22 @@ func (c *Client) UpdateKeyWithParam(key string, params map[string]interface{}) (
 		return
 	}
 
-	err = c.request(&res, "PUT", "/1/keys/"+key, params, write)
+	path := "/1/keys/" + url.QueryEscape(key)
+	err = c.request(&res, "PUT", path, params, write)
 	return
 }
 
 // GetKey returns the ACL and validity of the API key named `key`.
-func (c *Client) GetKey(key string) (res GetKeyRes, err error) {
-	err = c.request(&res, "GET", "/1/keys/"+key, nil, read)
+func (c *Client) GetKey(key string) (res Key, err error) {
+	path := "/1/keys/" + url.QueryEscape(key)
+	err = c.request(&res, "GET", path, nil, read)
 	return
 }
 
 // DeleteKey deletes the API key named `key`.
-func (c *Client) DeleteKey(key string) (res DeleteKeyRes, err error) {
-	err = c.request(&res, "DELETE", "/1/keys/"+key, nil, write)
+func (c *Client) DeleteKey(key string) (res DeleteRes, err error) {
+	path := "/1/keys/" + url.QueryEscape(key)
+	err = c.request(&res, "DELETE", path, nil, write)
 	return
 }
 

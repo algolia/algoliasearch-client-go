@@ -1,13 +1,19 @@
 package algoliasearch
 
-type ListKeysRes struct {
-	Keys []KeyRes `json:"keys"`
+type Key struct {
+	ACL                    []string `json:"acl"`
+	CreatedAt              int64    `json:"createdAt,omitempty"`
+	Description            string   `json:"description,omitempty"`
+	MaxHitsPerQuery        int64    `json:"maxHitsPerQuery,omitempty"`
+	MaxQueriesPerIPPerHour int64    `json:"maxQueriesPerIPPerHour,omitempty"`
+	QueryParamaters        string   `json:"queryParameters,omitempty"`
+	Referers               []string `json:"referers,omitempty"`
+	Validity               int64    `json:"validity,omitempty"`
+	Value                  string   `json:"value,omitempty"`
 }
 
-type KeyRes struct {
-	ACL      []string `json:"acl"`
-	Validity int64    `json:"validity"`
-	Value    string   `json:"value"`
+type listKeysRes struct {
+	Keys []Key `json:"keys"`
 }
 
 type AddKeyRes struct {
@@ -16,16 +22,6 @@ type AddKeyRes struct {
 }
 
 type UpdateKeyRes struct {
-	UpdatedAt string `json:"updatedAt"`
 	Key       string `json:"key"`
-}
-
-type GetKeyRes struct {
-	ACL      []string `json:"acl"`
-	Validity int64    `json:"validity"`
-	Value    string   `json:"value"`
-}
-
-type DeleteKeyRes struct {
-	DeletedAt string `json:"deletedAt"`
+	UpdatedAt string `json:"updatedAt"`
 }
