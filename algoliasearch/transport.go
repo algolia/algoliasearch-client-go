@@ -100,36 +100,10 @@ func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Du
 	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
 }
 
-// urlEncode encodes `value` to be URL-safe.
-func (t *Transport) urlEncode(value string) string {
-	return url.QueryEscape(value)
-}
-
 // setExtraHeader adds a custom header to be used when exchanging with Algolia
 // servers.
 func (t *Transport) setExtraHeader(key string, value string) {
 	t.headers[key] = value
-}
-
-// EncodeParams transforms `params` to a URL-safe string.
-func (t *Transport) EncodeParams(params interface{}) string {
-	v := url.Values{}
-	if params != nil {
-		for key, value := range params.(map[string]interface{}) {
-			switch value := value.(type) {
-			case string:
-				v.Add(key, value)
-			case float64:
-				v.Add(key, strconv.FormatFloat(value, 'f', -1, 64))
-			case int:
-				v.Add(key, strconv.Itoa(value))
-			default:
-				jsonValue, _ := json.Marshal(value)
-				v.Add(key, string(jsonValue[:]))
-			}
-		}
-	}
-	return v.Encode()
 }
 
 // request performs a `method` HTTP request at `path` sending `body`.
