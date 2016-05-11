@@ -83,7 +83,7 @@ func (c *Client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 
 // AddKey creates a new API key from the supplied `ACL` and the specified
 // optional parameters.
-func (c *Client) AddKey(ACL []string, params map[string]interface{}) (res AddKeyRes, err error) {
+func (c *Client) AddKey(ACL []string, params Params) (res AddKeyRes, err error) {
 	req := duplicateMap(params)
 	req["acl"] = ACL
 
@@ -97,7 +97,7 @@ func (c *Client) AddKey(ACL []string, params map[string]interface{}) (res AddKey
 
 // UpdateKeyWithParam updates the API key named `key` with the supplied
 // parameters.
-func (c *Client) UpdateKeyWithParam(key string, params map[string]interface{}) (res UpdateKeyRes, err error) {
+func (c *Client) UpdateKeyWithParam(key string, params Params) (res UpdateKeyRes, err error) {
 	if err = checkKey(params); err != nil {
 		return
 	}
@@ -123,7 +123,7 @@ func (c *Client) DeleteKey(key string) (res DeleteRes, err error) {
 
 // GetLogs retrieves the `length` latest logs, starting at `offset`. Logs can
 // be filtered by type via `logType` being either "query", "build" or "error".
-func (c *Client) GetLogs(params map[string]interface{}) (logs []LogRes, err error) {
+func (c *Client) GetLogs(params Params) (logs []LogRes, err error) {
 	var res getLogsRes
 
 	if err = checkGetLogs(params); err != nil {
@@ -141,7 +141,7 @@ func (c *Client) GetLogs(params map[string]interface{}) (logs []LogRes, err erro
 // or query parameters used to restrict access to certain records are specified
 // via the `public` argument. A single `userToken` may be supplied, in order to
 // use rate limited access.
-func (c *Client) GenerateSecuredAPIKey(apiKey string, params map[string]interface{}) (key string, err error) {
+func (c *Client) GenerateSecuredAPIKey(apiKey string, params Params) (key string, err error) {
 	if err = checkGenerateSecuredAPIKey(params); err != nil {
 		return
 	}
