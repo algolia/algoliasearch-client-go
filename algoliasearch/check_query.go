@@ -10,63 +10,63 @@ Outer:
 			}
 		}
 
-		switch v.(type) {
-		case string:
-			if k != "query" && k != "queryType" &&
-				k != "typoTolerance" &&
-				k != "removeWordsIfNoResults" &&
-				k != "restrictSearchableAttributes" &&
-				k != "highlightPreTag" &&
-				k != "highlightPostTag" &&
-				k != "snippetEllipsisText" &&
-				k != "filters" &&
-				k != "analyticsTags" &&
-				k != "optionalWords" &&
-				k != "disableTypoToleranceOnAttributes" &&
-				k != "attributesToRetrieve" &&
-				k != "attributesToHighlight" &&
-				k != "numericFilters" &&
-				k != "tagFilters" &&
-				k != "facets" &&
-				k != "facetFilters" &&
-				k != "attributesToSnippet" &&
-				k != "aroundLatLng" &&
-				k != "insideBoundingBox" &&
-				k != "insidePolygon" {
-				return invalidParameter(k)
+		switch k {
+		case "query",
+			"queryType",
+			"typoTolerance",
+			"removeWordsIfNoResults",
+			"restrictSearchableAttributes",
+			"highlightPreTag",
+			"highlightPostTag",
+			"snippetEllipsisText",
+			"filters",
+			"analyticsTags",
+			"optionalWords",
+			"disableTypoToleranceOnAttributes",
+			"attributesToRetrieve",
+			"attributesToHighlight",
+			"numericFilters",
+			"tagFilters",
+			"facets",
+			"facetFilters",
+			"attributesToSnippet",
+			"aroundLatLng",
+			"insideBoundingBox",
+			"insidePolygon":
+			if _, ok := v.(string); !ok {
+				return invalidType(k, "string")
 			}
 
-		case int64:
-			if k != "minWordSizefor1Typo" &&
-				k != "minWordSizefor2Typos" &&
-				k != "minProximity" &&
-				k != "page" &&
-				k != "hitsPerPage" &&
-				k != "getRankingInfo" &&
-				k != "distinct" &&
-				k != "maxValuesPerFacet" &&
-				k != "aroundRadius" &&
-				k != "aroundPrecision" &&
-				k != "minimumAroundRadius" {
-				return invalidParameter(k)
+		case "minWordSizefor1Typo",
+			"minWordSizefor2Typos",
+			"minProximity",
+			"page",
+			"hitsPerPage",
+			"getRankingInfo",
+			"distinct",
+			"maxValuesPerFacet",
+			"aroundRadius",
+			"aroundPrecision",
+			"minimumAroundRadius":
+			if _, ok := v.(int64); !ok {
+				return invalidType(k, "int64")
 			}
 
-		case bool:
-			if k != "allowTyposOnNumericTokens" &&
-				k != "ignorePlurals" &&
-				k != "advancedSyntax" &&
-				k != "analytics" &&
-				k != "synonyms" &&
-				k != "replaceSynonymsInHighlight" &&
-				k != "removeStopWords" &&
-				k != "aroundLatLngViaIP" {
-				return invalidParameter(k)
+		case "allowTyposOnNumericTokens",
+			"ignorePlurals",
+			"advancedSyntax",
+			"analytics",
+			"synonyms",
+			"replaceSynonymsInHighlight",
+			"removeStopWords",
+			"aroundLatLngViaIP":
+			if _, ok := v.(bool); !ok {
+				return invalidType(k, "bool")
 			}
 
 		default:
-			return invalidParameter(k)
 		}
-	}
 
+	}
 	return nil
 }

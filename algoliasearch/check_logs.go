@@ -2,20 +2,18 @@ package algoliasearch
 
 func checkGetLogs(params map[string]interface{}) error {
 	for k, v := range params {
-		switch v.(type) {
-		case int64:
-			if k != "length" &&
-				k != "offset" {
-				return invalidParameter(k)
+		switch k {
+		case "length", "offset":
+			if _, ok := v.(int64); !ok {
+				return invalidType(k, "int64")
 			}
 
-		case string:
-			if k != "type" {
-				return invalidParameter(k)
+		case "type":
+			if _, ok := v.(string); !ok {
+				return invalidType(k, "string")
 			}
 
 		default:
-			return invalidParameter(k)
 		}
 	}
 
