@@ -12,7 +12,7 @@ func checkGenerateSecuredAPIKey(params map[string]interface{}) error {
 	}
 
 	if v, ok := params["tagFilters"]; ok {
-		if _, ok := v.([]string); !ok {
+		if _, ok := v.(string); !ok {
 			return invalidType("tagFilters", "[]string")
 		}
 	}
@@ -34,7 +34,7 @@ func checkKey(params map[string]interface{}) error {
 			}
 
 		case "maxHitsPerQuery", "maxQueriesPerIPPerHour", "validity":
-			return invalidType(k, "int64")
+			return invalidType(k, "int")
 
 		default:
 		}

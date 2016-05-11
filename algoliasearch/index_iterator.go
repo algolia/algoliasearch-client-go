@@ -7,7 +7,7 @@ type IndexIterator struct {
 	index  *Index
 	page   BrowseRes
 	params map[string]interface{}
-	pos    int64
+	pos    int
 }
 
 func NewIndexIterator(index *Index, params map[string]interface{}) (it IndexIterator, err error) {

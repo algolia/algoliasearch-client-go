@@ -2,11 +2,11 @@ package algoliasearch
 
 type DeleteTaskRes struct {
 	DeletedAt string `json:"deletedAt"`
-	TaskID    int64  `json:"taskID"`
+	TaskID    int  `json:"taskID"`
 }
 
 type UpdateTaskRes struct {
-	TaskID    int64  `json:"taskID"`
+	TaskID    int  `json:"taskID"`
 	UpdatedAt string `json:"updatedAt"`
 }
 
