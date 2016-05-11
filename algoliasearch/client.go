@@ -70,13 +70,13 @@ func (c *Client) ListKeys() (keys []Key, err error) {
 }
 
 // MoveIndex renames the index named `source` as `destination`.
-func (c *Client) MoveIndex(source, destination string) (interface{}, error) {
+func (c *Client) MoveIndex(source, destination string) (UpdateTaskRes, error) {
 	index := c.InitIndex(source)
 	return index.Move(destination)
 }
 
 // CopyIndex duplicates the index named `source` as `destination`.
-func (c *Client) CopyIndex(source, destination string) (interface{}, error) {
+func (c *Client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 	index := c.InitIndex(source)
 	return index.Copy(destination)
 }
