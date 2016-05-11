@@ -45,7 +45,7 @@ func (i *Index) Clear() (res UpdateTaskRes, err error) {
 // attributes that you want to retrieve. If this parameter is omitted, all the
 // attributes are returned.
 func (i *Index) GetObject(objectID string, attributes []string) (object Object, err error) {
-	params := map[string]interface{}{
+	params := Params{
 		"attributes": strings.Join(attributes, ","),
 	}
 
@@ -121,7 +121,7 @@ func (i *Index) WaitTask(taskID int64) error {
 		// Increase the upper boundary used to generate the sleep
 		// duration
 		if maxDuration < 10*time.Minute {
-			maxDuration <<= 1
+			maxDuration *= 2
 		}
 	}
 
@@ -130,24 +130,26 @@ func (i *Index) WaitTask(taskID int64) error {
 
 // ListKeys lists all the keys that can access the index.
 func (i *Index) ListKeys() (keys []Key, err error) {
-	res := make(map[string][]Key)
+	var res listKeysRes
 
 	path := i.route + "/keys"
 	if err = i.client.request(&res, "GET", path, nil, read); err != nil {
 		return
 	}
 
-	var ok bool
-	if keys, ok = res["keys"]; !ok {
-		err = fmt.Errorf("Unexpected response from the API (`keys` field not found)")
-	}
-
+	keys = res.Keys
 	return
 }
 
-func (i *Index) AddKey(k Key) (res KeyRes, err error) {
+func (i *Index) AddKey(k Key) (res AddKeyRes, err error) {
 	path := i.route + "/keys"
 	err = i.client.request(&res, "POST", path, k, read)
+	return
+}
+
+func (i *Index) UpdateKey(k Key) (res UpdateKeyRes, err error) {
+	path := i.route + "/keys/" + k.Value
+	err = i.client.request(&res, "PUT", path, key, read)
 	return
 }
 
@@ -245,12 +247,12 @@ func (i *Index) Batch(operations []BatchOperation) (res BatchRes, err error) {
 }
 
 // Copy copies the index into a new one called `name`.
-func (i *Index) Copy(name string) (interface{}, error) {
+func (i *Index) Copy(name string) (UpdateTaskRes, error) {
 	return i.operation(name, "copy")
 }
 
 // Move renames the index into `name`.
-func (i *Index) Move(name string) (interface{}, error) {
+func (i *Index) Move(name string) (UpdateTaskRes, error) {
 	return i.operation(name, "move")
 }
 
@@ -307,8 +309,11 @@ func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage i
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
 func (i *Index) GetSynonym(objectID string) (s Synonym, err error) {
+	var rawSynonym map[string]interface{}
+
 	path := i.route + "/synonyms/" + url.QueryEscape(objectID)
-	err = i.client.request(&s, "GET", path, nil, read)
+	err = i.client.request(&rawSynonym, "GET", path, nil, read)
+	s = generateSynonym(rawSynonym)
 	return
 }
 
@@ -321,7 +326,7 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 		return
 	}
 
-	params := map[string]interface{}{
+	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
@@ -335,8 +340,8 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 // with `forwardToSlaves`.
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
-func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteRes, err error) {
-	params := map[string]interface{}{
+func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTask, err error) {
+	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
@@ -350,7 +355,7 @@ func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res Delete
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
 func (i *Index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	params := map[string]interface{}{
+	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
@@ -370,7 +375,7 @@ func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwa
 		return
 	}
 
-	params := map[string]interface{}{
+	params := Params{
 		"replaceExistingSynonyms": replaceExistingSynonyms,
 		"forwardToSlaves":         forwardToSlaves,
 	}
@@ -382,7 +387,7 @@ func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwa
 
 // Browse returns `hitsPerPage` results from the `page` page.
 // Deprecated: Use `BrowseFrom` or `BrowseAll` instead.
-func (i *Index) Browse(params map[string]interface{}) (res BrowseRes, err error) {
+func (i *Index) Browse(params Params) (res BrowseRes, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
@@ -392,7 +397,7 @@ func (i *Index) Browse(params map[string]interface{}) (res BrowseRes, err error)
 	return
 }
 
-func (i *Index) BrowseAll(params map[string]interface{}) (it IndexIterator, err error) {
+func (i *Index) BrowseAll(params Params) (it IndexIterator, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
@@ -403,7 +408,7 @@ func (i *Index) BrowseAll(params map[string]interface{}) (it IndexIterator, err 
 
 // Search performs a search query according to the `query` search query and the
 // given `params` parameters.
-func (i *Index) Search(query string, params map[string]interface{}) (res QueryRes, err error) {
+func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
 	copy := duplicateMap(params)
 	copy["query"] = query
 
@@ -417,5 +422,29 @@ func (i *Index) Search(query string, params map[string]interface{}) (res QueryRe
 
 	path := i.route + "/query"
 	err = i.client.request(&res, "POST", path, req, search)
+	return
+}
+
+// DeleteByQuery finds all the records that match the `query`, according to the
+// given 'params` and deletes them.
+func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err error) {
+	copy := duplicateMap(params)
+	copy["attributesToRetrieve"] = []string{"objectID"}
+	copy["hitsPerPage"] = 1000
+	copy["distinct"] = false
+
+	// Find all the records that match the query
+	if _, err = i.Search(query, copy); err != nil {
+		return
+	}
+
+	// Extract all the object IDs from the hits
+	objectIDs := make([]string, res.NbHits)
+	for j, hit := range res.Hits {
+		objectIDs[j] = hit["objectID"]
+	}
+
+	// Delete all the objects
+	res, err = i.DeleteObjects(objectIDs)
 	return
 }
