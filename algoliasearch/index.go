@@ -309,8 +309,11 @@ func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage i
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
 func (i *Index) GetSynonym(objectID string) (s Synonym, err error) {
+	var rawSynonym map[string]interface{}
+
 	path := i.route + "/synonyms/" + url.QueryEscape(objectID)
-	err = i.client.request(&s, "GET", path, nil, read)
+	err = i.client.request(&rawSynonym, "GET", path, nil, read)
+	s = generateSynonym(rawSynonym)
 	return
 }
 
