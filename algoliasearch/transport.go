@@ -100,42 +100,16 @@ func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Du
 	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
 }
 
-// urlEncode encodes `value` to be URL-safe.
-func (t *Transport) urlEncode(value string) string {
-	return url.QueryEscape(value)
-}
-
 // setExtraHeader adds a custom header to be used when exchanging with Algolia
 // servers.
 func (t *Transport) setExtraHeader(key string, value string) {
 	t.headers[key] = value
 }
 
-// EncodeParams transforms `params` to a URL-safe string.
-func (t *Transport) EncodeParams(params interface{}) string {
-	v := url.Values{}
-	if params != nil {
-		for key, value := range params.(map[string]interface{}) {
-			switch value := value.(type) {
-			case string:
-				v.Add(key, value)
-			case float64:
-				v.Add(key, strconv.FormatFloat(value, 'f', -1, 64))
-			case int:
-				v.Add(key, strconv.Itoa(value))
-			default:
-				jsonValue, _ := json.Marshal(value)
-				v.Add(key, string(jsonValue[:]))
-			}
-		}
-	}
-	return v.Encode()
-}
-
 // request performs a `method` HTTP request at `path` sending `body`.
 // `typeCall` represents the operation intended on the Algolia servers and can
 // be one of the following constants: `search`, `write` or `read`.
-func (t *Transport) request(method, path string, body interface{}, typeCall int) (interface{}, error) {
+func (t *Transport) request(method, path string, body interface{}, typeCall int) ([]byte, error) {
 	var host string
 	errorMsg := ""
 	if typeCall == write {
@@ -246,7 +220,7 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
 // parsed object. If the status code of the response indicates a failed request,
 // or if the body of the response is not a valid JSON object, an error is
 // returned.
-func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
+func (t *Transport) handleResponse(resp *http.Response) ([]byte, error) {
 	res, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
 	if err != nil {
@@ -259,7 +233,7 @@ func (t *Transport) handleResponse(resp *http.Response) (interface{}, error) {
 	}
 
 	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
-		return jsonResp, nil
+		return res, nil
 	} else {
 		return nil, errors.New(string(res))
 	}
