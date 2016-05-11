@@ -241,12 +241,12 @@ func (i *Index) Batch(operations []BatchOperation) (res BatchRes, err error) {
 }
 
 // Copy copies the index into a new one called `name`.
-func (i *Index) Copy(name string) (interface{}, error) {
+func (i *Index) Copy(name string) (UpdateTaskRes, error) {
 	return i.operation(name, "copy")
 }
 
 // Move renames the index into `name`.
-func (i *Index) Move(name string) (interface{}, error) {
+func (i *Index) Move(name string) (UpdateTaskRes, error) {
 	return i.operation(name, "move")
 }
 
