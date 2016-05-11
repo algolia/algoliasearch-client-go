@@ -2,7 +2,7 @@ package algoliasearch
 
 type Alternative struct {
 	Correction string `json:"correction"`
-	NbTypos    int64  `json:"nbTypos"`
+	NbTypos    int  `json:"nbTypos"`
 	Word       string `json:"word"`
 }
 
@@ -32,15 +32,15 @@ type Settings struct {
 	AttributesToHighlight      []string `json:"attributesToHighlight"`
 	AttributesToRetrieve       []string `json:"attributesToRetrieve"`
 	AttributesToSnippet        []string `json:"attributesToSnippet"`
-	Distinct                   int64    `json:"distinct"`
+	Distinct                   int    `json:"distinct"`
 	HighlightPostTag           string   `json:"highlightPostTag"`
 	HighlightPreTag            string   `json:"highlightPreTag"`
-	HitsPerPage                int64    `json:"hitsPerPage"`
+	HitsPerPage                int    `json:"hitsPerPage"`
 	IgnorePlurals              bool     `json:"ignorePlurals"`
-	MaxValuesPerFacet          int64    `json:"maxValuesPerFacet"`
-	MinProximity               int64    `json:"minProximity"`
-	MinWordSizefor1Typo        int64    `json:"minWordSizefor1Typo"`
-	MinWordSizefor2Typos       int64    `json:"minWordSizefor2Typos"`
+	MaxValuesPerFacet          int    `json:"maxValuesPerFacet"`
+	MinProximity               int    `json:"minProximity"`
+	MinWordSizefor1Typo        int    `json:"minWordSizefor1Typo"`
+	MinWordSizefor2Typos       int    `json:"minWordSizefor2Typos"`
 	OptionalWords              []string `json:"optionalWords"`
 	QueryType                  string   `json:"queryType"`
 	RemoveStopWords            bool     `json:"removeStopWords"`
