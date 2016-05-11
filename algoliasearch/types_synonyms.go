@@ -129,3 +129,8 @@ func generateSynonym(rawHit interface{}) (s Synonym, err error) {
 
 	return
 }
+
+func (s *Synonyms) NbHits() int64 {
+	return int64(len(s.AltCorrectionSynonyms) + len(s.OneWaySynonyms) +
+		len(s.SimpleSynonyms) + len(s.PlaceholderSynonyms))
+}

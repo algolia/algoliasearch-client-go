@@ -95,9 +95,9 @@ func (c *Client) AddKey(ACL []string, params Params) (res AddKeyRes, err error) 
 	return
 }
 
-// UpdateKeyWithParam updates the API key named `key` with the supplied
+// UpdateKey updates the API key named `key` with the supplied
 // parameters.
-func (c *Client) UpdateKeyWithParam(key string, params Params) (res UpdateKeyRes, err error) {
+func (c *Client) UpdateKey(key string, params Params) (res UpdateKeyRes, err error) {
 	if err = checkKey(params); err != nil {
 		return
 	}
