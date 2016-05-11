@@ -48,8 +48,8 @@ Outer:
 			"aroundRadius",
 			"aroundPrecision",
 			"minimumAroundRadius":
-			if _, ok := v.(int64); !ok {
-				return invalidType(k, "int64")
+			if _, ok := v.(int); !ok {
+				return invalidType(k, "int")
 			}
 
 		case "allowTyposOnNumericTokens",

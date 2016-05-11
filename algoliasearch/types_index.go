@@ -2,9 +2,9 @@ package algoliasearch
 
 type IndexRes struct {
 	CreatedAt      string `json:"createdAt"`
-	DataSize       int64  `json:"dataSize"`
-	Entries        int64  `json:"entries"`
-	LastBuildTimeS int64  `json:"lastBuildTimeS"`
+	DataSize       int  `json:"dataSize"`
+	Entries        int  `json:"entries"`
+	LastBuildTimeS int  `json:"lastBuildTimeS"`
 	Name           string `json:"name"`
 	PendingTask    bool   `json:"pendingTask"`
 	UpdatedAt      string `json:"updatedAt"`

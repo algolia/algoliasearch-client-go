@@ -12,12 +12,12 @@ type BatchOperationIndexed struct {
 
 type BatchRes struct {
 	ObjectIDs []string `json:"objectIDs"`
-	TaskID    int64    `json:"taskID"`
+	TaskID    int    `json:"taskID"`
 }
 
 type MultipleBatchRes struct {
 	ObjectIDs []string         `json:"objectIDs"`
-	TaskID    map[string]int64 `json:"taskID"`
+	TaskID    map[string]int `json:"taskID"`
 }
 
 func newBatchOperations(objects []Object, action string) []BatchOperation {

@@ -11,12 +11,12 @@ type MultipleQueryRes struct {
 
 type QueryRes struct {
 	Hits             []map[string]interface{} `json:"hits"`
-	HitsPerPage      int64                    `json:"hitsPerPage"`
-	NbHits           int64                    `json:"nbHits"`
-	NbPages          int64                    `json:"nbPages"`
-	Page             int64                    `json:"page"`
+	HitsPerPage      int                      `json:"hitsPerPage"`
+	NbHits           int                      `json:"nbHits"`
+	NbPages          int                      `json:"nbPages"`
+	Page             int                      `json:"page"`
 	Params           string                   `json:"params"`
-	ParsedQuery      string                   `json:"parsedQuery"`
-	ProcessingTimeMS int64                    `json:"processingTimeMS"`
+	ParsedQuery      string                   `json:"parsedQuery,omitempty"`
+	ProcessingTimeMS int                      `json:"processingTimeMS"`
 	Query            string                   `json:"query"`
 }

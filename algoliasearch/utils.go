@@ -12,7 +12,7 @@ import (
 // randDuration generates a pseudo-random `time.Duration` between 1 and `max`.
 func randDuration(max time.Duration) time.Duration {
 	rand.Seed(time.Now().Unix())
-	nbNanoseconds := 1 + int64(rand.Int63n(max.Nanoseconds()))
+	nbNanoseconds := 1 + int(rand.Int63n(max.Nanoseconds()))
 	return time.Duration(nbNanoseconds) * time.Nanosecond
 }
 
