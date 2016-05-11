@@ -147,6 +147,12 @@ func (i *Index) AddKey(k Key) (res AddKeyRes, err error) {
 	return
 }
 
+func (i *Index) UpdateKey(k Key) (res UpdateKeyRes, err error) {
+	path := i.route + "/keys/" + k.Value
+	err = i.client.request(&res, "PUT", path, key, read)
+	return
+}
+
 // GetKey returns the ACL and the validity of the given `key` API key for the
 // current index.
 func (i *Index) GetKey(value string) (key Key, err error) {
