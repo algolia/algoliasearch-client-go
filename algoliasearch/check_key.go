@@ -7,13 +7,13 @@ func checkGenerateSecuredAPIKey(params map[string]interface{}) error {
 
 	if v, ok := params["userToken"]; ok {
 		if _, ok := v.(string); !ok {
-			return invalidParameter("userToken")
+			return invalidType("userToken", "[]string")
 		}
 	}
 
 	if v, ok := params["tagFilters"]; ok {
 		if _, ok := v.([]string); !ok {
-			return invalidParameter("tagFilters")
+			return invalidType("tagFilters", "[]string")
 		}
 	}
 
@@ -22,29 +22,21 @@ func checkGenerateSecuredAPIKey(params map[string]interface{}) error {
 
 func checkKey(params map[string]interface{}) error {
 	for k, v := range params {
-		switch v.(type) {
-		case []string:
-			if k != "acl" &&
-				k != "indexes" &&
-				k != "referers" {
-				return invalidParameter(k)
+		switch k {
+		case "acl", "indexes", "referers":
+			if _, ok := v.([]string); !ok {
+				return invalidType(k, "[]string")
 			}
 
-		case string:
-			if k != "description" &&
-				k != "queryParameters" {
-				return invalidParameter(k)
+		case "description", "queryParameters":
+			if _, ok := v.(string); !ok {
+				return invalidType(k, "string")
 			}
 
-		case int64:
-			if k != "maxHitsPerQuery" &&
-				k != "maxQueriesPerIPPerHour" &&
-				k != "validity" {
-				return invalidParameter(k)
-			}
+		case "maxHitsPerQuery", "maxQueriesPerIPPerHour", "validity":
+			return invalidType(k, "int64")
 
 		default:
-			return invalidParameter(k)
 		}
 	}
 

@@ -2,67 +2,70 @@ package algoliasearch
 
 func checkSettings(settings map[string]interface{}) error {
 	for k, v := range settings {
-		switch v.(type) {
-		case []Alternative:
-			if k != "altCorrections" {
-				return invalidParameter(k)
+		switch k {
+		case "altCorrections":
+			if _, ok := v.([]Alternative); !ok {
+				return invalidType(k, "[]Alternative")
 			}
-		case [][]string:
-			if k != "synonyms" {
-				return invalidParameter(k)
+
+		case "synonyms":
+			if _, ok := v.([][]string); !ok {
+				return invalidType(k, "[][]string")
 			}
-		case []string:
-			if k != "attributesForDistinct" &&
-				k != "attributesForFaceting" &&
-				k != "attributesToIndex" &&
-				k != "numericAttributesToIndex" &&
-				k != "ranking" &&
-				k != "slaves" &&
-				k != "unretrievableAttributes" &&
-				k != "disableTypoToleranceOnAttributes" &&
-				k != "disableTypoToleranceOnWords" &&
-				k != "attributesToHighlight" &&
-				k != "attributesToRetrieve" &&
-				k != "attributesToSnippet" &&
-				k != "OptionalWords" {
-				return invalidParameter(k)
+
+		case "attributesForDistinct",
+			"attributesForFaceting",
+			"attributesToIndex",
+			"numericAttributesToIndex",
+			"ranking",
+			"slaves",
+			"unretrievableAttributes",
+			"disableTypoToleranceOnAttributes",
+			"disableTypoToleranceOnWords",
+			"attributesToHighlight",
+			"attributesToRetrieve",
+			"attributesToSnippet",
+			"optionalWords":
+			if _, ok := v.([]string); !ok {
+				return invalidType(k, "[]string")
 			}
-		case bool:
-			if k != "allowCompressionOfIntegerArray" &&
-				k != "advancedSyntax" &&
-				k != "allowTyposOnNumericTokens" &&
-				k != "ignorePlurals" &&
-				k != "removeStopWords" &&
-				k != "replaceSynonymsInHighlight" {
-				return invalidParameter(k)
+
+		case "allowCompressionOfIntegerArray",
+			"advancedSyntax",
+			"allowTyposOnNumericTokens",
+			"ignorePlurals",
+			"removeStopWords",
+			"replaceSynonymsInHighlight":
+			if _, ok := v.(bool); !ok {
+				return invalidType(k, "bool")
 			}
-		case int64:
-			if k != "distinct" &&
-				k != "hitsPerPage" &&
-				k != "maxValuesPerFacet" &&
-				k != "minProximity" &&
-				k != "minWordSizefor1Typo" &&
-				k != "minWordSizefor2Typos" {
-				return invalidParameter(k)
+
+		case "distinct",
+			"hitsPerPage",
+			"maxValuesPerFacet",
+			"minProximity",
+			"minWordSizefor1Typo",
+			"minWordSizefor2Typos":
+			if _, ok := v.(int64); !ok {
+				return invalidType(k, "int64")
 			}
-		case map[string][]string:
-			if k != "placeholders" {
-				return invalidParameter(k)
+
+		case "placeholders":
+			if _, ok := v.(map[string][]string); !ok {
+				return invalidType(k, "map[string][]string")
 			}
-		case string:
-			if k != "separatorsToIndex" &&
-				k != "highlightPostTag" &&
-				k != "highlightPreTag" &&
-				k != "queryType" &&
-				k != "snippetEllipsisText" &&
-				k != "typoTolerance" {
-				return invalidParameter(k)
+
+		case "separatorsToIndex",
+			"highlightPostTag",
+			"highlightPreTag",
+			"queryType",
+			"snippetEllipsisText",
+			"typoTolerance":
+			if _, ok := v.(string); !ok {
+				return invalidType(k, "string")
 			}
-			if k == "queryType" && v != "prefixAll" && v != "prefixLast" && v != "prefixNone" {
-				return invalidParameter(k)
-			}
+
 		default:
-			return invalidParameter(k)
 		}
 	}
 
