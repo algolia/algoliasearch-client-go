@@ -340,7 +340,7 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 // with `forwardToSlaves`.
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
-func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteRes, err error) {
+func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTask, err error) {
 	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
