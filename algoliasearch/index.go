@@ -432,16 +432,27 @@ func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err er
 	copy["attributesToRetrieve"] = []string{"objectID"}
 	copy["hitsPerPage"] = 1000
 	copy["distinct"] = false
+	copy["query"] = query
 
-	// Find all the records that match the query
-	if _, err = i.Search(query, copy); err != nil {
+	// Retrieve the iterator to browse the results
+	var it IndexIterator
+	if it, err = i.BrowseAll(copy); err != nil {
 		return
 	}
 
-	// Extract all the object IDs from the hits
-	objectIDs := make([]string, res.NbHits)
-	for j, hit := range res.Hits {
-		objectIDs[j] = hit["objectID"]
+	// Iterate through all the objectIDs
+	var hit map[string]interface{}
+	var objectIDs []string
+	for err != nil {
+		if hit, err = it.Next(); err != nil {
+			objectIDs = append(objectIDs, hit["objectID"].(string))
+		}
+	}
+
+	// If it errored for something else than finishing the Browse properly, an
+	// error is returned.
+	if err.Error() != "No more hits" {
+		return
 	}
 
 	// Delete all the objects
