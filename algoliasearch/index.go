@@ -149,7 +149,7 @@ func (i *Index) AddKey(k Key) (res AddKeyRes, err error) {
 
 func (i *Index) UpdateKey(k Key) (res UpdateKeyRes, err error) {
 	path := i.route + "/keys/" + k.Value
-	err = i.client.request(&res, "PUT", path, key, read)
+	err = i.client.request(&res, "PUT", path, k, read)
 	return
 }
 
@@ -312,8 +312,13 @@ func (i *Index) GetSynonym(objectID string) (s Synonym, err error) {
 	var rawSynonym map[string]interface{}
 
 	path := i.route + "/synonyms/" + url.QueryEscape(objectID)
-	err = i.client.request(&rawSynonym, "GET", path, nil, read)
-	s = generateSynonym(rawSynonym)
+	i.client.request(&rawSynonym, "GET", path, nil, read)
+
+	if err != nil {
+		return
+	}
+
+	s, err = generateSynonym(rawSynonym)
 	return
 }
 
@@ -340,7 +345,7 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 // with `forwardToSlaves`.
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
-func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTask, err error) {
+func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTaskRes, err error) {
 	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
@@ -432,16 +437,27 @@ func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err er
 	copy["attributesToRetrieve"] = []string{"objectID"}
 	copy["hitsPerPage"] = 1000
 	copy["distinct"] = false
+	copy["query"] = query
 
-	// Find all the records that match the query
-	if _, err = i.Search(query, copy); err != nil {
+	// Retrieve the iterator to browse the results
+	var it IndexIterator
+	if it, err = i.BrowseAll(copy); err != nil {
 		return
 	}
 
-	// Extract all the object IDs from the hits
-	objectIDs := make([]string, res.NbHits)
-	for j, hit := range res.Hits {
-		objectIDs[j] = hit["objectID"]
+	// Iterate through all the objectIDs
+	var hit map[string]interface{}
+	var objectIDs []string
+	for err != nil {
+		if hit, err = it.Next(); err != nil {
+			objectIDs = append(objectIDs, hit["objectID"].(string))
+		}
+	}
+
+	// If it errored for something else than finishing the Browse properly, an
+	// error is returned.
+	if err.Error() != "No more hits" {
+		return
 	}
 
 	// Delete all the objects
