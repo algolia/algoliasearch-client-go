@@ -101,7 +101,7 @@ func (i *Index) SetSettings(settings map[string]interface{}) (res UpdateTaskRes,
 // `taskID` is finished. The waiting time between each check starts at 1s and
 // is increased by a factor of 2 at each retry (but is bounded at around
 // 20min).
-func (i *Index) WaitTask(taskID int64) error {
+func (i *Index) WaitTask(taskID int) error {
 	var res TaskStatusRes
 	var err error
 
@@ -203,7 +203,7 @@ func (i *Index) PartialUpdateObject(object Object) (res UpdateTaskRes, err error
 	}
 
 	path := i.route + "/" + url.QueryEscape(objectID) + "/partial"
-	err = i.client.request(&res, "PUT", path, object, write)
+	err = i.client.request(&res, "POST", path, object, write)
 	return
 }
 
@@ -287,7 +287,7 @@ func (i *Index) operation(dst, op string) (res UpdateTaskRes, err error) {
 }
 
 // GetStatus returns the status of a task given its ID `taskID`.
-func (i *Index) GetStatus(taskID int64) (res TaskStatusRes, err error) {
+func (i *Index) GetStatus(taskID int) (res TaskStatusRes, err error) {
 	path := i.route + fmt.Sprintf("/task/%d", taskID)
 	err = i.client.request(&res, "GET", path, nil, read)
 	return

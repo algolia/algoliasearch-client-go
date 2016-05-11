@@ -3,12 +3,12 @@ package algoliasearch
 type CreateObjectRes struct {
 	CreatedAt string `json:"createdAt"`
 	ObjectID  string `json:"objectID"`
-	TaskID    int64  `json:"taskID"`
+	TaskID    int  `json:"taskID"`
 }
 
 type UpdateObjectRes struct {
 	ObjectID  string `json:"objectID"`
-	TaskID    int64  `json:"taskID"`
+	TaskID    int  `json:"taskID"`
 	UpdatedAt string `json:"updatedAt"`
 }
 

@@ -46,8 +46,8 @@ func checkSettings(settings map[string]interface{}) error {
 			"minProximity",
 			"minWordSizefor1Typo",
 			"minWordSizefor2Typos":
-			if _, ok := v.(int64); !ok {
-				return invalidType(k, "int64")
+			if _, ok := v.(int); !ok {
+				return invalidType(k, "int")
 			}
 
 		case "placeholders":

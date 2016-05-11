@@ -16,14 +16,14 @@ type Synonym interface{}
 
 type AltCorrectionSynonym struct {
 	Corrections       []string               `json:"corrections"`
-	HighlightedResult map[string]interface{} `json:"_highlightedResult"`
+	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
 	ObjectID          string                 `json:"objectID"`
 	Type              string                 `json:"type"`
 	Word              string                 `json:"word"`
 }
 
 type OneWaySynonym struct {
-	HighlightedResult map[string]interface{} `json:"_highlightedResult"`
+	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
 	Input             string                 `json:"input"`
 	ObjectID          string                 `json:"objectID"`
 	Synonyms          []string               `json:"synonyms"`
@@ -31,7 +31,7 @@ type OneWaySynonym struct {
 }
 
 type PlaceholderSynonym struct {
-	HighlightedResult map[string]interface{} `json:"_highlightedResult"`
+	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
 	ObjectID          string                 `json:"objectID"`
 	Placeholder       string                 `json:"placeholder"`
 	Replacements      []string               `json:"replacements"`
@@ -39,7 +39,7 @@ type PlaceholderSynonym struct {
 }
 
 type SimpleSynonym struct {
-	HighlightedResult map[string]interface{} `json:"_highlightedResult"`
+	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
 	ObjectID          string                 `json:"objectID"`
 	Synonyms          []string               `json:"synonyms"`
 	Type              string                 `json:"type"`
@@ -131,4 +131,9 @@ func generateSynonym(rawHit interface{}) (s Synonym, err error) {
 	}
 
 	return
+}
+
+func (s *Synonyms) NbHits() int {
+	return int(len(s.AltCorrectionSynonyms) + len(s.OneWaySynonyms) +
+		len(s.SimpleSynonyms) + len(s.PlaceholderSynonyms))
 }
