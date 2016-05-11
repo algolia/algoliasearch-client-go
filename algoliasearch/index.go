@@ -421,3 +421,27 @@ func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
 	err = i.client.request(&res, "POST", path, req, search)
 	return
 }
+
+// DeleteByQuery finds all the records that match the `query`, according to the
+// given 'params` and deletes them.
+func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err error) {
+	copy := duplicateMap(params)
+	copy["attributesToRetrieve"] = []string{"objectID"}
+	copy["hitsPerPage"] = 1000
+	copy["distinct"] = false
+
+	// Find all the records that match the query
+	if _, err = i.Search(query, copy); err != nil {
+		return
+	}
+
+	// Extract all the object IDs from the hits
+	objectIDs := make([]string, res.NbHits)
+	for j, hit := range res.Hits {
+		objectIDs[j] = hit["objectID"]
+	}
+
+	// Delete all the objects
+	res, err = i.DeleteObjects(objectIDs)
+	return
+}
