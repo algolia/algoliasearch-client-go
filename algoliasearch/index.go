@@ -45,7 +45,7 @@ func (i *Index) Clear() (res UpdateTaskRes, err error) {
 // attributes that you want to retrieve. If this parameter is omitted, all the
 // attributes are returned.
 func (i *Index) GetObject(objectID string, attributes []string) (object Object, err error) {
-	params := map[string]interface{}{
+	params := Params{
 		"attributes": strings.Join(attributes, ","),
 	}
 
@@ -323,7 +323,7 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 		return
 	}
 
-	params := map[string]interface{}{
+	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
@@ -338,7 +338,7 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
 func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteRes, err error) {
-	params := map[string]interface{}{
+	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
@@ -352,7 +352,7 @@ func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res Delete
 // An error is returned if the underlying HTTP call does not yield a 200
 // status code.
 func (i *Index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	params := map[string]interface{}{
+	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
@@ -372,7 +372,7 @@ func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwa
 		return
 	}
 
-	params := map[string]interface{}{
+	params := Params{
 		"replaceExistingSynonyms": replaceExistingSynonyms,
 		"forwardToSlaves":         forwardToSlaves,
 	}
@@ -384,7 +384,7 @@ func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwa
 
 // Browse returns `hitsPerPage` results from the `page` page.
 // Deprecated: Use `BrowseFrom` or `BrowseAll` instead.
-func (i *Index) Browse(params map[string]interface{}) (res BrowseRes, err error) {
+func (i *Index) Browse(params Params) (res BrowseRes, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
@@ -394,7 +394,7 @@ func (i *Index) Browse(params map[string]interface{}) (res BrowseRes, err error)
 	return
 }
 
-func (i *Index) BrowseAll(params map[string]interface{}) (it IndexIterator, err error) {
+func (i *Index) BrowseAll(params Params) (it IndexIterator, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
@@ -405,7 +405,7 @@ func (i *Index) BrowseAll(params map[string]interface{}) (it IndexIterator, err 
 
 // Search performs a search query according to the `query` search query and the
 // given `params` parameters.
-func (i *Index) Search(query string, params map[string]interface{}) (res QueryRes, err error) {
+func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
 	copy := duplicateMap(params)
 	copy["query"] = query
 
