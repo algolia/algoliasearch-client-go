@@ -16,8 +16,8 @@ func randDuration(max time.Duration) time.Duration {
 	return time.Duration(nbNanoseconds) * time.Nanosecond
 }
 
-func invalidParameter(p string) error {
-	return fmt.Errorf("`%s` doesn't exist or doesn't have the right type", p)
+func invalidType(p, t string) error {
+	return fmt.Errorf("`%s` should be of type `%s`", p, t)
 }
 
 func duplicateMap(m map[string]interface{}) map[string]interface{} {

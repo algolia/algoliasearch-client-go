@@ -10,7 +10,7 @@ func checkSynonym(s Synonym) error {
 		SimpleSynonym:
 		// Type is valid. Do nothing.
 	default:
-		return invalidParameter(fmt.Sprintf("%T", s))
+		return fmt.Errorf("Invalid synonym type `%T`", s)
 	}
 
 	return nil

@@ -1,6 +1,9 @@
 package algoliasearch
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Synonyms struct {
 	AltCorrectionSynonyms []AltCorrectionSynonym
@@ -89,14 +92,14 @@ func generateSynonym(rawHit interface{}) (s Synonym, err error) {
 	// Check that the `type` field exists
 	t, ok := hit["type"]
 	if !ok {
-		err = invalidParameter("type")
+		err = errors.New("`type` should be present")
 		return
 	}
 
 	// Check that the `type` field is a string
 	t, ok = t.(string)
 	if !ok {
-		err = invalidParameter("type")
+		err = invalidType("type", "string")
 		return
 	}
 
