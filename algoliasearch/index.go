@@ -229,7 +229,9 @@ func (i *Index) DeleteObjects(objectIDs []string) (BatchRes, error) {
 	objects := make([]Object, len(objectIDs))
 
 	for j, id := range objectIDs {
-		objects[j]["objectID"] = id
+		objects[j] = Object{
+			"objectID": url.QueryEscape(id),
+		}
 	}
 
 	operations := newBatchOperations(objects, "deleteObject")
