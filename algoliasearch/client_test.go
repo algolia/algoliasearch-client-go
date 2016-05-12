@@ -78,7 +78,7 @@ func checkEqual(got, expected interface{}, message string, index Index, t *testi
 }
 
 func fatal(index Index, t *testing.T, fmt string, objs ...interface{}) {
-	t.Errorf(fmt, objs...)
+	t.Logf(fmt, objs...)
 	tearDownTest(index, t)
 	t.FailNow()
 }
@@ -91,16 +91,19 @@ func TestClear(t *testing.T) {
 
 	clear, err := index.Clear()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(clear.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -118,16 +121,19 @@ func TestAddObject(t *testing.T) {
 
 	add, err := index.AddObject(object)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(add.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -146,16 +152,19 @@ func TestUpdateObject(t *testing.T) {
 
 	update, err := index.UpdateObject(object)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(update.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -175,16 +184,19 @@ func TestPartialUpdateObject(t *testing.T) {
 
 	update, err := index.PartialUpdateObject(object)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(update.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -204,10 +216,12 @@ func TestGetObject(t *testing.T) {
 
 	obj, err := index.GetObject("àlgol?à", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	if obj["name"] != object["name"] {
+		t.Errorf("Here")
 		fatal(index, t, "Unable to get a single object")
 	}
 
@@ -226,6 +240,7 @@ func TestGetObjects(t *testing.T) {
 
 	objects, err := index.GetObjects([]string{"1", "2"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -243,16 +258,19 @@ func TestDeleteObject(t *testing.T) {
 
 	del, err := index.DeleteObject("àlgol?à")
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(del.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -268,16 +286,19 @@ func TestSetSettings(t *testing.T) {
 
 	set, err := index.SetSettings(settings)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(set.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	get, err := index.GetSettings()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -294,6 +315,7 @@ func TestBrowse(t *testing.T) {
 
 	_, err := index.Browse(Params{"page": 1, "hitsPerPage": 1})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -308,11 +330,13 @@ func TestBrowseWithCursor(t *testing.T) {
 
 	browse, err := index.BrowseAll(Params{"query": ""})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	hit, err := browse.Next()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -320,6 +344,7 @@ func TestBrowseWithCursor(t *testing.T) {
 
 	_, err = browse.Next()
 	if err == nil {
+		t.Errorf("Here")
 		fatal(index, t, "Should contains only one element")
 	}
 
@@ -335,6 +360,7 @@ func TestQuery(t *testing.T) {
 	params := Params{"attributesToRetrieve": []string{"*"}, "getRankingInfo": 1}
 	search, err := index.Search("", params)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -351,11 +377,13 @@ func TestIndexCopy(t *testing.T) {
 
 	idx, err := index.Copy(safeName("àlgo?à2-go"))
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(idx.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -363,6 +391,7 @@ func TestIndexCopy(t *testing.T) {
 
 	search, err := indexCopy.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -380,11 +409,13 @@ func TestCopy(t *testing.T) {
 
 	copy, err := client.CopyIndex(safeName("àlgol?à-go"), safeName("àlgo?à2-go"))
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(copy.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -392,6 +423,7 @@ func TestCopy(t *testing.T) {
 
 	search, err := indexCopy.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -409,11 +441,13 @@ func TestIndexMove(t *testing.T) {
 
 	move, err := index.Move(safeName("àlgo?à2-go"))
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(move.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -421,6 +455,7 @@ func TestIndexMove(t *testing.T) {
 
 	search, err := indexMove.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -437,11 +472,13 @@ func TestMove(t *testing.T) {
 
 	move, err := client.MoveIndex(safeName("àlgol?à-go"), safeName("àlgo?à2-go"))
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(move.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -449,6 +486,7 @@ func TestMove(t *testing.T) {
 
 	search, err := indexMove.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -469,6 +507,7 @@ func TestAddIndexKey(t *testing.T) {
 
 	add, err := index.AddKey(newKey)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -477,15 +516,18 @@ func TestAddIndexKey(t *testing.T) {
 
 	get, err := index.GetKey(add.Key)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	if get.Value != add.Key {
+		t.Errorf("Here")
 		fatal(index, t, "Unable to get a key")
 	}
 
 	list, err := index.ListKeys()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -495,12 +537,14 @@ func TestAddIndexKey(t *testing.T) {
 	}
 
 	if !hasString(keys, add.Key) {
+		t.Errorf("Here")
 		fatal(index, t, "%s should be present", add.Key)
 	}
 
 	updated := Key{ACL: []string{"addObject"}}
 	_, err = index.UpdateKey(add.Key, updated)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -509,6 +553,7 @@ func TestAddIndexKey(t *testing.T) {
 
 	list, err = index.ListKeys()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -518,11 +563,13 @@ func TestAddIndexKey(t *testing.T) {
 	}
 
 	if !hasString(keys, add.Key) {
+		t.Errorf("Here")
 		fatal(index, t, "%s should be present", add.Key)
 	}
 
 	_, err = index.DeleteKey(add.Key)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -531,6 +578,7 @@ func TestAddIndexKey(t *testing.T) {
 
 	list, err = index.ListKeys()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -540,6 +588,7 @@ func TestAddIndexKey(t *testing.T) {
 	}
 
 	if hasString(keys, add.Key) {
+		t.Errorf("Here")
 		fatal(index, t, "%s should not be present", add.Key)
 	}
 
@@ -559,6 +608,7 @@ func TestAddKey(t *testing.T) {
 
 	add, err := client.AddKey(acl, params)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -567,15 +617,18 @@ func TestAddKey(t *testing.T) {
 
 	get, err := client.GetKey(add.Key)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	if get.Value != add.Key {
+		t.Errorf("Here")
 		fatal(index, t, "Unable to get a key")
 	}
 
 	_, err = client.UpdateKey(add.Key, Params{"acl": []string{"addObject"}})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -584,6 +637,7 @@ func TestAddKey(t *testing.T) {
 
 	list, err := client.ListKeys()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -593,11 +647,13 @@ func TestAddKey(t *testing.T) {
 	}
 
 	if !hasString(keys, add.Key) {
+		t.Errorf("Here")
 		fatal(index, t, "%s should be present", add.Key)
 	}
 
 	_, err = client.DeleteKey(add.Key)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -606,6 +662,7 @@ func TestAddKey(t *testing.T) {
 
 	list, err = client.ListKeys()
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -615,6 +672,7 @@ func TestAddKey(t *testing.T) {
 	}
 
 	if hasString(keys, add.Key) {
+		t.Errorf("Here")
 		fatal(index, t, "%s should not be present", add.Key)
 	}
 
@@ -630,16 +688,19 @@ func TestAddObjects(t *testing.T) {
 
 	add, err := index.AddObjects(objects)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(add.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -657,16 +718,19 @@ func TestUpdateObjects(t *testing.T) {
 
 	update, err := index.UpdateObjects(objects)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(update.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -684,16 +748,19 @@ func TestPartialUpdateObjects(t *testing.T) {
 
 	update, err := index.PartialUpdateObjects(objects)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(update.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -711,11 +778,13 @@ func TestDeleteObjects(t *testing.T) {
 
 	update, err := index.PartialUpdateObjects(objects)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(update.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -723,16 +792,19 @@ func TestDeleteObjects(t *testing.T) {
 
 	del, err := index.DeleteObjects(objectIDs)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(del.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -751,26 +823,31 @@ func TestDeleteByQuery(t *testing.T) {
 
 	add, err := index.AddObjects(objects)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(add.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	del, err := index.DeleteByQuery("San", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(del.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -785,6 +862,7 @@ func TestGenerateNewSecuredApiKey(t *testing.T) {
 
 	key, err := client.GenerateSecuredAPIKey(base, Params{"tagFilters": "(public,user1)"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 	expected := "MDZkNWNjNDY4M2MzMDA0NmUyNmNkZjY5OTMzYjVlNmVlMTk1NTEwMGNmNTVjZmJhMmIwOTIzYjdjMTk2NTFiMnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjk="
@@ -792,6 +870,7 @@ func TestGenerateNewSecuredApiKey(t *testing.T) {
 
 	key, err = client.GenerateSecuredAPIKey(base, Params{"tagFilters": "(public,user1)", "userToken": "42"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 	expected = "OGYwN2NlNTdlOGM2ZmM4MjA5NGM0ZmYwNTk3MDBkNzMzZjQ0MDI3MWZjNTNjM2Y3YTAzMWM4NTBkMzRiNTM5YnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjkmdXNlclRva2VuPTQy"
@@ -812,10 +891,12 @@ func TestMultipleQueries(t *testing.T) {
 
 	search, err := client.MultipleQueries(queries, "", "")
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	if len(search) == 0 {
+		t.Errorf("Here")
 		fatal(index, t, "search shouldn't be empty")
 	}
 	checkNbHits(search[0].NbHits, 1, index, t)
@@ -829,41 +910,49 @@ func TestFacets(t *testing.T) {
 	settings := Params{"attributesForFacetting": []string{"f", "g"}}
 	set, err := index.SetSettings(settings)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(set.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	_, err = index.AddObject(Object{"f": "f1", "g": "g1"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	_, err = index.AddObject(Object{"f": "f1", "g": "g2"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	_, err = index.AddObject(Object{"f": "f2", "g": "g2"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	add, err := index.AddObject(Object{"f": "f3", "g": "g2"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(add.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	search, err := index.Search("", Params{"facets": "f", "facetFilters": "f:f1"})
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -888,16 +977,19 @@ func TestSynonyms(t *testing.T) {
 	}, false, false)
 
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(batch.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	get, err := index.GetSynonym("city")
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -905,6 +997,7 @@ func TestSynonyms(t *testing.T) {
 
 	search, err := index.Search("Howard Street SF", nil)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -912,16 +1005,19 @@ func TestSynonyms(t *testing.T) {
 
 	del, err := index.DeleteSynonym("street", false)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(del.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	synonyms, err := index.SearchSynonyms("", []string{"synonym"}, 0, 5)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
@@ -929,16 +1025,19 @@ func TestSynonyms(t *testing.T) {
 
 	clear, err := index.ClearSynonyms(false)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	err = index.WaitTask(clear.TaskID)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
 	synonyms, err = index.SearchSynonyms("", []string{}, 0, 5)
 	if err != nil {
+		t.Errorf("Here")
 		fatal(index, t, err.Error())
 	}
 
