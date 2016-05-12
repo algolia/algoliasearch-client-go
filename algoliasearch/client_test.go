@@ -203,7 +203,7 @@ func TestPartialUpdateObject(t *testing.T) {
 	checkEqual(search.Hits[0]["name"], object["name"], "name", index, t)
 
 	_, ok := search.Hits[0]["job"]
-	checkEqual(ok, false, "job presence", index, t)
+	checkEqual(ok, true, "job presence", index, t)
 
 	tearDownTest(index, t)
 }
