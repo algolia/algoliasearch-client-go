@@ -192,7 +192,7 @@ func (c *Client) MultipleQueries(queries []map[string]interface{}, indexField, s
 
 	var m multipleQueriesRes
 	err = c.request(&m, "POST", "/1/indexes/*/queries?strategy="+strategy, body, search)
-	res = m.results
+	res = m.Results
 	return
 }
 

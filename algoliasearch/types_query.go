@@ -1,7 +1,7 @@
 package algoliasearch
 
 type multipleQueriesRes struct {
-	results []MultipleQueryRes
+	Results []MultipleQueryRes `json:"results"`
 }
 
 type MultipleQueryRes struct {
