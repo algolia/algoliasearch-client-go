@@ -53,7 +53,7 @@ func (i *Index) GetObject(objectID string, attributes []string) (object Object, 
 }
 
 // GetObjects retrieves the objects identified according to their `objectIDs`.
-func (i *Index) GetObjects(objectIDs []string) (objects []Object, err error) {
+func (i *Index) GetObjects(objectIDs []string) (objs []Object, err error) {
 	requests := make([]map[string]string, len(objectIDs))
 	for j, id := range objectIDs {
 		requests[j] = map[string]string{
@@ -66,8 +66,10 @@ func (i *Index) GetObjects(objectIDs []string) (objects []Object, err error) {
 		"requests": requests,
 	}
 
-	path := i.route + "/*/objects"
-	err = i.client.request(&objects, "POST", path, body, read)
+	var res objects
+	path := "/1/indexes/*/objects"
+	err = i.client.request(&res, "POST", path, body, read)
+	objs = res.Results
 	return
 }
 
