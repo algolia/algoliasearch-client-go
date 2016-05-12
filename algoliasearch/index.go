@@ -301,7 +301,7 @@ func (i *Index) GetStatus(taskID int) (res TaskStatusRes, err error) {
 // SearchSynonyms returns the synonyms matching `query` whose types match
 // `types`. To retrieve the first page, `page` should be set to 0.
 // `hitsPerPage` specifies how many synonym sets will be returned per page.
-func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage int) (synonyms Synonyms, err error) {
+func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage int) (synonyms []Synonym, err error) {
 	body := map[string]interface{}{
 		"query":       query,
 		"type":        strings.Join(types, ","),
@@ -310,13 +310,11 @@ func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage i
 	}
 
 	path := i.route + "/synonyms/search"
-	var rawSynonyms map[string]interface{}
-	err = i.client.request(&rawSynonyms, "POST", path, body, search)
+	var res SearchSynonymsRes
+	err = i.client.request(&res, "POST", path, body, search)
 
-	if hits, ok := rawSynonyms["hits"]; ok {
-		synonyms, err = generateSynonyms(hits)
-	} else {
-		err = fmt.Errorf("Cannot retrieve the `hits` field")
+	if err != nil {
+		synonyms = res.Hits
 	}
 
 	return
@@ -324,26 +322,14 @@ func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage i
 
 // GetSynonym retrieves the synonym identified by `objectID`.
 func (i *Index) GetSynonym(objectID string) (s Synonym, err error) {
-	var rawSynonym map[string]interface{}
-
 	path := i.route + "/synonyms/" + url.QueryEscape(objectID)
-	i.client.request(&rawSynonym, "GET", path, nil, read)
-
-	if err != nil {
-		return
-	}
-
-	s, err = generateSynonym(rawSynonym)
+	err = i.client.request(&s, "GET", path, nil, read)
 	return
 }
 
 // AddSynonym adds the given `synonym` to be identified `objectID`. This
 // addition can be forwarded to the index slaves using `forwardToSlaves`.
 func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	if err = checkSynonym(synonym); err != nil {
-		return
-	}
-
 	params := Params{
 		"forwardToSlaves": forwardToSlaves,
 	}
@@ -382,10 +368,6 @@ func (i *Index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err erro
 // operation and the additions can be forwarded to the index slaves by setting
 // `forwardToSlaves` to `true'.
 func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	if err = checkSynonyms(synonyms); err != nil {
-		return
-	}
-
 	params := Params{
 		"replaceExistingSynonyms": replaceExistingSynonyms,
 		"forwardToSlaves":         forwardToSlaves,
