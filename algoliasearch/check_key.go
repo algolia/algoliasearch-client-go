@@ -34,7 +34,9 @@ func checkKey(params map[string]interface{}) error {
 			}
 
 		case "maxHitsPerQuery", "maxQueriesPerIPPerHour", "validity":
-			return invalidType(k, "int")
+			if _, ok := v.(int); !ok {
+				return invalidType(k, "int")
+			}
 
 		default:
 		}
