@@ -313,7 +313,7 @@ func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage i
 	var res SearchSynonymsRes
 	err = i.client.request(&res, "POST", path, body, search)
 
-	if err != nil {
+	if err == nil {
 		synonyms = res.Hits
 	}
 
