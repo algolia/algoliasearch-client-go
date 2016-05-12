@@ -1,6 +1,6 @@
 package algoliasearch
 
-import "fmt"
+import "errors"
 
 type IndexIterator struct {
 	cursor string
@@ -23,14 +23,21 @@ func NewIndexIterator(index *Index, params map[string]interface{}) (it IndexIter
 func (it *IndexIterator) Next() (res map[string]interface{}, err error) {
 	// Abort if the user call `Next()` on a IndexIterator that has been
 	// initialized without being able to load the first page.
-	if it.page.NbHits == 0 {
-		err = fmt.Errorf("No more hits")
+	if len(it.page.Hits) == 0 {
+		err = errors.New("No more hits")
 		return
 	}
 
 	// If the last element of the page has been reached, the next one is loaded
-	if it.pos == it.page.NbHits {
-		if err = it.loadNextPage(); err != nil {
+	if it.pos == len(it.page.Hits) {
+		if it.cursor == "" {
+			err = errors.New("No more hits")
+
+		} else {
+			err = it.loadNextPage()
+		}
+
+		if err != nil {
 			return
 		}
 	}
@@ -52,8 +59,8 @@ func (it *IndexIterator) loadNextPage() (err error) {
 	}
 
 	// Return an error if the newly loaded pages contains no results
-	if it.page.NbHits == 0 {
-		err = fmt.Errorf("No more hits")
+	if len(it.page.Hits) == 0 {
+		err = errors.New("No more hits")
 		return
 	}
 

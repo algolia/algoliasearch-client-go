@@ -211,7 +211,6 @@ func (c *Client) Batch(records []BatchOperationIndexed) (res MultipleBatchRes, e
 
 func (c *Client) request(res interface{}, method, path string, body interface{}, typeCall int) error {
 	r, err := c.transport.request(method, path, body, typeCall)
-
 	if err != nil {
 		return err
 	}
