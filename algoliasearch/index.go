@@ -445,7 +445,6 @@ func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err er
 	copy := duplicateMap(params)
 	copy["attributesToRetrieve"] = []string{"objectID"}
 	copy["hitsPerPage"] = 1000
-	copy["distinct"] = false
 	copy["query"] = query
 
 	// Retrieve the iterator to browse the results
@@ -457,8 +456,8 @@ func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err er
 	// Iterate through all the objectIDs
 	var hit map[string]interface{}
 	var objectIDs []string
-	for err != nil {
-		if hit, err = it.Next(); err != nil {
+	for err == nil {
+		if hit, err = it.Next(); err == nil {
 			objectIDs = append(objectIDs, hit["objectID"].(string))
 		}
 	}
