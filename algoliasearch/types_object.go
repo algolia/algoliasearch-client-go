@@ -2,6 +2,10 @@ package algoliasearch
 
 import "fmt"
 
+type objects struct {
+	Results []Object `json:"results"`
+}
+
 type Object map[string]interface{}
 
 func (o Object) ObjectID() (objectID string, err error) {
