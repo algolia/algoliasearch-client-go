@@ -965,12 +965,8 @@ func TestSynonyms(t *testing.T) {
 	addWait(object, index, t)
 
 	batch, err := index.BatchSynonyms([]Synonym{
-		SimpleSynonym{
-			ObjectID: "city", Type: "synonym",
-			Synonyms: []string{"San Francisco", "SF"}},
-		AltCorrectionSynonym{
-			ObjectID: "street", Type: "altCorrection1",
-			Word: "Street", Corrections: []string{"St"}},
+		NewSynonym("city", []string{"San Francisco", "SF"}),
+		NewAltCorrectionSynomym("street", []string{"St"}, "Street", AltCorrection1),
 	}, false, false)
 
 	if err != nil {
@@ -990,7 +986,7 @@ func TestSynonyms(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	checkEqual(get.(map[string]interface{})["objectID"], "city", "city", index, t)
+	checkEqual(get.ObjectID, "city", "city", index, t)
 
 	search, err := index.Search("Howard Street SF", nil)
 	if err != nil {
@@ -1018,7 +1014,7 @@ func TestSynonyms(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	checkNbHits(synonyms.NbHits(), 1, index, t)
+	checkNbHits(len(synonyms), 1, index, t)
 
 	clear, err := index.ClearSynonyms(false)
 	if err != nil {
@@ -1038,7 +1034,7 @@ func TestSynonyms(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	checkNbHits(synonyms.NbHits(), 0, index, t)
+	checkNbHits(len(synonyms), 0, index, t)
 
 	tearDownTest(index, t)
 }
