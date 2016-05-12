@@ -1,10 +1,28 @@
 package algoliasearch
 
 import (
+	"fmt"
+	"math/rand"
 	"syscall"
 	"testing"
 	"time"
 )
+
+func init() {
+	rand.Seed(time.Now().Unix())
+}
+
+func genIndexName() string {
+	letters := "abcdefghijklmnopqrstuvwxyzBCDEFGHIJKLMNOPQRSTUVWXYZ"
+	baseName := "àlgol?à-go"
+
+	random := make([]byte, 8)
+	for i := range random {
+		random[i] = letters[rand.Int()%len(letters)]
+	}
+
+	return safeName(fmt.Sprintf("%s-%s", string(random), baseName))
+}
 
 func safeName(name string) string {
 	travis, haveTravis := syscall.Getenv("TRAVIS")
@@ -29,7 +47,7 @@ func initTest(t *testing.T) (Client, Index) {
 	hosts[1] = appID + "-2.algolia.net"
 	hosts[2] = appID + "-3.algolia.net"
 	client = NewClientWithHosts(appID, apiKey, hosts)
-	index := client.InitIndex(safeName("àlgol?à-go"))
+	index := client.InitIndex(genIndexName())
 
 	return client, index
 }
@@ -372,7 +390,8 @@ func TestIndexCopy(t *testing.T) {
 
 	addWait(object, index, t)
 
-	idx, err := index.Copy(safeName("àlgo?à2-go"))
+	copyName := genIndexName()
+	idx, err := index.Copy(copyName)
 	if err != nil {
 		t.Errorf("Here")
 		fatal(index, t, err.Error())
@@ -384,7 +403,7 @@ func TestIndexCopy(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	indexCopy := client.InitIndex(safeName("àlgo?à2-go"))
+	indexCopy := client.InitIndex(copyName)
 
 	search, err := indexCopy.Search("", nil)
 	if err != nil {
@@ -404,7 +423,8 @@ func TestCopy(t *testing.T) {
 
 	addWait(object, index, t)
 
-	copy, err := client.CopyIndex(safeName("àlgol?à-go"), safeName("àlgo?à2-go"))
+	copyName := genIndexName()
+	copy, err := client.CopyIndex(index.name, copyName)
 	if err != nil {
 		t.Errorf("Here")
 		fatal(index, t, err.Error())
@@ -416,7 +436,7 @@ func TestCopy(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	indexCopy := client.InitIndex(safeName("àlgo?à2-go"))
+	indexCopy := client.InitIndex(copyName)
 
 	search, err := indexCopy.Search("", nil)
 	if err != nil {
@@ -436,7 +456,8 @@ func TestIndexMove(t *testing.T) {
 
 	addWait(object, index, t)
 
-	move, err := index.Move(safeName("àlgo?à2-go"))
+	moveName := genIndexName()
+	move, err := index.Move(moveName)
 	if err != nil {
 		t.Errorf("Here")
 		fatal(index, t, err.Error())
@@ -448,7 +469,7 @@ func TestIndexMove(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	indexMove := client.InitIndex(safeName("àlgo?à2-go"))
+	indexMove := client.InitIndex(moveName)
 
 	search, err := indexMove.Search("", nil)
 	if err != nil {
@@ -467,7 +488,8 @@ func TestMove(t *testing.T) {
 
 	addWait(object, index, t)
 
-	move, err := client.MoveIndex(safeName("àlgol?à-go"), safeName("àlgo?à2-go"))
+	moveName := genIndexName()
+	move, err := client.MoveIndex(index.name, moveName)
 	if err != nil {
 		t.Errorf("Here")
 		fatal(index, t, err.Error())
@@ -479,7 +501,7 @@ func TestMove(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	indexMove := client.InitIndex(safeName("àlgo?à2-go"))
+	indexMove := client.InitIndex(moveName)
 
 	search, err := indexMove.Search("", nil)
 	if err != nil {
