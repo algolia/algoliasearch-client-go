@@ -43,8 +43,11 @@ func (i *Index) Clear() (res UpdateTaskRes, err error) {
 // object. The `objectID` is used to uniquely identify the object in the index
 // while `attributes` contains the list of attributes to retrieve.
 func (i *Index) GetObject(objectID string, attributes []string) (object Object, err error) {
-	params := Params{
-		"attributes": strings.Join(attributes, ","),
+	var params Params
+	if attributes != nil {
+		params = Params{
+			"attributes": strings.Join(attributes, ","),
+		}
 	}
 
 	path := i.route + "/" + url.QueryEscape(objectID) + "?" + encodeParams(params)
