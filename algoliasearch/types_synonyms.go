@@ -1,139 +1,69 @@
 package algoliasearch
 
-import (
-	"errors"
-	"fmt"
+const (
+	AltCorrection1  string = "altCorrection2"
+	AltCorrection2  string = "altCorrection1"
+	AltCorrection12 string = "altCorrection1|altCorrection2"
 )
 
-type Synonyms struct {
-	AltCorrectionSynonyms []AltCorrectionSynonym
-	OneWaySynonyms        []OneWaySynonym
-	PlaceholderSynonyms   []PlaceholderSynonym
-	SimpleSynonyms        []SimpleSynonym
+type SearchSynonymsRes struct {
+	Hits   []Synonym `json:"hits"`
+	NbHits int       `json:"nbHits"`
 }
 
-type Synonym interface{}
-
-type AltCorrectionSynonym struct {
-	Corrections       []string               `json:"corrections"`
+type Synonym struct {
+	// Common fields
 	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
 	ObjectID          string                 `json:"objectID"`
 	Type              string                 `json:"type"`
-	Word              string                 `json:"word"`
+
+	// Alternative correction synonym's fields
+	Corrections []string `json:"corrections,omitempty"`
+	Word        string   `json:"word,omitempty"`
+
+	// One way synonym's fields
+	Input    string   `json:"input,omitempty"`
+	Synonyms []string `json:"synonyms,omitempty"`
+
+	// Placeholder synonym's fields
+	Placeholder  string   `json:"placeholder,omitempty"`
+	Replacements []string `json:"replacements,omitempty"`
+
+	// Simple synonym's field (shared with `oneWaySynonym`)
+	// Synonyms []string `json:"synonyms"`
 }
 
-type OneWaySynonym struct {
-	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
-	Input             string                 `json:"input"`
-	ObjectID          string                 `json:"objectID"`
-	Synonyms          []string               `json:"synonyms"`
-	Type              string                 `json:"type"`
+func NewAltCorrectionSynomym(objectID string, corrections []string, word string, t string) Synonym {
+	return Synonym{
+		ObjectID:    objectID,
+		Type:        t,
+		Corrections: corrections,
+		Word:        word,
+	}
 }
 
-type PlaceholderSynonym struct {
-	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
-	ObjectID          string                 `json:"objectID"`
-	Placeholder       string                 `json:"placeholder"`
-	Replacements      []string               `json:"replacements"`
-	Type              string                 `json:"type"`
+func NewOneWaySynomym(objectID string, input string, synonyms []string) Synonym {
+	return Synonym{
+		ObjectID: objectID,
+		Type:     "oneWaySynonym",
+		Input:    input,
+		Synonyms: synonyms,
+	}
 }
 
-type SimpleSynonym struct {
-	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
-	ObjectID          string                 `json:"objectID"`
-	Synonyms          []string               `json:"synonyms"`
-	Type              string                 `json:"type"`
+func NewPlaceholderSynonym(objectID string, placeholder string, replacements []string) Synonym {
+	return Synonym{
+		ObjectID:     objectID,
+		Type:         "placeholder",
+		Placeholder:  placeholder,
+		Replacements: replacements,
+	}
 }
 
-func generateSynonyms(rawHits interface{}) (synonyms Synonyms, err error) {
-	hits, ok := rawHits.([]interface{})
-	if !ok {
-		err = fmt.Errorf("Cannot cast `hits` to `[]interface{}`")
-		return
+func NewSynonym(objectID string, synonyms []string) Synonym {
+	return Synonym{
+		ObjectID: objectID,
+		Type:     "synonym",
+		Synonyms: synonyms,
 	}
-
-	var s Synonym
-	for _, raw := range hits {
-		s, err = generateSynonym(raw)
-		if err != nil {
-			return
-		}
-
-		switch s := s.(type) {
-
-		case AltCorrectionSynonym:
-			synonyms.AltCorrectionSynonyms = append(synonyms.AltCorrectionSynonyms, s)
-
-		case OneWaySynonym:
-			synonyms.OneWaySynonyms = append(synonyms.OneWaySynonyms, s)
-
-		case PlaceholderSynonym:
-			synonyms.PlaceholderSynonyms = append(synonyms.PlaceholderSynonyms, s)
-
-		case SimpleSynonym:
-			synonyms.SimpleSynonyms = append(synonyms.SimpleSynonyms, s)
-
-		default:
-			err = fmt.Errorf("Synonym type `%T` unknown", s)
-
-		}
-	}
-
-	return
-}
-
-func generateSynonym(rawHit interface{}) (s Synonym, err error) {
-	hit, ok := rawHit.(map[string]interface{})
-	if !ok {
-		err = errors.New("Cannot cast `hit` to `map[string]interface{}`")
-		return
-	}
-
-	// Check that the `type` field exists
-	t, ok := hit["type"]
-	if !ok {
-		err = errors.New("`type` should be present")
-		return
-	}
-
-	// Check that the `type` field is a string
-	t, ok = t.(string)
-	if !ok {
-		err = invalidType("type", "string")
-		return
-	}
-
-	switch t {
-
-	case "altCorrection1", "altCorrection2", "altCorrection1|altCorrection2":
-		if s, ok = rawHit.(AltCorrectionSynonym); !ok {
-			err = fmt.Errorf("Cannot cast synonym to `%s`", t)
-		}
-
-	case "oneWaySynonym":
-		if s, ok = rawHit.(OneWaySynonym); ok {
-			err = fmt.Errorf("Cannot cast synonym to `%s`", t)
-		}
-
-	case "placeholder":
-		if s, ok = rawHit.(PlaceholderSynonym); ok {
-			err = fmt.Errorf("Cannot cast synonym to `%s`", t)
-		}
-
-	case "synonym":
-		if s, ok = rawHit.(SimpleSynonym); ok {
-			err = fmt.Errorf("Cannot cast synonym to `%s`", t)
-		}
-
-	default:
-		err = fmt.Errorf("Synonym type `%s` doesn't exist`", t)
-
-	}
-
-	return
-}
-
-func (s *Synonyms) NbHits() int {
-	return int(len(s.AltCorrectionSynonyms) + len(s.OneWaySynonyms) +
-		len(s.SimpleSynonyms) + len(s.PlaceholderSynonyms))
 }
