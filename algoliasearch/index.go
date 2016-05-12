@@ -451,6 +451,7 @@ func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err er
 	copy["attributesToRetrieve"] = []string{"objectID"}
 	copy["hitsPerPage"] = 1000
 	copy["query"] = query
+	copy["distinct"] = 0
 
 	// Retrieve the iterator to browse the results
 	var it IndexIterator
