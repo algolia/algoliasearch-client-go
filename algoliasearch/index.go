@@ -152,8 +152,8 @@ func (i *Index) AddKey(k Key) (res AddKeyRes, err error) {
 
 // UpdateKey updates the key identified by the value `k.Value` by replacing all
 // the originla key's fields by the ones of `k`.
-func (i *Index) UpdateKey(k Key) (res UpdateKeyRes, err error) {
-	path := i.route + "/keys/" + k.Value
+func (i *Index) UpdateKey(value string, k Key) (res UpdateKeyRes, err error) {
+	path := i.route + "/keys/" + value
 	err = i.client.request(&res, "PUT", path, k, read)
 	return
 }
