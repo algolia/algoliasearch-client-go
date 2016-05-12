@@ -85,7 +85,7 @@ func generateSynonyms(rawHits interface{}) (synonyms Synonyms, err error) {
 func generateSynonym(rawHit interface{}) (s Synonym, err error) {
 	hit, ok := rawHit.(map[string]interface{})
 	if !ok {
-		err = fmt.Errorf("Cannot cast `hit` to `map[string]interface{}`")
+		err = errors.New("Cannot cast `hit` to `map[string]interface{}`")
 		return
 	}
 
