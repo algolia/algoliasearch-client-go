@@ -213,38 +213,57 @@ func (i *Index) PartialUpdateObject(object Object) (res UpdateTaskRes, err error
 }
 
 // AddObjects adds several objects to the index.
-func (i *Index) AddObjects(objects []Object) (BatchRes, error) {
-	operations := newBatchOperations(objects, "addObject")
-	return i.Batch(operations)
+func (i *Index) AddObjects(objects []Object) (res BatchRes, err error) {
+	var operations []BatchOperation
+
+	if operations, err = newBatchOperations(objects, "addObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // UpdateObjects adds or replaces several objects at the same time, according
 // to their respective `objectID` attribute.
-func (i *Index) UpdateObjects(objects []Object) (BatchRes, error) {
-	operations := newBatchOperations(objects, "updateObject")
-	return i.Batch(operations)
+func (i *Index) UpdateObjects(objects []Object) (res BatchRes, err error) {
+	var operations []BatchOperation
+
+	if operations, err = newBatchOperations(objects, "updateObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // PartialUpdateObjects partially updates several objects at the same time,
 // according to their respective `objectID` attribute.
-func (i *Index) PartialUpdateObjects(objects []Object) (BatchRes, error) {
-	operations := newBatchOperations(objects, "partialUpdateObject")
-	return i.Batch(operations)
+func (i *Index) PartialUpdateObjects(objects []Object) (res BatchRes, err error) {
+	var operations []BatchOperation
+
+	if operations, err = newBatchOperations(objects, "partialUpdateObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // DeleteObjects deletes several objects at the same time, according to their
 // respective `objectID` attribute.
-func (i *Index) DeleteObjects(objectIDs []string) (BatchRes, error) {
+func (i *Index) DeleteObjects(objectIDs []string) (res BatchRes, err error) {
 	objects := make([]Object, len(objectIDs))
 
 	for j, id := range objectIDs {
 		objects[j] = Object{
-			"objectID": url.QueryEscape(id),
+			"objectID": id,
 		}
 	}
 
-	operations := newBatchOperations(objects, "deleteObject")
-	return i.Batch(operations)
+	var operations []BatchOperation
+	if operations, err = newBatchOperations(objects, "deleteObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // Batch processes all the specified `operations` in a batch manner. The
