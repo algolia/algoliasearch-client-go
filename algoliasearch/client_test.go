@@ -498,8 +498,8 @@ func TestAddIndexKey(t *testing.T) {
 		fatal(index, t, "%s should be present", add.Key)
 	}
 
-	updated := Key{ACL: []string{"addObject"}, Value: add.Key}
-	_, err = index.UpdateKey(updated)
+	updated := Key{ACL: []string{"addObject"}}
+	_, err = index.UpdateKey(add.Key, updated)
 	if err != nil {
 		fatal(index, t, err.Error())
 	}
@@ -551,10 +551,10 @@ func TestAddKey(t *testing.T) {
 
 	acl := []string{"search"}
 	params := Params{
-		"Validity":               300,
-		"MaxHitsPerQuery":        100,
-		"MaxQueriesPerIPPerHour": 100,
-		"Indexes":                []string{index.name},
+		"validity":               300,
+		"maxHitsPerQuery":        100,
+		"maxQueriesPerIPPerHour": 100,
+		"indexes":                []string{index.name},
 	}
 
 	add, err := client.AddKey(acl, params)
@@ -574,7 +574,7 @@ func TestAddKey(t *testing.T) {
 		fatal(index, t, "Unable to get a key")
 	}
 
-	_, err = client.UpdateKey(add.Key, Params{"acl": "addObject"})
+	_, err = client.UpdateKey(add.Key, Params{"acl": []string{"addObject"}})
 	if err != nil {
 		fatal(index, t, err.Error())
 	}
