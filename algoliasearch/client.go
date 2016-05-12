@@ -160,7 +160,7 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params Params) (key string
 // the field used to store the index name in the queries, and the strategy used
 // to perform the multiple queries.
 // The strategy can either be "none" or "stopIfEnoughMatches".
-func (c *Client) MultipleQueries(queries []map[string]interface{}, indexField, strategy string) (res []MultipleQueryRes, err error) {
+func (c *Client) MultipleQueries(queries []Params, indexField, strategy string) (res []MultipleQueryRes, err error) {
 	if indexField == "" {
 		indexField = "indexName"
 	}
