@@ -220,10 +220,7 @@ func TestGetObject(t *testing.T) {
 		fatal(index, t, err.Error())
 	}
 
-	if obj["name"] != object["name"] {
-		t.Errorf("Here")
-		fatal(index, t, "Unable to get a single object")
-	}
+	checkEqual(obj["name"], object["name"], "name", index, t)
 
 	tearDownTest(index, t)
 }
