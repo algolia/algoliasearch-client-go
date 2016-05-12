@@ -32,7 +32,6 @@ func (it *IndexIterator) Next() (res map[string]interface{}, err error) {
 	if it.pos == len(it.page.Hits) {
 		if it.cursor == "" {
 			err = errors.New("No more hits")
-
 		} else {
 			err = it.loadNextPage()
 		}
