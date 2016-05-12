@@ -22,19 +22,23 @@ Outer:
 			"filters",
 			"analyticsTags",
 			"optionalWords",
-			"disableTypoToleranceOnAttributes",
-			"attributesToRetrieve",
-			"attributesToHighlight",
 			"numericFilters",
 			"tagFilters",
 			"facets",
 			"facetFilters",
-			"attributesToSnippet",
 			"aroundLatLng",
 			"insideBoundingBox",
 			"insidePolygon":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
+			}
+
+		case "attributesToRetrieve",
+			"disableTypoToleranceOnAttributes",
+			"attributesToSnippet",
+			"attributesToHighlight":
+			if _, ok := v.([]string); !ok {
+				return invalidType(k, "[]string")
 			}
 
 		case "minWordSizefor1Typo",
