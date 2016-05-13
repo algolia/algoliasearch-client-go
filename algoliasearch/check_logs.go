@@ -1,6 +1,6 @@
 package algoliasearch
 
-func checkGetLogs(params map[string]interface{}) error {
+func checkGetLogs(params Map) error {
 	for k, v := range params {
 		switch k {
 		case "length", "offset":

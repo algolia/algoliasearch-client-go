@@ -1,6 +1,6 @@
 package algoliasearch
 
-func checkQuery(query map[string]interface{}, ignore ...string) error {
+func checkQuery(query Map, ignore ...string) error {
 Outer:
 	for k, v := range query {
 		// Continue if `k` is to be ignored.

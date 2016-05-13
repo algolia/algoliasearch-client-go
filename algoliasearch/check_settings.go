@@ -1,6 +1,6 @@
 package algoliasearch
 
-func checkSettings(settings map[string]interface{}) error {
+func checkSettings(settings Map) error {
 	for k, v := range settings {
 		switch k {
 		case "altCorrections":

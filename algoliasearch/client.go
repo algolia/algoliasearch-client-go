@@ -82,7 +82,7 @@ func (c *Client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 
 // AddKey creates a new API key from the supplied `ACL` and the specified
 // optional parameters.
-func (c *Client) AddKey(ACL []string, params Params) (res AddKeyRes, err error) {
+func (c *Client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	req := duplicateMap(params)
 	req["acl"] = ACL
 
@@ -96,7 +96,7 @@ func (c *Client) AddKey(ACL []string, params Params) (res AddKeyRes, err error) 
 
 // UpdateKey updates the API key named `key` with the supplied
 // parameters.
-func (c *Client) UpdateKey(key string, params Params) (res UpdateKeyRes, err error) {
+func (c *Client) UpdateKey(key string, params Map) (res UpdateKeyRes, err error) {
 	if err = checkKey(params); err != nil {
 		return
 	}
@@ -122,7 +122,7 @@ func (c *Client) DeleteKey(key string) (res DeleteRes, err error) {
 
 // GetLogs retrieves the `length` latest logs, starting at `offset`. Logs can
 // be filtered by type via `logType` being either "query", "build" or "error".
-func (c *Client) GetLogs(params Params) (logs []LogRes, err error) {
+func (c *Client) GetLogs(params Map) (logs []LogRes, err error) {
 	var res getLogsRes
 
 	if err = checkGetLogs(params); err != nil {
@@ -140,12 +140,12 @@ func (c *Client) GetLogs(params Params) (logs []LogRes, err error) {
 // or query parameters used to restrict access to certain records are specified
 // via the `public` argument. A single `userToken` may be supplied, in order to
 // use rate limited access.
-func (c *Client) GenerateSecuredAPIKey(apiKey string, params Params) (key string, err error) {
+func (c *Client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, err error) {
 	if err = checkGenerateSecuredAPIKey(params); err != nil {
 		return
 	}
 
-	message := encodeParams(params)
+	message := encodeMap(params)
 
 	h := hmac.New(sha256.New, []byte(apiKey))
 	h.Write([]byte(message))
@@ -160,7 +160,7 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params Params) (key string
 // the field used to store the index name in the queries, and the strategy used
 // to perform the multiple queries.
 // The strategy can either be "none" or "stopIfEnoughMatches".
-func (c *Client) MultipleQueries(queries []Params, indexField, strategy string) (res []MultipleQueryRes, err error) {
+func (c *Client) MultipleQueries(queries []Map, indexField, strategy string) (res []MultipleQueryRes, err error) {
 	if indexField == "" {
 		indexField = "indexName"
 	}
@@ -182,11 +182,11 @@ func (c *Client) MultipleQueries(queries []Params, indexField, strategy string) 
 
 		requests[i] = map[string]string{
 			"indexName": index,
-			"params":    encodeParams(q),
+			"params":    encodeMap(q),
 		}
 	}
 
-	body := map[string]interface{}{
+	body := Map{
 		"requests": requests,
 	}
 

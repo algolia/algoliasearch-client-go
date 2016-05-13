@@ -269,7 +269,7 @@ func TestSetSettings(t *testing.T) {
 	_, index := initTest(t)
 	defer tearDownTest(t, index)
 
-	settings := Params{"hitsPerPage": 30}
+	settings := Map{"hitsPerPage": 30}
 
 	set, err := index.SetSettings(settings)
 	if err != nil {
@@ -296,7 +296,7 @@ func TestBrowse(t *testing.T) {
 
 	addWait(object, index, t)
 
-	_, err := index.Browse(Params{"page": 1, "hitsPerPage": 1})
+	_, err := index.Browse(Map{"page": 1, "hitsPerPage": 1})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -309,7 +309,7 @@ func TestBrowseWithCursor(t *testing.T) {
 
 	addWait(object, index, t)
 
-	browse, err := index.BrowseAll(Params{"query": ""})
+	browse, err := index.BrowseAll(Map{"query": ""})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -334,7 +334,7 @@ func TestQuery(t *testing.T) {
 
 	addWait(object, index, t)
 
-	params := Params{"attributesToRetrieve": []string{"*"}, "getRankingInfo": 1}
+	params := Map{"attributesToRetrieve": []string{"*"}, "getRankingInfo": 1}
 	search, err := index.Search("", params)
 	if err != nil {
 		t.Fatal(err.Error())
@@ -556,7 +556,7 @@ func TestAddKey(t *testing.T) {
 	defer tearDownTest(t, index)
 
 	acl := []string{"search"}
-	params := Params{
+	params := Map{
 		"validity":               300,
 		"maxHitsPerQuery":        100,
 		"maxQueriesPerIPPerHour": 100,
@@ -581,7 +581,7 @@ func TestAddKey(t *testing.T) {
 		t.Fatal("Unable to get a key")
 	}
 
-	_, err = client.UpdateKey(add.Key, Params{"acl": []string{"addObject"}})
+	_, err = client.UpdateKey(add.Key, Map{"acl": []string{"addObject"}})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -787,14 +787,14 @@ func TestGenerateNewSecuredApiKey(t *testing.T) {
 
 	base := "182634d8894831d5dbce3b3185c50881"
 
-	key, err := client.GenerateSecuredAPIKey(base, Params{"tagFilters": "(public,user1)"})
+	key, err := client.GenerateSecuredAPIKey(base, Map{"tagFilters": "(public,user1)"})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 	expected := "MDZkNWNjNDY4M2MzMDA0NmUyNmNkZjY5OTMzYjVlNmVlMTk1NTEwMGNmNTVjZmJhMmIwOTIzYjdjMTk2NTFiMnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjk="
 	checkEqual(t, key, expected, "secured key")
 
-	key, err = client.GenerateSecuredAPIKey(base, Params{"tagFilters": "(public,user1)", "userToken": "42"})
+	key, err = client.GenerateSecuredAPIKey(base, Map{"tagFilters": "(public,user1)", "userToken": "42"})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -809,8 +809,8 @@ func TestMultipleQueries(t *testing.T) {
 
 	addWait(object, index, t)
 
-	queries := []Params{
-		Params{"indexName": index.name, "query": "John"},
+	queries := []Map{
+		Map{"indexName": index.name, "query": "John"},
 	}
 
 	search, err := client.MultipleQueries(queries, "", "")
@@ -829,7 +829,7 @@ func TestFacets(t *testing.T) {
 	_, index := initTest(t)
 	defer tearDownTest(t, index)
 
-	settings := Params{"attributesForFacetting": []string{"f", "g"}}
+	settings := Map{"attributesForFacetting": []string{"f", "g"}}
 	set, err := index.SetSettings(settings)
 	if err != nil {
 		t.Fatal(err.Error())
@@ -865,7 +865,7 @@ func TestFacets(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	search, err := index.Search("", Params{"facets": "f", "facetFilters": "f:f1"})
+	search, err := index.Search("", Map{"facets": "f", "facetFilters": "f:f1"})
 	if err != nil {
 		t.Fatal(err.Error())
 	}

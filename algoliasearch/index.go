@@ -43,14 +43,14 @@ func (i *Index) Clear() (res UpdateTaskRes, err error) {
 // object. The `objectID` is used to uniquely identify the object in the index
 // while `attributes` contains the list of attributes to retrieve.
 func (i *Index) GetObject(objectID string, attributes []string) (object Object, err error) {
-	var params Params
+	var params Map
 	if attributes != nil {
-		params = Params{
+		params = Map{
 			"attributes": strings.Join(attributes, ","),
 		}
 	}
 
-	path := i.route + "/" + url.QueryEscape(objectID) + "?" + encodeParams(params)
+	path := i.route + "/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
 	err = i.client.request(&object, "GET", path, nil, read)
 	return
 }
@@ -65,7 +65,7 @@ func (i *Index) GetObjects(objectIDs []string) (objs []Object, err error) {
 		}
 	}
 
-	body := map[string]interface{}{
+	body := Map{
 		"requests": requests,
 	}
 
@@ -92,7 +92,7 @@ func (i *Index) GetSettings() (settings Settings, err error) {
 }
 
 // SetSettings changes the index settings.
-func (i *Index) SetSettings(settings map[string]interface{}) (res UpdateTaskRes, err error) {
+func (i *Index) SetSettings(settings Map) (res UpdateTaskRes, err error) {
 	if err = checkSettings(settings); err != nil {
 		return
 	}
@@ -321,7 +321,7 @@ func (i *Index) GetStatus(taskID int) (res TaskStatusRes, err error) {
 // `types`. To retrieve the first page, `page` should be set to 0.
 // `hitsPerPage` specifies how many synonym sets will be returned per page.
 func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage int) (synonyms []Synonym, err error) {
-	body := map[string]interface{}{
+	body := Map{
 		"query":       query,
 		"type":        strings.Join(types, ","),
 		"page":        page,
@@ -349,11 +349,11 @@ func (i *Index) GetSynonym(objectID string) (s Synonym, err error) {
 // AddSynonym adds the given `synonym` to be identified `objectID`. This
 // addition can be forwarded to the index slaves using `forwardToSlaves`.
 func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	params := Params{
+	params := Map{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeParams(params)
+	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
 	err = i.client.request(&res, "PUT", path, synonym, write)
 	return
 }
@@ -361,11 +361,11 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 // DeleteSynonym removes the synonym identified by `objectID`. This deletion
 // can be forwarded to the index slaves of the index with `forwardToSlaves`.
 func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTaskRes, err error) {
-	params := Params{
+	params := Map{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeParams(params)
+	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
 	err = i.client.request(&res, "DELETE", path, nil, write)
 	return
 }
@@ -373,11 +373,11 @@ func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res Delete
 // ClearSynonyms removes all synonyms from the index. The clear operation can
 // be forwarded to the index slaves of the index using `forwardToSlaves`.
 func (i *Index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	params := Params{
+	params := Map{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/clear?" + encodeParams(params)
+	path := i.route + "/synonyms/clear?" + encodeMap(params)
 	err = i.client.request(&res, "POST", path, nil, write)
 	return
 }
@@ -387,12 +387,12 @@ func (i *Index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err erro
 // operation and the additions can be forwarded to the index slaves by setting
 // `forwardToSlaves` to `true'.
 func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	params := Params{
+	params := Map{
 		"replaceExistingSynonyms": replaceExistingSynonyms,
 		"forwardToSlaves":         forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/batch?" + encodeParams(params)
+	path := i.route + "/synonyms/batch?" + encodeMap(params)
 	err = i.client.request(&res, "POST", path, synonyms, write)
 	return
 }
@@ -403,12 +403,12 @@ func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwa
 // preferable to use BrowseAll instead. For more informations about the Browse
 // endpoint, please refer to the REST API documentation:
 // https://www.algolia.com/doc/rest#browse-all-index-content
-func (i *Index) Browse(params Params) (res BrowseRes, err error) {
+func (i *Index) Browse(params Map) (res BrowseRes, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
 
-	path := i.route + "/browse?" + encodeParams(params)
+	path := i.route + "/browse?" + encodeMap(params)
 	err = i.client.request(&res, "GET", path, nil, read)
 	return
 }
@@ -417,7 +417,7 @@ func (i *Index) Browse(params Params) (res BrowseRes, err error) {
 // search query given the `params`. Calling `Next()` on the iterator will
 // returns all the hits one by one, without the 1000 elements limit of the
 // Search function.
-func (i *Index) BrowseAll(params Params) (it IndexIterator, err error) {
+func (i *Index) BrowseAll(params Map) (it IndexIterator, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
@@ -428,7 +428,7 @@ func (i *Index) BrowseAll(params Params) (it IndexIterator, err error) {
 
 // Search performs a search query according to the `query` search query and the
 // given `params`.
-func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
+func (i *Index) Search(query string, params Map) (res QueryRes, err error) {
 	copy := duplicateMap(params)
 	copy["query"] = query
 
@@ -436,8 +436,8 @@ func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
 		return
 	}
 
-	req := map[string]interface{}{
-		"params": encodeParams(copy),
+	req := Map{
+		"params": encodeMap(copy),
 	}
 
 	path := i.route + "/query"
@@ -447,7 +447,7 @@ func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
 
 // DeleteByQuery finds all the records that match the `query`, according to the
 // given 'params` and deletes them.
-func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err error) {
+func (i *Index) DeleteByQuery(query string, params Map) (res BatchRes, err error) {
 	copy := duplicateMap(params)
 	copy["attributesToRetrieve"] = []string{"objectID"}
 	copy["hitsPerPage"] = 1000
@@ -461,7 +461,7 @@ func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err er
 	}
 
 	// Iterate through all the objectIDs
-	var hit map[string]interface{}
+	var hit Map
 	var objectIDs []string
 	for err == nil {
 		if hit, err = it.Next(); err == nil {

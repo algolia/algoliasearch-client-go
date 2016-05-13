@@ -8,14 +8,14 @@ type IndexIterator struct {
 	cursor string
 	index  *Index
 	page   BrowseRes
-	params map[string]interface{}
+	params Map
 	pos    int
 }
 
 // NewIndexIterator instantiates a IndexIterator on the `index` and according
 // to the given `params`. It is also trying to load the first page of results
 // and return an error if something goes wrong.
-func NewIndexIterator(index *Index, params map[string]interface{}) (it IndexIterator, err error) {
+func NewIndexIterator(index *Index, params Map) (it IndexIterator, err error) {
 	it = IndexIterator{
 		index:  index,
 		params: duplicateMap(params),
@@ -29,7 +29,7 @@ func NewIndexIterator(index *Index, params map[string]interface{}) (it IndexIter
 // results are automatically loaded and an error is returned if a problem
 // arises. When the last element has been reached, an error is returned with
 // the following message: "No more hits".
-func (it *IndexIterator) Next() (res map[string]interface{}, err error) {
+func (it *IndexIterator) Next() (res Map, err error) {
 	// Abort if the user call `Next()` on a IndexIterator that has been
 	// initialized without being able to load the first page.
 	if len(it.page.Hits) == 0 {

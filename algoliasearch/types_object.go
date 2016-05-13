@@ -6,7 +6,7 @@ type objects struct {
 	Results []Object `json:"results"`
 }
 
-type Object map[string]interface{}
+type Object Map
 
 func (o Object) ObjectID() (objectID string, err error) {
 	i, ok := o["objectID"]
