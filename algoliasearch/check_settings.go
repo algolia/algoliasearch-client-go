@@ -18,6 +18,7 @@ func checkSettings(settings Map) error {
 			"attributesToIndex",
 			"numericAttributesToIndex",
 			"ranking",
+			"customRanking",
 			"slaves",
 			"unretrievableAttributes",
 			"disableTypoToleranceOnAttributes",
