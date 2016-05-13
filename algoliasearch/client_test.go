@@ -85,6 +85,46 @@ func hasString(slice []string, elt string) bool {
 	return false
 }
 
+func waitIndexKey(index Index, key string, f func(Key) bool) {
+	for i := 0; i < 60; i++ {
+		k, err := index.GetKey(key)
+		if err == nil && (f == nil || f(k)) {
+			return
+		}
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func waitMissingIndexKey(index Index, key string) {
+	for i := 0; i < 60; i++ {
+		_, err := index.GetKey(key)
+		if err != nil {
+			return
+		}
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func waitClientKey(client Client, key string, f func(Key) bool) {
+	for i := 0; i < 60; i++ {
+		k, err := client.GetKey(key)
+		if err == nil && (f == nil || f(k)) {
+			return
+		}
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func waitMissingClientKey(client Client, key string) {
+	for i := 0; i < 60; i++ {
+		_, err := client.GetKey(key)
+		if err != nil {
+			return
+		}
+		time.Sleep(1 * time.Second)
+	}
+}
+
 func checkNbHits(t *testing.T, got, expected int) {
 	checkEqual(t, got, expected, "nbHits")
 }
@@ -475,8 +515,7 @@ func TestAddIndexKey(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	// No taskID for AddKey, emulate WaitTask.
-	time.Sleep(5 * time.Second)
+	waitIndexKey(index, add.Key, nil)
 
 	get, err := index.GetKey(add.Key)
 	if err != nil {
@@ -509,8 +548,9 @@ func TestAddIndexKey(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	// No taskID for UpdateKey, emulate WaitTask.
-	time.Sleep(5 * time.Second)
+	waitIndexKey(index, add.Key, func(k Key) bool {
+		return len(k.ACL) == 1 && k.ACL[0] == "addObject"
+	})
 
 	list, err = index.ListKeys()
 	if err != nil {
@@ -532,8 +572,7 @@ func TestAddIndexKey(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	// No taskID for DeleteKey, emulate WaitTask.
-	time.Sleep(5 * time.Second)
+	waitMissingIndexKey(index, add.Key)
 
 	list, err = index.ListKeys()
 	if err != nil {
@@ -568,8 +607,7 @@ func TestAddKey(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	// No taskID for AddKey, emulate WaitTask.
-	time.Sleep(5 * time.Second)
+	waitClientKey(client, add.Key, nil)
 
 	get, err := client.GetKey(add.Key)
 	if err != nil {
@@ -586,8 +624,9 @@ func TestAddKey(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	// No taskID for UpdateKey, emulate WaitTask.
-	time.Sleep(5 * time.Second)
+	waitClientKey(client, add.Key, func(k Key) bool {
+		return len(k.ACL) == 1 && k.ACL[0] == "addObject"
+	})
 
 	list, err := client.ListKeys()
 	if err != nil {
@@ -609,8 +648,7 @@ func TestAddKey(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	// No taskID for DeleteKey, emulate WaitTask.
-	time.Sleep(5 * time.Second)
+	waitMissingClientKey(client, add.Key)
 
 	list, err = client.ListKeys()
 	if err != nil {
