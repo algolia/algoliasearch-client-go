@@ -422,7 +422,7 @@ func (i *Index) BrowseAll(params Map) (it IndexIterator, err error) {
 		return
 	}
 
-	it, err = NewIndexIterator(i, params)
+	it, err = newIndexIterator(i, params)
 	return
 }
 

@@ -12,10 +12,10 @@ type IndexIterator struct {
 	pos    int
 }
 
-// NewIndexIterator instantiates a IndexIterator on the `index` and according
+// newIndexIterator instantiates a IndexIterator on the `index` and according
 // to the given `params`. It is also trying to load the first page of results
 // and return an error if something goes wrong.
-func NewIndexIterator(index *Index, params Map) (it IndexIterator, err error) {
+func newIndexIterator(index *Index, params Map) (it IndexIterator, err error) {
 	it = IndexIterator{
 		index:  index,
 		params: duplicateMap(params),
