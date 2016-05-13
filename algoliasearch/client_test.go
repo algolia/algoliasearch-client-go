@@ -847,17 +847,16 @@ func TestMultipleQueries(t *testing.T) {
 
 	addWait(object, index, t)
 
-	queries := []Map{
-		Map{"indexName": index.name, "query": "John"},
+	queries := []IndexedQuery{
+		{IndexName: index.name, Params: Map{"query": "John"}},
 	}
 
-	search, err := client.MultipleQueries(queries, "", "")
+	search, err := client.MultipleQueries(queries, "")
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
 	if len(search) == 0 {
-
 		t.Fatal("search shouldn't be empty")
 	}
 	checkNbHits(t, search[0].NbHits, 1)
