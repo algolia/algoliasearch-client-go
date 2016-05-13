@@ -13,7 +13,7 @@ type SearchSynonymsRes struct {
 
 type Synonym struct {
 	// Common fields
-	HighlightedResult map[string]interface{} `json:"_highlightedResult,omitempty"`
+	HighlightedResult Map `json:"_highlightedResult,omitempty"`
 	ObjectID          string                 `json:"objectID"`
 	Type              string                 `json:"type"`
 
