@@ -17,7 +17,7 @@ Our Go client lets you easily use the [Algolia Search API](https://www.algolia.c
 
 
 
-[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)[![Coverage Status](https://coveralls.io/repos/algolia/algoliasearch-client-go/badge.png)](https://coveralls.io/r/algolia/algoliasearch-client-go) ![Supported version](https://img.shields.io/badge/Go-%3E=1.3-green.svg)
+[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)[![Coverage Status](https://coveralls.io/repos/algolia/algoliasearch-client-go/badge.svg)](https://coveralls.io/r/algolia/algoliasearch-client-go) ![Supported version](https://img.shields.io/badge/Go-%3E=1.3-green.svg)
 
 
 
