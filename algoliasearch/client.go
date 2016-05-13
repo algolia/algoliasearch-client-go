@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"time"
 )
@@ -160,29 +161,25 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, e
 // the field used to store the index name in the queries, and the strategy used
 // to perform the multiple queries.
 // The strategy can either be "none" or "stopIfEnoughMatches".
-func (c *Client) MultipleQueries(queries []Map, indexField, strategy string) (res []MultipleQueryRes, err error) {
-	if indexField == "" {
-		indexField = "indexName"
-	}
-
+func (c *Client) MultipleQueries(queries []IndexedQuery, strategy string) (res []MultipleQueryRes, err error) {
 	if strategy == "" {
 		strategy = "none"
+	} else if strategy != "none" && strategy != "stopIfEnoughMatches" {
+		err = fmt.Errorf("Strategy %s unknown", strategy)
+		return
 	}
 
-	for _, query := range queries {
-		if err = checkQuery(query, indexField); err != nil {
+	for _, q := range queries {
+		if err = checkQuery(q.Params); err != nil {
 			return
 		}
 	}
 
 	requests := make([]map[string]string, len(queries))
 	for i, q := range queries {
-		index := q[indexField].(string)
-		delete(q, indexField)
-
 		requests[i] = map[string]string{
-			"indexName": index,
-			"params":    encodeMap(q),
+			"indexName": q.IndexName,
+			"params":    encodeMap(q.Params),
 		}
 	}
 
