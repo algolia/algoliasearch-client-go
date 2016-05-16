@@ -34,22 +34,20 @@ func safeName(name string) string {
 	return name + "_travis-" + buildID
 }
 
-func initTest(t *testing.T) (Client, Index) {
+func initTest(t *testing.T) (*client, *index) {
 	appID, haveAppID := syscall.Getenv("ALGOLIA_APPLICATION_ID")
 	apiKey, haveAPIKey := syscall.Getenv("ALGOLIA_API_KEY")
 	if !haveAPIKey || !haveAppID {
 		t.Fatal("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
 	}
-	client := NewClient(appID, apiKey)
-	client.SetTimeout(1000, 10000)
 	hosts := make([]string, 3)
 	hosts[0] = appID + "-1.algolia.net"
 	hosts[1] = appID + "-2.algolia.net"
 	hosts[2] = appID + "-3.algolia.net"
-	client = NewClientWithHosts(appID, apiKey, hosts)
-	index := client.InitIndex(genIndexName())
+	c := NewClientWithHosts(appID, apiKey, hosts).(*client)
+	i := c.InitIndex(genIndexName()).(*index)
 
-	return client, index
+	return c, i
 }
 
 func tearDownTest(t *testing.T, index Index) {
