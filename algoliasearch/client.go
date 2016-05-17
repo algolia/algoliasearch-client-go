@@ -6,7 +6,6 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"net/url"
 	"time"
 )
@@ -164,9 +163,6 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, e
 func (c *Client) MultipleQueries(queries []IndexedQuery, strategy string) (res []MultipleQueryRes, err error) {
 	if strategy == "" {
 		strategy = "none"
-	} else if strategy != "none" && strategy != "stopIfEnoughMatches" {
-		err = fmt.Errorf("Strategy %s unknown", strategy)
-		return
 	}
 
 	for _, q := range queries {
