@@ -13,13 +13,13 @@ type indexIterator struct {
 // newIndexIterator instantiates a IndexIterator on the `index` and according
 // to the given `params`. It is also trying to load the first page of results
 // and return an error if something goes wrong.
-func newIndexIterator(index Index, params Map) (it IndexIterator, err error) {
+func newIndexIterator(index Index, params Map) (it *indexIterator, err error) {
 	it = &indexIterator{
 		index:  index,
 		params: duplicateMap(params),
 		pos:    0,
 	}
-	err = it.(*indexIterator).loadNextPage()
+	err = it.loadNextPage()
 	return
 }
 
