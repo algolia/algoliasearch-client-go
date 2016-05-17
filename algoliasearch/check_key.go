@@ -1,6 +1,6 @@
 package algoliasearch
 
-func checkGenerateSecuredAPIKey(params map[string]interface{}) error {
+func checkGenerateSecuredAPIKey(params Map) error {
 	if err := checkQuery(params, "userToken", "tagFilters"); err != nil {
 		return err
 	}
@@ -12,7 +12,7 @@ func checkGenerateSecuredAPIKey(params map[string]interface{}) error {
 	}
 
 	if v, ok := params["tagFilters"]; ok {
-		if _, ok := v.([]string); !ok {
+		if _, ok := v.(string); !ok {
 			return invalidType("tagFilters", "[]string")
 		}
 	}
@@ -20,7 +20,7 @@ func checkGenerateSecuredAPIKey(params map[string]interface{}) error {
 	return nil
 }
 
-func checkKey(params map[string]interface{}) error {
+func checkKey(params Map) error {
 	for k, v := range params {
 		switch k {
 		case "acl", "indexes", "referers":
@@ -34,7 +34,9 @@ func checkKey(params map[string]interface{}) error {
 			}
 
 		case "maxHitsPerQuery", "maxQueriesPerIPPerHour", "validity":
-			return invalidType(k, "int64")
+			if _, ok := v.(int); !ok {
+				return invalidType(k, "int")
+			}
 
 		default:
 		}

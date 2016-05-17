@@ -1,11 +1,11 @@
 package algoliasearch
 
-func checkGetLogs(params map[string]interface{}) error {
+func checkGetLogs(params Map) error {
 	for k, v := range params {
 		switch k {
 		case "length", "offset":
-			if _, ok := v.(int64); !ok {
-				return invalidType(k, "int64")
+			if _, ok := v.(int); !ok {
+				return invalidType(k, "int")
 			}
 
 		case "type":

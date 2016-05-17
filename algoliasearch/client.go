@@ -7,7 +7,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"net/url"
-	"strings"
 	"time"
 )
 
@@ -83,7 +82,7 @@ func (c *Client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 
 // AddKey creates a new API key from the supplied `ACL` and the specified
 // optional parameters.
-func (c *Client) AddKey(ACL []string, params Params) (res AddKeyRes, err error) {
+func (c *Client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	req := duplicateMap(params)
 	req["acl"] = ACL
 
@@ -95,9 +94,9 @@ func (c *Client) AddKey(ACL []string, params Params) (res AddKeyRes, err error) 
 	return
 }
 
-// UpdateKeyWithParam updates the API key named `key` with the supplied
+// UpdateKey updates the API key named `key` with the supplied
 // parameters.
-func (c *Client) UpdateKeyWithParam(key string, params Params) (res UpdateKeyRes, err error) {
+func (c *Client) UpdateKey(key string, params Map) (res UpdateKeyRes, err error) {
 	if err = checkKey(params); err != nil {
 		return
 	}
@@ -123,7 +122,7 @@ func (c *Client) DeleteKey(key string) (res DeleteRes, err error) {
 
 // GetLogs retrieves the `length` latest logs, starting at `offset`. Logs can
 // be filtered by type via `logType` being either "query", "build" or "error".
-func (c *Client) GetLogs(params Params) (logs []LogRes, err error) {
+func (c *Client) GetLogs(params Map) (logs []LogRes, err error) {
 	var res getLogsRes
 
 	if err = checkGetLogs(params); err != nil {
@@ -141,14 +140,12 @@ func (c *Client) GetLogs(params Params) (logs []LogRes, err error) {
 // or query parameters used to restrict access to certain records are specified
 // via the `public` argument. A single `userToken` may be supplied, in order to
 // use rate limited access.
-func (c *Client) GenerateSecuredAPIKey(apiKey string, params Params) (key string, err error) {
+func (c *Client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, err error) {
 	if err = checkGenerateSecuredAPIKey(params); err != nil {
 		return
 	}
 
-	req := duplicateMap(params)
-	req["tagFilters"] = strings.Join(params["tagFilters"].([]string), ",")
-	message := encodeParams(req)
+	message := encodeMap(params)
 
 	h := hmac.New(sha256.New, []byte(apiKey))
 	h.Write([]byte(message))
@@ -163,17 +160,13 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params Params) (key string
 // the field used to store the index name in the queries, and the strategy used
 // to perform the multiple queries.
 // The strategy can either be "none" or "stopIfEnoughMatches".
-func (c *Client) MultipleQueries(queries []map[string]interface{}, indexField, strategy string) (res []MultipleQueryRes, err error) {
-	if indexField == "" {
-		indexField = "indexName"
-	}
-
+func (c *Client) MultipleQueries(queries []IndexedQuery, strategy string) (res []MultipleQueryRes, err error) {
 	if strategy == "" {
 		strategy = "none"
 	}
 
-	for _, query := range queries {
-		if err = checkQuery(query, indexField); err != nil {
+	for _, q := range queries {
+		if err = checkQuery(q.Params); err != nil {
 			return
 		}
 	}
@@ -181,18 +174,18 @@ func (c *Client) MultipleQueries(queries []map[string]interface{}, indexField, s
 	requests := make([]map[string]string, len(queries))
 	for i, q := range queries {
 		requests[i] = map[string]string{
-			"indexName": q[indexField].(string),
-			"params":    encodeParams(q),
+			"indexName": q.IndexName,
+			"params":    encodeMap(q.Params),
 		}
 	}
 
-	body := map[string]interface{}{
+	body := Map{
 		"requests": requests,
 	}
 
 	var m multipleQueriesRes
 	err = c.request(&m, "POST", "/1/indexes/*/queries?strategy="+strategy, body, search)
-	res = m.results
+	res = m.Results
 	return
 }
 
@@ -211,7 +204,6 @@ func (c *Client) Batch(records []BatchOperationIndexed) (res MultipleBatchRes, e
 
 func (c *Client) request(res interface{}, method, path string, body interface{}, typeCall int) error {
 	r, err := c.transport.request(method, path, body, typeCall)
-
 	if err != nil {
 		return err
 	}

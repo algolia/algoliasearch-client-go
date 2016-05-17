@@ -1,6 +1,6 @@
 package algoliasearch
 
-func checkQuery(query map[string]interface{}, ignore ...string) error {
+func checkQuery(query Map, ignore ...string) error {
 Outer:
 	for k, v := range query {
 		// Continue if `k` is to be ignored.
@@ -22,19 +22,23 @@ Outer:
 			"filters",
 			"analyticsTags",
 			"optionalWords",
-			"disableTypoToleranceOnAttributes",
-			"attributesToRetrieve",
-			"attributesToHighlight",
 			"numericFilters",
 			"tagFilters",
 			"facets",
 			"facetFilters",
-			"attributesToSnippet",
 			"aroundLatLng",
 			"insideBoundingBox",
 			"insidePolygon":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
+			}
+
+		case "attributesToRetrieve",
+			"disableTypoToleranceOnAttributes",
+			"attributesToSnippet",
+			"attributesToHighlight":
+			if _, ok := v.([]string); !ok {
+				return invalidType(k, "[]string")
 			}
 
 		case "minWordSizefor1Typo",
@@ -48,8 +52,8 @@ Outer:
 			"aroundRadius",
 			"aroundPrecision",
 			"minimumAroundRadius":
-			if _, ok := v.(int64); !ok {
-				return invalidType(k, "int64")
+			if _, ok := v.(int); !ok {
+				return invalidType(k, "int")
 			}
 
 		case "allowTyposOnNumericTokens",

@@ -1,6 +1,6 @@
 package algoliasearch
 
-func checkSettings(settings map[string]interface{}) error {
+func checkSettings(settings Map) error {
 	for k, v := range settings {
 		switch k {
 		case "altCorrections":
@@ -18,6 +18,7 @@ func checkSettings(settings map[string]interface{}) error {
 			"attributesToIndex",
 			"numericAttributesToIndex",
 			"ranking",
+			"customRanking",
 			"slaves",
 			"unretrievableAttributes",
 			"disableTypoToleranceOnAttributes",
@@ -46,8 +47,8 @@ func checkSettings(settings map[string]interface{}) error {
 			"minProximity",
 			"minWordSizefor1Typo",
 			"minWordSizefor2Typos":
-			if _, ok := v.(int64); !ok {
-				return invalidType(k, "int64")
+			if _, ok := v.(int); !ok {
+				return invalidType(k, "int")
 			}
 
 		case "placeholders":
@@ -59,10 +60,17 @@ func checkSettings(settings map[string]interface{}) error {
 			"highlightPostTag",
 			"highlightPreTag",
 			"queryType",
-			"snippetEllipsisText",
-			"typoTolerance":
+			"snippetEllipsisText":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
+			}
+
+		case "typoTolerance":
+			switch v.(type) {
+			case string, bool:
+				// OK
+			default:
+				return invalidType(k, "string or bool")
 			}
 
 		default:

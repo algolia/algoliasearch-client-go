@@ -2,7 +2,23 @@ package algoliasearch
 
 import "fmt"
 
-type Object map[string]interface{}
+type CreateObjectRes struct {
+	CreatedAt string `json:"createdAt"`
+	ObjectID  string `json:"objectID"`
+	TaskID    int    `json:"taskID"`
+}
+
+type UpdateObjectRes struct {
+	ObjectID  string `json:"objectID"`
+	TaskID    int    `json:"taskID"`
+	UpdatedAt string `json:"updatedAt"`
+}
+
+type objects struct {
+	Results []Object `json:"results"`
+}
+
+type Object Map
 
 func (o Object) ObjectID() (objectID string, err error) {
 	i, ok := o["objectID"]

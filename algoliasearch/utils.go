@@ -12,7 +12,7 @@ import (
 // randDuration generates a pseudo-random `time.Duration` between 1 and `max`.
 func randDuration(max time.Duration) time.Duration {
 	rand.Seed(time.Now().Unix())
-	nbNanoseconds := 1 + int64(rand.Int63n(max.Nanoseconds()))
+	nbNanoseconds := 1 + int(rand.Int63n(max.Nanoseconds()))
 	return time.Duration(nbNanoseconds) * time.Nanosecond
 }
 
@@ -20,8 +20,8 @@ func invalidType(p, t string) error {
 	return fmt.Errorf("`%s` should be of type `%s`", p, t)
 }
 
-func duplicateMap(m map[string]interface{}) map[string]interface{} {
-	copy := make(map[string]interface{})
+func duplicateMap(m Map) Map {
+	copy := make(Map)
 
 	for k, v := range m {
 		copy[k] = v
@@ -30,8 +30,8 @@ func duplicateMap(m map[string]interface{}) map[string]interface{} {
 	return copy
 }
 
-// encodeParams transforms `params` to a URL-safe string.
-func encodeParams(params map[string]interface{}) string {
+// encodeMap transforms `params` to a URL-safe string.
+func encodeMap(params Map) string {
 	values := url.Values{}
 
 	if params != nil {

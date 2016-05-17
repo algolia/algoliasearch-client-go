@@ -43,17 +43,20 @@ func (i *Index) Clear() (res UpdateTaskRes, err error) {
 // object. The `objectID` is used to uniquely identify the object in the index
 // while `attributes` contains the list of attributes to retrieve.
 func (i *Index) GetObject(objectID string, attributes []string) (object Object, err error) {
-	params := Params{
-		"attributes": strings.Join(attributes, ","),
+	var params Map
+	if attributes != nil {
+		params = Map{
+			"attributes": strings.Join(attributes, ","),
+		}
 	}
 
-	path := i.route + "/" + url.QueryEscape(objectID) + "?" + encodeParams(params)
+	path := i.route + "/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
 	err = i.client.request(&object, "GET", path, nil, read)
 	return
 }
 
 // GetObjects retrieves the objects identified according to their `objectIDs`.
-func (i *Index) GetObjects(objectIDs []string) (objects []Object, err error) {
+func (i *Index) GetObjects(objectIDs []string) (objs []Object, err error) {
 	requests := make([]map[string]string, len(objectIDs))
 	for j, id := range objectIDs {
 		requests[j] = map[string]string{
@@ -62,12 +65,14 @@ func (i *Index) GetObjects(objectIDs []string) (objects []Object, err error) {
 		}
 	}
 
-	body := map[string]interface{}{
+	body := Map{
 		"requests": requests,
 	}
 
-	path := i.route + "/*/objects"
-	err = i.client.request(&objects, "POST", path, body, read)
+	var res objects
+	path := "/1/indexes/*/objects"
+	err = i.client.request(&res, "POST", path, body, read)
+	objs = res.Results
 	return
 }
 
@@ -87,7 +92,7 @@ func (i *Index) GetSettings() (settings Settings, err error) {
 }
 
 // SetSettings changes the index settings.
-func (i *Index) SetSettings(settings map[string]interface{}) (res UpdateTaskRes, err error) {
+func (i *Index) SetSettings(settings Map) (res UpdateTaskRes, err error) {
 	if err = checkSettings(settings); err != nil {
 		return
 	}
@@ -101,7 +106,7 @@ func (i *Index) SetSettings(settings map[string]interface{}) (res UpdateTaskRes,
 // `taskID` is finished. The waiting time between each check starts at 1s and
 // is increased by a factor of 2 at each retry (but is bounded at around
 // 20min).
-func (i *Index) WaitTask(taskID int64) error {
+func (i *Index) WaitTask(taskID int) error {
 	var res TaskStatusRes
 	var err error
 
@@ -143,24 +148,32 @@ func (i *Index) ListKeys() (keys []Key, err error) {
 	return
 }
 
-// AddKey adds the `k` key to the list of authorized keys of the index.
-func (i *Index) AddKey(k Key) (res AddKeyRes, err error) {
+// AddKey creates a new API key from the supplied `ACL` and the specified
+// optional parameters for the current index.
+func (i *Index) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
+	req := duplicateMap(params)
+	req["acl"] = ACL
+
+	if err = checkKey(req); err != nil {
+		return
+	}
+
 	path := i.route + "/keys"
-	err = i.client.request(&res, "POST", path, k, read)
+	err = i.client.request(&res, "POST", path, req, read)
 	return
 }
 
 // UpdateKey updates the key identified by the value `k.Value` by replacing all
 // the originla key's fields by the ones of `k`.
-func (i *Index) UpdateKey(k Key) (res UpdateKeyRes, err error) {
-	path := i.route + "/keys/" + k.Value
+func (i *Index) UpdateKey(value string, k Key) (res UpdateKeyRes, err error) {
+	path := i.route + "/keys/" + value
 	err = i.client.request(&res, "PUT", path, k, read)
 	return
 }
 
 // GetKey retrieves the key identified by its `value` string.
 func (i *Index) GetKey(value string) (key Key, err error) {
-	path := i.route + "/keys/" + value
+	path := i.route + "/keys/" + url.QueryEscape(value)
 	err = i.client.request(&key, "GET", path, nil, read)
 	return
 }
@@ -203,43 +216,62 @@ func (i *Index) PartialUpdateObject(object Object) (res UpdateTaskRes, err error
 	}
 
 	path := i.route + "/" + url.QueryEscape(objectID) + "/partial"
-	err = i.client.request(&res, "PUT", path, object, write)
+	err = i.client.request(&res, "POST", path, object, write)
 	return
 }
 
 // AddObjects adds several objects to the index.
-func (i *Index) AddObjects(objects []Object) (BatchRes, error) {
-	operations := newBatchOperations(objects, "addObject")
-	return i.Batch(operations)
+func (i *Index) AddObjects(objects []Object) (res BatchRes, err error) {
+	var operations []BatchOperation
+
+	if operations, err = newBatchOperations(objects, "addObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // UpdateObjects adds or replaces several objects at the same time, according
 // to their respective `objectID` attribute.
-func (i *Index) UpdateObjects(objects []Object) (BatchRes, error) {
-	operations := newBatchOperations(objects, "updateObject")
-	return i.Batch(operations)
+func (i *Index) UpdateObjects(objects []Object) (res BatchRes, err error) {
+	var operations []BatchOperation
+
+	if operations, err = newBatchOperations(objects, "updateObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // PartialUpdateObjects partially updates several objects at the same time,
 // according to their respective `objectID` attribute.
-func (i *Index) PartialUpdateObjects(objects []Object) (BatchRes, error) {
-	operations := newBatchOperations(objects, "partialUpdateObject")
-	return i.Batch(operations)
+func (i *Index) PartialUpdateObjects(objects []Object) (res BatchRes, err error) {
+	var operations []BatchOperation
+
+	if operations, err = newBatchOperations(objects, "partialUpdateObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // DeleteObjects deletes several objects at the same time, according to their
 // respective `objectID` attribute.
-func (i *Index) DeleteObjects(objectIDs []string) (BatchRes, error) {
+func (i *Index) DeleteObjects(objectIDs []string) (res BatchRes, err error) {
 	objects := make([]Object, len(objectIDs))
 
 	for j, id := range objectIDs {
 		objects[j] = Object{
-			"objectID": url.QueryEscape(id),
+			"objectID": id,
 		}
 	}
 
-	operations := newBatchOperations(objects, "deleteObject")
-	return i.Batch(operations)
+	var operations []BatchOperation
+	if operations, err = newBatchOperations(objects, "deleteObject"); err == nil {
+		res, err = i.Batch(operations)
+	}
+
+	return
 }
 
 // Batch processes all the specified `operations` in a batch manner. The
@@ -287,7 +319,7 @@ func (i *Index) operation(dst, op string) (res UpdateTaskRes, err error) {
 }
 
 // GetStatus returns the status of a task given its ID `taskID`.
-func (i *Index) GetStatus(taskID int64) (res TaskStatusRes, err error) {
+func (i *Index) GetStatus(taskID int) (res TaskStatusRes, err error) {
 	path := i.route + fmt.Sprintf("/task/%d", taskID)
 	err = i.client.request(&res, "GET", path, nil, read)
 	return
@@ -296,8 +328,8 @@ func (i *Index) GetStatus(taskID int64) (res TaskStatusRes, err error) {
 // SearchSynonyms returns the synonyms matching `query` whose types match
 // `types`. To retrieve the first page, `page` should be set to 0.
 // `hitsPerPage` specifies how many synonym sets will be returned per page.
-func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage int) (synonyms Synonyms, err error) {
-	body := map[string]interface{}{
+func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage int) (synonyms []Synonym, err error) {
+	body := Map{
 		"query":       query,
 		"type":        strings.Join(types, ","),
 		"page":        page,
@@ -305,13 +337,11 @@ func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage i
 	}
 
 	path := i.route + "/synonyms/search"
-	var rawSynonyms map[string]interface{}
-	err = i.client.request(&rawSynonyms, "POST", path, body, search)
+	var res SearchSynonymsRes
+	err = i.client.request(&res, "POST", path, body, search)
 
-	if hits, ok := rawSynonyms["hits"]; ok {
-		synonyms, err = generateSynonyms(hits)
-	} else {
-		err = fmt.Errorf("Cannot retrieve the `hits` field")
+	if err == nil {
+		synonyms = res.Hits
 	}
 
 	return
@@ -319,31 +349,19 @@ func (i *Index) SearchSynonyms(query string, types []string, page, hitsPerPage i
 
 // GetSynonym retrieves the synonym identified by `objectID`.
 func (i *Index) GetSynonym(objectID string) (s Synonym, err error) {
-	var rawSynonym map[string]interface{}
-
 	path := i.route + "/synonyms/" + url.QueryEscape(objectID)
-	i.client.request(&rawSynonym, "GET", path, nil, read)
-
-	if err != nil {
-		return
-	}
-
-	s, err = generateSynonym(rawSynonym)
+	err = i.client.request(&s, "GET", path, nil, read)
 	return
 }
 
 // AddSynonym adds the given `synonym` to be identified `objectID`. This
 // addition can be forwarded to the index slaves using `forwardToSlaves`.
 func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	if err = checkSynonym(synonym); err != nil {
-		return
-	}
-
-	params := Params{
+	params := Map{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeParams(params)
+	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
 	err = i.client.request(&res, "PUT", path, synonym, write)
 	return
 }
@@ -351,11 +369,11 @@ func (i *Index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves boo
 // DeleteSynonym removes the synonym identified by `objectID`. This deletion
 // can be forwarded to the index slaves of the index with `forwardToSlaves`.
 func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTaskRes, err error) {
-	params := Params{
+	params := Map{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeParams(params)
+	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
 	err = i.client.request(&res, "DELETE", path, nil, write)
 	return
 }
@@ -363,11 +381,11 @@ func (i *Index) DeleteSynonym(objectID string, forwardToSlaves bool) (res Delete
 // ClearSynonyms removes all synonyms from the index. The clear operation can
 // be forwarded to the index slaves of the index using `forwardToSlaves`.
 func (i *Index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	params := Params{
+	params := Map{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/clear?" + encodeParams(params)
+	path := i.route + "/synonyms/clear?" + encodeMap(params)
 	err = i.client.request(&res, "POST", path, nil, write)
 	return
 }
@@ -377,16 +395,12 @@ func (i *Index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err erro
 // operation and the additions can be forwarded to the index slaves by setting
 // `forwardToSlaves` to `true'.
 func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToSlaves bool) (res UpdateTaskRes, err error) {
-	if err = checkSynonyms(synonyms); err != nil {
-		return
-	}
-
-	params := Params{
+	params := Map{
 		"replaceExistingSynonyms": replaceExistingSynonyms,
 		"forwardToSlaves":         forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/batch?" + encodeParams(params)
+	path := i.route + "/synonyms/batch?" + encodeMap(params)
 	err = i.client.request(&res, "POST", path, synonyms, write)
 	return
 }
@@ -397,12 +411,12 @@ func (i *Index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwa
 // preferable to use BrowseAll instead. For more informations about the Browse
 // endpoint, please refer to the REST API documentation:
 // https://www.algolia.com/doc/rest#browse-all-index-content
-func (i *Index) Browse(params Params) (res BrowseRes, err error) {
+func (i *Index) Browse(params Map) (res BrowseRes, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
 
-	path := i.route + "/browse?" + encodeParams(params)
+	path := i.route + "/browse?" + encodeMap(params)
 	err = i.client.request(&res, "GET", path, nil, read)
 	return
 }
@@ -411,18 +425,18 @@ func (i *Index) Browse(params Params) (res BrowseRes, err error) {
 // search query given the `params`. Calling `Next()` on the iterator will
 // returns all the hits one by one, without the 1000 elements limit of the
 // Search function.
-func (i *Index) BrowseAll(params Params) (it IndexIterator, err error) {
+func (i *Index) BrowseAll(params Map) (it IndexIterator, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}
 
-	it, err = NewIndexIterator(i, params)
+	it, err = newIndexIterator(i, params)
 	return
 }
 
 // Search performs a search query according to the `query` search query and the
 // given `params`.
-func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
+func (i *Index) Search(query string, params Map) (res QueryRes, err error) {
 	copy := duplicateMap(params)
 	copy["query"] = query
 
@@ -430,8 +444,8 @@ func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
 		return
 	}
 
-	req := map[string]interface{}{
-		"params": encodeParams(copy),
+	req := Map{
+		"params": encodeMap(copy),
 	}
 
 	path := i.route + "/query"
@@ -441,12 +455,12 @@ func (i *Index) Search(query string, params Params) (res QueryRes, err error) {
 
 // DeleteByQuery finds all the records that match the `query`, according to the
 // given 'params` and deletes them.
-func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err error) {
+func (i *Index) DeleteByQuery(query string, params Map) (res BatchRes, err error) {
 	copy := duplicateMap(params)
 	copy["attributesToRetrieve"] = []string{"objectID"}
 	copy["hitsPerPage"] = 1000
-	copy["distinct"] = false
 	copy["query"] = query
+	copy["distinct"] = 0
 
 	// Retrieve the iterator to browse the results
 	var it IndexIterator
@@ -455,10 +469,10 @@ func (i *Index) DeleteByQuery(query string, params Params) (res BatchRes, err er
 	}
 
 	// Iterate through all the objectIDs
-	var hit map[string]interface{}
+	var hit Map
 	var objectIDs []string
-	for err != nil {
-		if hit, err = it.Next(); err != nil {
+	for err == nil {
+		if hit, err = it.Next(); err == nil {
 			objectIDs = append(objectIDs, hit["objectID"].(string))
 		}
 	}
