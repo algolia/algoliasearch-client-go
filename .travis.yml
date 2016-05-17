@@ -18,7 +18,7 @@ install:
 
 script:
   - cd algoliasearch
-  - go test -covermode=count -coverprofile=profile.cov
+  - go test -v -covermode=count -coverprofile=profile.cov
 
 after_script:
  - export PATH=$PATH:$HOME/gopath/bin/
