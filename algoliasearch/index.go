@@ -148,10 +148,18 @@ func (i *Index) ListKeys() (keys []Key, err error) {
 	return
 }
 
-// AddKey adds the `k` key to the list of authorized keys of the index.
-func (i *Index) AddKey(k Key) (res AddKeyRes, err error) {
+// AddKey creates a new API key from the supplied `ACL` and the specified
+// optional parameters for the current index.
+func (i *Index) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
+	req := duplicateMap(params)
+	req["acl"] = ACL
+
+	if err = checkKey(req); err != nil {
+		return
+	}
+
 	path := i.route + "/keys"
-	err = i.client.request(&res, "POST", path, k, read)
+	err = i.client.request(&res, "POST", path, req, read)
 	return
 }
 
