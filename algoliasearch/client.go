@@ -10,17 +10,14 @@ import (
 	"time"
 )
 
-// Client is a representation of an Algolia application. Once initialized it
-// allows manipulations over the indexes of the application as well as
-// network related parameters.
-type Client struct {
+type client struct {
 	transport *Transport
 }
 
 // NewClient creates a new Client from the provided `appID` and `apiKey`. The
 // default hosts are used for the transport layer.
 func NewClient(appID, apiKey string) Client {
-	return Client{
+	return &client{
 		transport: NewTransport(appID, apiKey),
 	}
 }
@@ -28,25 +25,20 @@ func NewClient(appID, apiKey string) Client {
 // NewClientWithHosts creates a new Client from the provided `appID,` `apiKey`,
 // and `hosts` used to connect to the Algolia servers.
 func NewClientWithHosts(appID, apiKey string, hosts []string) Client {
-	return Client{
+	return &client{
 		transport: NewTransportWithHosts(appID, apiKey, hosts),
 	}
 }
 
-// SetExtraHeader allows to set custom headers while reaching out to
-// Algolia servers.
-func (c *Client) SetExtraHeader(key, value string) {
+func (c *client) SetExtraHeader(key, value string) {
 	c.transport.setExtraHeader(key, value)
 }
 
-// SetTimeout specifies timeouts to use with the HTTP connection.
-func (c *Client) SetTimeout(connectTimeout, readTimeout int) {
+func (c *client) SetTimeout(connectTimeout, readTimeout int) {
 	c.transport.setTimeout(time.Duration(connectTimeout)*time.Millisecond, time.Duration(readTimeout)*time.Millisecond)
 }
 
-// ListIndexes returns the list of all indexes belonging to this Algolia
-// application.
-func (c *Client) ListIndexes() (indexes []IndexRes, err error) {
+func (c *client) ListIndexes() (indexes []IndexRes, err error) {
 	var res listIndexesRes
 
 	err = c.request(&res, "GET", "/1/indexes", nil, read)
@@ -54,13 +46,11 @@ func (c *Client) ListIndexes() (indexes []IndexRes, err error) {
 	return
 }
 
-// InitIndex returns an Index object targeting `indexName`.
-func (c *Client) InitIndex(name string) Index {
-	return *NewIndex(name, c)
+func (c *client) InitIndex(name string) Index {
+	return NewIndex(name, c)
 }
 
-// ListKeys returns all the API keys available for this Algolia application.
-func (c *Client) ListKeys() (keys []Key, err error) {
+func (c *client) ListKeys() (keys []Key, err error) {
 	var res listKeysRes
 
 	err = c.request(&res, "GET", "/1/keys", nil, read)
@@ -68,21 +58,17 @@ func (c *Client) ListKeys() (keys []Key, err error) {
 	return
 }
 
-// MoveIndex renames the index named `source` as `destination`.
-func (c *Client) MoveIndex(source, destination string) (UpdateTaskRes, error) {
+func (c *client) MoveIndex(source, destination string) (UpdateTaskRes, error) {
 	index := c.InitIndex(source)
 	return index.Move(destination)
 }
 
-// CopyIndex duplicates the index named `source` as `destination`.
-func (c *Client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
+func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 	index := c.InitIndex(source)
 	return index.Copy(destination)
 }
 
-// AddKey creates a new API key from the supplied `ACL` and the specified
-// optional parameters.
-func (c *Client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
+func (c *client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	req := duplicateMap(params)
 	req["acl"] = ACL
 
@@ -94,9 +80,7 @@ func (c *Client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	return
 }
 
-// UpdateKey updates the API key named `key` with the supplied
-// parameters.
-func (c *Client) UpdateKey(key string, params Map) (res UpdateKeyRes, err error) {
+func (c *client) UpdateKey(key string, params Map) (res UpdateKeyRes, err error) {
 	if err = checkKey(params); err != nil {
 		return
 	}
@@ -106,23 +90,19 @@ func (c *Client) UpdateKey(key string, params Map) (res UpdateKeyRes, err error)
 	return
 }
 
-// GetKey returns the ACL and validity of the API key named `key`.
-func (c *Client) GetKey(key string) (res Key, err error) {
+func (c *client) GetKey(key string) (res Key, err error) {
 	path := "/1/keys/" + url.QueryEscape(key)
 	err = c.request(&res, "GET", path, nil, read)
 	return
 }
 
-// DeleteKey deletes the API key named `key`.
-func (c *Client) DeleteKey(key string) (res DeleteRes, err error) {
+func (c *client) DeleteKey(key string) (res DeleteRes, err error) {
 	path := "/1/keys/" + url.QueryEscape(key)
 	err = c.request(&res, "DELETE", path, nil, write)
 	return
 }
 
-// GetLogs retrieves the `length` latest logs, starting at `offset`. Logs can
-// be filtered by type via `logType` being either "query", "build" or "error".
-func (c *Client) GetLogs(params Map) (logs []LogRes, err error) {
+func (c *client) GetLogs(params Map) (logs []LogRes, err error) {
 	var res getLogsRes
 
 	if err = checkGetLogs(params); err != nil {
@@ -134,13 +114,7 @@ func (c *Client) GetLogs(params Map) (logs []LogRes, err error) {
 	return
 }
 
-// GenerateSecuredAPIKey generates a public API key intended to restrict access
-// to certain records.
-// This new key is built upon the existing key named `apiKey`. Tag filters
-// or query parameters used to restrict access to certain records are specified
-// via the `public` argument. A single `userToken` may be supplied, in order to
-// use rate limited access.
-func (c *Client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, err error) {
+func (c *client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, err error) {
 	if err = checkGenerateSecuredAPIKey(params); err != nil {
 		return
 	}
@@ -155,12 +129,7 @@ func (c *Client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, e
 	return
 }
 
-// MultipleQueries performs all the queries specified in `queries` and
-// aggregates the results. It accepts two additional arguments: the name of
-// the field used to store the index name in the queries, and the strategy used
-// to perform the multiple queries.
-// The strategy can either be "none" or "stopIfEnoughMatches".
-func (c *Client) MultipleQueries(queries []IndexedQuery, strategy string) (res []MultipleQueryRes, err error) {
+func (c *client) MultipleQueries(queries []IndexedQuery, strategy string) (res []MultipleQueryRes, err error) {
 	if strategy == "" {
 		strategy = "none"
 	}
@@ -189,9 +158,7 @@ func (c *Client) MultipleQueries(queries []IndexedQuery, strategy string) (res [
 	return
 }
 
-// Batch performs all queries in `queries`. Each query should contain the
-// targeted index, as well as the type of operation wanted.
-func (c *Client) Batch(records []BatchOperationIndexed) (res MultipleBatchRes, err error) {
+func (c *client) Batch(records []BatchOperationIndexed) (res MultipleBatchRes, err error) {
 	// TODO: Use check functions of index.go
 
 	request := map[string][]BatchOperationIndexed{
@@ -202,7 +169,7 @@ func (c *Client) Batch(records []BatchOperationIndexed) (res MultipleBatchRes, e
 	return
 }
 
-func (c *Client) request(res interface{}, method, path string, body interface{}, typeCall int) error {
+func (c *client) request(res interface{}, method, path string, body interface{}, typeCall int) error {
 	r, err := c.transport.request(method, path, body, typeCall)
 	if err != nil {
 		return err
