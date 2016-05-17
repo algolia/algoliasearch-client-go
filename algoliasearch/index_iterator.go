@@ -2,8 +2,6 @@ package algoliasearch
 
 import "errors"
 
-// IndexIterator is used by the BrowseAll functions to iterate over all the
-// records of an index (or a subset according to what the query was).
 type indexIterator struct {
 	cursor string
 	index  Index
@@ -25,10 +23,6 @@ func newIndexIterator(index Index, params Map) (it IndexIterator, err error) {
 	return
 }
 
-// Next returns the next record each time is is called. Subsequent pages of
-// results are automatically loaded and an error is returned if a problem
-// arises. When the last element has been reached, an error is returned with
-// the following message: "No more hits".
 func (it *indexIterator) Next() (res Map, err error) {
 	// Abort if the user call `Next()` on a IndexIterator that has been
 	// initialized without being able to load the first page.
