@@ -503,14 +503,13 @@ func TestAddIndexKey(t *testing.T) {
 	_, index := initTest(t)
 	defer tearDownTest(t, index)
 
-	newKey := Key{
-		ACL:                    []string{"search"},
-		Validity:               300,
-		MaxQueriesPerIPPerHour: 100,
-		MaxHitsPerQuery:        100,
+	newKey := Map{
+		"validity":               300,
+		"maxQueriesPerIPPerHour": 100,
+		"maxHitsPerQuery":        100,
 	}
 
-	add, err := index.AddKey(newKey)
+	add, err := index.AddKey([]string{"search"}, newKey)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
