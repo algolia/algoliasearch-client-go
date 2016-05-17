@@ -4,7 +4,6 @@ package algoliasearch
 // allows manipulations over the indexes of the application as well as
 // network related parameters.
 type Client interface {
-
 	// SetExtraHeader allows to set custom headers while reaching out to
 	// Algolia servers.
 	SetExtraHeader(key, value string)
@@ -216,7 +215,6 @@ type Index interface {
 // IndexIterator is used by the BrowseAll functions to iterate over all the
 // records of an index (or a subset according to what the query was).
 type IndexIterator interface {
-
 	// Next returns the next record each time is is called. Subsequent pages of
 	// results are automatically loaded and an error is returned if a problem
 	// arises. When the last element has been reached, an error is returned with
