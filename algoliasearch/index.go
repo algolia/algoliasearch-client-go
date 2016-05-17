@@ -173,7 +173,7 @@ func (i *Index) UpdateKey(value string, k Key) (res UpdateKeyRes, err error) {
 
 // GetKey retrieves the key identified by its `value` string.
 func (i *Index) GetKey(value string) (key Key, err error) {
-	path := i.route + "/keys/" + value
+	path := i.route + "/keys/" + url.QueryEscape(value)
 	err = i.client.request(&key, "GET", path, nil, read)
 	return
 }
