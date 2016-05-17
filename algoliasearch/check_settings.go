@@ -60,10 +60,17 @@ func checkSettings(settings Map) error {
 			"highlightPostTag",
 			"highlightPreTag",
 			"queryType",
-			"snippetEllipsisText",
-			"typoTolerance":
+			"snippetEllipsisText":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
+			}
+
+		case "typoTolerance":
+			switch v.(type) {
+			case string, bool:
+				// OK
+			default:
+				return invalidType(k, "string or bool")
 			}
 
 		default:
