@@ -1,8 +1,8 @@
 package algoliasearch
 
 // Client is a representation of an Algolia application. Once initialized it
-// allows manipulations over the indexes of the application as well as
-// network related parameters.
+// allows manipulations over the indexes of the application as well as network
+// related parameters.
 type Client interface {
 	// SetExtraHeader allows to set custom headers while reaching out to
 	// Algolia servers.
@@ -15,10 +15,11 @@ type Client interface {
 	// application.
 	ListIndexes() (indexes []IndexRes, err error)
 
-	// InitIndex returns an Index object targeting `indexName`.
+	// InitIndex returns an Index object targeting `name`.
 	InitIndex(name string) Index
 
-	// ListKeys returns all the API keys available for this Algolia application.
+	// ListKeys returns all the API keys available for this Algolia
+	// application.
 	ListKeys() (keys []Key, err error)
 
 	// MoveIndex renames the index named `source` as `destination`.
@@ -28,40 +29,53 @@ type Client interface {
 	CopyIndex(source, destination string) (UpdateTaskRes, error)
 
 	// AddKey creates a new API key from the supplied `ACL` and the specified
-	// optional parameters.
+	// optional parameters. More details here:
+	// https://www.algolia.com/doc/rest#add-a-global-api-key
 	AddKey(ACL []string, params Map) (res AddKeyRes, err error)
 
-	// UpdateKey updates the API key named `key` with the supplied
-	// parameters.
+	// UpdateKey updates the API key identified by its value `key` with the
+	// given parameters.
 	UpdateKey(key string, params Map) (res UpdateKeyRes, err error)
 
-	// GetKey returns the ACL and validity of the API key named `key`.
+	// GetKey returns the key identified by its value `key`.
 	GetKey(key string) (res Key, err error)
 
-	// DeleteKey deletes the API key named `key`.
+	// DeleteKey deletes the API key identified by its `key`.
 	DeleteKey(key string) (res DeleteRes, err error)
 
-	// GetLogs retrieves the `length` latest logs, starting at `offset`. Logs can
-	// be filtered by type via `logType` being either "query", "build" or "error".
+	// GetLogs retrieves the logs according to the given `params` map which can
+	// contain the following fields:
+	//   - `length` (number of entries to retrieve)
+	//   - `offset` (offset to the first entry)
+	//   - `type` (type of logs to retrieve, can be "all", "query", "build" or
+	//     "error")
+	// More details here:
+	// https://www.algolia.com/doc/rest#logs-api
 	GetLogs(params Map) (logs []LogRes, err error)
 
-	// GenerateSecuredAPIKey generates a public API key intended to restrict access
-	// to certain records.
-	// This new key is built upon the existing key named `apiKey`. Tag filters
-	// or query parameters used to restrict access to certain records are specified
-	// via the `public` argument. A single `userToken` may be supplied, in order to
-	// use rate limited access.
+	// GenerateSecuredAPIKey generates a public API key intended to restrict
+	// access to certain records. This new key is built upon the existing key
+	// named `apiKey` and the `params` map. The `params` map can contain any
+	// query parameters to restrict what needs to be and can also have the
+	// following fields:
+	//   - `userToken` (string identifier generally used to rate-limit users
+	//     per IP)
+	//   - `validUntil` (timestamp of the expiration date)
+	//   - `restrictIndices` (comma-separated string list of the indices to
+	//     restrict)
+	// More details here:
+	// https://www.algolia.com/doc/rest#request-from-browser-with-secure-restriction
 	GenerateSecuredAPIKey(apiKey string, params Map) (key string, err error)
 
 	// MultipleQueries performs all the queries specified in `queries` and
-	// aggregates the results. It accepts two additional arguments: the name of
-	// the field used to store the index name in the queries, and the strategy used
-	// to perform the multiple queries.
-	// The strategy can either be "none" or "stopIfEnoughMatches".
+	// aggregates the results. The `strategy` can either be set to `none`
+	// (default) which executes all the queries until the last one, or set to
+	// `stopIfEnoughMatches` to limit the number of results according to the
+	// `hitsPerPage` parameter. More details here:
+	// https://www.algolia.com/doc/rest#query-multiple-indexes
 	MultipleQueries(queries []IndexedQuery, strategy string) (res []MultipleQueryRes, err error)
 
-	// Batch performs all queries in `queries`. Each query should contain the
-	// targeted index, as well as the type of operation wanted.
+	// Batch performs all queries in `queries`.
 	Batch(records []BatchOperationIndexed) (res MultipleBatchRes, err error)
 }
 
