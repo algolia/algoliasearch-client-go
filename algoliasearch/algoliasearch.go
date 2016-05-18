@@ -234,11 +234,12 @@ type Index interface {
 }
 
 // IndexIterator is used by the BrowseAll functions to iterate over all the
-// records of an index (or a subset according to what the query was).
+// records of an index (or a subset according to what the query and the params
+// are).
 type IndexIterator interface {
 	// Next returns the next record each time is is called. Subsequent pages of
 	// results are automatically loaded and an error is returned if a problem
-	// arises. When the last element has been reached, an error is returned with
-	// the following message: "No more hits".
+	// occurs. When the last element is reached, an error is returned with the
+	// following message: "No more hits".
 	Next() (res Map, err error)
 }
