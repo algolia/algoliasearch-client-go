@@ -12,13 +12,20 @@ func init() {
 	rand.Seed(time.Now().Unix())
 }
 
-func genIndexName() string {
+func fillRandom(random []byte) {
 	letters := "abcdefghijklmnopqrstuvwxyzBCDEFGHIJKLMNOPQRSTUVWXYZ"
+	for i := range random {
+		random[i] = letters[rand.Int()%len(letters)]
+	}
+}
+
+func genIndexName(ignore string) string {
 	baseName := "àlgol?à-go"
 
 	random := make([]byte, 8)
-	for i := range random {
-		random[i] = letters[rand.Int()%len(letters)]
+	fillRandom(random)
+	for ignore == string(random) {
+		fillRandom(random)
 	}
 
 	return safeName(fmt.Sprintf("%s-%s", string(random), baseName))
@@ -45,7 +52,7 @@ func initTest(t *testing.T) (*client, *index) {
 	hosts[1] = appID + "-2.algolia.net"
 	hosts[2] = appID + "-3.algolia.net"
 	c := NewClientWithHosts(appID, apiKey, hosts).(*client)
-	i := c.InitIndex(genIndexName()).(*index)
+	i := c.InitIndex(genIndexName("")).(*index)
 
 	return c, i
 }
@@ -388,7 +395,7 @@ func TestIndexCopy(t *testing.T) {
 
 	addWait(object, index, t)
 
-	copyName := genIndexName()
+	copyName := genIndexName(index.name)
 	idx, err := index.Copy(copyName)
 	if err != nil {
 		t.Fatal(err.Error())
@@ -417,7 +424,7 @@ func TestCopy(t *testing.T) {
 
 	addWait(object, index, t)
 
-	copyName := genIndexName()
+	copyName := genIndexName(index.name)
 	copy, err := client.CopyIndex(index.name, copyName)
 	if err != nil {
 		t.Fatal(err.Error())
@@ -446,7 +453,7 @@ func TestIndexMove(t *testing.T) {
 
 	addWait(object, index, t)
 
-	moveName := genIndexName()
+	moveName := genIndexName(index.name)
 	move, err := index.Move(moveName)
 	if err != nil {
 		t.Fatal(err.Error())
@@ -475,7 +482,7 @@ func TestMove(t *testing.T) {
 
 	addWait(object, index, t)
 
-	moveName := genIndexName()
+	moveName := genIndexName(index.name)
 	move, err := client.MoveIndex(index.name, moveName)
 	if err != nil {
 		t.Fatal(err.Error())
