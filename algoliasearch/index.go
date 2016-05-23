@@ -13,9 +13,8 @@ type index struct {
 	route  string
 }
 
-// NewIndex instantiates a new Index. The `name` parameter corresponds to the
-// Algolia index's name while the `client` is used to connect to the Algolia
-// API.
+// NewIndex instantiates a new `Index`. The `name` parameter corresponds to the
+// Algolia index name while the `client` is used to connect to the Algolia API.
 func NewIndex(name string, client *client) Index {
 	return &index{
 		client: client,
@@ -256,9 +255,6 @@ func (i *index) Move(name string) (UpdateTaskRes, error) {
 	return i.operation(name, "move")
 }
 
-// operation performs the `op` operation on the underlying index and names the
-// resulting new index `name`. The `op` operation can be either `copy` or
-// `move`.
 func (i *index) operation(dst, op string) (res UpdateTaskRes, err error) {
 	o := IndexOperation{
 		Destination: dst,
