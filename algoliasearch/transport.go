@@ -39,19 +39,17 @@ type Transport struct {
 
 // newHTTPClient creates and initializes an http.Client with sane defaults.
 func newHTTPClient() *http.Client {
-	tr := &http.Transport{
-		DisableKeepAlives:   false,
-		MaxIdleConnsPerHost: 2,
-		Dial: (&net.Dialer{
-			Timeout:   15 * time.Second,
-			KeepAlive: 30 * time.Second,
-		}).Dial,
-		TLSHandshakeTimeout:   time.Second * 2,
-		ResponseHeaderTimeout: time.Second * 10,
-	}
 	return &http.Client{
-		Transport: tr,
-		Timeout:   time.Second * 15,
+		Timeout: time.Second * 30,
+		Transport: &http.Transport{
+			Dial: (&net.Dialer{
+				Timeout:   2 * time.Second,
+				KeepAlive: 180 * time.Second,
+			}).Dial,
+			DisableKeepAlives:   false,
+			MaxIdleConnsPerHost: 2,
+			TLSHandshakeTimeout: 2 * time.Second,
+		},
 	}
 }
 

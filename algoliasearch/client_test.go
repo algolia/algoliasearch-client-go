@@ -997,7 +997,7 @@ func TestDNSTimeout(t *testing.T) {
 	start := time.Now()
 	_, _ = c.ListIndexes()
 
-	if start.Add(15 * time.Second).Before(time.Now()) {
+	if start.Add(3 * time.Second).Before(time.Now()) {
 		t.Fatal("DNS resolution should have timeouted")
 	}
 }
