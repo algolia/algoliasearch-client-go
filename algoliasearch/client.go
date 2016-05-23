@@ -14,16 +14,17 @@ type client struct {
 	transport *Transport
 }
 
-// NewClient creates a new Client from the provided `appID` and `apiKey`. The
-// default hosts are used for the transport layer.
+// NewClient instantiates a new `Client` from the provided `appID` and
+// `apiKey`. Default hosts are used for the transport layer.
 func NewClient(appID, apiKey string) Client {
 	return &client{
 		transport: NewTransport(appID, apiKey),
 	}
 }
 
-// NewClientWithHosts creates a new Client from the provided `appID,` `apiKey`,
-// and `hosts` used to connect to the Algolia servers.
+// NewClientWithHosts instantiates a new `Client` from the provided `appID` and
+// `apiKey`. The transport layers' hosts are initialized with the given
+// `hosts`.
 func NewClientWithHosts(appID, apiKey string, hosts []string) Client {
 	return &client{
 		transport: NewTransportWithHosts(appID, apiKey, hosts),
