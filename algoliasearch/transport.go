@@ -54,8 +54,8 @@ func newHTTPClient() *http.Client {
 }
 
 // NewTransport creates and initializes a new Transport targeting the Algolia
-// application `appID` using the API key `apiKey`. The hosts are deduced
-// from `appID`.
+// application `appID` using the API key `apiKey`. The hosts are deduced from
+// `appID`.
 func NewTransport(appID, apiKey string) *Transport {
 	hosts := []string{
 		appID + "-1.algolianet.com",
@@ -63,6 +63,7 @@ func NewTransport(appID, apiKey string) *Transport {
 		appID + "-3.algolianet.com",
 	}
 
+	// Randomize the hosts order
 	randHosts := make([]string, len(hosts))
 	for i, v := range rand.Perm(len(hosts)) {
 		randHosts[i] = hosts[v]
@@ -79,8 +80,8 @@ func NewTransport(appID, apiKey string) *Transport {
 }
 
 // NewTransportWithHosts creates and initializes a new Transport targeting the
-// Algolia application `appID` using the API key `apiKey` via the
-// specified `hosts`.
+// Algolia application `appID` using the API key `apiKey` via the specified
+// `hosts`.
 func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 	return &Transport{
 		apiKey:        apiKey,
@@ -207,17 +208,17 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
 	req.Header.Add("Connection", "keep-alive")
 	req.Header.Add("User-Agent", "Algolia for go "+version)
 
-	for key := range t.headers {
-		req.Header.Add(key, t.headers[key])
+	for k, v := range t.headers {
+		req.Header.Add(k, v)
 	}
 
 	return req
 }
 
 // handleResponse takes care of reading a response as JSON, and returns the
-// parsed object. If the status code of the response indicates a failed request,
-// or if the body of the response is not a valid JSON object, an error is
-// returned.
+// parsed object. If the status code of the response indicates a failed
+// request, or if the body of the response is not a valid JSON object, an error
+// is returned.
 func (t *Transport) handleResponse(resp *http.Response) ([]byte, error) {
 	res, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
