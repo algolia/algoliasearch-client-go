@@ -976,3 +976,28 @@ func TestSynonyms(t *testing.T) {
 
 	checkNbHits(t, len(synonyms), 0)
 }
+
+func TestDNSTimeout(t *testing.T) {
+	appID, haveAppID := syscall.Getenv("ALGOLIA_APPLICATION_ID")
+	apiKey, haveAPIKey := syscall.Getenv("ALGOLIA_API_KEY")
+	if !haveAPIKey || !haveAppID {
+		t.Fatal("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
+	}
+
+	hosts := []string{
+		appID + "-dsn.algolia.biz",
+		appID + "-dsn.algolia.net",
+		appID + "-1.algolianet.com",
+		appID + "-2.algolianet.com",
+		appID + "-3.algolianet.com",
+	}
+
+	c := NewClientWithHosts(appID, apiKey, hosts)
+
+	start := time.Now()
+	_, _ = c.ListIndexes()
+
+	if start.Add(15 * time.Second).Before(time.Now()) {
+		t.Fatal("DNS resolution should have timeouted")
+	}
+}
