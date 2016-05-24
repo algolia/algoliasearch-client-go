@@ -1150,7 +1150,7 @@ You can send multiple queries with a single API call using a batch of queries:
 queries := make([]interface{}, 3)
 
 queries[0] = map[string]interface{}{"indexName": "categories", "query": myQueryString, "hitsPerPage": 3}
-queries[1] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 3, "tagFilters": "promotion"}
+queries[1] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 3, "filters": "promotion"}
 queries[2] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 10}
 
 res, err := client.MultipleQueries(queries)
@@ -2009,7 +2009,7 @@ Example:
 
 ```go
 // Iterate with a filter over the index
-items, err := index.BrowseAll(map[string]interface{}{"query": "text", "numericFilters": "i<42"}
+items, err := index.BrowseAll(map[string]interface{}{"query": "text", "filters": "i<42"}
 for {
 	hit, err := items.Next()
 	if err {
@@ -2018,7 +2018,7 @@ for {
 }
 
 // Retrieve the next cursor from the browse method
-res, err := index.BrowseFrom(map[string]interface{}{"query": "text", "numericFilters": "i<42", "")
+res, err := index.BrowseFrom(map[string]interface{}{"query": "text", "filters": "i<42", "")
 fmt.Printf(res.(map[string]interface{})["cursor"])
 ```
 
@@ -2231,7 +2231,7 @@ task, err := index.DeleteKey("71671c38001bf3ac857bc82052485107")
 You may have a single index containing **per user** data. In that case, all records should be tagged with their associated `user_id` in order to add a `tagFilters=user_42` filter at query time to retrieve only what a user has access to. If you're using the [JavaScript client](http://github.com/algolia/algoliasearch-client-js), it will result in a security breach since the user is able to modify the `tagFilters` you've set by modifying the code from the browser. To keep using the JavaScript client (recommended for optimal latency) and target secured records, you can generate a secured API key from your backend:
 
 ```go
-key, err := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"tagFilters": "user_42"})
+key, err := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "user_42"})
 ```
 
 This public API key can then be used in your JavaScript code as follow:
@@ -2254,7 +2254,7 @@ index.search('something', function(err, content) {
 You can mix rate limits and secured API keys by setting a `userToken` query parameter at API key generation time. When set, a unique user will be identified by her `IP + user_token` instead of only by her `IP`. This allows you to restrict a single user to performing a maximum of `N` API calls per hour, even if she shares her `IP` with another user.
 
 ```go
-key, error := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"tagFilters": "user_42", "userToken": "user_42"})
+key, error := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "user_42", "userToken": "user_42"})
 ```
 
 This public API key can then be used in your JavaScript code as follow:
