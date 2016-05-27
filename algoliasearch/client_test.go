@@ -546,7 +546,7 @@ func TestAddIndexKey(t *testing.T) {
 		t.Fatalf("%s should be present", add.Key)
 	}
 
-	updated := Key{ACL: []string{"addObject"}}
+	updated := Map{"acl": []string{"addObject"}}
 	_, err = index.UpdateKey(add.Key, updated)
 	if err != nil {
 		t.Fatal(err.Error())
