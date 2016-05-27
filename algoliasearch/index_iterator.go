@@ -15,6 +15,7 @@ type indexIterator struct {
 // and return an error if something goes wrong.
 func newIndexIterator(index Index, params Map) (it *indexIterator, err error) {
 	it = &indexIterator{
+		cursor: "",
 		index:  index,
 		params: duplicateMap(params),
 		pos:    0,
@@ -55,12 +56,7 @@ func (it *indexIterator) Next() (res Map, err error) {
 // loadNextPage is used internally to load the next page of results, using the
 // underlying Browse cursor.
 func (it *indexIterator) loadNextPage() (err error) {
-	// Update the cursor for each new page except for the first one
-	if it.cursor != "" {
-		it.params["cursor"] = it.cursor
-	}
-
-	if it.page, err = it.index.Browse(it.params); err != nil {
+	if it.page, err = it.index.Browse(it.params, it.cursor); err != nil {
 		return
 	}
 

@@ -342,12 +342,17 @@ func (i *index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwa
 	return
 }
 
-func (i *index) Browse(params Map) (res BrowseRes, err error) {
-	if err = checkQuery(params); err != nil {
+func (i *index) Browse(params Map, cursor string) (res BrowseRes, err error) {
+	copy := duplicateMap(params)
+	if err = checkQuery(copy); err != nil {
 		return
 	}
 
-	path := i.route + "/browse?" + encodeMap(params)
+	if cursor != "" {
+		copy["cursor"] = cursor
+	}
+
+	path := i.route + "/browse?" + encodeMap(copy)
 	err = i.client.request(&res, "GET", path, nil, read)
 	return
 }
