@@ -121,10 +121,10 @@ type Index interface {
 	// https://www.algolia.com/doc/rest#add-an-index-specific-api-key
 	AddKey(ACL []string, params Map) (res AddKeyRes, err error)
 
-	// UpdateKey updates the key identified by its `value` with all the fields
-	// present in the `k` key. More details here:
+	// UpdateKey updates the key identified by its `key` with all the fields
+	// present in the `params` Map. More details here:
 	// https://www.algolia.com/doc/rest#update-an-index-specific-api-key
-	UpdateKey(value string, k Key) (res UpdateKeyRes, err error)
+	UpdateKey(key string, params Map) (res UpdateKeyRes, err error)
 
 	// GetKey retrieves the key identified by its `value`.
 	GetKey(value string) (key Key, err error)
