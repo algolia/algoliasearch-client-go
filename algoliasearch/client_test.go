@@ -341,7 +341,7 @@ func TestBrowse(t *testing.T) {
 
 	addWait(object, index, t)
 
-	_, err := index.Browse(Map{"page": 1, "hitsPerPage": 1})
+	_, err := index.Browse(Map{"page": 1, "hitsPerPage": 1}, "")
 	if err != nil {
 		t.Fatal(err.Error())
 	}

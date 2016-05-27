@@ -211,11 +211,14 @@ type Index interface {
 	BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToSlaves bool) (res UpdateTaskRes, err error)
 
 	// Browse returns the hits found according to the given `params`. The
-	// result also contains the cursor needed to paginate the results. This is
-	// a low-level function, if you simply want to iterate through all the
-	// results, it is preferable to use `BrowseAll` instead. More details here:
+	// `cursor` parameter controls the pagination of the results that `Browse`
+	// is able to load. The first time `Browse` is called, `cursor` should be
+	// an empty string. After that, subsequent calls must used the updated
+	// `cursor` received in the response. This is a low-level function, if you
+	// simply want to iterate through all the results, it is preferable to use
+	// `BrowseAll` instead. More details here:
 	// https://www.algolia.com/doc/rest#browse-all-index-content
-	Browse(params Map) (res BrowseRes, err error)
+	Browse(params Map, cursor string) (res BrowseRes, err error)
 
 	// BrowseAll returns an iterator pointing to the first result that matches
 	// the search query given the `params`. Calling `Next()` on the iterator
