@@ -75,8 +75,8 @@ type Client interface {
 	// https://www.algolia.com/doc/rest#query-multiple-indexes
 	MultipleQueries(queries []IndexedQuery, strategy string) (res []MultipleQueryRes, err error)
 
-	// Batch performs all queries in `queries`.
-	Batch(records []BatchOperationIndexed) (res MultipleBatchRes, err error)
+	// Batch performs all queries in `operations`.
+	Batch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error)
 }
 
 // Index is a representation used to manipulate an Algolia index.

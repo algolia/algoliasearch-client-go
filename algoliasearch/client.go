@@ -159,11 +159,11 @@ func (c *client) MultipleQueries(queries []IndexedQuery, strategy string) (res [
 	return
 }
 
-func (c *client) Batch(records []BatchOperationIndexed) (res MultipleBatchRes, err error) {
+func (c *client) Batch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error) {
 	// TODO: Use check functions of index.go
 
 	request := map[string][]BatchOperationIndexed{
-		"requests": records,
+		"requests": operations,
 	}
 
 	err = c.request(&res, "POST", "/1/indexes/*/batch", request, write)
