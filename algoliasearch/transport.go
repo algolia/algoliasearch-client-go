@@ -94,14 +94,14 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 }
 
 // setTimeout changes the timeouts used by the underlying HTTP client.
-func (t *Transport) setTimeout(connectTimeout time.Duration, readTimeout time.Duration) {
+func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
 	t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
 	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
 }
 
 // setExtraHeader adds a custom header to be used when exchanging with Algolia
 // servers.
-func (t *Transport) setExtraHeader(key string, value string) {
+func (t *Transport) setExtraHeader(key, value string) {
 	t.headers[key] = value
 }
 
