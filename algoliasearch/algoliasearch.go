@@ -37,17 +37,17 @@ type Client interface {
 	// AddKey creates a new API key from the supplied `ACL` and the specified
 	// optional parameters. More details here:
 	// https://www.algolia.com/doc/rest#add-a-global-api-key
-	AddKey(ACL []string, params Map) (res AddKeyRes, err error)
+	AddUserKey(ACL []string, params Map) (res AddKeyRes, err error)
 
 	// UpdateKey updates the API key identified by its value `key` with the
 	// given parameters.
-	UpdateKey(key string, params Map) (res UpdateKeyRes, err error)
+	UpdateUserKey(key string, params Map) (res UpdateKeyRes, err error)
 
 	// GetKey returns the key identified by its value `key`.
-	GetKey(key string) (res Key, err error)
+	GetUserKey(key string) (res Key, err error)
 
 	// DeleteKey deletes the API key identified by its `key`.
-	DeleteKey(key string) (res DeleteRes, err error)
+	DeleteUserKey(key string) (res DeleteRes, err error)
 
 	// GetLogs retrieves the logs according to the given `params` map which can
 	// contain the following fields:
@@ -125,18 +125,18 @@ type Index interface {
 	// AddKey creates a new API key from the supplied `ACL` and the specified
 	// optional `params` parameters for the current index. More details here:
 	// https://www.algolia.com/doc/rest#add-an-index-specific-api-key
-	AddKey(ACL []string, params Map) (res AddKeyRes, err error)
+	AddUserKey(ACL []string, params Map) (res AddKeyRes, err error)
 
 	// UpdateKey updates the key identified by its `key` with all the fields
 	// present in the `params` Map. More details here:
 	// https://www.algolia.com/doc/rest#update-an-index-specific-api-key
-	UpdateKey(key string, params Map) (res UpdateKeyRes, err error)
+	UpdateUserKey(key string, params Map) (res UpdateKeyRes, err error)
 
 	// GetKey retrieves the key identified by its `value`.
-	GetKey(value string) (key Key, err error)
+	GetUserKey(value string) (key Key, err error)
 
 	// DeleteKey deletes the key identified by its `value`.
-	DeleteKey(value string) (res DeleteRes, err error)
+	DeleteUserKey(value string) (res DeleteRes, err error)
 
 	// AddObject adds a new record to the index.
 	AddObject(object Object) (res CreateObjectRes, err error)
