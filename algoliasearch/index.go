@@ -389,35 +389,43 @@ func (i *index) Search(query string, params Map) (res QueryRes, err error) {
 	return
 }
 
-func (i *index) DeleteByQuery(query string, params Map) (res BatchRes, err error) {
+func (i *index) DeleteByQuery(query string, params Map) (err error) {
 	copy := duplicateMap(params)
 	copy["attributesToRetrieve"] = []string{"objectID"}
 	copy["hitsPerPage"] = 1000
 	copy["query"] = query
 	copy["distinct"] = 0
 
-	// Retrieve the iterator to browse the results
-	var it IndexIterator
-	if it, err = i.BrowseAll(copy); err != nil {
-		return
-	}
+	var browseRes BrowseRes
+	var batchRes BatchRes
 
-	// Iterate through all the objectIDs
-	var hit Map
-	var objectIDs []string
-	for err == nil {
-		if hit, err = it.Next(); err == nil {
+	for {
+		// Start browsing the content
+		if browseRes, err = i.Browse(copy, ""); err != nil {
+			return
+		}
+
+		// Break if there's no more matching records
+		if len(browseRes.Hits) == 0 {
+			break
+		}
+
+		// Collect all objectIDs
+		var objectIDs []string
+		for _, hit := range browseRes.Hits {
 			objectIDs = append(objectIDs, hit["objectID"].(string))
+		}
+
+		// Delete all the objects
+		if batchRes, err = i.DeleteObjects(objectIDs); err != nil {
+			return
+		}
+
+		// Wait until DeleteObjects completion
+		if err := i.WaitTask(batchRes.TaskID); err != nil {
+			return err
 		}
 	}
 
-	// If it errored for something else than finishing the Browse properly, an
-	// error is returned.
-	if err.Error() != "No more hits" {
-		return
-	}
-
-	// Delete all the objects
-	res, err = i.DeleteObjects(objectIDs)
-	return
+	return nil
 }

@@ -805,12 +805,7 @@ func TestDeleteByQuery(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	del, err := index.DeleteByQuery("San", nil)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-
-	err = index.WaitTask(del.TaskID)
+	err = index.DeleteByQuery("San", nil)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
