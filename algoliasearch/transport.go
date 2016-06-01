@@ -228,7 +228,7 @@ func (t *Transport) handleResponse(resp *http.Response) ([]byte, error) {
 
 	var jsonResp interface{}
 	if err = json.Unmarshal(res, &jsonResp); err != nil {
-		return nil, errors.New("Invalid JSON in the response")
+		return nil, fmt.Errorf("Invalid JSON response: %s", err)
 	}
 
 	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
