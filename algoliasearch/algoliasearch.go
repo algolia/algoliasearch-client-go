@@ -238,8 +238,9 @@ type Index interface {
 	Search(query string, params Map) (res QueryRes, err error)
 
 	// DeleteByQuery finds all the records that match the `query`, according to
-	// the given 'params` and deletes them.
-	DeleteByQuery(query string, params Map) (res BatchRes, err error)
+	// the given 'params` and deletes them. It hangs until all the deletion
+	// operations have completed.
+	DeleteByQuery(query string, params Map) error
 }
 
 // IndexIterator is used by the BrowseAll functions to iterate over all the
