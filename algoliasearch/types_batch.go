@@ -1,9 +1,6 @@
 package algoliasearch
 
-import (
-	"errors"
-	"net/url"
-)
+import "errors"
 
 type BatchOperation struct {
 	Action string      `json:"action"`
@@ -33,7 +30,7 @@ func newBatchOperations(objects []Object, action string) (operations []BatchOper
 		// the `objectID` field is required and has to be escaped.
 		if action != "addObject" && action != "clear" {
 			if objectID, err := o.ObjectID(); err == nil {
-				o["objectID"] = url.QueryEscape(objectID)
+				o["objectID"] = objectID
 			} else {
 				err = errors.New("Cannot generate []BatchOperation: `objectID` field is missing")
 				break
