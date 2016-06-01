@@ -1083,7 +1083,7 @@ You can also use a string array encoding (for example `numericFilters: ["price>1
       </td>
       <td class='client-readme-param-content'>
         <p>Filter the query with numeric, facet or/and tag filters. The syntax is a SQL like syntax, you can use the OR and AND keywords. The syntax for the underlying numeric, facet and tag filters is the same than in the other filters:
-<code>available=1 AND (category:Book OR NOT category:Ebook) AND public</code>
+<code>available=1 AND (category:Book OR NOT category:Ebook) AND _tags:public</code>
 <code>date: 1441745506 TO 1441755506 AND inStock &gt; 0 AND author:&quot;John Doe&quot;</code></p>
 
 <p>If no attribute name is specified, the filter applies to <code>_tags</code>. For example: <code>public OR user_42</code> will translate to <code>_tags:public OR _tags:user_42</code>.</p>
@@ -1152,7 +1152,7 @@ You can send multiple queries with a single API call using a batch of queries:
 queries := make([]interface{}, 3)
 
 queries[0] = map[string]interface{}{"indexName": "categories", "query": myQueryString, "hitsPerPage": 3}
-queries[1] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 3, "filters": "promotion"}
+queries[1] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 3, "filters": "_tags:promotion"}
 queries[2] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 10}
 
 res, err := client.MultipleQueries(queries)
@@ -2233,7 +2233,7 @@ task, err := index.DeleteKey("71671c38001bf3ac857bc82052485107")
 You may have a single index containing **per user** data. In that case, all records should be tagged with their associated `user_id` in order to add a `tagFilters=user_42` filter at query time to retrieve only what a user has access to. If you're using the [JavaScript client](http://github.com/algolia/algoliasearch-client-js), it will result in a security breach since the user is able to modify the `tagFilters` you've set by modifying the code from the browser. To keep using the JavaScript client (recommended for optimal latency) and target secured records, you can generate a secured API key from your backend:
 
 ```go
-key, err := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "user_42"})
+key, err := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "_tags:user_42"})
 ```
 
 This public API key can then be used in your JavaScript code as follow:
@@ -2256,7 +2256,7 @@ index.search('something', function(err, content) {
 You can mix rate limits and secured API keys by setting a `userToken` query parameter at API key generation time. When set, a unique user will be identified by her `IP + user_token` instead of only by her `IP`. This allows you to restrict a single user to performing a maximum of `N` API calls per hour, even if she shares her `IP` with another user.
 
 ```go
-key, error := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "user_42", "userToken": "user_42"})
+key, error := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "_tags:user_42", "userToken": "user_42"})
 ```
 
 This public API key can then be used in your JavaScript code as follow:
