@@ -79,7 +79,7 @@ func (c *client) ClearIndex(name string) (res UpdateTaskRes, err error) {
 	return index.Clear()
 }
 
-func (c *client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
+func (c *client) AddUserKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	req := duplicateMap(params)
 	req["acl"] = ACL
 
@@ -91,7 +91,7 @@ func (c *client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	return
 }
 
-func (c *client) UpdateKey(key string, params Map) (res UpdateKeyRes, err error) {
+func (c *client) UpdateUserKey(key string, params Map) (res UpdateKeyRes, err error) {
 	if err = checkKey(params); err != nil {
 		return
 	}
@@ -101,13 +101,13 @@ func (c *client) UpdateKey(key string, params Map) (res UpdateKeyRes, err error)
 	return
 }
 
-func (c *client) GetKey(key string) (res Key, err error) {
+func (c *client) GetUserKey(key string) (res Key, err error) {
 	path := "/1/keys/" + url.QueryEscape(key)
 	err = c.request(&res, "GET", path, nil, read)
 	return
 }
 
-func (c *client) DeleteKey(key string) (res DeleteRes, err error) {
+func (c *client) DeleteUserKey(key string) (res DeleteRes, err error) {
 	path := "/1/keys/" + url.QueryEscape(key)
 	err = c.request(&res, "DELETE", path, nil, write)
 	return
