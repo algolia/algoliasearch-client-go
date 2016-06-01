@@ -358,8 +358,12 @@ func (i *index) Browse(params Map, cursor string) (res BrowseRes, err error) {
 		copy["cursor"] = cursor
 	}
 
-	path := i.route + "/browse?" + encodeMap(copy)
-	err = i.client.request(&res, "GET", path, nil, read)
+	req := Map{
+		"params": encodeMap(copy),
+	}
+
+	path := i.route + "/browse"
+	err = i.client.request(&res, "POST", path, req, read)
 	return
 }
 
