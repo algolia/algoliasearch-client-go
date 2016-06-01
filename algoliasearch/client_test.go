@@ -819,19 +819,16 @@ func TestDeleteByQuery(t *testing.T) {
 }
 
 func TestGenerateNewSecuredApiKey(t *testing.T) {
-	client, index := initTest(t)
-	defer tearDownTest(t, index)
-
 	base := "182634d8894831d5dbce3b3185c50881"
 
-	key, err := client.GenerateSecuredAPIKey(base, Map{"tagFilters": "(public,user1)"})
+	key, err := GenerateSecuredAPIKey(base, Map{"tagFilters": "(public,user1)"})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 	expected := "MDZkNWNjNDY4M2MzMDA0NmUyNmNkZjY5OTMzYjVlNmVlMTk1NTEwMGNmNTVjZmJhMmIwOTIzYjdjMTk2NTFiMnRhZ0ZpbHRlcnM9JTI4cHVibGljJTJDdXNlcjElMjk="
 	checkEqual(t, key, expected, "secured key")
 
-	key, err = client.GenerateSecuredAPIKey(base, Map{"tagFilters": "(public,user1)", "userToken": "42"})
+	key, err = GenerateSecuredAPIKey(base, Map{"tagFilters": "(public,user1)", "userToken": "42"})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
