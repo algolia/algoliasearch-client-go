@@ -28,6 +28,12 @@ type Client interface {
 	// CopyIndex duplicates the index named `source` as `destination`.
 	CopyIndex(source, destination string) (UpdateTaskRes, error)
 
+	// DeleteIndex removes the `name` Algolia index.
+	DeleteIndex(name string) (res DeleteTaskRes, err error)
+
+	// ClearIndex removes every record from the `name` Algolia index.
+	ClearIndex(name string) (res UpdateTaskRes, err error)
+
 	// AddKey creates a new API key from the supplied `ACL` and the specified
 	// optional parameters. More details here:
 	// https://www.algolia.com/doc/rest#add-a-global-api-key

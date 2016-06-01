@@ -69,6 +69,16 @@ func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 	return index.Copy(destination)
 }
 
+func (c *client) DeleteIndex(name string) (res DeleteTaskRes, err error) {
+	index := c.InitIndex(name)
+	return index.Delete()
+}
+
+func (c *client) ClearIndex(name string) (res UpdateTaskRes, err error) {
+	index := c.InitIndex(name)
+	return index.Clear()
+}
+
 func (c *client) AddKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	req := duplicateMap(params)
 	req["acl"] = ACL
