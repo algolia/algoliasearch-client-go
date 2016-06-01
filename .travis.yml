@@ -5,11 +5,9 @@ go:
   - 1.4
   - 1.5
   - 1.6
-  - tip
 
 os:
   - linux
-  - osx
 
 install:
   - go get code.google.com/p/go.tools/cmd/cover || go get golang.org/x/tools/cmd/cover
