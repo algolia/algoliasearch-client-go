@@ -92,7 +92,7 @@ func hasString(slice []string, elt string) bool {
 
 func waitIndexKey(index Index, key string, f func(Key) bool) {
 	for i := 0; i < 60; i++ {
-		k, err := index.GetKey(key)
+		k, err := index.GetUserKey(key)
 		if err == nil && (f == nil || f(k)) {
 			return
 		}
@@ -102,7 +102,7 @@ func waitIndexKey(index Index, key string, f func(Key) bool) {
 
 func waitMissingIndexKey(index Index, key string) {
 	for i := 0; i < 60; i++ {
-		_, err := index.GetKey(key)
+		_, err := index.GetUserKey(key)
 		if err != nil {
 			return
 		}
@@ -112,7 +112,7 @@ func waitMissingIndexKey(index Index, key string) {
 
 func waitClientKey(client Client, key string, f func(Key) bool) {
 	for i := 0; i < 60; i++ {
-		k, err := client.GetKey(key)
+		k, err := client.GetUserKey(key)
 		if err == nil && (f == nil || f(k)) {
 			return
 		}
@@ -122,7 +122,7 @@ func waitClientKey(client Client, key string, f func(Key) bool) {
 
 func waitMissingClientKey(client Client, key string) {
 	for i := 0; i < 60; i++ {
-		_, err := client.GetKey(key)
+		_, err := client.GetUserKey(key)
 		if err != nil {
 			return
 		}
@@ -514,14 +514,14 @@ func TestAddIndexKey(t *testing.T) {
 		"maxHitsPerQuery":        100,
 	}
 
-	add, err := index.AddKey([]string{"search"}, newKey)
+	add, err := index.AddUserKey([]string{"search"}, newKey)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
 	waitIndexKey(index, add.Key, nil)
 
-	get, err := index.GetKey(add.Key)
+	get, err := index.GetUserKey(add.Key)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -547,7 +547,7 @@ func TestAddIndexKey(t *testing.T) {
 	}
 
 	updated := Map{"acl": []string{"addObject"}}
-	_, err = index.UpdateKey(add.Key, updated)
+	_, err = index.UpdateUserKey(add.Key, updated)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -571,7 +571,7 @@ func TestAddIndexKey(t *testing.T) {
 		t.Fatalf("%s should be present", add.Key)
 	}
 
-	_, err = index.DeleteKey(add.Key)
+	_, err = index.DeleteUserKey(add.Key)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -606,14 +606,14 @@ func TestAddKey(t *testing.T) {
 		"indexes":                []string{index.name},
 	}
 
-	add, err := client.AddKey(acl, params)
+	add, err := client.AddUserKey(acl, params)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
 	waitClientKey(client, add.Key, nil)
 
-	get, err := client.GetKey(add.Key)
+	get, err := client.GetUserKey(add.Key)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -623,7 +623,7 @@ func TestAddKey(t *testing.T) {
 		t.Fatal("Unable to get a key")
 	}
 
-	_, err = client.UpdateKey(add.Key, Map{"acl": []string{"addObject"}})
+	_, err = client.UpdateUserKey(add.Key, Map{"acl": []string{"addObject"}})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -647,7 +647,7 @@ func TestAddKey(t *testing.T) {
 		t.Fatalf("%s should be present", add.Key)
 	}
 
-	_, err = client.DeleteKey(add.Key)
+	_, err = client.DeleteUserKey(add.Key)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
