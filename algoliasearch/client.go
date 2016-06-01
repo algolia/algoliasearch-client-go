@@ -1,10 +1,6 @@
 package algoliasearch
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/base64"
-	"encoding/hex"
 	"encoding/json"
 	"net/url"
 	"time"
@@ -122,21 +118,6 @@ func (c *client) GetLogs(params Map) (logs []LogRes, err error) {
 
 	err = c.request(&res, "GET", "/1/logs", params, write)
 	logs = res.Logs
-	return
-}
-
-func (c *client) GenerateSecuredAPIKey(apiKey string, params Map) (key string, err error) {
-	if err = checkGenerateSecuredAPIKey(params); err != nil {
-		return
-	}
-
-	message := encodeMap(params)
-
-	h := hmac.New(sha256.New, []byte(apiKey))
-	h.Write([]byte(message))
-	securedKey := hex.EncodeToString(h.Sum(nil))
-
-	key = base64.StdEncoding.EncodeToString([]byte(securedKey + message))
 	return
 }
 

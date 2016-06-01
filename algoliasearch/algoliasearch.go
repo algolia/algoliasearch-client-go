@@ -59,20 +59,6 @@ type Client interface {
 	// https://www.algolia.com/doc/rest#logs-api
 	GetLogs(params Map) (logs []LogRes, err error)
 
-	// GenerateSecuredAPIKey generates a public API key intended to restrict
-	// access to certain records. This new key is built upon the existing key
-	// named `apiKey` and the `params` map. The `params` map can contain any
-	// query parameters to restrict what needs to be and can also have the
-	// following fields:
-	//   - `userToken` (string identifier generally used to rate-limit users
-	//     per IP)
-	//   - `validUntil` (timestamp of the expiration date)
-	//   - `restrictIndices` (comma-separated string list of the indices to
-	//     restrict)
-	// More details here:
-	// https://www.algolia.com/doc/rest#request-from-browser-with-secure-restriction
-	GenerateSecuredAPIKey(apiKey string, params Map) (key string, err error)
-
 	// MultipleQueries performs all the queries specified in `queries` and
 	// aggregates the results. The `strategy` can either be set to `none`
 	// (default) which executes all the queries until the last one, or set to
