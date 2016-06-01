@@ -1,6 +1,7 @@
 package algoliasearch
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"strings"
@@ -38,8 +39,13 @@ func (i *index) Clear() (res UpdateTaskRes, err error) {
 func (i *index) GetObject(objectID string, attributes []string) (object Object, err error) {
 	var params Map
 	if attributes != nil {
+		var attrBytes []byte
+		attrBytes, err = json.Marshal(attributes)
+		if err != nil {
+			return
+		}
 		params = Map{
-			"attributes": strings.Join(attributes, ","),
+			"attributes": attrBytes,
 		}
 	}
 
