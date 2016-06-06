@@ -5,6 +5,13 @@
 <!--/NO_HTML-->
 
 
+**Migration note from v1.x to v2.x**
+
+In June 2016, we released the v2 of our Go client. If you were using version 1.x of the client, read the [migration guide to version 2.x](https://github.com/algolia/algoliasearch-client-go/wiki/Migration-guide-to-version-2.x).
+
+Version 1.x are no longer under active development. They are still supported for bug fixes, but will not receive new features.
+
+
 
 
 
@@ -68,7 +75,7 @@ To setup your project, follow these steps:
 
 
  1. Download AlgoliaSearch using <code>go get github.com/algolia/algoliasearch-client-go/algoliasearch</code>.
- 2. Initialize the client with your ApplicationID and API-Key. You can find all of them on [your Algolia account](http://www.algolia.com/users/edit).
+ 2. Initialize the client with your Application ID and API Key. You can them on [your Algolia account](https://www.algolia.com/api-keys).
 
  ```go
  import "github.com/algolia/algoliasearch-client-go/algoliasearch"
@@ -88,35 +95,53 @@ In 30 seconds, this quick start tutorial will show you how to index and search o
 Without any prior configuration, you can start indexing [500 contacts](https://github.com/algolia/algoliasearch-client-csharp/blob/master/contacts.json) in the ```contacts``` index using the following code:
 ```go
 index := client.InitIndex("contacts")
-content, err := io.ReadFile("contact.json")
-var jsonArray interface{}
-err = json.Unmarshal(content, jsonArray)
-res, err := index.AddObjects(jsonArray)
+content, _ := ioutil.ReadFile("contacts.json")
+
+var objects []algoliasearchearch.Object
+if err := json.Unmarshal(content, &objects); err != nil {
+  return
+}
+
+res, err := index.AddObjects(objects)
 ```
 
 You can now search for contacts using firstname, lastname, company, etc. (even with typos):
 ```go
 // Search by firstname
 res, err := index.Search("jimmie", nil)
+
 // Search by firstname with typo
 res, err = index.Search("jimie", nil)
+
 // Search for a company
 res, err = index.Search("california paint", nil)
+
 // Search for a firstname & company
 res, err = index.Search("jimmie paint", nil)
 ```
 
 Settings can be customized to tune the search behavior. For example, you can add a custom sort by number of followers to the already great built-in relevance:
 ```go
-settings := make(map[string]interface{})
-settings["customRanking"] = [1]string{"desc(followers)"}
+settings := algoliasearch.Settings{
+  "customRanking": []string{"desc(followers)"},
+}
+
 res, err := index.SetSettings(settings)
 ```
 
 You can also configure the list of attributes you want to index by order of importance (first = most important):
 ```go
-settings := make(map[string]interface{})
-settings["attributesToIndex"] = [6]string{"firstname", "lastname", "company", "email", "city", "address"}
+settings := algoliasearch.Settings{
+  "attributesToIndex": []string{
+	"firstname",
+	"lastname",
+	"company",
+	"email",
+	"city",
+	"address",
+  },
+}
+
 res, err := index.SetSettings(settings)
 ```
 
@@ -206,19 +231,21 @@ Objects are schema less so you don't need any configuration to start indexing. I
 Example with automatic `objectID` assignment:
 
 ```go
-object := make(map[string]interface{})
-object["firstname"] = "Jimmie"
-object["lastname"] = "Barninger"
-res, err = index.AddObject(object)
+object := algoliasearch.Object{
+  "firstname": "Jimmie",
+  "lastname":  "Barninger",
+}
+res, err := index.AddObject(object)
 ```
 
 Example with manual `objectID` assignment:
 
 ```go
-object := make(map[string]interface{})
-object["firstname"] = "Jimmie"
-object["lastname"] = "Barninger"
-object["objectID"] = "myID"
+object := Object{
+  "objectID":  "myID",
+  "firstname": "Jimmie",
+  "lastname":  "Barninger",
+}
 res, err := index.AddObject(object)
 ```
 
@@ -234,11 +261,12 @@ You have three options when updating an existing object:
 Example on how to replace all attributes of an existing object:
 
 ```go
-object := make(map[string]interface{})
-object["firstname"] = "Jimmie"
-object["lastname"] = "Barninger"
-object["city"] = "New York"
-object["objectID"] = "myID"
+object := algoliasearch.Object{
+  "objectID":  "myID",
+  "firstname": "Jimmie",
+  "lastname":  "Barninger",
+  "city":      "New York",
+}
 res, err := index.UpdateObject(object)
 ```
 
@@ -254,57 +282,66 @@ You have many ways to update an object's attributes:
 Example to update only the city attribute of an existing object:
 
 ```go
-object := make(map[string]interface{})
-object["city"] = "San Francisco"
-object["objectID"] = "myID"
+object := algoliasearch.Object{
+  "objectID": "myID"
+  "city":     "San Francisco"
+}
 res, err := index.PartialUpdateObject(object)
 ```
 
 Example to add a tag:
 
 ```go
-object := make(map[string]interface{})
-operation := make(map[string]interface{})
-operation["value"] = "MyTags"
-operation["_operation"] = "Add"
-object["_tags"] = operation
-object["objectID"] = "myID"
+object := algoliasearch.Object{
+  "objectID": "myID",
+  "_tags":    algoliasearch.Map{
+    "_operation": "Add",
+    "value":      "MyTags",
+  }
+}
+
 res, err := index.PartialUpdateObject(object)
 ```
 
 Example to remove a tag:
 
 ```go
-object := make(map[string]interface{})
-operation := make(map[string]interface{})
-operation["value"] = "MyTags"
-operation["_operation"] = "Remove"
-object["_tags"] = operation
-object["objectID"] = "myID"
+object := algoliasearch.Object{
+  "objectID": "myID",
+  "_tags":    algoliasearch.Map{
+    "_operation": "Remove",
+    "value":      "MyTags",
+  }
+}
+
 res, err := index.PartialUpdateObject(object)
 ```
 
 Example to add a tag if it doesn't exist:
 
 ```go
-object := make(map[string]interface{})
-operation := make(map[string]interface{})
-operation["value"] = "MyTags"
-operation["_operation"] = "AddUnique"
-object["_tags"] = operation
-object["objectID"] = "myID"
+object := algoliasearch.Object{
+  "objectID": "myID",
+  "_tags":    algoliasearch.Map{
+    "_operation": "AddUnique",
+    "value":      "MyTags",
+  }
+}
+
 res, err := index.PartialUpdateObject(object)
 ```
 
 Example to increment a numeric value:
 
 ```go
-object := make(map[string]interface{})
-operation := make(map[string]interface{})
-operation["value"] = 42
-operation["_operation"] = "Increment"
-object["price"] = operation
-object["objectID"] = "myID"
+object := algoliasearch.Object{
+  "objectID": "myID",
+  "price":    algoliasearch.Map{
+    "_operation": "Increment",
+    "value":      42,
+  }
+}
+
 res, err := index.PartialUpdateObject(object)
 ```
 
@@ -314,12 +351,14 @@ Note: Here we are incrementing the value by `42`. To increment just by one, put
 Example to decrement a numeric value:
 
 ```go
-object := make(map[string]interface{})
-operation := make(map[string]interface{})
-operation["value"] = 42
-operation["_operation"] = "Decrement"
-object["price"] = operation
-object["objectID"] = "myID"
+object := algoliasearch.Object{
+  "objectID": "myID",
+  "price":    algoliasearch.Map{
+    "_operation": "Decrement",
+    "value":      42,
+  }
+}
+
 res, err := index.PartialUpdateObject(object)
 ```
 
@@ -340,12 +379,12 @@ To perform a search, you only need to initialize the index and perform a call to
 The search query allows only to retrieve 1000 hits, if you need to retrieve more than 1000 hits for seo, you can use [Backup / Retrieve all index content](#backup--export-an-index)
 
 ```go
-index := client.InitIndex("contacts")
-params := make(map[string]interface{})
-res, err := index.Search("", params)
-params["attributesToRetrieve"] = "firstname,lastname"
-params["hitsPerPage"] = 20
-res, err = index.Search("", params)
+params := algoliasearch.Map{
+  "attributesToRetrieve": []string{"firstname", "lastname"},
+  "hitsPerPage":          50,
+}
+
+res, err = index.Search("jimmie paint", params)
 ```
 
 The server response will look like:
@@ -1145,17 +1184,25 @@ Multiple queries
 You can send multiple queries with a single API call using a batch of queries:
 
 ```go
-// perform 3 queries in a single API call:
-//  - 1st query targets index `categories`
-//  - 2nd and 3rd queries target index `products`
+// Perform 3 queries in a single API call:
+//  - 1st query targets the `categories` index
+//  - 2nd and 3rd queries target the `products` index
+queries := []algoliasearch.IndexedQuery{
+  {
+	IndexName: "categories",
+	Params:    algoliasearch.Map{"query": "computer", "hitsPerPage": 3"}
+  },
+  {
+	IndexName: "products",
+	Params:    algoliasearch.Map{"query": "computer", "hitsPerPage": 3", "filters": "_tags:promotion"}
+  },
+  {
+	IndexName: "products",
+	Params:    algoliasearch.Map{"query": "computer", "hitsPerPage": 10"}
+  },
+}
 
-queries := make([]interface{}, 3)
-
-queries[0] = map[string]interface{}{"indexName": "categories", "query": myQueryString, "hitsPerPage": 3}
-queries[1] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 3, "filters": "_tags:promotion"}
-queries[2] = map[string]interface{}{"indexName": "products", "query": myQueryString, "hitsPerPage": 10}
-
-res, err := client.MultipleQueries(queries)
+res, err := client.MultipleQueries(queries, "")
 ```
 
 The resulting JSON answer contains a ```results``` array storing the underlying queries answers. The answers order is the same than the requests order.
@@ -1172,18 +1219,20 @@ Get an object
 You can easily retrieve an object using its `objectID` and optionally specify a comma separated list of attributes you want:
 
 ```go
-// Retrieves all attributes
-res, err := index.GetObject("myID")
-// Retrieves firstname and lastname attributes
-res, err = index.GetObject("myID", "firstname,lastname")
-// Retrieves only the firstname attribute
-res, err = index.GetObject("myID", "firstname")
+// Retrieves the object with all its attributes
+object, err := index.GetObject("myID", nil)
+
+// Retrieves the object with only its `firstname` attribute
+object, err = index.GetObject("myID", []string{"firstname"})
+
+// Retrieves the object with only its `firstname` and `lastname` attributes
+object, err = index.GetObject("myID", []string{"firstname", "lastname"})
 ```
 
 You can also retrieve a set of objects:
 
 ```go
-res, err = index.GetObjects([2]string{"myObj1", "myObj2"})
+objects, err = index.GetObjects([]string{"myID1", "myID2"})
 ```
 
 Delete an object
@@ -1202,8 +1251,11 @@ Delete by query
 You can delete all objects matching a single query with the following code. Internally, the API client performs the query, deletes all matching hits, and waits until the deletions have been applied.
 
 ```go
-params := make(map[string]interface{})
-res, err := index.DeleteByQuery("john", params)
+params := algoliasearch.Map{
+  // Set your query parameters here
+}
+
+err := index.DeleteByQuery("john", params)
 ```
 
 
@@ -1213,12 +1265,13 @@ Index Settings
 You can easily retrieve or update settings:
 
 ```go
+// Retrieves all the settings of the index
 settings, err := index.GetSettings()
-```
 
-```go
-settings := make(map[string]interface{})
-settings["customRanking"] = [1]string{"desc(followers)"}
+// Updates the settings
+settings := algoliasearch.Map{
+  "customRanking": []string{"desc(followers)"},
+}
 res, err := index.SetSettings(settings)
 ```
 
@@ -1839,7 +1892,7 @@ List indices
 You can list all your indices along with their associated information (number of entries, disk size, etc.) with the `ListIndexes` method:
 
 ```go
-res, err := client.ListIndexes()
+indexes, err := client.ListIndexes()
 ```
 
 
@@ -1851,7 +1904,6 @@ Delete an index
 You can delete an index using its name:
 
 ```go
-index := client.InitIndex("contacts")
 res, err := index.Delete()
 ```
 
@@ -1882,11 +1934,13 @@ You can wait for a task to complete using the `waitTask` method on the `taskID` 
 
 For example, to wait for indexing of a new object:
 ```go
-object := make(map[string]interface{})
-object["firstname"] = "Jimmie"
-object["lastname"] = "Barninger"
-task, _ := index.AddObject(object)
-_, err := index.WaitTask(task)
+object := algoliasearch.Object{
+  "firstname": "Jimmie",
+  "lastname":  "Barninger",
+}
+
+res, err := index.AddObject(object)
+err = index.WaitTask(res.TaskID)
 ```
 
 If you want to ensure multiple objects have been indexed, you only need to check
@@ -1904,42 +1958,38 @@ We expose four methods to perform batch operations:
 
 Example using automatic `objectID` assignment:
 ```go
-object := make(map[string]interface{})
-object["firstname"] = "Jimmie"
-object["lastname"] = "Barninger"
+objects := []algoliasearch.Object{
+  {"firstname": "Jimmie", "lastname": "Barninger"},
+  {"firstname": "Ray", "lastname": "Charles"},
+}
 
-objects := make([]interface{}, 1)
-objects[0] = object
 res, err := index.AddObjects(objects)
 ```
 
 Example with user defined `objectID` (add or update):
 ```go
-object := make(map[string]interface{})
-object["firstname"] = "Jimmie"
-object["lastname"] = "Barninger"
-object["objectID"] = "myID"
+objects := []algoliasearch.Object{
+  {"objectID": "myID1", "firstname": "Jimmie", "lastname": "Barninger"},
+  {"objectID": "myID2", "firstname": "Ray", "lastname": "Charles"},
+}
 
-objects := make([]interface{}, 1)
-objects[0] = object
 res, err := index.UpdateObjects(objects)
 ```
 
 Example that deletes a set of records:
 ```go
-objectIDs := []string{"myIDs"}
+objectIDs := []string{"myID1", "myID2"}
 
 res, err := index.DeleteObjects(objectIDs)
 ```
 
 Example that updates only the `firstname` attribute:
 ```go
-object := make(map[string]interface{})
-object["firstname"] = "Jimmie"
-object["objectID"] = "myID"
+objects := []algoliasearch.Object{
+  {"objectID": "myID1", "lastname": "Barninger"},
+  {"objectID": "myID2", "firstname": "Ray"},
+}
 
-objects := make([]interface{}, 1)
-objects[0] = object
 res, err := index.PartialUpdateObjects(objects)
 ```
 
@@ -1948,14 +1998,22 @@ res, err := index.PartialUpdateObjects(objects)
 If you have one index per user, you may want to perform a batch operations across severals indexes.
 We expose a method to perform this type of batch:
 ```go
-requests := []]interface{}{
-	map[string]interface{}{
-		"body": map[string]interface{}{"firstname": "Jimmie", "lastname": "Barninger"},
-		"indexName": "index1",
-		"action": "addObject"
-	}
+person := algoliasearch.Map{
+  "firstname": "Jimmie",
+  "lastname":  "Barninger",
 }
-res, err := client.CustomBatch(requests)
+
+operation := algoliasearch.BatchOperation{
+  Action: "addObject",
+  Body:   person,
+}
+
+operations := []algoliasearch.BatchOperationIndexed{
+  {IndexName: "prodIndex", BatchOperation: operation},
+  {IndexName: "devIndex", BatchOperation: operation},
+}
+
+res, err := client.Batch(operations)
 ```
 
 The attribute **action** can have these values:
@@ -1972,10 +2030,13 @@ You can easily copy or rename an existing index using the `copy` and `move` comm
 **Note**: Move and copy commands overwrite the destination index.
 
 ```go
-// Rename MyIndex in MyIndexName
-res, err := client.InitIndex("MyIndex").Move("MyIndexName")
-// Copy MyIndex in MyIndexName
-res, err = client.InitIndex("MyIndex").Copy("MyIndexName")
+index := client.InitIndex("MyNewIndex")
+
+// Copy `MyNewIndex` to `MyIndex`
+res, err := index.Copy("MyIndex")
+
+// Move `MyNewIndex` to `MyIndex`
+res, err := index.Move("MyIndex")
 ```
 
 The move command is particularly useful if you want to update a big index atomically from one version to another. For example, if you recreate your index `MyIndex` each night from a database by batch, you only need to:
@@ -1984,7 +2045,7 @@ The move command is particularly useful if you want to update a big index atomic
 
 ```go
 // Rename MyNewIndex in MyIndex (and overwrite it)
-res, err := client.InitIndex("MyNewIndex").Move("MyIndex")
+res, err := client.MoveIndex("MyNewIndex", "MyIndex")
 ```
 
 Backup / Export an index
@@ -2011,17 +2072,27 @@ Example:
 
 ```go
 // Iterate with a filter over the index
-items, err := index.BrowseAll(map[string]interface{}{"query": "text", "filters": "i<42"}
+params := algoliasearch.Map{
+  "filters": "i<42",
+  "query":   "text",
+}
+it, err := index.BrowseAll(params)
+
+var hit Map
 for {
-	hit, err := items.Next()
-	if err {
-		break
+  if hit, err = it.Next(); err != nil {
+	if err.Error() == "No more hits" {
+	  // End of results
+	} else {
+	  // Error while browsing
 	}
+	break
+  }
 }
 
-// Retrieve the next cursor from the browse method
-res, err := index.BrowseFrom(map[string]interface{}{"query": "text", "filters": "i<42", "")
-fmt.Printf(res.(map[string]interface{})["cursor"])
+// Retrieve the next cursor from the `Browse` method
+res, err := index.Browse(params, "")
+fmt.Println(res.Cursor)
 ```
 
 
@@ -2042,9 +2113,10 @@ To list existing keys, you can use:
 
 ```go
 // Lists global API Keys
-res, err := client.ListKeys()
+keys, err := client.ListKeys()
+
 // Lists API Keys that can access only to this index
-res, err = index.ListKeys()
+keys, err = index.ListKeys()
 ```
 
 Each key is defined by a set of permissions that specify the authorized actions. The different permissions are:
@@ -2063,11 +2135,17 @@ Each key is defined by a set of permissions that specify the authorized actions.
 To create API keys:
 
 ```go
-// Creates a new index specific API key valid for 300 seconds, with a rate limit of 100 calls per hour per IP and a maximum of 20 hits
-acl := make([]string, 1)
-acl[0] = "search"
-key, err := index.AddKey(acl, 300, 100, 20)
-fmt.Printf(key.(map[string]interface{})["key"].(string))
+// Creates a new index specific API key valid for 300 seconds, with a rate
+// limit of 100 calls per hour per IP and a maximum of 20 hits
+acl := []string{"search"}
+params := algoliasearch.Map{
+  "validity":               300,
+  "maxQueriesPerIPPerHour": 100,
+  "maxHitsPerQuery":        20,
+}
+
+res, err := index.AddKey(acl, params)
+fmt.Println(res.Key)
 ```
 
 You can also create an API Key with advanced settings:
@@ -2191,27 +2269,42 @@ You can also create an API Key with advanced settings:
 </tbody></table>
 
 ```go
-// Creates a new index specific API key valid for 300 seconds, with a rate limit of 100 calls per hour per IP and a maximum of 20 hits
+// Creates a new index specific API key valid for 300 seconds, with a rate
+// limit of 100 calls per hour per IP and a maximum of 20 hits
 acl := []string{"search"}
-indexes := []string{"myIndex"}
-key, err := client.AddKey(acl, indexes, 300, 100, 20)
-fmt.Printf(key.(map[string]interface{})["key"].(string))
+params := algoliasearch.Map{
+  "indexes":                "myIndex",
+  "validity":               300,
+  "maxQueriesPerIPPerHour": 100,
+  "maxHitsPerQuery":        20,
+}
+
+res, err := client.AddKey(acl, params)
+fmt.Println(res.Key)
 ```
 
 ## Update API keys
 
 To update the permissions of an existing key:
 ```go
-// Update an existing index specific API key valid for 300 seconds, with a rate limit of 100 calls per hour per IP and a maximum of 20 hits
-acl := []string{"search"}
-indexes := []string{"myIndex"}
-key, err := client.UpdateKey(acl, indexes, 300, 100, 20)
-fmt.Printf(key.(map[string]interface{})["key"].(string))
+// Update an existing index specific API key valid for 300 seconds, with a rate
+// limit of 100 calls per hour per IP and a maximum of 20 hits
+params := algoliasearch.Map{
+  "acl":                    []string{"search"},
+  "indexes":                "myIndex",
+  "validity":               300,
+  "maxQueriesPerIPPerHour": 100,
+  "maxHitsPerQuery":        20,
+}
+
+res, err := client.UpdateKey("f420238212c54dcfad07ea0aa6d5c45f", params)
+fmt.Println(res.Key)
 ```
 To get the permissions of a given key:
 ```go
 // Gets the rights of a global key
 key, err := client.GetKey("f420238212c54dcfad07ea0aa6d5c45f")
+
 // Gets the rights of an index specific key
 key, err = index.GetKey("71671c38001bf3ac857bc82052485107")
 ```
@@ -2221,9 +2314,10 @@ key, err = index.GetKey("71671c38001bf3ac857bc82052485107")
 To delete an existing key:
 ```go
 // Deletes a global key
-task, err := client.DeleteKey("f420238212c54dcfad07ea0aa6d5c45f")
+res, err := client.DeleteKey("f420238212c54dcfad07ea0aa6d5c45f")
+
 // Deletes an index specific key
-task, err := index.DeleteKey("71671c38001bf3ac857bc82052485107")
+res, err := index.DeleteKey("71671c38001bf3ac857bc82052485107")
 ```
 
 
@@ -2233,7 +2327,11 @@ task, err := index.DeleteKey("71671c38001bf3ac857bc82052485107")
 You may have a single index containing **per user** data. In that case, all records should be tagged with their associated `user_id` in order to add a `tagFilters=user_42` filter at query time to retrieve only what a user has access to. If you're using the [JavaScript client](http://github.com/algolia/algoliasearch-client-js), it will result in a security breach since the user is able to modify the `tagFilters` you've set by modifying the code from the browser. To keep using the JavaScript client (recommended for optimal latency) and target secured records, you can generate a secured API key from your backend:
 
 ```go
-key, err := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "_tags:user_42"})
+params := algoliasearch.Map{
+  "filters": "_tags:user_42",
+}
+
+key, err := client.GenerateSecuredAPIKey("YourSearchOnlyApiKey", params)
 ```
 
 This public API key can then be used in your JavaScript code as follow:
@@ -2256,7 +2354,12 @@ index.search('something', function(err, content) {
 You can mix rate limits and secured API keys by setting a `userToken` query parameter at API key generation time. When set, a unique user will be identified by her `IP + user_token` instead of only by her `IP`. This allows you to restrict a single user to performing a maximum of `N` API calls per hour, even if she shares her `IP` with another user.
 
 ```go
-key, error := client.GenerateSecuredApiKey("YourSearchOnlyApiKey", map[string]interface{}{"filters": "_tags:user_42", "userToken": "user_42"})
+params := algoliasearch.Map{
+  "filters":   "_tags:user_42",
+  "userToken": "user_42",
+}
+
+key, err := client.GenerateSecuredAPIKey("YourSearchOnlyApiKey", params)
 ```
 
 This public API key can then be used in your JavaScript code as follow:
@@ -2369,12 +2472,21 @@ You can retrieve the logs of your last 1,000 API calls and browse them using the
 </tbody></table>
 
 ```go
-// Get last 10 log entries
-res, err := client.GetLogs(0, 10, false)
-// Get last 100 log entries
-res, err = client.GetLogs(0, 100, false)
-// Get last 100 log errors
-res, err = client.GetLogs(0, 100, true)
+// Gets last 10 log entries
+params := algoliasearch.Map{
+  "offset": 0,
+  "length": 10,
+  "type":   "all",
+}
+res, err := client.GetLogs(params)
+
+// Gets last 100 log entries
+params["length"] = 100
+res, err = client.GetLogs(params)
+
+// Gets last 100 log errors
+params["type"] = "error"
+res, err = client.GetLogs(params)
 ```
 
 
