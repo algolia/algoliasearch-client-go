@@ -1000,3 +1000,18 @@ func TestDNSTimeout(t *testing.T) {
 		t.Fatal("DNS resolution should have timeouted")
 	}
 }
+
+func TestGetLogs(t *testing.T) {
+	appID, haveAppID := syscall.Getenv("ALGOLIA_APPLICATION_ID")
+	apiKey, haveAPIKey := syscall.Getenv("ALGOLIA_API_KEY")
+	if !haveAPIKey || !haveAppID {
+		t.Fatal("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
+	}
+
+	c := NewClient(appID, apiKey)
+
+	params := Map{}
+	if _, err := c.GetLogs(params); err != nil {
+		t.Fatal("Cannot retrieve the logs")
+	}
+}
