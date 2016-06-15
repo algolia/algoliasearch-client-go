@@ -1,5 +1,9 @@
 package algoliasearch
 
+import (
+	"net/http"
+)
+
 // Client is a representation of an Algolia application. Once initialized it
 // allows manipulations over the indexes of the application as well as network
 // related parameters.
@@ -10,6 +14,11 @@ type Client interface {
 
 	// SetTimeout specifies timeouts to use with the HTTP connection.
 	SetTimeout(connectTimeout, readTimeout int)
+
+	// SetHTTPClient allows a custom HTTP client to be specified.
+	// NOTE: using this may prevent timeouts set on this client from
+	// working if the underlying transport is not of type *http.Transport.
+	SetHTTPClient(client *http.Client)
 
 	// ListIndexes returns the list of all indexes belonging to this Algolia
 	// application.

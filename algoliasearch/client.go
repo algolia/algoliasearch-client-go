@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"encoding/json"
+	"net/http"
 	"net/url"
 	"time"
 )
@@ -33,6 +34,10 @@ func (c *client) SetExtraHeader(key, value string) {
 
 func (c *client) SetTimeout(connectTimeout, readTimeout int) {
 	c.transport.setTimeout(time.Duration(connectTimeout)*time.Millisecond, time.Duration(readTimeout)*time.Millisecond)
+}
+
+func (c *client) SetHTTPClient(client *http.Client) {
+	c.transport.httpClient = client
 }
 
 func (c *client) ListIndexes() (indexes []IndexRes, err error) {

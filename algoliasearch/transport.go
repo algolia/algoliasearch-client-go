@@ -12,6 +12,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -95,8 +96,13 @@ func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 
 // setTimeout changes the timeouts used by the underlying HTTP client.
 func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
-	t.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout = connectTimeout
-	t.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = readTimeout
+	switch transport := t.httpClient.Transport.(type) {
+	case *http.Transport:
+		transport.TLSHandshakeTimeout = connectTimeout
+		transport.ResponseHeaderTimeout = readTimeout
+	default:
+		fmt.Fprintln(os.Stderr, "Timeouts not set for nonstandard underlying Transport")
+	}
 }
 
 // setExtraHeader adds a custom header to be used when exchanging with Algolia
@@ -160,13 +166,12 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 
 		if (resp.StatusCode/100) == 2 || (resp.StatusCode/100) == 4 { // Bad request, not found, forbidden
 			return t.handleResponse(resp)
-		} else {
-			io.Copy(ioutil.Discard, resp.Body)
-			resp.Body.Close()
 		}
+		io.Copy(ioutil.Discard, resp.Body)
+		resp.Body.Close()
 	}
 
-	return nil, errors.New(fmt.Sprintf("Cannot reach any host. (%s)", errorMsg))
+	return nil, fmt.Errorf("Cannot reach any host. (%s)", errorMsg)
 }
 
 // buildRequest builds an http.Request object. The built request uses `method`,
