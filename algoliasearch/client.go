@@ -39,7 +39,7 @@ func (c *client) ListIndexes() (indexes []IndexRes, err error) {
 	var res listIndexesRes
 
 	err = c.request(&res, "GET", "/1/indexes", nil, read)
-	indexes = res.items
+	indexes = res.Items
 	return
 }
 
