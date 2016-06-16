@@ -3,6 +3,7 @@ package algoliasearch
 import (
 	"fmt"
 	"math/rand"
+	"sort"
 	"syscall"
 	"testing"
 	"time"
@@ -1013,5 +1014,57 @@ func TestGetLogs(t *testing.T) {
 	params := Map{}
 	if _, err := c.GetLogs(params); err != nil {
 		t.Fatal("Cannot retrieve the logs")
+	}
+}
+
+func TestListIndexes(t *testing.T) {
+	// Initialize the application
+	appID, haveAppID := syscall.Getenv("ALGOLIA_APPLICATION_ID")
+	apiKey, haveAPIKey := syscall.Getenv("ALGOLIA_API_KEY")
+	if !haveAPIKey || !haveAppID {
+		t.Fatal("Need ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY")
+	}
+	client := NewClient(appID, apiKey).(*client)
+
+	// List and sort all the expected indexes
+	expected := []string{"one_index", "another_index"}
+	sort.Strings(expected)
+
+	// Push dummy data to the indexes to create them and defer their deletion
+	// at the end of the test
+	for _, name := range expected {
+		defer client.DeleteIndex(name)
+		index := client.InitIndex(name)
+
+		res, err := index.AddObject(Object{"test": "test"})
+		if err != nil {
+			t.Fatal(err.Error())
+		}
+
+		if err = index.WaitTask(res.TaskID); err != nil {
+			t.Fatal(err.Error())
+		}
+	}
+
+	// List and sort all the actual indexes
+	indexes := []string{}
+	indexesRes, err := client.ListIndexes()
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	for _, idx := range indexesRes {
+		indexes = append(indexes, idx.Name)
+	}
+	sort.Strings(indexes)
+
+	// Compare the index lists
+	if len(expected) != len(indexes) {
+		t.Fatalf("Expected %d indexes but has %d instead", len(expected), len(indexes))
+	}
+	for i := range expected {
+		if expected[i] != indexes[i] {
+			t.Fatalf("Index %s expected but has %s instead", expected[i], indexes[i])
+		}
 	}
 }
