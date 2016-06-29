@@ -51,7 +51,6 @@ Outer:
 			"getRankingInfo",
 			"distinct",
 			"maxValuesPerFacet",
-			"aroundRadius",
 			"aroundPrecision",
 			"minimumAroundRadius":
 			if _, ok := v.(int); !ok {
@@ -75,6 +74,14 @@ Outer:
 				// OK
 			default:
 				return invalidType(k, "[]string or bool")
+			}
+
+		case "aroundRadius":
+			switch v.(type) {
+			case int, string:
+				// OK
+			default:
+				return invalidType(k, "int or string")
 			}
 
 		default:
