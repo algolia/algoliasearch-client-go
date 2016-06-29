@@ -1026,6 +1026,17 @@ func TestListIndexes(t *testing.T) {
 	}
 	client := NewClient(appID, apiKey).(*client)
 
+	// Delete all possibly pre-existing indexes
+	indexesRes, err := client.ListIndexes()
+	for len(indexesRes) > 0 {
+		for _, indexRes := range indexesRes {
+			res, _ := client.DeleteIndex(indexRes.Name)
+			index := client.InitIndex(indexRes.Name)
+			index.WaitTask(res.TaskID)
+		}
+		indexesRes, err = client.ListIndexes()
+	}
+
 	// List and sort all the expected indexes
 	expected := []string{"one_index", "another_index"}
 	sort.Strings(expected)
@@ -1048,7 +1059,7 @@ func TestListIndexes(t *testing.T) {
 
 	// List and sort all the actual indexes
 	indexes := []string{}
-	indexesRes, err := client.ListIndexes()
+	indexesRes, err = client.ListIndexes()
 	if err != nil {
 		t.Fatal(err.Error())
 	}
