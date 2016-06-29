@@ -36,7 +36,8 @@ func checkSettings(settings Map) error {
 			"allowTyposOnNumericTokens",
 			"ignorePlurals",
 			"removeStopWords",
-			"replaceSynonymsInHighlight":
+			"replaceSynonymsInHighlight",
+			"forwardToSlaves":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}
