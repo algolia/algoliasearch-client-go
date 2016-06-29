@@ -35,7 +35,6 @@ func checkSettings(settings Map) error {
 			"advancedSyntax",
 			"allowTyposOnNumericTokens",
 			"ignorePlurals",
-			"removeStopWords",
 			"replaceSynonymsInHighlight",
 			"forwardToSlaves":
 			if _, ok := v.(bool); !ok {
@@ -72,6 +71,14 @@ func checkSettings(settings Map) error {
 				// OK
 			default:
 				return invalidType(k, "string or bool")
+			}
+
+		case "removeStopWords":
+			switch v.(type) {
+			case []string, bool:
+				// OK
+			default:
+				return invalidType(k, "[]string or bool")
 			}
 
 		default:

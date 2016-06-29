@@ -64,10 +64,17 @@ Outer:
 			"analytics",
 			"synonyms",
 			"replaceSynonymsInHighlight",
-			"removeStopWords",
 			"aroundLatLngViaIP":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
+			}
+
+		case "removeStopWords":
+			switch v.(type) {
+			case []string, bool:
+				// OK
+			default:
+				return invalidType(k, "[]string or bool")
 			}
 
 		default:
