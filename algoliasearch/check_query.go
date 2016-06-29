@@ -28,7 +28,8 @@ Outer:
 			"facetFilters",
 			"aroundLatLng",
 			"insideBoundingBox",
-			"insidePolygon":
+			"insidePolygon",
+			"exactOnSingleWordQuery":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}
@@ -36,7 +37,8 @@ Outer:
 		case "attributesToRetrieve",
 			"disableTypoToleranceOnAttributes",
 			"attributesToSnippet",
-			"attributesToHighlight":
+			"attributesToHighlight",
+			"alternativesAsExact":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
