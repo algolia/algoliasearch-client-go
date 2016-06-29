@@ -28,7 +28,8 @@ Outer:
 			"facetFilters",
 			"aroundLatLng",
 			"insideBoundingBox",
-			"insidePolygon":
+			"insidePolygon",
+			"exactOnSingleWordQuery":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}
@@ -36,7 +37,8 @@ Outer:
 		case "attributesToRetrieve",
 			"disableTypoToleranceOnAttributes",
 			"attributesToSnippet",
-			"attributesToHighlight":
+			"attributesToHighlight",
+			"alternativesAsExact":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
@@ -49,7 +51,6 @@ Outer:
 			"getRankingInfo",
 			"distinct",
 			"maxValuesPerFacet",
-			"aroundRadius",
 			"aroundPrecision",
 			"minimumAroundRadius":
 			if _, ok := v.(int); !ok {
@@ -62,10 +63,25 @@ Outer:
 			"analytics",
 			"synonyms",
 			"replaceSynonymsInHighlight",
-			"removeStopWords",
 			"aroundLatLngViaIP":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
+			}
+
+		case "removeStopWords":
+			switch v.(type) {
+			case []string, bool:
+				// OK
+			default:
+				return invalidType(k, "[]string or bool")
+			}
+
+		case "aroundRadius":
+			switch v.(type) {
+			case int, string:
+				// OK
+			default:
+				return invalidType(k, "int or string")
 			}
 
 		default:

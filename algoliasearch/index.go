@@ -91,7 +91,14 @@ func (i *index) SetSettings(settings Map) (res UpdateTaskRes, err error) {
 		return
 	}
 
-	path := i.route + "/settings"
+	// Handle forwardToSlaves separately
+	forwardToSlaves, ok := settings["forwardToSlaves"]
+	if !ok {
+		forwardToSlaves = false
+	}
+	delete(settings, "forwardToSlaves")
+
+	path := i.route + "/settings?forwardToSlaves=" + fmt.Sprintf("%t", forwardToSlaves)
 	err = i.client.request(&res, "PUT", path, settings, write)
 	return
 }
