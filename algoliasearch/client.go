@@ -147,10 +147,11 @@ func (c *client) MultipleQueries(queries []IndexedQuery, strategy string) (res [
 
 	body := Map{
 		"requests": requests,
+		"strategy": strategy,
 	}
 
 	var m multipleQueriesRes
-	err = c.request(&m, "POST", "/1/indexes/*/queries?strategy="+strategy, body, search)
+	err = c.request(&m, "POST", "/1/indexes/*/queries", body, search)
 	res = m.Results
 	return
 }
