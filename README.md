@@ -1333,6 +1333,17 @@ settings := algoliasearch.Map{
 res, err := index.SetSettings(settings)
 ```
 
+## Slave settings
+
+You can forward all settings updates to the slaves of an index by using the `forwardToSlaves` option:
+
+```go
+settings := algoliasearch.Map{
+	"customRanking":   []string{"asc(followers)"},
+	"forwardToSlaves": true,
+}
+res, err := index.SetSettings(settings)
+```
 
 ## Indexing parameters
 
