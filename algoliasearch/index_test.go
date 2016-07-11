@@ -143,6 +143,9 @@ func TestClear(t *testing.T) {
 	}
 }
 
+// stringSlicesAreEqual returns `true` if the two slices are the same i.e. if
+// they contain the same strings. It returns `false` otherwise. Slices are
+// sorted before the comparison.
 func stringSlicesAreEqual(s1, s2 []string) bool {
 	sort.Strings(s1)
 	sort.Strings(s2)
@@ -156,6 +159,8 @@ func stringSlicesAreEqual(s1, s2 []string) bool {
 	return true
 }
 
+// settingsAreEqualByComparable returns `true` if all the comparable fields of
+// the given Settings are the same. It returns `false` otherwise.
 func settingsAreEqualByComparable(s1, s2 Settings) bool {
 	return s1.AllowCompressionOfIntegerArray == s2.AllowCompressionOfIntegerArray &&
 		s1.AttributeForDistinct == s2.AttributeForDistinct &&
@@ -176,6 +181,8 @@ func settingsAreEqualByComparable(s1, s2 Settings) bool {
 		s1.TypoTolerance == s2.TypoTolerance
 }
 
+// settingsAreEqualByStringSlices returns `true` if all the string slices of
+// the given Settings are the same. It returns `false` otherwise`.
 func settingsAreEqualByStringSlices(s1, s2 Settings) bool {
 	return stringSlicesAreEqual(s1.AttributesForFaceting, s2.AttributesForFaceting) &&
 		stringSlicesAreEqual(s1.AttributesToIndex, s2.AttributesToIndex) &&
@@ -192,6 +199,10 @@ func settingsAreEqualByStringSlices(s1, s2 Settings) bool {
 		stringSlicesAreEqual(s1.OptionalWords, s2.OptionalWords)
 }
 
+// convertInterfaceSliceToStringSlice converts the input interface{} slice into
+// a string slice. This function is only needed internally by
+// `settingsAreEqualByRemoveStopWords` because of the way the Settings are
+// unmarshal from the JSON.
 func convertInterfaceSliceToStringSlice(in []interface{}) (out []string) {
 	for i := 0; i < len(in); i++ {
 		out = append(out, in[i].(string))
@@ -200,6 +211,9 @@ func convertInterfaceSliceToStringSlice(in []interface{}) (out []string) {
 	return
 }
 
+// settingsAreEqualByRemoveStopWords checks that the `removeStopWords` fields
+// of the given Settings are the same (the type can be either a []string or a
+// bool).
 func settingsAreEqualByRemoveStopWords(t *testing.T, s1, s2 Settings) {
 	itf1 := s1.RemoveStopWords
 	itf2 := s2.RemoveStopWords
@@ -229,6 +243,8 @@ func settingsAreEqualByRemoveStopWords(t *testing.T, s1, s2 Settings) {
 	t.Fatalf("settingsAreEqualByRemoveStopWords: RemoveStopWords fields are not typed as []string or bool: %v != %v\n", itf1, itf2)
 }
 
+// settingsAreEqualByDistinct checks that the `distinct` fields of the given
+// Settings are the same (the type can be either a int or a bool).
 func settingsAreEqualByDistinct(t *testing.T, s1, s2 Settings) {
 	itf1 := s1.Distinct
 	itf2 := s2.Distinct
@@ -258,6 +274,7 @@ func settingsAreEqualByDistinct(t *testing.T, s1, s2 Settings) {
 	t.Fatalf("settingsAreEqualByDistinct: Distinct fields are not typed as int or bool: %v != %v\n", itf1, itf2)
 }
 
+// settingsAreEqual deeply checks that the two Settings are the same.
 func settingsAreEqual(t *testing.T, s1, s2 Settings) {
 	if !settingsAreEqualByComparable(s1, s2) {
 		t.Fatalf("settingsAreEqual: Comparable fields are not equal:\n%v\n%v\n", s1, s2)
@@ -271,6 +288,8 @@ func settingsAreEqual(t *testing.T, s1, s2 Settings) {
 	settingsAreEqualByDistinct(t, s1, s2)
 }
 
+// setAndGetAndCompareSettings is a simple wrapper for succesive calls to
+// `SetSettings`, `GetSettings` and `settingsAreEqual`.
 func setAndGetAndCompareSettings(t *testing.T, i Index, expectedSettings Settings, mapSettings Map) {
 	res, err := i.SetSettings(mapSettings)
 	if err != nil {
