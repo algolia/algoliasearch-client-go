@@ -314,12 +314,12 @@ func (i *index) GetSynonym(objectID string) (s Synonym, err error) {
 	return
 }
 
-func (i *index) AddSynonym(objectID string, synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error) {
+func (i *index) AddSynonym(synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error) {
 	params := Map{
 		"forwardToSlaves": forwardToSlaves,
 	}
 
-	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
+	path := i.route + "/synonyms/" + url.QueryEscape(synonym.ObjectID) + "?" + encodeMap(params)
 	err = i.client.request(&res, "PUT", path, synonym, write)
 	return
 }
