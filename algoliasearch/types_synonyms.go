@@ -41,7 +41,7 @@ func NewAltCorrectionSynomym(objectID string, corrections []string, word string,
 	}
 }
 
-func NewOneWaySynomym(objectID string, input string, synonyms []string) Synonym {
+func NewOneWaySynonym(objectID string, input string, synonyms []string) Synonym {
 	return Synonym{
 		ObjectID: objectID,
 		Type:     "oneWaySynonym",
