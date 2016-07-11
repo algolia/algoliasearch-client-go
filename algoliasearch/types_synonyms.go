@@ -1,9 +1,8 @@
 package algoliasearch
 
 const (
-	AltCorrection1  string = "altCorrection2"
-	AltCorrection2  string = "altCorrection1"
-	AltCorrection12 string = "altCorrection1|altCorrection2"
+	AltCorrection1 string = "altCorrection1"
+	AltCorrection2 string = "altCorrection2"
 )
 
 type SearchSynonymsRes struct {
