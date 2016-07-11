@@ -31,8 +31,7 @@ func checkSettings(settings Map) error {
 				return invalidType(k, "bool")
 			}
 
-		case "distinct",
-			"hitsPerPage",
+		case "hitsPerPage",
 			"maxValuesPerFacet",
 			"minProximity",
 			"minWordSizefor1Typo",
@@ -64,6 +63,14 @@ func checkSettings(settings Map) error {
 				// OK
 			default:
 				return invalidType(k, "[]string or bool")
+			}
+
+		case "distinct":
+			switch v.(type) {
+			case int, bool:
+				// OK
+			default:
+				return invalidType(k, "int or bool")
 			}
 
 		default:
