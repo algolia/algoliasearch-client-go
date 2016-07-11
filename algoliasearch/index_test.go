@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"sort"
+	"sync"
 	"syscall"
 	"testing"
 )
@@ -13,6 +14,23 @@ func waitTask(t *testing.T, i Index, taskID int) {
 	if err != nil {
 		t.Fatalf("waitTask: Task %d not published: %s", taskID, err)
 	}
+}
+
+// waitTasksAsync waits for the given `tasks` asynchronously. `waitTask` is
+// caled for every taskID but everything is done concurrently.
+func waitTasksAsync(t *testing.T, i Index, tasks []int) {
+	var wg sync.WaitGroup
+
+	for _, task := range tasks {
+		wg.Add(1)
+
+		go func(taskID int) {
+			defer wg.Done()
+			waitTask(t, i, taskID)
+		}(task)
+	}
+
+	wg.Wait()
 }
 
 // initClient instantiates a new client according to the
@@ -342,11 +360,94 @@ func TestSettings(t *testing.T) {
 		"unretrievableAttributes":          []string{"unretrievable_attribute"},
 	}
 
+	// Initial test
 	setAndGetAndCompareSettings(t, i, expectedSettings, mapSettings)
 
+	// Second test: change the values which can have a different type
 	expectedSettings.RemoveStopWords = true
 	mapSettings["removeStopWords"] = true
 	expectedSettings.Distinct = 2
 	mapSettings["distinct"] = 2
 	setAndGetAndCompareSettings(t, i, expectedSettings, mapSettings)
+}
+
+func TestIndexing(t *testing.T) {
+	_, i := initClientAndIndex(t, "TestIndexing")
+	defer deleteIndex(t, i)
+
+	var tasks []int
+
+	// Set the settings
+	{
+		res, err := i.SetSettings(Map{
+			"attributesToIndex":     []string{"company", "name"},
+			"attributesForFaceting": []string{"company"},
+			"customRanking":         []string{"asc(company)", "asc(name)"},
+		})
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot set settings: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add one object
+	{
+		object := Object{"name": "Facebook", "Company": "Mark Zuckerberg"}
+		res, err := i.AddObject(object)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot add one object: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add multiple objects at once
+	{
+		objects := []Object{
+			{"company": "Algolia", "name": "Julien Lemoine"},
+			{"company": "Algolia", "name": "Nicolas Dessaigne"},
+			{"company": "Amazon", "name": "Jeff Bezos"},
+			{"company": "Apple", "name": "Steve Jobs"},
+			{"company": "Apple", "name": "Steve Wozniak"},
+			{"company": "Arista Networks", "name": "Jayshree Ullal"},
+			{"company": "<GOOG>", "name": "Larry Page"},
+			{"company": "<GOOG>", "name": "Rob Pike"},
+			{"company": "<GOOG>", "name": "Sergueï Brin"},
+			{"company": "Microsoft", "name": "Bill Gates"},
+			{"company": "SpaceX", "name": "Elon Musk"},
+			{"company": "Tesla", "name": "Elon Musk"},
+			{"company": "Yahoo", "name": "Marissa Mayer"},
+		}
+		res, err := i.AddObjects(objects)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot add multiple objects: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add one synonym
+	{
+		synonym := NewSynonym("tesla", []string{"tesla", "tesla motors"})
+		res, err := i.AddSynonym(synonym, true)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot add one synonym: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add multiple synonyms at once
+	{
+		synonyms := []Synonym{
+			NewAltCorrectionSynomym("rob", []string{"robpike"}, "rob", AltCorrection1),
+			NewAltCorrectionSynomym("pike", []string{"robpike"}, "pike", AltCorrection2),
+			NewOneWaySynonym("julien", "speedblue", []string{"julien lemoine"}),
+			NewPlaceholderSynonym("google_placeholder", "<GOOG>", []string{"Google", "GOOG"}),
+		}
+		res, err := i.BatchSynonyms(synonyms, false, false)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot add multiple synonyms: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	waitTasksAsync(t, i, tasks)
 }
