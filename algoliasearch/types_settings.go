@@ -1,11 +1,5 @@
 package algoliasearch
 
-type Alternative struct {
-	Correction string `json:"correction"`
-	NbTypos    int    `json:"nbTypos"`
-	Word       string `json:"word"`
-}
-
 type Settings struct {
 	// Indexing parameters
 	AllowCompressionOfIntegerArray bool     `json:"allowCompressionOfIntegerArray"`
@@ -20,11 +14,8 @@ type Settings struct {
 	UnretrievableAttributes        []string `json:"unretrievableAttributes"`
 
 	// Query expansion
-	AltCorrections                   []Alternative       `json:"altCorrections"`
-	DisableTypoToleranceOnAttributes []string            `json:"disableTypoToleranceOnAttributes"`
-	DisableTypoToleranceOnWords      []string            `json:"disableTypoToleranceOnWords"`
-	Placeholders                     map[string][]string `json:"placeholders"`
-	Synonyms                         [][]string          `json:"synonyms"`
+	DisableTypoToleranceOnAttributes []string `json:"disableTypoToleranceOnAttributes"`
+	DisableTypoToleranceOnWords      []string `json:"disableTypoToleranceOnWords"`
 
 	// Default query parameters (can be overridden at query-time)
 	AdvancedSyntax             bool        `json:"advancedSyntax"`
