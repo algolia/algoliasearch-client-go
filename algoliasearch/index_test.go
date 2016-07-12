@@ -390,6 +390,43 @@ func TestSettings(t *testing.T) {
 	setAndGetAndCompareSettings(t, i, expectedSettings, mapSettings)
 }
 
+func objectsAreEqual(o1, o2 Object) bool {
+	for k, v := range o1 {
+		if o2[k] != v {
+			return false
+		}
+	}
+
+	return true
+}
+
+func objectSlicesAreEqual(t *testing.T, s1, s2 []Object) {
+	if len(s1) != len(s2) {
+		t.Fatalf("objectSlicesAreEqual: Slices have not the same size: (%d,%d)", len(s1), len(s2))
+	}
+
+	var objectIDs []string
+
+	for _, o1 := range s1 {
+		id1 := o1["objectID"].(string)
+
+		for _, o2 := range s2 {
+			id2 := o2["objectID"].(string)
+			if id1 == id2 {
+				if objectsAreEqual(o1, o2) {
+					objectIDs = append(objectIDs, id1)
+				} else {
+					t.Fatalf("objectSlicesAreEqual: Objects are not the same:\n%#v\n!=\n%#v\n", o1, o2)
+				}
+			}
+		}
+	}
+
+	if len(objectIDs) != len(s1) {
+		t.Fatalf("objectSlicesAreEqual: Slices does not contain the same objects:\n%#v\n!=\n%#v\n", s1, s2)
+	}
+}
+
 func TestIndexing(t *testing.T) {
 	_, i := initClientAndIndex(t, "TestIndexing")
 	defer deleteIndex(t, i)
@@ -468,5 +505,218 @@ func TestIndexing(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
+	// Wait for all the previous tasks to complete
 	waitTasksAsync(t, i, tasks)
+
+	// Search for "algolia"
+	{
+		res, err := i.Search("algolia", nil)
+		if err != nil {
+			t.Fatalf("TestIndexing: Search for 'algolia' failed: %s", err)
+		}
+
+		if res.NbHits != 2 {
+			t.Fatalf("TestIndexing: Should have returned 2 results instead of %d", res.NbHits)
+		}
+	}
+
+	// Search for "elon musk" with "company:tesla" facet
+	{
+		params := Map{
+			"facets":       "*",
+			"facetFilters": "company:tesla",
+		}
+		res, err := i.Search("elon", params)
+		if err != nil {
+			t.Fatalf("TestIndexing: Search for 'elon musk' failed: %s", err)
+		}
+
+		if res.NbHits != 1 {
+			t.Fatalf("TestIndexing: Should have returned 1 results instead of %d", res.NbHits)
+		}
+	}
+
+	// Search for "elon musk" with "(company:tesla,company:spacex)" facets
+	{
+		params := Map{
+			"facets":       "*",
+			"facetFilters": "(company:tesla,company:spacex)",
+		}
+		res, err := i.Search("elon musk", params)
+		if err != nil {
+			t.Fatalf("TestIndexing: Search for 'elon musk' failed: %s", err)
+		}
+
+		if res.NbHits != 2 {
+			t.Fatalf("TestIndexing: Should have returned 2 results instead of %d", res.NbHits)
+		}
+	}
+
+	// Iterate and collect over all the records' `objectID`
+	var objectIDs []string
+	{
+		// Initiatilze the BrowseAll
+		it, err := i.BrowseAll(nil)
+		if err != nil {
+			t.Fatalf("TestIndexing: BrowseAll has failed: %s", err)
+		}
+
+		// Iterate over all the records and collect their `objectID`
+		hit, err := it.Next()
+		for err == nil {
+			objectIDs = append(objectIDs, hit["objectID"].(string))
+			hit, err = it.Next()
+		}
+
+		// Check if BrowseAll has finished properly
+		if err.Error() != "No more hits" {
+			t.Fatalf("TestIndexing: BrowseAll iterations have failed: %s", err)
+		}
+
+		if len(objectIDs) != 14 {
+			t.Fatalf("TestIndexing: Should have iterated 14 times instead of %d", len(objectIDs))
+		}
+	}
+
+	// Test GetObject method
+	{
+		_, err := i.GetObject(objectIDs[0], nil)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve the first object: %s", err)
+		}
+
+		object, err := i.GetObject(objectIDs[0], []string{"name"})
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve the first object: %s", err)
+		}
+
+		_, ok := object["company"]
+		if ok {
+			t.Fatalf("TestIndexing: `company` attribute shouldn't have been retrieved")
+		}
+	}
+
+	// Test GetObjects method
+	{
+		objects, err := i.GetObjects(objectIDs)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve the objects: %s", err)
+		}
+
+		if len(objects) != len(objectIDs) {
+			t.Fatalf("TestIndexing: Objects weren't all properly retrieved")
+		}
+	}
+
+	// Update first object
+	{
+		object, err := i.GetObject(objectIDs[0], nil)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve the first object (before update): %s", err)
+		}
+
+		object["updated"] = true
+		res, err := i.UpdateObject(object)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot update the first object: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		updatedObject, err := i.GetObject(objectIDs[0], nil)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve the first object (after update): %s", err)
+		}
+
+		if !objectsAreEqual(object, updatedObject) {
+			t.Fatalf("TestIndexing: Updated objects are not the same:\n%#v\n!=\n%#v\n", object, updatedObject)
+		}
+	}
+
+	// Update all the objects
+	{
+		objects, err := i.GetObjects(objectIDs)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve all the objects (before update): %s", err)
+		}
+
+		for i, _ := range objects {
+			objects[i]["updated"] = true
+		}
+
+		res, err := i.UpdateObjects(objects)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot update all the objects: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		updatedObjects, err := i.GetObjects(objectIDs)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve all the objects (after update): %s", err)
+		}
+
+		objectSlicesAreEqual(t, objects, updatedObjects)
+	}
+
+	// PartialUpdate the first object
+	{
+		object, err := i.GetObject(objectIDs[0], nil)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve the first object (before update): %s", err)
+		}
+
+		object["updated"] = false
+		partialObject := Object{
+			"objectID": objectIDs[0],
+			"updated":  false,
+		}
+
+		res, err := i.PartialUpdateObject(partialObject)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot partial update the first object: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		updatedObject, err := i.GetObject(objectIDs[0], nil)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve the first object (after partial update): %s", err)
+		}
+
+		if !objectsAreEqual(object, updatedObject) {
+			t.Fatalf("TestIndexing: Partial updated objects are not the same:\n%#v\n!=\n%#v\n", object, updatedObject)
+		}
+	}
+
+	// PartialUpdate all the objects
+	{
+		objects, err := i.GetObjects(objectIDs)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve all the objects (before partial update): %s", err)
+		}
+
+		var partialObjects []Object
+		for i, object := range objects {
+			objects[i]["updated"] = false
+			partialObjects = append(partialObjects, Object{
+				"objectID": object["objectID"].(string),
+				"updated":  false,
+			})
+		}
+
+		res, err := i.PartialUpdateObjects(partialObjects)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot partial update all the objects: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		updatedObjects, err := i.GetObjects(objectIDs)
+		if err != nil {
+			t.Fatalf("TestIndexing: Cannot retrieve all the objects (after partial update): %s", err)
+		}
+
+		objectSlicesAreEqual(t, objects, updatedObjects)
+	}
 }
