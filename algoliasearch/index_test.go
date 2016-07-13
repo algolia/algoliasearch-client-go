@@ -143,6 +143,35 @@ func TestClear(t *testing.T) {
 	}
 }
 
+func TestMoveCopy(t *testing.T) {
+	c, i := initClientAndIndex(t, "TestMoveCopy")
+	defer i.Delete()
+	defer c.InitIndex("TestMoveCopy_copy").Delete()
+	defer c.InitIndex("TestMoveCopy_move").Delete()
+
+	addOneObject(t, c, i)
+
+	// Copy index TestMoveCopy into TestMoveCopy_copy
+	{
+		res, err := i.Copy("TestMoveCopy_copy")
+		if err != nil {
+			t.Fatalf("TestMoveCopy: Cannot copy the index: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+	}
+
+	// Move index TestMoveCopy into TestMoveCopy_copy
+	{
+		res, err := i.Move("TestMoveCopy_move")
+		if err != nil {
+			t.Fatalf("TestMoveCopy: Cannot move the index: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+	}
+}
+
 // stringSlicesAreEqual returns `true` if the two slices are the same i.e. if
 // they contain the same strings. It returns `false` otherwise. Slices are
 // sorted before the comparison.
@@ -781,7 +810,6 @@ func TestIndexingAndSearch(t *testing.T) {
 			t.Fatalf("TestIndexingAndSearch: 'jeff bezos' record hasn't been deleted properly: %s", err)
 		}
 	}
-
 }
 
 func synonymsAreEqual(s1, s2 Synonym) bool {
