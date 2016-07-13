@@ -139,7 +139,7 @@ func TestClear(t *testing.T) {
 
 	_, err = i.GetObject(objectID, nil)
 	if err == nil || err.Error() != "{\"message\":\"ObjectID does not exist\",\"status\":404}\n" {
-		t.Fatalf("TestClear: Object %s should have been deleted after clear: %s", objectID, err)
+		t.Fatalf("TestClear: Object %s should be deleted after clear: %s", objectID, err)
 	}
 }
 
@@ -427,8 +427,30 @@ func objectSlicesAreEqual(t *testing.T, s1, s2 []Object) {
 	}
 }
 
-func TestIndexing(t *testing.T) {
-	_, i := initClientAndIndex(t, "TestIndexing")
+func getAllRecords(t *testing.T, i Index) (records []Map) {
+	// Initialize the iterator
+	it, err := i.BrowseAll(nil)
+	if err != nil {
+		t.Fatalf("getAllRecords: BrowseAll has failed: %s", err)
+	}
+
+	// Iterate through all the records
+	record, err := it.Next()
+	for err == nil {
+		records = append(records, record)
+		record, err = it.Next()
+	}
+
+	// Check if BrowseAll has finished properly
+	if err.Error() != "No more hits" {
+		t.Fatalf("getAllRecords: BrowseAll iterations have failed: %s", err)
+	}
+
+	return
+}
+
+func TestIndexingAndSearch(t *testing.T) {
+	_, i := initClientAndIndex(t, "TestIndexingAndSearch")
 	defer deleteIndex(t, i)
 
 	var tasks []int
@@ -441,7 +463,7 @@ func TestIndexing(t *testing.T) {
 			"customRanking":         []string{"asc(company)", "asc(name)"},
 		})
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot set settings: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot set settings: %s", err)
 		}
 		tasks = append(tasks, res.TaskID)
 	}
@@ -451,7 +473,7 @@ func TestIndexing(t *testing.T) {
 		object := Object{"name": "Facebook", "Company": "Mark Zuckerberg"}
 		res, err := i.AddObject(object)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot add one object: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot add one object: %s", err)
 		}
 		tasks = append(tasks, res.TaskID)
 	}
@@ -465,9 +487,9 @@ func TestIndexing(t *testing.T) {
 			{"company": "Apple", "name": "Steve Jobs"},
 			{"company": "Apple", "name": "Steve Wozniak"},
 			{"company": "Arista Networks", "name": "Jayshree Ullal"},
-			{"company": "<GOOG>", "name": "Larry Page"},
-			{"company": "<GOOG>", "name": "Rob Pike"},
-			{"company": "<GOOG>", "name": "Sergueï Brin"},
+			{"company": "Google", "name": "Larry Page"},
+			{"company": "Google", "name": "Rob Pike"},
+			{"company": "Google", "name": "Sergueï Brin"},
 			{"company": "Microsoft", "name": "Bill Gates"},
 			{"company": "SpaceX", "name": "Elon Musk"},
 			{"company": "Tesla", "name": "Elon Musk"},
@@ -475,32 +497,7 @@ func TestIndexing(t *testing.T) {
 		}
 		res, err := i.AddObjects(objects)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot add multiple objects: %s", err)
-		}
-		tasks = append(tasks, res.TaskID)
-	}
-
-	// Add one synonym
-	{
-		synonym := NewSynonym("tesla", []string{"tesla", "tesla motors"})
-		res, err := i.AddSynonym(synonym, true)
-		if err != nil {
-			t.Fatalf("TestIndexing: Cannot add one synonym: %s", err)
-		}
-		tasks = append(tasks, res.TaskID)
-	}
-
-	// Add multiple synonyms at once
-	{
-		synonyms := []Synonym{
-			NewAltCorrectionSynomym("rob", []string{"robpike"}, "rob", AltCorrection1),
-			NewAltCorrectionSynomym("pike", []string{"robpike"}, "pike", AltCorrection2),
-			NewOneWaySynonym("julien", "speedblue", []string{"julien lemoine"}),
-			NewPlaceholderSynonym("google_placeholder", "<GOOG>", []string{"Google", "GOOG"}),
-		}
-		res, err := i.BatchSynonyms(synonyms, false, false)
-		if err != nil {
-			t.Fatalf("TestIndexing: Cannot add multiple synonyms: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot add multiple objects: %s", err)
 		}
 		tasks = append(tasks, res.TaskID)
 	}
@@ -512,11 +509,11 @@ func TestIndexing(t *testing.T) {
 	{
 		res, err := i.Search("algolia", nil)
 		if err != nil {
-			t.Fatalf("TestIndexing: Search for 'algolia' failed: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Search for 'algolia' failed: %s", err)
 		}
 
 		if res.NbHits != 2 {
-			t.Fatalf("TestIndexing: Should have returned 2 results instead of %d", res.NbHits)
+			t.Fatalf("TestIndexingAndSearch: Should return 2 results instead of %d", res.NbHits)
 		}
 	}
 
@@ -528,11 +525,11 @@ func TestIndexing(t *testing.T) {
 		}
 		res, err := i.Search("elon", params)
 		if err != nil {
-			t.Fatalf("TestIndexing: Search for 'elon musk' failed: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Search for 'elon musk' failed: %s", err)
 		}
 
 		if res.NbHits != 1 {
-			t.Fatalf("TestIndexing: Should have returned 1 results instead of %d", res.NbHits)
+			t.Fatalf("TestIndexingAndSearch: Should return 1 results instead of %d", res.NbHits)
 		}
 	}
 
@@ -544,37 +541,24 @@ func TestIndexing(t *testing.T) {
 		}
 		res, err := i.Search("elon musk", params)
 		if err != nil {
-			t.Fatalf("TestIndexing: Search for 'elon musk' failed: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Search for 'elon musk' failed: %s", err)
 		}
 
 		if res.NbHits != 2 {
-			t.Fatalf("TestIndexing: Should have returned 2 results instead of %d", res.NbHits)
+			t.Fatalf("TestIndexingAndSearch: Should return 2 results instead of %d", res.NbHits)
 		}
 	}
 
 	// Iterate and collect over all the records' `objectID`
 	var objectIDs []string
 	{
-		// Initiatilze the BrowseAll
-		it, err := i.BrowseAll(nil)
-		if err != nil {
-			t.Fatalf("TestIndexing: BrowseAll has failed: %s", err)
-		}
-
-		// Iterate over all the records and collect their `objectID`
-		hit, err := it.Next()
-		for err == nil {
-			objectIDs = append(objectIDs, hit["objectID"].(string))
-			hit, err = it.Next()
-		}
-
-		// Check if BrowseAll has finished properly
-		if err.Error() != "No more hits" {
-			t.Fatalf("TestIndexing: BrowseAll iterations have failed: %s", err)
+		records := getAllRecords(t, i)
+		for _, record := range records {
+			objectIDs = append(objectIDs, record["objectID"].(string))
 		}
 
 		if len(objectIDs) != 14 {
-			t.Fatalf("TestIndexing: Should have iterated 14 times instead of %d", len(objectIDs))
+			t.Fatalf("TestIndexingAndSearch: Should iterate 14 times instead of %d", len(objectIDs))
 		}
 	}
 
@@ -582,17 +566,17 @@ func TestIndexing(t *testing.T) {
 	{
 		_, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve the first object: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve the first object: %s", err)
 		}
 
 		object, err := i.GetObject(objectIDs[0], []string{"name"})
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve the first object: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve the first object: %s", err)
 		}
 
 		_, ok := object["company"]
 		if ok {
-			t.Fatalf("TestIndexing: `company` attribute shouldn't have been retrieved")
+			t.Fatalf("TestIndexingAndSearch: `company` attribute shouldn't be retrieved")
 		}
 	}
 
@@ -600,11 +584,11 @@ func TestIndexing(t *testing.T) {
 	{
 		objects, err := i.GetObjects(objectIDs)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve the objects: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve the objects: %s", err)
 		}
 
 		if len(objects) != len(objectIDs) {
-			t.Fatalf("TestIndexing: Objects weren't all properly retrieved")
+			t.Fatalf("TestIndexingAndSearch: Objects weren't all properly retrieved")
 		}
 	}
 
@@ -612,24 +596,24 @@ func TestIndexing(t *testing.T) {
 	{
 		object, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve the first object (before update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve the first object (before update): %s", err)
 		}
 
 		object["updated"] = true
 		res, err := i.UpdateObject(object)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot update the first object: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot update the first object: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
 
 		updatedObject, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve the first object (after update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve the first object (after update): %s", err)
 		}
 
 		if !objectsAreEqual(object, updatedObject) {
-			t.Fatalf("TestIndexing: Updated objects are not the same:\n%#v\n!=\n%#v\n", object, updatedObject)
+			t.Fatalf("TestIndexingAndSearch: Updated objects are not the same:\n%#v\n!=\n%#v\n", object, updatedObject)
 		}
 	}
 
@@ -637,7 +621,7 @@ func TestIndexing(t *testing.T) {
 	{
 		objects, err := i.GetObjects(objectIDs)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve all the objects (before update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve all the objects (before update): %s", err)
 		}
 
 		for i, _ := range objects {
@@ -646,14 +630,14 @@ func TestIndexing(t *testing.T) {
 
 		res, err := i.UpdateObjects(objects)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot update all the objects: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot update all the objects: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
 
 		updatedObjects, err := i.GetObjects(objectIDs)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve all the objects (after update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve all the objects (after update): %s", err)
 		}
 
 		objectSlicesAreEqual(t, objects, updatedObjects)
@@ -663,7 +647,7 @@ func TestIndexing(t *testing.T) {
 	{
 		object, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve the first object (before update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve the first object (before update): %s", err)
 		}
 
 		object["updated"] = false
@@ -674,18 +658,18 @@ func TestIndexing(t *testing.T) {
 
 		res, err := i.PartialUpdateObject(partialObject)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot partial update the first object: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot partial update the first object: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
 
 		updatedObject, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve the first object (after partial update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve the first object (after partial update): %s", err)
 		}
 
 		if !objectsAreEqual(object, updatedObject) {
-			t.Fatalf("TestIndexing: Partial updated objects are not the same:\n%#v\n!=\n%#v\n", object, updatedObject)
+			t.Fatalf("TestIndexingAndSearch: Partial updated objects are not the same:\n%#v\n!=\n%#v\n", object, updatedObject)
 		}
 	}
 
@@ -693,7 +677,7 @@ func TestIndexing(t *testing.T) {
 	{
 		objects, err := i.GetObjects(objectIDs)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve all the objects (before partial update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve all the objects (before partial update): %s", err)
 		}
 
 		var partialObjects []Object
@@ -707,16 +691,209 @@ func TestIndexing(t *testing.T) {
 
 		res, err := i.PartialUpdateObjects(partialObjects)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot partial update all the objects: %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot partial update all the objects: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
 
 		updatedObjects, err := i.GetObjects(objectIDs)
 		if err != nil {
-			t.Fatalf("TestIndexing: Cannot retrieve all the objects (after partial update): %s", err)
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve all the objects (after partial update): %s", err)
 		}
 
 		objectSlicesAreEqual(t, objects, updatedObjects)
+	}
+
+	// DeleteByQuery with "elon musk" should remove 2 records
+	{
+		countBefore := len(getAllRecords(t, i))
+
+		if err := i.DeleteByQuery("elon musk", nil); err != nil {
+			t.Fatalf("TestIndexingAndSearch: Cannot delete 'elon musk' by query: %s", err)
+		}
+
+		countAfter := len(getAllRecords(t, i))
+		if countBefore != countAfter+2 {
+			t.Fatalf("TestIndexingAndSearch: DeleteByQuery should delete 2 occurences of 'elon musk' insteaf of %d", countBefore-countAfter)
+		}
+	}
+
+	// DeleteByQuery with "" and facet "company:apple" should remove 2 records
+	{
+		countBefore := len(getAllRecords(t, i))
+
+		params := Map{
+			"facets":       "*",
+			"facetFilters": "company:apple",
+		}
+		if err := i.DeleteByQuery("", params); err != nil {
+			t.Fatalf("TestIndexingAndSearch: Cannot delete '' by query using 'company:apple' facet: %s", err)
+		}
+
+		countAfter := len(getAllRecords(t, i))
+		if countBefore != countAfter+2 {
+			t.Fatalf("TestIndexingAndSearch: DeleteByQuery should delete 2 occurences of '' using facet 'company:apple' insteaf of %d", countBefore-countAfter)
+		}
+	}
+
+	// DeteteObject with "jeff bezos"
+	{
+		queryRes, err := i.Search("jeff bezos", nil)
+		if err != nil {
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve 'jeff bezos' record: %s", err)
+		}
+		hit := queryRes.Hits[0]
+
+		res, err := i.DeleteObject(hit["objectID"].(string))
+		if err != nil {
+			t.Fatalf("TestIndexingAndSearch: Cannot delete 'jeff bezos' record: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		_, err = i.GetObject("jeff bezos", nil)
+		if err == nil || err.Error() != "{\"message\":\"ObjectID does not exist\",\"status\":404}\n" {
+			t.Fatalf("TestIndexingAndSearch: 'jeff bezos' record hasn't been deleted properly: %s", err)
+		}
+	}
+
+	// DeteteObjects with "google" (3 records)
+	{
+		queryRes, err := i.Search("google", nil)
+		if err != nil {
+			t.Fatalf("TestIndexingAndSearch: Cannot retrieve 'google' records: %s", err)
+		}
+
+		var googleObjectIDs []string
+		for _, hit := range queryRes.Hits {
+			googleObjectIDs = append(googleObjectIDs, hit["objectID"].(string))
+		}
+
+		res, err := i.DeleteObjects(googleObjectIDs)
+		if err != nil {
+			t.Fatalf("TestIndexingAndSearch: Cannot delete 'google' records: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		_, err = i.GetObject("google", nil)
+		if err == nil || err.Error() != "{\"message\":\"ObjectID does not exist\",\"status\":404}\n" {
+			t.Fatalf("TestIndexingAndSearch: 'jeff bezos' record hasn't been deleted properly: %s", err)
+		}
+	}
+
+}
+
+func synonymsAreEqual(s1, s2 Synonym) bool {
+	return s1.ObjectID == s2.ObjectID &&
+		s1.Type == s2.Type &&
+		s1.Word == s2.Word &&
+		s1.Input == s2.Input &&
+		s1.Placeholder == s2.Placeholder &&
+		stringSlicesAreEqual(s1.Corrections, s2.Corrections) &&
+		stringSlicesAreEqual(s1.Synonyms, s2.Synonyms) &&
+		stringSlicesAreEqual(s1.Replacements, s2.Replacements)
+}
+
+func synonymSlicesAreEqual(synonyms1, synonyms2 []Synonym) bool {
+	count := 0
+
+	if len(synonyms1) != len(synonyms2) {
+		return false
+	}
+
+	for _, s1 := range synonyms1 {
+		for _, s2 := range synonyms2 {
+			if synonymsAreEqual(s1, s2) {
+				count++
+				break
+			}
+		}
+	}
+
+	return count == len(synonyms1)
+}
+
+func TestSynonym(t *testing.T) {
+	_, i := initClientAndIndex(t, "TestSynonym")
+	defer deleteIndex(t, i)
+
+	var tasks []int
+
+	// Set the settings
+	{
+		res, err := i.SetSettings(Map{
+			"attributesToIndex": []string{"company"},
+			"customRanking":     []string{"asc(company)"},
+		})
+		if err != nil {
+			t.Fatalf("TestSynonym: Cannot set settings: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add multiple objects at once
+	{
+		objects := []Object{
+			{"company": "<GOOG>"},
+			{"company": "Algolia"},
+			{"company": "Amazon"},
+			{"company": "Apple"},
+			{"company": "Arista Networks"},
+			{"company": "Microsoft"},
+			{"company": "SpaceX"},
+			{"company": "Tesla"},
+			{"company": "Yahoo"},
+		}
+		res, err := i.AddObjects(objects)
+		if err != nil {
+			t.Fatalf("TestSynonym: Cannot add multiple objects: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	synonyms := []Synonym{
+		NewAltCorrectionSynomym("rob", []string{"robpike"}, "rob", AltCorrection1),
+		NewAltCorrectionSynomym("pike", []string{"robpike"}, "pike", AltCorrection2),
+		NewOneWaySynonym("julien", "speedblue", []string{"julien lemoine"}),
+		NewPlaceholderSynonym("google_placeholder", "<GOOG>", []string{"Google", "GOOG"}),
+	}
+
+	// Add multiple synonyms at once
+	{
+		res, err := i.BatchSynonyms(synonyms, false, false)
+		if err != nil {
+			t.Fatalf("TestSynonym: Cannot add multiple synonyms: %s", err)
+		}
+
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add one synonym
+	{
+		synonym := NewSynonym("tesla", []string{"tesla", "tesla motors"})
+		synonyms = append(synonyms, synonym)
+
+		res, err := i.AddSynonym(synonym, true)
+		if err != nil {
+			t.Fatalf("TestSynonym: Cannot add one synonym: %s", err)
+		}
+
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Wait for all the previous tasks to complete
+	waitTasksAsync(t, i, tasks)
+
+	// SearchSynonyms with ""
+	{
+		foundSynonyms, err := i.SearchSynonyms("", []string{}, 0, 1000)
+		if err != nil {
+			t.Fatalf("TestSynonym: Could not find any synonym with '' query: %s", err)
+		}
+
+		if !synonymSlicesAreEqual(synonyms, foundSynonyms) {
+			t.Fatalf("TestSynonym: Synonyms slices are not equal:\n%v\n%v\n", synonyms, foundSynonyms)
+		}
 	}
 }
