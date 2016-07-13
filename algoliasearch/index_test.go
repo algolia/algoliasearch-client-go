@@ -921,7 +921,64 @@ func TestSynonym(t *testing.T) {
 		}
 
 		if !synonymSlicesAreEqual(synonyms, foundSynonyms) {
-			t.Fatalf("TestSynonym: Synonyms slices are not equal:\n%v\n%v\n", synonyms, foundSynonyms)
+			t.Fatalf("TestSynonym: Synonym slices are not equal:\n%v\n%v\n", synonyms, foundSynonyms)
+		}
+	}
+
+	// SearchSynonyms with "" and hitsPerPage=1
+	{
+		foundSynonyms, err := i.SearchSynonyms("", []string{}, 0, 1)
+		if err != nil {
+			t.Fatalf("TestSynonym: Could not find any synonym with '' query and hitsPerPage=1: %s", err)
+		}
+
+		if len(foundSynonyms) != 1 {
+			t.Fatalf("TestSynonym: Should return 1 synonym instead of %d", len(foundSynonyms))
+		}
+	}
+
+	// Get the first synonym
+	{
+		foundSynonym, err := i.GetSynonym(synonyms[0].ObjectID)
+		if err != nil {
+			t.Fatalf("TestSynonym: Could not get the first synonym: %s", err)
+		}
+
+		if !synonymsAreEqual(foundSynonym, synonyms[0]) {
+			t.Fatalf("TestSynonym: First synonym not returned properly:\n%v\n%v\n", foundSynonym, synonyms[0])
+		}
+	}
+
+	// Delete the first synonym
+	{
+		res, err := i.DeleteSynonym(synonyms[0].ObjectID, false)
+		if err != nil {
+			t.Fatalf("TestSynonym: Could not delete the first synonym: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		_, err = i.GetSynonym(synonyms[0].ObjectID)
+		if err == nil || err.Error() != "{\"message\":\"Synonym set does not exist\",\"status\":404}" {
+			t.Fatalf("TestSynonym: First synonym hasn't been deleted properly: %s", err)
+		}
+	}
+
+	{
+		res, err := i.ClearSynonyms(false)
+		if err != nil {
+			t.Fatalf("TestSynonym: Could not clear index' synonyms: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		foundSynonyms, err := i.SearchSynonyms("", []string{}, 0, 1000)
+		if err != nil {
+			t.Fatalf("TestSynonym: Could not retrieve the synonyms after clear: %s", err)
+		}
+
+		if len(foundSynonyms) != 0 {
+			t.Fatalf("TestSynonym: Index' synonyms haven't been cleared properly: %s", err)
 		}
 	}
 }
