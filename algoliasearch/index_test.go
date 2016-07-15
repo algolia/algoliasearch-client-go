@@ -5,6 +5,7 @@ import (
 	"sync"
 	"syscall"
 	"testing"
+	"time"
 )
 
 // waitTask waits the task to be finished. If something went wrong, the
@@ -980,5 +981,133 @@ func TestSynonym(t *testing.T) {
 		if len(foundSynonyms) != 0 {
 			t.Fatalf("TestSynonym: Index' synonyms haven't been cleared properly: %s", err)
 		}
+	}
+}
+
+func waitKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
+	retries := 10
+
+	for r := 0; r < retries; r++ {
+		key, err := i.GetUserKey(keyID)
+
+		if err == nil && (f == nil || f(key)) {
+			return
+		}
+		time.Sleep(1 * time.Second)
+	}
+
+	t.Fatalf("waitKey: Key not found or function call failed")
+}
+
+func waitKeysAsync(t *testing.T, i Index, keyIDs []string, f func(k Key) bool) {
+	var wg sync.WaitGroup
+
+	for _, keyID := range keyIDs {
+		wg.Add(1)
+
+		go func(keyID string) {
+			defer wg.Done()
+			waitKey(t, i, keyID, f)
+		}(keyID)
+	}
+
+	wg.Wait()
+}
+
+func deleteKey(t *testing.T, i Index, key string) {
+	_, err := i.DeleteUserKey(key)
+	if err != nil {
+		t.Fatalf("deleteKey: Cannot delete key: %s", err)
+	}
+}
+
+func TestKeys(t *testing.T) {
+	c, i := initClientAndIndex(t, "TestKeys")
+
+	addOneObject(t, c, i)
+
+	// Check that no key was previously existing
+	{
+		keys, err := i.ListKeys()
+
+		if err != nil {
+			t.Fatalf("TestKeys: Cannot list the keys: %s", err)
+		}
+
+		if len(keys) != 0 {
+			t.Fatalf("TestKeys: Should return 0 keys instead of %d", len(keys))
+		}
+	}
+
+	var searchKey, allRightsKey string
+
+	// Add a search key with parameters
+	{
+		params := Map{
+			"description":            "",
+			"maxQueriesPerIPPerHour": 1000,
+			"referers":               []string{},
+			"queryParameters":        "typoTolerance=strict",
+			"validity":               600,
+			"maxHitsPerQuery":        1,
+		}
+
+		res, err := i.AddUserKey([]string{"search"}, params)
+		if err != nil {
+			t.Fatalf("TestKeys: Cannot create the search key: %s", err)
+		}
+
+		searchKey = res.Key
+	}
+	defer deleteKey(t, i, searchKey)
+
+	// Add an all-permissions key
+	{
+		acl := []string{
+			"search",
+			"browse",
+			"addObject",
+			"deleteObject",
+			"deleteIndex",
+			"settings",
+			"editSettings",
+			"analytics",
+			"listIndexes",
+		}
+
+		res, err := i.AddUserKey(acl, nil)
+		if err != nil {
+			t.Fatalf("TestKeys: Cannot create the all-rights key: %s", err)
+		}
+
+		allRightsKey = res.Key
+	}
+	defer deleteKey(t, i, allRightsKey)
+
+	waitKeysAsync(t, i, []string{searchKey, allRightsKey}, nil)
+
+	// Check that the 2 previous keys were added
+	{
+		keys, err := i.ListKeys()
+
+		if err != nil {
+			t.Fatalf("TestKeys: Cannot list the added keys: %s", err)
+		}
+
+		if len(keys) != 2 {
+			t.Fatalf("TestKeys: Should return 2 keys instead of %d", len(keys))
+		}
+	}
+
+	// Update search key description
+	{
+		params := Map{"description": "Search-Only Key"}
+
+		_, err := i.UpdateUserKey(searchKey, params)
+		if err != nil {
+			t.Fatalf("TestKeys: Cannot update search only key's description: %s", err)
+		}
+
+		waitKey(t, i, searchKey, func(k Key) bool { return k.Description == "Search-Only Key" })
 	}
 }
