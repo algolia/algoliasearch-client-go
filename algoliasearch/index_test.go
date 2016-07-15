@@ -83,16 +83,6 @@ func initClientAndIndex(t *testing.T, name string) (c Client, i Index) {
 	return
 }
 
-// deleteIndex actually deletes the index and waits until the task is finished.
-func deleteIndex(t *testing.T, i Index) {
-	res, err := i.Delete()
-	if err != nil {
-		t.Fatalf("deleteIndex: Cannot delete the index: %s", err)
-	}
-
-	waitTask(t, i, res.TaskID)
-}
-
 // addOneObject is used to add a single dummy object to the index. This way, we
 // make sure the index has been created (and not only initialized).
 func addOneObject(t *testing.T, c Client, i Index) string {
@@ -123,7 +113,6 @@ func TestDelete(t *testing.T) {
 
 func TestClear(t *testing.T) {
 	c, i := initClientAndIndex(t, "TestClear")
-	defer deleteIndex(t, i)
 
 	objectID := addOneObject(t, c, i)
 
@@ -146,7 +135,6 @@ func TestClear(t *testing.T) {
 
 func TestMoveCopy(t *testing.T) {
 	c, i := initClientAndIndex(t, "TestMoveCopy")
-	defer i.Delete()
 	defer c.InitIndex("TestMoveCopy_copy").Delete()
 	defer c.InitIndex("TestMoveCopy_move").Delete()
 
@@ -337,7 +325,6 @@ func setAndGetAndCompareSettings(t *testing.T, i Index, expectedSettings Setting
 
 func TestSettings(t *testing.T) {
 	_, i := initClientAndIndex(t, "TestSettings")
-	defer deleteIndex(t, i)
 
 	expectedSettings := Settings{
 		AdvancedSyntax:                   true,
@@ -481,7 +468,6 @@ func getAllRecords(t *testing.T, i Index) (records []Map) {
 
 func TestIndexingAndSearch(t *testing.T) {
 	_, i := initClientAndIndex(t, "TestIndexingAndSearch")
-	defer deleteIndex(t, i)
 
 	var tasks []int
 
@@ -845,7 +831,6 @@ func synonymSlicesAreEqual(synonyms1, synonyms2 []Synonym) bool {
 
 func TestSynonym(t *testing.T) {
 	_, i := initClientAndIndex(t, "TestSynonym")
-	defer deleteIndex(t, i)
 
 	var tasks []int
 
