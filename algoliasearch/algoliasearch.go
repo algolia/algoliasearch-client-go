@@ -65,7 +65,7 @@ type Client interface {
 	//   - `type` (type of logs to retrieve, can be "all", "query", "build" or
 	//     "error")
 	// More details here:
-	// https://www.algolia.com/doc/rest#logs-api
+	// https://www.algolia.com/doc/rest#get-last-logs
 	GetLogs(params Map) (logs []LogRes, err error)
 
 	// MultipleQueries performs all the queries specified in `queries` and
@@ -190,10 +190,9 @@ type Index interface {
 	// GetSynonym retrieves the synonym identified by its `objectID`.
 	GetSynonym(objectID string) (s Synonym, err error)
 
-	// AddSynonym adds the given `synonym` identified by its `objectID`. This
-	// addition can be forwarded to the index slaves by setting
-	// `forwardToSlaves` to `true`.
-	AddSynonym(objectID string, synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error)
+	// AddSynonym adds the given `synonym`. This addition can be forwarded to
+	// the index slaves by setting `forwardToSlaves` to `true`.
+	AddSynonym(synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error)
 
 	// DeleteSynonym removes the synonym identified by its `objectID`. This
 	// deletion can be forwarded to the index slaves by setting

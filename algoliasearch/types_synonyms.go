@@ -1,9 +1,8 @@
 package algoliasearch
 
 const (
-	AltCorrection1  string = "altCorrection2"
-	AltCorrection2  string = "altCorrection1"
-	AltCorrection12 string = "altCorrection1|altCorrection2"
+	AltCorrection1 string = "altCorrection1"
+	AltCorrection2 string = "altCorrection2"
 )
 
 type SearchSynonymsRes struct {
@@ -13,9 +12,9 @@ type SearchSynonymsRes struct {
 
 type Synonym struct {
 	// Common fields
-	HighlightedResult Map `json:"_highlightedResult,omitempty"`
-	ObjectID          string                 `json:"objectID"`
-	Type              string                 `json:"type"`
+	HighlightedResult Map    `json:"_highlightedResult,omitempty"`
+	ObjectID          string `json:"objectID"`
+	Type              string `json:"type"`
 
 	// Alternative correction synonym's fields
 	Corrections []string `json:"corrections,omitempty"`
@@ -33,7 +32,7 @@ type Synonym struct {
 	// Synonyms []string `json:"synonyms"`
 }
 
-func NewAltCorrectionSynomym(objectID string, corrections []string, word string, t string) Synonym {
+func NewAltCorrectionSynonym(objectID string, corrections []string, word string, t string) Synonym {
 	return Synonym{
 		ObjectID:    objectID,
 		Type:        t,
@@ -42,7 +41,7 @@ func NewAltCorrectionSynomym(objectID string, corrections []string, word string,
 	}
 }
 
-func NewOneWaySynomym(objectID string, input string, synonyms []string) Synonym {
+func NewOneWaySynonym(objectID string, input string, synonyms []string) Synonym {
 	return Synonym{
 		ObjectID: objectID,
 		Type:     "oneWaySynonym",

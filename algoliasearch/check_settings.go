@@ -3,16 +3,6 @@ package algoliasearch
 func checkSettings(settings Map) error {
 	for k, v := range settings {
 		switch k {
-		case "altCorrections":
-			if _, ok := v.([]Alternative); !ok {
-				return invalidType(k, "[]Alternative")
-			}
-
-		case "synonyms":
-			if _, ok := v.([][]string); !ok {
-				return invalidType(k, "[][]string")
-			}
-
 		case "attributesForDistinct",
 			"attributesForFaceting",
 			"attributesToIndex",
@@ -41,19 +31,13 @@ func checkSettings(settings Map) error {
 				return invalidType(k, "bool")
 			}
 
-		case "distinct",
-			"hitsPerPage",
+		case "hitsPerPage",
 			"maxValuesPerFacet",
 			"minProximity",
 			"minWordSizefor1Typo",
 			"minWordSizefor2Typos":
 			if _, ok := v.(int); !ok {
 				return invalidType(k, "int")
-			}
-
-		case "placeholders":
-			if _, ok := v.(map[string][]string); !ok {
-				return invalidType(k, "map[string][]string")
 			}
 
 		case "separatorsToIndex",
@@ -79,6 +63,14 @@ func checkSettings(settings Map) error {
 				// OK
 			default:
 				return invalidType(k, "[]string or bool")
+			}
+
+		case "distinct":
+			switch v.(type) {
+			case int, bool:
+				// OK
+			default:
+				return invalidType(k, "int or bool")
 			}
 
 		default:

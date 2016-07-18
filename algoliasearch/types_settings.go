@@ -1,15 +1,9 @@
 package algoliasearch
 
-type Alternative struct {
-	Correction string `json:"correction"`
-	NbTypos    int    `json:"nbTypos"`
-	Word       string `json:"word"`
-}
-
 type Settings struct {
 	// Indexing parameters
 	AllowCompressionOfIntegerArray bool     `json:"allowCompressionOfIntegerArray"`
-	AttributesForDistinct          []string `json:"attributesForDistinct"`
+	AttributeForDistinct           string   `json:"attributeForDistinct"`
 	AttributesForFaceting          []string `json:"attributesForFaceting"`
 	AttributesToIndex              []string `json:"attributesToIndex"`
 	CustomRanking                  []string `json:"customRanking"`
@@ -20,11 +14,8 @@ type Settings struct {
 	UnretrievableAttributes        []string `json:"unretrievableAttributes"`
 
 	// Query expansion
-	AltCorrections                   []Alternative       `json:"altCorrections"`
-	DisableTypoToleranceOnAttributes []string            `json:"disableTypoToleranceOnAttributes"`
-	DisableTypoToleranceOnWords      []string            `json:"disableTypoToleranceOnWords"`
-	Placeholders                     map[string][]string `json:"placeholders"`
-	Synonyms                         [][]string          `json:"synonyms"`
+	DisableTypoToleranceOnAttributes []string `json:"disableTypoToleranceOnAttributes"`
+	DisableTypoToleranceOnWords      []string `json:"disableTypoToleranceOnWords"`
 
 	// Default query parameters (can be overridden at query-time)
 	AdvancedSyntax             bool        `json:"advancedSyntax"`
@@ -32,7 +23,7 @@ type Settings struct {
 	AttributesToHighlight      []string    `json:"attributesToHighlight"`
 	AttributesToRetrieve       []string    `json:"attributesToRetrieve"`
 	AttributesToSnippet        []string    `json:"attributesToSnippet"`
-	Distinct                   int         `json:"distinct"`
+	Distinct                   interface{} `json:"distinct"` // float64 (actually an int) or bool
 	HighlightPostTag           string      `json:"highlightPostTag"`
 	HighlightPreTag            string      `json:"highlightPreTag"`
 	HitsPerPage                int         `json:"hitsPerPage"`
@@ -43,7 +34,7 @@ type Settings struct {
 	MinWordSizefor2Typos       int         `json:"minWordSizefor2Typos"`
 	OptionalWords              []string    `json:"optionalWords"`
 	QueryType                  string      `json:"queryType"`
-	RemoveStopWords            interface{} `json:"removeStopWords"`
+	RemoveStopWords            interface{} `json:"removeStopWords"` // []interface{} (actually a []string) or bool
 	ReplaceSynonymsInHighlight bool        `json:"replaceSynonymsInHighlight"`
 	SnippetEllipsisText        string      `json:"snippetEllipsisText"`
 	TypoTolerance              string      `json:"typoTolerance"`
