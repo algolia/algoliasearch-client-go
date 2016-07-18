@@ -39,66 +39,54 @@ func addOneObject(t *testing.T, c Client, i Index) string {
 	return res.ObjectID
 }
 
-func TestDelete(t *testing.T) {
-	c, i := initClientAndIndex(t, "TestDelete")
-
-	addOneObject(t, c, i)
-
-	res, err := i.Delete()
-	if err != nil {
-		t.Fatalf("TestDelete: Cannot delete the index: %s", err)
-	}
-
-	waitTask(t, i, res.TaskID)
-}
-
-func TestClear(t *testing.T) {
-	c, i := initClientAndIndex(t, "TestClear")
+func TestIndexOperations(t *testing.T) {
+	c, i := initClientAndIndex(t, "TestIndexOperations")
 
 	objectID := addOneObject(t, c, i)
 
-	_, err := i.GetObject(objectID, nil)
-	if err != nil {
-		t.Fatalf("TestClear: Cannot retrieve the object: %s, err")
-	}
-
-	res, err := i.Clear()
-	if err != nil {
-		t.Fatalf("TestClear: Cannot clear the index: %s, err")
-	}
-	waitTask(t, i, res.TaskID)
-
-	_, err = i.GetObject(objectID, nil)
-	if err == nil || err.Error() != "{\"message\":\"ObjectID does not exist\",\"status\":404}\n" {
-		t.Fatalf("TestClear: Object %s should be deleted after clear: %s", objectID, err)
-	}
-}
-
-func TestMoveCopy(t *testing.T) {
-	c, i := initClientAndIndex(t, "TestMoveCopy")
-	defer c.InitIndex("TestMoveCopy_copy").Delete()
-	defer c.InitIndex("TestMoveCopy_move").Delete()
-
-	addOneObject(t, c, i)
-
-	// Copy index TestMoveCopy into TestMoveCopy_copy
+	// Test Copy
 	{
-		res, err := i.Copy("TestMoveCopy_copy")
+		res, err := i.Copy("TestIndexOperations_copy")
 		if err != nil {
-			t.Fatalf("TestMoveCopy: Cannot copy the index: %s", err)
+			t.Fatalf("TestIndexOperations: Cannot copy the index: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
 	}
 
-	// Move index TestMoveCopy into TestMoveCopy_copy
+	// Test Move
+	i = c.InitIndex("TestIndexOperations_copy")
 	{
-		res, err := i.Move("TestMoveCopy_move")
+		res, err := i.Move("TestIndexOperations_move")
 		if err != nil {
-			t.Fatalf("TestMoveCopy: Cannot move the index: %s", err)
+			t.Fatalf("TestIndexOperations: Cannot move the index: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
+	}
+
+	// Test Clear
+	i = c.InitIndex("TestIndexOperations_move")
+	{
+		res, err := i.Clear()
+		if err != nil {
+			t.Fatalf("TestClear: Cannot clear the index: %s, err")
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		_, err = i.GetObject(objectID, nil)
+		if err == nil || err.Error() != "{\"message\":\"ObjectID does not exist\",\"status\":404}\n" {
+			t.Fatalf("TestIndexOperations: Object %s should be deleted after clear: %s", objectID, err)
+		}
+	}
+
+	// Test Delete
+	{
+		_, err := i.Delete()
+		if err != nil {
+			t.Fatalf("TestIndexOperations: Cannot delete the moved index: %s", err)
+		}
 	}
 }
 
