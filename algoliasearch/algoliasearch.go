@@ -65,7 +65,7 @@ type Client interface {
 	//   - `type` (type of logs to retrieve, can be "all", "query", "build" or
 	//     "error")
 	// More details here:
-	// https://www.algolia.com/doc/rest#logs-api
+	// https://www.algolia.com/doc/rest#get-last-logs
 	GetLogs(params Map) (logs []LogRes, err error)
 
 	// MultipleQueries performs all the queries specified in `queries` and
