@@ -182,3 +182,23 @@ func TestClientKeys(t *testing.T) {
 		waitClientKey(t, c, searchKey, func(k Key) bool { return k.Description == "Search-Only Key" })
 	}
 }
+
+func TestLogs(t *testing.T) {
+	c := initClient(t)
+
+	params := Map{
+		"length": 10,
+		"offset": 0,
+		"type":   "all",
+	}
+
+	logs, err := c.GetLogs(params)
+
+	if err != nil {
+		t.Fatalf("TestLogs: Cannot retrieve the logs: %s", err)
+	}
+
+	if len(logs) != 10 {
+		t.Fatalf("TestLogs: Should return 10 logs instead of %d", len(logs))
+	}
+}
