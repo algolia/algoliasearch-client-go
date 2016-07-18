@@ -6,6 +6,57 @@ import (
 	"time"
 )
 
+func TestClientOperations(t *testing.T) {
+	c, i := initClientAndIndex(t, "TestClientOperations")
+
+	objectID := addOneObject(t, c, i)
+
+	// Test CopyIndex
+	{
+		res, err := c.CopyIndex("TestClientOperations", "TestClientOperations_copy")
+		if err != nil {
+			t.Fatalf("TestClientOperations: Cannot copy the index: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+	}
+
+	// Test MoveIndex
+	i = c.InitIndex("TestClientOperations_copy")
+	{
+		res, err := c.MoveIndex("TestClientOperations_copy", "TestClientOperations_move")
+		if err != nil {
+			t.Fatalf("TestClientOperations: Cannot move the index: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+	}
+
+	// Test ClearIndex
+	i = c.InitIndex("TestClientOperations_move")
+	{
+		res, err := c.ClearIndex("TestClientOperations_move")
+		if err != nil {
+			t.Fatalf("TestClear: Cannot clear the index: %s, err")
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		_, err = i.GetObject(objectID, nil)
+		if err == nil || err.Error() != "{\"message\":\"ObjectID does not exist\",\"status\":404}\n" {
+			t.Fatalf("TestClientOperations: Object %s should be deleted after clear: %s", objectID, err)
+		}
+	}
+
+	// Test DeleteIndex
+	{
+		_, err := c.DeleteIndex("TestClientOperations_move")
+		if err != nil {
+			t.Fatalf("TestClientOperations: Cannot delete the moved index: %s", err)
+		}
+	}
+}
+
 func deleteClientKey(t *testing.T, c Client, key string) {
 	_, err := c.DeleteUserKey(key)
 	if err != nil {
