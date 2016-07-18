@@ -57,6 +57,7 @@ func TestClientOperations(t *testing.T) {
 	}
 }
 
+// deleteClientKey deletes the key for the given client.
 func deleteClientKey(t *testing.T, c Client, key string) {
 	_, err := c.DeleteUserKey(key)
 	if err != nil {
@@ -64,6 +65,8 @@ func deleteClientKey(t *testing.T, c Client, key string) {
 	}
 }
 
+// waitClientKey waits until the key has been properly added to the given client
+// and if the given function, if not `nil`, returns `true`.
 func waitClientKey(t *testing.T, c Client, keyID string, f func(k Key) bool) {
 	retries := 10
 
@@ -79,6 +82,9 @@ func waitClientKey(t *testing.T, c Client, keyID string, f func(k Key) bool) {
 	t.Fatalf("waitClientKey: Key not found or function call failed")
 }
 
+// waitClientKeysAsync waits until all the keys have been properly added to the
+// given client and if the given function, if not `nil`, returns `true` for
+// every key.
 func waitClientKeysAsync(t *testing.T, c Client, keyIDs []string, f func(k Key) bool) {
 	var wg sync.WaitGroup
 

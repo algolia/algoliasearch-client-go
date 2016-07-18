@@ -304,6 +304,7 @@ func TestSettings(t *testing.T) {
 	setAndGetAndCompareSettings(t, i, expectedSettings, mapSettings)
 }
 
+// objectsAreEqual returns `true` if the two Objects are deeply equal.
 func objectsAreEqual(o1, o2 Object) bool {
 	for k, v := range o1 {
 		if o2[k] != v {
@@ -314,6 +315,8 @@ func objectsAreEqual(o1, o2 Object) bool {
 	return true
 }
 
+// objectsAreEqual returns `true` if the two slices contains the exact same
+// Objects. Slices don't need to be sorted.
 func objectSlicesAreEqual(t *testing.T, s1, s2 []Object) {
 	if len(s1) != len(s2) {
 		t.Fatalf("objectSlicesAreEqual: Slices have not the same size: (%d,%d)", len(s1), len(s2))
@@ -341,6 +344,7 @@ func objectSlicesAreEqual(t *testing.T, s1, s2 []Object) {
 	}
 }
 
+// getAllRecords returns all the records from the given index.
 func getAllRecords(t *testing.T, i Index) (records []Map) {
 	// Initialize the iterator
 	it, err := i.BrowseAll(nil)
@@ -696,6 +700,7 @@ func TestIndexingAndSearch(t *testing.T) {
 	}
 }
 
+// synonymsAreEqual returns `true` if the two synonyms are the same.
 func synonymsAreEqual(s1, s2 Synonym) bool {
 	return s1.ObjectID == s2.ObjectID &&
 		s1.Type == s2.Type &&
@@ -707,6 +712,8 @@ func synonymsAreEqual(s1, s2 Synonym) bool {
 		stringSlicesAreEqual(s1.Replacements, s2.Replacements)
 }
 
+// synonymSlicesAreEqual returns `true` if the two slices contains the exact
+// same synonyms. Slices don't need to be sorted.
 func synonymSlicesAreEqual(synonyms1, synonyms2 []Synonym) bool {
 	count := 0
 
@@ -866,6 +873,8 @@ func TestSynonym(t *testing.T) {
 	}
 }
 
+// waitIndexKey waits until the key has been properly added to the given index
+// and if the given function, if not `nil`, returns `true`.
 func waitIndexKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
 	retries := 10
 
@@ -881,6 +890,9 @@ func waitIndexKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
 	t.Fatalf("waitIndexKey: Key not found or function call failed")
 }
 
+// waitIndexKeysAsync waits until all the keys have been properly added to the
+// given index and if the given function, if not `nil`, returns `true` for
+// every key.
 func waitIndexKeysAsync(t *testing.T, i Index, keyIDs []string, f func(k Key) bool) {
 	var wg sync.WaitGroup
 
@@ -896,6 +908,7 @@ func waitIndexKeysAsync(t *testing.T, i Index, keyIDs []string, f func(k Key) bo
 	wg.Wait()
 }
 
+// deleteIndexKey deletes the key for the given index.
 func deleteIndexKey(t *testing.T, i Index, key string) {
 	_, err := i.DeleteUserKey(key)
 	if err != nil {
