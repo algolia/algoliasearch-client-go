@@ -202,3 +202,108 @@ func TestLogs(t *testing.T) {
 		t.Fatalf("TestLogs: Should return 10 logs instead of %d", len(logs))
 	}
 }
+
+func TestMultipleQueries(t *testing.T) {
+	c := initClient(t)
+	defer c.DeleteIndex("TestMultipleQueries_categories")
+	defer c.DeleteIndex("TestMultipleQueries_products")
+
+	var tasks []int
+
+	// Set the `categories` index settings
+	i := c.InitIndex("TestMultipleQueries_categories")
+	{
+		res, err := i.SetSettings(Map{
+			"attributesToIndex": []string{"name"},
+		})
+
+		if err != nil {
+			t.Fatalf("TestMultipleQueries: Cannot set `categories` index settings: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add an object to the `categories` index
+	{
+		res, err := i.AddObject(Object{
+			"name": "computer 1",
+		})
+
+		if err != nil {
+			t.Fatalf("TestMultipleQueries: Cannot add object to `categories` index: %s", err)
+		}
+
+		tasks = append(tasks, res.TaskID)
+	}
+
+	waitTasksAsync(t, i, tasks)
+	tasks = []int{}
+
+	// Set the `products` index settings
+	i = c.InitIndex("TestMultipleQueries_products")
+	{
+		res, err := i.SetSettings(Map{
+			"attributesToIndex": []string{"name"},
+		})
+
+		if err != nil {
+			t.Fatalf("TestMultipleQueries: Cannot set `products` index settings: %s", err)
+		}
+
+		tasks = append(tasks, res.TaskID)
+	}
+
+	// Add an object to the `products` index
+	{
+		res, err := i.AddObjects([]Object{
+			{"name": "computer 1"},
+			{"name": "computer 2", "_tags": "promotion"},
+			{"name": "computer 3", "_tags": "promotion"},
+		})
+
+		if err != nil {
+			t.Fatalf("TestMultipleQueries: Cannot add objects to `products` index: %s", err)
+		}
+
+		tasks = append(tasks, res.TaskID)
+	}
+
+	waitTasksAsync(t, i, tasks)
+
+	queries := []IndexedQuery{
+		{
+			IndexName: "TestMultipleQueries_categories",
+			Params:    Map{"query": "computer", "hitsPerPage": 2},
+		},
+		{
+			IndexName: "TestMultipleQueries_products",
+			Params:    Map{"query": "computer", "hitsPerPage": 3, "filters": "_tags:promotion"},
+		},
+		{
+			IndexName: "TestMultipleQueries_products",
+			Params:    Map{"query": "computer", "hitsPerPage": 4},
+		},
+	}
+
+	res, err := c.MultipleQueries(queries, "")
+
+	if err != nil {
+		t.Fatalf("TestMultipleQueries: Cannot send multiple queries: %s", err)
+	}
+
+	if len(res) != 3 {
+		t.Fatalf("TestMultipleQueries: Should return 3 MultipleQueryRes instead of %d", len(res))
+	}
+
+	if len(res[0].Hits) != 1 {
+		t.Fatalf("TestMultipleQueries: First query should return 1 record instead of %d", len(res[0].Hits))
+	}
+
+	if len(res[1].Hits) != 2 {
+		t.Fatalf("TestMultipleQueries: Second query should return 2 records instead of %d", len(res[1].Hits))
+	}
+
+	if len(res[2].Hits) != 3 {
+		t.Fatalf("TestMultipleQueries: Third query should return 3 records instead of %d", len(res[2].Hits))
+	}
+}
