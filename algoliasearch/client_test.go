@@ -307,3 +307,30 @@ func TestMultipleQueries(t *testing.T) {
 		t.Fatalf("TestMultipleQueries: Third query should return 3 records instead of %d", len(res[2].Hits))
 	}
 }
+
+func TestBatch(t *testing.T) {
+	c := initClient(t)
+	defer c.DeleteIndex("TestBatch_dev")
+	defer c.DeleteIndex("TestBatch_prod")
+
+	person := Map{
+		"firstname": "Jimmie",
+		"lastname":  "Barninger",
+	}
+
+	operation := BatchOperation{
+		Action: "addObject",
+		Body:   person,
+	}
+
+	operations := []BatchOperationIndexed{
+		{IndexName: "TestBatch_dev", BatchOperation: operation},
+		{IndexName: "TestBatch_prod", BatchOperation: operation},
+	}
+
+	_, err := c.Batch(operations)
+
+	if err != nil {
+		t.Fatalf("TestBatch: Cannot batch operations: %s", err)
+	}
+}
