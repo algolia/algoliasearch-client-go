@@ -1,6 +1,7 @@
 package algoliasearch
 
 import (
+	"sync"
 	"syscall"
 	"testing"
 )
@@ -12,6 +13,38 @@ func waitTask(t *testing.T, i Index, taskID int) {
 	if err != nil {
 		t.Fatalf("waitTask: Task %d not published: %s", taskID, err)
 	}
+}
+
+// waitTasksAsync waits for the given `tasks` asynchronously. `waitTask` is
+// caled for every taskID but everything is done concurrently.
+func waitTasksAsync(t *testing.T, i Index, tasks []int) {
+	var wg sync.WaitGroup
+
+	for _, task := range tasks {
+		wg.Add(1)
+
+		go func(taskID int) {
+			defer wg.Done()
+			waitTask(t, i, taskID)
+		}(task)
+	}
+
+	wg.Wait()
+}
+
+// addOneObject is used to add a single dummy object to the index. This way, we
+// make sure the index has been created (and not only initialized).
+func addOneObject(t *testing.T, c Client, i Index) string {
+	object := Object{"attribute": "value"}
+
+	res, err := i.AddObject(object)
+	if err != nil {
+		t.Fatalf("addOneObject: Cannot add an object: %s", err)
+	}
+
+	waitTask(t, i, res.TaskID)
+
+	return res.ObjectID
 }
 
 // initClient instantiates a new client according to the
