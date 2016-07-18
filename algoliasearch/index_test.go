@@ -910,7 +910,7 @@ func TestSynonym(t *testing.T) {
 	}
 }
 
-func waitKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
+func waitIndexKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
 	retries := 10
 
 	for r := 0; r < retries; r++ {
@@ -922,10 +922,10 @@ func waitKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
 		time.Sleep(1 * time.Second)
 	}
 
-	t.Fatalf("waitKey: Key not found or function call failed")
+	t.Fatalf("waitIndexKey: Key not found or function call failed")
 }
 
-func waitKeysAsync(t *testing.T, i Index, keyIDs []string, f func(k Key) bool) {
+func waitIndexKeysAsync(t *testing.T, i Index, keyIDs []string, f func(k Key) bool) {
 	var wg sync.WaitGroup
 
 	for _, keyID := range keyIDs {
@@ -933,22 +933,22 @@ func waitKeysAsync(t *testing.T, i Index, keyIDs []string, f func(k Key) bool) {
 
 		go func(keyID string) {
 			defer wg.Done()
-			waitKey(t, i, keyID, f)
+			waitIndexKey(t, i, keyID, f)
 		}(keyID)
 	}
 
 	wg.Wait()
 }
 
-func deleteKey(t *testing.T, i Index, key string) {
+func deleteIndexKey(t *testing.T, i Index, key string) {
 	_, err := i.DeleteUserKey(key)
 	if err != nil {
-		t.Fatalf("deleteKey: Cannot delete key: %s", err)
+		t.Fatalf("deleteIndexKey: Cannot delete key: %s", err)
 	}
 }
 
-func TestKeys(t *testing.T) {
-	c, i := initClientAndIndex(t, "TestKeys")
+func TestIndexKeys(t *testing.T) {
+	c, i := initClientAndIndex(t, "TestIndexKeys")
 
 	addOneObject(t, c, i)
 
@@ -957,11 +957,11 @@ func TestKeys(t *testing.T) {
 		keys, err := i.ListKeys()
 
 		if err != nil {
-			t.Fatalf("TestKeys: Cannot list the keys: %s", err)
+			t.Fatalf("TestIndexKeys: Cannot list the keys: %s", err)
 		}
 
 		if len(keys) != 0 {
-			t.Fatalf("TestKeys: Should return 0 keys instead of %d", len(keys))
+			t.Fatalf("TestIndexKeys: Should return 0 keys instead of %d", len(keys))
 		}
 	}
 
@@ -980,12 +980,12 @@ func TestKeys(t *testing.T) {
 
 		res, err := i.AddUserKey([]string{"search"}, params)
 		if err != nil {
-			t.Fatalf("TestKeys: Cannot create the search key: %s", err)
+			t.Fatalf("TestIndexKeys: Cannot create the search key: %s", err)
 		}
 
 		searchKey = res.Key
 	}
-	defer deleteKey(t, i, searchKey)
+	defer deleteIndexKey(t, i, searchKey)
 
 	// Add an all-permissions key
 	{
@@ -1003,25 +1003,25 @@ func TestKeys(t *testing.T) {
 
 		res, err := i.AddUserKey(acl, nil)
 		if err != nil {
-			t.Fatalf("TestKeys: Cannot create the all-rights key: %s", err)
+			t.Fatalf("TestIndexKeys: Cannot create the all-rights key: %s", err)
 		}
 
 		allRightsKey = res.Key
 	}
-	defer deleteKey(t, i, allRightsKey)
+	defer deleteIndexKey(t, i, allRightsKey)
 
-	waitKeysAsync(t, i, []string{searchKey, allRightsKey}, nil)
+	waitIndexKeysAsync(t, i, []string{searchKey, allRightsKey}, nil)
 
 	// Check that the 2 previous keys were added
 	{
 		keys, err := i.ListKeys()
 
 		if err != nil {
-			t.Fatalf("TestKeys: Cannot list the added keys: %s", err)
+			t.Fatalf("TestIndexKeys: Cannot list the added keys: %s", err)
 		}
 
 		if len(keys) != 2 {
-			t.Fatalf("TestKeys: Should return 2 keys instead of %d", len(keys))
+			t.Fatalf("TestIndexKeys: Should return 2 keys instead of %d", len(keys))
 		}
 	}
 
@@ -1031,9 +1031,9 @@ func TestKeys(t *testing.T) {
 
 		_, err := i.UpdateUserKey(searchKey, params)
 		if err != nil {
-			t.Fatalf("TestKeys: Cannot update search only key's description: %s", err)
+			t.Fatalf("TestIndexKeys: Cannot update search only key's description: %s", err)
 		}
 
-		waitKey(t, i, searchKey, func(k Key) bool { return k.Description == "Search-Only Key" })
+		waitIndexKey(t, i, searchKey, func(k Key) bool { return k.Description == "Search-Only Key" })
 	}
 }
