@@ -32,7 +32,7 @@ type Synonym struct {
 	// Synonyms []string `json:"synonyms"`
 }
 
-func NewAltCorrectionSynomym(objectID string, corrections []string, word string, t string) Synonym {
+func NewAltCorrectionSynonym(objectID string, corrections []string, word string, t string) Synonym {
 	return Synonym{
 		ObjectID:    objectID,
 		Type:        t,

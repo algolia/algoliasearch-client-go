@@ -764,8 +764,8 @@ func TestSynonym(t *testing.T) {
 	}
 
 	synonyms := []Synonym{
-		NewAltCorrectionSynomym("rob", []string{"robpike"}, "rob", AltCorrection1),
-		NewAltCorrectionSynomym("pike", []string{"robpike"}, "pike", AltCorrection2),
+		NewAltCorrectionSynonym("rob", []string{"robpike"}, "rob", AltCorrection1),
+		NewAltCorrectionSynonym("pike", []string{"robpike"}, "pike", AltCorrection2),
 		NewOneWaySynonym("julien", "speedblue", []string{"julien lemoine"}),
 		NewPlaceholderSynonym("google_placeholder", "<GOOG>", []string{"Google", "GOOG"}),
 	}
