@@ -40,7 +40,8 @@ Our Go client lets you easily use the [Algolia Search API](https://www.algolia.c
 
 Getting started
 
-1. [Install and init](#install-and-init---initindex)
+1. [Install](#install)
+1. [Init index](#init-index---initindex)
 
 Search
 
@@ -50,7 +51,7 @@ Search
 Indexing
 
 1. [Add objects](#add-objects---addobjects)
-1. [Update objects](#update-objects---updateobjects)
+1. [Update objects](#update-objects---saveobjects)
 1. [Partial update](#partial-update---partialupdateobjects)
 1. [Delete objects](#delete-objects---deleteobjects)
 
@@ -129,20 +130,27 @@ Check our [online guides](https://www.algolia.com/doc):
 
 ## Getting Started
 
-### Install and init - `InitIndex`
+### Install
 
 
 
 
- 1. Download AlgoliaSearch using <code>go get github.com/algolia/algoliasearch-client-go/algoliasearch</code>.
- 2. Initialize the client with your Application ID and API Key. You can them on [your Algolia account](https://www.algolia.com/api-keys).
+Download AlgoliaSearch using
 
- ```go
+```bash
+go get github.com/algolia/algoliasearch-client-go/algoliasearch
+```
+
+
+### Init index - `InitIndex`
+
+To initialize the client you need your ApplicationID and API-Key. You can find all of them on [your Algolia account](http://www.algolia.com/users/edit)
+
+```go
  import "github.com/algolia/algoliasearch-client-go/algoliasearch"
 
  client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
 ```
-
 
 
 
@@ -433,7 +441,7 @@ res, err := index.AddObject(object)
 ```
 
 
-### Update objects - `UpdateObjects`
+### Update objects - `SaveObjects`
 
 You have three options when updating an existing object:
 
@@ -1871,7 +1879,7 @@ synonyms, err := index.SearchSynonyms("street", []string{"synonym", "oneWaySynon
 You may want to perform multiple operations with one API call to reduce latency.
 We expose four methods to perform batch operations:
  * Add objects - `AddObjects`: Add an array of objects using automatic `objectID` assignment.
- * Update objects - `UpdateObjects`: Add or update an array of objects that contains an `objectID` attribute.
+ * Update objects - `SaveObjects`: Add or update an array of objects that contains an `objectID` attribute.
  * Delete objects - `DeleteObjects`: Delete an array of objectIDs.
  * Partial update - `PartialUpdateObjects`: Partially update an array of objects that contain an `objectID` attribute (only specified attributes will be updated).
 
