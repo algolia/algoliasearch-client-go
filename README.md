@@ -1681,7 +1681,7 @@ res, err := index.Move("MyIndex")
 ```
 
 
-### Move index - `MoveIndex` 
+### Move index - `MoveIndex`
 
 The move command is particularly useful if you want to update a big index atomically from one version to another. For example, if you recreate your index `MyIndex` each night from a database by batch, you only need to:
  1. Import your database into a new index using [batches](#batch-writes). Let's call this new index `MyNewIndex`.
