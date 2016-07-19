@@ -50,7 +50,7 @@ Search
 Indexing
 
 1. [Add objects](#add-objects---addobjects)
-1. [Update objects](#update-objects---saveobjects)
+1. [Update objects](#update-objects---updateobjects)
 1. [Partial update](#partial-update---partialupdateobjects)
 1. [Delete objects](#delete-objects---deleteobjects)
 
@@ -74,10 +74,10 @@ Api Keys
 
 Synonyms
 
-1. [Save synonym](#save-synonym---savesynonym)
+1. [Save synonym](#save-synonym---addsynonym)
 1. [Batch synonyms](#batch-synonyms---batchsynonyms)
 1. [Editing Synonyms](#editing-synonyms)
-1. [Delete Synonyms](#delete-synonyms---delete_synonyms)
+1. [Delete Synonyms](#delete-synonyms---deletesynonym)
 1. [Clear all synonyms](#clear-all-synonyms---clearsynonyms)
 1. [Get synonym](#get-synonym---getsynonym)
 1. [Search synonyms](#search-synonyms---searchsynonyms)
@@ -90,11 +90,11 @@ Advanced
 1. [Multiple queries](#multiple-queries---multiplequeries)
 1. [Delete by query](#delete-by-query---deletebyquery)
 1. [Backup / Export an index](#backup--export-an-index---browse)
-1. [List api keys](#list-api-keys---listapikeys)
+1. [List api keys](#list-api-keys---listkeys)
 1. [Add user key](#add-user-key---adduserkey)
 1. [Update user key](#update-user-key---updateuserkey)
 1. [Delete user key](#delete-user-key---deleteuserkey)
-1. [Get key permissions](#get-key-permissions---getuserkeyacl)
+1. [Get key permissions](#get-key-permissions---getuserkey)
 1. [Get Logs](#get-logs---getlogs)
 
 
@@ -433,7 +433,7 @@ res, err := index.AddObject(object)
 ```
 
 
-### Update objects- `SaveObjects`
+### Update objects- `UpdateObjects`
 
 You have three options when updating an existing object:
 
@@ -720,11 +720,10 @@ They are three scopes:
 - [query](query) `search`
 
 **Attributes**
-- [attributesToIndex](attributestoindex) `settings`
 - [attributesForFaceting](attributesforfaceting) `settings`
+- [attributesToIndex](attributestoindex) `settings`
 - [attributesToRetrieve](attributestoretrieve) `settings`, `search`
 - [unretrievableAttributes](unretrievableattributes) `settings`
-- [attributesToRetrieve](attributestoretrieve) `settings`, `search`
 
 
 **Ranking**
@@ -1629,6 +1628,7 @@ For example:
 
 `"altCorrections": [ { "word" : "foot", "correction": "feet", "nbTypos": 1 }, { "word": "feet", "correction": "foot", "nbTypos": 1 } ]`.
 
+
 ## Manage Indices
 
 ### Create an index
@@ -1767,7 +1767,7 @@ index.search('another query', function(err, content) {
 
 ## Synonyms
 
-### Save synonym- `saveSynonym`
+### Save synonym- `AddSynonym`
 
 This method saves a single synonym record into the index.
 
@@ -1782,7 +1782,7 @@ synonym := algoliasearch.NewSynonym(uniqueID, []string{
 res, err := index.AddSynonym(uniqueID, synonym, true)
 ```
 
-### Batch synonyms- `batchSynonyms`
+### Batch synonyms- `BatchSynonyms`
 
 Use the batch method to create a large number of synonyms at once,
 forward them to slave indices if desired,
@@ -1812,7 +1812,7 @@ false is the default value).
 Otherwise, the entire synonym list will be replaced only partially with the records
 in the batch update.
 
-### Delete Synonyms- `delete_synonyms`
+### Delete Synonyms- `DeleteSynonym`
 
 Use the normal index delete method to delete synonyms,
 specifying the objectID of the synonym record you want to delete.
@@ -1823,7 +1823,7 @@ Forward the deletion to slave indices by setting the forwardToSlaves parameter t
 res, err := index.DeleteSynonym("a-unique-identifier", true)
 ```
 
-### Clear all synonyms- `clearSynonyms`
+### Clear all synonyms- `ClearSynonyms`
 
 This is a convenience method to delete all synonyms at once.
 It should not be used on a production index to then push a new list of synonyms:
@@ -1838,7 +1838,7 @@ use the batch method with the replaceExistingSynonyms parameter set to true.
 res, err := index.ClearSynonyms(true)
 ```
 
-### Get synonym- `getSynonym`
+### Get synonym- `GetSynonym`
 
 Search for synonym records by their objectID or by the text they contain.
 Both methods are covered here.
@@ -1847,7 +1847,7 @@ Both methods are covered here.
 synonym, err := index.GetSynonym("a-unique-identifier")
 ```
 
-### Search synonyms- `searchSynonyms`
+### Search synonyms- `SearchSynonyms`
 
 Search for synonym records similar to how you’d search normally.
 
@@ -1871,7 +1871,7 @@ synonyms, err := index.SearchSynonyms("street", []string{"synonym", "oneWaySynon
 You may want to perform multiple operations with one API call to reduce latency.
 We expose four methods to perform batch operations:
  * Add objects- `AddObjects`: Add an array of objects using automatic `objectID` assignment.
- * Update objects- `SaveObjects`: Add or update an array of objects that contains an `objectID` attribute.
+ * Update objects- `UpdateObjects`: Add or update an array of objects that contains an `objectID` attribute.
  * Delete objects- `DeleteObjects`: Delete an array of objectIDs.
  * Partial update- `PartialUpdateObjects`: Partially update an array of objects that contain an `objectID` attribute (only specified attributes will be updated).
 
@@ -1991,7 +1991,7 @@ fmt.Println(res.Cursor)
 
 
 
-### List api keys- `ListApiKeys`
+### List api keys- `ListKeys`
 
 To list existing keys, you can use:
 
@@ -2203,7 +2203,7 @@ res, err := client.DeleteKey("f420238212c54dcfad07ea0aa6d5c45f")
 res, err := index.DeleteKey("71671c38001bf3ac857bc82052485107")
 ```
 
-### Get key permissions- `getUserKeyACL`
+### Get key permissions- `GetUserKey`
 
 
 
@@ -2216,7 +2216,7 @@ key, err := client.GetKey("f420238212c54dcfad07ea0aa6d5c45f")
 key, err = index.GetKey("71671c38001bf3ac857bc82052485107")
 ```
 
-### Multiple queries- `multipleQueries`
+### Multiple queries- `MultipleQueries`
 
 You can send multiple queries with a single API call using a batch of queries:
 
@@ -2250,7 +2250,7 @@ You can specify a `strategy` parameter to optimize your multiple queries:
 
 
 
-### Get Logs- `getLogs`
+### Get Logs- `GetLogs`
 
 You can retrieve the latest logs via this API. Each log entry contains:
  * Timestamp in ISO-8601 format
