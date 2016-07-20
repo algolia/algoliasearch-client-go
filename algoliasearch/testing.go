@@ -1,8 +1,8 @@
 package algoliasearch
 
 import (
+	"os"
 	"sync"
-	"syscall"
 	"testing"
 )
 
@@ -50,10 +50,10 @@ func addOneObject(t *testing.T, c Client, i Index) string {
 // initClient instantiates a new client according to the
 // `ALGOLIA_APPLICATION_ID` and `ALGOLIA_API_KEY` environment variables.
 func initClient(t *testing.T) Client {
-	appID, haveAppID := syscall.Getenv("ALGOLIA_APPLICATION_ID")
-	apiKey, haveAPIKey := syscall.Getenv("ALGOLIA_API_KEY")
+	appID := os.Getenv("ALGOLIA_APPLICATION_ID")
+	apiKey := os.Getenv("ALGOLIA_API_KEY")
 
-	if !haveAPIKey || !haveAppID {
+	if appID == "" || apiKey == "" {
 		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID and/or ALGOLIA_API_KEY")
 	}
 
