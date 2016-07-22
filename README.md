@@ -165,7 +165,7 @@ Without any prior configuration, you can start indexing [500 contacts](https://g
 index := client.InitIndex("contacts")
 content, _ := ioutil.ReadFile("contacts.json")
 
-var objects []algoliasearchearch.Object
+var objects []algoliasearch.Object
 if err := json.Unmarshal(content, &objects); err != nil {
   return
 }
