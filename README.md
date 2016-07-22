@@ -190,7 +190,7 @@ res, err = index.Search("jimmie paint", nil)
 
 Settings can be customized to tune the search behavior. For example, you can add a custom sort by number of followers to the already great built-in relevance:
 ```go
-settings := algoliasearch.Settings{
+settings := algoliasearch.Map{
   "customRanking": []string{"desc(followers)"},
 }
 
@@ -199,7 +199,7 @@ res, err := index.SetSettings(settings)
 
 You can also configure the list of attributes you want to index by order of importance (first = most important):
 ```go
-settings := algoliasearch.Settings{
+settings := algoliasearch.Map{
   "attributesToIndex": []string{
 	"firstname",
 	"lastname",
