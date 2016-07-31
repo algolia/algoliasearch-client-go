@@ -4,12 +4,13 @@ import (
 	"os"
 	"sync"
 	"testing"
+	"time"
 )
 
 // waitTask waits the task to be finished. If something went wrong, the
 // `testing.T` variable is used to terminate the test case (call to `Fatal`).
 func waitTask(t *testing.T, i Index, taskID int) {
-	err := i.WaitTask(taskID)
+	err := i.WaitTask(taskID, 20*time.Minute)
 	if err != nil {
 		t.Fatalf("waitTask: Task %d not published: %s", taskID, err)
 	}
