@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"net/http"
+	"time"
 )
 
 // Client is a representation of an Algolia application. Once initialized it
@@ -111,8 +112,8 @@ type Index interface {
 	// WaitTask stops the current execution until the task identified by its
 	// `taskID` is finished. The waiting time between each check is usually
 	// implemented by starting at 1s and increases by a factor of 2 at each
-	// retry (but is bounded at around 20min).
-	WaitTask(taskID int) error
+	// retry up to the max sleep duration passed in
+	WaitTask(taskID int, maxSleep time.Duration) error
 
 	// ListKeys lists all the keys that can access the index.
 	ListKeys() (keys []Key, err error)

@@ -103,7 +103,7 @@ func (i *index) SetSettings(settings Map) (res UpdateTaskRes, err error) {
 	return
 }
 
-func (i *index) WaitTask(taskID int) error {
+func (i *index) WaitTask(taskID int, maxSleep time.Duration) error {
 	var res TaskStatusRes
 	var err error
 
@@ -124,8 +124,9 @@ func (i *index) WaitTask(taskID int) error {
 
 		// Increase the upper boundary used to generate the sleep
 		// duration
-		if maxDuration < 10*time.Minute {
-			maxDuration *= 2
+		maxDuration *= 2
+		if maxDuration < maxSleep {
+			maxDuration = maxSleep
 		}
 	}
 
@@ -433,7 +434,7 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 		}
 
 		// Wait until DeleteObjects completion
-		if err := i.WaitTask(batchRes.TaskID); err != nil {
+		if err := i.WaitTask(batchRes.TaskID, 20*time.Minute); err != nil {
 			return err
 		}
 	}
