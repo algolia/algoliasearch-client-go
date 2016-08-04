@@ -211,7 +211,7 @@ func (t *Transport) addHeaders(req *http.Request) *http.Request {
 	req.Header.Add("X-Algolia-API-Key", t.apiKey)
 	req.Header.Add("X-Algolia-Application-Id", t.appID)
 	req.Header.Add("Connection", "keep-alive")
-	req.Header.Add("User-Agent", "Algolia for go "+version)
+	req.Header.Add("User-Agent", "Algolia for Go ("+version+")")
 
 	for k, v := range t.headers {
 		req.Header.Add(k, v)
