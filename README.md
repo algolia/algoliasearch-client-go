@@ -52,7 +52,7 @@ Indexing
 
 1. [Add objects](#add-objects---addobjects)
 1. [Update objects](#update-objects---saveobjects)
-1. [Partial update](#partial-update---partialupdateobjects)
+1. [Partial update objects](#partial-update-objects---partialupdateobjects)
 1. [Delete objects](#delete-objects---deleteobjects)
 
 Settings
@@ -593,23 +593,35 @@ objects, err = index.GetObjects([]string{"myID1", "myID2"})
 
 Each entry in an index has a unique identifier called `objectID`. There are two ways to add an entry to the index:
 
- 1. Using automatic `objectID` assignment. You will be able to access it in the answer.
- 2. Supplying your own `objectID`.
+ 1. Supplying your own `objectID`.
+ 2. Using automatic `objectID` assignment. You will be able to access it in the answer.
 
 You don't need to explicitly create an index, it will be automatically created the first time you add an object.
 Objects are schema less so you don't need any configuration to start indexing. If you wish to configure things, the settings section provides details about advanced settings.
 
-Example with automatic `objectID` assignment:
+Example with automatic `objectID` assignments:
 
 ```go
-object := algoliasearch.Object{
-  "firstname": "Jimmie",
-  "lastname":  "Barninger",
+objects := []algoliasearch.Object{
+  {"firstname": "Jimmie", "lastname": "Barninger"},
+  {"firstname": "Ray", "lastname": "Charles"},
 }
-res, err := index.AddObject(object)
+
+res, err := index.AddObjects(objects)
 ```
 
-Example with manual `objectID` assignment:
+Example with manual `objectID` assignments:
+
+```go
+objects := []algoliasearch.Object{
+  {"objectID": "1", "firstname": "Jimmie", "lastname": "Barninger"},
+  {"objectID": "2", "firstname": "Ray", "lastname": "Charles"},
+}
+
+res, err := index.AddObjects(objects)
+```
+
+To add a single object, use the `[Add object](#add-object---addobject)` method:
 
 ```go
 object := Object{
@@ -620,7 +632,6 @@ object := Object{
 res, err := index.AddObject(object)
 ```
 
-
 ### Update objects - `SaveObjects`
 
 You have three options when updating an existing object:
@@ -629,7 +640,18 @@ You have three options when updating an existing object:
  2. Replace only some attributes.
  3. Apply an operation to some attributes.
 
-Example on how to replace all attributes of an existing object:
+Example on how to replace all attributes existing objects:
+
+```go
+objects := []algoliasearch.Object{
+  {"objectID": "myID1", "firstname": "Jimmie", "lastname": "Barninger"},
+  {"objectID": "myID2", "firstname": "Ray", "lastname": "Charles"},
+}
+
+res, err := index.UpdateObjects(objects)
+```
+
+To update a single object, you can use the `[Update object](#update-object---saveobject) method:
 
 ```go
 object := algoliasearch.Object{
@@ -641,7 +663,8 @@ object := algoliasearch.Object{
 res, err := index.UpdateObject(object)
 ```
 
-### Partial update - `PartialUpdateObjects`
+
+### Partial update objects - `PartialUpdateObjects`
 
 You have many ways to update an object's attributes:
 
@@ -738,10 +761,29 @@ res, err := index.PartialUpdateObject(object)
 Note: Here we are decrementing the value by `42`. To decrement just by one, put
 `value:1`.
 
+To partial update multiple objects using one API call, you can use the `[Partial update objects](#partial-update-objects---partialupdateobjects)` method:
+
+```go
+objects := []algoliasearch.Object{
+  {"objectID": "myID1", "lastname": "Barninger"},
+  {"objectID": "myID2", "firstname": "Ray"},
+}
+
+res, err := index.PartialUpdateObjects(objects)
+```
+
 
 ### Delete objects - `DeleteObjects`
 
-You can delete an object using its `objectID`:
+You can delete objects using their `objectID`:
+
+```go
+objectIDs := []string{"myID1", "myID2"}
+
+res, err := index.DeleteObjects(objectIDs)
+```
+
+To delete a single object, you can use the `[Delete object](#delete-object---deleteobject)` method:
 
 ```go
 res, err := index.DeleteObject("myID")
@@ -2342,53 +2384,6 @@ synonyms, err := index.SearchSynonyms("street", []string{"synonym", "oneWaySynon
 ### Custom batch - `Batch`
 
 You may want to perform multiple operations with one API call to reduce latency.
-We expose four methods to perform batch operations:
-
-* Add objects - `AddObjects`: Add an array of objects using automatic `objectID` assignment.
-* Update objects - `SaveObjects`: Add or update an array of objects that contains an `objectID` attribute.
-* Delete objects - `DeleteObjects`: Delete an array of objectIDs.
-* Partial update - `PartialUpdateObjects`: Partially update an array of objects that contain an `objectID` attribute (only specified attributes will be updated).
-
-Example using automatic `objectID` assignment:
-
-```go
-objects := []algoliasearch.Object{
-  {"firstname": "Jimmie", "lastname": "Barninger"},
-  {"firstname": "Ray", "lastname": "Charles"},
-}
-
-res, err := index.AddObjects(objects)
-```
-
-Example with user defined `objectID` (add or update):
-
-```go
-objects := []algoliasearch.Object{
-  {"objectID": "myID1", "firstname": "Jimmie", "lastname": "Barninger"},
-  {"objectID": "myID2", "firstname": "Ray", "lastname": "Charles"},
-}
-
-res, err := index.UpdateObjects(objects)
-```
-
-Example that deletes a set of records:
-
-```go
-objectIDs := []string{"myID1", "myID2"}
-
-res, err := index.DeleteObjects(objectIDs)
-```
-
-Example that updates only the `firstname` attribute:
-
-```go
-objects := []algoliasearch.Object{
-  {"objectID": "myID1", "lastname": "Barninger"},
-  {"objectID": "myID2", "firstname": "Ray"},
-}
-
-res, err := index.PartialUpdateObjects(objects)
-```
 
 
 
