@@ -196,15 +196,26 @@ func (i *index) UpdateObject(object Object) (res UpdateObjectRes, err error) {
 	return
 }
 
-func (i *index) PartialUpdateObject(object Object) (res UpdateTaskRes, err error) {
+func (i *index) partialUpdateObject(object Object, createIfNotExists bool) (res UpdateTaskRes, err error) {
 	objectID, err := object.ObjectID()
 	if err != nil {
 		return
 	}
 
 	path := i.route + "/" + url.QueryEscape(objectID) + "/partial"
+	if !createIfNotExists {
+		path += "?createIfNotExists=false"
+	}
 	err = i.client.request(&res, "POST", path, object, write)
 	return
+}
+
+func (i *index) PartialUpdateObject(object Object) (res UpdateTaskRes, err error) {
+	return i.partialUpdateObject(object, true)
+}
+
+func (i *index) PartialUpdateObjectNoCreate(object Object) (res UpdateTaskRes, err error) {
+	return i.partialUpdateObject(object, false)
 }
 
 func (i *index) AddObjects(objects []Object) (res BatchRes, err error) {
@@ -227,14 +238,22 @@ func (i *index) UpdateObjects(objects []Object) (res BatchRes, err error) {
 	return
 }
 
-func (i *index) PartialUpdateObjects(objects []Object) (res BatchRes, err error) {
+func (i *index) partialUpdateObjects(objects []Object, action string) (res BatchRes, err error) {
 	var operations []BatchOperation
 
-	if operations, err = newBatchOperations(objects, "partialUpdateObject"); err == nil {
+	if operations, err = newBatchOperations(objects, action); err == nil {
 		res, err = i.Batch(operations)
 	}
 
 	return
+}
+
+func (i *index) PartialUpdateObjects(objects []Object) (res BatchRes, err error) {
+	return i.partialUpdateObjects(objects, "partialUpdateObject")
+}
+
+func (i *index) PartialUpdateObjectsNoCreate(objects []Object) (res BatchRes, err error) {
+	return i.partialUpdateObjects(objects, "partialUpdateObjectNoCreate")
 }
 
 func (i *index) DeleteObjects(objectIDs []string) (res BatchRes, err error) {

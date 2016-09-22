@@ -146,6 +146,12 @@ type Index interface {
 	// be updated, the original record won't be replaced.
 	PartialUpdateObject(object Object) (res UpdateTaskRes, err error)
 
+	// PartialUpdateObjectNoCreate modifies the record in the index matching the one
+	// given in parameter, according to its `objectID` attribute with a partial
+	// update. However, if the object does not exist in the Algolia index, the
+	// object is not created.
+	PartialUpdateObjectNoCreate(object Object) (res UpdateTaskRes, err error)
+
 	// AddObjects adds several objects to the index.
 	AddObjects(objects []Object) (BatchRes, error)
 
@@ -156,6 +162,11 @@ type Index interface {
 	// PartialUpdateObjects partially updates several objects at the same time,
 	// according to their respective `objectID` attribute.
 	PartialUpdateObjects(objects []Object) (BatchRes, error)
+
+	// PartialUpdateObjectsNoCreate partially updates several objects at the
+	// same time, according to their respective `objectID` attribute, but does
+	// not create them if they do not exist.
+	PartialUpdateObjectsNoCreate(objects []Object) (BatchRes, error)
 
 	// DeleteObjects removes several objects at the same time, according to
 	// their respective `objectID` attribute.
