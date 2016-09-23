@@ -2109,7 +2109,7 @@ For example, if you want to fully update your index `MyIndex` every night, we re
   using [Set settings](#set-settings---setsettings) and [Batch synonyms](#batch-synonyms---batchsynonyms)
   (make sure to remove the [slaves](#slaves) parameter from the settings if it exists).
  1. Import your records into a new index using [Add objects](#add-objects---addobjects).
- 1. Automatically replace the index `MyIndex` with the content and settings of the index `MyTmpIndex`
+ 1. Atomically replace the index `MyIndex` with the content and settings of the index `MyTmpIndex`
  using the [Move index](#move-index---moveindex) method.
  This will automatically override the old index without any downtime on the search.
  1. You'll end up with only one index called `MyIndex`, that contains the records and settings pushed to `MyTmpIndex`
@@ -2304,7 +2304,7 @@ forward them to slave indices if desired,
 and optionally replace all existing synonyms
 on the index with the content of the batch using the replaceExistingSynonyms parameter.
 
-You should always use replaceExistingSynonyms to automatically replace all synonyms
+You should always use replaceExistingSynonyms to atomically replace all synonyms
 on a production index. This is the only way to ensure the index always
 has a full list of synonyms to use during the indexing of the new list.
 
@@ -2345,7 +2345,7 @@ It should not be used on a production index to then push a new list of synonyms:
 there would be a short period of time during which the index would have no synonyms
 at all.
 
-To automatically replace all synonyms of an index,
+To atomically replace all synonyms of an index,
 use the batch method with the replaceExistingSynonyms parameter set to true.
 
 ```go
@@ -2376,7 +2376,6 @@ hitsPerPage: the number of synonyms to return for each call. The default value i
 // Searching for "street" in synonyms and one-way synonyms; fetch the second page with 10 hits per page
 synonyms, err := index.SearchSynonyms("street", []string{"synonym", "oneWaySynonym"}, 1, 10)
 ```
-
 
 
 
