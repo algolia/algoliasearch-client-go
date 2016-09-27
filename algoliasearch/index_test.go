@@ -100,7 +100,7 @@ func settingsAreEqualByComparable(s1, s2 Settings) bool {
 // the given Settings are the same. It returns `false` otherwise`.
 func settingsAreEqualByStringSlices(s1, s2 Settings) bool {
 	return stringSlicesAreEqual(s1.AttributesForFaceting, s2.AttributesForFaceting) &&
-		stringSlicesAreEqual(s1.AttributesToIndex, s2.AttributesToIndex) &&
+		stringSlicesAreEqual(s1.SearchableAttributes, s2.SearchableAttributes) &&
 		stringSlicesAreEqual(s1.CustomRanking, s2.CustomRanking) &&
 		stringSlicesAreEqual(s1.NumericAttributesToIndex, s2.NumericAttributesToIndex) &&
 		stringSlicesAreEqual(s1.Ranking, s2.Ranking) &&
@@ -230,7 +230,7 @@ func TestSettings(t *testing.T) {
 		AttributeForDistinct:             "attribute",
 		AttributesForFaceting:            []string{"attribute"},
 		AttributesToHighlight:            []string{"attribute"},
-		AttributesToIndex:                []string{"attribute"},
+		SearchableAttributes:             []string{"attribute"},
 		AttributesToRetrieve:             []string{"attribute"},
 		AttributesToSnippet:              []string{"attribute:20"},
 		CustomRanking:                    []string{"asc(attribute)"},
@@ -265,7 +265,7 @@ func TestSettings(t *testing.T) {
 		"attributeForDistinct":             "attribute",
 		"attributesForFaceting":            []string{"attribute"},
 		"attributesToHighlight":            []string{"attribute"},
-		"attributesToIndex":                []string{"attribute"},
+		"searchableAttributes":             []string{"attribute"},
 		"attributesToRetrieve":             []string{"attribute"},
 		"attributesToSnippet":              []string{"attribute:20"},
 		"customRanking":                    []string{"asc(attribute)"},
@@ -375,7 +375,7 @@ func TestIndexingAndSearch(t *testing.T) {
 	// Set the settings
 	{
 		res, err := i.SetSettings(Map{
-			"attributesToIndex":     []string{"company", "name"},
+			"searchableAttributes":  []string{"company", "name"},
 			"attributesForFaceting": []string{"company"},
 			"customRanking":         []string{"asc(company)", "asc(name)"},
 		})
@@ -741,8 +741,8 @@ func TestSynonym(t *testing.T) {
 	// Set the settings
 	{
 		res, err := i.SetSettings(Map{
-			"attributesToIndex": []string{"company"},
-			"customRanking":     []string{"asc(company)"},
+			"searchableAttributes": []string{"company"},
+			"customRanking":        []string{"asc(company)"},
 		})
 		if err != nil {
 			t.Fatalf("TestSynonym: Cannot set settings: %s", err)

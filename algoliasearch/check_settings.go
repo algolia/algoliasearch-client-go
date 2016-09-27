@@ -6,6 +6,7 @@ func checkSettings(settings Map) error {
 		case "attributesForDistinct",
 			"attributesForFaceting",
 			"attributesToIndex",
+			"searchableAttributes",
 			"numericAttributesToIndex",
 			"ranking",
 			"customRanking",
