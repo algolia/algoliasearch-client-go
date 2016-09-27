@@ -111,8 +111,8 @@ func TestClientKeys(t *testing.T) {
 			t.Fatalf("TestClientKeys: Cannot list the keys: %s", err)
 		}
 
-		if len(keys) != 1 || keys[0].Description != "Search-only API Key" {
-			t.Fatalf("TestClientKeys: Should return the Search-only API Key instead of %d key(s)", len(keys))
+		if len(keys) != 0 {
+			t.Fatalf("TestClientKeys: Should not return any API Key instead of %d key(s)", len(keys))
 		}
 	}
 
@@ -171,8 +171,8 @@ func TestClientKeys(t *testing.T) {
 			t.Fatalf("TestClientKeys: Cannot list the added keys: %s", err)
 		}
 
-		if len(keys) != 3 {
-			t.Fatalf("TestClientKeys: Should return 3 keys instead of %d", len(keys))
+		if len(keys) != 2 {
+			t.Fatalf("TestClientKeys: Should return 2 keys instead of %d", len(keys))
 		}
 	}
 
