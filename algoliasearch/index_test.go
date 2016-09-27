@@ -104,7 +104,7 @@ func settingsAreEqualByStringSlices(s1, s2 Settings) bool {
 		stringSlicesAreEqual(s1.CustomRanking, s2.CustomRanking) &&
 		stringSlicesAreEqual(s1.NumericAttributesToIndex, s2.NumericAttributesToIndex) &&
 		stringSlicesAreEqual(s1.Ranking, s2.Ranking) &&
-		stringSlicesAreEqual(s1.Slaves, s2.Slaves) &&
+		stringSlicesAreEqual(s1.Replicas, s2.Replicas) &&
 		stringSlicesAreEqual(s1.UnretrievableAttributes, s2.UnretrievableAttributes) &&
 		stringSlicesAreEqual(s1.DisableTypoToleranceOnAttributes, s2.DisableTypoToleranceOnAttributes) &&
 		stringSlicesAreEqual(s1.DisableTypoToleranceOnWords, s2.DisableTypoToleranceOnWords) &&
@@ -252,7 +252,7 @@ func TestSettings(t *testing.T) {
 		RemoveStopWords:                  []string{"en", "fr"},
 		ReplaceSynonymsInHighlight:       false,
 		SeparatorsToIndex:                "+#",
-		Slaves:                           []string{},
+		Replicas:                         []string{},
 		SnippetEllipsisText:              "...",
 		TypoTolerance:                    "strict",
 		UnretrievableAttributes:          []string{"unretrievable_attribute"},
@@ -287,7 +287,7 @@ func TestSettings(t *testing.T) {
 		"removeStopWords":                  []string{"en", "fr"},
 		"replaceSynonymsInHighlight":       false,
 		"separatorsToIndex":                "+#",
-		"slaves":                           []string{},
+		"replicas":                         []string{},
 		"snippetEllipsisText":              "...",
 		"typoTolerance":                    "strict",
 		"unretrievableAttributes":          []string{"unretrievable_attribute"},

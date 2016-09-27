@@ -202,24 +202,24 @@ type Index interface {
 	GetSynonym(objectID string) (s Synonym, err error)
 
 	// AddSynonym adds the given `synonym`. This addition can be forwarded to
-	// the index slaves by setting `forwardToSlaves` to `true`.
-	AddSynonym(synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error)
+	// the index replicas by setting `forwardToReplicas` to `true`.
+	AddSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskRes, err error)
 
 	// DeleteSynonym removes the synonym identified by its `objectID`. This
-	// deletion can be forwarded to the index slaves by setting
-	// `forwardToSlaves` to `true`.
-	DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTaskRes, err error)
+	// deletion can be forwarded to the index replicas by setting
+	// `forwardToReplicas` to `true`.
+	DeleteSynonym(objectID string, forwardToReplicas bool) (res DeleteTaskRes, err error)
 
 	// ClearSynonyms removes all synonyms from the index. The clear operation
-	// can be forwarded to the index slaves by setting `forwardToSlaves` to
+	// can be forwarded to the index replicas by setting `forwardToReplicas` to
 	// `true`.
-	ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err error)
+	ClearSynonyms(forwardToReplicas bool) (res UpdateTaskRes, err error)
 
 	// BatchSynonyms adds all `synonyms` to the index. The index can be cleared
 	// before by setting `replaceExistingSynonyms` to `true`. The optional
-	// clear operation and the additions can be forwarded to the index slaves
-	// by setting `forwardToSlaves` to `true'.
-	BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToSlaves bool) (res UpdateTaskRes, err error)
+	// clear operation and the additions can be forwarded to the index replicas
+	// by setting `forwardToReplicas` to `true'.
+	BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToReplicas bool) (res UpdateTaskRes, err error)
 
 	// Browse returns the hits found according to the given `params`. The
 	// `cursor` parameter controls the pagination of the results that `Browse`
