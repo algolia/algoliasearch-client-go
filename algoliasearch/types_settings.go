@@ -8,6 +8,7 @@ type Settings struct {
 	AttributesToIndex              []string `json:"attributesToIndex"`
 	CustomRanking                  []string `json:"customRanking"`
 	NumericAttributesToIndex       []string `json:"numericAttributesToIndex"`
+	NumericAttributesForFiltering  []string `json:"numericAttributesForFiltering"`
 	Ranking                        []string `json:"ranking"`
 	Replicas                       []string `json:"replicas"`
 	SearchableAttributes           []string `json:"searchableAttributes"`

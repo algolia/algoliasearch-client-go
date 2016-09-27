@@ -8,6 +8,7 @@ func checkSettings(settings Map) error {
 			"attributesToIndex",
 			"searchableAttributes",
 			"numericAttributesToIndex",
+			"numericAttributesForFiltering",
 			"ranking",
 			"customRanking",
 			"slaves",
