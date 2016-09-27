@@ -65,10 +65,10 @@ func deleteClientKey(t *testing.T, c Client, key string) {
 	}
 }
 
-// waitClientKey waits until the key has been properly added to the given client
-// and if the given function, if not `nil`, returns `true`.
+// waitClientKey waits until the key has been properly added to the given
+// client and if the given function, if not `nil`, returns `true`.
 func waitClientKey(t *testing.T, c Client, keyID string, f func(k Key) bool) {
-	retries := 10
+	retries := 120
 
 	for r := 0; r < retries; r++ {
 		key, err := c.GetUserKey(keyID)
@@ -100,21 +100,37 @@ func waitClientKeysAsync(t *testing.T, c Client, keyIDs []string, f func(k Key) 
 	wg.Wait()
 }
 
+// deleteAllClientKeys properly deletes all previous keys associated to the
+// application.
+func deleteAllClientKeys(t *testing.T, c Client) {
+	keys, err := c.ListKeys()
+
+	if err != nil {
+		t.Fatalf("deleteAllKeys: Cannot list the keys: %s", err)
+	}
+
+	for _, key := range keys {
+		_, err = c.DeleteUserKey(key.Value)
+		if err != nil {
+			t.Fatalf("deleteAllKeys: Cannot delete a key: %s", err)
+		}
+	}
+
+	for len(keys) != 0 {
+		keys, err = c.ListKeys()
+
+		if err != nil {
+			t.Fatalf("deleteAllKeys: Cannot list the keys: %s", err)
+		}
+
+		time.Sleep(1 * time.Second)
+	}
+}
+
 func TestClientKeys(t *testing.T) {
 	c := initClient(t)
 
-	// Check that no key was previously existing
-	{
-		keys, err := c.ListKeys()
-
-		if err != nil {
-			t.Fatalf("TestClientKeys: Cannot list the keys: %s", err)
-		}
-
-		if len(keys) != 1 || keys[0].Description != "Search-only API Key" {
-			t.Fatalf("TestClientKeys: Should return the Search-only API Key instead of %d key(s)", len(keys))
-		}
-	}
+	deleteAllClientKeys(t, c)
 
 	var searchKey, allRightsKey string
 
@@ -162,19 +178,6 @@ func TestClientKeys(t *testing.T) {
 	defer deleteClientKey(t, c, allRightsKey)
 
 	waitClientKeysAsync(t, c, []string{searchKey, allRightsKey}, nil)
-
-	// Check that the 2 previous keys were added
-	{
-		keys, err := c.ListKeys()
-
-		if err != nil {
-			t.Fatalf("TestClientKeys: Cannot list the added keys: %s", err)
-		}
-
-		if len(keys) != 3 {
-			t.Fatalf("TestClientKeys: Should return 3 keys instead of %d", len(keys))
-		}
-	}
 
 	// Update search key description
 	{
@@ -344,7 +347,6 @@ func TestBatch(t *testing.T) {
 func TestSlaveReplica(t *testing.T) {
 	c, i := initClientAndIndex(t, "TestSlaveReplica")
 
-	defer c.DeleteIndex("TestSlaveReplica")
 	defer c.DeleteIndex("TestSlaveReplica_slave")
 	defer c.DeleteIndex("TestSlaveReplica_replica")
 

@@ -876,7 +876,7 @@ func TestSynonym(t *testing.T) {
 // waitIndexKey waits until the key has been properly added to the given index
 // and if the given function, if not `nil`, returns `true`.
 func waitIndexKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
-	retries := 10
+	retries := 120
 
 	for r := 0; r < retries; r++ {
 		key, err := i.GetUserKey(keyID)
@@ -916,10 +916,39 @@ func deleteIndexKey(t *testing.T, i Index, key string) {
 	}
 }
 
+// deleteAllIndexKeys properly deletes all previous keys associated to the
+// index.
+func deleteAllIndexKeys(t *testing.T, i Index) {
+	keys, err := i.ListKeys()
+
+	if err != nil {
+		t.Fatalf("deleteAllKeys: Cannot list the keys: %s", err)
+	}
+
+	for _, key := range keys {
+		_, err = i.DeleteUserKey(key.Value)
+		if err != nil {
+			t.Fatalf("deleteAllKeys: Cannot delete a key: %s", err)
+		}
+	}
+
+	for len(keys) != 0 {
+		keys, err = i.ListKeys()
+
+		if err != nil {
+			t.Fatalf("deleteAllKeys: Cannot list the keys: %s", err)
+		}
+
+		time.Sleep(1 * time.Second)
+	}
+}
+
 func TestIndexKeys(t *testing.T) {
 	c, i := initClientAndIndex(t, "TestIndexKeys")
 
 	addOneObject(t, c, i)
+
+	deleteAllIndexKeys(t, i)
 
 	// Check that no key was previously existing
 	{
@@ -980,19 +1009,6 @@ func TestIndexKeys(t *testing.T) {
 	defer deleteIndexKey(t, i, allRightsKey)
 
 	waitIndexKeysAsync(t, i, []string{searchKey, allRightsKey}, nil)
-
-	// Check that the 2 previous keys were added
-	{
-		keys, err := i.ListKeys()
-
-		if err != nil {
-			t.Fatalf("TestIndexKeys: Cannot list the added keys: %s", err)
-		}
-
-		if len(keys) != 2 {
-			t.Fatalf("TestIndexKeys: Should return 2 keys instead of %d", len(keys))
-		}
-	}
 
 	// Update search key description
 	{
