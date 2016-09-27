@@ -223,7 +223,7 @@ func TestMultipleQueries(t *testing.T) {
 	i := c.InitIndex("TestMultipleQueries_categories")
 	{
 		res, err := i.SetSettings(Map{
-			"attributesToIndex": []string{"name"},
+			"searchableAttributes": []string{"name"},
 		})
 
 		if err != nil {
@@ -252,7 +252,7 @@ func TestMultipleQueries(t *testing.T) {
 	i = c.InitIndex("TestMultipleQueries_products")
 	{
 		res, err := i.SetSettings(Map{
-			"attributesToIndex": []string{"name"},
+			"searchableAttributes": []string{"name"},
 		})
 
 		if err != nil {

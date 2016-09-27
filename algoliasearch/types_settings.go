@@ -10,6 +10,7 @@ type Settings struct {
 	NumericAttributesToIndex       []string `json:"numericAttributesToIndex"`
 	Ranking                        []string `json:"ranking"`
 	Replicas                       []string `json:"replicas"`
+	SearchableAttributes           []string `json:"searchableAttributes"`
 	SeparatorsToIndex              string   `json:"separatorsToIndex"`
 	Slaves                         []string `json:"slaves"`
 	UnretrievableAttributes        []string `json:"unretrievableAttributes"`
