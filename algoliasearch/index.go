@@ -91,14 +91,14 @@ func (i *index) SetSettings(settings Map) (res UpdateTaskRes, err error) {
 		return
 	}
 
-	// Handle forwardToSlaves separately
-	forwardToSlaves, ok := settings["forwardToSlaves"]
+	// Handle forwardToReplicas separately
+	forwardToReplicas, ok := settings["forwardToReplicas"]
 	if !ok {
-		forwardToSlaves = false
+		forwardToReplicas = false
 	}
-	delete(settings, "forwardToSlaves")
+	delete(settings, "forwardToReplicas")
 
-	path := i.route + "/settings?forwardToSlaves=" + fmt.Sprintf("%t", forwardToSlaves)
+	path := i.route + "/settings?forwardToReplicas=" + fmt.Sprintf("%t", forwardToReplicas)
 	err = i.client.request(&res, "PUT", path, settings, write)
 	return
 }
@@ -333,9 +333,9 @@ func (i *index) GetSynonym(objectID string) (s Synonym, err error) {
 	return
 }
 
-func (i *index) AddSynonym(synonym Synonym, forwardToSlaves bool) (res UpdateTaskRes, err error) {
+func (i *index) AddSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskRes, err error) {
 	params := Map{
-		"forwardToSlaves": forwardToSlaves,
+		"forwardToReplicas": forwardToReplicas,
 	}
 
 	path := i.route + "/synonyms/" + url.QueryEscape(synonym.ObjectID) + "?" + encodeMap(params)
@@ -343,9 +343,9 @@ func (i *index) AddSynonym(synonym Synonym, forwardToSlaves bool) (res UpdateTas
 	return
 }
 
-func (i *index) DeleteSynonym(objectID string, forwardToSlaves bool) (res DeleteTaskRes, err error) {
+func (i *index) DeleteSynonym(objectID string, forwardToReplicas bool) (res DeleteTaskRes, err error) {
 	params := Map{
-		"forwardToSlaves": forwardToSlaves,
+		"forwardToReplicas": forwardToReplicas,
 	}
 
 	path := i.route + "/synonyms/" + url.QueryEscape(objectID) + "?" + encodeMap(params)
@@ -353,9 +353,9 @@ func (i *index) DeleteSynonym(objectID string, forwardToSlaves bool) (res Delete
 	return
 }
 
-func (i *index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err error) {
+func (i *index) ClearSynonyms(forwardToReplicas bool) (res UpdateTaskRes, err error) {
 	params := Map{
-		"forwardToSlaves": forwardToSlaves,
+		"forwardToReplicas": forwardToReplicas,
 	}
 
 	path := i.route + "/synonyms/clear?" + encodeMap(params)
@@ -363,10 +363,10 @@ func (i *index) ClearSynonyms(forwardToSlaves bool) (res UpdateTaskRes, err erro
 	return
 }
 
-func (i *index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToSlaves bool) (res UpdateTaskRes, err error) {
+func (i *index) BatchSynonyms(synonyms []Synonym, replaceExistingSynonyms, forwardToReplicas bool) (res UpdateTaskRes, err error) {
 	params := Map{
 		"replaceExistingSynonyms": replaceExistingSynonyms,
-		"forwardToSlaves":         forwardToSlaves,
+		"forwardToReplicas":       forwardToReplicas,
 	}
 
 	path := i.route + "/synonyms/batch?" + encodeMap(params)

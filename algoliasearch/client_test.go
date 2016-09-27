@@ -111,8 +111,8 @@ func TestClientKeys(t *testing.T) {
 			t.Fatalf("TestClientKeys: Cannot list the keys: %s", err)
 		}
 
-		if len(keys) != 1 || keys[0].Description != "Search-only API Key" {
-			t.Fatalf("TestClientKeys: Should return the Search-only API Key instead of %d key(s)", len(keys))
+		if len(keys) != 0 {
+			t.Fatalf("TestClientKeys: Should not return any API Key instead of %d key(s)", len(keys))
 		}
 	}
 
@@ -171,8 +171,8 @@ func TestClientKeys(t *testing.T) {
 			t.Fatalf("TestClientKeys: Cannot list the added keys: %s", err)
 		}
 
-		if len(keys) != 3 {
-			t.Fatalf("TestClientKeys: Should return 3 keys instead of %d", len(keys))
+		if len(keys) != 2 {
+			t.Fatalf("TestClientKeys: Should return 2 keys instead of %d", len(keys))
 		}
 	}
 
@@ -338,5 +338,62 @@ func TestBatch(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("TestBatch: Cannot batch operations: %s", err)
+	}
+}
+
+func TestSlaveReplica(t *testing.T) {
+	c, i := initClientAndIndex(t, "TestSlaveReplica")
+
+	defer c.DeleteIndex("TestSlaveReplica")
+	defer c.DeleteIndex("TestSlaveReplica_slave")
+	defer c.DeleteIndex("TestSlaveReplica_replica")
+
+	// Set the `slaves` settings
+	slaves := []string{"TestSlaveReplica_slave"}
+	expectedSettings := Map{"slaves": slaves}
+
+	res, err := i.SetSettings(expectedSettings)
+	if err != nil {
+		t.Fatalf("TestSlaveReplica: Cannot set the `slaves` settings: %s", err)
+	}
+	if err = i.WaitTask(res.TaskID); err != nil {
+		t.Fatalf("TestSlaveReplica: SetSettings of `slaves` task didn't finished properly: %s", err)
+	}
+
+	// Check that the `slaves` settings is properly set
+	settings, err := i.GetSettings()
+	if err != nil {
+		t.Fatalf("TestSlaveReplica: Cannot get the settings: %s", err)
+	}
+
+	if len(settings.Slaves) != 1 || settings.Slaves[0] != slaves[0] {
+		t.Fatalf("TestSlaveReplica: Slaves settings are not the same:\nExpected:%s\nGot:%s", slaves, settings.Slaves)
+	}
+
+	// Set the `replicas` settings
+	replicas := []string{"TestSlaveReplica_replica"}
+	expectedSettings = Map{"replicas": replicas}
+
+	res, err = i.SetSettings(expectedSettings)
+	if err != nil {
+		t.Fatalf("TestSlaveReplica: Cannot set the `replicas` settings: %s", err)
+	}
+	if err = i.WaitTask(res.TaskID); err != nil {
+		t.Fatalf("TestSlaveReplica: SetSettings of `replicas` task didn't finished properly: %s", err)
+	}
+
+	// Check that the `replicas` settings is properly set and override the
+	// `slaves` settings
+	settings, err = i.GetSettings()
+	if err != nil {
+		t.Fatalf("TestSlaveReplica: Cannot get the settings: %s", err)
+	}
+
+	if len(settings.Slaves) != 0 {
+		t.Fatalf("TestSlaveReplica: Slaves settings has not been overriden: %s", settings.Slaves)
+	}
+
+	if len(settings.Replicas) != 1 || settings.Replicas[0] != replicas[0] {
+		t.Fatalf("TestSlaveReplica: Replicas settings are not the same:\nExpected:%s\nGot:%s", replicas, settings.Replicas)
 	}
 }

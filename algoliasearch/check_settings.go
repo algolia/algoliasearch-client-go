@@ -10,6 +10,7 @@ func checkSettings(settings Map) error {
 			"ranking",
 			"customRanking",
 			"slaves",
+			"replicas",
 			"unretrievableAttributes",
 			"disableTypoToleranceOnAttributes",
 			"disableTypoToleranceOnWords",
@@ -26,7 +27,8 @@ func checkSettings(settings Map) error {
 			"allowTyposOnNumericTokens",
 			"ignorePlurals",
 			"replaceSynonymsInHighlight",
-			"forwardToSlaves":
+			"forwardToSlaves",
+			"forwardToReplicas":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}
