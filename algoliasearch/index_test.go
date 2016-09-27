@@ -102,7 +102,7 @@ func settingsAreEqualByStringSlices(s1, s2 Settings) bool {
 	return stringSlicesAreEqual(s1.AttributesForFaceting, s2.AttributesForFaceting) &&
 		stringSlicesAreEqual(s1.SearchableAttributes, s2.SearchableAttributes) &&
 		stringSlicesAreEqual(s1.CustomRanking, s2.CustomRanking) &&
-		stringSlicesAreEqual(s1.NumericAttributesToIndex, s2.NumericAttributesToIndex) &&
+		stringSlicesAreEqual(s1.NumericAttributesForFiltering, s2.NumericAttributesForFiltering) &&
 		stringSlicesAreEqual(s1.Ranking, s2.Ranking) &&
 		stringSlicesAreEqual(s1.Replicas, s2.Replicas) &&
 		stringSlicesAreEqual(s1.UnretrievableAttributes, s2.UnretrievableAttributes) &&
@@ -245,7 +245,7 @@ func TestSettings(t *testing.T) {
 		MinProximity:                     2,
 		MinWordSizefor1Typo:              2,
 		MinWordSizefor2Typos:             4,
-		NumericAttributesToIndex:         []string{"attribute"},
+		NumericAttributesForFiltering:    []string{"attribute"},
 		OptionalWords:                    []string{"optional", "words"},
 		QueryType:                        "prefixAll",
 		Ranking:                          []string{"typo", "geo", "words", "proximity", "attribute", "exact", "custom"},
@@ -280,7 +280,7 @@ func TestSettings(t *testing.T) {
 		"minProximity":                     2,
 		"minWordSizefor1Typo":              2,
 		"minWordSizefor2Typos":             4,
-		"numericAttributesToIndex":         []string{"attribute"},
+		"numericAttributesForFiltering":    []string{"attribute"},
 		"optionalWords":                    []string{"optional", "words"},
 		"queryType":                        "prefixAll",
 		"ranking":                          []string{"typo", "geo", "words", "proximity", "attribute", "exact", "custom"},
