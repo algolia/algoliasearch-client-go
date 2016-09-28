@@ -7,6 +7,7 @@ import (
 )
 
 func TestClientOperations(t *testing.T) {
+	t.Parallel()
 	c, i := initClientAndIndex(t, "TestClientOperations")
 
 	objectID := addOneObject(t, c, i)
@@ -128,6 +129,7 @@ func deleteAllClientKeys(t *testing.T, c Client) {
 }
 
 func TestClientKeys(t *testing.T) {
+	t.Parallel()
 	c := initClient(t)
 
 	deleteAllClientKeys(t, c)
@@ -193,6 +195,7 @@ func TestClientKeys(t *testing.T) {
 }
 
 func TestLogs(t *testing.T) {
+	t.Parallel()
 	c := initClient(t)
 
 	params := Map{
@@ -214,6 +217,7 @@ func TestLogs(t *testing.T) {
 }
 
 func TestMultipleQueries(t *testing.T) {
+	t.Parallel()
 	c := initClient(t)
 	defer c.DeleteIndex("TestMultipleQueries_categories")
 	defer c.DeleteIndex("TestMultipleQueries_products")
@@ -319,6 +323,7 @@ func TestMultipleQueries(t *testing.T) {
 }
 
 func TestBatch(t *testing.T) {
+	t.Parallel()
 	c := initClient(t)
 	defer c.DeleteIndex("TestBatch_dev")
 	defer c.DeleteIndex("TestBatch_prod")
@@ -346,6 +351,7 @@ func TestBatch(t *testing.T) {
 }
 
 func TestSlaveReplica(t *testing.T) {
+	t.Parallel()
 	c, i := initClientAndIndex(t, "TestSlaveReplica")
 
 	defer c.DeleteIndex("TestSlaveReplica_slave")

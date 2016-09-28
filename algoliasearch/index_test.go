@@ -8,6 +8,7 @@ import (
 )
 
 func TestIndexOperations(t *testing.T) {
+	t.Parallel()
 	c, i := initClientAndIndex(t, "TestIndexOperations")
 
 	objectID := addOneObject(t, c, i)
@@ -221,6 +222,7 @@ func setAndGetAndCompareSettings(t *testing.T, i Index, expectedSettings Setting
 }
 
 func TestSettings(t *testing.T) {
+	t.Parallel()
 	_, i := initClientAndIndex(t, "TestSettings")
 
 	expectedSettings := Settings{
@@ -368,6 +370,7 @@ func getAllRecords(t *testing.T, i Index) (records []Map) {
 }
 
 func TestIndexingAndSearch(t *testing.T) {
+	t.Parallel()
 	_, i := initClientAndIndex(t, "TestIndexingAndSearch")
 
 	var tasks []int
@@ -734,6 +737,7 @@ func synonymSlicesAreEqual(synonyms1, synonyms2 []Synonym) bool {
 }
 
 func TestSynonym(t *testing.T) {
+	t.Parallel()
 	_, i := initClientAndIndex(t, "TestSynonym")
 
 	var tasks []int
@@ -944,6 +948,7 @@ func deleteAllIndexKeys(t *testing.T, i Index) {
 }
 
 func TestIndexKeys(t *testing.T) {
+	t.Parallel()
 	c, i := initClientAndIndex(t, "TestIndexKeys")
 
 	addOneObject(t, c, i)
