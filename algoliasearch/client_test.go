@@ -11,7 +11,7 @@ func TestClientOperations(t *testing.T) {
 
 	objectID := addOneObject(t, c, i)
 
-	// Test CopyIndex
+	t.Log("TestClientOperations: Test CopyIndex")
 	{
 		res, err := c.CopyIndex("TestClientOperations", "TestClientOperations_copy")
 		if err != nil {
@@ -21,7 +21,7 @@ func TestClientOperations(t *testing.T) {
 		waitTask(t, i, res.TaskID)
 	}
 
-	// Test MoveIndex
+	t.Log("TestClientOperations: Test MoveIndex")
 	i = c.InitIndex("TestClientOperations_copy")
 	{
 		res, err := c.MoveIndex("TestClientOperations_copy", "TestClientOperations_move")
@@ -32,7 +32,7 @@ func TestClientOperations(t *testing.T) {
 		waitTask(t, i, res.TaskID)
 	}
 
-	// Test ClearIndex
+	t.Log("TestClientOperations: Test ClearIndex")
 	i = c.InitIndex("TestClientOperations_move")
 	{
 		res, err := c.ClearIndex("TestClientOperations_move")
@@ -48,7 +48,7 @@ func TestClientOperations(t *testing.T) {
 		}
 	}
 
-	// Test DeleteIndex
+	t.Log("TestClientOperations: Test DeleteIndex")
 	{
 		_, err := c.DeleteIndex("TestClientOperations_move")
 		if err != nil {
@@ -134,7 +134,7 @@ func TestClientKeys(t *testing.T) {
 
 	var searchKey, allRightsKey string
 
-	// Add a search key with parameters
+	t.Log("TestClientKeys: Add a search key with parameters")
 	{
 		params := Map{
 			"description":            "",
@@ -154,7 +154,7 @@ func TestClientKeys(t *testing.T) {
 	}
 	defer deleteClientKey(t, c, searchKey)
 
-	// Add an all-permissions key
+	t.Log("TestClientKeys: Add an all-permissions key")
 	{
 		acl := []string{
 			"search",
@@ -179,7 +179,7 @@ func TestClientKeys(t *testing.T) {
 
 	waitClientKeysAsync(t, c, []string{searchKey, allRightsKey}, nil)
 
-	// Update search key description
+	t.Log("TestClientKeys: Update search key description")
 	{
 		params := Map{"description": "Search-Only Key"}
 
@@ -201,6 +201,7 @@ func TestLogs(t *testing.T) {
 		"type":   "all",
 	}
 
+	t.Log("TestLogs: Get the last 10 logs")
 	logs, err := c.GetLogs(params)
 
 	if err != nil {
@@ -219,7 +220,7 @@ func TestMultipleQueries(t *testing.T) {
 
 	var tasks []int
 
-	// Set the `categories` index settings
+	t.Log("TestMultipleQueries: Set the `categories` index settings")
 	i := c.InitIndex("TestMultipleQueries_categories")
 	{
 		res, err := i.SetSettings(Map{
@@ -232,7 +233,7 @@ func TestMultipleQueries(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Add an object to the `categories` index
+	t.Log("TestMultipleQueries: Add an object to the `categories` index")
 	{
 		res, err := i.AddObject(Object{
 			"name": "computer 1",
@@ -248,7 +249,7 @@ func TestMultipleQueries(t *testing.T) {
 	waitTasksAsync(t, i, tasks)
 	tasks = []int{}
 
-	// Set the `products` index settings
+	t.Log("TestMultipleQueries: Set the `products` index settings")
 	i = c.InitIndex("TestMultipleQueries_products")
 	{
 		res, err := i.SetSettings(Map{
@@ -262,7 +263,7 @@ func TestMultipleQueries(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Add an object to the `products` index
+	t.Log("TestMultipleQueries: Add an object to the `products` index")
 	{
 		res, err := i.AddObjects([]Object{
 			{"name": "computer 1"},
@@ -350,7 +351,7 @@ func TestSlaveReplica(t *testing.T) {
 	defer c.DeleteIndex("TestSlaveReplica_slave")
 	defer c.DeleteIndex("TestSlaveReplica_replica")
 
-	// Set the `slaves` settings
+	t.Log("TestSlaveReplica: Set the `slaves` settings")
 	slaves := []string{"TestSlaveReplica_slave"}
 	expectedSettings := Map{"slaves": slaves}
 
@@ -362,7 +363,7 @@ func TestSlaveReplica(t *testing.T) {
 		t.Fatalf("TestSlaveReplica: SetSettings of `slaves` task didn't finished properly: %s", err)
 	}
 
-	// Check that the `slaves` settings is properly set
+	t.Log("TestSlaveReplica: Check that the `slaves` settings is properly set")
 	settings, err := i.GetSettings()
 	if err != nil {
 		t.Fatalf("TestSlaveReplica: Cannot get the settings: %s", err)
@@ -372,7 +373,7 @@ func TestSlaveReplica(t *testing.T) {
 		t.Fatalf("TestSlaveReplica: Slaves settings are not the same:\nExpected:%s\nGot:%s", slaves, settings.Slaves)
 	}
 
-	// Set the `replicas` settings
+	t.Log("TestSlaveReplica: Set the `replicas` settings")
 	replicas := []string{"TestSlaveReplica_replica"}
 	expectedSettings = Map{"replicas": replicas}
 
@@ -384,8 +385,7 @@ func TestSlaveReplica(t *testing.T) {
 		t.Fatalf("TestSlaveReplica: SetSettings of `replicas` task didn't finished properly: %s", err)
 	}
 
-	// Check that the `replicas` settings is properly set and override the
-	// `slaves` settings
+	t.Log("TestSlaveReplica: Check that the `replicas` settings is properly set and override the `slaves` settings")
 	settings, err = i.GetSettings()
 	if err != nil {
 		t.Fatalf("TestSlaveReplica: Cannot get the settings: %s", err)
