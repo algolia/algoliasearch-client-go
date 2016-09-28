@@ -12,7 +12,7 @@ func TestIndexOperations(t *testing.T) {
 
 	objectID := addOneObject(t, c, i)
 
-	// Test Copy
+	t.Log("TestIndexOperations: Test Copy")
 	{
 		res, err := i.Copy("TestIndexOperations_copy")
 		if err != nil {
@@ -22,7 +22,7 @@ func TestIndexOperations(t *testing.T) {
 		waitTask(t, i, res.TaskID)
 	}
 
-	// Test Move
+	t.Log("TestIndexOperations: Test Move")
 	i = c.InitIndex("TestIndexOperations_copy")
 	{
 		res, err := i.Move("TestIndexOperations_move")
@@ -33,7 +33,7 @@ func TestIndexOperations(t *testing.T) {
 		waitTask(t, i, res.TaskID)
 	}
 
-	// Test Clear
+	t.Log("TestIndexOperations: Test Clear")
 	i = c.InitIndex("TestIndexOperations_move")
 	{
 		res, err := i.Clear()
@@ -49,7 +49,7 @@ func TestIndexOperations(t *testing.T) {
 		}
 	}
 
-	// Test Delete
+	t.Log("TestIndexOperations: Test Delete")
 	{
 		_, err := i.Delete()
 		if err != nil {
@@ -293,10 +293,10 @@ func TestSettings(t *testing.T) {
 		"unretrievableAttributes":          []string{"unretrievable_attribute"},
 	}
 
-	// Initial test
+	t.Log("TestSettings: Initial test")
 	setAndGetAndCompareSettings(t, i, expectedSettings, mapSettings)
 
-	// Second test: change the values which can have a different type
+	t.Log("TestSettings: Change the values which can have a different type")
 	expectedSettings.RemoveStopWords = true
 	mapSettings["removeStopWords"] = true
 	expectedSettings.Distinct = 2
@@ -372,7 +372,7 @@ func TestIndexingAndSearch(t *testing.T) {
 
 	var tasks []int
 
-	// Set the settings
+	t.Log("TestIndexingAndSearch: Set the settings")
 	{
 		res, err := i.SetSettings(Map{
 			"searchableAttributes":  []string{"company", "name"},
@@ -385,7 +385,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Add one object
+	t.Log("TestIndexingAndSearch: Add one object")
 	{
 		object := Object{"name": "Facebook", "Company": "Mark Zuckerberg"}
 		res, err := i.AddObject(object)
@@ -395,7 +395,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Add multiple objects at once
+	t.Log("TestIndexingAndSearch: Add multiple objects at once")
 	{
 		objects := []Object{
 			{"company": "Algolia", "name": "Julien Lemoine"},
@@ -419,10 +419,10 @@ func TestIndexingAndSearch(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Wait for all the previous tasks to complete
+	t.Log("TestIndexingAndSearch: Wait for all the previous tasks to complete")
 	waitTasksAsync(t, i, tasks)
 
-	// Search for "algolia"
+	t.Log("TestIndexingAndSearch: Search for \"algolia\"")
 	{
 		res, err := i.Search("algolia", nil)
 		if err != nil {
@@ -434,7 +434,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// Search for "elon musk" with "company:tesla" facet
+	t.Log("TestIndexingAndSearch: Search for \"elon musk\" with \"company:tesla\" facet")
 	{
 		params := Map{
 			"facets":       "*",
@@ -450,7 +450,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// Search for "elon musk" with "(company:tesla,company:spacex)" facets
+	t.Log("TestIndexingAndSearch: Search for \"elon musk\" with \"(company:tesla,company:spacex)\" facets")
 	{
 		params := Map{
 			"facets":       "*",
@@ -466,7 +466,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// Iterate and collect over all the records' `objectID`
+	t.Log("TestIndexingAndSearch: Iterate and collect over all the records' `objectID`")
 	var objectIDs []string
 	{
 		records := getAllRecords(t, i)
@@ -479,7 +479,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// Test GetObject method
+	t.Log("TestIndexingAndSearch: Test GetObject method")
 	{
 		_, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
@@ -497,7 +497,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// Test GetObjects method
+	t.Log("TestIndexingAndSearch: Test GetObjects method")
 	{
 		objects, err := i.GetObjects(objectIDs)
 		if err != nil {
@@ -509,7 +509,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// Update first object
+	t.Log("TestIndexingAndSearch: Update first object")
 	{
 		object, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
@@ -534,7 +534,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// Update all the objects
+	t.Log("TestIndexingAndSearch: Update all the objects")
 	{
 		objects, err := i.GetObjects(objectIDs)
 		if err != nil {
@@ -560,7 +560,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		objectSlicesAreEqual(t, objects, updatedObjects)
 	}
 
-	// PartialUpdate the first object
+	t.Log("TestIndexingAndSearch: PartialUpdate the first object")
 	{
 		object, err := i.GetObject(objectIDs[0], nil)
 		if err != nil {
@@ -590,7 +590,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// PartialUpdate all the objects
+	t.Log("TestIndexingAndSearch: PartialUpdate all the objects")
 	{
 		objects, err := i.GetObjects(objectIDs)
 		if err != nil {
@@ -621,7 +621,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		objectSlicesAreEqual(t, objects, updatedObjects)
 	}
 
-	// DeleteByQuery with "elon musk" should remove 2 records
+	t.Log("TestIndexingAndSearch: DeleteByQuery with \"elon musk\" should remove 2 records")
 	{
 		countBefore := len(getAllRecords(t, i))
 
@@ -635,7 +635,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// DeleteByQuery with "" and facet "company:apple" should remove 2 records
+	t.Log("TestIndexingAndSearch: DeleteByQuery with \"\" and facet \"company:apple\" should remove 2 records")
 	{
 		countBefore := len(getAllRecords(t, i))
 
@@ -653,7 +653,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// DeteteObject with "jeff bezos"
+	t.Log("TestIndexingAndSearch: DeteteObject with \"jeff bezos\"")
 	{
 		queryRes, err := i.Search("jeff bezos", nil)
 		if err != nil {
@@ -674,7 +674,7 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
-	// DeteteObjects with "google" (3 records)
+	t.Log("TestIndexingAndSearch: DeteteObjects with \"google\" (3 records)")
 	{
 		queryRes, err := i.Search("google", nil)
 		if err != nil {
@@ -738,7 +738,7 @@ func TestSynonym(t *testing.T) {
 
 	var tasks []int
 
-	// Set the settings
+	t.Log("TestSynonym: Set the settings")
 	{
 		res, err := i.SetSettings(Map{
 			"searchableAttributes": []string{"company"},
@@ -750,7 +750,7 @@ func TestSynonym(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Add multiple objects at once
+	t.Log("TestSynonym: Add multiple objects at once")
 	{
 		objects := []Object{
 			{"company": "<GOOG>"},
@@ -777,7 +777,7 @@ func TestSynonym(t *testing.T) {
 		NewPlaceholderSynonym("google_placeholder", "<GOOG>", []string{"Google", "GOOG"}),
 	}
 
-	// Add multiple synonyms at once
+	t.Log("TestSynonym: Add multiple synonyms at once")
 	{
 		res, err := i.BatchSynonyms(synonyms, false, false)
 		if err != nil {
@@ -787,7 +787,7 @@ func TestSynonym(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Add one synonym
+	t.Log("TestSynonym: Add one synonym")
 	{
 		synonym := NewSynonym("tesla", []string{"tesla", "tesla motors"})
 		synonyms = append(synonyms, synonym)
@@ -800,10 +800,10 @@ func TestSynonym(t *testing.T) {
 		tasks = append(tasks, res.TaskID)
 	}
 
-	// Wait for all the previous tasks to complete
+	t.Log("TestSynonym: Wait for all the previous tasks to complete")
 	waitTasksAsync(t, i, tasks)
 
-	// SearchSynonyms with ""
+	t.Log("TestSynonym: SearchSynonyms with \"\"")
 	{
 		foundSynonyms, err := i.SearchSynonyms("", []string{}, 0, 1000)
 		if err != nil {
@@ -815,7 +815,7 @@ func TestSynonym(t *testing.T) {
 		}
 	}
 
-	// SearchSynonyms with "" and hitsPerPage=1
+	t.Log("TestSynonym: SearchSynonyms with \"\" and hitsPerPage=1")
 	{
 		foundSynonyms, err := i.SearchSynonyms("", []string{}, 0, 1)
 		if err != nil {
@@ -827,7 +827,7 @@ func TestSynonym(t *testing.T) {
 		}
 	}
 
-	// Get the first synonym
+	t.Log("TestSynonym: Get the first synonym")
 	{
 		foundSynonym, err := i.GetSynonym(synonyms[0].ObjectID)
 		if err != nil {
@@ -839,7 +839,7 @@ func TestSynonym(t *testing.T) {
 		}
 	}
 
-	// Delete the first synonym
+	t.Log("TestSynonym: Delete the first synonym")
 	{
 		res, err := i.DeleteSynonym(synonyms[0].ObjectID, false)
 		if err != nil {
@@ -950,7 +950,7 @@ func TestIndexKeys(t *testing.T) {
 
 	deleteAllIndexKeys(t, i)
 
-	// Check that no key was previously existing
+	t.Log("TestIndexKeys: Check that no key was previously existing")
 	{
 		keys, err := i.ListKeys()
 
@@ -965,7 +965,7 @@ func TestIndexKeys(t *testing.T) {
 
 	var searchKey, allRightsKey string
 
-	// Add a search key with parameters
+	t.Log("TestIndexKeys: Add a search key with parameters")
 	{
 		params := Map{
 			"description":            "",
@@ -985,7 +985,7 @@ func TestIndexKeys(t *testing.T) {
 	}
 	defer deleteIndexKey(t, i, searchKey)
 
-	// Add an all-permissions key
+	t.Log("TestIndexKeys: Add an all-permissions key")
 	{
 		acl := []string{
 			"search",
@@ -1010,7 +1010,7 @@ func TestIndexKeys(t *testing.T) {
 
 	waitIndexKeysAsync(t, i, []string{searchKey, allRightsKey}, nil)
 
-	// Update search key description
+	t.Log("TestIndexKeys: Update search key description")
 	{
 		params := Map{"description": "Search-Only Key"}
 
