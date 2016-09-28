@@ -2276,6 +2276,20 @@ params := algoliasearch.Map{
 key, err := client.GenerateSecuredAPIKey("YourSearchOnlyApiKey", params)
 ```
 
+#### Network restriction
+
+For more protection against API key leaking and reuse you can restrict the key to be valid only from specific IPv4 networks
+
+```go
+# generate a public API key that is restricted to '192.168.1.0/24':
+
+params := algoliasearch.Map{
+  "restrictSources": "192.168.1.0/24",
+}
+
+key, err := client.GenerateSecuredAPIKey("YourSearchOnlyApiKey", params)
+```
+
 
 
 
