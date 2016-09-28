@@ -54,12 +54,13 @@ func (i *index) GetObject(objectID string, attributes []string) (object Object, 
 	return
 }
 
-func (i *index) GetObjects(objectIDs []string) (objs []Object, err error) {
+func (i *index) getObjects(objectIDs, attrs []string) (objs []Object, err error) {
 	requests := make([]map[string]string, len(objectIDs))
 	for j, id := range objectIDs {
 		requests[j] = map[string]string{
-			"indexName": i.name,
-			"objectID":  url.QueryEscape(id),
+			"indexName":  i.name,
+			"objectID":   url.QueryEscape(id),
+			"attributes": url.QueryEscape(strings.Join(attrs, ",")),
 		}
 	}
 
@@ -72,6 +73,14 @@ func (i *index) GetObjects(objectIDs []string) (objs []Object, err error) {
 	err = i.client.request(&res, "POST", path, body, read)
 	objs = res.Results
 	return
+}
+
+func (i *index) GetObjects(objectIDs []string) (objs []Object, err error) {
+	return i.getObjects(objectIDs, nil)
+}
+
+func (i *index) GetObjectsAttrs(objectIDs, attrs []string) (objs []Object, err error) {
+	return i.getObjects(objectIDs, attrs)
 }
 
 func (i *index) DeleteObject(objectID string) (res DeleteTaskRes, err error) {

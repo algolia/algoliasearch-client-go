@@ -98,6 +98,10 @@ type Index interface {
 	// `objectIDs`.
 	GetObjects(objectIDs []string) (objects []Object, err error)
 
+	// GetObjectsAttrs retrieves the selected attributes of the objects
+	// identified according to their `objectIDs`
+	GetObjectsAttrs(objectIDs, attrs []string) (objs []Object, err error)
+
 	// DeleteObject deletes an object from the index that is uniquely
 	// identified by its `objectID`.
 	DeleteObject(objectID string) (res DeleteTaskRes, err error)
