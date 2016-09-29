@@ -54,13 +54,17 @@ func (i *index) GetObject(objectID string, attributes []string) (object Object, 
 	return
 }
 
-func (i *index) getObjects(objectIDs, attrs []string) (objs []Object, err error) {
+func (i *index) getObjects(objectIDs, attributesToRetrieve []string) (objs []Object, err error) {
+	attrs := url.QueryEscape(strings.Join(attributesToRetrieve, ","))
+
 	requests := make([]map[string]string, len(objectIDs))
 	for j, id := range objectIDs {
 		requests[j] = map[string]string{
-			"indexName":  i.name,
-			"objectID":   url.QueryEscape(id),
-			"attributes": url.QueryEscape(strings.Join(attrs, ",")),
+			"indexName": i.name,
+			"objectID":  url.QueryEscape(id),
+		}
+		if attributesToRetrieve != nil {
+			requests[j]["attributesToRetrieve"] = attrs
 		}
 	}
 
