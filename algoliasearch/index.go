@@ -96,6 +96,7 @@ func (i *index) DeleteObject(objectID string) (res DeleteTaskRes, err error) {
 func (i *index) GetSettings() (settings Settings, err error) {
 	path := i.route + "/settings?getVersion=2"
 	err = i.client.request(&settings, "GET", path, nil, read)
+	settings.clean()
 	return
 }
 
