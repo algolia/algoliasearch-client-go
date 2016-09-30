@@ -193,11 +193,11 @@ func settingsAreEqualByDistinct(t *testing.T, s1, s2 Settings) {
 // settingsAreEqual deeply checks that the two Settings are the same.
 func settingsAreEqual(t *testing.T, s1, s2 Settings) {
 	if !settingsAreEqualByComparable(s1, s2) {
-		t.Fatalf("settingsAreEqual: Comparable fields are not equal:\n%v\n%v\n", s1, s2)
+		t.Fatalf("settingsAreEqual: Comparable fields are not equal:\n%#v\n%#v\n", s1, s2)
 	}
 
 	if !settingsAreEqualByStringSlices(s1, s2) {
-		t.Fatalf("settingsAreEqual: String slice fields are not equal:\n%v\n%v\n", s1, s2)
+		t.Fatalf("settingsAreEqual: String slice fields are not equal:\n%#v\n%#v\n", s1, s2)
 	}
 
 	settingsAreEqualByRemoveStopWords(t, s1, s2)
@@ -209,13 +209,13 @@ func settingsAreEqual(t *testing.T, s1, s2 Settings) {
 func setAndGetAndCompareSettings(t *testing.T, i Index, expectedSettings Settings, mapSettings Map) {
 	res, err := i.SetSettings(mapSettings)
 	if err != nil {
-		t.Fatalf("TestSettings: Cannot set settings: %s", err)
+		t.Fatalf("setAndGetAndCompareSettings: Cannot set settings: %s", err)
 	}
 	waitTask(t, i, res.TaskID)
 
 	settings, err := i.GetSettings()
 	if err != nil {
-		t.Fatalf("TestSettings: Cannot get settings: %s", err)
+		t.Fatalf("setAndGetAndCompareSettings: Cannot get settings: %s", err)
 	}
 
 	settingsAreEqual(t, settings, expectedSettings)
