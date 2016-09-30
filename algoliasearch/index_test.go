@@ -1027,3 +1027,32 @@ func TestIndexKeys(t *testing.T) {
 		waitIndexKey(t, i, searchKey, func(k Key) bool { return k.Description == "Search-Only Key" })
 	}
 }
+
+func TestSettingsToMap(t *testing.T) {
+	t.Parallel()
+	c, i := initClientAndIndex(t, "TestSettingsToMap")
+
+	addOneObject(t, c, i)
+
+	t.Log("TestSettingsToMap: Get the original settings")
+	settingsBefore, err := i.GetSettings()
+	if err != nil {
+		t.Fatalf("TestSettingsToMap: Cannot retrieve the settings (before): %s", err)
+	}
+
+	t.Log("TestSettingsToMap: Set the settings by calling `ToMap` on the settings")
+	res, err := i.SetSettings(settingsBefore.ToMap())
+	if err != nil {
+		t.Fatalf("TestSettingsToMap: Cannot set the settings: %s", err)
+	}
+	waitTask(t, i, res.TaskID)
+
+	t.Log("TestSettingsToMap: Get the settings once again")
+	settingsAfter, err := i.GetSettings()
+	if err != nil {
+		t.Fatalf("TestSettingsToMap: Cannot retrieve the settings (after): %s", err)
+	}
+
+	t.Log("TestSettingsToMap: Compare the settings")
+	settingsAreEqual(t, settingsBefore, settingsAfter)
+}
