@@ -42,3 +42,13 @@ type Settings struct {
 	SnippetEllipsisText        string      `json:"snippetEllipsisText"`
 	TypoTolerance              string      `json:"typoTolerance"`
 }
+
+func (s *Settings) clean() {
+	if s.Distinct == nil {
+		s.Distinct = false
+	}
+
+	if s.RemoveStopWords == nil {
+		s.RemoveStopWords = false
+	}
+}
