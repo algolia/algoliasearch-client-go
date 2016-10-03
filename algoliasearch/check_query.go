@@ -63,7 +63,8 @@ Outer:
 			"analytics",
 			"synonyms",
 			"replaceSynonymsInHighlight",
-			"aroundLatLngViaIP":
+			"aroundLatLngViaIP",
+			"facetingAfterDistinct":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}
