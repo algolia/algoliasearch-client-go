@@ -6,6 +6,8 @@ import (
 	"reflect"
 )
 
+// Settings is the structure returned by `GetSettigs` to ease the use of the
+// index settings.
 type Settings struct {
 	// Indexing parameters
 	AllowCompressionOfIntegerArray bool     `json:"allowCompressionOfIntegerArray"`
@@ -49,6 +51,8 @@ type Settings struct {
 	TypoTolerance              string      `json:"typoTolerance"`
 }
 
+// clean sets the nil `interface{}` fields of any `Settings struct` generated
+// by `GetSettings`.
 func (s *Settings) clean() {
 	if s.Distinct == nil {
 		s.Distinct = false
@@ -59,6 +63,9 @@ func (s *Settings) clean() {
 	}
 }
 
+// ToMap produces a `Map` corresponding to the `Settings struct`. It should
+// only be used when it's needed to pass a `Settings struct` to `SetSettings`,
+// typically when one needs to copy settings between two indices.
 func (s *Settings) ToMap() Map {
 	// Add all fields except:
 	//  - RemoveStopWords []interface{} or bool
