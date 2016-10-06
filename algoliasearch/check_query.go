@@ -1,13 +1,20 @@
 package algoliasearch
 
+func buildKeysMap(keys []string) map[string]struct{} {
+	m := make(map[string]struct{})
+	for _, key := range keys {
+		m[key] = struct{}{}
+	}
+
+	return m
+}
+
 func checkQuery(query Map, ignore ...string) error {
-Outer:
+	ignoreKeysMap := buildKeysMap(ignore)
+
 	for k, v := range query {
-		// Continue if `k` is to be ignored.
-		for _, s := range ignore {
-			if s == k {
-				continue Outer
-			}
+		if _, shouldIgnore := ignoreKeysMap[k]; shouldIgnore {
+			continue
 		}
 
 		switch k {
