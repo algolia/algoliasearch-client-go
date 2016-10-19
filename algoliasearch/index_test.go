@@ -1056,3 +1056,105 @@ func TestSettingsToMap(t *testing.T) {
 	t.Log("TestSettingsToMap: Compare the settings")
 	settingsAreEqual(t, settingsBefore, settingsAfter)
 }
+
+func facetHitSliceAreEqual(fs1, fs2 []FacetHit) bool {
+	if len(fs1) != len(fs2) {
+		return false
+	}
+
+	ok := 0
+
+	for _, f1 := range fs1 {
+		for _, f2 := range fs2 {
+			if f1 == f2 {
+				ok++
+				break
+			}
+		}
+	}
+
+	return ok == len(fs1)
+}
+
+func TestSearchFacet(t *testing.T) {
+	t.Parallel()
+	_, i := initClientAndIndex(t, "TestSearchFacet")
+
+	var tasks []int
+
+	t.Log("TestSearchFacet: Add multiple objects at once")
+	{
+		objects := []Object{
+			{"company": "Algolia", "name": "Julien Lemoine"},
+			{"company": "Algolia", "name": "Nicolas Dessaigne"},
+			{"company": "Amazon", "name": "Jeff Bezos"},
+			{"company": "Apple", "name": "Steve Jobs"},
+			{"company": "Apple", "name": "Steve Wozniak"},
+			{"company": "Arista Networks", "name": "Jayshree Ullal"},
+			{"company": "Google", "name": "Larry Page"},
+			{"company": "Google", "name": "Rob Pike"},
+			{"company": "Google", "name": "Sergueï Brin"},
+			{"company": "Microsoft", "name": "Bill Gates"},
+			{"company": "SpaceX", "name": "Elon Musk"},
+			{"company": "Tesla", "name": "Elon Musk"},
+			{"company": "Yahoo", "name": "Marissa Mayer"},
+		}
+		res, err := i.AddObjects(objects)
+		if err != nil {
+			t.Fatalf("TestSearchFacet: Cannot add multiple objects: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	t.Log("TestSearchFacet: Set settings")
+	{
+		res, err := i.SetSettings(Map{
+			"searchableAttributes":  []string{"company"},
+			"attributesForFaceting": []string{"company"},
+		})
+		if err != nil {
+			t.Fatalf("TestSearchFacet: Cannot set attributesForFaceting setting: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	t.Log("TestSearchFacet: Wait for all the previous tasks to complete")
+	waitTasksAsync(t, i, tasks)
+
+	t.Log("TestSearchFacet: Run queries")
+
+	{
+		expected := []FacetHit{
+			{Value: "Algolia", Highlighted: "<em>A</em>lgolia", Count: 2},
+			{Value: "Amazon", Highlighted: "<em>A</em>mazon", Count: 1},
+			{Value: "Apple", Highlighted: "<em>A</em>pple", Count: 2},
+			{Value: "Arista Networks", Highlighted: "<em>A</em>rista Networks", Count: 1},
+		}
+
+		res, err := i.SearchFacet("company", "a", nil)
+		if err != nil {
+			t.Fatalf("TestSearchFacet: Cannot SearchFacet: %s", err)
+		}
+
+		if len(res.FacetHits) != 4 {
+			t.Fatalf("TestSearchFacet: Should return 4 facet hits instead of %d", len(res.FacetHits))
+		}
+
+		if !facetHitSliceAreEqual(res.FacetHits, expected) {
+			t.Fatalf("TestSearchFacet: FacetHit slices should be equal:\nExpected: %#v\nGot: %#v\n", res.FacetHits, expected)
+		}
+	}
+
+	{
+		res, err := i.SearchFacet("company", "aglolia", Map{
+			"typoTolerance": "false",
+		})
+		if err != nil {
+			t.Fatalf("TestSearchFacet: Cannot SearchFacet: %s", err)
+		}
+
+		if len(res.FacetHits) != 0 {
+			t.Fatalf("TestSearchFacet: Should return 0 facet hits instead of %d\nGot: %#v\n", len(res.FacetHits), res.FacetHits)
+		}
+	}
+}
