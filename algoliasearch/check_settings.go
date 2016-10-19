@@ -3,8 +3,7 @@ package algoliasearch
 func checkSettings(settings Map) error {
 	for k, v := range settings {
 		switch k {
-		case "attributesForDistinct",
-			"attributesForFaceting",
+		case "attributesForFaceting",
 			"attributesToIndex",
 			"searchableAttributes",
 			"numericAttributesToIndex",
@@ -48,7 +47,8 @@ func checkSettings(settings Map) error {
 			"highlightPostTag",
 			"highlightPreTag",
 			"queryType",
-			"snippetEllipsisText":
+			"snippetEllipsisText",
+			"attributeForDistinct":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}
