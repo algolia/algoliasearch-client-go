@@ -250,6 +250,16 @@ type Index interface {
 	// the given 'params` and deletes them. It hangs until all the deletion
 	// operations have completed.
 	DeleteByQuery(query string, params Map) error
+
+	// SearchFacet searches inside a facet's values, optionally restricting the
+	// returned values to those contained in objects matching other (regular)
+	// search criteria. The `facet` parameter is the name of the facet to
+	// search (must be declared in `attributesForFaceting`). The `query` string
+	// is the text used to matched against facet's values. The `params`
+	// controls the search parameters you want to apply against the matching
+	// records. Note that it can be `nil` and that pagination parameters are
+	// not taken into account.
+	SearchFacet(facet, query string, params Map) (res SearchFacetRes, err error)
 }
 
 // IndexIterator is used by the BrowseAll functions to iterate over all the
