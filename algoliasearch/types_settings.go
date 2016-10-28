@@ -38,7 +38,7 @@ type Settings struct {
 	HighlightPostTag           string      `json:"highlightPostTag"`
 	HighlightPreTag            string      `json:"highlightPreTag"`
 	HitsPerPage                int         `json:"hitsPerPage"`
-	IgnorePlurals              interface{} `json:"ignorePlurals"`
+	IgnorePlurals              interface{} `json:"ignorePlurals"` // []interface{} (actually a []string) or bool
 	MaxValuesPerFacet          int         `json:"maxValuesPerFacet"`
 	MinProximity               int         `json:"minProximity"`
 	MinWordSizefor1Typo        int         `json:"minWordSizefor1Typo"`
