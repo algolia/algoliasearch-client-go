@@ -59,7 +59,6 @@ Outer:
 			}
 
 		case "allowTyposOnNumericTokens",
-			"ignorePlurals",
 			"advancedSyntax",
 			"analytics",
 			"synonyms",
@@ -70,7 +69,8 @@ Outer:
 				return invalidType(k, "bool")
 			}
 
-		case "removeStopWords":
+		case "removeStopWords",
+			"ignorePlurals":
 			switch v.(type) {
 			case []string, bool:
 				// OK
