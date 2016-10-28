@@ -27,7 +27,6 @@ func checkSettings(settings Map) error {
 		case "allowCompressionOfIntegerArray",
 			"advancedSyntax",
 			"allowTyposOnNumericTokens",
-			"ignorePlurals",
 			"replaceSynonymsInHighlight",
 			"forwardToSlaves",
 			"forwardToReplicas":
@@ -62,7 +61,8 @@ func checkSettings(settings Map) error {
 				return invalidType(k, "string or bool")
 			}
 
-		case "removeStopWords":
+		case "removeStopWords",
+			"ignorePlurals":
 			switch v.(type) {
 			case []string, bool:
 				// OK
