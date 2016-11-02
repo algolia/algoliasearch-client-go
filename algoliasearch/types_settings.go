@@ -59,6 +59,10 @@ func (s *Settings) clean() {
 		s.Distinct = false
 	}
 
+	if s.IgnorePlurals == nil {
+		s.IgnorePlurals = false
+	}
+
 	if s.RemoveStopWords == nil {
 		s.RemoveStopWords = false
 	}
@@ -74,6 +78,7 @@ func (s *Settings) clean() {
 func (s *Settings) ToMap() Map {
 	// Add all fields except:
 	//  - Distinct float64 or bool
+	//  - IgnorePlurals []interface{} or bool
 	//  - RemoveStopWords []interface{} or bool
 	m := Map{
 		// Indexing parameters
@@ -104,7 +109,6 @@ func (s *Settings) ToMap() Map {
 		"highlightPostTag":           s.HighlightPostTag,
 		"highlightPreTag":            s.HighlightPreTag,
 		"hitsPerPage":                s.HitsPerPage,
-		"ignorePlurals":              s.IgnorePlurals,
 		"maxValuesPerFacet":          s.MaxValuesPerFacet,
 		"minProximity":               s.MinProximity,
 		"minWordSizefor1Typo":        s.MinWordSizefor1Typo,
@@ -143,6 +147,32 @@ func (s *Settings) ToMap() Map {
 		m["distinct"] = int(v)
 	}
 
+	// Handle `IgnorePlurals` separately as it may be either a `bool` or a
+	// `[]interface{}` which is in fact a `[]string`.
+	switch v := s.IgnorePlurals.(type) {
+
+	case bool:
+		m["ignorePlurals"] = v
+
+	case []interface{}:
+		var languages []string
+		for _, itf := range v {
+			lang, ok := itf.(string)
+			if ok {
+				languages = append(languages, lang)
+			} else {
+				fmt.Fprintln(os.Stderr, "Settings.ToMap(): `ignorePlurals` slice doesn't only contain strings")
+			}
+		}
+		if len(languages) > 0 {
+			m["ignorePlurals"] = languages
+		}
+
+	default:
+		fmt.Fprintf(os.Stderr, "Settings.ToMap(): Wrong type for `ignorePlurals`: %v\n", reflect.TypeOf(s.IgnorePlurals))
+
+	}
+
 	// Handle `RemoveStopWords` separately as it may be either a `bool` or a
 	// `[]interface{}` which is in fact a `[]string`.
 	switch v := s.RemoveStopWords.(type) {
@@ -165,8 +195,7 @@ func (s *Settings) ToMap() Map {
 		}
 
 	default:
-		fmt.Println(reflect.TypeOf(s.RemoveStopWords))
-		fmt.Fprintln(os.Stderr, "Settings.ToMap(): Wrong type for `removeStopWords`")
+		fmt.Fprintf(os.Stderr, "Settings.ToMap(): Wrong type for `removeStopWords`: %v\n", reflect.TypeOf(s.RemoveStopWords))
 
 	}
 
