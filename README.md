@@ -331,6 +331,8 @@ The server response will look like:
 
 #### Fields
 
+<!--PARAMETERS_LINK-->
+
 - `hits` (array): The hits returned by the search, sorted according to the ranking formula.
 
     Hits are made of the JSON objects that you stored in the index; therefore, they are mostly schema-less. However, Algolia does enrich them with a few additional fields:
@@ -433,6 +435,7 @@ When [`facets`](#facets) is non-empty, the following additional fields are retur
 
 - `exhaustiveFacetsCount` (boolean): Whether the counts are exhaustive (`true`) or approximate (`false`). *Note: When using [`distinct`](#distinct), the facet counts cannot be exhaustive.*
 
+<!--/PARAMETERS_LINK-->
 
 ### Search Parameters
 
@@ -2248,8 +2251,8 @@ by modifying the code from the browser.
 You can set a Unix timestamp used to define the expiration date of the API key
 
 ```go
-# generate a public API key that is valid for 1 hour:
-# you need to import "time" in your code
+// Generate a public API key that is valid for 1 hour
+
 valid_until := time.Now().Unix() + 3600
 
 params := algoliasearch.Map{
@@ -2264,7 +2267,7 @@ key, err := client.GenerateSecuredAPIKey("YourSearchOnlyApiKey", params)
 You can restrict the key to a list of index names allowed for the secured API key
 
 ```go
-# generate a public API key that is restricted to 'index1' and 'index2':
+// Generate a public API key that is restricted to `index1` and `index2`
 
 params := algoliasearch.Map{
   "restrictIndices": "index1,index2",
@@ -2305,7 +2308,7 @@ key, err := client.GenerateSecuredAPIKey("YourSearchOnlyApiKey", params)
 For more protection against API key leaking and reuse you can restrict the key to be valid only from specific IPv4 networks
 
 ```go
-# generate a public API key that is restricted to '192.168.1.0/24':
+// Generate a public API key that is restricted to `192.168.1.0/24`
 
 params := algoliasearch.Map{
   "restrictSources": "192.168.1.0/24",
