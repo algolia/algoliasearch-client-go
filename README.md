@@ -652,7 +652,7 @@ objects := []algoliasearch.Object{
 res, err := index.UpdateObjects(objects)
 ```
 
-To update a single object, you can use the `[Update object](#update-object---saveobject) method:
+To update a single object, you can use the `SaveObject` method:
 
 ```go
 object := algoliasearch.Object{
