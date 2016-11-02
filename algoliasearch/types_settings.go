@@ -62,6 +62,10 @@ func (s *Settings) clean() {
 	if s.RemoveStopWords == nil {
 		s.RemoveStopWords = false
 	}
+
+	if s.TypoTolerance == "" {
+		s.TypoTolerance = "true"
+	}
 }
 
 // ToMap produces a `Map` corresponding to the `Settings struct`. It should
@@ -71,7 +75,6 @@ func (s *Settings) ToMap() Map {
 	// Add all fields except:
 	//  - RemoveStopWords []interface{} or bool
 	//  - Distinct float64 or bool
-	//  - TypoTolerance string or bool
 	m := Map{
 		// Indexing parameters
 		"allowCompressionOfIntegerArray": s.AllowCompressionOfIntegerArray,
@@ -110,6 +113,8 @@ func (s *Settings) ToMap() Map {
 		"queryType":                  s.QueryType,
 		"replaceSynonymsInHighlight": s.ReplaceSynonymsInHighlight,
 		"snippetEllipsisText":        s.SnippetEllipsisText,
+		"typoTolerance":              s.TypoTolerance,
+		"responseFields":             s.ResponseFields,
 	}
 
 	// Remove empty string slices to avoid creating null-valued fields in the
