@@ -73,8 +73,8 @@ func (s *Settings) clean() {
 // typically when one needs to copy settings between two indices.
 func (s *Settings) ToMap() Map {
 	// Add all fields except:
-	//  - RemoveStopWords []interface{} or bool
 	//  - Distinct float64 or bool
+	//  - RemoveStopWords []interface{} or bool
 	m := Map{
 		// Indexing parameters
 		"allowCompressionOfIntegerArray": s.AllowCompressionOfIntegerArray,
@@ -134,6 +134,15 @@ func (s *Settings) ToMap() Map {
 		delete(m, attr)
 	}
 
+	// Handle `Distinct` separately as it may be either a `bool` or a `float64`
+	// which is in fact a `int`.
+	switch v := s.Distinct.(type) {
+	case bool:
+		m["distinct"] = v
+	case float64:
+		m["distinct"] = int(v)
+	}
+
 	// Handle `RemoveStopWords` separately as it may be either a `bool` or a
 	// `[]interface{}` which is in fact a `[]string`.
 	switch v := s.RemoveStopWords.(type) {
@@ -159,15 +168,6 @@ func (s *Settings) ToMap() Map {
 		fmt.Println(reflect.TypeOf(s.RemoveStopWords))
 		fmt.Fprintln(os.Stderr, "Settings.ToMap(): Wrong type for `removeStopWords`")
 
-	}
-
-	// Handle `Distinct` separately as it may be either a `bool` or a `float64`
-	// which is in fact a `int`.
-	switch v := s.Distinct.(type) {
-	case bool:
-		m["distinct"] = v
-	case float64:
-		m["distinct"] = int(v)
 	}
 
 	return m
