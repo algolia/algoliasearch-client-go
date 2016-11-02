@@ -51,7 +51,7 @@ Search
 Indexing
 
 1. [Add objects](#add-objects---addobjects)
-1. [Update objects](#update-objects---saveobjects)
+1. [Update objects](#update-objects---updateobjects)
 1. [Partial update objects](#partial-update-objects---partialupdateobjects)
 1. [Delete objects](#delete-objects---deleteobjects)
 
@@ -633,7 +633,7 @@ object := Object{
 res, err := index.AddObject(object)
 ```
 
-### Update objects - `SaveObjects`
+### Update objects - `UpdateObjects`
 
 You have three options when updating an existing object:
 
@@ -652,7 +652,7 @@ objects := []algoliasearch.Object{
 res, err := index.UpdateObjects(objects)
 ```
 
-To update a single object, you can use the `[Update object](#update-object---saveobject) method:
+To update a single object, you can use the `UpdateObject` method:
 
 ```go
 object := algoliasearch.Object{
