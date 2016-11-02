@@ -38,7 +38,8 @@ Outer:
 			"disableTypoToleranceOnAttributes",
 			"attributesToSnippet",
 			"attributesToHighlight",
-			"alternativesAsExact":
+			"alternativesAsExact",
+			"responseFields":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}

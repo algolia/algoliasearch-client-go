@@ -258,6 +258,7 @@ func TestSettings(t *testing.T) {
 		SnippetEllipsisText:              "...",
 		TypoTolerance:                    "strict",
 		UnretrievableAttributes:          []string{"unretrievable_attribute"},
+		ResponseFields:                   []string{"hits", "query"},
 	}
 
 	mapSettings := Map{
@@ -293,6 +294,7 @@ func TestSettings(t *testing.T) {
 		"snippetEllipsisText":              "...",
 		"typoTolerance":                    "strict",
 		"unretrievableAttributes":          []string{"unretrievable_attribute"},
+		"responseFields":                   []string{"hits", "query"},
 	}
 
 	t.Log("TestSettings: Initial test")
