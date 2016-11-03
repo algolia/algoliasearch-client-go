@@ -1,13 +1,45 @@
 # Changelog
 
+## 2.4.0 (2016-11-02)
+
+### Changes
+
+- Accept both boolean and string slice for `Settings.IgnorePlurals`
+
+## 2.3.1 (2016-11-02)
+
+### Fixes
+
+- Handle missing parameters in `Settings.ToMap`:
+  + `responseFields`
+  + `typoTolerance`
+
+## 2.3.0 (2016-11-02)
+
+### Additions
+
+- Accept `responseFields` parameter in queries and settings
+
+## 2.2.0 (2016-10-19)
+
+### Additions
+
+- Add `Index.SearchFacet` method
+
+## 2.1.2 (2016-10-19)
+
+### Fixes
+
+- Exclude the `testing` package from the build
+- Fix typo and type checking for `attributeForDistinct`
+
+## 2.1.1 (2016-10-16)
+
+### Additions
+
+- Accept `facetingAfterDistinct` parameter in queries
+
 ## 2.1.0 (2016-10-03)
-
-### Special thanks to external contributors
-
-- @AndyHaskell / Andrew Haskell from Meta Search
-- @cochran-at-niche
-- @kujenga / Aaron Taylor from Meta Search
-- @sharpner
 
 ### Fixes
 
