@@ -66,7 +66,7 @@ func stringSlicesAreEqual(s1, s2 []string) bool {
 	sort.Strings(s1)
 	sort.Strings(s2)
 
-	for i, _ := range s1 {
+	for i := range s1 {
 		if s1[i] != s2[i] {
 			return false
 		}
@@ -546,7 +546,7 @@ func TestIndexingAndSearch(t *testing.T) {
 			t.Fatalf("TestIndexingAndSearch: Cannot retrieve all the objects (before update): %s", err)
 		}
 
-		for i, _ := range objects {
+		for i := range objects {
 			objects[i]["updated"] = true
 		}
 
