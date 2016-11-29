@@ -1078,13 +1078,13 @@ func facetHitSliceAreEqual(fs1, fs2 []FacetHit) bool {
 	return ok == len(fs1)
 }
 
-func TestSearchFacet(t *testing.T) {
+func TestSearchForFacetValues(t *testing.T) {
 	t.Parallel()
-	_, i := initClientAndIndex(t, "TestSearchFacet")
+	_, i := initClientAndIndex(t, "TestSearchForFacetValues")
 
 	var tasks []int
 
-	t.Log("TestSearchFacet: Add multiple objects at once")
+	t.Log("TestSearchForFacetValues: Add multiple objects at once")
 	{
 		objects := []Object{
 			{"company": "Algolia", "name": "Julien Lemoine"},
@@ -1103,28 +1103,27 @@ func TestSearchFacet(t *testing.T) {
 		}
 		res, err := i.AddObjects(objects)
 		if err != nil {
-			t.Fatalf("TestSearchFacet: Cannot add multiple objects: %s", err)
+			t.Fatalf("TestSearchForFacetValues: Cannot add multiple objects: %s", err)
 		}
 		tasks = append(tasks, res.TaskID)
 	}
 
-	t.Log("TestSearchFacet: Set settings")
+	t.Log("TestSearchForFacetValues: Set settings")
 	{
 		res, err := i.SetSettings(Map{
 			"searchableAttributes":  []string{"company"},
 			"attributesForFaceting": []string{"company"},
 		})
 		if err != nil {
-			t.Fatalf("TestSearchFacet: Cannot set attributesForFaceting setting: %s", err)
+			t.Fatalf("TestSearchForFacetValues: Cannot set attributesForFaceting setting: %s", err)
 		}
 		tasks = append(tasks, res.TaskID)
 	}
 
-	t.Log("TestSearchFacet: Wait for all the previous tasks to complete")
+	t.Log("TestSearchForFacetValues: Wait for all the previous tasks to complete")
 	waitTasksAsync(t, i, tasks)
 
-	t.Log("TestSearchFacet: Run queries")
-
+	t.Log("TestSearchForFacetValues: Run queries")
 	{
 		expected := []FacetHit{
 			{Value: "Algolia", Highlighted: "<em>A</em>lgolia", Count: 2},
@@ -1133,30 +1132,54 @@ func TestSearchFacet(t *testing.T) {
 			{Value: "Arista Networks", Highlighted: "<em>A</em>rista Networks", Count: 1},
 		}
 
-		res, err := i.SearchFacet("company", "a", nil)
+		res, err := i.SearchForFacetValues("company", "a", nil)
 		if err != nil {
-			t.Fatalf("TestSearchFacet: Cannot SearchFacet: %s", err)
+			t.Fatalf("TestSearchForFacetValues: Cannot SearchForFacetValues: %s", err)
 		}
 
 		if len(res.FacetHits) != 4 {
-			t.Fatalf("TestSearchFacet: Should return 4 facet hits instead of %d", len(res.FacetHits))
+			t.Fatalf("TestSearchForFacetValues: Should return 4 facet hits instead of %d", len(res.FacetHits))
 		}
 
 		if !facetHitSliceAreEqual(res.FacetHits, expected) {
-			t.Fatalf("TestSearchFacet: FacetHit slices should be equal:\nExpected: %#v\nGot: %#v\n", res.FacetHits, expected)
+			t.Fatalf("TestSearchForFacetValues: FacetHit slices should be equal:\nExpected: %#v\nGot: %#v\n", res.FacetHits, expected)
+		}
+
+		// Check that `SearchFacet` is behaving in the exact same way as
+		// `SearchForFacetValues` as it was kept for backward-compatibily.
+		res2, err2 := i.SearchFacet("company", "a", nil)
+		if err != err2 {
+			t.Fatalf("TestSearchForFacetValues: SearchFacet and SearchForFacetValues aren't returing the same error:\nearchForFacetValues: %#v\nSearchForFacet: %#v\n", err, err2)
+		}
+
+		if !facetHitSliceAreEqual(res.FacetHits, res2.FacetHits) {
+			t.Fatalf("TestSearchForFacetValues: SearchFacet and SearchForFacetValues aren't returing the same slices:\nearchForFacetValues: %#v\nSearchForFacet: %#v\n", res.FacetHits, res2.FacetHits)
 		}
 	}
 
 	{
-		res, err := i.SearchFacet("company", "aglolia", Map{
+		params := Map{
 			"typoTolerance": "false",
-		})
+		}
+
+		res, err := i.SearchForFacetValues("company", "aglolia", params)
 		if err != nil {
-			t.Fatalf("TestSearchFacet: Cannot SearchFacet: %s", err)
+			t.Fatalf("TestSearchForFacetValues: Cannot SearchForFacetValues: %s", err)
 		}
 
 		if len(res.FacetHits) != 0 {
-			t.Fatalf("TestSearchFacet: Should return 0 facet hits instead of %d\nGot: %#v\n", len(res.FacetHits), res.FacetHits)
+			t.Fatalf("TestSearchForFacetValues: Should return 0 facet hits instead of %d\nGot: %#v\n", len(res.FacetHits), res.FacetHits)
+		}
+
+		// Check that `SearchFacet` is behaving in the exact same way as
+		// `SearchForFacetValues` as it was kept for backward-compatibily.
+		res2, err2 := i.SearchFacet("company", "aglolia", params)
+		if err != err2 {
+			t.Fatalf("TestSearchForFacetValues: SearchFacet and SearchForFacetValues aren't returing the same error:\nearchForFacetValues: %#v\nSearchForFacet: %#v\n", err, err2)
+		}
+
+		if !facetHitSliceAreEqual(res.FacetHits, res2.FacetHits) {
+			t.Fatalf("TestSearchForFacetValues: SearchFacet and SearchForFacetValues aren't returing the same slices:\nearchForFacetValues: %#v\nSearchForFacet: %#v\n", res.FacetHits, res2.FacetHits)
 		}
 	}
 }
