@@ -251,14 +251,19 @@ type Index interface {
 	// operations have completed.
 	DeleteByQuery(query string, params Map) error
 
-	// SearchFacet searches inside a facet's values, optionally restricting the
-	// returned values to those contained in objects matching other (regular)
-	// search criteria. The `facet` parameter is the name of the facet to
-	// search (must be declared in `attributesForFaceting`). The `query` string
-	// is the text used to matched against facet's values. The `params`
-	// controls the search parameters you want to apply against the matching
-	// records. Note that it can be `nil` and that pagination parameters are
-	// not taken into account.
+	// SearchForFacetValues searches inside a facet's values, optionally
+	// restricting the returned values to those contained in objects matching
+	// other (regular) search criteria. The `facet` parameter is the name of
+	// the facet to search (must be declared in `attributesForFaceting`). The
+	// `query` string is the text used to matched against facet's values. The
+	// `params` controls the search parameters you want to apply against the
+	// matching records. Note that it can be `nil` and that pagination
+	// parameters are not taken into account.
+	SearchForFacetValues(facet, query string, params Map) (res SearchFacetRes, err error)
+
+	// SearchFacet does exactly the same as `SearchForFacetValues`. This method
+	// is only kept for backward-compatibility reason as we decided to change
+	// its name.
 	SearchFacet(facet, query string, params Map) (res SearchFacetRes, err error)
 }
 

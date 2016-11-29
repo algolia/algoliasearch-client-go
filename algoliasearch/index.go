@@ -474,7 +474,7 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 	return nil
 }
 
-func (i *index) SearchFacet(facet, query string, params Map) (res SearchFacetRes, err error) {
+func (i *index) SearchForFacetValues(facet, query string, params Map) (res SearchFacetRes, err error) {
 	copy := duplicateMap(params)
 	if err = checkQuery(copy); err != nil {
 		return
@@ -489,4 +489,8 @@ func (i *index) SearchFacet(facet, query string, params Map) (res SearchFacetRes
 	path := i.route + "/facets/" + facet + "/query"
 	err = i.client.request(&res, "POST", path, req, search)
 	return
+}
+
+func (i *index) SearchFacet(facet, query string, params Map) (res SearchFacetRes, err error) {
+	return i.SearchForFacetValues(facet, query, params)
 }
