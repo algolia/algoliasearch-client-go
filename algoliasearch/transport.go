@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"math/rand"
 	"net"
@@ -22,79 +21,132 @@ const (
 	version = "2.0.0"
 )
 
+// Define the constants used to specify the type of request.
 const (
 	search = 1 << iota
 	write
 	read
 )
 
-// Transport defines low level functions to trade with Algolia servers.
+// Seed the RNG used to shuffle the hosts slice (see `defaultHosts` function).
+func init() {
+	rand.Seed(int64(time.Now().Nanosecond()))
+}
+
+// Transport is responsible for the connection and the retry strategy to
+// Algolia servers.
 type Transport struct {
-	apiKey        string
-	appID         string
-	headers       map[string]string
-	hosts         []string
-	hostsProvided bool
-	httpClient    *http.Client
+	activeHost        string
+	activeSince       time.Time
+	apiKey            string
+	appId             string
+	dialTimeout       time.Duration
+	headers           map[string]string
+	hosts             []string
+	httpClient        *http.Client
+	keepAliveDuration time.Duration
 }
 
-// newHTTPClient creates and initializes an http.Client with sane defaults.
-func newHTTPClient() *http.Client {
-	return &http.Client{
-		Timeout: time.Second * 30,
-		Transport: &http.Transport{
-			Dial: (&net.Dialer{
-				Timeout:   2 * time.Second,
-				KeepAlive: 180 * time.Second,
-			}).Dial,
-			DisableKeepAlives:   false,
-			MaxIdleConnsPerHost: 2,
-			TLSHandshakeTimeout: 2 * time.Second,
-		},
+// NewTransport instantiates a new Transport with the default Algolia hosts to
+// connect to.
+func NewTransport(appId, apiKey string) *Transport {
+	return &Transport{
+		activeHost:        "",
+		apiKey:            apiKey,
+		appId:             appId,
+		dialTimeout:       1 * time.Second,
+		headers:           defaultHeaders(appId, apiKey),
+		hosts:             defaultHosts(appId),
+		httpClient:        defaultHttpClient(),
+		keepAliveDuration: 5 * 60 * time.Second,
 	}
 }
 
-// NewTransport creates and initializes a new Transport targeting the Algolia
-// application `appID` using the API key `apiKey`. The hosts are deduced from
-// `appID`.
-func NewTransport(appID, apiKey string) *Transport {
+// NewTransport instantiates a new Transport with the specificed hosts as main
+// servers to connect to.
+func NewTransportWithHosts(appId, apiKey string, hosts []string) *Transport {
+	return &Transport{
+		activeHost:        "",
+		apiKey:            apiKey,
+		appId:             appId,
+		dialTimeout:       1 * time.Second,
+		headers:           defaultHeaders(appId, apiKey),
+		hosts:             hosts,
+		httpClient:        defaultHttpClient(),
+		keepAliveDuration: 5 * 60 * time.Second,
+	}
+}
+
+// defaultHeaders is used to set the default HTTP headers to use with each
+// requests.
+func defaultHeaders(appId, apiKey string) map[string]string {
+	return map[string]string{
+		"Connection":               "keep-alive",
+		"User-Agent":               "Algolia for Go (" + version + ")",
+		"X-Algolia-API-Key":        apiKey,
+		"X-Algolia-Application-Id": appId,
+	}
+}
+
+// defaultHosts returns the list of the default Algolia hosts to use. The
+// entries are shuffled.
+func defaultHosts(appId string) []string {
 	hosts := []string{
-		appID + "-1.algolianet.com",
-		appID + "-2.algolianet.com",
-		appID + "-3.algolianet.com",
+		appId + "-1.algolianet.com",
+		appId + "-2.algolianet.com",
+		appId + "-3.algolianet.com",
 	}
 
-	// Randomize the hosts order
-	randHosts := make([]string, len(hosts))
+	shuffled := make([]string, len(hosts))
 	for i, v := range rand.Perm(len(hosts)) {
-		randHosts[i] = hosts[v]
+		shuffled[i] = hosts[v]
 	}
 
-	return &Transport{
-		apiKey:        apiKey,
-		appID:         appID,
-		headers:       make(map[string]string),
-		hosts:         randHosts,
-		hostsProvided: false,
-		httpClient:    newHTTPClient(),
+	return shuffled
+}
+
+// defaultHttpClient returns the `*http.Client` which will perform all the
+// requests. All the timeout settings are explicitely defined here.
+func defaultHttpClient() *http.Client {
+	return &http.Client{
+		Timeout:   time.Second * 30,
+		Transport: defaultTransport(1 * time.Second),
 	}
 }
 
-// NewTransportWithHosts creates and initializes a new Transport targeting the
-// Algolia application `appID` using the API key `apiKey` via the specified
-// `hosts`.
-func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
-	return &Transport{
-		apiKey:        apiKey,
-		appID:         appID,
-		headers:       make(map[string]string),
-		hosts:         hosts,
-		hostsProvided: true,
-		httpClient:    newHTTPClient(),
+// defaultTransport returns the `*http.Transport` which starts and maintain the
+// connection with the server. The `dialTimeout` is used to specify the timeout
+// beyond which the connection is considered as failed (used to control DNS
+// lookup timeouts).
+func defaultTransport(dialTimeout time.Duration) *http.Transport {
+	return &http.Transport{
+		Dial: (&net.Dialer{
+			KeepAlive: 180 * time.Second,
+			Timeout:   dialTimeout,
+		}).Dial,
+		DisableKeepAlives:   false,
+		MaxIdleConnsPerHost: 2,
+		TLSHandshakeTimeout: 2 * time.Second,
 	}
 }
 
-// setTimeout changes the timeouts used by the underlying HTTP client.
+// addHeaders add the key/value pairs from `headers` to the header list of the
+// `req` request.
+func addHeaders(req *http.Request, headers map[string]string) {
+	for k, v := range headers {
+		req.Header.Add(k, v)
+	}
+}
+
+// setExtraHeader lets the user (through the exported `Client.SetExtraHeader`)
+// add custom headers to the requests.
+func (t *Transport) setExtraHeader(key, value string) {
+	t.headers[key] = value
+}
+
+// setTimeout lets the user (through the exported `Client.SetTimeout`) replace
+// the default values of `TLSHandshakeTimeout` (via `connectTimeout`) and
+// `ResponseHeaderTimeout` (via `readTimeout`).
 func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
 	switch transport := t.httpClient.Transport.(type) {
 	case *http.Transport:
@@ -105,94 +157,124 @@ func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
 	}
 }
 
-// setExtraHeader adds a custom header to be used when exchanging with Algolia
-// servers.
-func (t *Transport) setExtraHeader(key, value string) {
-	t.headers[key] = value
-}
-
-// request performs a `method` HTTP request at `path` sending `body`.
-// `typeCall` represents the operation intended on the Algolia servers and can
-// be one of the following constants: `search`, `write` or `read`.
+// request is the method used by the `Client` to perform the request against
+// the Algolia servers (or to the list of specified hosts).
 func (t *Transport) request(method, path string, body interface{}, typeCall int) ([]byte, error) {
-	var host string
-	errorMsg := ""
-	if typeCall == write {
-		host = t.appID + ".algolia.net"
-	} else {
-		host = t.appID + "-dsn.algolia.net"
+	var res []byte
+	var err error
+
+	for _, host := range t.hostsToTry(typeCall) {
+		res, err = t.tryRequest(method, host, path, body)
+		if err == nil {
+			t.resetDialTimeout()
+			t.activeSince = time.Now()
+			t.activeHost = host
+			return res, nil
+		}
+		t.increaseDialTimeout()
 	}
 
-	if !t.hostsProvided {
-		req, err := t.buildRequest(method, host, path, body)
-		if err != nil {
-			return nil, err
-		}
-
-		req = t.addHeaders(req)
-		resp, err := t.httpClient.Do(req)
-
-		if err != nil {
-			if len(errorMsg) > 0 {
-				errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, host, err)
-			} else {
-				errorMsg = fmt.Sprintf("%s:%s", host, err)
-			}
-		} else if (resp.StatusCode/100) == 2 || (resp.StatusCode/100) == 4 { // Bad request, not found, forbidden
-			return t.handleResponse(resp)
-		} else {
-			io.Copy(ioutil.Discard, resp.Body)
-			resp.Body.Close()
-		}
-	}
-
-	for _, host := range t.hosts {
-		req, err := t.buildRequest(method, host, path, body)
-		if err != nil {
-			return nil, err
-		}
-
-		req = t.addHeaders(req)
-		resp, err := t.httpClient.Do(req)
-
-		if err != nil {
-			if len(errorMsg) > 0 {
-				errorMsg = fmt.Sprintf("%s, %s:%s", errorMsg, host, err)
-			} else {
-				errorMsg = fmt.Sprintf("%s:%s", host, err)
-			}
-			continue
-		}
-
-		if (resp.StatusCode/100) == 2 || (resp.StatusCode/100) == 4 { // Bad request, not found, forbidden
-			return t.handleResponse(resp)
-		}
-		io.Copy(ioutil.Discard, resp.Body)
-		resp.Body.Close()
-	}
-
-	return nil, fmt.Errorf("Cannot reach any host. (%s)", errorMsg)
+	t.activeHost = ""
+	return nil, err
 }
 
-// buildRequest builds an http.Request object. The built request uses `method`,
-// tries to reach `path` at `host`, sending `body`.
+// hostsToTry returns the list of hosts to try ordered by priority according to
+// the type of request (write vs. read/search) and if a previous host was
+// marked as active.
+func (t *Transport) hostsToTry(typeCall int) []string {
+	// If it's a `write` request, we first try `APPID.algolia.net` and then the
+	// `APPID-{1,2,3}.algolianet.com` endpoints (shuffled).
+	if typeCall == write {
+		return append([]string{t.appId + ".algolia.net"}, t.hosts...)
+	}
+
+	var hosts []string
+
+	// If a previous host was active since less than k.keepAliveDuration
+	// seconds and was not the `APPID-dsn.algolia.net` endpoint, then it is
+	// used first in the list of endpoints to try.
+	if t.activeHost != "" &&
+		!strings.Contains(t.activeHost, "-dsn.algolia.net") &&
+		time.Now().Sub(t.activeSince) <= t.keepAliveDuration {
+		hosts = []string{t.activeHost}
+	}
+
+	// Whether or not an active host is first in the list of hosts to try, the
+	// following entries in the list is the DSN endpoint followed by the
+	// `APPID-{1,2,3}.algolianet.com` endpoints (shuffled).
+	hosts = append(hosts, t.appId+"-dsn.algolia.net")
+	hosts = append(hosts, t.hosts...)
+	return hosts
+
+}
+
+// tryRequest is the underlying method which actually performs the request. It
+// returns the response as a byte slice or a non-nil error if anything went
+// wrong.
+func (t *Transport) tryRequest(method, host, path string, body interface{}) ([]byte, error) {
+	// Build the request
+	req, err := t.buildRequest(method, host, path, body)
+	if err != nil {
+		return nil, err
+	}
+
+	// Perform the request
+	res, err := t.httpClient.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("Cannot perform request [%s] %s (%s): %s", method, path, host, err)
+	}
+
+	// Read response's body
+	bodyRes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, fmt.Errorf("Cannot read response body: %s", err)
+	}
+	res.Body.Close()
+
+	// Return the body as an error if the status code is not 2XX
+	code := res.StatusCode
+	if code < 200 || 300 <= code {
+		return nil, errors.New(string(bodyRes))
+	}
+
+	return bodyRes, nil
+}
+
+// buildRequest returns a valid `http.Request` with the headers and body (if
+// any) correctly set. The return error is non-nil if the request is invalid or
+// if the body, if non-nil, is not a valid JSON.
 func (t *Transport) buildRequest(method, host, path string, body interface{}) (*http.Request, error) {
 	var req *http.Request
 	var err error
+	urlStr := "https://" + host + path
 
-	if body != nil {
-		bodyBytes, err := json.Marshal(body)
+	if body == nil {
+		// As the body is nil, an empty body request is instantiated
+		req, err = http.NewRequest(method, urlStr, nil)
+		if err != nil {
+			return nil, fmt.Errorf("Cannot instantiate request: [%s] %s", method, urlStr)
+		}
+	} else {
+		// As the body is non-nil, the content is read
+		data, err := json.Marshal(body)
 		if err != nil {
 			return nil, errors.New("Invalid JSON in the query")
 		}
+		reader := bytes.NewReader(data)
 
-		reader := bytes.NewReader(bodyBytes)
-		req, err = http.NewRequest(method, "https://"+host+path, reader)
-		req.Header.Add("Content-Length", strconv.Itoa(len(string(bodyBytes))))
+		// The request is then instantiated with the body content
+		req, err = http.NewRequest(method, urlStr, reader)
+		if err != nil {
+			return nil, fmt.Errorf("Cannot instantiate request: [%s] %s", method, urlStr)
+		}
+
+		// Add content specific headers
+		req.Header.Add("Content-Length", strconv.Itoa(len(string(data))))
 		req.Header.Add("Content-Type", "application/json; charset=utf-8")
-	} else {
-		req, err = http.NewRequest(method, "https://"+host+path, nil)
 	}
+
+	// Add default and Algolia specific headers
+	addHeaders(req, t.headers)
 
 	if strings.Contains(path, "/*/") {
 		req.URL = &url.URL{
@@ -202,43 +284,19 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 		}
 	}
 
-	return req, err
+	return req, nil
 }
 
-// addHeaders adds the mandatory Algolia headers and the custom headers of `t`
-// to `req`.
-func (t *Transport) addHeaders(req *http.Request) *http.Request {
-	req.Header.Add("X-Algolia-API-Key", t.apiKey)
-	req.Header.Add("X-Algolia-Application-Id", t.appID)
-	req.Header.Add("Connection", "keep-alive")
-	req.Header.Add("User-Agent", "Algolia for Go ("+version+")")
-
-	for k, v := range t.headers {
-		req.Header.Add(k, v)
-	}
-
-	return req
+// resetDialTimeout increases the `Timeout` value of the underlying dialer by 1
+// second.
+func (t *Transport) increaseDialTimeout() {
+	t.dialTimeout = t.dialTimeout + time.Second
+	t.httpClient.Transport = defaultTransport(t.dialTimeout)
 }
 
-// handleResponse takes care of reading a response as JSON, and returns the
-// parsed object. If the status code of the response indicates a failed
-// request, or if the body of the response is not a valid JSON object, an error
-// is returned.
-func (t *Transport) handleResponse(resp *http.Response) ([]byte, error) {
-	res, err := ioutil.ReadAll(resp.Body)
-	resp.Body.Close()
-	if err != nil {
-		return nil, err
-	}
-
-	var jsonResp interface{}
-	if err = json.Unmarshal(res, &jsonResp); err != nil {
-		return nil, fmt.Errorf("Invalid JSON response: %s", err)
-	}
-
-	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
-		return res, nil
-	} else {
-		return nil, errors.New(string(res))
-	}
+// resetDialTimeout resets the `Timeout` value of the underlying dialer to 1
+// second.
+func (t *Transport) resetDialTimeout() {
+	t.dialTimeout = 1 * time.Second
+	t.httpClient.Transport = defaultTransport(t.dialTimeout)
 }
