@@ -33,7 +33,10 @@ func (c *client) SetExtraHeader(key, value string) {
 }
 
 func (c *client) SetTimeout(connectTimeout, readTimeout int) {
-	c.transport.setTimeout(time.Duration(connectTimeout)*time.Millisecond, time.Duration(readTimeout)*time.Millisecond)
+	c.transport.setTimeout(
+		time.Duration(connectTimeout)*time.Millisecond,
+		time.Duration(readTimeout)*time.Millisecond,
+	)
 }
 
 func (c *client) SetHTTPClient(client *http.Client) {
