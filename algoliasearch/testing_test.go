@@ -60,6 +60,23 @@ func initClient(t *testing.T) Client {
 	return NewClient(appID, apiKey)
 }
 
+// initClientWithHosts instantiates a new client according to the
+// `ALGOLIA_APPLICATION_ID` and `ALGOLIA_API_KEY` environment variables and set
+// one of the host to specifically timeout.
+func initClientWithTimeoutHosts(t *testing.T) Client {
+	appID := os.Getenv("ALGOLIA_APPLICATION_ID")
+	apiKey := os.Getenv("ALGOLIA_API_KEY")
+
+	if appID == "" || apiKey == "" {
+		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID and/or ALGOLIA_API_KEY")
+	}
+
+	return NewClientWithHosts(appID, apiKey, []string{
+		"algolia.biz",
+		appID + "-dsn.algolia.net",
+	})
+}
+
 // initIndex init the `c` client with the index called `name`. It also deletes
 // the index if it was existing beforehand. It waits until the task is
 // finished.
