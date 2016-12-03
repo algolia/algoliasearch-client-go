@@ -405,3 +405,19 @@ func TestSlaveReplica(t *testing.T) {
 		t.Fatalf("TestSlaveReplica: Replicas settings are not the same:\nExpected:%s\nGot:%s", replicas, settings.Replicas)
 	}
 }
+
+func TestDnsTimeout(t *testing.T) {
+	t.Parallel()
+
+	client := initClientWithTimeoutHosts(t)
+
+	start := time.Now()
+	for i := 0; i < 10; i++ {
+		client.ListIndexes()
+	}
+	delta := time.Now().Sub(start)
+
+	if delta > 5*time.Second {
+		t.Fatalf("TestDnsTimeout: Spent %d seconds instead of <5s to perform the 10 retries", int(delta.Seconds()))
+	}
+}
