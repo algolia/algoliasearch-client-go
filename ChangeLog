@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.6.0 (2016-12-03)
+
+### Fixes
+
+- Improve the transport layer code
+- Keep the last active connection between requests to better handle DNS timeouts
+
+## 2.5.0 (2016-11-29)
+
+### Additions
+
+- Add `Index.SearchForFacetValues` method
+  + Same as `Index.SearchFacet`
+  + `Index.SearchFacet` is kept for backward-compatibility
+
 ## 2.4.0 (2016-11-02)
 
 ### Changes
