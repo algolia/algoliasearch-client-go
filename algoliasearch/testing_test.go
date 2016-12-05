@@ -71,10 +71,7 @@ func initClientWithTimeoutHosts(t *testing.T) Client {
 		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID and/or ALGOLIA_API_KEY")
 	}
 
-	return NewClientWithHosts(appID, apiKey, []string{
-		"algolia.biz",
-		appID + "-dsn.algolia.net",
-	})
+	return NewClientWithHosts(appID, apiKey, []string{"algolia.biz"})
 }
 
 // initIndex init the `c` client with the index called `name`. It also deletes
