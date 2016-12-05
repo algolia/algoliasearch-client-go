@@ -36,8 +36,10 @@ func init() {
 // Transport is responsible for the connection and the retry strategy to
 // Algolia servers.
 type Transport struct {
-	activeHost        string
-	activeSince       time.Time
+	activeReadHost    string
+	activeReadSince   time.Time
+	activeWriteHost   string
+	activeWriteSince  time.Time
 	apiKey            string
 	appId             string
 	dialTimeout       time.Duration
@@ -51,7 +53,8 @@ type Transport struct {
 // connect to.
 func NewTransport(appId, apiKey string) *Transport {
 	return &Transport{
-		activeHost:        "",
+		activeReadHost:    "",
+		activeWriteHost:   "",
 		apiKey:            apiKey,
 		appId:             appId,
 		dialTimeout:       1 * time.Second,
@@ -66,7 +69,8 @@ func NewTransport(appId, apiKey string) *Transport {
 // servers to connect to.
 func NewTransportWithHosts(appId, apiKey string, hosts []string) *Transport {
 	return &Transport{
-		activeHost:        "",
+		activeReadHost:    "",
+		activeWriteHost:   "",
 		apiKey:            apiKey,
 		appId:             appId,
 		dialTimeout:       1 * time.Second,
@@ -167,14 +171,24 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 		res, err = t.tryRequest(method, host, path, body)
 		if err == nil {
 			t.resetDialTimeout()
-			t.activeSince = time.Now()
-			t.activeHost = host
+			if typeCall == write {
+				t.activeWriteSince = time.Now()
+				t.activeWriteHost = host
+			} else {
+				t.activeReadSince = time.Now()
+				t.activeReadHost = host
+			}
 			return res, nil
 		}
 		t.increaseDialTimeout()
 	}
 
-	t.activeHost = ""
+	if typeCall == write {
+		t.activeWriteHost = ""
+	} else {
+		t.activeReadHost = ""
+	}
+
 	return nil, err
 }
 
@@ -182,27 +196,32 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 // the type of request (write vs. read/search) and if a previous host was
 // marked as active.
 func (t *Transport) hostsToTry(typeCall int) []string {
-	// If it's a `write` request, we first try `APPID.algolia.net` and then the
-	// `APPID-{1,2,3}.algolianet.com` endpoints (shuffled).
-	if typeCall == write {
-		return append([]string{t.appId + ".algolia.net"}, t.hosts...)
-	}
-
 	var hosts []string
 
-	// If a previous host was active since less than k.keepAliveDuration
-	// seconds and was not the `APPID-dsn.algolia.net` endpoint, then it is
-	// used first in the list of endpoints to try.
-	if t.activeHost != "" &&
-		!strings.Contains(t.activeHost, "-dsn.algolia.net") &&
-		time.Now().Sub(t.activeSince) <= t.keepAliveDuration {
-		hosts = []string{t.activeHost}
+	if typeCall == write {
+		// In case the request is a write query, we put the last active write
+		// host first in the list of hosts to try if it was used in the last
+		// `keepAliveDuration` seconds. We then put the main algolia.net host.
+		if t.activeWriteHost != "" &&
+			t.activeWriteHost != t.appId+".algolia.net" &&
+			time.Now().Sub(t.activeWriteSince) <= t.keepAliveDuration {
+			hosts = []string{t.activeWriteHost}
+		}
+		hosts = append(hosts, t.appId+".algolia.net")
+	} else {
+		// In case the request is not a write query, we put the last active
+		// read host first in the list of hosts to try if it was used in the
+		// last `keepAliveDuration` seconds. We then put the DSN host.
+		if t.activeReadHost != "" &&
+			t.activeReadHost != t.appId+"-dsn.algolia.net" &&
+			time.Now().Sub(t.activeReadSince) <= t.keepAliveDuration {
+			hosts = []string{t.activeReadHost}
+		}
+		hosts = append(hosts, t.appId+"-dsn.algolia.net")
 	}
 
-	// Whether or not an active host is first in the list of hosts to try, the
-	// following entries in the list is the DSN endpoint followed by the
-	// `APPID-{1,2,3}.algolianet.com` endpoints (shuffled).
-	hosts = append(hosts, t.appId+"-dsn.algolia.net")
+	// In any case, we append all the original hosts (default ones or the ones
+	// specified by the user) to the list of hosts to try.
 	hosts = append(hosts, t.hosts...)
 	return hosts
 
