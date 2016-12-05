@@ -233,7 +233,7 @@ func (t *Transport) tryRequest(method, host, path string, body interface{}) ([]b
 
 	// Return the body as an error if the status code is not 2XX
 	code := res.StatusCode
-	if code < 200 || 300 <= code {
+	if !(200 <= code && code < 300) {
 		return nil, errors.New(string(bodyRes))
 	}
 
