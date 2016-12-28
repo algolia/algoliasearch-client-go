@@ -1183,3 +1183,49 @@ func TestSearchForFacetValues(t *testing.T) {
 		}
 	}
 }
+
+func TestGeoSearchParameters(t *testing.T) {
+	t.Parallel()
+	c, i := initClientAndIndex(t, "TestGeoSearchParameters")
+	addOneObject(t, c, i)
+
+	t.Log("TestGeoSearchParameters: Test valid parameters")
+	{
+		validParams := []Map{
+			Map{"insideBoundingBox": "1.0,2.0,3.0,4.0"},
+			Map{"insideBoundingBox": "1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0"},
+			Map{"insidePolygon": "1.0,2.0,3.0,4.0,5.0,6.0"},
+			Map{"insidePolygon": "[[1.0,2.0,3.0,4.0,5.0,6.0],[1.0,2.0,3.0,4.0,5.0,6.0]]"},
+		}
+
+		for _, params := range validParams {
+			if _, err := i.Search("", params); err != nil {
+				t.Errorf("TestGeoSearchParameters: Parameters %#v should not have raised an error but got `%s` instead",
+					params,
+					err,
+				)
+			}
+		}
+	}
+
+	t.Log("TestGeoSearchParameters: Test invalid parameters")
+	{
+		cases := []struct {
+			params      Map
+			expectedErr error
+		}{
+			{Map{"insideBoundingBox": []string{"1.0,2.0,3.0,4.0"}}, invalidType("insideBoundingBox", "string")},
+			{Map{"insidePolygon": []string{"1.0,2.0,3.0,4.0"}}, invalidType("insidePolygon", "string")},
+		}
+
+		for _, c := range cases {
+			if _, err := i.Search("", c.params); err == nil || err.Error() != c.expectedErr.Error() {
+				t.Errorf("TestGeoSearchParameters: Parameters %#v should have raised an error `%s` but got `%s` instead",
+					c.params,
+					c.expectedErr,
+					err,
+				)
+			}
+		}
+	}
+}
