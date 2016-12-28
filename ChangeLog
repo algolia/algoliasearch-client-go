@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.7.0 (2016-12-28)
+
+### Changes
+
+- Only accepts the following parameters for `GenerateSecuredAPIKey`:
+  + `userToken` (string identifier generally used to rate-limit users per IP)
+  + `validUntil` (timestamp of the expiration date)
+  + `restrictIndices` (comma-separated string list of the indices to restrict)
+  + `referers` (string slice of allowed referers)
+  + `restrictSources` (string of the allowed IPv4 network)
+
 ## 2.6.0 (2016-12-03)
 
 ### Fixes
