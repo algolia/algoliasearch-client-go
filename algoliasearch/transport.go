@@ -242,13 +242,13 @@ func (t *Transport) tryRequest(method, host, path string, body interface{}) ([]b
 	if err != nil {
 		return nil, fmt.Errorf("Cannot perform request [%s] %s (%s): %s", method, path, host, err)
 	}
+	defer res.Body.Close()
 
 	// Read response's body
 	bodyRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, fmt.Errorf("Cannot read response body: %s", err)
 	}
-	res.Body.Close()
 
 	// Return the body as an error if the status code is not 2XX
 	code := res.StatusCode
