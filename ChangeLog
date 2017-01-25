@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.1 (2017-01-25)
+
+### Fixes
+
+- Ensure `net/http.Response.Body.Close()` is called
+
 ## 2.7.0 (2016-12-28)
 
 ### Changes
