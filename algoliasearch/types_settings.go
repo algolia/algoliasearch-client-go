@@ -48,9 +48,9 @@ type Settings struct {
 	QueryType                  string      `json:"queryType"`
 	RemoveStopWords            interface{} `json:"removeStopWords"` // []interface{} (actually a []string) or bool
 	ReplaceSynonymsInHighlight bool        `json:"replaceSynonymsInHighlight"`
+	ResponseFields             []string    `json:"responseFields"`
 	SnippetEllipsisText        string      `json:"snippetEllipsisText"`
 	TypoTolerance              string      `json:"typoTolerance"`
-	ResponseFields             []string    `json:"responseFields"`
 }
 
 // clean sets the nil `interface{}` fields of any `Settings struct` generated
