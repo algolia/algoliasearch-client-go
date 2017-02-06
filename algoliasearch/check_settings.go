@@ -38,7 +38,8 @@ func checkSettings(settings Map) error {
 			"maxValuesPerFacet",
 			"minProximity",
 			"minWordSizefor1Typo",
-			"minWordSizefor2Typos":
+			"minWordSizefor2Typos",
+			"maxFacetHits":
 			if _, ok := v.(int); !ok {
 				return invalidType(k, "int")
 			}
