@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.8.0 (2017-02-14)
+
+### Additions
+
+- Allow `maxFacetHits` parameter in queries and parameters
+
 ## 2.7.1 (2017-01-25)
 
 ### Fixes
