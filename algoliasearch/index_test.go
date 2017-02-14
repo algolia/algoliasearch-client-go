@@ -1111,8 +1111,7 @@ func TestSearchForFacetValues(t *testing.T) {
 	t.Log("TestSearchForFacetValues: Set settings")
 	{
 		res, err := i.SetSettings(Map{
-			"searchableAttributes":  []string{"company"},
-			"attributesForFaceting": []string{"company"},
+			"attributesForFaceting": []string{"searchable(company)"},
 		})
 		if err != nil {
 			t.Fatalf("TestSearchForFacetValues: Cannot set attributesForFaceting setting: %s", err)
