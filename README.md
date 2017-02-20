@@ -16,7 +16,7 @@ Version 1.x are no longer under active development. They are still supported for
 
 ## API Documentation
 
-You can find the full reference on the [Algolia's website](https://www.algolia.com/doc/api-client/go/).
+You can find the full reference on [Algolia's website](https://www.algolia.com/doc/api-client/go/).
 
 
 ## Table of Contents
