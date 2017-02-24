@@ -43,20 +43,43 @@ type Client interface {
 	// ClearIndex removes every record from the `name` Algolia index.
 	ClearIndex(name string) (res UpdateTaskRes, err error)
 
-	// AddKey creates a new API key from the supplied `ACL` and the specified
+	// AddUserKey creates a new API key from the supplied `ACL` and the specified
 	// optional parameters. More details here:
 	// https://www.algolia.com/doc/rest#add-a-global-api-key
-	AddUserKey(ACL []string, params Map) (res AddKeyRes, err error)
+	//
+	// Deprecated: Use AddAPiKey instead.
+	AddUserKey(ACL []string, params Map) (AddKeyRes, error)
 
-	// UpdateKey updates the API key identified by its value `key` with the
+	// AddAPIKey creates a new API key from the supplied `ACL` and the specified
+	// optional parameters. More details here:
+	// https://www.algolia.com/doc/rest#add-a-global-api-key
+	AddAPIKey(ACL []string, params Map) (res AddKeyRes, err error)
+
+	// UpdateUserKey updates the API key identified by its value `key` with the
 	// given parameters.
-	UpdateUserKey(key string, params Map) (res UpdateKeyRes, err error)
+	//
+	// Deprecated: Use UpdateAPIKey instead.
+	UpdateUserKey(key string, params Map) (UpdateKeyRes, error)
 
-	// GetKey returns the key identified by its value `key`.
-	GetUserKey(key string) (res Key, err error)
+	// UpdateAPIKey updates the API key identified by its value `key` with the
+	// given parameters.
+	UpdateAPIKey(key string, params Map) (res UpdateKeyRes, err error)
 
-	// DeleteKey deletes the API key identified by its `key`.
-	DeleteUserKey(key string) (res DeleteRes, err error)
+	// GetUserKey returns the key identified by its value `key`.
+	GetUserKey(key string) (Key, error)
+
+	// GetAPIKey returns the key identified by its value `key`.
+	//
+	// Deprecated: Use GetAPIKey instead.
+	GetAPIKey(key string) (res Key, err error)
+
+	// DeleteUserKey deletes the API key identified by its `key`.
+	//
+	// Deprecated: Use DeleteAPIKey instead.
+	DeleteUserKey(key string) (DeleteRes, error)
+
+	// DeleteAPIKey deletes the API key identified by its `key`.
+	DeleteAPIKey(key string) (res DeleteRes, err error)
 
 	// GetLogs retrieves the logs according to the given `params` map which can
 	// contain the following fields:
@@ -121,21 +144,45 @@ type Index interface {
 	// ListKeys lists all the keys that can access the index.
 	ListKeys() (keys []Key, err error)
 
-	// AddKey creates a new API key from the supplied `ACL` and the specified
+	// AddUserKey creates a new API key from the supplied `ACL` and the specified
 	// optional `params` parameters for the current index. More details here:
 	// https://www.algolia.com/doc/rest#add-an-index-specific-api-key
-	AddUserKey(ACL []string, params Map) (res AddKeyRes, err error)
+	//
+	// Deprecated: Use AddAPIKey instead.
+	AddUserKey(ACL []string, params Map) (AddKeyRes, error)
 
-	// UpdateKey updates the key identified by its `key` with all the fields
+	// AddAPIKey creates a new API key from the supplied `ACL` and the specified
+	// optional `params` parameters for the current index. More details here:
+	// https://www.algolia.com/doc/rest#add-an-index-specific-api-key
+	AddAPIKey(ACL []string, params Map) (res AddKeyRes, err error)
+
+	// UpdateUserKey updates the key identified by its `key` with all the fields
 	// present in the `params` Map. More details here:
 	// https://www.algolia.com/doc/rest#update-an-index-specific-api-key
-	UpdateUserKey(key string, params Map) (res UpdateKeyRes, err error)
+	//
+	// Deprecated: Use UpdateAPIKey instead.
+	UpdateUserKey(key string, params Map) (UpdateKeyRes, error)
 
-	// GetKey retrieves the key identified by its `value`.
-	GetUserKey(value string) (key Key, err error)
+	// UpdateAPIKey updates the key identified by its `key` with all the fields
+	// present in the `params` Map. More details here:
+	// https://www.algolia.com/doc/rest#update-an-index-specific-api-key
+	UpdateAPIKey(key string, params Map) (res UpdateKeyRes, err error)
 
-	// DeleteKey deletes the key identified by its `value`.
-	DeleteUserKey(value string) (res DeleteRes, err error)
+	// GetUserKey retrieves the key identified by its `value`.
+	//
+	// Deprecated: Use GetAPIKey instead.
+	GetUserKey(value string) (Key, error)
+
+	// GetAPIKey retrieves the key identified by its `value`.
+	GetAPIKey(value string) (key Key, err error)
+
+	// DeleteUserKey deletes the key identified by its `value`.
+	//
+	// Deprecated: Use DeleteAPIKey instead.
+	DeleteUserKey(value string) (DeleteRes, error)
+
+	// DeleteAPIKey deletes the key identified by its `value`.
+	DeleteAPIKey(value string) (res DeleteRes, err error)
 
 	// AddObject adds a new record to the index.
 	AddObject(object Object) (res CreateObjectRes, err error)
