@@ -158,7 +158,11 @@ func (i *index) ListKeys() (keys []Key, err error) {
 	return
 }
 
-func (i *index) AddUserKey(ACL []string, params Map) (res AddKeyRes, err error) {
+func (i *index) AddUserKey(ACL []string, params Map) (AddKeyRes, error) {
+	return i.AddAPIKey(ACL, params)
+}
+
+func (i *index) AddAPIKey(ACL []string, params Map) (res AddKeyRes, err error) {
 	req := duplicateMap(params)
 	req["acl"] = ACL
 
@@ -171,7 +175,11 @@ func (i *index) AddUserKey(ACL []string, params Map) (res AddKeyRes, err error) 
 	return
 }
 
-func (i *index) UpdateUserKey(key string, params Map) (res UpdateKeyRes, err error) {
+func (i *index) UpdateUserKey(key string, params Map) (UpdateKeyRes, error) {
+	return i.UpdateAPIKey(key, params)
+}
+
+func (i *index) UpdateAPIKey(key string, params Map) (res UpdateKeyRes, err error) {
 	if err = checkKey(params); err != nil {
 		return
 	}
@@ -181,13 +189,21 @@ func (i *index) UpdateUserKey(key string, params Map) (res UpdateKeyRes, err err
 	return
 }
 
-func (i *index) GetUserKey(value string) (key Key, err error) {
+func (i *index) GetUserKey(value string) (Key, error) {
+	return i.GetAPIKey(value)
+}
+
+func (i *index) GetAPIKey(value string) (key Key, err error) {
 	path := i.route + "/keys/" + url.QueryEscape(value)
 	err = i.client.request(&key, "GET", path, nil, read)
 	return
 }
 
-func (i *index) DeleteUserKey(value string) (res DeleteRes, err error) {
+func (i *index) DeleteUserKey(value string) (DeleteRes, error) {
+	return i.DeleteAPIKey(value)
+}
+
+func (i *index) DeleteAPIKey(value string) (res DeleteRes, err error) {
 	path := i.route + "/keys/" + value
 	err = i.client.request(&res, "DELETE", path, nil, write)
 	return
