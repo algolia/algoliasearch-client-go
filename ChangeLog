@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.9.0 (2017-02-24)
+
+### Additions
+
+- (Get|Add|Update|Delete)APIKey methods
+
+### Changes
+
+- Deprecate (Get|Add|Update|Delete)UserKey methods
+
 ## 2.8.0 (2017-02-14)
 
 ### Additions
