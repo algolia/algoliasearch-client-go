@@ -45,7 +45,7 @@ func (i *index) GetObject(objectID string, attributes []string) (object Object, 
 			return
 		}
 		params = Map{
-			"attributes": attrBytes,
+			"attributes": string(attrBytes),
 		}
 	}
 
@@ -55,7 +55,7 @@ func (i *index) GetObject(objectID string, attributes []string) (object Object, 
 }
 
 func (i *index) getObjects(objectIDs, attributesToRetrieve []string) (objs []Object, err error) {
-	attrs := url.QueryEscape(strings.Join(attributesToRetrieve, ","))
+	attrs := strings.Join(attributesToRetrieve, ",")
 
 	requests := make([]map[string]string, len(objectIDs))
 	for j, id := range objectIDs {
