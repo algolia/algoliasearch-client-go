@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.1 (2017-03-22)
+
+### Fixes
+
+- Fix the `attributesToRetrieve` handling of `GetObject/GetObjects` methods
+
 ## 2.9.0 (2017-02-24)
 
 ### Additions
