@@ -49,7 +49,6 @@ Outer:
 			"minProximity",
 			"page",
 			"hitsPerPage",
-			"getRankingInfo",
 			"distinct",
 			"maxValuesPerFacet",
 			"aroundPrecision",
@@ -85,6 +84,14 @@ Outer:
 				// OK
 			default:
 				return invalidType(k, "int or string")
+			}
+
+		case "getRankingInfo":
+			switch v.(type) {
+			case int, bool:
+				// OK
+			default:
+				return invalidType(k, "int or bool")
 			}
 
 		default:
