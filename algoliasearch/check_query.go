@@ -22,7 +22,6 @@ Outer:
 			"filters",
 			"analyticsTags",
 			"optionalWords",
-			"numericFilters",
 			"tagFilters",
 			"facets",
 			"facetFilters",
@@ -92,6 +91,14 @@ Outer:
 				// OK
 			default:
 				return invalidType(k, "int or bool")
+			}
+
+		case "numericFilters":
+			switch v.(type) {
+			case string, []interface{}:
+				// OK
+			default:
+				return invalidType(k, "string or []interface{}")
 			}
 
 		default:
