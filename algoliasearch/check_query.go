@@ -20,7 +20,6 @@ Outer:
 			"highlightPostTag",
 			"snippetEllipsisText",
 			"filters",
-			"analyticsTags",
 			"optionalWords",
 			"facets",
 			"facetFilters",
@@ -99,6 +98,14 @@ Outer:
 				// OK
 			default:
 				return invalidType(k, "string or []interface{}")
+			}
+
+		case "analyticsTags":
+			switch v.(type) {
+			case string, []string:
+				// OK
+			default:
+				return invalidType(k, "string or []string")
 			}
 
 		default:
