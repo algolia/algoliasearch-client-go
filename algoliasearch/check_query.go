@@ -15,7 +15,6 @@ Outer:
 			"queryType",
 			"typoTolerance",
 			"removeWordsIfNoResults",
-			"restrictSearchableAttributes",
 			"highlightPreTag",
 			"highlightPostTag",
 			"snippetEllipsisText",
@@ -100,7 +99,8 @@ Outer:
 				return invalidType(k, "string or []interface{}")
 			}
 
-		case "analyticsTags":
+		case "analyticsTags",
+			"restrictSearchableAttributes":
 			switch v.(type) {
 			case string, []string:
 				// OK
