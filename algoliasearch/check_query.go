@@ -30,7 +30,8 @@ Outer:
 			"attributesToSnippet",
 			"attributesToHighlight",
 			"alternativesAsExact",
-			"responseFields":
+			"responseFields",
+			"disableExactOnAttributes":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
