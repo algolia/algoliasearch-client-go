@@ -1,5 +1,35 @@
 # Changelog
 
+## 2.10.0 (2017-03-24)
+
+### Fixes
+
+- Accept disableExactOnAttributes query and settings parameter as []string
+- Accept disablePrefixOnAttributes settings parameter as []string
+- Accept paginationLimitedTo settings parameter as int
+- Accept length query parameter as int
+- Accept offset query parameter as int
+- Accept restrictHighlightAndSnippetArrays query and settings parameter as bool
+- Accept typoTolerance query parameter as string or bool
+- Accept alternativesAsExact settings parameter as []string
+- Accept exactOnSingleWordQuery settings parameter as string
+- Accept optionalWords query and settings parameter as string or []string
+- Accept removeWordsIfNoResults settings parameter as string
+- Accupt insidePolygon query parameter as string or [][]float64
+- Accept insideBoundingBox query parameter as string or [][]float64
+- Accept facetFilters query parameter as string or []string
+- Accept facets query parameter as string or []string
+- Accept restrictSearchableAttributes query parameter as string or []string
+- Accept analyticsTags query parameter as string or []string
+- Accept tagFilters query parameter as string or []interface{}
+- Accept numericFilters query parameter as string or []interface{}
+- Accept getRankingInfo query parameter as int or bool
+
+### Misc
+
+- Run the tests with Go 1.8
+- Do not run the tests with Go 1.5 anymore
+
 ## 2.9.1 (2017-03-22)
 
 ### Fixes
