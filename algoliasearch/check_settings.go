@@ -40,7 +40,8 @@ func checkSettings(settings Map) error {
 			"minProximity",
 			"minWordSizefor1Typo",
 			"minWordSizefor2Typos",
-			"maxFacetHits":
+			"maxFacetHits",
+			"paginationLimitedTo":
 			if _, ok := v.(int); !ok {
 				return invalidType(k, "int")
 			}
