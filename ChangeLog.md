@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.11.0 (2017-03-24)
+
+### Additions
+
+- Add PartialUpdateOp type and helpers to simplify partial update of records
+
 ## 2.10.0 (2017-03-24)
 
 ### Fixes
