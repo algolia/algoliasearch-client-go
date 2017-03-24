@@ -20,7 +20,6 @@ Outer:
 			"snippetEllipsisText",
 			"filters",
 			"optionalWords",
-			"facetFilters",
 			"aroundLatLng",
 			"insideBoundingBox",
 			"insidePolygon",
@@ -100,7 +99,8 @@ Outer:
 
 		case "analyticsTags",
 			"restrictSearchableAttributes",
-			"facets":
+			"facets",
+			"facetFilters":
 			switch v.(type) {
 			case string, []string:
 				// OK
