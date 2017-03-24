@@ -51,7 +51,8 @@ func checkSettings(settings Map) error {
 			"highlightPreTag",
 			"queryType",
 			"snippetEllipsisText",
-			"attributeForDistinct":
+			"attributeForDistinct",
+			"removeWordsIfNoResults":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}
