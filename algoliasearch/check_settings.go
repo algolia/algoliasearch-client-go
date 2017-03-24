@@ -19,7 +19,8 @@ func checkSettings(settings Map) error {
 			"attributesToRetrieve",
 			"attributesToSnippet",
 			"responseFields",
-			"disablePrefixOnAttributes":
+			"disablePrefixOnAttributes",
+			"disableExactOnAttributes":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
