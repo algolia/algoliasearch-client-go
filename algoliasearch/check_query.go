@@ -21,7 +21,6 @@ Outer:
 			"filters",
 			"optionalWords",
 			"aroundLatLng",
-			"insidePolygon",
 			"exactOnSingleWordQuery":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
@@ -107,7 +106,8 @@ Outer:
 				return invalidType(k, "string or []string")
 			}
 
-		case "insideBoundingBox":
+		case "insideBoundingBox",
+			"insidePolygon":
 			switch v.(type) {
 			case string, [][]float64:
 				// OK
