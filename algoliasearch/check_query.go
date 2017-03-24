@@ -19,7 +19,6 @@ Outer:
 			"highlightPostTag",
 			"snippetEllipsisText",
 			"filters",
-			"optionalWords",
 			"aroundLatLng",
 			"exactOnSingleWordQuery":
 			if _, ok := v.(string); !ok {
@@ -101,7 +100,8 @@ Outer:
 		case "analyticsTags",
 			"restrictSearchableAttributes",
 			"facets",
-			"facetFilters":
+			"facetFilters",
+			"optionalWords":
 			switch v.(type) {
 			case string, []string:
 				// OK

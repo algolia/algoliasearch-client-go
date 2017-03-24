@@ -18,7 +18,6 @@ func checkSettings(settings Map) error {
 			"attributesToHighlight",
 			"attributesToRetrieve",
 			"attributesToSnippet",
-			"optionalWords",
 			"responseFields":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
@@ -80,6 +79,14 @@ func checkSettings(settings Map) error {
 				// OK
 			default:
 				return invalidType(k, "int or bool")
+			}
+
+		case "optionalWords":
+			switch v.(type) {
+			case string, []string:
+				// OK
+			default:
+				return invalidType(k, "string or []string")
 			}
 
 		default:
