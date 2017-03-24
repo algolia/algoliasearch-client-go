@@ -75,6 +75,22 @@ func stringSlicesAreEqual(s1, s2 []string) bool {
 	return true
 }
 
+// intSlicesAreEqual returns `true` if the two slices are the same i.e. if
+// they contain the same integers. It returns `false` otherwise. Slices are
+// sorted before the comparison.
+func intSlicesAreEqual(s1, s2 []int) bool {
+	sort.Ints(s1)
+	sort.Ints(s2)
+
+	for i := range s1 {
+		if s1[i] != s2[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
 // settingsAreEqualByComparable returns `true` if all the comparable fields of
 // the given Settings are the same. It returns `false` otherwise.
 func settingsAreEqualByComparable(s1, s2 Settings) bool {
@@ -1224,6 +1240,215 @@ func TestGeoSearchParameters(t *testing.T) {
 					c.expectedErr,
 					err,
 				)
+			}
+		}
+	}
+}
+
+func TestBatchPartialUpdate(t *testing.T) {
+	t.Parallel()
+	_, i := initClientAndIndex(t, "TestBatchPartialUpdate")
+
+	var objectID string
+
+	// Add the object that will get partially updated
+
+	{
+		object := Object{
+			"replace":         10,
+			"increment":       10,
+			"decrement":       10,
+			"addInt":          []int{1, 2, 3},
+			"addString":       []string{"1", "2", "3"},
+			"removeInt":       []int{1, 2, 3},
+			"removeString":    []string{"1", "2", "3"},
+			"addUniqueInt":    []int{1, 2, 3},
+			"addUniqueString": []string{"1", "2", "3"},
+		}
+
+		res, err := i.AddObject(object)
+		if err != nil {
+			t.Fatalf("TestBatchPartialUpdate: Cannot add an object: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		objectID = res.ObjectID
+	}
+
+	// Partially update all the fields via a Batch
+
+	{
+		batchOps := []BatchOperation{
+			{
+				Action: "partialUpdateObject",
+				Body: map[string]interface{}{
+					"objectID":        objectID,
+					"replace":         0,
+					"increment":       IncrementOp(5),
+					"decrement":       DecrementOp(5),
+					"addInt":          AddOp(3),
+					"addString":       AddOp("3"),
+					"removeInt":       RemoveOp(3),
+					"removeString":    RemoveOp("3"),
+					"addUniqueInt":    AddUniqueOp(3),
+					"addUniqueString": AddUniqueOp("3"),
+				},
+			},
+		}
+
+		res, err := i.Batch(batchOps)
+		if err != nil {
+			t.Fatalf("TestBatchPartialUpdate: Cannot batch the partial update operation: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+	}
+
+	// Check the final object
+
+	{
+		object, err := i.GetObject(objectID, nil)
+
+		if err != nil {
+			t.Fatalf("TestBatchPartialUpdate: Cannot get the final object: %s", err)
+		}
+
+		{
+			itf, ok := object["replace"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute replace missing")
+			}
+
+			value := int64(itf.(float64))
+			if value != 0 {
+				t.Errorf("TestBatchPartialUpdate: Wrong value for replace attribute, %d should be 0", value)
+			}
+		}
+
+		{
+			itf, ok := object["increment"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute increment missing")
+			}
+
+			value := int64(itf.(float64))
+			if value != 15 {
+				t.Errorf("TestBatchPartialUpdate: Wrong value for increment attribute, %d should be 15", value)
+			}
+		}
+
+		{
+			itf, ok := object["decrement"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute decrement missing")
+			}
+
+			value := int64(itf.(float64))
+			if value != 5 {
+				t.Errorf("TestBatchPartialUpdate: Wrong value for decrement attribute, %d should be 5", value)
+			}
+		}
+
+		{
+			itf, ok := object["addInt"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute addInt missing")
+			}
+
+			sitf := itf.([]interface{})
+			s := make([]int, len(sitf))
+			for i := range sitf {
+				s[i] = int(sitf[i].(float64))
+			}
+
+			if !intSlicesAreEqual(s, []int{1, 2, 3, 3}) {
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for addInt attribute, %s should be []int{1, 2, 3, 3}", s)
+			}
+		}
+
+		{
+			itf, ok := object["addString"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute addString missing")
+			}
+
+			sitf := itf.([]interface{})
+			s := make([]string, len(sitf))
+			for i := range sitf {
+				s[i] = sitf[i].(string)
+			}
+
+			if !stringSlicesAreEqual(s, []string{"1", "2", "3", "3"}) {
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for addString attribute, %s should be []string{\"1\", \"2\", \"3\", \"3\"}", s)
+			}
+		}
+
+		{
+			itf, ok := object["removeInt"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute removeInt missing")
+			}
+
+			sitf := itf.([]interface{})
+			s := make([]int, len(sitf))
+			for i := range sitf {
+				s[i] = int(sitf[i].(float64))
+			}
+
+			if !intSlicesAreEqual(s, []int{1, 2}) {
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for removeInt attribute, %s should be []int{1, 2}", s)
+			}
+		}
+
+		{
+			itf, ok := object["removeString"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute removeString missing")
+			}
+
+			sitf := itf.([]interface{})
+			s := make([]string, len(sitf))
+			for i := range sitf {
+				s[i] = sitf[i].(string)
+			}
+
+			if !stringSlicesAreEqual(s, []string{"1", "2"}) {
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for removeString attribute, %s should be []string{\"1\", \"2\"}", s)
+			}
+		}
+
+		{
+			itf, ok := object["addUniqueInt"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute addUniqueInt missing")
+			}
+
+			sitf := itf.([]interface{})
+			s := make([]int, len(sitf))
+			for i := range sitf {
+				s[i] = int(sitf[i].(float64))
+			}
+
+			if !intSlicesAreEqual(s, []int{1, 2, 3}) {
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for addUniqueInt attribute, %s should be []int{1, 2, 3}", s)
+			}
+		}
+
+		{
+			itf, ok := object["addUniqueString"]
+			if !ok {
+				t.Fatalf("TestBatchPartialUpdate: Attribute addUniqueString missing")
+			}
+
+			sitf := itf.([]interface{})
+			s := make([]string, len(sitf))
+			for i := range sitf {
+				s[i] = sitf[i].(string)
+			}
+
+			if !stringSlicesAreEqual(s, []string{"1", "2", "3"}) {
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for addUniqueString attribute, %s should be []string{\"1\", \"2\", \"3\"}", s)
 			}
 		}
 	}
