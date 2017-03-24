@@ -20,7 +20,8 @@ func checkSettings(settings Map) error {
 			"attributesToSnippet",
 			"responseFields",
 			"disablePrefixOnAttributes",
-			"disableExactOnAttributes":
+			"disableExactOnAttributes",
+			"alternativesAsExact":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
