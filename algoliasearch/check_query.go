@@ -13,7 +13,6 @@ Outer:
 		switch k {
 		case "query",
 			"queryType",
-			"typoTolerance",
 			"removeWordsIfNoResults",
 			"highlightPreTag",
 			"highlightPostTag",
@@ -117,6 +116,14 @@ Outer:
 				// OK
 			default:
 				return invalidType(k, "string or [][]float64")
+			}
+
+		case "typoTolerance":
+			switch v.(type) {
+			case string, bool:
+				// OK
+			default:
+				return invalidType(k, "string or bool")
 			}
 
 		default:
