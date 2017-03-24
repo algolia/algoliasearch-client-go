@@ -46,7 +46,8 @@ Outer:
 			"aroundPrecision",
 			"minimumAroundRadius",
 			"maxFacetHits",
-			"offset":
+			"offset",
+			"length":
 			if _, ok := v.(int); !ok {
 				return invalidType(k, "int")
 			}
