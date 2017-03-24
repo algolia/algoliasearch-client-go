@@ -29,7 +29,8 @@ func checkSettings(settings Map) error {
 			"allowTyposOnNumericTokens",
 			"replaceSynonymsInHighlight",
 			"forwardToSlaves",
-			"forwardToReplicas":
+			"forwardToReplicas",
+			"restrictHighlightAndSnippetArrays":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}

@@ -56,7 +56,8 @@ Outer:
 			"synonyms",
 			"replaceSynonymsInHighlight",
 			"aroundLatLngViaIP",
-			"facetingAfterDistinct":
+			"facetingAfterDistinct",
+			"restrictHighlightAndSnippetArrays":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}
