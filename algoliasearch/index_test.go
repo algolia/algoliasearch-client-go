@@ -1213,8 +1213,8 @@ func TestGeoSearchParameters(t *testing.T) {
 			params      Map
 			expectedErr error
 		}{
-			{Map{"insideBoundingBox": []string{"1.0,2.0,3.0,4.0"}}, invalidType("insideBoundingBox", "string")},
-			{Map{"insidePolygon": []string{"1.0,2.0,3.0,4.0"}}, invalidType("insidePolygon", "string")},
+			{Map{"insideBoundingBox": []string{"1.0,2.0,3.0,4.0"}}, invalidType("insideBoundingBox", "string or [][]float64")},
+			{Map{"insidePolygon": []string{"1.0,2.0,3.0,4.0"}}, invalidType("insidePolygon", "string or [][]float64")},
 		}
 
 		for _, c := range cases {
