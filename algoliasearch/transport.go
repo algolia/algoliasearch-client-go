@@ -124,6 +124,7 @@ func defaultHttpClient() *http.Client {
 // lookup timeouts).
 func defaultTransport(dialTimeout time.Duration) *http.Transport {
 	return &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
 		Dial: (&net.Dialer{
 			KeepAlive: 180 * time.Second,
 			Timeout:   dialTimeout,
