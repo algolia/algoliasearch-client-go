@@ -44,9 +44,9 @@ type Transport struct {
 	appId             string
 	dialTimeout       time.Duration
 	headers           map[string]string
-	hosts             []string
 	httpClient        *http.Client
 	keepAliveDuration time.Duration
+	providedHosts     []string
 }
 
 // NewTransport instantiates a new Transport with the default Algolia hosts to
@@ -59,9 +59,9 @@ func NewTransport(appId, apiKey string) *Transport {
 		appId:             appId,
 		dialTimeout:       1 * time.Second,
 		headers:           defaultHeaders(appId, apiKey),
-		hosts:             defaultHosts(appId),
 		httpClient:        defaultHttpClient(),
-		keepAliveDuration: 5 * 60 * time.Second,
+		keepAliveDuration: 5 * time.Minute,
+		providedHosts:     nil,
 	}
 }
 
@@ -75,9 +75,9 @@ func NewTransportWithHosts(appId, apiKey string, hosts []string) *Transport {
 		appId:             appId,
 		dialTimeout:       1 * time.Second,
 		headers:           defaultHeaders(appId, apiKey),
-		hosts:             hosts,
 		httpClient:        defaultHttpClient(),
 		keepAliveDuration: 5 * 60 * time.Second,
+		providedHosts:     hosts,
 	}
 }
 
@@ -94,11 +94,11 @@ func defaultHeaders(appId, apiKey string) map[string]string {
 
 // defaultHosts returns the list of the default Algolia hosts to use. The
 // entries are shuffled.
-func defaultHosts(appId string) []string {
+func (t *Transport) defaultHosts() []string {
 	hosts := []string{
-		appId + "-1.algolianet.com",
-		appId + "-2.algolianet.com",
-		appId + "-3.algolianet.com",
+		t.appId + "-1.algolianet.com",
+		t.appId + "-2.algolianet.com",
+		t.appId + "-3.algolianet.com",
 	}
 
 	shuffled := make([]string, len(hosts))
@@ -198,33 +198,51 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int)
 func (t *Transport) hostsToTry(typeCall int) []string {
 	var hosts []string
 
+	// Step 1:
+	//
+	// We set the first host to try to the last active one if any and
+	// if it was active recently.
+
 	if typeCall == write {
 		// In case the request is a write query, we put the last active write
 		// host first in the list of hosts to try if it was used in the last
 		// `keepAliveDuration` seconds. We then put the main algolia.net host.
 		if t.activeWriteHost != "" &&
-			t.activeWriteHost != t.appId+".algolia.net" &&
 			time.Now().Sub(t.activeWriteSince) <= t.keepAliveDuration {
 			hosts = []string{t.activeWriteHost}
 		}
-		hosts = append(hosts, t.appId+".algolia.net")
 	} else {
 		// In case the request is not a write query, we put the last active
 		// read host first in the list of hosts to try if it was used in the
 		// last `keepAliveDuration` seconds. We then put the DSN host.
 		if t.activeReadHost != "" &&
-			t.activeReadHost != t.appId+"-dsn.algolia.net" &&
 			time.Now().Sub(t.activeReadSince) <= t.keepAliveDuration {
 			hosts = []string{t.activeReadHost}
 		}
-		hosts = append(hosts, t.appId+"-dsn.algolia.net")
 	}
 
-	// In any case, we append all the original hosts (default ones or the ones
-	// specified by the user) to the list of hosts to try.
-	hosts = append(hosts, t.hosts...)
-	return hosts
+	// Step 2:
+	//
+	// If the hosts were provided we use them first to make sure they are tried
+	// first. Otherwise, we use put the default ones after the ones already
+	// generated.
 
+	if len(t.providedHosts) > 0 {
+		hosts = append(hosts, t.providedHosts...)
+	}
+
+	// Step 3:
+	//
+	// The main host is added to the list, along with the default ones.
+
+	if typeCall == write {
+		hosts = append(hosts, t.appId+".algolia.net")
+	} else {
+		hosts = append(hosts, t.appId+"-dsn.algolia.net")
+	}
+	hosts = append(hosts, t.defaultHosts()...)
+
+	return hosts
 }
 
 // tryRequest is the underlying method which actually performs the request. It
