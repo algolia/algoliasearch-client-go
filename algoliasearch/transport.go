@@ -124,14 +124,20 @@ func defaultHttpClient() *http.Client {
 // lookup timeouts).
 func defaultTransport(dialTimeout time.Duration) *http.Transport {
 	return &http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		Dial: (&net.Dialer{
-			KeepAlive: 180 * time.Second,
-			Timeout:   dialTimeout,
-		}).Dial,
+		Proxy:               http.ProxyFromEnvironment,
+		Dial:                defaultDial(dialTimeout).Dial,
 		DisableKeepAlives:   false,
 		MaxIdleConnsPerHost: 2,
 		TLSHandshakeTimeout: 2 * time.Second,
+	}
+}
+
+// defaultDial returns the `*net.Dialer` which will connect to the hosts
+// according to the given timeout.
+func defaultDial(dialTimeout time.Duration) *net.Dialer {
+	return &net.Dialer{
+		KeepAlive: 180 * time.Second,
+		Timeout:   dialTimeout,
 	}
 }
 
@@ -326,15 +332,31 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 }
 
 // resetDialTimeout increases the `Timeout` value of the underlying dialer by 1
-// second.
+// second if the underyling RoundTripper of the HTTP client is an instance of
+// http.Transport.
 func (t *Transport) increaseDialTimeout() {
 	t.dialTimeout = t.dialTimeout + time.Second
-	t.httpClient.Transport = defaultTransport(t.dialTimeout)
+	t.setDialTimeout(t.dialTimeout)
 }
 
 // resetDialTimeout resets the `Timeout` value of the underlying dialer to 1
-// second.
+// second if the underyling RoundTripper of the HTTP client is an instance of
+// http.Transport.
 func (t *Transport) resetDialTimeout() {
 	t.dialTimeout = 1 * time.Second
-	t.httpClient.Transport = defaultTransport(t.dialTimeout)
+	t.setDialTimeout(t.dialTimeout)
+}
+
+// setDialTimeout sets the `Timeout` value of the underyling dialer to the
+// given value if the underlying RoundTripper of the HTTP client is an instance
+// of http.Transport.
+func (t *Transport) setDialTimeout(dialTimeout time.Duration) {
+	switch transport := t.httpClient.Transport.(type) {
+	case (*http.Transport):
+		transport.Dial = defaultDial(dialTimeout).Dial
+		t.httpClient.Transport = transport
+	default:
+		// Do nothing if the HTTP client was overriden and the RoundTripper is
+		// not an instance of http.Transport.
+	}
 }
