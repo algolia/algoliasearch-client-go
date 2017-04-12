@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.12.0 (2017-04-12)
+
+### Additions
+
+ - Add default ProxyFunc to the default transport layer of the HTTP client
+
+### Fixes
+
+ - Improve retry strategy to let it use the provided hosts if any in priority
+ - Re-arrange the order of hosts of the retry strategy
+
 ## 2.11.0 (2017-03-24)
 
 ### Additions
