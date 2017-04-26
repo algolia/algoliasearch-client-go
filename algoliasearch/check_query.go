@@ -58,7 +58,8 @@ Outer:
 			"replaceSynonymsInHighlight",
 			"aroundLatLngViaIP",
 			"facetingAfterDistinct",
-			"restrictHighlightAndSnippetArrays":
+			"restrictHighlightAndSnippetArrays",
+			"percentileComputation":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}
