@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.13.0 (2017-04-26)
+
+### Additions
+
+ - Accept percentileComputation query parameter as bool
+
 ## 2.12.0 (2017-04-12)
 
 ### Additions
