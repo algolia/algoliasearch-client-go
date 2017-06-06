@@ -290,31 +290,25 @@ func (t *Transport) tryRequest(method, host, path string, body interface{}) ([]b
 func (t *Transport) buildRequest(method, host, path string, body interface{}) (*http.Request, error) {
 	var req *http.Request
 	var err error
+
 	urlStr := "https://" + host + path
 
 	if body == nil {
 		// As the body is nil, an empty body request is instantiated
-		req, err = http.NewRequest(method, urlStr, nil)
-		if err != nil {
-			return nil, fmt.Errorf("Cannot instantiate request: [%s] %s", method, urlStr)
-		}
+		req, err = buildRequestWithEmptyBody(method, urlStr)
 	} else {
-		// As the body is non-nil, the content is read
-		data, err := json.Marshal(body)
-		if err != nil {
-			return nil, errors.New("Invalid JSON in the query")
+		// If the body is non-nil and the HTTP method is GET, the body request
+		// is translated into HTTP query parameters (needed for the
+		// `Client.GetLogs` for instance.
+		if method == "GET" {
+			req, err = buildRequestWithURLParameters(method, urlStr, body)
+		} else {
+			req, err = buildRequestWithBodyParameters(method, urlStr, body)
 		}
-		reader := bytes.NewReader(data)
+	}
 
-		// The request is then instantiated with the body content
-		req, err = http.NewRequest(method, urlStr, reader)
-		if err != nil {
-			return nil, fmt.Errorf("Cannot instantiate request: [%s] %s", method, urlStr)
-		}
-
-		// Add content specific headers
-		req.Header.Add("Content-Length", strconv.Itoa(len(string(data))))
-		req.Header.Add("Content-Type", "application/json; charset=utf-8")
+	if err != nil {
+		return nil, err
 	}
 
 	// Add default and Algolia specific headers
@@ -324,9 +318,72 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 		req.URL = &url.URL{
 			Scheme: "https",
 			Host:   host,
-			Opaque: "//" + host + path, //Remove url encoding
+			Opaque: "//" + host + path, // Remove url encoding
 		}
 	}
+
+	return req, nil
+}
+
+// buildRequestWithEmptyBody returns a new `http.Request` for the given
+// HTTP method and url whose body is empty. If the request could not have been
+// instantiated correctly, a non-nil error is returned.
+func buildRequestWithEmptyBody(method, url string) (*http.Request, error) {
+	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("Cannot instantiate request: [%s] %s", method, url)
+	}
+	return req, nil
+}
+
+// buildRequestWithURLParameters returns a new `http.Request` for the given
+// HTTP method and url whose body is empty but the URL parameters are filled
+// with the values from the given body (which must be an `algoliasearch.Map`).
+// If the request could not have been instantiated correctly, a non-nil error
+// is returned.
+func buildRequestWithURLParameters(method, url string, body interface{}) (*http.Request, error) {
+	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("Cannot instantiate request: [%s] %s", method, url)
+	}
+
+	params, ok := body.(Map)
+	if !ok {
+		return nil, fmt.Errorf("Cannot instantiate request: GET request has non-Map body")
+	}
+
+	values := req.URL.Query()
+	var value string
+	for k, v := range params {
+		value = fmt.Sprintf("%v", v)
+		values.Set(k, value)
+	}
+	req.URL.RawQuery = values.Encode()
+
+	return req, nil
+}
+
+// buildRequestWithBodyParameters returns a new `http.Request` for the given
+// HTTP method and url whose body is filled with the given body `interface{}`.
+// If the request could not have been instantiated correctly, a non-nil error
+// is returned.
+func buildRequestWithBodyParameters(method, url string, body interface{}) (*http.Request, error) {
+	// As the body is non-nil, the content is read
+	data, err := json.Marshal(body)
+	if err != nil {
+		return nil, errors.New("Invalid JSON in the query")
+	}
+	reader := bytes.NewReader(data)
+
+	// The request is then instantiated with the body content
+	req, err := http.NewRequest(method, url, reader)
+	if err != nil {
+		return nil, fmt.Errorf("Cannot instantiate request: [%s] %s", method, url)
+	}
+
+	// Add content specific headers
+	req.Header.Add("Content-Length", strconv.Itoa(len(string(data))))
+	req.Header.Add("Content-Type", "application/json; charset=utf-8")
 
 	return req, nil
 }
