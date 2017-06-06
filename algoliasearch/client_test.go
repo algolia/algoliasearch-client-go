@@ -199,20 +199,27 @@ func TestLogs(t *testing.T) {
 	c := initClient(t)
 
 	params := Map{
-		"length": 10,
+		"length": 2,
 		"offset": 0,
 		"type":   "all",
 	}
 
-	t.Log("TestLogs: Get the last 10 logs")
+	t.Log("TestLogs: Call ListIndexes 2 times to ensure at least 2 logs will be retrieved")
+	for i := 0; i < 2; i++ {
+		if _, err := c.ListIndexes(); err != nil {
+			t.Fatalf("TestLogs: Cannot list indices correctly")
+		}
+	}
+
+	t.Log("TestLogs: Get the last 2 logs")
 	logs, err := c.GetLogs(params)
 
 	if err != nil {
 		t.Fatalf("TestLogs: Cannot retrieve the logs: %s", err)
 	}
 
-	if len(logs) != 10 {
-		t.Fatalf("TestLogs: Should return 10 logs instead of %d", len(logs))
+	if len(logs) != 2 {
+		t.Fatalf("TestLogs: Should return 2 logs instead of %d", len(logs))
 	}
 }
 
