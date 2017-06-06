@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.14.0 (2017-06-06)
+
+### Fixes
+
+ - Fix `Client.GetLogs` by correctly passing the given parameters via the URL
+ - Accept `indexName` as `Client.GetLogs` parameter as string
+
 ## 2.13.0 (2017-04-26)
 
 ### Additions
