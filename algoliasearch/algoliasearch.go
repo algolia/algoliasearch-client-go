@@ -85,10 +85,11 @@ type Client interface {
 	// contain the following fields:
 	//   - `length` (number of entries to retrieve)
 	//   - `offset` (offset to the first entry)
+	//   - `indexName` (index for which log entries should be retrieved)
 	//   - `type` (type of logs to retrieve, can be "all", "query", "build" or
 	//     "error")
 	// More details here:
-	// https://www.algolia.com/doc/rest#get-last-logs
+	// https://www.algolia.com/doc/rest-api/search/#get-last-logs
 	GetLogs(params Map) (logs []LogRes, err error)
 
 	// MultipleQueries performs all the queries specified in `queries` and

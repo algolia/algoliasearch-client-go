@@ -8,7 +8,8 @@ func checkGetLogs(params Map) error {
 				return invalidType(k, "int")
 			}
 
-		case "type":
+		case "type",
+			"indexName":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}
