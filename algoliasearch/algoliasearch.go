@@ -313,6 +313,43 @@ type Index interface {
 	// is only kept for backward-compatibility reason as we decided to change
 	// its name.
 	SearchFacet(facet, query string, params Map) (res SearchFacetRes, err error)
+
+	// SaveRule saves the given Rule for the current index. If a Rule with the
+	// same objectID already exists, it will get overriden. The operation can
+	// be forwarded to the index replicas by setting `forwardToReplicas` to
+	// `true`.
+	SaveRule(rule Rule, forwardToReplicas bool) (SaveRuleRes, error)
+
+	// SaveRule saves the given Rules by batch for the current index. The
+	// operation can be forwarded to the index replicas by setting
+	// `forwardToReplicas` to `true`. A `clear` operation can be applied before
+	// writing the new Rules by setting `clearExistingRules` to `true`.
+	BatchRules(rules []Rule, forwardToReplicas, clearExistingRules bool) (BatchRulesRes, error)
+
+	// GetRule returns the Rule identified by the given `objectID`. A non-nil
+	// error is returned if the Rule cannot be found.
+	GetRule(objectID string) (*Rule, error)
+
+	// DeleteRule deletes the Rule identified by the given `objectID` for the
+	// current index. The operation can be forwarded to the index replicas by
+	// setting `forwardToReplicas` to `true`.
+	DeleteRule(objectID string, forwardToReplicas bool) (DeleteRuleRes, error)
+
+	// ClearRules removes all existing Rules for the current index. The
+	// operation can be forwarded to the index replicas by setting
+	// `forwardToReplicas` to `true`.
+	ClearRules(forwardToReplicas bool) (ClearRulesRes, error)
+
+	// SearchRules allows to search for Rules for the current index. The
+	// given `Map` can be populated with any of the following fields, which are
+	// all optional:
+	//
+	//   - `query` (string):                     enable full text search within the Rule fields
+	//   - `anchoring` (RulePatternAnchoring):   restricts the search to Rules with a specific anchoring type
+	//   - `context` (string):                   restricts the search to rules with a specific context (exact match)
+	//   - `page` (int):                         requested page (zero-based, defaults to zero)
+	//   - `hitsPerPage` (int):                  maximum number of hits in a page (defaults to 20)
+	SearchRules(params Map) (SearchRulesRes, error)
 }
 
 // IndexIterator is used by the BrowseAll functions to iterate over all the
