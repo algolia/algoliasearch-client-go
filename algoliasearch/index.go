@@ -510,3 +510,58 @@ func (i *index) SearchForFacetValues(facet, query string, params Map) (res Searc
 func (i *index) SearchFacet(facet, query string, params Map) (res SearchFacetRes, err error) {
 	return i.SearchForFacetValues(facet, query, params)
 }
+
+func (i *index) SaveRule(rule Rule, forwardToReplicas bool) (res SaveRuleRes, err error) {
+	if err = checkRule(rule); err != nil {
+		return
+	}
+
+	params := Map{"forwardToReplicas": forwardToReplicas}
+	path := i.route + "/rules/" + rule.ObjectID + "?" + encodeMap(params)
+	err = i.client.request(&res, "PUT", path, rule, write)
+	return
+}
+
+func (i *index) BatchRules(rules []Rule, forwardToReplicas, clearExistingRules bool) (res BatchRulesRes, err error) {
+	if err = checkRules(rules); err != nil {
+		return
+	}
+
+	params := Map{
+		"forwardToReplicas":  forwardToReplicas,
+		"clearExistingRules": clearExistingRules,
+	}
+	path := i.route + "/rules/batch?" + encodeMap(params)
+	err = i.client.request(&res, "POST", path, rules, write)
+	return
+}
+
+func (i *index) GetRule(objectID string) (rule *Rule, err error) {
+	path := i.route + "/rules/" + objectID
+	err = i.client.request(&rule, "GET", path, nil, read)
+	return
+}
+
+func (i *index) DeleteRule(objectID string, forwardToReplicas bool) (res DeleteRuleRes, err error) {
+	params := Map{"forwardToReplicas": forwardToReplicas}
+	path := i.route + "/rules/" + objectID + "?" + encodeMap(params)
+	err = i.client.request(&res, "DELETE", path, nil, write)
+	return
+}
+
+func (i *index) ClearRules(forwardToReplicas bool) (res ClearRulesRes, err error) {
+	params := Map{"forwardToReplicas": forwardToReplicas}
+	path := i.route + "/rules/clear?" + encodeMap(params)
+	err = i.client.request(&res, "POST", path, nil, write)
+	return
+}
+
+func (i *index) SearchRules(params Map) (res SearchRulesRes, err error) {
+	if err = checkSearchRulesParams(params); err != nil {
+		return
+	}
+
+	path := i.route + "/rules/search"
+	err = i.client.request(&res, "POST", path, params, read)
+	return
+}
