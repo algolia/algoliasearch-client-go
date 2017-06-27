@@ -5,6 +5,8 @@ import (
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestIndexOperations(t *testing.T) {
@@ -1450,6 +1452,111 @@ func TestBatchPartialUpdate(t *testing.T) {
 			if !stringSlicesAreEqual(s, []string{"1", "2", "3"}) {
 				t.Errorf("TestBatchPartialUpdate: Wrong slice for addUniqueString attribute, %s should be []string{\"1\", \"2\", \"3\"}", s)
 			}
+		}
+	}
+}
+
+func TestQueryRules(t *testing.T) {
+	t.Parallel()
+	_, i := initClientAndIndex(t, "TestQueryRules")
+
+	var tasks []int
+
+	t.Log("TestQueryRules: Add single rule with SaveRule")
+	{
+		rule := Rule{
+			ObjectID:  "brand_tagging",
+			Condition: NewSimpleRuleCondition(Contains, "{facet:brand}"),
+			Consequence: RuleConsequence{
+				Params: Map{
+					"automaticFacetFilters": []string{"brand"},
+				},
+			},
+			Description: "Automatic tagging of apple queries with apple brand",
+		}
+		res, err := i.SaveRule(rule, false)
+		if err != nil {
+			t.Fatalf("TestQueryRules: Cannot perform SaveRule: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	t.Log("TestQueryRules: Add multiple rules with BatchRules")
+	{
+		rules := []Rule{
+			{
+				ObjectID:  "remove_js",
+				Condition: NewSimpleRuleCondition(Contains, "js"),
+				Consequence: RuleConsequence{
+					Params: Map{
+						"query": QueryIncrementalEdit{Remove: []string{"js"}},
+					},
+				},
+				Description: "Remove `js` from every query",
+			},
+			{
+				ObjectID:  "substitute_coffee_with_tea",
+				Condition: NewSimpleRuleCondition(Contains, "coffee"),
+				Consequence: RuleConsequence{
+					Params: Map{"query": "tea"},
+				},
+				Description: "substitute `coffee` with `tea`",
+			},
+		}
+		res, err := i.BatchRules(rules, false, false)
+		if err != nil {
+			t.Fatalf("TestQueryRules: Cannot perform BatchRules: %s", err)
+		}
+		tasks = append(tasks, res.TaskID)
+	}
+
+	waitTasksAsync(t, i, tasks)
+
+	t.Log("TestQueryRules: Retrieve all the added rules with multiple calls to GetRule")
+
+	for _, ruleId := range []string{
+		"brand_tagging",
+		"remove_js",
+		"substitute_coffee_with_tea",
+	} {
+		_, err := i.GetRule(ruleId)
+		require.Nil(t, err, "should get rule without error")
+	}
+
+	t.Log("TestQueryRules: Delete one query rule and check that it is not accessible anymore")
+	{
+		res, err := i.DeleteRule("brand_tagging", true)
+		require.Nil(t, err, "should remove query rule without error")
+
+		waitTask(t, i, res.TaskID)
+
+		_, err = i.GetRule("brand_tagging")
+		require.NotNil(t, err, "should not be able to get deleted rule")
+	}
+
+	t.Log("TestQueryRules: Search for a query rule with SearchRules")
+	{
+		params := Map{
+			"query": "tea",
+		}
+		res, err := i.SearchRules(params)
+		require.Nil(t, err, "should search for rules without error")
+		require.Len(t, res.Hits, 1, "should only find one rule")
+	}
+
+	t.Log("TestQueryRules: Remove all existing rules with ClearRules and check that they are not accessible anymore")
+	{
+		res, err := i.ClearRules(true)
+		require.Nil(t, err, "should clear all query rules without error")
+
+		waitTask(t, i, res.TaskID)
+
+		for _, ruleId := range []string{
+			"remove_js",
+			"substitute_coffee_with_tea",
+		} {
+			_, err = i.GetRule(ruleId)
+			require.NotNil(t, err, "should not be able to get deleted rule")
 		}
 	}
 }
