@@ -1,2 +1,3 @@
 *.coverprofile
 coverage.out
+vendor/

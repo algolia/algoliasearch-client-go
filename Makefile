@@ -4,6 +4,9 @@ COVERAGE_FILE=coverage.out
 install:
 	go install ./$(PROJECT)
 
+deps:
+	glide install
+
 test: test-unit
 
 test-unit:

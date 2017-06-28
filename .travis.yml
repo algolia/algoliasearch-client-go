@@ -5,7 +5,11 @@ go:
 - 1.8
 os:
 - linux
+before_install:
+- mkdir -p /home/travis/gopath/{src,bin,pkg}
+- curl https://glide.sh/get | sh
 install:
+- make deps
 - make install
 script:
 - make test
