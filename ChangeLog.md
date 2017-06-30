@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.15.0 (2017-06-30)
+
+### Additions
+
+ - Implement new Index methods for Algolia Query Rules endpoints
+
 ## 2.14.0 (2017-06-06)
 
 ### Fixes
