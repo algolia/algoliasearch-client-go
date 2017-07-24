@@ -457,6 +457,7 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 	copy["distinct"] = 0
 
 	var browseRes BrowseRes
+	var batchRes BatchRes
 	var objectIDs []string
 	var cursor string
 
@@ -481,8 +482,13 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 	}
 
 	// Delete all the objects
-	if _, err = i.DeleteObjects(objectIDs); err != nil {
+	if batchRes, err = i.DeleteObjects(objectIDs); err != nil {
 		return
+	}
+
+	// Wait until DeleteObjects completion
+	if err := i.WaitTask(batchRes.TaskID); err != nil {
+		return err
 	}
 
 	return nil
