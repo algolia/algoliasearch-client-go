@@ -121,7 +121,7 @@ func (i *index) WaitTask(taskID int) error {
 	var res TaskStatusRes
 	var err error
 
-	var maxDuration time.Duration = time.Second
+	var maxDuration = time.Second
 	var sleepDuration time.Duration
 
 	for {
@@ -142,8 +142,6 @@ func (i *index) WaitTask(taskID int) error {
 			maxDuration *= 2
 		}
 	}
-
-	return nil
 }
 
 func (i *index) ListKeys() (keys []Key, err error) {
