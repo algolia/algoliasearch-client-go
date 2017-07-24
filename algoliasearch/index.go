@@ -457,11 +457,12 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 	copy["distinct"] = 0
 
 	var browseRes BrowseRes
-	var batchRes BatchRes
+	var objectIDs []string
+	var cursor string
 
 	for {
-		// Start browsing the content
-		if browseRes, err = i.Browse(copy, ""); err != nil {
+		// Start browsing the content by cursor
+		if browseRes, err = i.Browse(copy, cursor); err != nil {
 			return
 		}
 
@@ -471,20 +472,17 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 		}
 
 		// Collect all objectIDs
-		var objectIDs []string
 		for _, hit := range browseRes.Hits {
 			objectIDs = append(objectIDs, hit["objectID"].(string))
 		}
 
-		// Delete all the objects
-		if batchRes, err = i.DeleteObjects(objectIDs); err != nil {
-			return
-		}
+		// Set the new cursor from response
+		cursor = browseRes.Cursor
+	}
 
-		// Wait until DeleteObjects completion
-		if err := i.WaitTask(batchRes.TaskID); err != nil {
-			return err
-		}
+	// Delete all the objects
+	if _, err = i.DeleteObjects(objectIDs); err != nil {
+		return
 	}
 
 	return nil
