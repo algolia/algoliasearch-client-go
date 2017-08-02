@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.16.0 (2017-08-02)
+
+### Fixes
+
+ - Correctly stop the browse iteration of `Index.DeleteByQuery`
+
+### Changes
+
+ - Improve performances of `Index.DeleteByQuery`
+ - Improve documentation comment of `Index.BrowseAll`
+ - `Index.BrowseAll`'s terminal "no more hits" error now has its own variable: `NoMoreHitsErr`
+
 ## 2.15.0 (2017-06-30)
 
 ### Additions
