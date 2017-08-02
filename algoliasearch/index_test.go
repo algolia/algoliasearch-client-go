@@ -1560,3 +1560,42 @@ func TestQueryRules(t *testing.T) {
 		}
 	}
 }
+
+func TestBrowseAll(t *testing.T) {
+	t.Parallel()
+	_, i := initClientAndIndex(t, "TestBrowseAll")
+
+	var tasks []int
+
+	t.Log("TestBrowseAll: Add 3500 records")
+	{
+		objects := make([]Object, 500)
+		for j := range objects {
+			objects[j] = Object{"key": "value"}
+		}
+
+		for j := 0; j < 7; j++ {
+			res, err := i.AddObjects(objects)
+			require.Nil(t, err, "should add objects without error")
+			tasks = append(tasks, res.TaskID)
+		}
+	}
+
+	waitTasksAsync(t, i, tasks)
+
+	t.Log("TestBrowseAll: Retrieve all of the 3500 records")
+	{
+		it, err := i.BrowseAll(nil)
+		require.Nil(t, err, "should instantiate a new iterator without error")
+
+		var count int
+
+		for err == nil {
+			_, err = it.Next()
+			count++
+		}
+
+		require.Equal(t, "No more hits", err.Error(), "should only return an \"end of result\"-kind error")
+		require.Equal(t, 3501, count, "should browse all the records")
+	}
+}
