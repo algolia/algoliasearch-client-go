@@ -1595,7 +1595,7 @@ func TestBrowseAll(t *testing.T) {
 			count++
 		}
 
-		require.Equal(t, "No more hits", err.Error(), "should only return an \"end of result\"-kind error")
+		require.Equal(t, NoMoreHitsErr.Error(), err.Error(), "should only return an \"end of result\"-kind error")
 		require.Equal(t, 3501, count, "should browse all the records")
 	}
 }
