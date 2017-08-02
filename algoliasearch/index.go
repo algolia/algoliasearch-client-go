@@ -465,11 +465,6 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 			return
 		}
 
-		// Break if there's no more matching records
-		if len(browseRes.Hits) == 0 {
-			break
-		}
-
 		// Collect all objectIDs
 		for _, hit := range browseRes.Hits {
 			objectIDs = append(objectIDs, hit["objectID"].(string))
@@ -477,6 +472,11 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 
 		// Set the new cursor from response
 		cursor = browseRes.Cursor
+
+		// Break if there's no more matching records
+		if cursor == "" {
+			break
+		}
 	}
 
 	// Delete all the objects
@@ -485,11 +485,8 @@ func (i *index) DeleteByQuery(query string, params Map) (err error) {
 	}
 
 	// Wait until DeleteObjects completion
-	if err := i.WaitTask(batchRes.TaskID); err != nil {
-		return err
-	}
-
-	return nil
+	err = i.WaitTask(batchRes.TaskID)
+	return
 }
 
 func (i *index) SearchForFacetValues(facet, query string, params Map) (res SearchFacetRes, err error) {
