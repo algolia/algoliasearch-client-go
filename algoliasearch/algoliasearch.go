@@ -286,7 +286,9 @@ type Index interface {
 	// BrowseAll returns an iterator pointing to the first result that matches
 	// the search query given the `params`. Calling `Next()` on the iterator
 	// will returns all the hits one by one, without the 1000 elements limit of
-	// the Search function.
+	// the Search function. Once the last element as been reached, the next
+	// call to `Next()` will return a `NoMoreHitsErr` error. If anything went
+	// wrong during the browsing, a non-nil error is also returned.
 	BrowseAll(params Map) (it IndexIterator, err error)
 
 	// Search performs a search query according to the `query` search query and

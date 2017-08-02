@@ -10,6 +10,8 @@ type indexIterator struct {
 	pos    int
 }
 
+var NoMoreHitsErr error = errors.New("No more hits")
+
 // newIndexIterator instantiates a IndexIterator on the `index` and according
 // to the given `params`. It is also trying to load the first page of results
 // and return an error if something goes wrong.
@@ -28,7 +30,8 @@ func (it *indexIterator) Next() (res Map, err error) {
 	// Abort if the user call `Next()` on a IndexIterator that has been
 	// initialized without being able to load the first page.
 	if len(it.page.Hits) == 0 {
-		err = errors.New("No more hits")
+		//err = errors.New("No more hits")
+		err = NoMoreHitsErr
 		return
 	}
 
@@ -37,7 +40,8 @@ func (it *indexIterator) Next() (res Map, err error) {
 	// been returned.
 	if it.pos == len(it.page.Hits) {
 		if it.cursor == "" {
-			err = errors.New("No more hits")
+			//err = errors.New("No more hits")
+			err = NoMoreHitsErr
 		} else {
 			err = it.loadNextPage()
 		}
@@ -62,7 +66,8 @@ func (it *indexIterator) loadNextPage() (err error) {
 
 	// Return an error if the newly loaded pages contains no results
 	if len(it.page.Hits) == 0 {
-		err = errors.New("No more hits")
+		//err = errors.New("No more hits")
+		err = NoMoreHitsErr
 		return
 	}
 
