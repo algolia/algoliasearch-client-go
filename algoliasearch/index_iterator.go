@@ -5,6 +5,7 @@ import "errors"
 type indexIterator struct {
 	cursor string
 	index  Index
+	opts   *RequestOptions
 	page   BrowseRes
 	params Map
 	pos    int
@@ -15,10 +16,11 @@ var NoMoreHitsErr error = errors.New("No more hits")
 // newIndexIterator instantiates a IndexIterator on the `index` and according
 // to the given `params`. It is also trying to load the first page of results
 // and return an error if something goes wrong.
-func newIndexIterator(index Index, params Map) (it *indexIterator, err error) {
+func newIndexIterator(index Index, params Map, opts *RequestOptions) (it *indexIterator, err error) {
 	it = &indexIterator{
 		cursor: "",
 		index:  index,
+		opts:   opts,
 		params: duplicateMap(params),
 		pos:    0,
 	}
@@ -60,7 +62,7 @@ func (it *indexIterator) Next() (res Map, err error) {
 // loadNextPage is used internally to load the next page of results, using the
 // underlying Browse cursor.
 func (it *indexIterator) loadNextPage() (err error) {
-	if it.page, err = it.index.Browse(it.params, it.cursor); err != nil {
+	if it.page, err = it.index.BrowseWithRequestOptions(it.params, it.cursor, it.opts); err != nil {
 		return
 	}
 
