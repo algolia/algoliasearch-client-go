@@ -141,12 +141,22 @@ func defaultDial(dialTimeout time.Duration) *net.Dialer {
 	}
 }
 
-// addHeaders add the key/value pairs from `headers` to the header list of the
+// addHeaders adds the key/value pairs from `headers` to the header list of the
 // `req` request.
 func addHeaders(req *http.Request, headers map[string]string) {
 	for k, v := range headers {
 		req.Header.Add(k, v)
 	}
+}
+
+// addUrlParameters adds the key/value pairs from `params` to the URL query
+// parameter list of the `req` request.
+func addUrlParameters(req *http.Request, params map[string]string) {
+	q := req.URL.Query()
+	for key, value := range params {
+		q.Add(key, value)
+	}
+	req.URL.RawQuery = q.Encode()
 }
 
 // setExtraHeader lets the user (through the exported `Client.SetExtraHeader`)
@@ -170,12 +180,12 @@ func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
 
 // request is the method used by the `Client` to perform the request against
 // the Algolia servers (or to the list of specified hosts).
-func (t *Transport) request(method, path string, body interface{}, typeCall int) ([]byte, error) {
+func (t *Transport) request(method, path string, body interface{}, typeCall int, opts *RequestOptions) ([]byte, error) {
 	var res []byte
 	var err error
 
 	for _, host := range t.hostsToTry(typeCall) {
-		res, err = t.tryRequest(method, host, path, body)
+		res, err = t.tryRequest(method, host, path, body, opts)
 		if err == nil {
 			t.resetDialTimeout()
 			if typeCall == write {
@@ -255,9 +265,9 @@ func (t *Transport) hostsToTry(typeCall int) []string {
 // tryRequest is the underlying method which actually performs the request. It
 // returns the response as a byte slice or a non-nil error if anything went
 // wrong.
-func (t *Transport) tryRequest(method, host, path string, body interface{}) ([]byte, error) {
+func (t *Transport) tryRequest(method, host, path string, body interface{}, opts *RequestOptions) ([]byte, error) {
 	// Build the request
-	req, err := t.buildRequest(method, host, path, body)
+	req, err := t.buildRequest(method, host, path, body, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -287,7 +297,7 @@ func (t *Transport) tryRequest(method, host, path string, body interface{}) ([]b
 // buildRequest returns a valid `http.Request` with the headers and body (if
 // any) correctly set. The return error is non-nil if the request is invalid or
 // if the body, if non-nil, is not a valid JSON.
-func (t *Transport) buildRequest(method, host, path string, body interface{}) (*http.Request, error) {
+func (t *Transport) buildRequest(method, host, path string, body interface{}, opts *RequestOptions) (*http.Request, error) {
 	var req *http.Request
 	var err error
 
@@ -320,6 +330,13 @@ func (t *Transport) buildRequest(method, host, path string, body interface{}) (*
 			Host:   host,
 			Opaque: "//" + host + path, // Remove url encoding
 		}
+	}
+
+	// Add extra headers and URL parameters if a `RequestOptions` is provided
+	if opts != nil {
+		addHeaders(req, opts.ExtraHeaders)
+		addHeaders(req, map[string]string{"X-Forwarded-For": opts.ForwardedFor})
+		addUrlParameters(req, opts.ExtraUrlParams)
 	}
 
 	return req, nil
