@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.17.0 (2017-08-07)
+
+### Additions
+
+ - Implement `*WithRequestOptions` methods for both Client and Index implementations
+
 ## 2.16.0 (2017-08-02)
 
 ### Fixes
