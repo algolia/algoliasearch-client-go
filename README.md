@@ -32,17 +32,15 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 1. **[Push data](#push-data)**
 
 
-1. **[Search](#search)**
-
-
 1. **[Configure](#configure)**
 
 
-1. **[Frontend search](#frontend-search)**
+1. **[Search](#search)**
 
 
-1. **[Getting Help](#getting-help)**
+1. **[Search UI](#search-ui)**
 
+    * [index.html](#indexhtml)
 
 
 
@@ -91,24 +89,6 @@ if err := json.Unmarshal(content, &objects); err != nil {
 res, err := index.AddObjects(objects)
 ```
 
-## Search
-
-You can now search for contacts using `firstname`, `lastname`, `company`, etc. (even with typos):
-
-```go
-// Search by firstname
-res, err := index.Search("jimmie", nil)
-
-// Search by firstname with typo
-res, err = index.Search("jimie", nil)
-
-// Search for a company
-res, err = index.Search("california paint", nil)
-
-// Search for a firstname & company
-res, err = index.Search("jimmie paint", nil)
-```
-
 ## Configure
 
 Settings can be customized to fine tune the search behavior. For example, you can add a custom sort by number of followers to further enhance the built-in relevance:
@@ -141,42 +121,92 @@ settings := algoliasearch.Map{
 res, err := index.SetSettings(settings)
 ```
 
-## Frontend search
+## Search
 
-**Note:** If you are building a web application, you may be more interested in using our [JavaScript client](https://github.com/algolia/algoliasearch-client-javascript) to perform queries.
+You can now search for contacts using `firstname`, `lastname`, `company`, etc. (even with typos):
 
-Benefits of using our JavaScript client:
-  * End users experience a faster response time by not going through your servers
-  * It will offload unnecessary tasks from your servers
+```go
+// Search by firstname
+res, err := index.Search("jimmie", nil)
+
+// Search by firstname with typo
+res, err = index.Search("jimie", nil)
+
+// Search for a company
+res, err = index.Search("california paint", nil)
+
+// Search for a firstname & company
+res, err = index.Search("jimmie paint", nil)
+```
+
+## Search UI
+
+**Warning:** If you are building a web application, you may be more interested in using one of our
+[frontend search UI librairies](/doc/guides/search-ui/search-libraries/)
+
+The following example shows how to build a front-end search quickly using
+[InstanSearch.js](https://community.algolia.com/instantsearch.js/)
+
+### index.html
 
 ```html
-<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-<script>
-var client = algoliasearch('ApplicationID', 'apiKey');
-var index = client.initIndex('indexName');
+<!doctype html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.css">
+</head>
+<body>
+  <header>
+    <div>
+       <input id="search-input" placeholder="Search for products">
+       <!-- We use a specific placeholder in the input to guides users in their search. -->
+    
+  </header>
+  <main>
+      
+      
+  </main>
 
-// perform query "jim"
-index.search('jim', searchCallback);
+  <script type="text/html" id="hit-template">
+    
+      <p class="hit-name">{{{_highlightResult.firstname.value}}} {{{_highlightResult.lastname.value}}}</p>
+    
+  </script>
 
-// the last optional argument can be used to add search parameters
-index.search(
-  'jim', {
-    hitsPerPage: 5,
-    facets: '*',
-    maxValuesPerFacet: 10
-  },
-  searchCallback
+  <script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
+  <script src="app.js"></script>
+</body>
+```
+
+### app.js
+
+```js
+var search = instantsearch({
+  // Replace with your own values
+  appId: 'YourApplicationID',
+  apiKey: 'YourSearchOnlyAPIKey', // search only API key, no ADMIN key
+  indexName: 'contacts',
+  urlSync: true
+});
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-input'
+  })
 );
 
-function searchCallback(err, content) {
-  if (err) {
-    console.error(err);
-    return;
-  }
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#hits',
+    hitsPerPage: 10,
+    templates: {
+      item: document.getElementById('hit-template').innerHTML,
+      empty: "We didn't find any results for the search <em>\"{{query}}\"</em>"
+    }
+  })
+);
 
-  console.log(content);
-}
-</script>
+search.start();
 ```
 
 ## Getting Help
