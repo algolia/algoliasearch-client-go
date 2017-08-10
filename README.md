@@ -28,10 +28,18 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 1. **[Quick Start](#quick-start)**
 
     * [Initialize the client](#initialize-the-client)
-    * [Push data](#push-data)
-    * [Search](#search)
-    * [Configure](#configure)
-    * [Frontend search](#frontend-search)
+
+1. **[Push data](#push-data)**
+
+
+1. **[Search](#search)**
+
+
+1. **[Configure](#configure)**
+
+
+1. **[Frontend search](#frontend-search)**
+
 
 1. **[Getting Help](#getting-help)**
 
@@ -39,7 +47,9 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 
 
 
+
 # Getting Started
+
 
 
 
@@ -57,8 +67,8 @@ In 30 seconds, this quick start tutorial will show you how to index and search o
 
 ### Initialize the client
 
-You first need to initialize the client. For that you need your **Application ID** and **API Key**.
-You can find both of them on [your Algolia account](https://www.algolia.com/api-keys).
+To begin, you will need to initialize the client. In order to do this you will need your **Application ID** and **API Key**.
+You can find both on [your Algolia account](https://www.algolia.com/api-keys).
 
 ```go
 import "github.com/algolia/algoliasearch-client-go/algoliasearch"
@@ -66,9 +76,9 @@ import "github.com/algolia/algoliasearch-client-go/algoliasearch"
 client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
 ```
 
-### Push data
+## Push data
 
-Without any prior configuration, you can start indexing [500 contacts](https://github.com/algolia/algoliasearch-client-csharp/blob/master/contacts.json) in the ```contacts``` index using the following code:
+Without any prior configuration, you can start indexing [500 contacts](https://raw.githubusercontent.com/algolia/datasets-public/master/contacts.json) in the ```contacts``` index using the following code:
 ```go
 index := client.InitIndex("contacts")
 content, _ := ioutil.ReadFile("contacts.json")
@@ -81,9 +91,9 @@ if err := json.Unmarshal(content, &objects); err != nil {
 res, err := index.AddObjects(objects)
 ```
 
-### Search
+## Search
 
-You can now search for contacts using firstname, lastname, company, etc. (even with typos):
+You can now search for contacts using `firstname`, `lastname`, `company`, etc. (even with typos):
 
 ```go
 // Search by firstname
@@ -99,9 +109,9 @@ res, err = index.Search("california paint", nil)
 res, err = index.Search("jimmie paint", nil)
 ```
 
-### Configure
+## Configure
 
-Settings can be customized to tune the search behavior. For example, you can add a custom sort by number of followers to the already great built-in relevance:
+Settings can be customized to fine tune the search behavior. For example, you can add a custom sort by number of followers to further enhance the built-in relevance:
 
 ```go
 settings := algoliasearch.Map{
@@ -111,10 +121,10 @@ settings := algoliasearch.Map{
 res, err := index.SetSettings(settings)
 ```
 
-You can also configure the list of attributes you want to index by order of importance (first = most important):
+You can also configure the list of attributes you want to index by order of importance (most important first).
 
-**Note:** Since the engine is designed to suggest results as you type, you'll generally search by prefix.
-In this case the order of attributes is very important to decide which hit is the best:
+**Note:** The Algolia engine is designed to suggest results as you type, which means you'll generally search by prefix.
+In this case, the order of attributes is very important to decide which hit is the best:
 
 ```go
 settings := algoliasearch.Map{
@@ -131,12 +141,12 @@ settings := algoliasearch.Map{
 res, err := index.SetSettings(settings)
 ```
 
-### Frontend search
+## Frontend search
 
 **Note:** If you are building a web application, you may be more interested in using our [JavaScript client](https://github.com/algolia/algoliasearch-client-javascript) to perform queries.
 
-It brings two benefits:
-  * Your users get a better response time by not going through your servers
+Benefits of using our JavaScript client:
+  * End users experience a faster response time by not going through your servers
   * It will offload unnecessary tasks from your servers
 
 ```html
