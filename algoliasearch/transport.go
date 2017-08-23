@@ -127,7 +127,7 @@ func defaultTransport(dialTimeout time.Duration) *http.Transport {
 		Proxy:               http.ProxyFromEnvironment,
 		Dial:                defaultDial(dialTimeout).Dial,
 		DisableKeepAlives:   false,
-		MaxIdleConnsPerHost: 2,
+		MaxIdleConnsPerHost: 64,
 		TLSHandshakeTimeout: 2 * time.Second,
 	}
 }
