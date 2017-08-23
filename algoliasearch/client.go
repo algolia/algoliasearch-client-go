@@ -39,6 +39,10 @@ func (c *client) SetTimeout(connectTimeout, readTimeout int) {
 	)
 }
 
+func (c *client) SetMaxIdleConnsPerHosts(maxIdleConnsPerHost int) {
+	c.transport.setMaxIdleConnsPerHost(maxIdleConnsPerHost)
+}
+
 func (c *client) SetHTTPClient(client *http.Client) {
 	c.transport.httpClient = client
 }

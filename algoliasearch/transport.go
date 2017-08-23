@@ -434,3 +434,17 @@ func (t *Transport) setDialTimeout(dialTimeout time.Duration) {
 		// not an instance of http.Transport.
 	}
 }
+
+// setMaxIdleConnsPerHost sets the `MaxIdleConnsPerHost` via the given
+// `perHosts` value of the underlying RoundTripper of the HTTP client if it is
+// an instance of `http.Transport`.
+func (t *Transport) setMaxIdleConnsPerHost(maxIdleConnsPerHost int) {
+	switch transport := t.httpClient.Transport.(type) {
+	case (*http.Transport):
+		transport.MaxIdleConnsPerHost = maxIdleConnsPerHost
+		t.httpClient.Transport = transport
+	default:
+		// Do nothing if the HTTP client was overriden and the RoundTripper is
+		// not an instance of http.Transport.
+	}
+}
