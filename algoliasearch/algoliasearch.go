@@ -15,6 +15,10 @@ type Client interface {
 	// SetTimeout specifies timeouts to use with the HTTP connection.
 	SetTimeout(connectTimeout, readTimeout int)
 
+	// SetMaxIdleConnsPerHosts specifies the value for `MaxIdleConnsPerHost` of
+	// the underlying http.Transport.
+	SetMaxIdleConnsPerHosts(maxIdleConnsPerHost int)
+
 	// SetHTTPClient allows a custom HTTP client to be specified.
 	// NOTE: using this may prevent timeouts set on this client from
 	// working if the underlying transport is not of type *http.Transport.
