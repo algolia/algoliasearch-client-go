@@ -72,6 +72,7 @@ You can find both on [your Algolia account](https://www.algolia.com/api-keys).
 import "github.com/algolia/algoliasearch-client-go/algoliasearch"
 
 client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
+index := client.InitIndex("contacts")
 ```
 
 ## Push data
