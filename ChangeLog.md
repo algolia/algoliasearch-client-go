@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.18.0 (2017-08-23)
+
+### Additions
+
+ - Implement `Client.SetMaxIdleConnsPerHosts` to let the user override `MaxIdleConnsPerHost`
+
+### Changes
+
+ - Change the default value of `MaxIdleConnsPerHost` from 2 to 64
+
 ## 2.17.0 (2017-08-07)
 
 ### Additions
