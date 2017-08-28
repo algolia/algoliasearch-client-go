@@ -587,6 +587,24 @@ func (i *index) SearchWithRequestOptions(query string, params Map, opts *Request
 	return
 }
 
+func (i *index) DeleteBy(params Map) (res DeleteTaskRes, err error) {
+	return i.DeleteByWithRequestOptions(params, nil)
+}
+
+func (i *index) DeleteByWithRequestOptions(params Map, opts *RequestOptions) (res DeleteTaskRes, err error) {
+	if err = checkQuery(params); err != nil {
+		return
+	}
+
+	req := Map{
+		"params": encodeMap(params),
+	}
+
+	path := i.route + "/deleteByQuery"
+	err = i.client.request(&res, "POST", path, req, write, opts)
+	return
+}
+
 func (i *index) DeleteByQuery(query string, params Map) (err error) {
 	return i.DeleteByQueryWithRequestOptions(query, params, nil)
 }

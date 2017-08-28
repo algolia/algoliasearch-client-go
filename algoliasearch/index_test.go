@@ -721,6 +721,28 @@ func TestIndexingAndSearch(t *testing.T) {
 			t.Fatalf("TestIndexingAndSearch: 'jeff bezos' record hasn't been deleted properly: %s", err)
 		}
 	}
+
+	t.Log("TestIndexingAndSearch: DeleteBy with facet \"company:arista networks\" should remove 1 records")
+	{
+		countBefore := len(getAllRecords(t, i))
+
+		params := Map{
+			"facets":       "*",
+			"facetFilters": "company:arista networks",
+		}
+
+		res, err := i.DeleteBy(params)
+		if err != nil {
+			t.Fatalf("TestIndexingAndSearch: Cannot DeleteBy using 'company:apple' facet: %s", err)
+		}
+
+		waitTask(t, i, res.TaskID)
+
+		countAfter := len(getAllRecords(t, i))
+		if countBefore != countAfter+1 {
+			t.Fatalf("TestIndexingAndSearch: DeleteBy should delete 3 records using facet 'company:arista networks' insteaf of %d", countBefore-countAfter)
+		}
+	}
 }
 
 // synonymsAreEqual returns `true` if the two synonyms are the same.

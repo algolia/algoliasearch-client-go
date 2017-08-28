@@ -498,13 +498,29 @@ type Index interface {
 	// RequestOptions.
 	SearchWithRequestOptions(query string, params Map, opts *RequestOptions) (res QueryRes, err error)
 
+	// DeleteBy finds all the records that match the given query parameters
+	// and deletes them. However, those parameters do not support all the
+	// options of a query, only its filters (numeric, facet, or tag) and geo
+	// queries. They also do not accept empty filters or query. More details
+	// here:
+	// https://www.algolia.com/doc/rest-api/search/#delete-by-query
+	DeleteBy(params Map) (res DeleteTaskRes, err error)
+
+	// DeleteByWithRequestOptions is the same as DeleteBy but it also accepts
+	// extra RequestOptions.
+	DeleteByWithRequestOptions(params Map, opts *RequestOptions) (res DeleteTaskRes, err error)
+
 	// DeleteByQuery finds all the records that match the `query`, according to
 	// the given 'params` and deletes them. It hangs until all the deletion
 	// operations have completed.
+	//
+	// Deprecated: Use DeleteBy instead.
 	DeleteByQuery(query string, params Map) error
 
 	// DeleteByQueryWithRequestOptions is the same as DeleteByQuery but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use DeleteByWithRequestOptions instead.
 	DeleteByQueryWithRequestOptions(query string, params Map, opts *RequestOptions) error
 
 	// SearchFacet searches inside a facet's values, optionally
