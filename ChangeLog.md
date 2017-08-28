@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.19.0 (2017-08-28)
+
+### Additions
+
+ - Implement `Index.DeleteBy`
+
+### Changes
+
+ - Deprecate `Index.DeleteByQuery`
+
 ## 2.18.0 (2017-08-23)
 
 ### Additions
