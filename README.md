@@ -72,7 +72,7 @@ You can find both on [your Algolia account](https://www.algolia.com/api-keys).
 import "github.com/algolia/algoliasearch-client-go/algoliasearch"
 
 client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
-index := client.InitIndex("contacts")
+index := client.InitIndex("your_index_name")
 ```
 
 ## Push data
@@ -143,10 +143,10 @@ res, err = index.Search("jimmie paint", nil)
 ## Search UI
 
 **Warning:** If you are building a web application, you may be more interested in using one of our
-[frontend search UI librairies](https://www.algolia.com/doc/guides/search-ui/search-libraries/)
+[frontend search UI libraries](https://www.algolia.com/doc/guides/search-ui/search-libraries/)
 
 The following example shows how to build a front-end search quickly using
-[InstanSearch.js](https://community.algolia.com/instantsearch.js/)
+[InstantSearch.js](https://community.algolia.com/instantsearch.js/)
 
 ### index.html
 
