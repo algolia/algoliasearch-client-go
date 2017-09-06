@@ -14,6 +14,7 @@ type QueryRes struct {
 	AutomaticRadius       string `json:"automaticRadius,omitempty"`
 	ExhaustiveFacetsCount bool   `json:"exhaustiveFacetsCount,omitempty"`
 	Facets                Map    `json:"facets,omitempty"`
+	ExhaustiveNbHits      bool   `json:"exhaustiveNbHits"`
 	FacetsStats           Map    `json:"facets_stats,omitempty"`
 	Hits                  []Map  `json:"hits"`
 	HitsPerPage           int    `json:"hitsPerPage"`
