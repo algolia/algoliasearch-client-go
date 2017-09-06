@@ -2,6 +2,6 @@ package algoliasearch
 
 type BrowseRes struct {
 	Cursor  string `json:"cursor"`
-	Warning string `json:"warning,omitempty"`
+	Warning string `json:"warning"`
 	QueryRes
 }
