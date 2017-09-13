@@ -280,6 +280,17 @@ search.start();
 
 
 
+### Query rules
+
+  - [Save a single rule](https://algolia.com/doc/api-reference/api-methods/rules-save/?language=go)
+  - [Batch save multiple rules](https://algolia.com/doc/api-reference/api-methods/rules-save-batch/?language=go)
+  - [Read a rule](https://algolia.com/doc/api-reference/api-methods/rules-read/?language=go)
+  - [Delete a single rule](https://algolia.com/doc/api-reference/api-methods/rules-delete/?language=go)
+  - [Clear all rules](https://algolia.com/doc/api-reference/api-methods/rules-clear/?language=go)
+  - [Search for rules](https://algolia.com/doc/api-reference/api-methods/rules-search/?language=go)
+
+
+
 ### Advanced
 
   - [Custom batch](https://algolia.com/doc/api-reference/api-methods/batch/?language=go)
