@@ -745,109 +745,11 @@ func TestIndexingAndSearch(t *testing.T) {
 	}
 }
 
-// synonymsAreEqual returns `true` if the two synonyms are the same.
-func synonymsAreEqual(s1, s2 Synonym) bool {
-	return s1.ObjectID == s2.ObjectID &&
-		s1.Type == s2.Type &&
-		s1.Word == s2.Word &&
-		s1.Input == s2.Input &&
-		s1.Placeholder == s2.Placeholder &&
-		stringSlicesAreEqual(s1.Corrections, s2.Corrections) &&
-		stringSlicesAreEqual(s1.Synonyms, s2.Synonyms) &&
-		stringSlicesAreEqual(s1.Replacements, s2.Replacements)
-}
-
-// synonymSlicesAreEqual returns `true` if the two slices contains the exact
-// same synonyms. Slices don't need to be sorted.
-func synonymSlicesAreEqual(synonyms1, synonyms2 []Synonym) bool {
-	count := 0
-
-	if len(synonyms1) != len(synonyms2) {
-		return false
-	}
-
-	for _, s1 := range synonyms1 {
-		for _, s2 := range synonyms2 {
-			if synonymsAreEqual(s1, s2) {
-				count++
-				break
-			}
-		}
-	}
-
-	return count == len(synonyms1)
-}
-
 func TestSynonym(t *testing.T) {
 	t.Parallel()
 	_, i := initClientAndIndex(t, "TestSynonym")
 
-	var tasks []int
-
-	t.Log("TestSynonym: Set the settings")
-	{
-		res, err := i.SetSettings(Map{
-			"searchableAttributes": []string{"company"},
-			"customRanking":        []string{"asc(company)"},
-		})
-		if err != nil {
-			t.Fatalf("TestSynonym: Cannot set settings: %s", err)
-		}
-		tasks = append(tasks, res.TaskID)
-	}
-
-	t.Log("TestSynonym: Add multiple objects at once")
-	{
-		objects := []Object{
-			{"company": "<GOOG>"},
-			{"company": "Algolia"},
-			{"company": "Amazon"},
-			{"company": "Apple"},
-			{"company": "Arista Networks"},
-			{"company": "Microsoft"},
-			{"company": "SpaceX"},
-			{"company": "Tesla"},
-			{"company": "Yahoo"},
-		}
-		res, err := i.AddObjects(objects)
-		if err != nil {
-			t.Fatalf("TestSynonym: Cannot add multiple objects: %s", err)
-		}
-		tasks = append(tasks, res.TaskID)
-	}
-
-	synonyms := []Synonym{
-		NewAltCorrectionSynonym("rob", []string{"robpike"}, "rob", AltCorrection1),
-		NewAltCorrectionSynonym("pike", []string{"robpike"}, "pike", AltCorrection2),
-		NewOneWaySynonym("julien", "speedblue", []string{"julien lemoine"}),
-		NewPlaceholderSynonym("google_placeholder", "<GOOG>", []string{"Google", "GOOG"}),
-	}
-
-	t.Log("TestSynonym: Add multiple synonyms at once")
-	{
-		res, err := i.BatchSynonyms(synonyms, false, false)
-		if err != nil {
-			t.Fatalf("TestSynonym: Cannot add multiple synonyms: %s", err)
-		}
-
-		tasks = append(tasks, res.TaskID)
-	}
-
-	t.Log("TestSynonym: Add one synonym")
-	{
-		synonym := NewSynonym("tesla", []string{"tesla", "tesla motors"})
-		synonyms = append(synonyms, synonym)
-
-		res, err := i.AddSynonym(synonym, true)
-		if err != nil {
-			t.Fatalf("TestSynonym: Cannot add one synonym: %s", err)
-		}
-
-		tasks = append(tasks, res.TaskID)
-	}
-
-	t.Log("TestSynonym: Wait for all the previous tasks to complete")
-	waitTasksAsync(t, i, tasks)
+	synonyms := addObjectsAndSynonyms(t, i, "TestSynonym")
 
 	t.Log("TestSynonym: SearchSynonyms with \"\"")
 	{
@@ -900,6 +802,7 @@ func TestSynonym(t *testing.T) {
 		}
 	}
 
+	t.Log("TestSynonym: Clear all remaining synonyms")
 	{
 		res, err := i.ClearSynonyms(false)
 		if err != nil {
@@ -1482,57 +1385,7 @@ func TestQueryRules(t *testing.T) {
 	t.Parallel()
 	_, i := initClientAndIndex(t, "TestQueryRules")
 
-	var tasks []int
-
-	t.Log("TestQueryRules: Add single rule with SaveRule")
-	{
-		rule := Rule{
-			ObjectID:  "brand_tagging",
-			Condition: NewSimpleRuleCondition(Contains, "{facet:brand}"),
-			Consequence: RuleConsequence{
-				Params: Map{
-					"automaticFacetFilters": []string{"brand"},
-				},
-			},
-			Description: "Automatic tagging of apple queries with apple brand",
-		}
-		res, err := i.SaveRule(rule, false)
-		if err != nil {
-			t.Fatalf("TestQueryRules: Cannot perform SaveRule: %s", err)
-		}
-		tasks = append(tasks, res.TaskID)
-	}
-
-	t.Log("TestQueryRules: Add multiple rules with BatchRules")
-	{
-		rules := []Rule{
-			{
-				ObjectID:  "remove_js",
-				Condition: NewSimpleRuleCondition(Contains, "js"),
-				Consequence: RuleConsequence{
-					Params: Map{
-						"query": QueryIncrementalEdit{Remove: []string{"js"}},
-					},
-				},
-				Description: "Remove `js` from every query",
-			},
-			{
-				ObjectID:  "substitute_coffee_with_tea",
-				Condition: NewSimpleRuleCondition(Contains, "coffee"),
-				Consequence: RuleConsequence{
-					Params: Map{"query": "tea"},
-				},
-				Description: "substitute `coffee` with `tea`",
-			},
-		}
-		res, err := i.BatchRules(rules, false, false)
-		if err != nil {
-			t.Fatalf("TestQueryRules: Cannot perform BatchRules: %s", err)
-		}
-		tasks = append(tasks, res.TaskID)
-	}
-
-	waitTasksAsync(t, i, tasks)
+	addRules(t, i, "TestQueryRules")
 
 	t.Log("TestQueryRules: Retrieve all the added rules with multiple calls to GetRule")
 
