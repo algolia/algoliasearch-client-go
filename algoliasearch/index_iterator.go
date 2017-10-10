@@ -1,7 +1,5 @@
 package algoliasearch
 
-import "errors"
-
 type indexIterator struct {
 	cursor string
 	index  Index
@@ -10,8 +8,6 @@ type indexIterator struct {
 	params Map
 	pos    int
 }
-
-var NoMoreHitsErr error = errors.New("No more hits")
 
 // newIndexIterator instantiates a IndexIterator on the `index` and according
 // to the given `params`. It is also trying to load the first page of results
