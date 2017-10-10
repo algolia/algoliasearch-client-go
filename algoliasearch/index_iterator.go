@@ -28,7 +28,6 @@ func (it *indexIterator) Next() (res Map, err error) {
 	// Abort if the user call `Next()` on a IndexIterator that has been
 	// initialized without being able to load the first page.
 	if len(it.page.Hits) == 0 {
-		//err = errors.New("No more hits")
 		err = NoMoreHitsErr
 		return
 	}
@@ -38,7 +37,6 @@ func (it *indexIterator) Next() (res Map, err error) {
 	// been returned.
 	if it.pos == len(it.page.Hits) {
 		if it.cursor == "" {
-			//err = errors.New("No more hits")
 			err = NoMoreHitsErr
 		} else {
 			err = it.loadNextPage()
@@ -64,7 +62,6 @@ func (it *indexIterator) loadNextPage() (err error) {
 
 	// Return an error if the newly loaded pages contains no results
 	if len(it.page.Hits) == 0 {
-		//err = errors.New("No more hits")
 		err = NoMoreHitsErr
 		return
 	}
