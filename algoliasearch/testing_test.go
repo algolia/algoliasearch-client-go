@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"os"
+	"reflect"
 	"sync"
 	"testing"
 )
@@ -216,6 +217,34 @@ func synonymSlicesAreEqual(synonyms1, synonyms2 []Synonym) bool {
 	}
 
 	return count == len(synonyms1)
+}
+
+// rulesAreEqual returns `true` if the two rules are the same.
+func rulesAreEqual(r1, r2 Rule) bool {
+	return r1.ObjectID == r2.ObjectID &&
+		r1.Description == r2.Description &&
+		reflect.DeepEqual(r1.Condition, r2.Condition)
+}
+
+// ruleSlicesAreEqual returns `true` if the two slices contains the exact
+// same rules. Slices don't need to be sorted.
+func ruleSlicesAreEqual(rules1, rules2 []Rule) bool {
+	count := 0
+
+	if len(rules1) != len(rules2) {
+		return false
+	}
+
+	for _, s1 := range rules1 {
+		for _, s2 := range rules2 {
+			if rulesAreEqual(s1, s2) {
+				count++
+				break
+			}
+		}
+	}
+
+	return count == len(rules1)
 }
 
 // addRules populates the given Index with several query rules. This helper is
