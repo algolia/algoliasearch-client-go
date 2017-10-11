@@ -1,10 +1,11 @@
 package algoliasearch
 
 type Rule struct {
-	ObjectID    string          `json:"objectID,omitempty"`
-	Condition   RuleCondition   `json:"condition"`
-	Consequence RuleConsequence `json:"consequence"`
-	Description string          `json:"description,omitempty"`
+	ObjectID        string          `json:"objectID,omitempty"`
+	Condition       RuleCondition   `json:"condition"`
+	Consequence     RuleConsequence `json:"consequence"`
+	Description     string          `json:"description,omitempty"`
+	HighlightResult Map             `json:"_highlightResult,omitempty"`
 }
 
 // RuleCondition is the part of an Algolia Rule which describes the condition
