@@ -10,7 +10,7 @@ func TestClientOperations(t *testing.T) {
 	t.Parallel()
 	c, i := initClientAndIndex(t, "TestClientOperations")
 
-	objectID := addOneObject(t, c, i)
+	objectID := addOneObject(t, i)
 
 	t.Log("TestClientOperations: Test CopyIndex")
 	{

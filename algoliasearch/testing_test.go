@@ -34,7 +34,7 @@ func waitTasksAsync(t *testing.T, i Index, tasks []int) {
 
 // addOneObject is used to add a single dummy object to the index. This way, we
 // make sure the index has been created (and not only initialized).
-func addOneObject(t *testing.T, c Client, i Index) string {
+func addOneObject(t *testing.T, i Index) string {
 	object := Object{"attribute": "value"}
 
 	res, err := i.AddObject(object)
