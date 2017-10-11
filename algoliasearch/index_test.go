@@ -13,7 +13,7 @@ func TestIndexOperations(t *testing.T) {
 	t.Parallel()
 	c, i := initClientAndIndex(t, "TestIndexOperations")
 
-	objectID := addOneObject(t, c, i)
+	objectID := addOneObject(t, i)
 
 	t.Log("TestIndexOperations: Test Copy")
 	{
@@ -894,9 +894,9 @@ func deleteAllIndexKeys(t *testing.T, i Index) {
 
 func TestIndexKeys(t *testing.T) {
 	t.Parallel()
-	c, i := initClientAndIndex(t, "TestIndexKeys")
+	_, i := initClientAndIndex(t, "TestIndexKeys")
 
-	addOneObject(t, c, i)
+	addOneObject(t, i)
 
 	deleteAllIndexKeys(t, i)
 
@@ -975,9 +975,9 @@ func TestIndexKeys(t *testing.T) {
 
 func TestSettingsToMap(t *testing.T) {
 	t.Parallel()
-	c, i := initClientAndIndex(t, "TestSettingsToMap")
+	_, i := initClientAndIndex(t, "TestSettingsToMap")
 
-	addOneObject(t, c, i)
+	addOneObject(t, i)
 
 	t.Log("TestSettingsToMap: Get the original settings")
 	settingsBefore, err := i.GetSettings()
@@ -1128,8 +1128,9 @@ func TestSearchForFacetValues(t *testing.T) {
 
 func TestGeoSearchParameters(t *testing.T) {
 	t.Parallel()
-	c, i := initClientAndIndex(t, "TestGeoSearchParameters")
-	addOneObject(t, c, i)
+	_, i := initClientAndIndex(t, "TestGeoSearchParameters")
+
+	addOneObject(t, i)
 
 	t.Log("TestGeoSearchParameters: Test valid parameters")
 	{
