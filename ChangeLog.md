@@ -1,3 +1,15 @@
+# [2.20.0](https://github.com/algolia/algoliasearch-client-go/compare/2.19.1...2.20.0) (2017-10-11)
+- **doc:** Reformat ChangeLog.md ([68257924](https://github.com/algolia/algoliasearch-client-go/commit/68257924))
+- **doc:** Add missing description of 2.19.1 release to the ChangeLog.md ([8114f6e](https://github.com/algolia/algoliasearch-client-go/commit/8114f6e))
+- **feat:** Implement RuleIterator to browse over all the query rules of a given index ([40e35c2](https://github.com/algolia/algoliasearch-client-go/commit/40e35c2))
+- **feat:** Implement SynonymIterator to browse over all the synonyms of a given index ([3554426](https://github.com/algolia/algoliasearch-client-go/commit/3554426))
+- **test:** Remove unused Client parameter from addOneObject function ([13edced](https://github.com/algolia/algoliasearch-client-go/commit/13edced))
+- **fix:** Expose correct highlighting field (_highlightResult not _highlightedResult) for Synonym answers ([688e76a](https://github.com/algolia/algoliasearch-client-go/commit/688e76a))
+- **fix:** Add missing _highlightResult field for Query Rules answers ([666987b](https://github.com/algolia/algoliasearch-client-go/commit/666987b))
+- **test:** Move shared testing code to dedicated functions ([76e0896](https://github.com/algolia/algoliasearch-client-go/commit/76e0896))
+- **refactor:** Remove commented dead code ([b7988cf](https://github.com/algolia/algoliasearch-client-go/commit/b7988cf))
+- **refactor:** Move NoMoreHitsErr definition to a dedicated file ([6e3dff3](https://github.com/algolia/algoliasearch-client-go/commit/6e3dff3))
+
 # 2.19.1 (2017-09-06)
 ## Changes
 - Expose the `ExhaustiveNbHits` boolean in `QueryRes`
