@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.19.1 (2017-09-06)
+
+### Changes
+
+ - Expose the `ExhaustiveNbHits` boolean in `QueryRes`
+ - Remove useless `omitempty` tags from `BrowseRes` and `QueryRes`
+
 ## 2.19.0 (2017-08-28)
 
 ### Additions
