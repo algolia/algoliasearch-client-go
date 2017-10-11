@@ -12,9 +12,9 @@ type SearchSynonymsRes struct {
 
 type Synonym struct {
 	// Common fields
-	HighlightedResult Map    `json:"_highlightedResult,omitempty"`
-	ObjectID          string `json:"objectID"`
-	Type              string `json:"type"`
+	HighlightResult Map    `json:"_highlightResult,omitempty"`
+	ObjectID        string `json:"objectID"`
+	Type            string `json:"type"`
 
 	// Alternative correction synonym's fields
 	Corrections []string `json:"corrections,omitempty"`
