@@ -19,7 +19,8 @@ Outer:
 			"snippetEllipsisText",
 			"filters",
 			"aroundLatLng",
-			"exactOnSingleWordQuery":
+			"exactOnSingleWordQuery",
+			"sortFacetValuesBy":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}
