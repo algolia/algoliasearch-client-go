@@ -55,7 +55,8 @@ func checkSettings(settings Map) error {
 			"snippetEllipsisText",
 			"attributeForDistinct",
 			"removeWordsIfNoResults",
-			"exactOnSingleWordQuery":
+			"exactOnSingleWordQuery",
+			"sortFacetValuesBy":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}

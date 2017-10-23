@@ -50,6 +50,7 @@ type Settings struct {
 	ReplaceSynonymsInHighlight bool        `json:"replaceSynonymsInHighlight"`
 	ResponseFields             []string    `json:"responseFields"`
 	SnippetEllipsisText        string      `json:"snippetEllipsisText"`
+	SortFacetValuesBy          string      `json:"sortFacetValuesBy"`
 	TypoTolerance              string      `json:"typoTolerance"`
 }
 
