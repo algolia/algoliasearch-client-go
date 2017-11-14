@@ -57,6 +57,14 @@ type Client interface {
 	// extra RequestOptions.
 	CopyIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 
+	// ScopedCopyIndex duplicates the index named `source` as `destination`,
+	// according to the given scopes.
+	ScopedCopyIndex(source, destination string, scopes []string) (UpdateTaskRes, error)
+
+	// ScopedCopyIndexWithRequestOptions is the same as ScopedCopyIndex but it
+	// also accepts extra RequestOptions.
+	ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
+
 	// DeleteIndex removes the `name` Algolia index.
 	DeleteIndex(name string) (res DeleteTaskRes, err error)
 
@@ -396,6 +404,14 @@ type Index interface {
 	// CopyWithRequestOptions is the same as Copy but it also accepts extra
 	// RequestOptions.
 	CopyWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// ScopedCopy copies the index into a new one called `name`, according to
+	// the given scopes.
+	ScopedCopy(name string, scopes []string) (UpdateTaskRes, error)
+
+	// ScopedCopyWithRequestOptions is the same as ScopedCopy but it also
+	// accepts extra RequestOptions.
+	ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// Move renames the index into `name`.
 	Move(name string) (UpdateTaskRes, error)

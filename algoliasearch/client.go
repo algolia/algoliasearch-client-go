@@ -92,6 +92,15 @@ func (c *client) CopyIndexWithRequestOptions(source, destination string, opts *R
 	return index.CopyWithRequestOptions(destination, opts)
 }
 
+func (c *client) ScopedCopyIndex(source, destination string, scopes []string) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, scopes, nil)
+}
+
+func (c *client) ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error) {
+	index := c.InitIndex(source)
+	return index.ScopedCopyWithRequestOptions(destination, scopes, opts)
+}
+
 func (c *client) DeleteIndex(name string) (res DeleteTaskRes, err error) {
 	return c.DeleteIndexWithRequestOptions(name, nil)
 }

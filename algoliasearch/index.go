@@ -409,7 +409,15 @@ func (i *index) Copy(name string) (UpdateTaskRes, error) {
 }
 
 func (i *index) CopyWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
-	return i.operation(name, "copy", opts)
+	return i.ScopedCopyWithRequestOptions(name, nil, opts)
+}
+
+func (i *index) ScopedCopy(name string, scopes []string) (UpdateTaskRes, error) {
+	return i.ScopedCopyWithRequestOptions(name, scopes, nil)
+}
+
+func (i *index) ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return i.operation(name, "copy", scopes, opts)
 }
 
 func (i *index) Move(name string) (UpdateTaskRes, error) {
@@ -417,13 +425,18 @@ func (i *index) Move(name string) (UpdateTaskRes, error) {
 }
 
 func (i *index) MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
-	return i.operation(name, "move", opts)
+	return i.operation(name, "move", nil, opts)
 }
 
-func (i *index) operation(dst, op string, opts *RequestOptions) (res UpdateTaskRes, err error) {
+func (i *index) operation(dst, op string, scopes []string, opts *RequestOptions) (res UpdateTaskRes, err error) {
+	if err = checkScopes(scopes); err != nil {
+		return
+	}
+
 	o := IndexOperation{
 		Destination: dst,
 		Operation:   op,
+		Scopes:      scopes,
 	}
 
 	path := i.route + "/operation"
