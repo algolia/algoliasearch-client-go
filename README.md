@@ -79,7 +79,7 @@ index := client.InitIndex("your_index_name")
 
 ## Push data
 
-Without any prior configuration, you can start indexing [500 contacts](https://raw.githubusercontent.com/algolia/datasets-public/master/contacts.json) in the ```contacts``` index using the following code:
+Without any prior configuration, you can start indexing [500 contacts](https://github.com/algolia/datasets/blob/master/contacts/contacts.json) in the ```contacts``` index using the following code:
 ```go
 index := client.InitIndex("contacts")
 content, _ := ioutil.ReadFile("contacts.json")
