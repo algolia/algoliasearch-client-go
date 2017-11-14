@@ -1,3 +1,8 @@
+# [2.21.0](https://github.com/algolia/algoliasearch-client-go/compare/2.20.0...2.21.0) (2017-11-14)
+- **test:** Add tests for scoped copy ([4f5d0cd](https://github.com/algolia/algoliasearch-client-go/commit/4f5d0cd))
+- **feat:** Implement scoped copy methods ([3c8e3b1](https://github.com/algolia/algoliasearch-client-go/commit/3c8e3b1))
+- **feat:** Expose SortFacetValuesBy setting ([e9d1386](https://github.com/algolia/algoliasearch-client-go/commit/e9d1386))
+
 # [2.20.0](https://github.com/algolia/algoliasearch-client-go/compare/2.19.1...2.20.0) (2017-10-11)
 - **doc:** Reformat ChangeLog.md ([68257924](https://github.com/algolia/algoliasearch-client-go/commit/68257924))
 - **doc:** Add missing description of 2.19.1 release to the ChangeLog.md ([8114f6e](https://github.com/algolia/algoliasearch-client-go/commit/8114f6e))
