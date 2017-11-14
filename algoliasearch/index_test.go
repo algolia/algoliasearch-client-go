@@ -9,6 +9,61 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestScopedCopy(t *testing.T) {
+	t.Parallel()
+	c, i := initClientAndIndex(t, "TestScopedCopy")
+	iCopy := initIndex(t, c, "TestScopedCopy_copy")
+
+	t.Log("TestScopedCopy: Add object, settings, synonyms and query rules")
+	synonyms := addObjectsAndSynonyms(t, i, "TestScopedCopy") // Add objects, settings and synonyms
+	addRules(t, i, "TestScopedCopy")                          // Add query rules
+
+	t.Log("TestScopedCopy: Perform the scoped copy (settings and synonyms only)")
+	{
+		res, err := i.ScopedCopy("TestScopedCopy_copy", []string{"settings", "synonyms"})
+		if err != nil {
+			t.Fatalf("TestScopedCopy: Cannot scoped-copy the index: %s", err)
+		}
+		waitTask(t, i, res.TaskID)
+	}
+
+	t.Log("TestScopedCopy: Test the copied settings")
+	{
+		settings, err := i.GetSettings()
+		if err != nil {
+			t.Fatalf("TestScopedCopy: Cannot get settings of TestScopedCopy index: %s", err)
+		}
+		settingsCopy, err := iCopy.GetSettings()
+		if err != nil {
+			t.Fatalf("TestScopedCopy: Cannot get settings of TestScopedCopy_copy index: %s", err)
+		}
+		settingsAreEqual(t, settings, settingsCopy)
+	}
+
+	t.Log("TestScopedCopy: Test the copied synonyms")
+	{
+		foundSynonyms, err := iCopy.SearchSynonyms("", []string{}, 0, 1000)
+		if err != nil {
+			t.Fatalf("TestScopedCopy: Could not find any synonym with '' query: %s", err)
+		}
+
+		if !synonymSlicesAreEqual(synonyms, foundSynonyms) {
+			t.Fatalf("TestScopedCopy: Synonym slices are not equal:\n%v\n%v", synonyms, foundSynonyms)
+		}
+	}
+
+	t.Log("TestScopedCopy: Test the uncopied rules")
+	{
+		res, err := iCopy.SearchRules(Map{"query": ""})
+		if err != nil {
+			t.Fatalf("TestScopedCopy: Could not search for query rules in ScopedCopy_copy index: %s", err)
+		}
+		if len(res.Hits) > 0 {
+			t.Fatalf("TestScopedCopy: Query rules must not have been copied")
+		}
+	}
+}
+
 func TestIndexOperations(t *testing.T) {
 	t.Parallel()
 	c, i := initClientAndIndex(t, "TestIndexOperations")
