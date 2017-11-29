@@ -52,6 +52,7 @@ type Settings struct {
 	SnippetEllipsisText        string      `json:"snippetEllipsisText"`
 	SortFacetValuesBy          string      `json:"sortFacetValuesBy"`
 	TypoTolerance              string      `json:"typoTolerance"`
+	RemoveWordsIfNoResults     string      `json:"removeWordsIfNoResults"`
 }
 
 // clean sets the nil `interface{}` fields of any `Settings struct` generated
@@ -121,6 +122,7 @@ func (s *Settings) ToMap() Map {
 		"snippetEllipsisText":        s.SnippetEllipsisText,
 		"typoTolerance":              s.TypoTolerance,
 		"responseFields":             s.ResponseFields,
+		"removeWordsIfNoResults":     s.RemoveWordsIfNoResults,
 	}
 
 	// Remove empty string slices to avoid creating null-valued fields in the
