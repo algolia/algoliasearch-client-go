@@ -226,6 +226,7 @@ search.start();
   - [Search an index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
   - [Search for facet values](https://algolia.com/doc/api-reference/api-methods/search-for-facet-values/?language=go)
   - [Search multiple indexes](https://algolia.com/doc/api-reference/api-methods/multiple-queries/?language=go)
+  - [Browse an index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
 
 
 
@@ -237,6 +238,7 @@ search.start();
   - [Delete objects](https://algolia.com/doc/api-reference/api-methods/delete-objects/?language=go)
   - [Delete by query](https://algolia.com/doc/api-reference/api-methods/delete-by-query/?language=go)
   - [Get objects](https://algolia.com/doc/api-reference/api-methods/get-objects/?language=go)
+  - [Custom batch](https://algolia.com/doc/api-reference/api-methods/batch/?language=go)
   - [Wait for operations](https://algolia.com/doc/api-reference/api-methods/wait-task/?language=go)
 
 
@@ -295,8 +297,6 @@ search.start();
 
 ### Advanced
 
-  - [Custom batch](https://algolia.com/doc/api-reference/api-methods/batch/?language=go)
-  - [Browse an index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
   - [Get latest logs](https://algolia.com/doc/api-reference/api-methods/get-logs/?language=go)
 
 
