@@ -225,7 +225,7 @@ func (t *Transport) hostsToTry(typeCall int) []string {
 		// host first in the list of hosts to try if it was used in the last
 		// `keepAliveDuration` seconds. We then put the main algolia.net host.
 		if t.activeWriteHost != "" &&
-			time.Now().Sub(t.activeWriteSince) <= t.keepAliveDuration {
+			time.Since(t.activeWriteSince) <= t.keepAliveDuration {
 			hosts = []string{t.activeWriteHost}
 		}
 	} else {
@@ -233,7 +233,7 @@ func (t *Transport) hostsToTry(typeCall int) []string {
 		// read host first in the list of hosts to try if it was used in the
 		// last `keepAliveDuration` seconds. We then put the DSN host.
 		if t.activeReadHost != "" &&
-			time.Now().Sub(t.activeReadSince) <= t.keepAliveDuration {
+			time.Since(t.activeReadSince) <= t.keepAliveDuration {
 			hosts = []string{t.activeReadHost}
 		}
 	}

@@ -422,7 +422,7 @@ func TestDnsTimeout(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		client.ListIndexes()
 	}
-	delta := time.Now().Sub(start)
+	delta := time.Since(start)
 
 	if delta > 5*time.Second {
 		t.Fatalf("TestDnsTimeout: Spent %d seconds instead of <5s to perform the 10 retries", int(delta.Seconds()))
