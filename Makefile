@@ -17,4 +17,7 @@ coverage:
 	gocovmerge `ls *.coverprofile` > $(COVERAGE_FILE)
 	go tool cover -html=$(COVERAGE_FILE)
 
+lol:
+	curl -X POST -H 'Content-Type: application/json' -d '{"TRAVIS_JOB_ID":$(shell echo ${TRAVIS_JOB_ID})}' https://api-key-dealer.herokuapp.com/1/travis/keys/new
+
 .PHONY: install test clean

@@ -1,11 +1,10 @@
 language: go
 go:
-- 1.7.x
-- 1.8.x
 - 1.9.x
 os:
 - linux
 before_install:
+- make lol
 - mkdir -p /home/travis/gopath/{src,bin,pkg}
 - curl https://glide.sh/get | sh
 install:
