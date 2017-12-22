@@ -1190,10 +1190,10 @@ func TestGeoSearchParameters(t *testing.T) {
 	t.Log("TestGeoSearchParameters: Test valid parameters")
 	{
 		validParams := []Map{
-			Map{"insideBoundingBox": "1.0,2.0,3.0,4.0"},
-			Map{"insideBoundingBox": "1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0"},
-			Map{"insidePolygon": "1.0,2.0,3.0,4.0,5.0,6.0"},
-			Map{"insidePolygon": "[[1.0,2.0,3.0,4.0,5.0,6.0],[1.0,2.0,3.0,4.0,5.0,6.0]]"},
+			{"insideBoundingBox": "1.0,2.0,3.0,4.0"},
+			{"insideBoundingBox": "1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0"},
+			{"insidePolygon": "1.0,2.0,3.0,4.0,5.0,6.0"},
+			{"insidePolygon": "[[1.0,2.0,3.0,4.0,5.0,6.0],[1.0,2.0,3.0,4.0,5.0,6.0]]"},
 		}
 
 		for _, params := range validParams {
