@@ -28,7 +28,6 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 
 1. **[Quick Start](#quick-start)**
 
-    * [Initialize the client](#initialize-the-client)
 
 1. **[Push data](#push-data)**
 
@@ -41,7 +40,6 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 
 1. **[Search UI](#search-ui)**
 
-    * [index.html](#indexhtml)
 
 1. **[List of available methods](#list-of-available-methods)**
 
