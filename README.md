@@ -281,6 +281,7 @@ search.start();
   - [Clear all synonyms](https://algolia.com/doc/api-reference/api-methods/clear-synonyms/?language=go)
   - [Get synonym](https://algolia.com/doc/api-reference/api-methods/get-synonym/?language=go)
   - [Search synonyms](https://algolia.com/doc/api-reference/api-methods/search-synonyms/?language=go)
+  - [Export Synonyms](https://algolia.com/doc/api-reference/api-methods/export-synonyms/?language=go)
 
 
 
@@ -292,6 +293,7 @@ search.start();
   - [Delete a single rule](https://algolia.com/doc/api-reference/api-methods/rules-delete/?language=go)
   - [Clear all rules](https://algolia.com/doc/api-reference/api-methods/rules-clear/?language=go)
   - [Search for rules](https://algolia.com/doc/api-reference/api-methods/rules-search/?language=go)
+  - [Export rules](https://algolia.com/doc/api-reference/api-methods/rules-export/?language=go)
 
 
 
