@@ -75,6 +75,10 @@ func (s *Settings) clean() {
 	if s.TypoTolerance == "" {
 		s.TypoTolerance = "true"
 	}
+
+	if s.MaxFacetHits == 0 {
+		s.MaxFacetHits = 10
+	}
 }
 
 // ToMap produces a `Map` corresponding to the `Settings struct`. It should
@@ -115,6 +119,7 @@ func (s *Settings) ToMap() Map {
 		"highlightPostTag":                  s.HighlightPostTag,
 		"highlightPreTag":                   s.HighlightPreTag,
 		"hitsPerPage":                       s.HitsPerPage,
+		"maxFacetHits":                      s.MaxFacetHits,
 		"maxValuesPerFacet":                 s.MaxValuesPerFacet,
 		"minProximity":                      s.MinProximity,
 		"minWordSizefor1Typo":               s.MinWordSizefor1Typo,
