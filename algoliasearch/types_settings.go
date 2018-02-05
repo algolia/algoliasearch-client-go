@@ -15,8 +15,8 @@ type Settings struct {
 	AttributesForFaceting          []string `json:"attributesForFaceting"`
 	AttributesToIndex              []string `json:"attributesToIndex"`
 	CustomRanking                  []string `json:"customRanking"`
-	NumericAttributesToIndex       []string `json:"numericAttributesToIndex"`
 	NumericAttributesForFiltering  []string `json:"numericAttributesForFiltering"`
+	NumericAttributesToIndex       []string `json:"numericAttributesToIndex"`
 	Ranking                        []string `json:"ranking"`
 	Replicas                       []string `json:"replicas"`
 	SearchableAttributes           []string `json:"searchableAttributes"`
@@ -29,30 +29,31 @@ type Settings struct {
 	DisableTypoToleranceOnWords      []string `json:"disableTypoToleranceOnWords"`
 
 	// Default query parameters (can be overridden at query-time)
-	AdvancedSyntax             bool        `json:"advancedSyntax"`
-	AllowTyposOnNumericTokens  bool        `json:"allowTyposOnNumericTokens"`
-	AttributesToHighlight      []string    `json:"attributesToHighlight"`
-	AttributesToRetrieve       []string    `json:"attributesToRetrieve"`
-	AttributesToSnippet        []string    `json:"attributesToSnippet"`
-	Distinct                   interface{} `json:"distinct"` // float64 (actually an int) or bool
-	HighlightPostTag           string      `json:"highlightPostTag"`
-	HighlightPreTag            string      `json:"highlightPreTag"`
-	HitsPerPage                int         `json:"hitsPerPage"`
-	IgnorePlurals              interface{} `json:"ignorePlurals"` // []interface{} (actually a []string) or bool
-	MaxFacetHits               int         `json:"maxFacetHits"`
-	MaxValuesPerFacet          int         `json:"maxValuesPerFacet"`
-	MinProximity               int         `json:"minProximity"`
-	MinWordSizefor1Typo        int         `json:"minWordSizefor1Typo"`
-	MinWordSizefor2Typos       int         `json:"minWordSizefor2Typos"`
-	OptionalWords              []string    `json:"optionalWords"`
-	QueryType                  string      `json:"queryType"`
-	RemoveStopWords            interface{} `json:"removeStopWords"` // []interface{} (actually a []string) or bool
-	ReplaceSynonymsInHighlight bool        `json:"replaceSynonymsInHighlight"`
-	ResponseFields             []string    `json:"responseFields"`
-	SnippetEllipsisText        string      `json:"snippetEllipsisText"`
-	SortFacetValuesBy          string      `json:"sortFacetValuesBy"`
-	TypoTolerance              string      `json:"typoTolerance"`
-	RemoveWordsIfNoResults     string      `json:"removeWordsIfNoResults"`
+	AdvancedSyntax                    bool        `json:"advancedSyntax"`
+	AllowTyposOnNumericTokens         bool        `json:"allowTyposOnNumericTokens"`
+	AttributesToHighlight             []string    `json:"attributesToHighlight"`
+	AttributesToRetrieve              []string    `json:"attributesToRetrieve"`
+	AttributesToSnippet               []string    `json:"attributesToSnippet"`
+	Distinct                          interface{} `json:"distinct"` // float64 (actually an int) or bool
+	HighlightPostTag                  string      `json:"highlightPostTag"`
+	HighlightPreTag                   string      `json:"highlightPreTag"`
+	HitsPerPage                       int         `json:"hitsPerPage"`
+	IgnorePlurals                     interface{} `json:"ignorePlurals"` // []interface{} (actually a []string) or bool
+	MaxFacetHits                      int         `json:"maxFacetHits"`
+	MaxValuesPerFacet                 int         `json:"maxValuesPerFacet"`
+	MinProximity                      int         `json:"minProximity"`
+	MinWordSizefor1Typo               int         `json:"minWordSizefor1Typo"`
+	MinWordSizefor2Typos              int         `json:"minWordSizefor2Typos"`
+	OptionalWords                     []string    `json:"optionalWords"`
+	QueryType                         string      `json:"queryType"`
+	RemoveStopWords                   interface{} `json:"removeStopWords"` // []interface{} (actually a []string) or bool
+	RemoveWordsIfNoResults            string      `json:"removeWordsIfNoResults"`
+	ReplaceSynonymsInHighlight        bool        `json:"replaceSynonymsInHighlight"`
+	ResponseFields                    []string    `json:"responseFields"`
+	RestrictHighlightAndSnippetArrays bool        `json:"restrictHighlightAndSnippetArrays"`
+	SnippetEllipsisText               string      `json:"snippetEllipsisText"`
+	SortFacetValuesBy                 string      `json:"sortFacetValuesBy"`
+	TypoTolerance                     string      `json:"typoTolerance"`
 }
 
 // clean sets the nil `interface{}` fields of any `Settings struct` generated
@@ -104,25 +105,26 @@ func (s *Settings) ToMap() Map {
 		"disableTypoToleranceOnWords":      s.DisableTypoToleranceOnWords,
 
 		// Default query parameters (can be overridden at query-time)
-		"advancedSyntax":             s.AdvancedSyntax,
-		"allowTyposOnNumericTokens":  s.AllowTyposOnNumericTokens,
-		"attributesToHighlight":      s.AttributesToHighlight,
-		"attributesToRetrieve":       s.AttributesToRetrieve,
-		"attributesToSnippet":        s.AttributesToSnippet,
-		"highlightPostTag":           s.HighlightPostTag,
-		"highlightPreTag":            s.HighlightPreTag,
-		"hitsPerPage":                s.HitsPerPage,
-		"maxValuesPerFacet":          s.MaxValuesPerFacet,
-		"minProximity":               s.MinProximity,
-		"minWordSizefor1Typo":        s.MinWordSizefor1Typo,
-		"minWordSizefor2Typos":       s.MinWordSizefor2Typos,
-		"optionalWords":              s.OptionalWords,
-		"queryType":                  s.QueryType,
-		"replaceSynonymsInHighlight": s.ReplaceSynonymsInHighlight,
-		"snippetEllipsisText":        s.SnippetEllipsisText,
-		"typoTolerance":              s.TypoTolerance,
-		"responseFields":             s.ResponseFields,
-		"removeWordsIfNoResults":     s.RemoveWordsIfNoResults,
+		"advancedSyntax":                    s.AdvancedSyntax,
+		"allowTyposOnNumericTokens":         s.AllowTyposOnNumericTokens,
+		"attributesToHighlight":             s.AttributesToHighlight,
+		"attributesToRetrieve":              s.AttributesToRetrieve,
+		"attributesToSnippet":               s.AttributesToSnippet,
+		"highlightPostTag":                  s.HighlightPostTag,
+		"highlightPreTag":                   s.HighlightPreTag,
+		"hitsPerPage":                       s.HitsPerPage,
+		"maxValuesPerFacet":                 s.MaxValuesPerFacet,
+		"minProximity":                      s.MinProximity,
+		"minWordSizefor1Typo":               s.MinWordSizefor1Typo,
+		"minWordSizefor2Typos":              s.MinWordSizefor2Typos,
+		"optionalWords":                     s.OptionalWords,
+		"queryType":                         s.QueryType,
+		"removeWordsIfNoResults":            s.RemoveWordsIfNoResults,
+		"replaceSynonymsInHighlight":        s.ReplaceSynonymsInHighlight,
+		"responseFields":                    s.ResponseFields,
+		"restrictHighlightAndSnippetArrays": s.RestrictHighlightAndSnippetArrays,
+		"snippetEllipsisText":               s.SnippetEllipsisText,
+		"typoTolerance":                     s.TypoTolerance,
 	}
 
 	// Remove empty string slices to avoid creating null-valued fields in the
