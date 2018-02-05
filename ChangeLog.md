@@ -1,3 +1,12 @@
+# [2.21.2](https://github.com/algolia/algoliasearch-client-go/compare/2.21.1...2.21.2) (2018-02-05)
+- **doc:** Bump to 2.21.2 ([ce90912](https://github.com/algolia/algoliasearch-client-go/commit/ce90912))
+- **fix:** Expose missing maxFacetHits as setting ([1c59801](https://github.com/algolia/algoliasearch-client-go/commit/1c59801))
+- **fix:** Expose missing paginationLimitedTo as setting ([5fab01d](https://github.com/algolia/algoliasearch-client-go/commit/5fab01d))
+- **fix:** Expose missing restrictHighlightAndSnippetArrays as setting ([5d02c93](https://github.com/algolia/algoliasearch-client-go/commit/5d02c93))
+- **test:** add 1.9 to travis ([bb6ab50](https://github.com/algolia/algoliasearch-client-go/commit/bb6ab50))
+- **refactor:** use time.Since for passed time ([b718cf5](https://github.com/algolia/algoliasearch-client-go/commit/b718cf5))
+- **refactor:** run gofmt with simplify flag ([1d6924d](https://github.com/algolia/algoliasearch-client-go/commit/1d6924d))
+
 # [2.21.1](https://github.com/algolia/algoliasearch-client-go/compare/2.21.0...2.21.1) (2017-11-29)
 - **fix:** Add missing removeWordsIfNoResults to settings type ([4628a86](https://github.com/algolia/algoliasearch-client-go/commit/4628a86))
 
