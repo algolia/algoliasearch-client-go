@@ -17,6 +17,7 @@ type Settings struct {
 	CustomRanking                  []string `json:"customRanking"`
 	NumericAttributesForFiltering  []string `json:"numericAttributesForFiltering"`
 	NumericAttributesToIndex       []string `json:"numericAttributesToIndex"`
+	PaginationLimitedTo            int      `json:"paginationLimitedTo"`
 	Ranking                        []string `json:"ranking"`
 	Replicas                       []string `json:"replicas"`
 	SearchableAttributes           []string `json:"searchableAttributes"`
@@ -91,8 +92,9 @@ func (s *Settings) ToMap() Map {
 		"attributesForFaceting":          s.AttributesForFaceting,
 		"attributesToIndex":              s.AttributesToIndex,
 		"customRanking":                  s.CustomRanking,
-		"numericAttributesToIndex":       s.NumericAttributesToIndex,
 		"numericAttributesForFiltering":  s.NumericAttributesForFiltering,
+		"numericAttributesToIndex":       s.NumericAttributesToIndex,
+		"paginationLimitedTo":            s.PaginationLimitedTo,
 		"ranking":                        s.Ranking,
 		"replicas":                       s.Replicas,
 		"searchableAttributes":           s.SearchableAttributes,
