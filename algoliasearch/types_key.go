@@ -4,6 +4,7 @@ type Key struct {
 	ACL                    []string `json:"acl"`
 	CreatedAt              int      `json:"createdAt,omitempty"`
 	Description            string   `json:"description,omitempty"`
+	Indexes                []string `json:"indexes,omitempty"`
 	MaxHitsPerQuery        int      `json:"maxHitsPerQuery,omitempty"`
 	MaxQueriesPerIPPerHour int      `json:"maxQueriesPerIPPerHour,omitempty"`
 	QueryParamaters        string   `json:"queryParameters,omitempty"`
