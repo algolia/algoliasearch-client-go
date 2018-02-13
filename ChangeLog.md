@@ -1,3 +1,6 @@
+# [2.21.3](https://github.com/algolia/algoliasearch-client-go/compare/2.21.2...2.21.3) (2018-02-13)
+- **fix:** Expose missing indexes in Key ([df4fedb](https://github.com/algolia/algoliasearch-client-go/commit/df4fedb))
+
 # [2.21.2](https://github.com/algolia/algoliasearch-client-go/compare/2.21.1...2.21.2) (2018-02-05)
 - **doc:** Bump to 2.21.2 ([ce90912](https://github.com/algolia/algoliasearch-client-go/commit/ce90912))
 - **fix:** Expose missing maxFacetHits as setting ([1c59801](https://github.com/algolia/algoliasearch-client-go/commit/1c59801))
