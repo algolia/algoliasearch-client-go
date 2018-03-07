@@ -96,7 +96,7 @@ func TestIndexOperations(t *testing.T) {
 	{
 		res, err := i.Clear()
 		if err != nil {
-			t.Fatalf("TestClear: Cannot clear the index: %s, err")
+			t.Fatalf("TestClear: Cannot clear the index: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
@@ -1346,7 +1346,7 @@ func TestBatchPartialUpdate(t *testing.T) {
 			}
 
 			if !intSlicesAreEqual(s, []int{1, 2, 3, 3}) {
-				t.Errorf("TestBatchPartialUpdate: Wrong slice for addInt attribute, %s should be []int{1, 2, 3, 3}", s)
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for addInt attribute, %v should be []int{1, 2, 3, 3}", s)
 			}
 		}
 
@@ -1380,7 +1380,7 @@ func TestBatchPartialUpdate(t *testing.T) {
 			}
 
 			if !intSlicesAreEqual(s, []int{1, 2}) {
-				t.Errorf("TestBatchPartialUpdate: Wrong slice for removeInt attribute, %s should be []int{1, 2}", s)
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for removeInt attribute, %v should be []int{1, 2}", s)
 			}
 		}
 
@@ -1414,7 +1414,7 @@ func TestBatchPartialUpdate(t *testing.T) {
 			}
 
 			if !intSlicesAreEqual(s, []int{1, 2, 3}) {
-				t.Errorf("TestBatchPartialUpdate: Wrong slice for addUniqueInt attribute, %s should be []int{1, 2, 3}", s)
+				t.Errorf("TestBatchPartialUpdate: Wrong slice for addUniqueInt attribute, %v should be []int{1, 2, 3}", s)
 			}
 		}
 
