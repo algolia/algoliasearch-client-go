@@ -10,7 +10,7 @@ deps:
 test: test-unit
 
 test-unit:
-	go test -v ./$(PROJECT)
+	gotest -v ./$(PROJECT)
 
 coverage:
 	go list -f '{{if gt (len .TestGoFiles) 0}}"go test -covermode count -coverprofile {{.Name}}.coverprofile -coverpkg ./... {{.ImportPath}}"{{end}}' ./... | xargs -I {} bash -c {}

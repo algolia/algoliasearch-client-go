@@ -13,6 +13,7 @@ go:
 before_install:
   - mkdir -p /home/travis/gopath/{src,bin,pkg}
   - curl https://glide.sh/get | sh
+  - go get -u github.com/rakyll/gotest
 
 install:
   - make deps
