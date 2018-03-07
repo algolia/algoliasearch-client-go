@@ -1,17 +1,22 @@
 language: go
-go:
-- "1.6"
-- "1.7"
-- "1.8"
-- "1.9"
-- "1.10.x"
+
 os:
-- linux
+  - linux
+
+go:
+  - "1.6"
+  - "1.7"
+  - "1.8"
+  - "1.9"
+  - "1.10.x"
+
 before_install:
-- mkdir -p /home/travis/gopath/{src,bin,pkg}
-- curl https://glide.sh/get | sh
+  - mkdir -p /home/travis/gopath/{src,bin,pkg}
+  - curl https://glide.sh/get | sh
+
 install:
-- make deps
-- make install
+  - make deps
+  - make install
+
 script:
-- make test
+  - make test
