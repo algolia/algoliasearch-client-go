@@ -38,7 +38,7 @@ func TestClientOperations(t *testing.T) {
 	{
 		res, err := c.ClearIndex("TestClientOperations_move")
 		if err != nil {
-			t.Fatalf("TestClear: Cannot clear the index: %s, err")
+			t.Fatalf("TestClear: Cannot clear the index: %s", err)
 		}
 
 		waitTask(t, i, res.TaskID)
