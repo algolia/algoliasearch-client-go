@@ -23,11 +23,8 @@ Version 1.x are no longer under active development. They are still supported for
 You can find the full reference on [Algolia's website](https://www.algolia.com/doc/api-client/go/).
 
 
-## Table of Contents
+## In this page
 
-
-
-1. **[Install](#install)**
 
 
 1. **[Quick Start](#quick-start)**
@@ -51,14 +48,6 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 # Getting Started
 
 
-
-## Install
-
-Download AlgoliaSearch using
-
-```bash
-go get github.com/algolia/algoliasearch-client-go/algoliasearch
-```
 
 ## Quick Start
 
@@ -226,89 +215,6 @@ search.start();
 
 
 
-### Search
-
-- [Search an index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
-- [Search for facet values](https://algolia.com/doc/api-reference/api-methods/search-for-facet-values/?language=go)
-- [Search multiple indexes](https://algolia.com/doc/api-reference/api-methods/multiple-queries/?language=go)
-- [Browse an index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
-
-
-
-
-
-### Indexing
-
-- [Add objects](https://algolia.com/doc/api-reference/api-methods/add-objects/?language=go)
-- [Update objects](https://algolia.com/doc/api-reference/api-methods/update-objects/?language=go)
-- [Partial update objects](https://algolia.com/doc/api-reference/api-methods/partial-update-objects/?language=go)
-- [Delete objects](https://algolia.com/doc/api-reference/api-methods/delete-objects/?language=go)
-- [Delete by query](https://algolia.com/doc/api-reference/api-methods/delete-by-query/?language=go)
-- [Get objects](https://algolia.com/doc/api-reference/api-methods/get-objects/?language=go)
-- [Custom batch](https://algolia.com/doc/api-reference/api-methods/batch/?language=go)
-- [Wait for operations](https://algolia.com/doc/api-reference/api-methods/wait-task/?language=go)
-
-
-
-
-
-### Settings
-
-- [Get settings](https://algolia.com/doc/api-reference/api-methods/get-settings/?language=go)
-- [Set settings](https://algolia.com/doc/api-reference/api-methods/set-settings/?language=go)
-
-
-
-
-
-### Manage indices
-
-- [List indexes](https://algolia.com/doc/api-reference/api-methods/list-indices/?language=go)
-- [Delete index](https://algolia.com/doc/api-reference/api-methods/delete-index/?language=go)
-- [Copy index](https://algolia.com/doc/api-reference/api-methods/copy-index/?language=go)
-- [Move index](https://algolia.com/doc/api-reference/api-methods/move-index/?language=go)
-- [Clear index](https://algolia.com/doc/api-reference/api-methods/clear-index/?language=go)
-
-
-
-
-
-### API Keys
-
-- [Create secured API Key](https://algolia.com/doc/api-reference/api-methods/generate-secured-api-key/?language=go)
-- [Add API Key](https://algolia.com/doc/api-reference/api-methods/add-api-key/?language=go)
-- [Update API Key](https://algolia.com/doc/api-reference/api-methods/update-api-key/?language=go)
-- [Delete API Key](https://algolia.com/doc/api-reference/api-methods/delete-api-key/?language=go)
-- [Get API Key permissions](https://algolia.com/doc/api-reference/api-methods/get-api-key/?language=go)
-- [List API Keys](https://algolia.com/doc/api-reference/api-methods/list-api-keys/?language=go)
-
-
-
-
-
-### Synonyms
-
-- [Save synonym](https://algolia.com/doc/api-reference/api-methods/save-synonym/?language=go)
-- [Batch synonyms](https://algolia.com/doc/api-reference/api-methods/batch-synonyms/?language=go)
-- [Delete synonym](https://algolia.com/doc/api-reference/api-methods/delete-synonym/?language=go)
-- [Clear all synonyms](https://algolia.com/doc/api-reference/api-methods/clear-synonyms/?language=go)
-- [Get synonym](https://algolia.com/doc/api-reference/api-methods/get-synonym/?language=go)
-- [Search synonyms](https://algolia.com/doc/api-reference/api-methods/search-synonyms/?language=go)
-- [Export Synonyms](https://algolia.com/doc/api-reference/api-methods/export-synonyms/?language=go)
-
-
-
-
-
-### Query rules
-
-- [Save a single rule](https://algolia.com/doc/api-reference/api-methods/rules-save/?language=go)
-- [Batch save multiple rules](https://algolia.com/doc/api-reference/api-methods/rules-save-batch/?language=go)
-- [Read a rule](https://algolia.com/doc/api-reference/api-methods/rules-read/?language=go)
-- [Delete a single rule](https://algolia.com/doc/api-reference/api-methods/rules-delete/?language=go)
-- [Clear all rules](https://algolia.com/doc/api-reference/api-methods/rules-clear/?language=go)
-- [Search for rules](https://algolia.com/doc/api-reference/api-methods/rules-search/?language=go)
-- [Export rules](https://algolia.com/doc/api-reference/api-methods/rules-export/?language=go)
 
 
 
@@ -317,9 +223,20 @@ search.start();
 
 
 
-### Advanced
 
-- [Get latest logs](https://algolia.com/doc/api-reference/api-methods/get-logs/?language=go)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
