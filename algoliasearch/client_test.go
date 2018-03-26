@@ -304,6 +304,10 @@ func TestMultipleQueries(t *testing.T) {
 			IndexName: "TestMultipleQueries_products",
 			Params:    Map{"query": "computer", "hitsPerPage": 4},
 		},
+		{
+			IndexName: "TestMultipleQueries_products",
+			Params:    Map{"query": "computer", "clickAnalytics": true},
+		},
 	}
 
 	res, err := c.MultipleQueries(queries, "")
@@ -312,8 +316,8 @@ func TestMultipleQueries(t *testing.T) {
 		t.Fatalf("TestMultipleQueries: Cannot send multiple queries: %s", err)
 	}
 
-	if len(res) != 3 {
-		t.Fatalf("TestMultipleQueries: Should return 3 MultipleQueryRes instead of %d", len(res))
+	if len(res) != 4 {
+		t.Fatalf("TestMultipleQueries: Should return 4 MultipleQueryRes instead of %d", len(res))
 	}
 
 	if len(res[0].Hits) != 1 {
@@ -326,6 +330,10 @@ func TestMultipleQueries(t *testing.T) {
 
 	if len(res[2].Hits) != 3 {
 		t.Fatalf("TestMultipleQueries: Third query should return 3 records instead of %d", len(res[2].Hits))
+	}
+
+	if res[3].QueryID == "" {
+		t.Fatal("TestMultipleQueries: Fourth query should return queryID")
 	}
 }
 

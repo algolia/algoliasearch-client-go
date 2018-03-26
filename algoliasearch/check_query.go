@@ -55,6 +55,7 @@ Outer:
 		case "allowTyposOnNumericTokens",
 			"advancedSyntax",
 			"analytics",
+			"clickAnalytics",
 			"synonyms",
 			"replaceSynonymsInHighlight",
 			"aroundLatLngViaIP",

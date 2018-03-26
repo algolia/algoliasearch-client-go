@@ -30,6 +30,7 @@ type QueryRes struct {
 	ProcessingTimeMS      int    `json:"processingTimeMS"`
 	Query                 string `json:"query"`
 	QueryAfterRemoval     string `json:"queryAfterRemoval"`
+	QueryID               string `json:"queryID"`
 	ServerUsed            string `json:"serverUsed"`
 	TimeoutCounts         bool   `json:"timeoutCounts"`
 	TimeoutHits           bool   `json:"timeoutHits"`
