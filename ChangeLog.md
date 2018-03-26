@@ -1,3 +1,11 @@
+# [2.22.0](https://github.com/algolia/algoliasearch-client-go/compare/2.21.3...2.22.0) (2018-03-26)
+- **feat:** Add clickAnalytics to search option parameters ([7b8d667](https://github.com/algolia/algoliasearch-client-go/commit/7b8d667))
+- **chore:** Update contribution-related files ([af85276](https://github.com/algolia/algoliasearch-client-go/commit/af85276))
+- **chore:** use gotest to have colored tests output ([f3d66ff](https://github.com/algolia/algoliasearch-client-go/commit/f3d66ff))
+- **chore:** reformat .travis.yml ([1290509](https://github.com/algolia/algoliasearch-client-go/commit/1290509))
+- **chore:** test against Go 1.10 in Travis ([4c21ba0](https://github.com/algolia/algoliasearch-client-go/commit/4c21ba0))
+- **test:** Fix typos and printf formats ([05560b2](https://github.com/algolia/algoliasearch-client-go/commit/05560b2))
+
 # [2.21.3](https://github.com/algolia/algoliasearch-client-go/compare/2.21.2...2.21.3) (2018-02-13)
 - **fix:** Expose missing indexes in Key ([df4fedb](https://github.com/algolia/algoliasearch-client-go/commit/df4fedb))
 
