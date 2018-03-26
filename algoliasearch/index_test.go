@@ -544,6 +544,21 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 	}
 
+	t.Log("TestIndexingAndSearch: Search for \"elon musk\" with \"(clickAnalytics:true)\" parameter")
+	{
+		params := Map{
+			"clickAnalytics": true,
+		}
+		res, err := i.Search("elon musk", params)
+		if err != nil {
+			t.Fatalf("TestIndexingAndSearch: Search for 'elon musk' with clickAnalytics option failed: %s", err)
+		}
+
+		if res.QueryID == "" {
+			t.Fatalf("TestIndexingAndSearch: Should return QueryID")
+		}
+	}
+
 	t.Log("TestIndexingAndSearch: Iterate and collect over all the records' `objectID`")
 	var objectIDs []string
 	{
