@@ -5,7 +5,8 @@ type multipleQueriesRes struct {
 }
 
 type MultipleQueryRes struct {
-	Index string `json:"index"`
+	Index     string `json:"index"`
+	Processed bool   `json:"processed"`
 	QueryRes
 }
 
