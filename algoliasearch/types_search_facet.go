@@ -7,6 +7,7 @@ type FacetHit struct {
 }
 
 type SearchFacetRes struct {
-	FacetHits        []FacetHit `json:"facetHits"`
-	ProcessingTimeMS int        `json:"processingTimeMS"`
+	FacetHits             []FacetHit `json:"facetHits"`
+	ExhaustiveFacetsCount bool       `json:"exhaustiveFacetsCount"`
+	ProcessingTimeMS      int        `json:"processingTimeMS"`
 }
