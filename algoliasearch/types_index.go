@@ -13,5 +13,6 @@ type IndexRes struct {
 }
 
 type listIndexesRes struct {
-	Items []IndexRes
+	Items   []IndexRes `json:"items"`
+	NbPages int        `json:"nbPages"`
 }
