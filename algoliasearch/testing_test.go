@@ -172,7 +172,7 @@ func addObjectsAndSynonyms(t *testing.T, i Index, testName string) []Synonym {
 		synonym := NewSynonym("tesla", []string{"tesla", "tesla motors"})
 		synonyms = append(synonyms, synonym)
 
-		res, err := i.AddSynonym(synonym, true)
+		res, err := i.SaveSynonym(synonym, true)
 		if err != nil {
 			t.Fatalf(testName+": Cannot add one synonym: %s", err)
 		}
