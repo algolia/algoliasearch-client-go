@@ -1,13 +1,18 @@
 package algoliasearch
 
 func checkGenerateSecuredAPIKey(params Map) error {
-	if err := checkQuery(params, "userToken", "validUntil", "restrictIndices", "referers", "restrictSources"); err != nil {
+	if err := checkQuery(params,
+		"restrictIndices",
+		"restrictSources",
+		"userToken",
+		"validUntil",
+	); err != nil {
 		return err
 	}
 
 	for k, v := range params {
 		switch k {
-		case "userToken", "restrictIndices", "restrictSources":
+		case "restrictIndices", "restrictSources", "userToken":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
 			}
@@ -17,10 +22,8 @@ func checkGenerateSecuredAPIKey(params Map) error {
 				return invalidType(k, "int")
 			}
 
-		case "referers":
-			if _, ok := v.([]string); !ok {
-				return invalidType(k, "[]string")
-			}
+		default:
+			// OK
 		}
 	}
 
