@@ -10,6 +10,11 @@ type UpdateTaskRes struct {
 	UpdatedAt string `json:"updatedAt"`
 }
 
+type UpdateTaskWithIDRes struct {
+	UpdateTaskRes
+	ID string `json:"id"`
+}
+
 type TaskStatusRes struct {
 	Status      string `json:"status"`
 	PendingTask bool   `json:"pendingTask"`
