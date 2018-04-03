@@ -600,11 +600,11 @@ func (i *index) SearchWithRequestOptions(query string, params Map, opts *Request
 	return
 }
 
-func (i *index) DeleteBy(params Map) (res DeleteTaskRes, err error) {
+func (i *index) DeleteBy(params Map) (res UpdateTaskRes, err error) {
 	return i.DeleteByWithRequestOptions(params, nil)
 }
 
-func (i *index) DeleteByWithRequestOptions(params Map, opts *RequestOptions) (res DeleteTaskRes, err error) {
+func (i *index) DeleteByWithRequestOptions(params Map, opts *RequestOptions) (res UpdateTaskRes, err error) {
 	if err = checkQuery(params); err != nil {
 		return
 	}

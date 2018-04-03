@@ -520,11 +520,11 @@ type Index interface {
 	// queries. They also do not accept empty filters or query. More details
 	// here:
 	// https://www.algolia.com/doc/rest-api/search/#delete-by-query
-	DeleteBy(params Map) (res DeleteTaskRes, err error)
+	DeleteBy(params Map) (res UpdateTaskRes, err error)
 
 	// DeleteByWithRequestOptions is the same as DeleteBy but it also accepts
 	// extra RequestOptions.
-	DeleteByWithRequestOptions(params Map, opts *RequestOptions) (res DeleteTaskRes, err error)
+	DeleteByWithRequestOptions(params Map, opts *RequestOptions) (res UpdateTaskRes, err error)
 
 	// DeleteByQuery finds all the records that match the `query`, according to
 	// the given 'params` and deletes them. It hangs until all the deletion
