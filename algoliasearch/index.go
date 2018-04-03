@@ -185,7 +185,7 @@ func (i *index) ListKeys() (keys []Key, err error) {
 }
 
 func (i *index) ListKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error) {
-	var res listKeysRes
+	var res listAPIKeysRes
 
 	path := i.route + "/keys"
 	err = i.client.request(&res, "GET", path, nil, read, opts)

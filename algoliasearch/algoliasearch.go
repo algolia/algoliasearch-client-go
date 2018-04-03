@@ -37,11 +37,23 @@ type Client interface {
 
 	// ListKeys returns all the API keys available for this Algolia
 	// application.
+	//
+	// Deprecated: Use ListAPIKeys instead.
 	ListKeys() (keys []Key, err error)
 
 	// ListKeysWithRequestOptions is the same as ListKeys but it also accepts
 	// extra RequestOptions.
+	//
+	// Deprecated: Use ListAPIKeysWithRequestOptions instead.
 	ListKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error)
+
+	// ListAPIKeys returns all the API keys available for this Algolia
+	// application.
+	ListAPIKeys() (keys []Key, err error)
+
+	// ListAPIKeysWithRequestOptions is the same as ListKeys but it also
+	// accepts extra RequestOptions.
+	ListAPIKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error)
 
 	// MoveIndex renames the index named `source` as `destination`.
 	MoveIndex(source, destination string) (UpdateTaskRes, error)

@@ -64,11 +64,19 @@ func (c *client) InitIndex(name string) Index {
 }
 
 func (c *client) ListKeys() (keys []Key, err error) {
-	return c.ListKeysWithRequestOptions(nil)
+	return c.ListAPIKeys()
 }
 
 func (c *client) ListKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error) {
-	var res listKeysRes
+	return c.ListAPIKeysWithRequestOptions(opts)
+}
+
+func (c *client) ListAPIKeys() (keys []Key, err error) {
+	return c.ListAPIKeysWithRequestOptions(nil)
+}
+
+func (c *client) ListAPIKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error) {
+	var res listAPIKeysRes
 	err = c.request(&res, "GET", "/1/keys", nil, read, opts)
 	keys = res.Keys
 	return
