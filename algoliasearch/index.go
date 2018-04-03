@@ -487,19 +487,19 @@ func (i *index) GetSynonymWithRequestOptions(objectID string, opts *RequestOptio
 	return
 }
 
-func (i *index) AddSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskRes, err error) {
+func (i *index) AddSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskWithIDRes, err error) {
 	return i.SaveSynonym(synonym, forwardToReplicas)
 }
 
-func (i *index) AddSynonymWithRequestOptions(synonym Synonym, forwardToReplicas bool, opts *RequestOptions) (res UpdateTaskRes, err error) {
+func (i *index) AddSynonymWithRequestOptions(synonym Synonym, forwardToReplicas bool, opts *RequestOptions) (res UpdateTaskWithIDRes, err error) {
 	return i.SaveSynonymWithRequestOptions(synonym, forwardToReplicas, opts)
 }
 
-func (i *index) SaveSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskRes, err error) {
+func (i *index) SaveSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskWithIDRes, err error) {
 	return i.SaveSynonymWithRequestOptions(synonym, forwardToReplicas, nil)
 }
 
-func (i *index) SaveSynonymWithRequestOptions(synonym Synonym, forwardToReplicas bool, opts *RequestOptions) (res UpdateTaskRes, err error) {
+func (i *index) SaveSynonymWithRequestOptions(synonym Synonym, forwardToReplicas bool, opts *RequestOptions) (res UpdateTaskWithIDRes, err error) {
 	params := Map{
 		"forwardToReplicas": forwardToReplicas,
 	}
