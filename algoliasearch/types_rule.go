@@ -21,7 +21,7 @@ type RulePatternAnchoring string
 
 const (
 	Is         RulePatternAnchoring = "is"
-	StarstWith RulePatternAnchoring = "startsWith"
+	StartsWith RulePatternAnchoring = "startsWith"
 	EndsWith   RulePatternAnchoring = "endsWith"
 	Contains   RulePatternAnchoring = "contains"
 )
