@@ -13,7 +13,7 @@ type Key struct {
 	Value                  string   `json:"value,omitempty"`
 }
 
-type listKeysRes struct {
+type listAPIKeysRes struct {
 	Keys []Key `json:"keys"`
 }
 
