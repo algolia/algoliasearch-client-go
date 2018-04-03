@@ -457,11 +457,23 @@ type Index interface {
 
 	// AddSynonym adds the given `synonym`. This addition can be forwarded to
 	// the index replicas by setting `forwardToReplicas` to `true`.
+	//
+	// Deprecated: Use SaveSynonym instead.
 	AddSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskRes, err error)
 
 	// AddSynonymWithRequestOptions is the same as AddSynonym but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use SaveSynonymWithRequestOptions instead.
 	AddSynonymWithRequestOptions(synonym Synonym, forwardToReplicas bool, opts *RequestOptions) (res UpdateTaskRes, err error)
+
+	// SaveSynonym adds the given `synonym`. This addition can be forwarded to
+	// the index replicas by setting `forwardToReplicas` to `true`.
+	SaveSynonym(synonym Synonym, forwardToReplicas bool) (res UpdateTaskRes, err error)
+
+	// SaveSynonymWithRequestOptions is the same as SaveSynonym but it also
+	// accepts extra RequestOptions.
+	SaveSynonymWithRequestOptions(synonym Synonym, forwardToReplicas bool, opts *RequestOptions) (res UpdateTaskRes, err error)
 
 	// DeleteSynonym removes the synonym identified by its `objectID`. This
 	// deletion can be forwarded to the index replicas by setting
