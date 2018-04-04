@@ -20,6 +20,10 @@ func invalidType(p, t string) error {
 	return fmt.Errorf("`%s` should be of type `%s`", p, t)
 }
 
+func emptyField(fieldName string) error {
+	return fmt.Errorf("Field `%s` cannot be empty", fieldName)
+}
+
 func duplicateMap(m Map) Map {
 	copy := make(Map)
 

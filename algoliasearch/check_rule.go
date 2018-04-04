@@ -8,6 +8,10 @@ func checkRules(rules []Rule) error {
 	for _, rule := range rules {
 		consequenceParams := rule.Consequence.Params
 
+		if rule.ObjectID == "" {
+			return emptyField("Rule.ObjectID")
+		}
+
 		// The elements of the RuleConsequence's Params map are first checked
 		// as query parameters (as any regular query parameters is considered
 		// valid) at the exception of the "query" field, if any, which is
