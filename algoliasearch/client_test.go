@@ -60,7 +60,7 @@ func TestClientOperations(t *testing.T) {
 
 // deleteClientKey deletes the key for the given client.
 func deleteClientKey(t *testing.T, c Client, key string) {
-	_, err := c.DeleteUserKey(key)
+	_, err := c.DeleteAPIKey(key)
 	if err != nil {
 		t.Fatalf("deleteClientKey: Cannot delete key: %s", err)
 	}
@@ -72,7 +72,7 @@ func waitClientKey(t *testing.T, c Client, keyID string, f func(k Key) bool) {
 	retries := 120
 
 	for r := 0; r < retries; r++ {
-		key, err := c.GetUserKey(keyID)
+		key, err := c.GetAPIKey(keyID)
 
 		if err == nil && (f == nil || f(key)) {
 			return
@@ -114,7 +114,7 @@ func deleteAllClientKeys(t *testing.T, c Client) {
 		if key.Description == "Search-only API Key" {
 			continue
 		}
-		_, err = c.DeleteUserKey(key.Value)
+		_, err = c.DeleteAPIKey(key.Value)
 		if err != nil {
 			t.Fatalf("deleteAllKeys: Cannot delete a key: %s", err)
 		}
@@ -140,7 +140,7 @@ func TestClientKeys(t *testing.T) {
 			"maxHitsPerQuery":        1,
 		}
 
-		res, err := c.AddUserKey([]string{"search"}, params)
+		res, err := c.AddAPIKey([]string{"search"}, params)
 		if err != nil {
 			t.Fatalf("TestClientKeys: Cannot create the search key: %s", err)
 		}
@@ -163,7 +163,7 @@ func TestClientKeys(t *testing.T) {
 			"listIndexes",
 		}
 
-		res, err := c.AddUserKey(acl, nil)
+		res, err := c.AddAPIKey(acl, nil)
 		if err != nil {
 			t.Fatalf("TestClientKeys: Cannot create the all-rights key: %s", err)
 		}
@@ -179,7 +179,7 @@ func TestClientKeys(t *testing.T) {
 		description := "Search-only testing key"
 
 		params := Map{"description": description}
-		_, err := c.UpdateUserKey(searchKey, params)
+		_, err := c.UpdateAPIKey(searchKey, params)
 		if err != nil {
 			t.Fatalf("TestClientKeys: Cannot update search only key's description: %s", err)
 		}

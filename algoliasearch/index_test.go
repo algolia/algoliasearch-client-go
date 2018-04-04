@@ -898,7 +898,7 @@ func waitIndexKey(t *testing.T, i Index, keyID string, f func(k Key) bool) {
 	retries := 120
 
 	for r := 0; r < retries; r++ {
-		key, err := i.GetUserKey(keyID)
+		key, err := i.GetAPIKey(keyID)
 
 		if err == nil && (f == nil || f(key)) {
 			return
@@ -929,7 +929,7 @@ func waitIndexKeysAsync(t *testing.T, i Index, keyIDs []string, f func(k Key) bo
 
 // deleteIndexKey deletes the key for the given index.
 func deleteIndexKey(t *testing.T, i Index, key string) {
-	_, err := i.DeleteUserKey(key)
+	_, err := i.DeleteAPIKey(key)
 	if err != nil {
 		t.Fatalf("deleteIndexKey: Cannot delete key: %s", err)
 	}
@@ -945,7 +945,7 @@ func deleteAllIndexKeys(t *testing.T, i Index) {
 	}
 
 	for _, key := range keys {
-		_, err = i.DeleteUserKey(key.Value)
+		_, err = i.DeleteAPIKey(key.Value)
 		if err != nil {
 			t.Fatalf("deleteAllKeys: Cannot delete a key: %s", err)
 		}
@@ -996,7 +996,7 @@ func TestIndexKeys(t *testing.T) {
 			"maxHitsPerQuery":        1,
 		}
 
-		res, err := i.AddUserKey([]string{"search"}, params)
+		res, err := i.AddAPIKey([]string{"search"}, params)
 		if err != nil {
 			t.Fatalf("TestIndexKeys: Cannot create the search key: %s", err)
 		}
@@ -1019,7 +1019,7 @@ func TestIndexKeys(t *testing.T) {
 			"listIndexes",
 		}
 
-		res, err := i.AddUserKey(acl, nil)
+		res, err := i.AddAPIKey(acl, nil)
 		if err != nil {
 			t.Fatalf("TestIndexKeys: Cannot create the all-rights key: %s", err)
 		}
@@ -1034,7 +1034,7 @@ func TestIndexKeys(t *testing.T) {
 	{
 		params := Map{"description": "Search-Only Key"}
 
-		_, err := i.UpdateUserKey(searchKey, params)
+		_, err := i.UpdateAPIKey(searchKey, params)
 		if err != nil {
 			t.Fatalf("TestIndexKeys: Cannot update search only key's description: %s", err)
 		}
