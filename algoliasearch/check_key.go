@@ -49,6 +49,7 @@ func checkKey(params Map) error {
 			}
 
 		default:
+			// OK
 		}
 	}
 
