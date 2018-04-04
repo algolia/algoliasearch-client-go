@@ -255,10 +255,14 @@ type Index interface {
 	WaitTaskWithRequestOptions(taskID int, opts *RequestOptions) error
 
 	// ListKeys lists all the keys that can access the index.
+	//
+	// Deprecated: Use Client.ListAPIKeys instead.
 	ListKeys() (keys []Key, err error)
 
 	// ListKeysWithRequestOptions is the same as ListKeys but it also accepts
 	// extra RequestOptions.
+	//
+	// Deprecated: Use Client.ListAPIKeysWithRequestOptions instead.
 	ListKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error)
 
 	// AddUserKey creates a new API key from the supplied `ACL` and the
@@ -266,57 +270,73 @@ type Index interface {
 	// details here:
 	// https://www.algolia.com/doc/rest#add-an-index-specific-api-key
 	//
-	// Deprecated: Use AddAPIKey instead.
+	// Deprecated: Use Client.AddAPIKey instead.
 	AddUserKey(ACL []string, params Map) (AddKeyRes, error)
 
 	// AddAPIKey creates a new API key from the supplied `ACL` and the
 	// specified optional `params` parameters for the current index. More
 	// details here:
 	// https://www.algolia.com/doc/rest#add-an-index-specific-api-key
+	//
+	// Deprecated: Use Client.AddAPIKey instead.
 	AddAPIKey(ACL []string, params Map) (res AddKeyRes, err error)
 
 	// AddAPIKeyWithRequestOptions is the same as AddAPIKey but it also accepts
 	// extra RequestOptions.
+	//
+	// Deprecated: Use Client.AddAPIKeyWithRequestOptions instead.
 	AddAPIKeyWithRequestOptions(ACL []string, params Map, opts *RequestOptions) (res AddKeyRes, err error)
 
 	// UpdateUserKey updates the key identified by its `key` with all the fields
 	// present in the `params` Map. More details here:
 	// https://www.algolia.com/doc/rest#update-an-index-specific-api-key
 	//
-	// Deprecated: Use UpdateAPIKey instead.
+	// Deprecated: Use Client.UpdateAPIKey instead.
 	UpdateUserKey(key string, params Map) (UpdateKeyRes, error)
 
 	// UpdateAPIKey updates the key identified by its `key` with all the fields
 	// present in the `params` Map. More details here:
 	// https://www.algolia.com/doc/rest#update-an-index-specific-api-key
+	//
+	// Deprecated: Use Client.UpdateAPIKey instead.
 	UpdateAPIKey(key string, params Map) (res UpdateKeyRes, err error)
 
 	// UpdateAPIKeyWithRequestOptions is the same as UpdateAPIKey but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Client.UpdateAPIKeyWithRequestOptions instead.
 	UpdateAPIKeyWithRequestOptions(key string, params Map, opts *RequestOptions) (res UpdateKeyRes, err error)
 
 	// GetUserKey retrieves the key identified by its `value`.
 	//
-	// Deprecated: Use GetAPIKey instead.
+	// Deprecated: Use Client.GetAPIKey instead.
 	GetUserKey(value string) (Key, error)
 
 	// GetAPIKey retrieves the key identified by its `value`.
+	//
+	// Deprecated: Use Client.GetAPIKey instead.
 	GetAPIKey(value string) (key Key, err error)
 
 	// GetAPIKeyWithRequestOptions is the same as GetAPIKey but it also accepts
 	// extra RequestOptions.
+	//
+	// Deprecated: Use Client.GetAPIKeyWithRequestOptions instead.
 	GetAPIKeyWithRequestOptions(value string, opts *RequestOptions) (key Key, err error)
 
 	// DeleteUserKey deletes the key identified by its `value`.
 	//
-	// Deprecated: Use DeleteAPIKey instead.
+	// Deprecated: Use Client.DeleteAPIKey instead.
 	DeleteUserKey(value string) (DeleteRes, error)
 
 	// DeleteAPIKey deletes the key identified by its `value`.
+	//
+	// Deprecated: Use Client.DeleteAPIKey instead.
 	DeleteAPIKey(value string) (res DeleteRes, err error)
 
 	// DeleteAPIKeyWithRequestOptions is the same as DeleteAPIKey but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Client.DeleteAPIKeyWithRequestOptions instead.
 	DeleteAPIKeyWithRequestOptions(value string, opts *RequestOptions) (res DeleteRes, err error)
 
 	// AddObject adds a new record to the index.
