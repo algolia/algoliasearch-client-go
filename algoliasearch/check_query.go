@@ -61,7 +61,8 @@ Outer:
 			"aroundLatLngViaIP",
 			"facetingAfterDistinct",
 			"restrictHighlightAndSnippetArrays",
-			"percentileComputation":
+			"percentileComputation",
+			"sumOrFiltersScores":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}
