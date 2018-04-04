@@ -102,29 +102,22 @@ func waitClientKeysAsync(t *testing.T, c Client, keyIDs []string, f func(k Key) 
 }
 
 // deleteAllClientKeys properly deletes all previous keys associated to the
-// application.
+// application, expect the Search-only API key.
 func deleteAllClientKeys(t *testing.T, c Client) {
 	keys, err := c.ListKeys()
-
 	if err != nil {
 		t.Fatalf("deleteAllKeys: Cannot list the keys: %s", err)
 	}
 
 	for _, key := range keys {
+		// Prevent the Search-only API key from being deleted.
+		if key.Description == "Search-only API Key" {
+			continue
+		}
 		_, err = c.DeleteUserKey(key.Value)
 		if err != nil {
 			t.Fatalf("deleteAllKeys: Cannot delete a key: %s", err)
 		}
-	}
-
-	for len(keys) != 0 {
-		keys, err = c.ListKeys()
-
-		if err != nil {
-			t.Fatalf("deleteAllKeys: Cannot list the keys: %s", err)
-		}
-
-		time.Sleep(1 * time.Second)
 	}
 }
 
@@ -183,14 +176,15 @@ func TestClientKeys(t *testing.T) {
 
 	t.Log("TestClientKeys: Update search key description")
 	{
-		params := Map{"description": "Search-Only Key"}
+		description := "Search-only testing key"
 
+		params := Map{"description": description}
 		_, err := c.UpdateUserKey(searchKey, params)
 		if err != nil {
 			t.Fatalf("TestClientKeys: Cannot update search only key's description: %s", err)
 		}
 
-		waitClientKey(t, c, searchKey, func(k Key) bool { return k.Description == "Search-Only Key" })
+		waitClientKey(t, c, searchKey, func(k Key) bool { return k.Description == description })
 	}
 }
 
