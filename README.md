@@ -213,30 +213,105 @@ search.start();
 
 
 
+### Search
+
+- [Search an index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
+- [Search for facet values](https://algolia.com/doc/api-reference/api-methods/search-for-facet-values/?language=go)
+- [Search multiple indexes](https://algolia.com/doc/api-reference/api-methods/multiple-queries/?language=go)
+- [Browse an index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
 
 
 
 
+### Indexing
+
+- [Add objects](https://algolia.com/doc/api-reference/api-methods/add-objects/?language=go)
+- [Update objects](https://algolia.com/doc/api-reference/api-methods/update-objects/?language=go)
+- [Partial update objects](https://algolia.com/doc/api-reference/api-methods/partial-update-objects/?language=go)
+- [Delete objects](https://algolia.com/doc/api-reference/api-methods/delete-objects/?language=go)
+- [Delete by](https://algolia.com/doc/api-reference/api-methods/delete-by/?language=go)
+- [Get objects](https://algolia.com/doc/api-reference/api-methods/get-objects/?language=go)
+- [Custom batch](https://algolia.com/doc/api-reference/api-methods/batch/?language=go)
 
 
 
 
+### Settings
+
+- [Get settings](https://algolia.com/doc/api-reference/api-methods/get-settings/?language=go)
+- [Set settings](https://algolia.com/doc/api-reference/api-methods/set-settings/?language=go)
 
 
 
 
+### Manage indices
+
+- [List indexes](https://algolia.com/doc/api-reference/api-methods/list-indices/?language=go)
+- [Delete index](https://algolia.com/doc/api-reference/api-methods/delete-index/?language=go)
+- [Copy index](https://algolia.com/doc/api-reference/api-methods/copy-index/?language=go)
+- [Move index](https://algolia.com/doc/api-reference/api-methods/move-index/?language=go)
+- [Clear index](https://algolia.com/doc/api-reference/api-methods/clear-index/?language=go)
 
 
 
 
+### API Keys
+
+- [Create secured API Key](https://algolia.com/doc/api-reference/api-methods/generate-secured-api-key/?language=go)
+- [Add API Key](https://algolia.com/doc/api-reference/api-methods/add-api-key/?language=go)
+- [Update API Key](https://algolia.com/doc/api-reference/api-methods/update-api-key/?language=go)
+- [Delete API Key](https://algolia.com/doc/api-reference/api-methods/delete-api-key/?language=go)
+- [Get API Key permissions](https://algolia.com/doc/api-reference/api-methods/get-api-key/?language=go)
+- [List API Keys](https://algolia.com/doc/api-reference/api-methods/list-api-keys/?language=go)
 
 
 
 
+### Synonyms
+
+- [Save synonym](https://algolia.com/doc/api-reference/api-methods/save-synonym/?language=go)
+- [Batch synonyms](https://algolia.com/doc/api-reference/api-methods/batch-synonyms/?language=go)
+- [Delete synonym](https://algolia.com/doc/api-reference/api-methods/delete-synonym/?language=go)
+- [Clear all synonyms](https://algolia.com/doc/api-reference/api-methods/clear-synonyms/?language=go)
+- [Get synonym](https://algolia.com/doc/api-reference/api-methods/get-synonym/?language=go)
+- [Search synonyms](https://algolia.com/doc/api-reference/api-methods/search-synonyms/?language=go)
+- [Export Synonyms](https://algolia.com/doc/api-reference/api-methods/export-synonyms/?language=go)
 
 
 
 
+### Query rules
+
+- [Save a single rule](https://algolia.com/doc/api-reference/api-methods/rules-save/?language=go)
+- [Batch save multiple rules](https://algolia.com/doc/api-reference/api-methods/rules-save-batch/?language=go)
+- [Get a rule](https://algolia.com/doc/api-reference/api-methods/rules-get/?language=go)
+- [Delete a single rule](https://algolia.com/doc/api-reference/api-methods/rules-delete/?language=go)
+- [Clear all rules](https://algolia.com/doc/api-reference/api-methods/rules-clear/?language=go)
+- [Search for rules](https://algolia.com/doc/api-reference/api-methods/rules-search/?language=go)
+- [Export rules](https://algolia.com/doc/api-reference/api-methods/rules-export/?language=go)
+
+
+
+
+### MultiClusters
+
+- [Assign or Move userID](https://algolia.com/doc/api-reference/api-methods/assign-user-id/?language=go)
+- [Get top userID](https://algolia.com/doc/api-reference/api-methods/get-top-user-id/?language=go)
+- [Get userID](https://algolia.com/doc/api-reference/api-methods/get-user-id/?language=go)
+- [List clusters](https://algolia.com/doc/api-reference/api-methods/list-clusters/?language=go)
+- [List userIDs](https://algolia.com/doc/api-reference/api-methods/list-user-id/?language=go)
+- [Remove userID](https://algolia.com/doc/api-reference/api-methods/remove-user-id/?language=go)
+- [Search userID](https://algolia.com/doc/api-reference/api-methods/search-user-id/?language=go)
+
+
+
+
+### Advanced
+
+- [Get logs](https://algolia.com/doc/api-reference/api-methods/get-logs/?language=go)
+- [Configuring timeouts](https://algolia.com/doc/api-reference/api-methods/configuring-timeouts/?language=go)
+- [Set extra header](https://algolia.com/doc/api-reference/api-methods/set-extra-header/?language=go)
+- [Wait for operations](https://algolia.com/doc/api-reference/api-methods/wait-task/?language=go)
 
 
 
