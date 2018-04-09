@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -90,7 +91,7 @@ func NewTransportWithHosts(appId, apiKey string, hosts []string) *Transport {
 func defaultHeaders(appId, apiKey string) map[string]string {
 	return map[string]string{
 		"Connection":               "keep-alive",
-		"User-Agent":               "Algolia for Go (" + version + ")",
+		"User-Agent":               fmt.Sprintf("Algolia for Go (%s); Go (%s); ", version, runtime.Version()),
 		"X-Algolia-API-Key":        apiKey,
 		"X-Algolia-Application-Id": appId,
 	}
