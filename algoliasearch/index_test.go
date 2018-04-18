@@ -1449,6 +1449,25 @@ func TestBatchPartialUpdate(t *testing.T) {
 	}
 }
 
+func TestBatchMissingObjectIDs(t *testing.T) {
+	t.Parallel()
+	_, i := initClientAndIndex(t, "TestBatchMissingObjectIDs")
+
+	for _, action := range []string{
+		"updateObject",
+		"partialUpdateObject",
+		"partialUpdateObjectNoCreate",
+		"deleteObject",
+	} {
+		_, err := i.Batch([]BatchOperation{
+			BatchOperation{Action: action, Body: map[string]interface{}{"key": "value"}},
+		})
+		if err == nil {
+			t.Fatalf("Should return an error for a `%s` batch with a missing `objectID`", action)
+		}
+	}
+}
+
 func TestQueryRules(t *testing.T) {
 	t.Parallel()
 	_, i := initClientAndIndex(t, "TestQueryRules")
