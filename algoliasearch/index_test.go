@@ -1249,8 +1249,7 @@ func TestBatchPartialUpdate(t *testing.T) {
 
 	var objectID string
 
-	// Add the object that will get partially updated
-
+	t.Log("Add the object that will get partially updated")
 	{
 		object := Object{
 			"replace":         10,
@@ -1274,8 +1273,7 @@ func TestBatchPartialUpdate(t *testing.T) {
 		objectID = res.ObjectID
 	}
 
-	// Partially update all the fields via a Batch
-
+	t.Log("Partially update all the fields via a Batch")
 	{
 		batchOps := []BatchOperation{
 			{
@@ -1303,8 +1301,7 @@ func TestBatchPartialUpdate(t *testing.T) {
 		waitTask(t, i, res.TaskID)
 	}
 
-	// Check the final object
-
+	t.Log("Check the final object")
 	{
 		object, err := i.GetObject(objectID, nil)
 
