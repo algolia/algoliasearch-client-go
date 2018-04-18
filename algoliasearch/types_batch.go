@@ -1,7 +1,5 @@
 package algoliasearch
 
-import "errors"
-
 type BatchOperation struct {
 	Action string      `json:"action"`
 	Body   interface{} `json:"body,omitempty"`
@@ -26,14 +24,12 @@ func newBatchOperations(objects []Object, action string) (operations []BatchOper
 	operations = make([]BatchOperation, len(objects))
 
 	for i, o := range objects {
-		// In the case of something else than `addObject` and `clear` operations,
-		// the `objectID` field is required and has to be escaped.
+		// In the case of something else than `addObject` and `clear`
+		// operations, the `objectID` field is required.
 		if action != "addObject" && action != "clear" {
-			if objectID, err := o.ObjectID(); err == nil {
-				o["objectID"] = objectID
-			} else {
-				err = errors.New("Cannot generate []BatchOperation: `objectID` field is missing")
-				break
+			_, err = o.ObjectID()
+			if err != nil {
+				return
 			}
 		}
 
