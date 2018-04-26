@@ -23,8 +23,8 @@ Version 1.x are no longer under active development. They are still supported for
 You can find the full reference on [Algolia's website](https://www.algolia.com/doc/api-client/go/).
 
 
-## In this page
 
+1. **[Install](#install)**
 
 
 1. **[Quick Start](#quick-start)**
@@ -48,6 +48,14 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 # Getting Started
 
 
+
+## Install
+
+Download AlgoliaSearch using
+
+```bash
+go get github.com/algolia/algoliasearch-client-go/algoliasearch
+```
 
 ## Quick Start
 
