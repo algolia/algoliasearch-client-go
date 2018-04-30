@@ -7,7 +7,7 @@ type Key struct {
 	Indexes                []string `json:"indexes,omitempty"`
 	MaxHitsPerQuery        int      `json:"maxHitsPerQuery,omitempty"`
 	MaxQueriesPerIPPerHour int      `json:"maxQueriesPerIPPerHour,omitempty"`
-	QueryParamaters        string   `json:"queryParameters,omitempty"`
+	QueryParameters        string   `json:"queryParameters,omitempty"`
 	Referers               []string `json:"referers,omitempty"`
 	Validity               int      `json:"validity,omitempty"`
 	Value                  string   `json:"value,omitempty"`
