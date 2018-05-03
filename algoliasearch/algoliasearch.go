@@ -197,6 +197,55 @@ type Client interface {
 	// also accepts extra RequestOptions.
 	MultipleQueriesWithRequestOptions(queries []IndexedQuery, strategy string, opts *RequestOptions) (res []MultipleQueryRes, err error)
 
+	// List all available clusters for the application.
+	ListClusters() (res []Cluster, err error)
+
+	// ListClustersWithRequestOptions is the same as ListClusters but it
+	// also accepts extra RequestOptions.
+	ListClustersWithRequestOptions(opts *RequestOptions) (res []Cluster, err error)
+
+	// List all user IDs across all clusters.
+	ListUserIDs(page int, hitsPerPage int) (res ListUserIDsRes, err error)
+
+	// ListUserIDsWithRequestOptions is the same as ListUserIDs but it
+	// also accepts extra RequestOptions.
+	ListUserIDsWithRequestOptions(page int, hitsPerPage int, opts *RequestOptions) (res ListUserIDsRes, err error)
+
+	// Get a specific user ID when using multi cluster infrastructure.
+	GetUserID(userID string) (res UserID, err error)
+
+	// GetUserIDWithRequestOptions is the same as GetUserID but it
+	// also accepts extra RequestOptions.
+	GetUserIDWithRequestOptions(userID string, opts *RequestOptions) (res UserID, err error)
+
+	// Assign a user ID to a cluster.
+	AssignUserID(userID string, clusterName string) (res AssignUserIDRes, err error)
+
+	// AssignUserIDWithRequestOptions is the same as AssignUserID but it
+	// also accepts extra RequestOptions.
+	AssignUserIDWithRequestOptions(userID string, clusterName string, opts *RequestOptions) (res AssignUserIDRes, err error)
+
+	// Remove a user ID from a cluster.
+	RemoveUserID(userID string) (res RemoveUserIDRes, err error)
+
+	// RemoveUserIDWithRequestOptions is the same as RemoveUserID but it
+	// also accepts extra RequestOptions.
+	RemoveUserIDWithRequestOptions(userID string, opts *RequestOptions) (res RemoveUserIDRes, err error)
+
+	// Get user IDs with the highest number of records per cluster.
+	GetTopUserIDs() (res TopUserIDs, err error)
+
+	// GetTopUserIDsWithRequestOptions is the same as GetTopUserIDs but it
+	// also accepts extra RequestOptions.
+	GetTopUserIDsWithRequestOptions(opts *RequestOptions) (res TopUserIDs, err error)
+
+	// Typical Algolia search but for user ID.
+	SearchUserIDs(query string, params Map) (res SearchUserIDRes, err error)
+
+	// SearchUserIDsWithRequestOptions is the same as SearchUserIDs but it
+	// also accepts extra RequestOptions.
+	SearchUserIDsWithRequestOptions(query string, params Map, opts *RequestOptions) (res SearchUserIDRes, err error)
+
 	// Batch performs all queries in `operations`.
 	Batch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error)
 
