@@ -1,6 +1,10 @@
 package algoliasearch
 
 import (
+	"fmt"
+	"github.com/stretchr/testify/require"
+	"os"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -429,4 +433,67 @@ func TestDnsTimeout(t *testing.T) {
 	if delta > 5*time.Second {
 		t.Fatalf("TestDnsTimeout: Spent %d seconds instead of <5s to perform the 10 retries", int(delta.Seconds()))
 	}
+}
+
+func TestMultiClusterManagement(t *testing.T) {
+	client := initMCMClient(t)
+	userIDPrefix := "go-client-"
+
+	// Make sure we have at least 2 clusters and retrieve the first one
+	clusters, err := client.ListClusters()
+	require.NoError(t, err)
+	require.True(t, len(clusters) > 1)
+	cluster := clusters[0]
+
+	// Delete any preexisting user
+	{
+		var existingUserIDs []string
+
+		res, err := client.ListUserIDs(0, 20)
+		require.NoError(t, err)
+		for _, u := range res.UserIDs {
+			userID := u.ID
+			if (strings.HasPrefix(userID, userIDPrefix)) {
+				existingUserIDs = append(existingUserIDs, userID)
+				_, err = client.RemoveUserID(u.ID)
+				require.NoError(t, err)
+			}
+		}
+
+		for len(existingUserIDs) > 0 {
+			existingUserIDs = []string{}
+			res, err = client.ListUserIDs(0, 20)
+			require.NoError(t, err)
+
+			for _, u := range res.UserIDs {
+				userID := u.ID
+				if (strings.HasPrefix(userID, userIDPrefix)) {
+					existingUserIDs = append(existingUserIDs, userID)
+				}
+			}
+			time.Sleep(time.Second)
+		}
+	}
+
+	// Assign one user to the first cluster and make sure it is assigned
+	{
+		userIDSuffix := fmt.Sprintf("-%d", time.Now().Second())
+		userIDInstance := os.Getenv("TRAVIS_BUILD_NUMBER")
+		if userIDInstance == "" {
+			userIDInstance = "local"
+		}
+		userID := userIDPrefix + userIDInstance + userIDSuffix
+
+		_, err := client.AssignUserID(userID, cluster.ClusterName)
+		require.NoError(t, err)
+
+		for {
+			_, err := client.GetUserID(userID)
+			if err == nil {
+				break
+			}
+			time.Sleep(time.Second)
+		}
+	}
+
 }
