@@ -56,6 +56,7 @@ Outer:
 			"advancedSyntax",
 			"analytics",
 			"clickAnalytics",
+			"enableRules",
 			"synonyms",
 			"replaceSynonymsInHighlight",
 			"aroundLatLngViaIP",
