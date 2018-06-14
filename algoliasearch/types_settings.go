@@ -36,6 +36,7 @@ type Settings struct {
 	AttributesToRetrieve              []string    `json:"attributesToRetrieve"`
 	AttributesToSnippet               []string    `json:"attributesToSnippet"`
 	Distinct                          interface{} `json:"distinct"` // float64 (actually an int) or bool
+	EnableRules                       bool        `json:"enableRules"`
 	HighlightPostTag                  string      `json:"highlightPostTag"`
 	HighlightPreTag                   string      `json:"highlightPreTag"`
 	HitsPerPage                       int         `json:"hitsPerPage"`

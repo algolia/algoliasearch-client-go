@@ -11,15 +11,17 @@ type MultipleQueryRes struct {
 }
 
 type QueryRes struct {
+	AppliedRules          []Map  `json:"appliedRules"`
 	AroundLatLng          string `json:"aroundLatLng"`
 	AutomaticRadius       string `json:"automaticRadius"`
 	ExhaustiveFacetsCount bool   `json:"exhaustiveFacetsCount"`
-	Facets                Map    `json:"facets"`
 	ExhaustiveNbHits      bool   `json:"exhaustiveNbHits"`
+	Facets                Map    `json:"facets"`
 	FacetsStats           Map    `json:"facets_stats"`
 	Hits                  []Map  `json:"hits"`
 	HitsPerPage           int    `json:"hitsPerPage"`
 	Index                 string `json:"index"`
+	IndexUsed             string `json:"indexUsed"`
 	Length                int    `json:"length"`
 	Message               string `json:"message"`
 	NbHits                int    `json:"nbHits"`
@@ -35,6 +37,7 @@ type QueryRes struct {
 	ServerUsed            string `json:"serverUsed"`
 	TimeoutCounts         bool   `json:"timeoutCounts"`
 	TimeoutHits           bool   `json:"timeoutHits"`
+	UserData              []Map  `json:"userData"`
 }
 
 type IndexedQuery struct {

@@ -29,6 +29,7 @@ func checkSettings(settings Map) error {
 		case "allowCompressionOfIntegerArray",
 			"advancedSyntax",
 			"allowTyposOnNumericTokens",
+			"enableRules",
 			"replaceSynonymsInHighlight",
 			"forwardToSlaves",
 			"forwardToReplicas",
