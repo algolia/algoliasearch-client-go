@@ -178,6 +178,23 @@ type Client interface {
 	// BatchWithRequestOptions is the same as Batch but it also accepts extra
 	// RequestOptions.
 	BatchWithRequestOptions(operations []BatchOperationIndexed, opts *RequestOptions) (res MultipleBatchRes, err error)
+
+	// WaitTask stops the current execution until the task identified by its
+	// `taskID` on the index `indexName` is finished. The waiting time between each check is usually
+	// implemented by starting at 1s and increases by a factor of 2 at each
+	// retry (but is bounded at around 20min).
+	WaitTask(indexName string, taskID int) error
+
+	// WaitTaskWithRequestOptions is the same as WaitTask but it also accepts
+	// extra RequestOptions.
+	WaitTaskWithRequestOptions(indexName string, taskID int, opts *RequestOptions) error
+
+	// GetStatus returns the status of a task given its ID `taskID` and `indexName`.
+	GetStatus(indexName string, taskID int) (res TaskStatusRes, err error)
+
+	// GetStatusWithRequestOptions is the same as GetStatus but it also accepts
+	// extra RequestOptions.
+	GetStatusWithRequestOptions(indexName string, taskID int, opts *RequestOptions) (res TaskStatusRes, err error)
 }
 
 // Index is a representation used to manipulate an Algolia index.

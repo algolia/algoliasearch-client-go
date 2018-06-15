@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"time"
@@ -255,6 +256,47 @@ func (c *client) BatchWithRequestOptions(operations []BatchOperationIndexed, opt
 	}
 
 	err = c.request(&res, "POST", "/1/indexes/*/batch", request, write, opts)
+	return
+}
+
+func (c *client) WaitTask(indexName string, taskID int) error {
+	return c.WaitTaskWithRequestOptions(indexName, taskID, nil)
+}
+
+func (c *client) WaitTaskWithRequestOptions(indexName string, taskID int, opts *RequestOptions) error {
+	var maxDuration = time.Second
+
+	for {
+		res, err := c.GetStatusWithRequestOptions(indexName,
+			taskID, opts)
+		if err != nil {
+			return err
+		}
+
+		if res.Status == "published" {
+			return nil
+		}
+
+		sleepDuration := randDuration(maxDuration)
+		time.Sleep(sleepDuration)
+
+		// Increase the upper boundary used to generate the sleep duration
+		if maxDuration < 10*time.Minute {
+			maxDuration *= 2
+			if maxDuration > 10*time.Minute {
+				maxDuration = 10 * time.Minute
+			}
+		}
+	}
+}
+
+func (c *client) GetStatus(indexName string, taskID int) (res TaskStatusRes, err error) {
+	return c.GetStatusWithRequestOptions(indexName, taskID, nil)
+}
+
+func (c *client) GetStatusWithRequestOptions(indexName string, taskID int, opts *RequestOptions) (res TaskStatusRes, err error) {
+	path := fmt.Sprintf("/1/indexes/%s/task/%d", url.QueryEscape(indexName), taskID)
+	err = c.request(&res, "GET", path, nil, read, opts)
 	return
 }
 

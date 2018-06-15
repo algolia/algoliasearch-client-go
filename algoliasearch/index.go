@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
-	"time"
 )
 
 type index struct {
@@ -154,30 +153,7 @@ func (i *index) WaitTask(taskID int) error {
 }
 
 func (i *index) WaitTaskWithRequestOptions(taskID int, opts *RequestOptions) error {
-	var res TaskStatusRes
-	var err error
-
-	var maxDuration = time.Second
-	var sleepDuration time.Duration
-
-	for {
-		if res, err = i.GetStatusWithRequestOptions(taskID, opts); err != nil {
-			return err
-		}
-
-		if res.Status == "published" {
-			return nil
-		}
-
-		sleepDuration = randDuration(maxDuration)
-		time.Sleep(sleepDuration)
-
-		// Increase the upper boundary used to generate the sleep
-		// duration
-		if maxDuration < 10*time.Minute {
-			maxDuration *= 2
-		}
-	}
+	return i.client.WaitTaskWithRequestOptions(i.name, taskID, opts)
 }
 
 func (i *index) ListKeys() (keys []Key, err error) {
@@ -449,8 +425,7 @@ func (i *index) GetStatus(taskID int) (res TaskStatusRes, err error) {
 }
 
 func (i *index) GetStatusWithRequestOptions(taskID int, opts *RequestOptions) (res TaskStatusRes, err error) {
-	path := i.route + fmt.Sprintf("/task/%d", taskID)
-	err = i.client.request(&res, "GET", path, nil, read, opts)
+	res, err = i.client.GetStatusWithRequestOptions(i.name, taskID, opts)
 	return
 }
 
