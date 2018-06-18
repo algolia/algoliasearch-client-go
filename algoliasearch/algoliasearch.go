@@ -35,6 +35,9 @@ type Client interface {
 	// InitIndex returns an Index object targeting `name`.
 	InitIndex(name string) Index
 
+	// InitAnalytics returns a new Analytics instance, bound to the Client.
+	InitAnalytics() Analytics
+
 	// ListKeys returns all the API keys available for this Algolia
 	// application.
 	//
@@ -697,4 +700,32 @@ type IndexIterator interface {
 	// occurs. When the last element is reached, an error is returned with the
 	// following message: "No more hits".
 	Next() (res Map, err error)
+}
+
+type Analytics interface {
+	// AddABTest creates a new AB Test.
+	AddABTest(abTest ABTest) (res ABTestTaskRes, err error)
+
+	// DeleteABTest stops the AB Test referenced by the given ID.
+	StopABTest(id int) (res ABTestTaskRes, err error)
+
+	// DeleteABTest removes the AB Test referenced by the given ID.
+	DeleteABTest(id int) (res ABTestTaskRes, err error)
+
+	// GetABTest returns the informations relative to the AB Test referenced by
+	// the given ID.
+	GetABTest(id int) (res ABTestResponse, err error)
+
+	// GetABTests retrieves a list of ABTests, according to the given
+	// parameters. The returned list may not be exhaustive, depending on the
+	// parameters that were provided.
+	//
+	// To retrieve the complete list of enabled AB tests, one should iterate
+	// over the multiple pages of result returned by GetABTests until no more
+	// AB Test is found.
+	GetABTests(params Map) (res GetABTestsRes, err error)
+
+	// WaitTask blocks until the given task has ended successfully. If anything
+	// goes wrong or if the task did not succeed, a non-nil error is returned.
+	WaitTask(task ABTestTaskRes) (err error)
 }

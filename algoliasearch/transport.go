@@ -26,6 +26,7 @@ const (
 	search = 1 << iota
 	write
 	read
+	analyticsCall
 )
 
 // Seed the RNG used to shuffle the hosts slice (see `defaultHosts` function).
@@ -47,6 +48,7 @@ type Transport struct {
 	httpClient        *http.Client
 	keepAliveDuration time.Duration
 	providedHosts     []string
+	analyticsHost     string
 }
 
 // NewTransport instantiates a new Transport with the default Algolia hosts to
@@ -62,6 +64,7 @@ func NewTransport(appId, apiKey string) *Transport {
 		httpClient:        defaultHttpClient(),
 		keepAliveDuration: 5 * time.Minute,
 		providedHosts:     nil,
+		analyticsHost:     defaultAnalyticsHost(),
 	}
 }
 
@@ -78,6 +81,7 @@ func NewTransportWithHosts(appId, apiKey string, hosts []string) *Transport {
 		httpClient:        defaultHttpClient(),
 		keepAliveDuration: 5 * 60 * time.Second,
 		providedHosts:     hosts,
+		analyticsHost:     defaultAnalyticsHost(),
 	}
 }
 
@@ -107,6 +111,12 @@ func (t *Transport) defaultHosts() []string {
 	}
 
 	return shuffled
+}
+
+// defaultAnalyticsHost returns the default production endpoint for the
+// Analytics API.
+func defaultAnalyticsHost() string {
+	return "analytics.algolia.com"
 }
 
 // defaultHttpClient returns the `*http.Client` which will perform all the
@@ -181,9 +191,18 @@ func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
 // request is the method used by the `Client` to perform the request against
 // the Algolia servers (or to the list of specified hosts).
 func (t *Transport) request(method, path string, body interface{}, typeCall int, opts *RequestOptions) ([]byte, error) {
-	var res []byte
-	var err error
+	if typeCall == analyticsCall {
+		return t.requestAnalytics(method, path, body, opts)
+	} else {
+		return t.requestSearch(method, path, body, typeCall, opts)
+	}
+}
 
+func (t *Transport) requestAnalytics(method, path string, body interface{}, opts *RequestOptions) (res []byte, err error) {
+	return t.tryRequest(method, t.analyticsHost, path, body, opts)
+}
+
+func (t *Transport) requestSearch(method, path string, body interface{}, typeCall int, opts *RequestOptions) (res []byte, err error) {
 	for _, host := range t.hostsToTry(typeCall) {
 		res, err = t.tryRequest(method, host, path, body, opts)
 		if err == nil {
