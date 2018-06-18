@@ -64,6 +64,10 @@ func (c *client) InitIndex(name string) Index {
 	return NewIndex(name, c)
 }
 
+func (c *client) InitAnalytics() Analytics {
+	return NewAnalytics(c)
+}
+
 func (c *client) ListKeys() (keys []Key, err error) {
 	return c.ListAPIKeys()
 }

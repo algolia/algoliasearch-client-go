@@ -111,6 +111,12 @@ func initClientAndIndex(t *testing.T, name string) (c Client, i Index) {
 	return
 }
 
+func initClientAndAnalytics(t *testing.T) (c Client, a Analytics) {
+	c = initClient(t)
+	a = c.InitAnalytics()
+	return
+}
+
 // addObjectsAndSynonyms populates the given Index with several records, set
 // the settings accordingly and add several synonyms. This helper is needed as
 // we need to test both Synonym methods and the SynonymIterator in two
