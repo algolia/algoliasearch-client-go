@@ -1,3 +1,47 @@
+# [2.23.0](https://github.com/algolia/algoliasearch-client-go/compare/2.22.0...2.23.0) (2018-06-19)
+Hello everyone,
+
+Big release today and as you may see, new format for the ChangeLog that we are
+trying to improve. A lot of additions since 2.22.0, mainly for [A/B
+testing](https://www.algolia.com/doc/guides/analytics/abtest-overview/)
+features that are now available. After a careful audit of the client, we have
+also started to deprecate some methods in favor of new ones, mainly for
+consistency reasons. And as usual, a few fixes regarding some input/response
+types that were wrong.
+
+As usual, feel free to report any issue of question you may have in our [Github
+issue tracker](https://github.com/algolia/algoliasearch-client-go/issues) and
+to contribute by submitting your Pull Requests directly to [our Github
+repository](https://github.com/algolia/algoliasearch-client-go/pulls). And for
+a more detailed assistance regarding Algolia and its features, you may also
+contact us directly at support@algolia.com.
+
+Have a nice day.
+
+- **feat:** Implement AB Testing via the new Analytics handler ([f1e8432](https://github.com/algolia/algoliasearch-client-go/commit/f1e8432))
+- **chore:** Use testify to shorten tests and replace glide with dep ([32bd096](https://github.com/algolia/algoliasearch-client-go/commit/32bd096))
+- **fix:** Expose missing fields related to Query Rules ([def6f71](https://github.com/algolia/algoliasearch-client-go/commit/def6f71))
+- **test:** Look for missing objectID error for BatchOperation ([0e93e1e](https://github.com/algolia/algoliasearch-client-go/commit/0e93e1e))
+- **test:** Minor logs added ([fcd7eef](https://github.com/algolia/algoliasearch-client-go/commit/fcd7eef))
+- **refactor:** Better describe object errors ([cb025d7](https://github.com/algolia/algoliasearch-client-go/commit/cb025d7))
+- **fix:** Prevent invalid batch requests correctly ([355486b](https://github.com/algolia/algoliasearch-client-go/commit/355486b))
+- **feat:** Enforce Rule.ObjectID not to be empty (closes #397) ([22e2592](https://github.com/algolia/algoliasearch-client-go/commit/22e2592))
+- **test:** Use *APIKey methods instead of deprecated *UserKey methods for tests ([5ff7df4](https://github.com/algolia/algoliasearch-client-go/commit/5ff7df4))
+- **test:** Prevent tests from deleting the search-only API key of the application ([16fc6ef](https://github.com/algolia/algoliasearch-client-go/commit/16fc6ef))
+- **refactor:** Deprecate all API key related Index methods in favor of Client ones (closes #413) ([53b957f](https://github.com/algolia/algoliasearch-client-go/commit/53b957f))
+- **feat:** Type-check search parameter sumOrFiltersScores (closes #402) ([0d07917](https://github.com/algolia/algoliasearch-client-go/commit/0d07917))
+- **fix:** Rename mistyped RulePatternAnchoring StarstWith into StartsWith (closes #399) ([1aa19ad](https://github.com/algolia/algoliasearch-client-go/commit/1aa19ad))
+- **fix:** Expose missing ID field in SaveSynonym response (closes #393) ([a83e4dc](https://github.com/algolia/algoliasearch-client-go/commit/a83e4dc))
+- **feat:** Deprecate Index.AddSynonym in favor of Index.SaveSynonym (closes #391) ([d718682](https://github.com/algolia/algoliasearch-client-go/commit/d718682))
+- **feat:** Deprecate Client.ListKeys in favor of Client.ListAPIKeys (closes #390) ([39bd6c1](https://github.com/algolia/algoliasearch-client-go/commit/39bd6c1))
+- **test:** Add integration test for GenerateSecuredAPIKey ([0eae8c2](https://github.com/algolia/algoliasearch-client-go/commit/0eae8c2))
+- **fix:** Remove 'referers' field check for GenerateSecuredAPIKey (closes #388) ([98fb88c](https://github.com/algolia/algoliasearch-client-go/commit/98fb88c))
+- **fix:** Expose missing NbPages field to listIndexesRes (closes #387) ([fe19eb4](https://github.com/algolia/algoliasearch-client-go/commit/fe19eb4))
+- **fix:** Add missing trailing S to IndexRes' NumberOfPendingTasks (closes #386) ([9c72938](https://github.com/algolia/algoliasearch-client-go/commit/9c72938))
+- **fix:** Use correct return type for DeleteBy (closes #383) ([bddeb63](https://github.com/algolia/algoliasearch-client-go/commit/bddeb63))
+- **feat:** Expose processed boolean for MultipleQueriesRes when using stopIfEnoughMatchesStrategy (closes #379) ([58a1cd1](https://github.com/algolia/algoliasearch-client-go/commit/58a1cd1))
+- **feat:** Expose exhaustiveFacetsCount boolean in SearchFacetRes (closes #377) ([fb4ba25](https://github.com/algolia/algoliasearch-client-go/commit/fb4ba25))
+
 # [2.22.0](https://github.com/algolia/algoliasearch-client-go/compare/2.21.3...2.22.0) (2018-03-26)
 - **feat:** Add clickAnalytics to search option parameters ([7b8d667](https://github.com/algolia/algoliasearch-client-go/commit/7b8d667))
 - **chore:** Update contribution-related files ([af85276](https://github.com/algolia/algoliasearch-client-go/commit/af85276))
