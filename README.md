@@ -223,10 +223,10 @@ search.start();
 
 ### Search
 
-- [Search an index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
+- [Search index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
 - [Search for facet values](https://algolia.com/doc/api-reference/api-methods/search-for-facet-values/?language=go)
 - [Search multiple indexes](https://algolia.com/doc/api-reference/api-methods/multiple-queries/?language=go)
-- [Browse an index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
+- [Browse index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
 
 
 
@@ -290,12 +290,12 @@ search.start();
 
 ### Query rules
 
-- [Save a single rule](https://algolia.com/doc/api-reference/api-methods/rules-save/?language=go)
-- [Batch save multiple rules](https://algolia.com/doc/api-reference/api-methods/rules-save-batch/?language=go)
-- [Get a rule](https://algolia.com/doc/api-reference/api-methods/rules-get/?language=go)
-- [Delete a single rule](https://algolia.com/doc/api-reference/api-methods/rules-delete/?language=go)
-- [Clear all rules](https://algolia.com/doc/api-reference/api-methods/rules-clear/?language=go)
-- [Search for rules](https://algolia.com/doc/api-reference/api-methods/rules-search/?language=go)
+- [Save rule](https://algolia.com/doc/api-reference/api-methods/rules-save/?language=go)
+- [Batch rules](https://algolia.com/doc/api-reference/api-methods/rules-save-batch/?language=go)
+- [Get rule](https://algolia.com/doc/api-reference/api-methods/rules-get/?language=go)
+- [Delete rule](https://algolia.com/doc/api-reference/api-methods/rules-delete/?language=go)
+- [Clear rules](https://algolia.com/doc/api-reference/api-methods/rules-clear/?language=go)
+- [Search rules](https://algolia.com/doc/api-reference/api-methods/rules-search/?language=go)
 - [Export rules](https://algolia.com/doc/api-reference/api-methods/rules-export/?language=go)
 
 
@@ -303,11 +303,11 @@ search.start();
 
 ### A/B Test
 
-- [Add an A/B test](https://algolia.com/doc/api-reference/api-methods/add-ab-test/?language=go)
-- [Get an A/B test](https://algolia.com/doc/api-reference/api-methods/get-ab-test/?language=go)
+- [Add A/B test](https://algolia.com/doc/api-reference/api-methods/add-ab-test/?language=go)
+- [Get A/B test](https://algolia.com/doc/api-reference/api-methods/get-ab-test/?language=go)
 - [List A/B tests](https://algolia.com/doc/api-reference/api-methods/get-ab-tests/?language=go)
-- [Stop an A/B test](https://algolia.com/doc/api-reference/api-methods/stop-ab-test/?language=go)
-- [Delete an A/B test](https://algolia.com/doc/api-reference/api-methods/delete-ab-test/?language=go)
+- [Stop A/B test](https://algolia.com/doc/api-reference/api-methods/stop-ab-test/?language=go)
+- [Delete A/B test](https://algolia.com/doc/api-reference/api-methods/delete-ab-test/?language=go)
 
 
 
