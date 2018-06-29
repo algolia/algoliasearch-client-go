@@ -1,3 +1,22 @@
+# ChangeLog
+
+## [2.23.1](https://github.com/algolia/algoliasearch-client-go/compare/2.23.0...2.23.1) (2018-06-29)
+
+### Summary
+
+Hello everyone,
+
+Today's patch release should make `Settings.ToMap` users happy, as some missing
+fields that were not exported are now correctly made available in the result
+`Map`. For more details, check the commit below. Other changes only touch chore
+files.
+
+### Changes
+
+**chore:** Add release.sh script ([dd734e0](https://github.com/algolia/algoliasearch-client-go/commit/dd734e0))
+**fix:** Export missing attributes in Settings.ToMap ([a0ec60a](https://github.com/algolia/algoliasearch-client-go/commit/a0ec60a))
+**misc:** Update README ([9c969af](https://github.com/algolia/algoliasearch-client-go/commit/9c969af))
+
 # [2.23.0](https://github.com/algolia/algoliasearch-client-go/compare/2.22.0...2.23.0) (2018-06-19)
 Hello everyone,
 
