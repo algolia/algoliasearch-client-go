@@ -1,10 +1,12 @@
 package algoliasearch
 
 import (
+	"reflect"
 	"sort"
 	"sync"
 	"testing"
 	"time"
+	"unicode"
 
 	"github.com/stretchr/testify/require"
 )
@@ -1070,6 +1072,31 @@ func TestSettingsToMap(t *testing.T) {
 
 	t.Log("TestSettingsToMap: Compare the settings")
 	settingsAreEqual(t, settingsBefore, settingsAfter)
+}
+
+func TestSettingsToMap_allRequiredFieldsArePresent(t *testing.T) {
+	var settings Settings
+
+	m := settings.ToMap()
+
+	s := reflect.ValueOf(&settings).Elem()
+	tt := s.Type()
+
+	for i := 0; i < s.NumField(); i++ {
+		// Skip []string-type fields because those are discarded to avoid
+		// sending useless data to the API.
+		if tt.Field(i).Type.String() == "[]string" {
+			continue
+		}
+
+		expectedSettingName := tt.Field(i).Name
+		tmp := []rune(expectedSettingName)
+		tmp[0] = unicode.ToLower(tmp[0])
+		expectedSettingName = string(tmp)
+
+		_, ok := m[expectedSettingName]
+		require.True(t, ok, "should find '%s' setting in the result map", expectedSettingName)
+	}
 }
 
 func facetHitSliceAreEqual(fs1, fs2 []FacetHit) bool {

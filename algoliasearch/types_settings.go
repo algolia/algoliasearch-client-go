@@ -80,12 +80,20 @@ func (s *Settings) clean() {
 	if s.MaxFacetHits == 0 {
 		s.MaxFacetHits = 10
 	}
+
+	if s.SortFacetValuesBy == "" {
+		s.SortFacetValuesBy = "count"
+	}
 }
 
 // ToMap produces a `Map` corresponding to the `Settings struct`. It should
 // only be used when it's needed to pass a `Settings struct` to `SetSettings`,
 // typically when one needs to copy settings between two indices.
 func (s *Settings) ToMap() Map {
+	// Guarantee that interface{}-typed fields and default values are correctly
+	// set.
+	s.clean()
+
 	// Add all fields except:
 	//  - Distinct float64 or bool
 	//  - IgnorePlurals []interface{} or bool
@@ -117,9 +125,11 @@ func (s *Settings) ToMap() Map {
 		"attributesToHighlight":             s.AttributesToHighlight,
 		"attributesToRetrieve":              s.AttributesToRetrieve,
 		"attributesToSnippet":               s.AttributesToSnippet,
+		"enableRules":                       s.EnableRules,
 		"highlightPostTag":                  s.HighlightPostTag,
 		"highlightPreTag":                   s.HighlightPreTag,
 		"hitsPerPage":                       s.HitsPerPage,
+		"ignorePlurals":                     s.IgnorePlurals,
 		"maxFacetHits":                      s.MaxFacetHits,
 		"maxValuesPerFacet":                 s.MaxValuesPerFacet,
 		"minProximity":                      s.MinProximity,
@@ -132,6 +142,7 @@ func (s *Settings) ToMap() Map {
 		"responseFields":                    s.ResponseFields,
 		"restrictHighlightAndSnippetArrays": s.RestrictHighlightAndSnippetArrays,
 		"snippetEllipsisText":               s.SnippetEllipsisText,
+		"sortFacetValuesBy":                 s.SortFacetValuesBy,
 		"typoTolerance":                     s.TypoTolerance,
 	}
 
