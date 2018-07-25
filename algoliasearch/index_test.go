@@ -8,6 +8,7 @@ import (
 	"time"
 	"unicode"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/stretchr/testify/require"
 )
 
@@ -1517,8 +1518,9 @@ func TestQueryRules(t *testing.T) {
 		"remove_js",
 		"substitute_coffee_with_tea",
 	} {
-		_, err := i.GetRule(ruleId)
+		r, err := i.GetRule(ruleId)
 		require.Nil(t, err, "should get rule without error")
+		require.True(t, r.Enabled)
 	}
 
 	t.Log("TestQueryRules: Delete one query rule and check that it is not accessible anymore")
@@ -1556,6 +1558,154 @@ func TestQueryRules(t *testing.T) {
 			_, err = i.GetRule(ruleId)
 			require.NotNil(t, err, "should not be able to get deleted rule")
 		}
+	}
+}
+
+func TestQueryRulesV2(t *testing.T) {
+	t.Parallel()
+	_, i := initClientAndIndex(t, "TestQueryRulesV2")
+
+	var tasks []int
+
+	timeranges := []TimeRange{
+		{
+			From:  time.Date(2018, time.July, 24, 13, 35, 0, 0, time.UTC),
+			Until: time.Date(2018, time.July, 25, 13, 35, 0, 0, time.UTC),
+		},
+		{
+			From:  time.Date(2018, time.July, 26, 13, 35, 0, 0, time.UTC),
+			Until: time.Date(2018, time.July, 27, 13, 35, 0, 0, time.UTC),
+		},
+	}
+
+	expectedAutomaticFacetFilter := AutomaticFacetFilter{
+		Facet:       "brand",
+		Disjunctive: true,
+		Score:       42,
+	}
+
+	t.Log("TestQueryRulesV2: Add disabled query rule with validity range")
+	{
+		rule := Rule{
+			ObjectID:  "disabled_with_validity_range",
+			Condition: NewSimpleRuleCondition(Contains, "{facet:brand}"),
+			Consequence: RuleConsequence{
+				Params: Map{
+					"automaticFacetFilters": []AutomaticFacetFilter{expectedAutomaticFacetFilter},
+				},
+			},
+			Validity:    timeranges,
+			Description: "Automatic tagging of apple queries with apple brand",
+		}
+		rule.Disable()
+		res, err := i.SaveRule(rule, false)
+		require.NoError(t, err)
+		tasks = append(tasks, res.TaskID)
+	}
+
+	expectedEdits := []Edit{
+		DeleteEdit("android"),
+	}
+
+	t.Log("TestQueryRulesV2: Add disabled query rule with edits")
+	{
+		rule := Rule{
+			ObjectID:  "disabled_with_delete_edit",
+			Condition: NewSimpleRuleCondition(Contains, "android"),
+			Consequence: RuleConsequence{
+				Params: Map{
+					"query": Map{
+						"edits": expectedEdits,
+					},
+				},
+			},
+			Description: "Remove android from queries",
+		}
+		rule.Disable()
+		res, err := i.BatchRules([]Rule{rule}, false, false)
+		require.NoError(t, err)
+		tasks = append(tasks, res.TaskID)
+	}
+
+	expectedHiddenObjects := []HiddenObject{
+		{ObjectID: "42"},
+		{ObjectID: "43"},
+	}
+
+	t.Log("TestQueryRulesV2: Add query rule with HiddenObject consequence")
+	{
+		rule := Rule{
+			ObjectID:  "with_hidden_object",
+			Condition: NewSimpleRuleCondition(Contains, "iphone"),
+			Consequence: RuleConsequence{
+				Hide: expectedHiddenObjects,
+			},
+			Description: "Remove objects 42 and 43 for iphone queries",
+		}
+		res, err := i.BatchRules([]Rule{rule}, false, false)
+		require.NoError(t, err)
+		tasks = append(tasks, res.TaskID)
+	}
+
+	waitTasksAsync(t, i, tasks)
+
+	t.Log("TestQueryRulesV2: Check disabled query rule with validity range")
+	{
+		rule, err := i.GetRule("disabled_with_validity_range")
+		require.NoError(t, err)
+		require.False(t, rule.Enabled)
+		require.Len(t, rule.Validity, len(timeranges))
+
+		for _, expectedTimeRange := range timeranges {
+			found := false
+			for _, timeRange := range rule.Validity {
+				if expectedTimeRange.From.Equal(timeRange.From) &&
+					expectedTimeRange.Until.Equal(timeRange.Until) {
+					found = true
+				}
+			}
+			if !found {
+				t.Errorf("missing TimeRange %#v from returned query rule %#v\n", expectedTimeRange, rule)
+			}
+		}
+
+		automaticFacetFiltersItf, ok := rule.Consequence.Params["automaticFacetFilters"]
+		require.True(t, ok)
+
+		automaticFacetFilters, ok := automaticFacetFiltersItf.([]interface{})
+		require.True(t, ok)
+
+		require.Len(t, automaticFacetFilters, 1)
+
+		var automaticFacetFilter AutomaticFacetFilter
+		err = mapstructure.Decode(automaticFacetFilters[0], &automaticFacetFilter)
+		require.NoError(t, err)
+		require.Equal(t, automaticFacetFilter, expectedAutomaticFacetFilter)
+	}
+
+	t.Log("TestQueryRulesV2: Check disabled query rule with edits")
+	{
+		rule, err := i.GetRule("disabled_with_delete_edit")
+		require.NoError(t, err)
+		require.False(t, rule.Enabled)
+
+		queryItf, ok := rule.Consequence.Params["query"]
+		require.True(t, ok)
+
+		var queryMap map[string][]Edit
+		err = mapstructure.Decode(queryItf, &queryMap)
+		require.NoError(t, err)
+
+		require.Equal(t, expectedEdits, queryMap["edits"])
+
+	}
+
+	t.Log("TestQueryRulesV2: Check query rule with HiddenObject consequence")
+	{
+		rule, err := i.GetRule("with_hidden_object")
+		require.NoError(t, err)
+		require.True(t, rule.Enabled)
+		require.Equal(t, expectedHiddenObjects, rule.Consequence.Hide)
 	}
 }
 
