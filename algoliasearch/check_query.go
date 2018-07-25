@@ -32,6 +32,7 @@ Outer:
 			"attributesToSnippet",
 			"disableExactOnAttributes",
 			"disableTypoToleranceOnAttributes",
+			"explain",
 			"queryLanguages",
 			"responseFields":
 			if _, ok := v.([]string); !ok {
