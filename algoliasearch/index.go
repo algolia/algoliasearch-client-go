@@ -682,6 +682,8 @@ func (i *index) SaveRuleWithRequestOptions(rule Rule, forwardToReplicas bool, op
 		return
 	}
 
+	rule.enableImplicitly()
+
 	params := Map{"forwardToReplicas": forwardToReplicas}
 	path := i.route + "/rules/" + rule.ObjectID + "?" + encodeMap(params)
 	err = i.client.request(&res, "PUT", path, rule, write, opts)
@@ -695,6 +697,10 @@ func (i *index) BatchRules(rules []Rule, forwardToReplicas, clearExistingRules b
 func (i *index) BatchRulesWithRequestOptions(rules []Rule, forwardToReplicas, clearExistingRules bool, opts *RequestOptions) (res BatchRulesRes, err error) {
 	if err = checkRules(rules); err != nil {
 		return
+	}
+
+	for i, _ := range rules {
+		rules[i].enableImplicitly()
 	}
 
 	params := Map{

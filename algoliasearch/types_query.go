@@ -16,6 +16,7 @@ type QueryRes struct {
 	AutomaticRadius       string `json:"automaticRadius"`
 	ExhaustiveFacetsCount bool   `json:"exhaustiveFacetsCount"`
 	ExhaustiveNbHits      bool   `json:"exhaustiveNbHits"`
+	Explain               Map    `json:"explain"`
 	Facets                Map    `json:"facets"`
 	FacetsStats           Map    `json:"facets_stats"`
 	Hits                  []Map  `json:"hits"`
