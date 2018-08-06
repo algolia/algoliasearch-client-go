@@ -766,6 +766,9 @@ func TestIndexingAndSearch(t *testing.T) {
 		}
 		hit := queryRes.Hits[0]
 
+		_, err = i.DeleteObject("")
+		require.Error(t, err)
+
 		res, err := i.DeleteObject(hit["objectID"].(string))
 		if err != nil {
 			t.Fatalf("TestIndexingAndSearch: Cannot delete 'jeff bezos' record: %s", err)
