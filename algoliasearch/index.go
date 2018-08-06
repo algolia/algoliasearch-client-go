@@ -111,6 +111,11 @@ func (i *index) DeleteObject(objectID string) (res DeleteTaskRes, err error) {
 }
 
 func (i *index) DeleteObjectWithRequestOptions(objectID string, opts *RequestOptions) (res DeleteTaskRes, err error) {
+	if objectID == "" {
+		err = fmt.Errorf("objectID cannot be empty")
+		return
+	}
+
 	path := i.route + "/" + url.QueryEscape(objectID)
 	err = i.client.request(&res, "DELETE", path, nil, write, opts)
 	return
