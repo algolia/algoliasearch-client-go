@@ -7,7 +7,7 @@ The **Algolia Search API Client for Go** lets
 you easily use the [Algolia Search REST API](https://www.algolia.com/doc/rest-api/search) from
 your Go code.
 
-[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go) ![Supported version](https://img.shields.io/badge/Go-%3E=1.5-green.svg)
+[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go) ![Supported version](https://img.shields.io/badge/Go-%3E=1.7-green.svg)
 
 
 **Migration note from v1.x to v2.x**
