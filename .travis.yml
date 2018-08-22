@@ -5,9 +5,7 @@ os:
 
 go:
   - "1.7"
-  - "1.8"
-  - "1.9"
-  - "1.10.x"
+  - "1.10"
 
 before_install:
   - mkdir -p /home/travis/gopath/{src,bin,pkg}
