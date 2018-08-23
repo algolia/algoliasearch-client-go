@@ -14,6 +14,9 @@ type Client interface {
 	SetExtraHeader(key, value string)
 
 	// SetTimeout specifies timeouts to use with the HTTP connection.
+	//
+	// Deprecated: Use SetReadTimeout, SetWriteTimeout or SetAnalyticsTimeout
+	// instead.
 	SetTimeout(connectTimeout, readTimeout int)
 
 	// SetReadTimeout allows to specify the timeout that will be used for all
