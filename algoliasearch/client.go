@@ -34,10 +34,10 @@ func (c *client) SetExtraHeader(key, value string) {
 }
 
 func (c *client) SetTimeout(connectTimeout, readTimeout int) {
-	c.transport.setTimeout(
-		time.Duration(connectTimeout)*time.Millisecond,
-		time.Duration(readTimeout)*time.Millisecond,
-	)
+	// As SetTimeout is about to be deprecated, we simply forward the
+	// readTimeout but ignores the connectTimeout that is not longer
+	// configurable.
+	c.SetReadTimeout(time.Duration(readTimeout) * time.Second)
 }
 func (c *client) SetReadTimeout(t time.Duration)      { c.transport.setTimeouts(t, -1, -1) }
 func (c *client) SetWriteTimeout(t time.Duration)     { c.transport.setTimeouts(-1, t, -1) }

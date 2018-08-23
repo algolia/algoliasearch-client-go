@@ -11,7 +11,6 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"os"
 	"runtime"
 	"strconv"
 	"strings"
@@ -190,19 +189,6 @@ func (t *Transport) do(req *http.Request, timeout time.Duration) ([]byte, int, e
 // add custom headers to the requests.
 func (t *Transport) setExtraHeader(key, value string) {
 	t.headers[key] = value
-}
-
-// setTimeout lets the user (through the exported `Client.SetTimeout`) replace
-// the default values of `TLSHandshakeTimeout` (via `connectTimeout`) and
-// `ResponseHeaderTimeout` (via `readTimeout`).
-func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
-	switch transport := t.httpClient.Transport.(type) {
-	case *http.Transport:
-		transport.TLSHandshakeTimeout = connectTimeout
-		transport.ResponseHeaderTimeout = readTimeout
-	default:
-		fmt.Fprintln(os.Stderr, "Timeouts not set for nonstandard underlying Transport")
-	}
 }
 
 func (t *Transport) setTimeouts(read, write, analytics time.Duration) {
