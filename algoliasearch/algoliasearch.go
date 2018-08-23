@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"net/http"
+	"time"
 )
 
 // Client is a representation of an Algolia application. Once initialized it
@@ -14,6 +15,24 @@ type Client interface {
 
 	// SetTimeout specifies timeouts to use with the HTTP connection.
 	SetTimeout(connectTimeout, readTimeout int)
+
+	// SetReadTimeout allows to specify the timeout that will be used for all
+	// read requests to the Algolia Search API.
+	//
+	// Default value is controlled by algoliasearch.DefaultReadTimeout.
+	SetReadTimeout(t time.Duration)
+
+	// SetWriteTimeout allows to specify the timeout that will be used for all
+	// write (i.e. indexing) requests to the Algolia Search API.
+	//
+	// Default value is controlled by algoliasearch.DefaultWriteTimeout.
+	SetWriteTimeout(t time.Duration)
+
+	// SetAnalyticsTimeout allows to specify the timeout that will be used for
+	// all analytics requests to the Algolia Analytics API.
+	//
+	// Default value is controlled by algoliasearch.DefaultAnalyticsTimeout.
+	SetAnalyticsTimeout(t time.Duration)
 
 	// SetMaxIdleConnsPerHosts specifies the value for `MaxIdleConnsPerHost` of
 	// the underlying http.Transport.
