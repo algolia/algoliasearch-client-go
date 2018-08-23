@@ -205,6 +205,10 @@ func (t *Transport) setTimeout(connectTimeout, readTimeout time.Duration) {
 	}
 }
 
+func (t *Transport) setTimeouts(read, write, analytics time.Duration) {
+	t.retryStrategy.SetTimeouts(read, write, analytics)
+}
+
 // setMaxIdleConnsPerHost sets the `MaxIdleConnsPerHost` via the given
 // `perHosts` value of the underlying RoundTripper of the HTTP client if it is
 // an instance of `http.Transport`.
