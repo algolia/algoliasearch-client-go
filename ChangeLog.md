@@ -1,5 +1,47 @@
 # ChangeLog
 
+# [2.24.0](https://github.com/algolia/algoliasearch-client-go/compare/2.23.1...2.24.0) (2018-08-24)
+
+### Summary
+
+Hello everyone,
+
+After recent investigations, we found out that the implementation of our retry
+strategy in the Go client was missing a reseting feature. The retry strategy is
+responsible for determining which hosts should be choosen for each call and to
+try them sequentially if some are down or unreachable. However, the previous
+implementation was lacking a reset of the hosts when all were marked down or
+have been marked down for too long.
+
+Because the new retry strategy implementation relies on the `context` package
+from the standard library that was introduced in Go 1.7, Go 1.6 (release in)
+and previous versions are no longer supported.
+
+To improve the configurability of the client, the following methods are now
+replacing the deprecated `Client.SetTimeout` method:
+
+ - `Client.SetReadTimeout`
+ - `Client.SetWriteTimeout`
+ - `Client.SetAnalyticsTimeout`
+
+Finally, for debugging purpose, we introduced a debugging output, controlled
+by the `ALGOLIA_DEBUG` environment variable. Set it to `1` and extra
+information will be displayed. Those informations being truncated, you can
+access the unbounded information by setting `ALGOLIA_DEBUG` to anything number
+greater than 1.
+
+### Changes
+
+- **feat:** Enable debugging output if ALGOLIA_DEBUG is set ([0cec615](https://github.com/algolia/algoliasearch-client-go/commit/0cec615))
+- **refactor:** Deprecate Client.SetTimeout in favor of Client.Set{Read,Write,Analytics}Timeout methods ([198d9a1](https://github.com/algolia/algoliasearch-client-go/commit/198d9a1))
+- **feat:** Add Client.Set{Read,Write,Analytics}Timeout methods ([c5dd60b](https://github.com/algolia/algoliasearch-client-go/commit/c5dd60b))
+- **chore:** Remove intermediate Go versions to test in Travis ([e9f203e](https://github.com/algolia/algoliasearch-client-go/commit/e9f203e))
+- **test:** Add tests for the RetryStrategy implementation ([642a11a](https://github.com/algolia/algoliasearch-client-go/commit/642a11a))
+- **fix:** Improve retry strategy by reseting default hosts after some time ([dd317c3](https://github.com/algolia/algoliasearch-client-go/commit/dd317c3))
+- **chore:** Upgrade github.com/stretchr/testify dependency from 1.1.4 to 1.2.2 ([65735eb](https://github.com/algolia/algoliasearch-client-go/commit/65735eb))
+- **chore:** Drop support for Go 1.6 ([7f9e66e](https://github.com/algolia/algoliasearch-client-go/commit/7f9e66e))
+- **doc:** Fix list typo in the ChangeLog.md ([eaa9f97](https://github.com/algolia/algoliasearch-client-go/commit/eaa9f97))
+
 # [2.23.1](https://github.com/algolia/algoliasearch-client-go/compare/2.23.0...2.23.1) (2018-06-29)
 
 ### Summary
