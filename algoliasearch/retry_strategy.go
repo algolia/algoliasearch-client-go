@@ -118,6 +118,7 @@ func NewRetryStrategy(appID string, providedHosts []string) *retryStrategy {
 
 func (s *retryStrategy) GetTryableHosts(k call.Kind) []TryableHost {
 	s.resetExpiredHosts()
+	s.displayState()
 
 	s.Lock()
 	defer s.Unlock()
@@ -154,20 +155,24 @@ func (s *retryStrategy) GetTryableHosts(k call.Kind) []TryableHost {
 
 func (s *retryStrategy) Decide(h TryableHost, code int, err error) Outcome {
 	if err == nil && is2xx(code) {
+		debug("* RETRY STRATEGY DECISION host=%s code=%d err=%v -> SUCCESS", h.Host(), code, err)
 		s.markUp(h.Host())
 		return Success
 	}
 
 	if isTimeoutError(err) {
+		debug("* RETRY STRATEGY DECISION host=%s code=%d err=%v -> RETRY (TIMEOUT)", h.Host(), code, err)
 		s.markTimeouted(h.Host())
 		return Retry
 	}
 
 	if !(isZero(code) || is4xx(code) || is2xx(code)) || isNetworkError(err) {
+		debug("* RETRY STRATEGY DECISION host=%s code=%d err=%v -> RETRY (DOWN)", h.Host(), code, err)
 		s.markDown(h.Host())
 		return Retry
 	}
 
+	debug("* RETRY STRATEGY DECISION host=%s code=%d err=%v -> FAILURE", h.Host(), code, err)
 	return Failure
 }
 
@@ -215,6 +220,15 @@ func (s *retryStrategy) resetExpiredHosts() {
 		if h.isDown && time.Since(h.lastUpdate) > 5*time.Minute {
 			h.reset()
 		}
+	}
+}
+
+func (s *retryStrategy) displayState() {
+	s.RLock()
+	defer s.RUnlock()
+
+	for _, h := range s.hosts {
+		debug("* RETRY STRATEGY STATE %s", h)
 	}
 }
 
