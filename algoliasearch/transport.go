@@ -98,7 +98,9 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int,
 			return nil, err
 		}
 
+		debug("* REQUEST [%s] url=%s", method, req.URL)
 		bodyRes, code, err := t.do(req, h.Timeout())
+		debug("* RESPONSE [%d] err=%v body=%s", code, err, bodyRes)
 
 		switch t.retryStrategy.Decide(h, code, err) {
 		case Success:
