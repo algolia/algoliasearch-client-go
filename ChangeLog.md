@@ -14,8 +14,8 @@ implementation was lacking a reset of the hosts when all were marked down or
 have been marked down for too long.
 
 Because the new retry strategy implementation relies on the `context` package
-from the standard library that was introduced in Go 1.7, Go 1.6 (release in)
-and previous versions are no longer supported.
+from the standard library that was introduced in Go 1.7, Go 1.6 (released in
+February 2017) and previous versions are no longer supported.
 
 To improve the configurability of the client, the following methods are now
 replacing the deprecated `Client.SetTimeout` method:
