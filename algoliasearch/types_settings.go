@@ -14,6 +14,7 @@ type Settings struct {
 	AttributeForDistinct           string   `json:"attributeForDistinct"`
 	AttributesForFaceting          []string `json:"attributesForFaceting"`
 	AttributesToIndex              []string `json:"attributesToIndex"`
+	CamelCaseAttributes            []string `json:"camelCaseAttributes"`
 	CustomRanking                  []string `json:"customRanking"`
 	KeepDiacriticsOnCharacters     string   `json:"keepDiacriticsOnCharacters"`
 	NumericAttributesForFiltering  []string `json:"numericAttributesForFiltering"`
@@ -106,6 +107,7 @@ func (s *Settings) ToMap() Map {
 		"attributeForDistinct":           s.AttributeForDistinct,
 		"attributesForFaceting":          s.AttributesForFaceting,
 		"attributesToIndex":              s.AttributesToIndex,
+		"camelCaseAttributes":            s.CamelCaseAttributes,
 		"customRanking":                  s.CustomRanking,
 		"keepDiacriticsOnCharacters":     s.KeepDiacriticsOnCharacters,
 		"numericAttributesForFiltering":  s.NumericAttributesForFiltering,
