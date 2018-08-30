@@ -3,25 +3,26 @@ package algoliasearch
 func checkSettings(settings Map) error {
 	for k, v := range settings {
 		switch k {
-		case "attributesForFaceting",
-			"attributesToIndex",
-			"searchableAttributes",
-			"numericAttributesToIndex",
-			"numericAttributesForFiltering",
-			"ranking",
-			"customRanking",
-			"slaves",
-			"replicas",
-			"unretrievableAttributes",
-			"disableTypoToleranceOnAttributes",
-			"disableTypoToleranceOnWords",
+		case "alternativesAsExact",
+			"attributesForFaceting",
 			"attributesToHighlight",
+			"attributesToIndex",
 			"attributesToRetrieve",
 			"attributesToSnippet",
-			"responseFields",
-			"disablePrefixOnAttributes",
+			"camelCaseAttributes",
+			"customRanking",
 			"disableExactOnAttributes",
-			"alternativesAsExact":
+			"disablePrefixOnAttributes",
+			"disableTypoToleranceOnAttributes",
+			"disableTypoToleranceOnWords",
+			"numericAttributesForFiltering",
+			"numericAttributesToIndex",
+			"ranking",
+			"replicas",
+			"responseFields",
+			"searchableAttributes",
+			"slaves",
+			"unretrievableAttributes":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
