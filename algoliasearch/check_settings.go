@@ -71,8 +71,9 @@ func checkSettings(settings Map) error {
 				return invalidType(k, "string or bool")
 			}
 
-		case "removeStopWords",
-			"ignorePlurals":
+		case "ignorePlurals",
+			"queryLanguages",
+			"removeStopWords":
 			switch v.(type) {
 			case []string, bool:
 				// OK

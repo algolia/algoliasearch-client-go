@@ -50,6 +50,7 @@ type Settings struct {
 	OptionalWords                     []string    `json:"optionalWords"`
 	QueryType                         string      `json:"queryType"`
 	RemoveStopWords                   interface{} `json:"removeStopWords"` // []interface{} (actually a []string) or bool
+	QueryLanguages                    []string    `json:"queryLanguages"`
 	RemoveWordsIfNoResults            string      `json:"removeWordsIfNoResults"`
 	ReplaceSynonymsInHighlight        bool        `json:"replaceSynonymsInHighlight"`
 	ResponseFields                    []string    `json:"responseFields"`
@@ -138,6 +139,7 @@ func (s *Settings) ToMap() Map {
 		"minWordSizefor1Typo":               s.MinWordSizefor1Typo,
 		"minWordSizefor2Typos":              s.MinWordSizefor2Typos,
 		"optionalWords":                     s.OptionalWords,
+		"queryLanguages":                    s.QueryLanguages,
 		"queryType":                         s.QueryType,
 		"removeWordsIfNoResults":            s.RemoveWordsIfNoResults,
 		"replaceSynonymsInHighlight":        s.ReplaceSynonymsInHighlight,

@@ -25,13 +25,14 @@ Outer:
 				return invalidType(k, "string")
 			}
 
-		case "attributesToRetrieve",
-			"disableTypoToleranceOnAttributes",
-			"attributesToSnippet",
+		case "alternativesAsExact",
 			"attributesToHighlight",
-			"alternativesAsExact",
-			"responseFields",
-			"disableExactOnAttributes":
+			"attributesToRetrieve",
+			"attributesToSnippet",
+			"disableExactOnAttributes",
+			"disableTypoToleranceOnAttributes",
+			"queryLanguages",
+			"responseFields":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
@@ -68,8 +69,8 @@ Outer:
 				return invalidType(k, "bool")
 			}
 
-		case "removeStopWords",
-			"ignorePlurals":
+		case "ignorePlurals",
+			"removeStopWords":
 			switch v.(type) {
 			case []string, bool:
 				// OK
