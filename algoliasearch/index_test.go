@@ -154,20 +154,21 @@ func intSlicesAreEqual(s1, s2 []int) bool {
 // the given Settings are the same. It returns `false` otherwise.
 func settingsAreEqualByComparable(s1, s2 Settings) bool {
 	return s1.AllowCompressionOfIntegerArray == s2.AllowCompressionOfIntegerArray &&
-		s1.AttributeForDistinct == s2.AttributeForDistinct &&
-		s1.SeparatorsToIndex == s2.SeparatorsToIndex &&
 		s1.AdvancedSyntax == s2.AdvancedSyntax &&
 		s1.AllowTyposOnNumericTokens == s2.AllowTyposOnNumericTokens &&
+		s1.AttributeForDistinct == s2.AttributeForDistinct &&
 		s1.HighlightPostTag == s2.HighlightPostTag &&
 		s1.HighlightPreTag == s2.HighlightPreTag &&
 		s1.HitsPerPage == s2.HitsPerPage &&
 		s1.IgnorePlurals == s2.IgnorePlurals &&
+		s1.KeepDiacriticsOnCharacters == s2.KeepDiacriticsOnCharacters &&
 		s1.MaxValuesPerFacet == s2.MaxValuesPerFacet &&
 		s1.MinProximity == s2.MinProximity &&
 		s1.MinWordSizefor1Typo == s2.MinWordSizefor1Typo &&
 		s1.MinWordSizefor2Typos == s2.MinWordSizefor2Typos &&
 		s1.QueryType == s2.QueryType &&
 		s1.ReplaceSynonymsInHighlight == s2.ReplaceSynonymsInHighlight &&
+		s1.SeparatorsToIndex == s2.SeparatorsToIndex &&
 		s1.SnippetEllipsisText == s2.SnippetEllipsisText &&
 		s1.TypoTolerance == s2.TypoTolerance
 }
@@ -307,7 +308,6 @@ func TestSettings(t *testing.T) {
 		AttributeForDistinct:             "attribute",
 		AttributesForFaceting:            []string{"attribute"},
 		AttributesToHighlight:            []string{"attribute"},
-		SearchableAttributes:             []string{"attribute"},
 		AttributesToRetrieve:             []string{"attribute"},
 		AttributesToSnippet:              []string{"attribute:20"},
 		CustomRanking:                    []string{"asc(attribute)"},
@@ -318,6 +318,7 @@ func TestSettings(t *testing.T) {
 		HighlightPreTag:                  "</p>",
 		HitsPerPage:                      10,
 		IgnorePlurals:                    true,
+		KeepDiacriticsOnCharacters:       "éø",
 		MaxValuesPerFacet:                20,
 		MinProximity:                     2,
 		MinWordSizefor1Typo:              2,
@@ -328,12 +329,13 @@ func TestSettings(t *testing.T) {
 		Ranking:                          []string{"typo", "geo", "words", "proximity", "attribute", "exact", "custom"},
 		RemoveStopWords:                  []string{"en", "fr"},
 		ReplaceSynonymsInHighlight:       false,
-		SeparatorsToIndex:                "+#",
 		Replicas:                         []string{},
+		ResponseFields:                   []string{"hits", "query"},
+		SearchableAttributes:             []string{"attribute"},
+		SeparatorsToIndex:                "+#",
 		SnippetEllipsisText:              "...",
 		TypoTolerance:                    "strict",
 		UnretrievableAttributes:          []string{"unretrievable_attribute"},
-		ResponseFields:                   []string{"hits", "query"},
 	}
 
 	mapSettings := Map{
@@ -343,7 +345,6 @@ func TestSettings(t *testing.T) {
 		"attributeForDistinct":             "attribute",
 		"attributesForFaceting":            []string{"attribute"},
 		"attributesToHighlight":            []string{"attribute"},
-		"searchableAttributes":             []string{"attribute"},
 		"attributesToRetrieve":             []string{"attribute"},
 		"attributesToSnippet":              []string{"attribute:20"},
 		"customRanking":                    []string{"asc(attribute)"},
@@ -354,6 +355,7 @@ func TestSettings(t *testing.T) {
 		"highlightPreTag":                  "</p>",
 		"hitsPerPage":                      10,
 		"ignorePlurals":                    true,
+		"keepDiacriticsOnCharacters":       "éø",
 		"maxValuesPerFacet":                20,
 		"minProximity":                     2,
 		"minWordSizefor1Typo":              2,
@@ -364,12 +366,13 @@ func TestSettings(t *testing.T) {
 		"ranking":                          []string{"typo", "geo", "words", "proximity", "attribute", "exact", "custom"},
 		"removeStopWords":                  []string{"en", "fr"},
 		"replaceSynonymsInHighlight":       false,
-		"separatorsToIndex":                "+#",
 		"replicas":                         []string{},
+		"responseFields":                   []string{"hits", "query"},
+		"searchableAttributes":             []string{"attribute"},
+		"separatorsToIndex":                "+#",
 		"snippetEllipsisText":              "...",
 		"typoTolerance":                    "strict",
 		"unretrievableAttributes":          []string{"unretrievable_attribute"},
-		"responseFields":                   []string{"hits", "query"},
 	}
 
 	t.Log("TestSettings: Initial test")

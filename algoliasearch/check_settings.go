@@ -49,14 +49,15 @@ func checkSettings(settings Map) error {
 				return invalidType(k, "int")
 			}
 
-		case "separatorsToIndex",
+		case "attributeForDistinct",
+			"exactOnSingleWordQuery",
 			"highlightPostTag",
 			"highlightPreTag",
+			"keepDiacriticsOnCharacters",
 			"queryType",
-			"snippetEllipsisText",
-			"attributeForDistinct",
 			"removeWordsIfNoResults",
-			"exactOnSingleWordQuery",
+			"separatorsToIndex",
+			"snippetEllipsisText",
 			"sortFacetValuesBy":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
