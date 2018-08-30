@@ -98,6 +98,11 @@ func checkSettings(settings Map) error {
 				return invalidType(k, "string or []string")
 			}
 
+		case "decompoundedAttributes":
+			if _, ok := v.(map[string][]string); !ok {
+				return invalidType(k, "map[string][]string")
+			}
+
 		default:
 		}
 	}
