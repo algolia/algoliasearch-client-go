@@ -1,12 +1,16 @@
-PROJECT=algoliasearch
-
 install:
-	go install ./$(PROJECT)
+	go install ./algoliasearch
 
 deps:
 	dep ensure -vendor-only
 
-test:
-	gotest -v ./$(PROJECT)
+test: ut it
 
-.PHONY: install deps test
+ut:
+	GOCACHE=off gotest -v ./algoliasearch/...
+
+it:
+	GOCACHE=off gotest -v ./it/...
+
+
+.PHONY: install deps test ut it
