@@ -10,22 +10,23 @@ import (
 // index settings.
 type Settings struct {
 	// Indexing parameters
-	AllowCompressionOfIntegerArray bool     `json:"allowCompressionOfIntegerArray"`
-	AttributeForDistinct           string   `json:"attributeForDistinct"`
-	AttributesForFaceting          []string `json:"attributesForFaceting"`
-	AttributesToIndex              []string `json:"attributesToIndex"`
-	CamelCaseAttributes            []string `json:"camelCaseAttributes"`
-	CustomRanking                  []string `json:"customRanking"`
-	KeepDiacriticsOnCharacters     string   `json:"keepDiacriticsOnCharacters"`
-	NumericAttributesForFiltering  []string `json:"numericAttributesForFiltering"`
-	NumericAttributesToIndex       []string `json:"numericAttributesToIndex"`
-	PaginationLimitedTo            int      `json:"paginationLimitedTo"`
-	Ranking                        []string `json:"ranking"`
-	Replicas                       []string `json:"replicas"`
-	SearchableAttributes           []string `json:"searchableAttributes"`
-	SeparatorsToIndex              string   `json:"separatorsToIndex"`
-	Slaves                         []string `json:"slaves"`
-	UnretrievableAttributes        []string `json:"unretrievableAttributes"`
+	AllowCompressionOfIntegerArray bool                `json:"allowCompressionOfIntegerArray"`
+	AttributeForDistinct           string              `json:"attributeForDistinct"`
+	AttributesForFaceting          []string            `json:"attributesForFaceting"`
+	AttributesToIndex              []string            `json:"attributesToIndex"`
+	CamelCaseAttributes            []string            `json:"camelCaseAttributes"`
+	CustomRanking                  []string            `json:"customRanking"`
+	DecompoundedAttributes         map[string][]string `json:"decompoundedAttributes"`
+	KeepDiacriticsOnCharacters     string              `json:"keepDiacriticsOnCharacters"`
+	NumericAttributesForFiltering  []string            `json:"numericAttributesForFiltering"`
+	NumericAttributesToIndex       []string            `json:"numericAttributesToIndex"`
+	PaginationLimitedTo            int                 `json:"paginationLimitedTo"`
+	Ranking                        []string            `json:"ranking"`
+	Replicas                       []string            `json:"replicas"`
+	SearchableAttributes           []string            `json:"searchableAttributes"`
+	SeparatorsToIndex              string              `json:"separatorsToIndex"`
+	Slaves                         []string            `json:"slaves"`
+	UnretrievableAttributes        []string            `json:"unretrievableAttributes"`
 
 	// Query expansion
 	DisableTypoToleranceOnAttributes []string `json:"disableTypoToleranceOnAttributes"`
@@ -109,6 +110,7 @@ func (s *Settings) ToMap() Map {
 		"attributesToIndex":              s.AttributesToIndex,
 		"camelCaseAttributes":            s.CamelCaseAttributes,
 		"customRanking":                  s.CustomRanking,
+		"decompoundedAttributes":         s.DecompoundedAttributes,
 		"keepDiacriticsOnCharacters":     s.KeepDiacriticsOnCharacters,
 		"numericAttributesForFiltering":  s.NumericAttributesForFiltering,
 		"numericAttributesToIndex":       s.NumericAttributesToIndex,
