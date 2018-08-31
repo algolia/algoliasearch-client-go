@@ -11,15 +11,16 @@ Outer:
 		}
 
 		switch k {
-		case "query",
+		case "aroundLatLng",
+			"exactOnSingleWordQuery",
+			"filters",
+			"highlightPostTag",
+			"highlightPreTag",
+			"query",
 			"queryType",
 			"removeWordsIfNoResults",
-			"highlightPreTag",
-			"highlightPostTag",
+			"restrictSources",
 			"snippetEllipsisText",
-			"filters",
-			"aroundLatLng",
-			"exactOnSingleWordQuery",
 			"sortFacetValuesBy":
 			if _, ok := v.(string); !ok {
 				return invalidType(k, "string")
