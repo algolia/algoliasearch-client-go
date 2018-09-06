@@ -22,7 +22,7 @@ if ! is_working_dir_clean; then
   exit 1
 fi
 
-sed -i -E "s/version = \".+\"$/version = \"$version\"/" algoliasearch/transport.go
+gsed -i -E "s/version = \".+\"$/version = \"$version\"/" algoliasearch/transport.go
 rake alg:changelog["$version"]
 
 git --no-pager diff
