@@ -1,5 +1,26 @@
 # ChangeLog
 
+# [2.25.0](https://github.com/algolia/algoliasearch-client-go/compare/2.24.0...2.25.0) (2018-09-06)
+
+### Summary
+
+Hello everyone,
+
+Following up after some vacations, here is the first release of September. It
+only includes minor additions: new search and settings parameters are now
+exposed. The list of changes speaks for itself this time. Feel free to consult
+the details of each parameter in [the official Algolia documentation](https://www.algolia.com/doc/api-reference/api-parameters/).
+
+### Changes
+
+- **chore:** Fix release.sh srcipt to properly update client version in transport.go ([fba4b19](https://github.com/algolia/algoliasearch-client-go/commit/fba4b19))
+- **feat:** Enable type-checking on restrictSources query parameter ([a3afd63](https://github.com/algolia/algoliasearch-client-go/commit/a3afd63))
+- **feat:** Expose decompoundedAttributes as a setting parameter ([d00989d](https://github.com/algolia/algoliasearch-client-go/commit/d00989d))
+- **feat:** Expose camelCaseAttributes as a setting parameter ([815489f](https://github.com/algolia/algoliasearch-client-go/commit/815489f))
+- **feat:** Expose queryLanguages as a setting and search parameter ([6c7e3b6](https://github.com/algolia/algoliasearch-client-go/commit/6c7e3b6))
+- **feat:** Expose keepDiacriticsOnCharacters as a setting parameter ([d9cf86a](https://github.com/algolia/algoliasearch-client-go/commit/d9cf86a))
+- **doc:** Add missing date in ChangeLog.md ([776db89](https://github.com/algolia/algoliasearch-client-go/commit/776db89))
+
 # [2.24.0](https://github.com/algolia/algoliasearch-client-go/compare/2.23.1...2.24.0) (2018-08-24)
 
 ### Summary
