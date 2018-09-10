@@ -305,7 +305,7 @@ search.start();
 
 - [Add A/B test](https://algolia.com/doc/api-reference/api-methods/add-ab-test/?language=go)
 - [Get A/B test](https://algolia.com/doc/api-reference/api-methods/get-ab-test/?language=go)
-- [List A/B tests](https://algolia.com/doc/api-reference/api-methods/get-ab-tests/?language=go)
+- [List A/B tests](https://algolia.com/doc/api-reference/api-methods/list-ab-tests/?language=go)
 - [Stop A/B test](https://algolia.com/doc/api-reference/api-methods/stop-ab-test/?language=go)
 - [Delete A/B test](https://algolia.com/doc/api-reference/api-methods/delete-ab-test/?language=go)
 
