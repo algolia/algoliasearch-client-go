@@ -81,11 +81,22 @@ type Client interface {
 	ListAPIKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error)
 
 	// MoveIndex renames the index named `source` as `destination`.
+	//
+	// Deprecated: Use RenameIndex instead.
 	MoveIndex(source, destination string) (UpdateTaskRes, error)
 
 	// MoveIndexWithRequestOptions is the same as MoveIndex but it also accepts
 	// extra RequestOptions.
+	//
+	// Deprecated: Use RenameIndexWithRequestOptions instead.
 	MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// RenameIndex renames the index named `source` as `destination`.
+	RenameIndex(source, destination string) (UpdateTaskRes, error)
+
+	// RenameIndexWithRequestOptions is the same as RenameIndex but it also accepts
+	// extra RequestOptions.
+	RenameIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// CopyIndex duplicates the index named `source` as `destination`.
 	CopyIndex(source, destination string) (UpdateTaskRes, error)
@@ -537,11 +548,22 @@ type Index interface {
 	ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// Move renames the index into `name`.
+	//
+	// Deprecated: Use Rename instead.
 	Move(name string) (UpdateTaskRes, error)
 
 	// MoveWithRequestOptions is the same as Move but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use RenameWithRequestOptions instead.
 	MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// Rename renames the index into `name`.
+	Rename(name string) (UpdateTaskRes, error)
+
+	// RenameWithRequestOptions is the same as Rename but it also accepts extra
+	// RequestOptions.
+	RenameWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// GetStatus returns the status of a task given its ID `taskID`.
 	GetStatus(taskID int) (res TaskStatusRes, err error)

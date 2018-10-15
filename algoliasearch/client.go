@@ -92,12 +92,20 @@ func (c *client) ListAPIKeysWithRequestOptions(opts *RequestOptions) (keys []Key
 }
 
 func (c *client) MoveIndex(source, destination string) (UpdateTaskRes, error) {
-	return c.MoveIndexWithRequestOptions(source, destination, nil)
+	return c.RenameIndex(source, destination)
 }
 
 func (c *client) MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.RenameIndexWithRequestOptions(source, destination, opts)
+}
+
+func (c *client) RenameIndex(source, destination string) (UpdateTaskRes, error) {
+	return c.RenameIndexWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) RenameIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
 	index := c.InitIndex(source)
-	return index.MoveWithRequestOptions(destination, opts)
+	return index.RenameWithRequestOptions(destination, opts)
 }
 
 func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {

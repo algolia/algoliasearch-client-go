@@ -26,10 +26,10 @@ func TestClientOperations(t *testing.T) {
 		waitTask(t, i, res.TaskID)
 	}
 
-	t.Log("TestClientOperations: Test MoveIndex")
+	t.Log("TestClientOperations: Test RenameIndex")
 	i = c.InitIndex("TestClientOperations_copy")
 	{
-		res, err := c.MoveIndex("TestClientOperations_copy", "TestClientOperations_move")
+		res, err := c.RenameIndex("TestClientOperations_copy", "TestClientOperations_move")
 		if err != nil {
 			t.Fatalf("TestClientOperations: Cannot move the index: %s", err)
 		}
