@@ -24,6 +24,9 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 
 
 
+1. **[Supported platforms](#supported-platforms)**
+
+
 1. **[Install](#install)**
 
 
@@ -49,9 +52,13 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 
 
 
+## Supported platforms
+
+This API client is compatible with Go 1.7 and above.
+
 ## Install
 
-Download AlgoliaSearch using
+Download the Go client using:
 
 ```bash
 go get github.com/algolia/algoliasearch-client-go/algoliasearch
@@ -72,6 +79,10 @@ import "github.com/algolia/algoliasearch-client-go/algoliasearch"
 client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
 index := client.InitIndex("your_index_name")
 ```
+
+### Kotlin support
+
+Even though the Android client is written in Java, you can still use it in a Kotlin project, as long as you don't mix Java and Kotlin code in the same file.
 
 ## Push data
 
@@ -107,14 +118,14 @@ In this case, the order of attributes is very important to decide which hit is t
 
 ```go
 settings := algoliasearch.Map{
-  "searchableAttributes": []string{
-	"firstname",
-	"lastname",
-	"company",
-	"email",
-	"city",
-	"address",
-  },
+    "searchableAttributes": []string{
+        "firstname",
+        "lastname",
+        "company",
+        "email",
+        "city",
+        "address",
+    },
 }
 
 res, err := index.SetSettings(settings)
@@ -125,16 +136,16 @@ res, err := index.SetSettings(settings)
 You can now search for contacts using `firstname`, `lastname`, `company`, etc. (even with typos):
 
 ```go
-// Search by firstname
+// Search for a first name
 res, err := index.Search("jimmie", nil)
 
-// Search by firstname with typo
+// Search for a first name with typo
 res, err = index.Search("jimie", nil)
 
 // Search for a company
 res, err = index.Search("california paint", nil)
 
-// Search for a firstname & company
+// Search for a first name and a company
 res, err = index.Search("jimmie paint", nil)
 ```
 
@@ -225,7 +236,7 @@ search.start();
 
 - [Search index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
 - [Search for facet values](https://algolia.com/doc/api-reference/api-methods/search-for-facet-values/?language=go)
-- [Search multiple indexes](https://algolia.com/doc/api-reference/api-methods/multiple-queries/?language=go)
+- [Search multiple indices](https://algolia.com/doc/api-reference/api-methods/multiple-queries/?language=go)
 - [Browse index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
 
 
@@ -234,7 +245,7 @@ search.start();
 ### Indexing
 
 - [Add objects](https://algolia.com/doc/api-reference/api-methods/add-objects/?language=go)
-- [Update objects](https://algolia.com/doc/api-reference/api-methods/update-objects/?language=go)
+- [Update objects](https://algolia.com/doc/api-reference/api-methods/save-objects/?language=go)
 - [Partial update objects](https://algolia.com/doc/api-reference/api-methods/partial-update-objects/?language=go)
 - [Delete objects](https://algolia.com/doc/api-reference/api-methods/delete-objects/?language=go)
 - [Delete by](https://algolia.com/doc/api-reference/api-methods/delete-by/?language=go)
@@ -290,13 +301,13 @@ search.start();
 
 ### Query rules
 
-- [Save rule](https://algolia.com/doc/api-reference/api-methods/rules-save/?language=go)
-- [Batch rules](https://algolia.com/doc/api-reference/api-methods/rules-save-batch/?language=go)
-- [Get rule](https://algolia.com/doc/api-reference/api-methods/rules-get/?language=go)
-- [Delete rule](https://algolia.com/doc/api-reference/api-methods/rules-delete/?language=go)
-- [Clear rules](https://algolia.com/doc/api-reference/api-methods/rules-clear/?language=go)
-- [Search rules](https://algolia.com/doc/api-reference/api-methods/rules-search/?language=go)
-- [Export rules](https://algolia.com/doc/api-reference/api-methods/rules-export/?language=go)
+- [Save rule](https://algolia.com/doc/api-reference/api-methods/save-rule/?language=go)
+- [Batch rules](https://algolia.com/doc/api-reference/api-methods/batch-rules/?language=go)
+- [Get rule](https://algolia.com/doc/api-reference/api-methods/get-rule/?language=go)
+- [Delete rule](https://algolia.com/doc/api-reference/api-methods/delete-rule/?language=go)
+- [Clear rules](https://algolia.com/doc/api-reference/api-methods/clear-rules/?language=go)
+- [Search rules](https://algolia.com/doc/api-reference/api-methods/search-rules/?language=go)
+- [Export rules](https://algolia.com/doc/api-reference/api-methods/export-rules/?language=go)
 
 
 
