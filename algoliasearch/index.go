@@ -406,7 +406,11 @@ func (i *index) Move(name string) (UpdateTaskRes, error) {
 }
 
 func (i *index) MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
-	return i.operation(name, "move", nil, opts)
+	res, err := i.operation(name, "move", nil, opts)
+	if err == nil {
+		i.name = name
+	}
+	return res, err
 }
 
 func (i *index) operation(dst, op string, scopes []string, opts *RequestOptions) (res UpdateTaskRes, err error) {
