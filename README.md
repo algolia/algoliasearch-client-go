@@ -80,10 +80,6 @@ client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
 index := client.InitIndex("your_index_name")
 ```
 
-### Kotlin support
-
-Even though the Android client is written in Java, you can still use it in a Kotlin project, as long as you don't mix Java and Kotlin code in the same file.
-
 ## Push data
 
 Without any prior configuration, you can start indexing [500 contacts](https://github.com/algolia/datasets/blob/master/contacts/contacts.json) in the ```contacts``` index using the following code:
