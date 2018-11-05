@@ -61,6 +61,18 @@ func initClient(t *testing.T) Client {
 	return NewClient(appID, apiKey)
 }
 
+// initMCMClient is the same as initClient but read different env vars
+func initMCMClient(t *testing.T) Client {
+	appID := os.Getenv("ALGOLIA_APP_ID_MCM")
+	apiKey := os.Getenv("ALGOLIA_API_KEY_MCM")
+
+	if appID == "" || apiKey == "" {
+		t.Fatal("initClient: Missing ALGOLIA_APP_ID_MCM and/or ALGOLIA_API_KEY_MCM")
+	}
+
+	return NewClient(appID, apiKey)
+}
+
 // initClientWithHosts instantiates a new client according to the
 // `ALGOLIA_APPLICATION_ID` and `ALGOLIA_API_KEY` environment variables and set
 // one of the host to specifically timeout.

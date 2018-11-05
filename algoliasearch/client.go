@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -248,6 +249,94 @@ func (c *client) MultipleQueriesWithRequestOptions(queries []IndexedQuery, strat
 	var m multipleQueriesRes
 	err = c.request(&m, "POST", "/1/indexes/*/queries", body, search, opts)
 	res = m.Results
+	return
+}
+
+func (c *client) ListClusters() (res []Cluster, err error) {
+	return c.ListClustersWithRequestOptions(nil)
+}
+
+func (c *client) ListClustersWithRequestOptions(opts *RequestOptions) (res []Cluster, err error) {
+	var rawRes map[string][]Cluster
+	var ok bool
+	err = c.request(&rawRes, "GET", "/1/clusters", nil, read, opts)
+	if res, ok = rawRes["clusters"]; !ok {
+		res = nil
+		err = errors.New("missing field `clusters` in JSON response")
+	}
+	return
+}
+
+func (c *client) ListUserIDs(page int, hitsPerPage int) (res ListUserIDsRes, err error) {
+	return c.ListUserIDsWithRequestOptions(page, hitsPerPage, nil)
+}
+
+func (c *client) ListUserIDsWithRequestOptions(page int, hitsPerPage int, opts *RequestOptions) (res ListUserIDsRes, err error) {
+	params := Map{
+		"page":        page,
+		"hitsPerPage": hitsPerPage,
+	}
+	err = c.request(&res, "GET", "/1/clusters/mapping?"+encodeMap(params), nil, read, opts)
+	return
+}
+
+func (c *client) GetUserID(userID string) (res UserID, err error) {
+	return c.GetUserIDWithRequestOptions(userID, nil)
+}
+
+func (c *client) GetUserIDWithRequestOptions(userID string, opts *RequestOptions) (res UserID, err error) {
+	err = c.request(&res, "GET", "/1/clusters/mapping/"+url.QueryEscape(userID), nil, read, opts)
+	return
+}
+
+func (c *client) AssignUserID(userID string, clusterName string) (res AssignUserIDRes, err error) {
+	return c.AssignUserIDWithRequestOptions(userID, clusterName, nil)
+}
+
+func (c *client) AssignUserIDWithRequestOptions(userID string, clusterName string, opts *RequestOptions) (res AssignUserIDRes, err error) {
+	if opts == nil {
+		opts = &RequestOptions{
+			ExtraHeaders: make(map[string]string),
+		}
+	}
+	opts.ExtraHeaders["X-Algolia-User-ID"] = userID
+	body := map[string]string{"cluster": clusterName}
+	err = c.request(&res, "POST", "/1/clusters/mapping", body, write, opts)
+	return
+}
+
+func (c *client) RemoveUserID(userID string) (res RemoveUserIDRes, err error) {
+	return c.RemoveUserIDWithRequestOptions(userID, nil)
+}
+
+func (c *client) RemoveUserIDWithRequestOptions(userID string, opts *RequestOptions) (res RemoveUserIDRes, err error) {
+	if opts == nil {
+		opts = &RequestOptions{
+			ExtraHeaders: make(map[string]string),
+		}
+	}
+	opts.ExtraHeaders["X-Algolia-User-ID"] = userID
+
+	err = c.request(&res, "DELETE", "/1/clusters/mapping", nil, write, opts)
+	return
+}
+
+func (c *client) GetTopUserIDs() (res TopUserIDs, err error) {
+	return c.GetTopUserIDsWithRequestOptions(nil)
+}
+
+func (c *client) GetTopUserIDsWithRequestOptions(opts *RequestOptions) (res TopUserIDs, err error) {
+	err = c.request(&res, "GET", "/1/clusters/mapping/top", nil, read, opts)
+	return
+}
+
+func (c *client) SearchUserIDs(query string, params Map) (res SearchUserIDRes, err error) {
+	return c.SearchUserIDsWithRequestOptions(query, params, nil)
+}
+
+func (c *client) SearchUserIDsWithRequestOptions(query string, params Map, opts *RequestOptions) (res SearchUserIDRes, err error) {
+	params["query"] = query
+	err = c.request(&res, "POST", "/1/clusters/mapping/search", params, read, opts)
 	return
 }
 
