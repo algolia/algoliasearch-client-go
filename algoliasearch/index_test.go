@@ -83,10 +83,10 @@ func TestIndexOperations(t *testing.T) {
 		waitTask(t, i, res.TaskID)
 	}
 
-	t.Log("TestIndexOperations: Test Move")
+	t.Log("TestIndexOperations: Test MoveTo")
 	i = c.InitIndex("TestIndexOperations_copy")
 	{
-		res, err := i.Move("TestIndexOperations_move")
+		res, err := i.MoveTo("TestIndexOperations_moveTo")
 		if err != nil {
 			t.Fatalf("TestIndexOperations: Cannot move the index: %s", err)
 		}
@@ -95,7 +95,7 @@ func TestIndexOperations(t *testing.T) {
 	}
 
 	t.Log("TestIndexOperations: Test Clear")
-	i = c.InitIndex("TestIndexOperations_move")
+	i = c.InitIndex("TestIndexOperations_moveTo")
 	{
 		res, err := i.Clear()
 		if err != nil {

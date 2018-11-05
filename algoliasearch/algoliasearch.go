@@ -82,13 +82,13 @@ type Client interface {
 
 	// MoveIndex renames the index named `source` as `destination`.
 	//
-	// Deprecated: Use Index.Move instead.
+	// Deprecated: Use Index.MoveTo instead.
 	MoveIndex(source, destination string) (UpdateTaskRes, error)
 
 	// MoveIndexWithRequestOptions is the same as MoveIndex but it also accepts
 	// extra RequestOptions.
 	//
-	// Deprecated: Use Index.MoveWithRequestOptions instead.
+	// Deprecated: Use Index.MoveToWithRequestOptions instead.
 	MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// CopyIndex duplicates the index named `source` as `destination`.
@@ -541,11 +541,22 @@ type Index interface {
 	ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// Move renames the index into `name`.
+	//
+	// Deprecated: Use MoveTo instead.
 	Move(name string) (UpdateTaskRes, error)
 
 	// MoveWithRequestOptions is the same as Move but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use MoveToWithRequestOptions instead.
 	MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// MoveTo renames the index into `name`.
+	MoveTo(name string) (UpdateTaskRes, error)
+
+	// MoveToWithRequestOptions is the same as MoveTo but it also accepts extra
+	// RequestOptions.
+	MoveToWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// GetStatus returns the status of a task given its ID `taskID`.
 	GetStatus(taskID int) (res TaskStatusRes, err error)
