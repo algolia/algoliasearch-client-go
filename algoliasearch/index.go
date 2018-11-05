@@ -402,10 +402,18 @@ func (i *index) ScopedCopyWithRequestOptions(name string, scopes []string, opts 
 }
 
 func (i *index) Move(name string) (UpdateTaskRes, error) {
-	return i.MoveWithRequestOptions(name, nil)
+	return i.MoveTo(name)
 }
 
 func (i *index) MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return i.MoveToWithRequestOptions(name, opts)
+}
+
+func (i *index) MoveTo(name string) (UpdateTaskRes, error) {
+	return i.MoveToWithRequestOptions(name, nil)
+}
+
+func (i *index) MoveToWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
 	return i.operation(name, "move", nil, opts)
 }
 
