@@ -228,6 +228,12 @@ search.start();
 
 
 
+### Personalization
+
+
+
+
+
 ### Search
 
 - [Search index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
