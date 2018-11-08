@@ -96,8 +96,7 @@ func (c *client) MoveIndex(source, destination string) (UpdateTaskRes, error) {
 }
 
 func (c *client) MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.MoveWithRequestOptions(destination, opts)
+	return c.operation(source, destination, "move", nil, opts)
 }
 
 func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
@@ -105,8 +104,7 @@ func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 }
 
 func (c *client) CopyIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.CopyWithRequestOptions(destination, opts)
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, nil, opts)
 }
 
 func (c *client) ScopedCopyIndex(source, destination string, scopes []string) (UpdateTaskRes, error) {
@@ -114,9 +112,25 @@ func (c *client) ScopedCopyIndex(source, destination string, scopes []string) (U
 }
 
 func (c *client) ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.ScopedCopyWithRequestOptions(destination, scopes, opts)
+	return c.operation(source, destination, "copy", scopes, opts)
 }
+
+func (c *client) operation(src, dst, op string, scopes []string, opts *RequestOptions) (res UpdateTaskRes, err error) {
+	if err = checkScopes(scopes); err != nil {
+		return
+	}
+
+	o := IndexOperation{
+		Destination: dst,
+		Operation:   op,
+		Scopes:      scopes,
+	}
+
+	path := "/1/indexes/" + url.QueryEscape(src) + "/operation"
+	err = c.request(&res, "POST", path, o, write, opts)
+	return
+}
+
 
 func (c *client) DeleteIndex(name string) (res DeleteTaskRes, err error) {
 	return c.DeleteIndexWithRequestOptions(name, nil)
