@@ -273,6 +273,27 @@ type Client interface {
 	// GetStatusWithRequestOptions is the same as GetStatus but it also accepts
 	// extra RequestOptions.
 	GetStatusWithRequestOptions(indexName string, taskID int, opts *RequestOptions) (res TaskStatusRes, err error)
+
+	// CopySettings copies the settings from the source index to the destination index.
+	CopySettings(source, destination string) (UpdateTaskRes, error)
+
+	// CopySettingsWithRequestOptions is the same as CopySettings but it also accepts
+	// extra RequestOptions.
+	CopySettingsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// CopySynonyms copies the synonyms from the source index to the destination index.
+	CopySynonyms(source, destination string) (UpdateTaskRes, error)
+
+	// CopySynonymsWithRequestOptions is the same as CopySynonyms but it also accepts
+	// extra RequestOptions.
+	CopySynonymsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// CopyRules copies the rules from the source index to the destination index.
+	CopyRules(source, destination string) (UpdateTaskRes, error)
+
+	// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
+	// extra RequestOptions.
+	CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 }
 
 // Index is a representation used to manipulate an Algolia index.

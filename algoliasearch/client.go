@@ -410,6 +410,33 @@ func (c *client) GetStatusWithRequestOptions(indexName string, taskID int, opts 
 	return
 }
 
+func (c *client) CopySettings(source, destination string) (UpdateTaskRes, error) {
+	return c.CopySettingsWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) CopySettingsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"settings"}, opts)
+}
+
+func (c *client) CopySynonyms(source, destination string) (UpdateTaskRes, error) {
+	return c.CopySynonymsWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) CopySynonymsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"synonyms"}, opts)
+}
+
+// CopySettings copies the rules from the source index to the destination index.
+func (c *client) CopyRules(source, destination string) (UpdateTaskRes, error) {
+	return c.CopyRulesWithRequestOptions(source, destination, nil)
+}
+
+// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
+// extra RequestOptions.
+func (c *client) CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"rules"}, opts)
+}
+
 func (c *client) request(res interface{}, method, path string, body interface{}, typeCall int, opts *RequestOptions) error {
 	r, err := c.transport.request(method, path, body, typeCall, opts)
 	if err != nil {
