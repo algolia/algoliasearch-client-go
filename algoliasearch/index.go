@@ -398,7 +398,7 @@ func (i *index) ScopedCopy(name string, scopes []string) (UpdateTaskRes, error) 
 }
 
 func (i *index) ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error) {
-	return i.operation(name, "copy", scopes, opts)
+	return i.client.ScopedCopyIndexWithRequestOptions(i.name, name, scopes, opts)
 }
 
 func (i *index) Move(name string) (UpdateTaskRes, error) {
@@ -414,23 +414,7 @@ func (i *index) MoveTo(name string) (UpdateTaskRes, error) {
 }
 
 func (i *index) MoveToWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
-	return i.operation(name, "move", nil, opts)
-}
-
-func (i *index) operation(dst, op string, scopes []string, opts *RequestOptions) (res UpdateTaskRes, err error) {
-	if err = checkScopes(scopes); err != nil {
-		return
-	}
-
-	o := IndexOperation{
-		Destination: dst,
-		Operation:   op,
-		Scopes:      scopes,
-	}
-
-	path := i.route + "/operation"
-	err = i.client.request(&res, "POST", path, o, write, opts)
-	return
+	return i.client.MoveIndexWithRequestOptions(i.name, name, opts)
 }
 
 func (i *index) GetStatus(taskID int) (res TaskStatusRes, err error) {

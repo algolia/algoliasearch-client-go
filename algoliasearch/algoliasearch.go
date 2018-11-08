@@ -526,36 +526,48 @@ type Index interface {
 	BatchWithRequestOptions(operations []BatchOperation, opts *RequestOptions) (res BatchRes, err error)
 
 	// Copy copies the index into a new one called `name`.
+	//
+	// Deprecated: Use Client.CopyIndex instead.
 	Copy(name string) (UpdateTaskRes, error)
 
 	// CopyWithRequestOptions is the same as Copy but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use Client.CopyIndexWithRequestOptions instead.
 	CopyWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// ScopedCopy copies the index into a new one called `name`, according to
 	// the given scopes.
+	//
+	// Deprecated: Use Client.ScopedCopyIndex instead.
 	ScopedCopy(name string, scopes []string) (UpdateTaskRes, error)
 
 	// ScopedCopyWithRequestOptions is the same as ScopedCopy but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Client.ScopedCopyIndexWithRequestOptions instead.
 	ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// Move renames the index into `name`.
 	//
-	// Deprecated: Use MoveTo instead.
+	// Deprecated: Use Client.MoveIndex instead.
 	Move(name string) (UpdateTaskRes, error)
 
 	// MoveWithRequestOptions is the same as Move but it also accepts extra
 	// RequestOptions.
 	//
-	// Deprecated: Use MoveToWithRequestOptions instead.
+	// Deprecated: Use Client.MoveIndexWithRequestOptions instead.
 	MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// MoveTo renames the index into `name`.
+	//
+	// Deprecated: Use Client.MoveIndex instead.
 	MoveTo(name string) (UpdateTaskRes, error)
 
 	// MoveToWithRequestOptions is the same as MoveTo but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use Client.MoveIndexWithRequestOptions instead.
 	MoveToWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// GetStatus returns the status of a task given its ID `taskID`.
