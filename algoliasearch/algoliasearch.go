@@ -107,17 +107,25 @@ type Client interface {
 	ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// DeleteIndex removes the `name` Algolia index.
+	//
+	// Deprecated: Use Index.Delete instead.
 	DeleteIndex(name string) (res DeleteTaskRes, err error)
 
 	// DeleteIndexWithRequestOptions is the same as DeleteIndex but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Index.DeleteWithRequestOptions instead.
 	DeleteIndexWithRequestOptions(name string, opts *RequestOptions) (res DeleteTaskRes, err error)
 
 	// ClearIndex removes every record from the `name` Algolia index.
+	//
+	// Deprecated: Use Index.Clear instead.
 	ClearIndex(name string) (res UpdateTaskRes, err error)
 
 	// ClearIndexWithRequestOptions is the same as ClearIndex but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Index.ClearWithRequestOptions instead.
 	ClearIndexWithRequestOptions(name string, opts *RequestOptions) (res UpdateTaskRes, err error)
 
 	// AddUserKey creates a new API key from the supplied `ACL` and the
