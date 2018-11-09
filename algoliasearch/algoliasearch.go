@@ -816,6 +816,27 @@ type Index interface {
 	// SearchRulesWithRequestOptions is the same as SearchRules but it also
 	// accepts extra RequestOptions.
 	SearchRulesWithRequestOptions(params Map, opts *RequestOptions) (SearchRulesRes, error)
+
+	// ReplaceAllSynonyms replace all the synonyms of the current index with the given ones.
+	ReplaceAllSynonyms(synonyms []Synonym) (res UpdateTaskRes, err error)
+
+	// ReplaceAllSynonymsWithRequestOptions is the same as ReplaceAllSynonyms but it also
+	// accepts extra RequestOptions.
+	ReplaceAllSynonymsWithRequestOptions(synonyms []Synonym, opts *RequestOptions) (res UpdateTaskRes, err error)
+
+	// ReplaceAllRules replace all the rules of the current index with the given ones.
+	ReplaceAllRules(rules []Rule) (res BatchRulesRes, err error)
+
+	// ReplaceAllRulesWithRequestOptions is the same as ReplaceAllRules but it also
+	// accepts extra RequestOptions.
+	ReplaceAllRulesWithRequestOptions(rules []Rule, opts *RequestOptions) (res BatchRulesRes, err error)
+
+	// ReplaceAllObjects replace all the objects of the current index with the given ones.
+	ReplaceAllObjects(objects []Object) error
+
+	// ReplaceAllObjectsWithRequestOptions is the same as ReplaceAllObjects but it also
+	// accepts extra RequestOptions.
+	ReplaceAllObjectsWithRequestOptions(objects []Object, opts *RequestOptions) error
 }
 
 // IndexIterator is used by the BrowseAll functions to iterate over all the

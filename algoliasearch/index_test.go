@@ -1750,3 +1750,93 @@ func TestBrowseAll(t *testing.T) {
 		require.Equal(t, 3501, count, "should browse all the records")
 	}
 }
+
+func TestReplaceAll(t *testing.T) {
+	_, index := initClientAndIndex(t, "TestReplaceAll")
+
+	var taskIDs []int
+
+	{
+		res, err := index.AddObject(Object{"objectID": "one"})
+		require.NoError(t, err)
+		taskIDs = append(taskIDs, res.TaskID)
+	}
+
+	{
+		res, err := index.SaveRule(Rule{
+			ObjectID:  "one",
+			Condition: NewSimpleRuleCondition(Contains, "pattern"),
+			Consequence: RuleConsequence{
+				Params: Map{
+					"query": Map{
+						"edits": []Edit{DeleteEdit("pattern")},
+					},
+				},
+			},
+		}, false)
+		require.NoError(t, err)
+		taskIDs = append(taskIDs, res.TaskID)
+	}
+
+	{
+		res, err := index.SaveSynonym(NewSynonym("one", []string{"one", "two"}), false)
+		require.NoError(t, err)
+		taskIDs = append(taskIDs, res.TaskID)
+	}
+
+	waitTasksAsync(t, index, taskIDs)
+	taskIDs = []int{}
+
+	{
+		err := index.ReplaceAllObjects([]Object{{"objectID": "two"}})
+		require.NoError(t, err)
+	}
+
+	{
+		res, err := index.ReplaceAllRules([]Rule{
+			{
+				ObjectID:  "two",
+				Condition: NewSimpleRuleCondition(Contains, "pattern"),
+				Consequence: RuleConsequence{
+					Params: Map{
+						"query": Map{
+							"edits": []Edit{DeleteEdit("pattern")},
+						},
+					},
+				},
+			},
+		})
+		require.NoError(t, err)
+		taskIDs = append(taskIDs, res.TaskID)
+	}
+
+	{
+		res, err := index.ReplaceAllSynonyms([]Synonym{
+			NewSynonym("two", []string{"one", "two"}),
+		})
+		require.NoError(t, err)
+		taskIDs = append(taskIDs, res.TaskID)
+	}
+
+	waitTasksAsync(t, index, taskIDs)
+
+	{
+		_, err := index.GetObject("one", nil)
+		require.Error(t, err)
+
+		_, err = index.GetObject("two", nil)
+		require.NoError(t, err)
+
+		_, err = index.GetRule("one")
+		require.Error(t, err)
+
+		_, err = index.GetRule("two")
+		require.NoError(t, err)
+
+		_, err = index.GetSynonym("one")
+		require.Error(t, err)
+
+		_, err = index.GetSynonym("two")
+		require.NoError(t, err)
+	}
+}

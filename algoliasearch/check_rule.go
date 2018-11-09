@@ -30,10 +30,10 @@ func checkRules(rules []Rule) error {
 
 			case "query":
 				switch v.(type) {
-				case string, QueryIncrementalEdit, Map:
+				case string, QueryIncrementalEdit, Edit, Map, map[string]interface{}:
 					// OK
 				default:
-					return invalidType(k, "string or QueryIncrementalEdit or Map")
+					return invalidType(k, "string, QueryIncrementalEdit, Edit or Map")
 				}
 
 			case "automaticFacetFilters",
