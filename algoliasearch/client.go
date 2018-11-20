@@ -10,6 +10,7 @@ import (
 )
 
 type client struct {
+	appID     string
 	transport *Transport
 }
 
@@ -17,6 +18,7 @@ type client struct {
 // `apiKey`. Default hosts are used for the transport layer.
 func NewClient(appID, apiKey string) Client {
 	return &client{
+		appID:     appID,
 		transport: NewTransport(appID, apiKey),
 	}
 }
@@ -26,8 +28,13 @@ func NewClient(appID, apiKey string) Client {
 // `hosts`.
 func NewClientWithHosts(appID, apiKey string, hosts []string) Client {
 	return &client{
+		appID:     appID,
 		transport: NewTransportWithHosts(appID, apiKey, hosts),
 	}
+}
+
+func (c *client) GetAppID() string {
+	return c.appID
 }
 
 func (c *client) SetExtraHeader(key, value string) {

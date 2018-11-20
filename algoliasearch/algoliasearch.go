@@ -9,6 +9,9 @@ import (
 // allows manipulations over the indexes of the application as well as network
 // related parameters.
 type Client interface {
+	// GetAppID returns the Algolia application ID to which the client is linked to.
+	GetAppID() string
+
 	// SetExtraHeader allows to set custom headers while reaching out to
 	// Algolia servers.
 	SetExtraHeader(key, value string)
@@ -306,6 +309,9 @@ type Client interface {
 
 // Index is a representation used to manipulate an Algolia index.
 type Index interface {
+	// GetAppID returns the Algolia application ID to which the index is linked to.
+	GetAppID() string
+
 	// Delete removes the Algolia index.
 	Delete() (res DeleteTaskRes, err error)
 
