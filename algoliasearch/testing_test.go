@@ -49,13 +49,26 @@ func addOneObject(t *testing.T, i Index) string {
 }
 
 // initClient instantiates a new client according to the
-// `ALGOLIA_APPLICATION_ID` and `ALGOLIA_API_KEY` environment variables.
+// `ALGOLIA_APPLICATION_ID_1` and `ALGOLIA_ADMIN_KEY_1` environment variables.
 func initClient(t *testing.T) Client {
-	appID := os.Getenv("ALGOLIA_APPLICATION_ID")
-	apiKey := os.Getenv("ALGOLIA_API_KEY")
+	appID := os.Getenv("ALGOLIA_APPLICATION_ID_1")
+	apiKey := os.Getenv("ALGOLIA_ADMIN_KEY_1")
 
 	if appID == "" || apiKey == "" {
-		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID and/or ALGOLIA_API_KEY")
+		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID_1 and/or ALGOLIA_ADMIN_KEY_1")
+	}
+
+	return NewClient(appID, apiKey)
+}
+
+// initClient instantiates a new client according to the
+// `ALGOLIA_APPLICATION_ID_2` and `ALGOLIA_ADMIN_KEY_2` environment variables.
+func initClient2(t *testing.T) Client {
+	appID := os.Getenv("ALGOLIA_APPLICATION_ID_2")
+	apiKey := os.Getenv("ALGOLIA_ADMIN_KEY_2")
+
+	if appID == "" || apiKey == "" {
+		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID_2 and/or ALGOLIA_ADMIN_KEY_2")
 	}
 
 	return NewClient(appID, apiKey)
@@ -63,25 +76,25 @@ func initClient(t *testing.T) Client {
 
 // initMCMClient is the same as initClient but read different env vars
 func initMCMClient(t *testing.T) Client {
-	appID := os.Getenv("ALGOLIA_APP_ID_MCM")
-	apiKey := os.Getenv("ALGOLIA_API_KEY_MCM")
+	appID := os.Getenv("ALGOLIA_APPLICATION_ID_MCM")
+	apiKey := os.Getenv("ALGOLIA_ADMIN_KEY_MCM")
 
 	if appID == "" || apiKey == "" {
-		t.Fatal("initClient: Missing ALGOLIA_APP_ID_MCM and/or ALGOLIA_API_KEY_MCM")
+		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID_MCM and/or ALGOLIA_ADMIN_KEY_MCM")
 	}
 
 	return NewClient(appID, apiKey)
 }
 
 // initClientWithHosts instantiates a new client according to the
-// `ALGOLIA_APPLICATION_ID` and `ALGOLIA_API_KEY` environment variables and set
+// `ALGOLIA_APPLICATION_ID_1` and `ALGOLIA_ADMIN_KEY_1` environment variables and set
 // one of the host to specifically timeout.
 func initClientWithTimeoutHosts(t *testing.T) Client {
-	appID := os.Getenv("ALGOLIA_APPLICATION_ID")
-	apiKey := os.Getenv("ALGOLIA_API_KEY")
+	appID := os.Getenv("ALGOLIA_APPLICATION_ID_1")
+	apiKey := os.Getenv("ALGOLIA_ADMIN_KEY_1")
 
 	if appID == "" || apiKey == "" {
-		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID and/or ALGOLIA_API_KEY")
+		t.Fatal("initClient: Missing ALGOLIA_APPLICATION_ID_1 and/or ALGOLIA_ADMIN_KEY_1")
 	}
 
 	return NewClientWithHosts(appID, apiKey, []string{
