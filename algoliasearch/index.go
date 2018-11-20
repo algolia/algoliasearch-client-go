@@ -24,6 +24,10 @@ func NewIndex(name string, client *client) Index {
 	}
 }
 
+func (i *index) GetAppID() string {
+	return i.client.GetAppID()
+}
+
 func (i *index) Delete() (res DeleteTaskRes, err error) {
 	return i.DeleteWithRequestOptions(nil)
 }
