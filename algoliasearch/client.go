@@ -138,7 +138,6 @@ func (c *client) operation(src, dst, op string, scopes []string, opts *RequestOp
 	return
 }
 
-
 func (c *client) DeleteIndex(name string) (res DeleteTaskRes, err error) {
 	return c.DeleteIndexWithRequestOptions(name, nil)
 }
