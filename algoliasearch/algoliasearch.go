@@ -883,3 +883,14 @@ type Analytics interface {
 	// goes wrong or if the task did not succeed, a non-nil error is returned.
 	WaitTask(task ABTestTaskRes) (err error)
 }
+
+// AccountClient is responsible for handling cross-application operations.
+type AccountClient interface {
+	// CopyIndex copies the content of the entire source index to the destination index. Indices from the same
+	// application cannot be copied. To do so, use Client.CopyIndex instead.
+	CopyIndex(src, dst Index) (taskIDs []int, err error)
+
+	// CopyIndexWithRequestOptions is the same as CopyIndex but it also
+	// accepts extra RequestOptions.
+	CopyIndexWithRequestOptions(src, dst Index, opts *RequestOptions) (taskIDs []int, err error)
+}
