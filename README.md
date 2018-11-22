@@ -247,10 +247,12 @@ search.start();
 ### Indexing
 
 - [Add objects](https://algolia.com/doc/api-reference/api-methods/add-objects/?language=go)
-- [Update objects](https://algolia.com/doc/api-reference/api-methods/save-objects/?language=go)
+- [Save objects](https://algolia.com/doc/api-reference/api-methods/save-objects/?language=go)
 - [Partial update objects](https://algolia.com/doc/api-reference/api-methods/partial-update-objects/?language=go)
 - [Delete objects](https://algolia.com/doc/api-reference/api-methods/delete-objects/?language=go)
+- [Replace all objects](https://algolia.com/doc/api-reference/api-methods/replace-all-objects/?language=go)
 - [Delete by](https://algolia.com/doc/api-reference/api-methods/delete-by/?language=go)
+- [Clear objects](https://algolia.com/doc/api-reference/api-methods/clear-objects/?language=go)
 - [Get objects](https://algolia.com/doc/api-reference/api-methods/get-objects/?language=go)
 - [Custom batch](https://algolia.com/doc/api-reference/api-methods/batch/?language=go)
 
@@ -261,17 +263,17 @@ search.start();
 
 - [Get settings](https://algolia.com/doc/api-reference/api-methods/get-settings/?language=go)
 - [Set settings](https://algolia.com/doc/api-reference/api-methods/set-settings/?language=go)
+- [Copy settings](https://algolia.com/doc/api-reference/api-methods/copy-settings/?language=go)
 
 
 
 
 ### Manage indices
 
-- [List indexes](https://algolia.com/doc/api-reference/api-methods/list-indices/?language=go)
+- [List indices](https://algolia.com/doc/api-reference/api-methods/list-indices/?language=go)
 - [Delete index](https://algolia.com/doc/api-reference/api-methods/delete-index/?language=go)
 - [Copy index](https://algolia.com/doc/api-reference/api-methods/copy-index/?language=go)
 - [Move index](https://algolia.com/doc/api-reference/api-methods/move-index/?language=go)
-- [Clear index](https://algolia.com/doc/api-reference/api-methods/clear-index/?language=go)
 
 
 
@@ -296,6 +298,8 @@ search.start();
 - [Clear all synonyms](https://algolia.com/doc/api-reference/api-methods/clear-synonyms/?language=go)
 - [Get synonym](https://algolia.com/doc/api-reference/api-methods/get-synonym/?language=go)
 - [Search synonyms](https://algolia.com/doc/api-reference/api-methods/search-synonyms/?language=go)
+- [Replace all synonyms](https://algolia.com/doc/api-reference/api-methods/replace-all-synonyms/?language=go)
+- [Copy synonyms](https://algolia.com/doc/api-reference/api-methods/copy-synonyms/?language=go)
 - [Export Synonyms](https://algolia.com/doc/api-reference/api-methods/export-synonyms/?language=go)
 
 
@@ -309,6 +313,8 @@ search.start();
 - [Delete rule](https://algolia.com/doc/api-reference/api-methods/delete-rule/?language=go)
 - [Clear rules](https://algolia.com/doc/api-reference/api-methods/clear-rules/?language=go)
 - [Search rules](https://algolia.com/doc/api-reference/api-methods/search-rules/?language=go)
+- [Replace all rules](https://algolia.com/doc/api-reference/api-methods/replace-all-rules/?language=go)
+- [Copy rules](https://algolia.com/doc/api-reference/api-methods/copy-rules/?language=go)
 - [Export rules](https://algolia.com/doc/api-reference/api-methods/export-rules/?language=go)
 
 
