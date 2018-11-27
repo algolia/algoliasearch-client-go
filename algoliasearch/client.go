@@ -10,6 +10,7 @@ import (
 )
 
 type client struct {
+	appID     string
 	transport *Transport
 }
 
@@ -17,6 +18,7 @@ type client struct {
 // `apiKey`. Default hosts are used for the transport layer.
 func NewClient(appID, apiKey string) Client {
 	return &client{
+		appID:     appID,
 		transport: NewTransport(appID, apiKey),
 	}
 }
@@ -26,8 +28,13 @@ func NewClient(appID, apiKey string) Client {
 // `hosts`.
 func NewClientWithHosts(appID, apiKey string, hosts []string) Client {
 	return &client{
+		appID:     appID,
 		transport: NewTransportWithHosts(appID, apiKey, hosts),
 	}
+}
+
+func (c *client) GetAppID() string {
+	return c.appID
 }
 
 func (c *client) SetExtraHeader(key, value string) {
@@ -96,8 +103,7 @@ func (c *client) MoveIndex(source, destination string) (UpdateTaskRes, error) {
 }
 
 func (c *client) MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.MoveWithRequestOptions(destination, opts)
+	return c.operation(source, destination, "move", nil, opts)
 }
 
 func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
@@ -105,8 +111,7 @@ func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 }
 
 func (c *client) CopyIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.CopyWithRequestOptions(destination, opts)
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, nil, opts)
 }
 
 func (c *client) ScopedCopyIndex(source, destination string, scopes []string) (UpdateTaskRes, error) {
@@ -114,8 +119,23 @@ func (c *client) ScopedCopyIndex(source, destination string, scopes []string) (U
 }
 
 func (c *client) ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.ScopedCopyWithRequestOptions(destination, scopes, opts)
+	return c.operation(source, destination, "copy", scopes, opts)
+}
+
+func (c *client) operation(src, dst, op string, scopes []string, opts *RequestOptions) (res UpdateTaskRes, err error) {
+	if err = checkScopes(scopes); err != nil {
+		return
+	}
+
+	o := IndexOperation{
+		Destination: dst,
+		Operation:   op,
+		Scopes:      scopes,
+	}
+
+	path := "/1/indexes/" + url.QueryEscape(src) + "/operation"
+	err = c.request(&res, "POST", path, o, write, opts)
+	return
 }
 
 func (c *client) DeleteIndex(name string) (res DeleteTaskRes, err error) {
@@ -394,6 +414,33 @@ func (c *client) GetStatusWithRequestOptions(indexName string, taskID int, opts 
 	path := fmt.Sprintf("/1/indexes/%s/task/%d", url.QueryEscape(indexName), taskID)
 	err = c.request(&res, "GET", path, nil, read, opts)
 	return
+}
+
+func (c *client) CopySettings(source, destination string) (UpdateTaskRes, error) {
+	return c.CopySettingsWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) CopySettingsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"settings"}, opts)
+}
+
+func (c *client) CopySynonyms(source, destination string) (UpdateTaskRes, error) {
+	return c.CopySynonymsWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) CopySynonymsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"synonyms"}, opts)
+}
+
+// CopySettings copies the rules from the source index to the destination index.
+func (c *client) CopyRules(source, destination string) (UpdateTaskRes, error) {
+	return c.CopyRulesWithRequestOptions(source, destination, nil)
+}
+
+// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
+// extra RequestOptions.
+func (c *client) CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"rules"}, opts)
 }
 
 func (c *client) request(res interface{}, method, path string, body interface{}, typeCall int, opts *RequestOptions) error {

@@ -9,6 +9,9 @@ import (
 // allows manipulations over the indexes of the application as well as network
 // related parameters.
 type Client interface {
+	// GetAppID returns the Algolia application ID to which the client is linked to.
+	GetAppID() string
+
 	// SetExtraHeader allows to set custom headers while reaching out to
 	// Algolia servers.
 	SetExtraHeader(key, value string)
@@ -82,13 +85,13 @@ type Client interface {
 
 	// MoveIndex renames the index named `source` as `destination`.
 	//
-	// Deprecated: Use Index.Move instead.
+	// Deprecated: Use Index.MoveTo instead.
 	MoveIndex(source, destination string) (UpdateTaskRes, error)
 
 	// MoveIndexWithRequestOptions is the same as MoveIndex but it also accepts
 	// extra RequestOptions.
 	//
-	// Deprecated: Use Index.MoveWithRequestOptions instead.
+	// Deprecated: Use Index.MoveToWithRequestOptions instead.
 	MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// CopyIndex duplicates the index named `source` as `destination`.
@@ -107,17 +110,25 @@ type Client interface {
 	ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// DeleteIndex removes the `name` Algolia index.
+	//
+	// Deprecated: Use Index.Delete instead.
 	DeleteIndex(name string) (res DeleteTaskRes, err error)
 
 	// DeleteIndexWithRequestOptions is the same as DeleteIndex but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Index.DeleteWithRequestOptions instead.
 	DeleteIndexWithRequestOptions(name string, opts *RequestOptions) (res DeleteTaskRes, err error)
 
 	// ClearIndex removes every record from the `name` Algolia index.
+	//
+	// Deprecated: Use Index.Clear instead.
 	ClearIndex(name string) (res UpdateTaskRes, err error)
 
 	// ClearIndexWithRequestOptions is the same as ClearIndex but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Index.ClearWithRequestOptions instead.
 	ClearIndexWithRequestOptions(name string, opts *RequestOptions) (res UpdateTaskRes, err error)
 
 	// AddUserKey creates a new API key from the supplied `ACL` and the
@@ -273,10 +284,34 @@ type Client interface {
 	// GetStatusWithRequestOptions is the same as GetStatus but it also accepts
 	// extra RequestOptions.
 	GetStatusWithRequestOptions(indexName string, taskID int, opts *RequestOptions) (res TaskStatusRes, err error)
+
+	// CopySettings copies the settings from the source index to the destination index.
+	CopySettings(source, destination string) (UpdateTaskRes, error)
+
+	// CopySettingsWithRequestOptions is the same as CopySettings but it also accepts
+	// extra RequestOptions.
+	CopySettingsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// CopySynonyms copies the synonyms from the source index to the destination index.
+	CopySynonyms(source, destination string) (UpdateTaskRes, error)
+
+	// CopySynonymsWithRequestOptions is the same as CopySynonyms but it also accepts
+	// extra RequestOptions.
+	CopySynonymsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// CopyRules copies the rules from the source index to the destination index.
+	CopyRules(source, destination string) (UpdateTaskRes, error)
+
+	// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
+	// extra RequestOptions.
+	CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 }
 
 // Index is a representation used to manipulate an Algolia index.
 type Index interface {
+	// GetAppID returns the Algolia application ID to which the index is linked to.
+	GetAppID() string
+
 	// Delete removes the Algolia index.
 	Delete() (res DeleteTaskRes, err error)
 
@@ -526,26 +561,49 @@ type Index interface {
 	BatchWithRequestOptions(operations []BatchOperation, opts *RequestOptions) (res BatchRes, err error)
 
 	// Copy copies the index into a new one called `name`.
+	//
+	// Deprecated: Use Client.CopyIndex instead.
 	Copy(name string) (UpdateTaskRes, error)
 
 	// CopyWithRequestOptions is the same as Copy but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use Client.CopyIndexWithRequestOptions instead.
 	CopyWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// ScopedCopy copies the index into a new one called `name`, according to
 	// the given scopes.
+	//
+	// Deprecated: Use Client.ScopedCopyIndex instead.
 	ScopedCopy(name string, scopes []string) (UpdateTaskRes, error)
 
 	// ScopedCopyWithRequestOptions is the same as ScopedCopy but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Client.ScopedCopyIndexWithRequestOptions instead.
 	ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// Move renames the index into `name`.
+	//
+	// Deprecated: Use Client.MoveIndex instead.
 	Move(name string) (UpdateTaskRes, error)
 
 	// MoveWithRequestOptions is the same as Move but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use Client.MoveIndexWithRequestOptions instead.
 	MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// MoveTo renames the index into `name`.
+	//
+	// Deprecated: Use Client.MoveIndex instead.
+	MoveTo(name string) (UpdateTaskRes, error)
+
+	// MoveToWithRequestOptions is the same as MoveTo but it also accepts extra
+	// RequestOptions.
+	//
+	// Deprecated: Use Client.MoveIndexWithRequestOptions instead.
+	MoveToWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// GetStatus returns the status of a task given its ID `taskID`.
 	GetStatus(taskID int) (res TaskStatusRes, err error)
@@ -764,6 +822,27 @@ type Index interface {
 	// SearchRulesWithRequestOptions is the same as SearchRules but it also
 	// accepts extra RequestOptions.
 	SearchRulesWithRequestOptions(params Map, opts *RequestOptions) (SearchRulesRes, error)
+
+	// ReplaceAllSynonyms replace all the synonyms of the current index with the given ones.
+	ReplaceAllSynonyms(synonyms []Synonym) (res UpdateTaskRes, err error)
+
+	// ReplaceAllSynonymsWithRequestOptions is the same as ReplaceAllSynonyms but it also
+	// accepts extra RequestOptions.
+	ReplaceAllSynonymsWithRequestOptions(synonyms []Synonym, opts *RequestOptions) (res UpdateTaskRes, err error)
+
+	// ReplaceAllRules replace all the rules of the current index with the given ones.
+	ReplaceAllRules(rules []Rule) (res BatchRulesRes, err error)
+
+	// ReplaceAllRulesWithRequestOptions is the same as ReplaceAllRules but it also
+	// accepts extra RequestOptions.
+	ReplaceAllRulesWithRequestOptions(rules []Rule, opts *RequestOptions) (res BatchRulesRes, err error)
+
+	// ReplaceAllObjects replace all the objects of the current index with the given ones.
+	ReplaceAllObjects(objects []Object) error
+
+	// ReplaceAllObjectsWithRequestOptions is the same as ReplaceAllObjects but it also
+	// accepts extra RequestOptions.
+	ReplaceAllObjectsWithRequestOptions(objects []Object, opts *RequestOptions) error
 }
 
 // IndexIterator is used by the BrowseAll functions to iterate over all the
@@ -803,4 +882,15 @@ type Analytics interface {
 	// WaitTask blocks until the given task has ended successfully. If anything
 	// goes wrong or if the task did not succeed, a non-nil error is returned.
 	WaitTask(task ABTestTaskRes) (err error)
+}
+
+// AccountClient is responsible for handling cross-application operations.
+type AccountClient interface {
+	// CopyIndex copies the content of the entire source index to the destination index. Indices from the same
+	// application cannot be copied. To do so, use Client.CopyIndex instead.
+	CopyIndex(src, dst Index) (taskIDs []int, err error)
+
+	// CopyIndexWithRequestOptions is the same as CopyIndex but it also
+	// accepts extra RequestOptions.
+	CopyIndexWithRequestOptions(src, dst Index, opts *RequestOptions) (taskIDs []int, err error)
 }

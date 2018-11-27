@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type index struct {
@@ -21,6 +22,10 @@ func NewIndex(name string, client *client) Index {
 		name:   name,
 		route:  "/1/indexes/" + url.QueryEscape(name),
 	}
+}
+
+func (i *index) GetAppID() string {
+	return i.client.GetAppID()
 }
 
 func (i *index) Delete() (res DeleteTaskRes, err error) {
@@ -398,35 +403,23 @@ func (i *index) ScopedCopy(name string, scopes []string) (UpdateTaskRes, error) 
 }
 
 func (i *index) ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error) {
-	return i.operation(name, "copy", scopes, opts)
+	return i.client.ScopedCopyIndexWithRequestOptions(i.name, name, scopes, opts)
 }
 
 func (i *index) Move(name string) (UpdateTaskRes, error) {
-	return i.MoveWithRequestOptions(name, nil)
+	return i.MoveTo(name)
 }
 
 func (i *index) MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
-	res, err := i.operation(name, "move", nil, opts)
-	if err == nil {
-		i.name = name
-	}
-	return res, err
+	return i.MoveToWithRequestOptions(name, opts)
 }
 
-func (i *index) operation(dst, op string, scopes []string, opts *RequestOptions) (res UpdateTaskRes, err error) {
-	if err = checkScopes(scopes); err != nil {
-		return
-	}
+func (i *index) MoveTo(name string) (UpdateTaskRes, error) {
+	return i.MoveToWithRequestOptions(name, nil)
+}
 
-	o := IndexOperation{
-		Destination: dst,
-		Operation:   op,
-		Scopes:      scopes,
-	}
-
-	path := i.route + "/operation"
-	err = i.client.request(&res, "POST", path, o, write, opts)
-	return
+func (i *index) MoveToWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return i.client.MoveIndexWithRequestOptions(i.name, name, opts)
 }
 
 func (i *index) GetStatus(taskID int) (res TaskStatusRes, err error) {
@@ -764,5 +757,96 @@ func (i *index) SearchRulesWithRequestOptions(params Map, opts *RequestOptions) 
 
 	path := i.route + "/rules/search"
 	err = i.client.request(&res, "POST", path, params, read, opts)
+	return
+}
+
+// ReplaceAllSynonyms replace all the synonyms of the current index with the given ones.
+func (i *index) ReplaceAllSynonyms(synonyms []Synonym) (res UpdateTaskRes, err error) {
+	return i.ReplaceAllSynonymsWithRequestOptions(synonyms, nil)
+}
+
+// ReplaceAllSynonymsWithRequestOptions is the same as ReplaceAllSynonyms but it also
+// accepts extra RequestOptions.
+func (i *index) ReplaceAllSynonymsWithRequestOptions(synonyms []Synonym, opts *RequestOptions) (res UpdateTaskRes, err error) {
+	return i.BatchSynonymsWithRequestOptions(synonyms, true, false, opts)
+}
+
+// ReplaceAllRules replace all the rules of the current index with the given ones.
+func (i *index) ReplaceAllRules(rules []Rule) (res BatchRulesRes, err error) {
+	return i.ReplaceAllRulesWithRequestOptions(rules, nil)
+}
+
+// ReplaceAllRulesWithRequestOptions is the same as ReplaceAllRules but it also
+// accepts extra RequestOptions.
+func (i *index) ReplaceAllRulesWithRequestOptions(rules []Rule, opts *RequestOptions) (res BatchRulesRes, err error) {
+	return i.BatchRulesWithRequestOptions(rules, false, true, opts)
+}
+
+// ReplaceAllObjects replace all the objects of the current index with the given ones.
+func (i *index) ReplaceAllObjects(objects []Object) error {
+	return i.ReplaceAllObjectsWithRequestOptions(objects, nil)
+}
+
+// ReplaceAllObjectsWithRequestOptions is the same as ReplaceAllObjects but it also
+// accepts extra RequestOptions.
+func (i *index) ReplaceAllObjectsWithRequestOptions(objects []Object, opts *RequestOptions) (err error) {
+	tmpIndexName := fmt.Sprintf("%s_tmp_%d", i.name, time.Now().Nanosecond())
+
+	defer func() {
+		if err != nil {
+			i.client.DeleteIndexWithRequestOptions(tmpIndexName, opts)
+		}
+	}()
+
+	var taskIDs []int
+
+	// Copy settings/synonyms/rules to the temporary index
+	{
+		var res UpdateTaskRes
+		res, err = i.client.ScopedCopyIndexWithRequestOptions(i.name, tmpIndexName, []string{"settings", "synonyms", "rules"}, opts)
+		if err != nil {
+			return
+		}
+		taskIDs = append(taskIDs, res.TaskID)
+	}
+
+	tmpIndex := i.client.InitIndex(tmpIndexName)
+
+	// Copy objects to the temporary index
+	{
+		batchSize := 1000
+
+		for i := 0; i < len(objects); i += batchSize {
+			j := i + batchSize
+			if j > len(objects) {
+				j = len(objects)
+			}
+			var res BatchRes
+			res, err = tmpIndex.AddObjectsWithRequestOptions(objects[i:j], opts)
+			if err != nil {
+				return
+			}
+			taskIDs = append(taskIDs, res.TaskID)
+		}
+	}
+
+	// Wait for all the tasks to finish before performing the move of the temporary index to the final one.
+	for _, taskID := range taskIDs {
+		err = tmpIndex.WaitTaskWithRequestOptions(taskID, opts)
+		if err != nil {
+			return
+		}
+	}
+
+	// Perform the move operation
+	{
+		var res UpdateTaskRes
+		res, err = i.client.MoveIndexWithRequestOptions(tmpIndexName, i.name, opts)
+		if err != nil {
+			return
+		}
+		tmpIndex.WaitTaskWithRequestOptions(res.TaskID, opts)
+	}
+
 	return
 }
