@@ -270,11 +270,22 @@ type Client interface {
 	SearchUserIDsWithRequestOptions(query string, params Map, opts *RequestOptions) (res SearchUserIDRes, err error)
 
 	// Batch performs all queries in `operations`.
+	//
+	// Deprecated: Use MultipleBatch instead.
 	Batch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error)
 
 	// BatchWithRequestOptions is the same as Batch but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use MultipleBatchWithRequestOptions instead.
 	BatchWithRequestOptions(operations []BatchOperationIndexed, opts *RequestOptions) (res MultipleBatchRes, err error)
+
+	// MultipleBatch performs all queries in `operations`.
+	MultipleBatch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error)
+
+	// MultipleBatchWithRequestOptions is the same as MultipleBatch but it also accepts extra
+	// RequestOptions.
+	MultipleBatchWithRequestOptions(operations []BatchOperationIndexed, opts *RequestOptions) (res MultipleBatchRes, err error)
 
 	// WaitTask stops the current execution until the task identified by its
 	// `taskID` on the index `indexName` is finished. The waiting time between each check is usually

@@ -376,10 +376,18 @@ func (c *client) SearchUserIDsWithRequestOptions(query string, params Map, opts 
 }
 
 func (c *client) Batch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error) {
-	return c.BatchWithRequestOptions(operations, nil)
+	return c.MultipleBatch(operations)
 }
 
 func (c *client) BatchWithRequestOptions(operations []BatchOperationIndexed, opts *RequestOptions) (res MultipleBatchRes, err error) {
+	return c.MultipleBatchWithRequestOptions(operations, opts)
+}
+
+func (c *client) MultipleBatch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error) {
+	return c.BatchWithRequestOptions(operations, nil)
+}
+
+func (c *client) MultipleBatchWithRequestOptions(operations []BatchOperationIndexed, opts *RequestOptions) (res MultipleBatchRes, err error) {
 	// TODO: Use check functions of index.go
 
 	request := map[string][]BatchOperationIndexed{
