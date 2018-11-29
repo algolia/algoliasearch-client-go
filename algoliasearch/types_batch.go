@@ -39,3 +39,13 @@ func newBatchOperations(objects []Object, action string) (operations []BatchOper
 
 	return
 }
+
+type IndexedGetObject struct {
+	IndexName            string `json:"indexName"`
+	ObjectID             string `json:"objectID"`
+	AttributesToRetrieve string `json:"attributesToRetrieve,omitempty"`
+}
+
+type MultipleGetObjectsRes struct {
+	Results []Object
+}
