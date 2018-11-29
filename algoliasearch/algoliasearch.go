@@ -212,6 +212,14 @@ type Client interface {
 	// also accepts extra RequestOptions.
 	MultipleQueriesWithRequestOptions(queries []IndexedQuery, strategy string, opts *RequestOptions) (res []MultipleQueryRes, err error)
 
+	// MultipleGetObjects retrieves objects, based on their objectID, from
+	// multiple indices in a single call.
+	MultipleGetObjects(requests []IndexedGetObject) (res MultipleGetObjectsRes, err error)
+
+	// MultipleGetObjectsWithRequestOptions is the same as MultipleGetObjects but it
+	// also accepts extra RequestOptions.
+	MultipleGetObjectsWithRequestOptions(requests []IndexedGetObject, opts *RequestOptions) (res MultipleGetObjectsRes, err error)
+
 	// List all available clusters for the application.
 	ListClusters() (res []Cluster, err error)
 

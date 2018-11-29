@@ -272,6 +272,21 @@ func (c *client) MultipleQueriesWithRequestOptions(queries []IndexedQuery, strat
 	return
 }
 
+func (c *client) MultipleGetObjects(requests []IndexedGetObject) (res MultipleGetObjectsRes, err error) {
+	return c.MultipleGetObjectsWithRequestOptions(requests, nil)
+}
+
+func (c *client) MultipleGetObjectsWithRequestOptions(requests []IndexedGetObject, opts *RequestOptions) (res MultipleGetObjectsRes, err error) {
+	if requests == nil || len(requests) == 0 {
+		return
+	}
+	body := Map{
+		"requests": requests,
+	}
+	err = c.request(&res, "POST", "/1/indexes/*/objects", body, search, opts)
+	return
+}
+
 func (c *client) ListClusters() (res []Cluster, err error) {
 	return c.ListClustersWithRequestOptions(nil)
 }
