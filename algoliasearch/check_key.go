@@ -6,6 +6,7 @@ func checkGenerateSecuredAPIKey(params Map) error {
 		"restrictSources",
 		"userToken",
 		"validUntil",
+		"referers",
 	); err != nil {
 		return err
 	}
@@ -20,6 +21,11 @@ func checkGenerateSecuredAPIKey(params Map) error {
 		case "validUntil":
 			if _, ok := v.(int); !ok {
 				return invalidType(k, "int")
+			}
+
+		case "referers":
+			if _, ok := v.([]string); !ok {
+				return invalidType(k, "[]string")
 			}
 
 		default:
