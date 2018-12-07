@@ -1,5 +1,16 @@
 # ChangeLog
 
+# [2.26.1](https://github.com/algolia/algoliasearch-client-go/compare/2.26.0...2.26.1) (2018-12-07)
+
+### Summary
+
+Quick fix release removing a wrongly inserted deprecation note on
+`Client.MoveIndex{WithRequestOptions}`.
+
+### Changes
+
+- **fix:** Remove wrong deprecation of `Client.MoveIndex{WithRequestOptions}` ([c5465a5](https://github.com/algolia/algoliasearch-client-go/commit/c5465a5))
+
 # [2.26.0](https://github.com/algolia/algoliasearch-client-go/compare/2.25.0...2.26.0) (2018-12-07)
 
 ### Summary
