@@ -1,5 +1,42 @@
 # ChangeLog
 
+# [2.26.0](https://github.com/algolia/algoliasearch-client-go/compare/2.25.0...2.26.0) (2018-12-07)
+
+### Summary
+
+Hello everyone,
+
+Big release this december fixing a lot of issues but mainly adding important
+new features:
+
+ * Support of new features of Query Rules
+ * Add Multi-Cluster Management (MCM) capabilities
+ * Add CopySettings, CopyRules, CopySynonyms functions
+ * Add ReplaceAllObjects, ReplaceAllRules, ReplaceAllSynonyms functions
+ * Add support for cross-application index copy via `Account.CopyIndex`
+
+### Changes
+
+- **fix:** change AddAPIKey type from read to write ([8465764](https://github.com/algolia/algoliasearch-client-go/commit/8465764))
+- **added:** Implement AccountClient.CopyIndex ([ebe51f5](https://github.com/algolia/algoliasearch-client-go/commit/ebe51f5))
+- **changed:** remove extra empty line ([ddc2dbd](https://github.com/algolia/algoliasearch-client-go/commit/ddc2dbd))
+- **changed:** Use the environment variables from our Common Test Suite for testing ([21bf674](https://github.com/algolia/algoliasearch-client-go/commit/21bf674))
+- **added:** Implement Index.GetAppID and Client.GetAppID methods ([04db81f](https://github.com/algolia/algoliasearch-client-go/commit/04db81f))
+- **added:** Implement Index.ReplaceAll{Objects,Rules,Synonyms} ([1c2e61a](https://github.com/algolia/algoliasearch-client-go/commit/1c2e61a))
+- **deprecated:** Index.{Delete,Clear} replaced by Client.{Delete,Clear}Index ([799eff0](https://github.com/algolia/algoliasearch-client-go/commit/799eff0))
+- **added:** Implement Client.Copy{Settings,Synonyms,Rules} ([70ffd7d](https://github.com/algolia/algoliasearch-client-go/commit/70ffd7d))
+- **deprecated:** Index.{Copy,Move} replaced by Client.{Copy,Move}Index ([e1d3d27](https://github.com/algolia/algoliasearch-client-go/commit/e1d3d27))
+- **changed:** Deprecate Index.Move method in favor of Index.MoveTo ([0c7497a](https://github.com/algolia/algoliasearch-client-go/commit/0c7497a))
+- **deprecated:** Client.MoveIndex in favor of Index.Move ([31d9996](https://github.com/algolia/algoliasearch-client-go/commit/31d9996))
+- **added:** Add tests for MCM ([52eecbe](https://github.com/algolia/algoliasearch-client-go/commit/52eecbe))
+- **added:** Introduce Multi Cluster Management (MCM) ([53ff241](https://github.com/algolia/algoliasearch-client-go/commit/53ff241))
+- **fix:** objectID is required to deleteObject ([efff124](https://github.com/algolia/algoliasearch-client-go/commit/efff124))
+- **fix:** Add missing types for `facetFilters` ([f71d328](https://github.com/algolia/algoliasearch-client-go/commit/f71d328))
+- **test:** Add tests for Query Rules v2 ([b76d198](https://github.com/algolia/algoliasearch-client-go/commit/b76d198))
+- **feat:** Implement Query Rules v2 ([9bf1d31](https://github.com/algolia/algoliasearch-client-go/commit/9bf1d31))
+- **chore:** Add mitchellh/mapstructure for tests ([47339c0](https://github.com/algolia/algoliasearch-client-go/commit/47339c0))
+- **chore(md):** Update contribution-related files ([83eef94](https://github.com/algolia/algoliasearch-client-go/commit/83eef94))
+
 # [2.25.0](https://github.com/algolia/algoliasearch-client-go/compare/2.24.0...2.25.0) (2018-09-06)
 
 ### Summary
