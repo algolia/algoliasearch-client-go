@@ -84,14 +84,10 @@ type Client interface {
 	ListAPIKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error)
 
 	// MoveIndex renames the index named `source` as `destination`.
-	//
-	// Deprecated: Use Index.MoveTo instead.
 	MoveIndex(source, destination string) (UpdateTaskRes, error)
 
 	// MoveIndexWithRequestOptions is the same as MoveIndex but it also accepts
 	// extra RequestOptions.
-	//
-	// Deprecated: Use Index.MoveToWithRequestOptions instead.
 	MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// CopyIndex duplicates the index named `source` as `destination`.
