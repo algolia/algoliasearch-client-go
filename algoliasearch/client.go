@@ -172,7 +172,7 @@ func (c *client) AddAPIKeyWithRequestOptions(ACL []string, params Map, opts *Req
 		return
 	}
 
-	err = c.request(&res, "POST", "/1/keys/", req, read, opts)
+	err = c.request(&res, "POST", "/1/keys/", req, write, opts)
 	return
 }
 
