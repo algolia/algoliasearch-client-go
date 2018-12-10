@@ -80,6 +80,10 @@ func (c *client) InitAnalytics() Analytics {
 	return NewAnalytics(c)
 }
 
+func (c *client) InitInsights() Insights {
+	return NewInsights(c)
+}
+
 func (c *client) ListKeys() (keys []Key, err error) {
 	return c.ListAPIKeys()
 }
