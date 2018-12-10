@@ -22,6 +22,7 @@ const (
 	DefaultReadTimeout      = 5 * time.Second
 	DefaultWriteTimeout     = 30 * time.Second
 	DefaultAnalyticsTimeout = 30 * time.Second
+	DefaultInsightsTimeout  = 30 * time.Second
 
 	Success Outcome = iota
 	Failure
@@ -53,7 +54,7 @@ type RetryStrategy interface {
 	// SetTimeouts updates the internal timeouts for read, write (i.e.
 	// indexing) and analytics calls. Negative values are simply ignored,
 	// leaving the original timeouts unchanged.
-	SetTimeouts(read, write, analytics time.Duration)
+	SetTimeouts(read, write, analytics, insights time.Duration)
 }
 
 type retryStrategy struct {
@@ -62,6 +63,7 @@ type retryStrategy struct {
 	readTimeout      time.Duration
 	writeTimeout     time.Duration
 	analyticsTimeout time.Duration
+	insightsTimeout  time.Duration
 }
 
 type statefulHost struct {
@@ -107,12 +109,14 @@ func NewRetryStrategy(appID string, providedHosts []string) *retryStrategy {
 		)...)
 	}
 	allHosts = append(allHosts, &statefulHost{host: "analytics.algolia.com", lastUpdate: now, accept: call.IsAnalytics})
+	allHosts = append(allHosts, &statefulHost{host: "insights.algolia.io", lastUpdate: now, accept: call.IsInsights})
 
 	return &retryStrategy{
 		hosts:            allHosts,
 		readTimeout:      DefaultReadTimeout,
 		writeTimeout:     DefaultWriteTimeout,
 		analyticsTimeout: DefaultAnalyticsTimeout,
+		insightsTimeout:  DefaultInsightsTimeout,
 	}
 }
 
@@ -131,6 +135,8 @@ func (s *retryStrategy) GetTryableHosts(k call.Kind) []TryableHost {
 		baseTimeout = s.writeTimeout
 	case call.Analytics:
 		baseTimeout = s.analyticsTimeout
+	case call.Insights:
+		baseTimeout = s.insightsTimeout
 	default:
 		return nil
 	}
@@ -176,7 +182,7 @@ func (s *retryStrategy) Decide(h TryableHost, code int, err error) Outcome {
 	return Failure
 }
 
-func (s *retryStrategy) SetTimeouts(read, write, analytics time.Duration) {
+func (s *retryStrategy) SetTimeouts(read, write, analytics, insights time.Duration) {
 	s.Lock()
 	defer s.Unlock()
 
@@ -188,6 +194,9 @@ func (s *retryStrategy) SetTimeouts(read, write, analytics time.Duration) {
 	}
 	if analytics > 0 {
 		s.analyticsTimeout = analytics
+	}
+	if insights > 0 {
+		s.insightsTimeout = insights
 	}
 }
 

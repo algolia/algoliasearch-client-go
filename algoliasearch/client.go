@@ -47,9 +47,10 @@ func (c *client) SetTimeout(connectTimeout, readTimeout int) {
 	// configurable.
 	c.SetReadTimeout(time.Duration(readTimeout) * time.Second)
 }
-func (c *client) SetReadTimeout(t time.Duration)      { c.transport.setTimeouts(t, -1, -1) }
-func (c *client) SetWriteTimeout(t time.Duration)     { c.transport.setTimeouts(-1, t, -1) }
-func (c *client) SetAnalyticsTimeout(t time.Duration) { c.transport.setTimeouts(-1, -1, t) }
+func (c *client) SetReadTimeout(t time.Duration)      { c.transport.setTimeouts(t, -1, -1, -1) }
+func (c *client) SetWriteTimeout(t time.Duration)     { c.transport.setTimeouts(-1, t, -1, -1) }
+func (c *client) SetAnalyticsTimeout(t time.Duration) { c.transport.setTimeouts(-1, -1, t, -1) }
+func (c *client) SetInsightsTimeout(t time.Duration)  { c.transport.setTimeouts(-1, -1, -1, t) }
 
 func (c *client) SetMaxIdleConnsPerHosts(maxIdleConnsPerHost int) {
 	c.transport.setMaxIdleConnsPerHost(maxIdleConnsPerHost)
