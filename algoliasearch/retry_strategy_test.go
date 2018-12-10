@@ -194,8 +194,9 @@ func TestRetryStrategy_Concurrent(t *testing.T) {
 		readTimeout      = 1 * time.Second
 		writeTimeout     = 2 * time.Second
 		analyticsTimeout = 3 * time.Second
+		insightsTimeout  = 4 * time.Second
 	)
-	strategy.SetTimeouts(readTimeout, writeTimeout, analyticsTimeout)
+	strategy.SetTimeouts(readTimeout, writeTimeout, analyticsTimeout, insightsTimeout)
 
 	for i := 0; i < 1000; i++ {
 		wg.Add(2)
@@ -214,12 +215,16 @@ func TestRetryStrategy_Concurrent(t *testing.T) {
 			hosts = strategy.GetTryableHosts(call.Analytics)
 			require.ElementsMatch(t, expected, hosts)
 
+			expected = []TryableHost{&tryableHost{"insights.algolia.io", insightsTimeout}}
+			hosts = strategy.GetTryableHosts(call.Insights)
+			require.ElementsMatch(t, expected, hosts)
+
 		}(&wg)
 
 		go func(wg *sync.WaitGroup) {
 			defer wg.Done()
 
-			strategy.SetTimeouts(readTimeout, writeTimeout, analyticsTimeout)
+			strategy.SetTimeouts(readTimeout, writeTimeout, analyticsTimeout, insightsTimeout)
 		}(&wg)
 	}
 
