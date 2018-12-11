@@ -2,12 +2,13 @@ package algoliasearch
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/require"
 	"os"
 	"strings"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestClientOperations(t *testing.T) {
@@ -453,7 +454,7 @@ func TestMultiClusterManagement(t *testing.T) {
 		require.NoError(t, err)
 		for _, u := range res.UserIDs {
 			userID := u.ID
-			if (strings.HasPrefix(userID, userIDPrefix)) {
+			if strings.HasPrefix(userID, userIDPrefix) {
 				existingUserIDs = append(existingUserIDs, userID)
 				_, err = client.RemoveUserID(u.ID)
 				require.NoError(t, err)
@@ -467,7 +468,7 @@ func TestMultiClusterManagement(t *testing.T) {
 
 			for _, u := range res.UserIDs {
 				userID := u.ID
-				if (strings.HasPrefix(userID, userIDPrefix)) {
+				if strings.HasPrefix(userID, userIDPrefix) {
 					existingUserIDs = append(existingUserIDs, userID)
 				}
 			}
@@ -494,6 +495,40 @@ func TestMultiClusterManagement(t *testing.T) {
 			}
 			time.Sleep(time.Second)
 		}
+	}
+
+}
+
+func TestPersonalizationStrategy(t *testing.T) {
+	t.Parallel()
+
+	c := initClient(t)
+
+	strategy := Strategy{
+		EventsScoring: map[string]ScoreType{
+			"Add to cart": {50, "conversion"},
+			"Purchase":    {99, "conversion"},
+		},
+		FacetsScoring: map[string]Score{
+			"brand":      {100},
+			"categories": {100},
+		},
+	}
+
+	{
+		_, err := c.SetPersonalizationStrategy(strategy)
+		require.NoError(t, err)
+	}
+
+	{
+		found, err := c.GetPersonalizationStrategy()
+		require.NoError(t, err)
+
+		fmt.Printf("%#v\n", strategy)
+		fmt.Println("===")
+		fmt.Printf("%#v\n", found)
+
+		require.Equal(t, strategy, found)
 	}
 
 }

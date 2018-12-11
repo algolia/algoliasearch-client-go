@@ -437,15 +437,32 @@ func (c *client) CopySynonymsWithRequestOptions(source, destination string, opts
 	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"synonyms"}, opts)
 }
 
-// CopySettings copies the rules from the source index to the destination index.
 func (c *client) CopyRules(source, destination string) (UpdateTaskRes, error) {
 	return c.CopyRulesWithRequestOptions(source, destination, nil)
 }
 
-// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
-// extra RequestOptions.
 func (c *client) CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
 	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"rules"}, opts)
+}
+
+func (c *client) SetPersonalizationStrategy(strategy Strategy) (SetStrategyRes, error) {
+	return c.SetPersonalizationStrategyWithRequestOptions(strategy, nil)
+}
+
+func (c *client) SetPersonalizationStrategyWithRequestOptions(strategy Strategy, opts *RequestOptions) (res SetStrategyRes, err error) {
+	path := "/1/recommendation/personalization/strategy"
+	err = c.request(&res, "POST", path, strategy, write, opts)
+	return
+}
+
+func (c *client) GetPersonalizationStrategy() (Strategy, error) {
+	return c.GetPersonalizationStrategyWithRequestOptions(nil)
+}
+
+func (c *client) GetPersonalizationStrategyWithRequestOptions(opts *RequestOptions) (strategy Strategy, err error) {
+	path := "/1/recommendation/personalization/strategy"
+	err = c.request(&strategy, "GET", path, nil, read, opts)
+	return
 }
 
 func (c *client) request(res interface{}, method, path string, body interface{}, typeCall int, opts *RequestOptions) error {
