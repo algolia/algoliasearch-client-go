@@ -304,6 +304,22 @@ type Client interface {
 	// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
 	// extra RequestOptions.
 	CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// SetPersonalizationStrategy allows to set the inner strategies related to the
+	// Personalization features.
+	SetPersonalizationStrategy(strategy Strategy) (SetStrategyRes, error)
+
+	// SetPersonalizationStrategyWithRequestOptions is the same as SetPersonalizationStrategy but it also
+	// accepts extra RequestOptions.
+	SetPersonalizationStrategyWithRequestOptions(strategy Strategy, opts *RequestOptions) (SetStrategyRes, error)
+
+	// GetPersonalizationStrategy retrieves the inner strategies related to the Personalization
+	// features.
+	GetPersonalizationStrategy() (Strategy, error)
+
+	// GetPersonalizationStrategyWithRequestOptions is the same as GetPersonalizationStrategy but it also
+	// accepts extra RequestOptions.
+	GetPersonalizationStrategyWithRequestOptions(opts *RequestOptions) (Strategy, error)
 }
 
 // Index is a representation used to manipulate an Algolia index.
