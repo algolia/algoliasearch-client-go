@@ -66,7 +66,8 @@ Outer:
 			"facetingAfterDistinct",
 			"restrictHighlightAndSnippetArrays",
 			"percentileComputation",
-			"sumOrFiltersScores":
+			"sumOrFiltersScores",
+			"enablePersonalization":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}
