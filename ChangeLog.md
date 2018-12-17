@@ -1,5 +1,24 @@
 # ChangeLog
 
+# [2.27.0](https://github.com/algolia/algoliasearch-client-go/compare/2.26.1...2.27.0) (2018-12-17)
+
+### Summary
+
+Hello everyone,
+
+Quick release of the new Insights Client which will let you interact with the
+Insights API, responsible for handling the interactions with Algolia
+Insights services. This new version also adds support for the setting and
+retrieving the Personalization strategy of an Algolia application.
+
+### Changes
+
+- **added:** Implement Personalization-related methods ([0ab7e0b](https://github.com/algolia/algoliasearch-client-go/commit/0ab7e0b))
+- **added:** Implement Insights client and related methods ([0d8fdd3](https://github.com/algolia/algoliasearch-client-go/commit/0d8fdd3))
+- **changed:** Handle calls to https://insights.algolia.io in transport layer ([0ef2010](https://github.com/algolia/algoliasearch-client-go/commit/0ef2010))
+- **removed:** Delete useless Secured API Key tests (better covered in CTS in the v3) ([713245f](https://github.com/algolia/algoliasearch-client-go/commit/713245f))
+- **chore:** Remove useless Glide configuration ([a8eb049](https://github.com/algolia/algoliasearch-client-go/commit/a8eb049))
+
 # [2.26.1](https://github.com/algolia/algoliasearch-client-go/compare/2.26.0...2.26.1) (2018-12-07)
 
 ### Summary
