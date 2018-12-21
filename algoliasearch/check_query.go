@@ -34,7 +34,8 @@ Outer:
 			"disableTypoToleranceOnAttributes",
 			"explain",
 			"queryLanguages",
-			"responseFields":
+			"responseFields",
+			"advancedSyntaxFeatures":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
