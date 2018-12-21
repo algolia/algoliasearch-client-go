@@ -189,7 +189,8 @@ func settingsAreEqualByStringSlices(s1, s2 Settings) bool {
 		stringSlicesAreEqual(s1.AttributesToHighlight, s2.AttributesToHighlight) &&
 		stringSlicesAreEqual(s1.AttributesToRetrieve, s2.AttributesToRetrieve) &&
 		stringSlicesAreEqual(s1.AttributesToSnippet, s2.AttributesToSnippet) &&
-		stringSlicesAreEqual(s1.OptionalWords, s2.OptionalWords)
+		stringSlicesAreEqual(s1.OptionalWords, s2.OptionalWords) &&
+		stringSlicesAreEqual(s1.AdvancedSyntaxFeatures, s2.AdvancedSyntaxFeatures)
 }
 
 // convertInterfaceSliceToStringSlice converts the input interface{} slice into
@@ -304,6 +305,7 @@ func TestSettings(t *testing.T) {
 
 	expectedSettings := Settings{
 		AdvancedSyntax:                   true,
+		AdvancedSyntaxFeatures:           []string{"exactPhrase", "excludeWords"},
 		AllowCompressionOfIntegerArray:   false,
 		AllowTyposOnNumericTokens:        false,
 		AttributeForDistinct:             "attribute",
@@ -344,6 +346,7 @@ func TestSettings(t *testing.T) {
 
 	mapSettings := Map{
 		"advancedSyntax":                   true,
+		"advancedSyntaxFeatures":           []string{"exactPhrase", "excludeWords"},
 		"allowCompressionOfIntegerArray":   false,
 		"allowTyposOnNumericTokens":        false,
 		"attributeForDistinct":             "attribute",

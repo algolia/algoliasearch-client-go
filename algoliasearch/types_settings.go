@@ -34,6 +34,7 @@ type Settings struct {
 
 	// Default query parameters (can be overridden at query-time)
 	AdvancedSyntax                    bool        `json:"advancedSyntax"`
+	AdvancedSyntaxFeatures            []string    `json:"advancedSyntaxFeatures"`
 	AllowTyposOnNumericTokens         bool        `json:"allowTyposOnNumericTokens"`
 	AttributesToHighlight             []string    `json:"attributesToHighlight"`
 	AttributesToRetrieve              []string    `json:"attributesToRetrieve"`
@@ -128,6 +129,7 @@ func (s *Settings) ToMap() Map {
 
 		// Default query parameters (can be overridden at query-time)
 		"advancedSyntax":                    s.AdvancedSyntax,
+		"advancedSyntaxFeatures":            s.AdvancedSyntaxFeatures,
 		"allowTyposOnNumericTokens":         s.AllowTyposOnNumericTokens,
 		"attributesToHighlight":             s.AttributesToHighlight,
 		"attributesToRetrieve":              s.AttributesToRetrieve,
