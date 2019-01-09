@@ -34,22 +34,29 @@ func New(
 	apiKey string,
 	readTimeout time.Duration,
 	writeTimeout time.Duration,
+	defaultHeaders map[string]string,
 ) *Transport {
 
 	if requester == nil {
 		requester = newDefaultRequester()
 	}
 
+	headers := map[string]string{
+		"Connection":               "Keep-Alive",
+		"Content-Type":             "application/json; charset=utf-8",
+		"User-Agent":               fmt.Sprintf("Algolia for Go (%s); Go (%s); ", version, runtime.Version()),
+		"X-Algolia-Application-Id": appID,
+		"X-Algolia-API-Key":        apiKey,
+	}
+
+	for k, v := range defaultHeaders {
+		headers[k] = v
+	}
+
 	return &Transport{
 		requester:     requester,
 		retryStrategy: newRetryStrategy(hosts, readTimeout, writeTimeout),
-		headers: map[string]string{
-			"Connection":               "Keep-Alive",
-			"Content-Type":             "application/json; charset=utf-8",
-			"User-Agent":               fmt.Sprintf("Algolia for Go (%s); Go (%s); ", version, runtime.Version()),
-			"X-Algolia-Application-Id": appID,
-			"X-Algolia-API-Key":        apiKey,
-		},
+		headers:       headers,
 	}
 }
 

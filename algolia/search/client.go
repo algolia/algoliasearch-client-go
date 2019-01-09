@@ -45,6 +45,7 @@ func NewClient(config Configuration) *Client {
 			config.ApiKey,
 			config.ReadTimeout,
 			config.WriteTimeout,
+			config.Headers,
 		),
 	}
 }

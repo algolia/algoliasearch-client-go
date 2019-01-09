@@ -14,4 +14,5 @@ type Configuration struct {
 	Requester    transport.Requester
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
+	Headers      map[string]string
 }
