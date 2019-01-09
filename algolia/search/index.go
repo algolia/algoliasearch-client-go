@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/iterator"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/rand"

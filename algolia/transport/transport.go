@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
@@ -86,23 +87,23 @@ func (t *Transport) Request(
 		}
 	}
 
-	return NoMoreHostToTryErr
+	return errs.NoMoreHostToTry
 }
 
 func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
 	res, err := t.requester.Request(req)
 
 	if err != nil {
-		msg := fmt.Sprintf("cannot perform request %s %s: %s", req.Method, req.URL, err)
+		msg := fmt.Sprintf("cannot perform request:\n\terror=%v\n\tmethod=%s\n\turl=%s", err, req.Method, req.URL)
 		nerr, ok := err.(net.Error)
 		if ok {
 			// Because net.Error and error have different meanings for the
 			// retry strategy, we cannot simply return a new error, which
 			// would make all net.Error simple errors instead. To keep this
-			// behaviour, we wrap the message into a custom NetError that
+			// behaviour, we wrap the message into a custom netError that
 			// implements the net.Error interface if the original error was
 			// already a net.Error.
-			return nil, 0, NewNetError(nerr, msg)
+			return nil, 0, errs.NetError(nerr, msg)
 		} else {
 			return nil, 0, errors.New(msg)
 		}
