@@ -8,7 +8,7 @@ func NewSearchClient(appID, apiKey string) *search.Client {
 	return NewSearchClientWithConfig(
 		search.Configuration{
 			AppID:  appID,
-			ApiKey: apiKey,
+			APIKey: apiKey,
 		},
 	)
 }

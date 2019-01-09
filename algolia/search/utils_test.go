@@ -9,16 +9,16 @@ import (
 
 type CompanyWithCorrectObjectID struct {
 	ObjectID string `json:"objectID"`
-	Company  string `json:"company"'`
+	Company  string `json:"company"`
 }
 
 type CompanyWithWrongObjectID struct {
 	ObjectID string `json:"objectid"`
-	Company  string `json:"company"'`
+	Company  string `json:"company"`
 }
 
 type CompanyWithoutObjectID struct {
-	Company string `json:"company"'`
+	Company string `json:"company"`
 }
 
 type CompanyWithCustomerSerializer struct {

@@ -42,7 +42,7 @@ func NewClient(config Configuration) *Client {
 			hosts,
 			config.Requester,
 			config.AppID,
-			config.ApiKey,
+			config.APIKey,
 			config.ReadTimeout,
 			config.WriteTimeout,
 			config.Headers,

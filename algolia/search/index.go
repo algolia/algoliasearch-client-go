@@ -57,7 +57,7 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (res UpdateTaskRes, err error) {
 	objectID, ok := getObjectID(object)
 	if !ok {
-		err = errs.MissingObjectID
+		err = errs.ErrMissingObjectID
 		res.wait = noWait
 		return
 	}
@@ -75,48 +75,49 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 }
 
 func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
-	createIfNotExists := opt.ExtractCreateIfNotExists(opts...)
+	var (
+		action            BatchAction
+		createIfNotExists = opt.ExtractCreateIfNotExists(opts...)
+	)
 
 	if createIfNotExists {
-		return i.Batch(objects, PartialUpdateObject, opts...)
+		action = PartialUpdateObject
 	} else {
-		return i.Batch(objects, PartialUpdateObjectNoCreate, opts...)
+		action = PartialUpdateObjectNoCreate
 	}
+
+	return i.Batch(objects, action, opts...)
 }
 
-func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface{}) (res MultipleBatchRes, err error) {
+func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface{}) (MultipleBatchRes, error) {
 	var (
-		object     interface{}
 		batch      []interface{}
 		operations []BatchOperation
 		response   BatchRes
+		res        MultipleBatchRes
 	)
 
 	it := iterator.New(objects)
 	autoGenerateObjectIDIfNotExist := opt.ExtractAutoGenerateObjectIDIfNotExist(opts...)
 
 	for {
-		object, err = it.Next()
+		object, err := it.Next()
 		if err != nil {
-			err = fmt.Errorf("iteration failed unexpectedly: %v", err)
-			return
+			return res, fmt.Errorf("iteration failed unexpectedly: %v", err)
 		}
 
 		if !autoGenerateObjectIDIfNotExist && object != nil && !hasObjectID(object) {
-			err = fmt.Errorf("missing objectID in object %#v", object)
-			return
+			return res, fmt.Errorf("missing objectID in object %#v", object)
 		}
 
 		if len(batch) >= i.maxBatchSize || object == nil {
 			operations, err = newOperationBatch(batch, action)
 			if err != nil {
-				err = fmt.Errorf("could not generate intermediate batch: %v", err)
-				return
+				return res, fmt.Errorf("could not generate intermediate batch: %v", err)
 			}
 			response, err = i.batch(operations, opts...)
 			if err != nil {
-				err = fmt.Errorf("could not send intermediate batch: %v", err)
-				return
+				return res, fmt.Errorf("could not send intermediate batch: %v", err)
 			}
 			res.responses = append(res.responses, response)
 		} else {
@@ -128,7 +129,7 @@ func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface
 		}
 	}
 
-	return
+	return res, nil
 }
 
 func (i *Index) batch(operations []BatchOperation, opts ...interface{}) (res BatchRes, err error) {

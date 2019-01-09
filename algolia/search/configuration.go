@@ -8,7 +8,7 @@ import (
 
 type Configuration struct {
 	AppID        string
-	ApiKey       string
+	APIKey       string
 	Hosts        []string
 	MaxBatchSize int
 	Requester    transport.Requester

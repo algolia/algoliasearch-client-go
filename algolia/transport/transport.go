@@ -77,12 +77,16 @@ func (t *Transport) Request(
 	)
 
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
-		req, err := buildRequest(ctx, method, h.host, path, body, headers, urlParams, h.timeout)
+		req, err := buildRequest(method, h.host, path, body, headers, urlParams)
 		if err != nil {
 			return err
 		}
 
+		// Handle per-request timeout by using a context with timeout
+		perRequestCtx, cancel := context.WithTimeout(ctx, h.timeout)
+		req = req.WithContext(perRequestCtx)
 		body, code, err := t.request(req)
+		cancel()
 
 		switch t.retryStrategy.Decide(h, code, err) {
 		case Success:
@@ -94,7 +98,7 @@ func (t *Transport) Request(
 		}
 	}
 
-	return errs.NoMoreHostToTry
+	return errs.ErrNoMoreHostToTry
 }
 
 func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
@@ -110,10 +114,11 @@ func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
 			// behaviour, we wrap the message into a custom netError that
 			// implements the net.Error interface if the original error was
 			// already a net.Error.
-			return nil, 0, errs.NetError(nerr, msg)
+			err = errs.NetError(nerr, msg)
 		} else {
-			return nil, 0, errors.New(msg)
+			err = errors.New(msg)
 		}
+		return nil, 0, err
 	}
 
 	return res.Body, res.StatusCode, nil
@@ -133,13 +138,11 @@ func mergeHeaders(defaultHeaders, extraHeaders map[string]string) map[string]str
 }
 
 func buildRequest(
-	ctx context.Context,
 	method string,
 	host string, path string,
 	body interface{},
 	headers map[string]string,
 	urlParams map[string]string,
-	timeout time.Duration,
 ) (req *http.Request, err error) {
 
 	urlStr := "https://" + host + path
@@ -179,10 +182,6 @@ func buildRequest(
 			Opaque: "//" + host + path, // Remove url encoding
 		}
 	}
-
-	// Handle per-request timeout by using a context with timeout
-	ctx, _ = context.WithTimeout(ctx, timeout)
-	req = req.WithContext(ctx)
 
 	return req, nil
 }
