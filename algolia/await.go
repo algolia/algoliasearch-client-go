@@ -23,9 +23,7 @@ func Wait(waitables ...Waitable) error {
 
 func (a *await) Collect(waitables ...Waitable) {
 	a.Lock()
-	for _, w := range waitables {
-		a.waitables = append(a.waitables, w)
-	}
+	a.waitables = append(a.waitables, waitables...)
 	a.Unlock()
 }
 
