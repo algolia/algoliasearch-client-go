@@ -1,14 +1,14 @@
 package opt
 
-type createIfNotExist struct{ value bool }
+type createIfNotExists struct{ value bool }
 
-func CreateIfNotExist(v bool) createIfNotExist {
-	return createIfNotExist{v}
+func CreateIfNotExists(v bool) createIfNotExists {
+	return createIfNotExists{v}
 }
 
-func ExtractCreateIfNotExist(opts ...interface{}) bool {
+func ExtractCreateIfNotExists(opts ...interface{}) bool {
 	for _, opt := range opts {
-		v, ok := opt.(createIfNotExist)
+		v, ok := opt.(createIfNotExists)
 		if ok {
 			return v.value
 		}
