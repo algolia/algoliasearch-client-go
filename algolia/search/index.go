@@ -3,6 +3,7 @@ package search
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
@@ -50,10 +51,44 @@ func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObj
 }
 
 func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
+	return i.Batch(objects, AddObject, opts...)
+}
+
+func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (res UpdateTaskRes, err error) {
+	objectID, ok := getObjectID(object)
+	if !ok {
+		err = errs.MissingObjectID
+		res.wait = noWait
+		return
+	}
+
+	createIfNotExists := opt.ExtractCreateIfNotExists(opts...)
+
+	path := i.path("/" + url.QueryEscape(objectID) + "/partial")
+	if !createIfNotExists {
+		path += "?createIfNotExists=false"
+	}
+
+	err = i.transport.Request(&res, "POST", path, object, call.Write, opts...)
+	res.wait = i.waitTask
+	return
+}
+
+func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
+	createIfNotExists := opt.ExtractCreateIfNotExists(opts...)
+
+	if createIfNotExists {
+		return i.Batch(objects, PartialUpdateObject, opts...)
+	} else {
+		return i.Batch(objects, PartialUpdateObjectNoCreate, opts...)
+	}
+}
+
+func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface{}) (res MultipleBatchRes, err error) {
 	var (
 		object     interface{}
 		batch      []interface{}
-		operations []Batch
+		operations []BatchOperation
 		response   BatchRes
 	)
 
@@ -73,12 +108,12 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 		}
 
 		if len(batch) >= i.maxBatchSize || object == nil {
-			operations, err = newOperationBatch(batch, AddObject)
+			operations, err = newOperationBatch(batch, action)
 			if err != nil {
 				err = fmt.Errorf("could not generate intermediate batch: %v", err)
 				return
 			}
-			response, err = i.Batch(operations, opts...)
+			response, err = i.batch(operations, opts...)
 			if err != nil {
 				err = fmt.Errorf("could not send intermediate batch: %v", err)
 				return
@@ -96,9 +131,9 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 	return
 }
 
-func (i *Index) Batch(operations []Batch, opts ...interface{}) (res BatchRes, err error) {
+func (i *Index) batch(operations []BatchOperation, opts ...interface{}) (res BatchRes, err error) {
 	path := i.path("/batch")
-	body := map[string][]Batch{
+	body := map[string][]BatchOperation{
 		"requests": operations,
 	}
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)

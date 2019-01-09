@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type Batch struct {
+type BatchOperation struct {
 	Action BatchAction `json:"action"`
 	Body   interface{} `json:"body,omitempty"`
 }
@@ -21,8 +21,8 @@ const (
 	Clear                       BatchAction = "clear"
 )
 
-func newOperationBatch(objects []interface{}, action BatchAction) ([]Batch, error) {
-	operations := make([]Batch, len(objects))
+func newOperationBatch(objects []interface{}, action BatchAction) ([]BatchOperation, error) {
+	operations := make([]BatchOperation, len(objects))
 
 	for i, o := range objects {
 		// If the action is neither an `addObject` nor a `clear`, the

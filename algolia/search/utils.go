@@ -21,6 +21,10 @@ func defaultHosts(appID string) (hosts []*transport.StatefulHost) {
 	return
 }
 
+func noWait(_ int) error {
+	return nil
+}
+
 func getObjectID(object interface{}) (string, bool) {
 	data, err := json.Marshal(object)
 	if err != nil {
