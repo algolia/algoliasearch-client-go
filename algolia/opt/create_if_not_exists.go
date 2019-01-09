@@ -13,5 +13,5 @@ func ExtractCreateIfNotExists(opts ...interface{}) bool {
 			return v.value
 		}
 	}
-	return false
+	return true
 }
