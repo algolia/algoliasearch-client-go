@@ -49,17 +49,14 @@ func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObj
 }
 
 func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
-	it := iterator.New(objects)
-
 	var (
 		object     interface{}
 		batch      []interface{}
 		operations []Batch
 		response   BatchRes
-		responses  []BatchRes
-		batchID    int
 	)
 
+	it := iterator.New(objects)
 	autoGenerateObjectIDIfNotExist := opt.ExtractAutoGenerateObjectIDIfNotExist(opts...)
 
 	for {
@@ -69,7 +66,7 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 			return
 		}
 
-		if !autoGenerateObjectIDIfNotExist && !hasObjectIDField(object) {
+		if !autoGenerateObjectIDIfNotExist && object != nil && !hasObjectIDField(object) {
 			err = fmt.Errorf("missing objectID in object %#v", object)
 			return
 		}
@@ -77,16 +74,15 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 		if len(batch) >= i.maxBatchSize || object == nil {
 			operations, err = newOperationBatch(batch, AddObject)
 			if err != nil {
-				err = fmt.Errorf("could not generate intermediate batch:\n\terror=%v\n\tbatchID=%d", err, batchID)
+				err = fmt.Errorf("could not generate intermediate batch: %v", err)
 				return
 			}
 			response, err = i.Batch(operations, opts...)
 			if err != nil {
-				err = fmt.Errorf("could not send intermediate batch:\n\terror=%v\n\tbatchID=%d", err, batchID)
+				err = fmt.Errorf("could not send intermediate batch: %v", err)
 				return
 			}
-			responses = append(responses, response)
-			batchID++
+			res.responses = append(res.responses, response)
 		} else {
 			batch = append(batch, object)
 		}
@@ -96,7 +92,6 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 		}
 	}
 
-	res = MultipleBatchRes{responses: responses}
 	return
 }
 
