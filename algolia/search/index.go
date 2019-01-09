@@ -66,7 +66,7 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 			return
 		}
 
-		if !autoGenerateObjectIDIfNotExist && object != nil && !hasObjectIDField(object) {
+		if !autoGenerateObjectIDIfNotExist && object != nil && !hasObjectID(object) {
 			err = fmt.Errorf("missing objectID in object %#v", object)
 			return
 		}

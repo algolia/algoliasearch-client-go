@@ -27,7 +27,7 @@ func newOperationBatch(objects []interface{}, action BatchAction) ([]Batch, erro
 	for i, o := range objects {
 		// If the action is neither an `addObject` nor a `clear`, the
 		// `objectID` field is required.
-		if action != AddObject && action != Clear && !hasObjectIDField(o) {
+		if action != AddObject && action != Clear && !hasObjectID(o) {
 			return nil, fmt.Errorf("missing `objectID` field in object %#v (position=%d)", o, i)
 		}
 		operations[i].Action = action

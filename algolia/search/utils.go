@@ -2,6 +2,7 @@ package search
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
@@ -20,25 +21,32 @@ func defaultHosts(appID string) (hosts []*transport.StatefulHost) {
 	return
 }
 
-func hasObjectIDField(object interface{}) bool {
+func getObjectID(object interface{}) (string, bool) {
 	data, err := json.Marshal(object)
 	if err != nil {
-		return false
+		return "", false
 	}
 	var m map[string]interface{}
 	err = json.Unmarshal(data, &m)
 	if err != nil {
-		return false
+		return "", false
 	}
 	objectID, ok := m["objectID"]
 	if !ok {
-		return false
+		return "", false
 	}
 
-	switch objectID.(type) {
-	case string, float64:
-		return true
+	switch v := objectID.(type) {
+	case string:
+		return v, true
+	case float64:
+		return fmt.Sprintf("%d", int(v)), true
 	default:
-		return false
+		return "", false
 	}
+}
+
+func hasObjectID(object interface{}) bool {
+	_, ok := getObjectID(object)
+	return ok
 }

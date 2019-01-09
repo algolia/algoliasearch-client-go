@@ -32,21 +32,21 @@ func (c CompanyWithCustomerSerializer) MarshalJSON() ([]byte, error) {
 
 func TestHasObjectIDField(t *testing.T) {
 	m := map[string]interface{}{"company": "algolia"}
-	require.False(t, hasObjectIDField(m))
+	require.False(t, hasObjectID(m))
 
 	m["objectID"] = 42
-	require.True(t, hasObjectIDField(m))
+	require.True(t, hasObjectID(m))
 
 	m["objectID"] = 42.3
-	require.True(t, hasObjectIDField(m))
+	require.True(t, hasObjectID(m))
 
 	m["objectID"] = "one"
-	require.True(t, hasObjectIDField(m))
+	require.True(t, hasObjectID(m))
 
-	require.False(t, hasObjectIDField(CompanyWithoutObjectID{"algolia"}))
-	require.False(t, hasObjectIDField(CompanyWithWrongObjectID{"one", "algolia"}))
-	require.True(t, hasObjectIDField(CompanyWithCorrectObjectID{"one", "algolia"}))
-	require.True(t, hasObjectIDField(CompanyWithCustomerSerializer{"algolia"}))
+	require.False(t, hasObjectID(CompanyWithoutObjectID{"algolia"}))
+	require.False(t, hasObjectID(CompanyWithWrongObjectID{"one", "algolia"}))
+	require.True(t, hasObjectID(CompanyWithCorrectObjectID{"one", "algolia"}))
+	require.True(t, hasObjectID(CompanyWithCustomerSerializer{"algolia"}))
 
-	require.False(t, hasObjectIDField(nil))
+	require.False(t, hasObjectID(nil))
 }
