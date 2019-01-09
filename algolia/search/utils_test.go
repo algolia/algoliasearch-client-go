@@ -47,4 +47,6 @@ func TestHasObjectIDField(t *testing.T) {
 	require.False(t, hasObjectIDField(CompanyWithWrongObjectID{"one", "algolia"}))
 	require.True(t, hasObjectIDField(CompanyWithCorrectObjectID{"one", "algolia"}))
 	require.True(t, hasObjectIDField(CompanyWithCustomerSerializer{"algolia"}))
+
+	require.False(t, hasObjectIDField(nil))
 }
