@@ -116,6 +116,7 @@ func (s *RetryStrategy) markUp(host Host) {
 	for _, h := range s.hosts {
 		if h.host == host.host {
 			h.markUp()
+			return
 		}
 	}
 }
@@ -124,6 +125,7 @@ func (s *RetryStrategy) markTimeout(host Host) {
 	for _, h := range s.hosts {
 		if h.host == host.host {
 			h.markTimeout()
+			return
 		}
 	}
 }
@@ -132,6 +134,7 @@ func (s *RetryStrategy) markDown(host Host) {
 	for _, h := range s.hosts {
 		if h.host == host.host {
 			h.markDown()
+			return
 		}
 	}
 }
