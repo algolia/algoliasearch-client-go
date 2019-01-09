@@ -23,11 +23,11 @@ func New(itf interface{}) Iterator {
 		for i := 0; i < value.Len(); i++ {
 			slice = append(slice, value.Index(i).Interface())
 		}
-		return NewIteratorFromSlice(slice)
+		return newIteratorFromSlice(slice)
 	default:
 		// Otherwise, the objects is most probably a single object. In that case,
 		// we consider it as a single object and produce a slice with this object
 		// as the sole element, which we also wrap in an iterator.Iterator.
-		return NewIteratorFromSlice([]interface{}{itf})
+		return newIteratorFromSlice([]interface{}{itf})
 	}
 }

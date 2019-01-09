@@ -5,7 +5,7 @@ type sliceIterator struct {
 	pos   int
 }
 
-func NewIteratorFromSlice(slice []interface{}) Iterator {
+func newIteratorFromSlice(slice []interface{}) Iterator {
 	return &sliceIterator{
 		slice: slice,
 		pos:   -1,
