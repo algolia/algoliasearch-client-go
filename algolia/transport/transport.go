@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/debug"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
@@ -101,7 +102,9 @@ func (t *Transport) Request(
 }
 
 func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
+	debug.Print(req)
 	res, err := t.requester.Request(req)
+	debug.Print(res)
 
 	if err != nil {
 		msg := fmt.Sprintf("cannot perform request:\n\terror=%v\n\tmethod=%s\n\turl=%s", err, req.Method, req.URL)
