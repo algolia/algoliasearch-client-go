@@ -70,10 +70,9 @@ func (t *Transport) Request(
 ) error {
 
 	var (
-		ctx            = opt.ExtractContext(opts...)
-		requestOptions = opt.ExtractRequestOptions(opts...)
-		headers        = mergeHeaders(t.headers, requestOptions.ExtraHeaders)
-		urlParams      = requestOptions.ExtraURLParams
+		ctx       = opt.ExtractContext(opts...)
+		headers   = mergeHeaders(t.headers, opt.ExtractExtraHeaders(opts...))
+		urlParams = opt.ExtractExtraURLParams(opts...)
 	)
 
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
