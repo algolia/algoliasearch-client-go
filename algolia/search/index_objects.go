@@ -150,3 +150,32 @@ func (i *Index) batch(operations []BatchOperation, opts ...interface{}) (res Bat
 	res.wait = i.waitTask
 	return
 }
+
+func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
+	if objectID == "" {
+		err = errs.ErrMissingObjectID
+		res.wait = noWait
+		return
+	}
+
+	path := i.path("/" + url.QueryEscape(objectID))
+	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
+	res.wait = i.waitTask
+	return
+}
+
+func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res BatchRes, err error) {
+	objects := make([]interface{}, len(objectIDs))
+
+	for j, id := range objectIDs {
+		objects[j] = map[string]string{"objectID": id}
+	}
+
+	var operations []BatchOperation
+	if operations, err = newOperationBatch(objects, DeleteObject); err == nil {
+		res, err = i.batch(operations, opts...)
+	} else {
+		res.wait = noWait
+	}
+	return
+}

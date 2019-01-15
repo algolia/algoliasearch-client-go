@@ -70,3 +70,13 @@ func (r MultipleBatchRes) Wait() error {
 
 	return nil
 }
+
+type DeleteTaskRes struct {
+	DeletedAt string `json:"deletedAt"`
+	TaskID    int    `json:"taskID"`
+	wait      func(taskID int) error
+}
+
+func (r DeleteTaskRes) Wait() error {
+	return r.wait(r.TaskID)
+}
