@@ -179,3 +179,25 @@ func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res Batc
 	}
 	return
 }
+
+func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
+	var (
+		filters      = opt.ExtractFilters(opts...)
+		facetFilters = opt.ExtractFacetFilters(opts...)
+	)
+
+	body := map[string]interface{}{
+		"filters":           filters,
+		"facetFilters":      facetFilters,
+		"numericFilters":    numericFilters,
+		"aroundLatLng":      aroundLatLng,
+		"aroundRadius":      aroundRadius,
+		"insideBoundingBox": insideBoundingBox,
+		"insidePolygon":     insidePolygon,
+	}
+
+	path := i.path("/deleteByQuery")
+	err = i.transport.Request(&res, http.MethodPost, path, req, call.Write, opts...)
+	res.wait = i.waitTask
+	return
+}
