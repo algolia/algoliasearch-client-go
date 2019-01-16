@@ -2,8 +2,8 @@ package opt
 
 type attributesToRetrieve struct{ value []string }
 
-func AttributesToRetrieve(v []string) *attributesToRetrieve {
-	return &attributesToRetrieve{v}
+func AttributesToRetrieve(v []string) attributesToRetrieve {
+	return attributesToRetrieve{v}
 }
 
 func ExtractAttributesToRetrieve(opts ...interface{}) []string {
@@ -13,7 +13,7 @@ func ExtractAttributesToRetrieve(opts ...interface{}) []string {
 	)
 
 	for _, opt := range opts {
-		v, ok := opt.(*attributesToRetrieve)
+		v, ok := opt.(attributesToRetrieve)
 		if ok {
 			for _, attr := range v.value {
 				uniq[attr] = true
