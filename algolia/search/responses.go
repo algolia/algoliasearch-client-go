@@ -42,14 +42,14 @@ func (r BatchRes) Wait() error {
 }
 
 type MultipleBatchRes struct {
-	responses []BatchRes
+	Responses []BatchRes
 }
 
 func (r MultipleBatchRes) Wait() error {
 	var wg sync.WaitGroup
-	errs := make(chan error, len(r.responses))
+	errs := make(chan error, len(r.Responses))
 
-	for _, res := range r.responses {
+	for _, res := range r.Responses {
 		wg.Add(1)
 		go func(wg *sync.WaitGroup, res BatchRes) {
 			errs <- res.Wait()

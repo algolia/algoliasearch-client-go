@@ -162,7 +162,7 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 			if err != nil {
 				return res, fmt.Errorf("could not send intermediate batch: %v", err)
 			}
-			res.responses = append(res.responses, response)
+			res.Responses = append(res.Responses, response)
 		} else {
 			batch = append(batch, object)
 		}
