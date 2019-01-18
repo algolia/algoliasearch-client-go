@@ -27,6 +27,46 @@ func (i *Index) GetObject(objectID string, object interface{}, opts ...interface
 	return i.transport.Request(&object, http.MethodGet, path, nil, call.Read, opts...)
 }
 
+func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObjectRes, err error) {
+	path := i.path("")
+	err = i.transport.Request(&res, http.MethodPost, path, object, call.Write, opts...)
+	res.wait = i.waitTask
+	return
+}
+
+func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (res UpdateTaskRes, err error) {
+	objectID, ok := getObjectID(object)
+	if !ok {
+		err = errs.ErrMissingObjectID
+		res.wait = noWait
+		return
+	}
+
+	createIfNotExists := iopt.ExtractCreateIfNotExists(opts...).Get()
+
+	path := i.path("/" + url.QueryEscape(objectID) + "/partial")
+	if !createIfNotExists {
+		path += "?createIfNotExists=false"
+	}
+
+	err = i.transport.Request(&res, "POST", path, object, call.Write, opts...)
+	res.wait = i.waitTask
+	return
+}
+
+func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
+	if objectID == "" {
+		err = errs.ErrMissingObjectID
+		res.wait = noWait
+		return
+	}
+
+	path := i.path("/" + url.QueryEscape(objectID))
+	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
+	res.wait = i.waitTask
+	return
+}
+
 type getObjectsReq struct {
 	IndexName            string                          `json:"indexName"`
 	ObjectID             string                          `json:"objectID"`
@@ -57,35 +97,8 @@ func (i *Index) GetObjects(objectIDs []string, objects interface{}, opts ...inte
 	return i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
 }
 
-func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObjectRes, err error) {
-	path := i.path("")
-	err = i.transport.Request(&res, http.MethodPost, path, object, call.Write, opts...)
-	res.wait = i.waitTask
-	return
-}
-
 func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
-	return i.Batch(objects, AddObject, opts...)
-}
-
-func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (res UpdateTaskRes, err error) {
-	objectID, ok := getObjectID(object)
-	if !ok {
-		err = errs.ErrMissingObjectID
-		res.wait = noWait
-		return
-	}
-
-	createIfNotExists := iopt.ExtractCreateIfNotExists(opts...).Get()
-
-	path := i.path("/" + url.QueryEscape(objectID) + "/partial")
-	if !createIfNotExists {
-		path += "?createIfNotExists=false"
-	}
-
-	err = i.transport.Request(&res, "POST", path, object, call.Write, opts...)
-	res.wait = i.waitTask
-	return
+	return i.batch(objects, AddObject, opts...)
 }
 
 func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
@@ -100,10 +113,26 @@ func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (
 		action = PartialUpdateObjectNoCreate
 	}
 
-	return i.Batch(objects, action, opts...)
+	return i.batch(objects, action, opts...)
 }
 
-func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface{}) (MultipleBatchRes, error) {
+func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res BatchRes, err error) {
+	objects := make([]interface{}, len(objectIDs))
+
+	for j, id := range objectIDs {
+		objects[j] = map[string]string{"objectID": id}
+	}
+
+	var operations []BatchOperation
+	if operations, err = newOperationBatch(objects, DeleteObject); err == nil {
+		res, err = i.Batch(operations, opts...)
+	} else {
+		res.wait = noWait
+	}
+	return
+}
+
+func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface{}) (MultipleBatchRes, error) {
 	var (
 		batch      []interface{}
 		operations []BatchOperation
@@ -129,7 +158,7 @@ func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface
 			if err != nil {
 				return res, fmt.Errorf("could not generate intermediate batch: %v", err)
 			}
-			response, err = i.batch(operations, opts...)
+			response, err = i.Batch(operations, opts...)
 			if err != nil {
 				return res, fmt.Errorf("could not send intermediate batch: %v", err)
 			}
@@ -146,42 +175,18 @@ func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface
 	return res, nil
 }
 
-func (i *Index) batch(operations []BatchOperation, opts ...interface{}) (res BatchRes, err error) {
-	path := i.path("/batch")
-	body := map[string][]BatchOperation{
-		"requests": operations,
+type batchReq struct {
+	Requests []BatchOperation `json:"requests,omitempty"`
+}
+
+func (i *Index) Batch(operations []BatchOperation, opts ...interface{}) (res BatchRes, err error) {
+	body := batchReq{
+		Requests: operations,
 	}
+
+	path := i.path("/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)
 	res.wait = i.waitTask
-	return
-}
-
-func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
-	if objectID == "" {
-		err = errs.ErrMissingObjectID
-		res.wait = noWait
-		return
-	}
-
-	path := i.path("/" + url.QueryEscape(objectID))
-	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
-	return
-}
-
-func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res BatchRes, err error) {
-	objects := make([]interface{}, len(objectIDs))
-
-	for j, id := range objectIDs {
-		objects[j] = map[string]string{"objectID": id}
-	}
-
-	var operations []BatchOperation
-	if operations, err = newOperationBatch(objects, DeleteObject); err == nil {
-		res, err = i.batch(operations, opts...)
-	} else {
-		res.wait = noWait
-	}
 	return
 }
 
