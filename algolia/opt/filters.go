@@ -1,17 +1,33 @@
 package opt
 
-type filters struct{ value string }
+import "encoding/json"
 
-func Filters(v string) filters {
-	return filters{v}
+type FiltersOption struct {
+	filters string
+}
+
+func Filters(filters string) FiltersOption {
+	return FiltersOption{filters}
 }
 
 func ExtractFilters(opts ...interface{}) string {
 	for _, opt := range opts {
-		v, ok := opt.(filters)
+		v, ok := opt.(FiltersOption)
 		if ok {
-			return v.value
+			return v.filters
 		}
 	}
 	return ""
+}
+
+func (o FiltersOption) Get() string {
+	return o.filters
+}
+
+func (o FiltersOption) MarshalJSON() ([]byte, error) {
+	return json.Marshal(o.filters)
+}
+
+func (o *FiltersOption) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &o.filters)
 }

@@ -4,8 +4,7 @@ import "context"
 
 func ExtractContext(opts ...interface{}) context.Context {
 	for _, opt := range opts {
-		v, ok := opt.(context.Context)
-		if ok {
+		if v, ok := opt.(context.Context); ok {
 			return v
 		}
 	}

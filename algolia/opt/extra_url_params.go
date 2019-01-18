@@ -1,18 +1,18 @@
 package opt
 
-type extraURLParams map[string]string
-
-func ExtraURLParams(v map[string]string) extraURLParams { return extraURLParams(v) }
-
-func ExtractExtraURLParams(opts ...interface{}) map[string]string {
-	m := make(map[string]string)
-	for _, opt := range opts {
-		urlParams, ok := opt.(extraURLParams)
-		if ok {
-			for k, v := range urlParams {
-				m[k] = v
-			}
-		}
-	}
-	return m
+type ExtraURLParamsOption struct {
+	urlParams map[string]string
 }
+
+func ExtraURLParams(urlParams map[string]string) ExtraURLParamsOption {
+	return ExtraURLParamsOption{
+		urlParams: urlParams,
+	}
+}
+
+func (opt ExtraURLParamsOption) Get() map[string]string {
+	return opt.urlParams
+}
+
+// Because ExtraURLParamsOption is not intended to be serialized/deserialized,
+// the json.Marshaler and json.Unmarshaler need not to be implemented.

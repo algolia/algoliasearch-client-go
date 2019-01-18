@@ -1,28 +1,25 @@
 package opt
 
-type attributesToRetrieve struct{ value []string }
+import (
+	"encoding/json"
+)
 
-func AttributesToRetrieve(v []string) attributesToRetrieve {
-	return attributesToRetrieve{v}
+type AttributesToRetrieveOption struct {
+	attributes []string
 }
 
-func ExtractAttributesToRetrieve(opts ...interface{}) []string {
-	var (
-		uniq = make(map[string]bool)
-		res  []string
-	)
+func AttributesToRetrieve(attributes []string) AttributesToRetrieveOption {
+	return AttributesToRetrieveOption{attributes}
+}
 
-	for _, opt := range opts {
-		v, ok := opt.(attributesToRetrieve)
-		if ok {
-			for _, attr := range v.value {
-				uniq[attr] = true
-			}
-		}
-	}
+func (o AttributesToRetrieveOption) Get() []string {
+	return o.attributes
+}
 
-	for attr := range uniq {
-		res = append(res, attr)
-	}
-	return res
+func (o AttributesToRetrieveOption) MarshalJSON() ([]byte, error) {
+	return json.Marshal(o.attributes)
+}
+
+func (o *AttributesToRetrieveOption) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &o.attributes)
 }

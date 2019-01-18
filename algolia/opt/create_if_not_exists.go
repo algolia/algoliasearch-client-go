@@ -1,17 +1,23 @@
 package opt
 
-type createIfNotExists struct{ value bool }
+import "encoding/json"
 
-func CreateIfNotExists(v bool) createIfNotExists {
-	return createIfNotExists{v}
+type CreateIfNotExistsOption struct {
+	value bool
 }
 
-func ExtractCreateIfNotExists(opts ...interface{}) bool {
-	for _, opt := range opts {
-		v, ok := opt.(createIfNotExists)
-		if ok {
-			return v.value
-		}
-	}
-	return true
+func CreateIfNotExists(v bool) CreateIfNotExistsOption {
+	return CreateIfNotExistsOption{v}
+}
+
+func (o CreateIfNotExistsOption) Get() bool {
+	return o.value
+}
+
+func (o CreateIfNotExistsOption) MarshalJSON() ([]byte, error) {
+	return json.Marshal(o.value)
+}
+
+func (o *CreateIfNotExistsOption) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &o.value)
 }

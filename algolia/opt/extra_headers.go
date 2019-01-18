@@ -1,18 +1,18 @@
 package opt
 
-type extraHeaders map[string]string
-
-func ExtraHeaders(v map[string]string) extraHeaders { return extraHeaders(v) }
-
-func ExtractExtraHeaders(opts ...interface{}) map[string]string {
-	m := make(map[string]string)
-	for _, opt := range opts {
-		headers, ok := opt.(extraHeaders)
-		if ok {
-			for k, v := range headers {
-				m[k] = v
-			}
-		}
-	}
-	return m
+type ExtraHeadersOption struct {
+	headers map[string]string
 }
+
+func ExtraHeaders(headers map[string]string) ExtraHeadersOption {
+	return ExtraHeadersOption{
+		headers: headers,
+	}
+}
+
+func (opt ExtraHeadersOption) Get() map[string]string {
+	return opt.headers
+}
+
+// Because ExtraHeadersOption is not intended to be serialized/deserialized, the
+// json.Marshaler and json.Unmarshaler need not to be implemented.

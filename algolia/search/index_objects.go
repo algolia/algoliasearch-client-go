@@ -1,55 +1,60 @@
 package search
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
+	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/iterator"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
 func (i *Index) GetObject(objectID string, object interface{}, opts ...interface{}) error {
-	attributesToRetrieve := opt.ExtractAttributesToRetrieve(opts...)
-	if attributesToRetrieve != nil {
-		attrs, err := json.Marshal(attributesToRetrieve)
-		if err != nil {
-			return fmt.Errorf("cannot serialize attributesToRetrieve %v: %v", attrs, err)
-		}
-		opts = append(opts, opt.ExtraURLParams(map[string]string{"attributesToRetrieve": string(attrs)}))
+	attributesToRetrieve := iopt.ExtractAttributesToRetrieve(opts...).Get()
+	if len(attributesToRetrieve) > 0 {
+		opts = append(opts, opt.ExtraURLParams(
+			map[string]string{
+				"attributesToRetrieve": strings.Join(attributesToRetrieve, ","),
+			},
+		))
 	}
 
 	path := i.path("/" + url.QueryEscape(objectID))
 	return i.transport.Request(&object, http.MethodGet, path, nil, call.Read, opts...)
 }
 
+type getObjectsReq struct {
+	IndexName            string                          `json:"indexName"`
+	ObjectID             string                          `json:"objectID"`
+	AttributesToRetrieve *opt.AttributesToRetrieveOption `json:"attributesToRetrieve,omitempty"`
+}
+
+type getObjectsRes struct {
+	Results interface{} `json:"results"`
+}
+
 func (i *Index) GetObjects(objectIDs []string, objects interface{}, opts ...interface{}) error {
 	var (
-		attributesToRetrieve = opt.ExtractAttributesToRetrieve(opts...)
-		requests             = make([]map[string]interface{}, len(objectIDs))
+		attributesToRetrieve = iopt.ExtractAttributesToRetrieve(opts...)
+		requests             = make([]getObjectsReq, len(objectIDs))
 		body                 = map[string]interface{}{"requests": requests}
 		res                  = getObjectsRes{objects}
 	)
 
 	for j, objectID := range objectIDs {
-		requests[j] = map[string]interface{}{
-			"indexName": i.name,
-			"objectID":  url.QueryEscape(objectID),
-		}
-		if attributesToRetrieve != nil {
-			requests[j]["attributesToRetrieve"] = attributesToRetrieve
+		requests[j] = getObjectsReq{
+			IndexName:            i.name,
+			ObjectID:             url.QueryEscape(objectID),
+			AttributesToRetrieve: attributesToRetrieve,
 		}
 	}
 
 	path := "/1/indexes/*/objects"
 	return i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
-}
-
-type getObjectsRes struct {
-	Results interface{} `json:"results"`
 }
 
 func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObjectRes, err error) {
@@ -71,7 +76,7 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 		return
 	}
 
-	createIfNotExists := opt.ExtractCreateIfNotExists(opts...)
+	createIfNotExists := iopt.ExtractCreateIfNotExists(opts...).Get()
 
 	path := i.path("/" + url.QueryEscape(objectID) + "/partial")
 	if !createIfNotExists {
@@ -86,7 +91,7 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
 	var (
 		action            BatchAction
-		createIfNotExists = opt.ExtractCreateIfNotExists(opts...)
+		createIfNotExists = iopt.ExtractCreateIfNotExists(opts...).Get()
 	)
 
 	if createIfNotExists {
@@ -107,7 +112,7 @@ func (i *Index) Batch(objects interface{}, action BatchAction, opts ...interface
 	)
 
 	it := iterator.New(objects)
-	autoGenerateObjectIDIfNotExist := opt.ExtractAutoGenerateObjectIDIfNotExist(opts...)
+	autoGenerateObjectIDIfNotExist := iopt.ExtractAutoGenerateObjectIDIfNotExist(opts...).Get()
 
 	for {
 		object, err := it.Next()
@@ -180,24 +185,29 @@ func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res Batc
 	return
 }
 
-func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
-	var (
-		filters      = opt.ExtractFilters(opts...)
-		facetFilters = opt.ExtractFacetFilters(opts...)
-	)
+type deleteByReq struct {
+	AroundLatLng      *opt.AroundLatLngOption      `json:"aroundLatLng,omitempty"`
+	AroundRadius      *opt.AroundRadiusOption      `json:"aroundRadius,omitempty"`
+	FacetFilters      *opt.FacetFiltersOption      `json:"facetFilters,omitempty"`
+	Filters           *opt.FiltersOption           `json:"filters,omitempty"`
+	InsideBoundingBox *opt.InsideBoundingBoxOption `json:"insideBoundingBox,omitempty"`
+	InsidePolygon     *opt.InsidePolygonOption     `json:"insidePolygon,omitempty"`
+	NumericFilters    *opt.NumericFiltersOption    `json:"numericFilters,omitempty"`
+}
 
-	body := map[string]interface{}{
-		"filters":           filters,
-		"facetFilters":      facetFilters,
-		"numericFilters":    numericFilters,
-		"aroundLatLng":      aroundLatLng,
-		"aroundRadius":      aroundRadius,
-		"insideBoundingBox": insideBoundingBox,
-		"insidePolygon":     insidePolygon,
+func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
+	body := deleteByReq{
+		AroundLatLng:      iopt.ExtractAroundLatLng(opts...),
+		AroundRadius:      iopt.ExtractAroundRadius(opts...),
+		FacetFilters:      iopt.ExtractFacetFilters(opts...),
+		Filters:           iopt.ExtractFilters(opts...),
+		InsideBoundingBox: iopt.ExtractInsideBoundingBox(opts...),
+		InsidePolygon:     iopt.ExtractInsidePolygon(opts...),
+		NumericFilters:    iopt.ExtractNumericFilters(opts...),
 	}
 
 	path := i.path("/deleteByQuery")
-	err = i.transport.Request(&res, http.MethodPost, path, req, call.Write, opts...)
+	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)
 	res.wait = i.waitTask
 	return
 }

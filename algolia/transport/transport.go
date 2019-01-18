@@ -17,7 +17,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/debug"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 )
 
 const version = "3.0.0"
@@ -71,9 +71,9 @@ func (t *Transport) Request(
 ) error {
 
 	var (
-		ctx       = opt.ExtractContext(opts...)
-		headers   = mergeHeaders(t.headers, opt.ExtractExtraHeaders(opts...))
-		urlParams = opt.ExtractExtraURLParams(opts...)
+		ctx       = iopt.ExtractContext(opts...)
+		headers   = mergeHeaders(t.headers, iopt.ExtractExtraHeaders(opts...).Get())
+		urlParams = iopt.ExtractExtraURLParams(opts...).Get()
 	)
 
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
