@@ -24,6 +24,6 @@ func ExtractAttributesToRetrieve(opts ...interface{}) *opt.AttributesToRetrieveO
 		uniqSlice = append(uniqSlice, attr)
 	}
 
-	attributesToRetrieve := opt.AttributesToRetrieve(uniqSlice)
+	attributesToRetrieve := opt.AttributesToRetrieve(uniqSlice...)
 	return &attributesToRetrieve
 }

@@ -8,7 +8,7 @@ type AttributesToRetrieveOption struct {
 	attributes []string
 }
 
-func AttributesToRetrieve(attributes []string) AttributesToRetrieveOption {
+func AttributesToRetrieve(attributes ...string) AttributesToRetrieveOption {
 	return AttributesToRetrieveOption{attributes}
 }
 

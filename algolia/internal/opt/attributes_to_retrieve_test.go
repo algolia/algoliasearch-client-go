@@ -18,37 +18,37 @@ func TestAttributesToRetrieve(t *testing.T) {
 			expected: opt.AttributesToRetrieveOption{},
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve(nil)},
+			opts:     []interface{}{opt.AttributesToRetrieve()},
 			expected: opt.AttributesToRetrieveOption{},
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve([]string{"attr1"})},
-			expected: opt.AttributesToRetrieve([]string{"attr1"}),
+			opts:     []interface{}{opt.AttributesToRetrieve("attr1")},
+			expected: opt.AttributesToRetrieve("attr1"),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve([]string{"attr1", "attr2"})},
-			expected: opt.AttributesToRetrieve([]string{"attr1", "attr2"}),
-		},
-		{
-			opts: []interface{}{
-				opt.AttributesToRetrieve([]string{"attr1", "attr2"}),
-				opt.AttributesToRetrieve([]string{"attr3", "attr4"}),
-			},
-			expected: opt.AttributesToRetrieve([]string{"attr1", "attr2", "attr3", "attr4"}),
+			opts:     []interface{}{opt.AttributesToRetrieve("attr1", "attr2")},
+			expected: opt.AttributesToRetrieve("attr1", "attr2"),
 		},
 		{
 			opts: []interface{}{
-				opt.AttributesToRetrieve([]string{"attr1", "attr2"}),
-				opt.AttributesToRetrieve([]string{"attr1", "attr2"}),
+				opt.AttributesToRetrieve("attr1", "attr2"),
+				opt.AttributesToRetrieve("attr3", "attr4"),
 			},
-			expected: opt.AttributesToRetrieve([]string{"attr1", "attr2"}),
+			expected: opt.AttributesToRetrieve("attr1", "attr2", "attr3", "attr4"),
 		},
 		{
 			opts: []interface{}{
-				opt.AttributesToRetrieve([]string{"attr1", "attr2"}),
-				opt.AttributesToRetrieve([]string{"attr2", "attr3"}),
+				opt.AttributesToRetrieve("attr1", "attr2"),
+				opt.AttributesToRetrieve("attr1", "attr2"),
 			},
-			expected: opt.AttributesToRetrieve([]string{"attr1", "attr2", "attr3"}),
+			expected: opt.AttributesToRetrieve("attr1", "attr2"),
+		},
+		{
+			opts: []interface{}{
+				opt.AttributesToRetrieve("attr1", "attr2"),
+				opt.AttributesToRetrieve("attr2", "attr3"),
+			},
+			expected: opt.AttributesToRetrieve("attr1", "attr2", "attr3"),
 		},
 	} {
 		var (
