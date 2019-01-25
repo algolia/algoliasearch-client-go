@@ -10,16 +10,6 @@ func Filters(filters string) FiltersOption {
 	return FiltersOption{filters}
 }
 
-func ExtractFilters(opts ...interface{}) string {
-	for _, opt := range opts {
-		v, ok := opt.(FiltersOption)
-		if ok {
-			return v.filters
-		}
-	}
-	return ""
-}
-
 func (o FiltersOption) Get() string {
 	return o.filters
 }
