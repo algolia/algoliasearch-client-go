@@ -94,7 +94,11 @@ func (t *Transport) Request(
 		case Failure:
 			return unmarshalToError(body)
 		default:
-			_ = body.Close()
+			if body != nil {
+				if err = body.Close(); err != nil {
+					return fmt.Errorf("cannot close response's body before retry: %v", err)
+				}
+			}
 		}
 	}
 
@@ -189,10 +193,13 @@ func buildRequest(
 }
 
 func unmarshalTo(r io.ReadCloser, v interface{}) error {
-	defer r.Close()
 	err := json.NewDecoder(r).Decode(&v)
+	errClose := r.Close()
 	if err != nil {
-		return fmt.Errorf("cannot deserialize response: %v", err)
+		return fmt.Errorf("cannot deserialize response's body: %v", err)
+	}
+	if errClose != nil {
+		return fmt.Errorf("cannot close response's body: %v", errClose)
 	}
 	return nil
 }
