@@ -320,6 +320,13 @@ type Client interface {
 	// GetPersonalizationStrategyWithRequestOptions is the same as GetPersonalizationStrategy but it also
 	// accepts extra RequestOptions.
 	GetPersonalizationStrategyWithRequestOptions(opts *RequestOptions) (Strategy, error)
+
+	// RestoreAPIKey lets the user restore a previously deleted API key.
+	RestoreAPIKey(key string) (AddKeyRes, error)
+
+	// RestoreAPIKeyWithRequestOptions the same as RestoreAPIKey but it also
+	// accepts extra RequestOptions.
+	RestoreAPIKeyWithRequestOptions(key string, opts *RequestOptions) (AddKeyRes, error)
 }
 
 // Index is a representation used to manipulate an Algolia index.
