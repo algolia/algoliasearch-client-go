@@ -191,6 +191,33 @@ func TestClientKeys(t *testing.T) {
 
 		waitClientKey(t, c, searchKey, func(k Key) bool { return k.Description == description })
 	}
+
+	t.Log("TestClientKeys: Delete search key and restore it")
+	{
+		_, err := c.DeleteAPIKey(searchKey)
+		require.NoError(t, err)
+
+		// Wait until the key has been properly deleted
+		for {
+			_, err := c.GetAPIKey(searchKey)
+			if err != nil {
+				break
+			}
+			time.Sleep(1*time.Second)
+		}
+
+		_, err = c.RestoreAPIKey(searchKey)
+		require.NoError(t, err)
+
+		// Wait until the key has been properly restored
+		for {
+			_, err := c.GetAPIKey(searchKey)
+			if err == nil {
+				break
+			}
+			time.Sleep(1*time.Second)
+		}
+	}
 }
 
 func TestLogs(t *testing.T) {

@@ -465,6 +465,17 @@ func (c *client) GetPersonalizationStrategyWithRequestOptions(opts *RequestOptio
 	return
 }
 
+func (c *client) RestoreAPIKey(key string) (AddKeyRes, error) {
+	return c.RestoreAPIKeyWithRequestOptions(key, nil)
+}
+
+func (c *client) RestoreAPIKeyWithRequestOptions(key string, opts *RequestOptions) (res AddKeyRes, err error) {
+	path := fmt.Sprintf("/1/keys/%s/restore", key)
+	err = c.request(&res, "POST", path, nil, write, opts)
+	return
+}
+
+
 func (c *client) request(res interface{}, method, path string, body interface{}, typeCall int, opts *RequestOptions) error {
 	r, err := c.transport.request(method, path, body, typeCall, opts)
 	if err != nil {
