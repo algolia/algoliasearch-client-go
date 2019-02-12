@@ -29,9 +29,10 @@ func (abTest ABTest) MarshalJSON() ([]byte, error) {
 }
 
 type Variant struct {
-	Index             string `json:"index"`
-	TrafficPercentage int    `json:"trafficPercentage"`
-	Description       string `json:"description,omitempty"`
+	Index                  string `json:"index"`
+	TrafficPercentage      int    `json:"trafficPercentage"`
+	Description            string `json:"description,omitempty"`
+	CustomSearchParameters Map    `json:"customSearchParameters,omitempty"`
 }
 
 type ABTestTaskRes struct {
