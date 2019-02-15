@@ -3,6 +3,7 @@ package opt
 import "encoding/json"
 
 type TypoToleranceOption struct {
+	// TODO support both string and bool maybe?
 	value string
 }
 
@@ -31,5 +32,9 @@ func (o TypoToleranceOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = "true"
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

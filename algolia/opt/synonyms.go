@@ -19,5 +19,9 @@ func (o SynonymsOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *SynonymsOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = true
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

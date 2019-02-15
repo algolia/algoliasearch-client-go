@@ -19,5 +19,9 @@ func (o AnalyticsOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AnalyticsOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = true
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }
