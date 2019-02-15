@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type MinWordSizeFor1TypoOption struct {
-	minWordSize int
+	value int
 }
 
-func MinWordSizeFor1Typo(minWordSize int) MinWordSizeFor1TypoOption {
-	return MinWordSizeFor1TypoOption{minWordSize}
+func MinWordSizeFor1Typo(v int) MinWordSizeFor1TypoOption {
+	return MinWordSizeFor1TypoOption{v}
 }
 
 func (o MinWordSizeFor1TypoOption) Get() int {
-	return o.minWordSize
+	return o.value
 }
 
 func (o MinWordSizeFor1TypoOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.minWordSize)
+	return json.Marshal(o.value)
 }
 
 func (o *MinWordSizeFor1TypoOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.minWordSize)
+	if string(data) == "null" {
+		o.value = 4
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

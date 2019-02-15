@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type AttributesToSnippetOption struct {
-	attributes []string
+	value []string
 }
 
-func AttributesToSnippet(attributes ...string) AttributesToSnippetOption {
-	return AttributesToSnippetOption{attributes}
+func AttributesToSnippet(v []string) AttributesToSnippetOption {
+	return AttributesToSnippetOption{v}
 }
 
 func (o AttributesToSnippetOption) Get() []string {
-	return o.attributes
+	return o.value
 }
 
 func (o AttributesToSnippetOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.attributes)
+	return json.Marshal(o.value)
 }
 
 func (o *AttributesToSnippetOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.attributes)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

@@ -5,6 +5,7 @@ import (
 )
 
 type ResponseFieldsOption struct {
+	// TODO Check if "all" is represented by "*" or ["*"]
 	fields []string
 }
 

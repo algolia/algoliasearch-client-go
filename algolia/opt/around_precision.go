@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type AroundPrecisionOption struct {
-	meters int
+	value int
 }
 
-func AroundPrecision(meters int) AroundPrecisionOption {
-	return AroundPrecisionOption{meters}
+func AroundPrecision(v int) AroundPrecisionOption {
+	return AroundPrecisionOption{v}
 }
 
 func (o AroundPrecisionOption) Get() int {
-	return o.meters
+	return o.value
 }
 
 func (o AroundPrecisionOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.meters)
+	return json.Marshal(o.value)
 }
 
 func (o *AroundPrecisionOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.meters)
+	if string(data) == "null" {
+		o.value = 0
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

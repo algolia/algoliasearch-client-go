@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type AdvancedSyntaxFeaturesOption struct {
-	features []string
+	value []string
 }
 
-func AdvancedSyntaxFeatures(features ...string) AdvancedSyntaxFeaturesOption {
-	return AdvancedSyntaxFeaturesOption{features}
+func AdvancedSyntaxFeatures(v []string) AdvancedSyntaxFeaturesOption {
+	return AdvancedSyntaxFeaturesOption{v}
 }
 
 func (o AdvancedSyntaxFeaturesOption) Get() []string {
-	return o.features
+	return o.value
 }
 
 func (o AdvancedSyntaxFeaturesOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.features)
+	return json.Marshal(o.value)
 }
 
 func (o *AdvancedSyntaxFeaturesOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.features)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

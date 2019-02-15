@@ -1,18 +1,27 @@
 package opt
 
+import "encoding/json"
+
 type ExtraHeadersOption struct {
-	headers map[string]string
+	value map[string]string
 }
 
-func ExtraHeaders(headers map[string]string) ExtraHeadersOption {
-	return ExtraHeadersOption{
-		headers: headers,
+func ExtraHeaders(v map[string]string) ExtraHeadersOption {
+	return ExtraHeadersOption{v}
+}
+
+func (o ExtraHeadersOption) Get() map[string]string {
+	return o.value
+}
+
+func (o ExtraHeadersOption) MarshalJSON() ([]byte, error) {
+	return json.Marshal(o.value)
+}
+
+func (o *ExtraHeadersOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = make(map[string]string)
+		return nil
 	}
+	return json.Unmarshal(data, &o.value)
 }
-
-func (opt ExtraHeadersOption) Get() map[string]string {
-	return opt.headers
-}
-
-// Because ExtraHeadersOption is not intended to be serialized/deserialized, the
-// json.Marshaler and json.Unmarshaler need not to be implemented.

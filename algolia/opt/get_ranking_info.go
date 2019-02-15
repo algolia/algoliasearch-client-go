@@ -19,5 +19,9 @@ func (o GetRankingInfoOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *GetRankingInfoOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = false
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

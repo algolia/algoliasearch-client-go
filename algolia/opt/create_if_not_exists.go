@@ -19,5 +19,9 @@ func (o CreateIfNotExistsOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *CreateIfNotExistsOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = false
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

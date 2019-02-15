@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type AnalyticsTagsOption struct {
-	tags []string
+	value []string
 }
 
-func AnalyticsTags(tags ...string) AnalyticsTagsOption {
-	return AnalyticsTagsOption{tags}
+func AnalyticsTags(v []string) AnalyticsTagsOption {
+	return AnalyticsTagsOption{v}
 }
 
 func (o AnalyticsTagsOption) Get() []string {
-	return o.tags
+	return o.value
 }
 
 func (o AnalyticsTagsOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.tags)
+	return json.Marshal(o.value)
 }
 
 func (o *AnalyticsTagsOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.tags)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

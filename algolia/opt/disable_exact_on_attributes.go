@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type DisableExactOnAttributesOption struct {
-	attributes []string
+	value []string
 }
 
-func DisableExactOnAttributes(attributes ...string) DisableExactOnAttributesOption {
-	return DisableExactOnAttributesOption{attributes}
+func DisableExactOnAttributes(v []string) DisableExactOnAttributesOption {
+	return DisableExactOnAttributesOption{v}
 }
 
 func (o DisableExactOnAttributesOption) Get() []string {
-	return o.attributes
+	return o.value
 }
 
 func (o DisableExactOnAttributesOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.attributes)
+	return json.Marshal(o.value)
 }
 
 func (o *DisableExactOnAttributesOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.attributes)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

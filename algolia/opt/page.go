@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type PageOption struct {
-	page int
+	value int
 }
 
-func Page(page int) PageOption {
-	return PageOption{page}
+func Page(v int) PageOption {
+	return PageOption{v}
 }
 
 func (o PageOption) Get() int {
-	return o.page
+	return o.value
 }
 
 func (o PageOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.page)
+	return json.Marshal(o.value)
 }
 
 func (o *PageOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.page)
+	if string(data) == "null" {
+		o.value = 0
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

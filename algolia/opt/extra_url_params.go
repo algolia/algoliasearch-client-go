@@ -1,18 +1,27 @@
 package opt
 
+import "encoding/json"
+
 type ExtraURLParamsOption struct {
-	urlParams map[string]string
+	value map[string]string
 }
 
-func ExtraURLParams(urlParams map[string]string) ExtraURLParamsOption {
-	return ExtraURLParamsOption{
-		urlParams: urlParams,
+func ExtraURLParams(v map[string]string) ExtraURLParamsOption {
+	return ExtraURLParamsOption{v}
+}
+
+func (o ExtraURLParamsOption) Get() map[string]string {
+	return o.value
+}
+
+func (o ExtraURLParamsOption) MarshalJSON() ([]byte, error) {
+	return json.Marshal(o.value)
+}
+
+func (o *ExtraURLParamsOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = make(map[string]string)
+		return nil
 	}
+	return json.Unmarshal(data, &o.value)
 }
-
-func (opt ExtraURLParamsOption) Get() map[string]string {
-	return opt.urlParams
-}
-
-// Because ExtraURLParamsOption is not intended to be serialized/deserialized,
-// the json.Marshaler and json.Unmarshaler need not to be implemented.

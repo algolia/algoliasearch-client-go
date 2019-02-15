@@ -19,5 +19,9 @@ func (o DistinctOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *DistinctOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = 0
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

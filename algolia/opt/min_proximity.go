@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type MinProximityOption struct {
-	proximity int
+	value int
 }
 
-func MinProximity(proximity int) MinProximityOption {
-	return MinProximityOption{proximity}
+func MinProximity(v int) MinProximityOption {
+	return MinProximityOption{v}
 }
 
 func (o MinProximityOption) Get() int {
-	return o.proximity
+	return o.value
 }
 
 func (o MinProximityOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.proximity)
+	return json.Marshal(o.value)
 }
 
 func (o *MinProximityOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.proximity)
+	if string(data) == "null" {
+		o.value = 1
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

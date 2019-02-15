@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type QueryLanguagesOption struct {
-	attributes []string
+	value []string
 }
 
-func QueryLanguages(attributes ...string) QueryLanguagesOption {
-	return QueryLanguagesOption{attributes}
+func QueryLanguages(v []string) QueryLanguagesOption {
+	return QueryLanguagesOption{v}
 }
 
 func (o QueryLanguagesOption) Get() []string {
-	return o.attributes
+	return o.value
 }
 
 func (o QueryLanguagesOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.attributes)
+	return json.Marshal(o.value)
 }
 
 func (o *QueryLanguagesOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.attributes)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type SeparatorsToIndexOption struct {
-	separators string
+	value string
 }
 
-func SeparatorsToIndex(separators string) SeparatorsToIndexOption {
-	return SeparatorsToIndexOption{separators}
+func SeparatorsToIndex(v string) SeparatorsToIndexOption {
+	return SeparatorsToIndexOption{v}
 }
 
 func (o SeparatorsToIndexOption) Get() string {
-	return o.separators
+	return o.value
 }
 
 func (o SeparatorsToIndexOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.separators)
+	return json.Marshal(o.value)
 }
 
 func (o *SeparatorsToIndexOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.separators)
+	if string(data) == "null" {
+		o.value = &#34;&#34;
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

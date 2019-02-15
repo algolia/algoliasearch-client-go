@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type CamelCaseAttributesOption struct {
-	attributes []string
+	value []string
 }
 
-func CamelCaseAttributes(attributes ...string) CamelCaseAttributesOption {
-	return CamelCaseAttributesOption{attributes}
+func CamelCaseAttributes(v []string) CamelCaseAttributesOption {
+	return CamelCaseAttributesOption{v}
 }
 
 func (o CamelCaseAttributesOption) Get() []string {
-	return o.attributes
+	return o.value
 }
 
 func (o CamelCaseAttributesOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.attributes)
+	return json.Marshal(o.value)
 }
 
 func (o *CamelCaseAttributesOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.attributes)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

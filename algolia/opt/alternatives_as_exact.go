@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type AlternativesAsExactOption struct {
-	alternatives []string
+	value []string
 }
 
-func AlternativesAsExact(alternatives ...string) AlternativesAsExactOption {
-	return AlternativesAsExactOption{alternatives}
+func AlternativesAsExact(v []string) AlternativesAsExactOption {
+	return AlternativesAsExactOption{v}
 }
 
 func (o AlternativesAsExactOption) Get() []string {
-	return o.alternatives
+	return o.value
 }
 
 func (o AlternativesAsExactOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.alternatives)
+	return json.Marshal(o.value)
 }
 
 func (o *AlternativesAsExactOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.alternatives)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

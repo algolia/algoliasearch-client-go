@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type DisableTypoToleranceOnWordsOption struct {
-	words []string
+	value []string
 }
 
-func DisableTypoToleranceOnWords(words ...string) DisableTypoToleranceOnWordsOption {
-	return DisableTypoToleranceOnWordsOption{words}
+func DisableTypoToleranceOnWords(v []string) DisableTypoToleranceOnWordsOption {
+	return DisableTypoToleranceOnWordsOption{v}
 }
 
 func (o DisableTypoToleranceOnWordsOption) Get() []string {
-	return o.words
+	return o.value
 }
 
 func (o DisableTypoToleranceOnWordsOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.words)
+	return json.Marshal(o.value)
 }
 
 func (o *DisableTypoToleranceOnWordsOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.words)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

@@ -6,7 +6,7 @@ type QueryTypeOption struct {
 	value string
 }
 
-func QueryType_PrefixLast(v string) QueryTypeOption {
+func QueryType(v string) QueryTypeOption {
 	return QueryTypeOption{v}
 }
 
@@ -19,5 +19,9 @@ func (o QueryTypeOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *QueryTypeOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = &#34;prefixLast&#34;
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

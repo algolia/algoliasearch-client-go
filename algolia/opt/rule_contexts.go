@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type RuleContextsOption struct {
-	attributes []string
+	value string
 }
 
-func RuleContexts(attributes ...string) RuleContextsOption {
-	return RuleContextsOption{attributes}
+func RuleContexts(v string) RuleContextsOption {
+	return RuleContextsOption{v}
 }
 
-func (o RuleContextsOption) Get() []string {
-	return o.attributes
+func (o RuleContextsOption) Get() string {
+	return o.value
 }
 
 func (o RuleContextsOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.attributes)
+	return json.Marshal(o.value)
 }
 
 func (o *RuleContextsOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.attributes)
+	if string(data) == "null" {
+		o.value = &#34;none&#34;
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

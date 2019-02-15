@@ -1,25 +1,27 @@
 package opt
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type AttributesToRetrieveOption struct {
-	attributes []string
+	value []string
 }
 
-func AttributesToRetrieve(attributes ...string) AttributesToRetrieveOption {
-	return AttributesToRetrieveOption{attributes}
+func AttributesToRetrieve(v []string) AttributesToRetrieveOption {
+	return AttributesToRetrieveOption{v}
 }
 
 func (o AttributesToRetrieveOption) Get() []string {
-	return o.attributes
+	return o.value
 }
 
 func (o AttributesToRetrieveOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.attributes)
+	return json.Marshal(o.value)
 }
 
 func (o *AttributesToRetrieveOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.attributes)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

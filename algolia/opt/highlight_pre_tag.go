@@ -19,5 +19,9 @@ func (o HighlightPreTagOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *HighlightPreTagOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = &#34;&#34;
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

@@ -19,5 +19,9 @@ func (o RemoveWordsIfNoResultsOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *RemoveWordsIfNoResultsOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = &#34;none&#34;
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

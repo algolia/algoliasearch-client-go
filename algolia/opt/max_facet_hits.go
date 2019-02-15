@@ -19,5 +19,9 @@ func (o MaxFacetHitsOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *MaxFacetHitsOption) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = 10
+		return nil
+	}
 	return json.Unmarshal(data, &o.value)
 }

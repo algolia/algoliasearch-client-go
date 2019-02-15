@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type MaxValuesPerFacetOption struct {
-	maxValuesPerFacet int
+	value int
 }
 
-func MaxValuesPerFacet(maxValuesPerFacet int) MaxValuesPerFacetOption {
-	return MaxValuesPerFacetOption{maxValuesPerFacet}
+func MaxValuesPerFacet(v int) MaxValuesPerFacetOption {
+	return MaxValuesPerFacetOption{v}
 }
 
 func (o MaxValuesPerFacetOption) Get() int {
-	return o.maxValuesPerFacet
+	return o.value
 }
 
 func (o MaxValuesPerFacetOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.maxValuesPerFacet)
+	return json.Marshal(o.value)
 }
 
 func (o *MaxValuesPerFacetOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.maxValuesPerFacet)
+	if string(data) == "null" {
+		o.value = 100
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

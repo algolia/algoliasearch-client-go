@@ -42,7 +42,10 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 		return
 	}
 
-	createIfNotExists := iopt.ExtractCreateIfNotExists(opts...).Get()
+	createIfNotExists := true
+	if opt := iopt.ExtractCreateIfNotExists(opts...); opt != nil {
+		createIfNotExists = opt.Get()
+	}
 
 	path := i.path("/" + url.QueryEscape(objectID) + "/partial")
 	if !createIfNotExists {
@@ -103,9 +106,13 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Multi
 
 func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
 	var (
-		action            BatchAction
-		createIfNotExists = iopt.ExtractCreateIfNotExists(opts...).Get()
+		action BatchAction
 	)
+
+	createIfNotExists := true
+	if opt := iopt.ExtractCreateIfNotExists(opts...); opt != nil {
+		createIfNotExists = opt.Get()
+	}
 
 	if createIfNotExists {
 		action = PartialUpdateObject
@@ -140,8 +147,12 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 		res        MultipleBatchRes
 	)
 
+	autoGenerateObjectIDIfNotExist := false
+	if opt := iopt.ExtractAutoGenerateObjectIDIfNotExist(opts...); opt != nil {
+		autoGenerateObjectIDIfNotExist = opt.Get()
+	}
+
 	it := iterator.New(objects)
-	autoGenerateObjectIDIfNotExist := iopt.ExtractAutoGenerateObjectIDIfNotExist(opts...).Get()
 
 	for {
 		object, err := it.Next()

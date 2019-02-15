@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type PaginationLimitedToOption struct {
-	nbRecords int
+	value int
 }
 
-func PaginationLimitedTo(nbRecords int) PaginationLimitedToOption {
-	return PaginationLimitedToOption{nbRecords}
+func PaginationLimitedTo(v int) PaginationLimitedToOption {
+	return PaginationLimitedToOption{v}
 }
 
 func (o PaginationLimitedToOption) Get() int {
-	return o.nbRecords
+	return o.value
 }
 
 func (o PaginationLimitedToOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.nbRecords)
+	return json.Marshal(o.value)
 }
 
 func (o *PaginationLimitedToOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.nbRecords)
+	if string(data) == "null" {
+		o.value = 1000
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

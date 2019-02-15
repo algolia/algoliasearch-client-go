@@ -3,21 +3,25 @@ package opt
 import "encoding/json"
 
 type LengthOption struct {
-	nbRecords int
+	value int
 }
 
-func Length(nbRecords int) LengthOption {
-	return LengthOption{nbRecords}
+func Length(v int) LengthOption {
+	return LengthOption{v}
 }
 
 func (o LengthOption) Get() int {
-	return o.nbRecords
+	return o.value
 }
 
 func (o LengthOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.nbRecords)
+	return json.Marshal(o.value)
 }
 
 func (o *LengthOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.nbRecords)
+	if string(data) == "null" {
+		o.value = 0
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

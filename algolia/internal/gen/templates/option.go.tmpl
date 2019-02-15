@@ -1,0 +1,27 @@
+package opt
+
+import "encoding/json"
+
+type {{ .Name }}Option struct {
+	value {{ .Type }}
+}
+
+func {{ .Name }}(v {{ .Type }}) {{ .Name }}Option {
+	return {{ .Name }}Option{v}
+}
+
+func (o {{ .Name }}Option) Get() {{ .Type }} {
+	return o.value
+}
+
+func (o {{ .Name }}Option) MarshalJSON() ([]byte, error) {
+	return json.Marshal(o.value)
+}
+
+func (o *{{ .Name }}Option) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = {{ .DefaultValue }}
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
+}
