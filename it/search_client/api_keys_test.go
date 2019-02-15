@@ -95,4 +95,14 @@ func TestAPIKeys(t *testing.T) {
 			return err != nil
 		})
 	}
+
+	{
+		_, err := client.RestoreAPIKey(key.Value)
+		require.NoError(t, err)
+
+		it.Retry(func() bool {
+			_, err := client.GetAPIKey(key.Value)
+			return err == nil
+		})
+	}
 }
