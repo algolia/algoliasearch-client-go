@@ -9,66 +9,56 @@ import (
 // Settings is the structure returned by `GetSettigs` to ease the use of the
 // index settings.
 type Settings struct {
-	// Attributes
-	SearchableAttributes    []string `json:"searchableAttributes"`
-	AttributesForFaceting   []string `json:"attributesForFaceting"`
-	UnretrievableAttributes []string `json:"unretrievableAttributes"`
-	AttributesToRetrieve    []string `json:"attributesToRetrieve"`
-	// Ranking
-	Ranking       []string `json:"ranking"`
-	CustomRanking []string `json:"customRanking"`
-	Replicas      []string `json:"replicas"`
-	// Faceting
-	MaxValuesPerFacet int    `json:"maxValuesPerFacet"`
-	SortFacetValuesBy string `json:"sortFacetValuesBy"`
-	// Highlighting / Snippeting
-	AttributesToHighlight             []string `json:"attributesToHighlight"`
-	AttributesToSnippet               []string `json:"attributesToSnippet"`
-	HighlightPreTag                   string   `json:"highlightPreTag"`
-	HighlightPostTag                  string   `json:"highlightPostTag"`
-	SnippetEllipsisText               string   `json:"snippetEllipsisText"`
-	RestrictHighlightAndSnippetArrays bool     `json:"restrictHighlightAndSnippetArrays"`
-	// Pagination
-	HitsPerPage         int `json:"hitsPerPage"`
-	PaginationLimitedTo int `json:"paginationLimitedTo"`
-	// Typos
-	MinWordSizefor1Typo              int         `json:"minWordSizefor1Typo"`
-	MinWordSizefor2Typos             int         `json:"minWordSizefor2Typos"`
-	TypoTolerance                    interface{} `json:"typoTolerance"` // string or bool
-	AllowTyposOnNumericTokens        bool        `json:"allowTyposOnNumericTokens"`
-	IgnorePlurals                    interface{} `json:"ignorePlurals"` // []interface{} (actually a []string) or bool
-	DisableTypoToleranceOnAttributes []string    `json:"disableTypoToleranceOnAttributes"`
-	DisableTypoToleranceOnWords      []string    `json:"disableTypoToleranceOnWords"`
-	SeparatorsToIndex                string      `json:"separatorsToIndex"`
-	// Query strategy
-	QueryType                 string      `json:"queryType"`
-	RemoveWordsIfNoResults    string      `json:"removeWordsIfNoResults"`
-	AdvancedSyntax            bool        `json:"advancedSyntax"`
-	OptionalWords             []string    `json:"optionalWords"`
-	RemoveStopWords           interface{} `json:"removeStopWords"` // []interface{} (actually a []string) or bool
-	DisablePrefixOnAttributes []string    `json:"disablePrefixOnAttributes"`
-	DisableExactOnAttributes  []string    `json:"disableExactOnAttributes"`
-	ExactOnSingleWordQuery    string      `json:"exactOnSingleWordQuery"`
-	// Query rules
-	EnableRules bool `json:"enableRules"`
-	// Performance
-	NumericAttributesForFiltering  []string `json:"numericAttributesForFiltering"`
-	AllowCompressionOfIntegerArray bool     `json:"allowCompressionOfIntegerArray"`
-	// Advanced
-	AttributeForDistinct       string              `json:"attributeForDistinct"`
-	Distinct                   interface{}         `json:"distinct"` // float64 (actually an int) or bool
-	ReplaceSynonymsInHighlight bool                `json:"replaceSynonymsInHighlight"`
-	MinProximity               int                 `json:"minProximity"`
-	ResponseFields             []string            `json:"responseFields"`
-	MaxFacetHits               int                 `json:"maxFacetHits"`
-	CamelCaseAttributes        []string            `json:"camelCaseAttributes"`
-	DecompoundedAttributes     map[string][]string `json:"decompoundedAttributes"`
-	KeepDiacriticsOnCharacters string              `json:"keepDiacriticsOnCharacters"`
-	// Backward-compatibility
-	AttributesToIndex        []string `json:"attributesToIndex"`
-	QueryLanguages           []string `json:"queryLanguages"`
-	NumericAttributesToIndex []string `json:"numericAttributesToIndex"`
-	Slaves                   []string `json:"slaves"`
+	AdvancedSyntax                    bool                `json:"advancedSyntax"`
+	AdvancedSyntaxFeatures            []string            `json:"advancedSyntaxFeatures"`
+	AllowCompressionOfIntegerArray    bool                `json:"allowCompressionOfIntegerArray"`
+	AllowTyposOnNumericTokens         bool                `json:"allowTyposOnNumericTokens"`
+	AttributeForDistinct              string              `json:"attributeForDistinct"`
+	AttributesForFaceting             []string            `json:"attributesForFaceting"`
+	AttributesToHighlight             []string            `json:"attributesToHighlight"`
+	AttributesToIndex                 []string            `json:"attributesToIndex"`
+	AttributesToRetrieve              []string            `json:"attributesToRetrieve"`
+	AttributesToSnippet               []string            `json:"attributesToSnippet"`
+	CamelCaseAttributes               []string            `json:"camelCaseAttributes"`
+	CustomRanking                     []string            `json:"customRanking"`
+	DecompoundedAttributes            map[string][]string `json:"decompoundedAttributes"`
+	DisableExactOnAttributes          []string            `json:"disableExactOnAttributes"`
+	DisablePrefixOnAttributes         []string            `json:"disablePrefixOnAttributes"`
+	DisableTypoToleranceOnAttributes  []string            `json:"disableTypoToleranceOnAttributes"`
+	DisableTypoToleranceOnWords       []string            `json:"disableTypoToleranceOnWords"`
+	Distinct                          interface{}         `json:"distinct"` // float64 (actually an int) or bool
+	EnableRules                       bool                `json:"enableRules"`
+	ExactOnSingleWordQuery            string              `json:"exactOnSingleWordQuery"`
+	HighlightPostTag                  string              `json:"highlightPostTag"`
+	HighlightPreTag                   string              `json:"highlightPreTag"`
+	HitsPerPage                       int                 `json:"hitsPerPage"`
+	IgnorePlurals                     interface{}         `json:"ignorePlurals"` // []interface{} (actually a []string) or bool
+	KeepDiacriticsOnCharacters        string              `json:"keepDiacriticsOnCharacters"`
+	MaxFacetHits                      int                 `json:"maxFacetHits"`
+	MaxValuesPerFacet                 int                 `json:"maxValuesPerFacet"`
+	MinProximity                      int                 `json:"minProximity"`
+	MinWordSizefor1Typo               int                 `json:"minWordSizefor1Typo"`
+	MinWordSizefor2Typos              int                 `json:"minWordSizefor2Typos"`
+	NumericAttributesForFiltering     []string            `json:"numericAttributesForFiltering"`
+	NumericAttributesToIndex          []string            `json:"numericAttributesToIndex"`
+	OptionalWords                     []string            `json:"optionalWords"`
+	PaginationLimitedTo               int                 `json:"paginationLimitedTo"`
+	QueryLanguages                    []string            `json:"queryLanguages"`
+	QueryType                         string              `json:"queryType"`
+	Ranking                           []string            `json:"ranking"`
+	RemoveStopWords                   interface{}         `json:"removeStopWords"` // []interface{} (actually a []string) or bool
+	RemoveWordsIfNoResults            string              `json:"removeWordsIfNoResults"`
+	ReplaceSynonymsInHighlight        bool                `json:"replaceSynonymsInHighlight"`
+	Replicas                          []string            `json:"replicas"`
+	ResponseFields                    []string            `json:"responseFields"`
+	RestrictHighlightAndSnippetArrays bool                `json:"restrictHighlightAndSnippetArrays"`
+	SearchableAttributes              []string            `json:"searchableAttributes"`
+	SeparatorsToIndex                 string              `json:"separatorsToIndex"`
+	Slaves                            []string            `json:"slaves"`
+	SnippetEllipsisText               string              `json:"snippetEllipsisText"`
+	SortFacetValuesBy                 string              `json:"sortFacetValuesBy"`
+	TypoTolerance                     interface{}         `json:"typoTolerance"` // string or bool
+	UnretrievableAttributes           []string            `json:"unretrievableAttributes"`
 }
 
 // clean sets the zero-value fields of any `Settings struct` generated
@@ -110,57 +100,51 @@ func (s *Settings) ToMap() Map {
 	//  - RemoveStopWords []interface{} or bool
 	//  - Distinct float64 or bool
 	m := Map{
-		// Attributes
-		"searchableAttributes":    s.SearchableAttributes,
-		"attributesForFaceting":   s.AttributesForFaceting,
-		"unretrievableAttributes": s.UnretrievableAttributes,
-		"attributesToRetrieve":    s.AttributesToRetrieve,
-		// Ranking
-		"ranking":       s.Ranking,
-		"customRanking": s.CustomRanking,
-		"replicas":      s.Replicas,
-		// Faceting
-		"maxValuesPerFacet": s.MaxValuesPerFacet,
-		"sortFacetValuesBy": s.SortFacetValuesBy,
-		// Highlighting / Snippeting
+		"advancedSyntax":                    s.AdvancedSyntax,
+		"advancedSyntaxFeatures":            s.AdvancedSyntaxFeatures,
+		"allowCompressionOfIntegerArray":    s.AllowCompressionOfIntegerArray,
+		"allowTyposOnNumericTokens":         s.AllowTyposOnNumericTokens,
+		"attributeForDistinct":              s.AttributeForDistinct,
+		"attributesForFaceting":             s.AttributesForFaceting,
 		"attributesToHighlight":             s.AttributesToHighlight,
+		"attributesToIndex":                 s.AttributesToIndex,
+		"attributesToRetrieve":              s.AttributesToRetrieve,
 		"attributesToSnippet":               s.AttributesToSnippet,
-		"highlightPreTag":                   s.HighlightPreTag,
+		"camelCaseAttributes":               s.CamelCaseAttributes,
+		"customRanking":                     s.CustomRanking,
+		"decompoundedAttributes":            s.DecompoundedAttributes,
+		"disableExactOnAttributes":          s.DisableExactOnAttributes,
+		"disablePrefixOnAttributes":         s.DisablePrefixOnAttributes,
+		"disableTypoToleranceOnAttributes":  s.DisableTypoToleranceOnAttributes,
+		"disableTypoToleranceOnWords":       s.DisableTypoToleranceOnWords,
+		"enableRules":                       s.EnableRules,
+		"exactOnSingleWordQuery":            s.ExactOnSingleWordQuery,
 		"highlightPostTag":                  s.HighlightPostTag,
-		"snippetEllipsisText":               s.SnippetEllipsisText,
+		"highlightPreTag":                   s.HighlightPreTag,
+		"hitsPerPage":                       s.HitsPerPage,
+		"keepDiacriticsOnCharacters":        s.KeepDiacriticsOnCharacters,
+		"maxFacetHits":                      s.MaxFacetHits,
+		"maxValuesPerFacet":                 s.MaxValuesPerFacet,
+		"minProximity":                      s.MinProximity,
+		"minWordSizefor1Typo":               s.MinWordSizefor1Typo,
+		"minWordSizefor2Typos":              s.MinWordSizefor2Typos,
+		"numericAttributesForFiltering":     s.NumericAttributesForFiltering,
+		"numericAttributesToIndex":          s.NumericAttributesToIndex,
+		"optionalWords":                     s.OptionalWords,
+		"paginationLimitedTo":               s.PaginationLimitedTo,
+		"queryType":                         s.QueryType,
+		"ranking":                           s.Ranking,
+		"removeWordsIfNoResults":            s.RemoveWordsIfNoResults,
+		"replaceSynonymsInHighlight":        s.ReplaceSynonymsInHighlight,
+		"replicas":                          s.Replicas,
+		"responseFields":                    s.ResponseFields,
 		"restrictHighlightAndSnippetArrays": s.RestrictHighlightAndSnippetArrays,
-		// Pagination
-		"hitsPerPage":         s.HitsPerPage,
-		"paginationLimitedTo": s.PaginationLimitedTo,
-		// Typos
-		"minWordSizefor1Typo":              s.MinWordSizefor1Typo,
-		"minWordSizefor2Typos":             s.MinWordSizefor2Typos,
-		"allowTyposOnNumericTokens":        s.AllowTyposOnNumericTokens,
-		"disableTypoToleranceOnAttributes": s.DisableTypoToleranceOnAttributes,
-		"disableTypoToleranceOnWords":      s.DisableTypoToleranceOnWords,
-		"separatorsToIndex":                s.SeparatorsToIndex,
-		// Query strategy
-		"queryType":                 s.QueryType,
-		"removeWordsIfNoResults":    s.RemoveWordsIfNoResults,
-		"advancedSyntax":            s.AdvancedSyntax,
-		"optionalWords":             s.OptionalWords,
-		"disablePrefixOnAttributes": s.DisablePrefixOnAttributes,
-		"disableExactOnAttributes":  s.DisableExactOnAttributes,
-		"exactOnSingleWordQuery":    s.ExactOnSingleWordQuery,
-		// Query rules
-		"enableRules": s.EnableRules,
-		// Performance
-		"numericAttributesForFiltering":  s.NumericAttributesForFiltering,
-		"allowCompressionOfIntegerArray": s.AllowCompressionOfIntegerArray,
-		// Advanced
-		"attributeForDistinct":       s.AttributeForDistinct,
-		"replaceSynonymsInHighlight": s.ReplaceSynonymsInHighlight,
-		"minProximity":               s.MinProximity,
-		"responseFields":             s.ResponseFields,
-		"maxFacetHits":               s.MaxFacetHits,
-		"camelCaseAttributes":        s.CamelCaseAttributes,
-		"decompoundedAttributes":     s.DecompoundedAttributes,
-		"keepDiacriticsOnCharacters": s.KeepDiacriticsOnCharacters,
+		"searchableAttributes":              s.SearchableAttributes,
+		"separatorsToIndex":                 s.SeparatorsToIndex,
+		"slaves":                            s.Slaves,
+		"snippetEllipsisText":               s.SnippetEllipsisText,
+		"sortFacetValuesBy":                 s.SortFacetValuesBy,
+		"unretrievableAttributes":           s.UnretrievableAttributes,
 	}
 
 	// Remove empty string slices to avoid creating null-valued fields in the

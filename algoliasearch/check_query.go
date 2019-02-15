@@ -36,7 +36,8 @@ Outer:
 			"queryLanguages",
 			"responseFields",
 			"optionalFilters",
-			"ruleContexts":
+			"ruleContexts",
+			"advancedSyntaxFeatures":
 			if _, ok := v.([]string); !ok {
 				return invalidType(k, "[]string")
 			}
@@ -68,7 +69,8 @@ Outer:
 			"facetingAfterDistinct",
 			"restrictHighlightAndSnippetArrays",
 			"percentileComputation",
-			"sumOrFiltersScores":
+			"sumOrFiltersScores",
+			"enablePersonalization":
 			if _, ok := v.(bool); !ok {
 				return invalidType(k, "bool")
 			}

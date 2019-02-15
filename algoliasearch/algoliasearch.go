@@ -63,6 +63,9 @@ type Client interface {
 	// InitAnalytics returns a new Analytics instance, bound to the Client.
 	InitAnalytics() Analytics
 
+	// InitInsights returns a new Insights instance, bound to the Client.
+	InitInsights() Insights
+
 	// ListKeys returns all the API keys available for this Algolia
 	// application.
 	//
@@ -84,14 +87,10 @@ type Client interface {
 	ListAPIKeysWithRequestOptions(opts *RequestOptions) (keys []Key, err error)
 
 	// MoveIndex renames the index named `source` as `destination`.
-	//
-	// Deprecated: Use Index.MoveTo instead.
 	MoveIndex(source, destination string) (UpdateTaskRes, error)
 
 	// MoveIndexWithRequestOptions is the same as MoveIndex but it also accepts
 	// extra RequestOptions.
-	//
-	// Deprecated: Use Index.MoveToWithRequestOptions instead.
 	MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// CopyIndex duplicates the index named `source` as `destination`.
@@ -324,6 +323,29 @@ type Client interface {
 	// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
 	// extra RequestOptions.
 	CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// SetPersonalizationStrategy allows to set the inner strategies related to the
+	// Personalization features.
+	SetPersonalizationStrategy(strategy Strategy) (SetStrategyRes, error)
+
+	// SetPersonalizationStrategyWithRequestOptions is the same as SetPersonalizationStrategy but it also
+	// accepts extra RequestOptions.
+	SetPersonalizationStrategyWithRequestOptions(strategy Strategy, opts *RequestOptions) (SetStrategyRes, error)
+
+	// GetPersonalizationStrategy retrieves the inner strategies related to the Personalization
+	// features.
+	GetPersonalizationStrategy() (Strategy, error)
+
+	// GetPersonalizationStrategyWithRequestOptions is the same as GetPersonalizationStrategy but it also
+	// accepts extra RequestOptions.
+	GetPersonalizationStrategyWithRequestOptions(opts *RequestOptions) (Strategy, error)
+
+	// RestoreAPIKey lets the user restore a previously deleted API key.
+	RestoreAPIKey(key string) (AddKeyRes, error)
+
+	// RestoreAPIKeyWithRequestOptions the same as RestoreAPIKey but it also
+	// accepts extra RequestOptions.
+	RestoreAPIKeyWithRequestOptions(key string, opts *RequestOptions) (AddKeyRes, error)
 }
 
 // Index is a representation used to manipulate an Algolia index.
@@ -901,6 +923,36 @@ type Analytics interface {
 	// WaitTask blocks until the given task has ended successfully. If anything
 	// goes wrong or if the task did not succeed, a non-nil error is returned.
 	WaitTask(task ABTestTaskRes) (err error)
+}
+
+type Insights interface {
+	User(userToken string) InsightsWithUser
+}
+
+type InsightsWithUser interface {
+	ClickedFilters(eventName, indexName string, filters []string) (res InsightsResponse, err error)
+	ClickedFiltersWithRequestOptions(eventName, indexName string, filters []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ClickedObjectIDs(eventName, indexName string, objectIDs []string) (res InsightsResponse, err error)
+	ClickedObjectIDsWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ClickedObjectIDsAfterSearch(eventName, indexName string, objectIDs []string, positions []int, queryID string) (res InsightsResponse, err error)
+	ClickedObjectIDsAfterSearchWithRequestOptions(eventName, indexName string, objectIDs []string, positions []int, queryID string, opts *RequestOptions) (res InsightsResponse, err error)
+
+	ConvertedObjectIDs(eventName, indexName string, objectIDs []string) (res InsightsResponse, err error)
+	ConvertedObjectIDsWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ConvertedObjectIDsAfterSearch(eventName, indexName string, objectIDs []string, queryID string) (res InsightsResponse, err error)
+	ConvertedObjectIDsAfterSearchWithRequestOptions(eventName, indexName string, objectIDs []string, queryID string, opts *RequestOptions) (res InsightsResponse, err error)
+	ConvertedFilters(eventName, indexName string, filters []string) (res InsightsResponse, err error)
+	ConvertedFiltersWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+
+	ViewedFilters(eventName, indexName string, filters []string) (res InsightsResponse, err error)
+	ViewedFiltersWithRequestOptions(eventName, indexName string, filters []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ViewedObjectIDs(eventName, indexName string, objectIDs []string) (res InsightsResponse, err error)
+	ViewedObjectIDsWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+
+	SendEvent(req InsightsRequest) (res InsightsResponse, err error)
+	SendEventWithRequestOptions(req InsightsRequest, opts *RequestOptions) (res InsightsResponse, err error)
+	SendEvents(req []InsightsRequest) (res InsightsResponse, err error)
+	SendEventsWithRequestOptions(req []InsightsRequest, opts *RequestOptions) (res InsightsResponse, err error)
 }
 
 // AccountClient is responsible for handling cross-application operations.

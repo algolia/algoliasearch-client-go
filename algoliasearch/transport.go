@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	version = "2.25.0"
+	version = "2.27.0"
 )
 
 // Define the constants used to specify the type of request.
@@ -29,6 +29,7 @@ const (
 	write
 	read
 	analyticsCall
+	insightsCall
 )
 
 // Transport is responsible for the connection and the retry strategy to
@@ -88,6 +89,8 @@ func (t *Transport) request(method, path string, body interface{}, typeCall int,
 		k = call.Write
 	case analyticsCall:
 		k = call.Analytics
+	case insightsCall:
+		k = call.Insights
 	default:
 		return nil, fmt.Errorf("unsupported call type %d", typeCall)
 	}
@@ -193,8 +196,8 @@ func (t *Transport) setExtraHeader(key, value string) {
 	t.headers[key] = value
 }
 
-func (t *Transport) setTimeouts(read, write, analytics time.Duration) {
-	t.retryStrategy.SetTimeouts(read, write, analytics)
+func (t *Transport) setTimeouts(read, write, analytics, insights time.Duration) {
+	t.retryStrategy.SetTimeouts(read, write, analytics, insights)
 }
 
 // setMaxIdleConnsPerHost sets the `MaxIdleConnsPerHost` via the given

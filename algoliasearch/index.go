@@ -196,7 +196,7 @@ func (i *index) AddAPIKeyWithRequestOptions(ACL []string, params Map, opts *Requ
 	}
 
 	path := i.route + "/keys"
-	err = i.client.request(&res, "POST", path, req, read, opts)
+	err = i.client.request(&res, "POST", path, req, write, opts)
 	return
 }
 
