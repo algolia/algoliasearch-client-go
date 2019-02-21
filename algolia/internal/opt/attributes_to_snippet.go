@@ -3,9 +3,6 @@
 package opt
 
 import (
-    "context"
-    "strings"
-
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
