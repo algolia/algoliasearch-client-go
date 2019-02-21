@@ -22,7 +22,7 @@ func (o FiltersOption) MarshalJSON() ([]byte, error) {
 
 func (o *FiltersOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = &#34;attribute&#34;
+		o.value = "attribute"
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

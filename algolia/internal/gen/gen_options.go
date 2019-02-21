@@ -17,7 +17,7 @@ import (
 var opts = []struct {
 	Name         string
 	Type         string
-	DefaultValue string
+	DefaultValue template.HTML
 }{
 	// bool
 	{"AdvancedSyntax", "bool", "false"},

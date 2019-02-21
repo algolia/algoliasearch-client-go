@@ -22,7 +22,7 @@ func (o AroundLatLngOption) MarshalJSON() ([]byte, error) {
 
 func (o *AroundLatLngOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = &#34;&#34;
+		o.value = ""
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

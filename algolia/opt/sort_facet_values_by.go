@@ -22,7 +22,7 @@ func (o SortFacetValuesByOption) MarshalJSON() ([]byte, error) {
 
 func (o *SortFacetValuesByOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = &#34;count&#34;
+		o.value = "count"
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
