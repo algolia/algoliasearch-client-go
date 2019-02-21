@@ -32,7 +32,7 @@ var opts = []struct {
 	{"GetRankingInfo", "bool", "false"},
 	{"PercentileComputation", "bool", "true"},
 	{"Synonyms", "bool", "true"},
-	{"sumOrFiltersScores", "bool", "false"},
+	{"SumOrFiltersScores", "bool", "false"},
 	{"RestrictHighlightAndSnippetArrays", "bool", "false"},
 	{"ReplaceSynonymsInHighlight", "bool", "true"},
 
