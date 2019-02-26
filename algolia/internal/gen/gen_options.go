@@ -86,7 +86,7 @@ var opts = []struct {
 }
 
 var funcMap = template.FuncMap{
-	"trimPrefix": func(s, prefix string) string { return strings.TrimPrefix(s, prefix) },
+	"trimPrefix": strings.TrimPrefix,
 }
 
 func main() {
