@@ -1,5 +1,5 @@
-install:
-	go install ./algoliasearch
+build: generate
+	go build ./...
 
 deps:
 	dep ensure -vendor-only
@@ -12,5 +12,6 @@ ut:
 it:
 	GOCACHE=off gotest -v ./it/...
 
-
-.PHONY: install deps test ut it
+generate:
+	rm `grep -R -l --include \*.go -F 'DO NOT EDIT' *`
+	go generate ./...
