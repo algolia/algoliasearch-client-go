@@ -98,7 +98,6 @@ func main() {
 		extractOptionTestIntTemplate         = template.Must(template.ParseFiles("templates/extract_option_int_test.go.tmpl"))
 		extractOptionTestStringTemplate      = template.Must(template.ParseFiles("templates/extract_option_string_test.go.tmpl"))
 		extractOptionTestStringSliceTemplate = template.Must(template.ParseFiles("templates/extract_option_string_slice_test.go.tmpl"))
-		//extractOptionTestMapTemplate         = template.Must(template.ParseFiles("templates/extract_option_map_test.go.tmpl"))
 	)
 
 	for _, opt := range opts {
