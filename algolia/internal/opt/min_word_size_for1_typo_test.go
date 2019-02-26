@@ -3,43 +3,43 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMinWordSizeFor1Typo(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.MinWordSizeFor1TypoOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.MinWordSizeFor1Typo(4),
-        },
-        {
-            opts:     []interface{}{opt.MinWordSizeFor1Typo(0)},
-            expected: opt.MinWordSizeFor1Typo(0),
-        },
-        {
-            opts:     []interface{}{opt.MinWordSizeFor1Typo(1)},
-            expected: opt.MinWordSizeFor1Typo(1),
-        },
-        {
-            opts:     []interface{}{opt.MinWordSizeFor1Typo(-42)},
-            expected: opt.MinWordSizeFor1Typo(-42),
-        },
-    } {
-        var (
-            in  = ExtractMinWordSizeFor1Typo(c.opts...)
-            out opt.MinWordSizeFor1TypoOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.Equal(t, c.expected, out)
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.MinWordSizeFor1TypoOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.MinWordSizeFor1Typo(4),
+		},
+		{
+			opts:     []interface{}{opt.MinWordSizeFor1Typo(0)},
+			expected: opt.MinWordSizeFor1Typo(0),
+		},
+		{
+			opts:     []interface{}{opt.MinWordSizeFor1Typo(1)},
+			expected: opt.MinWordSizeFor1Typo(1),
+		},
+		{
+			opts:     []interface{}{opt.MinWordSizeFor1Typo(-42)},
+			expected: opt.MinWordSizeFor1Typo(-42),
+		},
+	} {
+		var (
+			in  = ExtractMinWordSizeFor1Typo(c.opts...)
+			out opt.MinWordSizeFor1TypoOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, out)
+	}
 }

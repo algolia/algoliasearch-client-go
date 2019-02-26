@@ -3,39 +3,39 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRuleContexts(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.RuleContextsOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.RuleContexts("none"),
-        },
-        {
-            opts:     []interface{}{opt.RuleContexts("")},
-            expected: opt.RuleContexts(""),
-        },
-        {
-            opts:     []interface{}{opt.RuleContexts("content of the string value")},
-            expected: opt.RuleContexts("content of the string value"),
-        },
-    } {
-        var (
-            in  = ExtractRuleContexts(c.opts...)
-            out opt.RuleContextsOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.Equal(t, c.expected, out)
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.RuleContextsOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.RuleContexts("none"),
+		},
+		{
+			opts:     []interface{}{opt.RuleContexts("")},
+			expected: opt.RuleContexts(""),
+		},
+		{
+			opts:     []interface{}{opt.RuleContexts("content of the string value")},
+			expected: opt.RuleContexts("content of the string value"),
+		},
+	} {
+		var (
+			in  = ExtractRuleContexts(c.opts...)
+			out opt.RuleContextsOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, out)
+	}
 }

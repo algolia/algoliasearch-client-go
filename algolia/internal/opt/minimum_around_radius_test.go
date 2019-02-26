@@ -3,43 +3,43 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMinimumAroundRadius(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.MinimumAroundRadiusOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.MinimumAroundRadius(0),
-        },
-        {
-            opts:     []interface{}{opt.MinimumAroundRadius(0)},
-            expected: opt.MinimumAroundRadius(0),
-        },
-        {
-            opts:     []interface{}{opt.MinimumAroundRadius(1)},
-            expected: opt.MinimumAroundRadius(1),
-        },
-        {
-            opts:     []interface{}{opt.MinimumAroundRadius(-42)},
-            expected: opt.MinimumAroundRadius(-42),
-        },
-    } {
-        var (
-            in  = ExtractMinimumAroundRadius(c.opts...)
-            out opt.MinimumAroundRadiusOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.Equal(t, c.expected, out)
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.MinimumAroundRadiusOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.MinimumAroundRadius(0),
+		},
+		{
+			opts:     []interface{}{opt.MinimumAroundRadius(0)},
+			expected: opt.MinimumAroundRadius(0),
+		},
+		{
+			opts:     []interface{}{opt.MinimumAroundRadius(1)},
+			expected: opt.MinimumAroundRadius(1),
+		},
+		{
+			opts:     []interface{}{opt.MinimumAroundRadius(-42)},
+			expected: opt.MinimumAroundRadius(-42),
+		},
+	} {
+		var (
+			in  = ExtractMinimumAroundRadius(c.opts...)
+			out opt.MinimumAroundRadiusOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, out)
+	}
 }

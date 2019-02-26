@@ -3,39 +3,39 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestAttributesToRetrieve(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.AttributesToRetrieveOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.AttributesToRetrieve(nil),
-        },
-        {
-            opts:     []interface{}{opt.AttributesToRetrieve("value1")},
-            expected: opt.AttributesToRetrieve("value1"),
-        },
-        {
-            opts:     []interface{}{opt.AttributesToRetrieve("value1", "value2", "value3")},
-            expected: opt.AttributesToRetrieve("value1", "value2", "value3"),
-        },
-    } {
-        var (
-            in  = ExtractAttributesToRetrieve(c.opts...)
-            out opt.AttributesToRetrieveOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.ElementsMatch(t, c.expected.Get(), out.Get())
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.AttributesToRetrieveOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.AttributesToRetrieve(nil),
+		},
+		{
+			opts:     []interface{}{opt.AttributesToRetrieve("value1")},
+			expected: opt.AttributesToRetrieve("value1"),
+		},
+		{
+			opts:     []interface{}{opt.AttributesToRetrieve("value1", "value2", "value3")},
+			expected: opt.AttributesToRetrieve("value1", "value2", "value3"),
+		},
+	} {
+		var (
+			in  = ExtractAttributesToRetrieve(c.opts...)
+			out opt.AttributesToRetrieveOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), out.Get())
+	}
 }

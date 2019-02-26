@@ -3,14 +3,14 @@
 package opt
 
 import (
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
 func ExtractPage(opts ...interface{}) *opt.PageOption {
-    for _, o := range opts {
-        if v, ok := o.(opt.PageOption); ok {
-            return &v
-        }
-    }
-    return nil
+	for _, o := range opts {
+		if v, ok := o.(opt.PageOption); ok {
+			return &v
+		}
+	}
+	return nil
 }

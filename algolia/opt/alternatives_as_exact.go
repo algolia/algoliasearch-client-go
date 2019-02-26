@@ -5,25 +5,25 @@ package opt
 import "encoding/json"
 
 type AlternativesAsExactOption struct {
-    value []string
+	value []string
 }
 
 func AlternativesAsExact(v ...string) AlternativesAsExactOption {
-    return AlternativesAsExactOption{v}
+	return AlternativesAsExactOption{v}
 }
 
 func (o AlternativesAsExactOption) Get() []string {
-    return o.value
+	return o.value
 }
 
 func (o AlternativesAsExactOption) MarshalJSON() ([]byte, error) {
-    return json.Marshal(o.value)
+	return json.Marshal(o.value)
 }
 
 func (o *AlternativesAsExactOption) UnmarshalJSON(data []byte) error {
-    if string(data) == "null" {
-        o.value = nil
-        return nil
-    }
-    return json.Unmarshal(data, &o.value)
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
+	return json.Unmarshal(data, &o.value)
 }

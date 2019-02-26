@@ -5,6 +5,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"go/format"
 	"html/template"
 	"io/ioutil"
 	"os"
@@ -168,17 +169,25 @@ func main() {
 }
 
 func generateFile(tmpl *template.Template, data interface{}, filename string) error {
-	var b bytes.Buffer
+	var (
+		b       bytes.Buffer
+		content []byte
+	)
 
 	err := tmpl.Execute(&b, data)
 	if err != nil {
-		return fmt.Errorf("cannot execute template: %v", err)
+		return fmt.Errorf("cannot execute template %s: %v", filename, err)
+	}
+
+	content, err = format.Source(b.Bytes())
+	if err != nil {
+		return fmt.Errorf("cannot format generated code from template %s: %v", filename, err)
 	}
 
 	os.Remove(filename)
 
-	if err = ioutil.WriteFile(filename, b.Bytes(), 0755); err != nil {
-		return fmt.Errorf("cannot generate file: %v", err)
+	if err = ioutil.WriteFile(filename, content, 0755); err != nil {
+		return fmt.Errorf("cannot write generated file from template %s: %v", filename, err)
 	}
 
 	return nil

@@ -3,39 +3,39 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestAttributesToSnippet(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.AttributesToSnippetOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.AttributesToSnippet(nil),
-        },
-        {
-            opts:     []interface{}{opt.AttributesToSnippet("value1")},
-            expected: opt.AttributesToSnippet("value1"),
-        },
-        {
-            opts:     []interface{}{opt.AttributesToSnippet("value1", "value2", "value3")},
-            expected: opt.AttributesToSnippet("value1", "value2", "value3"),
-        },
-    } {
-        var (
-            in  = ExtractAttributesToSnippet(c.opts...)
-            out opt.AttributesToSnippetOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.ElementsMatch(t, c.expected.Get(), out.Get())
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.AttributesToSnippetOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.AttributesToSnippet(nil),
+		},
+		{
+			opts:     []interface{}{opt.AttributesToSnippet("value1")},
+			expected: opt.AttributesToSnippet("value1"),
+		},
+		{
+			opts:     []interface{}{opt.AttributesToSnippet("value1", "value2", "value3")},
+			expected: opt.AttributesToSnippet("value1", "value2", "value3"),
+		},
+	} {
+		var (
+			in  = ExtractAttributesToSnippet(c.opts...)
+			out opt.AttributesToSnippetOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), out.Get())
+	}
 }

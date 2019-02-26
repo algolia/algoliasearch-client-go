@@ -3,39 +3,39 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestAdvancedSyntaxFeatures(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.AdvancedSyntaxFeaturesOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.AdvancedSyntaxFeatures(nil),
-        },
-        {
-            opts:     []interface{}{opt.AdvancedSyntaxFeatures("value1")},
-            expected: opt.AdvancedSyntaxFeatures("value1"),
-        },
-        {
-            opts:     []interface{}{opt.AdvancedSyntaxFeatures("value1", "value2", "value3")},
-            expected: opt.AdvancedSyntaxFeatures("value1", "value2", "value3"),
-        },
-    } {
-        var (
-            in  = ExtractAdvancedSyntaxFeatures(c.opts...)
-            out opt.AdvancedSyntaxFeaturesOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.ElementsMatch(t, c.expected.Get(), out.Get())
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.AdvancedSyntaxFeaturesOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.AdvancedSyntaxFeatures(nil),
+		},
+		{
+			opts:     []interface{}{opt.AdvancedSyntaxFeatures("value1")},
+			expected: opt.AdvancedSyntaxFeatures("value1"),
+		},
+		{
+			opts:     []interface{}{opt.AdvancedSyntaxFeatures("value1", "value2", "value3")},
+			expected: opt.AdvancedSyntaxFeatures("value1", "value2", "value3"),
+		},
+	} {
+		var (
+			in  = ExtractAdvancedSyntaxFeatures(c.opts...)
+			out opt.AdvancedSyntaxFeaturesOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), out.Get())
+	}
 }

@@ -3,43 +3,43 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMaxFacetHits(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.MaxFacetHitsOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.MaxFacetHits(10),
-        },
-        {
-            opts:     []interface{}{opt.MaxFacetHits(0)},
-            expected: opt.MaxFacetHits(0),
-        },
-        {
-            opts:     []interface{}{opt.MaxFacetHits(1)},
-            expected: opt.MaxFacetHits(1),
-        },
-        {
-            opts:     []interface{}{opt.MaxFacetHits(-42)},
-            expected: opt.MaxFacetHits(-42),
-        },
-    } {
-        var (
-            in  = ExtractMaxFacetHits(c.opts...)
-            out opt.MaxFacetHitsOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.Equal(t, c.expected, out)
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.MaxFacetHitsOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.MaxFacetHits(10),
+		},
+		{
+			opts:     []interface{}{opt.MaxFacetHits(0)},
+			expected: opt.MaxFacetHits(0),
+		},
+		{
+			opts:     []interface{}{opt.MaxFacetHits(1)},
+			expected: opt.MaxFacetHits(1),
+		},
+		{
+			opts:     []interface{}{opt.MaxFacetHits(-42)},
+			expected: opt.MaxFacetHits(-42),
+		},
+	} {
+		var (
+			in  = ExtractMaxFacetHits(c.opts...)
+			out opt.MaxFacetHitsOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, out)
+	}
 }

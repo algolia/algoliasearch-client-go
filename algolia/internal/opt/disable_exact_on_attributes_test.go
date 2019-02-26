@@ -3,39 +3,39 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestDisableExactOnAttributes(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.DisableExactOnAttributesOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.DisableExactOnAttributes(nil),
-        },
-        {
-            opts:     []interface{}{opt.DisableExactOnAttributes("value1")},
-            expected: opt.DisableExactOnAttributes("value1"),
-        },
-        {
-            opts:     []interface{}{opt.DisableExactOnAttributes("value1", "value2", "value3")},
-            expected: opt.DisableExactOnAttributes("value1", "value2", "value3"),
-        },
-    } {
-        var (
-            in  = ExtractDisableExactOnAttributes(c.opts...)
-            out opt.DisableExactOnAttributesOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.ElementsMatch(t, c.expected.Get(), out.Get())
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.DisableExactOnAttributesOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.DisableExactOnAttributes(nil),
+		},
+		{
+			opts:     []interface{}{opt.DisableExactOnAttributes("value1")},
+			expected: opt.DisableExactOnAttributes("value1"),
+		},
+		{
+			opts:     []interface{}{opt.DisableExactOnAttributes("value1", "value2", "value3")},
+			expected: opt.DisableExactOnAttributes("value1", "value2", "value3"),
+		},
+	} {
+		var (
+			in  = ExtractDisableExactOnAttributes(c.opts...)
+			out opt.DisableExactOnAttributesOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), out.Get())
+	}
 }

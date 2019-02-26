@@ -3,39 +3,39 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRemoveWordsIfNoResults(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.RemoveWordsIfNoResultsOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.RemoveWordsIfNoResults("none"),
-        },
-        {
-            opts:     []interface{}{opt.RemoveWordsIfNoResults("")},
-            expected: opt.RemoveWordsIfNoResults(""),
-        },
-        {
-            opts:     []interface{}{opt.RemoveWordsIfNoResults("content of the string value")},
-            expected: opt.RemoveWordsIfNoResults("content of the string value"),
-        },
-    } {
-        var (
-            in  = ExtractRemoveWordsIfNoResults(c.opts...)
-            out opt.RemoveWordsIfNoResultsOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.Equal(t, c.expected, out)
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.RemoveWordsIfNoResultsOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.RemoveWordsIfNoResults("none"),
+		},
+		{
+			opts:     []interface{}{opt.RemoveWordsIfNoResults("")},
+			expected: opt.RemoveWordsIfNoResults(""),
+		},
+		{
+			opts:     []interface{}{opt.RemoveWordsIfNoResults("content of the string value")},
+			expected: opt.RemoveWordsIfNoResults("content of the string value"),
+		},
+	} {
+		var (
+			in  = ExtractRemoveWordsIfNoResults(c.opts...)
+			out opt.RemoveWordsIfNoResultsOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, out)
+	}
 }

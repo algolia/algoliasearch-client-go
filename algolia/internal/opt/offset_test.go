@@ -3,43 +3,43 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestOffset(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.OffsetOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.Offset(0),
-        },
-        {
-            opts:     []interface{}{opt.Offset(0)},
-            expected: opt.Offset(0),
-        },
-        {
-            opts:     []interface{}{opt.Offset(1)},
-            expected: opt.Offset(1),
-        },
-        {
-            opts:     []interface{}{opt.Offset(-42)},
-            expected: opt.Offset(-42),
-        },
-    } {
-        var (
-            in  = ExtractOffset(c.opts...)
-            out opt.OffsetOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.Equal(t, c.expected, out)
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.OffsetOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.Offset(0),
+		},
+		{
+			opts:     []interface{}{opt.Offset(0)},
+			expected: opt.Offset(0),
+		},
+		{
+			opts:     []interface{}{opt.Offset(1)},
+			expected: opt.Offset(1),
+		},
+		{
+			opts:     []interface{}{opt.Offset(-42)},
+			expected: opt.Offset(-42),
+		},
+	} {
+		var (
+			in  = ExtractOffset(c.opts...)
+			out opt.OffsetOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, out)
+	}
 }

@@ -3,43 +3,43 @@
 package opt
 
 import (
-    "encoding/json"
-    "testing"
+	"encoding/json"
+	"testing"
 
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
-    "github.com/stretchr/testify/require"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/stretchr/testify/require"
 )
 
 func TestPage(t *testing.T) {
-    for _, c := range []struct {
-        opts     []interface{}
-        expected opt.PageOption
-    }{
-        {
-            opts:     []interface{}{nil},
-            expected: opt.Page(0),
-        },
-        {
-            opts:     []interface{}{opt.Page(0)},
-            expected: opt.Page(0),
-        },
-        {
-            opts:     []interface{}{opt.Page(1)},
-            expected: opt.Page(1),
-        },
-        {
-            opts:     []interface{}{opt.Page(-42)},
-            expected: opt.Page(-42),
-        },
-    } {
-        var (
-            in  = ExtractPage(c.opts...)
-            out opt.PageOption
-        )
-        data, err := json.Marshal(&in)
-        require.NoError(t, err)
-        err = json.Unmarshal(data, &out)
-        require.NoError(t, err)
-        require.Equal(t, c.expected, out)
-    }
+	for _, c := range []struct {
+		opts     []interface{}
+		expected opt.PageOption
+	}{
+		{
+			opts:     []interface{}{nil},
+			expected: opt.Page(0),
+		},
+		{
+			opts:     []interface{}{opt.Page(0)},
+			expected: opt.Page(0),
+		},
+		{
+			opts:     []interface{}{opt.Page(1)},
+			expected: opt.Page(1),
+		},
+		{
+			opts:     []interface{}{opt.Page(-42)},
+			expected: opt.Page(-42),
+		},
+	} {
+		var (
+			in  = ExtractPage(c.opts...)
+			out opt.PageOption
+		)
+		data, err := json.Marshal(&in)
+		require.NoError(t, err)
+		err = json.Unmarshal(data, &out)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, out)
+	}
 }

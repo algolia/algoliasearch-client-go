@@ -3,14 +3,14 @@
 package opt
 
 import (
-    "github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
 func ExtractMinProximity(opts ...interface{}) *opt.MinProximityOption {
-    for _, o := range opts {
-        if v, ok := o.(opt.MinProximityOption); ok {
-            return &v
-        }
-    }
-    return nil
+	for _, o := range opts {
+		if v, ok := o.(opt.MinProximityOption); ok {
+			return &v
+		}
+	}
+	return nil
 }
