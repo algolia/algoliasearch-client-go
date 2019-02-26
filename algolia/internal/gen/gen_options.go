@@ -27,6 +27,7 @@ var opts = []struct {
 	{"AroundLatLngViaIP", "bool", "false"},
 	{"AutoGenerateObjectIDIfNotExist", "bool", "false"},
 	{"CreateIfNotExists", "bool", "false"},
+	{"ClickAnalytics", "bool", "false"},
 	{"EnablePersonalization", "bool", "false"},
 	{"EnableRules", "bool", "false"},
 	{"FacetingAfterDistinct", "bool", "false"},
