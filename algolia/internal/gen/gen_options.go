@@ -186,7 +186,7 @@ func generateFile(tmpl *template.Template, data interface{}, filename string) er
 
 	os.Remove(filename)
 
-	if err = ioutil.WriteFile(filename, content, 0755); err != nil {
+	if err = ioutil.WriteFile(filename, content, 0644); err != nil {
 		return fmt.Errorf("cannot write generated file from template %s: %v", filename, err)
 	}
 
