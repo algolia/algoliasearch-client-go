@@ -80,3 +80,7 @@ type DeleteTaskRes struct {
 func (r DeleteTaskRes) Wait() error {
 	return r.wait(r.TaskID)
 }
+
+type getObjectsRes struct {
+	Results interface{} `json:"results"`
+}
