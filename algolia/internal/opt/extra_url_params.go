@@ -6,9 +6,9 @@ import (
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
-func ExtractExtraUrlParams(opts ...interface{}) *opt.ExtraUrlParamsOption {
+func ExtractExtraURLParams(opts ...interface{}) *opt.ExtraURLParamsOption {
     for _, o := range opts {
-        if v, ok := o.(opt.ExtraUrlParamsOption); ok {
+        if v, ok := o.(opt.ExtraURLParamsOption); ok {
             return &v
         }
     }

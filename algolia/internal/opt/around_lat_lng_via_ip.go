@@ -6,9 +6,9 @@ import (
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
-func ExtractAroundLatLngViaIp(opts ...interface{}) *opt.AroundLatLngViaIpOption {
+func ExtractAroundLatLngViaIP(opts ...interface{}) *opt.AroundLatLngViaIPOption {
     for _, o := range opts {
-        if v, ok := o.(opt.AroundLatLngViaIpOption); ok {
+        if v, ok := o.(opt.AroundLatLngViaIPOption); ok {
             return &v
         }
     }

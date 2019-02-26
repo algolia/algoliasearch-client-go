@@ -85,22 +85,79 @@ var opts = []struct {
 	{"ExtraURLParams", "map[string]string", "make(map[string]string)"},
 }
 
+var funcMap = template.FuncMap{
+	"trimPrefix": func(s, prefix string) string { return strings.TrimPrefix(s, prefix) },
+}
+
 func main() {
 	var (
-		optionTemplate        = template.Must(template.ParseFiles("templates/option.go.tmpl"))
-		extractOptionTemplate = template.Must(template.ParseFiles("templates/extract_option.go.tmpl"))
+		optionValueTemplate                  = template.Must(template.ParseFiles("templates/option_value.go.tmpl"))
+		optionSliceTemplate                  = template.Must(template.New("option_slice.go.tmpl").Funcs(funcMap).ParseFiles("templates/option_slice.go.tmpl"))
+		extractOptionTemplate                = template.Must(template.ParseFiles("templates/extract_option.go.tmpl"))
+		extractOptionTestBoolTemplate        = template.Must(template.ParseFiles("templates/extract_option_bool_test.go.tmpl"))
+		extractOptionTestIntTemplate         = template.Must(template.ParseFiles("templates/extract_option_int_test.go.tmpl"))
+		extractOptionTestStringTemplate      = template.Must(template.ParseFiles("templates/extract_option_string_test.go.tmpl"))
+		extractOptionTestStringSliceTemplate = template.Must(template.ParseFiles("templates/extract_option_string_slice_test.go.tmpl"))
+		//extractOptionTestMapTemplate         = template.Must(template.ParseFiles("templates/extract_option_map_test.go.tmpl"))
 	)
 
 	for _, opt := range opts {
-		err := generateFile(optionTemplate, opt, "../../opt/"+camelCaseToFilename(opt.Name))
+		var err error
+
+		// This step generate a single algolia/opt/NAME.go option file where name is set to use the
+		// opt.Name field.
+
+		filename := camelCaseToFilename(opt.Name)
+		switch opt.Type {
+		case "bool", "int", "string", "map[string]string":
+			err = generateFile(optionValueTemplate, opt, "../../opt/"+filename)
+		case "[]string":
+			err = generateFile(optionSliceTemplate, opt, "../../opt/"+filename)
+		default:
+			err = fmt.Errorf("unhandled type %s", opt.Type)
+		}
 		if err != nil {
 			fmt.Printf("error generating option file for %s: %v", opt.Name, err)
 			return
 		}
+
+		// This step generate a single algolia/internal/opt/NAME_test.go option file where name is
+		// set to opt.Name field. Those internal tests ensure that both the extract functions and
+		// the JSON serialization/deserialization functions are working as expected.
+
+		testFilename := strings.Replace(filename, ".go", "_test.go", -1)
+		switch opt.Type {
+		case "bool":
+			err = generateFile(extractOptionTestBoolTemplate, opt, "../opt/"+testFilename)
+		case "int":
+			err = generateFile(extractOptionTestIntTemplate, opt, "../opt/"+testFilename)
+		case "string":
+			err = generateFile(extractOptionTestStringTemplate, opt, "../opt/"+testFilename)
+		case "[]string":
+			err = generateFile(extractOptionTestStringSliceTemplate, opt, "../opt/"+testFilename)
+		case "map[string]string":
+			//err = generateFile(extractOptionTestMapTemplate, opt, "../opt/"+testFilename)
+		default:
+			err = fmt.Errorf("unhandled type %s", opt.Type)
+		}
+		if err != nil {
+			fmt.Printf("error generating option test file for %s: %v", opt.Name, err)
+			return
+		}
+
 	}
 
 	for _, filename := range listFiles("../../opt") {
+
+		// This step produce an extract function for each option found in the algolia/opt/
+		// directory in the algolia/internal/opt/ directory.
+
 		if strings.HasSuffix(filename, ".go") {
+			// Some files have to be ignored because those are private types, no supposed to be used
+			// directly. Hence, the extract function must no be generated for them.
+			if strings.HasSuffix(filename, "composable_filter.go") {
+				continue
+			}
 			optName := filenameToCamelCase(filename)
 			err := generateFile(extractOptionTemplate, optName, "../opt/"+path.Base(filename))
 			if err != nil {
@@ -131,6 +188,9 @@ func generateFile(tmpl *template.Template, data interface{}, filename string) er
 func filenameToCamelCase(filename string) (camelCase string) {
 	camelCase = path.Base(filename)
 	camelCase = strings.TrimSuffix(camelCase, ".go")
+	camelCase = strings.Replace(camelCase, "_id", "_ID", -1)
+	camelCase = strings.Replace(camelCase, "_ip", "_IP", -1)
+	camelCase = strings.Replace(camelCase, "_url", "_URL", -1)
 	camelCase = strings.Replace(camelCase, "_", " ", -1)
 	camelCase = strings.Title(camelCase)
 	camelCase = strings.Replace(camelCase, " ", "", -1)

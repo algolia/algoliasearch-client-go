@@ -4,23 +4,23 @@ package opt
 
 import "encoding/json"
 
-type sumOrFiltersScoresOption struct {
+type SumOrFiltersScoresOption struct {
 	value bool
 }
 
-func sumOrFiltersScores(v bool) sumOrFiltersScoresOption {
-	return sumOrFiltersScoresOption{v}
+func SumOrFiltersScores(v bool) SumOrFiltersScoresOption {
+	return SumOrFiltersScoresOption{v}
 }
 
-func (o sumOrFiltersScoresOption) Get() bool {
+func (o SumOrFiltersScoresOption) Get() bool {
 	return o.value
 }
 
-func (o sumOrFiltersScoresOption) MarshalJSON() ([]byte, error) {
+func (o SumOrFiltersScoresOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
-func (o *sumOrFiltersScoresOption) UnmarshalJSON(data []byte) error {
+func (o *SumOrFiltersScoresOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = false
 		return nil

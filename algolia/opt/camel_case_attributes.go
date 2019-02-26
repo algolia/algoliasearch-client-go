@@ -5,25 +5,25 @@ package opt
 import "encoding/json"
 
 type CamelCaseAttributesOption struct {
-	value []string
+    value []string
 }
 
-func CamelCaseAttributes(v []string) CamelCaseAttributesOption {
-	return CamelCaseAttributesOption{v}
+func CamelCaseAttributes(v ...string) CamelCaseAttributesOption {
+    return CamelCaseAttributesOption{v}
 }
 
 func (o CamelCaseAttributesOption) Get() []string {
-	return o.value
+    return o.value
 }
 
 func (o CamelCaseAttributesOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.value)
+    return json.Marshal(o.value)
 }
 
 func (o *CamelCaseAttributesOption) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
-		o.value = nil
-		return nil
-	}
-	return json.Unmarshal(data, &o.value)
+    if string(data) == "null" {
+        o.value = nil
+        return nil
+    }
+    return json.Unmarshal(data, &o.value)
 }

@@ -6,9 +6,9 @@ import (
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
-func ExtractAutoGenerateObjectIdIfNotExist(opts ...interface{}) *opt.AutoGenerateObjectIdIfNotExistOption {
+func ExtractAutoGenerateObjectIDIfNotExist(opts ...interface{}) *opt.AutoGenerateObjectIDIfNotExistOption {
     for _, o := range opts {
-        if v, ok := o.(opt.AutoGenerateObjectIdIfNotExistOption); ok {
+        if v, ok := o.(opt.AutoGenerateObjectIDIfNotExistOption); ok {
             return &v
         }
     }
