@@ -64,6 +64,16 @@ func (i *Index) waitTask(taskID int) error {
 	}
 }
 
+func (i *Index) Search(query string, opts ...interface{}) (res SearchRes, err error) {
+	body := searchReq{
+		Params: transport.URLEncode(newSearchParams(query, opts...)),
+	}
+
+	path := i.path("/query")
+	err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
+	return
+}
+
 func (i *Index) GetObject(objectID string, object interface{}, opts ...interface{}) error {
 	if attrs := iopt.ExtractAttributesToRetrieve(opts...); attrs != nil {
 		attributesToRetrieve := attrs.Get()
