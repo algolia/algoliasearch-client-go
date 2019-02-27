@@ -32,6 +32,7 @@ var opts = []struct {
 	{"EnablePersonalization", "bool", "false"},
 	{"EnableRules", "bool", "false"},
 	{"FacetingAfterDistinct", "bool", "false"},
+	{"ForwardToReplicas", "bool", "false"},
 	{"GetRankingInfo", "bool", "false"},
 	{"PercentileComputation", "bool", "true"},
 	{"ReplaceSynonymsInHighlight", "bool", "true"},
