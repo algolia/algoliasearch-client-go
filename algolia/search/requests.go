@@ -31,9 +31,11 @@ type searchReq struct {
 
 type searchParams struct {
 	Query string `json:"query"`
+
 	// Attributes
 	AttributesToRetrieve         *opt.AttributesToRetrieveOption         `json:"attributesToRetrieve,omitempty"`
 	RestrictSearchableAttributes *opt.RestrictSearchableAttributesOption `json:"restrictSearchableAttributes,omitempty"`
+
 	// Filtering
 	Filters            *opt.FiltersOption            `json:"filters,omitempty"`
 	FacetFilters       *opt.FacetFiltersOption       `json:"facetFilters,omitempty"`
@@ -41,11 +43,13 @@ type searchParams struct {
 	NumericFilters     *opt.NumericFiltersOption     `json:"numericFilters,omitempty"`
 	TagFilters         *opt.TagFiltersOption         `json:"tagFilters,omitempty"`
 	SumOrFiltersScores *opt.SumOrFiltersScoresOption `json:"SumOrFiltersScores,omitempty"`
+
 	// Faceting
 	Facets                *opt.FacetsOption                `json:"facets,omitempty"`
 	MaxValuesPerFacet     *opt.MaxValuesPerFacetOption     `json:"maxValuesPerFacet,omitempty"`
 	FacetingAfterDistinct *opt.FacetingAfterDistinctOption `json:"facetingAfterDistinct,omitempty"`
 	SortFacetValuesBy     *opt.SortFacetValuesByOption     `json:"sortFacetValuesBy,omitempty"`
+
 	// Highlighting - snippeting
 	AttributesToHighlight             *opt.AttributesToHighlightOption             `json:"attributesToHighlight,omitempty"`
 	AttributesToSnippet               *opt.AttributesToSnippetOption               `json:"attributesToSnippet,omitempty"`
@@ -53,17 +57,20 @@ type searchParams struct {
 	HighlightPostTag                  *opt.HighlightPostTagOption                  `json:"highlightPostTag,omitempty"`
 	SnippetEllipsisText               *opt.SnippetEllipsisTextOption               `json:"snippetEllipsisText,omitempty"`
 	RestrictHighlightAndSnippetArrays *opt.RestrictHighlightAndSnippetArraysOption `json:"restrictHighlightAndSnippetArrays,omitempty"`
+
 	// Pagination
 	Page        *opt.PageOption        `json:"page,omitempty"`
 	HitsPerPage *opt.HitsPerPageOption `json:"hitsPerPage,omitempty"`
 	Offset      *opt.OffsetOption      `json:"offset,omitempty"`
 	Length      *opt.LengthOption      `json:"length,omitempty"`
+
 	// Typos
 	MinWordSizeFor1Typo              *opt.MinWordSizeFor1TypoOption              `json:"minWordSizeFor1Typo,omitempty"`
 	MinWordSizeFor2Typos             *opt.MinWordSizeFor2TyposOption             `json:"minWordSizeFor2Typos,omitempty"`
 	TypoTolerance                    *opt.TypoToleranceOption                    `json:"typoTolerance,omitempty"`
 	AllowTyposOnNumericTokens        *opt.AllowTyposOnNumericTokensOption        `json:"allowTyposOnNumericTokens,omitempty"`
 	DisableTypoToleranceOnAttributes *opt.DisableTypoToleranceOnAttributesOption `json:"disableTypoToleranceOnAttributes,omitempty"`
+
 	// Geo-search
 	AroundLatLng        *opt.AroundLatLngOption        `json:"aroundLatLng,omitempty"`
 	AroundLatLngViaIP   *opt.AroundLatLngViaIPOption   `json:"aroundLatLngViaIP,omitempty"`
@@ -72,10 +79,12 @@ type searchParams struct {
 	MinimumAroundRadius *opt.MinimumAroundRadiusOption `json:"minimumAroundRadius,omitempty"`
 	InsideBoundingBox   *opt.InsideBoundingBoxOption   `json:"insideBoundingBox,omitempty"`
 	InsidePolygon       *opt.InsidePolygonOption       `json:"insidePolygon,omitempty"`
+
 	// Languages
 	IgnorePlurals   *opt.IgnorePluralsOption   `json:"ignorePlurals,omitempty"`
 	RemoveStopWords *opt.RemoveStopWordsOption `json:"removeStopWords,omitempty"`
 	QueryLanguages  *opt.QueryLanguagesOption  `json:"queryLanguages,omitempty"`
+
 	// Query strategy
 	QueryType                *opt.QueryTypeOption                `json:"queryType,omitempty"`
 	RemoveWordsIfNoResults   *opt.RemoveWordsIfNoResultsOption   `json:"removeWordsIfNoResults,omitempty"`
@@ -84,11 +93,14 @@ type searchParams struct {
 	DisableExactOnAttributes *opt.DisableExactOnAttributesOption `json:"disableExactOnAttributes,omitempty"`
 	ExactOnSingleWordQuery   *opt.ExactOnSingleWordQueryOption   `json:"exactOnSingleWordQuery,omitempty"`
 	AlternativesAsExact      *opt.AlternativesAsExactOption      `json:"alternativesAsExact,omitempty"`
+
 	// Query rules
 	EnableRules  *opt.EnableRulesOption  `json:"enableRules,omitempty"`
 	RuleContexts *opt.RuleContextsOption `json:"ruleContexts,omitempty"`
+
 	// Personalization
 	EnablePersonalization *opt.EnablePersonalizationOption `json:"enablePersonalization,omitempty"`
+
 	// Advanced
 	Distinct                   *opt.DistinctOption                   `json:"distinct,omitempty"`
 	GetRankingInfo             *opt.GetRankingInfoOption             `json:"getRankingInfo,omitempty"`
