@@ -80,6 +80,7 @@ var opts = []struct {
 	{"Facets", "[]string", "nil"},
 	{"OptionalWords", "[]string", "nil"},
 	{"QueryLanguages", "[]string", "nil"},
+	{"ResponseFields", "[]string", "nil"},
 	{"RestrictSearchableAttributes", "[]string", "nil"},
 
 	// map[string]string
