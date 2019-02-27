@@ -69,12 +69,19 @@ func (t *Transport) Request(
 	k call.Kind,
 	opts ...interface{},
 ) error {
-
 	var (
 		ctx       = iopt.ExtractContext(opts...)
-		headers   = mergeHeaders(t.headers, iopt.ExtractExtraHeaders(opts...).Get())
-		urlParams = iopt.ExtractExtraURLParams(opts...).Get()
+		headers   = t.headers
+		urlParams = make(map[string]string)
 	)
+
+	if extraHeaders := iopt.ExtractExtraHeaders(opts...); extraHeaders != nil {
+		headers = mergeHeaders(headers, extraHeaders.Get())
+	}
+
+	if extraURLParams := iopt.ExtractExtraURLParams(opts...); extraURLParams != nil {
+		urlParams = extraURLParams.Get()
+	}
 
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
 		req, err := buildRequest(method, h.host, path, body, headers, urlParams)
