@@ -25,11 +25,11 @@ func Disable() {
 	debug = false
 }
 
-// Print displays the given parameter on the standard output in a custom way,
+// Display displays the given parameter on the standard output in a custom way,
 // depending on the given input type. This function is internally used by the
 // Algolia API client to display, for instance, HTTP requests and responses when
 // debug logging is enabled.
-func Print(itf interface{}) {
+func Display(itf interface{}) {
 	if !debug {
 		return
 	}
@@ -41,6 +41,18 @@ func Print(itf interface{}) {
 	default:
 		fmt.Printf("do not know how to debug-print %#v\n", v)
 	}
+}
+
+func Println(a ...interface{}) {
+	Printf(fmt.Sprintln(a...))
+}
+
+func Printf(format string, a ...interface{}) {
+	if !debug {
+		return
+	}
+	msg := fmt.Sprintf(format, a...)
+	fmt.Printf("> ALGOLIA DEBUG: %s", msg)
 }
 
 func copyReadCloser(r io.ReadCloser) (io.ReadCloser, string) {
