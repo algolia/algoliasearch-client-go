@@ -10,27 +10,27 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestAttributesToRetrieve(t *testing.T) {
+func TestRanking(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesToRetrieveOption
+		expected opt.RankingOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToRetrieve([]string{"*"}...),
+			expected: opt.Ranking([]string{"typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"}...),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1")},
-			expected: opt.AttributesToRetrieve("value1"),
+			opts:     []interface{}{opt.Ranking("value1")},
+			expected: opt.Ranking("value1"),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1", "value2", "value3")},
-			expected: opt.AttributesToRetrieve("value1", "value2", "value3"),
+			opts:     []interface{}{opt.Ranking("value1", "value2", "value3")},
+			expected: opt.Ranking("value1", "value2", "value3"),
 		},
 	} {
 		var (
-			in  = ExtractAttributesToRetrieve(c.opts...)
-			out opt.AttributesToRetrieveOption
+			in  = ExtractRanking(c.opts...)
+			out opt.RankingOption
 		)
 		data, err := json.Marshal(&in)
 		require.NoError(t, err)

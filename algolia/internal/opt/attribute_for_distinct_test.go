@@ -10,27 +10,27 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestHighlightPreTag(t *testing.T) {
+func TestAttributeForDistinct(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.HighlightPreTagOption
+		expected opt.AttributeForDistinctOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.HighlightPreTag("<em>"),
+			expected: opt.AttributeForDistinct(""),
 		},
 		{
-			opts:     []interface{}{opt.HighlightPreTag("")},
-			expected: opt.HighlightPreTag(""),
+			opts:     []interface{}{opt.AttributeForDistinct("")},
+			expected: opt.AttributeForDistinct(""),
 		},
 		{
-			opts:     []interface{}{opt.HighlightPreTag("content of the string value")},
-			expected: opt.HighlightPreTag("content of the string value"),
+			opts:     []interface{}{opt.AttributeForDistinct("content of the string value")},
+			expected: opt.AttributeForDistinct("content of the string value"),
 		},
 	} {
 		var (
-			in  = ExtractHighlightPreTag(c.opts...)
-			out opt.HighlightPreTagOption
+			in  = ExtractAttributeForDistinct(c.opts...)
+			out opt.AttributeForDistinctOption
 		)
 		data, err := json.Marshal(&in)
 		require.NoError(t, err)

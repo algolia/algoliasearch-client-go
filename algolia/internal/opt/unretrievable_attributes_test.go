@@ -10,27 +10,27 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestAttributesToRetrieve(t *testing.T) {
+func TestUnretrievableAttributes(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesToRetrieveOption
+		expected opt.UnretrievableAttributesOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToRetrieve([]string{"*"}...),
+			expected: opt.UnretrievableAttributes(),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1")},
-			expected: opt.AttributesToRetrieve("value1"),
+			opts:     []interface{}{opt.UnretrievableAttributes("value1")},
+			expected: opt.UnretrievableAttributes("value1"),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1", "value2", "value3")},
-			expected: opt.AttributesToRetrieve("value1", "value2", "value3"),
+			opts:     []interface{}{opt.UnretrievableAttributes("value1", "value2", "value3")},
+			expected: opt.UnretrievableAttributes("value1", "value2", "value3"),
 		},
 	} {
 		var (
-			in  = ExtractAttributesToRetrieve(c.opts...)
-			out opt.AttributesToRetrieveOption
+			in  = ExtractUnretrievableAttributes(c.opts...)
+			out opt.UnretrievableAttributesOption
 		)
 		data, err := json.Marshal(&in)
 		require.NoError(t, err)

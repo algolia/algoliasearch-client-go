@@ -22,7 +22,7 @@ func (o ExtraURLParamsOption) MarshalJSON() ([]byte, error) {
 
 func (o *ExtraURLParamsOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = make(map[string]string)
+		o.value = nil
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

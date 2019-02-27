@@ -22,7 +22,7 @@ func (o HighlightPostTagOption) MarshalJSON() ([]byte, error) {
 
 func (o *HighlightPostTagOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = ""
+		o.value = "</em>"
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

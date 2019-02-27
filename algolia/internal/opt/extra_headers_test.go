@@ -10,27 +10,27 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestHighlightPreTag(t *testing.T) {
+func TestExtractExtraHeaders(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.HighlightPreTagOption
+		expected opt.ExtraHeadersOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.HighlightPreTag("<em>"),
+			expected: opt.ExtraHeaders(nil),
 		},
 		{
-			opts:     []interface{}{opt.HighlightPreTag("")},
-			expected: opt.HighlightPreTag(""),
+			opts:     []interface{}{opt.ExtraHeaders(map[string]string{})},
+			expected: opt.ExtraHeaders(map[string]string{}),
 		},
 		{
-			opts:     []interface{}{opt.HighlightPreTag("content of the string value")},
-			expected: opt.HighlightPreTag("content of the string value"),
+			opts:     []interface{}{opt.ExtraHeaders(map[string]string{"k1": "v1", "k2": "v2"})},
+			expected: opt.ExtraHeaders(map[string]string{"k1": "v1", "k2": "v2"}),
 		},
 	} {
 		var (
-			in  = ExtractHighlightPreTag(c.opts...)
-			out opt.HighlightPreTagOption
+			in  = ExtractExtraHeaders(c.opts...)
+			out opt.ExtraHeadersOption
 		)
 		data, err := json.Marshal(&in)
 		require.NoError(t, err)

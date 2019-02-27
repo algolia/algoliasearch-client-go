@@ -3,7 +3,7 @@ package opt
 import "encoding/json"
 
 type TypoToleranceOption struct {
-	// TODO support both string and bool maybe?
+	// TODO: support both string and bool
 	value string
 }
 

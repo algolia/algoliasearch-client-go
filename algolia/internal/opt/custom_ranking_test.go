@@ -10,27 +10,27 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestAttributesToRetrieve(t *testing.T) {
+func TestCustomRanking(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesToRetrieveOption
+		expected opt.CustomRankingOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToRetrieve([]string{"*"}...),
+			expected: opt.CustomRanking(),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1")},
-			expected: opt.AttributesToRetrieve("value1"),
+			opts:     []interface{}{opt.CustomRanking("value1")},
+			expected: opt.CustomRanking("value1"),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1", "value2", "value3")},
-			expected: opt.AttributesToRetrieve("value1", "value2", "value3"),
+			opts:     []interface{}{opt.CustomRanking("value1", "value2", "value3")},
+			expected: opt.CustomRanking("value1", "value2", "value3"),
 		},
 	} {
 		var (
-			in  = ExtractAttributesToRetrieve(c.opts...)
-			out opt.AttributesToRetrieveOption
+			in  = ExtractCustomRanking(c.opts...)
+			out opt.CustomRankingOption
 		)
 		data, err := json.Marshal(&in)
 		require.NoError(t, err)

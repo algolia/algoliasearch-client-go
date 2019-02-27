@@ -17,7 +17,7 @@ func TestHighlightPostTag(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.HighlightPostTag(""),
+			expected: opt.HighlightPostTag("</em>"),
 		},
 		{
 			opts:     []interface{}{opt.HighlightPostTag("")},

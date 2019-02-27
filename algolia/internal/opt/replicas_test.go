@@ -10,27 +10,27 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestAttributesToRetrieve(t *testing.T) {
+func TestReplicas(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesToRetrieveOption
+		expected opt.ReplicasOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToRetrieve([]string{"*"}...),
+			expected: opt.Replicas(),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1")},
-			expected: opt.AttributesToRetrieve("value1"),
+			opts:     []interface{}{opt.Replicas("value1")},
+			expected: opt.Replicas("value1"),
 		},
 		{
-			opts:     []interface{}{opt.AttributesToRetrieve("value1", "value2", "value3")},
-			expected: opt.AttributesToRetrieve("value1", "value2", "value3"),
+			opts:     []interface{}{opt.Replicas("value1", "value2", "value3")},
+			expected: opt.Replicas("value1", "value2", "value3"),
 		},
 	} {
 		var (
-			in  = ExtractAttributesToRetrieve(c.opts...)
-			out opt.AttributesToRetrieveOption
+			in  = ExtractReplicas(c.opts...)
+			out opt.ReplicasOption
 		)
 		data, err := json.Marshal(&in)
 		require.NoError(t, err)
