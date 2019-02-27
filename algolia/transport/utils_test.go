@@ -25,3 +25,48 @@ func TestShuffle(t *testing.T) {
 	}
 	require.NotEqual(t, 0, shuffledElementsCount)
 }
+
+func TestURLEncode(t *testing.T) {
+	for _, c := range []struct {
+		value    interface{}
+		expected string
+	}{
+		{
+			struct {
+				Book     string `json:"book"`
+				ObjectID string `json:"objectID"`
+			}{"harry potter", "one"},
+			"book=harry+potter&objectID=one",
+		},
+		{
+			struct {
+				Book     string `json:"book"`
+				ObjectID string `json:"objectID"`
+			}{"harry potter", ""},
+			"book=harry+potter&objectID=",
+		},
+		{
+			struct {
+				Book     string `json:"book"`
+				ObjectID string `json:"objectID,omitempty"`
+			}{"harry potter", ""},
+			"book=harry+potter",
+		},
+		{
+			struct {
+				Book     *string `json:"book,omitempty"`
+				ObjectID string  `json:"objectID,omitempty"`
+			}{nil, ""},
+			"",
+		},
+		{
+			struct {
+				Book     *string `json:"book,omitempty"`
+				ObjectID string  `json:"objectID,omitempty"`
+			}{new(string), ""},
+			"book=",
+		},
+	} {
+		require.Equal(t, c.expected, URLEncode(c.value), "wrong URL-encoded string for input %q", c.value)
+	}
+}
