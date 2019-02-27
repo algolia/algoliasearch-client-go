@@ -17,7 +17,7 @@ func TestAttributesToSnippet(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToSnippet(nil),
+			expected: opt.AttributesToSnippet(),
 		},
 		{
 			opts:     []interface{}{opt.AttributesToSnippet("value1")},

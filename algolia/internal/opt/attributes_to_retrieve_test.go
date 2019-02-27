@@ -17,7 +17,7 @@ func TestAttributesToRetrieve(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToRetrieve(nil),
+			expected: opt.AttributesToRetrieve(),
 		},
 		{
 			opts:     []interface{}{opt.AttributesToRetrieve("value1")},

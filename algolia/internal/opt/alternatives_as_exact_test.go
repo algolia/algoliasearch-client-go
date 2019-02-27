@@ -17,7 +17,7 @@ func TestAlternativesAsExact(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AlternativesAsExact(nil),
+			expected: opt.AlternativesAsExact(),
 		},
 		{
 			opts:     []interface{}{opt.AlternativesAsExact("value1")},

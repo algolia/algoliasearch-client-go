@@ -17,7 +17,7 @@ func TestDisableTypoToleranceOnAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.DisableTypoToleranceOnAttributes(nil),
+			expected: opt.DisableTypoToleranceOnAttributes(),
 		},
 		{
 			opts:     []interface{}{opt.DisableTypoToleranceOnAttributes("value1")},

@@ -17,7 +17,7 @@ func TestResponseFields(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.ResponseFields(nil),
+			expected: opt.ResponseFields(),
 		},
 		{
 			opts:     []interface{}{opt.ResponseFields("value1")},

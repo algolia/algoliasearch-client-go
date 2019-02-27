@@ -17,7 +17,7 @@ func TestAdvancedSyntaxFeatures(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AdvancedSyntaxFeatures(nil),
+			expected: opt.AdvancedSyntaxFeatures(),
 		},
 		{
 			opts:     []interface{}{opt.AdvancedSyntaxFeatures("value1")},

@@ -17,7 +17,7 @@ func TestAnalyticsTags(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AnalyticsTags(nil),
+			expected: opt.AnalyticsTags(),
 		},
 		{
 			opts:     []interface{}{opt.AnalyticsTags("value1")},

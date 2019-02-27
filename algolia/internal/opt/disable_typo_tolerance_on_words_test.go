@@ -17,7 +17,7 @@ func TestDisableTypoToleranceOnWords(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.DisableTypoToleranceOnWords(nil),
+			expected: opt.DisableTypoToleranceOnWords(),
 		},
 		{
 			opts:     []interface{}{opt.DisableTypoToleranceOnWords("value1")},

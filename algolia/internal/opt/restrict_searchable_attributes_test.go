@@ -17,7 +17,7 @@ func TestRestrictSearchableAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.RestrictSearchableAttributes(nil),
+			expected: opt.RestrictSearchableAttributes(),
 		},
 		{
 			opts:     []interface{}{opt.RestrictSearchableAttributes("value1")},

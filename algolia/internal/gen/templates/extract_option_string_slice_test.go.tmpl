@@ -17,7 +17,7 @@ func Test{{ .Name }}(t *testing.T) {
     }{
         {
             opts:     []interface{}{nil},
-            expected: opt.{{ .Name }}({{ .DefaultValue }}),
+            expected: opt.{{ .Name }}({{ if ne .DefaultValue "nil" }}{{ .DefaultValue }}...{{ end }}),
         },
         {
             opts:     []interface{}{opt.{{ .Name }}("value1")},

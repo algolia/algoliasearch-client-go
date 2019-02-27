@@ -17,7 +17,7 @@ func TestQueryLanguages(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.QueryLanguages(nil),
+			expected: opt.QueryLanguages(),
 		},
 		{
 			opts:     []interface{}{opt.QueryLanguages("value1")},
