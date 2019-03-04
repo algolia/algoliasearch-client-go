@@ -21,11 +21,18 @@ func TestExtractExtraURLParams(t *testing.T) {
 		},
 		{
 			opts:     []interface{}{opt.ExtraURLParams(map[string]string{})},
-			expected: opt.ExtraURLParams(map[string]string{}),
+			expected: opt.ExtraURLParams(nil),
 		},
 		{
 			opts:     []interface{}{opt.ExtraURLParams(map[string]string{"k1": "v1", "k2": "v2"})},
 			expected: opt.ExtraURLParams(map[string]string{"k1": "v1", "k2": "v2"}),
+		},
+		{
+			opts: []interface{}{
+				opt.ExtraURLParams(map[string]string{"k1": "v1", "k2": "v2"}),
+				opt.ExtraURLParams(map[string]string{"k2": "v2", "k3": "v3"}),
+			},
+			expected: opt.ExtraURLParams(map[string]string{"k1": "v1", "k2": "v2", "k3": "v3"}),
 		},
 	} {
 		var (

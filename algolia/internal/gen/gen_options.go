@@ -109,20 +109,26 @@ var funcMap = template.FuncMap{
 
 func main() {
 	var (
-		optionValueTemplate                           = template.Must(template.ParseFiles("templates/option_value.go.tmpl"))
-		optionSliceTemplate                           = template.Must(template.New("option_slice.go.tmpl").Funcs(funcMap).ParseFiles("templates/option_slice.go.tmpl"))
-		extractOptionTemplate                         = template.Must(template.ParseFiles("templates/extract_option.go.tmpl"))
+		// 1. Option templates
+		optionValueTemplate = template.Must(template.ParseFiles("templates/option_value.go.tmpl"))
+		optionSliceTemplate = template.Must(template.New("option_slice.go.tmpl").Funcs(funcMap).ParseFiles("templates/option_slice.go.tmpl"))
+		// 2. Option extraction tests
 		extractOptionTestBoolTemplate                 = template.Must(template.ParseFiles("templates/extract_option_bool_test.go.tmpl"))
 		extractOptionTestIntTemplate                  = template.Must(template.ParseFiles("templates/extract_option_int_test.go.tmpl"))
 		extractOptionTestStringTemplate               = template.Must(template.ParseFiles("templates/extract_option_string_test.go.tmpl"))
 		extractOptionTestStringSliceTemplate          = template.Must(template.ParseFiles("templates/extract_option_string_slice_test.go.tmpl"))
 		extractOptionTestMapStringStringTemplate      = template.Must(template.ParseFiles("templates/extract_option_map_string_string_test.go.tmpl"))
 		extractOptionTestMapStringStringSliceTemplate = template.Must(template.ParseFiles("templates/extract_option_map_string_string_slice_test.go.tmpl"))
+		// 3. Option extraction functions
+		extractOptionTemplate                = template.Must(template.ParseFiles("templates/extract_option.go.tmpl"))
+		extractOptionMapStringStringTemplate = template.Must(template.ParseFiles("templates/extract_option_map_string_string.go.tmpl"))
 	)
 
-	for _, opt := range opts {
-		var err error
+	var err error
 
+	for _, opt := range opts {
+
+		// 1.
 		// This step generate a single algolia/opt/NAME.go option file where name is set to use the
 		// opt.Name field.
 
@@ -140,6 +146,7 @@ func main() {
 			return
 		}
 
+		// 2.
 		// This step generate a single algolia/internal/opt/NAME_test.go option file where name is
 		// set to opt.Name field. Those internal tests ensure that both the extract functions and
 		// the JSON serialization/deserialization functions are working as expected.
@@ -170,6 +177,7 @@ func main() {
 
 	for _, filename := range listFiles("../../opt") {
 
+		// 3.
 		// This step produce an extract function for each option found in the algolia/opt/
 		// directory in the algolia/internal/opt/ directory.
 
@@ -179,8 +187,14 @@ func main() {
 			if strings.HasSuffix(filename, "composable_filter.go") {
 				continue
 			}
+
 			optName := filenameToCamelCase(filename)
-			err := generateFile(extractOptionTemplate, optName, "../opt/"+path.Base(filename))
+			if strings.HasSuffix(filename, "extra_headers.go") ||
+				strings.HasSuffix(filename, "extra_url_params.go") {
+				err = generateFile(extractOptionMapStringStringTemplate, optName, "../opt/"+path.Base(filename))
+			} else {
+				err = generateFile(extractOptionTemplate, optName, "../opt/"+path.Base(filename))
+			}
 			if err != nil {
 				fmt.Printf("error generating extraction option file for %s: %v", optName, err)
 				return

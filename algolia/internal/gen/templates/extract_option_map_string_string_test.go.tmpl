@@ -21,11 +21,18 @@ func TestExtract{{ .Name }}(t *testing.T) {
 		},
 		{
 			opts:     []interface{}{opt.{{ .Name }}(map[string]string{})},
-			expected: opt.{{ .Name }}(map[string]string{}),
+			expected: opt.{{ .Name }}({{ .DefaultValue }}),
 		},
 		{
 			opts:     []interface{}{opt.{{ .Name }}(map[string]string{"k1": "v1", "k2": "v2"})},
 			expected: opt.{{ .Name }}(map[string]string{"k1": "v1", "k2": "v2"}),
+		},
+		{
+			opts:     []interface{}{
+				opt.{{ .Name }}(map[string]string{"k1": "v1", "k2": "v2"}),
+				opt.{{ .Name }}(map[string]string{"k2": "v2", "k3": "v3"}),
+			},
+			expected: opt.{{ .Name }}(map[string]string{"k1": "v1", "k2": "v2", "k3": "v3"}),
 		},
 	} {
 		var (
