@@ -7,6 +7,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 var debug bool
@@ -44,7 +45,7 @@ func Display(itf interface{}) {
 }
 
 func Println(a ...interface{}) {
-	Printf(fmt.Sprintln(a...))
+	Printf("%s", fmt.Sprintln(a...))
 }
 
 func Printf(format string, a ...interface{}) {
@@ -67,25 +68,25 @@ func copyReadCloser(r io.ReadCloser) (io.ReadCloser, string) {
 	return ioutil.NopCloser(bytes.NewReader(data)), string(data)
 }
 
-func prettyPrintJSON(input, prefix, indent string) string {
+func prettyPrintJSON(input, prefix string) string {
 	var b bytes.Buffer
-	err := json.Indent(&b, []byte(input), prefix, indent)
+	err := json.Indent(&b, []byte(input), prefix, "  ")
 	if err != nil {
 		return input
 	}
-	return b.String()
+	return strings.TrimSuffix(b.String(), "\n")
 }
 
 func printRequest(req *http.Request) {
 	var body string
 	req.Body, body = copyReadCloser(req.Body)
-	body = prettyPrintJSON(body, "\t", "  ")
-	fmt.Printf("> ALGOLIA DEBUG request:\n\tmethod=%q\n\turl=%q\n\tbody=\"%s\"\n", req.Method, req.URL, body)
+	body = prettyPrintJSON(body, "\t")
+	fmt.Printf("> ALGOLIA DEBUG request:\n\tmethod=%q\n\turl=%q\n\tbody=\n\t%s\n", req.Method, req.URL, body)
 }
 
 func printResponse(res *http.Response) {
 	var body string
 	res.Body, body = copyReadCloser(res.Body)
-	body = prettyPrintJSON(body, "\t", "  ")
-	fmt.Printf("> ALGOLIA DEBUG response:\n\tbody=\"%s\"\n", body)
+	body = prettyPrintJSON(body, "\t")
+	fmt.Printf("> ALGOLIA DEBUG response:\n\tbody=\n\t%s\n", body)
 }
