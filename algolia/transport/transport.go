@@ -187,7 +187,7 @@ func buildRequest(
 	// Add URL params
 	values := req.URL.Query()
 	for k, v := range urlParams {
-		values.Set(k, fmt.Sprintf("%v", v))
+		values.Set(k, v)
 	}
 	req.URL.RawQuery = values.Encode()
 
