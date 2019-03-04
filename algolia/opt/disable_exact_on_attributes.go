@@ -8,8 +8,8 @@ type DisableExactOnAttributesOption struct {
 	value []string
 }
 
-func DisableExactOnAttributes(v ...string) DisableExactOnAttributesOption {
-	return DisableExactOnAttributesOption{v}
+func DisableExactOnAttributes(v ...string) *DisableExactOnAttributesOption {
+	return &DisableExactOnAttributesOption{v}
 }
 
 func (o DisableExactOnAttributesOption) Get() []string {

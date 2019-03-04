@@ -8,8 +8,8 @@ import (
 
 func ExtractMaxValuesPerFacet(opts ...interface{}) *opt.MaxValuesPerFacetOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.MaxValuesPerFacetOption); ok {
-			return &v
+		if v, ok := o.(*opt.MaxValuesPerFacetOption); ok {
+			return v
 		}
 	}
 	return nil

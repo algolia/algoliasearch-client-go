@@ -8,8 +8,8 @@ type AnalyticsTagsOption struct {
 	value []string
 }
 
-func AnalyticsTags(v ...string) AnalyticsTagsOption {
-	return AnalyticsTagsOption{v}
+func AnalyticsTags(v ...string) *AnalyticsTagsOption {
+	return &AnalyticsTagsOption{v}
 }
 
 func (o AnalyticsTagsOption) Get() []string {

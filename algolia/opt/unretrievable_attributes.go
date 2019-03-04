@@ -8,8 +8,8 @@ type UnretrievableAttributesOption struct {
 	value []string
 }
 
-func UnretrievableAttributes(v ...string) UnretrievableAttributesOption {
-	return UnretrievableAttributesOption{v}
+func UnretrievableAttributes(v ...string) *UnretrievableAttributesOption {
+	return &UnretrievableAttributesOption{v}
 }
 
 func (o UnretrievableAttributesOption) Get() []string {

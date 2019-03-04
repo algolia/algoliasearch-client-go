@@ -8,16 +8,16 @@ type NumericFiltersOption struct {
 	comp composableFilterOption
 }
 
-func NumericFilter(filter string) NumericFiltersOption {
-	return NumericFiltersOption{composableFilter(filter)}
+func NumericFilter(filter string) *NumericFiltersOption {
+	return &NumericFiltersOption{composableFilter(filter)}
 }
 
-func NumericFilterOr(filters ...interface{}) NumericFiltersOption {
-	return NumericFiltersOption{composableFilterOr(filters...)}
+func NumericFilterOr(filters ...interface{}) *NumericFiltersOption {
+	return &NumericFiltersOption{composableFilterOr(filters...)}
 }
 
-func NumericFilterAnd(filters ...interface{}) NumericFiltersOption {
-	return NumericFiltersOption{composableFilterAnd(filters...)}
+func NumericFilterAnd(filters ...interface{}) *NumericFiltersOption {
+	return &NumericFiltersOption{composableFilterAnd(filters...)}
 }
 
 func (o NumericFiltersOption) Get() [][]string {

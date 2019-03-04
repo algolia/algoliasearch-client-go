@@ -8,8 +8,8 @@ type DistinctOption struct {
 	value int
 }
 
-func Distinct(v int) DistinctOption {
-	return DistinctOption{v}
+func Distinct(v int) *DistinctOption {
+	return &DistinctOption{v}
 }
 
 func (o DistinctOption) Get() int {

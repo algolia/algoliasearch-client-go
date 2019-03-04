@@ -8,8 +8,8 @@ type NumericAttributesForFilteringOption struct {
 	value []string
 }
 
-func NumericAttributesForFiltering(v ...string) NumericAttributesForFilteringOption {
-	return NumericAttributesForFilteringOption{v}
+func NumericAttributesForFiltering(v ...string) *NumericAttributesForFilteringOption {
+	return &NumericAttributesForFilteringOption{v}
 }
 
 func (o NumericAttributesForFilteringOption) Get() []string {

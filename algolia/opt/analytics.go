@@ -8,8 +8,8 @@ type AnalyticsOption struct {
 	value bool
 }
 
-func Analytics(v bool) AnalyticsOption {
-	return AnalyticsOption{v}
+func Analytics(v bool) *AnalyticsOption {
+	return &AnalyticsOption{v}
 }
 
 func (o AnalyticsOption) Get() bool {

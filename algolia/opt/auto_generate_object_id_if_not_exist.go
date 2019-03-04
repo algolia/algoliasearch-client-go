@@ -8,8 +8,8 @@ type AutoGenerateObjectIDIfNotExistOption struct {
 	value bool
 }
 
-func AutoGenerateObjectIDIfNotExist(v bool) AutoGenerateObjectIDIfNotExistOption {
-	return AutoGenerateObjectIDIfNotExistOption{v}
+func AutoGenerateObjectIDIfNotExist(v bool) *AutoGenerateObjectIDIfNotExistOption {
+	return &AutoGenerateObjectIDIfNotExistOption{v}
 }
 
 func (o AutoGenerateObjectIDIfNotExistOption) Get() bool {

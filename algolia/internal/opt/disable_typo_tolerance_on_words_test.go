@@ -13,7 +13,7 @@ import (
 func TestDisableTypoToleranceOnWords(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.DisableTypoToleranceOnWordsOption
+		expected *opt.DisableTypoToleranceOnWordsOption
 	}{
 		{
 			opts:     []interface{}{nil},

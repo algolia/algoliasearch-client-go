@@ -8,16 +8,16 @@ type FacetFiltersOption struct {
 	comp composableFilterOption
 }
 
-func FacetFilter(filter string) FacetFiltersOption {
-	return FacetFiltersOption{composableFilter(filter)}
+func FacetFilter(filter string) *FacetFiltersOption {
+	return &FacetFiltersOption{composableFilter(filter)}
 }
 
-func FacetFilterOr(filters ...interface{}) FacetFiltersOption {
-	return FacetFiltersOption{composableFilterOr(filters...)}
+func FacetFilterOr(filters ...interface{}) *FacetFiltersOption {
+	return &FacetFiltersOption{composableFilterOr(filters...)}
 }
 
-func FacetFilterAnd(filters ...interface{}) FacetFiltersOption {
-	return FacetFiltersOption{composableFilterAnd(filters...)}
+func FacetFilterAnd(filters ...interface{}) *FacetFiltersOption {
+	return &FacetFiltersOption{composableFilterAnd(filters...)}
 }
 
 func (o FacetFiltersOption) Get() [][]string {

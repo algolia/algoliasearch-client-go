@@ -8,8 +8,8 @@ type AllowCompressionOfIntegerArrayOption struct {
 	value bool
 }
 
-func AllowCompressionOfIntegerArray(v bool) AllowCompressionOfIntegerArrayOption {
-	return AllowCompressionOfIntegerArrayOption{v}
+func AllowCompressionOfIntegerArray(v bool) *AllowCompressionOfIntegerArrayOption {
+	return &AllowCompressionOfIntegerArrayOption{v}
 }
 
 func (o AllowCompressionOfIntegerArrayOption) Get() bool {

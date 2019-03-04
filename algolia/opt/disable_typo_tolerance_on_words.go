@@ -8,8 +8,8 @@ type DisableTypoToleranceOnWordsOption struct {
 	value []string
 }
 
-func DisableTypoToleranceOnWords(v ...string) DisableTypoToleranceOnWordsOption {
-	return DisableTypoToleranceOnWordsOption{v}
+func DisableTypoToleranceOnWords(v ...string) *DisableTypoToleranceOnWordsOption {
+	return &DisableTypoToleranceOnWordsOption{v}
 }
 
 func (o DisableTypoToleranceOnWordsOption) Get() []string {

@@ -13,7 +13,7 @@ import (
 func TestMaxFacetHits(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.MaxFacetHitsOption
+		expected *opt.MaxFacetHitsOption
 	}{
 		{
 			opts:     []interface{}{nil},
@@ -40,6 +40,6 @@ func TestMaxFacetHits(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

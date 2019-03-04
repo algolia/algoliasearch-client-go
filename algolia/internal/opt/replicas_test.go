@@ -13,7 +13,7 @@ import (
 func TestReplicas(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.ReplicasOption
+		expected *opt.ReplicasOption
 	}{
 		{
 			opts:     []interface{}{nil},

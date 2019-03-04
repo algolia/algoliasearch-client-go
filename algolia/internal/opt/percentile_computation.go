@@ -8,8 +8,8 @@ import (
 
 func ExtractPercentileComputation(opts ...interface{}) *opt.PercentileComputationOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.PercentileComputationOption); ok {
-			return &v
+		if v, ok := o.(*opt.PercentileComputationOption); ok {
+			return v
 		}
 	}
 	return nil

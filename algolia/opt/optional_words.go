@@ -8,8 +8,8 @@ type OptionalWordsOption struct {
 	value []string
 }
 
-func OptionalWords(v ...string) OptionalWordsOption {
-	return OptionalWordsOption{v}
+func OptionalWords(v ...string) *OptionalWordsOption {
+	return &OptionalWordsOption{v}
 }
 
 func (o OptionalWordsOption) Get() []string {

@@ -8,8 +8,8 @@ type ForwardToReplicasOption struct {
 	value bool
 }
 
-func ForwardToReplicas(v bool) ForwardToReplicasOption {
-	return ForwardToReplicasOption{v}
+func ForwardToReplicas(v bool) *ForwardToReplicasOption {
+	return &ForwardToReplicasOption{v}
 }
 
 func (o ForwardToReplicasOption) Get() bool {

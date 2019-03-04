@@ -11,12 +11,12 @@ type InsideBoundingBoxOption struct {
 	coordinates string
 }
 
-func InsideBoundingBox(boxes [][4]float64) InsideBoundingBoxOption {
-	return InsideBoundingBoxOption{boxes: boxes}
+func InsideBoundingBox(boxes [][4]float64) *InsideBoundingBoxOption {
+	return &InsideBoundingBoxOption{boxes: boxes}
 }
 
-func InsideBoundingBoxFromCoordinates(coordinates string) InsideBoundingBoxOption {
-	return InsideBoundingBoxOption{coordinates: coordinates}
+func InsideBoundingBoxFromCoordinates(coordinates string) *InsideBoundingBoxOption {
+	return &InsideBoundingBoxOption{coordinates: coordinates}
 }
 
 func (o InsideBoundingBoxOption) Get() ([][4]float64, string) {

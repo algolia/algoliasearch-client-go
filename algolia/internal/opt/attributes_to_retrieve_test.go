@@ -13,7 +13,7 @@ import (
 func TestAttributesToRetrieve(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesToRetrieveOption
+		expected *opt.AttributesToRetrieveOption
 	}{
 		{
 			opts:     []interface{}{nil},

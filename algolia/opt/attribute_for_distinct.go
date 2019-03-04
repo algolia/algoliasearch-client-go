@@ -8,8 +8,8 @@ type AttributeForDistinctOption struct {
 	value string
 }
 
-func AttributeForDistinct(v string) AttributeForDistinctOption {
-	return AttributeForDistinctOption{v}
+func AttributeForDistinct(v string) *AttributeForDistinctOption {
+	return &AttributeForDistinctOption{v}
 }
 
 func (o AttributeForDistinctOption) Get() string {

@@ -8,8 +8,8 @@ type HitsPerPageOption struct {
 	value int
 }
 
-func HitsPerPage(v int) HitsPerPageOption {
-	return HitsPerPageOption{v}
+func HitsPerPage(v int) *HitsPerPageOption {
+	return &HitsPerPageOption{v}
 }
 
 func (o HitsPerPageOption) Get() int {

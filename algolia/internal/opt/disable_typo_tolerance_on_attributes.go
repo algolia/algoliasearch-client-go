@@ -8,8 +8,8 @@ import (
 
 func ExtractDisableTypoToleranceOnAttributes(opts ...interface{}) *opt.DisableTypoToleranceOnAttributesOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.DisableTypoToleranceOnAttributesOption); ok {
-			return &v
+		if v, ok := o.(*opt.DisableTypoToleranceOnAttributesOption); ok {
+			return v
 		}
 	}
 	return nil

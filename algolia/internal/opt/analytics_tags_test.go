@@ -13,7 +13,7 @@ import (
 func TestAnalyticsTags(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AnalyticsTagsOption
+		expected *opt.AnalyticsTagsOption
 	}{
 		{
 			opts:     []interface{}{nil},

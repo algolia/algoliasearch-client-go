@@ -11,11 +11,11 @@ import (
 func TestNumericFilters(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.NumericFiltersOption
+		expected *opt.NumericFiltersOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.NumericFiltersOption{},
+			expected: opt.NumericFilterAnd(),
 		},
 		{
 			opts: []interface{}{opt.NumericFilter("filter1:value1")},
@@ -90,6 +90,6 @@ func TestNumericFilters(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

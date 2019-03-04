@@ -13,7 +13,7 @@ import (
 func TestForwardToReplicas(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.ForwardToReplicasOption
+		expected *opt.ForwardToReplicasOption
 	}{
 		{
 			opts:     []interface{}{nil},
@@ -36,6 +36,6 @@ func TestForwardToReplicas(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

@@ -8,8 +8,8 @@ type MinWordSizeFor1TypoOption struct {
 	value int
 }
 
-func MinWordSizeFor1Typo(v int) MinWordSizeFor1TypoOption {
-	return MinWordSizeFor1TypoOption{v}
+func MinWordSizeFor1Typo(v int) *MinWordSizeFor1TypoOption {
+	return &MinWordSizeFor1TypoOption{v}
 }
 
 func (o MinWordSizeFor1TypoOption) Get() int {

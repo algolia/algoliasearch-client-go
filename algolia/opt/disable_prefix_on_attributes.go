@@ -8,8 +8,8 @@ type DisablePrefixOnAttributesOption struct {
 	value []string
 }
 
-func DisablePrefixOnAttributes(v ...string) DisablePrefixOnAttributesOption {
-	return DisablePrefixOnAttributesOption{v}
+func DisablePrefixOnAttributes(v ...string) *DisablePrefixOnAttributesOption {
+	return &DisablePrefixOnAttributesOption{v}
 }
 
 func (o DisablePrefixOnAttributesOption) Get() []string {

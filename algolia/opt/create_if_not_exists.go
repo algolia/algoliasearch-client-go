@@ -8,8 +8,8 @@ type CreateIfNotExistsOption struct {
 	value bool
 }
 
-func CreateIfNotExists(v bool) CreateIfNotExistsOption {
-	return CreateIfNotExistsOption{v}
+func CreateIfNotExists(v bool) *CreateIfNotExistsOption {
+	return &CreateIfNotExistsOption{v}
 }
 
 func (o CreateIfNotExistsOption) Get() bool {

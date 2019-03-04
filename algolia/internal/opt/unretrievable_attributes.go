@@ -8,8 +8,8 @@ import (
 
 func ExtractUnretrievableAttributes(opts ...interface{}) *opt.UnretrievableAttributesOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.UnretrievableAttributesOption); ok {
-			return &v
+		if v, ok := o.(*opt.UnretrievableAttributesOption); ok {
+			return v
 		}
 	}
 	return nil

@@ -8,8 +8,8 @@ type RemoveWordsIfNoResultsOption struct {
 	value string
 }
 
-func RemoveWordsIfNoResults(v string) RemoveWordsIfNoResultsOption {
-	return RemoveWordsIfNoResultsOption{v}
+func RemoveWordsIfNoResults(v string) *RemoveWordsIfNoResultsOption {
+	return &RemoveWordsIfNoResultsOption{v}
 }
 
 func (o RemoveWordsIfNoResultsOption) Get() string {

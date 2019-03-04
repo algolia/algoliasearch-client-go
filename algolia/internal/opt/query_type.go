@@ -8,8 +8,8 @@ import (
 
 func ExtractQueryType(opts ...interface{}) *opt.QueryTypeOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.QueryTypeOption); ok {
-			return &v
+		if v, ok := o.(*opt.QueryTypeOption); ok {
+			return v
 		}
 	}
 	return nil

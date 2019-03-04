@@ -8,8 +8,8 @@ type CamelCaseAttributesOption struct {
 	value []string
 }
 
-func CamelCaseAttributes(v ...string) CamelCaseAttributesOption {
-	return CamelCaseAttributesOption{v}
+func CamelCaseAttributes(v ...string) *CamelCaseAttributesOption {
+	return &CamelCaseAttributesOption{v}
 }
 
 func (o CamelCaseAttributesOption) Get() []string {

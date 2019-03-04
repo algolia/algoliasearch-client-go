@@ -8,16 +8,16 @@ type TagFiltersOption struct {
 	comp composableFilterOption
 }
 
-func TagFilter(filter string) TagFiltersOption {
-	return TagFiltersOption{composableFilter(filter)}
+func TagFilter(filter string) *TagFiltersOption {
+	return &TagFiltersOption{composableFilter(filter)}
 }
 
-func TagFilterOr(filters ...interface{}) TagFiltersOption {
-	return TagFiltersOption{composableFilterOr(filters...)}
+func TagFilterOr(filters ...interface{}) *TagFiltersOption {
+	return &TagFiltersOption{composableFilterOr(filters...)}
 }
 
-func TagFilterAnd(filters ...interface{}) TagFiltersOption {
-	return TagFiltersOption{composableFilterAnd(filters...)}
+func TagFilterAnd(filters ...interface{}) *TagFiltersOption {
+	return &TagFiltersOption{composableFilterAnd(filters...)}
 }
 
 func (o TagFiltersOption) Get() [][]string {

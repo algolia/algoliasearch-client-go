@@ -11,7 +11,7 @@ import (
 func TestTypoTolerance(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.TypoToleranceOption
+		expected *opt.TypoToleranceOption
 	}{
 		{
 			opts:     []interface{}{nil},
@@ -42,6 +42,6 @@ func TestTypoTolerance(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

@@ -8,8 +8,8 @@ import (
 
 func ExtractAnalytics(opts ...interface{}) *opt.AnalyticsOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.AnalyticsOption); ok {
-			return &v
+		if v, ok := o.(*opt.AnalyticsOption); ok {
+			return v
 		}
 	}
 	return nil

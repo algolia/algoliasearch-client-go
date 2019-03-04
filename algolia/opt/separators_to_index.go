@@ -8,8 +8,8 @@ type SeparatorsToIndexOption struct {
 	value string
 }
 
-func SeparatorsToIndex(v string) SeparatorsToIndexOption {
-	return SeparatorsToIndexOption{v}
+func SeparatorsToIndex(v string) *SeparatorsToIndexOption {
+	return &SeparatorsToIndexOption{v}
 }
 
 func (o SeparatorsToIndexOption) Get() string {

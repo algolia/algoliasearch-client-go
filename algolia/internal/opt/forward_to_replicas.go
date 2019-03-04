@@ -8,8 +8,8 @@ import (
 
 func ExtractForwardToReplicas(opts ...interface{}) *opt.ForwardToReplicasOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.ForwardToReplicasOption); ok {
-			return &v
+		if v, ok := o.(*opt.ForwardToReplicasOption); ok {
+			return v
 		}
 	}
 	return nil

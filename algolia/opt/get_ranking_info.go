@@ -8,8 +8,8 @@ type GetRankingInfoOption struct {
 	value bool
 }
 
-func GetRankingInfo(v bool) GetRankingInfoOption {
-	return GetRankingInfoOption{v}
+func GetRankingInfo(v bool) *GetRankingInfoOption {
+	return &GetRankingInfoOption{v}
 }
 
 func (o GetRankingInfoOption) Get() bool {

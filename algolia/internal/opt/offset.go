@@ -8,8 +8,8 @@ import (
 
 func ExtractOffset(opts ...interface{}) *opt.OffsetOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.OffsetOption); ok {
-			return &v
+		if v, ok := o.(*opt.OffsetOption); ok {
+			return v
 		}
 	}
 	return nil

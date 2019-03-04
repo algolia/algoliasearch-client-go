@@ -13,7 +13,7 @@ import (
 func TestAlternativesAsExact(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AlternativesAsExactOption
+		expected *opt.AlternativesAsExactOption
 	}{
 		{
 			opts:     []interface{}{nil},

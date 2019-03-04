@@ -8,8 +8,8 @@ type RestrictSearchableAttributesOption struct {
 	value []string
 }
 
-func RestrictSearchableAttributes(v ...string) RestrictSearchableAttributesOption {
-	return RestrictSearchableAttributesOption{v}
+func RestrictSearchableAttributes(v ...string) *RestrictSearchableAttributesOption {
+	return &RestrictSearchableAttributesOption{v}
 }
 
 func (o RestrictSearchableAttributesOption) Get() []string {

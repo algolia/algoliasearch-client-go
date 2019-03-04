@@ -8,8 +8,8 @@ import (
 
 func ExtractHitsPerPage(opts ...interface{}) *opt.HitsPerPageOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.HitsPerPageOption); ok {
-			return &v
+		if v, ok := o.(*opt.HitsPerPageOption); ok {
+			return v
 		}
 	}
 	return nil

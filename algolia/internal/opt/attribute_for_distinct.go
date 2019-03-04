@@ -8,8 +8,8 @@ import (
 
 func ExtractAttributeForDistinct(opts ...interface{}) *opt.AttributeForDistinctOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.AttributeForDistinctOption); ok {
-			return &v
+		if v, ok := o.(*opt.AttributeForDistinctOption); ok {
+			return v
 		}
 	}
 	return nil

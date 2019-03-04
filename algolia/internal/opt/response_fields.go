@@ -8,8 +8,8 @@ import (
 
 func ExtractResponseFields(opts ...interface{}) *opt.ResponseFieldsOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.ResponseFieldsOption); ok {
-			return &v
+		if v, ok := o.(*opt.ResponseFieldsOption); ok {
+			return v
 		}
 	}
 	return nil

@@ -8,8 +8,8 @@ type SnippetEllipsisTextOption struct {
 	value string
 }
 
-func SnippetEllipsisText(v string) SnippetEllipsisTextOption {
-	return SnippetEllipsisTextOption{v}
+func SnippetEllipsisText(v string) *SnippetEllipsisTextOption {
+	return &SnippetEllipsisTextOption{v}
 }
 
 func (o SnippetEllipsisTextOption) Get() string {

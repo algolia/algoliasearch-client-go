@@ -8,8 +8,8 @@ import (
 
 func ExtractCustomRanking(opts ...interface{}) *opt.CustomRankingOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.CustomRankingOption); ok {
-			return &v
+		if v, ok := o.(*opt.CustomRankingOption); ok {
+			return v
 		}
 	}
 	return nil

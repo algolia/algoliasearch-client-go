@@ -8,8 +8,8 @@ import (
 
 func ExtractRestrictHighlightAndSnippetArrays(opts ...interface{}) *opt.RestrictHighlightAndSnippetArraysOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.RestrictHighlightAndSnippetArraysOption); ok {
-			return &v
+		if v, ok := o.(*opt.RestrictHighlightAndSnippetArraysOption); ok {
+			return v
 		}
 	}
 	return nil

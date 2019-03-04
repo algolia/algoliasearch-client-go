@@ -8,8 +8,8 @@ type AroundLatLngViaIPOption struct {
 	value bool
 }
 
-func AroundLatLngViaIP(v bool) AroundLatLngViaIPOption {
-	return AroundLatLngViaIPOption{v}
+func AroundLatLngViaIP(v bool) *AroundLatLngViaIPOption {
+	return &AroundLatLngViaIPOption{v}
 }
 
 func (o AroundLatLngViaIPOption) Get() bool {

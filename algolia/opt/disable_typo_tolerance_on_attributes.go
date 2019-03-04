@@ -8,8 +8,8 @@ type DisableTypoToleranceOnAttributesOption struct {
 	value []string
 }
 
-func DisableTypoToleranceOnAttributes(v ...string) DisableTypoToleranceOnAttributesOption {
-	return DisableTypoToleranceOnAttributesOption{v}
+func DisableTypoToleranceOnAttributes(v ...string) *DisableTypoToleranceOnAttributesOption {
+	return &DisableTypoToleranceOnAttributesOption{v}
 }
 
 func (o DisableTypoToleranceOnAttributesOption) Get() []string {

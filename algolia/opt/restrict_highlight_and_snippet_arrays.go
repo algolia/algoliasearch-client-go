@@ -8,8 +8,8 @@ type RestrictHighlightAndSnippetArraysOption struct {
 	value bool
 }
 
-func RestrictHighlightAndSnippetArrays(v bool) RestrictHighlightAndSnippetArraysOption {
-	return RestrictHighlightAndSnippetArraysOption{v}
+func RestrictHighlightAndSnippetArrays(v bool) *RestrictHighlightAndSnippetArraysOption {
+	return &RestrictHighlightAndSnippetArraysOption{v}
 }
 
 func (o RestrictHighlightAndSnippetArraysOption) Get() bool {

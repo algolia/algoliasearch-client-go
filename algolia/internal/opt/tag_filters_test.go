@@ -11,11 +11,11 @@ import (
 func TestTagFilters(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.TagFiltersOption
+		expected *opt.TagFiltersOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.TagFiltersOption{},
+			expected: opt.TagFilterAnd(),
 		},
 		{
 			opts: []interface{}{opt.TagFilter("filter1:value1")},
@@ -90,6 +90,6 @@ func TestTagFilters(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

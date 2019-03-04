@@ -8,8 +8,8 @@ type LengthOption struct {
 	value int
 }
 
-func Length(v int) LengthOption {
-	return LengthOption{v}
+func Length(v int) *LengthOption {
+	return &LengthOption{v}
 }
 
 func (o LengthOption) Get() int {

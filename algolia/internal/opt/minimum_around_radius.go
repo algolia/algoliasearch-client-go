@@ -8,8 +8,8 @@ import (
 
 func ExtractMinimumAroundRadius(opts ...interface{}) *opt.MinimumAroundRadiusOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.MinimumAroundRadiusOption); ok {
-			return &v
+		if v, ok := o.(*opt.MinimumAroundRadiusOption); ok {
+			return v
 		}
 	}
 	return nil

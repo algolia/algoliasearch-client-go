@@ -8,8 +8,8 @@ type AllowTyposOnNumericTokensOption struct {
 	value bool
 }
 
-func AllowTyposOnNumericTokens(v bool) AllowTyposOnNumericTokensOption {
-	return AllowTyposOnNumericTokensOption{v}
+func AllowTyposOnNumericTokens(v bool) *AllowTyposOnNumericTokensOption {
+	return &AllowTyposOnNumericTokensOption{v}
 }
 
 func (o AllowTyposOnNumericTokensOption) Get() bool {

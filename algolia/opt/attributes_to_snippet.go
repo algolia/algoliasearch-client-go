@@ -8,8 +8,8 @@ type AttributesToSnippetOption struct {
 	value []string
 }
 
-func AttributesToSnippet(v ...string) AttributesToSnippetOption {
-	return AttributesToSnippetOption{v}
+func AttributesToSnippet(v ...string) *AttributesToSnippetOption {
+	return &AttributesToSnippetOption{v}
 }
 
 func (o AttributesToSnippetOption) Get() []string {

@@ -8,8 +8,8 @@ type AdvancedSyntaxFeaturesOption struct {
 	value []string
 }
 
-func AdvancedSyntaxFeatures(v ...string) AdvancedSyntaxFeaturesOption {
-	return AdvancedSyntaxFeaturesOption{v}
+func AdvancedSyntaxFeatures(v ...string) *AdvancedSyntaxFeaturesOption {
+	return &AdvancedSyntaxFeaturesOption{v}
 }
 
 func (o AdvancedSyntaxFeaturesOption) Get() []string {

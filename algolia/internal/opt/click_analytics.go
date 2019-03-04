@@ -8,8 +8,8 @@ import (
 
 func ExtractClickAnalytics(opts ...interface{}) *opt.ClickAnalyticsOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.ClickAnalyticsOption); ok {
-			return &v
+		if v, ok := o.(*opt.ClickAnalyticsOption); ok {
+			return v
 		}
 	}
 	return nil

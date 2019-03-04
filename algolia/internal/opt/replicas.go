@@ -8,8 +8,8 @@ import (
 
 func ExtractReplicas(opts ...interface{}) *opt.ReplicasOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.ReplicasOption); ok {
-			return &v
+		if v, ok := o.(*opt.ReplicasOption); ok {
+			return v
 		}
 	}
 	return nil

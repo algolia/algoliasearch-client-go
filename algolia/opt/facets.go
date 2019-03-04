@@ -8,8 +8,8 @@ type FacetsOption struct {
 	value []string
 }
 
-func Facets(v ...string) FacetsOption {
-	return FacetsOption{v}
+func Facets(v ...string) *FacetsOption {
+	return &FacetsOption{v}
 }
 
 func (o FacetsOption) Get() []string {

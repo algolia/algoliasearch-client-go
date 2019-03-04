@@ -8,8 +8,8 @@ type SumOrFiltersScoresOption struct {
 	value bool
 }
 
-func SumOrFiltersScores(v bool) SumOrFiltersScoresOption {
-	return SumOrFiltersScoresOption{v}
+func SumOrFiltersScores(v bool) *SumOrFiltersScoresOption {
+	return &SumOrFiltersScoresOption{v}
 }
 
 func (o SumOrFiltersScoresOption) Get() bool {

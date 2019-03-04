@@ -8,8 +8,8 @@ import (
 
 func ExtractAttributesForFaceting(opts ...interface{}) *opt.AttributesForFacetingOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.AttributesForFacetingOption); ok {
-			return &v
+		if v, ok := o.(*opt.AttributesForFacetingOption); ok {
+			return v
 		}
 	}
 	return nil

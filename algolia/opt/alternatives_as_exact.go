@@ -8,8 +8,8 @@ type AlternativesAsExactOption struct {
 	value []string
 }
 
-func AlternativesAsExact(v ...string) AlternativesAsExactOption {
-	return AlternativesAsExactOption{v}
+func AlternativesAsExact(v ...string) *AlternativesAsExactOption {
+	return &AlternativesAsExactOption{v}
 }
 
 func (o AlternativesAsExactOption) Get() []string {

@@ -8,8 +8,8 @@ type ReplicasOption struct {
 	value []string
 }
 
-func Replicas(v ...string) ReplicasOption {
-	return ReplicasOption{v}
+func Replicas(v ...string) *ReplicasOption {
+	return &ReplicasOption{v}
 }
 
 func (o ReplicasOption) Get() []string {

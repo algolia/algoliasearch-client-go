@@ -8,8 +8,8 @@ type RuleContextsOption struct {
 	value string
 }
 
-func RuleContexts(v string) RuleContextsOption {
-	return RuleContextsOption{v}
+func RuleContexts(v string) *RuleContextsOption {
+	return &RuleContextsOption{v}
 }
 
 func (o RuleContextsOption) Get() string {

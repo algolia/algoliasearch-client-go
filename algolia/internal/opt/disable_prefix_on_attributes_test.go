@@ -13,7 +13,7 @@ import (
 func TestDisablePrefixOnAttributes(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.DisablePrefixOnAttributesOption
+		expected *opt.DisablePrefixOnAttributesOption
 	}{
 		{
 			opts:     []interface{}{nil},

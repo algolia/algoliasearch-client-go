@@ -8,8 +8,8 @@ import (
 
 func ExtractExtraHeaders(opts ...interface{}) *opt.ExtraHeadersOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.ExtraHeadersOption); ok {
-			return &v
+		if v, ok := o.(*opt.ExtraHeadersOption); ok {
+			return v
 		}
 	}
 	return nil

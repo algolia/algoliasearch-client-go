@@ -13,7 +13,7 @@ import (
 func TestNumericAttributesForFiltering(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.NumericAttributesForFilteringOption
+		expected *opt.NumericAttributesForFilteringOption
 	}{
 		{
 			opts:     []interface{}{nil},

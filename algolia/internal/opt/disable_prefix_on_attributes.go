@@ -8,8 +8,8 @@ import (
 
 func ExtractDisablePrefixOnAttributes(opts ...interface{}) *opt.DisablePrefixOnAttributesOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.DisablePrefixOnAttributesOption); ok {
-			return &v
+		if v, ok := o.(*opt.DisablePrefixOnAttributesOption); ok {
+			return v
 		}
 	}
 	return nil

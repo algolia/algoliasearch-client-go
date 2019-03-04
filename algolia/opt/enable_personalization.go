@@ -8,8 +8,8 @@ type EnablePersonalizationOption struct {
 	value bool
 }
 
-func EnablePersonalization(v bool) EnablePersonalizationOption {
-	return EnablePersonalizationOption{v}
+func EnablePersonalization(v bool) *EnablePersonalizationOption {
+	return &EnablePersonalizationOption{v}
 }
 
 func (o EnablePersonalizationOption) Get() bool {

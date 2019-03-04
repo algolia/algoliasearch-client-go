@@ -8,8 +8,8 @@ type ReplaceSynonymsInHighlightOption struct {
 	value bool
 }
 
-func ReplaceSynonymsInHighlight(v bool) ReplaceSynonymsInHighlightOption {
-	return ReplaceSynonymsInHighlightOption{v}
+func ReplaceSynonymsInHighlight(v bool) *ReplaceSynonymsInHighlightOption {
+	return &ReplaceSynonymsInHighlightOption{v}
 }
 
 func (o ReplaceSynonymsInHighlightOption) Get() bool {

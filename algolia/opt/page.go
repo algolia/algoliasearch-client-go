@@ -8,8 +8,8 @@ type PageOption struct {
 	value int
 }
 
-func Page(v int) PageOption {
-	return PageOption{v}
+func Page(v int) *PageOption {
+	return &PageOption{v}
 }
 
 func (o PageOption) Get() int {

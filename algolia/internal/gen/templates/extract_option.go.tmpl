@@ -8,8 +8,8 @@ import (
 
 func Extract{{ . }}(opts ...interface{}) *opt.{{ . }}Option {
     for _, o := range opts {
-        if v, ok := o.(opt.{{ . }}Option); ok {
-            return &v
+        if v, ok := o.(*opt.{{ . }}Option); ok {
+            return v
         }
     }
     return nil

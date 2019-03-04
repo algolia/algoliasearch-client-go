@@ -13,7 +13,7 @@ import (
 func TestAttributesToSnippet(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesToSnippetOption
+		expected *opt.AttributesToSnippetOption
 	}{
 		{
 			opts:     []interface{}{nil},

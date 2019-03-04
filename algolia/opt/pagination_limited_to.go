@@ -8,8 +8,8 @@ type PaginationLimitedToOption struct {
 	value int
 }
 
-func PaginationLimitedTo(v int) PaginationLimitedToOption {
-	return PaginationLimitedToOption{v}
+func PaginationLimitedTo(v int) *PaginationLimitedToOption {
+	return &PaginationLimitedToOption{v}
 }
 
 func (o PaginationLimitedToOption) Get() int {

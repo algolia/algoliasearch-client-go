@@ -8,8 +8,8 @@ type FiltersOption struct {
 	value string
 }
 
-func Filters(v string) FiltersOption {
-	return FiltersOption{v}
+func Filters(v string) *FiltersOption {
+	return &FiltersOption{v}
 }
 
 func (o FiltersOption) Get() string {

@@ -8,8 +8,8 @@ type ExtraHeadersOption struct {
 	value map[string]string
 }
 
-func ExtraHeaders(v map[string]string) ExtraHeadersOption {
-	return ExtraHeadersOption{v}
+func ExtraHeaders(v map[string]string) *ExtraHeadersOption {
+	return &ExtraHeadersOption{v}
 }
 
 func (o ExtraHeadersOption) Get() map[string]string {

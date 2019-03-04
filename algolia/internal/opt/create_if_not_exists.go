@@ -8,8 +8,8 @@ import (
 
 func ExtractCreateIfNotExists(opts ...interface{}) *opt.CreateIfNotExistsOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.CreateIfNotExistsOption); ok {
-			return &v
+		if v, ok := o.(*opt.CreateIfNotExistsOption); ok {
+			return v
 		}
 	}
 	return nil

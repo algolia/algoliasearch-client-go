@@ -8,8 +8,8 @@ type QueryTypeOption struct {
 	value string
 }
 
-func QueryType(v string) QueryTypeOption {
-	return QueryTypeOption{v}
+func QueryType(v string) *QueryTypeOption {
+	return &QueryTypeOption{v}
 }
 
 func (o QueryTypeOption) Get() string {

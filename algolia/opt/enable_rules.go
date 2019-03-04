@@ -8,8 +8,8 @@ type EnableRulesOption struct {
 	value bool
 }
 
-func EnableRules(v bool) EnableRulesOption {
-	return EnableRulesOption{v}
+func EnableRules(v bool) *EnableRulesOption {
+	return &EnableRulesOption{v}
 }
 
 func (o EnableRulesOption) Get() bool {

@@ -8,8 +8,8 @@ import (
 
 func ExtractAllowTyposOnNumericTokens(opts ...interface{}) *opt.AllowTyposOnNumericTokensOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.AllowTyposOnNumericTokensOption); ok {
-			return &v
+		if v, ok := o.(*opt.AllowTyposOnNumericTokensOption); ok {
+			return v
 		}
 	}
 	return nil

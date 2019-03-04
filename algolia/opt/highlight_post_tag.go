@@ -8,8 +8,8 @@ type HighlightPostTagOption struct {
 	value string
 }
 
-func HighlightPostTag(v string) HighlightPostTagOption {
-	return HighlightPostTagOption{v}
+func HighlightPostTag(v string) *HighlightPostTagOption {
+	return &HighlightPostTagOption{v}
 }
 
 func (o HighlightPostTagOption) Get() string {

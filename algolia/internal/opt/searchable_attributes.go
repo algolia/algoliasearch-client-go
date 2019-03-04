@@ -8,8 +8,8 @@ import (
 
 func ExtractSearchableAttributes(opts ...interface{}) *opt.SearchableAttributesOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.SearchableAttributesOption); ok {
-			return &v
+		if v, ok := o.(*opt.SearchableAttributesOption); ok {
+			return v
 		}
 	}
 	return nil

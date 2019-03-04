@@ -13,7 +13,7 @@ import (
 func TestUnretrievableAttributes(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.UnretrievableAttributesOption
+		expected *opt.UnretrievableAttributesOption
 	}{
 		{
 			opts:     []interface{}{nil},

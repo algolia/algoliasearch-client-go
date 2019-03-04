@@ -13,7 +13,7 @@ import (
 func TestAdvancedSyntaxFeatures(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AdvancedSyntaxFeaturesOption
+		expected *opt.AdvancedSyntaxFeaturesOption
 	}{
 		{
 			opts:     []interface{}{nil},

@@ -8,8 +8,8 @@ type MaxFacetHitsOption struct {
 	value int
 }
 
-func MaxFacetHits(v int) MaxFacetHitsOption {
-	return MaxFacetHitsOption{v}
+func MaxFacetHits(v int) *MaxFacetHitsOption {
+	return &MaxFacetHitsOption{v}
 }
 
 func (o MaxFacetHitsOption) Get() int {

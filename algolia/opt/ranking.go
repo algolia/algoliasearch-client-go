@@ -8,8 +8,8 @@ type RankingOption struct {
 	value []string
 }
 
-func Ranking(v ...string) RankingOption {
-	return RankingOption{v}
+func Ranking(v ...string) *RankingOption {
+	return &RankingOption{v}
 }
 
 func (o RankingOption) Get() []string {

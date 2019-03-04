@@ -8,8 +8,8 @@ type {{ .Name }}Option struct {
     value {{ .Type }}
 }
 
-func {{ .Name }}(v ...{{ trimPrefix .Type "[]" }}) {{ .Name }}Option {
-    return {{ .Name }}Option{v}
+func {{ .Name }}(v ...{{ trimPrefix .Type "[]" }}) *{{ .Name }}Option {
+    return &{{ .Name }}Option{v}
 }
 
 func (o {{ .Name }}Option) Get() {{ .Type }} {

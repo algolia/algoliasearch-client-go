@@ -11,11 +11,11 @@ import (
 func TestAroundRadius(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AroundRadiusOption
+		expected *opt.AroundRadiusOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AroundRadiusOption{},
+			expected: opt.AroundRadius(0),
 		},
 		{
 			opts:     []interface{}{opt.AroundRadius(0)},
@@ -49,6 +49,6 @@ func TestAroundRadius(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

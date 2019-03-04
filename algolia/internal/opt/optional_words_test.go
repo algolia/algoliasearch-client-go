@@ -13,7 +13,7 @@ import (
 func TestOptionalWords(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.OptionalWordsOption
+		expected *opt.OptionalWordsOption
 	}{
 		{
 			opts:     []interface{}{nil},

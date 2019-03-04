@@ -8,8 +8,8 @@ import (
 
 func ExtractFilters(opts ...interface{}) *opt.FiltersOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.FiltersOption); ok {
-			return &v
+		if v, ok := o.(*opt.FiltersOption); ok {
+			return v
 		}
 	}
 	return nil

@@ -8,8 +8,8 @@ import (
 
 func ExtractExtraURLParams(opts ...interface{}) *opt.ExtraURLParamsOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.ExtraURLParamsOption); ok {
-			return &v
+		if v, ok := o.(*opt.ExtraURLParamsOption); ok {
+			return v
 		}
 	}
 	return nil

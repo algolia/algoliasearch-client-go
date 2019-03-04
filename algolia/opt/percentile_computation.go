@@ -8,8 +8,8 @@ type PercentileComputationOption struct {
 	value bool
 }
 
-func PercentileComputation(v bool) PercentileComputationOption {
-	return PercentileComputationOption{v}
+func PercentileComputation(v bool) *PercentileComputationOption {
+	return &PercentileComputationOption{v}
 }
 
 func (o PercentileComputationOption) Get() bool {

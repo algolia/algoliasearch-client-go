@@ -13,7 +13,7 @@ import (
 func TestSearchableAttributes(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.SearchableAttributesOption
+		expected *opt.SearchableAttributesOption
 	}{
 		{
 			opts:     []interface{}{nil},

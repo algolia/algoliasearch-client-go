@@ -8,8 +8,8 @@ type AdvancedSyntaxOption struct {
 	value bool
 }
 
-func AdvancedSyntax(v bool) AdvancedSyntaxOption {
-	return AdvancedSyntaxOption{v}
+func AdvancedSyntax(v bool) *AdvancedSyntaxOption {
+	return &AdvancedSyntaxOption{v}
 }
 
 func (o AdvancedSyntaxOption) Get() bool {

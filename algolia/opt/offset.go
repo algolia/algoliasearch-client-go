@@ -8,8 +8,8 @@ type OffsetOption struct {
 	value int
 }
 
-func Offset(v int) OffsetOption {
-	return OffsetOption{v}
+func Offset(v int) *OffsetOption {
+	return &OffsetOption{v}
 }
 
 func (o OffsetOption) Get() int {

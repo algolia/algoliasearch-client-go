@@ -8,8 +8,8 @@ type ExtraURLParamsOption struct {
 	value map[string]string
 }
 
-func ExtraURLParams(v map[string]string) ExtraURLParamsOption {
-	return ExtraURLParamsOption{v}
+func ExtraURLParams(v map[string]string) *ExtraURLParamsOption {
+	return &ExtraURLParamsOption{v}
 }
 
 func (o ExtraURLParamsOption) Get() map[string]string {

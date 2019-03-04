@@ -8,8 +8,8 @@ type AttributesToRetrieveOption struct {
 	value []string
 }
 
-func AttributesToRetrieve(v ...string) AttributesToRetrieveOption {
-	return AttributesToRetrieveOption{v}
+func AttributesToRetrieve(v ...string) *AttributesToRetrieveOption {
+	return &AttributesToRetrieveOption{v}
 }
 
 func (o AttributesToRetrieveOption) Get() []string {

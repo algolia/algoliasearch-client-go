@@ -8,8 +8,8 @@ type HighlightPreTagOption struct {
 	value string
 }
 
-func HighlightPreTag(v string) HighlightPreTagOption {
-	return HighlightPreTagOption{v}
+func HighlightPreTag(v string) *HighlightPreTagOption {
+	return &HighlightPreTagOption{v}
 }
 
 func (o HighlightPreTagOption) Get() string {

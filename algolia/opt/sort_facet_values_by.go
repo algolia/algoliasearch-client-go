@@ -8,8 +8,8 @@ type SortFacetValuesByOption struct {
 	value string
 }
 
-func SortFacetValuesBy(v string) SortFacetValuesByOption {
-	return SortFacetValuesByOption{v}
+func SortFacetValuesBy(v string) *SortFacetValuesByOption {
+	return &SortFacetValuesByOption{v}
 }
 
 func (o SortFacetValuesByOption) Get() string {

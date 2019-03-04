@@ -8,8 +8,8 @@ import (
 
 func ExtractEnableRules(opts ...interface{}) *opt.EnableRulesOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.EnableRulesOption); ok {
-			return &v
+		if v, ok := o.(*opt.EnableRulesOption); ok {
+			return v
 		}
 	}
 	return nil

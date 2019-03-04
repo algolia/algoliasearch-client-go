@@ -13,7 +13,7 @@ import (
 func TestKeepDiacriticsOnCharacters(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.KeepDiacriticsOnCharactersOption
+		expected *opt.KeepDiacriticsOnCharactersOption
 	}{
 		{
 			opts:     []interface{}{nil},
@@ -36,6 +36,6 @@ func TestKeepDiacriticsOnCharacters(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

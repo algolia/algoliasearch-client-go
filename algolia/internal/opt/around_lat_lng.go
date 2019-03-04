@@ -8,8 +8,8 @@ import (
 
 func ExtractAroundLatLng(opts ...interface{}) *opt.AroundLatLngOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.AroundLatLngOption); ok {
-			return &v
+		if v, ok := o.(*opt.AroundLatLngOption); ok {
+			return v
 		}
 	}
 	return nil

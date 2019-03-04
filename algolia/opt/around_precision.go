@@ -8,8 +8,8 @@ type AroundPrecisionOption struct {
 	value int
 }
 
-func AroundPrecision(v int) AroundPrecisionOption {
-	return AroundPrecisionOption{v}
+func AroundPrecision(v int) *AroundPrecisionOption {
+	return &AroundPrecisionOption{v}
 }
 
 func (o AroundPrecisionOption) Get() int {

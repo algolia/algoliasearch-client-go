@@ -8,8 +8,8 @@ type MinimumAroundRadiusOption struct {
 	value int
 }
 
-func MinimumAroundRadius(v int) MinimumAroundRadiusOption {
-	return MinimumAroundRadiusOption{v}
+func MinimumAroundRadius(v int) *MinimumAroundRadiusOption {
+	return &MinimumAroundRadiusOption{v}
 }
 
 func (o MinimumAroundRadiusOption) Get() int {

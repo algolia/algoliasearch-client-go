@@ -11,12 +11,12 @@ type InsidePolygonOption struct {
 	coordinates string
 }
 
-func InsidePolygon(polygons [][]float64) InsidePolygonOption {
-	return InsidePolygonOption{polygons: polygons}
+func InsidePolygon(polygons [][]float64) *InsidePolygonOption {
+	return &InsidePolygonOption{polygons: polygons}
 }
 
-func InsidePolygonFromCoordinates(coordinates string) InsidePolygonOption {
-	return InsidePolygonOption{coordinates: coordinates}
+func InsidePolygonFromCoordinates(coordinates string) *InsidePolygonOption {
+	return &InsidePolygonOption{coordinates: coordinates}
 }
 
 func (o InsidePolygonOption) Get() ([][]float64, string) {

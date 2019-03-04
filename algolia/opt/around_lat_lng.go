@@ -8,8 +8,8 @@ type AroundLatLngOption struct {
 	value string
 }
 
-func AroundLatLng(v string) AroundLatLngOption {
-	return AroundLatLngOption{v}
+func AroundLatLng(v string) *AroundLatLngOption {
+	return &AroundLatLngOption{v}
 }
 
 func (o AroundLatLngOption) Get() string {

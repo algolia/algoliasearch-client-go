@@ -13,7 +13,7 @@ import (
 func TestSortFacetValuesBy(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.SortFacetValuesByOption
+		expected *opt.SortFacetValuesByOption
 	}{
 		{
 			opts:     []interface{}{nil},
@@ -36,6 +36,6 @@ func TestSortFacetValuesBy(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

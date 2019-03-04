@@ -8,8 +8,8 @@ type KeepDiacriticsOnCharactersOption struct {
 	value string
 }
 
-func KeepDiacriticsOnCharacters(v string) KeepDiacriticsOnCharactersOption {
-	return KeepDiacriticsOnCharactersOption{v}
+func KeepDiacriticsOnCharacters(v string) *KeepDiacriticsOnCharactersOption {
+	return &KeepDiacriticsOnCharactersOption{v}
 }
 
 func (o KeepDiacriticsOnCharactersOption) Get() string {

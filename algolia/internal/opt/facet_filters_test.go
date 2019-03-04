@@ -11,11 +11,11 @@ import (
 func TestFacetFilters(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.FacetFiltersOption
+		expected *opt.FacetFiltersOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.FacetFiltersOption{},
+			expected: opt.FacetFilterAnd(),
 		},
 		{
 			opts: []interface{}{opt.FacetFilter("filter1:value1")},
@@ -90,6 +90,6 @@ func TestFacetFilters(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

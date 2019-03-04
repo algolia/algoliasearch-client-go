@@ -8,8 +8,8 @@ import (
 
 func ExtractAllowCompressionOfIntegerArray(opts ...interface{}) *opt.AllowCompressionOfIntegerArrayOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.AllowCompressionOfIntegerArrayOption); ok {
-			return &v
+		if v, ok := o.(*opt.AllowCompressionOfIntegerArrayOption); ok {
+			return v
 		}
 	}
 	return nil

@@ -8,8 +8,8 @@ import (
 
 func ExtractHighlightPostTag(opts ...interface{}) *opt.HighlightPostTagOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.HighlightPostTagOption); ok {
-			return &v
+		if v, ok := o.(*opt.HighlightPostTagOption); ok {
+			return v
 		}
 	}
 	return nil

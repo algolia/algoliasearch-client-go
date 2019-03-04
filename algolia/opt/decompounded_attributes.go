@@ -8,8 +8,8 @@ type DecompoundedAttributesOption struct {
 	value map[string][]string
 }
 
-func DecompoundedAttributes(v map[string][]string) DecompoundedAttributesOption {
-	return DecompoundedAttributesOption{v}
+func DecompoundedAttributes(v map[string][]string) *DecompoundedAttributesOption {
+	return &DecompoundedAttributesOption{v}
 }
 
 func (o DecompoundedAttributesOption) Get() map[string][]string {

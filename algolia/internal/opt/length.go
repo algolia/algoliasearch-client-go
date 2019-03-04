@@ -8,8 +8,8 @@ import (
 
 func ExtractLength(opts ...interface{}) *opt.LengthOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.LengthOption); ok {
-			return &v
+		if v, ok := o.(*opt.LengthOption); ok {
+			return v
 		}
 	}
 	return nil

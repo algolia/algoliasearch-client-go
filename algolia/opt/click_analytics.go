@@ -8,8 +8,8 @@ type ClickAnalyticsOption struct {
 	value bool
 }
 
-func ClickAnalytics(v bool) ClickAnalyticsOption {
-	return ClickAnalyticsOption{v}
+func ClickAnalytics(v bool) *ClickAnalyticsOption {
+	return &ClickAnalyticsOption{v}
 }
 
 func (o ClickAnalyticsOption) Get() bool {

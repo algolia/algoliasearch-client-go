@@ -11,11 +11,11 @@ import (
 func TestInsidePolygon(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.InsidePolygonOption
+		expected *opt.InsidePolygonOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.InsidePolygonOption{},
+			expected: &opt.InsidePolygonOption{},
 		},
 		{
 			opts: []interface{}{opt.InsidePolygon(
@@ -48,6 +48,6 @@ func TestInsidePolygon(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

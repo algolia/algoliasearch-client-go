@@ -8,8 +8,8 @@ import (
 
 func ExtractOptionalWords(opts ...interface{}) *opt.OptionalWordsOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.OptionalWordsOption); ok {
-			return &v
+		if v, ok := o.(*opt.OptionalWordsOption); ok {
+			return v
 		}
 	}
 	return nil

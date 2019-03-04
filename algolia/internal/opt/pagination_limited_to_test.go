@@ -13,7 +13,7 @@ import (
 func TestPaginationLimitedTo(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.PaginationLimitedToOption
+		expected *opt.PaginationLimitedToOption
 	}{
 		{
 			opts:     []interface{}{nil},
@@ -40,6 +40,6 @@ func TestPaginationLimitedTo(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

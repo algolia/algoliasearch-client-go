@@ -8,8 +8,8 @@ type ExactOnSingleWordQueryOption struct {
 	value string
 }
 
-func ExactOnSingleWordQuery(v string) ExactOnSingleWordQueryOption {
-	return ExactOnSingleWordQueryOption{v}
+func ExactOnSingleWordQuery(v string) *ExactOnSingleWordQueryOption {
+	return &ExactOnSingleWordQueryOption{v}
 }
 
 func (o ExactOnSingleWordQueryOption) Get() string {

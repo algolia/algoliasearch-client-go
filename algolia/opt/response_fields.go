@@ -8,8 +8,8 @@ type ResponseFieldsOption struct {
 	value []string
 }
 
-func ResponseFields(v ...string) ResponseFieldsOption {
-	return ResponseFieldsOption{v}
+func ResponseFields(v ...string) *ResponseFieldsOption {
+	return &ResponseFieldsOption{v}
 }
 
 func (o ResponseFieldsOption) Get() []string {

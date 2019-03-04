@@ -13,7 +13,7 @@ import (
 func TestAttributesForFaceting(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesForFacetingOption
+		expected *opt.AttributesForFacetingOption
 	}{
 		{
 			opts:     []interface{}{nil},

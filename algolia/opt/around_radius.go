@@ -12,12 +12,12 @@ type AroundRadiusOption struct {
 	isAll  bool
 }
 
-func AroundRadius(meters int) AroundRadiusOption {
-	return AroundRadiusOption{meters: meters}
+func AroundRadius(meters int) *AroundRadiusOption {
+	return &AroundRadiusOption{meters: meters}
 }
 
-func AroundRadiusAll() AroundRadiusOption {
-	return AroundRadiusOption{isAll: true}
+func AroundRadiusAll() *AroundRadiusOption {
+	return &AroundRadiusOption{isAll: true}
 }
 
 func (o AroundRadiusOption) Get() (int, string) {

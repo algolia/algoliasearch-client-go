@@ -8,8 +8,8 @@ import (
 
 func ExtractMinWordSizeFor1Typo(opts ...interface{}) *opt.MinWordSizeFor1TypoOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.MinWordSizeFor1TypoOption); ok {
-			return &v
+		if v, ok := o.(*opt.MinWordSizeFor1TypoOption); ok {
+			return v
 		}
 	}
 	return nil

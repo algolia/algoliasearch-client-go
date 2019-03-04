@@ -13,7 +13,7 @@ import (
 func TestCustomRanking(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.CustomRankingOption
+		expected *opt.CustomRankingOption
 	}{
 		{
 			opts:     []interface{}{nil},

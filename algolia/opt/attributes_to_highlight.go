@@ -8,8 +8,8 @@ type AttributesToHighlightOption struct {
 	value []string
 }
 
-func AttributesToHighlight(v ...string) AttributesToHighlightOption {
-	return AttributesToHighlightOption{v}
+func AttributesToHighlight(v ...string) *AttributesToHighlightOption {
+	return &AttributesToHighlightOption{v}
 }
 
 func (o AttributesToHighlightOption) Get() []string {

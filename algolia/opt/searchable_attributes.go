@@ -8,8 +8,8 @@ type SearchableAttributesOption struct {
 	value []string
 }
 
-func SearchableAttributes(v ...string) SearchableAttributesOption {
-	return SearchableAttributesOption{v}
+func SearchableAttributes(v ...string) *SearchableAttributesOption {
+	return &SearchableAttributesOption{v}
 }
 
 func (o SearchableAttributesOption) Get() []string {

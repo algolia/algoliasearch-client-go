@@ -11,11 +11,11 @@ import (
 func TestInsideBoundingBox(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.InsideBoundingBoxOption
+		expected *opt.InsideBoundingBoxOption
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.InsideBoundingBoxOption{},
+			expected: &opt.InsideBoundingBoxOption{},
 		},
 		{
 			opts: []interface{}{opt.InsideBoundingBox(
@@ -48,6 +48,6 @@ func TestInsideBoundingBox(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }

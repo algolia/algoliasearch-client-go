@@ -8,8 +8,8 @@ type MinProximityOption struct {
 	value int
 }
 
-func MinProximity(v int) MinProximityOption {
-	return MinProximityOption{v}
+func MinProximity(v int) *MinProximityOption {
+	return &MinProximityOption{v}
 }
 
 func (o MinProximityOption) Get() int {

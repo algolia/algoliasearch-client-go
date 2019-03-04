@@ -13,7 +13,7 @@ import (
 func TestAttributesToHighlight(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.AttributesToHighlightOption
+		expected *opt.AttributesToHighlightOption
 	}{
 		{
 			opts:     []interface{}{nil},

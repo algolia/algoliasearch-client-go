@@ -13,7 +13,7 @@ import (
 func TestRestrictSearchableAttributes(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.RestrictSearchableAttributesOption
+		expected *opt.RestrictSearchableAttributesOption
 	}{
 		{
 			opts:     []interface{}{nil},

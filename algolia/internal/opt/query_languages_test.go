@@ -13,7 +13,7 @@ import (
 func TestQueryLanguages(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.QueryLanguagesOption
+		expected *opt.QueryLanguagesOption
 	}{
 		{
 			opts:     []interface{}{nil},

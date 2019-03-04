@@ -8,8 +8,8 @@ import (
 
 func ExtractCamelCaseAttributes(opts ...interface{}) *opt.CamelCaseAttributesOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.CamelCaseAttributesOption); ok {
-			return &v
+		if v, ok := o.(*opt.CamelCaseAttributesOption); ok {
+			return v
 		}
 	}
 	return nil

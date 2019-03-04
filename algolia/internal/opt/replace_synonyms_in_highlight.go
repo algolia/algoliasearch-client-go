@@ -8,8 +8,8 @@ import (
 
 func ExtractReplaceSynonymsInHighlight(opts ...interface{}) *opt.ReplaceSynonymsInHighlightOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.ReplaceSynonymsInHighlightOption); ok {
-			return &v
+		if v, ok := o.(*opt.ReplaceSynonymsInHighlightOption); ok {
+			return v
 		}
 	}
 	return nil

@@ -8,8 +8,8 @@ import (
 
 func ExtractAutoGenerateObjectIDIfNotExist(opts ...interface{}) *opt.AutoGenerateObjectIDIfNotExistOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.AutoGenerateObjectIDIfNotExistOption); ok {
-			return &v
+		if v, ok := o.(*opt.AutoGenerateObjectIDIfNotExistOption); ok {
+			return v
 		}
 	}
 	return nil

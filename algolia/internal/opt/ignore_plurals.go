@@ -8,8 +8,8 @@ import (
 
 func ExtractIgnorePlurals(opts ...interface{}) *opt.IgnorePluralsOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.IgnorePluralsOption); ok {
-			return &v
+		if v, ok := o.(*opt.IgnorePluralsOption); ok {
+			return v
 		}
 	}
 	return nil

@@ -8,8 +8,8 @@ type FacetingAfterDistinctOption struct {
 	value bool
 }
 
-func FacetingAfterDistinct(v bool) FacetingAfterDistinctOption {
-	return FacetingAfterDistinctOption{v}
+func FacetingAfterDistinct(v bool) *FacetingAfterDistinctOption {
+	return &FacetingAfterDistinctOption{v}
 }
 
 func (o FacetingAfterDistinctOption) Get() bool {

@@ -8,8 +8,8 @@ import (
 
 func ExtractKeepDiacriticsOnCharacters(opts ...interface{}) *opt.KeepDiacriticsOnCharactersOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.KeepDiacriticsOnCharactersOption); ok {
-			return &v
+		if v, ok := o.(*opt.KeepDiacriticsOnCharactersOption); ok {
+			return v
 		}
 	}
 	return nil

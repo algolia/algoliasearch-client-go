@@ -13,7 +13,7 @@ import (
 func TestResponseFields(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.ResponseFieldsOption
+		expected *opt.ResponseFieldsOption
 	}{
 		{
 			opts:     []interface{}{nil},

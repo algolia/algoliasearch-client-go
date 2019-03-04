@@ -8,8 +8,8 @@ type QueryLanguagesOption struct {
 	value []string
 }
 
-func QueryLanguages(v ...string) QueryLanguagesOption {
-	return QueryLanguagesOption{v}
+func QueryLanguages(v ...string) *QueryLanguagesOption {
+	return &QueryLanguagesOption{v}
 }
 
 func (o QueryLanguagesOption) Get() []string {

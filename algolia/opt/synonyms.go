@@ -8,8 +8,8 @@ type SynonymsOption struct {
 	value bool
 }
 
-func Synonyms(v bool) SynonymsOption {
-	return SynonymsOption{v}
+func Synonyms(v bool) *SynonymsOption {
+	return &SynonymsOption{v}
 }
 
 func (o SynonymsOption) Get() bool {

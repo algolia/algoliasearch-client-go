@@ -8,16 +8,16 @@ type OptionalFiltersOption struct {
 	comp composableFilterOption
 }
 
-func OptionalFilter(filter string) OptionalFiltersOption {
-	return OptionalFiltersOption{composableFilter(filter)}
+func OptionalFilter(filter string) *OptionalFiltersOption {
+	return &OptionalFiltersOption{composableFilter(filter)}
 }
 
-func OptionalFilterOr(filters ...interface{}) OptionalFiltersOption {
-	return OptionalFiltersOption{composableFilterOr(filters...)}
+func OptionalFilterOr(filters ...interface{}) *OptionalFiltersOption {
+	return &OptionalFiltersOption{composableFilterOr(filters...)}
 }
 
-func OptionalFilterAnd(filters ...interface{}) OptionalFiltersOption {
-	return OptionalFiltersOption{composableFilterAnd(filters...)}
+func OptionalFilterAnd(filters ...interface{}) *OptionalFiltersOption {
+	return &OptionalFiltersOption{composableFilterAnd(filters...)}
 }
 
 func (o OptionalFiltersOption) Get() [][]string {

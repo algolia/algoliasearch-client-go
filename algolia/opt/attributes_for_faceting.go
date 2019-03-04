@@ -8,8 +8,8 @@ type AttributesForFacetingOption struct {
 	value []string
 }
 
-func AttributesForFaceting(v ...string) AttributesForFacetingOption {
-	return AttributesForFacetingOption{v}
+func AttributesForFaceting(v ...string) *AttributesForFacetingOption {
+	return &AttributesForFacetingOption{v}
 }
 
 func (o AttributesForFacetingOption) Get() []string {

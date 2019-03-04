@@ -13,7 +13,7 @@ import (
 func TestCamelCaseAttributes(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.CamelCaseAttributesOption
+		expected *opt.CamelCaseAttributesOption
 	}{
 		{
 			opts:     []interface{}{nil},

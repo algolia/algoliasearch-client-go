@@ -8,8 +8,8 @@ import (
 
 func ExtractNumericAttributesForFiltering(opts ...interface{}) *opt.NumericAttributesForFilteringOption {
 	for _, o := range opts {
-		if v, ok := o.(opt.NumericAttributesForFilteringOption); ok {
-			return &v
+		if v, ok := o.(*opt.NumericAttributesForFilteringOption); ok {
+			return v
 		}
 	}
 	return nil

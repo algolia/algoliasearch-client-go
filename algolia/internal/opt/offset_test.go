@@ -13,7 +13,7 @@ import (
 func TestOffset(t *testing.T) {
 	for _, c := range []struct {
 		opts     []interface{}
-		expected opt.OffsetOption
+		expected *opt.OffsetOption
 	}{
 		{
 			opts:     []interface{}{nil},
@@ -40,6 +40,6 @@ func TestOffset(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, c.expected, out)
+		require.Equal(t, *c.expected, out)
 	}
 }
