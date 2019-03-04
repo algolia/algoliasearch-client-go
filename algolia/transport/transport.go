@@ -83,6 +83,10 @@ func (t *Transport) Request(
 		urlParams = extraURLParams.Get()
 	}
 
+	if forwardToReplicas := iopt.ExtractForwardToReplicas(opts...); forwardToReplicas != nil {
+		urlParams["forwardToReplicas"] = fmt.Sprintf("%t", forwardToReplicas.Get())
+	}
+
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
 		req, err := buildRequest(method, h.host, path, body, headers, urlParams)
 		if err != nil {
