@@ -29,7 +29,7 @@ type searchReq struct {
 	Params string `json:"params"`
 }
 
-type searchParams struct {
+type SearchParams struct {
 	Query string `json:"query"`
 
 	// Attributes
@@ -115,11 +115,14 @@ type searchParams struct {
 	PercentileComputation      *opt.PercentileComputationOption      `json:"percentileComputation,omitempty"`
 }
 
-func newSearchParams(query string, opts ...interface{}) searchParams {
-	return searchParams{
-		Query:                        query,
+func NewSearchParams(query string, opts ...interface{}) SearchParams {
+	return SearchParams{
+		Query: query,
+
+		// Attributes
 		AttributesToRetrieve:         iopt.ExtractAttributesToRetrieve(opts...),
 		RestrictSearchableAttributes: iopt.ExtractRestrictSearchableAttributes(opts...),
+
 		// Filtering
 		Filters:            iopt.ExtractFilters(opts...),
 		FacetFilters:       iopt.ExtractFacetFilters(opts...),
@@ -127,11 +130,13 @@ func newSearchParams(query string, opts ...interface{}) searchParams {
 		NumericFilters:     iopt.ExtractNumericFilters(opts...),
 		TagFilters:         iopt.ExtractTagFilters(opts...),
 		SumOrFiltersScores: iopt.ExtractSumOrFiltersScores(opts...),
+
 		// Faceting
 		Facets:                iopt.ExtractFacets(opts...),
 		MaxValuesPerFacet:     iopt.ExtractMaxValuesPerFacet(opts...),
 		FacetingAfterDistinct: iopt.ExtractFacetingAfterDistinct(opts...),
 		SortFacetValuesBy:     iopt.ExtractSortFacetValuesBy(opts...),
+
 		// Highlighting - snippeting
 		AttributesToHighlight:             iopt.ExtractAttributesToHighlight(opts...),
 		AttributesToSnippet:               iopt.ExtractAttributesToSnippet(opts...),
@@ -139,17 +144,20 @@ func newSearchParams(query string, opts ...interface{}) searchParams {
 		HighlightPostTag:                  iopt.ExtractHighlightPostTag(opts...),
 		SnippetEllipsisText:               iopt.ExtractSnippetEllipsisText(opts...),
 		RestrictHighlightAndSnippetArrays: iopt.ExtractRestrictHighlightAndSnippetArrays(opts...),
+
 		// Pagination
 		Page:        iopt.ExtractPage(opts...),
 		HitsPerPage: iopt.ExtractHitsPerPage(opts...),
 		Offset:      iopt.ExtractOffset(opts...),
 		Length:      iopt.ExtractLength(opts...),
+
 		// Typos
 		MinWordSizeFor1Typo:              iopt.ExtractMinWordSizeFor1Typo(opts...),
 		MinWordSizeFor2Typos:             iopt.ExtractMinWordSizeFor2Typos(opts...),
 		TypoTolerance:                    iopt.ExtractTypoTolerance(opts...),
 		AllowTyposOnNumericTokens:        iopt.ExtractAllowTyposOnNumericTokens(opts...),
 		DisableTypoToleranceOnAttributes: iopt.ExtractDisableTypoToleranceOnAttributes(opts...),
+
 		// Geo-search
 		AroundLatLng:        iopt.ExtractAroundLatLng(opts...),
 		AroundLatLngViaIP:   iopt.ExtractAroundLatLngViaIP(opts...),
@@ -158,10 +166,12 @@ func newSearchParams(query string, opts ...interface{}) searchParams {
 		MinimumAroundRadius: iopt.ExtractMinimumAroundRadius(opts...),
 		InsideBoundingBox:   iopt.ExtractInsideBoundingBox(opts...),
 		InsidePolygon:       iopt.ExtractInsidePolygon(opts...),
+
 		// Languages
 		IgnorePlurals:   iopt.ExtractIgnorePlurals(opts...),
 		RemoveStopWords: iopt.ExtractRemoveStopWords(opts...),
 		QueryLanguages:  iopt.ExtractQueryLanguages(opts...),
+
 		// Query strategy
 		QueryType:                iopt.ExtractQueryType(opts...),
 		RemoveWordsIfNoResults:   iopt.ExtractRemoveWordsIfNoResults(opts...),
@@ -170,11 +180,14 @@ func newSearchParams(query string, opts ...interface{}) searchParams {
 		DisableExactOnAttributes: iopt.ExtractDisableExactOnAttributes(opts...),
 		ExactOnSingleWordQuery:   iopt.ExtractExactOnSingleWordQuery(opts...),
 		AlternativesAsExact:      iopt.ExtractAlternativesAsExact(opts...),
+
 		// Query rules
 		EnableRules:  iopt.ExtractEnableRules(opts...),
 		RuleContexts: iopt.ExtractRuleContexts(opts...),
+
 		// Personalization
 		EnablePersonalization: iopt.ExtractEnablePersonalization(opts...),
+
 		// Advanced
 		Distinct:                   iopt.ExtractDistinct(opts...),
 		GetRankingInfo:             iopt.ExtractGetRankingInfo(opts...),

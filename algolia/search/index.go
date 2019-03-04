@@ -60,7 +60,7 @@ func (i *Index) waitTask(taskID int) error {
 
 func (i *Index) Search(query string, opts ...interface{}) (res SearchRes, err error) {
 	body := searchReq{
-		Params: transport.URLEncode(newSearchParams(query, opts...)),
+		Params: transport.URLEncode(NewSearchParams(query, opts...)),
 	}
 
 	path := i.path("/query")
