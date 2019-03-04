@@ -291,3 +291,10 @@ func (i *Index) SetSettings(settings Settings, opts ...interface{}) (res UpdateT
 	res.wait = i.waitTask
 	return
 }
+
+func (i *Index) Delete(opts ...interface{}) (res DeleteTaskRes, err error) {
+	path := i.path("")
+	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
+	res.wait = i.waitTask
+	return
+}
