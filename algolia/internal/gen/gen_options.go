@@ -27,6 +27,7 @@ var opts = []struct {
 	{"Analytics", "bool", "true"},
 	{"AroundLatLngViaIP", "bool", "false"},
 	{"AutoGenerateObjectIDIfNotExist", "bool", "false"},
+	{"ClearExistingRules", "bool", "false"},
 	{"ClickAnalytics", "bool", "false"},
 	{"CreateIfNotExists", "bool", "false"},
 	{"EnablePersonalization", "bool", "false"},
@@ -56,6 +57,7 @@ var opts = []struct {
 	{"PaginationLimitedTo", "int", "1000"},
 
 	// string
+	{"Anchoring", "string", `""`},
 	{"AroundLatLng", "string", `""`},
 	{"AttributeForDistinct", "string", `""`},
 	{"ExactOnSingleWordQuery", "string", `"attribute"`},
