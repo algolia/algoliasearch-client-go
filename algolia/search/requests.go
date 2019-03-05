@@ -15,23 +15,21 @@ type deleteByReq struct {
 	NumericFilters    *opt.NumericFiltersOption    `json:"numericFilters,omitempty"`
 }
 
-type batchReq struct {
-	Requests []BatchOperation `json:"requests,omitempty"`
-}
-
 type getObjectsReq struct {
 	IndexName            string                          `json:"indexName"`
 	ObjectID             string                          `json:"objectID"`
 	AttributesToRetrieve *opt.AttributesToRetrieveOption `json:"attributesToRetrieve,omitempty"`
 }
 
+type batchReq struct {
+	Requests []BatchOperation `json:"requests,omitempty"`
+}
+
 type searchReq struct {
 	Params string `json:"params"`
 }
 
-type SearchParams struct {
-	Query string `json:"query"`
-
+type QueryParams struct {
 	// Attributes
 	AttributesToRetrieve         *opt.AttributesToRetrieveOption         `json:"attributesToRetrieve,omitempty"`
 	RestrictSearchableAttributes *opt.RestrictSearchableAttributesOption `json:"restrictSearchableAttributes,omitempty"`
@@ -115,90 +113,96 @@ type SearchParams struct {
 	PercentileComputation      *opt.PercentileComputationOption      `json:"percentileComputation,omitempty"`
 }
 
-func NewSearchParams(query string, opts ...interface{}) SearchParams {
-	return SearchParams{
+type searchParams struct {
+	Query string `json:"query"`
+	QueryParams
+}
+
+func newSearchParams(query string, opts ...interface{}) searchParams {
+	return searchParams{
 		Query: query,
+		QueryParams: QueryParams{
+			// Attributes
+			AttributesToRetrieve:         iopt.ExtractAttributesToRetrieve(opts...),
+			RestrictSearchableAttributes: iopt.ExtractRestrictSearchableAttributes(opts...),
 
-		// Attributes
-		AttributesToRetrieve:         iopt.ExtractAttributesToRetrieve(opts...),
-		RestrictSearchableAttributes: iopt.ExtractRestrictSearchableAttributes(opts...),
+			// Filtering
+			Filters:            iopt.ExtractFilters(opts...),
+			FacetFilters:       iopt.ExtractFacetFilters(opts...),
+			OptionalFilters:    iopt.ExtractOptionalFilters(opts...),
+			NumericFilters:     iopt.ExtractNumericFilters(opts...),
+			TagFilters:         iopt.ExtractTagFilters(opts...),
+			SumOrFiltersScores: iopt.ExtractSumOrFiltersScores(opts...),
 
-		// Filtering
-		Filters:            iopt.ExtractFilters(opts...),
-		FacetFilters:       iopt.ExtractFacetFilters(opts...),
-		OptionalFilters:    iopt.ExtractOptionalFilters(opts...),
-		NumericFilters:     iopt.ExtractNumericFilters(opts...),
-		TagFilters:         iopt.ExtractTagFilters(opts...),
-		SumOrFiltersScores: iopt.ExtractSumOrFiltersScores(opts...),
+			// Faceting
+			Facets:                iopt.ExtractFacets(opts...),
+			MaxValuesPerFacet:     iopt.ExtractMaxValuesPerFacet(opts...),
+			FacetingAfterDistinct: iopt.ExtractFacetingAfterDistinct(opts...),
+			SortFacetValuesBy:     iopt.ExtractSortFacetValuesBy(opts...),
 
-		// Faceting
-		Facets:                iopt.ExtractFacets(opts...),
-		MaxValuesPerFacet:     iopt.ExtractMaxValuesPerFacet(opts...),
-		FacetingAfterDistinct: iopt.ExtractFacetingAfterDistinct(opts...),
-		SortFacetValuesBy:     iopt.ExtractSortFacetValuesBy(opts...),
+			// Highlighting - snippeting
+			AttributesToHighlight:             iopt.ExtractAttributesToHighlight(opts...),
+			AttributesToSnippet:               iopt.ExtractAttributesToSnippet(opts...),
+			HighlightPreTag:                   iopt.ExtractHighlightPreTag(opts...),
+			HighlightPostTag:                  iopt.ExtractHighlightPostTag(opts...),
+			SnippetEllipsisText:               iopt.ExtractSnippetEllipsisText(opts...),
+			RestrictHighlightAndSnippetArrays: iopt.ExtractRestrictHighlightAndSnippetArrays(opts...),
 
-		// Highlighting - snippeting
-		AttributesToHighlight:             iopt.ExtractAttributesToHighlight(opts...),
-		AttributesToSnippet:               iopt.ExtractAttributesToSnippet(opts...),
-		HighlightPreTag:                   iopt.ExtractHighlightPreTag(opts...),
-		HighlightPostTag:                  iopt.ExtractHighlightPostTag(opts...),
-		SnippetEllipsisText:               iopt.ExtractSnippetEllipsisText(opts...),
-		RestrictHighlightAndSnippetArrays: iopt.ExtractRestrictHighlightAndSnippetArrays(opts...),
+			// Pagination
+			Page:        iopt.ExtractPage(opts...),
+			HitsPerPage: iopt.ExtractHitsPerPage(opts...),
+			Offset:      iopt.ExtractOffset(opts...),
+			Length:      iopt.ExtractLength(opts...),
 
-		// Pagination
-		Page:        iopt.ExtractPage(opts...),
-		HitsPerPage: iopt.ExtractHitsPerPage(opts...),
-		Offset:      iopt.ExtractOffset(opts...),
-		Length:      iopt.ExtractLength(opts...),
+			// Typos
+			MinWordSizeFor1Typo:              iopt.ExtractMinWordSizeFor1Typo(opts...),
+			MinWordSizeFor2Typos:             iopt.ExtractMinWordSizeFor2Typos(opts...),
+			TypoTolerance:                    iopt.ExtractTypoTolerance(opts...),
+			AllowTyposOnNumericTokens:        iopt.ExtractAllowTyposOnNumericTokens(opts...),
+			DisableTypoToleranceOnAttributes: iopt.ExtractDisableTypoToleranceOnAttributes(opts...),
 
-		// Typos
-		MinWordSizeFor1Typo:              iopt.ExtractMinWordSizeFor1Typo(opts...),
-		MinWordSizeFor2Typos:             iopt.ExtractMinWordSizeFor2Typos(opts...),
-		TypoTolerance:                    iopt.ExtractTypoTolerance(opts...),
-		AllowTyposOnNumericTokens:        iopt.ExtractAllowTyposOnNumericTokens(opts...),
-		DisableTypoToleranceOnAttributes: iopt.ExtractDisableTypoToleranceOnAttributes(opts...),
+			// Geo-search
+			AroundLatLng:        iopt.ExtractAroundLatLng(opts...),
+			AroundLatLngViaIP:   iopt.ExtractAroundLatLngViaIP(opts...),
+			AroundRadius:        iopt.ExtractAroundRadius(opts...),
+			AroundPrecision:     iopt.ExtractAroundPrecision(opts...),
+			MinimumAroundRadius: iopt.ExtractMinimumAroundRadius(opts...),
+			InsideBoundingBox:   iopt.ExtractInsideBoundingBox(opts...),
+			InsidePolygon:       iopt.ExtractInsidePolygon(opts...),
 
-		// Geo-search
-		AroundLatLng:        iopt.ExtractAroundLatLng(opts...),
-		AroundLatLngViaIP:   iopt.ExtractAroundLatLngViaIP(opts...),
-		AroundRadius:        iopt.ExtractAroundRadius(opts...),
-		AroundPrecision:     iopt.ExtractAroundPrecision(opts...),
-		MinimumAroundRadius: iopt.ExtractMinimumAroundRadius(opts...),
-		InsideBoundingBox:   iopt.ExtractInsideBoundingBox(opts...),
-		InsidePolygon:       iopt.ExtractInsidePolygon(opts...),
+			// Languages
+			IgnorePlurals:   iopt.ExtractIgnorePlurals(opts...),
+			RemoveStopWords: iopt.ExtractRemoveStopWords(opts...),
+			QueryLanguages:  iopt.ExtractQueryLanguages(opts...),
 
-		// Languages
-		IgnorePlurals:   iopt.ExtractIgnorePlurals(opts...),
-		RemoveStopWords: iopt.ExtractRemoveStopWords(opts...),
-		QueryLanguages:  iopt.ExtractQueryLanguages(opts...),
+			// Query strategy
+			QueryType:                iopt.ExtractQueryType(opts...),
+			RemoveWordsIfNoResults:   iopt.ExtractRemoveWordsIfNoResults(opts...),
+			AdvancedSyntax:           iopt.ExtractAdvancedSyntax(opts...),
+			OptionalWords:            iopt.ExtractOptionalWords(opts...),
+			DisableExactOnAttributes: iopt.ExtractDisableExactOnAttributes(opts...),
+			ExactOnSingleWordQuery:   iopt.ExtractExactOnSingleWordQuery(opts...),
+			AlternativesAsExact:      iopt.ExtractAlternativesAsExact(opts...),
 
-		// Query strategy
-		QueryType:                iopt.ExtractQueryType(opts...),
-		RemoveWordsIfNoResults:   iopt.ExtractRemoveWordsIfNoResults(opts...),
-		AdvancedSyntax:           iopt.ExtractAdvancedSyntax(opts...),
-		OptionalWords:            iopt.ExtractOptionalWords(opts...),
-		DisableExactOnAttributes: iopt.ExtractDisableExactOnAttributes(opts...),
-		ExactOnSingleWordQuery:   iopt.ExtractExactOnSingleWordQuery(opts...),
-		AlternativesAsExact:      iopt.ExtractAlternativesAsExact(opts...),
+			// Query rules
+			EnableRules:  iopt.ExtractEnableRules(opts...),
+			RuleContexts: iopt.ExtractRuleContexts(opts...),
 
-		// Query rules
-		EnableRules:  iopt.ExtractEnableRules(opts...),
-		RuleContexts: iopt.ExtractRuleContexts(opts...),
+			// Personalization
+			EnablePersonalization: iopt.ExtractEnablePersonalization(opts...),
 
-		// Personalization
-		EnablePersonalization: iopt.ExtractEnablePersonalization(opts...),
-
-		// Advanced
-		Distinct:                   iopt.ExtractDistinct(opts...),
-		GetRankingInfo:             iopt.ExtractGetRankingInfo(opts...),
-		ClickAnalytics:             iopt.ExtractClickAnalytics(opts...),
-		Analytics:                  iopt.ExtractAnalytics(opts...),
-		AnalyticsTags:              iopt.ExtractAnalyticsTags(opts...),
-		Synonyms:                   iopt.ExtractSynonyms(opts...),
-		ReplaceSynonymsInHighlight: iopt.ExtractReplaceSynonymsInHighlight(opts...),
-		MinProximity:               iopt.ExtractMinProximity(opts...),
-		ResponseFields:             iopt.ExtractResponseFields(opts...),
-		MaxFacetHits:               iopt.ExtractMaxFacetHits(opts...),
-		PercentileComputation:      iopt.ExtractPercentileComputation(opts...),
+			// Advanced
+			Distinct:                   iopt.ExtractDistinct(opts...),
+			GetRankingInfo:             iopt.ExtractGetRankingInfo(opts...),
+			ClickAnalytics:             iopt.ExtractClickAnalytics(opts...),
+			Analytics:                  iopt.ExtractAnalytics(opts...),
+			AnalyticsTags:              iopt.ExtractAnalyticsTags(opts...),
+			Synonyms:                   iopt.ExtractSynonyms(opts...),
+			ReplaceSynonymsInHighlight: iopt.ExtractReplaceSynonymsInHighlight(opts...),
+			MinProximity:               iopt.ExtractMinProximity(opts...),
+			ResponseFields:             iopt.ExtractResponseFields(opts...),
+			MaxFacetHits:               iopt.ExtractMaxFacetHits(opts...),
+			PercentileComputation:      iopt.ExtractPercentileComputation(opts...),
+		},
 	}
 }
