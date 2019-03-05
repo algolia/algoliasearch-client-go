@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type TaskStatusRes struct {
@@ -12,8 +13,8 @@ type TaskStatusRes struct {
 }
 
 type UpdateTaskRes struct {
-	TaskID    int    `json:"taskID"`
-	UpdatedAt string `json:"updatedAt"`
+	TaskID    int       `json:"taskID"`
+	UpdatedAt time.Time `json:"updatedAt"`
 	wait      func(taskID int) error
 }
 
@@ -22,9 +23,9 @@ func (r UpdateTaskRes) Wait() error {
 }
 
 type SaveObjectRes struct {
-	CreatedAt string `json:"createdAt"`
-	ObjectID  string `json:"objectID"`
-	TaskID    int    `json:"taskID"`
+	CreatedAt time.Time `json:"createdAt"`
+	ObjectID  string    `json:"objectID"`
+	TaskID    int       `json:"taskID"`
 	wait      func(taskID int) error
 }
 
@@ -73,8 +74,8 @@ func (r MultipleBatchRes) Wait() error {
 }
 
 type DeleteTaskRes struct {
-	DeletedAt string `json:"deletedAt"`
-	TaskID    int    `json:"taskID"`
+	DeletedAt time.Time `json:"deletedAt"`
+	TaskID    int       `json:"taskID"`
 	wait      func(taskID int) error
 }
 
