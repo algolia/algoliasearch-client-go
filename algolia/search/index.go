@@ -58,16 +58,6 @@ func (i *Index) waitTask(taskID int) error {
 	}
 }
 
-func (i *Index) Search(query string, opts ...interface{}) (res SearchRes, err error) {
-	body := searchReq{
-		Params: transport.URLEncode(NewSearchParams(query, opts...)),
-	}
-
-	path := i.path("/query")
-	err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
-	return
-}
-
 func (i *Index) Clear(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/clear")
 	err = i.transport.Request(&res, http.MethodPost, path, nil, call.Write, opts...)

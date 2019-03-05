@@ -11,6 +11,7 @@ import (
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/iterator"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
 func (i *Index) GetObject(objectID string, object interface{}, opts ...interface{}) error {
@@ -177,10 +178,7 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 }
 
 func (i *Index) Batch(operations []BatchOperation, opts ...interface{}) (res BatchRes, err error) {
-	body := batchReq{
-		Requests: operations,
-	}
-
+	body := batchReq{Requests: operations}
 	path := i.path("/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)
 	res.wait = i.waitTask
@@ -197,9 +195,15 @@ func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
 		InsidePolygon:     iopt.ExtractInsidePolygon(opts...),
 		NumericFilters:    iopt.ExtractNumericFilters(opts...),
 	}
-
 	path := i.path("/deleteByQuery")
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)
 	res.wait = i.waitTask
+	return
+}
+
+func (i *Index) Search(query string, opts ...interface{}) (res SearchRes, err error) {
+	body := searchReq{Params: transport.URLEncode(newSearchParams(query, opts...))}
+	path := i.path("/query")
+	err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
 	return
 }
