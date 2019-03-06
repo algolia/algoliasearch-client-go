@@ -211,6 +211,11 @@ func newSearchParams(query string, opts ...interface{}) searchParams {
 	}
 }
 
+type browseReq struct {
+	Cursor string `json:"cursor"`
+	Params string `json:"params"`
+}
+
 type searchRulesParams struct {
 	Query       string                  `json:"query"`
 	Anchoring   *opt.AnchoringOption    `json:"anchoring,omitempty"`

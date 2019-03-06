@@ -151,6 +151,12 @@ func (r SearchRes) UnmarshalHits(v interface{}) error {
 	return json.Unmarshal(hitsPayload, &v)
 }
 
+type browseRes struct {
+	Cursor  string `json:"cursor"`
+	Warning string `json:"warning"`
+	SearchRes
+}
+
 type SearchRulesRes struct {
 	Hits    interface{} `json:"hits"`
 	NbHits  int         `json:"nbHits"`

@@ -208,3 +208,25 @@ func (i *Index) Search(query string, opts ...interface{}) (res SearchRes, err er
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
 	return
 }
+
+func (i *Index) BrowseObjects(opts ...interface{}) (*ObjectIterator, error) {
+	var query string
+	if opt := iopt.ExtractQuery(opts...); opt != nil {
+		query = opt.Get()
+	}
+	searchParams := newSearchParams(query, opts...)
+	browser := i.browserForObjects(searchParams, opts...)
+	return newObjectIterator(browser)
+}
+
+func (i *Index) browserForObjects(params searchParams, opts ...interface{}) func(string) (browseRes, error) {
+	return func(cursor string) (res browseRes, err error) {
+		body := browseReq{
+			Cursor: cursor,
+			Params: transport.URLEncode(params),
+		}
+		path := i.path("/browse")
+		err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
+		return
+	}
+}
