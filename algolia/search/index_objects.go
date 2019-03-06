@@ -165,6 +165,7 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 				return multipleRes, fmt.Errorf("could not send intermediate batch: %v", err)
 			}
 			multipleRes.Responses = append(multipleRes.Responses, singleRes)
+			batch = []interface{}{object}
 		} else {
 			batch = append(batch, object)
 		}
