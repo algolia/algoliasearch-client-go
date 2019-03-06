@@ -93,17 +93,25 @@ func (t *Transport) Request(
 			return err
 		}
 
-		// Handle per-request timeout by using a context with timeout
+		// Handle per-request timeout by using a context with timeout.
+		// Note that because we are in a loop, the cancel() callback cannot be
+		// deferred. Instead, we call it precisely after the end of each loop or
+		// before the early returns, but when we do so, we do it **after**
+		// reading the body content of the response. Otherwise, a `context
+		// cancelled` error may happen when the body is read.
 		perRequestCtx, cancel := context.WithTimeout(ctx, h.timeout)
 		req = req.WithContext(perRequestCtx)
 		body, code, err := t.request(req)
-		cancel()
 
 		switch t.retryStrategy.Decide(h, code, err) {
 		case Success:
-			return unmarshalTo(body, &res)
+			err = unmarshalTo(body, &res)
+			cancel()
+			return err
 		case Failure:
-			return unmarshalToError(body)
+			err = unmarshalToError(body)
+			cancel()
+			return err
 		default:
 			if body != nil {
 				if err = body.Close(); err != nil {
@@ -111,6 +119,8 @@ func (t *Transport) Request(
 				}
 			}
 		}
+
+		cancel()
 	}
 
 	return errs.ErrNoMoreHostToTry
