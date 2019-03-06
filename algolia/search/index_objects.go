@@ -132,10 +132,10 @@ func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res Batc
 
 func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface{}) (MultipleBatchRes, error) {
 	var (
-		batch      []interface{}
-		operations []BatchOperation
-		response   BatchRes
-		res        MultipleBatchRes
+		batch       []interface{}
+		operations  []BatchOperation
+		singleRes   BatchRes
+		multipleRes MultipleBatchRes
 	)
 
 	autoGenerateObjectIDIfNotExist := false
@@ -148,23 +148,23 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 	for {
 		object, err := it.Next()
 		if err != nil {
-			return res, fmt.Errorf("iteration failed unexpectedly: %v", err)
+			return multipleRes, fmt.Errorf("iteration failed unexpectedly: %v", err)
 		}
 
 		if !autoGenerateObjectIDIfNotExist && object != nil && !hasObjectID(object) {
-			return res, fmt.Errorf("missing objectID in object %#v", object)
+			return multipleRes, fmt.Errorf("missing objectID in object %#v", object)
 		}
 
 		if len(batch) >= i.maxBatchSize || object == nil {
 			operations, err = newOperationBatch(batch, action)
 			if err != nil {
-				return res, fmt.Errorf("could not generate intermediate batch: %v", err)
+				return multipleRes, fmt.Errorf("could not generate intermediate batch: %v", err)
 			}
-			response, err = i.Batch(operations, opts...)
+			singleRes, err = i.Batch(operations, opts...)
 			if err != nil {
-				return res, fmt.Errorf("could not send intermediate batch: %v", err)
+				return multipleRes, fmt.Errorf("could not send intermediate batch: %v", err)
 			}
-			res.Responses = append(res.Responses, response)
+			multipleRes.Responses = append(multipleRes.Responses, singleRes)
 		} else {
 			batch = append(batch, object)
 		}
@@ -174,7 +174,7 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 		}
 	}
 
-	return res, nil
+	return multipleRes, nil
 }
 
 func (i *Index) Batch(operations []BatchOperation, opts ...interface{}) (res BatchRes, err error) {
