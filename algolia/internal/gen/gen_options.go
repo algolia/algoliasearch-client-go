@@ -65,6 +65,7 @@ var opts = []struct {
 	{"HighlightPostTag", "string", `"</em>"`},
 	{"HighlightPreTag", "string", `"<em>"`},
 	{"KeepDiacriticsOnCharacters", "string", `""`},
+	{"Query", "string", `""`},
 	{"QueryType", "string", `"prefixLast"`},
 	{"RemoveWordsIfNoResults", "string", `"none"`},
 	{"RuleContexts", "string", `"none"`},
