@@ -17,7 +17,7 @@ func TestCustomRanking(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.CustomRanking(),
+			expected: opt.CustomRanking([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.CustomRanking("value1")},

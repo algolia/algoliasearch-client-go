@@ -17,7 +17,7 @@ func TestFacets(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.Facets(),
+			expected: opt.Facets([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.Facets("value1")},

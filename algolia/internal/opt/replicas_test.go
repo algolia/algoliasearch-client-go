@@ -17,7 +17,7 @@ func TestReplicas(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.Replicas(),
+			expected: opt.Replicas([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.Replicas("value1")},

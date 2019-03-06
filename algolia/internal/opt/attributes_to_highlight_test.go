@@ -17,7 +17,7 @@ func TestAttributesToHighlight(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToHighlight(),
+			expected: opt.AttributesToHighlight([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.AttributesToHighlight("value1")},

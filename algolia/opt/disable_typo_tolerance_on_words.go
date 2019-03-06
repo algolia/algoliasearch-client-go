@@ -22,7 +22,7 @@ func (o DisableTypoToleranceOnWordsOption) MarshalJSON() ([]byte, error) {
 
 func (o *DisableTypoToleranceOnWordsOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = nil
+		o.value = []string{}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

@@ -22,7 +22,7 @@ func (o AroundPrecisionOption) MarshalJSON() ([]byte, error) {
 
 func (o *AroundPrecisionOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = 0
+		o.value = 1
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

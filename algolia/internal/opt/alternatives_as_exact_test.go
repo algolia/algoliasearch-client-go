@@ -17,7 +17,7 @@ func TestAlternativesAsExact(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AlternativesAsExact(),
+			expected: opt.AlternativesAsExact([]string{"ignorePlurals", "singleWordSynonym"}...),
 		},
 		{
 			opts:     []interface{}{opt.AlternativesAsExact("value1")},

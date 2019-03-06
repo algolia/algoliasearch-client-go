@@ -6,9 +6,9 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
-func ExtractMinWordSizeFor2Typos(opts ...interface{}) *opt.MinWordSizeFor2TyposOption {
+func ExtractMinWordSizefor1Typo(opts ...interface{}) *opt.MinWordSizefor1TypoOption {
 	for _, o := range opts {
-		if v, ok := o.(*opt.MinWordSizeFor2TyposOption); ok {
+		if v, ok := o.(*opt.MinWordSizefor1TypoOption); ok {
 			return v
 		}
 	}

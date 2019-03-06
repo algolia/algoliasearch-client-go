@@ -17,7 +17,7 @@ func TestOptionalWords(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.OptionalWords(),
+			expected: opt.OptionalWords([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.OptionalWords("value1")},

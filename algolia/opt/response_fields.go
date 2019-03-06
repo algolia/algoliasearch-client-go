@@ -22,7 +22,7 @@ func (o ResponseFieldsOption) MarshalJSON() ([]byte, error) {
 
 func (o *ResponseFieldsOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = nil
+		o.value = []string{"*"}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

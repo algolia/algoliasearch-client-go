@@ -17,15 +17,15 @@ func TestRuleContexts(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.RuleContexts("none"),
+			expected: opt.RuleContexts([]string{}...),
 		},
 		{
-			opts:     []interface{}{opt.RuleContexts("")},
-			expected: opt.RuleContexts(""),
+			opts:     []interface{}{opt.RuleContexts("value1")},
+			expected: opt.RuleContexts("value1"),
 		},
 		{
-			opts:     []interface{}{opt.RuleContexts("content of the string value")},
-			expected: opt.RuleContexts("content of the string value"),
+			opts:     []interface{}{opt.RuleContexts("value1", "value2", "value3")},
+			expected: opt.RuleContexts("value1", "value2", "value3"),
 		},
 	} {
 		var (
@@ -36,6 +36,6 @@ func TestRuleContexts(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, *c.expected, out)
+		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }

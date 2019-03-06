@@ -22,7 +22,7 @@ func (o DecompoundedAttributesOption) MarshalJSON() ([]byte, error) {
 
 func (o *DecompoundedAttributesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = nil
+		o.value = map[string][]string{}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

@@ -11,7 +11,7 @@ import (
 
 type Settings struct {
 	{{- range $_, $setting := . }}
-	{{ $setting.Name }} *opt.{{ $setting.Name }}Option `json:"{{ if $setting.OverrideJSONTag }}{{ $setting.OverrideJSONTag }}{{ else }}{{ lowerFirstLetter $setting.Name }}{{ end}},omitempty"`
+	{{ title $setting.Name }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.Name }},omitempty"`
 	{{- end }}
 }
 
@@ -20,7 +20,7 @@ type settings Settings
 type backwardCompatibleSettings struct {
 	{{- range $_, $setting := . -}}
     {{ if $setting.BackwardCompatibleAlternative }}
-	{{ $setting.BackwardCompatibleAlternative }} *opt.{{ $setting.Name }}Option `json:"{{ lowerFirstLetter $setting.BackwardCompatibleAlternative }},omitempty"`
+	{{ title $setting.BackwardCompatibleAlternative }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.BackwardCompatibleAlternative }},omitempty"`
 	{{- end }}
 	{{- end }}
 }
@@ -39,8 +39,8 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 
 	{{ range $_, $setting := . -}}
 	{{ if $setting.BackwardCompatibleAlternative }}
-	if s.{{ $setting.Name }} == nil {
-		s.{{ $setting.Name }} = bcSettings.{{ $setting.BackwardCompatibleAlternative }}
+	if s.{{ title $setting.Name }} == nil {
+		s.{{ title $setting.Name }} = bcSettings.{{ title $setting.BackwardCompatibleAlternative }}
 	}
 	{{ end }}
 	{{- end }}

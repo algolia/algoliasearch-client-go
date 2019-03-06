@@ -17,7 +17,7 @@ func TestNumericAttributesForFiltering(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.NumericAttributesForFiltering(),
+			expected: opt.NumericAttributesForFiltering([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.NumericAttributesForFiltering("value1")},

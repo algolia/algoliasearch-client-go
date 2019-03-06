@@ -17,7 +17,7 @@ func TestEnableRules(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.EnableRules(false),
+			expected: opt.EnableRules(true),
 		},
 		{
 			opts:     []interface{}{opt.EnableRules(true)},

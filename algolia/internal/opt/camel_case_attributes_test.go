@@ -17,7 +17,7 @@ func TestCamelCaseAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.CamelCaseAttributes(),
+			expected: opt.CamelCaseAttributes([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.CamelCaseAttributes("value1")},

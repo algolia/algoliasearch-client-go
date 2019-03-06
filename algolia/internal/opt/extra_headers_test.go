@@ -17,11 +17,11 @@ func TestExtractExtraHeaders(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.ExtraHeaders(nil),
+			expected: opt.ExtraHeaders(map[string]string{}),
 		},
 		{
 			opts:     []interface{}{opt.ExtraHeaders(map[string]string{})},
-			expected: opt.ExtraHeaders(nil),
+			expected: opt.ExtraHeaders(map[string]string{}),
 		},
 		{
 			opts:     []interface{}{opt.ExtraHeaders(map[string]string{"k1": "v1", "k2": "v2"})},

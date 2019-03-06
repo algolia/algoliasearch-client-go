@@ -5,14 +5,14 @@ package opt
 import "encoding/json"
 
 type RuleContextsOption struct {
-	value string
+	value []string
 }
 
-func RuleContexts(v string) *RuleContextsOption {
+func RuleContexts(v ...string) *RuleContextsOption {
 	return &RuleContextsOption{v}
 }
 
-func (o RuleContextsOption) Get() string {
+func (o RuleContextsOption) Get() []string {
 	return o.value
 }
 
@@ -22,7 +22,7 @@ func (o RuleContextsOption) MarshalJSON() ([]byte, error) {
 
 func (o *RuleContextsOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = "none"
+		o.value = []string{}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

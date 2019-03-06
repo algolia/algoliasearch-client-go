@@ -17,7 +17,7 @@ func TestSearchableAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.SearchableAttributes(),
+			expected: opt.SearchableAttributes([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.SearchableAttributes("value1")},

@@ -17,7 +17,7 @@ func TestDisableExactOnAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.DisableExactOnAttributes(),
+			expected: opt.DisableExactOnAttributes([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.DisableExactOnAttributes("value1")},

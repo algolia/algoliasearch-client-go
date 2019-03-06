@@ -17,7 +17,7 @@ func TestAttributesForFaceting(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesForFaceting(),
+			expected: opt.AttributesForFaceting([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.AttributesForFaceting("value1")},

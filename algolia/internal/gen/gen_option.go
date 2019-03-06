@@ -1,0 +1,90 @@
+//+build ignore
+
+package main
+
+import (
+	"fmt"
+	"os"
+	"reflect"
+	"strings"
+)
+
+// Generates all option files and their associated tests (serialization,
+// deserialization and extraction using the Extract* functions) in the following
+// directories:
+//
+//   - algolia/internal/opt/*_test.go (option test files)
+//   - algolia/opt/*.go               (option files)
+//
+func main() {
+	var (
+		optionTestBoolTemplate                 = createTemplate("templates/option_test/bool.go.tmpl")
+		optionTestIntTemplate                  = createTemplate("templates/option_test/int.go.tmpl")
+		optionTestStringTemplate               = createTemplate("templates/option_test/string.go.tmpl")
+		optionTestStringSliceTemplate          = createTemplate("templates/option_test/string_slice.go.tmpl")
+		optionTestMapStringStringTemplate      = createTemplate("templates/option_test/map_string_string.go.tmpl")
+		optionTestMapStringStringSliceTemplate = createTemplate("templates/option_test/map_string_string_slice.go.tmpl")
+
+		optionLiteralTemplate = createTemplate("templates/option/literal.go.tmpl")
+		optionSliceTemplate   = createTemplate("templates/option/slice.go.tmpl")
+	)
+
+	for _, opt := range options {
+
+		if opt.DefaultValue == nil {
+			continue
+		}
+
+		data := struct {
+			Name         string
+			Type         string
+			DefaultValue string
+		}{
+			strings.Title(opt.Name),
+			reflect.TypeOf(opt.DefaultValue).String(),
+			convertInterfaceToString(opt.DefaultValue),
+		}
+
+		filename := generateFilename(opt.Name)
+		filepath := "../../opt/" + filename
+		testFilepath := "../opt/" + strings.Replace(filename, ".go", "_test.go", -1)
+
+		// 1.
+		// This step generates a single algolia/internal/opt/NAME_test.go option
+		// test file where NAME is set to opt.Name field. Those internal tests
+		// ensure that both the Extract* functions and the JSON
+		// serialization/deserialization functions are working as expected.
+
+		switch opt.DefaultValue.(type) {
+		case bool:
+			generateFile(optionTestBoolTemplate, data, testFilepath)
+		case int:
+			generateFile(optionTestIntTemplate, data, testFilepath)
+		case string:
+			generateFile(optionTestStringTemplate, data, testFilepath)
+		case []string:
+			generateFile(optionTestStringSliceTemplate, data, testFilepath)
+		case map[string]string:
+			generateFile(optionTestMapStringStringTemplate, data, testFilepath)
+		case map[string][]string:
+			generateFile(optionTestMapStringStringSliceTemplate, data, testFilepath)
+		default:
+			fmt.Printf("cannot generate option test file for %s: unhandled type %#v", opt.Name, opt.DefaultValue)
+			os.Exit(1)
+		}
+
+		// 2.
+		// This step generates a single algolia/opt/NAME.go option file where
+		// NAME is set to use the opt.Name field.
+
+		switch opt.DefaultValue.(type) {
+		case bool, int, string, map[string]string, map[string][]string:
+			generateFile(optionLiteralTemplate, data, filepath)
+		case []string:
+			generateFile(optionSliceTemplate, data, filepath)
+		default:
+			fmt.Printf("cannot generate option file for %s: unhandled type %#v", opt.Name, opt.DefaultValue)
+			os.Exit(1)
+		}
+	}
+}

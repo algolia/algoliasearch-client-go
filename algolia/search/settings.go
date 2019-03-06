@@ -27,8 +27,8 @@ type Settings struct {
 	RestrictHighlightAndSnippetArrays *opt.RestrictHighlightAndSnippetArraysOption `json:"restrictHighlightAndSnippetArrays,omitempty"`
 	HitsPerPage                       *opt.HitsPerPageOption                       `json:"hitsPerPage,omitempty"`
 	PaginationLimitedTo               *opt.PaginationLimitedToOption               `json:"paginationLimitedTo,omitempty"`
-	MinWordSizeFor1Typo               *opt.MinWordSizeFor1TypoOption               `json:"minWordSizefor1Typo,omitempty"`
-	MinWordSizeFor2Typos              *opt.MinWordSizeFor2TyposOption              `json:"minWordSizefor2Typos,omitempty"`
+	MinWordSizefor1Typo               *opt.MinWordSizefor1TypoOption               `json:"minWordSizefor1Typo,omitempty"`
+	MinWordSizefor2Typos              *opt.MinWordSizefor2TyposOption              `json:"minWordSizefor2Typos,omitempty"`
 	TypoTolerance                     *opt.TypoToleranceOption                     `json:"typoTolerance,omitempty"`
 	AllowTyposOnNumericTokens         *opt.AllowTyposOnNumericTokensOption         `json:"allowTyposOnNumericTokens,omitempty"`
 	DisableTypoToleranceOnAttributes  *opt.DisableTypoToleranceOnAttributesOption  `json:"disableTypoToleranceOnAttributes,omitempty"`
@@ -48,6 +48,7 @@ type Settings struct {
 	DisableExactOnAttributes          *opt.DisableExactOnAttributesOption          `json:"disableExactOnAttributes,omitempty"`
 	ExactOnSingleWordQuery            *opt.ExactOnSingleWordQueryOption            `json:"exactOnSingleWordQuery,omitempty"`
 	AlternativesAsExact               *opt.AlternativesAsExactOption               `json:"alternativesAsExact,omitempty"`
+	AdvancedSyntaxFeatures            *opt.AdvancedSyntaxFeaturesOption            `json:"advancedSyntaxFeatures,omitempty"`
 	EnableRules                       *opt.EnableRulesOption                       `json:"enableRules,omitempty"`
 	NumericAttributesForFiltering     *opt.NumericAttributesForFilteringOption     `json:"numericAttributesForFiltering,omitempty"`
 	AllowCompressionOfIntegerArray    *opt.AllowCompressionOfIntegerArrayOption    `json:"allowCompressionOfIntegerArray,omitempty"`
@@ -56,12 +57,13 @@ type Settings struct {
 	ReplaceSynonymsInHighlight        *opt.ReplaceSynonymsInHighlightOption        `json:"replaceSynonymsInHighlight,omitempty"`
 	MinProximity                      *opt.MinProximityOption                      `json:"minProximity,omitempty"`
 	ResponseFields                    *opt.ResponseFieldsOption                    `json:"responseFields,omitempty"`
+	MaxFacetHits                      *opt.MaxFacetHitsOption                      `json:"maxFacetHits,omitempty"`
 }
 
 type settings Settings
 
 type backwardCompatibleSettings struct {
-	AttributesToRetrieve     *opt.SearchableAttributesOption          `json:"attributesToRetrieve,omitempty"`
+	AttributesToIndex        *opt.SearchableAttributesOption          `json:"attributesToIndex,omitempty"`
 	Slaves                   *opt.ReplicasOption                      `json:"slaves,omitempty"`
 	NumericAttributesToIndex *opt.NumericAttributesForFilteringOption `json:"numericAttributesToIndex,omitempty"`
 }
@@ -79,7 +81,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 	}
 
 	if s.SearchableAttributes == nil {
-		s.SearchableAttributes = bcSettings.AttributesToRetrieve
+		s.SearchableAttributes = bcSettings.AttributesToIndex
 	}
 
 	if s.Replicas == nil {

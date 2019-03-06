@@ -17,7 +17,7 @@ func TestExtractDecompoundedAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.DecompoundedAttributes(nil),
+			expected: opt.DecompoundedAttributes(map[string][]string{}),
 		},
 		{
 			opts:     []interface{}{opt.DecompoundedAttributes(map[string][]string{})},

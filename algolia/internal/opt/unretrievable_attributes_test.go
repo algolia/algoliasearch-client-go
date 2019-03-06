@@ -17,7 +17,7 @@ func TestUnretrievableAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.UnretrievableAttributes(),
+			expected: opt.UnretrievableAttributes([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.UnretrievableAttributes("value1")},

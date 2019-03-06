@@ -17,7 +17,7 @@ func TestDisablePrefixOnAttributes(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.DisablePrefixOnAttributes(),
+			expected: opt.DisablePrefixOnAttributes([]string{}...),
 		},
 		{
 			opts:     []interface{}{opt.DisablePrefixOnAttributes("value1")},

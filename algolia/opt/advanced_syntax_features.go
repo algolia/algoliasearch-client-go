@@ -22,7 +22,7 @@ func (o AdvancedSyntaxFeaturesOption) MarshalJSON() ([]byte, error) {
 
 func (o *AdvancedSyntaxFeaturesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = nil
+		o.value = []string{"exactPhrase", "excludeWords"}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

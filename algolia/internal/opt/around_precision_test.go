@@ -17,7 +17,7 @@ func TestAroundPrecision(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AroundPrecision(0),
+			expected: opt.AroundPrecision(1),
 		},
 		{
 			opts:     []interface{}{opt.AroundPrecision(0)},

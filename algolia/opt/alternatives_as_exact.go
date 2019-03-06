@@ -22,7 +22,7 @@ func (o AlternativesAsExactOption) MarshalJSON() ([]byte, error) {
 
 func (o *AlternativesAsExactOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = nil
+		o.value = []string{"ignorePlurals", "singleWordSynonym"}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
