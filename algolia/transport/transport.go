@@ -226,10 +226,13 @@ func unmarshalTo(r io.ReadCloser, v interface{}) error {
 }
 
 func unmarshalToError(r io.ReadCloser) error {
-	var msg string
+	var msg struct {
+		Message string `json:"message"`
+		Status  int    `json:"status"`
+	}
 	err := unmarshalTo(r, &msg)
 	if err != nil {
 		return err
 	}
-	return errors.New(msg)
+	return fmt.Errorf("Algolia API answered [%d] %q", msg.Status, msg.Message)
 }
