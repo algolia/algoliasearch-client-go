@@ -11,6 +11,7 @@ const (
 )
 
 func isSettings(k Kind) bool { return k&Settings != 0 }
+func isSearch(k Kind) bool   { return k&Search != 0 }
 
 type Option struct {
 	Name                          string
@@ -23,9 +24,6 @@ type Option struct {
 // https://www.algolia.com/doc/api-reference/api-parameters/
 
 var options = []Option{
-	// Search
-	{"query", Search, "", ""},
-
 	// Attributes
 	{"searchableAttributes", Settings | Search, []string{}, "attributesToIndex"},
 	{"attributesForFaceting", Settings | Search, []string{}, ""},
@@ -130,6 +128,7 @@ var options = []Option{
 	{"percentileComputation", Search, true, ""},
 
 	// Other
+	{"query", Other, "", ""},
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
 	{"clearExistingRules", Other, false, ""},
 	{"createIfNotExists", Other, false, ""},
