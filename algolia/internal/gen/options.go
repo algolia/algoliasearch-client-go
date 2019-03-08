@@ -130,7 +130,10 @@ var options = []Option{
 	// Other
 	{"query", Other, "", ""},
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
+	// TODO: fix inconsistency between `clearExistingRules` / `replaceExistingSynonyms`
 	{"clearExistingRules", Other, false, ""},
+	{"replaceExistingSynonyms", Other, false, ""},
+	{"type", Other, "", ""},
 	{"createIfNotExists", Other, false, ""},
 	{"forwardToReplicas", Other, false, ""},
 	{"anchoring", Other, "", ""},
