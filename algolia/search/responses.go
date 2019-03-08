@@ -176,3 +176,77 @@ func (r SearchRulesRes) Rules() (rules []Rule, err error) {
 	err = r.UnmarshalHits(&rules)
 	return
 }
+
+type SearchSynonymsRes struct {
+	Hits   []map[string]interface{} `json:"hits"`
+	NbHits int                      `json:"nbHits"`
+}
+
+func (r SearchSynonymsRes) Synonyms() ([]Synonym, error) {
+	var (
+		synonyms []Synonym
+		err      error
+	)
+
+	for i, hit := range r.Hits {
+		itf, ok := hit["type"]
+		if !ok {
+			return nil, fmt.Errorf("cannot unmarshal SearchSynonyms response's hits: missing `type` field at position %d", i)
+		}
+
+		t, ok := itf.(string)
+		if !ok {
+			return nil, fmt.Errorf("cannot unmarshal SearchSynonyms response's hits: expecting `type` field as string %d but got %#v", i, itf)
+		}
+
+		switch t {
+
+		case string(RegularSynonymType):
+			var syn RegularSynonym
+			err = decodeSynonym(hit, &syn)
+			synonyms = append(synonyms, syn)
+
+		case string(OneWaySynonmType):
+			var syn OneWaySynonym
+			err = decodeSynonym(hit, &syn)
+			synonyms = append(synonyms, syn)
+
+		case string(AltCorrection1Type):
+			var syn AltCorrection1
+			err = decodeSynonym(hit, &syn)
+			synonyms = append(synonyms, syn)
+
+		case string(AltCorrection2Type):
+			var syn AltCorrection2
+			err = decodeSynonym(hit, &syn)
+			synonyms = append(synonyms, syn)
+
+		case string(PlaceholderType):
+			var syn Placeholder
+			err = decodeSynonym(hit, &syn)
+			synonyms = append(synonyms, syn)
+
+		default:
+			err = fmt.Errorf("cannot unmarshal SearchSynonyms response's hits: unknown `type` field %q at position %d", t, i)
+
+		}
+
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return synonyms, nil
+}
+
+func decodeSynonym(hit map[string]interface{}, syn interface{}) error {
+	data, err := json.Marshal(hit)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal synonym: failed marshalling: %v", err)
+	}
+	err = json.Unmarshal(data, &syn)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal synonym: failed unmarshalling: %v", err)
+	}
+	return nil
+}
