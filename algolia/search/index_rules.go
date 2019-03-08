@@ -59,3 +59,11 @@ func (i *Index) ReplaceAllRules(rules []Rule, opts ...interface{}) (UpdateTaskRe
 	opts = iopt.InsertOrReplaceOption(opts, opt.ClearExistingRules(true))
 	return i.SaveRules(rules, opts...)
 }
+
+func (i *Index) BrowseRules(opts ...interface{}) (*RuleIterator, error) {
+	browser := func(page int) (SearchRulesRes, error) {
+		opts = iopt.InsertOrReplaceOption(opts, opt.Page(page))
+		return i.SearchRules("", opts...)
+	}
+	return newRuleIterator(browser)
+}
