@@ -304,3 +304,45 @@ type ListIndexesRes struct {
 	Items   []IndexRes `json:"items"`
 	NbPages int        `json:"nbPages"`
 }
+
+type CreateKeyRes struct {
+	Key       string    `json:"key"`
+	CreatedAt time.Time `json:"createdAt"`
+	wait      func() error
+}
+
+func (r CreateKeyRes) Wait() error {
+	return r.wait()
+}
+
+type RestoreKeyRes struct {
+	CreatedAt time.Time `json:"createdAt"`
+	wait      func() error
+}
+
+func (r RestoreKeyRes) Wait() error {
+	return r.wait()
+}
+
+type UpdateKeyRes struct {
+	Key       string    `json:"key"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	wait      func() error
+}
+
+func (r UpdateKeyRes) Wait() error {
+	return r.wait()
+}
+
+type DeleteKeyRes struct {
+	DeletedAt time.Time `json:"deletedAt"`
+	wait      func() error
+}
+
+func (r DeleteKeyRes) Wait() error {
+	return r.wait()
+}
+
+type ListAPIKeysRes struct {
+	Keys []Key `json:"keys"`
+}
