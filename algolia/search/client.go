@@ -1,6 +1,9 @@
 package search
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
@@ -52,4 +55,14 @@ func NewClient(config Configuration) *Client {
 
 func (c *Client) InitIndex(indexName string) *Index {
 	return newIndex(c.appID, indexName, c.maxBatchSize, c.transport)
+}
+
+func (c *Client) path(format string, a ...interface{}) string {
+	return "/1" + fmt.Sprintf(format, a...)
+}
+
+func (c *Client) ListIndexes(opts ...interface{}) (res ListIndexesRes, err error) {
+	path := c.path("/indexes")
+	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
+	return
 }
