@@ -3,6 +3,9 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+	"time"
+
+	"github.com/algolia/algoliasearch-client-go/algolia/rand"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
@@ -23,6 +26,28 @@ func defaultHosts(appID string) (hosts []*transport.StatefulHost) {
 
 func noWait(_ int) error {
 	return nil
+}
+
+func waitWithRetry(f func() (bool, error)) error {
+	var maxDuration = time.Second
+
+	for {
+		done, err := f()
+		if done {
+			return err
+		}
+
+		sleepDuration := rand.Duration(maxDuration)
+		time.Sleep(sleepDuration)
+
+		// Increase the upper boundary used to generate the sleep duration
+		if maxDuration < 10*time.Minute {
+			maxDuration *= 2
+			if maxDuration > 10*time.Minute {
+				maxDuration = 10 * time.Minute
+			}
+		}
+	}
 }
 
 func getObjectID(object interface{}) (string, bool) {

@@ -3,10 +3,8 @@ package search
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/rand"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
@@ -33,29 +31,16 @@ func (i *Index) path(format string, a ...interface{}) string {
 }
 
 func (i *Index) waitTask(taskID int) error {
-	var maxDuration = time.Second
-
-	for {
+	return waitWithRetry(func() (bool, error) {
 		res, err := i.GetStatus(taskID)
 		if err != nil {
-			return err
+			return true, err
 		}
-
 		if res.Status == "published" {
-			return nil
+			return true, nil
 		}
-
-		sleepDuration := rand.Duration(maxDuration)
-		time.Sleep(sleepDuration)
-
-		// Increase the upper boundary used to generate the sleep duration
-		if maxDuration < 10*time.Minute {
-			maxDuration *= 2
-			if maxDuration > 10*time.Minute {
-				maxDuration = 10 * time.Minute
-			}
-		}
-	}
+		return false, nil
+	})
 }
 
 func (i *Index) Clear(opts ...interface{}) (res UpdateTaskRes, err error) {
