@@ -3,6 +3,7 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"time"
 )
 
@@ -38,4 +39,27 @@ func (r *TimeRange) UnmarshalJSON(b []byte) error {
 	r.From = time.Unix(res.From, 0)
 	r.Until = time.Unix(res.Until, 0)
 	return nil
+}
+
+func (r Rule) Equal(r2 Rule) bool {
+	if !(r.ObjectID == r2.ObjectID &&
+		r.Description == r2.Description &&
+		r.Enabled == r2.Enabled &&
+		len(r.Validity) == len(r2.Validity) &&
+		reflect.DeepEqual(r.Condition, r2.Condition) &&
+		reflect.DeepEqual(r.Consequence, r2.Consequence)) {
+		return false
+	}
+
+	for i, r := range r.Validity {
+		if !r.Equal(r2.Validity[i]) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func (r TimeRange) Equal(r2 TimeRange) bool {
+	return r.From.Equal(r2.From) && r.Until.Equal(r2.Until)
 }
