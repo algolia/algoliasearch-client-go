@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/algolia/algoliasearch-client-go/algolia/debug"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
@@ -97,147 +98,195 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 
 func (s Settings) Equal(s2 Settings) bool {
 	if !opt.SearchableAttributesEqual(s.SearchableAttributes, s2.SearchableAttributes) {
+		debug.Printf("Settings.SearchableAttributes are not equal: %#v != %#v\n", s.SearchableAttributes, s2.SearchableAttributes)
 		return false
 	}
 	if !opt.AttributesForFacetingEqual(s.AttributesForFaceting, s2.AttributesForFaceting) {
+		debug.Printf("Settings.AttributesForFaceting are not equal: %#v != %#v\n", s.AttributesForFaceting, s2.AttributesForFaceting)
 		return false
 	}
 	if !opt.UnretrievableAttributesEqual(s.UnretrievableAttributes, s2.UnretrievableAttributes) {
+		debug.Printf("Settings.UnretrievableAttributes are not equal: %#v != %#v\n", s.UnretrievableAttributes, s2.UnretrievableAttributes)
 		return false
 	}
 	if !opt.AttributesToRetrieveEqual(s.AttributesToRetrieve, s2.AttributesToRetrieve) {
+		debug.Printf("Settings.AttributesToRetrieve are not equal: %#v != %#v\n", s.AttributesToRetrieve, s2.AttributesToRetrieve)
 		return false
 	}
 	if !opt.RankingEqual(s.Ranking, s2.Ranking) {
+		debug.Printf("Settings.Ranking are not equal: %#v != %#v\n", s.Ranking, s2.Ranking)
 		return false
 	}
 	if !opt.CustomRankingEqual(s.CustomRanking, s2.CustomRanking) {
+		debug.Printf("Settings.CustomRanking are not equal: %#v != %#v\n", s.CustomRanking, s2.CustomRanking)
 		return false
 	}
 	if !opt.ReplicasEqual(s.Replicas, s2.Replicas) {
+		debug.Printf("Settings.Replicas are not equal: %#v != %#v\n", s.Replicas, s2.Replicas)
 		return false
 	}
 	if !opt.MaxValuesPerFacetEqual(s.MaxValuesPerFacet, s2.MaxValuesPerFacet) {
+		debug.Printf("Settings.MaxValuesPerFacet are not equal: %#v != %#v\n", s.MaxValuesPerFacet, s2.MaxValuesPerFacet)
 		return false
 	}
 	if !opt.SortFacetValuesByEqual(s.SortFacetValuesBy, s2.SortFacetValuesBy) {
+		debug.Printf("Settings.SortFacetValuesBy are not equal: %#v != %#v\n", s.SortFacetValuesBy, s2.SortFacetValuesBy)
 		return false
 	}
 	if !opt.AttributesToHighlightEqual(s.AttributesToHighlight, s2.AttributesToHighlight) {
+		debug.Printf("Settings.AttributesToHighlight are not equal: %#v != %#v\n", s.AttributesToHighlight, s2.AttributesToHighlight)
 		return false
 	}
 	if !opt.AttributesToSnippetEqual(s.AttributesToSnippet, s2.AttributesToSnippet) {
+		debug.Printf("Settings.AttributesToSnippet are not equal: %#v != %#v\n", s.AttributesToSnippet, s2.AttributesToSnippet)
 		return false
 	}
 	if !opt.HighlightPreTagEqual(s.HighlightPreTag, s2.HighlightPreTag) {
+		debug.Printf("Settings.HighlightPreTag are not equal: %#v != %#v\n", s.HighlightPreTag, s2.HighlightPreTag)
 		return false
 	}
 	if !opt.HighlightPostTagEqual(s.HighlightPostTag, s2.HighlightPostTag) {
+		debug.Printf("Settings.HighlightPostTag are not equal: %#v != %#v\n", s.HighlightPostTag, s2.HighlightPostTag)
 		return false
 	}
 	if !opt.SnippetEllipsisTextEqual(s.SnippetEllipsisText, s2.SnippetEllipsisText) {
+		debug.Printf("Settings.SnippetEllipsisText are not equal: %#v != %#v\n", s.SnippetEllipsisText, s2.SnippetEllipsisText)
 		return false
 	}
 	if !opt.RestrictHighlightAndSnippetArraysEqual(s.RestrictHighlightAndSnippetArrays, s2.RestrictHighlightAndSnippetArrays) {
+		debug.Printf("Settings.RestrictHighlightAndSnippetArrays are not equal: %#v != %#v\n", s.RestrictHighlightAndSnippetArrays, s2.RestrictHighlightAndSnippetArrays)
 		return false
 	}
 	if !opt.HitsPerPageEqual(s.HitsPerPage, s2.HitsPerPage) {
+		debug.Printf("Settings.HitsPerPage are not equal: %#v != %#v\n", s.HitsPerPage, s2.HitsPerPage)
 		return false
 	}
 	if !opt.PaginationLimitedToEqual(s.PaginationLimitedTo, s2.PaginationLimitedTo) {
+		debug.Printf("Settings.PaginationLimitedTo are not equal: %#v != %#v\n", s.PaginationLimitedTo, s2.PaginationLimitedTo)
 		return false
 	}
 	if !opt.MinWordSizefor1TypoEqual(s.MinWordSizefor1Typo, s2.MinWordSizefor1Typo) {
+		debug.Printf("Settings.MinWordSizefor1Typo are not equal: %#v != %#v\n", s.MinWordSizefor1Typo, s2.MinWordSizefor1Typo)
 		return false
 	}
 	if !opt.MinWordSizefor2TyposEqual(s.MinWordSizefor2Typos, s2.MinWordSizefor2Typos) {
+		debug.Printf("Settings.MinWordSizefor2Typos are not equal: %#v != %#v\n", s.MinWordSizefor2Typos, s2.MinWordSizefor2Typos)
 		return false
 	}
 	if !opt.TypoToleranceEqual(s.TypoTolerance, s2.TypoTolerance) {
+		debug.Printf("Settings.TypoTolerance are not equal: %#v != %#v\n", s.TypoTolerance, s2.TypoTolerance)
 		return false
 	}
 	if !opt.AllowTyposOnNumericTokensEqual(s.AllowTyposOnNumericTokens, s2.AllowTyposOnNumericTokens) {
+		debug.Printf("Settings.AllowTyposOnNumericTokens are not equal: %#v != %#v\n", s.AllowTyposOnNumericTokens, s2.AllowTyposOnNumericTokens)
 		return false
 	}
 	if !opt.DisableTypoToleranceOnAttributesEqual(s.DisableTypoToleranceOnAttributes, s2.DisableTypoToleranceOnAttributes) {
+		debug.Printf("Settings.DisableTypoToleranceOnAttributes are not equal: %#v != %#v\n", s.DisableTypoToleranceOnAttributes, s2.DisableTypoToleranceOnAttributes)
 		return false
 	}
 	if !opt.DisableTypoToleranceOnWordsEqual(s.DisableTypoToleranceOnWords, s2.DisableTypoToleranceOnWords) {
+		debug.Printf("Settings.DisableTypoToleranceOnWords are not equal: %#v != %#v\n", s.DisableTypoToleranceOnWords, s2.DisableTypoToleranceOnWords)
 		return false
 	}
 	if !opt.SeparatorsToIndexEqual(s.SeparatorsToIndex, s2.SeparatorsToIndex) {
+		debug.Printf("Settings.SeparatorsToIndex are not equal: %#v != %#v\n", s.SeparatorsToIndex, s2.SeparatorsToIndex)
 		return false
 	}
 	if !opt.IgnorePluralsEqual(s.IgnorePlurals, s2.IgnorePlurals) {
+		debug.Printf("Settings.IgnorePlurals are not equal: %#v != %#v\n", s.IgnorePlurals, s2.IgnorePlurals)
 		return false
 	}
 	if !opt.RemoveStopWordsEqual(s.RemoveStopWords, s2.RemoveStopWords) {
+		debug.Printf("Settings.RemoveStopWords are not equal: %#v != %#v\n", s.RemoveStopWords, s2.RemoveStopWords)
 		return false
 	}
 	if !opt.CamelCaseAttributesEqual(s.CamelCaseAttributes, s2.CamelCaseAttributes) {
+		debug.Printf("Settings.CamelCaseAttributes are not equal: %#v != %#v\n", s.CamelCaseAttributes, s2.CamelCaseAttributes)
 		return false
 	}
 	if !opt.DecompoundedAttributesEqual(s.DecompoundedAttributes, s2.DecompoundedAttributes) {
+		debug.Printf("Settings.DecompoundedAttributes are not equal: %#v != %#v\n", s.DecompoundedAttributes, s2.DecompoundedAttributes)
 		return false
 	}
 	if !opt.KeepDiacriticsOnCharactersEqual(s.KeepDiacriticsOnCharacters, s2.KeepDiacriticsOnCharacters) {
+		debug.Printf("Settings.KeepDiacriticsOnCharacters are not equal: %#v != %#v\n", s.KeepDiacriticsOnCharacters, s2.KeepDiacriticsOnCharacters)
 		return false
 	}
 	if !opt.QueryLanguagesEqual(s.QueryLanguages, s2.QueryLanguages) {
+		debug.Printf("Settings.QueryLanguages are not equal: %#v != %#v\n", s.QueryLanguages, s2.QueryLanguages)
 		return false
 	}
 	if !opt.QueryTypeEqual(s.QueryType, s2.QueryType) {
+		debug.Printf("Settings.QueryType are not equal: %#v != %#v\n", s.QueryType, s2.QueryType)
 		return false
 	}
 	if !opt.RemoveWordsIfNoResultsEqual(s.RemoveWordsIfNoResults, s2.RemoveWordsIfNoResults) {
+		debug.Printf("Settings.RemoveWordsIfNoResults are not equal: %#v != %#v\n", s.RemoveWordsIfNoResults, s2.RemoveWordsIfNoResults)
 		return false
 	}
 	if !opt.AdvancedSyntaxEqual(s.AdvancedSyntax, s2.AdvancedSyntax) {
+		debug.Printf("Settings.AdvancedSyntax are not equal: %#v != %#v\n", s.AdvancedSyntax, s2.AdvancedSyntax)
 		return false
 	}
 	if !opt.OptionalWordsEqual(s.OptionalWords, s2.OptionalWords) {
+		debug.Printf("Settings.OptionalWords are not equal: %#v != %#v\n", s.OptionalWords, s2.OptionalWords)
 		return false
 	}
 	if !opt.DisablePrefixOnAttributesEqual(s.DisablePrefixOnAttributes, s2.DisablePrefixOnAttributes) {
+		debug.Printf("Settings.DisablePrefixOnAttributes are not equal: %#v != %#v\n", s.DisablePrefixOnAttributes, s2.DisablePrefixOnAttributes)
 		return false
 	}
 	if !opt.DisableExactOnAttributesEqual(s.DisableExactOnAttributes, s2.DisableExactOnAttributes) {
+		debug.Printf("Settings.DisableExactOnAttributes are not equal: %#v != %#v\n", s.DisableExactOnAttributes, s2.DisableExactOnAttributes)
 		return false
 	}
 	if !opt.ExactOnSingleWordQueryEqual(s.ExactOnSingleWordQuery, s2.ExactOnSingleWordQuery) {
+		debug.Printf("Settings.ExactOnSingleWordQuery are not equal: %#v != %#v\n", s.ExactOnSingleWordQuery, s2.ExactOnSingleWordQuery)
 		return false
 	}
 	if !opt.AlternativesAsExactEqual(s.AlternativesAsExact, s2.AlternativesAsExact) {
+		debug.Printf("Settings.AlternativesAsExact are not equal: %#v != %#v\n", s.AlternativesAsExact, s2.AlternativesAsExact)
 		return false
 	}
 	if !opt.AdvancedSyntaxFeaturesEqual(s.AdvancedSyntaxFeatures, s2.AdvancedSyntaxFeatures) {
+		debug.Printf("Settings.AdvancedSyntaxFeatures are not equal: %#v != %#v\n", s.AdvancedSyntaxFeatures, s2.AdvancedSyntaxFeatures)
 		return false
 	}
 	if !opt.EnableRulesEqual(s.EnableRules, s2.EnableRules) {
+		debug.Printf("Settings.EnableRules are not equal: %#v != %#v\n", s.EnableRules, s2.EnableRules)
 		return false
 	}
 	if !opt.NumericAttributesForFilteringEqual(s.NumericAttributesForFiltering, s2.NumericAttributesForFiltering) {
+		debug.Printf("Settings.NumericAttributesForFiltering are not equal: %#v != %#v\n", s.NumericAttributesForFiltering, s2.NumericAttributesForFiltering)
 		return false
 	}
 	if !opt.AllowCompressionOfIntegerArrayEqual(s.AllowCompressionOfIntegerArray, s2.AllowCompressionOfIntegerArray) {
+		debug.Printf("Settings.AllowCompressionOfIntegerArray are not equal: %#v != %#v\n", s.AllowCompressionOfIntegerArray, s2.AllowCompressionOfIntegerArray)
 		return false
 	}
 	if !opt.AttributeForDistinctEqual(s.AttributeForDistinct, s2.AttributeForDistinct) {
+		debug.Printf("Settings.AttributeForDistinct are not equal: %#v != %#v\n", s.AttributeForDistinct, s2.AttributeForDistinct)
 		return false
 	}
 	if !opt.DistinctEqual(s.Distinct, s2.Distinct) {
+		debug.Printf("Settings.Distinct are not equal: %#v != %#v\n", s.Distinct, s2.Distinct)
 		return false
 	}
 	if !opt.ReplaceSynonymsInHighlightEqual(s.ReplaceSynonymsInHighlight, s2.ReplaceSynonymsInHighlight) {
+		debug.Printf("Settings.ReplaceSynonymsInHighlight are not equal: %#v != %#v\n", s.ReplaceSynonymsInHighlight, s2.ReplaceSynonymsInHighlight)
 		return false
 	}
 	if !opt.MinProximityEqual(s.MinProximity, s2.MinProximity) {
+		debug.Printf("Settings.MinProximity are not equal: %#v != %#v\n", s.MinProximity, s2.MinProximity)
 		return false
 	}
 	if !opt.ResponseFieldsEqual(s.ResponseFields, s2.ResponseFields) {
+		debug.Printf("Settings.ResponseFields are not equal: %#v != %#v\n", s.ResponseFields, s2.ResponseFields)
 		return false
 	}
 	if !opt.MaxFacetHitsEqual(s.MaxFacetHits, s2.MaxFacetHits) {
+		debug.Printf("Settings.MaxFacetHits are not equal: %#v != %#v\n", s.MaxFacetHits, s2.MaxFacetHits)
 		return false
 	}
 	return true

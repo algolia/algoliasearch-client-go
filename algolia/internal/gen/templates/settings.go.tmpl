@@ -6,6 +6,7 @@ import (
     "encoding/json"
     "fmt"
 
+    "github.com/algolia/algoliasearch-client-go/algolia/debug"
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
@@ -50,6 +51,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 func (s Settings) Equal(s2 Settings) bool {
     {{- range $_, $setting := . }}
     if !opt.{{ title $setting.Name }}Equal(s.{{ title $setting.Name}}, s2.{{ title $setting.Name }}) {
+        debug.Printf("Settings.{{ title $setting.Name }} are not equal: %#v != %#v\n", s.{{ title $setting.Name }}, s2.{{ title $setting.Name }})
         return false
     }
     {{- end }}
