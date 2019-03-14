@@ -52,7 +52,7 @@ func NewTransport(appID, apiKey string) *Transport {
 	return NewTransportWithHosts(appID, apiKey, nil)
 }
 
-// NewTransport instantiates a new Transport with the specificed hosts as main
+// NewTransportWithHosts instantiates a new Transport with the specificed hosts as main
 // servers to connect to.
 func NewTransportWithHosts(appID, apiKey string, hosts []string) *Transport {
 	return &Transport{
