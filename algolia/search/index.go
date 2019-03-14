@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
@@ -41,6 +42,22 @@ func (i *Index) waitTask(taskID int) error {
 		}
 		return false, nil
 	})
+}
+
+func (i *Index) operation(destination, op string, opts ...interface{}) (res UpdateTaskRes, err error) {
+	var scopes []string
+	if opt := iopt.ExtractScopes(opts...); opt != nil {
+		scopes = opt.Get()
+	}
+	req := IndexOperation{
+		Destination: destination,
+		Operation:   op,
+		Scopes:      scopes,
+	}
+	path := i.path("/operation")
+	err = i.transport.Request(&res, http.MethodPost, path, req, call.Write, opts...)
+	res.wait = i.waitTask
+	return
 }
 
 func (i *Index) Clear(opts ...interface{}) (res UpdateTaskRes, err error) {

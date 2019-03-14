@@ -3,58 +3,54 @@ package search_client
 import (
 	"testing"
 
+	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
-
-	"github.com/algolia/algoliasearch-client-go/algoliasearch"
-	"github.com/algolia/algoliasearch-client-go/it"
 )
 
 func TestCopyIndex(t *testing.T) {
 	t.Parallel()
-	client, index, indexName := it.InitSearchClient1AndIndex(t)
+	client, index, indexName := cts.InitSearchClient1AndIndex(t)
 
-	var taskIDs []int
+	await := algolia.Await()
 
 	{
-		res, err := index.AddObjects([]algoliasearch.Object{
+		res, err := index.SaveObjects([]map[string]string{
 			{"objectID": "one", "company": "apple"},
 			{"objectID": "two", "company": "tesla"},
 		})
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
-	expectedSettings := algoliasearch.Map{
-		"attributesForFaceting": []string{"company"},
+	expectedSettings := search.Settings{
+		AttributesForFaceting: opt.AttributesForFaceting("company"),
 	}
 
 	{
 		res, err := index.SetSettings(expectedSettings)
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
-	expectedSynonym := algoliasearch.NewPlaceholderSynonym(
-		"google_placeholder",
-		"<GOOG>",
-		[]string{"Google", "GOOG"},
-	)
+	expectedSynonym := search.NewPlaceholder("google_placeholder", "<GOOG>", "Google", "GOOG")
 
 	{
 		res, err := index.SaveSynonym(expectedSynonym, true)
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
-	expectedRule := algoliasearch.Rule{
-		ObjectID: "company_auto_faceting",
-		Condition: algoliasearch.NewSimpleRuleCondition(
-			algoliasearch.Contains,
-			"{facet:company}",
-		),
-		Consequence: algoliasearch.RuleConsequence{
-			Params: algoliasearch.Map{
-				"automaticFacetFilters": []string{"company"},
+	expectedRule := search.Rule{
+		ObjectID:  "company_auto_faceting",
+		Condition: search.RuleCondition{Anchoring: search.Contains, Pattern: "{facet:company}"},
+		Consequence: search.RuleConsequence{
+			Params: &search.RuleParams{
+				AutomaticFacetFilters: []search.AutomaticFacetFilter{
+					{Facet: "company"},
+				},
 			},
 		},
 	}
@@ -62,38 +58,36 @@ func TestCopyIndex(t *testing.T) {
 	{
 		res, err := index.SaveRule(expectedRule, true)
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
-	it.WaitTasks(t, index, taskIDs...)
-	taskIDs = []int{}
+	require.NoError(t, await.Wait())
 
 	{
 		res, err := client.CopySettings(indexName, indexName+"_settings")
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
 	{
 		res, err := client.CopyRules(indexName, indexName+"_rules")
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
 	{
 		res, err := client.CopySynonyms(indexName, indexName+"_synonyms")
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
 	{
 		res, err := client.CopyIndex(indexName, indexName+"_full_copy")
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
-	it.WaitTasks(t, index, taskIDs...)
-	taskIDs = []int{}
+	require.NoError(t, await.Wait())
 
 	for _, c := range []struct {
 		IndexName              string
@@ -111,7 +105,7 @@ func TestCopyIndex(t *testing.T) {
 		if c.ShouldHaveSameSettings {
 			settings, err := copiedIndex.GetSettings()
 			require.NoError(t, err)
-			require.Equal(t, expectedSettings["attributesForFaceting"], settings.AttributesForFaceting)
+			require.True(t, settings.Equal(expectedSettings))
 		}
 
 		if c.ShouldHaveSameRules {
@@ -120,7 +114,7 @@ func TestCopyIndex(t *testing.T) {
 		}
 
 		if c.ShouldHaveSameSynonyms {
-			_, err := copiedIndex.GetSynonym(expectedSynonym.ObjectID)
+			_, err := copiedIndex.GetSynonym(expectedSynonym.ObjectID())
 			require.NoError(t, err)
 		}
 	}

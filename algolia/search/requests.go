@@ -69,3 +69,9 @@ func newSearchSynonymsParams(query string, opts ...interface{}) searchSynonymsPa
 		HitsPerPage: iopt.ExtractHitsPerPage(opts...),
 	}
 }
+
+type IndexOperation struct {
+	Destination string   `json:"destination"`
+	Operation   string   `json:"operation"`
+	Scopes      []string `json:"scope,omitempty"`
+}
