@@ -12,6 +12,8 @@ ut:
 it:
 	GOCACHE=off gotest -v ./it/...
 
-generate:
-	rm -f `grep -R -l --include \*.go -F 'DO NOT EDIT' *`
+generate: clean-generate
 	go generate ./...
+
+clean-generate:
+	rm -f `grep -R -l --include \*.go -F 'DO NOT EDIT' *`
