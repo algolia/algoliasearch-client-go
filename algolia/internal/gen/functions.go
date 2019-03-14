@@ -52,7 +52,7 @@ func generateFile(tmpl *template.Template, data interface{}, filepath string) {
 }
 
 func shouldBeGenerated(filepath string) bool {
-	if _, err := os.Stat("/path/to/whatever"); os.IsNotExist(err) {
+	if _, err := os.Stat(filepath); os.IsNotExist(err) {
 		return true
 	}
 
