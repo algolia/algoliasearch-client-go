@@ -27,3 +27,20 @@ func (o *HitsPerPageOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *HitsPerPageOption) Equal(o2 *HitsPerPageOption) bool {
+	if o2 == nil {
+		return o.value == 20
+	}
+	return o.value == o2.value
+}
+
+func HitsPerPageEqual(o1, o2 *HitsPerPageOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

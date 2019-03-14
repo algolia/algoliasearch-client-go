@@ -94,3 +94,151 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 
 	return nil
 }
+
+func (s Settings) Equal(s2 Settings) bool {
+	if !opt.SearchableAttributesEqual(s.SearchableAttributes, s2.SearchableAttributes) {
+		return false
+	}
+	if !opt.AttributesForFacetingEqual(s.AttributesForFaceting, s2.AttributesForFaceting) {
+		return false
+	}
+	if !opt.UnretrievableAttributesEqual(s.UnretrievableAttributes, s2.UnretrievableAttributes) {
+		return false
+	}
+	if !opt.AttributesToRetrieveEqual(s.AttributesToRetrieve, s2.AttributesToRetrieve) {
+		return false
+	}
+	if !opt.RankingEqual(s.Ranking, s2.Ranking) {
+		return false
+	}
+	if !opt.CustomRankingEqual(s.CustomRanking, s2.CustomRanking) {
+		return false
+	}
+	if !opt.ReplicasEqual(s.Replicas, s2.Replicas) {
+		return false
+	}
+	if !opt.MaxValuesPerFacetEqual(s.MaxValuesPerFacet, s2.MaxValuesPerFacet) {
+		return false
+	}
+	if !opt.SortFacetValuesByEqual(s.SortFacetValuesBy, s2.SortFacetValuesBy) {
+		return false
+	}
+	if !opt.AttributesToHighlightEqual(s.AttributesToHighlight, s2.AttributesToHighlight) {
+		return false
+	}
+	if !opt.AttributesToSnippetEqual(s.AttributesToSnippet, s2.AttributesToSnippet) {
+		return false
+	}
+	if !opt.HighlightPreTagEqual(s.HighlightPreTag, s2.HighlightPreTag) {
+		return false
+	}
+	if !opt.HighlightPostTagEqual(s.HighlightPostTag, s2.HighlightPostTag) {
+		return false
+	}
+	if !opt.SnippetEllipsisTextEqual(s.SnippetEllipsisText, s2.SnippetEllipsisText) {
+		return false
+	}
+	if !opt.RestrictHighlightAndSnippetArraysEqual(s.RestrictHighlightAndSnippetArrays, s2.RestrictHighlightAndSnippetArrays) {
+		return false
+	}
+	if !opt.HitsPerPageEqual(s.HitsPerPage, s2.HitsPerPage) {
+		return false
+	}
+	if !opt.PaginationLimitedToEqual(s.PaginationLimitedTo, s2.PaginationLimitedTo) {
+		return false
+	}
+	if !opt.MinWordSizefor1TypoEqual(s.MinWordSizefor1Typo, s2.MinWordSizefor1Typo) {
+		return false
+	}
+	if !opt.MinWordSizefor2TyposEqual(s.MinWordSizefor2Typos, s2.MinWordSizefor2Typos) {
+		return false
+	}
+	if !opt.TypoToleranceEqual(s.TypoTolerance, s2.TypoTolerance) {
+		return false
+	}
+	if !opt.AllowTyposOnNumericTokensEqual(s.AllowTyposOnNumericTokens, s2.AllowTyposOnNumericTokens) {
+		return false
+	}
+	if !opt.DisableTypoToleranceOnAttributesEqual(s.DisableTypoToleranceOnAttributes, s2.DisableTypoToleranceOnAttributes) {
+		return false
+	}
+	if !opt.DisableTypoToleranceOnWordsEqual(s.DisableTypoToleranceOnWords, s2.DisableTypoToleranceOnWords) {
+		return false
+	}
+	if !opt.SeparatorsToIndexEqual(s.SeparatorsToIndex, s2.SeparatorsToIndex) {
+		return false
+	}
+	if !opt.IgnorePluralsEqual(s.IgnorePlurals, s2.IgnorePlurals) {
+		return false
+	}
+	if !opt.RemoveStopWordsEqual(s.RemoveStopWords, s2.RemoveStopWords) {
+		return false
+	}
+	if !opt.CamelCaseAttributesEqual(s.CamelCaseAttributes, s2.CamelCaseAttributes) {
+		return false
+	}
+	if !opt.DecompoundedAttributesEqual(s.DecompoundedAttributes, s2.DecompoundedAttributes) {
+		return false
+	}
+	if !opt.KeepDiacriticsOnCharactersEqual(s.KeepDiacriticsOnCharacters, s2.KeepDiacriticsOnCharacters) {
+		return false
+	}
+	if !opt.QueryLanguagesEqual(s.QueryLanguages, s2.QueryLanguages) {
+		return false
+	}
+	if !opt.QueryTypeEqual(s.QueryType, s2.QueryType) {
+		return false
+	}
+	if !opt.RemoveWordsIfNoResultsEqual(s.RemoveWordsIfNoResults, s2.RemoveWordsIfNoResults) {
+		return false
+	}
+	if !opt.AdvancedSyntaxEqual(s.AdvancedSyntax, s2.AdvancedSyntax) {
+		return false
+	}
+	if !opt.OptionalWordsEqual(s.OptionalWords, s2.OptionalWords) {
+		return false
+	}
+	if !opt.DisablePrefixOnAttributesEqual(s.DisablePrefixOnAttributes, s2.DisablePrefixOnAttributes) {
+		return false
+	}
+	if !opt.DisableExactOnAttributesEqual(s.DisableExactOnAttributes, s2.DisableExactOnAttributes) {
+		return false
+	}
+	if !opt.ExactOnSingleWordQueryEqual(s.ExactOnSingleWordQuery, s2.ExactOnSingleWordQuery) {
+		return false
+	}
+	if !opt.AlternativesAsExactEqual(s.AlternativesAsExact, s2.AlternativesAsExact) {
+		return false
+	}
+	if !opt.AdvancedSyntaxFeaturesEqual(s.AdvancedSyntaxFeatures, s2.AdvancedSyntaxFeatures) {
+		return false
+	}
+	if !opt.EnableRulesEqual(s.EnableRules, s2.EnableRules) {
+		return false
+	}
+	if !opt.NumericAttributesForFilteringEqual(s.NumericAttributesForFiltering, s2.NumericAttributesForFiltering) {
+		return false
+	}
+	if !opt.AllowCompressionOfIntegerArrayEqual(s.AllowCompressionOfIntegerArray, s2.AllowCompressionOfIntegerArray) {
+		return false
+	}
+	if !opt.AttributeForDistinctEqual(s.AttributeForDistinct, s2.AttributeForDistinct) {
+		return false
+	}
+	if !opt.DistinctEqual(s.Distinct, s2.Distinct) {
+		return false
+	}
+	if !opt.ReplaceSynonymsInHighlightEqual(s.ReplaceSynonymsInHighlight, s2.ReplaceSynonymsInHighlight) {
+		return false
+	}
+	if !opt.MinProximityEqual(s.MinProximity, s2.MinProximity) {
+		return false
+	}
+	if !opt.ResponseFieldsEqual(s.ResponseFields, s2.ResponseFields) {
+		return false
+	}
+	if !opt.MaxFacetHitsEqual(s.MaxFacetHits, s2.MaxFacetHits) {
+		return false
+	}
+	return true
+}

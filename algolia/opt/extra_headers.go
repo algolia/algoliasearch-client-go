@@ -27,3 +27,20 @@ func (o *ExtraHeadersOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *ExtraHeadersOption) Equal(o2 *ExtraHeadersOption) bool {
+	if o2 == nil {
+		return o.value == map[string]string{}
+	}
+	return o.value == o2.value
+}
+
+func ExtraHeadersEqual(o1, o2 *ExtraHeadersOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

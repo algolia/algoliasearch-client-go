@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
-
 	"github.com/stretchr/testify/require"
 )
 
@@ -23,6 +22,11 @@ func TestInsertOrReplaceOption(t *testing.T) {
 			inputs:   []interface{}{},
 			opt:      nil,
 			expected: []interface{}{},
+		},
+		{
+			inputs:   nil,
+			opt:      opt.SearchableAttributes("attr1", "attr2"),
+			expected: []interface{}{opt.SearchableAttributes("attr1", "attr2")},
 		},
 		{
 			inputs:   []interface{}{},
@@ -56,6 +60,6 @@ func TestInsertOrReplaceOption(t *testing.T) {
 		},
 	} {
 		opts := InsertOrReplaceOption(c.inputs, c.opt)
-		require.ElementsMatch(t, opts, c.expected)
+		require.ElementsMatch(t, opts, c.expected, "inputs: %#v\nopt: %#v\nexpected: %#v", c.inputs, c.opt, c.expected)
 	}
 }

@@ -27,3 +27,20 @@ func (o *KeepDiacriticsOnCharactersOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *KeepDiacriticsOnCharactersOption) Equal(o2 *KeepDiacriticsOnCharactersOption) bool {
+	if o2 == nil {
+		return o.value == ""
+	}
+	return o.value == o2.value
+}
+
+func KeepDiacriticsOnCharactersEqual(o1, o2 *KeepDiacriticsOnCharactersOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

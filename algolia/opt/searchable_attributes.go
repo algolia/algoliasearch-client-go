@@ -2,7 +2,10 @@
 
 package opt
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"reflect"
+)
 
 type SearchableAttributesOption struct {
 	value []string
@@ -26,4 +29,21 @@ func (o *SearchableAttributesOption) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
+}
+
+func (o *SearchableAttributesOption) Equal(o2 *SearchableAttributesOption) bool {
+	if o2 == nil {
+		return reflect.DeepEqual(o.value, []string{})
+	}
+	return reflect.DeepEqual(o.value, o2.value)
+}
+
+func SearchableAttributesEqual(o1, o2 *SearchableAttributesOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
 }

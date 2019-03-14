@@ -4,9 +4,12 @@ import (
 	"reflect"
 )
 
-func InsertOrReplaceOption(opts []interface{}, opt interface{}) (res []interface{}) {
-	if opts == nil {
+func InsertOrReplaceOption(opts []interface{}, opt interface{}) []interface{} {
+	if opts == nil && opt == nil {
 		return nil
+	}
+	if opts == nil {
+		return []interface{}{opt}
 	}
 	if opt == nil {
 		return opts
@@ -14,12 +17,12 @@ func InsertOrReplaceOption(opts []interface{}, opt interface{}) (res []interface
 
 	t1 := reflect.Indirect(reflect.ValueOf(opt)).Type()
 
+	var res []interface{}
 	for _, o := range opts {
 		t2 := reflect.Indirect(reflect.ValueOf(o)).Type()
 		if t1 != t2 {
 			res = append(res, o)
 		}
 	}
-	res = append(res, opt)
-	return
+	return append(res, opt)
 }

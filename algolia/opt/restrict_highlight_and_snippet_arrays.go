@@ -27,3 +27,20 @@ func (o *RestrictHighlightAndSnippetArraysOption) UnmarshalJSON(data []byte) err
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *RestrictHighlightAndSnippetArraysOption) Equal(o2 *RestrictHighlightAndSnippetArraysOption) bool {
+	if o2 == nil {
+		return o.value == false
+	}
+	return o.value == o2.value
+}
+
+func RestrictHighlightAndSnippetArraysEqual(o1, o2 *RestrictHighlightAndSnippetArraysOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

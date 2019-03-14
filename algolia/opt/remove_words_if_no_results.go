@@ -27,3 +27,20 @@ func (o *RemoveWordsIfNoResultsOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *RemoveWordsIfNoResultsOption) Equal(o2 *RemoveWordsIfNoResultsOption) bool {
+	if o2 == nil {
+		return o.value == "none"
+	}
+	return o.value == o2.value
+}
+
+func RemoveWordsIfNoResultsEqual(o1, o2 *RemoveWordsIfNoResultsOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

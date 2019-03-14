@@ -27,3 +27,20 @@ func (o *AllowTyposOnNumericTokensOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *AllowTyposOnNumericTokensOption) Equal(o2 *AllowTyposOnNumericTokensOption) bool {
+	if o2 == nil {
+		return o.value == true
+	}
+	return o.value == o2.value
+}
+
+func AllowTyposOnNumericTokensEqual(o1, o2 *AllowTyposOnNumericTokensOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

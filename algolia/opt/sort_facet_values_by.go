@@ -27,3 +27,20 @@ func (o *SortFacetValuesByOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *SortFacetValuesByOption) Equal(o2 *SortFacetValuesByOption) bool {
+	if o2 == nil {
+		return o.value == "count"
+	}
+	return o.value == o2.value
+}
+
+func SortFacetValuesByEqual(o1, o2 *SortFacetValuesByOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

@@ -27,3 +27,20 @@ func (o *AttributeForDistinctOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *AttributeForDistinctOption) Equal(o2 *AttributeForDistinctOption) bool {
+	if o2 == nil {
+		return o.value == ""
+	}
+	return o.value == o2.value
+}
+
+func AttributeForDistinctEqual(o1, o2 *AttributeForDistinctOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

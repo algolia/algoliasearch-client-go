@@ -27,3 +27,20 @@ func (o *PageOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *PageOption) Equal(o2 *PageOption) bool {
+	if o2 == nil {
+		return o.value == 0
+	}
+	return o.value == o2.value
+}
+
+func PageEqual(o1, o2 *PageOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

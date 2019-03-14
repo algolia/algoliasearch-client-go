@@ -27,3 +27,20 @@ func (o *MaxFacetHitsOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *MaxFacetHitsOption) Equal(o2 *MaxFacetHitsOption) bool {
+	if o2 == nil {
+		return o.value == 10
+	}
+	return o.value == o2.value
+}
+
+func MaxFacetHitsEqual(o1, o2 *MaxFacetHitsOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

@@ -2,7 +2,10 @@
 
 package opt
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"reflect"
+)
 
 type DisableExactOnAttributesOption struct {
 	value []string
@@ -26,4 +29,21 @@ func (o *DisableExactOnAttributesOption) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
+}
+
+func (o *DisableExactOnAttributesOption) Equal(o2 *DisableExactOnAttributesOption) bool {
+	if o2 == nil {
+		return reflect.DeepEqual(o.value, []string{})
+	}
+	return reflect.DeepEqual(o.value, o2.value)
+}
+
+func DisableExactOnAttributesEqual(o1, o2 *DisableExactOnAttributesOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
 }

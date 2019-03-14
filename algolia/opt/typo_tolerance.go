@@ -3,28 +3,24 @@ package opt
 import "encoding/json"
 
 type TypoToleranceOption struct {
-	// TODO: support both string and bool
-	value string
+	valueBool   bool
+	valueString string
 }
 
-func TypoToleranceTrue() *TypoToleranceOption {
-	return &TypoToleranceOption{"true"}
-}
-
-func TypoToleranceFalse() *TypoToleranceOption {
-	return &TypoToleranceOption{"false"}
+func TypoTolerance(value bool) *TypoToleranceOption {
+	return &TypoToleranceOption{valueBool: value}
 }
 
 func TypoToleranceMin() *TypoToleranceOption {
-	return &TypoToleranceOption{"min"}
+	return &TypoToleranceOption{valueString: "min"}
 }
 
 func TypoToleranceStrict() *TypoToleranceOption {
-	return &TypoToleranceOption{"strict"}
+	return &TypoToleranceOption{valueString: "strict"}
 }
 
-func (o TypoToleranceOption) Get() string {
-	return o.value
+func (o TypoToleranceOption) Get() (bool, string) {
+	return o.valueBool, o.valueString
 }
 
 func (o TypoToleranceOption) MarshalJSON() ([]byte, error) {

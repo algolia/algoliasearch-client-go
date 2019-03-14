@@ -7,23 +7,23 @@ import (
 	"reflect"
 )
 
-type CustomRankingOption struct {
+type ScopesOption struct {
 	value []string
 }
 
-func CustomRanking(v ...string) *CustomRankingOption {
-	return &CustomRankingOption{v}
+func Scopes(v ...string) *ScopesOption {
+	return &ScopesOption{v}
 }
 
-func (o CustomRankingOption) Get() []string {
+func (o ScopesOption) Get() []string {
 	return o.value
 }
 
-func (o CustomRankingOption) MarshalJSON() ([]byte, error) {
+func (o ScopesOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
-func (o *CustomRankingOption) UnmarshalJSON(data []byte) error {
+func (o *ScopesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = []string{}
 		return nil
@@ -31,14 +31,14 @@ func (o *CustomRankingOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
-func (o *CustomRankingOption) Equal(o2 *CustomRankingOption) bool {
+func (o *ScopesOption) Equal(o2 *ScopesOption) bool {
 	if o2 == nil {
 		return reflect.DeepEqual(o.value, []string{})
 	}
 	return reflect.DeepEqual(o.value, o2.value)
 }
 
-func CustomRankingEqual(o1, o2 *CustomRankingOption) bool {
+func ScopesEqual(o1, o2 *ScopesOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)
 	}

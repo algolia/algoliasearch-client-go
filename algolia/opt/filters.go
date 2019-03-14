@@ -27,3 +27,20 @@ func (o *FiltersOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *FiltersOption) Equal(o2 *FiltersOption) bool {
+	if o2 == nil {
+		return o.value == "attribute"
+	}
+	return o.value == o2.value
+}
+
+func FiltersEqual(o1, o2 *FiltersOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}

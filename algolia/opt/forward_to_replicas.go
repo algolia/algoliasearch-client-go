@@ -27,3 +27,20 @@ func (o *ForwardToReplicasOption) UnmarshalJSON(data []byte) error {
 	}
 	return json.Unmarshal(data, &o.value)
 }
+
+func (o *ForwardToReplicasOption) Equal(o2 *ForwardToReplicasOption) bool {
+	if o2 == nil {
+		return o.value == false
+	}
+	return o.value == o2.value
+}
+
+func ForwardToReplicasEqual(o1, o2 *ForwardToReplicasOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}
