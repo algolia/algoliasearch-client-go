@@ -139,4 +139,5 @@ var options = []Option{
 	{"anchoring", Other, "", ""},
 	{"extraHeaders", Other, map[string]string{}, ""},
 	{"extraURLParams", Other, map[string]string{}, ""},
+	{"scopes", Other, []string{}, ""},
 }
