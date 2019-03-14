@@ -2,6 +2,7 @@ package opt
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 type composableFilterOption struct {
@@ -63,4 +64,21 @@ func (o composableFilterOption) MarshalJSON() ([]byte, error) {
 
 func (o *composableFilterOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.filters)
+}
+
+func (o *composableFilterOption) Equal(o2 *composableFilterOption) bool {
+	if o2 == nil {
+		return len(o.filters) == 0
+	}
+	return reflect.DeepEqual(o, o2)
+}
+
+func composableFilterEqual(o1, o2 *composableFilterOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
 }

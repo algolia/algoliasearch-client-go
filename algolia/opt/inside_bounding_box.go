@@ -2,6 +2,7 @@ package opt
 
 import (
 	"encoding/json"
+	"reflect"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
@@ -48,4 +49,21 @@ func (o *InsideBoundingBoxOption) UnmarshalJSON(data []byte) error {
 	}
 
 	return errs.ErrJSONDecode(data, "InsideBoundingBox")
+}
+
+func (o *InsideBoundingBoxOption) Equal(o2 *InsideBoundingBoxOption) bool {
+	if o2 == nil {
+		return len(o.boxes) == 0 && len(o.coordinates) == 0
+	}
+	return reflect.DeepEqual(o, o2)
+}
+
+func InsideBoundingBoxEqual(o1, o2 *InsideBoundingBoxOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
 }

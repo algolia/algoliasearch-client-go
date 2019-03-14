@@ -3,6 +3,7 @@ package opt
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
@@ -57,4 +58,21 @@ func (o *AroundRadiusOption) UnmarshalJSON(data []byte) error {
 	}
 
 	return errs.ErrJSONDecode(data, "AroundRadiusOption")
+}
+
+func (o *AroundRadiusOption) Equal(o2 *AroundRadiusOption) bool {
+	if o2 == nil {
+		return o.isAll == false && o.meters == 0
+	}
+	return reflect.DeepEqual(o, o2)
+}
+
+func AroundRadiusEqual(o1, o2 *AroundRadiusOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
 }

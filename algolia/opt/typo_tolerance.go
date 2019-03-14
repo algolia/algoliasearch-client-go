@@ -1,6 +1,9 @@
 package opt
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"reflect"
+)
 
 type TypoToleranceOption struct {
 	valueBool   bool
@@ -29,8 +32,25 @@ func (o TypoToleranceOption) MarshalJSON() ([]byte, error) {
 
 func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = "true"
+		o.valueBool = true
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
+}
+
+func (o *TypoToleranceOption) Equal(o2 *TypoToleranceOption) bool {
+	if o2 == nil {
+		return o.valueBool == true && o.valueString == ""
+	}
+	return reflect.DeepEqual(o, o2)
+}
+
+func TypoToleranceEqual(o1, o2 *TypoToleranceOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
 }

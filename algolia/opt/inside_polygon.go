@@ -2,6 +2,7 @@ package opt
 
 import (
 	"encoding/json"
+	"reflect"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
@@ -48,4 +49,21 @@ func (o *InsidePolygonOption) UnmarshalJSON(data []byte) error {
 	}
 
 	return errs.ErrJSONDecode(data, "InsidePolygon")
+}
+
+func (o *InsidePolygonOption) Equal(o2 *InsidePolygonOption) bool {
+	if o2 == nil {
+		return len(o.polygons) == 0 && len(o.coordinates) == 0
+	}
+	return reflect.DeepEqual(o, o2)
+}
+
+func InsidePolygonEqual(o1, o2 *InsidePolygonOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
 }

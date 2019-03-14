@@ -31,3 +31,17 @@ func (o FacetFiltersOption) MarshalJSON() ([]byte, error) {
 func (o *FacetFiltersOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.comp)
 }
+
+func (o *FacetFiltersOption) Equal(o2 *FacetFiltersOption) bool {
+	return o.comp.Equal(&o2.comp)
+}
+
+func FacetFiltersEqual(o1, o2 *FacetFiltersOption) bool {
+	if o1 != nil {
+		return o1.Equal(o2)
+	}
+	if o2 != nil {
+		return o2.Equal(o1)
+	}
+	return true
+}
