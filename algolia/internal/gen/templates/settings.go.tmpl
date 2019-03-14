@@ -3,46 +3,55 @@
 package search
 
 import (
-	"encoding/json"
-	"fmt"
+    "encoding/json"
+    "fmt"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+    "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
 type Settings struct {
-	{{- range $_, $setting := . }}
-	{{ title $setting.Name }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.Name }},omitempty"`
-	{{- end }}
+    {{- range $_, $setting := . }}
+    {{ title $setting.Name }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.Name }},omitempty"`
+    {{- end }}
 }
 
 type settings Settings
 
 type backwardCompatibleSettings struct {
-	{{- range $_, $setting := . -}}
+    {{- range $_, $setting := . -}}
     {{ if $setting.BackwardCompatibleAlternative }}
-	{{ title $setting.BackwardCompatibleAlternative }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.BackwardCompatibleAlternative }},omitempty"`
-	{{- end }}
-	{{- end }}
+    {{ title $setting.BackwardCompatibleAlternative }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.BackwardCompatibleAlternative }},omitempty"`
+    {{- end }}
+    {{- end }}
 }
 
 func (s *Settings) UnmarshalJSON(data []byte) error {
-	var bcSettings backwardCompatibleSettings
-	err := json.Unmarshal(data, &bcSettings)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal backward-compatible settings: %v", err)
-	}
+    var bcSettings backwardCompatibleSettings
+    err := json.Unmarshal(data, &bcSettings)
+    if err != nil {
+        return fmt.Errorf("cannot unmarshal backward-compatible settings: %v", err)
+    }
 
-	err = json.Unmarshal(data, (*settings)(s))
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal settings: %v", err)
-	}
+    err = json.Unmarshal(data, (*settings)(s))
+    if err != nil {
+        return fmt.Errorf("cannot unmarshal settings: %v", err)
+    }
 
-	{{ range $_, $setting := . -}}
-	{{ if $setting.BackwardCompatibleAlternative }}
-	if s.{{ title $setting.Name }} == nil {
-		s.{{ title $setting.Name }} = bcSettings.{{ title $setting.BackwardCompatibleAlternative }}
-	}
-	{{ end }}
-	{{- end }}
-	return nil
+    {{ range $_, $setting := . -}}
+    {{ if $setting.BackwardCompatibleAlternative }}
+    if s.{{ title $setting.Name }} == nil{
+        s.{{ title $setting.Name }} = bcSettings.{{ title $setting.BackwardCompatibleAlternative }}
+    }
+    {{ end }}
+    {{- end }}
+    return nil
+}
+
+func (s Settings) Equal(s2 Settings) bool {
+    {{- range $_, $setting := . }}
+    if !opt.{{ title $setting.Name }}Equal(s.{{ title $setting.Name}}, s2.{{ title $setting.Name }}) {
+        return false
+    }
+    {{- end }}
+    return true
 }

@@ -14,11 +14,21 @@ func main() {
 		filepath         = "../../search/settings.go"
 	)
 
-	var settings []Option
+	type setting struct {
+		Name                          string
+		BackwardCompatibleAlternative string
+		DefaultValue                  string
+	}
+
+	var settings []setting
 
 	for _, opt := range options {
 		if isSettings(opt.Kind) {
-			settings = append(settings, opt)
+			settings = append(settings, setting{
+				Name:                          opt.Name,
+				BackwardCompatibleAlternative: opt.BackwardCompatibleAlternative,
+				DefaultValue:                  convertInterfaceToString(opt.DefaultValue),
+			})
 		}
 	}
 
