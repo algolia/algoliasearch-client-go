@@ -2,7 +2,10 @@
 
 package opt
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"reflect"
+)
 
 type ExtraURLParamsOption struct {
 	value map[string]string
@@ -30,9 +33,9 @@ func (o *ExtraURLParamsOption) UnmarshalJSON(data []byte) error {
 
 func (o *ExtraURLParamsOption) Equal(o2 *ExtraURLParamsOption) bool {
 	if o2 == nil {
-		return o.value == map[string]string{}
+		return reflect.DeepEqual(o.value, map[string]string{})
 	}
-	return o.value == o2.value
+	return reflect.DeepEqual(o.value, o2.value)
 }
 
 func ExtraURLParamsEqual(o1, o2 *ExtraURLParamsOption) bool {

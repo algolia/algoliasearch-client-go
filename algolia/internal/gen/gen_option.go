@@ -26,6 +26,7 @@ func main() {
 		optionTestMapStringStringSliceTemplate = createTemplate("templates/option_test/map_string_string_slice.go.tmpl")
 
 		optionLiteralTemplate = createTemplate("templates/option/literal.go.tmpl")
+		optionMapTemplate     = createTemplate("templates/option/map.go.tmpl")
 		optionSliceTemplate   = createTemplate("templates/option/slice.go.tmpl")
 	)
 
@@ -78,8 +79,10 @@ func main() {
 		// NAME is set to use the opt.Name field.
 
 		switch opt.DefaultValue.(type) {
-		case bool, int, string, map[string]string, map[string][]string:
+		case bool, int, string:
 			generateFile(optionLiteralTemplate, data, filepath)
+		case map[string]string, map[string][]string:
+			generateFile(optionMapTemplate, data, filepath)
 		case []string:
 			generateFile(optionSliceTemplate, data, filepath)
 		default:

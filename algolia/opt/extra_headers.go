@@ -2,7 +2,10 @@
 
 package opt
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"reflect"
+)
 
 type ExtraHeadersOption struct {
 	value map[string]string
@@ -30,9 +33,9 @@ func (o *ExtraHeadersOption) UnmarshalJSON(data []byte) error {
 
 func (o *ExtraHeadersOption) Equal(o2 *ExtraHeadersOption) bool {
 	if o2 == nil {
-		return o.value == map[string]string{}
+		return reflect.DeepEqual(o.value, map[string]string{})
 	}
-	return o.value == o2.value
+	return reflect.DeepEqual(o.value, o2.value)
 }
 
 func ExtraHeadersEqual(o1, o2 *ExtraHeadersOption) bool {
