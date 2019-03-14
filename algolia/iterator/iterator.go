@@ -3,7 +3,7 @@ package iterator
 import "reflect"
 
 type Iterator interface {
-	Next() (interface{}, error)
+	Next(opts ...interface{}) (interface{}, error)
 }
 
 func New(itf interface{}) Iterator {

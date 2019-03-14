@@ -5,14 +5,14 @@ type sliceIterator struct {
 	pos   int
 }
 
-func newIteratorFromSlice(slice []interface{}) Iterator {
+func newIteratorFromSlice(slice []interface{}) *sliceIterator {
 	return &sliceIterator{
 		slice: slice,
 		pos:   -1,
 	}
 }
 
-func (it *sliceIterator) Next() (interface{}, error) {
+func (it *sliceIterator) Next(opts ...interface{}) (interface{}, error) {
 	it.pos++
 	if it.slice == nil || len(it.slice) == 0 || it.pos >= len(it.slice) {
 		return nil, nil

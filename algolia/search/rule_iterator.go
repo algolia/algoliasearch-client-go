@@ -18,7 +18,7 @@ func newRuleIterator(browser func(page int) (SearchRulesRes, error)) (it *RuleIt
 	return
 }
 
-func (it *RuleIterator) Next() (*Rule, error) {
+func (it *RuleIterator) Next(opts ...interface{}) (*Rule, error) {
 	if it.pos >= len(it.rules) {
 		if it.page >= it.nbPages {
 			return nil, NoMoreRulesErr
