@@ -90,6 +90,10 @@ func filenameToCamelCase(filename string) (camelCase string) {
 }
 
 func convertInterfaceToString(defaultValue interface{}) string {
+	if defaultValue == nil {
+		return "nil"
+	}
+
 	var s string
 	switch v := defaultValue.(type) {
 	case bool:
