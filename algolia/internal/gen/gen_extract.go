@@ -13,7 +13,7 @@ import (
 func main() {
 	var (
 		extractLiteralTemplate = createTemplate("templates/extract/literal.go.tmpl")
-		extractMapTemplate     = createTemplate("templates/extract/map.go.tmpl")
+		extractMapTemplate     = createTemplate("templates/extract/map_string_string.go.tmpl")
 	)
 
 	for _, opt := range options {
@@ -22,9 +22,9 @@ func main() {
 
 		if shouldBeGenerated(filepath) {
 			switch opt.DefaultValue.(type) {
-			case nil, bool, int, string, []string:
+			case nil, bool, int, string, []string, map[string][]string:
 				generateFile(extractLiteralTemplate, opt.Name, filepath)
-			case map[string]string, map[string][]string:
+			case map[string]string:
 				generateFile(extractMapTemplate, opt.Name, filepath)
 			default:
 				fmt.Printf("cannot generate extract option file for %s: unhandled type %#v", opt.Name, opt.DefaultValue)
