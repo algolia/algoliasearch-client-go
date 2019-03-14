@@ -49,7 +49,7 @@ func main() {
 		filepath := "../../opt/" + filename
 		testFilepath := "../opt/" + strings.Replace(filename, ".go", "_test.go", -1)
 
-		// 2.
+		// 1.
 		// This step generates a single algolia/opt/NAME.go option file where
 		// NAME is set to use the opt.Name field.
 
