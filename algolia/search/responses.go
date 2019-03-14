@@ -73,6 +73,14 @@ func (r MultipleBatchRes) Wait() error {
 	return nil
 }
 
+func (r MultipleBatchRes) ObjectIDs() []string {
+	var objectIDs []string
+	for _, res := range r.Responses {
+		objectIDs = append(objectIDs, res.ObjectIDs...)
+	}
+	return objectIDs
+}
+
 type DeleteTaskRes struct {
 	DeletedAt time.Time `json:"deletedAt"`
 	TaskID    int       `json:"taskID"`
