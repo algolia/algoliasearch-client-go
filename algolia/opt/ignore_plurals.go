@@ -10,12 +10,12 @@ type IgnorePluralsOption struct {
 	languages     []string
 }
 
-func IgnorePlurals(value bool) IgnorePluralsOption {
-	return IgnorePluralsOption{ignorePlurals: value}
+func IgnorePlurals(v bool) *IgnorePluralsOption {
+	return &IgnorePluralsOption{ignorePlurals: v}
 }
 
-func IgnorePluralsFor(languages ...string) IgnorePluralsOption {
-	return IgnorePluralsOption{languages: languages}
+func IgnorePluralsFor(languages ...string) *IgnorePluralsOption {
+	return &IgnorePluralsOption{languages: languages}
 }
 
 func (o IgnorePluralsOption) Get() (bool, []string) {

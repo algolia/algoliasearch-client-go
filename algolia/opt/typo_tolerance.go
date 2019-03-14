@@ -3,6 +3,8 @@ package opt
 import (
 	"encoding/json"
 	"reflect"
+
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
 
 type TypoToleranceOption struct {
@@ -27,7 +29,10 @@ func (o TypoToleranceOption) Get() (bool, string) {
 }
 
 func (o TypoToleranceOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(o.value)
+	if len(o.valueString) > 0 {
+		return json.Marshal(o.valueString)
+	}
+	return json.Marshal(o.valueBool)
 }
 
 func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
@@ -35,7 +40,20 @@ func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
 		o.valueBool = true
 		return nil
 	}
-	return json.Unmarshal(data, &o.value)
+
+	var valueString string
+	if err := json.Unmarshal(data, &valueString); err == nil {
+		o.valueString = valueString
+		return nil
+	}
+
+	var valueBool bool
+	if err := json.Unmarshal(data, &valueBool); err == nil {
+		o.valueBool = valueBool
+		return nil
+	}
+
+	return errs.ErrJSONDecode(data, "TypoTolerance")
 }
 
 func (o *TypoToleranceOption) Equal(o2 *TypoToleranceOption) bool {

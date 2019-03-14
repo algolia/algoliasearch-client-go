@@ -15,15 +15,15 @@ func TestTypoTolerance(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.TypoToleranceTrue(),
+			expected: opt.TypoTolerance(true),
 		},
 		{
-			opts:     []interface{}{opt.TypoToleranceTrue()},
-			expected: opt.TypoToleranceTrue(),
+			opts:     []interface{}{opt.TypoTolerance(true)},
+			expected: opt.TypoTolerance(true),
 		},
 		{
-			opts:     []interface{}{opt.TypoToleranceFalse()},
-			expected: opt.TypoToleranceFalse(),
+			opts:     []interface{}{opt.TypoTolerance(false)},
+			expected: opt.TypoTolerance(false),
 		},
 		{
 			opts:     []interface{}{opt.TypoToleranceStrict()},

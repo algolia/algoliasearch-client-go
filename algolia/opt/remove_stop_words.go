@@ -10,12 +10,12 @@ type RemoveStopWordsOption struct {
 	languages       []string
 }
 
-func RemoveStopWords(v bool) RemoveStopWordsOption {
-	return RemoveStopWordsOption{removeStopWords: v}
+func RemoveStopWords(v bool) *RemoveStopWordsOption {
+	return &RemoveStopWordsOption{removeStopWords: v}
 }
 
-func RemoveStopWordsFor(languages ...string) RemoveStopWordsOption {
-	return RemoveStopWordsOption{languages: languages}
+func RemoveStopWordsFor(languages ...string) *RemoveStopWordsOption {
+	return &RemoveStopWordsOption{languages: languages}
 }
 
 func (o RemoveStopWordsOption) Get() (bool, []string) {
