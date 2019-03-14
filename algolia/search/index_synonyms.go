@@ -10,8 +10,12 @@ import (
 )
 
 func (i *Index) GetSynonym(objectID string, opts ...interface{}) (synonym Synonym, err error) {
+	var syn rawSynonym
 	path := i.path("/synonyms/%s", objectID)
-	err = i.transport.Request(&synonym, http.MethodGet, path, nil, call.Read, opts...)
+	err = i.transport.Request(&syn, http.MethodGet, path, nil, call.Read, opts...)
+	if err == nil {
+		synonym = syn.impl
+	}
 	return
 }
 
