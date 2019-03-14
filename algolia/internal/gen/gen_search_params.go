@@ -6,11 +6,10 @@ package main
 // struct used by Search and other methods.
 func main() {
 	var (
+		settings         []Option
 		settingsTemplate = createTemplate("templates/search_params.go.tmpl")
 		filepath         = "../../search/search_params.go"
 	)
-
-	var settings []Option
 
 	for _, opt := range options {
 		if isSearch(opt.Kind) {

@@ -9,18 +9,17 @@ package main
 // found in the JSON payload of the GetSettings response from the engine, it is
 // automatically deserialized into the Replicas field of the Settings struct.
 func main() {
-	var (
-		settingsTemplate = createTemplate("templates/settings.go.tmpl")
-		filepath         = "../../search/settings.go"
-	)
-
 	type setting struct {
 		Name                          string
 		BackwardCompatibleAlternative string
 		DefaultValue                  string
 	}
 
-	var settings []setting
+	var (
+		settings         []setting
+		settingsTemplate = createTemplate("templates/settings.go.tmpl")
+		filepath         = "../../search/settings.go"
+	)
 
 	for _, opt := range options {
 		if isSettings(opt.Kind) {

@@ -3,8 +3,8 @@
 package main
 
 import (
-	"path"
-	"strings"
+	"fmt"
+	"os"
 )
 
 // Generates an Extract* function for each option found in the algolia/opt/
@@ -16,27 +16,20 @@ func main() {
 		extractMapTemplate     = createTemplate("templates/extract/map.go.tmpl")
 	)
 
-	for _, filename := range listFiles("../../opt") {
-		if !strings.HasSuffix(filename, ".go") {
-			continue
-		}
+	for _, opt := range options {
+		filename := generateFilename(opt.Name)
+		filepath := "../opt/" + filename
 
-		// Some files have to be ignored because those are private types, not
-		// supposed to be used directly. Hence, the extract function must not
-		// be generated for them.
-
-		if strings.HasSuffix(filename, "composable_filter.go") {
-			continue
-		}
-
-		filepath := "../opt/" + path.Base(filename)
-		optName := filenameToCamelCase(filename)
-
-		if strings.HasSuffix(filename, "extra_headers.go") ||
-			strings.HasSuffix(filename, "extra_url_params.go") {
-			generateFile(extractMapTemplate, optName, filepath)
-		} else {
-			generateFile(extractLiteralTemplate, optName, filepath)
+		if shouldBeGenerated(filepath) {
+			switch opt.DefaultValue.(type) {
+			case nil, bool, int, string, []string:
+				generateFile(extractLiteralTemplate, opt.Name, filepath)
+			case map[string]string, map[string][]string:
+				generateFile(extractMapTemplate, opt.Name, filepath)
+			default:
+				fmt.Printf("cannot generate extract option file for %s: unhandled type %#v", opt.Name, opt.DefaultValue)
+				os.Exit(1)
+			}
 		}
 	}
 }

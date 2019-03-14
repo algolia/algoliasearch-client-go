@@ -6,9 +6,9 @@ import (
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
-func Extract{{ . }}(opts ...interface{}) *opt.{{ . }}Option {
+func Extract{{ title . }}(opts ...interface{}) *opt.{{ title . }}Option {
     for _, o := range opts {
-        if v, ok := o.(*opt.{{ . }}Option); ok {
+        if v, ok := o.(*opt.{{ title . }}Option); ok {
             return v
         }
     }

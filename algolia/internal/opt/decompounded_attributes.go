@@ -7,10 +7,19 @@ import (
 )
 
 func ExtractDecompoundedAttributes(opts ...interface{}) *opt.DecompoundedAttributesOption {
+	merged := make(map[string]string)
+
 	for _, o := range opts {
 		if v, ok := o.(*opt.DecompoundedAttributesOption); ok {
-			return v
+			for key, value := range v.Get() {
+				merged[key] = value
+			}
 		}
 	}
-	return nil
+
+	if len(merged) == 0 {
+		return nil
+	}
+
+	return opt.DecompoundedAttributes(merged)
 }

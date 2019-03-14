@@ -12,8 +12,8 @@ ut:
 it:
 	GOCACHE=off gotest -v ./it/...
 
-generate: clean-generate
+generate:
 	go generate ./...
 
 clean-generate:
-	rm -f `grep -R -l --include \*.go -F 'DO NOT EDIT' *`
+	rm -f `grep -R -l --include \*.go -F 'DO NOT EDIT' * | grep -v -F 'algolia/internal/gen/'`

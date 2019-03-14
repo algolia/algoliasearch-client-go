@@ -6,11 +6,11 @@ import (
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
-func Extract{{ . }}(opts ...interface{}) *opt.{{ . }}Option {
+func Extract{{ title . }}(opts ...interface{}) *opt.{{ title . }}Option {
 	merged := make(map[string]string)
 
     for _, o := range opts {
-        if v, ok := o.(*opt.{{ . }}Option); ok {
+        if v, ok := o.(*opt.{{ title . }}Option); ok {
             for key, value := range v.Get() {
             	merged[key] = value
             }
@@ -21,5 +21,5 @@ func Extract{{ . }}(opts ...interface{}) *opt.{{ . }}Option {
     	return nil
     }
 
-    return opt.{{ . }}(merged)
+    return opt.{{ title . }}(merged)
 }
