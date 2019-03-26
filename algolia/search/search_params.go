@@ -19,6 +19,18 @@ func newSearchParams(query string, opts ...interface{}) searchParams {
 	}
 }
 
+type searchForFacetValuesParams struct {
+	FacetQuery string `json:"facetQuery"`
+	QueryParams
+}
+
+func newSearchForFacetValuesParams(query string, opts ...interface{}) searchForFacetValuesParams {
+	return searchForFacetValuesParams{
+		FacetQuery:  query,
+		QueryParams: newQueryParams(opts...),
+	}
+}
+
 type QueryParams struct {
 	SearchableAttributes              *opt.SearchableAttributesOption              `json:"searchableAttributes,omitempty"`
 	AttributesForFaceting             *opt.AttributesForFacetingOption             `json:"attributesForFaceting,omitempty"`
