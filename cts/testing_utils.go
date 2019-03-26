@@ -8,7 +8,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/stretchr/testify/require"
 )
@@ -37,7 +36,7 @@ func InitSearchClientMCM(t *testing.T) *search.Client {
 
 func initSearchClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *search.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
-	c := algolia.NewSearchClient(appID, key)
+	c := search.NewClient(appID, key)
 	go deleteOldIndices(c)
 	return c
 }

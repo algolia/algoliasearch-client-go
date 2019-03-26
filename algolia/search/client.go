@@ -18,7 +18,16 @@ type Client struct {
 	transport    *transport.Transport
 }
 
-func NewClient(config Configuration) *Client {
+func NewClient(appID, apiKey string) *Client {
+	return NewClientWithConfig(
+		Configuration{
+			AppID:  appID,
+			APIKey: apiKey,
+		},
+	)
+}
+
+func NewClientWithConfig(config Configuration) *Client {
 	var (
 		hosts        []*transport.StatefulHost
 		maxBatchSize int
