@@ -159,6 +159,40 @@ func (r SearchRes) UnmarshalHits(v interface{}) error {
 	return json.Unmarshal(hitsPayload, &v)
 }
 
+type FacetHit struct {
+	Value       string `json:"value"`
+	Highlighted string `json:"highlighted"`
+	Count       int    `json:"count"`
+}
+
+type SearchForFacetValuesRes struct {
+	FacetHits             []FacetHit
+	ExhaustiveFacetsCount bool
+	ProcessingTime        time.Duration
+}
+
+func (r *SearchForFacetValuesRes) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		return nil
+	}
+
+	var res struct {
+		FacetHits             []FacetHit `json:"facetHits"`
+		ExhaustiveFacetsCount bool       `json:"exhaustiveFacetsCount"`
+		ProcessingTimeMS      int        `json:"processingTimeMS"`
+	}
+
+	err := json.Unmarshal(data, &res)
+	if err != nil {
+		return err
+	}
+
+	r.FacetHits = res.FacetHits
+	r.ExhaustiveFacetsCount = res.ExhaustiveFacetsCount
+	r.ProcessingTime = time.Duration(res.ProcessingTimeMS) * time.Millisecond
+	return nil
+}
+
 type browseRes struct {
 	Cursor  string `json:"cursor"`
 	Warning string `json:"warning"`
