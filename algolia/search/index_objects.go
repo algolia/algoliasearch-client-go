@@ -5,7 +5,9 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
+	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
@@ -229,4 +231,54 @@ func (i *Index) browserForObjects(params searchParams, opts ...interface{}) func
 		err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
 		return
 	}
+}
+
+func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (err error) {
+	tmpIndex := i.client.InitIndex(fmt.Sprintf(
+		"%s_tmp_%d",
+		i.name,
+		time.Now().UnixNano()),
+	)
+
+	defer func() {
+		if err != nil {
+			if _, e := tmpIndex.Delete(); e != nil {
+				err = fmt.Errorf("temporary index cannot be deleted: %v", e)
+			}
+		}
+	}()
+
+	await := algolia.Await()
+	optsWithScopes := iopt.InsertOrReplaceOption(opts, opt.Scopes("rules", "settings", "synonyms"))
+
+	if res, e := i.client.CopyIndex(i.name, tmpIndex.name, optsWithScopes...); e != nil {
+		err = fmt.Errorf("cannot copy rules, settings and synonyms to the temporary index: %v", e)
+		return
+	} else {
+		await.Collect(res)
+	}
+
+	if res, e := tmpIndex.SaveObjects(objects, opts...); e != nil {
+		err = fmt.Errorf("cannot save objects to the temporary index: %v", e)
+		return
+	} else {
+		await.Collect(res)
+	}
+
+	if e := await.Wait(); e != nil {
+		err = fmt.Errorf("error while waiting for indexing operations to the temporary index: %v", e)
+		return
+	}
+
+	if res, e := i.client.MoveIndex(tmpIndex.name, i.name, opts...); e != nil {
+		err = fmt.Errorf("cannot move temporary index to original index: %v", e)
+		return
+	} else {
+		if e := res.Wait(); e != nil {
+			err = fmt.Errorf("error while waiting for move operation of the temporary index: %v", e)
+			return
+		}
+	}
+
+	return
 }
