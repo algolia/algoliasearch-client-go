@@ -13,15 +13,16 @@ type Index struct {
 	appID        string
 	name         string
 	maxBatchSize int
+	client       *Client
 	transport    *transport.Transport
 }
 
-func newIndex(appID, name string, maxBatchSize int, transport *transport.Transport) *Index {
+func newIndex(client *Client, name string) *Index {
 	return &Index{
-		appID:        appID,
+		client:       client,
 		name:         name,
-		maxBatchSize: maxBatchSize,
-		transport:    transport,
+		maxBatchSize: client.maxBatchSize,
+		transport:    client.transport,
 	}
 }
 

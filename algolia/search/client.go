@@ -63,7 +63,7 @@ func NewClientWithConfig(config Configuration) *Client {
 }
 
 func (c *Client) InitIndex(indexName string) *Index {
-	return newIndex(c.appID, indexName, c.maxBatchSize, c.transport)
+	return newIndex(c, indexName)
 }
 
 func (c *Client) path(format string, a ...interface{}) string {
