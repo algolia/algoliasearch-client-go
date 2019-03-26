@@ -3,19 +3,21 @@ package search_index
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algoliasearch"
-	"github.com/algolia/algoliasearch-client-go/it"
+	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
 
 func TestSearch(t *testing.T) {
 	t.Parallel()
-	_, index, _ := it.InitSearchClient1AndIndex(t)
+	_, index, _ := cts.InitSearchClient1AndIndex(t)
 
-	var taskIDs []int
+	await := algolia.Await()
 
 	{
-		res, err := index.AddObjects([]algoliasearch.Object{
+		res, err := index.SaveObjects([]map[string]string{
 			{"company": "Algolia", "name": "Julien Lemoine"},
 			{"company": "Algolia", "name": "Nicolas Dessaigne"},
 			{"company": "Amazon", "name": "Jeff Bezos"},
@@ -29,63 +31,57 @@ func TestSearch(t *testing.T) {
 			{"company": "SpaceX", "name": "Elon Musk"},
 			{"company": "Tesla", "name": "Elon Musk"},
 			{"company": "Yahoo", "name": "Marissa Mayer"},
-		})
+		}, opt.AutoGenerateObjectIDIfNotExist(true))
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
 	{
-		res, err := index.SetSettings(algoliasearch.Map{
-			"attributesForFaceting": []string{"searchable(company)"},
+		res, err := index.SetSettings(search.Settings{
+			AttributesForFaceting: opt.AttributesForFaceting("searchable(company)"),
 		})
 		require.NoError(t, err)
-		taskIDs = append(taskIDs, res.TaskID)
+		await.Collect(res)
 	}
 
-	it.WaitTasks(t, index, taskIDs...)
-	taskIDs = []int{}
+	require.NoError(t, await.Wait())
 
-	t.Run("Search", func(t *testing.T) {
-		t.Parallel()
+	{
 		res, err := index.Search("algolia", nil)
 		require.NoError(t, err)
 		require.Len(t, res.Hits, 2)
-	})
+	}
 
-	t.Run("SearchWithFacets", func(t *testing.T) {
-		t.Parallel()
-		{
-			res, err := index.Search("elon", algoliasearch.Map{
-				"facets":       "*",
-				"facetFilters": "company:tesla",
-			})
-			require.NoError(t, err)
-			require.Len(t, res.Hits, 1)
-		}
+	{
+		res, err := index.Search("elon",
+			opt.Facets("*"),
+			opt.FacetFilter("company:tesla"),
+		)
+		require.NoError(t, err)
+		require.Len(t, res.Hits, 1)
+	}
 
-		{
-			res, err := index.Search("elon", algoliasearch.Map{
-				"facets":  "*",
-				"filters": "(company:tesla OR company:spacex)",
-			})
-			require.NoError(t, err)
-			require.Len(t, res.Hits, 2)
-		}
-	})
+	{
+		res, err := index.Search("elon",
+			opt.Facets("*"),
+			opt.Filters("(company:tesla OR company:spacex)"),
+		)
+		require.NoError(t, err)
+		require.Len(t, res.Hits, 2)
+	}
 
-	t.Run("SearchWithClickAnalytics", func(t *testing.T) {
-		t.Parallel()
-		res, err := index.Search("elon", algoliasearch.Map{
-			"clickAnalytics": true,
-		})
+	{
+		res, err := index.Search("elon",
+			opt.ClickAnalytics(true),
+		)
 		require.NoError(t, err)
 		require.NotEmpty(t, res.QueryID)
-	})
+	}
 
-	t.Run("SearchForFacetValues", func(t *testing.T) {
-		t.Parallel()
+	{
 		res, err := index.SearchForFacetValues("company", "a", nil)
 		require.NoError(t, err)
+
 		var foundFacets []string
 		for _, f := range res.FacetHits {
 			foundFacets = append(foundFacets, f.Value)
@@ -96,5 +92,5 @@ func TestSearch(t *testing.T) {
 			"Apple",
 			"Arista Networks",
 		})
-	})
+	}
 }
