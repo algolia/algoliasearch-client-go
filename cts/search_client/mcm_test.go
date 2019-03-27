@@ -1,27 +1,25 @@
-package search_index
+package search_client
 
 import (
 	"strings"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/it"
-
-	"github.com/algolia/algoliasearch-client-go/algoliasearch"
-
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
 
 func TestMCM(t *testing.T) {
 	t.Parallel()
-	client := it.InitSearchClientMCM(t)
+	client := cts.InitSearchClientMCM(t)
 
 	// Make sure we have at least 2 clusters and retrieve the first one
-	clusters, err := client.ListClusters()
+	res, err := client.ListClusters()
 	require.NoError(t, err)
-	require.True(t, len(clusters) > 1)
-	cluster := clusters[0]
+	require.True(t, len(res.Clusters) > 1)
+	cluster := res.Clusters[0]
 
-	userID := it.GenerateCanonicalPrefixName()
+	userID := cts.GenerateCanonicalPrefixName()
 	userID = strings.Replace(userID, ":", "-", -1)
 	userID = strings.Replace(userID, "_", "-", -1)
 
@@ -33,20 +31,23 @@ func TestMCM(t *testing.T) {
 
 	// Check that userID was properly assigned (using get/search/list)
 	{
-		it.Retry(func() bool {
+		cts.Retry(func() bool {
 			_, err := client.GetUserID(userID)
 			return err == nil
 		})
 
-		_, err := client.SearchUserIDs(userID, algoliasearch.Map{})
+		_, err := client.SearchUserIDs(userID)
 		require.NoError(t, err)
 
+		found := false
 		page := 0
 		hitsPerPage := 100
-		found := false
 
 		for !found {
-			res, err := client.ListUserIDs(page, hitsPerPage)
+			res, err := client.ListUserIDs(
+				opt.Page(page),
+				opt.HitsPerPage(hitsPerPage),
+			)
 			require.NoError(t, err)
 
 			for _, u := range res.UserIDs {
@@ -74,7 +75,7 @@ func TestMCM(t *testing.T) {
 
 	// Remove the previously assigned userID
 	{
-		it.Retry(func() bool {
+		cts.Retry(func() bool {
 			_, err := client.RemoveUserID(userID)
 			return err == nil
 		})
@@ -82,7 +83,7 @@ func TestMCM(t *testing.T) {
 
 	// Check that userID was properly removed (using get)
 	{
-		it.Retry(func() bool {
+		cts.Retry(func() bool {
 			_, err := client.GetUserID(userID)
 			return err != nil
 		})
@@ -93,11 +94,12 @@ func TestMCM(t *testing.T) {
 		var toRemove []string
 		page := 0
 		hitsPerPage := 100
-		today := it.TodayDate()
+		today := cts.TodayDate()
 
 		for {
-			res, err := client.ListUserIDs(page, hitsPerPage)
+			res, err := client.ListUserIDs(opt.Page(page), opt.HitsPerPage(hitsPerPage))
 			require.NoError(t, err)
+
 			for _, u := range res.UserIDs {
 				if strings.HasPrefix(u.ID, "go-") &&
 					!strings.HasPrefix(u.ID, "go-"+today) {
