@@ -8,7 +8,7 @@ import (
 )
 
 func (i *Index) GetSettings(opts ...interface{}) (settings Settings, err error) {
-	opts = append(opts, opt.ExtraURLParams(map[string]string{"getVersion": "2"}))
+	opts = opt.InsertExtraURLParam(opts, "getVersion", "2")
 	path := i.path("/settings")
 	err = i.transport.Request(&settings, http.MethodGet, path, nil, call.Read, opts...)
 	return

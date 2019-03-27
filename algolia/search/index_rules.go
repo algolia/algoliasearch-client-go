@@ -1,7 +1,6 @@
 package search
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
@@ -24,9 +23,7 @@ func (i *Index) SaveRule(rule Rule, opts ...interface{}) (res UpdateTaskRes, err
 
 func (i *Index) SaveRules(rules []Rule, opts ...interface{}) (res UpdateTaskRes, err error) {
 	if clearExistingRules := iopt.ExtractClearExistingRules(opts...); clearExistingRules != nil {
-		opts = append(opts, opt.ExtraURLParams(
-			map[string]string{"clearExistingRules": fmt.Sprintf("%t", clearExistingRules.Get())},
-		))
+		opts = opt.InsertExtraURLParam(opts, "clearExistingRules", clearExistingRules.Get())
 	}
 	path := i.path("/rules/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, rules, call.Write, opts...)
@@ -56,13 +53,13 @@ func (i *Index) SearchRules(query string, opts ...interface{}) (res SearchRulesR
 }
 
 func (i *Index) ReplaceAllRules(rules []Rule, opts ...interface{}) (UpdateTaskRes, error) {
-	opts = iopt.InsertOrReplaceOption(opts, opt.ClearExistingRules(true))
+	opts = opt.InsertOrReplaceOption(opts, opt.ClearExistingRules(true))
 	return i.SaveRules(rules, opts...)
 }
 
 func (i *Index) BrowseRules(opts ...interface{}) (*RuleIterator, error) {
 	browser := func(page int) (SearchRulesRes, error) {
-		opts = iopt.InsertOrReplaceOption(opts, opt.Page(page))
+		opts = opt.InsertOrReplaceOption(opts, opt.Page(page))
 		return i.SearchRules("", opts...)
 	}
 	return newRuleIterator(browser)

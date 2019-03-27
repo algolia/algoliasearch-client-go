@@ -259,7 +259,7 @@ func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (err
 	}()
 
 	await := algolia.Await()
-	optsWithScopes := iopt.InsertOrReplaceOption(opts, opt.Scopes("rules", "settings", "synonyms"))
+	optsWithScopes := opt.InsertOrReplaceOption(opts, opt.Scopes("rules", "settings", "synonyms"))
 
 	if res, e := i.client.CopyIndex(i.name, tmpIndex.name, optsWithScopes...); e != nil {
 		err = fmt.Errorf("cannot copy rules, settings and synonyms to the temporary index: %v", e)

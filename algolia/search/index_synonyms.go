@@ -28,9 +28,7 @@ func (i *Index) SaveSynonym(synonym Synonym, opts ...interface{}) (res UpdateTas
 
 func (i *Index) SaveSynonyms(synonyms []Synonym, opts ...interface{}) (res UpdateTaskRes, err error) {
 	if replaceExistingSynonyms := iopt.ExtractReplaceExistingSynonyms(opts...); replaceExistingSynonyms != nil {
-		opts = append(opts, opt.ExtraURLParams(
-			map[string]string{"replaceExistingSynonyms": fmt.Sprintf("%t", replaceExistingSynonyms.Get())},
-		))
+		opts = opt.InsertExtraURLParam(opts, "replaceExistingSynonyms", replaceExistingSynonyms.Get())
 	}
 	path := i.path("/synonyms/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, synonyms, call.Write, opts...)
@@ -60,12 +58,12 @@ func (i *Index) SearchSynonyms(query string, opts ...interface{}) (res SearchSyn
 }
 
 func (i *Index) ReplaceAllSynonyms(synonyms []Synonym, opts ...interface{}) (UpdateTaskRes, error) {
-	opts = iopt.InsertOrReplaceOption(opts, opt.ReplaceExistingSynonyms(true))
+	opts = opt.InsertOrReplaceOption(opts, opt.ReplaceExistingSynonyms(true))
 	return i.SaveSynonyms(synonyms, opts...)
 }
 
 func (i *Index) BrowseSynonyms(opts ...interface{}) (*SynonymIterator, error) {
-	opts = iopt.InsertOrReplaceOption(opts, opt.HitsPerPage(1000))
+	opts = opt.InsertOrReplaceOption(opts, opt.HitsPerPage(1000))
 	res, err := i.SearchSynonyms("", opts...)
 	if err != nil {
 		return nil, fmt.Errorf("cannot browse synonyms: search failed: %v", err)
