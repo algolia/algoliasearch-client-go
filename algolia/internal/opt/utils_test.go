@@ -40,8 +40,8 @@ func TestInsertOrReplaceOption(t *testing.T) {
 		},
 		{
 			inputs:   []interface{}{opt.SearchableAttributes("attr1", "attr2")},
-			opt:      opt.Distinct(1),
-			expected: []interface{}{opt.SearchableAttributes("attr1", "attr2"), opt.Distinct(1)},
+			opt:      opt.Distinct(true),
+			expected: []interface{}{opt.SearchableAttributes("attr1", "attr2"), opt.Distinct(true)},
 		},
 		{
 			inputs:   []interface{}{opt.SearchableAttributes("attr1", "attr2")},
@@ -54,9 +54,9 @@ func TestInsertOrReplaceOption(t *testing.T) {
 			expected: []interface{}{opt.SearchableAttributes("attr3")},
 		},
 		{
-			inputs:   []interface{}{opt.SearchableAttributes("attr1", "attr2"), opt.AttributesToRetrieve("attr1"), opt.Distinct(1)},
+			inputs:   []interface{}{opt.SearchableAttributes("attr1", "attr2"), opt.AttributesToRetrieve("attr1"), opt.Distinct(true)},
 			opt:      opt.AttributesToRetrieve("attr3"),
-			expected: []interface{}{opt.SearchableAttributes("attr1", "attr2"), opt.AttributesToRetrieve("attr3"), opt.Distinct(1)},
+			expected: []interface{}{opt.SearchableAttributes("attr1", "attr2"), opt.AttributesToRetrieve("attr3"), opt.Distinct(true)},
 		},
 	} {
 		opts := InsertOrReplaceOption(c.inputs, c.opt)
