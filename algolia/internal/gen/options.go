@@ -115,7 +115,7 @@ var options = []Option{
 
 	// Advanced
 	{"attributeForDistinct", Settings, "", ""},
-	{"distinct", Settings | Search, 0, ""},
+	{"distinct", Settings | Search, nil, ""},
 	{"getRankingInfo", Search, false, ""},
 	{"clickAnalytics", Search, false, ""},
 	{"analytics", Search, true, ""},
