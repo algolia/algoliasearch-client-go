@@ -2,13 +2,13 @@
 
 package main
 
-// Generates the search_params.go file which contains the main QueryParams
+// Generates the query_params.go file which contains the main QueryParams
 // struct used by Search and other methods.
 func main() {
 	var (
 		settings         []Option
-		settingsTemplate = createTemplate("templates/search_params.go.tmpl")
-		filepath         = "../../search/search_params.go"
+		settingsTemplate = createTemplate("templates/query_params.go.tmpl")
+		filepath         = "../../search/query_params.go"
 	)
 
 	for _, opt := range options {
