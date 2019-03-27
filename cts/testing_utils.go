@@ -79,6 +79,12 @@ func deleteOldIndices(c *search.Client) {
 	}
 }
 
+func Retry(shouldStopFunc func() bool) {
+	for !shouldStopFunc() {
+		time.Sleep(100 * time.Millisecond)
+	}
+}
+
 func TodayDate() string {
 	return time.Now().Format("2006-01-02")
 }
