@@ -140,4 +140,5 @@ var options = []Option{
 	{"extraHeaders", Other, map[string]string{}, ""},
 	{"extraURLParams", Other, map[string]string{}, ""},
 	{"scopes", Other, []string{}, ""},
+	{"clusterName", Other, "", ""},
 }
