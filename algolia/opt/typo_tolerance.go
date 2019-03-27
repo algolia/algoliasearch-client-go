@@ -2,54 +2,56 @@ package opt
 
 import (
 	"encoding/json"
-	"reflect"
+	"fmt"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
 
 type TypoToleranceOption struct {
-	valueBool   bool
-	valueString string
+	value string
 }
 
 func TypoTolerance(value bool) *TypoToleranceOption {
-	return &TypoToleranceOption{valueBool: value}
+	return &TypoToleranceOption{value: fmt.Sprintf("%t", value)}
 }
 
 func TypoToleranceMin() *TypoToleranceOption {
-	return &TypoToleranceOption{valueString: "min"}
+	return &TypoToleranceOption{value: "min"}
 }
 
 func TypoToleranceStrict() *TypoToleranceOption {
-	return &TypoToleranceOption{valueString: "strict"}
+	return &TypoToleranceOption{value: "strict"}
 }
 
 func (o TypoToleranceOption) Get() (bool, string) {
-	return o.valueBool, o.valueString
+	if o.value == "true" {
+		return true, ""
+	}
+	if o.value == "false" {
+		return false, ""
+	}
+	return false, o.value
 }
 
 func (o TypoToleranceOption) MarshalJSON() ([]byte, error) {
-	if len(o.valueString) > 0 {
-		return json.Marshal(o.valueString)
-	}
-	return json.Marshal(o.valueBool)
+	return json.Marshal(o.value)
 }
 
 func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.valueBool = true
+		o.value = "true"
 		return nil
 	}
 
-	var valueString string
-	if err := json.Unmarshal(data, &valueString); err == nil {
-		o.valueString = valueString
+	var v string
+	if err := json.Unmarshal(data, &v); err == nil {
+		o.value = v
 		return nil
 	}
 
-	var valueBool bool
-	if err := json.Unmarshal(data, &valueBool); err == nil {
-		o.valueBool = valueBool
+	var b bool
+	if err := json.Unmarshal(data, &b); err == nil {
+		o.value = fmt.Sprintf("%t", b)
 		return nil
 	}
 
@@ -58,9 +60,9 @@ func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
 
 func (o *TypoToleranceOption) Equal(o2 *TypoToleranceOption) bool {
 	if o2 == nil {
-		return o.valueBool == true && o.valueString == ""
+		return o.value == "true"
 	}
-	return reflect.DeepEqual(o, o2)
+	return o.value == o2.value
 }
 
 func TypoToleranceEqual(o1, o2 *TypoToleranceOption) bool {
