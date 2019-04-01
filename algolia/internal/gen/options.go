@@ -149,4 +149,5 @@ var options = []Option{
 	{"scopes", Other, []string{}, ""},
 	{"clusterName", Other, "", ""},
 	{"indexName", Other, "", ""},
+	{"limit", Other, 10, ""},
 }
