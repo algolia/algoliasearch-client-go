@@ -9,6 +9,11 @@ type BatchOperation struct {
 	Body   interface{} `json:"body,omitempty"`
 }
 
+type BatchOperationIndexed struct {
+	BatchOperation
+	IndexName string `json:"indexName"`
+}
+
 type BatchAction string
 
 const (
