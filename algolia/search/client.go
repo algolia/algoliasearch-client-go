@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
@@ -72,6 +74,24 @@ func (c *Client) path(format string, a ...interface{}) string {
 
 func (c *Client) ListIndexes(opts ...interface{}) (res ListIndexesRes, err error) {
 	path := c.path("/indexes")
+	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
+	return
+}
+
+func (c *Client) GetLogs(opts ...interface{}) (res GetLogsRes, err error) {
+	if offset := iopt.ExtractOffset(opts...); offset != nil {
+		opts = opt.InsertExtraURLParam(opts, "offset", offset.Get())
+	}
+	if length := iopt.ExtractLength(opts...); length != nil {
+		opts = opt.InsertExtraURLParam(opts, "length", length.Get())
+	}
+	if t := iopt.ExtractType(opts...); t != nil {
+		opts = opt.InsertExtraURLParam(opts, "type", t.Get())
+	}
+	if indexName := iopt.ExtractIndexName(opts...); indexName != nil {
+		opts = opt.InsertExtraURLParam(opts, "indexName", indexName.Get())
+	}
+	path := c.path("/logs")
 	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
