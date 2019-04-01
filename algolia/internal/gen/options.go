@@ -127,6 +127,13 @@ var options = []Option{
 	{"maxFacetHits", Settings | Search, 10, ""},
 	{"percentileComputation", Search, true, ""},
 
+	// Secured API key
+	{"restrictIndices", Other, []string{}, ""},
+	{"restrictSources", Other, []string{}, ""},
+	{"userToken", Other, "", ""},
+	{"validUntil", Other, nil, ""},
+	{"referers", Other, []string{}, ""},
+
 	// Other
 	{"query", Other, "", ""},
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
