@@ -27,9 +27,7 @@ func (a *await) Collect(waitables ...Waitable) {
 	a.Unlock()
 }
 
-func (a *await) Wait(waitables ...Waitable) error {
-	a.Collect(waitables...)
-
+func (a *await) Wait() error {
 	a.Lock()
 	defer a.Unlock()
 
