@@ -5,26 +5,25 @@ import (
 	"testing"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algoliasearch"
-
+	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/analytics"
+	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
-
-	"github.com/algolia/algoliasearch-client-go/it"
 )
 
 func TestABTesting(t *testing.T) {
 	t.Parallel()
-	client, index1, indexName1 := it.InitSearchClient1AndIndex(t)
+	searchClient, index1, indexName1 := cts.InitSearchClient1AndIndex(t)
 	indexName2 := indexName1 + "_dev"
-	index2 := client.InitIndex(indexName2)
-	analytics := client.InitAnalytics()
+	index2 := searchClient.InitIndex(indexName2)
+	analyticsClient := cts.InitAnalyticsClient1(t)
 
 	// Remove old AB tests
 	{
 		var toRemove []int
-		today := it.TodayDate()
+		today := cts.TodayDate()
 
-		res, err := analytics.GetABTests(nil)
+		res, err := analyticsClient.GetABTests()
 		require.NoError(t, err)
 		for _, abTest := range res.ABTests {
 			if strings.HasPrefix("go-", abTest.Name) &&
@@ -34,27 +33,31 @@ func TestABTesting(t *testing.T) {
 		}
 
 		for _, id := range toRemove {
-			_, _ = analytics.DeleteABTest(id)
+			_, _ = analyticsClient.DeleteABTest(id)
 		}
 	}
 
 	// Create the two indices by adding a dummy object in each of them
 	{
-		res, err := index1.AddObject(algoliasearch.Object{"objectID": "one"})
-		require.NoError(t, err)
-		it.WaitTasks(t, index1, res.TaskID)
+		await := algolia.Await()
 
-		res, err = index2.AddObject(algoliasearch.Object{"objectID": "one"})
+		res, err := index1.SaveObject(map[string]string{"objectID": "one"})
 		require.NoError(t, err)
-		it.WaitTasks(t, index2, res.TaskID)
+		await.Collect(res)
+
+		res, err = index2.SaveObject(map[string]string{"objectID": "one"})
+		require.NoError(t, err)
+		await.Collect(res)
+
+		require.NoError(t, await.Wait())
 	}
 
 	var abTestID int
 	now := time.Now()
 
-	abTest := algoliasearch.ABTest{
-		Name: it.GenerateCanonicalPrefixName(),
-		Variants: []algoliasearch.Variant{
+	abTest := analytics.ABTest{
+		Name: cts.GenerateCanonicalPrefixName(),
+		Variants: []analytics.Variant{
 			{Index: indexName1, TrafficPercentage: 60, Description: "a description"},
 			{Index: indexName2, TrafficPercentage: 40},
 		},
@@ -63,16 +66,15 @@ func TestABTesting(t *testing.T) {
 
 	// Create the AB test
 	{
-		res, err := analytics.AddABTest(abTest)
+		res, err := analyticsClient.AddABTest(abTest)
 		require.NoError(t, err)
+		require.NoError(t, res.Wait())
 		abTestID = res.ABTestID
-		err = analytics.WaitTask(res)
-		require.NoError(t, err)
 	}
 
 	// Retrieve the AB test and check it corresponds to the original one
 	{
-		res, err := analytics.GetABTest(abTestID)
+		res, err := analyticsClient.GetABTest(abTestID)
 		require.NoError(t, err)
 		checkABTestsAreEqual(t, abTest, res)
 		require.NotEqual(t, res.Status, "stopped")
@@ -83,7 +85,7 @@ func TestABTesting(t *testing.T) {
 	{
 		found := false
 
-		res, err := analytics.GetABTests(nil)
+		res, err := analyticsClient.GetABTests()
 		require.NoError(t, err)
 		for _, b := range res.ABTests {
 			if b.ABTestID == abTestID {
@@ -98,42 +100,40 @@ func TestABTesting(t *testing.T) {
 
 	// Stop the AB test
 	{
-		res, err := analytics.StopABTest(abTestID)
+		res, err := analyticsClient.StopABTest(abTestID)
 		require.NoError(t, err)
-		err = analytics.WaitTask(res)
-		require.NoError(t, err)
+		require.NoError(t, res.Wait())
 	}
 
 	// Check the AB test still exists but is stopped
 	{
-		res, err := analytics.GetABTest(abTestID)
+		res, err := analyticsClient.GetABTest(abTestID)
 		require.NoError(t, err)
 		require.Equal(t, res.Status, "stopped")
 	}
 
 	// Delete the AB test
 	{
-		res, err := analytics.DeleteABTest(abTestID)
+		res, err := analyticsClient.DeleteABTest(abTestID)
 		require.NoError(t, err)
-		err = analytics.WaitTask(res)
-		require.NoError(t, err)
+		require.NoError(t, res.Wait())
 	}
 
 	// Check the AB test doesn't exist anymore
 	{
-		_, err := analytics.GetABTest(abTestID)
+		_, err := analyticsClient.GetABTest(abTestID)
 		require.Error(t, err)
 	}
 }
 
-func checkABTestsAreEqual(t *testing.T, a algoliasearch.ABTest, b algoliasearch.ABTestResponse) {
+func checkABTestsAreEqual(t *testing.T, a analytics.ABTest, b analytics.ABTestResponse) {
 	require.Equal(t, a.Name, b.Name)
 	require.Equal(t, a.EndAt.Unix(), b.EndAt.Unix())
 	require.Equal(t, len(a.Variants), len(b.Variants))
 
-	var responseVariants []algoliasearch.Variant
+	var responseVariants []analytics.Variant
 	for _, v := range b.Variants {
-		responseVariants = append(responseVariants, algoliasearch.Variant{
+		responseVariants = append(responseVariants, analytics.Variant{
 			Index:             v.Index,
 			TrafficPercentage: v.TrafficPercentage,
 			Description:       v.Description,

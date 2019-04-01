@@ -8,6 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/algolia/analytics"
+
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/stretchr/testify/require"
 )
@@ -34,10 +36,20 @@ func InitSearchClientMCM(t *testing.T) *search.Client {
 	return initSearchClientWith(t, "ALGOLIA_APPLICATION_ID_MCM", "ALGOLIA_ADMIN_KEY_MCM")
 }
 
+func InitAnalyticsClient1(t *testing.T) *analytics.Client {
+	return initAnalyticsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
+}
+
 func initSearchClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *search.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
 	c := search.NewClient(appID, key)
 	deleteOldIndices(c)
+	return c
+}
+
+func initAnalyticsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *analytics.Client {
+	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
+	c := analytics.NewClient(appID, key)
 	return c
 }
 
