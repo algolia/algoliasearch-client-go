@@ -141,4 +141,5 @@ var options = []Option{
 	{"extraURLParams", Other, map[string]string{}, ""},
 	{"scopes", Other, []string{}, ""},
 	{"clusterName", Other, "", ""},
+	{"indexName", Other, "", ""},
 }
