@@ -37,7 +37,7 @@ func InitSearchClientMCM(t *testing.T) *search.Client {
 func initSearchClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *search.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
 	c := search.NewClient(appID, key)
-	go deleteOldIndices(c)
+	deleteOldIndices(c)
 	return c
 }
 
