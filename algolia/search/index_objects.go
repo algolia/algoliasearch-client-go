@@ -93,11 +93,11 @@ func (i *Index) GetObjects(objectIDs []string, objects interface{}, opts ...inte
 	return i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
 }
 
-func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
+func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res GroupBatchRes, err error) {
 	return i.batch(objects, AddObject, opts...)
 }
 
-func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res MultipleBatchRes, err error) {
+func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res GroupBatchRes, err error) {
 	var (
 		action BatchAction
 	)
@@ -132,12 +132,12 @@ func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res Batc
 	return
 }
 
-func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface{}) (MultipleBatchRes, error) {
+func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface{}) (GroupBatchRes, error) {
 	var (
 		batch       []interface{}
 		operations  []BatchOperation
 		singleRes   BatchRes
-		multipleRes MultipleBatchRes
+		multipleRes GroupBatchRes
 	)
 
 	autoGenerateObjectIDIfNotExist := false
@@ -204,7 +204,7 @@ func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
 	return
 }
 
-func (i *Index) Search(query string, opts ...interface{}) (res SearchRes, err error) {
+func (i *Index) Search(query string, opts ...interface{}) (res QueryRes, err error) {
 	body := searchReq{Params: transport.URLEncode(newSearchParams(query, opts...))}
 	path := i.path("/query")
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
