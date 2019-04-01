@@ -17,7 +17,7 @@ func (i *Index) GetRule(objectID string, opts ...interface{}) (rule Rule, err er
 func (i *Index) SaveRule(rule Rule, opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/rules/%s", rule.ObjectID)
 	err = i.transport.Request(&res, http.MethodPut, path, rule, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
@@ -27,21 +27,21 @@ func (i *Index) SaveRules(rules []Rule, opts ...interface{}) (res UpdateTaskRes,
 	}
 	path := i.path("/rules/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, rules, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
 func (i *Index) ClearRules(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/rules/clear")
 	err = i.transport.Request(&res, http.MethodPost, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
 func (i *Index) DeleteRule(objectID string, opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/rules/%s", objectID)
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 

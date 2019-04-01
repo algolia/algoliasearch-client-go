@@ -32,7 +32,7 @@ func (i *Index) path(format string, a ...interface{}) string {
 	return prefix + suffix
 }
 
-func (i *Index) waitTask(taskID int) error {
+func (i *Index) WaitTask(taskID int) error {
 	return waitWithRetry(func() (bool, error) {
 		res, err := i.GetStatus(taskID)
 		if err != nil {
@@ -57,21 +57,25 @@ func (i *Index) operation(destination, op string, opts ...interface{}) (res Upda
 	}
 	path := i.path("/operation")
 	err = i.transport.Request(&res, http.MethodPost, path, req, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
+}
+
+func (i *Index) GetAppID() string {
+	return i.appID
 }
 
 func (i *Index) Clear(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/clear")
 	err = i.transport.Request(&res, http.MethodPost, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
 func (i *Index) Delete(opts ...interface{}) (res DeleteTaskRes, err error) {
 	path := i.path("")
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 

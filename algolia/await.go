@@ -18,7 +18,9 @@ func Await() *await {
 }
 
 func Wait(waitables ...Waitable) error {
-	return Await().Wait(waitables...)
+	await := Await()
+	await.Collect(waitables...)
+	return await.Wait()
 }
 
 func (a *await) Collect(waitables ...Waitable) {

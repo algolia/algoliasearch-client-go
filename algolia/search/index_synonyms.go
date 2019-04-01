@@ -22,7 +22,7 @@ func (i *Index) GetSynonym(objectID string, opts ...interface{}) (synonym Synony
 func (i *Index) SaveSynonym(synonym Synonym, opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/synonyms/%s", synonym.ObjectID())
 	err = i.transport.Request(&res, http.MethodPut, path, synonym, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
@@ -32,21 +32,21 @@ func (i *Index) SaveSynonyms(synonyms []Synonym, opts ...interface{}) (res Updat
 	}
 	path := i.path("/synonyms/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, synonyms, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
 func (i *Index) ClearSynonyms(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/synonyms/clear")
 	err = i.transport.Request(&res, http.MethodPost, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
 func (i *Index) DeleteSynonym(objectID string, opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/synonyms/%s", objectID)
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 

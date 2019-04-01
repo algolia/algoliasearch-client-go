@@ -17,6 +17,6 @@ func (i *Index) GetSettings(opts ...interface{}) (settings Settings, err error) 
 func (i *Index) SetSettings(settings Settings, opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/settings")
 	err = i.transport.Request(&res, http.MethodPut, path, settings, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }

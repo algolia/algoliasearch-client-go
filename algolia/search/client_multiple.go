@@ -15,7 +15,7 @@ func (c *Client) MultipleBatch(operations []BatchOperationIndexed, opts ...inter
 }
 
 func (c *Client) waitTask(index string, taskID int) error {
-	return c.InitIndex(index).waitTask(taskID)
+	return c.InitIndex(index).WaitTask(taskID)
 }
 
 func (c *Client) MultipleGetObjects(requests []IndexedGetObject, objects interface{}, opts ...interface{}) (err error) {

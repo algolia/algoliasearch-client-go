@@ -33,7 +33,7 @@ func (i *Index) GetObject(objectID string, object interface{}, opts ...interface
 func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObjectRes, err error) {
 	path := i.path("")
 	err = i.transport.Request(&res, http.MethodPost, path, object, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
@@ -56,7 +56,7 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 	}
 
 	err = i.transport.Request(&res, "POST", path, object, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
@@ -69,7 +69,7 @@ func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTa
 
 	path := i.path("/" + url.QueryEscape(objectID))
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
@@ -184,7 +184,7 @@ func (i *Index) Batch(operations []BatchOperation, opts ...interface{}) (res Bat
 	body := batchReq{Requests: operations}
 	path := i.path("/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
@@ -200,7 +200,7 @@ func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
 	}
 	path := i.path("/deleteByQuery")
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)
-	res.wait = i.waitTask
+	res.wait = i.WaitTask
 	return
 }
 
