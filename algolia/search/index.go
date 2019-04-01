@@ -19,6 +19,7 @@ type Index struct {
 
 func newIndex(client *Client, name string) *Index {
 	return &Index{
+		appID:        client.appID,
 		client:       client,
 		name:         name,
 		maxBatchSize: client.maxBatchSize,
