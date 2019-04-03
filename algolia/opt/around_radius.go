@@ -62,7 +62,7 @@ func (o *AroundRadiusOption) UnmarshalJSON(data []byte) error {
 
 func (o *AroundRadiusOption) Equal(o2 *AroundRadiusOption) bool {
 	if o2 == nil {
-		return o.isAll == false && o.meters == 0
+		return !o.isAll && o.meters == 0
 	}
 	return reflect.DeepEqual(o, o2)
 }

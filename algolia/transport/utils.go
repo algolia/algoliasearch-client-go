@@ -40,7 +40,7 @@ func URLEncode(itf interface{}) string {
 
 	var (
 		values = make(url.Values)
-		value  = ""
+		value  string
 	)
 
 	for key, itf := range m {

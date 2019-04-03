@@ -43,7 +43,7 @@ func (o *IgnorePluralsOption) UnmarshalJSON(data []byte) error {
 
 func (o *IgnorePluralsOption) Equal(o2 *IgnorePluralsOption) bool {
 	if o2 == nil {
-		return o.ignorePlurals == false && len(o.languages) == 0
+		return !o.ignorePlurals && len(o.languages) == 0
 	}
 	return reflect.DeepEqual(o, o2)
 }

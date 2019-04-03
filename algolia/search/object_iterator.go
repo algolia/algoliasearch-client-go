@@ -55,8 +55,7 @@ func (it *ObjectIterator) Next(opts ...interface{}) (interface{}, error) {
 		}
 	}
 
-	var res interface{}
-	res = it.page.Hits[it.pos]
+	res := it.page.Hits[it.pos]
 	it.pos++
 
 	if len(opts) > 0 {

@@ -134,7 +134,6 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 			return nil, fmt.Errorf("error while saving batch of objects: %v", err)
 		}
 		await.Collect(res)
-		objects = []interface{}{}
 	}
 
 	return await, nil

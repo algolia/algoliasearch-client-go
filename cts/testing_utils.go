@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/analytics"
-
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/stretchr/testify/require"
 )

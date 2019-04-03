@@ -72,13 +72,3 @@ func (o *composableFilterOption) Equal(o2 *composableFilterOption) bool {
 	}
 	return reflect.DeepEqual(o, o2)
 }
-
-func composableFilterEqual(o1, o2 *composableFilterOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
-}

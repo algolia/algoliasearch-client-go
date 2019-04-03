@@ -43,7 +43,7 @@ func (o *RemoveStopWordsOption) UnmarshalJSON(data []byte) error {
 
 func (o *RemoveStopWordsOption) Equal(o2 *RemoveStopWordsOption) bool {
 	if o2 == nil {
-		return o.removeStopWords == false && len(o.languages) == 0
+		return !o.removeStopWords && len(o.languages) == 0
 	}
 	return reflect.DeepEqual(o, o2)
 }

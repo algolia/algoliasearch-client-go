@@ -22,7 +22,8 @@ func TestContext(t *testing.T) {
 	}
 
 	{
-		expected, _ := context.WithTimeout(context.Background(), 42*time.Second)
+		expected, cancel := context.WithTimeout(context.Background(), 42*time.Second)
+		defer cancel()
 		ctx := ExtractContext(expected)
 		require.Equal(t, expected, ctx)
 	}

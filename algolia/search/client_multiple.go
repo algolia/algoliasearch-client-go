@@ -19,7 +19,7 @@ func (c *Client) waitTask(index string, taskID int) error {
 }
 
 func (c *Client) MultipleGetObjects(requests []IndexedGetObject, objects interface{}, opts ...interface{}) (err error) {
-	if requests == nil || len(requests) == 0 {
+	if len(requests) == 0 {
 		return
 	}
 	res := getObjectsRes{objects}

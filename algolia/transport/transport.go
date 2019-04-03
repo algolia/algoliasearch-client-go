@@ -115,6 +115,7 @@ func (t *Transport) Request(
 		default:
 			if body != nil {
 				if err = body.Close(); err != nil {
+					cancel()
 					return fmt.Errorf("cannot close response's body before retry: %v", err)
 				}
 			}
@@ -178,7 +179,8 @@ func buildRequest(
 	if body == nil {
 		req, err = http.NewRequest(method, urlStr, nil)
 	} else {
-		data, err := json.Marshal(body)
+		var data []byte
+		data, err = json.Marshal(body)
 		if err != nil {
 			return nil, fmt.Errorf("cannot serialize request body:\n\terr=%v\n\tmethod=%s\n\turl=%s\n\tbody=%#v\n", err, method, urlStr, body)
 		}
