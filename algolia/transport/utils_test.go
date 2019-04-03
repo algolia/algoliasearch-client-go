@@ -66,6 +66,14 @@ func TestURLEncode(t *testing.T) {
 			}{new(string), ""},
 			"book=",
 		},
+		{
+			struct {
+				Book     string   `json:"book"`
+				Keywords []string `json:"keywords"`
+				Price    float64  `json:"price"`
+			}{"harry potter", []string{"magic", "fiction"}, 19.99},
+			"book=harry+potter&keywords=%5B%22magic%22%2C%22fiction%22%5D&price=19.99",
+		},
 	} {
 		require.Equal(t, c.expected, URLEncode(c.value), "wrong URL-encoded string for input %q", c.value)
 	}
