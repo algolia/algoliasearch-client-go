@@ -4,12 +4,8 @@ import (
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
-
 	"github.com/algolia/algoliasearch-client-go/cts"
-
 	"github.com/stretchr/testify/require"
-
-	"github.com/algolia/algoliasearch-client-go/algoliasearch"
 )
 
 func TestBatching(t *testing.T) {
@@ -30,12 +26,12 @@ func TestBatching(t *testing.T) {
 
 	{
 		res, err := index.Batch([]search.BatchOperation{
-			{Action: search.AddObject, Body: algoliasearch.Object{"objectID": "zero", "key": "value"}},
-			{Action: search.UpdateObject, Body: algoliasearch.Object{"objectID": "one", "k": "v"}},
-			{Action: search.PartialUpdateObject, Body: algoliasearch.Object{"objectID": "two", "k": "v"}},
-			{Action: search.PartialUpdateObject, Body: algoliasearch.Object{"objectID": "two_bis", "key": "value"}},
-			{Action: search.PartialUpdateObjectNoCreate, Body: algoliasearch.Object{"objectID": "three", "k": "v"}},
-			{Action: search.DeleteObject, Body: algoliasearch.Object{"objectID": "four"}},
+			{Action: search.AddObject, Body: map[string]string{"objectID": "zero", "key": "value"}},
+			{Action: search.UpdateObject, Body: map[string]string{"objectID": "one", "k": "v"}},
+			{Action: search.PartialUpdateObject, Body: map[string]string{"objectID": "two", "k": "v"}},
+			{Action: search.PartialUpdateObject, Body: map[string]string{"objectID": "two_bis", "key": "value"}},
+			{Action: search.PartialUpdateObjectNoCreate, Body: map[string]string{"objectID": "three", "k": "v"}},
+			{Action: search.DeleteObject, Body: map[string]string{"objectID": "four"}},
 		})
 		require.NoError(t, err)
 		require.NoError(t, res.Wait())

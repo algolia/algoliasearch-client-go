@@ -5,14 +5,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
-
-	"github.com/algolia/algoliasearch-client-go/algolia/search"
-
 	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
-
-	"github.com/algolia/algoliasearch-client-go/algoliasearch"
 	"github.com/stretchr/testify/require"
 )
 
@@ -29,7 +25,7 @@ func TestIndexing(t *testing.T) {
 		await.Collect(res)
 		objectIDs = append(objectIDs, res.ObjectID)
 
-		res, err = index.SaveObject(algoliasearch.Object{"attribute": "value"})
+		res, err = index.SaveObject(map[string]string{"attribute": "value"})
 		require.NoError(t, err)
 		await.Collect(res)
 		objectIDs = append(objectIDs, res.ObjectID)
@@ -125,7 +121,7 @@ func TestIndexing(t *testing.T) {
 	}
 
 	{
-		res, err := index.PartialUpdateObject(algoliasearch.Object{"objectID": "one", "extra_attribute": "extra_value"})
+		res, err := index.PartialUpdateObject(map[string]string{"objectID": "one", "extra_attribute": "extra_value"})
 		require.NoError(t, err)
 		await.Collect(res)
 	}
@@ -168,7 +164,7 @@ func TestIndexing(t *testing.T) {
 
 	{
 		_, err := index.BrowseObjects()
-		require.Equal(t, algoliasearch.NoMoreHitsErr, err)
+		require.Equal(t, search.NoMoreHitsErr, err)
 	}
 }
 
