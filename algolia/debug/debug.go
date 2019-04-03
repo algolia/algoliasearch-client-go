@@ -86,7 +86,9 @@ func printRequest(req *http.Request) {
 
 func printResponse(res *http.Response) {
 	var body string
-	res.Body, body = copyReadCloser(res.Body)
+	if res != nil {
+		res.Body, body = copyReadCloser(res.Body)
+	}
 	body = prettyPrintJSON(body, "\t")
 	fmt.Printf("> ALGOLIA DEBUG response:\n\tbody=\n\t%s\n", body)
 }
