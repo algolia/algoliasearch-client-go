@@ -3,6 +3,8 @@ package opt
 import (
 	"fmt"
 	"reflect"
+
+	"github.com/algolia/algoliasearch-client-go/algolia/debug"
 )
 
 func InsertOrReplaceOption(opts []interface{}, opt interface{}) []interface{} {
@@ -49,7 +51,7 @@ func convertInterfaceToString(itf interface{}) string {
 	case bool:
 		return fmt.Sprintf("%t", v)
 	default:
-		panic(fmt.Sprintf("cannot convert %#v to string", itf))
+		debug.Printf("cannot convert %#v to string", itf)
 	}
 
 	return ""
