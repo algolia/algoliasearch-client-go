@@ -16,7 +16,7 @@ func NewOneWaySynonym(objectID, input string, synonyms ...string) OneWaySynonym 
 }
 
 func (s OneWaySynonym) ObjectID() string  { return s.objectID }
-func (s OneWaySynonym) Type() SynonymType { return OneWaySynonmType }
+func (s OneWaySynonym) Type() SynonymType { return OneWaySynonymType }
 
 type oneWaySynonym struct {
 	ObjectID string      `json:"objectID"`

@@ -14,7 +14,7 @@ type SynonymType string
 
 const (
 	RegularSynonymType SynonymType = "synonym"
-	OneWaySynonmType   SynonymType = "oneWaySynonym"
+	OneWaySynonymType  SynonymType = "oneWaySynonym"
 	AltCorrection1Type SynonymType = "altCorrection1"
 	AltCorrection2Type SynonymType = "altCorrection2"
 	PlaceholderType    SynonymType = "placeholder"
@@ -48,7 +48,7 @@ func (s *rawSynonym) UnmarshalJSON(data []byte) error {
 		err = json.Unmarshal(data, &syn)
 		s.impl = syn
 
-	case OneWaySynonmType:
+	case OneWaySynonymType:
 		var syn OneWaySynonym
 		err = json.Unmarshal(data, &syn)
 		s.impl = syn
