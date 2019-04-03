@@ -11,15 +11,19 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
-func GenerateSecuredAPIKey(apiKey string, opts ...interface{}) (key string, err error) {
-	message := transport.URLEncode(newSecuredAPIKeyParams(opts...))
-
+func GenerateSecuredAPIKey(apiKey string, opts ...interface{}) (string, error) {
 	h := hmac.New(sha256.New, []byte(apiKey))
-	h.Write([]byte(message))
-	securedKey := hex.EncodeToString(h.Sum(nil))
 
-	key = base64.StdEncoding.EncodeToString([]byte(securedKey + message))
-	return
+	message := transport.URLEncode(newSecuredAPIKeyParams(opts...))
+	_, err := h.Write([]byte(message))
+	if err != nil {
+		return "", err
+	}
+
+	checksum := hex.EncodeToString(h.Sum(nil))
+	key := base64.StdEncoding.EncodeToString([]byte(checksum + message))
+
+	return key, nil
 }
 
 type securedAPIKeyParams struct {
