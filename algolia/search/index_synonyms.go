@@ -43,7 +43,7 @@ func (i *Index) ClearSynonyms(opts ...interface{}) (res UpdateTaskRes, err error
 	return
 }
 
-func (i *Index) DeleteSynonym(objectID string, opts ...interface{}) (res UpdateTaskRes, err error) {
+func (i *Index) DeleteSynonym(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
 	path := i.path("/synonyms/%s", objectID)
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
 	res.wait = i.WaitTask
