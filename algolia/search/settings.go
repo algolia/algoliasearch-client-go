@@ -18,6 +18,7 @@ type Settings struct {
 	Ranking                           *opt.RankingOption                           `json:"ranking,omitempty"`
 	CustomRanking                     *opt.CustomRankingOption                     `json:"customRanking,omitempty"`
 	Replicas                          *opt.ReplicasOption                          `json:"replicas,omitempty"`
+	Primary                           *opt.PrimaryOption                           `json:"primary,omitempty"`
 	MaxValuesPerFacet                 *opt.MaxValuesPerFacetOption                 `json:"maxValuesPerFacet,omitempty"`
 	SortFacetValuesBy                 *opt.SortFacetValuesByOption                 `json:"sortFacetValuesBy,omitempty"`
 	AttributesToHighlight             *opt.AttributesToHighlightOption             `json:"attributesToHighlight,omitempty"`
@@ -123,6 +124,10 @@ func (s Settings) Equal(s2 Settings) bool {
 	}
 	if !opt.ReplicasEqual(s.Replicas, s2.Replicas) {
 		debug.Printf("Settings.Replicas are not equal: %#v != %#v\n", s.Replicas, s2.Replicas)
+		return false
+	}
+	if !opt.PrimaryEqual(s.Primary, s2.Primary) {
+		debug.Printf("Settings.Primary are not equal: %#v != %#v\n", s.Primary, s2.Primary)
 		return false
 	}
 	if !opt.MaxValuesPerFacetEqual(s.MaxValuesPerFacet, s2.MaxValuesPerFacet) {
