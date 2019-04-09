@@ -73,6 +73,7 @@ type QueryParams struct {
 	ResponseFields                    *opt.ResponseFieldsOption                    `json:"responseFields,omitempty"`
 	MaxFacetHits                      *opt.MaxFacetHitsOption                      `json:"maxFacetHits,omitempty"`
 	PercentileComputation             *opt.PercentileComputationOption             `json:"percentileComputation,omitempty"`
+	Explain                           *opt.ExplainOption                           `json:"explain,omitempty"`
 }
 
 func newQueryParams(opts ...interface{}) QueryParams {
@@ -142,5 +143,6 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		ResponseFields:                    iopt.ExtractResponseFields(opts...),
 		MaxFacetHits:                      iopt.ExtractMaxFacetHits(opts...),
 		PercentileComputation:             iopt.ExtractPercentileComputation(opts...),
+		Explain:                           iopt.ExtractExplain(opts...),
 	}
 }

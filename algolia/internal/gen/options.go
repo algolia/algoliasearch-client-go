@@ -127,6 +127,7 @@ var options = []Option{
 	{"responseFields", Settings | Search, []string{"*"}, ""},
 	{"maxFacetHits", Settings | Search, 10, ""},
 	{"percentileComputation", Search, true, ""},
+	{"explain", Search, []string{}, ""},
 
 	// Secured API key
 	{"restrictIndices", Other, []string{}, ""},
