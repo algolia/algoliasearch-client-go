@@ -11,9 +11,9 @@ import (
 func defaultHosts(r region.Region) (hosts []*transport.StatefulHost) {
 	switch r {
 	case region.EU, region.US:
-		hosts = append(hosts, transport.NewStatefulHost(fmt.Sprintf("insights.%s.algolia.com", r), call.IsReadWrite))
+		hosts = append(hosts, transport.NewStatefulHost(fmt.Sprintf("insights.%s.algolia.io", r), call.IsReadWrite))
 	default:
-		hosts = append(hosts, transport.NewStatefulHost("insights.algolia.com", call.IsReadWrite))
+		hosts = append(hosts, transport.NewStatefulHost("insights.algolia.io", call.IsReadWrite))
 	}
 	return
 }

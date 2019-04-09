@@ -58,6 +58,7 @@ func (c *Client) SendEvent(event Event, opts ...interface{}) (res StatusMessageR
 }
 
 func (c *Client) SendEvents(events []Event, opts ...interface{}) (res StatusMessageRes, err error) {
-	err = c.transport.Request(&res, http.MethodPost, "/1/events", events, call.Write, opts...)
+	body := newSendEventsReq(events, opts...)
+	err = c.transport.Request(&res, http.MethodPost, "/1/events", body, call.Write, opts...)
 	return
 }

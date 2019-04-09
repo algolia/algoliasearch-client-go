@@ -18,19 +18,26 @@ type Event struct {
 	UserToken string    `json:"userToken"`
 	Timestamp time.Time `json:"-"`
 	ObjectIDs []string  `json:"objectIDs,omitempty"`
-	Positions []int     `json:"position,omitempty"`
+	Positions []int     `json:"positions,omitempty"`
 	QueryID   string    `json:"queryID,omitempty"`
 	Filters   []string  `json:"filters,omitempty"`
 }
 
 func (e Event) MarshalJSON() ([]byte, error) {
+	type EventJSON Event
+
+	var timestamp int64 = 0
+	if !e.Timestamp.IsZero() {
+		e.Timestamp.Unix()
+	}
+
 	return json.Marshal(
 		struct {
 			Timestamp int64 `json:"timestamp,omitempty"`
-			Event
+			EventJSON
 		}{
-			Timestamp: e.Timestamp.Unix(),
-			Event:     e,
+			Timestamp: timestamp,
+			EventJSON: EventJSON(e),
 		},
 	)
 }
