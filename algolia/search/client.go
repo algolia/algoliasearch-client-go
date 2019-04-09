@@ -35,7 +35,7 @@ func NewClientWithConfig(config Configuration) *Client {
 		maxBatchSize int
 	)
 
-	if config.Hosts == nil {
+	if len(config.Hosts) == 0 {
 		hosts = defaultHosts(config.AppID)
 	} else {
 		for _, h := range config.Hosts {

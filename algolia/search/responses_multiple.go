@@ -37,10 +37,6 @@ func (r MultipleBatchRes) Wait() error {
 	return nil
 }
 
-type MultipleGetObjectsRes struct {
-	Results []map[string]interface{} `json:"results"`
-}
-
 type getObjectsRes struct {
 	Results interface{} `json:"results"`
 }
