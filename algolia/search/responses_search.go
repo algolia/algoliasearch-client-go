@@ -78,6 +78,14 @@ func (r QueryRes) UnmarshalHits(v interface{}) error {
 	return json.Unmarshal(hitsPayload, &v)
 }
 
+func (r QueryRes) UnmarshalUserData(v interface{}) error {
+	userDataPayload, err := json.Marshal(r.UserData)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal UserData from search response: %v", err)
+	}
+	return json.Unmarshal(userDataPayload, &v)
+}
+
 type FacetHit struct {
 	Value       string `json:"value"`
 	Highlighted string `json:"highlighted"`
