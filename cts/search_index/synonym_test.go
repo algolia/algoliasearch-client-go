@@ -26,7 +26,7 @@ func TestSynonym(t *testing.T) {
 			{"console": "Microsoft Xbox One"},
 		}, opt.AutoGenerateObjectIDIfNotExist(true))
 		require.NoError(t, err)
-		res.Wait()
+		require.NoError(t, res.Wait())
 	}
 
 	synonyms := []search.Synonym{

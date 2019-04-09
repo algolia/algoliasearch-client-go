@@ -25,7 +25,7 @@ func TestQueryRule(t *testing.T) {
 			{"objectID": "one_plus_two", "brand": "OnePlus", "model": "Two"},
 		})
 		require.NoError(t, err)
-		res.Wait()
+		require.NoError(t, res.Wait())
 	}
 
 	await := algolia.Await()
