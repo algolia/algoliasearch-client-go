@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/debug"
 	"github.com/algolia/algoliasearch-client-go/algolia/insights"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/cts"
@@ -23,8 +22,6 @@ func TestSendingEvents(t *testing.T) {
 		require.NoError(t, err)
 		require.NoError(t, res.Wait())
 	}
-
-	debug.Enable()
 
 	insightsClient := cts.InitInsightsClient(t)
 
