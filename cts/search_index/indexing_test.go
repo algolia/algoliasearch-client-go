@@ -32,6 +32,12 @@ func TestIndexing(t *testing.T) {
 	}
 
 	{
+		res, err := index.SaveObjects(nil, opt.AutoGenerateObjectIDIfNotExist(true))
+		require.NoError(t, err)
+		await.Collect(res)
+	}
+
+	{
 		res, err := index.SaveObjects([]map[string]string{
 			{"objectID": "two", "attribute": "value"},
 			{"objectID": "three", "attribute": "value"},
