@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/analytics"
+	"github.com/algolia/algoliasearch-client-go/algolia/insights"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/stretchr/testify/require"
 )
@@ -37,6 +38,16 @@ func InitSearchClientMCM(t *testing.T) *search.Client {
 
 func InitAnalyticsClient1(t *testing.T) *analytics.Client {
 	return initAnalyticsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
+}
+
+func InitInsightsClient(t *testing.T) *insights.Client {
+	return initInsightsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
+}
+
+func initInsightsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *insights.Client {
+	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
+	c := insights.NewClient(appID, key)
+	return c
 }
 
 func initSearchClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *search.Client {
