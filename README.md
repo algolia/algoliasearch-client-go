@@ -60,6 +60,11 @@ This API client is compatible with Go 1.7 and above.
 Download the Go client v2 (current stable version) using:
 
 ```bash
+# 
+# Using Go modules, add `github.com/algolia/algoliasearch-client-go` to your
+`require` list (using the v2 branch):
+go get github.com/algolia/algoliasearch-client-go@v2
+
 # Using dep
 dep ensure
 ```
