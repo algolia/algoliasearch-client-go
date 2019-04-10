@@ -77,7 +77,7 @@ func (i *index) getObjects(objectIDs, attributesToRetrieve []string, opts *Reque
 	for j, id := range objectIDs {
 		requests[j] = map[string]string{
 			"indexName": i.name,
-			"objectID":  url.QueryEscape(id),
+			"objectID":  id,
 		}
 		if attributesToRetrieve != nil {
 			requests[j]["attributesToRetrieve"] = attrs
