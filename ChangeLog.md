@@ -1,5 +1,26 @@
 # ChangeLog
 
+## [v2.28.0](https://github.com/algolia/algoliasearch-client-go/compare/2.27.0...v2.28.0) (2019-04-10)
+
+### Summary
+
+Hello everyone,
+
+Here is the a new minor release of our Go API Client. It mainly brings new
+features (such as the `RestoreAPIKey` method and support for Go modules),
+introduces a few parameters and fixes one bug which was prevented the
+`GetObjects` method from correctly retrieving objects with non-alphanumeric
+string `objectID` field.
+
+### Changes
+
+- **fixed:** Correctly retrieve objectIDs using GetObjects ([3627c49](https://github.com/algolia/algoliasearch-client-go/commit/3627c49))
+- **chore:** Add support for Go modules ([bf0837e](https://github.com/algolia/algoliasearch-client-go/commit/bf0837e))
+- **added:** implement Client.RestoreAPIKey ([80d92fc](https://github.com/algolia/algoliasearch-client-go/commit/80d92fc))
+- **added:** ABTest variants now support customSearchParameters ([4aced06](https://github.com/algolia/algoliasearch-client-go/commit/))
+- **added:** Support for query/setting parameter advancedSyntaxFeatures ([2126069](https://github.com/algolia/algoliasearch-client-go/commit/2126069))
+- **added:** Type-check enablePersonalization search parameter (boolean) ([6da8f27](https://github.com/algolia/algoliasearch-client-go/commit/6da8f27))
+
 # [2.27.0](https://github.com/algolia/algoliasearch-client-go/compare/2.26.1...2.27.0) (2018-12-17)
 
 ### Summary

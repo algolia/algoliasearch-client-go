@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	version = "2.27.0"
+	version = "2.28.0"
 )
 
 // Define the constants used to specify the type of request.
