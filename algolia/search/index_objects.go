@@ -84,7 +84,7 @@ func (i *Index) GetObjects(objectIDs []string, objects interface{}, opts ...inte
 	for j, objectID := range objectIDs {
 		requests[j] = getObjectsReq{
 			IndexName:            i.name,
-			ObjectID:             url.QueryEscape(objectID),
+			ObjectID:             objectID,
 			AttributesToRetrieve: attributesToRetrieve,
 		}
 	}
