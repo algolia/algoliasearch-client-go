@@ -25,16 +25,16 @@ type Option struct {
 
 var options = []Option{
 	// Attributes
-	{"searchableAttributes", Settings | Search, []string{}, "attributesToIndex"},
-	{"attributesForFaceting", Settings | Search, []string{}, ""},
-	{"unretrievableAttributes", Settings | Search, []string{}, ""},
+	{"searchableAttributes", Settings, []string{}, "attributesToIndex"},
+	{"attributesForFaceting", Settings, []string{}, ""},
+	{"unretrievableAttributes", Settings, []string{}, ""},
 	{"attributesToRetrieve", Settings | Search, []string{"*"}, ""},
 	{"restrictSearchableAttributes", Search, []string{}, ""},
 
 	// Ranking
-	{"ranking", Settings | Search, []string{"typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"}, ""},
-	{"customRanking", Settings | Search, []string{}, ""},
-	{"replicas", Settings | Search, []string{}, "slaves"},
+	{"ranking", Settings, []string{"typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"}, ""},
+	{"customRanking", Settings, []string{}, ""},
+	{"replicas", Settings, []string{}, "slaves"},
 	{"primary", Settings, "", ""},
 
 	// Filtering
@@ -52,11 +52,11 @@ var options = []Option{
 	{"sortFacetValuesBy", Settings | Search, "count", ""},
 
 	// Highlighting / Snippeting
-	{"attributesToHighlight", Search | Settings, []string{}, ""},
-	{"attributesToSnippet", Search | Settings, []string{}, ""},
-	{"highlightPreTag", Search | Settings, "<em>", ""},
-	{"highlightPostTag", Search | Settings, "</em>", ""},
-	{"snippetEllipsisText", Search | Settings, "…", ""},
+	{"attributesToHighlight", Settings | Search, []string{}, ""},
+	{"attributesToSnippet", Settings | Search, []string{}, ""},
+	{"highlightPreTag", Settings | Search, "<em>", ""},
+	{"highlightPostTag", Settings | Search, "</em>", ""},
+	{"snippetEllipsisText", Settings | Search, "…", ""},
 	{"restrictHighlightAndSnippetArrays", Settings | Search, false, ""},
 
 	// Pagination

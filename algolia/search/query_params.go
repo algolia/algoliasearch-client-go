@@ -8,14 +8,8 @@ import (
 )
 
 type QueryParams struct {
-	SearchableAttributes              *opt.SearchableAttributesOption              `json:"searchableAttributes,omitempty"`
-	AttributesForFaceting             *opt.AttributesForFacetingOption             `json:"attributesForFaceting,omitempty"`
-	UnretrievableAttributes           *opt.UnretrievableAttributesOption           `json:"unretrievableAttributes,omitempty"`
 	AttributesToRetrieve              *opt.AttributesToRetrieveOption              `json:"attributesToRetrieve,omitempty"`
 	RestrictSearchableAttributes      *opt.RestrictSearchableAttributesOption      `json:"restrictSearchableAttributes,omitempty"`
-	Ranking                           *opt.RankingOption                           `json:"ranking,omitempty"`
-	CustomRanking                     *opt.CustomRankingOption                     `json:"customRanking,omitempty"`
-	Replicas                          *opt.ReplicasOption                          `json:"replicas,omitempty"`
 	Filters                           *opt.FiltersOption                           `json:"filters,omitempty"`
 	FacetFilters                      *opt.FacetFiltersOption                      `json:"facetFilters,omitempty"`
 	OptionalFilters                   *opt.OptionalFiltersOption                   `json:"optionalFilters,omitempty"`
@@ -78,14 +72,8 @@ type QueryParams struct {
 
 func newQueryParams(opts ...interface{}) QueryParams {
 	return QueryParams{
-		SearchableAttributes:              iopt.ExtractSearchableAttributes(opts...),
-		AttributesForFaceting:             iopt.ExtractAttributesForFaceting(opts...),
-		UnretrievableAttributes:           iopt.ExtractUnretrievableAttributes(opts...),
 		AttributesToRetrieve:              iopt.ExtractAttributesToRetrieve(opts...),
 		RestrictSearchableAttributes:      iopt.ExtractRestrictSearchableAttributes(opts...),
-		Ranking:                           iopt.ExtractRanking(opts...),
-		CustomRanking:                     iopt.ExtractCustomRanking(opts...),
-		Replicas:                          iopt.ExtractReplicas(opts...),
 		Filters:                           iopt.ExtractFilters(opts...),
 		FacetFilters:                      iopt.ExtractFacetFilters(opts...),
 		OptionalFilters:                   iopt.ExtractOptionalFilters(opts...),
