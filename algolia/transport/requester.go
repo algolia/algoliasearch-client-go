@@ -23,6 +23,7 @@ type defaultRequester struct {
 }
 
 func newDefaultRequester() *defaultRequester {
+	// TODO use correct HTTPS setup for the default HTTP client
 	return &defaultRequester{
 		client: &http.Client{
 			Transport: &http.Transport{

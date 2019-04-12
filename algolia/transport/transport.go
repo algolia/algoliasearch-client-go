@@ -9,9 +9,7 @@ import (
 	"io"
 	"net"
 	"net/http"
-	"net/url"
 	"runtime"
-	"strings"
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
@@ -202,15 +200,6 @@ func buildRequest(
 		values.Set(k, v)
 	}
 	req.URL.RawQuery = values.Encode()
-
-	// TODO: Understand if this is still useful
-	if strings.Contains(path, "/*/") {
-		req.URL = &url.URL{
-			Scheme: "https",
-			Host:   host,
-			Opaque: "//" + host + path, // Remove url encoding
-		}
-	}
 
 	return req, nil
 }
