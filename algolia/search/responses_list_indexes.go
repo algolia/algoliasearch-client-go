@@ -11,7 +11,7 @@ type ListIndexesRes struct {
 }
 
 type IndexRes struct {
-	CreatedAt            time.Time     `json:"_"`
+	CreatedAt            time.Time     `json:"-"`
 	DataSize             int64         `json:"dataSize"`
 	Entries              int64         `json:"entries"`
 	FileSize             int64         `json:"fileSize"`
@@ -19,7 +19,7 @@ type IndexRes struct {
 	Name                 string        `json:"name"`
 	NumberOfPendingTasks int64         `json:"numberOfPendingTasks"`
 	PendingTask          bool          `json:"pendingTask"`
-	UpdatedAt            time.Time     `json:"_"`
+	UpdatedAt            time.Time     `json:"-"`
 }
 
 func (r *IndexRes) UnmarshalJSON(data []byte) error {
