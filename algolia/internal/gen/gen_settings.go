@@ -5,7 +5,7 @@ package main
 // Generates the settings.go file which contains the main Settings struct used
 // by GetSettings/SetSettings along with its JSON serialization/deserialization
 // methods. Old settings name are also correctly deserialized and used to fill
-// the appropriate and more recent equilavent. For instance, if `slaves` is
+// the appropriate and more recent equivalent. For instance, if `slaves` is
 // found in the JSON payload of the GetSettings response from the engine, it is
 // automatically deserialized into the Replicas field of the Settings struct.
 func main() {

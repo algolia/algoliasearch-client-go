@@ -7,7 +7,6 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
-
 	"github.com/stretchr/testify/require"
 )
 
@@ -51,7 +50,7 @@ func TestSettings(t *testing.T) {
 		IgnorePlurals:                     opt.IgnorePlurals(true),
 		RemoveStopWords:                   opt.RemoveStopWords(true),
 		CamelCaseAttributes:               opt.CamelCaseAttributes("attribute1", "attribute2"),
-		DecompoundedAttributes:            opt.DecompoundedAttributes(map[string][]string{"de": []string{"attribute1", "attribute2"}, "fi": []string{"attribute3"}}),
+		DecompoundedAttributes:            opt.DecompoundedAttributes(map[string][]string{"de": {"attribute1", "attribute2"}, "fi": {"attribute3"}}),
 		KeepDiacriticsOnCharacters:        opt.KeepDiacriticsOnCharacters("øé"),
 		QueryLanguages:                    opt.QueryLanguages("fr", "en"),
 		QueryType:                         opt.QueryType("prefixNone"),
