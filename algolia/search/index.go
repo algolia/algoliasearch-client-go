@@ -9,6 +9,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
+// Index provides methods to interact with the Algolia Search API on a single
+// index.
 type Index struct {
 	appID        string
 	name         string
@@ -33,6 +35,8 @@ func (i *Index) path(format string, a ...interface{}) string {
 	return prefix + suffix
 }
 
+// WaitTask blocks until the task identified by the given taskID is completed on
+// Algolia engine.
 func (i *Index) WaitTask(taskID int) error {
 	return waitWithRetry(func() (bool, error) {
 		res, err := i.GetStatus(taskID)
@@ -62,10 +66,13 @@ func (i *Index) operation(destination, op string, opts ...interface{}) (res Upda
 	return
 }
 
+// GetAppID returns the Algolia application ID on where the current index
+// leaves.
 func (i *Index) GetAppID() string {
 	return i.appID
 }
 
+// Clear deletes all the records of the index.
 func (i *Index) Clear(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/clear")
 	err = i.transport.Request(&res, http.MethodPost, path, nil, call.Write, opts...)
@@ -73,6 +80,8 @@ func (i *Index) Clear(opts ...interface{}) (res UpdateTaskRes, err error) {
 	return
 }
 
+// Clear deletes the index. After this call, new indexing calls can be sent with
+// the same index instance.
 func (i *Index) Delete(opts ...interface{}) (res DeleteTaskRes, err error) {
 	path := i.path("")
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
@@ -80,6 +89,8 @@ func (i *Index) Delete(opts ...interface{}) (res DeleteTaskRes, err error) {
 	return
 }
 
+// GetStatus retrieves the task status according to the Algolia engine for the
+// given task.
 func (i *Index) GetStatus(taskID int) (res TaskStatusRes, err error) {
 	path := i.path("/task/%d", taskID)
 	err = i.transport.Request(&res, http.MethodGet, path, nil, call.Read)

@@ -11,15 +11,21 @@ import (
 )
 
 const (
+	// DefaultMaxBatchSize defines the default maximum batch size to be used to
+	// automatically split record batches when using Index.SaveObjects.
 	DefaultMaxBatchSize = 1000
 )
 
+// Client provides methods to interact with the Algolia Search API on multiple
+// indices which belong to the same Algolia application.
 type Client struct {
 	appID        string
 	maxBatchSize int
 	transport    *transport.Transport
 }
 
+// NewClient instantiates a new client able to interact with the Algolia
+// Search API on multiple indices which belong to the same Algolia application.
 func NewClient(appID, apiKey string) *Client {
 	return NewClientWithConfig(
 		Configuration{
@@ -29,6 +35,9 @@ func NewClient(appID, apiKey string) *Client {
 	)
 }
 
+// NewClientWithConfig instantiates a new client able to interact with the
+// Algolia Search API on multiple indices which belong to the same Algolia
+// application.
 func NewClientWithConfig(config Configuration) *Client {
 	var (
 		hosts        []*transport.StatefulHost
@@ -64,6 +73,8 @@ func NewClientWithConfig(config Configuration) *Client {
 	}
 }
 
+// InitIndex instantiates a new index able to interact with the Algolia
+// Search API on a single index.
 func (c *Client) InitIndex(indexName string) *Index {
 	return newIndex(c, indexName)
 }
@@ -72,12 +83,16 @@ func (c *Client) path(format string, a ...interface{}) string {
 	return "/1" + fmt.Sprintf(format, a...)
 }
 
+// ListIndexes lists the indices of the Algolia application. The response is
+// paginated and hence, may not return all indices in a single call. Multiple
+// calls may be necessary to retrieve all indices.
 func (c *Client) ListIndexes(opts ...interface{}) (res ListIndexesRes, err error) {
 	path := c.path("/indexes")
 	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
 
+// GetLogs returns the most recent information logs of the Algolia application.
 func (c *Client) GetLogs(opts ...interface{}) (res GetLogsRes, err error) {
 	if offset := iopt.ExtractOffset(opts...); offset != nil {
 		opts = opt.InsertExtraURLParam(opts, "offset", offset.Get())

@@ -19,6 +19,11 @@ func (c *Client) CopySynonyms(source, destination string, opts ...interface{}) (
 	return c.CopyIndex(source, destination, opts...)
 }
 
+// CopyIndex copies the full content (objects, synonyms, rules, settings) of the
+// given source index into the destination one. This method can only be used with
+// indices which belong to the same Algolia application. To perform the same
+// operation on indices which belong to different Algolia applications, use
+// Account.CopyIndex which is optimized for this use-case.
 func (c *Client) CopyIndex(source, destination string, opts ...interface{}) (UpdateTaskRes, error) {
 	return c.operation(source, destination, "copy", opts...)
 }
@@ -38,6 +43,9 @@ func (c *Client) MoveSynonyms(source, destination string, opts ...interface{}) (
 	return c.MoveIndex(source, destination, opts...)
 }
 
+// MoveIndex moves the full content (objects, synonyms, rules, settings) of the
+// given source index into the destination one, effectively deleting the source
+// index.
 func (c *Client) MoveIndex(source, destination string, opts ...interface{}) (UpdateTaskRes, error) {
 	return c.operation(source, destination, "move", opts...)
 }

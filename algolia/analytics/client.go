@@ -6,12 +6,15 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
+// Client provides methods to interact with the Algolia Analytics API.
 type Client struct {
 	appID        string
 	searchClient *search.Client
 	transport    *transport.Transport
 }
 
+// NewClient instantiates a new client able to interact with the Algolia
+// Analytics API.
 func NewClient(appID, apiKey string) *Client {
 	return NewClientWithConfig(
 		Configuration{
@@ -21,6 +24,8 @@ func NewClient(appID, apiKey string) *Client {
 	)
 }
 
+// NewClientWithConfig instantiates a new client able to interact with the
+// Algolia Analytics API.
 func NewClientWithConfig(config Configuration) *Client {
 	var hosts []*transport.StatefulHost
 

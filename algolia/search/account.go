@@ -7,12 +7,22 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
 
+// Account provides methods to interact with the Algolia Search API on multiple
+// indices which belong to different Algolia applications.
 type Account struct{}
 
+// NewAccount instantiates a new account able to interact with the Algolia
+// Search API on multiple indices which belong to different Algolia
+// applications.
 func NewAccount() *Account {
 	return &Account{}
 }
 
+// CopyIndex copies the full content (objects, synonyms, rules, settings) of the
+// given src index into the dst one. This method can only be used with indices
+// which belong to different Algolia applications. To perform the same operation
+// on indices which belong to the same Algolia application, use Client.CopyIndex
+// which is optimized for this use-case.
 func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waitable, error) {
 	if src.GetAppID() == dst.GetAppID() {
 		return nil, errs.SameAppID
