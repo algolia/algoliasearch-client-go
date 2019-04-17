@@ -1,6 +1,7 @@
 # Algolia Search API Client for Go
 [![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.svg?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)
-[![GitHub release](https://img.shields.io/github/release/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
+[![GitHub release](https://img.shields.io/github/tag/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
+[![GitHub pre-release](https://img.shields.io/github/tag-pre/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
 [![GoDoc](https://godoc.org/github.com/algolia/algoliasearch-client-go?status.svg)](https://godoc.org/github.com/algolia/algoliasearch-client-go)
 [![Coverage Status](https://coveralls.io/repos/github/algolia/algoliasearch-client-go/badge.svg?branch=master)](https://coveralls.io/github/algolia/algoliasearch-client-go?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/algolia/algoliasearch-client-go)](https://goreportcard.com/report/github.com/algolia/algoliasearch-client-go)
