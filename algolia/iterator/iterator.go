@@ -2,10 +2,19 @@ package iterator
 
 import "reflect"
 
+// Iterator represents a generic iterator which accepts arbitrary parameters at
+// each `Next` invocation and which return any arbitrary object or a non-nil
+// error.
+//
+// This abstraction is used to be able to iterate over any kind of collection,
+// such as arrays, slices or anything else.
 type Iterator interface {
 	Next(opts ...interface{}) (interface{}, error)
 }
 
+// New is used to produce an `iterator.Iterator` out of Go arrays or slices or
+// any object instance implementing the `iterator.Iterator`. For now, Go
+// channels and maps are not supported.
 func New(itf interface{}) Iterator {
 	// First, if the given interface already is an iterator.Iterator,
 	// we return it as-is.
