@@ -5,17 +5,17 @@ import (
 	"net/http"
 )
 
-type EngineError struct {
+type EngineErr struct {
 	Message string `json:"message"`
 	Status  int    `json:"status"`
 }
 
-func (e EngineError) Error() string {
+func (e EngineErr) Error() string {
 	return fmt.Sprintf("Algolia API error [%d] %s", e.Status, e.Message)
 }
 
 func IsAlgolia404(err error) bool {
-	e, ok := err.(EngineError)
+	e, ok := err.(EngineErr)
 	if !ok {
 		return false
 	}
