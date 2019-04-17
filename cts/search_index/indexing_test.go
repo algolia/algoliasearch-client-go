@@ -169,8 +169,11 @@ func TestIndexing(t *testing.T) {
 	require.NoError(t, await.Wait())
 
 	{
-		_, err := index.BrowseObjects()
-		require.Equal(t, search.NoMoreHitsErr, err)
+		it, err := index.BrowseObjects()
+		require.NoError(t, err)
+
+		_, err = it.Next()
+		require.Equal(t, errs.NoMoreHitsErr, err)
 	}
 }
 

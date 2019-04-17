@@ -13,7 +13,7 @@ type ObjectIterator struct {
 
 func newObjectIterator(browser func(string) (browseRes, error)) (it *ObjectIterator, err error) {
 	it = &ObjectIterator{browser: browser}
-	err = it.loadNextPage()
+	it.page, err = it.browser("")
 	return
 }
 
