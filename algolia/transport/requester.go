@@ -23,18 +23,13 @@ type defaultRequester struct {
 }
 
 func newDefaultRequester() *defaultRequester {
-	// TODO use correct HTTPS setup for the default HTTP client
 	return &defaultRequester{
 		client: &http.Client{
 			Transport: &http.Transport{
-				//DialTLS: (&net.Dialer{
-				//	KeepAlive: DefaultKeepAliveDuration,
-				//	Timeout:   DefaultDNSResolutionTimeout,
-				//}).Dial,
-				Dial: (&net.Dialer{
+				DialContext: (&net.Dialer{
 					KeepAlive: DefaultKeepAliveDuration,
 					Timeout:   DefaultConnectTimeout,
-				}).Dial,
+				}).DialContext,
 				DisableKeepAlives:   false,
 				MaxIdleConnsPerHost: DefaultMaxIdleConnsPerHost,
 				Proxy:               http.ProxyFromEnvironment,
