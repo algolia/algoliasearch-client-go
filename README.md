@@ -1,4 +1,10 @@
 # Algolia Search API Client for Go
+[![Build Status](https://api.travis-ci.org/algolia/algoliasearch-client-go.svg?branch=master)](https://api.travis-ci.org/algolia/algoliasearch-client-go)
+[![GitHub release](https://img.shields.io/github/release/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
+[![GoDoc](https://godoc.org/github.com/algolia/algoliasearch-client-go?status.svg)](https://godoc.org/github.com/algolia/algoliasearch-client-go)
+[![Coverage Status](https://coveralls.io/repos/github/algolia/algoliasearch-client-go/badge.svg?branch=master)](https://coveralls.io/github/algolia/algoliasearch-client-go?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/algolia/algoliasearch-client-go)](https://goreportcard.com/report/github.com/algolia/algoliasearch-client-go)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
 [Algolia Search](https://www.algolia.com) is a hosted search engine capable of delivering realtime results from the first keystroke.
 
