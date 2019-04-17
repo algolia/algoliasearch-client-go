@@ -10,6 +10,7 @@ go:
 
 before_install:
   - go get -u github.com/rakyll/gotest
+  - go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
 install:
   - make deps
