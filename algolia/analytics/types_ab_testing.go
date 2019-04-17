@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+
+	"github.com/algolia/algoliasearch-client-go/algolia/search"
 )
 
 type ABTest struct {
@@ -29,8 +31,8 @@ func (abTest ABTest) MarshalJSON() ([]byte, error) {
 }
 
 type Variant struct {
-	Index                  string                 `json:"index"`
-	TrafficPercentage      int                    `json:"trafficPercentage"`
-	Description            string                 `json:"description,omitempty"`
-	CustomSearchParameters map[string]interface{} `json:"customSearchParameters,omitempty"` // TODO: Check type
+	Index                  string             `json:"index"`
+	TrafficPercentage      int                `json:"trafficPercentage"`
+	Description            string             `json:"description,omitempty"`
+	CustomSearchParameters search.QueryParams `json:"customSearchParameters,omitempty"`
 }
