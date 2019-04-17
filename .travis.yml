@@ -4,17 +4,17 @@ os:
   - linux
 
 go:
+  - "1.7"
   - "1.8"
-  - "1.11"
+  - "1.12"
 
 before_install:
-  - mkdir -p /home/travis/gopath/{src,bin,pkg}
-  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
   - go get -u github.com/rakyll/gotest
 
 install:
   - make deps
-  - make install
+  - make generate
+  - make lint
 
 script:
   - make test
