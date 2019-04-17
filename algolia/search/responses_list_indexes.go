@@ -11,7 +11,7 @@ type ListIndexesRes struct {
 }
 
 type IndexRes struct {
-	CreatedAt            time.Time     `json:"createdAt"`
+	CreatedAt            time.Time     `json:"_"`
 	DataSize             int64         `json:"dataSize"`
 	Entries              int64         `json:"entries"`
 	FileSize             int64         `json:"fileSize"`
@@ -19,7 +19,7 @@ type IndexRes struct {
 	Name                 string        `json:"name"`
 	NumberOfPendingTasks int64         `json:"numberOfPendingTasks"`
 	PendingTask          bool          `json:"pendingTask"`
-	UpdatedAt            time.Time     `json:"updatedAt"`
+	UpdatedAt            time.Time     `json:"_"`
 }
 
 func (r *IndexRes) UnmarshalJSON(data []byte) error {
@@ -29,14 +29,29 @@ func (r *IndexRes) UnmarshalJSON(data []byte) error {
 
 	type indexRes IndexRes
 	var res struct {
-		LastBuildTimeS int64 `json:"lastBuildTimeS"`
+		LastBuildTimeS int64  `json:"lastBuildTimeS"`
+		CreatedAt      string `json:"createdAt"`
+		UpdatedAt      string `json:"updatedAt"`
 		indexRes
 	}
 	err := json.Unmarshal(data, &res)
 	if err != nil {
 		return err
 	}
+
 	*r = IndexRes(res.indexRes)
 	r.LastBuildTime = time.Duration(res.LastBuildTimeS) * time.Second
+	if res.CreatedAt != "" {
+		r.CreatedAt, err = time.Parse(time.RFC3339, res.CreatedAt)
+		if err != nil {
+			return err
+		}
+	}
+	if res.UpdatedAt != "" {
+		r.UpdatedAt, err = time.Parse(time.RFC3339, res.UpdatedAt)
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }
