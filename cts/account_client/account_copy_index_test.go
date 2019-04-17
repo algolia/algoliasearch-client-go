@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
@@ -19,7 +20,7 @@ func TestAccountCopyIndex(t *testing.T) {
 	{
 		account := search.NewAccount()
 		_, err := account.CopyIndex(index1, index2)
-		require.Equal(t, search.SameAppIDErr, err)
+		require.Equal(t, errs.SameAppIDErr, err)
 	}
 
 	index2 = cts.InitSearchClient2(t).InitIndex(indexName2)
@@ -92,6 +93,6 @@ func TestAccountCopyIndex(t *testing.T) {
 	{
 		account := search.NewAccount()
 		_, err := account.CopyIndex(index1, index2)
-		require.Equal(t, search.IndexAlreadyExistsErr, err)
+		require.Equal(t, errs.IndexAlreadyExistsErr, err)
 	}
 }

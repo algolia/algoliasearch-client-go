@@ -2,6 +2,7 @@ package search
 
 import (
 	"github.com/algolia/algoliasearch-client-go/algolia/debug"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
 
 type RuleIterator struct {
@@ -21,7 +22,7 @@ func newRuleIterator(browser func(page int) (SearchRulesRes, error)) (it *RuleIt
 func (it *RuleIterator) Next(opts ...interface{}) (*Rule, error) {
 	if it.pos >= len(it.rules) {
 		if it.page >= it.nbPages {
-			return nil, NoMoreRulesErr
+			return nil, errs.NoMoreRulesErr
 		} else {
 			err := it.loadNextPage()
 			if err != nil {

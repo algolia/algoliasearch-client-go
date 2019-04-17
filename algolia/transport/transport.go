@@ -122,7 +122,7 @@ func (t *Transport) Request(
 		cancel()
 	}
 
-	return errs.ErrNoMoreHostToTry
+	return errs.ErrNoMoreHostToTryErr
 }
 
 func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
@@ -217,7 +217,7 @@ func unmarshalTo(r io.ReadCloser, v interface{}) error {
 }
 
 func unmarshalToError(r io.ReadCloser) error {
-	var algoliaErr AlgoliaError
+	var algoliaErr errs.EngineError
 	err := unmarshalTo(r, &algoliaErr)
 	if err != nil {
 		return err

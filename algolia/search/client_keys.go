@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
 
 func (c *Client) GetAPIKey(keyID string, opts ...interface{}) (key Key, err error) {
@@ -61,7 +61,7 @@ func (c *Client) waitKeyIsNotAvailable(keyID string) func() error {
 	return func() error {
 		return waitWithRetry(func() (bool, error) {
 			_, err := c.GetAPIKey(keyID)
-			if err == nil || !transport.IsAlgolia404(err) {
+			if err == nil || !errs.IsAlgolia404(err) {
 				return false, err
 			}
 			return true, nil

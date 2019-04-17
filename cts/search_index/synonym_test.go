@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
@@ -88,7 +89,7 @@ func TestSynonym(t *testing.T) {
 			for {
 				syn, err := it.Next()
 				if err != nil {
-					require.Equal(t, search.NoMoreSynonymsErr, err)
+					require.Equal(t, errs.NoMoreSynonymsErr, err)
 					break
 				}
 				found = append(found, syn)

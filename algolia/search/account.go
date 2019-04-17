@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
 
 type Account struct{}
@@ -14,11 +15,11 @@ func NewAccount() *Account {
 
 func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waitable, error) {
 	if src.GetAppID() == dst.GetAppID() {
-		return nil, SameAppIDErr
+		return nil, errs.SameAppIDErr
 	}
 
 	if _, err := dst.GetSettings(); err == nil {
-		return nil, IndexAlreadyExistsErr
+		return nil, errs.IndexAlreadyExistsErr
 	}
 
 	await := algolia.Await()
@@ -35,7 +36,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			synonym, err := it.Next()
 			if err != nil {
-				if err == NoMoreSynonymsErr {
+				if err == errs.NoMoreSynonymsErr {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index synonyms: %v", err)
@@ -65,7 +66,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			rule, err := it.Next()
 			if err != nil {
-				if err == NoMoreRulesErr {
+				if err == errs.NoMoreRulesErr {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index rules: %v", err)
@@ -110,7 +111,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			object, err := it.Next()
 			if err != nil {
-				if err == NoMoreHitsErr {
+				if err == errs.NoMoreHitsErr {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index objects: %v", err)

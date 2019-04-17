@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
@@ -102,7 +103,7 @@ func TestIndexing(t *testing.T) {
 			var object map[string]string
 			_, err := it.Next(&object)
 			i++
-			if err == search.NoMoreHitsErr {
+			if err == errs.NoMoreHitsErr {
 				break
 			}
 			require.NoError(t, err)

@@ -40,7 +40,7 @@ func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObj
 func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (res UpdateTaskRes, err error) {
 	objectID, ok := getObjectID(object)
 	if !ok {
-		err = errs.ErrMissingObjectID
+		err = errs.ErrMissingObjectIDErr
 		res.wait = noWait
 		return
 	}
@@ -62,7 +62,7 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 
 func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
 	if objectID == "" {
-		err = errs.ErrMissingObjectID
+		err = errs.ErrMissingObjectIDErr
 		res.wait = noWait
 		return
 	}
