@@ -15,7 +15,10 @@ func DecompoundedAttributes(v map[string][]string) *DecompoundedAttributesOption
 	return &DecompoundedAttributesOption{v}
 }
 
-func (o DecompoundedAttributesOption) Get() map[string][]string {
+func (o *DecompoundedAttributesOption) Get() map[string][]string {
+	if o == nil {
+		return map[string][]string{}
+	}
 	return o.value
 }
 

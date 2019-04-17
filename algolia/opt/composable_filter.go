@@ -54,7 +54,10 @@ type composableFilterGet interface {
 	Get() [][]string
 }
 
-func (o composableFilterOption) Get() [][]string {
+func (o *composableFilterOption) Get() [][]string {
+	if o == nil {
+		return nil
+	}
 	return o.filters
 }
 

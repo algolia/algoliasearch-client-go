@@ -12,7 +12,10 @@ func AroundPrecision(v int) *AroundPrecisionOption {
 	return &AroundPrecisionOption{v}
 }
 
-func (o AroundPrecisionOption) Get() int {
+func (o *AroundPrecisionOption) Get() int {
+	if o == nil {
+		return 1
+	}
 	return o.value
 }
 

@@ -15,7 +15,10 @@ func RestrictSearchableAttributes(v ...string) *RestrictSearchableAttributesOpti
 	return &RestrictSearchableAttributesOption{v}
 }
 
-func (o RestrictSearchableAttributesOption) Get() []string {
+func (o *RestrictSearchableAttributesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

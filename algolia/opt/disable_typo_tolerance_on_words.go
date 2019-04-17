@@ -15,7 +15,10 @@ func DisableTypoToleranceOnWords(v ...string) *DisableTypoToleranceOnWordsOption
 	return &DisableTypoToleranceOnWordsOption{v}
 }
 
-func (o DisableTypoToleranceOnWordsOption) Get() []string {
+func (o *DisableTypoToleranceOnWordsOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

@@ -12,7 +12,10 @@ func PercentileComputation(v bool) *PercentileComputationOption {
 	return &PercentileComputationOption{v}
 }
 
-func (o PercentileComputationOption) Get() bool {
+func (o *PercentileComputationOption) Get() bool {
+	if o == nil {
+		return true
+	}
 	return o.value
 }
 

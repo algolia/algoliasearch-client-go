@@ -12,7 +12,10 @@ func UserToken(v string) *UserTokenOption {
 	return &UserTokenOption{v}
 }
 
-func (o UserTokenOption) Get() string {
+func (o *UserTokenOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

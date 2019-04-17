@@ -12,7 +12,10 @@ func ForwardToReplicas(v bool) *ForwardToReplicasOption {
 	return &ForwardToReplicasOption{v}
 }
 
-func (o ForwardToReplicasOption) Get() bool {
+func (o *ForwardToReplicasOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

@@ -12,7 +12,10 @@ func FacetingAfterDistinct(v bool) *FacetingAfterDistinctOption {
 	return &FacetingAfterDistinctOption{v}
 }
 
-func (o FacetingAfterDistinctOption) Get() bool {
+func (o *FacetingAfterDistinctOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

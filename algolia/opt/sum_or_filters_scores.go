@@ -12,7 +12,10 @@ func SumOrFiltersScores(v bool) *SumOrFiltersScoresOption {
 	return &SumOrFiltersScoresOption{v}
 }
 
-func (o SumOrFiltersScoresOption) Get() bool {
+func (o *SumOrFiltersScoresOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

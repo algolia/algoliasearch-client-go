@@ -12,7 +12,10 @@ func Page(v int) *PageOption {
 	return &PageOption{v}
 }
 
-func (o PageOption) Get() int {
+func (o *PageOption) Get() int {
+	if o == nil {
+		return 0
+	}
 	return o.value
 }
 

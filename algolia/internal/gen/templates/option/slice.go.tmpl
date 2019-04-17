@@ -15,7 +15,10 @@ func {{ .Name }}(v ...{{ trimPrefix .Type "[]" }}) *{{ .Name }}Option {
     return &{{ .Name }}Option{v}
 }
 
-func (o {{ .Name }}Option) Get() {{ .Type }} {
+func (o *{{ .Name }}Option) Get() {{ .Type }} {
+    if o == nil {
+        return {{ .DefaultValue }}
+    }
     return o.value
 }
 

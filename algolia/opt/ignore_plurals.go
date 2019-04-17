@@ -18,7 +18,10 @@ func IgnorePluralsFor(languages ...string) *IgnorePluralsOption {
 	return &IgnorePluralsOption{languages: languages}
 }
 
-func (o IgnorePluralsOption) Get() (bool, []string) {
+func (o *IgnorePluralsOption) Get() (bool, []string) {
+	if o == nil {
+		return false, nil
+	}
 	return o.ignorePlurals, o.languages
 }
 

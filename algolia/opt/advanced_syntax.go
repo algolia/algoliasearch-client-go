@@ -12,7 +12,10 @@ func AdvancedSyntax(v bool) *AdvancedSyntaxOption {
 	return &AdvancedSyntaxOption{v}
 }
 
-func (o AdvancedSyntaxOption) Get() bool {
+func (o *AdvancedSyntaxOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

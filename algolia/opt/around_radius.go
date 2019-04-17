@@ -21,8 +21,8 @@ func AroundRadiusAll() *AroundRadiusOption {
 	return &AroundRadiusOption{isAll: true}
 }
 
-func (o AroundRadiusOption) Get() (int, string) {
-	if o.isAll {
+func (o *AroundRadiusOption) Get() (int, string) {
+	if o == nil || o.isAll {
 		return 0, "all"
 	}
 	return o.meters, ""

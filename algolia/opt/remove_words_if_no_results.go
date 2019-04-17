@@ -12,7 +12,10 @@ func RemoveWordsIfNoResults(v string) *RemoveWordsIfNoResultsOption {
 	return &RemoveWordsIfNoResultsOption{v}
 }
 
-func (o RemoveWordsIfNoResultsOption) Get() string {
+func (o *RemoveWordsIfNoResultsOption) Get() string {
+	if o == nil {
+		return "none"
+	}
 	return o.value
 }
 

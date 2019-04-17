@@ -12,7 +12,10 @@ func AllowCompressionOfIntegerArray(v bool) *AllowCompressionOfIntegerArrayOptio
 	return &AllowCompressionOfIntegerArrayOption{v}
 }
 
-func (o AllowCompressionOfIntegerArrayOption) Get() bool {
+func (o *AllowCompressionOfIntegerArrayOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

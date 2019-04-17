@@ -15,7 +15,10 @@ func OptionalWords(v ...string) *OptionalWordsOption {
 	return &OptionalWordsOption{v}
 }
 
-func (o OptionalWordsOption) Get() []string {
+func (o *OptionalWordsOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

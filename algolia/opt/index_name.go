@@ -12,7 +12,10 @@ func IndexName(v string) *IndexNameOption {
 	return &IndexNameOption{v}
 }
 
-func (o IndexNameOption) Get() string {
+func (o *IndexNameOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

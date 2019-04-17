@@ -12,7 +12,10 @@ func Anchoring(v string) *AnchoringOption {
 	return &AnchoringOption{v}
 }
 
-func (o AnchoringOption) Get() string {
+func (o *AnchoringOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

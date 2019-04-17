@@ -20,7 +20,10 @@ func NumericFilterAnd(filters ...interface{}) *NumericFiltersOption {
 	return &NumericFiltersOption{composableFilterAnd(filters...)}
 }
 
-func (o NumericFiltersOption) Get() [][]string {
+func (o *NumericFiltersOption) Get() [][]string {
+	if o == nil {
+		return nil
+	}
 	return o.comp.Get()
 }
 

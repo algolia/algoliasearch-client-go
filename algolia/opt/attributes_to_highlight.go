@@ -15,7 +15,10 @@ func AttributesToHighlight(v ...string) *AttributesToHighlightOption {
 	return &AttributesToHighlightOption{v}
 }
 
-func (o AttributesToHighlightOption) Get() []string {
+func (o *AttributesToHighlightOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

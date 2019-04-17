@@ -12,7 +12,10 @@ func MinWordSizefor1Typo(v int) *MinWordSizefor1TypoOption {
 	return &MinWordSizefor1TypoOption{v}
 }
 
-func (o MinWordSizefor1TypoOption) Get() int {
+func (o *MinWordSizefor1TypoOption) Get() int {
+	if o == nil {
+		return 4
+	}
 	return o.value
 }
 

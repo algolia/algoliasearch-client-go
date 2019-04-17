@@ -15,7 +15,10 @@ func RestrictSources(v ...string) *RestrictSourcesOption {
 	return &RestrictSourcesOption{v}
 }
 
-func (o RestrictSourcesOption) Get() []string {
+func (o *RestrictSourcesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

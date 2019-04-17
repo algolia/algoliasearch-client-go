@@ -15,7 +15,10 @@ func Scopes(v ...string) *ScopesOption {
 	return &ScopesOption{v}
 }
 
-func (o ScopesOption) Get() []string {
+func (o *ScopesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

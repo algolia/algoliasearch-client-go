@@ -12,7 +12,10 @@ func MinProximity(v int) *MinProximityOption {
 	return &MinProximityOption{v}
 }
 
-func (o MinProximityOption) Get() int {
+func (o *MinProximityOption) Get() int {
+	if o == nil {
+		return 1
+	}
 	return o.value
 }
 

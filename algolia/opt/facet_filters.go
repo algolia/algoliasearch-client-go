@@ -20,7 +20,10 @@ func FacetFilterAnd(filters ...interface{}) *FacetFiltersOption {
 	return &FacetFiltersOption{composableFilterAnd(filters...)}
 }
 
-func (o FacetFiltersOption) Get() [][]string {
+func (o *FacetFiltersOption) Get() [][]string {
+	if o == nil {
+		return nil
+	}
 	return o.comp.Get()
 }
 

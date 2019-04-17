@@ -12,7 +12,10 @@ func Query(v string) *QueryOption {
 	return &QueryOption{v}
 }
 
-func (o QueryOption) Get() string {
+func (o *QueryOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

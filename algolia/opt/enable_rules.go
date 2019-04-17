@@ -12,7 +12,10 @@ func EnableRules(v bool) *EnableRulesOption {
 	return &EnableRulesOption{v}
 }
 
-func (o EnableRulesOption) Get() bool {
+func (o *EnableRulesOption) Get() bool {
+	if o == nil {
+		return true
+	}
 	return o.value
 }
 

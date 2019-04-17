@@ -12,7 +12,10 @@ func EnablePersonalization(v bool) *EnablePersonalizationOption {
 	return &EnablePersonalizationOption{v}
 }
 
-func (o EnablePersonalizationOption) Get() bool {
+func (o *EnablePersonalizationOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

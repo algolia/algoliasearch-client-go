@@ -15,7 +15,10 @@ func AttributesToRetrieve(v ...string) *AttributesToRetrieveOption {
 	return &AttributesToRetrieveOption{v}
 }
 
-func (o AttributesToRetrieveOption) Get() []string {
+func (o *AttributesToRetrieveOption) Get() []string {
+	if o == nil {
+		return []string{"*"}
+	}
 	return o.value
 }
 

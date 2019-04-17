@@ -12,7 +12,10 @@ func AttributeForDistinct(v string) *AttributeForDistinctOption {
 	return &AttributeForDistinctOption{v}
 }
 
-func (o AttributeForDistinctOption) Get() string {
+func (o *AttributeForDistinctOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

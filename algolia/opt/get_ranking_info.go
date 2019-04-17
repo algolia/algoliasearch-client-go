@@ -12,7 +12,10 @@ func GetRankingInfo(v bool) *GetRankingInfoOption {
 	return &GetRankingInfoOption{v}
 }
 
-func (o GetRankingInfoOption) Get() bool {
+func (o *GetRankingInfoOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

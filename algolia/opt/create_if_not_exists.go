@@ -12,7 +12,10 @@ func CreateIfNotExists(v bool) *CreateIfNotExistsOption {
 	return &CreateIfNotExistsOption{v}
 }
 
-func (o CreateIfNotExistsOption) Get() bool {
+func (o *CreateIfNotExistsOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

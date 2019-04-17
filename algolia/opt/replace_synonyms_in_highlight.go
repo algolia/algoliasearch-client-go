@@ -12,7 +12,10 @@ func ReplaceSynonymsInHighlight(v bool) *ReplaceSynonymsInHighlightOption {
 	return &ReplaceSynonymsInHighlightOption{v}
 }
 
-func (o ReplaceSynonymsInHighlightOption) Get() bool {
+func (o *ReplaceSynonymsInHighlightOption) Get() bool {
+	if o == nil {
+		return true
+	}
 	return o.value
 }
 

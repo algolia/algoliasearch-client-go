@@ -15,7 +15,10 @@ func AdvancedSyntaxFeatures(v ...string) *AdvancedSyntaxFeaturesOption {
 	return &AdvancedSyntaxFeaturesOption{v}
 }
 
-func (o AdvancedSyntaxFeaturesOption) Get() []string {
+func (o *AdvancedSyntaxFeaturesOption) Get() []string {
+	if o == nil {
+		return []string{"exactPhrase", "excludeWords"}
+	}
 	return o.value
 }
 

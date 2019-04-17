@@ -15,7 +15,10 @@ func Explain(v ...string) *ExplainOption {
 	return &ExplainOption{v}
 }
 
-func (o ExplainOption) Get() []string {
+func (o *ExplainOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

@@ -15,7 +15,10 @@ func RestrictIndices(v ...string) *RestrictIndicesOption {
 	return &RestrictIndicesOption{v}
 }
 
-func (o RestrictIndicesOption) Get() []string {
+func (o *RestrictIndicesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

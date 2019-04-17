@@ -15,7 +15,10 @@ func AnalyticsTags(v ...string) *AnalyticsTagsOption {
 	return &AnalyticsTagsOption{v}
 }
 
-func (o AnalyticsTagsOption) Get() []string {
+func (o *AnalyticsTagsOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

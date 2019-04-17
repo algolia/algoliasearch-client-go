@@ -12,7 +12,10 @@ func AroundLatLng(v string) *AroundLatLngOption {
 	return &AroundLatLngOption{v}
 }
 
-func (o AroundLatLngOption) Get() string {
+func (o *AroundLatLngOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

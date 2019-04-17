@@ -12,7 +12,10 @@ func MaxValuesPerFacet(v int) *MaxValuesPerFacetOption {
 	return &MaxValuesPerFacetOption{v}
 }
 
-func (o MaxValuesPerFacetOption) Get() int {
+func (o *MaxValuesPerFacetOption) Get() int {
+	if o == nil {
+		return 100
+	}
 	return o.value
 }
 

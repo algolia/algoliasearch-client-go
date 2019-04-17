@@ -15,7 +15,10 @@ func Ranking(v ...string) *RankingOption {
 	return &RankingOption{v}
 }
 
-func (o RankingOption) Get() []string {
+func (o *RankingOption) Get() []string {
+	if o == nil {
+		return []string{"typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"}
+	}
 	return o.value
 }
 

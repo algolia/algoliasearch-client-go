@@ -15,7 +15,10 @@ func DisablePrefixOnAttributes(v ...string) *DisablePrefixOnAttributesOption {
 	return &DisablePrefixOnAttributesOption{v}
 }
 
-func (o DisablePrefixOnAttributesOption) Get() []string {
+func (o *DisablePrefixOnAttributesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

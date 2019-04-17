@@ -18,7 +18,10 @@ func RemoveStopWordsFor(languages ...string) *RemoveStopWordsOption {
 	return &RemoveStopWordsOption{languages: languages}
 }
 
-func (o RemoveStopWordsOption) Get() (bool, []string) {
+func (o *RemoveStopWordsOption) Get() (bool, []string) {
+	if o == nil {
+		return false, nil
+	}
 	return o.removeStopWords, o.languages
 }
 

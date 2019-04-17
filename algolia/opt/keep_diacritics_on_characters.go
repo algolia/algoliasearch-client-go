@@ -12,7 +12,10 @@ func KeepDiacriticsOnCharacters(v string) *KeepDiacriticsOnCharactersOption {
 	return &KeepDiacriticsOnCharactersOption{v}
 }
 
-func (o KeepDiacriticsOnCharactersOption) Get() string {
+func (o *KeepDiacriticsOnCharactersOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

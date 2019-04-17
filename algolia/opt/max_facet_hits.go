@@ -12,7 +12,10 @@ func MaxFacetHits(v int) *MaxFacetHitsOption {
 	return &MaxFacetHitsOption{v}
 }
 
-func (o MaxFacetHitsOption) Get() int {
+func (o *MaxFacetHitsOption) Get() int {
+	if o == nil {
+		return 10
+	}
 	return o.value
 }
 

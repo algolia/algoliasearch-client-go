@@ -12,7 +12,10 @@ func ClearExistingRules(v bool) *ClearExistingRulesOption {
 	return &ClearExistingRulesOption{v}
 }
 
-func (o ClearExistingRulesOption) Get() bool {
+func (o *ClearExistingRulesOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

@@ -12,7 +12,10 @@ func ClickAnalytics(v bool) *ClickAnalyticsOption {
 	return &ClickAnalyticsOption{v}
 }
 
-func (o ClickAnalyticsOption) Get() bool {
+func (o *ClickAnalyticsOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

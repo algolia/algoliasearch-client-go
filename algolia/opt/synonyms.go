@@ -12,7 +12,10 @@ func Synonyms(v bool) *SynonymsOption {
 	return &SynonymsOption{v}
 }
 
-func (o SynonymsOption) Get() bool {
+func (o *SynonymsOption) Get() bool {
+	if o == nil {
+		return true
+	}
 	return o.value
 }
 

@@ -15,7 +15,10 @@ func QueryLanguages(v ...string) *QueryLanguagesOption {
 	return &QueryLanguagesOption{v}
 }
 
-func (o QueryLanguagesOption) Get() []string {
+func (o *QueryLanguagesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

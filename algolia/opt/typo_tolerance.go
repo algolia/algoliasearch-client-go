@@ -23,7 +23,10 @@ func TypoToleranceStrict() *TypoToleranceOption {
 	return &TypoToleranceOption{value: "strict"}
 }
 
-func (o TypoToleranceOption) Get() (bool, string) {
+func (o *TypoToleranceOption) Get() (bool, string) {
+	if o == nil {
+		return true, ""
+	}
 	if o.value == "true" {
 		return true, ""
 	}

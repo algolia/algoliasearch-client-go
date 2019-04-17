@@ -15,7 +15,10 @@ func DisableExactOnAttributes(v ...string) *DisableExactOnAttributesOption {
 	return &DisableExactOnAttributesOption{v}
 }
 
-func (o DisableExactOnAttributesOption) Get() []string {
+func (o *DisableExactOnAttributesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

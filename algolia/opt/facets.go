@@ -15,7 +15,10 @@ func Facets(v ...string) *FacetsOption {
 	return &FacetsOption{v}
 }
 
-func (o FacetsOption) Get() []string {
+func (o *FacetsOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

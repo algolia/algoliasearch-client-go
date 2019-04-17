@@ -12,7 +12,10 @@ func AroundLatLngViaIP(v bool) *AroundLatLngViaIPOption {
 	return &AroundLatLngViaIPOption{v}
 }
 
-func (o AroundLatLngViaIPOption) Get() bool {
+func (o *AroundLatLngViaIPOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

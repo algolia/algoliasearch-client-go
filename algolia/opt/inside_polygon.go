@@ -20,7 +20,10 @@ func InsidePolygonFromCoordinates(coordinates string) *InsidePolygonOption {
 	return &InsidePolygonOption{coordinates: coordinates}
 }
 
-func (o InsidePolygonOption) Get() ([][]float64, string) {
+func (o *InsidePolygonOption) Get() ([][]float64, string) {
+	if o == nil {
+		return nil, ""
+	}
 	return o.polygons, o.coordinates
 }
 

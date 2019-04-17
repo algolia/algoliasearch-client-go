@@ -12,7 +12,10 @@ func SortFacetValuesBy(v string) *SortFacetValuesByOption {
 	return &SortFacetValuesByOption{v}
 }
 
-func (o SortFacetValuesByOption) Get() string {
+func (o *SortFacetValuesByOption) Get() string {
+	if o == nil {
+		return "count"
+	}
 	return o.value
 }
 

@@ -15,7 +15,10 @@ func NumericAttributesForFiltering(v ...string) *NumericAttributesForFilteringOp
 	return &NumericAttributesForFilteringOption{v}
 }
 
-func (o NumericAttributesForFilteringOption) Get() []string {
+func (o *NumericAttributesForFilteringOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

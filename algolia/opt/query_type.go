@@ -12,7 +12,10 @@ func QueryType(v string) *QueryTypeOption {
 	return &QueryTypeOption{v}
 }
 
-func (o QueryTypeOption) Get() string {
+func (o *QueryTypeOption) Get() string {
+	if o == nil {
+		return "prefixLast"
+	}
 	return o.value
 }
 

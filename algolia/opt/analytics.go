@@ -12,7 +12,10 @@ func Analytics(v bool) *AnalyticsOption {
 	return &AnalyticsOption{v}
 }
 
-func (o AnalyticsOption) Get() bool {
+func (o *AnalyticsOption) Get() bool {
+	if o == nil {
+		return true
+	}
 	return o.value
 }
 

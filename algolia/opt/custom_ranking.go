@@ -15,7 +15,10 @@ func CustomRanking(v ...string) *CustomRankingOption {
 	return &CustomRankingOption{v}
 }
 
-func (o CustomRankingOption) Get() []string {
+func (o *CustomRankingOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

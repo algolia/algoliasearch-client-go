@@ -12,7 +12,10 @@ func HighlightPostTag(v string) *HighlightPostTagOption {
 	return &HighlightPostTagOption{v}
 }
 
-func (o HighlightPostTagOption) Get() string {
+func (o *HighlightPostTagOption) Get() string {
+	if o == nil {
+		return "</em>"
+	}
 	return o.value
 }
 

@@ -15,7 +15,10 @@ func ExtraURLParams(v map[string]string) *ExtraURLParamsOption {
 	return &ExtraURLParamsOption{v}
 }
 
-func (o ExtraURLParamsOption) Get() map[string]string {
+func (o *ExtraURLParamsOption) Get() map[string]string {
+	if o == nil {
+		return map[string]string{}
+	}
 	return o.value
 }
 

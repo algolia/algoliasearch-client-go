@@ -12,7 +12,10 @@ func PaginationLimitedTo(v int) *PaginationLimitedToOption {
 	return &PaginationLimitedToOption{v}
 }
 
-func (o PaginationLimitedToOption) Get() int {
+func (o *PaginationLimitedToOption) Get() int {
+	if o == nil {
+		return 1000
+	}
 	return o.value
 }
 

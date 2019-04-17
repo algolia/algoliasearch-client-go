@@ -15,7 +15,10 @@ func SearchableAttributes(v ...string) *SearchableAttributesOption {
 	return &SearchableAttributesOption{v}
 }
 
-func (o SearchableAttributesOption) Get() []string {
+func (o *SearchableAttributesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

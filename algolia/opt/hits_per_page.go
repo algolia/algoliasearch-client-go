@@ -12,7 +12,10 @@ func HitsPerPage(v int) *HitsPerPageOption {
 	return &HitsPerPageOption{v}
 }
 
-func (o HitsPerPageOption) Get() int {
+func (o *HitsPerPageOption) Get() int {
+	if o == nil {
+		return 20
+	}
 	return o.value
 }
 

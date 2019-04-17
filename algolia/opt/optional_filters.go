@@ -20,7 +20,10 @@ func OptionalFilterAnd(filters ...interface{}) *OptionalFiltersOption {
 	return &OptionalFiltersOption{composableFilterAnd(filters...)}
 }
 
-func (o OptionalFiltersOption) Get() [][]string {
+func (o *OptionalFiltersOption) Get() [][]string {
+	if o == nil {
+		return nil
+	}
 	return o.comp.Get()
 }
 

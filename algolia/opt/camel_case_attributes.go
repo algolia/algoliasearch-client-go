@@ -15,7 +15,10 @@ func CamelCaseAttributes(v ...string) *CamelCaseAttributesOption {
 	return &CamelCaseAttributesOption{v}
 }
 
-func (o CamelCaseAttributesOption) Get() []string {
+func (o *CamelCaseAttributesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

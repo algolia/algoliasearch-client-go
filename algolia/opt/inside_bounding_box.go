@@ -20,7 +20,10 @@ func InsideBoundingBoxFromCoordinates(coordinates string) *InsideBoundingBoxOpti
 	return &InsideBoundingBoxOption{coordinates: coordinates}
 }
 
-func (o InsideBoundingBoxOption) Get() ([][4]float64, string) {
+func (o *InsideBoundingBoxOption) Get() ([][4]float64, string) {
+	if o == nil {
+		return nil, ""
+	}
 	return o.boxes, o.coordinates
 }
 

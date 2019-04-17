@@ -15,7 +15,10 @@ func ResponseFields(v ...string) *ResponseFieldsOption {
 	return &ResponseFieldsOption{v}
 }
 
-func (o ResponseFieldsOption) Get() []string {
+func (o *ResponseFieldsOption) Get() []string {
+	if o == nil {
+		return []string{"*"}
+	}
 	return o.value
 }
 

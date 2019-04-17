@@ -12,7 +12,10 @@ func Length(v int) *LengthOption {
 	return &LengthOption{v}
 }
 
-func (o LengthOption) Get() int {
+func (o *LengthOption) Get() int {
+	if o == nil {
+		return 0
+	}
 	return o.value
 }
 

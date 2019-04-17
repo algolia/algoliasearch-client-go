@@ -15,7 +15,10 @@ func ExtraHeaders(v map[string]string) *ExtraHeadersOption {
 	return &ExtraHeadersOption{v}
 }
 
-func (o ExtraHeadersOption) Get() map[string]string {
+func (o *ExtraHeadersOption) Get() map[string]string {
+	if o == nil {
+		return map[string]string{}
+	}
 	return o.value
 }
 

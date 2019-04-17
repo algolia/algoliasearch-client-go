@@ -12,7 +12,10 @@ func Filters(v string) *FiltersOption {
 	return &FiltersOption{v}
 }
 
-func (o FiltersOption) Get() string {
+func (o *FiltersOption) Get() string {
+	if o == nil {
+		return "attribute"
+	}
 	return o.value
 }
 

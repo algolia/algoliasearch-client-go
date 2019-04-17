@@ -12,7 +12,10 @@ func AutoGenerateObjectIDIfNotExist(v bool) *AutoGenerateObjectIDIfNotExistOptio
 	return &AutoGenerateObjectIDIfNotExistOption{v}
 }
 
-func (o AutoGenerateObjectIDIfNotExistOption) Get() bool {
+func (o *AutoGenerateObjectIDIfNotExistOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 

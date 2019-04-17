@@ -12,7 +12,10 @@ func Limit(v int) *LimitOption {
 	return &LimitOption{v}
 }
 
-func (o LimitOption) Get() int {
+func (o *LimitOption) Get() int {
+	if o == nil {
+		return 10
+	}
 	return o.value
 }
 

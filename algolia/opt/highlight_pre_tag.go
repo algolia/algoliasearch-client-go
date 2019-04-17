@@ -12,7 +12,10 @@ func HighlightPreTag(v string) *HighlightPreTagOption {
 	return &HighlightPreTagOption{v}
 }
 
-func (o HighlightPreTagOption) Get() string {
+func (o *HighlightPreTagOption) Get() string {
+	if o == nil {
+		return "<em>"
+	}
 	return o.value
 }
 

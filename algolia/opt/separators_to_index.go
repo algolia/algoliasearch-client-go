@@ -12,7 +12,10 @@ func SeparatorsToIndex(v string) *SeparatorsToIndexOption {
 	return &SeparatorsToIndexOption{v}
 }
 
-func (o SeparatorsToIndexOption) Get() string {
+func (o *SeparatorsToIndexOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

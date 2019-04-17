@@ -12,7 +12,10 @@ func ClusterName(v string) *ClusterNameOption {
 	return &ClusterNameOption{v}
 }
 
-func (o ClusterNameOption) Get() string {
+func (o *ClusterNameOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

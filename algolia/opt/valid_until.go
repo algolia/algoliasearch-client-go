@@ -13,7 +13,10 @@ func ValidUntil(v time.Time) *ValidUntilOption {
 	return &ValidUntilOption{v}
 }
 
-func (o ValidUntilOption) Get() time.Time {
+func (o *ValidUntilOption) Get() time.Time {
+	if o == nil {
+		return time.Time{}
+	}
 	return o.value
 }
 

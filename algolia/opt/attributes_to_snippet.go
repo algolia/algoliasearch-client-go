@@ -15,7 +15,10 @@ func AttributesToSnippet(v ...string) *AttributesToSnippetOption {
 	return &AttributesToSnippetOption{v}
 }
 
-func (o AttributesToSnippetOption) Get() []string {
+func (o *AttributesToSnippetOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

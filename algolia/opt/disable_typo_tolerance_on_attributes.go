@@ -15,7 +15,10 @@ func DisableTypoToleranceOnAttributes(v ...string) *DisableTypoToleranceOnAttrib
 	return &DisableTypoToleranceOnAttributesOption{v}
 }
 
-func (o DisableTypoToleranceOnAttributesOption) Get() []string {
+func (o *DisableTypoToleranceOnAttributesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

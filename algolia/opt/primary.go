@@ -12,7 +12,10 @@ func Primary(v string) *PrimaryOption {
 	return &PrimaryOption{v}
 }
 
-func (o PrimaryOption) Get() string {
+func (o *PrimaryOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

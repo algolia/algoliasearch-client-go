@@ -15,7 +15,10 @@ func UnretrievableAttributes(v ...string) *UnretrievableAttributesOption {
 	return &UnretrievableAttributesOption{v}
 }
 
-func (o UnretrievableAttributesOption) Get() []string {
+func (o *UnretrievableAttributesOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

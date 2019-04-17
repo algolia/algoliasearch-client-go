@@ -12,7 +12,10 @@ func ExactOnSingleWordQuery(v string) *ExactOnSingleWordQueryOption {
 	return &ExactOnSingleWordQueryOption{v}
 }
 
-func (o ExactOnSingleWordQueryOption) Get() string {
+func (o *ExactOnSingleWordQueryOption) Get() string {
+	if o == nil {
+		return "attribute"
+	}
 	return o.value
 }
 

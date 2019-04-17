@@ -15,7 +15,10 @@ func RuleContexts(v ...string) *RuleContextsOption {
 	return &RuleContextsOption{v}
 }
 
-func (o RuleContextsOption) Get() []string {
+func (o *RuleContextsOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

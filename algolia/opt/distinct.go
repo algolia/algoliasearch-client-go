@@ -21,7 +21,10 @@ func DistinctOf(v int) *DistinctOption {
 	return &DistinctOption{value: v}
 }
 
-func (o DistinctOption) Get() (bool, int) {
+func (o *DistinctOption) Get() (bool, int) {
+	if o == nil {
+		return false, 0
+	}
 	return o.value == 1, o.value
 }
 

@@ -12,7 +12,10 @@ func AllowTyposOnNumericTokens(v bool) *AllowTyposOnNumericTokensOption {
 	return &AllowTyposOnNumericTokensOption{v}
 }
 
-func (o AllowTyposOnNumericTokensOption) Get() bool {
+func (o *AllowTyposOnNumericTokensOption) Get() bool {
+	if o == nil {
+		return true
+	}
 	return o.value
 }
 

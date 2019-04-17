@@ -15,7 +15,10 @@ func Replicas(v ...string) *ReplicasOption {
 	return &ReplicasOption{v}
 }
 
-func (o ReplicasOption) Get() []string {
+func (o *ReplicasOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

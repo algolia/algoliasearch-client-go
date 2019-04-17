@@ -15,7 +15,10 @@ func AlternativesAsExact(v ...string) *AlternativesAsExactOption {
 	return &AlternativesAsExactOption{v}
 }
 
-func (o AlternativesAsExactOption) Get() []string {
+func (o *AlternativesAsExactOption) Get() []string {
+	if o == nil {
+		return []string{"ignorePlurals", "singleWordSynonym"}
+	}
 	return o.value
 }
 

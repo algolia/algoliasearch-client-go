@@ -10,7 +10,10 @@ func SnippetEllipsisText(v string) *SnippetEllipsisTextOption {
 	return &SnippetEllipsisTextOption{v}
 }
 
-func (o SnippetEllipsisTextOption) Get() string {
+func (o *SnippetEllipsisTextOption) Get() string {
+	if o == nil {
+		return "…"
+	}
 	return o.value
 }
 

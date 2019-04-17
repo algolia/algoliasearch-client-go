@@ -15,7 +15,10 @@ func Referers(v ...string) *ReferersOption {
 	return &ReferersOption{v}
 }
 
-func (o ReferersOption) Get() []string {
+func (o *ReferersOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

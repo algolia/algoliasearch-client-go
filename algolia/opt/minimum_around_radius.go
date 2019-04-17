@@ -12,7 +12,10 @@ func MinimumAroundRadius(v int) *MinimumAroundRadiusOption {
 	return &MinimumAroundRadiusOption{v}
 }
 
-func (o MinimumAroundRadiusOption) Get() int {
+func (o *MinimumAroundRadiusOption) Get() int {
+	if o == nil {
+		return 0
+	}
 	return o.value
 }
 

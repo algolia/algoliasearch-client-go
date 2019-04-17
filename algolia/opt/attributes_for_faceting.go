@@ -15,7 +15,10 @@ func AttributesForFaceting(v ...string) *AttributesForFacetingOption {
 	return &AttributesForFacetingOption{v}
 }
 
-func (o AttributesForFacetingOption) Get() []string {
+func (o *AttributesForFacetingOption) Get() []string {
+	if o == nil {
+		return []string{}
+	}
 	return o.value
 }
 

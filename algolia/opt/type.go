@@ -12,7 +12,10 @@ func Type(v string) *TypeOption {
 	return &TypeOption{v}
 }
 
-func (o TypeOption) Get() string {
+func (o *TypeOption) Get() string {
+	if o == nil {
+		return ""
+	}
 	return o.value
 }
 

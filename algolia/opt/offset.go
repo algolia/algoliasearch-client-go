@@ -12,7 +12,10 @@ func Offset(v int) *OffsetOption {
 	return &OffsetOption{v}
 }
 
-func (o OffsetOption) Get() int {
+func (o *OffsetOption) Get() int {
+	if o == nil {
+		return 0
+	}
 	return o.value
 }
 

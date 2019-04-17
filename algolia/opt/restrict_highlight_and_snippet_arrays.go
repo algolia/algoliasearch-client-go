@@ -12,7 +12,10 @@ func RestrictHighlightAndSnippetArrays(v bool) *RestrictHighlightAndSnippetArray
 	return &RestrictHighlightAndSnippetArraysOption{v}
 }
 
-func (o RestrictHighlightAndSnippetArraysOption) Get() bool {
+func (o *RestrictHighlightAndSnippetArraysOption) Get() bool {
+	if o == nil {
+		return false
+	}
 	return o.value
 }
 
