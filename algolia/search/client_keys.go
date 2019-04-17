@@ -61,7 +61,7 @@ func (c *Client) waitKeyIsNotAvailable(keyID string) func() error {
 	return func() error {
 		return waitWithRetry(func() (bool, error) {
 			_, err := c.GetAPIKey(keyID)
-			if err == nil || !errs.IsAlgolia404(err) {
+			if ok, _ := errs.IsAlgoliaHTTPErr(err, http.StatusNotFound); !ok {
 				return false, err
 			}
 			return true, nil
