@@ -15,11 +15,11 @@ func NewAccount() *Account {
 
 func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waitable, error) {
 	if src.GetAppID() == dst.GetAppID() {
-		return nil, errs.SameAppIDErr
+		return nil, errs.SameAppID
 	}
 
 	if _, err := dst.GetSettings(); err == nil {
-		return nil, errs.IndexAlreadyExistsErr
+		return nil, errs.IndexAlreadyExists
 	}
 
 	await := algolia.Await()
@@ -36,7 +36,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			synonym, err := it.Next()
 			if err != nil {
-				if err == errs.IteratorEndErr {
+				if err == errs.IteratorEnd {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index synonyms: %v", err)
@@ -66,7 +66,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			rule, err := it.Next()
 			if err != nil {
-				if err == errs.IteratorEndErr {
+				if err == errs.IteratorEnd {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index rules: %v", err)
@@ -111,7 +111,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			object, err := it.Next()
 			if err != nil {
-				if err == errs.IteratorEndErr {
+				if err == errs.IteratorEnd {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index objects: %v", err)

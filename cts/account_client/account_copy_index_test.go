@@ -20,7 +20,7 @@ func TestAccountCopyIndex(t *testing.T) {
 	{
 		account := search.NewAccount()
 		_, err := account.CopyIndex(index1, index2)
-		require.Equal(t, errs.SameAppIDErr, err)
+		require.Equal(t, errs.SameAppID, err)
 	}
 
 	index2 = cts.InitSearchClient2(t).InitIndex(indexName2)
@@ -93,6 +93,6 @@ func TestAccountCopyIndex(t *testing.T) {
 	{
 		account := search.NewAccount()
 		_, err := account.CopyIndex(index1, index2)
-		require.Equal(t, errs.IndexAlreadyExistsErr, err)
+		require.Equal(t, errs.IndexAlreadyExists, err)
 	}
 }

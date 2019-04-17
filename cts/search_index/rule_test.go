@@ -133,7 +133,7 @@ func TestQueryRule(t *testing.T) {
 			for {
 				rule, err := it.Next()
 				if err != nil {
-					require.Equal(t, errs.IteratorEndErr, err)
+					require.Equal(t, errs.IteratorEnd, err)
 					break
 				}
 				found = append(found, *rule)

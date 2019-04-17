@@ -122,7 +122,7 @@ func (t *Transport) Request(
 		cancel()
 	}
 
-	return errs.ErrNoMoreHostToTryErr
+	return errs.NoMoreHostToTry
 }
 
 func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {

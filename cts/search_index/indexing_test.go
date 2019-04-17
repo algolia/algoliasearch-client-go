@@ -103,7 +103,7 @@ func TestIndexing(t *testing.T) {
 			var object map[string]string
 			_, err := it.Next(&object)
 			i++
-			if err == errs.IteratorEndErr {
+			if err == errs.IteratorEnd {
 				break
 			}
 			require.NoError(t, err)
@@ -174,7 +174,7 @@ func TestIndexing(t *testing.T) {
 		require.NoError(t, err)
 
 		_, err = it.Next()
-		require.Equal(t, errs.IteratorEndErr, err)
+		require.Equal(t, errs.IteratorEnd, err)
 	}
 }
 
