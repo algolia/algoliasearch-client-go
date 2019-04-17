@@ -1,6 +1,9 @@
 package search
 
 import (
+	"encoding/json"
+	"fmt"
+
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
@@ -56,7 +59,15 @@ type SearchUserIDRes struct {
 type UserIDHit struct {
 	UserID
 	ObjectID        string      `json:"objectID"`
-	HighlightResult interface{} `json:"_highlightResult"` // TODO: provide an unmarshal method
+	HighlightResult interface{} `json:"_highlightResult"`
+}
+
+func (h UserIDHit) UnmarshalHighlightResult(v interface{}) error {
+	highlightResultPayload, err := json.Marshal(h.HighlightResult)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal HighlightResult from search userIDs response: %v", err)
+	}
+	return json.Unmarshal(highlightResultPayload, &v)
 }
 
 type searchUserIDsReq struct {
