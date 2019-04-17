@@ -13,7 +13,7 @@ func newSynonymIterator(synonyms []Synonym) *SynonymIterator {
 
 func (it *SynonymIterator) Next(opts ...interface{}) (Synonym, error) {
 	if it.pos >= len(it.synonyms) {
-		return nil, errs.NoMoreSynonymsErr
+		return nil, errs.IteratorEndErr
 	}
 	synonym := it.synonyms[it.pos]
 	it.pos++

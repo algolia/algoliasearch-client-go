@@ -89,7 +89,7 @@ func TestSynonym(t *testing.T) {
 			for {
 				syn, err := it.Next()
 				if err != nil {
-					require.Equal(t, errs.NoMoreSynonymsErr, err)
+					require.Equal(t, errs.IteratorEndErr, err)
 					break
 				}
 				found = append(found, syn)

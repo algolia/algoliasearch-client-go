@@ -26,7 +26,7 @@ func (it *ObjectIterator) loadNextPage() (err error) {
 
 	// Return an error if the newly loaded pages contains no results
 	if len(it.page.Hits) == 0 {
-		err = errs.NoMoreHitsErr
+		err = errs.IteratorEndErr
 		return
 	}
 
@@ -38,7 +38,7 @@ func (it *ObjectIterator) Next(opts ...interface{}) (interface{}, error) {
 	// Abort if the user call `Next()` on a IndexIterator that has been
 	// initialized without being able to load the first page.
 	if len(it.page.Hits) == 0 {
-		return nil, errs.NoMoreHitsErr
+		return nil, errs.IteratorEndErr
 	}
 
 	var err error
@@ -48,7 +48,7 @@ func (it *ObjectIterator) Next(opts ...interface{}) (interface{}, error) {
 	// been returned.
 	if it.pos == len(it.page.Hits) {
 		if it.page.Cursor == "" {
-			err = errs.NoMoreHitsErr
+			err = errs.IteratorEndErr
 		} else {
 			err = it.loadNextPage()
 		}

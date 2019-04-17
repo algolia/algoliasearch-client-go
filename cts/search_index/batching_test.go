@@ -56,7 +56,7 @@ func TestBatching(t *testing.T) {
 			var hit map[string]string
 			_, err := it.Next(&hit)
 			if err != nil {
-				require.Equal(t, errs.NoMoreHitsErr, err)
+				require.Equal(t, errs.IteratorEndErr, err)
 				break
 			}
 			found = append(found, hit)

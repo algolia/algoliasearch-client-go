@@ -36,7 +36,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			synonym, err := it.Next()
 			if err != nil {
-				if err == errs.NoMoreSynonymsErr {
+				if err == errs.IteratorEndErr {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index synonyms: %v", err)
@@ -66,7 +66,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			rule, err := it.Next()
 			if err != nil {
-				if err == errs.NoMoreRulesErr {
+				if err == errs.IteratorEndErr {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index rules: %v", err)
@@ -111,7 +111,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		for {
 			object, err := it.Next()
 			if err != nil {
-				if err == errs.NoMoreHitsErr {
+				if err == errs.IteratorEndErr {
 					break
 				} else {
 					return nil, fmt.Errorf("error while iterating source index objects: %v", err)
