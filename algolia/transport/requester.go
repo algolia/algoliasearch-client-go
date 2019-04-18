@@ -7,11 +7,10 @@ import (
 )
 
 const (
-	DefaultDNSResolutionTimeout = 2 * time.Second
-	DefaultConnectTimeout       = 2 * time.Second
-	DefaultKeepAliveDuration    = 5 * time.Minute
-	DefaultMaxIdleConnsPerHost  = 64
-	DefaultTLSHandshakeTimeout  = 2 * time.Second
+	DefaultConnectTimeout      = 2 * time.Second
+	DefaultKeepAliveDuration   = 5 * time.Minute
+	DefaultMaxIdleConnsPerHost = 64
+	DefaultTLSHandshakeTimeout = 2 * time.Second
 )
 
 type Requester interface {
@@ -26,10 +25,10 @@ func newDefaultRequester() *defaultRequester {
 	return &defaultRequester{
 		client: &http.Client{
 			Transport: &http.Transport{
-				DialContext: (&net.Dialer{
+				Dial: (&net.Dialer{
 					KeepAlive: DefaultKeepAliveDuration,
 					Timeout:   DefaultConnectTimeout,
-				}).DialContext,
+				}).Dial,
 				DisableKeepAlives:   false,
 				MaxIdleConnsPerHost: DefaultMaxIdleConnsPerHost,
 				Proxy:               http.ProxyFromEnvironment,

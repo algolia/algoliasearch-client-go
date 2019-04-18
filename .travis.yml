@@ -4,11 +4,12 @@ os:
   - linux
 
 go:
-  - "1.8"
+  - "1.9"
   - "1.12"
 
 before_install:
   - go get -u github.com/rakyll/gotest
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
 install:
   - make deps
