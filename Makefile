@@ -1,7 +1,8 @@
 all: deps generate lint test
 
 deps:
-	go get -u ./...
+	dep ensure -vendor-only
+	go get ./...
 
 generate:
 	go generate ./...
