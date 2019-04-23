@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractReferers returns the first found ReferersOption from the
+// given variadic arguments or nil otherwise.
 func ExtractReferers(opts ...interface{}) *opt.ReferersOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ReferersOption); ok {

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAllowTyposOnNumericTokens returns the first found AllowTyposOnNumericTokensOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAllowTyposOnNumericTokens(opts ...interface{}) *opt.AllowTyposOnNumericTokensOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AllowTyposOnNumericTokensOption); ok {

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAutoGenerateObjectIDIfNotExist returns the first found AutoGenerateObjectIDIfNotExistOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAutoGenerateObjectIDIfNotExist(opts ...interface{}) *opt.AutoGenerateObjectIDIfNotExistOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AutoGenerateObjectIDIfNotExistOption); ok {

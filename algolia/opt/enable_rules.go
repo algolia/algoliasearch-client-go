@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// EnableRulesOption is a wrapper for an EnableRules option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type EnableRulesOption struct {
 	value bool
 }
 
+// EnableRules wraps the given value into a EnableRulesOption.
 func EnableRules(v bool) *EnableRulesOption {
 	return &EnableRulesOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *EnableRulesOption) Get() bool {
 	if o == nil {
 		return true
@@ -19,10 +23,14 @@ func (o *EnableRulesOption) Get() bool {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// EnableRulesOption.
 func (o EnableRulesOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// EnableRulesOption.
 func (o *EnableRulesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = true
@@ -31,6 +39,9 @@ func (o *EnableRulesOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *EnableRulesOption) Equal(o2 *EnableRulesOption) bool {
 	if o2 == nil {
 		return o.value == true
@@ -38,6 +49,9 @@ func (o *EnableRulesOption) Equal(o2 *EnableRulesOption) bool {
 	return o.value == o2.value
 }
 
+// EnableRulesEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func EnableRulesEqual(o1, o2 *EnableRulesOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractRestrictIndices returns the first found RestrictIndicesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractRestrictIndices(opts ...interface{}) *opt.RestrictIndicesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.RestrictIndicesOption); ok {

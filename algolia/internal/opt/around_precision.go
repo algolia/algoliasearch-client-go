@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAroundPrecision returns the first found AroundPrecisionOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAroundPrecision(opts ...interface{}) *opt.AroundPrecisionOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AroundPrecisionOption); ok {

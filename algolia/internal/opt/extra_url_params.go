@@ -6,6 +6,9 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractExtraURLParams returns the first found ExtraURLParamsOption from the
+// given variadic arguments or nil otherwise. If multiple options are found, the
+// inner maps are merged.
 func ExtractExtraURLParams(opts ...interface{}) *opt.ExtraURLParamsOption {
 	merged := make(map[string]string)
 

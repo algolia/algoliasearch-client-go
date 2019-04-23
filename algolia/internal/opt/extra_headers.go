@@ -6,6 +6,9 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractExtraHeaders returns the first found ExtraHeadersOption from the
+// given variadic arguments or nil otherwise. If multiple options are found, the
+// inner maps are merged.
 func ExtractExtraHeaders(opts ...interface{}) *opt.ExtraHeadersOption {
 	merged := make(map[string]string)
 

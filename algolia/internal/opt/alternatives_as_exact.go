@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAlternativesAsExact returns the first found AlternativesAsExactOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAlternativesAsExact(opts ...interface{}) *opt.AlternativesAsExactOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AlternativesAsExactOption); ok {

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractQueryLanguages returns the first found QueryLanguagesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractQueryLanguages(opts ...interface{}) *opt.QueryLanguagesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.QueryLanguagesOption); ok {

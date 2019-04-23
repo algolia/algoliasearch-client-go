@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractHighlightPreTag returns the first found HighlightPreTagOption from the
+// given variadic arguments or nil otherwise.
 func ExtractHighlightPreTag(opts ...interface{}) *opt.HighlightPreTagOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.HighlightPreTagOption); ok {

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractRestrictSources returns the first found RestrictSourcesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractRestrictSources(opts ...interface{}) *opt.RestrictSourcesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.RestrictSourcesOption); ok {

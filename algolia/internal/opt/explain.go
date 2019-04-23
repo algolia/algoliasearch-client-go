@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractExplain returns the first found ExplainOption from the
+// given variadic arguments or nil otherwise.
 func ExtractExplain(opts ...interface{}) *opt.ExplainOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ExplainOption); ok {

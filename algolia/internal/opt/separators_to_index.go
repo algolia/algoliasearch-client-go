@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractSeparatorsToIndex returns the first found SeparatorsToIndexOption from the
+// given variadic arguments or nil otherwise.
 func ExtractSeparatorsToIndex(opts ...interface{}) *opt.SeparatorsToIndexOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.SeparatorsToIndexOption); ok {

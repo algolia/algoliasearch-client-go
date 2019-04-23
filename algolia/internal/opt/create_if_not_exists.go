@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractCreateIfNotExists returns the first found CreateIfNotExistsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractCreateIfNotExists(opts ...interface{}) *opt.CreateIfNotExistsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.CreateIfNotExistsOption); ok {

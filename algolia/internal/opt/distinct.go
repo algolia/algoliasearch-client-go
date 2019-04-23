@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractDistinct returns the first found DistinctOption from the
+// given variadic arguments or nil otherwise.
 func ExtractDistinct(opts ...interface{}) *opt.DistinctOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.DistinctOption); ok {

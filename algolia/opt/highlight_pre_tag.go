@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// HighlightPreTagOption is a wrapper for an HighlightPreTag option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type HighlightPreTagOption struct {
 	value string
 }
 
+// HighlightPreTag wraps the given value into a HighlightPreTagOption.
 func HighlightPreTag(v string) *HighlightPreTagOption {
 	return &HighlightPreTagOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *HighlightPreTagOption) Get() string {
 	if o == nil {
 		return "<em>"
@@ -19,10 +23,14 @@ func (o *HighlightPreTagOption) Get() string {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// HighlightPreTagOption.
 func (o HighlightPreTagOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// HighlightPreTagOption.
 func (o *HighlightPreTagOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = "<em>"
@@ -31,6 +39,9 @@ func (o *HighlightPreTagOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *HighlightPreTagOption) Equal(o2 *HighlightPreTagOption) bool {
 	if o2 == nil {
 		return o.value == "<em>"
@@ -38,6 +49,9 @@ func (o *HighlightPreTagOption) Equal(o2 *HighlightPreTagOption) bool {
 	return o.value == o2.value
 }
 
+// HighlightPreTagEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func HighlightPreTagEqual(o1, o2 *HighlightPreTagOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// PercentileComputationOption is a wrapper for an PercentileComputation option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type PercentileComputationOption struct {
 	value bool
 }
 
+// PercentileComputation wraps the given value into a PercentileComputationOption.
 func PercentileComputation(v bool) *PercentileComputationOption {
 	return &PercentileComputationOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *PercentileComputationOption) Get() bool {
 	if o == nil {
 		return true
@@ -19,10 +23,14 @@ func (o *PercentileComputationOption) Get() bool {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// PercentileComputationOption.
 func (o PercentileComputationOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// PercentileComputationOption.
 func (o *PercentileComputationOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = true
@@ -31,6 +39,9 @@ func (o *PercentileComputationOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *PercentileComputationOption) Equal(o2 *PercentileComputationOption) bool {
 	if o2 == nil {
 		return o.value == true
@@ -38,6 +49,9 @@ func (o *PercentileComputationOption) Equal(o2 *PercentileComputationOption) boo
 	return o.value == o2.value
 }
 
+// PercentileComputationEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func PercentileComputationEqual(o1, o2 *PercentileComputationOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

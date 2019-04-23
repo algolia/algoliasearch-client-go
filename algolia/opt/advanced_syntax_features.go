@@ -7,14 +7,18 @@ import (
 	"reflect"
 )
 
+// AdvancedSyntaxFeaturesOption is a wrapper for an AdvancedSyntaxFeatures option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type AdvancedSyntaxFeaturesOption struct {
 	value []string
 }
 
+// AdvancedSyntaxFeatures wraps the given value into a AdvancedSyntaxFeaturesOption.
 func AdvancedSyntaxFeatures(v ...string) *AdvancedSyntaxFeaturesOption {
 	return &AdvancedSyntaxFeaturesOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *AdvancedSyntaxFeaturesOption) Get() []string {
 	if o == nil {
 		return []string{"exactPhrase", "excludeWords"}
@@ -22,10 +26,14 @@ func (o *AdvancedSyntaxFeaturesOption) Get() []string {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// AdvancedSyntaxFeaturesOption.
 func (o AdvancedSyntaxFeaturesOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// AdvancedSyntaxFeaturesOption.
 func (o *AdvancedSyntaxFeaturesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = []string{"exactPhrase", "excludeWords"}
@@ -34,6 +42,9 @@ func (o *AdvancedSyntaxFeaturesOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *AdvancedSyntaxFeaturesOption) Equal(o2 *AdvancedSyntaxFeaturesOption) bool {
 	if o2 == nil {
 		return reflect.DeepEqual(o.value, []string{"exactPhrase", "excludeWords"})
@@ -41,6 +52,9 @@ func (o *AdvancedSyntaxFeaturesOption) Equal(o2 *AdvancedSyntaxFeaturesOption) b
 	return reflect.DeepEqual(o.value, o2.value)
 }
 
+// AdvancedSyntaxFeaturesEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func AdvancedSyntaxFeaturesEqual(o1, o2 *AdvancedSyntaxFeaturesOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

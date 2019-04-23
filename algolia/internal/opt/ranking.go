@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractRanking returns the first found RankingOption from the
+// given variadic arguments or nil otherwise.
 func ExtractRanking(opts ...interface{}) *opt.RankingOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.RankingOption); ok {

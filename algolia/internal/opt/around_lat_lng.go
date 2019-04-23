@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAroundLatLng returns the first found AroundLatLngOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAroundLatLng(opts ...interface{}) *opt.AroundLatLngOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AroundLatLngOption); ok {

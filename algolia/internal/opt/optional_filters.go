@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractOptionalFilters returns the first found OptionalFiltersOption from the
+// given variadic arguments or nil otherwise.
 func ExtractOptionalFilters(opts ...interface{}) *opt.OptionalFiltersOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.OptionalFiltersOption); ok {

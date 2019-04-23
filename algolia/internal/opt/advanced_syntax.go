@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAdvancedSyntax returns the first found AdvancedSyntaxOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAdvancedSyntax(opts ...interface{}) *opt.AdvancedSyntaxOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AdvancedSyntaxOption); ok {

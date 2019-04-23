@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractType returns the first found TypeOption from the
+// given variadic arguments or nil otherwise.
 func ExtractType(opts ...interface{}) *opt.TypeOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.TypeOption); ok {

@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// MinWordSizefor2TyposOption is a wrapper for an MinWordSizefor2Typos option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type MinWordSizefor2TyposOption struct {
 	value int
 }
 
+// MinWordSizefor2Typos wraps the given value into a MinWordSizefor2TyposOption.
 func MinWordSizefor2Typos(v int) *MinWordSizefor2TyposOption {
 	return &MinWordSizefor2TyposOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *MinWordSizefor2TyposOption) Get() int {
 	if o == nil {
 		return 8
@@ -19,10 +23,14 @@ func (o *MinWordSizefor2TyposOption) Get() int {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// MinWordSizefor2TyposOption.
 func (o MinWordSizefor2TyposOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// MinWordSizefor2TyposOption.
 func (o *MinWordSizefor2TyposOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = 8
@@ -31,6 +39,9 @@ func (o *MinWordSizefor2TyposOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *MinWordSizefor2TyposOption) Equal(o2 *MinWordSizefor2TyposOption) bool {
 	if o2 == nil {
 		return o.value == 8
@@ -38,6 +49,9 @@ func (o *MinWordSizefor2TyposOption) Equal(o2 *MinWordSizefor2TyposOption) bool 
 	return o.value == o2.value
 }
 
+// MinWordSizefor2TyposEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func MinWordSizefor2TyposEqual(o1, o2 *MinWordSizefor2TyposOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

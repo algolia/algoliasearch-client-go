@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractPercentileComputation returns the first found PercentileComputationOption from the
+// given variadic arguments or nil otherwise.
 func ExtractPercentileComputation(opts ...interface{}) *opt.PercentileComputationOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.PercentileComputationOption); ok {

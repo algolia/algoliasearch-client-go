@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractIndexName returns the first found IndexNameOption from the
+// given variadic arguments or nil otherwise.
 func ExtractIndexName(opts ...interface{}) *opt.IndexNameOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.IndexNameOption); ok {

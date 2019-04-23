@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractDisableTypoToleranceOnAttributes returns the first found DisableTypoToleranceOnAttributesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractDisableTypoToleranceOnAttributes(opts ...interface{}) *opt.DisableTypoToleranceOnAttributesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.DisableTypoToleranceOnAttributesOption); ok {

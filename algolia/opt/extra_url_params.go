@@ -7,14 +7,18 @@ import (
 	"reflect"
 )
 
+// ExtraURLParamsOption is a wrapper for an ExtraURLParams option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type ExtraURLParamsOption struct {
 	value map[string]string
 }
 
+// ExtraURLParams wraps the given value into a ExtraURLParamsOption.
 func ExtraURLParams(v map[string]string) *ExtraURLParamsOption {
 	return &ExtraURLParamsOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *ExtraURLParamsOption) Get() map[string]string {
 	if o == nil {
 		return map[string]string{}
@@ -22,10 +26,14 @@ func (o *ExtraURLParamsOption) Get() map[string]string {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// ExtraURLParamsOption.
 func (o ExtraURLParamsOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// ExtraURLParamsOption.
 func (o *ExtraURLParamsOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = map[string]string{}
@@ -34,6 +42,9 @@ func (o *ExtraURLParamsOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *ExtraURLParamsOption) Equal(o2 *ExtraURLParamsOption) bool {
 	if o2 == nil {
 		return reflect.DeepEqual(o.value, map[string]string{})
@@ -41,6 +52,9 @@ func (o *ExtraURLParamsOption) Equal(o2 *ExtraURLParamsOption) bool {
 	return reflect.DeepEqual(o.value, o2.value)
 }
 
+// ExtraURLParamsEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func ExtraURLParamsEqual(o1, o2 *ExtraURLParamsOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

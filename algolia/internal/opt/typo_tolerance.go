@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractTypoTolerance returns the first found TypoToleranceOption from the
+// given variadic arguments or nil otherwise.
 func ExtractTypoTolerance(opts ...interface{}) *opt.TypoToleranceOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.TypoToleranceOption); ok {

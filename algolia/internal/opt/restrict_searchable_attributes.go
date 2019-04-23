@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractRestrictSearchableAttributes returns the first found RestrictSearchableAttributesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractRestrictSearchableAttributes(opts ...interface{}) *opt.RestrictSearchableAttributesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.RestrictSearchableAttributesOption); ok {

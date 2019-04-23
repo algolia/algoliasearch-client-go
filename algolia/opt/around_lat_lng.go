@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// AroundLatLngOption is a wrapper for an AroundLatLng option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type AroundLatLngOption struct {
 	value string
 }
 
+// AroundLatLng wraps the given value into a AroundLatLngOption.
 func AroundLatLng(v string) *AroundLatLngOption {
 	return &AroundLatLngOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *AroundLatLngOption) Get() string {
 	if o == nil {
 		return ""
@@ -19,10 +23,14 @@ func (o *AroundLatLngOption) Get() string {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// AroundLatLngOption.
 func (o AroundLatLngOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// AroundLatLngOption.
 func (o *AroundLatLngOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = ""
@@ -31,6 +39,9 @@ func (o *AroundLatLngOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *AroundLatLngOption) Equal(o2 *AroundLatLngOption) bool {
 	if o2 == nil {
 		return o.value == ""
@@ -38,6 +49,9 @@ func (o *AroundLatLngOption) Equal(o2 *AroundLatLngOption) bool {
 	return o.value == o2.value
 }
 
+// AroundLatLngEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func AroundLatLngEqual(o1, o2 *AroundLatLngOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

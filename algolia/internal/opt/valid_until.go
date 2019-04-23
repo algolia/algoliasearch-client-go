@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractValidUntil returns the first found ValidUntilOption from the
+// given variadic arguments or nil otherwise.
 func ExtractValidUntil(opts ...interface{}) *opt.ValidUntilOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ValidUntilOption); ok {

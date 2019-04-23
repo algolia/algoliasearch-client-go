@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractHighlightPostTag returns the first found HighlightPostTagOption from the
+// given variadic arguments or nil otherwise.
 func ExtractHighlightPostTag(opts ...interface{}) *opt.HighlightPostTagOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.HighlightPostTagOption); ok {

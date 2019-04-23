@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractMinProximity returns the first found MinProximityOption from the
+// given variadic arguments or nil otherwise.
 func ExtractMinProximity(opts ...interface{}) *opt.MinProximityOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.MinProximityOption); ok {

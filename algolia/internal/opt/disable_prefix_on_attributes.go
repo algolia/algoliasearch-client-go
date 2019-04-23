@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractDisablePrefixOnAttributes returns the first found DisablePrefixOnAttributesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractDisablePrefixOnAttributes(opts ...interface{}) *opt.DisablePrefixOnAttributesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.DisablePrefixOnAttributesOption); ok {

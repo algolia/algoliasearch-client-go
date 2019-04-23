@@ -6,6 +6,9 @@ import (
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// Extract{{ title .}} returns the first found {{ title . }}Option from the
+// given variadic arguments or nil otherwise. If multiple options are found, the
+// inner maps are merged.
 func Extract{{ title . }}(opts ...interface{}) *opt.{{ title . }}Option {
 	merged := make(map[string]string)
 

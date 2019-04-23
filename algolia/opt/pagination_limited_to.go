@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// PaginationLimitedToOption is a wrapper for an PaginationLimitedTo option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type PaginationLimitedToOption struct {
 	value int
 }
 
+// PaginationLimitedTo wraps the given value into a PaginationLimitedToOption.
 func PaginationLimitedTo(v int) *PaginationLimitedToOption {
 	return &PaginationLimitedToOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *PaginationLimitedToOption) Get() int {
 	if o == nil {
 		return 1000
@@ -19,10 +23,14 @@ func (o *PaginationLimitedToOption) Get() int {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// PaginationLimitedToOption.
 func (o PaginationLimitedToOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// PaginationLimitedToOption.
 func (o *PaginationLimitedToOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = 1000
@@ -31,6 +39,9 @@ func (o *PaginationLimitedToOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *PaginationLimitedToOption) Equal(o2 *PaginationLimitedToOption) bool {
 	if o2 == nil {
 		return o.value == 1000
@@ -38,6 +49,9 @@ func (o *PaginationLimitedToOption) Equal(o2 *PaginationLimitedToOption) bool {
 	return o.value == o2.value
 }
 
+// PaginationLimitedToEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func PaginationLimitedToEqual(o1, o2 *PaginationLimitedToOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

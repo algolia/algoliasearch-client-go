@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractQueryType returns the first found QueryTypeOption from the
+// given variadic arguments or nil otherwise.
 func ExtractQueryType(opts ...interface{}) *opt.QueryTypeOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.QueryTypeOption); ok {

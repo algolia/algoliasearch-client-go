@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAnchoring returns the first found AnchoringOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAnchoring(opts ...interface{}) *opt.AnchoringOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AnchoringOption); ok {

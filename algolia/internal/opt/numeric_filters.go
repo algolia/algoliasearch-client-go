@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractNumericFilters returns the first found NumericFiltersOption from the
+// given variadic arguments or nil otherwise.
 func ExtractNumericFilters(opts ...interface{}) *opt.NumericFiltersOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.NumericFiltersOption); ok {

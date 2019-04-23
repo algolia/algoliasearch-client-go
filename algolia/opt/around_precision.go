@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// AroundPrecisionOption is a wrapper for an AroundPrecision option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type AroundPrecisionOption struct {
 	value int
 }
 
+// AroundPrecision wraps the given value into a AroundPrecisionOption.
 func AroundPrecision(v int) *AroundPrecisionOption {
 	return &AroundPrecisionOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *AroundPrecisionOption) Get() int {
 	if o == nil {
 		return 1
@@ -19,10 +23,14 @@ func (o *AroundPrecisionOption) Get() int {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// AroundPrecisionOption.
 func (o AroundPrecisionOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// AroundPrecisionOption.
 func (o *AroundPrecisionOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = 1
@@ -31,6 +39,9 @@ func (o *AroundPrecisionOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *AroundPrecisionOption) Equal(o2 *AroundPrecisionOption) bool {
 	if o2 == nil {
 		return o.value == 1
@@ -38,6 +49,9 @@ func (o *AroundPrecisionOption) Equal(o2 *AroundPrecisionOption) bool {
 	return o.value == o2.value
 }
 
+// AroundPrecisionEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func AroundPrecisionEqual(o1, o2 *AroundPrecisionOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

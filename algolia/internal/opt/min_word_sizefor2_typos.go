@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractMinWordSizefor2Typos returns the first found MinWordSizefor2TyposOption from the
+// given variadic arguments or nil otherwise.
 func ExtractMinWordSizefor2Typos(opts ...interface{}) *opt.MinWordSizefor2TyposOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.MinWordSizefor2TyposOption); ok {

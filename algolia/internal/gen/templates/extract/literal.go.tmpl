@@ -6,6 +6,8 @@ import (
     "github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// Extract{{ title .}} returns the first found {{ title . }}Option from the
+// given variadic arguments or nil otherwise.
 func Extract{{ title . }}(opts ...interface{}) *opt.{{ title . }}Option {
     for _, o := range opts {
         if v, ok := o.(*opt.{{ title . }}Option); ok {

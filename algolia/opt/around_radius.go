@@ -8,19 +8,24 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 )
 
+// AroundRadiusOption is a wrapper for an AroundRadius option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type AroundRadiusOption struct {
 	meters int
 	isAll  bool
 }
 
+// AroundRadius wraps the given value into an AroundRadiusOption.
 func AroundRadius(meters int) *AroundRadiusOption {
 	return &AroundRadiusOption{meters: meters}
 }
 
+// AroundRadiusAll returns an AroundRadiusOption whose value is set to "all".
 func AroundRadiusAll() *AroundRadiusOption {
 	return &AroundRadiusOption{isAll: true}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *AroundRadiusOption) Get() (int, string) {
 	if o == nil || o.isAll {
 		return 0, "all"
@@ -28,6 +33,8 @@ func (o *AroundRadiusOption) Get() (int, string) {
 	return o.meters, ""
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// AroundRadiusOption.
 func (o AroundRadiusOption) MarshalJSON() ([]byte, error) {
 	if o.isAll {
 		return []byte(`"all"`), nil
@@ -40,6 +47,8 @@ func (o AroundRadiusOption) MarshalJSON() ([]byte, error) {
 	return []byte("null"), nil
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// AroundRadiusOption.
 func (o *AroundRadiusOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		return nil
@@ -60,6 +69,9 @@ func (o *AroundRadiusOption) UnmarshalJSON(data []byte) error {
 	return errs.ErrJSONDecode(data, "AroundRadiusOption")
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *AroundRadiusOption) Equal(o2 *AroundRadiusOption) bool {
 	if o2 == nil {
 		return !o.isAll && o.meters == 0
@@ -67,6 +79,9 @@ func (o *AroundRadiusOption) Equal(o2 *AroundRadiusOption) bool {
 	return reflect.DeepEqual(o, o2)
 }
 
+// AroundRadiusEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func AroundRadiusEqual(o1, o2 *AroundRadiusOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

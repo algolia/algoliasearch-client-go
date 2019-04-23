@@ -7,6 +7,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// QueryParams represents all the parameters that can be passed at query time.
 type QueryParams struct {
 	AttributesToRetrieve              *opt.AttributesToRetrieveOption              `json:"attributesToRetrieve,omitempty"`
 	RestrictSearchableAttributes      *opt.RestrictSearchableAttributesOption      `json:"restrictSearchableAttributes,omitempty"`

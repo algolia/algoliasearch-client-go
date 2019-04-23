@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractClusterName returns the first found ClusterNameOption from the
+// given variadic arguments or nil otherwise.
 func ExtractClusterName(opts ...interface{}) *opt.ClusterNameOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ClusterNameOption); ok {

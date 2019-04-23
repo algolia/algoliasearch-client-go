@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// MaxValuesPerFacetOption is a wrapper for an MaxValuesPerFacet option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type MaxValuesPerFacetOption struct {
 	value int
 }
 
+// MaxValuesPerFacet wraps the given value into a MaxValuesPerFacetOption.
 func MaxValuesPerFacet(v int) *MaxValuesPerFacetOption {
 	return &MaxValuesPerFacetOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *MaxValuesPerFacetOption) Get() int {
 	if o == nil {
 		return 100
@@ -19,10 +23,14 @@ func (o *MaxValuesPerFacetOption) Get() int {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// MaxValuesPerFacetOption.
 func (o MaxValuesPerFacetOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// MaxValuesPerFacetOption.
 func (o *MaxValuesPerFacetOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = 100
@@ -31,6 +39,9 @@ func (o *MaxValuesPerFacetOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *MaxValuesPerFacetOption) Equal(o2 *MaxValuesPerFacetOption) bool {
 	if o2 == nil {
 		return o.value == 100
@@ -38,6 +49,9 @@ func (o *MaxValuesPerFacetOption) Equal(o2 *MaxValuesPerFacetOption) bool {
 	return o.value == o2.value
 }
 
+// MaxValuesPerFacetEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func MaxValuesPerFacetEqual(o1, o2 *MaxValuesPerFacetOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

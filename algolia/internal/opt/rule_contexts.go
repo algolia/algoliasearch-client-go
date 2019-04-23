@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractRuleContexts returns the first found RuleContextsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractRuleContexts(opts ...interface{}) *opt.RuleContextsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.RuleContextsOption); ok {

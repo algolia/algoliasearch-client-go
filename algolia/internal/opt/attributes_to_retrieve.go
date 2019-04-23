@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAttributesToRetrieve returns the first found AttributesToRetrieveOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAttributesToRetrieve(opts ...interface{}) *opt.AttributesToRetrieveOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AttributesToRetrieveOption); ok {

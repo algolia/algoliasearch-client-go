@@ -10,6 +10,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// Settings represents an index settings configuration.
 type Settings struct {
 	SearchableAttributes              *opt.SearchableAttributesOption              `json:"searchableAttributes,omitempty"`
 	AttributesForFaceting             *opt.AttributesForFacetingOption             `json:"attributesForFaceting,omitempty"`
@@ -97,6 +98,8 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Equal returns true if given settings are the same as the instance one. Empty
+// settings are considered equal to their default value counterpart.
 func (s Settings) Equal(s2 Settings) bool {
 	if !opt.SearchableAttributesEqual(s.SearchableAttributes, s2.SearchableAttributes) {
 		debug.Printf("Settings.SearchableAttributes are not equal: %#v != %#v\n", s.SearchableAttributes, s2.SearchableAttributes)

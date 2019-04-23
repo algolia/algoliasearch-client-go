@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractIgnorePlurals returns the first found IgnorePluralsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractIgnorePlurals(opts ...interface{}) *opt.IgnorePluralsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.IgnorePluralsOption); ok {

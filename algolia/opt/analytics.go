@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// AnalyticsOption is a wrapper for an Analytics option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type AnalyticsOption struct {
 	value bool
 }
 
+// Analytics wraps the given value into a AnalyticsOption.
 func Analytics(v bool) *AnalyticsOption {
 	return &AnalyticsOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *AnalyticsOption) Get() bool {
 	if o == nil {
 		return true
@@ -19,10 +23,14 @@ func (o *AnalyticsOption) Get() bool {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// AnalyticsOption.
 func (o AnalyticsOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// AnalyticsOption.
 func (o *AnalyticsOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = true
@@ -31,6 +39,9 @@ func (o *AnalyticsOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *AnalyticsOption) Equal(o2 *AnalyticsOption) bool {
 	if o2 == nil {
 		return o.value == true
@@ -38,6 +49,9 @@ func (o *AnalyticsOption) Equal(o2 *AnalyticsOption) bool {
 	return o.value == o2.value
 }
 
+// AnalyticsEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func AnalyticsEqual(o1, o2 *AnalyticsOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

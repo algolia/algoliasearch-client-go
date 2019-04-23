@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractSumOrFiltersScores returns the first found SumOrFiltersScoresOption from the
+// given variadic arguments or nil otherwise.
 func ExtractSumOrFiltersScores(opts ...interface{}) *opt.SumOrFiltersScoresOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.SumOrFiltersScoresOption); ok {

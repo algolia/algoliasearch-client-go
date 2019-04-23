@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractScopes returns the first found ScopesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractScopes(opts ...interface{}) *opt.ScopesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ScopesOption); ok {

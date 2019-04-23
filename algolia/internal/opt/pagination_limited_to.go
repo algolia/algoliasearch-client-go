@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractPaginationLimitedTo returns the first found PaginationLimitedToOption from the
+// given variadic arguments or nil otherwise.
 func ExtractPaginationLimitedTo(opts ...interface{}) *opt.PaginationLimitedToOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.PaginationLimitedToOption); ok {

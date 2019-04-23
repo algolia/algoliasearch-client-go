@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractCamelCaseAttributes returns the first found CamelCaseAttributesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractCamelCaseAttributes(opts ...interface{}) *opt.CamelCaseAttributesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.CamelCaseAttributesOption); ok {

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAllowCompressionOfIntegerArray returns the first found AllowCompressionOfIntegerArrayOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAllowCompressionOfIntegerArray(opts ...interface{}) *opt.AllowCompressionOfIntegerArrayOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AllowCompressionOfIntegerArrayOption); ok {

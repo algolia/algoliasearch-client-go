@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractResponseFields returns the first found ResponseFieldsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractResponseFields(opts ...interface{}) *opt.ResponseFieldsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ResponseFieldsOption); ok {

@@ -4,14 +4,18 @@ package opt
 
 import "encoding/json"
 
+// AnchoringOption is a wrapper for an Anchoring option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type AnchoringOption struct {
 	value string
 }
 
+// Anchoring wraps the given value into a AnchoringOption.
 func Anchoring(v string) *AnchoringOption {
 	return &AnchoringOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *AnchoringOption) Get() string {
 	if o == nil {
 		return ""
@@ -19,10 +23,14 @@ func (o *AnchoringOption) Get() string {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// AnchoringOption.
 func (o AnchoringOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// AnchoringOption.
 func (o *AnchoringOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = ""
@@ -31,6 +39,9 @@ func (o *AnchoringOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *AnchoringOption) Equal(o2 *AnchoringOption) bool {
 	if o2 == nil {
 		return o.value == ""
@@ -38,6 +49,9 @@ func (o *AnchoringOption) Equal(o2 *AnchoringOption) bool {
 	return o.value == o2.value
 }
 
+// AnchoringEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func AnchoringEqual(o1, o2 *AnchoringOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

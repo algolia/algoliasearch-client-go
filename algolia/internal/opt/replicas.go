@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractReplicas returns the first found ReplicasOption from the
+// given variadic arguments or nil otherwise.
 func ExtractReplicas(opts ...interface{}) *opt.ReplicasOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ReplicasOption); ok {

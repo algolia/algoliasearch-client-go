@@ -7,14 +7,18 @@ import (
 	"reflect"
 )
 
+// QueryLanguagesOption is a wrapper for an QueryLanguages option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type QueryLanguagesOption struct {
 	value []string
 }
 
+// QueryLanguages wraps the given value into a QueryLanguagesOption.
 func QueryLanguages(v ...string) *QueryLanguagesOption {
 	return &QueryLanguagesOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *QueryLanguagesOption) Get() []string {
 	if o == nil {
 		return []string{}
@@ -22,10 +26,14 @@ func (o *QueryLanguagesOption) Get() []string {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// QueryLanguagesOption.
 func (o QueryLanguagesOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// QueryLanguagesOption.
 func (o *QueryLanguagesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = []string{}
@@ -34,6 +42,9 @@ func (o *QueryLanguagesOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *QueryLanguagesOption) Equal(o2 *QueryLanguagesOption) bool {
 	if o2 == nil {
 		return reflect.DeepEqual(o.value, []string{})
@@ -41,6 +52,9 @@ func (o *QueryLanguagesOption) Equal(o2 *QueryLanguagesOption) bool {
 	return reflect.DeepEqual(o.value, o2.value)
 }
 
+// QueryLanguagesEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func QueryLanguagesEqual(o1, o2 *QueryLanguagesOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

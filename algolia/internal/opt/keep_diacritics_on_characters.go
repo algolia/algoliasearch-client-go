@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractKeepDiacriticsOnCharacters returns the first found KeepDiacriticsOnCharactersOption from the
+// given variadic arguments or nil otherwise.
 func ExtractKeepDiacriticsOnCharacters(opts ...interface{}) *opt.KeepDiacriticsOnCharactersOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.KeepDiacriticsOnCharactersOption); ok {

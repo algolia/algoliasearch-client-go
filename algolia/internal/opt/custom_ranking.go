@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractCustomRanking returns the first found CustomRankingOption from the
+// given variadic arguments or nil otherwise.
 func ExtractCustomRanking(opts ...interface{}) *opt.CustomRankingOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.CustomRankingOption); ok {

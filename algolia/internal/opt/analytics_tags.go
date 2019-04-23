@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAnalyticsTags returns the first found AnalyticsTagsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAnalyticsTags(opts ...interface{}) *opt.AnalyticsTagsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AnalyticsTagsOption); ok {

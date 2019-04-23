@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractReplaceExistingSynonyms returns the first found ReplaceExistingSynonymsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractReplaceExistingSynonyms(opts ...interface{}) *opt.ReplaceExistingSynonymsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ReplaceExistingSynonymsOption); ok {

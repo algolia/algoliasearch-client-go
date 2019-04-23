@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractEnableRules returns the first found EnableRulesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractEnableRules(opts ...interface{}) *opt.EnableRulesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.EnableRulesOption); ok {

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractOptionalWords returns the first found OptionalWordsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractOptionalWords(opts ...interface{}) *opt.OptionalWordsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.OptionalWordsOption); ok {

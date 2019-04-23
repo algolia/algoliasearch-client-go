@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractHitsPerPage returns the first found HitsPerPageOption from the
+// given variadic arguments or nil otherwise.
 func ExtractHitsPerPage(opts ...interface{}) *opt.HitsPerPageOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.HitsPerPageOption); ok {

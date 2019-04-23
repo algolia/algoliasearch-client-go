@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractDisableExactOnAttributes returns the first found DisableExactOnAttributesOption from the
+// given variadic arguments or nil otherwise.
 func ExtractDisableExactOnAttributes(opts ...interface{}) *opt.DisableExactOnAttributesOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.DisableExactOnAttributesOption); ok {

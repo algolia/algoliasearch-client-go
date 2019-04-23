@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractClickAnalytics returns the first found ClickAnalyticsOption from the
+// given variadic arguments or nil otherwise.
 func ExtractClickAnalytics(opts ...interface{}) *opt.ClickAnalyticsOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ClickAnalyticsOption); ok {

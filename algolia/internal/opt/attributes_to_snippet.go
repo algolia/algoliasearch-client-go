@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractAttributesToSnippet returns the first found AttributesToSnippetOption from the
+// given variadic arguments or nil otherwise.
 func ExtractAttributesToSnippet(opts ...interface{}) *opt.AttributesToSnippetOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.AttributesToSnippetOption); ok {

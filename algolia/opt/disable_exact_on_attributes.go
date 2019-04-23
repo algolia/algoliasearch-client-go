@@ -7,14 +7,18 @@ import (
 	"reflect"
 )
 
+// DisableExactOnAttributesOption is a wrapper for an DisableExactOnAttributes option parameter. It holds
+// the actual value of the option that can be accessed by calling Get.
 type DisableExactOnAttributesOption struct {
 	value []string
 }
 
+// DisableExactOnAttributes wraps the given value into a DisableExactOnAttributesOption.
 func DisableExactOnAttributes(v ...string) *DisableExactOnAttributesOption {
 	return &DisableExactOnAttributesOption{v}
 }
 
+// Get retrieves the actual value of the option parameter.
 func (o *DisableExactOnAttributesOption) Get() []string {
 	if o == nil {
 		return []string{}
@@ -22,10 +26,14 @@ func (o *DisableExactOnAttributesOption) Get() []string {
 	return o.value
 }
 
+// MarshalJSON implements the json.Marshaler interface for
+// DisableExactOnAttributesOption.
 func (o DisableExactOnAttributesOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
+// UnmarshalJSON implements the json.Unmarshaler interface for
+// DisableExactOnAttributesOption.
 func (o *DisableExactOnAttributesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = []string{}
@@ -34,6 +42,9 @@ func (o *DisableExactOnAttributesOption) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &o.value)
 }
 
+// Equal returns true if the given option is equal to the instance one. In case
+// the given option is nil, we checked the instance one is set to the default
+// value of the option.
 func (o *DisableExactOnAttributesOption) Equal(o2 *DisableExactOnAttributesOption) bool {
 	if o2 == nil {
 		return reflect.DeepEqual(o.value, []string{})
@@ -41,6 +52,9 @@ func (o *DisableExactOnAttributesOption) Equal(o2 *DisableExactOnAttributesOptio
 	return reflect.DeepEqual(o.value, o2.value)
 }
 
+// DisableExactOnAttributesEqual returns true if the two options are equal.
+// In case of one option being nil, the value of the other must be nil as well
+// or be set to the default value of this option.
 func DisableExactOnAttributesEqual(o1, o2 *DisableExactOnAttributesOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)

@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractMaxValuesPerFacet returns the first found MaxValuesPerFacetOption from the
+// given variadic arguments or nil otherwise.
 func ExtractMaxValuesPerFacet(opts ...interface{}) *opt.MaxValuesPerFacetOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.MaxValuesPerFacetOption); ok {

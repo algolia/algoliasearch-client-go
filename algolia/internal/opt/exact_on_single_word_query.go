@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractExactOnSingleWordQuery returns the first found ExactOnSingleWordQueryOption from the
+// given variadic arguments or nil otherwise.
 func ExtractExactOnSingleWordQuery(opts ...interface{}) *opt.ExactOnSingleWordQueryOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.ExactOnSingleWordQueryOption); ok {

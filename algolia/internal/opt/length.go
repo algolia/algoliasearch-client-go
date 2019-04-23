@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// ExtractLength returns the first found LengthOption from the
+// given variadic arguments or nil otherwise.
 func ExtractLength(opts ...interface{}) *opt.LengthOption {
 	for _, o := range opts {
 		if v, ok := o.(*opt.LengthOption); ok {
