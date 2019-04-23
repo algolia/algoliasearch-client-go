@@ -8,6 +8,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 )
 
+// ABTest presents an AB test input as sent to the Analytics API when creating a
+// new AB test.
 type ABTest struct {
 	Name     string
 	Variants []Variant
@@ -30,6 +32,8 @@ func (abTest ABTest) MarshalJSON() ([]byte, error) {
 	return []byte(jsonAbTest), nil
 }
 
+// Variant presents a Variant input as sent to the Analytics API when creating a
+// new AB test.
 type Variant struct {
 	Index                  string             `json:"index"`
 	TrafficPercentage      int                `json:"trafficPercentage"`

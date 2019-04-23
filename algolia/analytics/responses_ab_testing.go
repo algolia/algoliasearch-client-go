@@ -2,6 +2,8 @@ package analytics
 
 import "time"
 
+// ABTestTaskRes represents a generic task submitted to the Analytics API for an
+// AB test.
 type ABTestTaskRes struct {
 	ABTestID int    `json:"abTestID"`
 	Index    string `json:"index"`
@@ -9,16 +11,22 @@ type ABTestTaskRes struct {
 	wait     func(index string, taskID int) error
 }
 
+// Wait blocks until the AB test task completes or if there is an error while
+// waiting for its completion.
 func (r ABTestTaskRes) Wait() error {
 	return r.wait(r.Index, r.TaskID)
 }
 
+// GetABTestsRes represents a response payload from the Analytics API when
+// performing a GetABTests call.
 type GetABTestsRes struct {
 	ABTests []ABTestResponse `json:"abtests"`
 	Count   int              `json:"count"`
 	Total   int              `json:"total"`
 }
 
+// ABTestResponse represents an AB test as returned by the Analytics API when
+// retrieved as part of a response.
 type ABTestResponse struct {
 	ABTestID               int               `json:"abTestID"`
 	ClickSignificance      int               `json:"clickSignificance"`
@@ -30,6 +38,8 @@ type ABTestResponse struct {
 	Variants               []VariantResponse `json:"variants"`
 }
 
+// VariantResponse represents an AB test's variant as returned by the Analytics
+// API when retrieved as part of a response.
 type VariantResponse struct {
 	AverageClickPosition int     `json:"averageClickPosition"`
 	ClickCount           int     `json:"clickCount"`

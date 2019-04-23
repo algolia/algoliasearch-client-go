@@ -7,6 +7,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
+// Configuration contains all the different parameters one can change to
+// instantiate a new client for the Analytics API.
 type Configuration struct {
 	AppID        string
 	APIKey       string
