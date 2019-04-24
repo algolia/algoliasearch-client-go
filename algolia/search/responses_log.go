@@ -26,7 +26,7 @@ type LogRes struct {
 }
 
 func (res *LogRes) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

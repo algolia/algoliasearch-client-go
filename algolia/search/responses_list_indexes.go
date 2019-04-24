@@ -23,7 +23,7 @@ type IndexRes struct {
 }
 
 func (r *IndexRes) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

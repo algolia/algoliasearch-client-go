@@ -30,7 +30,7 @@ func (s OneWaySynonym) MarshalJSON() ([]byte, error) {
 }
 
 func (s *OneWaySynonym) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

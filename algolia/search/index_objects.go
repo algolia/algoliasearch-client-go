@@ -283,11 +283,9 @@ func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (err
 	if res, e := i.client.MoveIndex(tmpIndex.name, i.name, opts...); e != nil {
 		err = fmt.Errorf("cannot move temporary index to original index: %v", e)
 		return
-	} else {
-		if e := res.Wait(); e != nil {
-			err = fmt.Errorf("error while waiting for move operation of the temporary index: %v", e)
-			return
-		}
+	} else if e := res.Wait(); e != nil {
+		err = fmt.Errorf("error while waiting for move operation of the temporary index: %v", e)
+		return
 	}
 
 	return

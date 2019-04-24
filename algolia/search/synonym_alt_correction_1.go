@@ -30,7 +30,7 @@ func (s AltCorrection1) MarshalJSON() ([]byte, error) {
 }
 
 func (s *AltCorrection1) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

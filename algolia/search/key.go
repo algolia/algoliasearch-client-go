@@ -27,7 +27,7 @@ func (k *Key) SetQueryParameters(opts ...interface{}) {
 }
 
 func (k *Key) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

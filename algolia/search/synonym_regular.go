@@ -28,7 +28,7 @@ func (s RegularSynonym) MarshalJSON() ([]byte, error) {
 }
 
 func (s *RegularSynonym) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

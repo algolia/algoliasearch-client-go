@@ -99,7 +99,7 @@ type SearchForFacetValuesRes struct {
 }
 
 func (r *SearchForFacetValuesRes) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

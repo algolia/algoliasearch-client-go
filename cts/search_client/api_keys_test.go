@@ -34,7 +34,9 @@ func TestAPIKeys(t *testing.T) {
 		key.Value = res.Key
 	}
 
-	defer client.DeleteAPIKey(key.Value)
+	defer func() {
+		_, _ = client.DeleteAPIKey(key.Value)
+	}()
 
 	{
 		found, err := client.GetAPIKey(key.Value)

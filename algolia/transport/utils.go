@@ -53,7 +53,7 @@ func URLEncode(itf interface{}) string {
 			value = strconv.Itoa(v)
 		default:
 			jsonValue, _ := json.Marshal(v)
-			value = string(jsonValue[:])
+			value = string(jsonValue)
 		}
 		values.Add(key, value)
 	}

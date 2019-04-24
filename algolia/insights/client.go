@@ -72,7 +72,7 @@ func (c *Client) SendEvent(event Event, opts ...interface{}) (res StatusMessageR
 // should only be used to send custom events to the API. To send more common and
 // predefined events, please use methods from UserClient instead.
 func (c *Client) SendEvents(events []Event, opts ...interface{}) (res StatusMessageRes, err error) {
-	body := newSendEventsReq(events, opts...)
+	body := newSendEventsReq(events)
 	err = c.transport.Request(&res, http.MethodPost, "/1/events", body, call.Write, opts...)
 	return
 }

@@ -8,6 +8,11 @@ type SnippetEllipsisTextOption struct {
 	value string
 }
 
+const (
+	oldDefaultSnippetEllipsisTextValue = ""
+	newDefaultSnippetEllipsisTextValue = "…"
+)
+
 // SnippetEllipsisText wraps the given value into a SnippetEllipsisTextOption.
 func SnippetEllipsisText(v string) *SnippetEllipsisTextOption {
 	return &SnippetEllipsisTextOption{v}
@@ -16,7 +21,7 @@ func SnippetEllipsisText(v string) *SnippetEllipsisTextOption {
 // Get retrieves the actual value of the option parameter.
 func (o *SnippetEllipsisTextOption) Get() string {
 	if o == nil {
-		return "…"
+		return newDefaultSnippetEllipsisTextValue
 	}
 	return o.value
 }
@@ -31,7 +36,7 @@ func (o SnippetEllipsisTextOption) MarshalJSON() ([]byte, error) {
 // SnippetEllipsisTextOption.
 func (o *SnippetEllipsisTextOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = "…"
+		o.value = newDefaultSnippetEllipsisTextValue
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
@@ -48,7 +53,7 @@ func (o *SnippetEllipsisTextOption) Equal(o2 *SnippetEllipsisTextOption) bool {
 		//     February 10th, 2016.
 		//   * Defaults to "…" (U+2026, HORIZONTAL ELLIPSIS) for accounts
 		//     created after that date.
-		return o.value == "…" || o.value == ""
+		return o.value == newDefaultSnippetEllipsisTextValue || o.value == oldDefaultSnippetEllipsisTextValue
 	}
 	return o.value == o2.value
 }

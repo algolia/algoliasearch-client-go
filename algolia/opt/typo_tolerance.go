@@ -13,6 +13,13 @@ type TypoToleranceOption struct {
 	value string
 }
 
+const (
+	typoToleranceMin    = "min"
+	typoToleranceStrict = "strict"
+	typoToleranceTrue   = "true"
+	typoToleranceFalse  = "false"
+)
+
 // TypoTolerance returns an TypoToleranceOption whose value is set to the given boolean.
 func TypoTolerance(value bool) *TypoToleranceOption {
 	return &TypoToleranceOption{value: fmt.Sprintf("%t", value)}
@@ -21,13 +28,13 @@ func TypoTolerance(value bool) *TypoToleranceOption {
 // TypoToleranceFor returns an TypoToleranceOption whose value is set to
 // "min".
 func TypoToleranceMin() *TypoToleranceOption {
-	return &TypoToleranceOption{value: "min"}
+	return &TypoToleranceOption{value: typoToleranceMin}
 }
 
 // TypoToleranceFor returns an TypoToleranceOption whose value is set to
 // "strict".
 func TypoToleranceStrict() *TypoToleranceOption {
-	return &TypoToleranceOption{value: "strict"}
+	return &TypoToleranceOption{value: typoToleranceStrict}
 }
 
 // Get retrieves the actual value of the option parameter.
@@ -35,10 +42,10 @@ func (o *TypoToleranceOption) Get() (bool, string) {
 	if o == nil {
 		return true, ""
 	}
-	if o.value == "true" {
+	if o.value == typoToleranceTrue {
 		return true, ""
 	}
-	if o.value == "false" {
+	if o.value == typoToleranceFalse {
 		return false, ""
 	}
 	return false, o.value
@@ -54,7 +61,7 @@ func (o TypoToleranceOption) MarshalJSON() ([]byte, error) {
 // TypoToleranceOption.
 func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = "true"
+		o.value = typoToleranceTrue
 		return nil
 	}
 
@@ -78,7 +85,7 @@ func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
 // value of the option.
 func (o *TypoToleranceOption) Equal(o2 *TypoToleranceOption) bool {
 	if o2 == nil {
-		return o.value == "true"
+		return o.value == typoToleranceTrue
 	}
 	return o.value == o2.value
 }

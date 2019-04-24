@@ -41,7 +41,7 @@ func (q RuleQuery) MarshalJSON() ([]byte, error) {
 }
 
 func (q *RuleQuery) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if string(data) == jsonNull {
 		return nil
 	}
 

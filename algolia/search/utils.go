@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/rand"
-
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/rand"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+)
+
+const (
+	jsonNull = "null"
 )
 
 func defaultHosts(appID string) (hosts []*transport.StatefulHost) {

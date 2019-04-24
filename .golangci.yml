@@ -1,0 +1,22 @@
+run:
+  concurrency: 4
+  deadline: 1m
+  tests: true
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - errcheck
+    - goconst
+    - gocritic
+    - gofmt
+    - goimports
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - misspell
+    - structcheck
+    - unconvert
+    - unparam
+    - varcheck

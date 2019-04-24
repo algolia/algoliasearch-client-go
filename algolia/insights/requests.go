@@ -4,6 +4,6 @@ type sendEventsReq struct {
 	Events []Event `json:"events"`
 }
 
-func newSendEventsReq(events []Event, opts ...interface{}) sendEventsReq {
+func newSendEventsReq(events []Event) sendEventsReq {
 	return sendEventsReq{Events: events}
 }
