@@ -24,11 +24,10 @@ func (it *RuleIterator) Next(opts ...interface{}) (*Rule, error) {
 	if it.pos >= len(it.rules) {
 		if it.page >= it.nbPages {
 			return nil, io.EOF
-		} else {
-			err := it.loadNextPage()
-			if err != nil {
-				return nil, err
-			}
+		}
+		err := it.loadNextPage()
+		if err != nil {
+			return nil, err
 		}
 	}
 

@@ -40,7 +40,7 @@ func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObj
 func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (res UpdateTaskRes, err error) {
 	objectID, ok := getObjectID(object)
 	if !ok {
-		err = errs.MissingObjectID
+		err = errs.ErrMissingObjectID
 		res.wait = noWait
 		return
 	}
@@ -62,7 +62,7 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 
 func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
 	if objectID == "" {
-		err = errs.MissingObjectID
+		err = errs.ErrMissingObjectID
 		res.wait = noWait
 		return
 	}
@@ -261,19 +261,19 @@ func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (err
 	await := algolia.Await()
 	optsWithScopes := opt.InsertOrReplaceOption(opts, opt.Scopes("rules", "settings", "synonyms"))
 
-	if res, e := i.client.CopyIndex(i.name, tmpIndex.name, optsWithScopes...); e != nil {
-		err = fmt.Errorf("cannot copy rules, settings and synonyms to the temporary index: %v", e)
+	resCopyIndex, err := i.client.CopyIndex(i.name, tmpIndex.name, optsWithScopes...)
+	if err != nil {
+		err = fmt.Errorf("cannot copy rules, settings and synonyms to the temporary index: %v", err)
 		return
-	} else {
-		await.Collect(res)
 	}
+	await.Collect(resCopyIndex)
 
-	if res, e := tmpIndex.SaveObjects(objects, opts...); e != nil {
-		err = fmt.Errorf("cannot save objects to the temporary index: %v", e)
+	resSaveObjects, err := tmpIndex.SaveObjects(objects, opts...)
+	if err != nil {
+		err = fmt.Errorf("cannot save objects to the temporary index: %v", err)
 		return
-	} else {
-		await.Collect(res)
 	}
+	await.Collect(resSaveObjects)
 
 	if e := await.Wait(); e != nil {
 		err = fmt.Errorf("error while waiting for indexing operations to the temporary index: %v", e)

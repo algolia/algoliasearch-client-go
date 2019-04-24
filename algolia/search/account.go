@@ -26,11 +26,11 @@ func NewAccount() *Account {
 // which is optimized for this use-case.
 func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waitable, error) {
 	if src.GetAppID() == dst.GetAppID() {
-		return nil, errs.SameAppID
+		return nil, errs.ErrSameAppID
 	}
 
 	if _, err := dst.GetSettings(); err == nil {
-		return nil, errs.IndexAlreadyExists
+		return nil, errs.ErrIndexAlreadyExists
 	}
 
 	await := algolia.Await()

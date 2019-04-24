@@ -26,7 +26,7 @@ type Event struct {
 func (e Event) MarshalJSON() ([]byte, error) {
 	type EventJSON Event
 
-	var timestamp int64 = 0
+	var timestamp int64
 	if !e.Timestamp.IsZero() {
 		e.Timestamp.Unix()
 	}

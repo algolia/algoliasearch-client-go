@@ -1,4 +1,4 @@
-package search_client
+package search
 
 import (
 	"os"

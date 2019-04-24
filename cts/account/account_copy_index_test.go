@@ -1,4 +1,4 @@
-package account_client
+package account
 
 import (
 	"testing"
@@ -20,7 +20,7 @@ func TestAccountCopyIndex(t *testing.T) {
 	{
 		account := search.NewAccount()
 		_, err := account.CopyIndex(index1, index2)
-		require.Equal(t, errs.SameAppID, err)
+		require.Equal(t, errs.ErrSameAppID, err)
 	}
 
 	index2 = cts.InitSearchClient2(t).InitIndex(indexName2)
@@ -93,6 +93,6 @@ func TestAccountCopyIndex(t *testing.T) {
 	{
 		account := search.NewAccount()
 		_, err := account.CopyIndex(index1, index2)
-		require.Equal(t, errs.IndexAlreadyExists, err)
+		require.Equal(t, errs.ErrIndexAlreadyExists, err)
 	}
 }

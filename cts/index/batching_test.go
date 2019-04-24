@@ -1,4 +1,4 @@
-package search_index
+package index
 
 import (
 	"io"

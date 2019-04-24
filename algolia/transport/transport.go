@@ -122,7 +122,7 @@ func (t *Transport) Request(
 		cancel()
 	}
 
-	return errs.NoMoreHostToTry
+	return errs.ErrNoMoreHostToTry
 }
 
 func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
@@ -180,13 +180,13 @@ func buildRequest(
 		var data []byte
 		data, err = json.Marshal(body)
 		if err != nil {
-			return nil, fmt.Errorf("cannot serialize request body:\n\terr=%v\n\tmethod=%s\n\turl=%s\n\tbody=%#v\n", err, method, urlStr, body)
+			return nil, fmt.Errorf("cannot serialize request body:\n\terr=%v\n\tmethod=%s\n\turl=%s\n\tbody=%#v", err, method, urlStr, body)
 		}
 		req, err = http.NewRequest(method, urlStr, bytes.NewReader(data))
 	}
 
 	if err != nil {
-		return nil, fmt.Errorf("cannot instantiate request:\n\terr=%v\n\tmethod=%s\n\turl=%s\n\tbody=%#v\n", err, method, urlStr, body)
+		return nil, fmt.Errorf("cannot instantiate request:\n\terr=%v\n\tmethod=%s\n\turl=%s\n\tbody=%#v", err, method, urlStr, body)
 	}
 
 	// Add headers

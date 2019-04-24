@@ -1,4 +1,4 @@
-package insights_client
+package insights
 
 import (
 	"net/http"

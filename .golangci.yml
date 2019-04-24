@@ -21,3 +21,6 @@ linters:
     - unconvert
     - unparam
     - varcheck
+linters-settings:
+  golint:
+    min-confidence: 0.81

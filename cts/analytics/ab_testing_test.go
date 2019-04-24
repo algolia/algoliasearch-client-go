@@ -1,4 +1,4 @@
-package analytics_client
+package analytics
 
 import (
 	"strings"
