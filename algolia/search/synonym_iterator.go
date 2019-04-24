@@ -1,6 +1,6 @@
 package search
 
-import "github.com/algolia/algoliasearch-client-go/algolia/errs"
+import "io"
 
 type SynonymIterator struct {
 	synonyms []Synonym
@@ -13,7 +13,7 @@ func newSynonymIterator(synonyms []Synonym) *SynonymIterator {
 
 func (it *SynonymIterator) Next(opts ...interface{}) (Synonym, error) {
 	if it.pos >= len(it.synonyms) {
-		return nil, errs.IteratorEnd
+		return nil, io.EOF
 	}
 	synonym := it.synonyms[it.pos]
 	it.pos++

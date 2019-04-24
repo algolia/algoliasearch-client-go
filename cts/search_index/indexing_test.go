@@ -2,11 +2,11 @@ package search_index
 
 import (
 	"fmt"
+	"io"
 	"sync"
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia"
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
@@ -103,7 +103,7 @@ func TestIndexing(t *testing.T) {
 			var object map[string]string
 			_, err := it.Next(&object)
 			i++
-			if err == errs.IteratorEnd {
+			if err == io.EOF {
 				break
 			}
 			require.NoError(t, err)
@@ -174,7 +174,7 @@ func TestIndexing(t *testing.T) {
 		require.NoError(t, err)
 
 		_, err = it.Next()
-		require.Equal(t, errs.IteratorEnd, err)
+		require.Equal(t, io.EOF, err)
 	}
 }
 

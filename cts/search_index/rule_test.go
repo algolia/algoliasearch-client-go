@@ -1,12 +1,12 @@
 package search_index
 
 import (
+	"io"
 	"sync"
 	"testing"
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia"
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
@@ -133,7 +133,7 @@ func TestQueryRule(t *testing.T) {
 			for {
 				rule, err := it.Next()
 				if err != nil {
-					require.Equal(t, errs.IteratorEnd, err)
+					require.Equal(t, io.EOF, err)
 					break
 				}
 				found = append(found, *rule)

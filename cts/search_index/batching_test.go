@@ -1,9 +1,9 @@
 package search_index
 
 import (
+	"io"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
@@ -56,7 +56,7 @@ func TestBatching(t *testing.T) {
 			var hit map[string]string
 			_, err := it.Next(&hit)
 			if err != nil {
-				require.Equal(t, errs.IteratorEnd, err)
+				require.Equal(t, io.EOF, err)
 				break
 			}
 			found = append(found, hit)
