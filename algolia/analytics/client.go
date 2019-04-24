@@ -38,9 +38,12 @@ func NewClientWithConfig(config Configuration) *Client {
 	}
 
 	searchConfig := search.Configuration{
-		AppID:     config.AppID,
-		APIKey:    config.APIKey,
-		Requester: config.Requester,
+		AppID:        config.AppID,
+		APIKey:       config.APIKey,
+		Requester:    config.Requester,
+		ReadTimeout:  config.ReadTimeout,
+		WriteTimeout: config.WriteTimeout,
+		Headers:      config.Headers,
 	}
 
 	return &Client{
