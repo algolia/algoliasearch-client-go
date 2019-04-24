@@ -11,11 +11,12 @@ linters:
     - gocritic
     - gofmt
     - goimports
+    - golint
     - gosimple
     - govet
     - ineffassign
-    - staticcheck
     - misspell
+    - staticcheck
     - structcheck
     - unconvert
     - unparam
