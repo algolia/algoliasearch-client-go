@@ -24,7 +24,7 @@ func New(itf interface{}) Iterator {
 
 	value := reflect.ValueOf(itf)
 	switch value.Kind() {
-	case reflect.Array | reflect.Slice:
+	case reflect.Array, reflect.Slice:
 		// In case the objects are sent as a slice or an array, we iterate over
 		// them to produce a []interface{} which we then wrap on an
 		// iterator.sliceIterator.
