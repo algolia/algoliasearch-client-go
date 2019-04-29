@@ -236,6 +236,9 @@ func TestOptionGetters(t *testing.T) {
 	var explain *ExplainOption = nil
 	explain.Get()
 
+	var advanced *AdvancedOption = nil
+	advanced.Get()
+
 	var restrictIndices *RestrictIndicesOption = nil
 	restrictIndices.Get()
 

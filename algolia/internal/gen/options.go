@@ -128,6 +128,7 @@ var options = []Option{
 	{"maxFacetHits", Settings | Search, 10, ""},
 	{"percentileComputation", Search, true, ""},
 	{"explain", Search, []string{}, ""},
+	{"advanced", Settings, 0, ""},
 
 	// Secured API key
 	{"restrictIndices", Other, []string{}, ""},

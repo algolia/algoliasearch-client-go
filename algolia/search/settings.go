@@ -61,6 +61,7 @@ type Settings struct {
 	MinProximity                      *opt.MinProximityOption                      `json:"minProximity,omitempty"`
 	ResponseFields                    *opt.ResponseFieldsOption                    `json:"responseFields,omitempty"`
 	MaxFacetHits                      *opt.MaxFacetHitsOption                      `json:"maxFacetHits,omitempty"`
+	Advanced                          *opt.AdvancedOption                          `json:"advanced,omitempty"`
 }
 
 type settings Settings
@@ -295,6 +296,10 @@ func (s Settings) Equal(s2 Settings) bool {
 	}
 	if !opt.MaxFacetHitsEqual(s.MaxFacetHits, s2.MaxFacetHits) {
 		debug.Printf("Settings.MaxFacetHits are not equal: %#v != %#v\n", s.MaxFacetHits, s2.MaxFacetHits)
+		return false
+	}
+	if !opt.AdvancedEqual(s.Advanced, s2.Advanced) {
+		debug.Printf("Settings.Advanced are not equal: %#v != %#v\n", s.Advanced, s2.Advanced)
 		return false
 	}
 	return true
