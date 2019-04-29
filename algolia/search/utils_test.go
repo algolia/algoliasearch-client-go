@@ -34,6 +34,9 @@ func TestHasObjectIDField(t *testing.T) {
 	m := map[string]interface{}{"company": "algolia"}
 	require.False(t, hasObjectID(m))
 
+	m["objectID"] = ""
+	require.False(t, hasObjectID(m))
+
 	m["objectID"] = 42
 	require.True(t, hasObjectID(m))
 
