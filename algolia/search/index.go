@@ -72,8 +72,8 @@ func (i *Index) GetAppID() string {
 	return i.appID
 }
 
-// Clear deletes all the records of the index.
-func (i *Index) Clear(opts ...interface{}) (res UpdateTaskRes, err error) {
+// ClearObjects deletes all the records of the index.
+func (i *Index) ClearObjects(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/clear")
 	err = i.transport.Request(&res, http.MethodPost, path, nil, call.Write, opts...)
 	res.wait = i.WaitTask
