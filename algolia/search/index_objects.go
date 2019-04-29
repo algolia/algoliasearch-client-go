@@ -21,14 +21,11 @@ func (i *Index) GetObject(objectID string, object interface{}, opts ...interface
 		return errs.ErrMissingObjectID
 	}
 
-	if attrs := iopt.ExtractAttributesToRetrieve(opts...); attrs != nil {
-		attributesToRetrieve := attrs.Get()
-		if len(attributesToRetrieve) > 0 {
-			opts = append(opts, opt.ExtraURLParams(map[string]string{
-				"attributesToRetrieve": strings.Join(attributesToRetrieve, ","),
-			}))
-		}
-	}
+	opts = opt.InsertExtraURLParam(
+		opts,
+		"attributesToRetrieve",
+		strings.Join(iopt.ExtractAttributesToRetrieve(opts...).Get(), ","),
+	)
 
 	path := i.path("/" + url.QueryEscape(objectID))
 	return i.transport.Request(&object, http.MethodGet, path, nil, call.Read, opts...)
@@ -49,17 +46,14 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 		return
 	}
 
-	createIfNotExists := true
-	if opt := iopt.ExtractCreateIfNotExists(opts...); opt != nil {
-		createIfNotExists = opt.Get()
-	}
+	opts = opt.InsertExtraURLParam(
+		opts,
+		"createIfNotExists",
+		iopt.ExtractCreateIfNotExists(opts...).Get(),
+	)
 
 	path := i.path("/" + url.QueryEscape(objectID) + "/partial")
-	if !createIfNotExists {
-		path += "?createIfNotExists=false"
-	}
-
-	err = i.transport.Request(&res, "POST", path, object, call.Write, opts...)
+	err = i.transport.Request(&res, http.MethodPost, path, object, call.Write, opts...)
 	res.wait = i.WaitTask
 	return
 }
@@ -102,16 +96,9 @@ func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res Group
 }
 
 func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res GroupBatchRes, err error) {
-	var (
-		action BatchAction
-	)
+	var action BatchAction
 
-	createIfNotExists := true
-	if opt := iopt.ExtractCreateIfNotExists(opts...); opt != nil {
-		createIfNotExists = opt.Get()
-	}
-
-	if createIfNotExists {
+	if iopt.ExtractCreateIfNotExists(opts...).Get() {
 		action = PartialUpdateObject
 	} else {
 		action = PartialUpdateObjectNoCreate
@@ -144,11 +131,7 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 		multipleRes GroupBatchRes
 	)
 
-	autoGenerateObjectIDIfNotExist := false
-	if opt := iopt.ExtractAutoGenerateObjectIDIfNotExist(opts...); opt != nil {
-		autoGenerateObjectIDIfNotExist = opt.Get()
-	}
-
+	autoGenerateObjectIDIfNotExist := iopt.ExtractAutoGenerateObjectIDIfNotExist(opts...).Get()
 	it := iterator.New(objects)
 
 	for {
@@ -193,15 +176,7 @@ func (i *Index) Batch(operations []BatchOperation, opts ...interface{}) (res Bat
 }
 
 func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
-	body := deleteByReq{
-		AroundLatLng:      iopt.ExtractAroundLatLng(opts...),
-		AroundRadius:      iopt.ExtractAroundRadius(opts...),
-		FacetFilters:      iopt.ExtractFacetFilters(opts...),
-		Filters:           iopt.ExtractFilters(opts...),
-		InsideBoundingBox: iopt.ExtractInsideBoundingBox(opts...),
-		InsidePolygon:     iopt.ExtractInsidePolygon(opts...),
-		NumericFilters:    iopt.ExtractNumericFilters(opts...),
-	}
+	body := newDeleteByReq(opts...)
 	path := i.path("/deleteByQuery")
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Write, opts...)
 	res.wait = i.WaitTask
@@ -226,10 +201,7 @@ func (i *Index) SearchForFacetValues(facet, query string, opts ...interface{}) (
 }
 
 func (i *Index) BrowseObjects(opts ...interface{}) (*ObjectIterator, error) {
-	var query string
-	if opt := iopt.ExtractQuery(opts...); opt != nil {
-		query = opt.Get()
-	}
+	query := iopt.ExtractQuery(opts...).Get()
 	searchParams := newSearchParams(query, opts...)
 	browser := i.browserForObjects(searchParams, opts...)
 	return newObjectIterator(browser)

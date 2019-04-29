@@ -1,6 +1,9 @@
 package search
 
-import "github.com/algolia/algoliasearch-client-go/algolia/opt"
+import (
+	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+)
 
 type IndexOperation struct {
 	Destination string   `json:"destination"`
@@ -16,6 +19,18 @@ type deleteByReq struct {
 	InsideBoundingBox *opt.InsideBoundingBoxOption `json:"insideBoundingBox,omitempty"`
 	InsidePolygon     *opt.InsidePolygonOption     `json:"insidePolygon,omitempty"`
 	NumericFilters    *opt.NumericFiltersOption    `json:"numericFilters,omitempty"`
+}
+
+func newDeleteByReq(opts ...interface{}) deleteByReq {
+	return deleteByReq{
+		AroundLatLng:      iopt.ExtractAroundLatLng(opts...),
+		AroundRadius:      iopt.ExtractAroundRadius(opts...),
+		FacetFilters:      iopt.ExtractFacetFilters(opts...),
+		Filters:           iopt.ExtractFilters(opts...),
+		InsideBoundingBox: iopt.ExtractInsideBoundingBox(opts...),
+		InsidePolygon:     iopt.ExtractInsidePolygon(opts...),
+		NumericFilters:    iopt.ExtractNumericFilters(opts...),
+	}
 }
 
 type getObjectsReq struct {
