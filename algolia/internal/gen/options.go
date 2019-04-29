@@ -152,4 +152,5 @@ var options = []Option{
 	{"clusterName", Other, "", ""},
 	{"indexName", Other, "", ""},
 	{"limit", Other, 10, ""},
+	{"safe", Other, false, ""},
 }

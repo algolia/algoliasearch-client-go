@@ -296,4 +296,7 @@ func TestOptionGetters(t *testing.T) {
 	var limit *LimitOption = nil
 	limit.Get()
 
+	var safe *SafeOption = nil
+	safe.Get()
+
 }
