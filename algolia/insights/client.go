@@ -47,6 +47,7 @@ func NewClientWithConfig(config Configuration) *Client {
 			config.ReadTimeout,
 			config.WriteTimeout,
 			config.Headers,
+			config.ExtraUserAgent,
 		),
 	}
 }

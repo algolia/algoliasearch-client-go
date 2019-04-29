@@ -10,6 +10,7 @@ import (
 	"net"
 	"net/http"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
@@ -34,16 +35,26 @@ func New(
 	readTimeout time.Duration,
 	writeTimeout time.Duration,
 	defaultHeaders map[string]string,
+	extraUserAgent string,
 ) *Transport {
 
 	if requester == nil {
 		requester = newDefaultRequester()
 	}
 
+	userAgents := []string{
+		fmt.Sprintf("Algolia for Go (%s)", version),
+		fmt.Sprintf("Go (%s)", runtime.Version()),
+	}
+
+	if extraUserAgent != "" {
+		userAgents = append([]string{extraUserAgent}, userAgents...)
+	}
+
 	headers := map[string]string{
 		"Connection":               "Keep-Alive",
 		"Content-Type":             "application/json; charset=utf-8",
-		"User-Agent":               fmt.Sprintf("Algolia for Go (%s); Go (%s); ", version, runtime.Version()),
+		"User-Agent":               strings.Join(userAgents, ";"),
 		"X-Algolia-Application-Id": appID,
 		"X-Algolia-API-Key":        apiKey,
 	}

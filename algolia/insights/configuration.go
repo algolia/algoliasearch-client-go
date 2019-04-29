@@ -10,12 +10,13 @@ import (
 // Configuration contains all the different parameters one can change to
 // instantiate a new client for the Insights API.
 type Configuration struct {
-	AppID        string
-	APIKey       string
-	Hosts        []string
-	Requester    transport.Requester
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
-	Region       region.Region
-	Headers      map[string]string
+	AppID          string
+	APIKey         string
+	Hosts          []string
+	Requester      transport.Requester
+	ReadTimeout    time.Duration
+	WriteTimeout   time.Duration
+	Region         region.Region
+	Headers        map[string]string
+	ExtraUserAgent string
 }
