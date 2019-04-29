@@ -62,6 +62,7 @@ type Settings struct {
 	ResponseFields                    *opt.ResponseFieldsOption                    `json:"responseFields,omitempty"`
 	MaxFacetHits                      *opt.MaxFacetHitsOption                      `json:"maxFacetHits,omitempty"`
 	Advanced                          *opt.AdvancedOption                          `json:"advanced,omitempty"`
+	CustomSettings                    map[string]interface{}                       `json:"-"`
 }
 
 type settings Settings
@@ -94,6 +95,68 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 
 	if s.NumericAttributesForFiltering == nil {
 		s.NumericAttributesForFiltering = bcSettings.NumericAttributesToIndex
+	}
+
+	err = json.Unmarshal(data, &s.CustomSettings)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal unknown settings: %v", err)
+	}
+	for _, knownSetting := range []string{
+		"searchableAttributes",
+		"attributesToIndex",
+		"attributesForFaceting",
+		"unretrievableAttributes",
+		"attributesToRetrieve",
+		"ranking",
+		"customRanking",
+		"replicas",
+		"slaves",
+		"primary",
+		"maxValuesPerFacet",
+		"sortFacetValuesBy",
+		"attributesToHighlight",
+		"attributesToSnippet",
+		"highlightPreTag",
+		"highlightPostTag",
+		"snippetEllipsisText",
+		"restrictHighlightAndSnippetArrays",
+		"hitsPerPage",
+		"paginationLimitedTo",
+		"minWordSizefor1Typo",
+		"minWordSizefor2Typos",
+		"typoTolerance",
+		"allowTyposOnNumericTokens",
+		"disableTypoToleranceOnAttributes",
+		"disableTypoToleranceOnWords",
+		"separatorsToIndex",
+		"ignorePlurals",
+		"removeStopWords",
+		"camelCaseAttributes",
+		"decompoundedAttributes",
+		"keepDiacriticsOnCharacters",
+		"queryLanguages",
+		"queryType",
+		"removeWordsIfNoResults",
+		"advancedSyntax",
+		"optionalWords",
+		"disablePrefixOnAttributes",
+		"disableExactOnAttributes",
+		"exactOnSingleWordQuery",
+		"alternativesAsExact",
+		"advancedSyntaxFeatures",
+		"enableRules",
+		"numericAttributesForFiltering",
+		"numericAttributesToIndex",
+		"allowCompressionOfIntegerArray",
+		"attributeForDistinct",
+		"distinct",
+		"replaceSynonymsInHighlight",
+		"minProximity",
+		"responseFields",
+		"maxFacetHits",
+		"advanced",
+	} {
+		delete(s.CustomSettings, knownSetting)
 	}
 
 	return nil

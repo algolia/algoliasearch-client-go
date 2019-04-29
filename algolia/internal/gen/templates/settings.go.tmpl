@@ -15,6 +15,7 @@ type Settings struct {
     {{- range $_, $setting := . }}
     {{ title $setting.Name }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.Name }},omitempty"`
     {{- end }}
+    CustomSettings map[string]interface{} `json:"-"`
 }
 
 type settings Settings
@@ -46,6 +47,22 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
     }
     {{ end }}
     {{- end }}
+
+    err = json.Unmarshal(data, &s.CustomSettings)
+    if err != nil {
+        return fmt.Errorf("cannot unmarshal unknown settings: %v", err)
+    }
+    for _, knownSetting := range []string{
+        {{- range $_, $setting := . }}
+        "{{ $setting.Name }}",
+        {{- if $setting.BackwardCompatibleAlternative }}
+        "{{ $setting.BackwardCompatibleAlternative }}",
+        {{- end }}
+        {{- end }}
+    } {
+        delete(s.CustomSettings, knownSetting)
+    }
+
     return nil
 }
 
