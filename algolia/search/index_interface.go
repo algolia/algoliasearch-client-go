@@ -1,6 +1,6 @@
 package search
 
-import "github.com/algolia/algoliasearch-client-go/algolia"
+import "github.com/algolia/algoliasearch-client-go/algolia/wait"
 
 type IndexInterface interface {
 	// Misc
@@ -42,7 +42,7 @@ type IndexInterface interface {
 	BrowseSynonyms(opts ...interface{}) (*SynonymIterator, error)
 
 	// Replacing
-	ReplaceAllObjects(objects interface{}, opts ...interface{}) (*algolia.AwaitGroup, error)
+	ReplaceAllObjects(objects interface{}, opts ...interface{}) (*wait.Group, error)
 	ReplaceAllRules(rules []Rule, opts ...interface{}) (UpdateTaskRes, error)
 	ReplaceAllSynonyms(synonyms []Synonym, opts ...interface{}) (UpdateTaskRes, error)
 

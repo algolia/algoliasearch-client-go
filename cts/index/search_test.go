@@ -3,9 +3,9 @@ package index
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -14,7 +14,7 @@ func TestSearch(t *testing.T) {
 	t.Parallel()
 	_, index, _ := cts.InitSearchClient1AndIndex(t)
 
-	await := algolia.Await()
+	g := wait.NewGroup()
 
 	{
 		res, err := index.SaveObjects([]map[string]string{
@@ -33,7 +33,7 @@ func TestSearch(t *testing.T) {
 			{"company": "Yahoo", "name": "Marissa Mayer"},
 		}, opt.AutoGenerateObjectIDIfNotExist(true))
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
@@ -41,10 +41,10 @@ func TestSearch(t *testing.T) {
 			AttributesForFaceting: opt.AttributesForFaceting("searchable(company)"),
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		res, err := index.Search("algolia", nil)

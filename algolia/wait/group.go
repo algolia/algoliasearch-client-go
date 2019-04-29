@@ -1,43 +1,35 @@
-package algolia
+package wait
 
 import (
 	"sync"
 )
 
-// Waitable represents any asynchronous and potentially long-blocking operation
-// which may eventually fail. Most of Algolia response objects are implementing
-// the `algolia.Waitable` interface in order to wait for their completion using
-// `algolia.Await()` or `algolia.Wait()` provided helpers.
-type Waitable interface {
-	Wait() error
-}
-
-type AwaitGroup struct {
+type Group struct {
 	sync.Mutex
 	waitables []Waitable
 }
 
-// Await returns a newly instantiated `AwaitGroup` object. This instance can collect
+// NewGroup returns a newly instantiated `Group` object. This instance can collect
 // objects implementing the `algolia.Waitable` interface, including most of the
 // Algolia response objects, and wait for their completion in a concurrent
 // fashion.
-func Await() *AwaitGroup {
-	return new(AwaitGroup)
+func NewGroup() *Group {
+	return new(Group)
 }
 
 // Wait blocks until all the given `algolia.Waitable` objects have completed. If
 // one of the objects returned an error upon `Wait` invocation, this error is
 // returned. Otherwise, nil is returned.
 func Wait(waitables ...Waitable) error {
-	await := Await()
-	await.Collect(waitables...)
-	return await.Wait()
+	g := NewGroup()
+	g.Collect(waitables...)
+	return g.Wait()
 }
 
 // Collect holds references to the given `algolia.Waitable` objects in order to
 // wait for their completion once the `Wait` method will be invoked. Calling
 // `Collect` from multiple goroutines is safe.
-func (a *AwaitGroup) Collect(waitables ...Waitable) {
+func (a *Group) Collect(waitables ...Waitable) {
 	a.Lock()
 	a.waitables = append(a.waitables, waitables...)
 	a.Unlock()
@@ -48,9 +40,9 @@ func (a *AwaitGroup) Collect(waitables ...Waitable) {
 // this error is returned. Otherwise, nil is returned. Calling `Wait` from
 // multiple goroutines is safe.
 //
-// Upon successful completion, the `AwaitGroup` object can be reused directly to
+// Upon successful completion, the `Group` object can be reused directly to
 // collect other `algolia.Waitable` objects.
-func (a *AwaitGroup) Wait() error {
+func (a *Group) Wait() error {
 	a.Lock()
 	defer a.Unlock()
 

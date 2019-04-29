@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -21,18 +21,18 @@ func TestSecuredAPIKeys(t *testing.T) {
 
 	// Create the two indices by adding a dummy object to each
 	{
-		await := algolia.Await()
+		g := wait.NewGroup()
 		obj := map[string]string{"objectID": "one"}
 
 		res, err := index1.SaveObject(obj)
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 
 		res, err = index2.SaveObject(obj)
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 
-		require.NoError(t, await.Wait())
+		require.NoError(t, g.Wait())
 	}
 
 	// Generate the key

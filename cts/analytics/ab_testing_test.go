@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/analytics"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -39,17 +39,17 @@ func TestABTesting(t *testing.T) {
 
 	// Create the two indices by adding a dummy object in each of them
 	{
-		await := algolia.Await()
+		g := wait.NewGroup()
 
 		res, err := index1.SaveObject(map[string]string{"objectID": "one"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 
 		res, err = index2.SaveObject(map[string]string{"objectID": "one"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 
-		require.NoError(t, await.Wait())
+		require.NoError(t, g.Wait())
 	}
 
 	var abTestID int

@@ -7,13 +7,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/iterator"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 )
 
 func (i *Index) GetObject(objectID string, object interface{}, opts ...interface{}) error {
@@ -219,7 +219,7 @@ func (i *Index) browserForObjects(params searchParams, opts ...interface{}) func
 	}
 }
 
-func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (await *algolia.AwaitGroup, err error) {
+func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (g *wait.Group, err error) {
 	tmpIndex := i.client.InitIndex(fmt.Sprintf(
 		"%s_tmp_%d",
 		i.name,
@@ -234,7 +234,7 @@ func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (awa
 		}
 	}()
 
-	await = algolia.Await()
+	g = wait.NewGroup()
 	safe := iopt.ExtractSafe(opts...).Get()
 	optsWithScopes := opt.InsertOrReplaceOption(opts, opt.Scopes("rules", "settings", "synonyms"))
 
@@ -243,17 +243,17 @@ func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (awa
 		err = fmt.Errorf("cannot copy rules, settings and synonyms to the temporary index: %v", err)
 		return
 	}
-	await.Collect(resCopyIndex)
+	g.Collect(resCopyIndex)
 
 	resSaveObjects, err := tmpIndex.SaveObjects(objects, opts...)
 	if err != nil {
 		err = fmt.Errorf("cannot save objects to the temporary index: %v", err)
 		return
 	}
-	await.Collect(resSaveObjects)
+	g.Collect(resSaveObjects)
 
 	if safe {
-		if e := await.Wait(); e != nil {
+		if e := g.Wait(); e != nil {
 			err = fmt.Errorf("error while waiting for indexing operations to the temporary index: %v", e)
 			return
 		}

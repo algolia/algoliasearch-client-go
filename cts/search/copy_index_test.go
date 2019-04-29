@@ -3,9 +3,9 @@ package search
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -14,7 +14,7 @@ func TestCopyIndex(t *testing.T) {
 	t.Parallel()
 	client, index, indexName := cts.InitSearchClient1AndIndex(t)
 
-	await := algolia.Await()
+	g := wait.NewGroup()
 
 	{
 		res, err := index.SaveObjects([]map[string]string{
@@ -22,7 +22,7 @@ func TestCopyIndex(t *testing.T) {
 			{"objectID": "two", "company": "tesla"},
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	expectedSettings := search.Settings{
@@ -32,7 +32,7 @@ func TestCopyIndex(t *testing.T) {
 	{
 		res, err := index.SetSettings(expectedSettings)
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	expectedSynonym := search.NewPlaceholder("google_placeholder", "<GOOG>", "Google", "GOOG")
@@ -40,7 +40,7 @@ func TestCopyIndex(t *testing.T) {
 	{
 		res, err := index.SaveSynonym(expectedSynonym, true)
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	expectedRule := search.Rule{
@@ -58,36 +58,36 @@ func TestCopyIndex(t *testing.T) {
 	{
 		res, err := index.SaveRule(expectedRule, true)
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		res, err := client.CopySettings(indexName, indexName+"_settings")
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
 		res, err := client.CopyRules(indexName, indexName+"_rules")
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
 		res, err := client.CopySynonyms(indexName, indexName+"_synonyms")
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
 		res, err := client.CopyIndex(indexName, indexName+"_full_copy")
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	for _, c := range []struct {
 		IndexName              string

@@ -5,9 +5,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -38,21 +38,21 @@ func TestSynonym(t *testing.T) {
 		search.NewPlaceholder("playstation_version_placeholder", "<PLAYSTATIONVERSION>", "1", "One", "2", "3", "4", "4 Pro"),
 	}
 
-	await := algolia.Await()
+	g := wait.NewGroup()
 
 	{
 		res, err := index.SaveSynonym(synonyms[0])
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
 		res, err := index.SaveSynonyms(synonyms[1:])
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		var wg sync.WaitGroup

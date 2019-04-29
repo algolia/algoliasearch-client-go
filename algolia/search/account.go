@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 )
 
 // Account provides methods to interact with the Algolia Search API on multiple
@@ -24,7 +24,7 @@ func NewAccount() *Account {
 // which belong to different Algolia applications. To perform the same operation
 // on indices which belong to the same Algolia application, use Client.CopyIndex
 // which is optimized for this use-case.
-func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waitable, error) {
+func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (*wait.Group, error) {
 	if src.GetAppID() == dst.GetAppID() {
 		return nil, errs.ErrSameAppID
 	}
@@ -33,7 +33,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		return nil, errs.ErrIndexAlreadyExists
 	}
 
-	await := algolia.Await()
+	g := wait.NewGroup()
 
 	// Copy synonyms
 	{
@@ -61,7 +61,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 			if err != nil {
 				return nil, fmt.Errorf("error while replacing destination index synonyms: %v", err)
 			}
-			await.Collect(res)
+			g.Collect(res)
 		}
 	}
 
@@ -90,7 +90,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 			if err != nil {
 				return nil, fmt.Errorf("error while replacing destination index rules: %v", err)
 			}
-			await.Collect(res)
+			g.Collect(res)
 		}
 	}
 
@@ -105,7 +105,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		if err != nil {
 			return nil, fmt.Errorf("cannot set destination index settings: %v", err)
 		}
-		await.Collect(res)
+		g.Collect(res)
 
 	}
 
@@ -135,7 +135,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 				if err != nil {
 					return nil, fmt.Errorf("error while saving batch of objects: %v", err)
 				}
-				await.Collect(res)
+				g.Collect(res)
 				objects = []interface{}{}
 			}
 		}
@@ -145,8 +145,8 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (algolia.Waita
 		if err != nil {
 			return nil, fmt.Errorf("error while saving batch of objects: %v", err)
 		}
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	return await, nil
+	return g, nil
 }

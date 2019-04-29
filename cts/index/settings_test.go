@@ -3,9 +3,9 @@ package index
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -14,12 +14,12 @@ func TestSettings(t *testing.T) {
 	t.Parallel()
 	_, index, indexName := cts.InitSearchClient1AndIndex(t)
 
-	await := algolia.Await()
+	g := wait.NewGroup()
 
 	{
 		res, err := index.SaveObject(map[string]string{"objectID": "one", "attribute": "value"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	expected := search.Settings{
@@ -76,10 +76,10 @@ func TestSettings(t *testing.T) {
 	{
 		res, err := index.SetSettings(expected)
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		settings, err := index.GetSettings()

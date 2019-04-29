@@ -3,9 +3,9 @@ package index
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -14,12 +14,12 @@ func TestReplacing(t *testing.T) {
 	t.Parallel()
 	_, index, _ := cts.InitSearchClient1AndIndex(t)
 
-	await := algolia.Await()
+	g := wait.NewGroup()
 
 	{
 		res, err := index.SaveObject(map[string]string{"objectID": "one"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
@@ -39,16 +39,16 @@ func TestReplacing(t *testing.T) {
 			},
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
 		res, err := index.SaveSynonym(search.NewRegularSynonym("one", "one", "two"))
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		_, err := index.ReplaceAllObjects([]map[string]string{{"objectID": "two"}}, opt.Safe(true))
@@ -74,7 +74,7 @@ func TestReplacing(t *testing.T) {
 			},
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
@@ -82,10 +82,10 @@ func TestReplacing(t *testing.T) {
 			search.NewRegularSynonym("two", "one", "two"),
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		err := index.GetObject("one", nil)

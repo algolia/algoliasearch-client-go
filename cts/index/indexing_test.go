@@ -6,9 +6,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -17,25 +17,25 @@ func TestIndexing(t *testing.T) {
 	t.Parallel()
 	_, index, _ := cts.InitSearchClient1AndIndex(t)
 
-	await := algolia.Await()
+	g := wait.NewGroup()
 	var objectIDs []string
 
 	{
 		res, err := index.SaveObject(map[string]string{"objectID": "one", "attribute": "value"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 		objectIDs = append(objectIDs, res.ObjectID)
 
 		res, err = index.SaveObject(map[string]string{"attribute": "value"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 		objectIDs = append(objectIDs, res.ObjectID)
 	}
 
 	{
 		res, err := index.SaveObjects(nil, opt.AutoGenerateObjectIDIfNotExist(true))
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
@@ -44,7 +44,7 @@ func TestIndexing(t *testing.T) {
 			{"objectID": "three", "attribute": "value"},
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 		objectIDs = append(objectIDs, res.ObjectIDs()...)
 
 		res, err = index.SaveObjects([]map[string]string{
@@ -52,7 +52,7 @@ func TestIndexing(t *testing.T) {
 			{"attribute": "value"},
 		}, opt.AutoGenerateObjectIDIfNotExist(true))
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 		objectIDs = append(objectIDs, res.ObjectIDs()...)
 	}
 
@@ -67,12 +67,12 @@ func TestIndexing(t *testing.T) {
 			}
 			res, err := index.Batch(operations)
 			require.NoError(t, err)
-			await.Collect(res)
+			g.Collect(res)
 			objectIDs = append(objectIDs, res.ObjectIDs...)
 		}
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	var expected []map[string]string
 	for _, objectID := range objectIDs {
@@ -115,7 +115,7 @@ func TestIndexing(t *testing.T) {
 	{
 		res, err := index.SaveObject(map[string]string{"objectID": "one", "new_attribute": "new_value"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
@@ -124,13 +124,13 @@ func TestIndexing(t *testing.T) {
 			{"objectID": "three", "new_attribute": "new_value"},
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
 		res, err := index.PartialUpdateObject(map[string]string{"objectID": "one", "extra_attribute": "extra_value"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
@@ -139,10 +139,10 @@ func TestIndexing(t *testing.T) {
 			{"objectID": "three", "extra_attribute": "extra_value"},
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		var wg sync.WaitGroup
@@ -157,17 +157,17 @@ func TestIndexing(t *testing.T) {
 		for _, objectID := range objectIDs[:7] {
 			res, err := index.DeleteObject(objectID)
 			require.NoError(t, err)
-			await.Collect(res)
+			g.Collect(res)
 		}
 	}
 
 	{
 		res, err := index.DeleteObjects(objectIDs[7:])
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		it, err := index.BrowseObjects()

@@ -3,10 +3,10 @@ package account
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
 )
@@ -24,12 +24,12 @@ func TestAccountCopyIndex(t *testing.T) {
 	}
 
 	index2 = cts.InitSearchClient2(t).InitIndex(indexName2)
-	await := algolia.Await()
+	g := wait.NewGroup()
 
 	{
 		res, err := index1.SaveObject(map[string]string{"objectID": "one"})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
@@ -47,13 +47,13 @@ func TestAccountCopyIndex(t *testing.T) {
 			},
 		})
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	{
 		res, err := index1.SaveSynonym(search.NewRegularSynonym("one", "one", "two"))
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
 	settings := search.Settings{
@@ -63,10 +63,10 @@ func TestAccountCopyIndex(t *testing.T) {
 	{
 		res, err := index1.SetSettings(settings)
 		require.NoError(t, err)
-		await.Collect(res)
+		g.Collect(res)
 	}
 
-	require.NoError(t, await.Wait())
+	require.NoError(t, g.Wait())
 
 	{
 		account := search.NewAccount()
