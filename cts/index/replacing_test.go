@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia"
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/cts"
 	"github.com/stretchr/testify/require"
@@ -50,7 +51,7 @@ func TestReplacing(t *testing.T) {
 	require.NoError(t, await.Wait())
 
 	{
-		err := index.ReplaceAllObjects([]map[string]string{{"objectID": "two"}})
+		_, err := index.ReplaceAllObjects([]map[string]string{{"objectID": "two"}}, opt.Safe(true))
 		require.NoError(t, err)
 	}
 
