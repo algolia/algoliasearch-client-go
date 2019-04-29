@@ -5,6 +5,7 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/debug"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
@@ -366,4 +367,74 @@ func (s Settings) Equal(s2 Settings) bool {
 		return false
 	}
 	return true
+}
+
+func (s Settings) String() string {
+	var b strings.Builder
+	b.WriteString("Settings{\n")
+	b.WriteString(fmt.Sprintf("\tSearchableAttributes: %v,\n", stringifyReturnValues(s.SearchableAttributes.Get())))
+	b.WriteString(fmt.Sprintf("\tAttributesForFaceting: %v,\n", stringifyReturnValues(s.AttributesForFaceting.Get())))
+	b.WriteString(fmt.Sprintf("\tUnretrievableAttributes: %v,\n", stringifyReturnValues(s.UnretrievableAttributes.Get())))
+	b.WriteString(fmt.Sprintf("\tAttributesToRetrieve: %v,\n", stringifyReturnValues(s.AttributesToRetrieve.Get())))
+	b.WriteString(fmt.Sprintf("\tRanking: %v,\n", stringifyReturnValues(s.Ranking.Get())))
+	b.WriteString(fmt.Sprintf("\tCustomRanking: %v,\n", stringifyReturnValues(s.CustomRanking.Get())))
+	b.WriteString(fmt.Sprintf("\tReplicas: %v,\n", stringifyReturnValues(s.Replicas.Get())))
+	b.WriteString(fmt.Sprintf("\tPrimary: %v,\n", stringifyReturnValues(s.Primary.Get())))
+	b.WriteString(fmt.Sprintf("\tMaxValuesPerFacet: %v,\n", stringifyReturnValues(s.MaxValuesPerFacet.Get())))
+	b.WriteString(fmt.Sprintf("\tSortFacetValuesBy: %v,\n", stringifyReturnValues(s.SortFacetValuesBy.Get())))
+	b.WriteString(fmt.Sprintf("\tAttributesToHighlight: %v,\n", stringifyReturnValues(s.AttributesToHighlight.Get())))
+	b.WriteString(fmt.Sprintf("\tAttributesToSnippet: %v,\n", stringifyReturnValues(s.AttributesToSnippet.Get())))
+	b.WriteString(fmt.Sprintf("\tHighlightPreTag: %v,\n", stringifyReturnValues(s.HighlightPreTag.Get())))
+	b.WriteString(fmt.Sprintf("\tHighlightPostTag: %v,\n", stringifyReturnValues(s.HighlightPostTag.Get())))
+	b.WriteString(fmt.Sprintf("\tSnippetEllipsisText: %v,\n", stringifyReturnValues(s.SnippetEllipsisText.Get())))
+	b.WriteString(fmt.Sprintf("\tRestrictHighlightAndSnippetArrays: %v,\n", stringifyReturnValues(s.RestrictHighlightAndSnippetArrays.Get())))
+	b.WriteString(fmt.Sprintf("\tHitsPerPage: %v,\n", stringifyReturnValues(s.HitsPerPage.Get())))
+	b.WriteString(fmt.Sprintf("\tPaginationLimitedTo: %v,\n", stringifyReturnValues(s.PaginationLimitedTo.Get())))
+	b.WriteString(fmt.Sprintf("\tMinWordSizefor1Typo: %v,\n", stringifyReturnValues(s.MinWordSizefor1Typo.Get())))
+	b.WriteString(fmt.Sprintf("\tMinWordSizefor2Typos: %v,\n", stringifyReturnValues(s.MinWordSizefor2Typos.Get())))
+	b.WriteString(fmt.Sprintf("\tTypoTolerance: %v,\n", stringifyReturnValues(s.TypoTolerance.Get())))
+	b.WriteString(fmt.Sprintf("\tAllowTyposOnNumericTokens: %v,\n", stringifyReturnValues(s.AllowTyposOnNumericTokens.Get())))
+	b.WriteString(fmt.Sprintf("\tDisableTypoToleranceOnAttributes: %v,\n", stringifyReturnValues(s.DisableTypoToleranceOnAttributes.Get())))
+	b.WriteString(fmt.Sprintf("\tDisableTypoToleranceOnWords: %v,\n", stringifyReturnValues(s.DisableTypoToleranceOnWords.Get())))
+	b.WriteString(fmt.Sprintf("\tSeparatorsToIndex: %v,\n", stringifyReturnValues(s.SeparatorsToIndex.Get())))
+	b.WriteString(fmt.Sprintf("\tIgnorePlurals: %v,\n", stringifyReturnValues(s.IgnorePlurals.Get())))
+	b.WriteString(fmt.Sprintf("\tRemoveStopWords: %v,\n", stringifyReturnValues(s.RemoveStopWords.Get())))
+	b.WriteString(fmt.Sprintf("\tCamelCaseAttributes: %v,\n", stringifyReturnValues(s.CamelCaseAttributes.Get())))
+	b.WriteString(fmt.Sprintf("\tDecompoundedAttributes: %v,\n", stringifyReturnValues(s.DecompoundedAttributes.Get())))
+	b.WriteString(fmt.Sprintf("\tKeepDiacriticsOnCharacters: %v,\n", stringifyReturnValues(s.KeepDiacriticsOnCharacters.Get())))
+	b.WriteString(fmt.Sprintf("\tQueryLanguages: %v,\n", stringifyReturnValues(s.QueryLanguages.Get())))
+	b.WriteString(fmt.Sprintf("\tQueryType: %v,\n", stringifyReturnValues(s.QueryType.Get())))
+	b.WriteString(fmt.Sprintf("\tRemoveWordsIfNoResults: %v,\n", stringifyReturnValues(s.RemoveWordsIfNoResults.Get())))
+	b.WriteString(fmt.Sprintf("\tAdvancedSyntax: %v,\n", stringifyReturnValues(s.AdvancedSyntax.Get())))
+	b.WriteString(fmt.Sprintf("\tOptionalWords: %v,\n", stringifyReturnValues(s.OptionalWords.Get())))
+	b.WriteString(fmt.Sprintf("\tDisablePrefixOnAttributes: %v,\n", stringifyReturnValues(s.DisablePrefixOnAttributes.Get())))
+	b.WriteString(fmt.Sprintf("\tDisableExactOnAttributes: %v,\n", stringifyReturnValues(s.DisableExactOnAttributes.Get())))
+	b.WriteString(fmt.Sprintf("\tExactOnSingleWordQuery: %v,\n", stringifyReturnValues(s.ExactOnSingleWordQuery.Get())))
+	b.WriteString(fmt.Sprintf("\tAlternativesAsExact: %v,\n", stringifyReturnValues(s.AlternativesAsExact.Get())))
+	b.WriteString(fmt.Sprintf("\tAdvancedSyntaxFeatures: %v,\n", stringifyReturnValues(s.AdvancedSyntaxFeatures.Get())))
+	b.WriteString(fmt.Sprintf("\tEnableRules: %v,\n", stringifyReturnValues(s.EnableRules.Get())))
+	b.WriteString(fmt.Sprintf("\tNumericAttributesForFiltering: %v,\n", stringifyReturnValues(s.NumericAttributesForFiltering.Get())))
+	b.WriteString(fmt.Sprintf("\tAllowCompressionOfIntegerArray: %v,\n", stringifyReturnValues(s.AllowCompressionOfIntegerArray.Get())))
+	b.WriteString(fmt.Sprintf("\tAttributeForDistinct: %v,\n", stringifyReturnValues(s.AttributeForDistinct.Get())))
+	b.WriteString(fmt.Sprintf("\tDistinct: %v,\n", stringifyReturnValues(s.Distinct.Get())))
+	b.WriteString(fmt.Sprintf("\tReplaceSynonymsInHighlight: %v,\n", stringifyReturnValues(s.ReplaceSynonymsInHighlight.Get())))
+	b.WriteString(fmt.Sprintf("\tMinProximity: %v,\n", stringifyReturnValues(s.MinProximity.Get())))
+	b.WriteString(fmt.Sprintf("\tResponseFields: %v,\n", stringifyReturnValues(s.ResponseFields.Get())))
+	b.WriteString(fmt.Sprintf("\tMaxFacetHits: %v,\n", stringifyReturnValues(s.MaxFacetHits.Get())))
+	b.WriteString(fmt.Sprintf("\tAdvanced: %v,\n", stringifyReturnValues(s.Advanced.Get())))
+	b.WriteString("\tCustomSettings{\n")
+	for k, v := range s.CustomSettings {
+		b.WriteString(fmt.Sprintf("\t\t%s: %v,\n", k, v))
+	}
+	b.WriteString("\t}\n")
+	b.WriteString("}")
+	return b.String()
+}
+
+func stringifyReturnValues(args ...interface{}) string {
+	var s []string
+	for _, arg := range args {
+		s = append(s, fmt.Sprintf("%v", arg))
+	}
+	return "(" + strings.Join(s, ",") + ")"
 }
