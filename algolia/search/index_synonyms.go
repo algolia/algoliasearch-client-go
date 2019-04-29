@@ -5,11 +5,17 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
 func (i *Index) GetSynonym(objectID string, opts ...interface{}) (synonym Synonym, err error) {
+	if objectID == "" {
+		err = errs.ErrMissingObjectID
+		return
+	}
+
 	var syn rawSynonym
 	path := i.path("/synonyms/%s", objectID)
 	err = i.transport.Request(&syn, http.MethodGet, path, nil, call.Read, opts...)
@@ -20,6 +26,12 @@ func (i *Index) GetSynonym(objectID string, opts ...interface{}) (synonym Synony
 }
 
 func (i *Index) SaveSynonym(synonym Synonym, opts ...interface{}) (res UpdateTaskRes, err error) {
+	if synonym.ObjectID() == "" {
+		err = errs.ErrMissingObjectID
+		res.wait = noWait
+		return
+	}
+
 	path := i.path("/synonyms/%s", synonym.ObjectID())
 	err = i.transport.Request(&res, http.MethodPut, path, synonym, call.Write, opts...)
 	res.wait = i.WaitTask
@@ -44,6 +56,12 @@ func (i *Index) ClearSynonyms(opts ...interface{}) (res UpdateTaskRes, err error
 }
 
 func (i *Index) DeleteSynonym(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
+	if objectID == "" {
+		err = errs.ErrMissingObjectID
+		res.wait = noWait
+		return
+	}
+
 	path := i.path("/synonyms/%s", objectID)
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
 	res.wait = i.WaitTask

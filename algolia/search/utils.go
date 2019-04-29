@@ -70,7 +70,7 @@ func getObjectID(object interface{}) (string, bool) {
 
 	switch v := objectID.(type) {
 	case string:
-		return v, true
+		return v, v != ""
 	case float64:
 		return fmt.Sprintf("%d", int(v)), true
 	default:

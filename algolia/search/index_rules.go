@@ -4,17 +4,29 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
 func (i *Index) GetRule(objectID string, opts ...interface{}) (rule Rule, err error) {
+	if objectID == "" {
+		err = errs.ErrMissingObjectID
+		return
+	}
+
 	path := i.path("/rules/%s", objectID)
 	err = i.transport.Request(&rule, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
 
 func (i *Index) SaveRule(rule Rule, opts ...interface{}) (res UpdateTaskRes, err error) {
+	if rule.ObjectID == "" {
+		err = errs.ErrMissingObjectID
+		res.wait = noWait
+		return
+	}
+
 	path := i.path("/rules/%s", rule.ObjectID)
 	err = i.transport.Request(&res, http.MethodPut, path, rule, call.Write, opts...)
 	res.wait = i.WaitTask
@@ -39,6 +51,12 @@ func (i *Index) ClearRules(opts ...interface{}) (res UpdateTaskRes, err error) {
 }
 
 func (i *Index) DeleteRule(objectID string, opts ...interface{}) (res UpdateTaskRes, err error) {
+	if objectID == "" {
+		err = errs.ErrMissingObjectID
+		res.wait = noWait
+		return
+	}
+
 	path := i.path("/rules/%s", objectID)
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
 	res.wait = i.WaitTask

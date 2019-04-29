@@ -17,6 +17,10 @@ import (
 )
 
 func (i *Index) GetObject(objectID string, object interface{}, opts ...interface{}) error {
+	if objectID == "" {
+		return errs.ErrMissingObjectID
+	}
+
 	if attrs := iopt.ExtractAttributesToRetrieve(opts...); attrs != nil {
 		attributesToRetrieve := attrs.Get()
 		if len(attributesToRetrieve) > 0 {
