@@ -80,8 +80,8 @@ func (i *Index) ClearObjects(opts ...interface{}) (res UpdateTaskRes, err error)
 	return
 }
 
-// Clear deletes the index. After this call, new indexing calls can be sent with
-// the same index instance.
+// Delete removes the entire index. After this call, new indexing calls can be
+// sent with the same index instance.
 func (i *Index) Delete(opts ...interface{}) (res DeleteTaskRes, err error) {
 	path := i.path("")
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
