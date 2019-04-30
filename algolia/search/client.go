@@ -111,3 +111,17 @@ func (c *Client) GetLogs(opts ...interface{}) (res GetLogsRes, err error) {
 	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
+
+// CustomRequest is a low-level function which build a request from the given
+// parameters and send it through the requester, making use of the underlying
+// retry strategy.
+func (c *Client) CustomRequest(
+	res interface{},
+	method string,
+	path string,
+	body interface{},
+	k call.Kind,
+	opts ...interface{},
+) error {
+	return c.transport.Request(&res, method, path, body, k, opts...)
+}
