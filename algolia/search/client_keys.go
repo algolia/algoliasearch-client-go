@@ -27,6 +27,10 @@ func (c *Client) AddAPIKey(key Key, opts ...interface{}) (res CreateKeyRes, err 
 // UpdateAPIKey updates the API key identified by its Value field and updates
 // all its non-zero fields.
 func (c *Client) UpdateAPIKey(key Key, opts ...interface{}) (res UpdateKeyRes, err error) {
+	if key.Value == "" {
+		err = errs.ErrMissingKeyID
+		return
+	}
 	path := c.path("/keys/%s", key.Value)
 	err = c.transport.Request(&res, http.MethodPut, path, key, call.Write, opts...)
 	res.wait = c.waitKeyHasChanged(key)
