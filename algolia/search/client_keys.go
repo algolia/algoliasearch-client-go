@@ -52,7 +52,13 @@ func (c *Client) waitKeyIsAvailable(keyID string) func() error {
 	return func() error {
 		return waitWithRetry(func() (bool, error) {
 			_, err := c.GetAPIKey(keyID)
-			return err == nil, err
+			if err == nil {
+				return true, nil
+			}
+			if _, ok := errs.IsAlgoliaHTTPErrWithCode(err, http.StatusNotFound); ok {
+				return false, nil
+			}
+			return true, err
 		})
 	}
 }
@@ -61,10 +67,13 @@ func (c *Client) waitKeyIsNotAvailable(keyID string) func() error {
 	return func() error {
 		return waitWithRetry(func() (bool, error) {
 			_, err := c.GetAPIKey(keyID)
-			if ok, _ := errs.IsAlgoliaHTTPErr(err, http.StatusNotFound); !ok {
-				return false, err
+			if err == nil {
+				return false, nil
 			}
-			return true, nil
+			if _, ok := errs.IsAlgoliaHTTPErrWithCode(err, http.StatusNotFound); ok {
+				return true, nil
+			}
+			return true, err
 		})
 	}
 }

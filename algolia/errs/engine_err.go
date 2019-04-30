@@ -13,13 +13,13 @@ func (e AlgoliaErr) Error() string {
 	return fmt.Sprintf("Algolia API error [%d] %s", e.Status, e.Message)
 }
 
-func IsAlgoliaHTTPErr(err error, httpCode int) (bool, string) {
+func IsAlgoliaHTTPErrWithCode(err error, httpCode int) (string, bool) {
 	if err == nil {
-		return false, ""
+		return "", false
 	}
 	e, ok := err.(AlgoliaErr)
 	if !ok || e.Status != httpCode {
-		return false, ""
+		return "", false
 	}
-	return true, e.Message
+	return e.Message, true
 }
