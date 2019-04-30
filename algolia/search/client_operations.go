@@ -38,21 +38,6 @@ func (c *Client) CopyIndex(source, destination string, opts ...interface{}) (Upd
 	return c.operation(source, destination, "copy", opts...)
 }
 
-func (c *Client) MoveRules(source, destination string, opts ...interface{}) (UpdateTaskRes, error) {
-	opts = opt.InsertOrReplaceOption(opts, opt.Scopes("rules"))
-	return c.MoveIndex(source, destination, opts...)
-}
-
-func (c *Client) MoveSettings(source, destination string, opts ...interface{}) (UpdateTaskRes, error) {
-	opts = opt.InsertOrReplaceOption(opts, opt.Scopes("settings"))
-	return c.MoveIndex(source, destination, opts...)
-}
-
-func (c *Client) MoveSynonyms(source, destination string, opts ...interface{}) (UpdateTaskRes, error) {
-	opts = opt.InsertOrReplaceOption(opts, opt.Scopes("synonyms"))
-	return c.MoveIndex(source, destination, opts...)
-}
-
 // MoveIndex moves the full content (objects, synonyms, rules, settings) of the
 // given source index into the destination one, effectively deleting the source
 // index.

@@ -16,9 +16,6 @@ type ClientInterface interface {
 	CopyIndex(source, destination string, opts ...interface{}) (UpdateTaskRes, error)
 
 	// Move index operations
-	MoveRules(source, destination string, opts ...interface{}) (UpdateTaskRes, error)
-	MoveSettings(source, destination string, opts ...interface{}) (UpdateTaskRes, error)
-	MoveSynonyms(source, destination string, opts ...interface{}) (UpdateTaskRes, error)
 	MoveIndex(source, destination string, opts ...interface{}) (UpdateTaskRes, error)
 
 	// API key methods
