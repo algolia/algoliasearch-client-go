@@ -20,12 +20,8 @@ func (c *Client) ListClusters(opts ...interface{}) (res ListClustersRes, err err
 // Pagination can be implemented using the opt.Page and opt.HitsPerPage option
 // parameters.
 func (c *Client) ListUserIDs(opts ...interface{}) (res ListUserIDsRes, err error) {
-	if page := iopt.ExtractPage(opts...); page != nil {
-		opts = opt.InsertExtraURLParam(opts, "page", page.Get())
-	}
-	if hitsPerPage := iopt.ExtractHitsPerPage(opts...); hitsPerPage != nil {
-		opts = opt.InsertExtraURLParam(opts, "hitsPerPage", hitsPerPage.Get())
-	}
+	opts = opt.InsertExtraURLParam(opts, "page", iopt.ExtractPage(opts...).Get())
+	opts = opt.InsertExtraURLParam(opts, "hitsPerPage", iopt.ExtractHitsPerPage(opts...).Get())
 	err = c.transport.Request(&res, http.MethodGet, "/1/clusters/mapping", nil, call.Read, opts...)
 	return
 }
