@@ -163,6 +163,26 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (s Settings) MarshalJSON() ([]byte, error) {
+	dataWithoutCustomSettings, err := json.Marshal(settings(s))
+	if err != nil {
+		return nil, fmt.Errorf("cannot marshal known settings: %v", err)
+	}
+	var m map[string]json.RawMessage
+	err = json.Unmarshal(dataWithoutCustomSettings, &m)
+	if err != nil {
+		return nil, fmt.Errorf("cannot unmarshal known settings into temporary map: %v", err)
+	}
+	for k, v := range s.CustomSettings {
+		data, err := json.Marshal(v)
+		if err != nil {
+			return nil, fmt.Errorf("cannot marshal unknown settings %q: %v", k, err)
+		}
+		m[k] = data
+	}
+	return json.Marshal(m)
+}
+
 // Equal returns true if given settings are the same as the instance one. Empty
 // settings are considered equal to their default value counterpart.
 func (s Settings) Equal(s2 Settings) bool {
