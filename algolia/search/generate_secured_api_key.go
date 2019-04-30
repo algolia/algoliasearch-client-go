@@ -11,6 +11,19 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
+// GenerateSecuredAPIKey generates a public API key intended to restrict access
+// to certain records. This new key is built upon the existing key named
+// `apiKey` and the following options:
+//
+//   - opt.Filters (string of filters to apply automatically on search queries)
+//   - opt.Referers (string slice of allowed referers)
+//   - opt.RestrictIndices (comma-separated string list of the indices to restrict)
+//   - opt.RestrictSources (string of the allowed IPv4 network)
+//   - opt.UserToken (string identifier generally used to rate-limit users per IP)
+//   - opt.ValidUntil (timestamp of the expiration date)
+//
+// More details here:
+// https://www.algolia.com/doc/api-reference/api-methods/generate-secured-api-key/?language=python#parameters
 func GenerateSecuredAPIKey(apiKey string, opts ...interface{}) (string, error) {
 	h := hmac.New(sha256.New, []byte(apiKey))
 

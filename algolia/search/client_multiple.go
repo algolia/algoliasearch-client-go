@@ -6,6 +6,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 )
 
+// MultipleBatch applies multiple indexing operations on potentially multiple
+// indices in a single call.
 func (c *Client) MultipleBatch(operations []BatchOperationIndexed, opts ...interface{}) (res MultipleBatchRes, err error) {
 	body := map[string][]BatchOperationIndexed{"requests": operations}
 	path := c.path("/indexes/*/batch")
@@ -18,6 +20,8 @@ func (c *Client) waitTask(index string, taskID int) error {
 	return c.InitIndex(index).WaitTask(taskID)
 }
 
+// MultipleGetObjects retrieves multiple objects from potentially multiple
+// indices in a single call.
 func (c *Client) MultipleGetObjects(requests []IndexedGetObject, objects interface{}, opts ...interface{}) (err error) {
 	if len(requests) == 0 {
 		return
@@ -29,6 +33,8 @@ func (c *Client) MultipleGetObjects(requests []IndexedGetObject, objects interfa
 	return
 }
 
+// MultipleQueries performs multiple search queries on potentially multiple
+// indices in a single call.
 func (c *Client) MultipleQueries(queries []IndexedQuery, strategy string, opts ...interface{}) (res MultipleQueriesRes, err error) {
 	body := newMultipleQueriesReq(queries, strategy)
 	path := c.path("/indexes/*/queries")
