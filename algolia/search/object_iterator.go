@@ -6,6 +6,9 @@ import (
 	"io"
 )
 
+// ObjectIterator represents an iterator over records of an index.
+//
+// ObjectIterator implements the iterator.Iterator interface.
 type ObjectIterator struct {
 	browser func(string) (browseRes, error)
 	page    browseRes
@@ -33,6 +36,13 @@ func (it *ObjectIterator) loadNextPage() (err error) {
 	return
 }
 
+// Next returns one record from the index. To directly decode the underlying
+// object instead of getting it from the returned empty interface, passes the
+// object to decode to as a first argument of the method, such as:
+//
+//     var obj struct { ... }
+//     _, err := it.Next(&obj)
+//
 func (it *ObjectIterator) Next(opts ...interface{}) (interface{}, error) {
 	// Abort if the user call `Next()` on a IndexIterator that has been
 	// initialized without being able to load the first page.

@@ -8,6 +8,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
+// Key represents an Algolia API key used by the API to identify and/or restrict
+// calls.
 type Key struct {
 	ACL                    []string      `json:"acl,omitempty"`
 	CreatedAt              time.Time     `json:"-"`
@@ -22,6 +24,8 @@ type Key struct {
 	Value                  string        `json:"-"`
 }
 
+// SetQueryParameters properly encodes any given query parameters into the
+// QueryParameters field of the Key.
 func (k *Key) SetQueryParameters(opts ...interface{}) {
 	k.QueryParameters = transport.URLEncode(newQueryParams(opts...))
 }
@@ -57,6 +61,7 @@ func (k *Key) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Equal returns true if the Keys are equal. It returns false otherwise.
 func (k Key) Equal(k2 Key) bool {
 	k.CreatedAt, k2.CreatedAt = time.Time{}, time.Time{}
 	k.Validity, k2.Validity = 0, 0

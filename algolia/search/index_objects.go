@@ -16,6 +16,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 )
 
+// GetObject retrieves the record identified by the given objectID and
+// deserializes it into the object parameter.
 func (i *Index) GetObject(objectID string, object interface{}, opts ...interface{}) error {
 	if objectID == "" {
 		return errs.ErrMissingObjectID
@@ -31,6 +33,7 @@ func (i *Index) GetObject(objectID string, object interface{}, opts ...interface
 	return i.transport.Request(&object, http.MethodGet, path, nil, call.Read, opts...)
 }
 
+// SaveObject saves the given object to the index.
 func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObjectRes, err error) {
 	path := i.path("")
 	err = i.transport.Request(&res, http.MethodPost, path, object, call.Write, opts...)
@@ -38,6 +41,8 @@ func (i *Index) SaveObject(object interface{}, opts ...interface{}) (res SaveObj
 	return
 }
 
+// PartialUpdateObject replaces the object content of the given object according
+// to its respective objectID field.
 func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (res UpdateTaskRes, err error) {
 	objectID, ok := getObjectID(object)
 	if !ok {
@@ -58,6 +63,7 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 	return
 }
 
+// DeleteObject removes the record identified by the given objectID.
 func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
 	if objectID == "" {
 		err = errs.ErrMissingObjectID
@@ -71,6 +77,8 @@ func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTa
 	return
 }
 
+// GetObjects retrieves the records identified by the given objectIDs and
+// deserializes them into the objects parameter.
 func (i *Index) GetObjects(objectIDs []string, objects interface{}, opts ...interface{}) error {
 	var (
 		attributesToRetrieve = iopt.ExtractAttributesToRetrieve(opts...)
@@ -91,10 +99,28 @@ func (i *Index) GetObjects(objectIDs []string, objects interface{}, opts ...inte
 	return i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
 }
 
+// SaveObjects saves the given objects to the index.
+//
+// Objects can either be a slice, an array or an object implementing the
+// iterator.Iterator interface. In the last case, SaveObjects will call the Next
+// method of the iterator to retrieve the objects sent one by one.
+//
+// This method does not send all the provided objects in a single call. Objects
+// are sent by batches whose size is controlled by Configuration.MaxBatchSize
+// (defaults to search.DefaultMaxBatchSize).
 func (i *Index) SaveObjects(objects interface{}, opts ...interface{}) (res GroupBatchRes, err error) {
 	return i.batch(objects, AddObject, opts...)
 }
 
+// PartialUpdateObjects replaces object content of all the given objects
+// according to their respective objectID field.
+//
+// If opt.CreateIfNotExists(true) is passed, non-existing objects will be
+// created, otherwise, the call will fail.
+//
+// This method does not send all the provided objects in a single call. Objects
+// are sent by batches whose size is controlled by Configuration.MaxBatchSize
+// (defaults to search.DefaultMaxBatchSize).
 func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (res GroupBatchRes, err error) {
 	var action BatchAction
 
@@ -107,6 +133,7 @@ func (i *Index) PartialUpdateObjects(objects interface{}, opts ...interface{}) (
 	return i.batch(objects, action, opts...)
 }
 
+// DeleteObjects removes the records identified by the given objectIDs.
 func (i *Index) DeleteObjects(objectIDs []string, opts ...interface{}) (res BatchRes, err error) {
 	objects := make([]interface{}, len(objectIDs))
 
@@ -167,6 +194,7 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 	return multipleRes, nil
 }
 
+// Batch sends all the given indexing operations with a single call.
 func (i *Index) Batch(operations []BatchOperation, opts ...interface{}) (res BatchRes, err error) {
 	body := batchReq{Requests: operations}
 	path := i.path("/batch")
@@ -175,6 +203,11 @@ func (i *Index) Batch(operations []BatchOperation, opts ...interface{}) (res Bat
 	return
 }
 
+// DeleteBy removes all the records that match the given query parameters.
+//
+// Not all query parameters are supported, please refer to the official
+// documentation for an exhaustive list:
+// https://www.algolia.com/doc/api-reference/api-methods/delete-by/#method-param-filterparameters
 func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
 	body := newDeleteByReq(opts...)
 	path := i.path("/deleteByQuery")
@@ -183,6 +216,8 @@ func (i *Index) DeleteBy(opts ...interface{}) (res UpdateTaskRes, err error) {
 	return
 }
 
+// Search performs a search query according to the given query string and any
+// given query parameter among all the index records.
 func (i *Index) Search(query string, opts ...interface{}) (res QueryRes, err error) {
 	body := searchReq{Params: transport.URLEncode(newSearchParams(query, opts...))}
 	path := i.path("/query")
@@ -190,6 +225,8 @@ func (i *Index) Search(query string, opts ...interface{}) (res QueryRes, err err
 	return
 }
 
+// SearchForFacetValues performs a search query according to the given query
+// string and any given parameter among the values of the given facet.
 func (i *Index) SearchForFacetValues(facet, query string, opts ...interface{}) (res SearchForFacetValuesRes, err error) {
 	params := newSearchForFacetValuesParams(query, opts...)
 	body := map[string]string{
@@ -200,6 +237,11 @@ func (i *Index) SearchForFacetValues(facet, query string, opts ...interface{}) (
 	return
 }
 
+// BrowseObjects returns an iterator which will retrieve records one by one from
+// the index according to the given query parameters.
+//
+// The return ObjectIterator can decode objects by passing the address of the
+// object to decode to as a first argument of its Next() method.
 func (i *Index) BrowseObjects(opts ...interface{}) (*ObjectIterator, error) {
 	query := iopt.ExtractQuery(opts...).Get()
 	searchParams := newSearchParams(query, opts...)
@@ -219,6 +261,16 @@ func (i *Index) browserForObjects(params searchParams, opts ...interface{}) func
 	}
 }
 
+// ReplaceAllObjects saves all the given objects into the index by replacing all
+// the original objects. Settings, rules and synonyms are preserved.
+//
+// Because this method is performing all operations in a non-blocking way, it
+// may be fast but Wait() needs to be called on the returned wait.Group to
+// ensure completion.
+//
+// In rare cases, this operation may fail in case of network disconnections. To
+// prevent issues, one may want to pass the opt.Safe(true) option. Note that
+// passing this option will make the method blocking.
 func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (g *wait.Group, err error) {
 	tmpIndex := i.client.InitIndex(fmt.Sprintf(
 		"%s_tmp_%d",

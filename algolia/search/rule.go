@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Rule represents an Algolia query rule.
 type Rule struct {
 	Condition   RuleCondition   `json:"condition"`
 	Consequence RuleConsequence `json:"consequence"`
@@ -16,6 +17,8 @@ type Rule struct {
 	Validity    []TimeRange     `json:"validity,omitempty"`
 }
 
+// TimeRange is a pair of begin/end time.Time used to represent a rule validity
+// (used by Rule.Validity field).
 type TimeRange struct {
 	From  time.Time
 	Until time.Time
@@ -41,6 +44,7 @@ func (r *TimeRange) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Equal returns true if the Rules are equal. It returns false otherwise.
 func (r Rule) Equal(r2 Rule) bool {
 	if !(r.ObjectID == r2.ObjectID &&
 		r.Description == r2.Description &&
@@ -60,6 +64,7 @@ func (r Rule) Equal(r2 Rule) bool {
 	return true
 }
 
+// Equal returns true if the TimeRanges are equal. It returns false otherwise.
 func (r TimeRange) Equal(r2 TimeRange) bool {
 	return r.From.Equal(r2.From) && r.Until.Equal(r2.Until)
 }

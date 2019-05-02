@@ -10,6 +10,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// GetSynonym retrieves the synonym identified by the given objectID.
 func (i *Index) GetSynonym(objectID string, opts ...interface{}) (synonym Synonym, err error) {
 	if objectID == "" {
 		err = errs.ErrMissingObjectID
@@ -25,6 +26,7 @@ func (i *Index) GetSynonym(objectID string, opts ...interface{}) (synonym Synony
 	return
 }
 
+// SaveSynonym saves the given synonym.
 func (i *Index) SaveSynonym(synonym Synonym, opts ...interface{}) (res UpdateTaskRes, err error) {
 	if synonym.ObjectID() == "" {
 		err = errs.ErrMissingObjectID
@@ -38,6 +40,10 @@ func (i *Index) SaveSynonym(synonym Synonym, opts ...interface{}) (res UpdateTas
 	return
 }
 
+// SaveSynonym saves the given synonyms.
+//
+// Unlike SaveObjects, this method does not batch the given synonyms i.e. all synonyms
+// are sent in a single call.
 func (i *Index) SaveSynonyms(synonyms []Synonym, opts ...interface{}) (res UpdateTaskRes, err error) {
 	if replaceExistingSynonyms := iopt.ExtractReplaceExistingSynonyms(opts...); replaceExistingSynonyms != nil {
 		opts = opt.InsertExtraURLParam(opts, "replaceExistingSynonyms", replaceExistingSynonyms.Get())
@@ -48,6 +54,7 @@ func (i *Index) SaveSynonyms(synonyms []Synonym, opts ...interface{}) (res Updat
 	return
 }
 
+// ClearSynonyms removes all the synonyms from the index.
 func (i *Index) ClearSynonyms(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/synonyms/clear")
 	err = i.transport.Request(&res, http.MethodPost, path, nil, call.Write, opts...)
@@ -55,6 +62,7 @@ func (i *Index) ClearSynonyms(opts ...interface{}) (res UpdateTaskRes, err error
 	return
 }
 
+// DeleteSynonym removes the synonym identified by the given objectID.
 func (i *Index) DeleteSynonym(objectID string, opts ...interface{}) (res DeleteTaskRes, err error) {
 	if objectID == "" {
 		err = errs.ErrMissingObjectID
@@ -68,6 +76,9 @@ func (i *Index) DeleteSynonym(objectID string, opts ...interface{}) (res DeleteT
 	return
 }
 
+// SearchSynonyms search for synonyms according to the given query string and any synonym
+// parameter, as documented here:
+// https://www.algolia.com/doc/api-reference/api-methods/search-synonyms/
 func (i *Index) SearchSynonyms(query string, opts ...interface{}) (res SearchSynonymsRes, err error) {
 	body := newSearchSynonymsParams(query, opts...)
 	path := i.path("/synonyms/search")
@@ -75,11 +86,14 @@ func (i *Index) SearchSynonyms(query string, opts ...interface{}) (res SearchSyn
 	return
 }
 
+// ReplaceAllSynonyms replaces any existing synonyms with the given ones.
 func (i *Index) ReplaceAllSynonyms(synonyms []Synonym, opts ...interface{}) (UpdateTaskRes, error) {
 	opts = opt.InsertOrReplaceOption(opts, opt.ReplaceExistingSynonyms(true))
 	return i.SaveSynonyms(synonyms, opts...)
 }
 
+// BrowseSynonyms returns an iterator which will retrieve synonyms one by one from the
+// index.
 func (i *Index) BrowseSynonyms(opts ...interface{}) (*SynonymIterator, error) {
 	opts = opt.InsertOrReplaceOption(opts, opt.HitsPerPage(1000))
 	res, err := i.SearchSynonyms("", opts...)
