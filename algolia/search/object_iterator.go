@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+
+	"github.com/algolia/algoliasearch-client-go/algolia/iterator"
 )
 
 // ObjectIterator represents an iterator over records of an index.
@@ -14,6 +16,8 @@ type ObjectIterator struct {
 	page    browseRes
 	pos     int
 }
+
+var _ iterator.Iterator = &ObjectIterator{}
 
 func newObjectIterator(browser func(string) (browseRes, error)) (it *ObjectIterator, err error) {
 	it = &ObjectIterator{browser: browser}
