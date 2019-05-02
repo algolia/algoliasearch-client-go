@@ -2,6 +2,7 @@ package search
 
 import (
 	"net/http"
+	"net/url"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
@@ -16,7 +17,7 @@ func (i *Index) GetRule(objectID string, opts ...interface{}) (rule Rule, err er
 		return
 	}
 
-	path := i.path("/rules/%s", objectID)
+	path := i.path("/rules/%s", url.QueryEscape(objectID))
 	err = i.transport.Request(&rule, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
@@ -29,7 +30,7 @@ func (i *Index) SaveRule(rule Rule, opts ...interface{}) (res UpdateTaskRes, err
 		return
 	}
 
-	path := i.path("/rules/%s", rule.ObjectID)
+	path := i.path("/rules/%s", url.QueryEscape(rule.ObjectID))
 	err = i.transport.Request(&res, http.MethodPut, path, rule, call.Write, opts...)
 	res.wait = i.WaitTask
 	return
@@ -65,7 +66,7 @@ func (i *Index) DeleteRule(objectID string, opts ...interface{}) (res UpdateTask
 		return
 	}
 
-	path := i.path("/rules/%s", objectID)
+	path := i.path("/rules/%s", url.QueryEscape(objectID))
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
 	res.wait = i.WaitTask
 	return

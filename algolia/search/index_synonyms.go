@@ -3,6 +3,7 @@ package search
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
@@ -18,7 +19,7 @@ func (i *Index) GetSynonym(objectID string, opts ...interface{}) (synonym Synony
 	}
 
 	var syn rawSynonym
-	path := i.path("/synonyms/%s", objectID)
+	path := i.path("/synonyms/%s", url.QueryEscape(objectID))
 	err = i.transport.Request(&syn, http.MethodGet, path, nil, call.Read, opts...)
 	if err == nil {
 		synonym = syn.impl
@@ -34,7 +35,7 @@ func (i *Index) SaveSynonym(synonym Synonym, opts ...interface{}) (res UpdateTas
 		return
 	}
 
-	path := i.path("/synonyms/%s", synonym.ObjectID())
+	path := i.path("/synonyms/%s", url.QueryEscape(synonym.ObjectID()))
 	err = i.transport.Request(&res, http.MethodPut, path, synonym, call.Write, opts...)
 	res.wait = i.WaitTask
 	return
@@ -70,7 +71,7 @@ func (i *Index) DeleteSynonym(objectID string, opts ...interface{}) (res DeleteT
 		return
 	}
 
-	path := i.path("/synonyms/%s", objectID)
+	path := i.path("/synonyms/%s", url.QueryEscape(objectID))
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
 	res.wait = i.WaitTask
 	return
