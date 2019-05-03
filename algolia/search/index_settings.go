@@ -8,6 +8,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 )
 
+// GetSettings retrieves the settings of the index.
 func (i *Index) GetSettings(opts ...interface{}) (settings Settings, err error) {
 	if advanced := iopt.ExtractAdvanced(opts...); advanced != nil {
 		opts = opt.InsertExtraURLParam(opts, "advanced", advanced.Get())
@@ -18,6 +19,8 @@ func (i *Index) GetSettings(opts ...interface{}) (settings Settings, err error) 
 	return
 }
 
+// SetSettings applies all the non-nil Settings field to the settings
+// configuration of the index.
 func (i *Index) SetSettings(settings Settings, opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/settings")
 	err = i.transport.Request(&res, http.MethodPut, path, settings, call.Write, opts...)
