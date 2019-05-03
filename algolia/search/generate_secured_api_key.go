@@ -40,7 +40,7 @@ func GenerateSecuredAPIKey(apiKey string, opts ...interface{}) (string, error) {
 }
 
 type securedAPIKeyParams struct {
-	Filters         *opt.FiltersOption         `json:"filters,omitempty"`
+	// Filters is already available through the composition with QueryParams.
 	Referers        *opt.ReferersOption        `json:"referers,omitempty"`
 	RestrictIndices *opt.RestrictIndicesOption `json:"restrictIndices,omitempty"`
 	RestrictSources *opt.RestrictSourcesOption `json:"restrictSources,omitempty"`
@@ -55,7 +55,6 @@ func newSecuredAPIKeyParams(opts ...interface{}) securedAPIKeyParams {
 		validUntilInt = validUntil.Get().Unix()
 	}
 	return securedAPIKeyParams{
-		Filters:         iopt.ExtractFilters(opts...),
 		Referers:        iopt.ExtractReferers(opts...),
 		RestrictIndices: iopt.ExtractRestrictIndices(opts...),
 		RestrictSources: iopt.ExtractRestrictSources(opts...),
