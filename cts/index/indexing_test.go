@@ -36,6 +36,10 @@ func TestIndexing(t *testing.T) {
 		res, err := index.SaveObjects(nil, opt.AutoGenerateObjectIDIfNotExist(true))
 		require.NoError(t, err)
 		g.Collect(res)
+
+		res, err = index.SaveObjects([]map[string]interface{}{}, opt.AutoGenerateObjectIDIfNotExist(true))
+		require.NoError(t, err)
+		g.Collect(res)
 	}
 
 	{
