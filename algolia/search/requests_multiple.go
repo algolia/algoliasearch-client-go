@@ -1,6 +1,9 @@
 package search
 
-import "github.com/algolia/algoliasearch-client-go/algolia/transport"
+import (
+	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+)
 
 type IndexedGetObject struct {
 	IndexName            string `json:"indexName"`
@@ -27,7 +30,7 @@ func newMultipleQueriesReq(queries []IndexedQuery, strategy string) multipleQuer
 	for _, q := range queries {
 		requests = append(requests, indexedRequest{
 			IndexName: q.IndexName,
-			Params:    transport.URLEncode(q.QueryParams),
+			Params:    transport.URLEncode(q.searchParams),
 		})
 	}
 
@@ -39,12 +42,15 @@ func newMultipleQueriesReq(queries []IndexedQuery, strategy string) multipleQuer
 
 type IndexedQuery struct {
 	IndexName string `json:"indexName"`
-	QueryParams
+	searchParams
 }
 
 func NewIndexedQuery(index string, opts ...interface{}) IndexedQuery {
 	return IndexedQuery{
-		IndexName:   index,
-		QueryParams: newQueryParams(opts...),
+		IndexName: index,
+		searchParams: newSearchParams(
+			iopt.ExtractQuery(opts...).Get(),
+			opts...,
+		),
 	}
 }
