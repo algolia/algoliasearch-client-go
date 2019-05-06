@@ -2,6 +2,7 @@ package transport
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
@@ -26,10 +27,10 @@ func TestShuffle(t *testing.T) {
 	require.NotEqual(t, 0, shuffledElementsCount)
 }
 
-func TestURLEncode(t *testing.T) {
+func TestURLEncodeDecode(t *testing.T) {
 	for _, c := range []struct {
-		value    interface{}
-		expected string
+		input   interface{}
+		encoded string
 	}{
 		{
 			struct {
@@ -75,6 +76,14 @@ func TestURLEncode(t *testing.T) {
 			"book=harry+potter&keywords=%5B%22magic%22%2C%22fiction%22%5D&price=19.99",
 		},
 	} {
-		require.Equal(t, c.expected, URLEncode(c.value), "wrong URL-encoded string for input %q", c.value)
+		encoded1 := URLEncode(c.input)
+		require.Equal(t, c.encoded, encoded1, "wrong URL-encoded string for input %q", c.input)
+
+		decoded := reflect.New(reflect.TypeOf(c.input)).Interface()
+		err := URLDecode([]byte(encoded1), &decoded)
+		require.NoError(t, err, "cannot decode back the input %q once encoded (%s)", c.input, encoded1)
+
+		encoded2 := URLEncode(decoded)
+		require.Equal(t, c.encoded, encoded2, "wrong URL-encoded string for input %q", c.input)
 	}
 }

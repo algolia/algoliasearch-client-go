@@ -2,9 +2,11 @@ package transport
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/rand"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/debug"
@@ -59,4 +61,56 @@ func URLEncode(itf interface{}) string {
 	}
 
 	return values.Encode()
+}
+
+func URLDecode(data []byte, itf interface{}) error {
+	dataStr := string(data)
+
+	values, err := url.ParseQuery(dataStr)
+	if err != nil {
+		return fmt.Errorf("cannot parse query %q: %v", dataStr, err)
+	}
+
+	m := make(map[string]interface{})
+	for k, v := range values {
+		if len(v) == 1 {
+			m[k] = convertValue(v[0])
+		} else {
+			var s []interface{}
+			for _, value := range v {
+				s = append(s, convertValue(value))
+			}
+			m[k] = s
+		}
+	}
+
+	data, err = json.Marshal(m)
+	if err != nil {
+		return fmt.Errorf("cannot encode temporary map %#v: %v", m, err)
+	}
+
+	err = json.Unmarshal(data, &itf)
+	return err
+}
+
+func convertValue(v string) interface{} {
+	if len(v) >= 2 && v[0] == '[' && v[len(v)-1] == ']' {
+		var s []interface{}
+		for _, v := range strings.Split(v[1:len(v)-1], ",") {
+			s = append(s, convertValue(v))
+		}
+		return s
+	}
+
+	trimmed := strings.Trim(v, `"`)
+	if b, err := strconv.ParseBool(trimmed); err == nil {
+		return b
+	}
+	if i, err := strconv.ParseInt(trimmed, 10, 64); err == nil {
+		return i
+	}
+	if f, err := strconv.ParseFloat(trimmed, 64); err == nil {
+		return f
+	}
+	return trimmed
 }
