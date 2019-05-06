@@ -2,6 +2,7 @@ package search
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"time"
 
@@ -11,23 +12,36 @@ import (
 // Key represents an Algolia API key used by the API to identify and/or restrict
 // calls.
 type Key struct {
-	ACL                    []string      `json:"acl,omitempty"`
-	CreatedAt              time.Time     `json:"-"`
-	Description            string        `json:"description,omitempty"`
-	Indexes                []string      `json:"indexes,omitempty"`
-	MaxQueriesPerIPPerHour int           `json:"maxQueriesPerIPPerHour,omitempty"`
-	MaxHitsPerQuery        int           `json:"maxHitsPerQuery,omitempty"`
-	Referers               []string      `json:"referers,omitempty"`
-	RestrictSources        string        `json:"restrictSources,omitempty"`
-	QueryParameters        string        `json:"queryParameters,omitempty"`
-	Validity               time.Duration `json:"validity,omitempty"`
-	Value                  string        `json:"-"`
+	ACL                    []string       `json:"acl,omitempty"`
+	CreatedAt              time.Time      `json:"-"`
+	Description            string         `json:"description,omitempty"`
+	Indexes                []string       `json:"indexes,omitempty"`
+	MaxQueriesPerIPPerHour int            `json:"maxQueriesPerIPPerHour,omitempty"`
+	MaxHitsPerQuery        int            `json:"maxHitsPerQuery,omitempty"`
+	Referers               []string       `json:"referers,omitempty"`
+	QueryParameters        KeyQueryParams `json:"-"`
+	Validity               time.Duration  `json:"-"`
+	Value                  string         `json:"-"`
 }
 
 // SetQueryParameters properly encodes any given query parameters into the
 // QueryParameters field of the Key.
-func (k *Key) SetQueryParameters(opts ...interface{}) {
-	k.QueryParameters = transport.URLEncode(newQueryParams(opts...))
+func (k *Key) SetQueryParameters(opts ...interface{}) *Key {
+	k.QueryParameters = newKeyQueryParams(opts...)
+	return k
+}
+
+func (k Key) MarshalJSON() ([]byte, error) {
+	type Key_ Key
+	return json.Marshal(struct {
+		Key_
+		QueryParameters string `json:"queryParameters,omitempty"`
+		Validity        int64  `json:"validity,omitempty"`
+	}{
+		Key_:            Key_(k),
+		QueryParameters: transport.URLEncode(k.QueryParameters),
+		Validity:        int64(k.Validity.Seconds()),
+	})
 }
 
 func (k *Key) UnmarshalJSON(data []byte) error {
@@ -35,28 +49,31 @@ func (k *Key) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	type key Key
-	var tmpKey struct {
-		key
-		CreatedAt int64  `json:"createdAt"`
-		Value     string `json:"value"`
+	type Key_ Key
+	var tmp struct {
+		Key_
+		CreatedAt       int64  `json:"createdAt"`
+		QueryParameters string `json:"queryParameters"`
+		Validity        int64  `json:"validity"`
+		Value           string `json:"value"`
 	}
-	err := json.Unmarshal(data, &tmpKey)
+	err := json.Unmarshal(data, &tmp)
 	if err != nil {
 		return err
 	}
 
-	k.ACL = tmpKey.ACL
-	k.CreatedAt = time.Unix(tmpKey.CreatedAt, 0)
-	k.Description = tmpKey.Description
-	k.Indexes = tmpKey.Indexes
-	k.MaxQueriesPerIPPerHour = tmpKey.MaxQueriesPerIPPerHour
-	k.MaxHitsPerQuery = tmpKey.MaxHitsPerQuery
-	k.Referers = tmpKey.Referers
-	k.RestrictSources = tmpKey.RestrictSources
-	k.QueryParameters = tmpKey.QueryParameters
-	k.Validity = tmpKey.Validity
-	k.Value = tmpKey.Value
+	*k = Key(tmp.Key_)
+	k.CreatedAt = time.Unix(tmp.CreatedAt, 0)
+	k.Validity = time.Duration(tmp.Validity) * time.Second
+	k.Value = tmp.Value
+
+	err = transport.URLDecode(
+		[]byte(tmp.QueryParameters),
+		&k.QueryParameters,
+	)
+	if err != nil {
+		return fmt.Errorf("cannot decode QueryParameters %q: %v", tmp.QueryParameters, err)
+	}
 
 	return nil
 }

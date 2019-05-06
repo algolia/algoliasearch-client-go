@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/stretchr/testify/require"
 )
 
@@ -34,11 +35,11 @@ func TestAreKeysEqual(t *testing.T) {
 		{Key{MaxHitsPerQuery: 1}, Key{MaxHitsPerQuery: 1}, true},
 		{Key{MaxHitsPerQuery: 1}, Key{MaxHitsPerQuery: 2}, false},
 
-		{Key{RestrictSources: "192.168.1.0/24"}, Key{RestrictSources: "192.168.1.0/24"}, true},
-		{Key{RestrictSources: "192.168.1.0/24"}, Key{RestrictSources: "192.168.1.0/32"}, false},
+		{*(&Key{}).SetQueryParameters(opt.RestrictSources("192.168.1.0/24")), *(&Key{}).SetQueryParameters(opt.RestrictSources("192.168.1.0/24")), true},
+		{*(&Key{}).SetQueryParameters(opt.RestrictSources("192.168.1.0/24")), *(&Key{}).SetQueryParameters(opt.RestrictSources("192.168.1.0/32")), false},
 
-		{Key{QueryParameters: "typoTolerance=strict"}, Key{QueryParameters: "typoTolerance=strict"}, true},
-		{Key{QueryParameters: "typoTolerance=strict"}, Key{QueryParameters: "typoTolerance=min"}, false},
+		{*(&Key{}).SetQueryParameters(opt.TypoToleranceStrict()), *(&Key{}).SetQueryParameters(opt.TypoToleranceStrict()), true},
+		{*(&Key{}).SetQueryParameters(opt.TypoToleranceStrict()), *(&Key{}).SetQueryParameters(opt.TypoToleranceMin()), false},
 
 		{Key{Referers: []string{"referer1"}}, Key{Referers: []string{"referer1"}}, true},
 		{Key{Referers: []string{"referer1"}}, Key{Referers: []string{"referer2"}}, false},
