@@ -191,6 +191,12 @@ func TestOptionGetters(t *testing.T) {
 	var enablePersonalization *EnablePersonalizationOption = nil
 	enablePersonalization.Get()
 
+	var personalizationImpact *PersonalizationImpactOption = nil
+	personalizationImpact.Get()
+
+	var userToken *UserTokenOption = nil
+	userToken.Get()
+
 	var numericAttributesForFiltering *NumericAttributesForFilteringOption = nil
 	numericAttributesForFiltering.Get()
 
@@ -244,9 +250,6 @@ func TestOptionGetters(t *testing.T) {
 
 	var restrictSources *RestrictSourcesOption = nil
 	restrictSources.Get()
-
-	var userToken *UserTokenOption = nil
-	userToken.Get()
 
 	var validUntil *ValidUntilOption = nil
 	validUntil.Get()

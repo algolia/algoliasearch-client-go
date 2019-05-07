@@ -57,6 +57,8 @@ type QueryParams struct {
 	EnableRules                       *opt.EnableRulesOption                       `json:"enableRules,omitempty"`
 	RuleContexts                      *opt.RuleContextsOption                      `json:"ruleContexts,omitempty"`
 	EnablePersonalization             *opt.EnablePersonalizationOption             `json:"enablePersonalization,omitempty"`
+	PersonalizationImpact             *opt.PersonalizationImpactOption             `json:"personalizationImpact,omitempty"`
+	UserToken                         *opt.UserTokenOption                         `json:"userToken,omitempty"`
 	Distinct                          *opt.DistinctOption                          `json:"distinct,omitempty"`
 	GetRankingInfo                    *opt.GetRankingInfoOption                    `json:"getRankingInfo,omitempty"`
 	ClickAnalytics                    *opt.ClickAnalyticsOption                    `json:"clickAnalytics,omitempty"`
@@ -121,6 +123,8 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		EnableRules:                       iopt.ExtractEnableRules(opts...),
 		RuleContexts:                      iopt.ExtractRuleContexts(opts...),
 		EnablePersonalization:             iopt.ExtractEnablePersonalization(opts...),
+		PersonalizationImpact:             iopt.ExtractPersonalizationImpact(opts...),
+		UserToken:                         iopt.ExtractUserToken(opts...),
 		Distinct:                          iopt.ExtractDistinct(opts...),
 		GetRankingInfo:                    iopt.ExtractGetRankingInfo(opts...),
 		ClickAnalytics:                    iopt.ExtractClickAnalytics(opts...),

@@ -109,6 +109,8 @@ var options = []Option{
 
 	// Personalization
 	{"enablePersonalization", Search, false, ""},
+	{"personalizationImpact", Search, 100, ""},
+	{"userToken", Search, "", ""},
 
 	// Performance
 	{"numericAttributesForFiltering", Settings, []string{}, "numericAttributesToIndex"},
@@ -133,7 +135,6 @@ var options = []Option{
 	// Secured API key
 	{"restrictIndices", Other, []string{}, ""},
 	{"restrictSources", Other, []string{}, ""},
-	{"userToken", Other, "", ""},
 	{"validUntil", Other, nil, ""},
 	{"referers", Other, []string{}, ""},
 
