@@ -20,3 +20,4 @@ integration-tests:
 
 clean:
 	rm -f `grep -R -l --include \*.go -F 'DO NOT EDIT' * | grep -v -F 'algolia/internal/gen/'`
+	go clean -cache -testcache ./...
