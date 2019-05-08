@@ -34,7 +34,7 @@ type QueryRes struct {
 	ServerUsed            string                            `json:"serverUsed"`
 	TimeoutCounts         bool                              `json:"timeoutCounts"`
 	TimeoutHits           bool                              `json:"timeoutHits"`
-	UserData              map[string]interface{}            `json:"userData"`
+	UserData              []interface{}                     `json:"userData"`
 	ABTestVariantID       int                               `json:"abTestVariantID"`
 }
 
