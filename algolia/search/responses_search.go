@@ -35,7 +35,7 @@ type QueryRes struct {
 	TimeoutCounts         bool                              `json:"timeoutCounts"`
 	TimeoutHits           bool                              `json:"timeoutHits"`
 	UserData              map[string]interface{}            `json:"userData"`
-	ABTestVariantID       string                            `json:"abTestVariantID"`
+	ABTestVariantID       int                               `json:"abTestVariantID"`
 }
 
 type AppliedRule struct {
