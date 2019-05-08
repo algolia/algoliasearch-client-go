@@ -9,7 +9,7 @@ import (
 type QueryRes struct {
 	AppliedRules          []AppliedRule                     `json:"appliedRules"`
 	AroundLatLng          string                            `json:"aroundLatLng"`
-	AutomaticRadius       string                            `json:"automaticRadius"`
+	AutomaticRadius       float64                           `json:"automaticRadius"`
 	ExhaustiveFacetsCount bool                              `json:"exhaustiveFacetsCount"`
 	ExhaustiveNbHits      bool                              `json:"exhaustiveNbHits"`
 	Explain               map[string]map[string]interface{} `json:"explain"`
