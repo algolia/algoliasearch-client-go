@@ -13,7 +13,7 @@ func TestGetLogs(t *testing.T) {
 	c := cts.InitSearchClient1(t)
 
 	for i := 0; i < 2; i++ {
-		_, err := c.ListIndexes()
+		_, err := c.ListIndices()
 		require.NoError(t, err)
 	}
 

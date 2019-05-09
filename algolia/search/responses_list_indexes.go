@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type ListIndexesRes struct {
+type ListIndicesRes struct {
 	Items   []IndexRes `json:"items"`
 	NbPages int        `json:"nbPages"`
 }

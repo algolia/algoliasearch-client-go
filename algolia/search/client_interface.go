@@ -5,7 +5,7 @@ import "github.com/algolia/algoliasearch-client-go/algolia/call"
 type ClientInterface interface {
 	// Misc
 	InitIndex(indexName string) *Index
-	ListIndexes(opts ...interface{}) (res ListIndexesRes, err error)
+	ListIndices(opts ...interface{}) (res ListIndicesRes, err error)
 	GetLogs(opts ...interface{}) (res GetLogsRes, err error)
 	CustomRequest(res interface{}, method string, path string, body interface{}, k call.Kind, opts ...interface{}) error
 

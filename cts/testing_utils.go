@@ -93,7 +93,7 @@ func GenerateCanonicalPrefixName() string {
 
 func deleteOldIndices(c *search.Client) {
 	today := "go_" + TodayDate()
-	indices, _ := c.ListIndexes()
+	indices, _ := c.ListIndices()
 	for _, index := range indices.Items {
 		if strings.HasPrefix(index.Name, "go_") && !strings.HasPrefix(index.Name, today) {
 			_, _ = c.InitIndex(index.Name).Delete()

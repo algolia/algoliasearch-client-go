@@ -84,10 +84,10 @@ func (c *Client) path(format string, a ...interface{}) string {
 	return "/1" + fmt.Sprintf(format, a...)
 }
 
-// ListIndexes lists the indices of the Algolia application. The response is
+// ListIndices lists the indices of the Algolia application. The response is
 // paginated and hence, may not return all indices in a single call. Multiple
 // calls may be necessary to retrieve all indices.
-func (c *Client) ListIndexes(opts ...interface{}) (res ListIndexesRes, err error) {
+func (c *Client) ListIndices(opts ...interface{}) (res ListIndicesRes, err error) {
 	path := c.path("/indexes")
 	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return

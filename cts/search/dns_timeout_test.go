@@ -29,7 +29,7 @@ func TestDNSTimeout(t *testing.T) {
 
 	start := time.Now()
 	for i := 0; i < 10; i++ {
-		_, err := client.ListIndexes()
+		_, err := client.ListIndices()
 		require.NoError(t, err)
 	}
 	delta := time.Since(start)
