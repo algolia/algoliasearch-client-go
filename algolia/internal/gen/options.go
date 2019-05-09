@@ -144,7 +144,7 @@ var options = []Option{
 	{"clearExistingRules", Other, false, ""},
 	{"replaceExistingSynonyms", Other, false, ""},
 	{"type", Other, "", ""},
-	{"createIfNotExists", Other, false, ""},
+	{"createIfNotExists", Other, true, ""},
 	{"forwardToReplicas", Other, false, ""},
 	{"anchoring", Other, "", ""},
 	{"extraHeaders", Other, map[string]string{}, ""},

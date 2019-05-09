@@ -17,7 +17,7 @@ func TestCreateIfNotExists(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.CreateIfNotExists(false),
+			expected: opt.CreateIfNotExists(true),
 		},
 		{
 			opts:     []interface{}{opt.CreateIfNotExists(true)},

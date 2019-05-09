@@ -18,7 +18,7 @@ func CreateIfNotExists(v bool) *CreateIfNotExistsOption {
 // Get retrieves the actual value of the option parameter.
 func (o *CreateIfNotExistsOption) Get() bool {
 	if o == nil {
-		return false
+		return true
 	}
 	return o.value
 }
@@ -33,7 +33,7 @@ func (o CreateIfNotExistsOption) MarshalJSON() ([]byte, error) {
 // CreateIfNotExistsOption.
 func (o *CreateIfNotExistsOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = false
+		o.value = true
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
@@ -44,7 +44,7 @@ func (o *CreateIfNotExistsOption) UnmarshalJSON(data []byte) error {
 // value of the option.
 func (o *CreateIfNotExistsOption) Equal(o2 *CreateIfNotExistsOption) bool {
 	if o2 == nil {
-		return o.value == false
+		return o.value == true
 	}
 	return o.value == o2.value
 }
