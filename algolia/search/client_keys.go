@@ -69,7 +69,7 @@ func (c *Client) waitKeyIsAvailable(keyID string) func() error {
 			if err == nil {
 				return true, nil
 			}
-			if _, ok := errs.IsAlgoliaHTTPErrWithCode(err, http.StatusNotFound); ok {
+			if _, ok := errs.IsAlgoliaErrWithCode(err, http.StatusNotFound); ok {
 				return false, nil
 			}
 			return true, err
@@ -84,7 +84,7 @@ func (c *Client) waitKeyIsNotAvailable(keyID string) func() error {
 			if err == nil {
 				return false, nil
 			}
-			if _, ok := errs.IsAlgoliaHTTPErrWithCode(err, http.StatusNotFound); ok {
+			if _, ok := errs.IsAlgoliaErrWithCode(err, http.StatusNotFound); ok {
 				return true, nil
 			}
 			return true, err
