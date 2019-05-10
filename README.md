@@ -1,11 +1,4 @@
 # Algolia Search API Client for Go
-[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.svg?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)
-[![GitHub release](https://img.shields.io/github/tag/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
-[![GitHub pre-release](https://img.shields.io/github/tag-pre/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
-[![GoDoc](https://godoc.org/github.com/algolia/algoliasearch-client-go?status.svg)](https://godoc.org/github.com/algolia/algoliasearch-client-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/algolia/algoliasearch-client-go)](https://goreportcard.com/report/github.com/algolia/algoliasearch-client-go)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
-![Supported version](https://img.shields.io/badge/Go-%3E=1.8-green.svg)
 
 [Algolia Search](https://www.algolia.com) is a hosted search engine capable of delivering realtime results from the first keystroke.
 
@@ -13,10 +6,17 @@ The **Algolia Search API Client for Go** lets
 you easily use the [Algolia Search REST API](https://www.algolia.com/doc/rest-api/search) from
 your Go code.
 
-**Migration note from v1.x to v2.x**
+[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.png?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go) ![Supported version](https://img.shields.io/badge/Go-%3E=1.7-green.svg)
+
+
+
+  ## Contributing
+
+  **Migration note from v1.x to v2.x**
 
 In June 2016, we released the v2 of our Go client. If you were using version 1.x of the client, read the [migration guide to version 2.x](https://github.com/algolia/algoliasearch-client-go/wiki/Migration-guide-to-version-2.x).
 Version 1.x are no longer under active development. They are still supported for bug fixes, but will not receive new features.
+
 
 
 
@@ -51,6 +51,12 @@ You can find the full reference on [Algolia's website](https://www.algolia.com/d
 1. **[List of available methods](#list-of-available-methods)**
 
 
+1. **[Getting Help](#getting-help)**
+
+
+1. **[List of available methods](#list-of-available-methods)**
+
+
 # Getting Started
 
 
@@ -61,26 +67,10 @@ This API client is compatible with Go 1.7 and above.
 
 ## Install
 
-Download the Go client v2 (current stable version) using:
+Download the Go client using:
 
 ```bash
-# Using Go modules, add `github.com/algolia/algoliasearch-client-go` to your
-# `require` list (using the v2 branch):
 go get github.com/algolia/algoliasearch-client-go@v2
-
-# Using dep
-dep ensure
-```
-
-Download the Go client v3 (beta version) using:
-
-```bash
-# Using Go modules, add `github.com/algolia/algoliasearch-client-go` to your
-# `require` list:
-go get github.com/algolia/algoliasearch-client-go@v3.0.0-beta01
-
-# Using dep
-dep ensure
 ```
 
 ## Quick Start
@@ -95,7 +85,7 @@ You can find both on [your Algolia account](https://www.algolia.com/api-keys).
 ```go
 import "github.com/algolia/algoliasearch-client-go/algoliasearch"
 
-client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
+client := algoliasearch.NewClient("YourApplicationID", "YourAdminAPIKey")
 index := client.InitIndex("your_index_name")
 ```
 
@@ -178,15 +168,13 @@ The following example shows how to quickly build a front-end search using
 <!doctype html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.0/themes/algolia.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.1/themes/algolia.css" integrity="sha256-4SlodglhMbXjGQfNWiCBLSGNiq90FUw3Mtre9u4vLG8=" crossorigin="anonymous">
 </head>
 <body>
   <header>
-    <div>
-       <input id="search-input" placeholder="Search for products">
-       <!-- We use a specific placeholder in the input to guide users in their search. -->
     
   </header>
+
   <main>
       
       
@@ -201,7 +189,8 @@ The following example shows how to quickly build a front-end search using
     
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.0.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.32.1/dist/algoliasearchLite.min.js" integrity="sha256-NSTRUP9bvh8kBKi7IHQSmOrMAdVEoSJFBbTA+LoRr3A=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.2.0" integrity="sha256-/8usMtTwZ01jujD7KAZctG0UMk2S2NDNirGFVBbBZCM=" crossorigin="anonymous"></script>
   <script src="app.js"></script>
 </body>
 ```
@@ -210,23 +199,27 @@ The following example shows how to quickly build a front-end search using
 
 ```js
 // Replace with your own values
-var searchClient = algoliasearch(
+const searchClient = algoliasearch(
   'YourApplicationID',
-  'YourAPIKey' // search only API key, no ADMIN key
+  'YourSearchOnlyAPIKey' // search only API key, not admin API key
 );
 
-var search = instantsearch({
+const search = instantsearch({
   indexName: 'instant_search',
-  searchClient: searchClient,
+  searchClient,
   routing: true,
-  searchParameters: {
-    hitsPerPage: 10
-  }
 });
 
 search.addWidget(
+  instantsearch.widgets.configure({
+    hitsPerPage: 10,
+  })
+);
+
+search.addWidget(
   instantsearch.widgets.searchBox({
-    container: '#search-input'
+    container: '#search-box',
+    placeholder: 'Search for products',
   })
 );
 
@@ -235,8 +228,8 @@ search.addWidget(
     container: '#hits',
     templates: {
       item: document.getElementById('hit-template').innerHTML,
-      empty: "We didn't find any results for the search <em>\"{{query}}\"</em>"
-    }
+      empty: `We didn't find any results for the search <em>"{{query}}"</em>`,
+    },
   })
 );
 
@@ -310,6 +303,7 @@ search.start();
 - [Add API Key](https://algolia.com/doc/api-reference/api-methods/add-api-key/?language=go)
 - [Update API Key](https://algolia.com/doc/api-reference/api-methods/update-api-key/?language=go)
 - [Delete API Key](https://algolia.com/doc/api-reference/api-methods/delete-api-key/?language=go)
+- [Restore API Key](https://algolia.com/doc/api-reference/api-methods/restore-api-key/?language=go)
 - [Get API Key permissions](https://algolia.com/doc/api-reference/api-methods/get-api-key/?language=go)
 - [List API Keys](https://algolia.com/doc/api-reference/api-methods/list-api-keys/?language=go)
 
@@ -390,6 +384,12 @@ search.start();
 - [Configuring timeouts](https://algolia.com/doc/api-reference/api-methods/configuring-timeouts/?language=go)
 - [Set extra header](https://algolia.com/doc/api-reference/api-methods/set-extra-header/?language=go)
 - [Wait for operations](https://algolia.com/doc/api-reference/api-methods/wait-task/?language=go)
+
+
+
+
+### Vault
+
 
 
 
