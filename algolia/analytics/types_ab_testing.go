@@ -35,8 +35,8 @@ func (abTest ABTest) MarshalJSON() ([]byte, error) {
 // Variant presents a Variant input as sent to the Analytics API when creating a
 // new AB test.
 type Variant struct {
-	Index                  string             `json:"index"`
-	TrafficPercentage      int                `json:"trafficPercentage"`
-	Description            string             `json:"description,omitempty"`
-	CustomSearchParameters search.QueryParams `json:"customSearchParameters,omitempty"`
+	Index                  string              `json:"index"`
+	TrafficPercentage      int                 `json:"trafficPercentage"`
+	Description            string              `json:"description,omitempty"`
+	CustomSearchParameters *search.QueryParams `json:"customSearchParameters,omitempty"`
 }
