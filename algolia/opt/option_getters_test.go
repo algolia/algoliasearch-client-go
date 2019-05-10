@@ -188,6 +188,9 @@ func TestOptionGetters(t *testing.T) {
 	var ruleContexts *RuleContextsOption = nil
 	ruleContexts.Get()
 
+	var enabled *EnabledOption = nil
+	enabled.Get()
+
 	var enablePersonalization *EnablePersonalizationOption = nil
 	enablePersonalization.Get()
 

@@ -63,7 +63,7 @@ func TestQueryRule(t *testing.T) {
 			},
 			Validity:    timeranges,
 			Description: "Automatic apply the faceting on `brand` if a brand value is found in the query",
-			Enabled:     false,
+			Enabled:     opt.Enabled(false),
 		},
 		{
 			ObjectID:  "query_edits",
@@ -78,7 +78,7 @@ func TestQueryRule(t *testing.T) {
 					}),
 				},
 			},
-			Enabled: true,
+			Enabled: opt.Enabled(true),
 		},
 	}
 

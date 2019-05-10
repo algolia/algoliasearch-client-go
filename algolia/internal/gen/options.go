@@ -106,6 +106,7 @@ var options = []Option{
 	// Query rules
 	{"enableRules", Settings | Search, true, ""},
 	{"ruleContexts", Search, []string{}, ""},
+	{"enabled", Other, true, ""}, // Used to enable the rule by default
 
 	// Personalization
 	{"enablePersonalization", Search, false, ""},
