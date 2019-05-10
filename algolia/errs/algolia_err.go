@@ -23,7 +23,7 @@ func (e AlgoliaErr) Error() string {
 // can be converted, the inner AlgoliaErr is returned along with true.
 // Otherwise, the returned boolean is false and nil is returned.
 func IsAlgoliaErr(err error) (*AlgoliaErr, bool) {
-	if err != nil {
+	if err == nil {
 		return nil, false
 	}
 	e, ok := err.(AlgoliaErr)
