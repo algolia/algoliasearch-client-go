@@ -143,7 +143,7 @@ var options = []Option{
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
 	{"clearExistingRules", Other, false, ""},
 	{"replaceExistingSynonyms", Other, false, ""},
-	{"type", Other, "", ""},
+	{"type", Other, []string{}, ""},
 	{"createIfNotExists", Other, true, ""},
 	{"forwardToReplicas", Other, false, ""},
 	{"anchoring", Other, "", ""},

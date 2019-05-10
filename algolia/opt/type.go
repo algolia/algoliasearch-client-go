@@ -2,23 +2,26 @@
 
 package opt
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"reflect"
+)
 
 // TypeOption is a wrapper for an Type option parameter. It holds
 // the actual value of the option that can be accessed by calling Get.
 type TypeOption struct {
-	value string
+	value []string
 }
 
 // Type wraps the given value into a TypeOption.
-func Type(v string) *TypeOption {
+func Type(v ...string) *TypeOption {
 	return &TypeOption{v}
 }
 
 // Get retrieves the actual value of the option parameter.
-func (o *TypeOption) Get() string {
+func (o *TypeOption) Get() []string {
 	if o == nil {
-		return ""
+		return []string{}
 	}
 	return o.value
 }
@@ -33,7 +36,7 @@ func (o TypeOption) MarshalJSON() ([]byte, error) {
 // TypeOption.
 func (o *TypeOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = ""
+		o.value = []string{}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
@@ -44,9 +47,9 @@ func (o *TypeOption) UnmarshalJSON(data []byte) error {
 // value of the option.
 func (o *TypeOption) Equal(o2 *TypeOption) bool {
 	if o2 == nil {
-		return o.value == ""
+		return reflect.DeepEqual(o.value, []string{})
 	}
-	return o.value == o2.value
+	return reflect.DeepEqual(o.value, o2.value)
 }
 
 // TypeEqual returns true if the two options are equal.

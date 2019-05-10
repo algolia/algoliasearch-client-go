@@ -17,15 +17,15 @@ func TestType(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.Type(""),
+			expected: opt.Type([]string{}...),
 		},
 		{
-			opts:     []interface{}{opt.Type("")},
-			expected: opt.Type(""),
+			opts:     []interface{}{opt.Type("value1")},
+			expected: opt.Type("value1"),
 		},
 		{
-			opts:     []interface{}{opt.Type("content of the string value")},
-			expected: opt.Type("content of the string value"),
+			opts:     []interface{}{opt.Type("value1", "value2", "value3")},
+			expected: opt.Type("value1", "value2", "value3"),
 		},
 	} {
 		var (
@@ -36,6 +36,6 @@ func TestType(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.Equal(t, *c.expected, out)
+		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }

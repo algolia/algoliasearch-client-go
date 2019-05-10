@@ -101,8 +101,8 @@ func (c *Client) GetLogs(opts ...interface{}) (res GetLogsRes, err error) {
 	if length := iopt.ExtractLength(opts...); length != nil {
 		opts = opt.InsertExtraURLParam(opts, "length", length.Get())
 	}
-	if t := iopt.ExtractType(opts...); t != nil {
-		opts = opt.InsertExtraURLParam(opts, "type", t.Get())
+	if t := iopt.ExtractType(opts...).Get(); len(t) > 0 {
+		opts = opt.InsertExtraURLParam(opts, "type", t[0])
 	}
 	if indexName := iopt.ExtractIndexName(opts...); indexName != nil {
 		opts = opt.InsertExtraURLParam(opts, "indexName", indexName.Get())
