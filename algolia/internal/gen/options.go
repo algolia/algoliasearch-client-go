@@ -79,7 +79,7 @@ var options = []Option{
 	{"aroundLatLng", Search, "", ""},
 	{"aroundLatLngViaIP", Search, false, ""},
 	{"aroundRadius", Search, nil, ""},
-	{"aroundPrecision", Search, 1, ""},
+	{"aroundPrecision", Search, nil, ""},
 	{"minimumAroundRadius", Search, 0, ""},
 	{"insideBoundingBox", Search, nil, ""},
 	{"insidePolygon", Search, nil, ""},
