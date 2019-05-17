@@ -233,5 +233,5 @@ func unmarshalToError(r io.ReadCloser) error {
 	if err != nil {
 		return err
 	}
-	return algoliaErr
+	return &algoliaErr
 }

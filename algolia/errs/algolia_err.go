@@ -26,10 +26,17 @@ func IsAlgoliaErr(err error) (*AlgoliaErr, bool) {
 	if err == nil {
 		return nil, false
 	}
+
 	e, ok := err.(AlgoliaErr)
-	if !ok {
+	eptr, okPtr := err.(*AlgoliaErr)
+	if !ok && !okPtr {
 		return nil, false
 	}
+
+	if okPtr {
+		return eptr, true
+	}
+
 	return &e, true
 }
 
