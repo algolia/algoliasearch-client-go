@@ -53,7 +53,17 @@ func waitWithRetry(f func() (bool, error)) error {
 	}
 }
 
+// ObjectIDProvider can generate object ID.
+type ObjectIDProvider interface {
+	ObjectID() string
+}
+
 func getObjectID(object interface{}) (string, bool) {
+	o, ok := object.(ObjectIDProvider)
+	if ok {
+		return o.ObjectID(), true
+	}
+
 	data, err := json.Marshal(object)
 	if err != nil {
 		return "", false
