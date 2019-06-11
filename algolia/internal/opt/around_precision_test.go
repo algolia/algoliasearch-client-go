@@ -15,48 +15,32 @@ func TestAroundPrecision(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AroundPrecision(1),
+			expected: opt.AroundPrecision(opt.AroundPrecisionRange{From: 0, Value: 1}),
 		},
 		{
-			opts:     []interface{}{opt.AroundPrecision(0)},
-			expected: opt.AroundPrecision(0),
+			opts:     []interface{}{opt.AroundPrecision(opt.AroundPrecisionRange{From: 0, Value: 0})},
+			expected: opt.AroundPrecision(opt.AroundPrecisionRange{From: 0, Value: 0}),
 		},
 		{
-			opts:     []interface{}{opt.AroundPrecision(1)},
-			expected: opt.AroundPrecision(1),
+			opts:     []interface{}{opt.AroundPrecision(opt.AroundPrecisionRange{From: 0, Value: 1})},
+			expected: opt.AroundPrecision(opt.AroundPrecisionRange{From: 0, Value: 1}),
 		},
 		{
-			opts:     []interface{}{opt.AroundPrecision(-42)},
-			expected: opt.AroundPrecision(-42),
+			opts:     []interface{}{opt.AroundPrecision(opt.AroundPrecisionRange{From: 0, Value: -42})},
+			expected: opt.AroundPrecision(opt.AroundPrecisionRange{From: 0, Value: -42}),
 		},
 		{
-			opts:     []interface{}{opt.AroundPrecisionRanges()},
-			expected: opt.AroundPrecision(1),
+			opts:     []interface{}{opt.AroundPrecision(opt.AroundPrecisionRange{From: 10, Value: 20})},
+			expected: opt.AroundPrecision(opt.AroundPrecisionRange{From: 10, Value: 20}),
 		},
 		{
-			opts: []interface{}{opt.AroundPrecisionRanges(
-				[]opt.AroundPrecisionRange{
-					{From: 10, Value: 20},
-				}...,
+			opts: []interface{}{opt.AroundPrecision(
+				opt.AroundPrecisionRange{From: 10, Value: 20},
+				opt.AroundPrecisionRange{From: 30, Value: 40},
 			)},
-			expected: opt.AroundPrecisionRanges(
-				[]opt.AroundPrecisionRange{
-					{From: 10, Value: 20},
-				}...,
-			),
-		},
-		{
-			opts: []interface{}{opt.AroundPrecisionRanges(
-				[]opt.AroundPrecisionRange{
-					{From: 10, Value: 20},
-					{From: 30, Value: 40},
-				}...,
-			)},
-			expected: opt.AroundPrecisionRanges(
-				[]opt.AroundPrecisionRange{
-					{From: 10, Value: 20},
-					{From: 30, Value: 40},
-				}...,
+			expected: opt.AroundPrecision(
+				opt.AroundPrecisionRange{From: 10, Value: 20},
+				opt.AroundPrecisionRange{From: 30, Value: 40},
 			),
 		},
 	} {

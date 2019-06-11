@@ -13,16 +13,11 @@ type AroundPrecisionRange struct {
 	Value int `json:"value"`
 }
 
-// AroundPrecision wraps the given value into a AroundPrecisionOption.
-func AroundPrecision(v int) *AroundPrecisionOption {
-	return &AroundPrecisionOption{
-		value: []AroundPrecisionRange{{From: 0, Value: v}},
-	}
-}
-
-func AroundPrecisionRanges(ranges ...AroundPrecisionRange) *AroundPrecisionOption {
+func AroundPrecision(ranges ...AroundPrecisionRange) *AroundPrecisionOption {
 	if len(ranges) == 0 {
-		return AroundPrecision(1)
+		return &AroundPrecisionOption{
+			value: []AroundPrecisionRange{{From: 0, Value: 1}},
+		}
 	}
 	return &AroundPrecisionOption{
 		value: ranges,
