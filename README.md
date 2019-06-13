@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.algolia.com/doc/api-client/getting-started/install/Go/" target="_blank">Documentation</a>  •
+  <a href="https://www.algolia.com/doc/api-client/getting-started/install/go/" target="_blank">Documentation</a>  •
   <a href="https://discourse.algolia.com" target="_blank">Community Forum</a>  •
   <a href="http://stackoverflow.com/questions/tagged/algolia" target="_blank">Stack Overflow</a>  •
   <a href="https://github.com/algolia/algoliasearch-client-go/issues" target="_blank">Report a bug</a>  •
@@ -70,7 +70,7 @@ func main() {
 
 Finally, you may begin searching a object using the `Search` method:
 
-```py
+```go
 package main
 
 import (
