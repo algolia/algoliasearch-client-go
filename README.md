@@ -1,402 +1,114 @@
-# Algolia Search API Client for Go
-[![Build Status](https://travis-ci.org/algolia/algoliasearch-client-go.svg?branch=master)](https://travis-ci.org/algolia/algoliasearch-client-go)
-[![GitHub release](https://img.shields.io/github/tag/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
-[![GitHub pre-release](https://img.shields.io/github/tag-pre/algolia/algoliasearch-client-go.svg)](https://github.com/algolia/algoliasearch-client-go/releases)
-[![GoDoc](https://godoc.org/github.com/algolia/algoliasearch-client-go?status.svg)](https://godoc.org/github.com/algolia/algoliasearch-client-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/algolia/algoliasearch-client-go)](https://goreportcard.com/report/github.com/algolia/algoliasearch-client-go)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
-![Supported version](https://img.shields.io/badge/Go-%3E=1.8-green.svg)
+<p align="center">
+  <a href="https://www.algolia.com">
+    <img alt="Algolia for Go" src="https://raw.githubusercontent.com/algolia/algoliasearch-client-common/master/readme-banner.png" >
+  </a>
+  
+  <h4 align="center">The perfect starting point to integrate <a href="https://algolia.com" target="_blank">Algolia</a> within your Go project</h4>
 
-[Algolia Search](https://www.algolia.com) is a hosted search engine capable of delivering realtime results from the first keystroke.
+  <p align="center">
+    <a href="https://travis-ci.org/algolia/algoliasearch-client-go"><img src="https://img.shields.io/travis/algolia/algoliasearch-client-go/master.svg" alt="Build Status"></img></a>
+    <a href="https://github.com/algolia/algoliasearch-client-go/releases"><img src="https://img.shields.io/github/tag/algolia/algoliasearch-client-go.svg" alt="Github Releases"></img></a>
+    <a href="https://godoc.org/github.com/algolia/algoliasearch-client-go"><img src="https://godoc.org/github.com/algolia/algoliasearch-client-go?status.svg" alt="GoDoc"></img></a>
+    <a href="https://goreportcard.com/report/github.com/algolia/algoliasearch-client-go"><img src="https://goreportcard.com/badge/github.com/algolia/algoliasearch-client-go" alt="Go Report Card"></img></a>
+    <a href="https://github.com/algolia/algoliasearch-client-go/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></img></a>
+    <img src="https://img.shields.io/badge/Go-%3E=1.8-green.svg" alt="Supported version"></img></a>
+  </p>
+</p>
 
-The **Algolia Search API Client for Go** lets
-you easily use the [Algolia Search REST API](https://www.algolia.com/doc/rest-api/search) from
-your Go code.
+<p align="center">
+  <a href="https://www.algolia.com/doc/api-client/getting-started/install/Go/" target="_blank">Documentation</a>  •
+  <a href="https://discourse.algolia.com" target="_blank">Community Forum</a>  •
+  <a href="http://stackoverflow.com/questions/tagged/algolia" target="_blank">Stack Overflow</a>  •
+  <a href="https://github.com/algolia/algoliasearch-client-go/issues" target="_blank">Report a bug</a>  •
+  <a href="https://www.algolia.com/support" target="_blank">Support</a>
+</p>
 
-**Migration note from v1.x to v2.x**
+## ✨ Features
 
-In June 2016, we released the v2 of our Go client. If you were using version 1.x of the client, read the [migration guide to version 2.x](https://github.com/algolia/algoliasearch-client-go/wiki/Migration-guide-to-version-2.x).
-Version 1.x are no longer under active development. They are still supported for bug fixes, but will not receive new features.
+* Support Go 1.8 and above
+* Typed requests and responses
+* First-class support for user-defined structures
+* Injectable HTTP client
 
+**Migration note from v2.x to v3.x**
 
+> In June 2019, we released v3 of our Go client. If you are using version 2.x
+> of the client, read the [migration guide to version 3.x](https://www.algolia.com/doc/api-client/getting-started/upgrade-guides/go/).
+> Version 2.x will **no longer** be under active development.
 
+## 💡 Getting Started
 
-## API Documentation
-
-You can find the full reference on [Algolia's website](https://www.algolia.com/doc/api-client/go/).
-
-
-
-1. **[Supported platforms](#supported-platforms)**
-
-
-1. **[Install](#install)**
-
-
-1. **[Quick Start](#quick-start)**
-
-
-1. **[Push data](#push-data)**
-
-
-1. **[Configure](#configure)**
-
-
-1. **[Search](#search)**
-
-
-1. **[Search UI](#search-ui)**
-
-
-1. **[List of available methods](#list-of-available-methods)**
-
-
-# Getting Started
-
-
-
-## Supported platforms
-
-This API client is compatible with Go 1.7 and above.
-
-## Install
-
-Download the Go client v2 (current stable version) using:
+First, add the Algolia Go API Client as a new module to your Go project:
 
 ```bash
-# Using Go modules, add `github.com/algolia/algoliasearch-client-go` to your
-# `require` list (using the v2 branch):
-go get github.com/algolia/algoliasearch-client-go@v2
-
-# Using dep
-dep ensure
+# First line is optional if your project is already defined as a Go module
+go mod init <YOUR_PROJECT_NAME>
+go get github.com/algolia/algoliasearch-client-go@v3.0.0
 ```
 
-Download the Go client v3 (beta version) using:
-
-```bash
-# Using Go modules, add `github.com/algolia/algoliasearch-client-go` to your
-# `require` list:
-go get github.com/algolia/algoliasearch-client-go@v3.0.0-beta01
-
-# Using dep
-dep ensure
-```
-
-## Quick Start
-
-In 30 seconds, this quick start tutorial will show you how to index and search objects.
-
-### Initialize the client
-
-To start, you need to initialize the client. To do this, you need your **Application ID** and **API Key**.
-You can find both on [your Algolia account](https://www.algolia.com/api-keys).
+Then, create objects on your index:
 
 ```go
-import "github.com/algolia/algoliasearch-client-go/algoliasearch"
+package main
 
-client := algoliasearch.NewClient("YourApplicationID", "YourAPIKey")
-index := client.InitIndex("your_index_name")
-```
+import "github.com/algolia/algoliasearch-client-go/algolia/search"
 
-## Push data
-
-Without any prior configuration, you can start indexing [500 contacts](https://github.com/algolia/datasets/blob/master/contacts/contacts.json) in the ```contacts``` index using the following code:
-```go
-index := client.InitIndex("contacts")
-content, _ := ioutil.ReadFile("contacts.json")
-
-var objects []algoliasearch.Object
-if err := json.Unmarshal(content, &objects); err != nil {
-  return
+type Contact struct {
+	ObjectID string `json:"objectID"`
+	Name     string `json:"name"`
 }
 
-res, err := index.AddObjects(objects)
+func main() {
+	client := search.NewClient("YourApplicationID", "YourAPIKey")
+	index := client.InitIndex("your_index_name")
+
+	res, err := index.SaveObjects([]Contact{
+		{ObjectID: "1", Name: "Foo"},
+	})
+}
 ```
 
-## Configure
+Finally, you may begin searching a object using the `Search` method:
 
-You can customize settings to fine tune the search behavior. For example, you can add a custom ranking by number of followers to further enhance the built-in relevance:
+```py
+package main
 
-```go
-settings := algoliasearch.Map{
-  "customRanking": []string{"desc(followers)"},
+import (
+	"fmt"
+	"os"
+
+	"github.com/algolia/algoliasearch-client-go/algolia/search"
+)
+
+type Contact struct {
+	ObjectID string `json:"objectID"`
+	Name     string `json:"name"`
 }
 
-res, err := index.SetSettings(settings)
-```
+func main() {
+	client := search.NewClient("YourApplicationID", "YourAPIKey")
+	index := client.InitIndex("your_index_name")
 
-You can also configure the list of attributes you want to index by order of importance (most important first).
+	res, err := index.Search("Foo")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-**Note:** Algolia is designed to suggest results as you type, which means you'll generally search by prefix.
-In this case, the order of attributes is crucial to decide which hit is the best.
+	var contacts []Contact
 
-```go
-settings := algoliasearch.Map{
-    "searchableAttributes": []string{
-        "firstname",
-        "lastname",
-        "company",
-        "email",
-        "city",
-        "address",
-    },
+	err = res.UnmarshalHits(&contacts)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Println(contacts)
 }
-
-res, err := index.SetSettings(settings)
 ```
 
-## Search
+For full documentation, visit the **[Algolia Go API Client](https://www.algolia.com/doc/api-client/getting-started/install/go/)**.
 
-You can now search for contacts by `firstname`, `lastname`, `company`, etc. (even with typos):
+## 📄 License
 
-```go
-// Search for a first name
-res, err := index.Search("jimmie", nil)
-
-// Search for a first name with typo
-res, err = index.Search("jimie", nil)
-
-// Search for a company
-res, err = index.Search("california paint", nil)
-
-// Search for a first name and a company
-res, err = index.Search("jimmie paint", nil)
-```
-
-## Search UI
-
-**Warning:** If you're building a web application, you may be interested in using one of our
-[front-end search UI libraries](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/js/).
-
-The following example shows how to quickly build a front-end search using
-[InstantSearch.js](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/js/)
-
-### index.html
-
-```html
-<!doctype html>
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.0/themes/algolia.css" />
-</head>
-<body>
-  <header>
-    <div>
-       <input id="search-input" placeholder="Search for products">
-       <!-- We use a specific placeholder in the input to guide users in their search. -->
-    
-  </header>
-  <main>
-      
-      
-  </main>
-
-  <script type="text/html" id="hit-template">
-    
-      <p class="hit-name">
-        {}{ "attribute": "firstname" }{{/helpers.highlight}}
-        {}{ "attribute": "lastname" }{{/helpers.highlight}}
-      </p>
-    
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.0.0"></script>
-  <script src="app.js"></script>
-</body>
-```
-
-### app.js
-
-```js
-// Replace with your own values
-var searchClient = algoliasearch(
-  'YourApplicationID',
-  'YourAPIKey' // search only API key, no ADMIN key
-);
-
-var search = instantsearch({
-  indexName: 'instant_search',
-  searchClient: searchClient,
-  routing: true,
-  searchParameters: {
-    hitsPerPage: 10
-  }
-});
-
-search.addWidget(
-  instantsearch.widgets.searchBox({
-    container: '#search-input'
-  })
-);
-
-search.addWidget(
-  instantsearch.widgets.hits({
-    container: '#hits',
-    templates: {
-      item: document.getElementById('hit-template').innerHTML,
-      empty: "We didn't find any results for the search <em>\"{{query}}\"</em>"
-    }
-  })
-);
-
-search.start();
-```
-
-
-
-
-## List of available methods
-
-
-
-
-
-### Personalization
-
-- [Add strategy](https://algolia.com/doc/api-reference/api-methods/add-strategy/?language=go)
-- [Get strategy](https://algolia.com/doc/api-reference/api-methods/get-strategy/?language=go)
-
-
-
-
-### Search
-
-- [Search index](https://algolia.com/doc/api-reference/api-methods/search/?language=go)
-- [Search for facet values](https://algolia.com/doc/api-reference/api-methods/search-for-facet-values/?language=go)
-- [Search multiple indices](https://algolia.com/doc/api-reference/api-methods/multiple-queries/?language=go)
-- [Browse index](https://algolia.com/doc/api-reference/api-methods/browse/?language=go)
-
-
-
-
-### Indexing
-
-- [Add objects](https://algolia.com/doc/api-reference/api-methods/add-objects/?language=go)
-- [Save objects](https://algolia.com/doc/api-reference/api-methods/save-objects/?language=go)
-- [Partial update objects](https://algolia.com/doc/api-reference/api-methods/partial-update-objects/?language=go)
-- [Delete objects](https://algolia.com/doc/api-reference/api-methods/delete-objects/?language=go)
-- [Replace all objects](https://algolia.com/doc/api-reference/api-methods/replace-all-objects/?language=go)
-- [Delete by](https://algolia.com/doc/api-reference/api-methods/delete-by/?language=go)
-- [Clear objects](https://algolia.com/doc/api-reference/api-methods/clear-objects/?language=go)
-- [Get objects](https://algolia.com/doc/api-reference/api-methods/get-objects/?language=go)
-- [Custom batch](https://algolia.com/doc/api-reference/api-methods/batch/?language=go)
-
-
-
-
-### Settings
-
-- [Get settings](https://algolia.com/doc/api-reference/api-methods/get-settings/?language=go)
-- [Set settings](https://algolia.com/doc/api-reference/api-methods/set-settings/?language=go)
-- [Copy settings](https://algolia.com/doc/api-reference/api-methods/copy-settings/?language=go)
-
-
-
-
-### Manage indices
-
-- [List indices](https://algolia.com/doc/api-reference/api-methods/list-indices/?language=go)
-- [Delete index](https://algolia.com/doc/api-reference/api-methods/delete-index/?language=go)
-- [Copy index](https://algolia.com/doc/api-reference/api-methods/copy-index/?language=go)
-- [Move index](https://algolia.com/doc/api-reference/api-methods/move-index/?language=go)
-
-
-
-
-### API keys
-
-- [Create secured API Key](https://algolia.com/doc/api-reference/api-methods/generate-secured-api-key/?language=go)
-- [Add API Key](https://algolia.com/doc/api-reference/api-methods/add-api-key/?language=go)
-- [Update API Key](https://algolia.com/doc/api-reference/api-methods/update-api-key/?language=go)
-- [Delete API Key](https://algolia.com/doc/api-reference/api-methods/delete-api-key/?language=go)
-- [Get API Key permissions](https://algolia.com/doc/api-reference/api-methods/get-api-key/?language=go)
-- [List API Keys](https://algolia.com/doc/api-reference/api-methods/list-api-keys/?language=go)
-
-
-
-
-### Synonyms
-
-- [Save synonym](https://algolia.com/doc/api-reference/api-methods/save-synonym/?language=go)
-- [Batch synonyms](https://algolia.com/doc/api-reference/api-methods/batch-synonyms/?language=go)
-- [Delete synonym](https://algolia.com/doc/api-reference/api-methods/delete-synonym/?language=go)
-- [Clear all synonyms](https://algolia.com/doc/api-reference/api-methods/clear-synonyms/?language=go)
-- [Get synonym](https://algolia.com/doc/api-reference/api-methods/get-synonym/?language=go)
-- [Search synonyms](https://algolia.com/doc/api-reference/api-methods/search-synonyms/?language=go)
-- [Replace all synonyms](https://algolia.com/doc/api-reference/api-methods/replace-all-synonyms/?language=go)
-- [Copy synonyms](https://algolia.com/doc/api-reference/api-methods/copy-synonyms/?language=go)
-- [Export Synonyms](https://algolia.com/doc/api-reference/api-methods/export-synonyms/?language=go)
-
-
-
-
-### Query rules
-
-- [Save rule](https://algolia.com/doc/api-reference/api-methods/save-rule/?language=go)
-- [Batch rules](https://algolia.com/doc/api-reference/api-methods/batch-rules/?language=go)
-- [Get rule](https://algolia.com/doc/api-reference/api-methods/get-rule/?language=go)
-- [Delete rule](https://algolia.com/doc/api-reference/api-methods/delete-rule/?language=go)
-- [Clear rules](https://algolia.com/doc/api-reference/api-methods/clear-rules/?language=go)
-- [Search rules](https://algolia.com/doc/api-reference/api-methods/search-rules/?language=go)
-- [Replace all rules](https://algolia.com/doc/api-reference/api-methods/replace-all-rules/?language=go)
-- [Copy rules](https://algolia.com/doc/api-reference/api-methods/copy-rules/?language=go)
-- [Export rules](https://algolia.com/doc/api-reference/api-methods/export-rules/?language=go)
-
-
-
-
-### A/B Test
-
-- [Add A/B test](https://algolia.com/doc/api-reference/api-methods/add-ab-test/?language=go)
-- [Get A/B test](https://algolia.com/doc/api-reference/api-methods/get-ab-test/?language=go)
-- [List A/B tests](https://algolia.com/doc/api-reference/api-methods/list-ab-tests/?language=go)
-- [Stop A/B test](https://algolia.com/doc/api-reference/api-methods/stop-ab-test/?language=go)
-- [Delete A/B test](https://algolia.com/doc/api-reference/api-methods/delete-ab-test/?language=go)
-
-
-
-
-### Insights
-
-- [Clicked Object IDs After Search](https://algolia.com/doc/api-reference/api-methods/clicked-object-ids-after-search/?language=go)
-- [Clicked Object IDs](https://algolia.com/doc/api-reference/api-methods/clicked-object-ids/?language=go)
-- [Clicked Filters](https://algolia.com/doc/api-reference/api-methods/clicked-filters/?language=go)
-- [Converted Objects IDs After Search](https://algolia.com/doc/api-reference/api-methods/converted-object-ids-after-search/?language=go)
-- [Converted Object IDs](https://algolia.com/doc/api-reference/api-methods/converted-object-ids/?language=go)
-- [Converted Filters](https://algolia.com/doc/api-reference/api-methods/converted-filters/?language=go)
-- [Viewed Object IDs](https://algolia.com/doc/api-reference/api-methods/viewed-object-ids/?language=go)
-- [Viewed Filters](https://algolia.com/doc/api-reference/api-methods/viewed-filters/?language=go)
-
-
-
-
-### MultiClusters
-
-- [Assign or Move userID](https://algolia.com/doc/api-reference/api-methods/assign-user-id/?language=go)
-- [Get top userID](https://algolia.com/doc/api-reference/api-methods/get-top-user-id/?language=go)
-- [Get userID](https://algolia.com/doc/api-reference/api-methods/get-user-id/?language=go)
-- [List clusters](https://algolia.com/doc/api-reference/api-methods/list-clusters/?language=go)
-- [List userIDs](https://algolia.com/doc/api-reference/api-methods/list-user-id/?language=go)
-- [Remove userID](https://algolia.com/doc/api-reference/api-methods/remove-user-id/?language=go)
-- [Search userID](https://algolia.com/doc/api-reference/api-methods/search-user-id/?language=go)
-
-
-
-
-### Advanced
-
-- [Get logs](https://algolia.com/doc/api-reference/api-methods/get-logs/?language=go)
-- [Configuring timeouts](https://algolia.com/doc/api-reference/api-methods/configuring-timeouts/?language=go)
-- [Set extra header](https://algolia.com/doc/api-reference/api-methods/set-extra-header/?language=go)
-- [Wait for operations](https://algolia.com/doc/api-reference/api-methods/wait-task/?language=go)
-
-
-
-
-
-## Getting Help
-
-- **Need help**? Ask a question to the [Algolia Community](https://discourse.algolia.com/) or on [Stack Overflow](http://stackoverflow.com/questions/tagged/algolia).
-- **Found a bug?** You can open a [GitHub issue](https://github.com/algolia/algoliasearch-client-go/issues).
-
+Algolia Go API Client is an open-sourced software licensed under the [MIT license](LICENSE).
