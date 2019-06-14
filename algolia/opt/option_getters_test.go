@@ -287,6 +287,9 @@ func TestOptionGetters(t *testing.T) {
 	var extraHeaders *ExtraHeadersOption = nil
 	extraHeaders.Get()
 
+	var extraOptions *ExtraOptionsOption = nil
+	extraOptions.Get()
+
 	var extraURLParams *ExtraURLParamsOption = nil
 	extraURLParams.Get()
 

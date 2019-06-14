@@ -105,7 +105,10 @@ func convertInterfaceToString(defaultValue interface{}) string {
 		s = fmt.Sprintf("%d", v)
 	case string:
 		s = fmt.Sprintf("%q", v)
-	case []string, map[string]string, map[string][]string:
+	case []string,
+		map[string]string,
+		map[string][]string,
+		map[string]interface{}:
 		s = fmt.Sprintf("%#v", v)
 	default:
 		fmt.Printf("cannot convert interface to string: unhandled type %#v\n", defaultValue)
