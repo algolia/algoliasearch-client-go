@@ -64,6 +64,7 @@ type QueryParams struct {
 	ClickAnalytics                    *opt.ClickAnalyticsOption                    `json:"clickAnalytics,omitempty"`
 	Analytics                         *opt.AnalyticsOption                         `json:"analytics,omitempty"`
 	AnalyticsTags                     *opt.AnalyticsTagsOption                     `json:"analyticsTags,omitempty"`
+	EnableABTest                      *opt.EnableABTestOption                      `json:"enableABTest,omitempty"`
 	Synonyms                          *opt.SynonymsOption                          `json:"synonyms,omitempty"`
 	ReplaceSynonymsInHighlight        *opt.ReplaceSynonymsInHighlightOption        `json:"replaceSynonymsInHighlight,omitempty"`
 	MinProximity                      *opt.MinProximityOption                      `json:"minProximity,omitempty"`
@@ -130,6 +131,7 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		ClickAnalytics:                    iopt.ExtractClickAnalytics(opts...),
 		Analytics:                         iopt.ExtractAnalytics(opts...),
 		AnalyticsTags:                     iopt.ExtractAnalyticsTags(opts...),
+		EnableABTest:                      iopt.ExtractEnableABTest(opts...),
 		Synonyms:                          iopt.ExtractSynonyms(opts...),
 		ReplaceSynonymsInHighlight:        iopt.ExtractReplaceSynonymsInHighlight(opts...),
 		MinProximity:                      iopt.ExtractMinProximity(opts...),

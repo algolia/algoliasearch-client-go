@@ -224,6 +224,9 @@ func TestOptionGetters(t *testing.T) {
 	var analyticsTags *AnalyticsTagsOption = nil
 	analyticsTags.Get()
 
+	var enableABTest *EnableABTestOption = nil
+	enableABTest.Get()
+
 	var synonyms *SynonymsOption = nil
 	synonyms.Get()
 

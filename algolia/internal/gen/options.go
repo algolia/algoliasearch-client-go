@@ -124,6 +124,7 @@ var options = []Option{
 	{"clickAnalytics", Search, false, ""},
 	{"analytics", Search, true, ""},
 	{"analyticsTags", Search, []string{}, ""},
+	{"enableABTest", Search, true, ""},
 	{"synonyms", Search, true, ""},
 	{"replaceSynonymsInHighlight", Settings | Search, true, ""},
 	{"minProximity", Settings | Search, 1, ""},
