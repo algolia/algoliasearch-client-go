@@ -149,6 +149,7 @@ var options = []Option{
 	{"forwardToReplicas", Other, false, ""},
 	{"anchoring", Other, "", ""},
 	{"extraHeaders", Other, map[string]string{}, ""},
+	{"extraOptions", Other, map[string]interface{}{}, ""},
 	{"extraURLParams", Other, map[string]string{}, ""},
 	{"scopes", Other, []string{}, ""},
 	{"clusterName", Other, "", ""},

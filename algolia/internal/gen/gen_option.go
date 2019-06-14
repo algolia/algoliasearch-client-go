@@ -24,6 +24,7 @@ func main() {
 		optionTestStringSliceTemplate          = createTemplate("templates/option_test/string_slice.go.tmpl")
 		optionTestMapStringStringTemplate      = createTemplate("templates/option_test/map_string_string.go.tmpl")
 		optionTestMapStringStringSliceTemplate = createTemplate("templates/option_test/map_string_string_slice.go.tmpl")
+		optionTestMapStringInterfaceTemplate   = createTemplate("templates/option_test/map_string_interface_slice.go.tmpl")
 
 		optionLiteralTemplate = createTemplate("templates/option/literal.go.tmpl")
 		optionMapTemplate     = createTemplate("templates/option/map.go.tmpl")
@@ -57,7 +58,7 @@ func main() {
 			switch opt.DefaultValue.(type) {
 			case bool, int, string:
 				generateFile(optionLiteralTemplate, data, filepath)
-			case map[string]string, map[string][]string:
+			case map[string]string, map[string][]string, map[string]interface{}:
 				generateFile(optionMapTemplate, data, filepath)
 			case []string:
 				generateFile(optionSliceTemplate, data, filepath)
@@ -85,6 +86,8 @@ func main() {
 				generateFile(optionTestStringSliceTemplate, data, testFilepath)
 			case map[string]string:
 				generateFile(optionTestMapStringStringTemplate, data, testFilepath)
+			case map[string]interface{}:
+				generateFile(optionTestMapStringInterfaceTemplate, data, testFilepath)
 			case map[string][]string:
 				generateFile(optionTestMapStringStringSliceTemplate, data, testFilepath)
 			default:
