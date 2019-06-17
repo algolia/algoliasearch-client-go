@@ -54,6 +54,7 @@ type QueryParams struct {
 	ExactOnSingleWordQuery            *opt.ExactOnSingleWordQueryOption            `json:"exactOnSingleWordQuery,omitempty"`
 	AlternativesAsExact               *opt.AlternativesAsExactOption               `json:"alternativesAsExact,omitempty"`
 	AdvancedSyntaxFeatures            *opt.AdvancedSyntaxFeaturesOption            `json:"advancedSyntaxFeatures,omitempty"`
+	SimilarQuery                      *opt.SimilarQueryOption                      `json:"similarQuery,omitempty"`
 	EnableRules                       *opt.EnableRulesOption                       `json:"enableRules,omitempty"`
 	RuleContexts                      *opt.RuleContextsOption                      `json:"ruleContexts,omitempty"`
 	EnablePersonalization             *opt.EnablePersonalizationOption             `json:"enablePersonalization,omitempty"`
@@ -120,6 +121,7 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		ExactOnSingleWordQuery:            iopt.ExtractExactOnSingleWordQuery(opts...),
 		AlternativesAsExact:               iopt.ExtractAlternativesAsExact(opts...),
 		AdvancedSyntaxFeatures:            iopt.ExtractAdvancedSyntaxFeatures(opts...),
+		SimilarQuery:                      iopt.ExtractSimilarQuery(opts...),
 		EnableRules:                       iopt.ExtractEnableRules(opts...),
 		RuleContexts:                      iopt.ExtractRuleContexts(opts...),
 		EnablePersonalization:             iopt.ExtractEnablePersonalization(opts...),
