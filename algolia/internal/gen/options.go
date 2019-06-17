@@ -102,6 +102,7 @@ var options = []Option{
 	{"exactOnSingleWordQuery", Settings | Search, "attribute", ""},
 	{"alternativesAsExact", Settings | Search, []string{"ignorePlurals", "singleWordSynonym"}, ""},
 	{"advancedSyntaxFeatures", Settings | Search, []string{"exactPhrase", "excludeWords"}, ""},
+	{"similarQuery", Search, "", ""},
 
 	// Query rules
 	{"enableRules", Settings | Search, true, ""},

@@ -182,6 +182,9 @@ func TestOptionGetters(t *testing.T) {
 	var advancedSyntaxFeatures *AdvancedSyntaxFeaturesOption = nil
 	advancedSyntaxFeatures.Get()
 
+	var similarQuery *SimilarQueryOption = nil
+	similarQuery.Get()
+
 	var enableRules *EnableRulesOption = nil
 	enableRules.Get()
 
