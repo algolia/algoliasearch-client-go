@@ -251,6 +251,9 @@ func TestOptionGetters(t *testing.T) {
 	var advanced *AdvancedOption = nil
 	advanced.Get()
 
+	var attributeCriteriaComputedByMinProximity *AttributeCriteriaComputedByMinProximityOption = nil
+	attributeCriteriaComputedByMinProximity.Get()
+
 	var restrictIndices *RestrictIndicesOption = nil
 	restrictIndices.Get()
 

@@ -9,135 +9,137 @@ import (
 
 // QueryParams represents all the parameters that can be passed at query time.
 type QueryParams struct {
-	AttributesToRetrieve              *opt.AttributesToRetrieveOption              `json:"attributesToRetrieve,omitempty"`
-	RestrictSearchableAttributes      *opt.RestrictSearchableAttributesOption      `json:"restrictSearchableAttributes,omitempty"`
-	Filters                           *opt.FiltersOption                           `json:"filters,omitempty"`
-	FacetFilters                      *opt.FacetFiltersOption                      `json:"facetFilters,omitempty"`
-	OptionalFilters                   *opt.OptionalFiltersOption                   `json:"optionalFilters,omitempty"`
-	NumericFilters                    *opt.NumericFiltersOption                    `json:"numericFilters,omitempty"`
-	TagFilters                        *opt.TagFiltersOption                        `json:"tagFilters,omitempty"`
-	SumOrFiltersScores                *opt.SumOrFiltersScoresOption                `json:"sumOrFiltersScores,omitempty"`
-	Facets                            *opt.FacetsOption                            `json:"facets,omitempty"`
-	MaxValuesPerFacet                 *opt.MaxValuesPerFacetOption                 `json:"maxValuesPerFacet,omitempty"`
-	FacetingAfterDistinct             *opt.FacetingAfterDistinctOption             `json:"facetingAfterDistinct,omitempty"`
-	SortFacetValuesBy                 *opt.SortFacetValuesByOption                 `json:"sortFacetValuesBy,omitempty"`
-	AttributesToHighlight             *opt.AttributesToHighlightOption             `json:"attributesToHighlight,omitempty"`
-	AttributesToSnippet               *opt.AttributesToSnippetOption               `json:"attributesToSnippet,omitempty"`
-	HighlightPreTag                   *opt.HighlightPreTagOption                   `json:"highlightPreTag,omitempty"`
-	HighlightPostTag                  *opt.HighlightPostTagOption                  `json:"highlightPostTag,omitempty"`
-	SnippetEllipsisText               *opt.SnippetEllipsisTextOption               `json:"snippetEllipsisText,omitempty"`
-	RestrictHighlightAndSnippetArrays *opt.RestrictHighlightAndSnippetArraysOption `json:"restrictHighlightAndSnippetArrays,omitempty"`
-	Page                              *opt.PageOption                              `json:"page,omitempty"`
-	HitsPerPage                       *opt.HitsPerPageOption                       `json:"hitsPerPage,omitempty"`
-	Offset                            *opt.OffsetOption                            `json:"offset,omitempty"`
-	Length                            *opt.LengthOption                            `json:"length,omitempty"`
-	MinWordSizefor1Typo               *opt.MinWordSizefor1TypoOption               `json:"minWordSizefor1Typo,omitempty"`
-	MinWordSizefor2Typos              *opt.MinWordSizefor2TyposOption              `json:"minWordSizefor2Typos,omitempty"`
-	TypoTolerance                     *opt.TypoToleranceOption                     `json:"typoTolerance,omitempty"`
-	AllowTyposOnNumericTokens         *opt.AllowTyposOnNumericTokensOption         `json:"allowTyposOnNumericTokens,omitempty"`
-	DisableTypoToleranceOnAttributes  *opt.DisableTypoToleranceOnAttributesOption  `json:"disableTypoToleranceOnAttributes,omitempty"`
-	AroundLatLng                      *opt.AroundLatLngOption                      `json:"aroundLatLng,omitempty"`
-	AroundLatLngViaIP                 *opt.AroundLatLngViaIPOption                 `json:"aroundLatLngViaIP,omitempty"`
-	AroundRadius                      *opt.AroundRadiusOption                      `json:"aroundRadius,omitempty"`
-	AroundPrecision                   *opt.AroundPrecisionOption                   `json:"aroundPrecision,omitempty"`
-	MinimumAroundRadius               *opt.MinimumAroundRadiusOption               `json:"minimumAroundRadius,omitempty"`
-	InsideBoundingBox                 *opt.InsideBoundingBoxOption                 `json:"insideBoundingBox,omitempty"`
-	InsidePolygon                     *opt.InsidePolygonOption                     `json:"insidePolygon,omitempty"`
-	IgnorePlurals                     *opt.IgnorePluralsOption                     `json:"ignorePlurals,omitempty"`
-	RemoveStopWords                   *opt.RemoveStopWordsOption                   `json:"removeStopWords,omitempty"`
-	QueryLanguages                    *opt.QueryLanguagesOption                    `json:"queryLanguages,omitempty"`
-	QueryType                         *opt.QueryTypeOption                         `json:"queryType,omitempty"`
-	RemoveWordsIfNoResults            *opt.RemoveWordsIfNoResultsOption            `json:"removeWordsIfNoResults,omitempty"`
-	AdvancedSyntax                    *opt.AdvancedSyntaxOption                    `json:"advancedSyntax,omitempty"`
-	OptionalWords                     *opt.OptionalWordsOption                     `json:"optionalWords,omitempty"`
-	DisableExactOnAttributes          *opt.DisableExactOnAttributesOption          `json:"disableExactOnAttributes,omitempty"`
-	ExactOnSingleWordQuery            *opt.ExactOnSingleWordQueryOption            `json:"exactOnSingleWordQuery,omitempty"`
-	AlternativesAsExact               *opt.AlternativesAsExactOption               `json:"alternativesAsExact,omitempty"`
-	AdvancedSyntaxFeatures            *opt.AdvancedSyntaxFeaturesOption            `json:"advancedSyntaxFeatures,omitempty"`
-	SimilarQuery                      *opt.SimilarQueryOption                      `json:"similarQuery,omitempty"`
-	EnableRules                       *opt.EnableRulesOption                       `json:"enableRules,omitempty"`
-	RuleContexts                      *opt.RuleContextsOption                      `json:"ruleContexts,omitempty"`
-	EnablePersonalization             *opt.EnablePersonalizationOption             `json:"enablePersonalization,omitempty"`
-	PersonalizationImpact             *opt.PersonalizationImpactOption             `json:"personalizationImpact,omitempty"`
-	UserToken                         *opt.UserTokenOption                         `json:"userToken,omitempty"`
-	Distinct                          *opt.DistinctOption                          `json:"distinct,omitempty"`
-	GetRankingInfo                    *opt.GetRankingInfoOption                    `json:"getRankingInfo,omitempty"`
-	ClickAnalytics                    *opt.ClickAnalyticsOption                    `json:"clickAnalytics,omitempty"`
-	Analytics                         *opt.AnalyticsOption                         `json:"analytics,omitempty"`
-	AnalyticsTags                     *opt.AnalyticsTagsOption                     `json:"analyticsTags,omitempty"`
-	Synonyms                          *opt.SynonymsOption                          `json:"synonyms,omitempty"`
-	ReplaceSynonymsInHighlight        *opt.ReplaceSynonymsInHighlightOption        `json:"replaceSynonymsInHighlight,omitempty"`
-	MinProximity                      *opt.MinProximityOption                      `json:"minProximity,omitempty"`
-	ResponseFields                    *opt.ResponseFieldsOption                    `json:"responseFields,omitempty"`
-	MaxFacetHits                      *opt.MaxFacetHitsOption                      `json:"maxFacetHits,omitempty"`
-	PercentileComputation             *opt.PercentileComputationOption             `json:"percentileComputation,omitempty"`
-	Explain                           *opt.ExplainOption                           `json:"explain,omitempty"`
+	AttributesToRetrieve                    *opt.AttributesToRetrieveOption                    `json:"attributesToRetrieve,omitempty"`
+	RestrictSearchableAttributes            *opt.RestrictSearchableAttributesOption            `json:"restrictSearchableAttributes,omitempty"`
+	Filters                                 *opt.FiltersOption                                 `json:"filters,omitempty"`
+	FacetFilters                            *opt.FacetFiltersOption                            `json:"facetFilters,omitempty"`
+	OptionalFilters                         *opt.OptionalFiltersOption                         `json:"optionalFilters,omitempty"`
+	NumericFilters                          *opt.NumericFiltersOption                          `json:"numericFilters,omitempty"`
+	TagFilters                              *opt.TagFiltersOption                              `json:"tagFilters,omitempty"`
+	SumOrFiltersScores                      *opt.SumOrFiltersScoresOption                      `json:"sumOrFiltersScores,omitempty"`
+	Facets                                  *opt.FacetsOption                                  `json:"facets,omitempty"`
+	MaxValuesPerFacet                       *opt.MaxValuesPerFacetOption                       `json:"maxValuesPerFacet,omitempty"`
+	FacetingAfterDistinct                   *opt.FacetingAfterDistinctOption                   `json:"facetingAfterDistinct,omitempty"`
+	SortFacetValuesBy                       *opt.SortFacetValuesByOption                       `json:"sortFacetValuesBy,omitempty"`
+	AttributesToHighlight                   *opt.AttributesToHighlightOption                   `json:"attributesToHighlight,omitempty"`
+	AttributesToSnippet                     *opt.AttributesToSnippetOption                     `json:"attributesToSnippet,omitempty"`
+	HighlightPreTag                         *opt.HighlightPreTagOption                         `json:"highlightPreTag,omitempty"`
+	HighlightPostTag                        *opt.HighlightPostTagOption                        `json:"highlightPostTag,omitempty"`
+	SnippetEllipsisText                     *opt.SnippetEllipsisTextOption                     `json:"snippetEllipsisText,omitempty"`
+	RestrictHighlightAndSnippetArrays       *opt.RestrictHighlightAndSnippetArraysOption       `json:"restrictHighlightAndSnippetArrays,omitempty"`
+	Page                                    *opt.PageOption                                    `json:"page,omitempty"`
+	HitsPerPage                             *opt.HitsPerPageOption                             `json:"hitsPerPage,omitempty"`
+	Offset                                  *opt.OffsetOption                                  `json:"offset,omitempty"`
+	Length                                  *opt.LengthOption                                  `json:"length,omitempty"`
+	MinWordSizefor1Typo                     *opt.MinWordSizefor1TypoOption                     `json:"minWordSizefor1Typo,omitempty"`
+	MinWordSizefor2Typos                    *opt.MinWordSizefor2TyposOption                    `json:"minWordSizefor2Typos,omitempty"`
+	TypoTolerance                           *opt.TypoToleranceOption                           `json:"typoTolerance,omitempty"`
+	AllowTyposOnNumericTokens               *opt.AllowTyposOnNumericTokensOption               `json:"allowTyposOnNumericTokens,omitempty"`
+	DisableTypoToleranceOnAttributes        *opt.DisableTypoToleranceOnAttributesOption        `json:"disableTypoToleranceOnAttributes,omitempty"`
+	AroundLatLng                            *opt.AroundLatLngOption                            `json:"aroundLatLng,omitempty"`
+	AroundLatLngViaIP                       *opt.AroundLatLngViaIPOption                       `json:"aroundLatLngViaIP,omitempty"`
+	AroundRadius                            *opt.AroundRadiusOption                            `json:"aroundRadius,omitempty"`
+	AroundPrecision                         *opt.AroundPrecisionOption                         `json:"aroundPrecision,omitempty"`
+	MinimumAroundRadius                     *opt.MinimumAroundRadiusOption                     `json:"minimumAroundRadius,omitempty"`
+	InsideBoundingBox                       *opt.InsideBoundingBoxOption                       `json:"insideBoundingBox,omitempty"`
+	InsidePolygon                           *opt.InsidePolygonOption                           `json:"insidePolygon,omitempty"`
+	IgnorePlurals                           *opt.IgnorePluralsOption                           `json:"ignorePlurals,omitempty"`
+	RemoveStopWords                         *opt.RemoveStopWordsOption                         `json:"removeStopWords,omitempty"`
+	QueryLanguages                          *opt.QueryLanguagesOption                          `json:"queryLanguages,omitempty"`
+	QueryType                               *opt.QueryTypeOption                               `json:"queryType,omitempty"`
+	RemoveWordsIfNoResults                  *opt.RemoveWordsIfNoResultsOption                  `json:"removeWordsIfNoResults,omitempty"`
+	AdvancedSyntax                          *opt.AdvancedSyntaxOption                          `json:"advancedSyntax,omitempty"`
+	OptionalWords                           *opt.OptionalWordsOption                           `json:"optionalWords,omitempty"`
+	DisableExactOnAttributes                *opt.DisableExactOnAttributesOption                `json:"disableExactOnAttributes,omitempty"`
+	ExactOnSingleWordQuery                  *opt.ExactOnSingleWordQueryOption                  `json:"exactOnSingleWordQuery,omitempty"`
+	AlternativesAsExact                     *opt.AlternativesAsExactOption                     `json:"alternativesAsExact,omitempty"`
+	AdvancedSyntaxFeatures                  *opt.AdvancedSyntaxFeaturesOption                  `json:"advancedSyntaxFeatures,omitempty"`
+	SimilarQuery                            *opt.SimilarQueryOption                            `json:"similarQuery,omitempty"`
+	EnableRules                             *opt.EnableRulesOption                             `json:"enableRules,omitempty"`
+	RuleContexts                            *opt.RuleContextsOption                            `json:"ruleContexts,omitempty"`
+	EnablePersonalization                   *opt.EnablePersonalizationOption                   `json:"enablePersonalization,omitempty"`
+	PersonalizationImpact                   *opt.PersonalizationImpactOption                   `json:"personalizationImpact,omitempty"`
+	UserToken                               *opt.UserTokenOption                               `json:"userToken,omitempty"`
+	Distinct                                *opt.DistinctOption                                `json:"distinct,omitempty"`
+	GetRankingInfo                          *opt.GetRankingInfoOption                          `json:"getRankingInfo,omitempty"`
+	ClickAnalytics                          *opt.ClickAnalyticsOption                          `json:"clickAnalytics,omitempty"`
+	Analytics                               *opt.AnalyticsOption                               `json:"analytics,omitempty"`
+	AnalyticsTags                           *opt.AnalyticsTagsOption                           `json:"analyticsTags,omitempty"`
+	Synonyms                                *opt.SynonymsOption                                `json:"synonyms,omitempty"`
+	ReplaceSynonymsInHighlight              *opt.ReplaceSynonymsInHighlightOption              `json:"replaceSynonymsInHighlight,omitempty"`
+	MinProximity                            *opt.MinProximityOption                            `json:"minProximity,omitempty"`
+	ResponseFields                          *opt.ResponseFieldsOption                          `json:"responseFields,omitempty"`
+	MaxFacetHits                            *opt.MaxFacetHitsOption                            `json:"maxFacetHits,omitempty"`
+	PercentileComputation                   *opt.PercentileComputationOption                   `json:"percentileComputation,omitempty"`
+	Explain                                 *opt.ExplainOption                                 `json:"explain,omitempty"`
+	AttributeCriteriaComputedByMinProximity *opt.AttributeCriteriaComputedByMinProximityOption `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 }
 
 func newQueryParams(opts ...interface{}) QueryParams {
 	return QueryParams{
-		AttributesToRetrieve:              iopt.ExtractAttributesToRetrieve(opts...),
-		RestrictSearchableAttributes:      iopt.ExtractRestrictSearchableAttributes(opts...),
-		Filters:                           iopt.ExtractFilters(opts...),
-		FacetFilters:                      iopt.ExtractFacetFilters(opts...),
-		OptionalFilters:                   iopt.ExtractOptionalFilters(opts...),
-		NumericFilters:                    iopt.ExtractNumericFilters(opts...),
-		TagFilters:                        iopt.ExtractTagFilters(opts...),
-		SumOrFiltersScores:                iopt.ExtractSumOrFiltersScores(opts...),
-		Facets:                            iopt.ExtractFacets(opts...),
-		MaxValuesPerFacet:                 iopt.ExtractMaxValuesPerFacet(opts...),
-		FacetingAfterDistinct:             iopt.ExtractFacetingAfterDistinct(opts...),
-		SortFacetValuesBy:                 iopt.ExtractSortFacetValuesBy(opts...),
-		AttributesToHighlight:             iopt.ExtractAttributesToHighlight(opts...),
-		AttributesToSnippet:               iopt.ExtractAttributesToSnippet(opts...),
-		HighlightPreTag:                   iopt.ExtractHighlightPreTag(opts...),
-		HighlightPostTag:                  iopt.ExtractHighlightPostTag(opts...),
-		SnippetEllipsisText:               iopt.ExtractSnippetEllipsisText(opts...),
-		RestrictHighlightAndSnippetArrays: iopt.ExtractRestrictHighlightAndSnippetArrays(opts...),
-		Page:                              iopt.ExtractPage(opts...),
-		HitsPerPage:                       iopt.ExtractHitsPerPage(opts...),
-		Offset:                            iopt.ExtractOffset(opts...),
-		Length:                            iopt.ExtractLength(opts...),
-		MinWordSizefor1Typo:               iopt.ExtractMinWordSizefor1Typo(opts...),
-		MinWordSizefor2Typos:              iopt.ExtractMinWordSizefor2Typos(opts...),
-		TypoTolerance:                     iopt.ExtractTypoTolerance(opts...),
-		AllowTyposOnNumericTokens:         iopt.ExtractAllowTyposOnNumericTokens(opts...),
-		DisableTypoToleranceOnAttributes:  iopt.ExtractDisableTypoToleranceOnAttributes(opts...),
-		AroundLatLng:                      iopt.ExtractAroundLatLng(opts...),
-		AroundLatLngViaIP:                 iopt.ExtractAroundLatLngViaIP(opts...),
-		AroundRadius:                      iopt.ExtractAroundRadius(opts...),
-		AroundPrecision:                   iopt.ExtractAroundPrecision(opts...),
-		MinimumAroundRadius:               iopt.ExtractMinimumAroundRadius(opts...),
-		InsideBoundingBox:                 iopt.ExtractInsideBoundingBox(opts...),
-		InsidePolygon:                     iopt.ExtractInsidePolygon(opts...),
-		IgnorePlurals:                     iopt.ExtractIgnorePlurals(opts...),
-		RemoveStopWords:                   iopt.ExtractRemoveStopWords(opts...),
-		QueryLanguages:                    iopt.ExtractQueryLanguages(opts...),
-		QueryType:                         iopt.ExtractQueryType(opts...),
-		RemoveWordsIfNoResults:            iopt.ExtractRemoveWordsIfNoResults(opts...),
-		AdvancedSyntax:                    iopt.ExtractAdvancedSyntax(opts...),
-		OptionalWords:                     iopt.ExtractOptionalWords(opts...),
-		DisableExactOnAttributes:          iopt.ExtractDisableExactOnAttributes(opts...),
-		ExactOnSingleWordQuery:            iopt.ExtractExactOnSingleWordQuery(opts...),
-		AlternativesAsExact:               iopt.ExtractAlternativesAsExact(opts...),
-		AdvancedSyntaxFeatures:            iopt.ExtractAdvancedSyntaxFeatures(opts...),
-		SimilarQuery:                      iopt.ExtractSimilarQuery(opts...),
-		EnableRules:                       iopt.ExtractEnableRules(opts...),
-		RuleContexts:                      iopt.ExtractRuleContexts(opts...),
-		EnablePersonalization:             iopt.ExtractEnablePersonalization(opts...),
-		PersonalizationImpact:             iopt.ExtractPersonalizationImpact(opts...),
-		UserToken:                         iopt.ExtractUserToken(opts...),
-		Distinct:                          iopt.ExtractDistinct(opts...),
-		GetRankingInfo:                    iopt.ExtractGetRankingInfo(opts...),
-		ClickAnalytics:                    iopt.ExtractClickAnalytics(opts...),
-		Analytics:                         iopt.ExtractAnalytics(opts...),
-		AnalyticsTags:                     iopt.ExtractAnalyticsTags(opts...),
-		Synonyms:                          iopt.ExtractSynonyms(opts...),
-		ReplaceSynonymsInHighlight:        iopt.ExtractReplaceSynonymsInHighlight(opts...),
-		MinProximity:                      iopt.ExtractMinProximity(opts...),
-		ResponseFields:                    iopt.ExtractResponseFields(opts...),
-		MaxFacetHits:                      iopt.ExtractMaxFacetHits(opts...),
-		PercentileComputation:             iopt.ExtractPercentileComputation(opts...),
-		Explain:                           iopt.ExtractExplain(opts...),
+		AttributesToRetrieve:                    iopt.ExtractAttributesToRetrieve(opts...),
+		RestrictSearchableAttributes:            iopt.ExtractRestrictSearchableAttributes(opts...),
+		Filters:                                 iopt.ExtractFilters(opts...),
+		FacetFilters:                            iopt.ExtractFacetFilters(opts...),
+		OptionalFilters:                         iopt.ExtractOptionalFilters(opts...),
+		NumericFilters:                          iopt.ExtractNumericFilters(opts...),
+		TagFilters:                              iopt.ExtractTagFilters(opts...),
+		SumOrFiltersScores:                      iopt.ExtractSumOrFiltersScores(opts...),
+		Facets:                                  iopt.ExtractFacets(opts...),
+		MaxValuesPerFacet:                       iopt.ExtractMaxValuesPerFacet(opts...),
+		FacetingAfterDistinct:                   iopt.ExtractFacetingAfterDistinct(opts...),
+		SortFacetValuesBy:                       iopt.ExtractSortFacetValuesBy(opts...),
+		AttributesToHighlight:                   iopt.ExtractAttributesToHighlight(opts...),
+		AttributesToSnippet:                     iopt.ExtractAttributesToSnippet(opts...),
+		HighlightPreTag:                         iopt.ExtractHighlightPreTag(opts...),
+		HighlightPostTag:                        iopt.ExtractHighlightPostTag(opts...),
+		SnippetEllipsisText:                     iopt.ExtractSnippetEllipsisText(opts...),
+		RestrictHighlightAndSnippetArrays:       iopt.ExtractRestrictHighlightAndSnippetArrays(opts...),
+		Page:                                    iopt.ExtractPage(opts...),
+		HitsPerPage:                             iopt.ExtractHitsPerPage(opts...),
+		Offset:                                  iopt.ExtractOffset(opts...),
+		Length:                                  iopt.ExtractLength(opts...),
+		MinWordSizefor1Typo:                     iopt.ExtractMinWordSizefor1Typo(opts...),
+		MinWordSizefor2Typos:                    iopt.ExtractMinWordSizefor2Typos(opts...),
+		TypoTolerance:                           iopt.ExtractTypoTolerance(opts...),
+		AllowTyposOnNumericTokens:               iopt.ExtractAllowTyposOnNumericTokens(opts...),
+		DisableTypoToleranceOnAttributes:        iopt.ExtractDisableTypoToleranceOnAttributes(opts...),
+		AroundLatLng:                            iopt.ExtractAroundLatLng(opts...),
+		AroundLatLngViaIP:                       iopt.ExtractAroundLatLngViaIP(opts...),
+		AroundRadius:                            iopt.ExtractAroundRadius(opts...),
+		AroundPrecision:                         iopt.ExtractAroundPrecision(opts...),
+		MinimumAroundRadius:                     iopt.ExtractMinimumAroundRadius(opts...),
+		InsideBoundingBox:                       iopt.ExtractInsideBoundingBox(opts...),
+		InsidePolygon:                           iopt.ExtractInsidePolygon(opts...),
+		IgnorePlurals:                           iopt.ExtractIgnorePlurals(opts...),
+		RemoveStopWords:                         iopt.ExtractRemoveStopWords(opts...),
+		QueryLanguages:                          iopt.ExtractQueryLanguages(opts...),
+		QueryType:                               iopt.ExtractQueryType(opts...),
+		RemoveWordsIfNoResults:                  iopt.ExtractRemoveWordsIfNoResults(opts...),
+		AdvancedSyntax:                          iopt.ExtractAdvancedSyntax(opts...),
+		OptionalWords:                           iopt.ExtractOptionalWords(opts...),
+		DisableExactOnAttributes:                iopt.ExtractDisableExactOnAttributes(opts...),
+		ExactOnSingleWordQuery:                  iopt.ExtractExactOnSingleWordQuery(opts...),
+		AlternativesAsExact:                     iopt.ExtractAlternativesAsExact(opts...),
+		AdvancedSyntaxFeatures:                  iopt.ExtractAdvancedSyntaxFeatures(opts...),
+		SimilarQuery:                            iopt.ExtractSimilarQuery(opts...),
+		EnableRules:                             iopt.ExtractEnableRules(opts...),
+		RuleContexts:                            iopt.ExtractRuleContexts(opts...),
+		EnablePersonalization:                   iopt.ExtractEnablePersonalization(opts...),
+		PersonalizationImpact:                   iopt.ExtractPersonalizationImpact(opts...),
+		UserToken:                               iopt.ExtractUserToken(opts...),
+		Distinct:                                iopt.ExtractDistinct(opts...),
+		GetRankingInfo:                          iopt.ExtractGetRankingInfo(opts...),
+		ClickAnalytics:                          iopt.ExtractClickAnalytics(opts...),
+		Analytics:                               iopt.ExtractAnalytics(opts...),
+		AnalyticsTags:                           iopt.ExtractAnalyticsTags(opts...),
+		Synonyms:                                iopt.ExtractSynonyms(opts...),
+		ReplaceSynonymsInHighlight:              iopt.ExtractReplaceSynonymsInHighlight(opts...),
+		MinProximity:                            iopt.ExtractMinProximity(opts...),
+		ResponseFields:                          iopt.ExtractResponseFields(opts...),
+		MaxFacetHits:                            iopt.ExtractMaxFacetHits(opts...),
+		PercentileComputation:                   iopt.ExtractPercentileComputation(opts...),
+		Explain:                                 iopt.ExtractExplain(opts...),
+		AttributeCriteriaComputedByMinProximity: iopt.ExtractAttributeCriteriaComputedByMinProximity(opts...),
 	}
 }
