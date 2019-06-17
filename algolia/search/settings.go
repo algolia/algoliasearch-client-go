@@ -13,57 +13,58 @@ import (
 
 // Settings represents an index settings configuration.
 type Settings struct {
-	SearchableAttributes              *opt.SearchableAttributesOption              `json:"searchableAttributes,omitempty"`
-	AttributesForFaceting             *opt.AttributesForFacetingOption             `json:"attributesForFaceting,omitempty"`
-	UnretrievableAttributes           *opt.UnretrievableAttributesOption           `json:"unretrievableAttributes,omitempty"`
-	AttributesToRetrieve              *opt.AttributesToRetrieveOption              `json:"attributesToRetrieve,omitempty"`
-	Ranking                           *opt.RankingOption                           `json:"ranking,omitempty"`
-	CustomRanking                     *opt.CustomRankingOption                     `json:"customRanking,omitempty"`
-	Replicas                          *opt.ReplicasOption                          `json:"replicas,omitempty"`
-	Primary                           *opt.PrimaryOption                           `json:"primary,omitempty"`
-	MaxValuesPerFacet                 *opt.MaxValuesPerFacetOption                 `json:"maxValuesPerFacet,omitempty"`
-	SortFacetValuesBy                 *opt.SortFacetValuesByOption                 `json:"sortFacetValuesBy,omitempty"`
-	AttributesToHighlight             *opt.AttributesToHighlightOption             `json:"attributesToHighlight,omitempty"`
-	AttributesToSnippet               *opt.AttributesToSnippetOption               `json:"attributesToSnippet,omitempty"`
-	HighlightPreTag                   *opt.HighlightPreTagOption                   `json:"highlightPreTag,omitempty"`
-	HighlightPostTag                  *opt.HighlightPostTagOption                  `json:"highlightPostTag,omitempty"`
-	SnippetEllipsisText               *opt.SnippetEllipsisTextOption               `json:"snippetEllipsisText,omitempty"`
-	RestrictHighlightAndSnippetArrays *opt.RestrictHighlightAndSnippetArraysOption `json:"restrictHighlightAndSnippetArrays,omitempty"`
-	HitsPerPage                       *opt.HitsPerPageOption                       `json:"hitsPerPage,omitempty"`
-	PaginationLimitedTo               *opt.PaginationLimitedToOption               `json:"paginationLimitedTo,omitempty"`
-	MinWordSizefor1Typo               *opt.MinWordSizefor1TypoOption               `json:"minWordSizefor1Typo,omitempty"`
-	MinWordSizefor2Typos              *opt.MinWordSizefor2TyposOption              `json:"minWordSizefor2Typos,omitempty"`
-	TypoTolerance                     *opt.TypoToleranceOption                     `json:"typoTolerance,omitempty"`
-	AllowTyposOnNumericTokens         *opt.AllowTyposOnNumericTokensOption         `json:"allowTyposOnNumericTokens,omitempty"`
-	DisableTypoToleranceOnAttributes  *opt.DisableTypoToleranceOnAttributesOption  `json:"disableTypoToleranceOnAttributes,omitempty"`
-	DisableTypoToleranceOnWords       *opt.DisableTypoToleranceOnWordsOption       `json:"disableTypoToleranceOnWords,omitempty"`
-	SeparatorsToIndex                 *opt.SeparatorsToIndexOption                 `json:"separatorsToIndex,omitempty"`
-	IgnorePlurals                     *opt.IgnorePluralsOption                     `json:"ignorePlurals,omitempty"`
-	RemoveStopWords                   *opt.RemoveStopWordsOption                   `json:"removeStopWords,omitempty"`
-	CamelCaseAttributes               *opt.CamelCaseAttributesOption               `json:"camelCaseAttributes,omitempty"`
-	DecompoundedAttributes            *opt.DecompoundedAttributesOption            `json:"decompoundedAttributes,omitempty"`
-	KeepDiacriticsOnCharacters        *opt.KeepDiacriticsOnCharactersOption        `json:"keepDiacriticsOnCharacters,omitempty"`
-	QueryLanguages                    *opt.QueryLanguagesOption                    `json:"queryLanguages,omitempty"`
-	QueryType                         *opt.QueryTypeOption                         `json:"queryType,omitempty"`
-	RemoveWordsIfNoResults            *opt.RemoveWordsIfNoResultsOption            `json:"removeWordsIfNoResults,omitempty"`
-	AdvancedSyntax                    *opt.AdvancedSyntaxOption                    `json:"advancedSyntax,omitempty"`
-	OptionalWords                     *opt.OptionalWordsOption                     `json:"optionalWords,omitempty"`
-	DisablePrefixOnAttributes         *opt.DisablePrefixOnAttributesOption         `json:"disablePrefixOnAttributes,omitempty"`
-	DisableExactOnAttributes          *opt.DisableExactOnAttributesOption          `json:"disableExactOnAttributes,omitempty"`
-	ExactOnSingleWordQuery            *opt.ExactOnSingleWordQueryOption            `json:"exactOnSingleWordQuery,omitempty"`
-	AlternativesAsExact               *opt.AlternativesAsExactOption               `json:"alternativesAsExact,omitempty"`
-	AdvancedSyntaxFeatures            *opt.AdvancedSyntaxFeaturesOption            `json:"advancedSyntaxFeatures,omitempty"`
-	EnableRules                       *opt.EnableRulesOption                       `json:"enableRules,omitempty"`
-	NumericAttributesForFiltering     *opt.NumericAttributesForFilteringOption     `json:"numericAttributesForFiltering,omitempty"`
-	AllowCompressionOfIntegerArray    *opt.AllowCompressionOfIntegerArrayOption    `json:"allowCompressionOfIntegerArray,omitempty"`
-	AttributeForDistinct              *opt.AttributeForDistinctOption              `json:"attributeForDistinct,omitempty"`
-	Distinct                          *opt.DistinctOption                          `json:"distinct,omitempty"`
-	ReplaceSynonymsInHighlight        *opt.ReplaceSynonymsInHighlightOption        `json:"replaceSynonymsInHighlight,omitempty"`
-	MinProximity                      *opt.MinProximityOption                      `json:"minProximity,omitempty"`
-	ResponseFields                    *opt.ResponseFieldsOption                    `json:"responseFields,omitempty"`
-	MaxFacetHits                      *opt.MaxFacetHitsOption                      `json:"maxFacetHits,omitempty"`
-	Advanced                          *opt.AdvancedOption                          `json:"advanced,omitempty"`
-	CustomSettings                    map[string]interface{}                       `json:"-"`
+	SearchableAttributes                    *opt.SearchableAttributesOption                    `json:"searchableAttributes,omitempty"`
+	AttributesForFaceting                   *opt.AttributesForFacetingOption                   `json:"attributesForFaceting,omitempty"`
+	UnretrievableAttributes                 *opt.UnretrievableAttributesOption                 `json:"unretrievableAttributes,omitempty"`
+	AttributesToRetrieve                    *opt.AttributesToRetrieveOption                    `json:"attributesToRetrieve,omitempty"`
+	Ranking                                 *opt.RankingOption                                 `json:"ranking,omitempty"`
+	CustomRanking                           *opt.CustomRankingOption                           `json:"customRanking,omitempty"`
+	Replicas                                *opt.ReplicasOption                                `json:"replicas,omitempty"`
+	Primary                                 *opt.PrimaryOption                                 `json:"primary,omitempty"`
+	MaxValuesPerFacet                       *opt.MaxValuesPerFacetOption                       `json:"maxValuesPerFacet,omitempty"`
+	SortFacetValuesBy                       *opt.SortFacetValuesByOption                       `json:"sortFacetValuesBy,omitempty"`
+	AttributesToHighlight                   *opt.AttributesToHighlightOption                   `json:"attributesToHighlight,omitempty"`
+	AttributesToSnippet                     *opt.AttributesToSnippetOption                     `json:"attributesToSnippet,omitempty"`
+	HighlightPreTag                         *opt.HighlightPreTagOption                         `json:"highlightPreTag,omitempty"`
+	HighlightPostTag                        *opt.HighlightPostTagOption                        `json:"highlightPostTag,omitempty"`
+	SnippetEllipsisText                     *opt.SnippetEllipsisTextOption                     `json:"snippetEllipsisText,omitempty"`
+	RestrictHighlightAndSnippetArrays       *opt.RestrictHighlightAndSnippetArraysOption       `json:"restrictHighlightAndSnippetArrays,omitempty"`
+	HitsPerPage                             *opt.HitsPerPageOption                             `json:"hitsPerPage,omitempty"`
+	PaginationLimitedTo                     *opt.PaginationLimitedToOption                     `json:"paginationLimitedTo,omitempty"`
+	MinWordSizefor1Typo                     *opt.MinWordSizefor1TypoOption                     `json:"minWordSizefor1Typo,omitempty"`
+	MinWordSizefor2Typos                    *opt.MinWordSizefor2TyposOption                    `json:"minWordSizefor2Typos,omitempty"`
+	TypoTolerance                           *opt.TypoToleranceOption                           `json:"typoTolerance,omitempty"`
+	AllowTyposOnNumericTokens               *opt.AllowTyposOnNumericTokensOption               `json:"allowTyposOnNumericTokens,omitempty"`
+	DisableTypoToleranceOnAttributes        *opt.DisableTypoToleranceOnAttributesOption        `json:"disableTypoToleranceOnAttributes,omitempty"`
+	DisableTypoToleranceOnWords             *opt.DisableTypoToleranceOnWordsOption             `json:"disableTypoToleranceOnWords,omitempty"`
+	SeparatorsToIndex                       *opt.SeparatorsToIndexOption                       `json:"separatorsToIndex,omitempty"`
+	IgnorePlurals                           *opt.IgnorePluralsOption                           `json:"ignorePlurals,omitempty"`
+	RemoveStopWords                         *opt.RemoveStopWordsOption                         `json:"removeStopWords,omitempty"`
+	CamelCaseAttributes                     *opt.CamelCaseAttributesOption                     `json:"camelCaseAttributes,omitempty"`
+	DecompoundedAttributes                  *opt.DecompoundedAttributesOption                  `json:"decompoundedAttributes,omitempty"`
+	KeepDiacriticsOnCharacters              *opt.KeepDiacriticsOnCharactersOption              `json:"keepDiacriticsOnCharacters,omitempty"`
+	QueryLanguages                          *opt.QueryLanguagesOption                          `json:"queryLanguages,omitempty"`
+	QueryType                               *opt.QueryTypeOption                               `json:"queryType,omitempty"`
+	RemoveWordsIfNoResults                  *opt.RemoveWordsIfNoResultsOption                  `json:"removeWordsIfNoResults,omitempty"`
+	AdvancedSyntax                          *opt.AdvancedSyntaxOption                          `json:"advancedSyntax,omitempty"`
+	OptionalWords                           *opt.OptionalWordsOption                           `json:"optionalWords,omitempty"`
+	DisablePrefixOnAttributes               *opt.DisablePrefixOnAttributesOption               `json:"disablePrefixOnAttributes,omitempty"`
+	DisableExactOnAttributes                *opt.DisableExactOnAttributesOption                `json:"disableExactOnAttributes,omitempty"`
+	ExactOnSingleWordQuery                  *opt.ExactOnSingleWordQueryOption                  `json:"exactOnSingleWordQuery,omitempty"`
+	AlternativesAsExact                     *opt.AlternativesAsExactOption                     `json:"alternativesAsExact,omitempty"`
+	AdvancedSyntaxFeatures                  *opt.AdvancedSyntaxFeaturesOption                  `json:"advancedSyntaxFeatures,omitempty"`
+	EnableRules                             *opt.EnableRulesOption                             `json:"enableRules,omitempty"`
+	NumericAttributesForFiltering           *opt.NumericAttributesForFilteringOption           `json:"numericAttributesForFiltering,omitempty"`
+	AllowCompressionOfIntegerArray          *opt.AllowCompressionOfIntegerArrayOption          `json:"allowCompressionOfIntegerArray,omitempty"`
+	AttributeForDistinct                    *opt.AttributeForDistinctOption                    `json:"attributeForDistinct,omitempty"`
+	Distinct                                *opt.DistinctOption                                `json:"distinct,omitempty"`
+	ReplaceSynonymsInHighlight              *opt.ReplaceSynonymsInHighlightOption              `json:"replaceSynonymsInHighlight,omitempty"`
+	MinProximity                            *opt.MinProximityOption                            `json:"minProximity,omitempty"`
+	ResponseFields                          *opt.ResponseFieldsOption                          `json:"responseFields,omitempty"`
+	MaxFacetHits                            *opt.MaxFacetHitsOption                            `json:"maxFacetHits,omitempty"`
+	Advanced                                *opt.AdvancedOption                                `json:"advanced,omitempty"`
+	AttributeCriteriaComputedByMinProximity *opt.AttributeCriteriaComputedByMinProximityOption `json:"attributeCriteriaComputedByMinProximity,omitempty"`
+	CustomSettings                          map[string]interface{}                             `json:"-"`
 }
 
 type settings Settings
@@ -156,6 +157,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 		"responseFields",
 		"maxFacetHits",
 		"advanced",
+		"attributeCriteriaComputedByMinProximity",
 	} {
 		delete(s.CustomSettings, knownSetting)
 	}
@@ -386,6 +388,10 @@ func (s Settings) Equal(s2 Settings) bool {
 		debug.Printf("Settings.Advanced are not equal: %#v != %#v\n", s.Advanced, s2.Advanced)
 		return false
 	}
+	if !opt.AttributeCriteriaComputedByMinProximityEqual(s.AttributeCriteriaComputedByMinProximity, s2.AttributeCriteriaComputedByMinProximity) {
+		debug.Printf("Settings.AttributeCriteriaComputedByMinProximity are not equal: %#v != %#v\n", s.AttributeCriteriaComputedByMinProximity, s2.AttributeCriteriaComputedByMinProximity)
+		return false
+	}
 	return true
 }
 
@@ -441,6 +447,7 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tResponseFields: %v,\n", stringifyReturnValues(s.ResponseFields.Get()))
 	settingsStr += fmt.Sprintf("\tMaxFacetHits: %v,\n", stringifyReturnValues(s.MaxFacetHits.Get()))
 	settingsStr += fmt.Sprintf("\tAdvanced: %v,\n", stringifyReturnValues(s.Advanced.Get()))
+	settingsStr += fmt.Sprintf("\tAttributeCriteriaComputedByMinProximity: %v,\n", stringifyReturnValues(s.AttributeCriteriaComputedByMinProximity.Get()))
 
 	settingsStr += "\tCustomSettings{\n"
 	for k, v := range s.CustomSettings {

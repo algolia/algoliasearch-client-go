@@ -133,6 +133,7 @@ var options = []Option{
 	{"percentileComputation", Search, true, ""},
 	{"explain", Search, []string{}, ""},
 	{"advanced", Settings, 0, ""},
+	{"attributeCriteriaComputedByMinProximity", Settings | Search, false, ""},
 
 	// Secured API key
 	{"restrictIndices", Other, []string{}, ""},
