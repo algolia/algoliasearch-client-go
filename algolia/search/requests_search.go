@@ -41,7 +41,7 @@ func (p searchParams) MarshalJSON() ([]byte, error) {
 	//      QueryParams if they are present
 	//   2. the unknown fields from the ExtraParams map
 	//
-	// Once the new type has been created, we will it with the
+	// Once the new type has been created, we will populate it with the
 	// actual values from the initial searchParams.
 
 	var fields []reflect.StructField
