@@ -55,7 +55,7 @@ func waitWithRetry(f func() (bool, error)) error {
 	}
 }
 
-func getObjectID(object interface{}) (string, bool) {
+func getObjectIDWithMarshal(object interface{}) (string, bool) {
 	data, err := json.Marshal(object)
 	if err != nil {
 		return "", false
@@ -80,30 +80,13 @@ func getObjectID(object interface{}) (string, bool) {
 	}
 }
 
-func hasObjectID(object interface{}) bool {
-	_, ok := getObjectID(object)
-	return ok
-}
-
-type ObjectIDProvider interface {
-	ObjectID() string
-}
-
-func getObjectIDWithProvider(object interface{}) (string, bool) {
-	if itf, ok := object.(ObjectIDProvider); ok {
-		return itf.ObjectID(), true
-	}
-	return "", false
-}
-
-func hasObjectIDWithProvider(object interface{}) bool {
-	_, ok := getObjectIDWithProvider(object)
-	return ok
-}
-
 func getObjectIDWithReflect(object interface{}) (string, bool) {
-	ve := reflect.ValueOf(object)
 	t := reflect.TypeOf(object)
+	if t == nil || t.Kind() != reflect.Struct {
+		return "", false
+	}
+
+	ve := reflect.ValueOf(object)
 	for i := 0; i < ve.NumField(); i++ {
 		jsonTagValue, ok := t.Field(i).Tag.Lookup("json")
 		if ok && strings.Contains(jsonTagValue, "objectID") {
@@ -113,7 +96,15 @@ func getObjectIDWithReflect(object interface{}) (string, bool) {
 	return "", false
 }
 
-func hasObjectIDWithReflect(object interface{}) bool {
-	_, ok := getObjectIDWithReflect(object)
+func getObjectID(object interface{}) (string, bool) {
+	objectID, ok := getObjectIDWithReflect(object)
+	if !ok {
+		objectID, ok = getObjectIDWithMarshal(object)
+	}
+	return objectID, ok
+}
+
+func hasObjectID(object interface{}) bool {
+	_, ok := getObjectID(object)
 	return ok
 }
