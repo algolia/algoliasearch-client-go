@@ -3,6 +3,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
+	"strings"
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
@@ -80,5 +82,38 @@ func getObjectID(object interface{}) (string, bool) {
 
 func hasObjectID(object interface{}) bool {
 	_, ok := getObjectID(object)
+	return ok
+}
+
+type ObjectIDProvider interface {
+	ObjectID() string
+}
+
+func getObjectIDWithProvider(object interface{}) (string, bool) {
+	if itf, ok := object.(ObjectIDProvider); ok {
+		return itf.ObjectID(), true
+	}
+	return "", false
+}
+
+func hasObjectIDWithProvider(object interface{}) bool {
+	_, ok := getObjectIDWithProvider(object)
+	return ok
+}
+
+func getObjectIDWithReflect(object interface{}) (string, bool) {
+	ve := reflect.ValueOf(object)
+	t := reflect.TypeOf(object)
+	for i := 0; i < ve.NumField(); i++ {
+		jsonTagValue, ok := t.Field(i).Tag.Lookup("json")
+		if ok && strings.Contains(jsonTagValue, "objectID") {
+			return fmt.Sprintf("%v", ve.Field(i).Interface()), true
+		}
+	}
+	return "", false
+}
+
+func hasObjectIDWithReflect(object interface{}) bool {
+	_, ok := getObjectIDWithReflect(object)
 	return ok
 }
