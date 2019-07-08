@@ -1,5 +1,36 @@
 # ChangeLog
 
+## [v3.1.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.0.0...v3.1.0) (2019-07-08)
+
+### Doc
+
+- add missing word in comment ([72580fa](https://github.com/algolia/algoliasearch-client-go/commit/72580fa))
+- Fix link and code snippet in README.md ([434de6f](https://github.com/algolia/algoliasearch-client-go/commit/434de6f))
+- Update README.md with new guidelines ([2dcbc98](https://github.com/algolia/algoliasearch-client-go/commit/2dcbc98))
+
+### Fix
+
+- update analytics regional host name template ([486e444](https://github.com/algolia/algoliasearch-client-go/commit/486e444))
+
+### Perf
+
+- improve performances of objectID JSON tag detection ([01f60c0](https://github.com/algolia/algoliasearch-client-go/commit/01f60c0))
+- benchmarks for getObjectID/hasObjectID functions ([ade2c11](https://github.com/algolia/algoliasearch-client-go/commit/ade2c11))
+
+### Added
+
+- generate opt.AttributeCriteriaComputedByMinProximity settings/search option ([4c56d65](https://github.com/algolia/algoliasearch-client-go/commit/4c56d65))
+- generate opt.SimilarQuery search option ([66657d7](https://github.com/algolia/algoliasearch-client-go/commit/66657d7))
+- searchParams.ExtraParams field and searchParams.MarshalJSON() function ([6c02803](https://github.com/algolia/algoliasearch-client-go/commit/6c02803))
+- generate opt.ExtraOptions(map[string]interface{}) option ([39c6ad7](https://github.com/algolia/algoliasearch-client-go/commit/39c6ad7))
+
+### Test
+
+- ensure nested arrays (opt.FacetFilters-like) are correctly URL-encoded (#488) ([bd1fa91](https://github.com/algolia/algoliasearch-client-go/commit/bd1fa91))
+- Add test to ensure opt.ExtraOptions overrides other options ([e77ed2b](https://github.com/algolia/algoliasearch-client-go/commit/e77ed2b))
+
+
+
 ## [v2.28.0](https://github.com/algolia/algoliasearch-client-go/compare/2.27.0...v2.28.0) (2019-04-10)
 
 ### Summary
