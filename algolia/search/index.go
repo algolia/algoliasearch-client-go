@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
@@ -95,4 +96,17 @@ func (i *Index) GetStatus(taskID int) (res TaskStatusRes, err error) {
 	path := i.path("/task/%d", taskID)
 	err = i.transport.Request(&res, http.MethodGet, path, nil, call.Read)
 	return
+}
+
+// Exists returns whether an initialized index exists or not, along with a nil
+// error. When encountering a network error, a non-nil error is returned along
+// with false.
+func (i *Index) Exists() (bool, error) {
+	_, err := i.GetSettings()
+	_, ok := errs.IsAlgoliaErr(err)
+	if !ok && err != nil {
+		return false, err
+	}
+	_, ok = errs.IsAlgoliaErrWithCode(err, http.StatusNotFound)
+	return !ok, nil
 }
