@@ -110,20 +110,20 @@ func (t *Transport) Request(
 		// cancelled` error may happen when the body is read.
 		perRequestCtx, cancel := context.WithTimeout(ctx, h.timeout)
 		req = req.WithContext(perRequestCtx)
-		body, code, err := t.request(req)
+		bodyRes, code, err := t.request(req)
 
 		switch t.retryStrategy.Decide(h, code, err) {
 		case Success:
-			err = unmarshalTo(body, &res)
+			err = unmarshalTo(bodyRes, &res)
 			cancel()
 			return err
 		case Failure:
-			err = unmarshalToError(body)
+			err = unmarshalToError(bodyRes)
 			cancel()
 			return err
 		default:
-			if body != nil {
-				if err = body.Close(); err != nil {
+			if bodyRes != nil {
+				if err = bodyRes.Close(); err != nil {
 					cancel()
 					return fmt.Errorf("cannot close response's body before retry: %v", err)
 				}
