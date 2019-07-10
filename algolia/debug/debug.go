@@ -81,7 +81,15 @@ func printRequest(req *http.Request) {
 	var body string
 	req.Body, body = copyReadCloser(req.Body)
 	body = prettyPrintJSON(body, "\t")
-	fmt.Printf("> ALGOLIA DEBUG request:\n\tmethod=%q\n\turl=%q\n\tbody=\n\t%s\n", req.Method, req.URL, body)
+	fmt.Printf("> ALGOLIA DEBUG request:\n\tmethod=%q\n\turl=%q\n", req.Method, req.URL)
+	for k, v := range req.Header {
+		str := strings.Join(v, ",")
+		if strings.Contains(strings.ToLower(k), "algolia") {
+			str = strings.Repeat("*", len(str))
+		}
+		fmt.Printf("\theader=%s:%q\n", k, str)
+	}
+	fmt.Printf("\tbody=\n\t%s\n", body)
 }
 
 func printResponse(res *http.Response) {
