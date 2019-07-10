@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/compression"
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
@@ -29,8 +30,9 @@ type Client struct {
 func NewClient(appID, apiKey string) *Client {
 	return NewClientWithConfig(
 		Configuration{
-			AppID:  appID,
-			APIKey: apiKey,
+			AppID:       appID,
+			APIKey:      apiKey,
+			Compression: compression.GZIP,
 		},
 	)
 }
@@ -70,6 +72,7 @@ func NewClientWithConfig(config Configuration) *Client {
 			config.WriteTimeout,
 			config.Headers,
 			config.ExtraUserAgent,
+			config.Compression,
 		),
 	}
 }

@@ -3,6 +3,7 @@ package search
 import (
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
@@ -18,4 +19,5 @@ type Configuration struct {
 	WriteTimeout   time.Duration
 	Headers        map[string]string
 	ExtraUserAgent string
+	Compression    compression.Compression
 }
