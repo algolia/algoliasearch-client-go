@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/algolia/transport"
 )
 
@@ -48,6 +49,7 @@ func NewClientWithConfig(config Configuration) *Client {
 			config.WriteTimeout,
 			config.Headers,
 			config.ExtraUserAgent,
+			compression.None,
 		),
 	}
 }

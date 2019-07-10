@@ -2,11 +2,13 @@ package transport
 
 import (
 	"bytes"
+	"compress/gzip"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net"
 	"net/http"
 	"runtime"
@@ -14,6 +16,7 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/algolia/debug"
 	"github.com/algolia/algoliasearch-client-go/algolia/errs"
 	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
@@ -25,6 +28,7 @@ type Transport struct {
 	requester     Requester
 	retryStrategy *RetryStrategy
 	headers       map[string]string
+	compression   compression.Compression
 }
 
 func New(
@@ -36,6 +40,7 @@ func New(
 	writeTimeout time.Duration,
 	defaultHeaders map[string]string,
 	extraUserAgent string,
+	compression compression.Compression,
 ) *Transport {
 
 	if requester == nil {
@@ -67,6 +72,7 @@ func New(
 		requester:     requester,
 		retryStrategy: newRetryStrategy(hosts, readTimeout, writeTimeout),
 		headers:       headers,
+		compression:   compression,
 	}
 }
 
@@ -97,7 +103,7 @@ func (t *Transport) Request(
 	}
 
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
-		req, err := buildRequest(method, h.host, path, body, headers, urlParams)
+		req, err := buildRequest(t.compression, method, h.host, path, body, headers, urlParams)
 		if err != nil {
 			return err
 		}
@@ -174,7 +180,32 @@ func mergeHeaders(defaultHeaders, extraHeaders map[string]string) map[string]str
 	return headers
 }
 
+func noCompressionReadCloser(data []byte) io.ReadCloser {
+	return ioutil.NopCloser(bytes.NewBuffer(data))
+}
+
+func gzipCompressionReadCloser(data []byte) io.ReadCloser {
+	pr, pw := io.Pipe()
+	go func() {
+		gw := gzip.NewWriter(pw)
+		_, errWrite := gw.Write(data)
+		errCloseGw := gw.Close()
+		errClosePw := pw.Close()
+		if errWrite != nil {
+			debug.Printf("cannot GZIP request body: %v", errWrite)
+		}
+		if errCloseGw != nil {
+			debug.Printf("cannot close gzip.Writer of request body: %v", errCloseGw)
+		}
+		if errClosePw != nil {
+			debug.Printf("cannot close io.PipeWriter of request body: %v", errClosePw)
+		}
+	}()
+	return pr
+}
+
 func buildRequest(
+	c compression.Compression,
 	method string,
 	host string, path string,
 	body interface{},
@@ -183,6 +214,7 @@ func buildRequest(
 ) (req *http.Request, err error) {
 
 	urlStr := "https://" + host + path
+	isCompressionEnabled := false
 
 	// Build the body payload if the body is not empty
 	if body == nil {
@@ -193,7 +225,17 @@ func buildRequest(
 		if err != nil {
 			return nil, fmt.Errorf("cannot serialize request body:\n\terr=%v\n\tmethod=%s\n\turl=%s\n\tbody=%#v", err, method, urlStr, body)
 		}
-		req, err = http.NewRequest(method, urlStr, bytes.NewReader(data))
+
+		var r io.ReadCloser
+		isCompressionEnabled = shouldCompress(c, method)
+
+		if isCompressionEnabled && c == compression.GZIP {
+			r = gzipCompressionReadCloser(data)
+		} else {
+			r = noCompressionReadCloser(data)
+		}
+
+		req, err = http.NewRequest(method, urlStr, r)
 	}
 
 	if err != nil {
@@ -203,6 +245,14 @@ func buildRequest(
 	// Add headers
 	for k, v := range headers {
 		req.Header.Add(k, v)
+	}
+
+	// Add Content-Encoding header, if needed
+	if isCompressionEnabled {
+		switch c {
+		case compression.GZIP:
+			req.Header.Add("Content-Encoding", "gzip")
+		}
 	}
 
 	// Add URL params
@@ -234,4 +284,10 @@ func unmarshalToError(r io.ReadCloser) error {
 		return err
 	}
 	return &algoliaErr
+}
+
+func shouldCompress(c compression.Compression, method string) bool {
+	isValidMethod := method == http.MethodPut || method == http.MethodPost
+	isCompressionEnabled := c != compression.None
+	return isCompressionEnabled && isValidMethod
 }
