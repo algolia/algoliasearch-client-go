@@ -8,10 +8,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/algolia/algoliasearch-client-go/algolia/analytics"
+	"github.com/algolia/algoliasearch-client-go/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/algolia/insights"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
-	"github.com/stretchr/testify/require"
 )
 
 func InitSearchClient1AndIndex(t *testing.T) (*search.Client, *search.Index, string) {
@@ -52,7 +54,12 @@ func initInsightsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *ins
 
 func initSearchClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *search.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
-	c := search.NewClient(appID, key)
+	var c *search.Client
+	if appIDEnvVar == "ALGOLIA_APPLICATION_ID_2" { // TODO: temporary workaround while GZIP is not enabled on this cluster
+		c = search.NewClientWithConfig(search.Configuration{AppID: appID, APIKey: key, Compression: compression.None})
+	} else {
+		c = search.NewClient(appID, key)
+	}
 	deleteOldIndices(c)
 	return c
 }
