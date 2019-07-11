@@ -1,14 +1,12 @@
 package transport
 
 import (
-	"bytes"
 	"compress/gzip"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"runtime"
@@ -180,19 +178,15 @@ func mergeHeaders(defaultHeaders, extraHeaders map[string]string) map[string]str
 	return headers
 }
 
-func noCompressionReadCloser(data []byte) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewBuffer(data))
-}
-
-func gzipCompressionReadCloser(data []byte) io.ReadCloser {
+func gzipCompressionReadCloser(in *io.PipeReader) io.ReadCloser {
 	pr, pw := io.Pipe()
 	go func() {
 		gw := gzip.NewWriter(pw)
-		_, errWrite := gw.Write(data)
+		_, errCopy := io.Copy(gw, in)
 		errCloseGw := gw.Close()
 		errClosePw := pw.Close()
-		if errWrite != nil {
-			debug.Printf("cannot GZIP request body: %v", errWrite)
+		if errCopy != nil {
+			debug.Printf("cannot GZIP request body: %v", errCopy)
 		}
 		if errCloseGw != nil {
 			debug.Printf("cannot close gzip.Writer of request body: %v", errCloseGw)
@@ -204,38 +198,76 @@ func gzipCompressionReadCloser(data []byte) io.ReadCloser {
 	return pr
 }
 
+func wrapJSONEncoder(in interface{}) io.ReadCloser {
+	pr, pw := io.Pipe()
+	go func() {
+		errEncode := json.NewEncoder(pw).Encode(in)
+		errClose := pw.Close()
+		if errEncode != nil {
+			debug.Printf("cannot JSON encode request body: %v", errEncode)
+		}
+		if errClose != nil {
+			debug.Printf("cannot close JSON encoder writer for request body: %v", errClose)
+		}
+	}()
+	return pr
+}
+
+func wrapGZIPEncoder(in io.ReadCloser) io.ReadCloser {
+	pr, pw := io.Pipe()
+	go func() {
+		gw := gzip.NewWriter(pw)
+		_, errCopy := io.Copy(gw, in)
+		errCloseGw := gw.Close()
+		errClosePw := pw.Close()
+		if errCopy != nil {
+			debug.Printf("cannot GZIP request body: %v", errCopy)
+		}
+		if errCloseGw != nil {
+			debug.Printf("cannot close gzip.Writer of request body: %v", errCloseGw)
+		}
+		if errClosePw != nil {
+			debug.Printf("cannot close io.PipeWriter of request body: %v", errClosePw)
+		}
+	}()
+	return pr
+}
+
+func buildRequestWithoutBody(method, url string) (*http.Request, error) {
+	return http.NewRequest(method, url, nil)
+}
+
+func buildRequestWithBody(method, url string, body interface{}, c compression.Compression) (*http.Request, error) {
+	var r io.ReadCloser
+	jsonEncoder := wrapJSONEncoder(body)
+	switch c {
+	case compression.GZIP:
+		r = wrapGZIPEncoder(jsonEncoder)
+	case compression.None:
+		r = jsonEncoder
+	default:
+		r = jsonEncoder
+	}
+	return http.NewRequest(method, url, r)
+}
+
 func buildRequest(
 	c compression.Compression,
 	method string,
-	host string, path string,
+	host string,
+	path string,
 	body interface{},
 	headers map[string]string,
 	urlParams map[string]string,
 ) (req *http.Request, err error) {
 
 	urlStr := "https://" + host + path
-	isCompressionEnabled := false
+	isCompressionEnabled := shouldCompress(c, method, body)
 
-	// Build the body payload if the body is not empty
 	if body == nil {
-		req, err = http.NewRequest(method, urlStr, nil)
+		req, err = buildRequestWithoutBody(method, urlStr)
 	} else {
-		var data []byte
-		data, err = json.Marshal(body)
-		if err != nil {
-			return nil, fmt.Errorf("cannot serialize request body:\n\terr=%v\n\tmethod=%s\n\turl=%s\n\tbody=%#v", err, method, urlStr, body)
-		}
-
-		var r io.ReadCloser
-		isCompressionEnabled = shouldCompress(c, method)
-
-		if isCompressionEnabled && c == compression.GZIP {
-			r = gzipCompressionReadCloser(data)
-		} else {
-			r = noCompressionReadCloser(data)
-		}
-
-		req, err = http.NewRequest(method, urlStr, r)
+		req, err = buildRequestWithBody(method, urlStr, body, c)
 	}
 
 	if err != nil {
@@ -286,8 +318,9 @@ func unmarshalToError(r io.ReadCloser) error {
 	return &algoliaErr
 }
 
-func shouldCompress(c compression.Compression, method string) bool {
+func shouldCompress(c compression.Compression, method string, body interface{}) bool {
 	isValidMethod := method == http.MethodPut || method == http.MethodPost
 	isCompressionEnabled := c != compression.None
-	return isCompressionEnabled && isValidMethod
+	isBodyNonEmpty := body != nil
+	return isCompressionEnabled && isValidMethod && isBodyNonEmpty
 }
