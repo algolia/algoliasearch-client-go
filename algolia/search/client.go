@@ -32,7 +32,7 @@ func NewClient(appID, apiKey string) *Client {
 		Configuration{
 			AppID:       appID,
 			APIKey:      apiKey,
-			Compression: compression.GZIP,
+			Compression: compression.None,
 		},
 	)
 }
