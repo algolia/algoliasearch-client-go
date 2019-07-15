@@ -18,6 +18,12 @@ const (
 	AltCorrection1Type SynonymType = "altCorrection1"
 	AltCorrection2Type SynonymType = "altCorrection2"
 	PlaceholderType    SynonymType = "placeholder"
+
+	// Non-exported constant to represent synonym types as exported
+	// by the Algolia dashboard, which lower-cases the type field.
+	oneWaySynonymTypeLower  SynonymType = "onewaysynonym"
+	altCorrection1TypeLower SynonymType = "altcorrection1"
+	altCorrection2TypeLower SynonymType = "altcorrection2"
 )
 
 type rawSynonym struct{ impl Synonym }
@@ -48,17 +54,17 @@ func (s *rawSynonym) UnmarshalJSON(data []byte) error {
 		err = json.Unmarshal(data, &syn)
 		s.impl = syn
 
-	case OneWaySynonymType:
+	case OneWaySynonymType, oneWaySynonymTypeLower:
 		var syn OneWaySynonym
 		err = json.Unmarshal(data, &syn)
 		s.impl = syn
 
-	case AltCorrection1Type:
+	case AltCorrection1Type, altCorrection1TypeLower:
 		var syn AltCorrection1
 		err = json.Unmarshal(data, &syn)
 		s.impl = syn
 
-	case AltCorrection2Type:
+	case AltCorrection2Type, altCorrection2TypeLower:
 		var syn AltCorrection2
 		err = json.Unmarshal(data, &syn)
 		s.impl = syn

@@ -29,7 +29,7 @@ func (s *AltCorrection2) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("cannot unmarshal AltCorrection2: %v", err)
 	}
 
-	if synonym.Type != s.Type() {
+	if synonym.Type != s.Type() && synonym.Type != altCorrection2TypeLower {
 		return fmt.Errorf("cannot deserialize synonym of type %s into AltCorretion2", synonym.Type)
 	}
 
