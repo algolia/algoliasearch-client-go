@@ -40,7 +40,7 @@ func (s *OneWaySynonym) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("cannot unmarshal OneWaySynonym: %v", err)
 	}
 
-	if synonym.Type != s.Type() {
+	if synonym.Type != s.Type() && synonym.Type != oneWaySynonymTypeLower {
 		return fmt.Errorf("cannot deserialize synonym of type %s into OneWaySynonym", synonym.Type)
 	}
 
