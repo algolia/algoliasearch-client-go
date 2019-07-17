@@ -73,6 +73,7 @@ func TestSettings(t *testing.T) {
 		ResponseFields:                    opt.ResponseFields("hits", "hitsPerPage"),
 		MaxFacetHits:                      opt.MaxFacetHits(100),
 		IndexLanguages:                    opt.IndexLanguages("ja"),
+		UserData:                          opt.UserData(map[string]interface{}{"customUserData": 42.0}),
 	}
 
 	{
