@@ -19,8 +19,8 @@ func TestSearch(t *testing.T) {
 
 	{
 		res, err := index.SaveObjects([]map[string]string{
-			{"company": "Algolia", "name": "Julien Lemoine"},
-			{"company": "Algolia", "name": "Nicolas Dessaigne"},
+			{"company": "Algolia", "name": "Julien Lemoine", "objectID": "julien-lemoine"},
+			{"company": "Algolia", "name": "Nicolas Dessaigne", "objectID": "nicolas-dessaigne"},
 			{"company": "Amazon", "name": "Jeff Bezos"},
 			{"company": "Apple", "name": "Steve Jobs"},
 			{"company": "Apple", "name": "Steve Wozniak"},
@@ -51,6 +51,9 @@ func TestSearch(t *testing.T) {
 		res, err := index.Search("algolia", nil)
 		require.NoError(t, err)
 		require.Len(t, res.Hits, 2)
+		require.Equal(t, 0, res.GetObjectIDPosition("nicolas-dessaigne"))
+		require.Equal(t, 1, res.GetObjectIDPosition("julien-lemoine"))
+		require.Equal(t, -1, res.GetObjectIDPosition(""))
 	}
 
 	{

@@ -86,6 +86,23 @@ func (r QueryRes) UnmarshalUserData(v interface{}) error {
 	return json.Unmarshal(userDataPayload, &v)
 }
 
+// GetObjectIDPosition returns the position (0-based) within the `Hits`
+// result list of the record matching against the given objectID. If the
+// objectID is not found, -1 is returned.
+func (r QueryRes) GetObjectIDPosition(objectID string) int {
+	for i, hit := range r.Hits {
+		itf, ok := hit["objectID"]
+		if !ok {
+			continue
+		}
+		hitObjectID, ok := itf.(string)
+		if ok && hitObjectID == objectID {
+			return i
+		}
+	}
+	return -1
+}
+
 type ObjectWithPosition struct {
 	Object   map[string]interface{}
 	Position int
