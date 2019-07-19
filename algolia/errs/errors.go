@@ -11,6 +11,7 @@ var (
 	ErrNoMoreHostToTry    = errors.New("all hosts have been contacted unsuccessfully, it can either be a network error or wrong appID/key credentials were used")
 	ErrIndexAlreadyExists = errors.New("destination index already exists, please delete it first as the CopyIndex cannot hold the responsibility of modifying the destination index")
 	ErrSameAppID          = errors.New("indices cannot target the same application ID, please use Client.CopyIndex for same-app index copy instead")
+	ErrObjectNotFound     = errors.New("object not found in with search responses' hits list")
 )
 
 func ErrJSONDecode(data []byte, t string) error {

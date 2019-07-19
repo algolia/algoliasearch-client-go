@@ -3,11 +3,12 @@ package index
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
-	"github.com/stretchr/testify/require"
 )
 
 func TestSearch(t *testing.T) {
@@ -50,6 +51,38 @@ func TestSearch(t *testing.T) {
 		res, err := index.Search("algolia", nil)
 		require.NoError(t, err)
 		require.Len(t, res.Hits, 2)
+	}
+
+	{
+		filterFunc := func(object map[string]interface{}) bool { return false }
+		obj, err := index.FindFirstObject(filterFunc, "", false)
+		require.Error(t, err, "object %#v was found but it should not", obj)
+
+		filterFunc = func(object map[string]interface{}) bool { return true }
+		obj, err = index.FindFirstObject(filterFunc, "", false)
+		require.NoError(t, err)
+		require.Equal(t, 0, obj.Position)
+		require.Equal(t, 0, obj.Page)
+
+		filterFunc = func(object map[string]interface{}) bool {
+			itf, ok := object["company"]
+			if !ok {
+				return false
+			}
+			company, ok := itf.(string)
+			return ok && company == "Apple"
+		}
+
+		obj, err = index.FindFirstObject(filterFunc, "algolia", false)
+		require.Error(t, err, "object %#v was found but it should not", obj)
+
+		obj, err = index.FindFirstObject(filterFunc, "", true, opt.HitsPerPage(5))
+		require.Error(t, err, "object %#v was found but it should not", obj)
+
+		obj, err = index.FindFirstObject(filterFunc, "", false, opt.HitsPerPage(5))
+		require.NoError(t, err)
+		require.Equal(t, 0, obj.Position)
+		require.Equal(t, 2, obj.Page)
 	}
 
 	{

@@ -86,6 +86,12 @@ func (r QueryRes) UnmarshalUserData(v interface{}) error {
 	return json.Unmarshal(userDataPayload, &v)
 }
 
+type ObjectWithPosition struct {
+	Object   map[string]interface{}
+	Position int
+	Page     int
+}
+
 type FacetHit struct {
 	Value       string `json:"value"`
 	Highlighted string `json:"highlighted"`

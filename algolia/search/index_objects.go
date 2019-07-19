@@ -225,6 +225,58 @@ func (i *Index) Search(query string, opts ...interface{}) (res QueryRes, err err
 	return
 }
 
+// FindFirstObject searches iteratively through the search response `Hits`
+// field to find the first response hit that would match against the given
+// `filterFunc` function.
+//
+// If no object has been found within the first result set, the function
+// will perform a new search operation on the next page of results, if any,
+// until a matching object is found or the end of results, whichever
+// happens first.
+//
+// To prevent the iteration through pages of results, `doNotPaginate`
+// parameter can be set to true. This will stop the function at the end of
+// the first page of search results even if no object does match.
+func (i *Index) FindFirstObject(
+	filterFunc func(object map[string]interface{}) bool,
+	query string,
+	doNotPaginate bool,
+	opts ...interface{},
+) (*ObjectWithPosition, error) {
+	res, err := i.Search(query, opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	var hits []map[string]interface{}
+	err = res.UnmarshalHits(&hits)
+	if err != nil {
+		return nil, err
+	}
+
+	for pos, hit := range hits {
+		if filterFunc(hit) {
+			return &ObjectWithPosition{
+				Object:   hit,
+				Position: pos,
+				Page:     res.Page,
+			}, nil
+		}
+	}
+
+	hasNextPage := res.Page+1 < res.NbPages
+	if doNotPaginate || !hasNextPage {
+		return nil, errs.ErrObjectNotFound
+	}
+
+	return i.FindFirstObject(
+		filterFunc,
+		query,
+		doNotPaginate,
+		opt.InsertOrReplaceOption(opts, opt.Page(res.Page+1))...,
+	)
+}
+
 // SearchForFacetValues performs a search query according to the given query
 // string and any given parameter among the values of the given facet.
 func (i *Index) SearchForFacetValues(facet, query string, opts ...interface{}) (res SearchForFacetValuesRes, err error) {
