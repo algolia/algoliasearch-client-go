@@ -1,9 +1,12 @@
 package search
 
+import "encoding/json"
+
 type RuleCondition struct {
-	Anchoring RulePatternAnchoring `json:"anchoring"`
-	Pattern   string               `json:"pattern"`
-	Context   string               `json:"context,omitempty"`
+	Anchoring    RulePatternAnchoring `json:"anchoring"`
+	Pattern      string               `json:"pattern"`
+	Context      string               `json:"context,omitempty"`
+	Alternatives *Alternatives        `json:"alternatives,omitempty"`
 }
 
 type RulePatternAnchoring string
@@ -14,3 +17,23 @@ const (
 	EndsWith   RulePatternAnchoring = "endsWith"
 	Contains   RulePatternAnchoring = "contains"
 )
+
+type Alternatives struct {
+	enabled bool
+}
+
+func AlternativesEnabled() *Alternatives {
+	return &Alternatives{enabled: true}
+}
+
+func AlternativesDisabled() *Alternatives {
+	return &Alternatives{enabled: false}
+}
+
+func (a Alternatives) MarshalJSON() ([]byte, error) {
+	return json.Marshal(a.enabled)
+}
+
+func (a *Alternatives) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &a.enabled)
+}

@@ -6,11 +6,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
-	"github.com/stretchr/testify/require"
 )
 
 func TestQueryRule(t *testing.T) {
@@ -66,8 +67,12 @@ func TestQueryRule(t *testing.T) {
 			Enabled:     opt.Enabled(false),
 		},
 		{
-			ObjectID:  "query_edits",
-			Condition: search.RuleCondition{Anchoring: search.Contains, Pattern: "mobile phone"},
+			ObjectID: "query_edits",
+			Condition: search.RuleCondition{
+				Anchoring:    search.Contains,
+				Pattern:      "mobile phone",
+				Alternatives: search.AlternativesEnabled(),
+			},
 			Consequence: search.RuleConsequence{
 				Params: &search.RuleParams{
 					Query: search.NewRuleQueryObject(search.RuleQueryObjectQuery{
