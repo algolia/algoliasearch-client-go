@@ -155,6 +155,9 @@ func TestOptionGetters(t *testing.T) {
 	var queryLanguages *QueryLanguagesOption = nil
 	queryLanguages.Get()
 
+	var indexLanguages *IndexLanguagesOption = nil
+	indexLanguages.Get()
+
 	var queryType *QueryTypeOption = nil
 	queryType.Get()
 
