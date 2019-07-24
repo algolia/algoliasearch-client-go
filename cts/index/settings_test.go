@@ -3,11 +3,12 @@ package index
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/algolia/algoliasearch-client-go/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/cts"
-	"github.com/stretchr/testify/require"
 )
 
 func TestSettings(t *testing.T) {
@@ -71,6 +72,7 @@ func TestSettings(t *testing.T) {
 		MinProximity:                      opt.MinProximity(7),
 		ResponseFields:                    opt.ResponseFields("hits", "hitsPerPage"),
 		MaxFacetHits:                      opt.MaxFacetHits(100),
+		IndexLanguages:                    opt.IndexLanguages("ja"),
 	}
 
 	{
