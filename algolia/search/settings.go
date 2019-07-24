@@ -44,6 +44,7 @@ type Settings struct {
 	DecompoundedAttributes                  *opt.DecompoundedAttributesOption                  `json:"decompoundedAttributes,omitempty"`
 	KeepDiacriticsOnCharacters              *opt.KeepDiacriticsOnCharactersOption              `json:"keepDiacriticsOnCharacters,omitempty"`
 	QueryLanguages                          *opt.QueryLanguagesOption                          `json:"queryLanguages,omitempty"`
+	IndexLanguages                          *opt.IndexLanguagesOption                          `json:"indexLanguages,omitempty"`
 	QueryType                               *opt.QueryTypeOption                               `json:"queryType,omitempty"`
 	RemoveWordsIfNoResults                  *opt.RemoveWordsIfNoResultsOption                  `json:"removeWordsIfNoResults,omitempty"`
 	AdvancedSyntax                          *opt.AdvancedSyntaxOption                          `json:"advancedSyntax,omitempty"`
@@ -137,6 +138,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 		"decompoundedAttributes",
 		"keepDiacriticsOnCharacters",
 		"queryLanguages",
+		"indexLanguages",
 		"queryType",
 		"removeWordsIfNoResults",
 		"advancedSyntax",
@@ -312,6 +314,10 @@ func (s Settings) Equal(s2 Settings) bool {
 		debug.Printf("Settings.QueryLanguages are not equal: %#v != %#v\n", s.QueryLanguages, s2.QueryLanguages)
 		return false
 	}
+	if !opt.IndexLanguagesEqual(s.IndexLanguages, s2.IndexLanguages) {
+		debug.Printf("Settings.IndexLanguages are not equal: %#v != %#v\n", s.IndexLanguages, s2.IndexLanguages)
+		return false
+	}
 	if !opt.QueryTypeEqual(s.QueryType, s2.QueryType) {
 		debug.Printf("Settings.QueryType are not equal: %#v != %#v\n", s.QueryType, s2.QueryType)
 		return false
@@ -428,6 +434,7 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tDecompoundedAttributes: %v,\n", stringifyReturnValues(s.DecompoundedAttributes.Get()))
 	settingsStr += fmt.Sprintf("\tKeepDiacriticsOnCharacters: %v,\n", stringifyReturnValues(s.KeepDiacriticsOnCharacters.Get()))
 	settingsStr += fmt.Sprintf("\tQueryLanguages: %v,\n", stringifyReturnValues(s.QueryLanguages.Get()))
+	settingsStr += fmt.Sprintf("\tIndexLanguages: %v,\n", stringifyReturnValues(s.IndexLanguages.Get()))
 	settingsStr += fmt.Sprintf("\tQueryType: %v,\n", stringifyReturnValues(s.QueryType.Get()))
 	settingsStr += fmt.Sprintf("\tRemoveWordsIfNoResults: %v,\n", stringifyReturnValues(s.RemoveWordsIfNoResults.Get()))
 	settingsStr += fmt.Sprintf("\tAdvancedSyntax: %v,\n", stringifyReturnValues(s.AdvancedSyntax.Get()))

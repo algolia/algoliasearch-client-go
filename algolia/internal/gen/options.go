@@ -91,6 +91,7 @@ var options = []Option{
 	{"decompoundedAttributes", Settings, map[string][]string{}, ""},
 	{"keepDiacriticsOnCharacters", Settings, "", ""},
 	{"queryLanguages", Settings | Search, []string{}, ""},
+	{"indexLanguages", Settings, []string{}, ""},
 
 	// Query strategy
 	{"queryType", Settings | Search, "prefixLast", ""},
