@@ -1,5 +1,38 @@
 # ChangeLog
 
+## [v3.2.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.1.0...v3.2.0) (2019-08-20)
+
+### Feat
+
+- implement QueryRes.GetObjectIDPosition() method ([0940040](https://github.com/algolia/algoliasearch-client-go/commit/0940040))
+- implement Index.FindFirstObject() method ([e30dede](https://github.com/algolia/algoliasearch-client-go/commit/e30dede))
+- generate opt.UserData settings option ([0b94e5f](https://github.com/algolia/algoliasearch-client-go/commit/0b94e5f))
+- **debug**: safely display headers of http.Request ([f70903b](https://github.com/algolia/algoliasearch-client-go/commit/f70903b))
+- compress all POST/PUT Search API requests using GZIP ([a977454](https://github.com/algolia/algoliasearch-client-go/commit/a977454))
+
+    `search.Configuration.Compression` can be switched between `GZIP`
+    (default) and `NONE`, which corresponds to the previous behaviour.
+- **index**: add exists method ([3facc66](https://github.com/algolia/algoliasearch-client-go/commit/3facc66))
+
+### Refactor
+
+- **debug**: correctly decode http.Request body even when gzipped ([fcb3933](https://github.com/algolia/algoliasearch-client-go/commit/fcb3933))
+- **transport**: improve body encoding ([a8b5d0a](https://github.com/algolia/algoliasearch-client-go/commit/a8b5d0a))
+
+    Do not serialize request bodies in-memory (use json.Encoder instead)
+
+### Fix
+
+- use correct type (string) for QueryRes.AutomaticRadius field ([665327a](https://github.com/algolia/algoliasearch-client-go/commit/665327a))
+- **synonym**: correctly deserialize synonyms set via the Algolia dashboard ([93b9dd4](https://github.com/algolia/algoliasearch-client-go/commit/93b9dd4))
+- avoid to shadow body request with body response in Transport.Request() ([03b6078](https://github.com/algolia/algoliasearch-client-go/commit/03b6078))
+
+### Test
+
+- add test for transport.shouldCompress ([d084265](https://github.com/algolia/algoliasearch-client-go/commit/d084265))
+
+
+
 ## [v3.1.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.0.0...v3.1.0) (2019-07-08)
 
 ### Doc
