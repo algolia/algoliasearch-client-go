@@ -1,5 +1,16 @@
 # ChangeLog
 
+## [v3.2.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.2.0...v3.2.1) (2019-08-21)
+
+### Fix
+
+- **index**: add missing Exists() method to the IndexInterface (#537) ([c1812b9](https://github.com/algolia/algoliasearch-client-go/commit/c1812b9))
+
+    Because the Exists() method was missing, the Index could not be mocked
+    as expected.
+
+
+
 ## [v3.2.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.1.0...v3.2.0) (2019-08-20)
 
 ### Feat
