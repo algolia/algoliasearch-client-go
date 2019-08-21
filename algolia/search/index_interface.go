@@ -9,6 +9,7 @@ type IndexInterface interface {
 	GetAppID() string
 	ClearObjects(opts ...interface{}) (res UpdateTaskRes, err error)
 	Delete(opts ...interface{}) (res DeleteTaskRes, err error)
+	Exists() (exists bool, err error)
 
 	// Indexing
 	GetObject(objectID string, object interface{}, opts ...interface{}) error
