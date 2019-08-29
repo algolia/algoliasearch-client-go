@@ -51,9 +51,9 @@ func TestSearch(t *testing.T) {
 		res, err := index.Search("algolia", nil)
 		require.NoError(t, err)
 		require.Len(t, res.Hits, 2)
-		require.Equal(t, 0, res.GetObjectIDPosition("nicolas-dessaigne"))
-		require.Equal(t, 1, res.GetObjectIDPosition("julien-lemoine"))
-		require.Equal(t, -1, res.GetObjectIDPosition(""))
+		require.Equal(t, 0, res.GetObjectPosition("nicolas-dessaigne"))
+		require.Equal(t, 1, res.GetObjectPosition("julien-lemoine"))
+		require.Equal(t, -1, res.GetObjectPosition(""))
 	}
 
 	{
