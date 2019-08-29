@@ -225,7 +225,7 @@ func (i *Index) Search(query string, opts ...interface{}) (res QueryRes, err err
 	return
 }
 
-// FindFirstObject searches iteratively through the search response `Hits`
+// FindObject searches iteratively through the search response `Hits`
 // field to find the first response hit that would match against the given
 // `filterFunc` function.
 //
@@ -237,10 +237,10 @@ func (i *Index) Search(query string, opts ...interface{}) (res QueryRes, err err
 // To prevent the iteration through pages of results, `doNotPaginate`
 // parameter can be set to true. This will stop the function at the end of
 // the first page of search results even if no object does match.
-func (i *Index) FindFirstObject(
+func (i *Index) FindObject(
 	filterFunc func(object map[string]interface{}) bool,
 	query string,
-	doNotPaginate bool,
+	paginate bool,
 	opts ...interface{},
 ) (*ObjectWithPosition, error) {
 	res, err := i.Search(query, opts...)
@@ -265,16 +265,29 @@ func (i *Index) FindFirstObject(
 	}
 
 	hasNextPage := res.Page+1 < res.NbPages
-	if doNotPaginate || !hasNextPage {
+	if !paginate || !hasNextPage {
 		return nil, errs.ErrObjectNotFound
 	}
 
-	return i.FindFirstObject(
+	return i.FindObject(
 		filterFunc,
 		query,
-		doNotPaginate,
+		paginate,
 		opt.InsertOrReplaceOption(opts, opt.Page(res.Page+1))...,
 	)
+}
+
+// FindFirstObject does the same as FindObject except that it reverse the
+// doNotPaginate boolean parameter.
+//
+// Deprecated: Use FindObject instead.
+func (i *Index) FindFirstObject(
+	filterFunc func(object map[string]interface{}) bool,
+	query string,
+	doNotPaginate bool,
+	opts ...interface{},
+) (*ObjectWithPosition, error) {
+	return i.FindObject(filterFunc, query, !doNotPaginate, opts...)
 }
 
 // SearchForFacetValues performs a search query according to the given query

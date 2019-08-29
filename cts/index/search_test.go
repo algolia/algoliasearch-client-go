@@ -58,11 +58,11 @@ func TestSearch(t *testing.T) {
 
 	{
 		filterFunc := func(object map[string]interface{}) bool { return false }
-		obj, err := index.FindFirstObject(filterFunc, "", false)
+		obj, err := index.FindObject(filterFunc, "", true)
 		require.Error(t, err, "object %#v was found but it should not", obj)
 
 		filterFunc = func(object map[string]interface{}) bool { return true }
-		obj, err = index.FindFirstObject(filterFunc, "", false)
+		obj, err = index.FindObject(filterFunc, "", true)
 		require.NoError(t, err)
 		require.Equal(t, 0, obj.Position)
 		require.Equal(t, 0, obj.Page)
@@ -76,13 +76,13 @@ func TestSearch(t *testing.T) {
 			return ok && company == "Apple"
 		}
 
-		obj, err = index.FindFirstObject(filterFunc, "algolia", false)
+		obj, err = index.FindObject(filterFunc, "algolia", true)
 		require.Error(t, err, "object %#v was found but it should not", obj)
 
-		obj, err = index.FindFirstObject(filterFunc, "", true, opt.HitsPerPage(5))
+		obj, err = index.FindObject(filterFunc, "", false, opt.HitsPerPage(5))
 		require.Error(t, err, "object %#v was found but it should not", obj)
 
-		obj, err = index.FindFirstObject(filterFunc, "", false, opt.HitsPerPage(5))
+		obj, err = index.FindObject(filterFunc, "", true, opt.HitsPerPage(5))
 		require.NoError(t, err)
 		require.Equal(t, 0, obj.Position)
 		require.Equal(t, 2, obj.Page)
