@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [3.3.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.2.1...3.3.0) (2019-09-06)
+
+### Feat
+
+- **index**: deprecate QueryRes.GetObjectIDPosition in favor of QueryRes.GetObjectPosition ([3564a8e](https://github.com/algolia/algoliasearch-client-go/commit/3564a8e))
+- **index**: deprecate index.FindFirstObject in favor of index.FindObject ([c109b9d](https://github.com/algolia/algoliasearch-client-go/commit/c109b9d))
+
+    Besides the name, the `doNotPaginate` parameter was also turned into
+    `paginate` so the boolean is easier to read and defaults to true.
+
+### Docs
+
+- **client**: fix ListIndices comment regarding the lack of pagination (#539) ([f0aa5f1](https://github.com/algolia/algoliasearch-client-go/commit/f0aa5f1))
+
+
+
 ## [v3.2.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.2.0...v3.2.1) (2019-08-21)
 
 ### Fix
