@@ -1,7 +1,6 @@
 all: deps generate lint test
 
 deps:
-	dep ensure -vendor-only
 	go get ./...
 
 generate:
@@ -13,10 +12,10 @@ lint:
 test: unit-tests integration-tests
 
 unit-tests:
-	gotest -v ./algolia/...
+	go test -v ./algolia/...
 
 integration-tests:
-	gotest -v ./cts/...
+	go test -v ./cts/...
 
 clean:
 	rm -f `grep -R -l --include \*.go -F 'DO NOT EDIT' * | grep -v -F 'algolia/internal/gen/'`
