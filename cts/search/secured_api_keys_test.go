@@ -5,11 +5,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
-	"github.com/stretchr/testify/require"
 )
 
 func TestSecuredAPIKeys(t *testing.T) {
@@ -60,4 +62,50 @@ func TestSecuredAPIKeys(t *testing.T) {
 		_, err = client.InitIndex(indexName2).Search("")
 		require.Error(t, err)
 	}
+}
+
+func TestSecuredAPIKeyShouldNotBeExpired(t *testing.T) {
+	c := search.NewClient("", "")
+	searchKey := os.Getenv("ALGOLIA_SEARCH_KEY_1")
+	require.NotEmpty(t, searchKey)
+
+	securedKey, err := search.GenerateSecuredAPIKey(
+		searchKey,
+		opt.ValidUntil(time.Now().Add(10*time.Minute)),
+		opt.RestrictIndices("indexName"),
+	)
+	require.NoError(t, err)
+	validity, err := c.GetSecuredAPIKeyRemainingValidity(securedKey)
+	require.NoError(t, err)
+	require.Greater(t, int(validity.Seconds()), 0)
+}
+
+func TestSecuredAPIKeyShouldBeExpired(t *testing.T) {
+	c := search.NewClient("", "")
+	searchKey := os.Getenv("ALGOLIA_SEARCH_KEY_1")
+	require.NotEmpty(t, searchKey)
+
+	securedKey, err := search.GenerateSecuredAPIKey(
+		searchKey,
+		opt.ValidUntil(time.Now().Add(-10*time.Minute)),
+		opt.RestrictIndices("indexName"),
+	)
+	require.NoError(t, err)
+	validity, err := c.GetSecuredAPIKeyRemainingValidity(securedKey)
+	require.NoError(t, err)
+	require.LessOrEqual(t, int(validity.Seconds()), 0)
+}
+
+func TestSecuredAPIKeyParametersValidity(t *testing.T) {
+	c := search.NewClient("", "")
+	searchKey := os.Getenv("ALGOLIA_SEARCH_KEY_1")
+	require.NotEmpty(t, searchKey)
+
+	securedKey, err := search.GenerateSecuredAPIKey(
+		searchKey,
+		opt.RestrictIndices("indexName"),
+	)
+	require.NoError(t, err)
+	_, err = c.GetSecuredAPIKeyRemainingValidity(securedKey)
+	require.EqualError(t, err, errs.ErrValidUntilNotFound.Error())
 }

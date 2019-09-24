@@ -1,7 +1,11 @@
 package search
 
 import (
+	"encoding/base64"
 	"net/http"
+	"regexp"
+	"strconv"
+	"time"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
@@ -59,6 +63,34 @@ func (c *Client) RestoreAPIKey(keyID string, opts ...interface{}) (res RestoreKe
 func (c *Client) ListAPIKeys(opts ...interface{}) (res ListAPIKeysRes, err error) {
 	path := c.path("/keys")
 	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
+	return
+}
+
+func (c *Client) GetSecuredAPIKeyRemainingValidity(keyID string, opts ...interface{}) (v time.Duration, err error) {
+	if len(keyID) == 0 {
+		err = errs.ErrEmptySecuredAPIKey
+		return
+	}
+
+	decoded, err := base64.StdEncoding.DecodeString(keyID)
+	if err != nil {
+		err = errs.ErrInvalidSecuredAPIKey
+		return
+	}
+
+	submatch := regexp.MustCompile(`validUntil=(\d{10})`).FindSubmatch(decoded)
+
+	if len(submatch) != 2 {
+		err = errs.ErrValidUntilNotFound
+		return
+	}
+
+	ts, err := strconv.Atoi(string(submatch[1]))
+	if err != nil {
+		err = errs.ErrValidUntilInvalid
+	}
+
+	v = time.Until(time.Unix(int64(ts), 0))
 	return
 }
 
