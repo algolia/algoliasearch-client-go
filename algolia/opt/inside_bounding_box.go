@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
 )
 
 // InsideBoundingBoxOption is a wrapper for an InsideBoundingBox option parameter. It holds

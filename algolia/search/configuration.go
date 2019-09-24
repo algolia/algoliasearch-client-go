@@ -3,8 +3,8 @@ package search
 import (
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/compression"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 // Configuration contains all the different parameters one can change to

@@ -1,7 +1,7 @@
 package search
 
 import (
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 // CopyRules copies the rules from the given source index into the destination one.

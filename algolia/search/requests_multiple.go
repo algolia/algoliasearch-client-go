@@ -1,8 +1,8 @@
 package search
 
 import (
-	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 type IndexedGetObject struct {

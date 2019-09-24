@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 )
 
 type Outcome int

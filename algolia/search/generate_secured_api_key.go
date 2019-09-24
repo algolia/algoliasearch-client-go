@@ -6,9 +6,9 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 
-	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 // GenerateSecuredAPIKey generates a public API key intended to restrict access

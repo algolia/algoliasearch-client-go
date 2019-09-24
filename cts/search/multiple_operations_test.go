@@ -3,9 +3,9 @@ package search
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/search"
-	"github.com/algolia/algoliasearch-client-go/cts"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/v3/cts"
 	"github.com/stretchr/testify/require"
 )
 

@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/compression"
-	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
+	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 const (

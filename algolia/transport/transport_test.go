@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
 )
 
 func TestShouldCompress(t *testing.T) {

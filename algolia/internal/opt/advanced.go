@@ -3,7 +3,7 @@
 package opt
 
 import (
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 // ExtractAdvanced returns the first found AdvancedOption from the

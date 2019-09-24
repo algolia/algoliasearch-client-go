@@ -3,8 +3,8 @@ package insights
 import (
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/region"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 // Configuration contains all the different parameters one can change to

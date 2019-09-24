@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 // Key represents an Algolia API key used by the API to identify and/or restrict

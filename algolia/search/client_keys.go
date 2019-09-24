@@ -3,8 +3,8 @@ package search
 import (
 	"net/http"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
 )
 
 // GetAPIKey retrieves the API key identified by the given keyID.

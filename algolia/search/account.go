@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
-	"github.com/algolia/algoliasearch-client-go/algolia/wait"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 )
 
 // Account provides methods to interact with the Algolia Search API on multiple

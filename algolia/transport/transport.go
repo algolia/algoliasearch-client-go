@@ -13,11 +13,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/compression"
-	"github.com/algolia/algoliasearch-client-go/algolia/debug"
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
-	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/debug"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
+	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
 )
 
 const version = "3.3.0"

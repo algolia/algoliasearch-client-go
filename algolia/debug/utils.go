@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
 )
 
 func copyReadCloser(r io.ReadCloser) (io.ReadCloser, string) {

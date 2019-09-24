@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/rand"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/rand"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 const (

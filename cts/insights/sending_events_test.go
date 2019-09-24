@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/insights"
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
-	"github.com/algolia/algoliasearch-client-go/cts"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/insights"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/cts"
 	"github.com/stretchr/testify/require"
 )
 

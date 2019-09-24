@@ -10,10 +10,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/analytics"
-	"github.com/algolia/algoliasearch-client-go/algolia/compression"
-	"github.com/algolia/algoliasearch-client-go/algolia/insights"
-	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/analytics"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/insights"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 )
 
 func InitSearchClient1AndIndex(t *testing.T) (*search.Client, *search.Index, string) {
