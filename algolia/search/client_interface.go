@@ -1,6 +1,10 @@
 package search
 
-import "github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+import (
+	"time"
+
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+)
 
 type ClientInterface interface {
 	// Misc
@@ -25,6 +29,7 @@ type ClientInterface interface {
 	DeleteAPIKey(keyID string, opts ...interface{}) (res DeleteKeyRes, err error)
 	RestoreAPIKey(keyID string, opts ...interface{}) (res RestoreKeyRes, err error)
 	ListAPIKeys(opts ...interface{}) (res ListAPIKeysRes, err error)
+	GetSecuredAPIKeyRemainingValidity(keyID string, opts ...interface{}) (v time.Duration, err error)
 
 	// Multiple methods
 	MultipleBatch(operations []BatchOperationIndexed, opts ...interface{}) (res MultipleBatchRes, err error)
