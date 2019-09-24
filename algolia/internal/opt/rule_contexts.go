@@ -3,7 +3,7 @@
 package opt
 
 import (
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 // ExtractRuleContexts returns the first found RuleContextsOption from the

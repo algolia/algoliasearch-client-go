@@ -3,7 +3,7 @@ package opt
 import (
 	"encoding/json"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
 )
 
 // DistinctOption is a wrapper for an Distinct option parameter. It holds

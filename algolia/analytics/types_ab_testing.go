@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 )
 
 // ABTest presents an AB test input as sent to the Analytics API when creating a

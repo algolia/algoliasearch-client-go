@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/stretchr/testify/require"
 )
 

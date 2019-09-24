@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
-	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
+	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 // Index provides methods to interact with the Algolia Search API on a single

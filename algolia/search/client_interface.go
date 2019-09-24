@@ -1,6 +1,6 @@
 package search
 
-import "github.com/algolia/algoliasearch-client-go/algolia/call"
+import "github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 
 type ClientInterface interface {
 	// Misc

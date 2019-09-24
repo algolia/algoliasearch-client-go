@@ -3,7 +3,7 @@ package transport
 import (
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 )
 
 const (

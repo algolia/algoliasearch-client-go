@@ -3,7 +3,7 @@ package search
 import (
 	"net/http"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 )
 
 // SetPersonalizationStrategy defines and override the full configuration of

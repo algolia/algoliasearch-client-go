@@ -1,6 +1,6 @@
 package search
 
-import "github.com/algolia/algoliasearch-client-go/algolia/wait"
+import "github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 
 type IndexInterface interface {
 	// Misc

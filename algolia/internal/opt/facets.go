@@ -3,7 +3,7 @@
 package opt
 
 import (
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 // ExtractFacets returns the first found FacetsOption from the

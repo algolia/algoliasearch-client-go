@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/iterator"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/iterator"
 )
 
 // ObjectIterator represents an iterator over records of an index.

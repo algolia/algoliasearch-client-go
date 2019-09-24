@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/debug"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/debug"
 )
 
 // InsertOrReplaceOption inserts the given opt option into the given slice of

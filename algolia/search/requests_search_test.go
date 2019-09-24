@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 func TestNewSearchParams_ExtraOptionsOverride(t *testing.T) {

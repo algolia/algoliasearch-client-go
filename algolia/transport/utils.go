@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/debug"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/debug"
 )
 
 func init() {

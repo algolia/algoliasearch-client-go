@@ -7,13 +7,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/algolia/errs"
-	iopt "github.com/algolia/algoliasearch-client-go/algolia/internal/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/iterator"
-	"github.com/algolia/algoliasearch-client-go/algolia/opt"
-	"github.com/algolia/algoliasearch-client-go/algolia/transport"
-	"github.com/algolia/algoliasearch-client-go/algolia/wait"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
+	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/iterator"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 )
 
 // GetObject retrieves the record identified by the given objectID and
