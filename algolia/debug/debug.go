@@ -41,7 +41,7 @@ func Display(itf interface{}) {
 		msg = fmt.Sprintf("do not know how to display %#v", v)
 	}
 	Println(msg)
-	fmt.Printf("took %s\n", time.Now().Sub(start))
+	fmt.Printf("took %s\n", time.Since(start))
 }
 
 func Println(a ...interface{}) {

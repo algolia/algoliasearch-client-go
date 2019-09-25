@@ -178,26 +178,6 @@ func mergeHeaders(defaultHeaders, extraHeaders map[string]string) map[string]str
 	return headers
 }
 
-func gzipCompressionReadCloser(in *io.PipeReader) io.ReadCloser {
-	pr, pw := io.Pipe()
-	go func() {
-		gw := gzip.NewWriter(pw)
-		_, errCopy := io.Copy(gw, in)
-		errCloseGw := gw.Close()
-		errClosePw := pw.Close()
-		if errCopy != nil {
-			debug.Printf("cannot GZIP request body: %v", errCopy)
-		}
-		if errCloseGw != nil {
-			debug.Printf("cannot close gzip.Writer of request body: %v", errCloseGw)
-		}
-		if errClosePw != nil {
-			debug.Printf("cannot close io.PipeWriter of request body: %v", errClosePw)
-		}
-	}()
-	return pr
-}
-
 func wrapJSONEncoder(in interface{}) io.ReadCloser {
 	pr, pw := io.Pipe()
 	go func() {
@@ -284,6 +264,8 @@ func buildRequest(
 		switch c {
 		case compression.GZIP:
 			req.Header.Add("Content-Encoding", "gzip")
+		default:
+			// Do nothing
 		}
 	}
 

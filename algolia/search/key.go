@@ -32,13 +32,13 @@ func (k *Key) SetQueryParameters(opts ...interface{}) *Key {
 }
 
 func (k Key) MarshalJSON() ([]byte, error) {
-	type Key_ Key
+	type key Key
 	return json.Marshal(struct {
-		Key_
+		key
 		QueryParameters string `json:"queryParameters,omitempty"`
 		Validity        int64  `json:"validity,omitempty"`
 	}{
-		Key_:            Key_(k),
+		key:             key(k),
 		QueryParameters: transport.URLEncode(k.QueryParameters),
 		Validity:        int64(k.Validity.Seconds()),
 	})
@@ -49,9 +49,9 @@ func (k *Key) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	type Key_ Key
+	type key Key
 	var tmp struct {
-		Key_
+		key
 		CreatedAt       int64  `json:"createdAt"`
 		QueryParameters string `json:"queryParameters"`
 		Validity        int64  `json:"validity"`
@@ -62,7 +62,7 @@ func (k *Key) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	*k = Key(tmp.Key_)
+	*k = Key(tmp.key)
 	k.CreatedAt = time.Unix(tmp.CreatedAt, 0)
 	k.Validity = time.Duration(tmp.Validity) * time.Second
 	k.Value = tmp.Value
