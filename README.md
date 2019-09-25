@@ -2,7 +2,7 @@
   <a href="https://www.algolia.com">
     <img alt="Algolia for Go" src="https://raw.githubusercontent.com/algolia/algoliasearch-client-common/master/readme-banner.png" >
   </a>
-  
+
   <h4 align="center">The perfect starting point to integrate <a href="https://algolia.com" target="_blank">Algolia</a> within your Go project</h4>
 
   <p align="center">
@@ -43,7 +43,7 @@ First, add the Algolia Go API Client as a new module to your Go project:
 ```bash
 # First line is optional if your project is already defined as a Go module
 go mod init <YOUR_PROJECT_NAME>
-go get github.com/algolia/algoliasearch-client-go@v3.3.0
+go get github.com/algolia/algoliasearch-client-go/v3@v3.3.0
 ```
 
 Then, create objects on your index:
@@ -51,7 +51,7 @@ Then, create objects on your index:
 ```go
 package main
 
-import "github.com/algolia/algoliasearch-client-go/algolia/search"
+import "github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 
 type Contact struct {
 	ObjectID string `json:"objectID"`
@@ -77,7 +77,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/algolia/algoliasearch-client-go/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 )
 
 type Contact struct {
