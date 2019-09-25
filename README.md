@@ -43,7 +43,7 @@ First, add the Algolia Go API Client as a new module to your Go project:
 ```bash
 # First line is optional if your project is already defined as a Go module
 go mod init <YOUR_PROJECT_NAME>
-go get github.com/algolia/algoliasearch-client-go/v3@v3.3.0
+go get github.com/algolia/algoliasearch-client-go/v3@v3.4.0
 ```
 
 Then, create objects on your index:

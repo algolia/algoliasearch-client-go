@@ -1,5 +1,49 @@
 # ChangeLog
 
+## [3.4.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.3.0...3.4.0) (2019-09-25)
+
+### Fix
+
+- correctly migrate to Go modules by using v3/ suffix for Semantic Import Versioning ([6be7683](https://github.com/algolia/algoliasearch-client-go/commit/6be7683))
+
+    **Manual Intervention Required**
+    
+    Our migration to Go modules starting at version v3.0.0 of this Go API
+    client was done incorrectly since our module declaration was not
+    including the required `v3/` suffix. This commit fixes this issue by
+    respecting the Semantic Import Versioning described by the Go wiki.
+    
+    **Step 1/2**
+    
+    To update your project which depends on the Algolia Go API client, you
+    need to replace all `github.com/algolia/algoliasearch-client-go/*`
+    import statements with `github.com/algolia/algoliasearch-client-go/v3/*`
+    instead. The following shell one-liner can be used to perform this
+    change:
+    
+    ```
+    for f in $(find . -type f); do
+      sed -i '' 's:github.com/algolia/algoliasearch-client-go:github.com/algolia/algoliasearch-client-go/v3:g' $f
+    done
+    
+    for f in $(find . -type f); do
+      sed -i 's:github.com/algolia/algoliasearch-client-go:github.com/algolia/algoliasearch-client-go/v3:g' $f
+    done
+    ```
+    
+    **Step 2/2**
+    
+    After that, make sure to import the Algolia Go client dependency as such
+    in your `go.mod` file:
+    
+    ```
+    require github.com/algolia/algoliasearch-client-go/v3 v3.X.Y
+    ```
+    
+    where `v3.X.z` stands for the exact release tag you want to use.
+
+
+
 ## [3.3.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.2.1...3.3.0) (2019-09-06)
 
 ### Feat
