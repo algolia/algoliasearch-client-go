@@ -41,6 +41,12 @@ func (c *Client) AssignUserID(userID, clusterName string, opts ...interface{}) (
 	return
 }
 
+func (c *Client) AssignUserIDs(userIDs []string, clusterName string, opts ...interface{}) (res AssignUserIDRes, err error) {
+	body := map[string]interface{}{"cluster": clusterName, "users": userIDs}
+	err = c.transport.Request(&res, http.MethodPost, "/1/clusters/mapping/batch", body, call.Write, opts...)
+	return
+}
+
 // RemoveUserID deletes the given userID managed by MCM.
 func (c *Client) RemoveUserID(userID string, opts ...interface{}) (res RemoveUserIDRes, err error) {
 	opts = opt.InsertExtraHeader(opts, "X-Algolia-User-ID", userID)

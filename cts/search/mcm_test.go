@@ -2,11 +2,13 @@ package search
 
 import (
 	"strings"
+	"sync"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
-	"github.com/stretchr/testify/require"
 )
 
 func TestMCM(t *testing.T) {
@@ -19,51 +21,93 @@ func TestMCM(t *testing.T) {
 	require.True(t, len(res.Clusters) > 1)
 	cluster := res.Clusters[0]
 
-	userID := cts.GenerateCanonicalPrefixName()
-	userID = strings.Replace(userID, ":", "-", -1)
-	userID = strings.Replace(userID, "_", "-", -1)
+	userIDPrefix := cts.GenerateCanonicalPrefixName()
+	userIDPrefix = strings.Replace(userIDPrefix, ":", "-", -1)
+	userIDPrefix = strings.Replace(userIDPrefix, "_", "-", -1)
 
-	// Assign the userID and
+	userIDs := []string{
+		userIDPrefix + "-0",
+		userIDPrefix + "-1",
+		userIDPrefix + "-2",
+	}
+
+	// Assign a single userID
 	{
-		_, err := client.AssignUserID(userID, cluster.ClusterName)
+		_, err := client.AssignUserID(userIDs[0], cluster.ClusterName)
 		require.NoError(t, err)
 	}
 
-	// Check that userID was properly assigned (using get/search/list)
+	// Assign multiple userIDs
 	{
-		cts.Retry(func() bool {
-			_, err := client.GetUserID(userID)
-			return err == nil
-		})
-
-		_, err := client.SearchUserIDs(userID)
+		_, err := client.AssignUserIDs(
+			[]string{userIDs[1], userIDs[2]},
+			cluster.ClusterName,
+		)
 		require.NoError(t, err)
+	}
 
-		found := false
-		page := 0
-		hitsPerPage := 100
+	// Check that userIDs were properly assigned (using get/search/list)
+	{
 
-		for !found {
-			res, err := client.ListUserIDs(
-				opt.Page(page),
-				opt.HitsPerPage(hitsPerPage),
-			)
-			require.NoError(t, err)
+		// Check (asynchronously) that userIDs were properly assigned (using get/search)
+		{
+			var wg sync.WaitGroup
 
-			for _, u := range res.UserIDs {
-				if u.ID == userID {
-					found = true
-					break
-				}
+			for _, userID := range userIDs {
+				wg.Add(1)
+				go func(userID string) {
+					cts.Retry(func() bool {
+						_, err := client.GetUserID(userID)
+						return err == nil
+					})
+					wg.Done()
+				}(userID)
+
+				wg.Add(1)
+				go func(userID string) {
+
+					cts.Retry(func() bool {
+						_, err := client.SearchUserIDs(userID)
+						return err == nil
+					})
+					wg.Done()
+				}(userID)
 			}
 
-			if len(res.UserIDs) < hitsPerPage {
-				break
-			}
-			page++
+			wg.Wait()
 		}
 
-		require.True(t, found)
+		// Check that userIDs were properly assigned (using list)
+		{
+			found := make(map[string]int)
+			page := 0
+			hitsPerPage := 100
+
+			for {
+				res, err := client.ListUserIDs(
+					opt.Page(page),
+					opt.HitsPerPage(hitsPerPage),
+				)
+				require.NoError(t, err)
+
+				for _, u := range res.UserIDs {
+					for _, userID := range userIDs {
+						if u.ID == userID {
+							found[u.ID]++
+						}
+					}
+				}
+				if len(found) == len(userIDs) {
+					break
+				}
+				if len(res.UserIDs) < hitsPerPage {
+					break
+				}
+				page++
+			}
+
+			require.Len(t, found, len(userIDs))
+		}
 	}
 
 	// Retrieve the Top10 userIDs
@@ -73,20 +117,40 @@ func TestMCM(t *testing.T) {
 		require.True(t, len(res.PerCluster) > 0)
 	}
 
-	// Remove the previously assigned userID
+	// Remove (asynchronously) the previously assigned userIDs
 	{
-		cts.Retry(func() bool {
-			_, err := client.RemoveUserID(userID)
-			return err == nil
-		})
+		var wg sync.WaitGroup
+
+		for _, userID := range userIDs {
+			wg.Add(1)
+			go func(userID string) {
+				cts.Retry(func() bool {
+					_, err := client.RemoveUserID(userID)
+					return err == nil
+				})
+				wg.Done()
+			}(userID)
+		}
+
+		wg.Wait()
 	}
 
-	// Check that userID was properly removed (using get)
+	// Check (asynchronously) that userID was properly removed (using get)
 	{
-		cts.Retry(func() bool {
-			_, err := client.GetUserID(userID)
-			return err != nil
-		})
+		var wg sync.WaitGroup
+
+		for _, userID := range userIDs {
+			wg.Add(1)
+			go func(userID string) {
+				cts.Retry(func() bool {
+					_, err := client.GetUserID(userID)
+					return err != nil
+				})
+				wg.Done()
+			}(userID)
+		}
+
+		wg.Wait()
 	}
 
 	// Remove old userIDs
