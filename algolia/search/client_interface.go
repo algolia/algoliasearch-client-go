@@ -41,6 +41,7 @@ type ClientInterface interface {
 	ListUserIDs(opts ...interface{}) (res ListUserIDsRes, err error)
 	GetUserID(userID string, opts ...interface{}) (res UserID, err error)
 	AssignUserID(userID, clusterName string, opts ...interface{}) (res AssignUserIDRes, err error)
+	AssignUserIDs(userIDs []string, clusterName string, opts ...interface{}) (res AssignUserIDRes, err error)
 	RemoveUserID(userID string, opts ...interface{}) (res RemoveUserIDRes, err error)
 	GetTopUserIDs(opts ...interface{}) (res TopUserIDs, err error)
 	SearchUserIDs(query string, opts ...interface{}) (res SearchUserIDRes, err error)
