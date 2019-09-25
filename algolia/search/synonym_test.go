@@ -9,7 +9,7 @@ import (
 
 func TestSynonymUnmarshalType(t *testing.T) {
 	for _, c := range []struct {
-		payload  string
+		payload string
 	}{
 		{`{"type": "synonym"}`},
 		{`{"type": "oneWaySynonym"}`},

@@ -50,6 +50,8 @@ func extractBody(body io.ReadCloser, c compression.Compression) (io.ReadCloser, 
 		if err == nil {
 			content = decodedContent
 		}
+	default:
+		// Do nothing
 	}
 
 	return reader, content
