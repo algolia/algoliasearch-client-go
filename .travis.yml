@@ -9,8 +9,10 @@ go:
   - "1.13"
 
 install:
+  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.19.1
   - make deps
   - make generate
 
 script:
+  - make lint
   - make test
