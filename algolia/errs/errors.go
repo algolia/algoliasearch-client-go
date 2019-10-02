@@ -15,7 +15,6 @@ var (
 	ErrEmptySecuredAPIKey   = errors.New("secured API key cannot be empty")
 	ErrInvalidSecuredAPIKey = errors.New("invalid secured API key, please check that the given key is a secured one")
 	ErrValidUntilNotFound   = errors.New("no validUntil parameter found, please make sure the secured API key has one")
-	ErrValidUntilInvalid    = errors.New("validUntil parameter is invalid, please make sure the secured API key has been generated correctly")
 )
 
 func ErrJSONDecode(data []byte, t string) error {

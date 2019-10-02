@@ -85,10 +85,9 @@ func (c *Client) GetSecuredAPIKeyRemainingValidity(keyID string, opts ...interfa
 		return
 	}
 
-	ts, err := strconv.Atoi(string(submatch[1]))
-	if err != nil {
-		err = errs.ErrValidUntilInvalid
-	}
+	// Error checking is useless here since the previous regexp already matched
+	// with an integer of maximum length 10.
+	ts, _ := strconv.Atoi(string(submatch[1]))
 
 	v = time.Until(time.Unix(int64(ts), 0))
 	return
