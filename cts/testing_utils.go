@@ -1,6 +1,10 @@
 package cts
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/hex"
 	"fmt"
 	"os"
 	"os/user"
@@ -14,6 +18,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/insights"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 func InitSearchClient1AndIndex(t *testing.T) (*search.Client, *search.Index, string) {
@@ -120,4 +125,19 @@ func TodayDate() string {
 
 func TodayDateTime() string {
 	return time.Now().Format("2006-01-02_15:04:05")
+}
+
+func GenerateSecuredAPIKeyWithArbitraryParameters(
+	t *testing.T,
+	apiKey string,
+	params map[string]interface{},
+) string {
+	h := hmac.New(sha256.New, []byte(apiKey))
+
+	message := transport.URLEncode(params)
+	_, err := h.Write([]byte(message))
+	require.NoError(t, err)
+
+	checksum := hex.EncodeToString(h.Sum(nil))
+	return base64.StdEncoding.EncodeToString([]byte(checksum + message))
 }
