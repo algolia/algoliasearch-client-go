@@ -108,4 +108,12 @@ func TestSecuredAPIKeyParametersValidity(t *testing.T) {
 	require.NoError(t, err)
 	_, err = c.GetSecuredAPIKeyRemainingValidity(securedKey)
 	require.EqualError(t, err, errs.ErrValidUntilNotFound.Error())
+
+	securedKey = cts.GenerateSecuredAPIKeyWithArbitraryParameters(
+		t,
+		searchKey,
+		map[string]interface{}{"validUntil": "NaN"},
+	)
+	_, err = c.GetSecuredAPIKeyRemainingValidity(securedKey)
+	require.EqualError(t, err, errs.ErrValidUntilNotFound.Error())
 }
