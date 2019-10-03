@@ -156,7 +156,7 @@ var options = []Option{
 	{"extraOptions", Other, map[string]interface{}{}, ""},
 	{"extraURLParams", Other, map[string]string{}, ""},
 	{"scopes", Other, []string{}, ""},
-	{"clusterName", Other, "", ""},
+	{"cluster", Other, "", ""},
 	{"indexName", Other, "", ""},
 	{"limit", Other, 10, ""},
 	{"safe", Other, false, ""},
