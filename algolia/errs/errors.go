@@ -14,7 +14,7 @@ var (
 	ErrObjectNotFound       = errors.New("object not found in with search responses' hits list")
 	ErrEmptySecuredAPIKey   = errors.New("secured API key cannot be empty")
 	ErrInvalidSecuredAPIKey = errors.New("invalid secured API key, please check that the given key is a secured one")
-	ErrValidUntilNotFound   = errors.New("no validUntil parameter found, please make sure the secured API key has one")
+	ErrValidUntilNotFound   = errors.New("no valid `validUntil` parameter found, please make sure the secured API key has been generated correctly")
 )
 
 func ErrJSONDecode(data []byte, t string) error {
