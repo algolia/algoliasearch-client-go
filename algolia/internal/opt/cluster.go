@@ -6,11 +6,11 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
-// ExtractClusterName returns the first found ClusterNameOption from the
+// ExtractCluster returns the first found ClusterOption from the
 // given variadic arguments or nil otherwise.
-func ExtractClusterName(opts ...interface{}) *opt.ClusterNameOption {
+func ExtractCluster(opts ...interface{}) *opt.ClusterOption {
 	for _, o := range opts {
-		if v, ok := o.(*opt.ClusterNameOption); ok {
+		if v, ok := o.(*opt.ClusterOption); ok {
 			return v
 		}
 	}

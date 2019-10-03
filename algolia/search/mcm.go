@@ -72,7 +72,7 @@ func (h UserIDHit) UnmarshalHighlightResult(v interface{}) error {
 
 type searchUserIDsReq struct {
 	Query       *opt.QueryOption       `json:"query,omitempty"`
-	ClusterName *opt.ClusterNameOption `json:"clusterName,omitempty"`
+	Cluster     *opt.ClusterOption     `json:"cluster,omitempty"`
 	Page        *opt.PageOption        `json:"page,omitempty"`
 	HitsPerPage *opt.HitsPerPageOption `json:"hitsPerPage,omitempty"`
 }
@@ -80,7 +80,7 @@ type searchUserIDsReq struct {
 func newSearchUserIDsReq(query string, opts ...interface{}) searchUserIDsReq {
 	return searchUserIDsReq{
 		Query:       opt.Query(query),
-		ClusterName: iopt.ExtractClusterName(opts...),
+		Cluster:     iopt.ExtractCluster(opts...),
 		Page:        iopt.ExtractPage(opts...),
 		HitsPerPage: iopt.ExtractHitsPerPage(opts...),
 	}

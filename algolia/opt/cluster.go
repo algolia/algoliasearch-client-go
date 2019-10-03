@@ -4,19 +4,19 @@ package opt
 
 import "encoding/json"
 
-// ClusterNameOption is a wrapper for an ClusterName option parameter. It holds
+// ClusterOption is a wrapper for an Cluster option parameter. It holds
 // the actual value of the option that can be accessed by calling Get.
-type ClusterNameOption struct {
+type ClusterOption struct {
 	value string
 }
 
-// ClusterName wraps the given value into a ClusterNameOption.
-func ClusterName(v string) *ClusterNameOption {
-	return &ClusterNameOption{v}
+// Cluster wraps the given value into a ClusterOption.
+func Cluster(v string) *ClusterOption {
+	return &ClusterOption{v}
 }
 
 // Get retrieves the actual value of the option parameter.
-func (o *ClusterNameOption) Get() string {
+func (o *ClusterOption) Get() string {
 	if o == nil {
 		return ""
 	}
@@ -24,14 +24,14 @@ func (o *ClusterNameOption) Get() string {
 }
 
 // MarshalJSON implements the json.Marshaler interface for
-// ClusterNameOption.
-func (o ClusterNameOption) MarshalJSON() ([]byte, error) {
+// ClusterOption.
+func (o ClusterOption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.value)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for
-// ClusterNameOption.
-func (o *ClusterNameOption) UnmarshalJSON(data []byte) error {
+// ClusterOption.
+func (o *ClusterOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = ""
 		return nil
@@ -42,17 +42,17 @@ func (o *ClusterNameOption) UnmarshalJSON(data []byte) error {
 // Equal returns true if the given option is equal to the instance one. In case
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
-func (o *ClusterNameOption) Equal(o2 *ClusterNameOption) bool {
+func (o *ClusterOption) Equal(o2 *ClusterOption) bool {
 	if o2 == nil {
 		return o.value == ""
 	}
 	return o.value == o2.value
 }
 
-// ClusterNameEqual returns true if the two options are equal.
+// ClusterEqual returns true if the two options are equal.
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
-func ClusterNameEqual(o1, o2 *ClusterNameOption) bool {
+func ClusterEqual(o1, o2 *ClusterOption) bool {
 	if o1 != nil {
 		return o1.Equal(o2)
 	}

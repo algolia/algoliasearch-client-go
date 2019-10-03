@@ -308,8 +308,8 @@ func TestOptionGetters(t *testing.T) {
 	var scopes *ScopesOption = nil
 	scopes.Get()
 
-	var clusterName *ClusterNameOption = nil
-	clusterName.Get()
+	var cluster *ClusterOption = nil
+	cluster.Get()
 
 	var indexName *IndexNameOption = nil
 	indexName.Get()
