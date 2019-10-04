@@ -43,8 +43,11 @@ func (o *ForwardToReplicasOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *ForwardToReplicasOption) Equal(o2 *ForwardToReplicasOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == false
+	}
 	if o2 == nil {
-		return o.value == false
+		return o == nil || o.value == false
 	}
 	return o.value == o2.value
 }

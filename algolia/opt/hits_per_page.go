@@ -43,8 +43,11 @@ func (o *HitsPerPageOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *HitsPerPageOption) Equal(o2 *HitsPerPageOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == 20
+	}
 	if o2 == nil {
-		return o.value == 20
+		return o == nil || o.value == 20
 	}
 	return o.value == o2.value
 }

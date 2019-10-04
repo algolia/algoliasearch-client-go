@@ -43,8 +43,11 @@ func (o *QueryTypeOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *QueryTypeOption) Equal(o2 *QueryTypeOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == "prefixLast"
+	}
 	if o2 == nil {
-		return o.value == "prefixLast"
+		return o == nil || o.value == "prefixLast"
 	}
 	return o.value == o2.value
 }

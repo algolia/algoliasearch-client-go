@@ -43,8 +43,11 @@ func (o *MinWordSizefor2TyposOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *MinWordSizefor2TyposOption) Equal(o2 *MinWordSizefor2TyposOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == 8
+	}
 	if o2 == nil {
-		return o.value == 8
+		return o == nil || o.value == 8
 	}
 	return o.value == o2.value
 }

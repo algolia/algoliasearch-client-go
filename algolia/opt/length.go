@@ -43,8 +43,11 @@ func (o *LengthOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *LengthOption) Equal(o2 *LengthOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == 0
+	}
 	if o2 == nil {
-		return o.value == 0
+		return o == nil || o.value == 0
 	}
 	return o.value == o2.value
 }

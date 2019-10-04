@@ -43,8 +43,11 @@ func (o *HighlightPreTagOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *HighlightPreTagOption) Equal(o2 *HighlightPreTagOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == "<em>"
+	}
 	if o2 == nil {
-		return o.value == "<em>"
+		return o == nil || o.value == "<em>"
 	}
 	return o.value == o2.value
 }

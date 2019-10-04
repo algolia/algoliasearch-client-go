@@ -43,8 +43,11 @@ func (o *RestrictHighlightAndSnippetArraysOption) UnmarshalJSON(data []byte) err
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *RestrictHighlightAndSnippetArraysOption) Equal(o2 *RestrictHighlightAndSnippetArraysOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == false
+	}
 	if o2 == nil {
-		return o.value == false
+		return o == nil || o.value == false
 	}
 	return o.value == o2.value
 }

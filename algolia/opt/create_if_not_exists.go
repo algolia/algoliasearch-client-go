@@ -43,8 +43,11 @@ func (o *CreateIfNotExistsOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *CreateIfNotExistsOption) Equal(o2 *CreateIfNotExistsOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == true
+	}
 	if o2 == nil {
-		return o.value == true
+		return o == nil || o.value == true
 	}
 	return o.value == o2.value
 }
