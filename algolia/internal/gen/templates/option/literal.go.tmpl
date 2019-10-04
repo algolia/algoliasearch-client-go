@@ -43,8 +43,11 @@ func (o *{{ .Name }}Option) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *{{ .Name }}Option) Equal(o2 *{{ .Name }}Option) bool {
-    if o2 == nil {
-        return o.value == {{ .DefaultValue }}
+	if o == nil {
+		return o2 == nil || o2.value == {{ .DefaultValue }}
+    }
+	if o2 == nil {
+        return o == nil || o.value == {{ .DefaultValue }}
     }
     return o.value == o2.value
 }

@@ -43,8 +43,11 @@ func (o *HighlightPostTagOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *HighlightPostTagOption) Equal(o2 *HighlightPostTagOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == "</em>"
+	}
 	if o2 == nil {
-		return o.value == "</em>"
+		return o == nil || o.value == "</em>"
 	}
 	return o.value == o2.value
 }

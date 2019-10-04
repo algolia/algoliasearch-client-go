@@ -43,8 +43,11 @@ func (o *SortFacetValuesByOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *SortFacetValuesByOption) Equal(o2 *SortFacetValuesByOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == "count"
+	}
 	if o2 == nil {
-		return o.value == "count"
+		return o == nil || o.value == "count"
 	}
 	return o.value == o2.value
 }

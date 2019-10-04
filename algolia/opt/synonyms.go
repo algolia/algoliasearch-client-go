@@ -43,8 +43,11 @@ func (o *SynonymsOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *SynonymsOption) Equal(o2 *SynonymsOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == true
+	}
 	if o2 == nil {
-		return o.value == true
+		return o == nil || o.value == true
 	}
 	return o.value == o2.value
 }

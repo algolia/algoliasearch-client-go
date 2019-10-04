@@ -43,8 +43,11 @@ func (o *RemoveWordsIfNoResultsOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *RemoveWordsIfNoResultsOption) Equal(o2 *RemoveWordsIfNoResultsOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == "none"
+	}
 	if o2 == nil {
-		return o.value == "none"
+		return o == nil || o.value == "none"
 	}
 	return o.value == o2.value
 }

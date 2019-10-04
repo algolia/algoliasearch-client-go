@@ -43,8 +43,11 @@ func (o *AttributeCriteriaComputedByMinProximityOption) UnmarshalJSON(data []byt
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *AttributeCriteriaComputedByMinProximityOption) Equal(o2 *AttributeCriteriaComputedByMinProximityOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == false
+	}
 	if o2 == nil {
-		return o.value == false
+		return o == nil || o.value == false
 	}
 	return o.value == o2.value
 }
