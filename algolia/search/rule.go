@@ -66,6 +66,22 @@ func (r Rule) Equal(r2 Rule) bool {
 	return true
 }
 
+func (r Rule) MarshalJSON() ([]byte, error) {
+	type _Rule Rule
+	type _RuleWithOptionalCondition struct {
+		Condition *RuleCondition `json:"condition,omitempty"`
+		_Rule
+	}
+
+	var tmp _RuleWithOptionalCondition
+	tmp._Rule = _Rule(r)
+
+	if r.Condition != (RuleCondition{}) {
+		tmp.Condition = &r.Condition
+	}
+	return json.Marshal(tmp)
+}
+
 // Equal returns true if the TimeRanges are equal. It returns false otherwise.
 func (r TimeRange) Equal(r2 TimeRange) bool {
 	return r.From.Equal(r2.From) && r.Until.Equal(r2.Until)

@@ -34,7 +34,7 @@ func TestQueryRule(t *testing.T) {
 
 	{
 		res, err := index.SetSettings(search.Settings{
-			AttributesForFaceting: opt.AttributesForFaceting("brand"),
+			AttributesForFaceting: opt.AttributesForFaceting("brand", "model"),
 		})
 		require.NoError(t, err)
 		g.Collect(res)
@@ -85,6 +85,29 @@ func TestQueryRule(t *testing.T) {
 			},
 			Enabled: opt.Enabled(true),
 		},
+		{
+			ObjectID: "query_promo",
+			Consequence: search.RuleConsequence{
+				Params: &search.RuleParams{
+					QueryParams: search.QueryParams{
+						Filters: opt.Filters("brand:OnePlus"),
+					},
+				},
+			},
+		},
+		{
+			ObjectID: "query_promo_summer",
+			Condition: search.RuleCondition{
+				Context: "summer",
+			},
+			Consequence: search.RuleConsequence{
+				Params: &search.RuleParams{
+					QueryParams: search.QueryParams{
+						Filters: opt.Filters("model:One"),
+					},
+				},
+			},
+		},
 	}
 
 	{
@@ -100,6 +123,12 @@ func TestQueryRule(t *testing.T) {
 	}
 
 	require.NoError(t, g.Wait())
+
+	{
+		res, err := index.Search("", opt.RuleContexts("summer"))
+		require.NoError(t, err, "should find search results")
+		require.Equal(t, 1, res.NbHits)
+	}
 
 	{
 		var wg sync.WaitGroup

@@ -3,8 +3,8 @@ package search
 import "encoding/json"
 
 type RuleCondition struct {
-	Anchoring    RulePatternAnchoring `json:"anchoring"`
-	Pattern      string               `json:"pattern"`
+	Anchoring    RulePatternAnchoring `json:"anchoring,omitempty"`
+	Pattern      string               `json:"pattern,omitempty"`
 	Context      string               `json:"context,omitempty"`
 	Alternatives *Alternatives        `json:"alternatives,omitempty"`
 }
