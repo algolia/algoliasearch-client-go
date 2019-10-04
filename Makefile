@@ -1,10 +1,10 @@
-all: deps generate lint test
-
-deps:
-	go get ./...
+all: generate deps lint test
 
 generate:
 	go generate ./...
+
+deps:
+	go get ./...
 
 lint:
 	golangci-lint run ./...
