@@ -125,19 +125,3 @@ func TestABTesting(t *testing.T) {
 		require.Error(t, err)
 	}
 }
-
-func checkABTestsAreEqual(t *testing.T, a analytics.ABTest, b analytics.ABTestResponse) {
-	require.Equal(t, a.Name, b.Name)
-	require.Equal(t, a.EndAt.Unix(), b.EndAt.Unix())
-	require.Equal(t, len(a.Variants), len(b.Variants))
-
-	var responseVariants []analytics.Variant
-	for _, v := range b.Variants {
-		responseVariants = append(responseVariants, analytics.Variant{
-			Index:             v.Index,
-			TrafficPercentage: v.TrafficPercentage,
-			Description:       v.Description,
-		})
-	}
-	require.ElementsMatch(t, a.Variants, responseVariants)
-}
