@@ -62,11 +62,17 @@ func (o *AroundPrecisionOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *AroundPrecisionOption) Equal(o2 *AroundPrecisionOption) bool {
+	if o == nil {
+		return o2 == nil || len(o2.value) == 1 &&
+			o2.value[0].From == 0 &&
+			o2.value[0].Value == 1
+	}
 	if o2 == nil {
-		return len(o.value) == 1 &&
+		return o == nil || len(o.value) == 1 &&
 			o.value[0].From == 0 &&
 			o.value[0].Value == 1
 	}
+
 	if len(o.value) != len(o2.value) {
 		return false
 	}
@@ -87,11 +93,5 @@ func (o *AroundPrecisionOption) Equal(o2 *AroundPrecisionOption) bool {
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func AroundPrecisionEqual(o1, o2 *AroundPrecisionOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

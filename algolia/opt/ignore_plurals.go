@@ -58,8 +58,11 @@ func (o *IgnorePluralsOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *IgnorePluralsOption) Equal(o2 *IgnorePluralsOption) bool {
+	if o == nil {
+		return o2 == nil || !o2.ignorePlurals && len(o2.languages) == 0
+	}
 	if o2 == nil {
-		return !o.ignorePlurals && len(o.languages) == 0
+		return o == nil || !o.ignorePlurals && len(o.languages) == 0
 	}
 	return reflect.DeepEqual(o, o2)
 }
@@ -68,11 +71,5 @@ func (o *IgnorePluralsOption) Equal(o2 *IgnorePluralsOption) bool {
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func IgnorePluralsEqual(o1, o2 *IgnorePluralsOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

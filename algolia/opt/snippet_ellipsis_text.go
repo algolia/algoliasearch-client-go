@@ -46,14 +46,17 @@ func (o *SnippetEllipsisTextOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *SnippetEllipsisTextOption) Equal(o2 *SnippetEllipsisTextOption) bool {
+	// We cannot generate this setting using `go generate` as the default
+	// value can either be "…" or "". From the documentation:
+	//   * Defaults to an empty string for all accounts created before
+	//     February 10th, 2016.
+	//   * Defaults to "…" (U+2026, HORIZONTAL ELLIPSIS) for accounts
+	//     created after that date.
+	if o == nil {
+		return o2 == nil || o2.value == newDefaultSnippetEllipsisTextValue || o2.value == oldDefaultSnippetEllipsisTextValue
+	}
 	if o2 == nil {
-		// We cannot generate this setting using `go generate` as the default
-		// value can either be "…" or "". From the documentation:
-		//   * Defaults to an empty string for all accounts created before
-		//     February 10th, 2016.
-		//   * Defaults to "…" (U+2026, HORIZONTAL ELLIPSIS) for accounts
-		//     created after that date.
-		return o.value == newDefaultSnippetEllipsisTextValue || o.value == oldDefaultSnippetEllipsisTextValue
+		return o == nil || o.value == newDefaultSnippetEllipsisTextValue || o.value == oldDefaultSnippetEllipsisTextValue
 	}
 	return o.value == o2.value
 }
@@ -62,11 +65,5 @@ func (o *SnippetEllipsisTextOption) Equal(o2 *SnippetEllipsisTextOption) bool {
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func SnippetEllipsisTextEqual(o1, o2 *SnippetEllipsisTextOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

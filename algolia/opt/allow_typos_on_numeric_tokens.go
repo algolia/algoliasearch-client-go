@@ -56,11 +56,5 @@ func (o *AllowTyposOnNumericTokensOption) Equal(o2 *AllowTyposOnNumericTokensOpt
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func AllowTyposOnNumericTokensEqual(o1, o2 *AllowTyposOnNumericTokensOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }
