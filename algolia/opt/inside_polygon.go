@@ -69,8 +69,11 @@ func (o *InsidePolygonOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *InsidePolygonOption) Equal(o2 *InsidePolygonOption) bool {
+	if o == nil {
+		return o2 == nil || len(o.polygons) == 0 && len(o.coordinates) == 0
+	}
 	if o2 == nil {
-		return len(o.polygons) == 0 && len(o.coordinates) == 0
+		return o == nil || len(o.polygons) == 0 && len(o.coordinates) == 0
 	}
 	return reflect.DeepEqual(o, o2)
 }
@@ -79,11 +82,5 @@ func (o *InsidePolygonOption) Equal(o2 *InsidePolygonOption) bool {
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func InsidePolygonEqual(o1, o2 *InsidePolygonOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

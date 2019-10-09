@@ -44,8 +44,11 @@ func (o *ValidUntilOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *ValidUntilOption) Equal(o2 *ValidUntilOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value.IsZero()
+	}
 	if o2 == nil {
-		return o.value.IsZero()
+		return o == nil || o.value.IsZero()
 	}
 	return o.value.Equal(o2.value)
 }
@@ -54,11 +57,5 @@ func (o *ValidUntilOption) Equal(o2 *ValidUntilOption) bool {
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func ValidUntilEqual(o1, o2 *ValidUntilOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

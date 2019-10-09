@@ -84,8 +84,11 @@ func (o *TypoToleranceOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *TypoToleranceOption) Equal(o2 *TypoToleranceOption) bool {
+	if o == nil {
+		return o2 == nil || o2.value == typoToleranceTrue
+	}
 	if o2 == nil {
-		return o.value == typoToleranceTrue
+		return o == nil || o.value == typoToleranceTrue
 	}
 	return o.value == o2.value
 }
@@ -94,11 +97,5 @@ func (o *TypoToleranceOption) Equal(o2 *TypoToleranceOption) bool {
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func TypoToleranceEqual(o1, o2 *TypoToleranceOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

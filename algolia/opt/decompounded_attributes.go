@@ -46,8 +46,11 @@ func (o *DecompoundedAttributesOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *DecompoundedAttributesOption) Equal(o2 *DecompoundedAttributesOption) bool {
+	if o == nil {
+		return o2 == nil || reflect.DeepEqual(o2.value, map[string][]string{})
+	}
 	if o2 == nil {
-		return reflect.DeepEqual(o.value, map[string][]string{})
+		return o == nil || reflect.DeepEqual(o.value, map[string][]string{})
 	}
 	return reflect.DeepEqual(o.value, o2.value)
 }
@@ -56,11 +59,5 @@ func (o *DecompoundedAttributesOption) Equal(o2 *DecompoundedAttributesOption) b
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func DecompoundedAttributesEqual(o1, o2 *DecompoundedAttributesOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

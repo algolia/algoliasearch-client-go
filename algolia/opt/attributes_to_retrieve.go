@@ -46,8 +46,11 @@ func (o *AttributesToRetrieveOption) UnmarshalJSON(data []byte) error {
 // the given option is nil, we checked the instance one is set to the default
 // value of the option.
 func (o *AttributesToRetrieveOption) Equal(o2 *AttributesToRetrieveOption) bool {
+	if o == nil {
+		return o2 == nil || reflect.DeepEqual(o2.value, []string{"*"})
+	}
 	if o2 == nil {
-		return reflect.DeepEqual(o.value, []string{"*"})
+		return o == nil || reflect.DeepEqual(o.value, []string{"*"})
 	}
 	return reflect.DeepEqual(o.value, o2.value)
 }
@@ -56,11 +59,5 @@ func (o *AttributesToRetrieveOption) Equal(o2 *AttributesToRetrieveOption) bool 
 // In case of one option being nil, the value of the other must be nil as well
 // or be set to the default value of this option.
 func AttributesToRetrieveEqual(o1, o2 *AttributesToRetrieveOption) bool {
-	if o1 != nil {
-		return o1.Equal(o2)
-	}
-	if o2 != nil {
-		return o2.Equal(o1)
-	}
-	return true
+	return o1.Equal(o2)
 }

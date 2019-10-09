@@ -70,8 +70,11 @@ func (o *composableFilterOption) UnmarshalJSON(data []byte) error {
 }
 
 func (o *composableFilterOption) Equal(o2 *composableFilterOption) bool {
+	if o == nil {
+		return o2 == nil || len(o2.filters) == 0
+	}
 	if o2 == nil {
-		return len(o.filters) == 0
+		return o == nil || len(o.filters) == 0
 	}
 	return reflect.DeepEqual(o, o2)
 }
