@@ -1,6 +1,10 @@
 package analytics
 
-import "time"
+import (
+	"time"
+
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
+)
 
 // ABTestTaskRes represents a generic task submitted to the Analytics API for an
 // AB test.
@@ -41,15 +45,16 @@ type ABTestResponse struct {
 // VariantResponse represents an AB test's variant as returned by the Analytics
 // API when retrieved as part of a response.
 type VariantResponse struct {
-	AverageClickPosition int     `json:"averageClickPosition"`
-	ClickCount           int     `json:"clickCount"`
-	ClickThroughRate     float64 `json:"clickThroughRate"`
-	ConversionCount      int     `json:"conversionCount"`
-	ConversionRate       float64 `json:"conversionRate"`
-	Description          string  `json:"description"`
-	Index                string  `json:"index"`
-	NoResultCount        int     `json:"noResultCount"`
-	SearchCount          int     `json:"searchCount"`
-	TrafficPercentage    int     `json:"trafficPercentage"`
-	UserCount            int     `json:"userCount"`
+	AverageClickPosition   int                 `json:"averageClickPosition"`
+	ClickCount             int                 `json:"clickCount"`
+	ClickThroughRate       float64             `json:"clickThroughRate"`
+	ConversionCount        int                 `json:"conversionCount"`
+	ConversionRate         float64             `json:"conversionRate"`
+	Description            string              `json:"description"`
+	Index                  string              `json:"index"`
+	NoResultCount          int                 `json:"noResultCount"`
+	SearchCount            int                 `json:"searchCount"`
+	TrafficPercentage      int                 `json:"trafficPercentage"`
+	UserCount              int                 `json:"userCount"`
+	CustomSearchParameters *search.QueryParams `json:"customSearchParameters"`
 }
