@@ -143,3 +143,208 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		AttributeCriteriaComputedByMinProximity: iopt.ExtractAttributeCriteriaComputedByMinProximity(opts...),
 	}
 }
+
+func (p *QueryParams) Equal(p2 *QueryParams) bool {
+	if p == nil && p2 == nil {
+		return true
+	}
+
+	if p != nil && p2 == nil || p == nil && p2 != nil {
+		return false
+	}
+
+	if !p.AttributesToRetrieve.Equal(p2.AttributesToRetrieve) {
+		return false
+	}
+	if !p.RestrictSearchableAttributes.Equal(p2.RestrictSearchableAttributes) {
+		return false
+	}
+	if !p.Filters.Equal(p2.Filters) {
+		return false
+	}
+	if !p.FacetFilters.Equal(p2.FacetFilters) {
+		return false
+	}
+	if !p.OptionalFilters.Equal(p2.OptionalFilters) {
+		return false
+	}
+	if !p.NumericFilters.Equal(p2.NumericFilters) {
+		return false
+	}
+	if !p.TagFilters.Equal(p2.TagFilters) {
+		return false
+	}
+	if !p.SumOrFiltersScores.Equal(p2.SumOrFiltersScores) {
+		return false
+	}
+	if !p.Facets.Equal(p2.Facets) {
+		return false
+	}
+	if !p.MaxValuesPerFacet.Equal(p2.MaxValuesPerFacet) {
+		return false
+	}
+	if !p.FacetingAfterDistinct.Equal(p2.FacetingAfterDistinct) {
+		return false
+	}
+	if !p.SortFacetValuesBy.Equal(p2.SortFacetValuesBy) {
+		return false
+	}
+	if !p.AttributesToHighlight.Equal(p2.AttributesToHighlight) {
+		return false
+	}
+	if !p.AttributesToSnippet.Equal(p2.AttributesToSnippet) {
+		return false
+	}
+	if !p.HighlightPreTag.Equal(p2.HighlightPreTag) {
+		return false
+	}
+	if !p.HighlightPostTag.Equal(p2.HighlightPostTag) {
+		return false
+	}
+	if !p.SnippetEllipsisText.Equal(p2.SnippetEllipsisText) {
+		return false
+	}
+	if !p.RestrictHighlightAndSnippetArrays.Equal(p2.RestrictHighlightAndSnippetArrays) {
+		return false
+	}
+	if !p.Page.Equal(p2.Page) {
+		return false
+	}
+	if !p.HitsPerPage.Equal(p2.HitsPerPage) {
+		return false
+	}
+	if !p.Offset.Equal(p2.Offset) {
+		return false
+	}
+	if !p.Length.Equal(p2.Length) {
+		return false
+	}
+	if !p.MinWordSizefor1Typo.Equal(p2.MinWordSizefor1Typo) {
+		return false
+	}
+	if !p.MinWordSizefor2Typos.Equal(p2.MinWordSizefor2Typos) {
+		return false
+	}
+	if !p.TypoTolerance.Equal(p2.TypoTolerance) {
+		return false
+	}
+	if !p.AllowTyposOnNumericTokens.Equal(p2.AllowTyposOnNumericTokens) {
+		return false
+	}
+	if !p.DisableTypoToleranceOnAttributes.Equal(p2.DisableTypoToleranceOnAttributes) {
+		return false
+	}
+	if !p.AroundLatLng.Equal(p2.AroundLatLng) {
+		return false
+	}
+	if !p.AroundLatLngViaIP.Equal(p2.AroundLatLngViaIP) {
+		return false
+	}
+	if !p.AroundRadius.Equal(p2.AroundRadius) {
+		return false
+	}
+	if !p.AroundPrecision.Equal(p2.AroundPrecision) {
+		return false
+	}
+	if !p.MinimumAroundRadius.Equal(p2.MinimumAroundRadius) {
+		return false
+	}
+	if !p.InsideBoundingBox.Equal(p2.InsideBoundingBox) {
+		return false
+	}
+	if !p.InsidePolygon.Equal(p2.InsidePolygon) {
+		return false
+	}
+	if !p.IgnorePlurals.Equal(p2.IgnorePlurals) {
+		return false
+	}
+	if !p.RemoveStopWords.Equal(p2.RemoveStopWords) {
+		return false
+	}
+	if !p.QueryLanguages.Equal(p2.QueryLanguages) {
+		return false
+	}
+	if !p.QueryType.Equal(p2.QueryType) {
+		return false
+	}
+	if !p.RemoveWordsIfNoResults.Equal(p2.RemoveWordsIfNoResults) {
+		return false
+	}
+	if !p.AdvancedSyntax.Equal(p2.AdvancedSyntax) {
+		return false
+	}
+	if !p.OptionalWords.Equal(p2.OptionalWords) {
+		return false
+	}
+	if !p.DisableExactOnAttributes.Equal(p2.DisableExactOnAttributes) {
+		return false
+	}
+	if !p.ExactOnSingleWordQuery.Equal(p2.ExactOnSingleWordQuery) {
+		return false
+	}
+	if !p.AlternativesAsExact.Equal(p2.AlternativesAsExact) {
+		return false
+	}
+	if !p.AdvancedSyntaxFeatures.Equal(p2.AdvancedSyntaxFeatures) {
+		return false
+	}
+	if !p.SimilarQuery.Equal(p2.SimilarQuery) {
+		return false
+	}
+	if !p.EnableRules.Equal(p2.EnableRules) {
+		return false
+	}
+	if !p.RuleContexts.Equal(p2.RuleContexts) {
+		return false
+	}
+	if !p.EnablePersonalization.Equal(p2.EnablePersonalization) {
+		return false
+	}
+	if !p.PersonalizationImpact.Equal(p2.PersonalizationImpact) {
+		return false
+	}
+	if !p.UserToken.Equal(p2.UserToken) {
+		return false
+	}
+	if !p.Distinct.Equal(p2.Distinct) {
+		return false
+	}
+	if !p.GetRankingInfo.Equal(p2.GetRankingInfo) {
+		return false
+	}
+	if !p.ClickAnalytics.Equal(p2.ClickAnalytics) {
+		return false
+	}
+	if !p.Analytics.Equal(p2.Analytics) {
+		return false
+	}
+	if !p.AnalyticsTags.Equal(p2.AnalyticsTags) {
+		return false
+	}
+	if !p.Synonyms.Equal(p2.Synonyms) {
+		return false
+	}
+	if !p.ReplaceSynonymsInHighlight.Equal(p2.ReplaceSynonymsInHighlight) {
+		return false
+	}
+	if !p.MinProximity.Equal(p2.MinProximity) {
+		return false
+	}
+	if !p.ResponseFields.Equal(p2.ResponseFields) {
+		return false
+	}
+	if !p.MaxFacetHits.Equal(p2.MaxFacetHits) {
+		return false
+	}
+	if !p.PercentileComputation.Equal(p2.PercentileComputation) {
+		return false
+	}
+	if !p.Explain.Equal(p2.Explain) {
+		return false
+	}
+	if !p.AttributeCriteriaComputedByMinProximity.Equal(p2.AttributeCriteriaComputedByMinProximity) {
+		return false
+	}
+
+	return true
+}

@@ -22,3 +22,20 @@ func newQueryParams(opts ...interface{}) QueryParams {
     }
 }
 
+func (p *QueryParams) Equal(p2 *QueryParams) bool {
+    if p == nil && p2 == nil {
+        return true
+    }
+
+    if p != nil && p2 == nil || p == nil && p2 != nil {
+        return false
+    }
+
+    {{ range $_, $param := . }}
+    if !p.{{ title $param.Name }}.Equal(p2.{{ title $param.Name }}) {
+        return false
+    }
+    {{- end }}
+
+    return true
+}
