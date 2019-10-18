@@ -139,7 +139,7 @@ var options = []Option{
 
 	// Secured API key
 	{"restrictIndices", Other, []string{}, ""},
-	{"restrictSources", Other, []string{}, ""},
+	{"restrictSources", Other, "", ""},
 	{"validUntil", Other, nil, ""},
 	{"referers", Other, []string{}, ""},
 
