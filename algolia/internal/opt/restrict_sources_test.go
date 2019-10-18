@@ -17,15 +17,15 @@ func TestRestrictSources(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.RestrictSources([]string{}...),
+			expected: opt.RestrictSources(""),
 		},
 		{
-			opts:     []interface{}{opt.RestrictSources("value1")},
-			expected: opt.RestrictSources("value1"),
+			opts:     []interface{}{opt.RestrictSources("")},
+			expected: opt.RestrictSources(""),
 		},
 		{
-			opts:     []interface{}{opt.RestrictSources("value1", "value2", "value3")},
-			expected: opt.RestrictSources("value1", "value2", "value3"),
+			opts:     []interface{}{opt.RestrictSources("content of the string value")},
+			expected: opt.RestrictSources("content of the string value"),
 		},
 	} {
 		var (
@@ -36,6 +36,6 @@ func TestRestrictSources(t *testing.T) {
 		require.NoError(t, err)
 		err = json.Unmarshal(data, &out)
 		require.NoError(t, err)
-		require.ElementsMatch(t, c.expected.Get(), out.Get())
+		require.Equal(t, *c.expected, out)
 	}
 }

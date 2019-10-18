@@ -2,26 +2,23 @@
 
 package opt
 
-import (
-	"encoding/json"
-	"reflect"
-)
+import "encoding/json"
 
 // RestrictSourcesOption is a wrapper for an RestrictSources option parameter. It holds
 // the actual value of the option that can be accessed by calling Get.
 type RestrictSourcesOption struct {
-	value []string
+	value string
 }
 
 // RestrictSources wraps the given value into a RestrictSourcesOption.
-func RestrictSources(v ...string) *RestrictSourcesOption {
+func RestrictSources(v string) *RestrictSourcesOption {
 	return &RestrictSourcesOption{v}
 }
 
 // Get retrieves the actual value of the option parameter.
-func (o *RestrictSourcesOption) Get() []string {
+func (o *RestrictSourcesOption) Get() string {
 	if o == nil {
-		return []string{}
+		return ""
 	}
 	return o.value
 }
@@ -36,7 +33,7 @@ func (o RestrictSourcesOption) MarshalJSON() ([]byte, error) {
 // RestrictSourcesOption.
 func (o *RestrictSourcesOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = []string{}
+		o.value = ""
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)
@@ -47,12 +44,12 @@ func (o *RestrictSourcesOption) UnmarshalJSON(data []byte) error {
 // value of the option.
 func (o *RestrictSourcesOption) Equal(o2 *RestrictSourcesOption) bool {
 	if o == nil {
-		return o2 == nil || reflect.DeepEqual(o2.value, []string{})
+		return o2 == nil || o2.value == ""
 	}
 	if o2 == nil {
-		return o == nil || reflect.DeepEqual(o.value, []string{})
+		return o == nil || o.value == ""
 	}
-	return reflect.DeepEqual(o.value, o2.value)
+	return o.value == o2.value
 }
 
 // RestrictSourcesEqual returns true if the two options are equal.
