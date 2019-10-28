@@ -104,6 +104,7 @@ var options = []Option{
 	{"alternativesAsExact", Settings | Search, []string{"ignorePlurals", "singleWordSynonym"}, ""},
 	{"advancedSyntaxFeatures", Settings | Search, []string{"exactPhrase", "excludeWords"}, ""},
 	{"similarQuery", Search, "", ""},
+	{"enableABTest", Search, true, ""},
 
 	// Query rules
 	{"enableRules", Settings | Search, true, ""},

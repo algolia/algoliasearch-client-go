@@ -55,6 +55,7 @@ type QueryParams struct {
 	AlternativesAsExact                     *opt.AlternativesAsExactOption                     `json:"alternativesAsExact,omitempty"`
 	AdvancedSyntaxFeatures                  *opt.AdvancedSyntaxFeaturesOption                  `json:"advancedSyntaxFeatures,omitempty"`
 	SimilarQuery                            *opt.SimilarQueryOption                            `json:"similarQuery,omitempty"`
+	EnableABTest                            *opt.EnableABTestOption                            `json:"enableABTest,omitempty"`
 	EnableRules                             *opt.EnableRulesOption                             `json:"enableRules,omitempty"`
 	RuleContexts                            *opt.RuleContextsOption                            `json:"ruleContexts,omitempty"`
 	EnablePersonalization                   *opt.EnablePersonalizationOption                   `json:"enablePersonalization,omitempty"`
@@ -123,6 +124,7 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		AlternativesAsExact:                     iopt.ExtractAlternativesAsExact(opts...),
 		AdvancedSyntaxFeatures:                  iopt.ExtractAdvancedSyntaxFeatures(opts...),
 		SimilarQuery:                            iopt.ExtractSimilarQuery(opts...),
+		EnableABTest:                            iopt.ExtractEnableABTest(opts...),
 		EnableRules:                             iopt.ExtractEnableRules(opts...),
 		RuleContexts:                            iopt.ExtractRuleContexts(opts...),
 		EnablePersonalization:                   iopt.ExtractEnablePersonalization(opts...),
@@ -289,6 +291,9 @@ func (p *QueryParams) Equal(p2 *QueryParams) bool {
 		return false
 	}
 	if !p.SimilarQuery.Equal(p2.SimilarQuery) {
+		return false
+	}
+	if !p.EnableABTest.Equal(p2.EnableABTest) {
 		return false
 	}
 	if !p.EnableRules.Equal(p2.EnableRules) {

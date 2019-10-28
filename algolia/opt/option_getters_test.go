@@ -188,6 +188,9 @@ func TestOptionGetters(t *testing.T) {
 	var similarQuery *SimilarQueryOption = nil
 	similarQuery.Get()
 
+	var enableABTest *EnableABTestOption = nil
+	enableABTest.Get()
+
 	var enableRules *EnableRulesOption = nil
 	enableRules.Get()
 
