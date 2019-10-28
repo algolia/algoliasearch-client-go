@@ -112,6 +112,7 @@ func convertInterfaceToString(defaultValue interface{}) string {
 	case []string,
 		map[string]string,
 		map[string][]string,
+		map[string]map[string]string,
 		map[string]interface{}:
 		s = fmt.Sprintf("%#v", v)
 	default:

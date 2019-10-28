@@ -74,6 +74,9 @@ func TestSettings(t *testing.T) {
 		MaxFacetHits:                      opt.MaxFacetHits(100),
 		IndexLanguages:                    opt.IndexLanguages("ja"),
 		UserData:                          opt.UserData(map[string]interface{}{"customUserData": 42.0}),
+		// TODO: Uncomment CustomNormalization setting when the engine bug will be fixed (as we
+		//  cannot set both customNormalization and keepDiacriticsOnCharacters at the same time)
+		//CustomNormalization:               opt.CustomNormalization(map[string]map[string]string{"default": {"ä": "ae", "ö": "oe"}}),
 	}
 
 	{
