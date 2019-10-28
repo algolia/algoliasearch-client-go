@@ -88,7 +88,11 @@ func generateFilename(jsonName string) (filename string) {
 	filename = jsonName
 	filename = matchFirstCap.ReplaceAllString(filename, "${1}_${2}")
 	filename = matchAllCap.ReplaceAllString(filename, "${1}_${2}")
-	filename = strings.ToLower(filename) + ".go"
+	filename = strings.ToLower(filename)
+	if strings.HasSuffix(filename, "_test") {
+		filename = filename + "_"
+	}
+	filename = filename + ".go"
 	return
 }
 
