@@ -92,6 +92,7 @@ var options = []Option{
 	{"keepDiacriticsOnCharacters", Settings, "", ""},
 	{"queryLanguages", Settings | Search, []string{}, ""},
 	{"indexLanguages", Settings, []string{}, ""},
+	{"customNormalization", Settings, map[string]map[string]string{}, ""},
 
 	// Query strategy
 	{"queryType", Settings | Search, "prefixLast", ""},

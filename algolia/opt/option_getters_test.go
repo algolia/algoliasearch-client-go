@@ -158,6 +158,9 @@ func TestOptionGetters(t *testing.T) {
 	var indexLanguages *IndexLanguagesOption = nil
 	indexLanguages.Get()
 
+	var customNormalization *CustomNormalizationOption = nil
+	customNormalization.Get()
+
 	var queryType *QueryTypeOption = nil
 	queryType.Get()
 
