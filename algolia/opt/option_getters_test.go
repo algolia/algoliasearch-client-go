@@ -323,4 +323,7 @@ func TestOptionGetters(t *testing.T) {
 	var safe *SafeOption = nil
 	safe.Get()
 
+	var filterPromotes *FilterPromotesOption = nil
+	filterPromotes.Get()
+
 }

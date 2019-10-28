@@ -161,4 +161,5 @@ var options = []Option{
 	{"indexName", Other, "", ""},
 	{"limit", Other, 10, ""},
 	{"safe", Other, false, ""},
+	{"filterPromotes", Other, false, ""},
 }
