@@ -252,7 +252,7 @@ Hello everyone,
 
 After recent investigations, we found out that the implementation of our retry
 strategy in the Go client was missing a reseting feature. The retry strategy is
-responsible for determining which hosts should be choosen for each call and to
+responsible for determining which hosts should be chosen for each call and to
 try them sequentially if some are down or unreachable. However, the previous
 implementation was lacking a reset of the hosts when all were marked down or
 have been marked down for too long.
