@@ -29,7 +29,7 @@ func (i *Index) GetObject(objectID string, object interface{}, opts ...interface
 		strings.Join(iopt.ExtractAttributesToRetrieve(opts...).Get(), ","),
 	)
 
-	path := i.path("/" + url.QueryEscape(objectID))
+	path := i.path("/%s", url.QueryEscape(objectID))
 	return i.transport.Request(&object, http.MethodGet, path, nil, call.Read, opts...)
 }
 
@@ -57,7 +57,7 @@ func (i *Index) PartialUpdateObject(object interface{}, opts ...interface{}) (re
 		iopt.ExtractCreateIfNotExists(opts...).Get(),
 	)
 
-	path := i.path("/" + url.QueryEscape(objectID) + "/partial")
+	path := i.path("/%s/partial", url.QueryEscape(objectID))
 	err = i.transport.Request(&res, http.MethodPost, path, object, call.Write, opts...)
 	res.wait = i.WaitTask
 	return
@@ -71,7 +71,7 @@ func (i *Index) DeleteObject(objectID string, opts ...interface{}) (res DeleteTa
 		return
 	}
 
-	path := i.path("/" + url.QueryEscape(objectID))
+	path := i.path("/%s", url.QueryEscape(objectID))
 	err = i.transport.Request(&res, http.MethodDelete, path, nil, call.Write, opts...)
 	res.wait = i.WaitTask
 	return
