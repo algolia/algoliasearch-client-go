@@ -13,6 +13,30 @@ const (
 	DefaultTLSHandshakeTimeout = 2 * time.Second
 )
 
+// DefaultHTTPClient exposes the default *http.Client used by the different
+// Client instances of the Algolia API client.
+//
+// Most users should not need to access this http.Client.
+//
+// This helper is only useful for users who wish to keep the default behavior of
+// the Algolia API client (by wrapping it in a user-defined instance of
+// transport.Requester) but would like to wrap it into a middleware layer or
+// pass it to an HTTP interceptor.
+func DefaultHTTPClient() *http.Client {
+	return &http.Client{
+		Transport: &http.Transport{
+			Dial: (&net.Dialer{
+				KeepAlive: DefaultKeepAliveDuration,
+				Timeout:   DefaultConnectTimeout,
+			}).Dial,
+			DisableKeepAlives:   false,
+			MaxIdleConnsPerHost: DefaultMaxIdleConnsPerHost,
+			Proxy:               http.ProxyFromEnvironment,
+			TLSHandshakeTimeout: DefaultTLSHandshakeTimeout,
+		},
+	}
+}
+
 type Requester interface {
 	Request(req *http.Request) (*http.Response, error)
 }
@@ -23,18 +47,7 @@ type defaultRequester struct {
 
 func newDefaultRequester() *defaultRequester {
 	return &defaultRequester{
-		client: &http.Client{
-			Transport: &http.Transport{
-				Dial: (&net.Dialer{
-					KeepAlive: DefaultKeepAliveDuration,
-					Timeout:   DefaultConnectTimeout,
-				}).Dial,
-				DisableKeepAlives:   false,
-				MaxIdleConnsPerHost: DefaultMaxIdleConnsPerHost,
-				Proxy:               http.ProxyFromEnvironment,
-				TLSHandshakeTimeout: DefaultTLSHandshakeTimeout,
-			},
-		},
+		client: DefaultHTTPClient(),
 	}
 }
 
