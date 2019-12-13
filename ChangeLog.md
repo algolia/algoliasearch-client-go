@@ -1,5 +1,47 @@
 # ChangeLog
 
+## [v3.5.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.4.0...v3.5.0) (2019-12-13)
+
+### Feat
+
+- **transport**: expose the default HTTP client via transport.DefaultHTTPClient() ([92c12e6](https://github.com/algolia/algoliasearch-client-go/commit/92c12e6))
+- **settings**: introduce customNormalization setting ([5beace1](https://github.com/algolia/algoliasearch-client-go/commit/5beace1))
+- **rule**: introduce Rule.Consequence.FilterPromotes option ([fe16b82](https://github.com/algolia/algoliasearch-client-go/commit/fe16b82))
+- **ab-testing**: introduce new query parameter opt.EnableABTest option ([9a4036f](https://github.com/algolia/algoliasearch-client-go/commit/9a4036f))
+- **search**: implement `Equal()` method for `search.QueryParams` ([5e66c89](https://github.com/algolia/algoliasearch-client-go/commit/5e66c89))
+- **rule**: implement Contextual Query Rules ([f2cdcdd](https://github.com/algolia/algoliasearch-client-go/commit/f2cdcdd))
+
+    A query rule's condition and all condition fields are now optional. This
+    way, query rules can now be triggered for all queries when
+    `opt.RuleContexts` is used at search time.
+
+- **mcm**: add Client.AssignUserIDs() method (#545) ([905a238](https://github.com/algolia/algoliasearch-client-go/commit/905a238))
+
+    Multiple MCM user IDs can now be assigned in a single call by using
+    `Client.AssignUserIDs()` method.
+
+- **key**: add Client.GetSecuredAPIKeyRemainingValidity() (#536) ([5c7d281](https://github.com/algolia/algoliasearch-client-go/commit/5c7d281))
+
+    The remaining validity duration of a secured API generated with the
+    `opt.ValidUntil()` parameter can now be checked thanks to the new
+    `GetSecuredAPIKeyRemainingValidity()` method of the `search.Client`.
+
+### Fix
+
+- **ab-test**: expose `CustomSearchParameters` in `analytics.VariantResponse` ([ff1ae10](https://github.com/algolia/algoliasearch-client-go/commit/ff1ae10))
+- correctly type opt.RestrictSources to string instead of []string ([76a4582](https://github.com/algolia/algoliasearch-client-go/commit/76a4582))
+- **opt**: prevent nil dereferences on all `opt.*.Equal()` methods ([86568bd](https://github.com/algolia/algoliasearch-client-go/commit/86568bd))
+- **opt**: prevent nil dereference in Equal() method of literal option types ([c237612](https://github.com/algolia/algoliasearch-client-go/commit/c237612))
+- **mcm**: replace invalid otp.ClusterName with opt.Cluster for SearchUserIDs() ([a7f039c](https://github.com/algolia/algoliasearch-client-go/commit/a7f039c))
+
+### Refactor
+
+- **errors**: improve error message for `errs.ErrValidUntilNotFound` ([9d7e6de](https://github.com/algolia/algoliasearch-client-go/commit/9d7e6de))
+- **secured-api-key**: remove errs.ErrValidUntilInvalid ([6844524](https://github.com/algolia/algoliasearch-client-go/commit/6844524))
+- make appropriate changes as recommended by our linter (golangci-lint) ([f17d33a](https://github.com/algolia/algoliasearch-client-go/commit/f17d33a))
+
+
+
 ## [3.4.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.3.0...3.4.0) (2019-09-25)
 
 ### Fix
