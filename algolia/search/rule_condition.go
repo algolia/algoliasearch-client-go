@@ -3,10 +3,25 @@ package search
 import "encoding/json"
 
 type RuleCondition struct {
-	Anchoring    RulePatternAnchoring `json:"anchoring,omitempty"`
-	Pattern      string               `json:"pattern,omitempty"`
-	Context      string               `json:"context,omitempty"`
-	Alternatives *Alternatives        `json:"alternatives,omitempty"`
+	Anchoring    RulePatternAnchoring
+	Pattern      string
+	Context      string
+	Alternatives *Alternatives
+}
+
+func (c RuleCondition) MarshalJSON() ([]byte, error) {
+	m := make(map[string]interface{})
+	if c.Anchoring != "" || c.Pattern != "" {
+		m["anchoring"] = c.Anchoring
+		m["pattern"] = c.Pattern
+	}
+	if c.Context != "" {
+		m["context"] = c.Context
+	}
+	if c.Alternatives != nil {
+		m["alternatives"] = *c.Alternatives
+	}
+	return json.Marshal(m)
 }
 
 type RulePatternAnchoring string
