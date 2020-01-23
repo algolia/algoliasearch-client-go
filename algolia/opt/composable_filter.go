@@ -3,6 +3,9 @@ package opt
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
+
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
 )
 
 type composableFilterOption struct {
@@ -66,7 +69,51 @@ func (o composableFilterOption) MarshalJSON() ([]byte, error) {
 }
 
 func (o *composableFilterOption) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &o.filters)
+	if string(data) == "null" {
+		return nil
+	}
+
+	var (
+		ok     = false
+		filter string
+		ors    []string
+		ands   [][]string
+	)
+
+	if json.Unmarshal(data, &filter) == nil {
+		ok = true
+		ors = strings.Split(filter, ",")
+		ands = append(ands, ors)
+	}
+
+	if !ok && json.Unmarshal(data, &ors) == nil {
+		ok = true
+		ands = append(ands, ors)
+	}
+
+	if !ok && json.Unmarshal(data, &ands) == nil {
+		ok = true
+	}
+
+	if !ok {
+		return errs.ErrJSONDecode(data, "composableFilterOption (string or []string or [][]string)")
+	}
+
+	var cleanANDs [][]string
+	for _, ors := range ands {
+		var cleanORs []string
+		for _, filter := range ors {
+			filter = strings.Trim(filter, " ")
+			if len(filter) > 0 {
+				cleanORs = append(cleanORs, filter)
+			}
+		}
+		if len(cleanORs) > 0 {
+			cleanANDs = append(cleanANDs, cleanORs)
+		}
+	}
+	o.filters = cleanANDs
+	return nil
 }
 
 func (o *composableFilterOption) Equal(o2 *composableFilterOption) bool {
