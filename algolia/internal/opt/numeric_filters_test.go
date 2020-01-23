@@ -93,3 +93,50 @@ func TestNumericFilters(t *testing.T) {
 		require.Equal(t, *c.expected, out)
 	}
 }
+
+func TestNumericFilters_LegacyDeserialization(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.NumericFiltersOption
+	}{
+		{
+			`"filter1:value1"`,
+			opt.NumericFilter("filter1:value1"),
+		},
+		{
+			`" filter1:value1 "`,
+			opt.NumericFilter("filter1:value1"),
+		},
+		{
+			`["filter1:value1"]`,
+			opt.NumericFilter("filter1:value1"),
+		},
+		{
+			`[" filter1:value1 "]`,
+			opt.NumericFilter("filter1:value1"),
+		},
+		{
+			`"filter1:value1,filter2:value2"`,
+			opt.NumericFilterOr("filter1:value1", "filter2:value2"),
+		},
+		{
+			`" filter1:value1 , filter2:value2 "`,
+			opt.NumericFilterOr("filter1:value1", "filter2:value2"),
+		},
+		{
+			`["filter1:value1","filter2:value2"]`,
+			opt.NumericFilterOr("filter1:value1", "filter2:value2"),
+		},
+		{
+			`[" filter1:value1 "," filter2:value2 "]`,
+			opt.NumericFilterOr("filter1:value1", "filter2:value2"),
+		},
+	} {
+		var got opt.NumericFiltersOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err, "cannot unmarshal legacy payload %q for opt.NumericFiltersOption", c.payload)
+
+		require.True(t, got.Equal(c.expected), "legacy payload %q should deserialize to %#v but got %#v instead", c.payload, c.expected, got)
+		require.True(t, c.expected.Equal(&got), "legacy payload %q should deserialize to %#v but got %#v instead", c.payload, c.expected, got)
+	}
+}
