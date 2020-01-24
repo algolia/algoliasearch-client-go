@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [v3.5.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.5.1...v3.5.2) (2020-01-24)
+
+### Fix
+
+- implement correct type for `Settings.UserData` ([cc17afa](https://github.com/algolia/algoliasearch-client-go/commit/cc17afa))
+
+
+
 ## [v3.5.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.5.0...v3.5.1) (2020-01-24)
 
 ### Fix
