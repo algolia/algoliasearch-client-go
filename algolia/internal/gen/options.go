@@ -137,7 +137,7 @@ var options = []Option{
 	{"explain", Search, []string{}, ""},
 	{"advanced", Settings, 0, ""},
 	{"attributeCriteriaComputedByMinProximity", Settings | Search, false, ""},
-	{"userData", Settings, map[string]interface{}{}, ""},
+	{"userData", Settings, nil, ""},
 
 	// Secured API key
 	{"restrictIndices", Other, []string{}, ""},
