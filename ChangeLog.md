@@ -1,5 +1,14 @@
 # ChangeLog
 
+## [v3.5.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.5.0...v3.5.1) (2020-01-24)
+
+### Fix
+
+- correctly decode legacy payload formats for all 'opt.*Filters' types ([5f72d83](https://github.com/algolia/algoliasearch-client-go/commit/5f72d83))
+- **rule**: correctly serialize RuleCondition ([5838029](https://github.com/algolia/algoliasearch-client-go/commit/5838029))
+
+
+
 ## [v3.5.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.4.0...v3.5.0) (2019-12-13)
 
 ### Feat
