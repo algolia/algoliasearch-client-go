@@ -7,22 +7,12 @@ import (
 )
 
 // ExtractUserData returns the first found UserDataOption from the
-// given variadic arguments or nil otherwise. If multiple options are found, the
-// inner maps are merged.
+// given variadic arguments or nil otherwise.
 func ExtractUserData(opts ...interface{}) *opt.UserDataOption {
-	merged := make(map[string]interface{})
-
 	for _, o := range opts {
 		if v, ok := o.(*opt.UserDataOption); ok {
-			for key, value := range v.Get() {
-				merged[key] = value
-			}
+			return v
 		}
 	}
-
-	if len(merged) == 0 {
-		return nil
-	}
-
-	return opt.UserData(merged)
+	return nil
 }
