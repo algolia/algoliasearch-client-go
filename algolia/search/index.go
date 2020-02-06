@@ -3,6 +3,7 @@ package search
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
@@ -31,7 +32,7 @@ func newIndex(client *Client, name string) *Index {
 }
 
 func (i *Index) path(format string, a ...interface{}) string {
-	prefix := fmt.Sprintf("/1/indexes/%s", i.name)
+	prefix := fmt.Sprintf("/1/indexes/%s", url.QueryEscape(i.name))
 	suffix := fmt.Sprintf(format, a...)
 	return prefix + suffix
 }
