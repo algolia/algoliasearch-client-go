@@ -23,12 +23,31 @@ import (
 
 func InitSearchClient1AndIndex(t *testing.T) (*search.Client, *search.Index, string) {
 	c := InitSearchClient1(t)
-	canonicalName := GenerateCanonicalPrefixName()
-	indexName := canonicalName + "_" + t.Name()
-	indexName = strings.Replace(indexName, "/", "_", -1)
-	indexName = strings.Replace(indexName, " ", "_", -1)
+	indexName := GenerateIndexName(t)
 	i := c.InitIndex(indexName)
 	return c, i, indexName
+}
+
+func GenerateIndexName(t *testing.T) string {
+	indexName := GenerateCanonicalPrefixName() + "_" + t.Name()
+	indexName = cleanIndexName(indexName)
+	return indexName
+}
+
+func cleanIndexName(indexName string) string {
+	for _, char := range []string{
+		"/",
+		"-",
+		".",
+		":",
+		" ",
+		"%",
+		"+",
+		"^",
+	} {
+		indexName = strings.Replace(indexName, char, "_", -1)
+	}
+	return indexName
 }
 
 func InitSearchClient1(t *testing.T) *search.Client {
@@ -120,11 +139,11 @@ func Retry(shouldStopFunc func() bool) {
 }
 
 func TodayDate() string {
-	return time.Now().Format("2006-01-02")
+	return time.Now().Format("2006_01_02")
 }
 
 func TodayDateTime() string {
-	return time.Now().Format("2006-01-02_15:04:05")
+	return time.Now().Format("2006_01_02_15_04_05")
 }
 
 func GenerateSecuredAPIKeyWithArbitraryParameters(
