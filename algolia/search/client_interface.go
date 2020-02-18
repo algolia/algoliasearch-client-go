@@ -47,7 +47,10 @@ type ClientInterface interface {
 	SearchUserIDs(query string, opts ...interface{}) (res SearchUserIDRes, err error)
 
 	// Personalization
+
+	// Deprecated: use recommendation.Client.SetPersonalizationStrategy() instead
 	SetPersonalizationStrategy(strategy Strategy, opts ...interface{}) (res SetPersonalizationStrategyRes, err error)
+	// Deprecated: use recommendation.Client.GetPersonalizationStrategy() instead
 	GetPersonalizationStrategy(opts ...interface{}) (res GetPersonalizationStrategyRes, err error)
 }
 
