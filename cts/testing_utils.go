@@ -31,6 +31,7 @@ func InitSearchClient1AndIndex(t *testing.T) (*search.Client, *search.Index, str
 func GenerateIndexName(t *testing.T) string {
 	indexName := GenerateCanonicalPrefixName() + "_" + t.Name()
 	indexName = cleanIndexName(indexName)
+	// This is a test
 	return indexName
 }
 
@@ -84,7 +85,6 @@ func initSearchClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *searc
 	} else {
 		c = search.NewClient(appID, key)
 	}
-	deleteOldIndices(c)
 	return c
 }
 
@@ -120,16 +120,6 @@ func GenerateCanonicalPrefixName() string {
 		TodayDateTime(),
 		instanceName,
 	)
-}
-
-func deleteOldIndices(c *search.Client) {
-	today := "go_" + TodayDate()
-	indices, _ := c.ListIndices()
-	for _, index := range indices.Items {
-		if strings.HasPrefix(index.Name, "go_") && !strings.HasPrefix(index.Name, today) {
-			_, _ = c.InitIndex(index.Name).Delete()
-		}
-	}
 }
 
 func Retry(shouldStopFunc func() bool) {

@@ -1,14 +1,14 @@
 package analytics
 
 import (
-	"strings"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/analytics"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
-	"github.com/stretchr/testify/require"
 )
 
 func TestABTesting(t *testing.T) {
@@ -17,25 +17,6 @@ func TestABTesting(t *testing.T) {
 	indexName2 := indexName1 + "_dev"
 	index2 := searchClient.InitIndex(indexName2)
 	analyticsClient := cts.InitAnalyticsClient1(t)
-
-	// Remove old AB tests
-	{
-		var toRemove []int
-		today := cts.TodayDate()
-
-		res, err := analyticsClient.GetABTests()
-		require.NoError(t, err)
-		for _, abTest := range res.ABTests {
-			if strings.HasPrefix("go-", abTest.Name) &&
-				!strings.HasPrefix("go-"+today, abTest.Name) {
-				toRemove = append(toRemove, abTest.ABTestID)
-			}
-		}
-
-		for _, id := range toRemove {
-			_, _ = analyticsClient.DeleteABTest(id)
-		}
-	}
 
 	// Create the two indices by adding a dummy object in each of them
 	{
