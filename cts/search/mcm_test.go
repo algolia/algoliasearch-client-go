@@ -153,35 +153,6 @@ func TestMCM(t *testing.T) {
 		wg.Wait()
 	}
 
-	// Remove old userIDs
-	{
-		var toRemove []string
-		page := 0
-		hitsPerPage := 100
-		today := cts.TodayDate()
-
-		for {
-			res, err := client.ListUserIDs(opt.Page(page), opt.HitsPerPage(hitsPerPage))
-			require.NoError(t, err)
-
-			for _, u := range res.UserIDs {
-				if strings.HasPrefix(u.ID, "go-") &&
-					!strings.HasPrefix(u.ID, "go-"+today) {
-					toRemove = append(toRemove, u.ID)
-				}
-			}
-
-			if len(res.UserIDs) < hitsPerPage {
-				break
-			}
-			page++
-		}
-
-		for _, u := range toRemove {
-			_, _ = client.RemoveUserID(u)
-		}
-	}
-
 	_, err = client.HasPendingMappings(opt.RetrieveMappings(true))
 	require.NoError(t, err)
 }
