@@ -45,6 +45,7 @@ type ClientInterface interface {
 	RemoveUserID(userID string, opts ...interface{}) (res RemoveUserIDRes, err error)
 	GetTopUserIDs(opts ...interface{}) (res TopUserIDs, err error)
 	SearchUserIDs(query string, opts ...interface{}) (res SearchUserIDRes, err error)
+	HasPendingMappings(opts ...interface{}) (res HasPendingMappingsRes, err error)
 
 	// Personalization
 

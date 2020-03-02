@@ -48,6 +48,11 @@ type TopUserIDs struct {
 	PerCluster map[string][]UserIDCore `json:"topUsers"`
 }
 
+type HasPendingMappingsRes struct {
+	Pending  bool                `json:"pending"`
+	Clusters map[string][]string `json:"clusters"`
+}
+
 type SearchUserIDRes struct {
 	Hits        []UserIDHit `json:"hits"`
 	NbHits      int         `json:"nbHits"`
