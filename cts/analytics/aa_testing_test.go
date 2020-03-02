@@ -1,40 +1,21 @@
 package analytics
 
 import (
-	"strings"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/analytics"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
-	"github.com/stretchr/testify/require"
 )
 
 func TestAATesting(t *testing.T) {
 	t.Parallel()
 	_, index, indexName := cts.InitSearchClient1AndIndex(t)
 	analyticsClient := cts.InitAnalyticsClient1(t)
-
-	// Remove old AB tests
-	{
-		var toRemove []int
-		today := cts.TodayDate()
-
-		res, err := analyticsClient.GetABTests()
-		require.NoError(t, err)
-		for _, abTest := range res.ABTests {
-			if strings.HasPrefix("go-", abTest.Name) &&
-				!strings.HasPrefix("go-"+today, abTest.Name) {
-				toRemove = append(toRemove, abTest.ABTestID)
-			}
-		}
-
-		for _, id := range toRemove {
-			_, _ = analyticsClient.DeleteABTest(id)
-		}
-	}
 
 	// Add a dummy object to the index
 	{
