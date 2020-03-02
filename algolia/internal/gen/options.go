@@ -139,6 +139,9 @@ var options = []Option{
 	{"attributeCriteriaComputedByMinProximity", Settings | Search, false, ""},
 	{"userData", Settings, nil, ""},
 
+	// MCM
+	{"retrieveMappings", Other, false, ""},
+
 	// Secured API key
 	{"restrictIndices", Other, []string{}, ""},
 	{"restrictSources", Other, "", ""},

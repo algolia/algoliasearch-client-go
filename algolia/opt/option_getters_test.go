@@ -266,6 +266,9 @@ func TestOptionGetters(t *testing.T) {
 	var userData *UserDataOption = nil
 	userData.Get()
 
+	var retrieveMappings *RetrieveMappingsOption = nil
+	retrieveMappings.Get()
+
 	var restrictIndices *RestrictIndicesOption = nil
 	restrictIndices.Get()
 
