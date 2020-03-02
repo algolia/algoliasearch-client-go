@@ -65,3 +65,17 @@ func (c *Client) SearchUserIDs(query string, opts ...interface{}) (res SearchUse
 	err = c.transport.Request(&res, http.MethodPost, "/1/clusters/mapping/search", req, call.Read, opts...)
 	return
 }
+
+// HasPendingMappings answers with a boolean indicating whether or not at least
+// one mapping is currently pending.
+//
+// If opt.RetrieveMappings(true) is passed,
+// the method also retrieves the list of userIDs for which an operation is
+// currently pending, grouped by cluster, if any.
+func (c *Client) HasPendingMappings(opts ...interface{}) (res HasPendingMappingsRes, err error) {
+	if retrieveMappings := iopt.ExtractRetrieveMappings(opts...); retrieveMappings != nil {
+		opts = opt.InsertExtraURLParam(opts, "getClusters", retrieveMappings.Get())
+	}
+	err = c.transport.Request(&res, http.MethodGet, "/1/clusters/mapping/pending", nil, call.Read, opts...)
+	return
+}

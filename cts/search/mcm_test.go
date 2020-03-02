@@ -181,4 +181,7 @@ func TestMCM(t *testing.T) {
 			_, _ = client.RemoveUserID(u)
 		}
 	}
+
+	_, err = client.HasPendingMappings(opt.RetrieveMappings(true))
+	require.NoError(t, err)
 }
