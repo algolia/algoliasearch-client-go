@@ -3,9 +3,9 @@ package recommendation
 import "github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 
 type Strategy struct {
-	EventsScoring         []EventsScoring                 `json:"eventsScoring"`
-	FacetsScoring         []FacetsScoring                 `json:"facetsScoring"`
-	PersonalizationImpact opt.PersonalizationImpactOption `json:"personalizationImpact"`
+	EventsScoring         []EventsScoring                  `json:"eventsScoring"`
+	FacetsScoring         []FacetsScoring                  `json:"facetsScoring"`
+	PersonalizationImpact *opt.PersonalizationImpactOption `json:"personalizationImpact"`
 }
 
 type EventsScoring struct {
