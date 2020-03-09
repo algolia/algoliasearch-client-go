@@ -1,5 +1,20 @@
 # ChangeLog
 
+## [v3.6.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.5.2...v3.6.0) (2020-03-09)
+
+### Feat
+
+- **mcm**: add Client.HasPendingMappings() method ([bad3abf](https://github.com/algolia/algoliasearch-client-go/commit/bad3abf))
+- **mcm**: learn opt.RetrieveMappings() boolean option ([b7b6204](https://github.com/algolia/algoliasearch-client-go/commit/b7b6204))
+- introduce the new recommendation.Client for Personalization features ([59540fe](https://github.com/algolia/algoliasearch-client-go/commit/59540fe))
+
+### Fix
+
+- **personalization**: use correct pointer type for one of the Strategy's fields ([56f949f](https://github.com/algolia/algoliasearch-client-go/commit/56f949f))
+- **search**: correctly encode index name in URIs (#574) ([a173d4f](https://github.com/algolia/algoliasearch-client-go/commit/a173d4f))
+
+
+
 ## [v3.5.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.5.1...v3.5.2) (2020-01-24)
 
 ### Fix
