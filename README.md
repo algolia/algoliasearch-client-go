@@ -25,7 +25,7 @@
 
 ## ✨ Features
 
-* Support Go 1.8 and above
+* Support Go 1.11 and above
 * Typed requests and responses
 * First-class support for user-defined structures
 * Injectable HTTP client
