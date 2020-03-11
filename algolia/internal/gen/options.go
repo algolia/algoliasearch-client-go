@@ -154,7 +154,7 @@ var options = []Option{
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
 	{"clearExistingRules", Other, false, ""},
 	{"replaceExistingSynonyms", Other, false, ""},
-	{"type", Other, []string{}, ""},
+	{"type", Other, nil, ""},
 	{"createIfNotExists", Other, true, ""},
 	{"forwardToReplicas", Other, false, ""},
 	{"anchoring", Other, "", ""},
