@@ -112,3 +112,4 @@ For full documentation, visit the **[Algolia Go API Client](https://www.algolia.
 ## 📄 License
 
 Algolia Go API Client is an open-sourced software licensed under the [MIT license](LICENSE).
+
