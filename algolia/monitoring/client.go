@@ -1,39 +1,43 @@
-package recommendation
+package monitoring
 
 import (
+	"fmt"
+
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
-// Client provides methods to interact with the Algolia Recommendation API.
+// Client provides methods to interact with the Algolia Monitoring API.
 type Client struct {
 	transport *transport.Transport
 }
 
+func (c *Client) path(format string, a ...interface{}) string {
+	return "/1" + fmt.Sprintf(format, a...)
+}
+
 // NewClient instantiates a new client able to interact with the Algolia
-// Recommendation API.
-func NewClient(appID, apiKey string, region region.Region) *Client {
+// Monitoring API.
+func NewClient(appID, apiKey string) *Client {
 	return NewClientWithConfig(
 		Configuration{
 			AppID:  appID,
 			APIKey: apiKey,
-			Region: region,
 		},
 	)
 }
 
 // NewClientWithConfig instantiates a new client able to interact with the
-// Recommendation API.
+// Monitoring API.
 func NewClientWithConfig(config Configuration) *Client {
 	var hosts []*transport.StatefulHost
 
 	if config.Hosts == nil {
-		hosts = defaultHosts(config.Region)
+		hosts = append(hosts, transport.NewStatefulHost("status.algolia.com", call.IsRead))
 	} else {
 		for _, h := range config.Hosts {
-			hosts = append(hosts, transport.NewStatefulHost(h, call.IsReadWrite))
+			hosts = append(hosts, transport.NewStatefulHost(h, call.IsRead))
 		}
 	}
 

@@ -12,6 +12,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/monitoring"
 	"github.com/stretchr/testify/require"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/analytics"
@@ -70,9 +71,19 @@ func InitInsightsClient(t *testing.T) *insights.Client {
 	return initInsightsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
 }
 
+func InitMonitoringClient(t *testing.T) *monitoring.Client {
+	return initMonitoringClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_MCM")
+}
+
 func initInsightsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *insights.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
 	c := insights.NewClient(appID, key)
+	return c
+}
+
+func initMonitoringClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *monitoring.Client {
+	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
+	c := monitoring.NewClient(appID, key)
 	return c
 }
 
