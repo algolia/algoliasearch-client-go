@@ -17,6 +17,7 @@ type Client struct {
 func NewClient(appID, apiKey string, region region.Region) *Client {
 	return NewClientWithConfig(
 		Configuration{
+			AppID:  appID,
 			APIKey: apiKey,
 			Region: region,
 		},
