@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [v3.6.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.6.0...v3.6.1) (2020-04-06)
+
+### Fix
+
+- **analytics**: accept region.DE instead of region.EU for Analytics client configuration ([372626c](https://github.com/algolia/algoliasearch-client-go/commit/372626c))
+
+
+
 ## [v3.6.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.5.2...v3.6.0) (2020-03-09)
 
 ### Feat
