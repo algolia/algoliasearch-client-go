@@ -1,0 +1,98 @@
+version: 2.1
+
+commands:
+  credentials:
+    description: "Fetch temporary credentials if needed"
+    steps:
+      - run:
+          name: Retrieve temporary Algolia credentials if needed
+          command: |
+            if [ -z "ALGOLIA_ADMIN_KEY_MCM" ]; then
+              curl -s https://algoliasearch-client-keygen.herokuapp.com | sh >> $BASH_ENV
+            fi
+  test:
+    description: "Run the test for Go << parameters.go_version >>"
+    parameters:
+      go_version:
+        type: string
+    steps:
+      - run:
+          name: Generate code for Go << parameters.go_version >>
+          command: go generate ./...
+      - run:
+          name: Run unit tests for Go << parameters.go_version >>
+          command: make unit-tests
+      - run:
+          name: Run tests for Go << parameters.go_version >>
+          command: |
+            if [ -z "ALGOLIA_ADMIN_KEY_MCM" ]; then
+              make integration-tests-community
+            else
+              make integration-tests
+            fi
+
+jobs:
+  format:
+    docker:
+      - image: circleci/golang:1.14
+    steps:
+      - checkout
+      - restore_cache:
+            key: go-cache-1-14
+      - run:
+          name: Install golangci-lint linter
+          command: curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.25.0
+      - run:
+          name: Check formatting
+          command: make lint
+  test-1-12:
+    docker:
+      - image: circleci/golang:1.12
+    steps:
+      - checkout
+      - restore_cache:
+          key: go-cache-1-12
+      - credentials
+      - test:
+          go_version: "1.12"
+      - save_cache:
+          key: go-cache-1-12
+          paths:
+            - "~/go/pkg"
+  test-1-13:
+    docker:
+      - image: circleci/golang:1.13
+    steps:
+      - checkout
+      - restore_cache:
+          key: go-cache-1-13
+      - credentials
+      - test:
+          go_version: "1.13"
+      - save_cache:
+          key: go-cache-1-13
+          paths:
+            - "~/go/pkg"
+  test-1-14:
+    docker:
+      - image: circleci/golang:1.14
+    steps:
+      - checkout
+      - restore_cache:
+          key: go-cache-1-14
+      - credentials
+      - test:
+          go_version: "1.14"
+      - save_cache:
+          key: go-cache-1-14
+          paths:
+            - "~/go/pkg"
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - format
+      - test-1-12
+      - test-1-13
+      - test-1-14

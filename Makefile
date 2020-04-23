@@ -1,4 +1,4 @@
-all: generate deps lint test
+all: generate deps lint
 
 generate:
 	go generate ./...
@@ -9,13 +9,14 @@ deps:
 lint:
 	golangci-lint run ./...
 
-test: unit-tests integration-tests
-
 unit-tests:
 	go test -v ./algolia/...
 
 integration-tests:
 	go test -v ./cts/...
+
+integration-tests-community:
+	go test -v -tags community ./cts/...
 
 clean:
 	rm -f `grep -R -l --include \*.go -F 'DO NOT EDIT' * | grep -v -F 'algolia/internal/gen/'`
