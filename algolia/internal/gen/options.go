@@ -1,4 +1,4 @@
-//+build ignore
+// +build ignore
 
 package main
 
@@ -93,6 +93,7 @@ var options = []Option{
 	{"queryLanguages", Settings | Search, []string{}, ""},
 	{"indexLanguages", Settings, []string{}, ""},
 	{"customNormalization", Settings, map[string]map[string]string{}, ""},
+	{"naturalLanguages", Search, []string{}, ""},
 
 	// Query strategy
 	{"queryType", Settings | Search, "prefixLast", ""},

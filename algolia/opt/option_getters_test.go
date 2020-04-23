@@ -161,6 +161,9 @@ func TestOptionGetters(t *testing.T) {
 	var customNormalization *CustomNormalizationOption = nil
 	customNormalization.Get()
 
+	var naturalLanguages *NaturalLanguagesOption = nil
+	naturalLanguages.Get()
+
 	var queryType *QueryTypeOption = nil
 	queryType.Get()
 
