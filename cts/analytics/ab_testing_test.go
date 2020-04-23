@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/analytics"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
 )
@@ -66,7 +67,7 @@ func TestABTesting(t *testing.T) {
 	{
 		found := false
 
-		res, err := analyticsClient.GetABTests()
+		res, err := analyticsClient.GetABTests(opt.Limit(100))
 		require.NoError(t, err)
 		for _, b := range res.ABTests {
 			if b.ABTestID == abTestID {
