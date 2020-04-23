@@ -39,7 +39,7 @@ func (i *Index) path(format string, a ...interface{}) string {
 
 // WaitTask blocks until the task identified by the given taskID is completed on
 // Algolia engine.
-func (i *Index) WaitTask(taskID int) error {
+func (i *Index) WaitTask(taskID int64) error {
 	return waitWithRetry(func() (bool, error) {
 		res, err := i.GetStatus(taskID)
 		if err != nil {
@@ -93,7 +93,7 @@ func (i *Index) Delete(opts ...interface{}) (res DeleteTaskRes, err error) {
 
 // GetStatus retrieves the task status according to the Algolia engine for the
 // given task.
-func (i *Index) GetStatus(taskID int) (res TaskStatusRes, err error) {
+func (i *Index) GetStatus(taskID int64) (res TaskStatusRes, err error) {
 	path := i.path("/task/%d", taskID)
 	err = i.transport.Request(&res, http.MethodGet, path, nil, call.Read)
 	return

@@ -16,7 +16,7 @@ func (c *Client) MultipleBatch(operations []BatchOperationIndexed, opts ...inter
 	return
 }
 
-func (c *Client) waitTask(index string, taskID int) error {
+func (c *Client) waitTask(index string, taskID int64) error {
 	return c.InitIndex(index).WaitTask(taskID)
 }
 

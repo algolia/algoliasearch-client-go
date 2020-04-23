@@ -9,8 +9,8 @@ import (
 type SaveObjectRes struct {
 	CreatedAt time.Time `json:"createdAt"`
 	ObjectID  string    `json:"objectID"`
-	TaskID    int       `json:"taskID"`
-	wait      func(taskID int) error
+	TaskID    int64     `json:"taskID"`
+	wait      func(taskID int64) error
 }
 
 func (r SaveObjectRes) Wait() error {
@@ -19,8 +19,8 @@ func (r SaveObjectRes) Wait() error {
 
 type BatchRes struct {
 	ObjectIDs []string `json:"objectIDs"`
-	TaskID    int      `json:"taskID"`
-	wait      func(taskID int) error
+	TaskID    int64    `json:"taskID"`
+	wait      func(taskID int64) error
 }
 
 func (r BatchRes) Wait() error {

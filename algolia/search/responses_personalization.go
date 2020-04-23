@@ -7,6 +7,6 @@ type SetPersonalizationStrategyRes struct {
 }
 
 type GetPersonalizationStrategyRes struct {
-	TaskID int `json:"taskID"`
+	TaskID int64 `json:"taskID"`
 	Strategy
 }
