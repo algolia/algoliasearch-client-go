@@ -46,6 +46,7 @@ type QueryParams struct {
 	IgnorePlurals                           *opt.IgnorePluralsOption                           `json:"ignorePlurals,omitempty"`
 	RemoveStopWords                         *opt.RemoveStopWordsOption                         `json:"removeStopWords,omitempty"`
 	QueryLanguages                          *opt.QueryLanguagesOption                          `json:"queryLanguages,omitempty"`
+	NaturalLanguages                        *opt.NaturalLanguagesOption                        `json:"naturalLanguages,omitempty"`
 	QueryType                               *opt.QueryTypeOption                               `json:"queryType,omitempty"`
 	RemoveWordsIfNoResults                  *opt.RemoveWordsIfNoResultsOption                  `json:"removeWordsIfNoResults,omitempty"`
 	AdvancedSyntax                          *opt.AdvancedSyntaxOption                          `json:"advancedSyntax,omitempty"`
@@ -115,6 +116,7 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		IgnorePlurals:                           iopt.ExtractIgnorePlurals(opts...),
 		RemoveStopWords:                         iopt.ExtractRemoveStopWords(opts...),
 		QueryLanguages:                          iopt.ExtractQueryLanguages(opts...),
+		NaturalLanguages:                        iopt.ExtractNaturalLanguages(opts...),
 		QueryType:                               iopt.ExtractQueryType(opts...),
 		RemoveWordsIfNoResults:                  iopt.ExtractRemoveWordsIfNoResults(opts...),
 		AdvancedSyntax:                          iopt.ExtractAdvancedSyntax(opts...),
@@ -264,6 +266,9 @@ func (p *QueryParams) Equal(p2 *QueryParams) bool {
 		return false
 	}
 	if !p.QueryLanguages.Equal(p2.QueryLanguages) {
+		return false
+	}
+	if !p.NaturalLanguages.Equal(p2.NaturalLanguages) {
 		return false
 	}
 	if !p.QueryType.Equal(p2.QueryType) {
