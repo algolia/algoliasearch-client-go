@@ -11,18 +11,18 @@ type GetLogsRes struct {
 }
 
 type LogRes struct {
-	Answer         string
-	AnswerCode     int
-	IP             string
-	Method         string
-	NbAPICalls     int
-	ProcessingTime time.Duration
-	QueryBody      string
-	QueryHeaders   string
-	QueryNbHits    int
-	SHA1           string
-	Timestamp      time.Time
-	URL            string
+	Answer         string        `json:"answer"`
+	AnswerCode     int           `json:"-"`
+	IP             string        `json:"ip"`
+	Method         string        `json:"method"`
+	NbAPICalls     int           `json:"-"`
+	ProcessingTime time.Duration `json:"-"`
+	QueryBody      string        `json:"query_body"`
+	QueryHeaders   string        `json:"query_headers"`
+	QueryNbHits    int           `json:"-"`
+	SHA1           string        `json:"sha1"`
+	Timestamp      time.Time     `json:"timestamp"`
+	URL            string        `json:"url"`
 }
 
 func (res *LogRes) UnmarshalJSON(data []byte) error {
@@ -30,9 +30,12 @@ func (res *LogRes) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var m map[string]string
-	var i int
+	type Alias LogRes
+	var tmp Alias
+	_ = json.Unmarshal(data, &tmp)
+	*res = LogRes(tmp)
 
+	var m map[string]interface{}
 	err := json.Unmarshal(data, &m)
 	if err != nil {
 		return err
@@ -40,31 +43,24 @@ func (res *LogRes) UnmarshalJSON(data []byte) error {
 
 	for k, v := range m {
 		switch k {
-		case "answer":
-			res.Answer = v
 		case "answer_code":
-			res.AnswerCode, err = strconv.Atoi(v)
-		case "ip":
-			res.IP = v
-		case "method":
-			res.Method = v
+			if v, ok := v.(string); ok {
+				res.AnswerCode, err = strconv.Atoi(v)
+			}
 		case "nb_api_calls":
-			res.NbAPICalls, err = strconv.Atoi(v)
+			if v, ok := v.(string); ok {
+				res.NbAPICalls, err = strconv.Atoi(v)
+			}
 		case "processing_time_ms":
-			i, err = strconv.Atoi(v)
-			res.ProcessingTime = time.Duration(i) * time.Millisecond
-		case "query_body":
-			res.QueryBody = v
-		case "query_headers":
-			res.QueryHeaders = v
+			if v, ok := v.(string); ok {
+				var i int
+				i, err = strconv.Atoi(v)
+				res.ProcessingTime = time.Duration(i) * time.Millisecond
+			}
 		case "query_nb_hits":
-			res.QueryNbHits, err = strconv.Atoi(v)
-		case "sha1":
-			res.SHA1 = v
-		case "timestamp":
-			res.Timestamp, err = time.Parse(time.RFC3339, v)
-		case "url":
-			res.URL = v
+			if v, ok := v.(string); ok {
+				res.QueryNbHits, err = strconv.Atoi(v)
+			}
 		}
 		if err != nil {
 			return err
