@@ -15,6 +15,7 @@ func TestUnmarshalLogRes(t *testing.T) {
 	}{
 		{`{}`, LogRes{}},
 		{`{"answer": "something"}`, LogRes{Answer: "something"}},
+		{`{"exhaustive": true}`, LogRes{Exhaustive: true}},
 		{`{"answer_code": "200"}`, LogRes{AnswerCode: 200}},
 		{`{"ip": "127.0.0.1"}`, LogRes{IP: "127.0.0.1"}},
 		{`{"method": "GET"}`, LogRes{Method: "GET"}},
