@@ -39,3 +39,28 @@ func TestAdvancedSyntaxFeatures(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestAdvancedSyntaxFeatures_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.AdvancedSyntaxFeaturesOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.AdvancedSyntaxFeatures([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.AdvancedSyntaxFeatures("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.AdvancedSyntaxFeatures("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.AdvancedSyntaxFeaturesOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

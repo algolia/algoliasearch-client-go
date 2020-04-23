@@ -39,3 +39,28 @@ func TestFacets(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestFacets_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.FacetsOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.Facets([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.Facets("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.Facets("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.FacetsOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

@@ -5,6 +5,7 @@ package opt
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 )
 
 // ExplainOption is a wrapper for an Explain option parameter. It holds
@@ -37,6 +38,15 @@ func (o ExplainOption) MarshalJSON() ([]byte, error) {
 func (o *ExplainOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = []string{}
+		return nil
+	}
+	var s string
+	err := json.Unmarshal(data, &s)
+	if err == nil {
+		o.value = strings.Split(s, ",")
+		if len(o.value) == 1 && o.value[0] == "" {
+			o.value = []string{}
+		}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

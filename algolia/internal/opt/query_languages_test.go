@@ -39,3 +39,28 @@ func TestQueryLanguages(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestQueryLanguages_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.QueryLanguagesOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.QueryLanguages([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.QueryLanguages("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.QueryLanguages("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.QueryLanguagesOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

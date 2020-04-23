@@ -5,21 +5,22 @@ package opt
 import (
     "encoding/json"
     "reflect"
+    "strings"
 )
 
 // {{ .Name }}Option is a wrapper for an {{ .Name }} option parameter. It holds
 // the actual value of the option that can be accessed by calling Get.
 type {{ .Name }}Option struct {
-    value {{ .Type }}
+    value []string
 }
 
 // {{ .Name }} wraps the given value into a {{ .Name }}Option.
-func {{ .Name }}(v ...{{ trimPrefix .Type "[]" }}) *{{ .Name }}Option {
+func {{ .Name }}(v ...string) *{{ .Name }}Option {
     return &{{ .Name }}Option{v}
 }
 
 // Get retrieves the actual value of the option parameter.
-func (o *{{ .Name }}Option) Get() {{ .Type }} {
+func (o *{{ .Name }}Option) Get() []string {
     if o == nil {
         return {{ .DefaultValue }}
     }
@@ -37,6 +38,15 @@ func (o {{ .Name }}Option) MarshalJSON() ([]byte, error) {
 func (o *{{ .Name }}Option) UnmarshalJSON(data []byte) error {
     if string(data) == "null" {
         o.value = {{ .DefaultValue }}
+        return nil
+    }
+    var s string
+    err := json.Unmarshal(data, &s)
+    if err == nil {
+        o.value = strings.Split(s, ",")
+        if len(o.value) == 1 && o.value[0] == "" {
+            o.value = []string{}
+        }
         return nil
     }
     return json.Unmarshal(data, &o.value)

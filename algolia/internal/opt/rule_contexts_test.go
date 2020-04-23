@@ -39,3 +39,28 @@ func TestRuleContexts(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestRuleContexts_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.RuleContextsOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.RuleContexts([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.RuleContexts("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.RuleContexts("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.RuleContextsOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

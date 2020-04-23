@@ -5,6 +5,7 @@ package opt
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 )
 
 // AlternativesAsExactOption is a wrapper for an AlternativesAsExact option parameter. It holds
@@ -37,6 +38,15 @@ func (o AlternativesAsExactOption) MarshalJSON() ([]byte, error) {
 func (o *AlternativesAsExactOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = []string{"ignorePlurals", "singleWordSynonym"}
+		return nil
+	}
+	var s string
+	err := json.Unmarshal(data, &s)
+	if err == nil {
+		o.value = strings.Split(s, ",")
+		if len(o.value) == 1 && o.value[0] == "" {
+			o.value = []string{}
+		}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

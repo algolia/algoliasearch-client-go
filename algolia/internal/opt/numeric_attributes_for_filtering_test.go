@@ -39,3 +39,28 @@ func TestNumericAttributesForFiltering(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestNumericAttributesForFiltering_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.NumericAttributesForFilteringOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.NumericAttributesForFiltering([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.NumericAttributesForFiltering("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.NumericAttributesForFiltering("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.NumericAttributesForFilteringOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

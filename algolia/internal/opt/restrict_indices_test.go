@@ -39,3 +39,28 @@ func TestRestrictIndices(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestRestrictIndices_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.RestrictIndicesOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.RestrictIndices([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.RestrictIndices("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.RestrictIndices("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.RestrictIndicesOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}
