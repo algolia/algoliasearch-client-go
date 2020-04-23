@@ -13,6 +13,7 @@ type GetLogsRes struct {
 type LogRes struct {
 	Answer         string        `json:"answer"`
 	AnswerCode     int           `json:"-"`
+	Exhaustive     bool          `json:"exhaustive"`
 	IP             string        `json:"ip"`
 	Method         string        `json:"method"`
 	NbAPICalls     int           `json:"-"`
