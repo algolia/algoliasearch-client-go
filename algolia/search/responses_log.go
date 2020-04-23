@@ -11,20 +11,28 @@ type GetLogsRes struct {
 }
 
 type LogRes struct {
-	Answer         string        `json:"answer"`
-	AnswerCode     int           `json:"-"`
-	Exhaustive     bool          `json:"exhaustive"`
-	IP             string        `json:"ip"`
-	Index          string        `json:"index"`
-	Method         string        `json:"method"`
-	NbAPICalls     int           `json:"-"`
-	ProcessingTime time.Duration `json:"-"`
-	QueryBody      string        `json:"query_body"`
-	QueryHeaders   string        `json:"query_headers"`
-	QueryNbHits    int           `json:"-"`
-	SHA1           string        `json:"sha1"`
-	Timestamp      time.Time     `json:"timestamp"`
-	URL            string        `json:"url"`
+	Answer         string          `json:"answer"`
+	AnswerCode     int             `json:"-"`
+	Exhaustive     bool            `json:"exhaustive"`
+	IP             string          `json:"ip"`
+	Index          string          `json:"index"`
+	InnerQueries   []InnerQueryRes `json:"inner_queries"`
+	Method         string          `json:"method"`
+	NbAPICalls     int             `json:"-"`
+	ProcessingTime time.Duration   `json:"-"`
+	QueryBody      string          `json:"query_body"`
+	QueryHeaders   string          `json:"query_headers"`
+	QueryNbHits    int             `json:"-"`
+	SHA1           string          `json:"sha1"`
+	Timestamp      time.Time       `json:"timestamp"`
+	URL            string          `json:"url"`
+}
+
+type InnerQueryRes struct {
+	IndexName string `json:"index_name"`
+	QueryID   string `json:"query_id"`
+	Offset    int    `json:"offset"`
+	UserToken string `json:"user_token"`
 }
 
 func (res *LogRes) UnmarshalJSON(data []byte) error {
