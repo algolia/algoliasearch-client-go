@@ -15,6 +15,7 @@ type LogRes struct {
 	AnswerCode     int           `json:"-"`
 	Exhaustive     bool          `json:"exhaustive"`
 	IP             string        `json:"ip"`
+	Index          string        `json:"index"`
 	Method         string        `json:"method"`
 	NbAPICalls     int           `json:"-"`
 	ProcessingTime time.Duration `json:"-"`

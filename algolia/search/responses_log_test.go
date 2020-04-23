@@ -18,6 +18,7 @@ func TestUnmarshalLogRes(t *testing.T) {
 		{`{"exhaustive": true}`, LogRes{Exhaustive: true}},
 		{`{"answer_code": "200"}`, LogRes{AnswerCode: 200}},
 		{`{"ip": "127.0.0.1"}`, LogRes{IP: "127.0.0.1"}},
+		{`{"index": "something"}`, LogRes{Index: "something"}},
 		{`{"method": "GET"}`, LogRes{Method: "GET"}},
 		{`{"nb_api_calls": "42"}`, LogRes{NbAPICalls: 42}},
 		{`{"processing_time_ms": "42"}`, LogRes{ProcessingTime: 42 * time.Millisecond}},
