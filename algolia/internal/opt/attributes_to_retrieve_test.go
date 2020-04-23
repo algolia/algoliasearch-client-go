@@ -39,3 +39,28 @@ func TestAttributesToRetrieve(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestAttributesToRetrieve_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.AttributesToRetrieveOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.AttributesToRetrieve([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.AttributesToRetrieve("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.AttributesToRetrieve("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.AttributesToRetrieveOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

@@ -39,3 +39,28 @@ func TestAttributesToHighlight(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestAttributesToHighlight_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.AttributesToHighlightOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.AttributesToHighlight([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.AttributesToHighlight("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.AttributesToHighlight("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.AttributesToHighlightOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

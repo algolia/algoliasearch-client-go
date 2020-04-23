@@ -39,3 +39,28 @@ func TestScopes(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestScopes_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.ScopesOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.Scopes([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.Scopes("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.Scopes("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.ScopesOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

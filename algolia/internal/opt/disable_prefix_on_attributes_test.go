@@ -39,3 +39,28 @@ func TestDisablePrefixOnAttributes(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestDisablePrefixOnAttributes_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.DisablePrefixOnAttributesOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.DisablePrefixOnAttributes([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.DisablePrefixOnAttributes("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.DisablePrefixOnAttributes("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.DisablePrefixOnAttributesOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

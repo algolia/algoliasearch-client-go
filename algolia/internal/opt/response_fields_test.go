@@ -39,3 +39,28 @@ func TestResponseFields(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestResponseFields_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.ResponseFieldsOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.ResponseFields([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.ResponseFields("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.ResponseFields("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.ResponseFieldsOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

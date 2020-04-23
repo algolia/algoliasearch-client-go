@@ -5,6 +5,7 @@ package opt
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 )
 
 // RankingOption is a wrapper for an Ranking option parameter. It holds
@@ -37,6 +38,15 @@ func (o RankingOption) MarshalJSON() ([]byte, error) {
 func (o *RankingOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = []string{"typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"}
+		return nil
+	}
+	var s string
+	err := json.Unmarshal(data, &s)
+	if err == nil {
+		o.value = strings.Split(s, ",")
+		if len(o.value) == 1 && o.value[0] == "" {
+			o.value = []string{}
+		}
 		return nil
 	}
 	return json.Unmarshal(data, &o.value)

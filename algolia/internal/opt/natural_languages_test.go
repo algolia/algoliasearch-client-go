@@ -39,3 +39,28 @@ func TestNaturalLanguages(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestNaturalLanguages_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.NaturalLanguagesOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.NaturalLanguages([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.NaturalLanguages("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.NaturalLanguages("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.NaturalLanguagesOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

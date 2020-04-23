@@ -1,4 +1,4 @@
-//+build ignore
+// +build ignore
 
 package main
 
@@ -27,9 +27,9 @@ func main() {
 		optionTestMapStringMapStringStringTemplate = createTemplate("templates/option_test/map_string_map_string_string.go.tmpl")
 		optionTestMapStringInterfaceTemplate       = createTemplate("templates/option_test/map_string_interface_slice.go.tmpl")
 
-		optionLiteralTemplate = createTemplate("templates/option/literal.go.tmpl")
-		optionMapTemplate     = createTemplate("templates/option/map.go.tmpl")
-		optionSliceTemplate   = createTemplate("templates/option/slice.go.tmpl")
+		optionLiteralTemplate     = createTemplate("templates/option/literal.go.tmpl")
+		optionMapTemplate         = createTemplate("templates/option/map.go.tmpl")
+		optionStringSliceTemplate = createTemplate("templates/option/string_slice.go.tmpl")
 	)
 
 	for _, opt := range options {
@@ -62,7 +62,7 @@ func main() {
 			case map[string]string, map[string][]string, map[string]interface{}, map[string]map[string]string:
 				generateFile(optionMapTemplate, data, filepath)
 			case []string:
-				generateFile(optionSliceTemplate, data, filepath)
+				generateFile(optionStringSliceTemplate, data, filepath)
 			default:
 				fmt.Printf("cannot generate option file for %s: unhandled type %#v", opt.Name, opt.DefaultValue)
 				os.Exit(1)

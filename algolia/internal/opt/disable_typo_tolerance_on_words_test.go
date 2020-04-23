@@ -39,3 +39,28 @@ func TestDisableTypoToleranceOnWords(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestDisableTypoToleranceOnWords_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.DisableTypoToleranceOnWordsOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.DisableTypoToleranceOnWords([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.DisableTypoToleranceOnWords("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.DisableTypoToleranceOnWords("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.DisableTypoToleranceOnWordsOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}

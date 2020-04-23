@@ -39,3 +39,28 @@ func TestAlternativesAsExact(t *testing.T) {
 		require.ElementsMatch(t, c.expected.Get(), out.Get())
 	}
 }
+
+func TestAlternativesAsExact_CommaSeparatedString(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected *opt.AlternativesAsExactOption
+	}{
+		{
+			payload:  `""`,
+			expected: opt.AlternativesAsExact([]string{}...),
+		},
+		{
+			payload:  `"value1"`,
+			expected: opt.AlternativesAsExact("value1"),
+		},
+		{
+			payload:  `"value1,value2,value3"`,
+			expected: opt.AlternativesAsExact("value1", "value2", "value3"),
+		},
+	} {
+		var got opt.AlternativesAsExactOption
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err)
+		require.ElementsMatch(t, c.expected.Get(), got.Get())
+	}
+}
