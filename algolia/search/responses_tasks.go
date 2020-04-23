@@ -8,15 +8,15 @@ type TaskStatusRes struct {
 }
 
 type UpdateTaskRes struct {
-	TaskID    int       `json:"taskID"`
+	TaskID    int64     `json:"taskID"`
 	UpdatedAt time.Time `json:"updatedAt"`
-	wait      func(taskID int) error
+	wait      func(taskID int64) error
 }
 
 type DeleteTaskRes struct {
 	DeletedAt time.Time `json:"deletedAt"`
-	TaskID    int       `json:"taskID"`
-	wait      func(taskID int) error
+	TaskID    int64     `json:"taskID"`
+	wait      func(taskID int64) error
 }
 
 func (r UpdateTaskRes) Wait() error { return r.wait(r.TaskID) }

@@ -65,6 +65,6 @@ func NewClientWithConfig(config Configuration) *Client {
 	}
 }
 
-func (c *Client) waitTaskSearchClient(index string, taskID int) error {
+func (c *Client) waitTaskSearchClient(index string, taskID int64) error {
 	return c.searchClient.InitIndex(index).WaitTask(taskID)
 }

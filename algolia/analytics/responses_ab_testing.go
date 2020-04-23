@@ -11,8 +11,8 @@ import (
 type ABTestTaskRes struct {
 	ABTestID int    `json:"abTestID"`
 	Index    string `json:"index"`
-	TaskID   int    `json:"taskID"`
-	wait     func(index string, taskID int) error
+	TaskID   int64  `json:"taskID"`
+	wait     func(index string, taskID int64) error
 }
 
 // Wait blocks until the AB test task completes or if there is an error while

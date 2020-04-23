@@ -4,8 +4,8 @@ import "github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 
 type IndexInterface interface {
 	// Misc
-	WaitTask(taskID int) error
-	GetStatus(taskID int) (res TaskStatusRes, err error)
+	WaitTask(taskID int64) error
+	GetStatus(taskID int64) (res TaskStatusRes, err error)
 	GetAppID() string
 	ClearObjects(opts ...interface{}) (res UpdateTaskRes, err error)
 	Delete(opts ...interface{}) (res DeleteTaskRes, err error)
