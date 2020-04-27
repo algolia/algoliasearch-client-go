@@ -17,6 +17,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/analytics"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/insights"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/recommendation"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
@@ -70,6 +72,10 @@ func InitInsightsClient(t *testing.T) *insights.Client {
 	return initInsightsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
 }
 
+func InitRecommendationClient(t *testing.T) *recommendation.Client {
+	return initRecommendationClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
+}
+
 func initInsightsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *insights.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
 	c := insights.NewClient(appID, key)
@@ -90,6 +96,12 @@ func initSearchClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *searc
 func initAnalyticsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *analytics.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
 	c := analytics.NewClient(appID, key)
+	return c
+}
+
+func initRecommendationClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *recommendation.Client {
+	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
+	c := recommendation.NewClient(appID, key, region.US)
 	return c
 }
 
