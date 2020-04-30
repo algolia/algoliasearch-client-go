@@ -116,7 +116,7 @@ func GetTestingCredentials(t *testing.T, appIDEnvVar, apiKeyEnvVar string) (stri
 func GenerateCanonicalPrefixName() string {
 	var instanceName string
 
-	if build := os.Getenv("TRAVIS_JOB_NUMBER"); build != "" {
+	if build := os.Getenv("CIRCLE_BUILD_NUM"); build != "" {
 		instanceName = build
 	} else {
 		if user, err := user.Current(); err == nil {

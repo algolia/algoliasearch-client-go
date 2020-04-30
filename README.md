@@ -6,7 +6,7 @@
   <h4 align="center">The perfect starting point to integrate <a href="https://algolia.com" target="_blank">Algolia</a> within your Go project</h4>
 
   <p align="center">
-    <a href="https://travis-ci.org/algolia/algoliasearch-client-go"><img src="https://img.shields.io/travis/algolia/algoliasearch-client-go/master.svg" alt="Build Status"></img></a>
+    <a href="https://circleci.com/gh/algolia/algoliasearch-client-go"><img src="https://circleci.com/gh/algolia/algoliasearch-client-go.svg?style=shield" alt="CircleCI" /></a>
     <a href="https://github.com/algolia/algoliasearch-client-go/releases"><img src="https://img.shields.io/github/tag/algolia/algoliasearch-client-go.svg" alt="Github Releases"></img></a>
     <a href="https://godoc.org/github.com/algolia/algoliasearch-client-go"><img src="https://godoc.org/github.com/algolia/algoliasearch-client-go?status.svg" alt="GoDoc"></img></a>
     <a href="https://goreportcard.com/report/github.com/algolia/algoliasearch-client-go"><img src="https://goreportcard.com/badge/github.com/algolia/algoliasearch-client-go" alt="Go Report Card"></img></a>
