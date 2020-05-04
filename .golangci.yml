@@ -12,7 +12,6 @@ linters:
     - gofmt
     - goimports
     - golint
-    - gosimple
     - govet
     - ineffassign
     - misspell
