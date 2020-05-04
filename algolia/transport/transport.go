@@ -4,7 +4,6 @@ import (
 	"compress/gzip"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -116,6 +115,11 @@ func (t *Transport) Request(
 		req = req.WithContext(perRequestCtx)
 		bodyRes, code, err := t.request(req)
 
+		if isErrBecauseOfContextCancellation(ctx, err) {
+			cancel()
+			return err
+		}
+
 		switch t.retryStrategy.Decide(h, code, err) {
 		case Success:
 			err = unmarshalTo(bodyRes, &res)
@@ -140,29 +144,56 @@ func (t *Transport) Request(
 	return errs.ErrNoMoreHostToTry
 }
 
+func isErrBecauseOfContextCancellation(ctx context.Context, err error) bool {
+	if err == nil {
+		return false
+	}
+
+	var (
+		isCancelled        = strings.Contains(err.Error(), context.Canceled.Error())
+		isDeadlineExceeded = strings.Contains(err.Error(), context.DeadlineExceeded.Error())
+		isContextDone      bool
+	)
+
+	select {
+	case <-ctx.Done():
+		isContextDone = true
+	default:
+		isContextDone = false
+	}
+
+	return (isCancelled || isDeadlineExceeded) && isContextDone
+}
+
 func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
 	debug.Display(req)
 	res, err := t.requester.Request(req)
 	debug.Display(res)
 
-	if err != nil {
-		msg := fmt.Sprintf("cannot perform request:\n\terror=%v\n\tmethod=%s\n\turl=%s", err, req.Method, req.URL)
-		nerr, ok := err.(net.Error)
-		if ok {
-			// Because net.Error and error have different meanings for the
-			// retry strategy, we cannot simply return a new error, which
-			// would make all net.Error simple errors instead. To keep this
-			// behaviour, we wrap the message into a custom netError that
-			// implements the net.Error interface if the original error was
-			// already a net.Error.
-			err = errs.NetError(nerr, msg)
-		} else {
-			err = errors.New(msg)
-		}
-		return nil, 0, err
+	if err == nil {
+		return res.Body, res.StatusCode, nil
 	}
 
-	return res.Body, res.StatusCode, nil
+	wrappingErr := fmt.Errorf(
+		"cannot perform request:\n\terror=%v\n\tmethod=%s\n\turl=%s",
+		err,
+		req.Method,
+		req.URL,
+	)
+
+	if nerr, ok := err.(net.Error); ok {
+		// Because net.Error and error have different meanings for the
+		// retry strategy, we cannot simply return a new error, which
+		// would make all net.Error simple errors instead. To keep this
+		// behaviour, we wrap the message into a custom netError that
+		// implements the net.Error interface if the original error was
+		// already a net.Error.
+		err = errs.NetError(nerr, wrappingErr.Error())
+	} else {
+		err = wrappingErr
+	}
+
+	return nil, 0, err
 }
 
 func mergeHeaders(defaultHeaders, extraHeaders map[string]string) map[string]string {
