@@ -38,13 +38,27 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-            key: go-cache-1-14
+          key: go-cache-1-14
       - run:
           name: Install golangci-lint linter
           command: curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.25.0
       - run:
           name: Check formatting
           command: make lint
+  test-1-11:
+    docker:
+      - image: circleci/golang:1.11
+    steps:
+      - checkout
+      - restore_cache:
+          key: go-cache-1-11
+      - credentials
+      - test:
+          go_version: "1.11"
+      - save_cache:
+          key: go-cache-1-11
+          paths:
+            - "~/go/pkg"
   test-1-12:
     docker:
       - image: circleci/golang:1.12
@@ -93,6 +107,7 @@ workflows:
   build:
     jobs:
       - format
+      - test-1-11
       - test-1-12
       - test-1-13
       - test-1-14
