@@ -116,6 +116,15 @@ func (t *Transport) Request(
 		req = req.WithContext(perRequestCtx)
 		bodyRes, code, err := t.request(req)
 
+		// Context error only returns a non-nil error upon context
+		// cancellation, which is a signal we interpret as an early return.
+		// Indeed, we do not want to retry on other hosts if the context is
+		// already cancelled.
+		if ctx.Err() != nil {
+			cancel()
+			return err
+		}
+
 		switch t.retryStrategy.Decide(h, code, err) {
 		case Success:
 			err = unmarshalTo(bodyRes, &res)
