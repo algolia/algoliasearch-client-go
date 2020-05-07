@@ -114,7 +114,7 @@ var options = []Option{
 	{"enabled", Other, true, ""}, // Used to enable the rule by default
 
 	// Personalization
-	{"enablePersonalization", Search, false, ""},
+	{"enablePersonalization", Search|Settings, false, ""},
 	{"personalizationImpact", Search, 100, ""},
 	{"userToken", Search, "", ""},
 
