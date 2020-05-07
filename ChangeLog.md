@@ -1,5 +1,29 @@
 # ChangeLog
 
+## [3.7.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.6.1...3.7.0) (2020-05-07)
+
+### Feat
+
+- **search**: accept enablePersonalization boolean as a valid setting parameter ([7fbc57a](https://github.com/algolia/algoliasearch-client-go/commit/7fbc57a))
+- expose InnerQueries slice in search.LogRes struct ([13b72c6](https://github.com/algolia/algoliasearch-client-go/commit/13b72c6))
+- expose Index string in search.LogRes struct ([49987a1](https://github.com/algolia/algoliasearch-client-go/commit/49987a1))
+- expose Exhaustive boolean in search.LogRes struct ([c2c667a](https://github.com/algolia/algoliasearch-client-go/commit/c2c667a))
+- make all string slice options able to decode comma-separated string ([a667bbc](https://github.com/algolia/algoliasearch-client-go/commit/a667bbc))
+- **search**: expose new search parameter `naturalLanguages` ([1f104d8](https://github.com/algolia/algoliasearch-client-go/commit/1f104d8))
+
+### Refactor
+
+- **transport**: ensure early termination upon context cancellation ([d1ecb1d](https://github.com/algolia/algoliasearch-client-go/commit/d1ecb1d))
+- simplify and add tests for search.LogRes deserialization ([b1f0112](https://github.com/algolia/algoliasearch-client-go/commit/b1f0112))
+
+### Fix
+
+- use int64 instead of int (32b integers) to represent task IDs everywhere ([ca1e4f0](https://github.com/algolia/algoliasearch-client-go/commit/ca1e4f0))
+- **synonym**: correctly serialize opt.Type (used in SearchSynonyms() queries) ([5d662fc](https://github.com/algolia/algoliasearch-client-go/commit/5d662fc))
+- **recommendation**: add app id to the default config ([e8d59d9](https://github.com/algolia/algoliasearch-client-go/commit/e8d59d9))
+
+
+
 ## [v3.6.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.6.0...v3.6.1) (2020-04-06)
 
 ### Fix
