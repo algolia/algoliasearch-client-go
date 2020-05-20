@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [v3.8.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.7.0...v3.8.0) (2020-05-20)
+
+### Feat
+
+- **rule**: expose Rule.RuleConsequence.Promote.ObjectIDs string slice ([2812011](https://github.com/algolia/algoliasearch-client-go/commit/2812011))
+
+
+
 ## [3.7.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.6.1...3.7.0) (2020-05-07)
 
 ### Feat
