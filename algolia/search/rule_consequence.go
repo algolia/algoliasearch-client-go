@@ -11,8 +11,9 @@ type RuleConsequence struct {
 }
 
 type PromotedObject struct {
-	ObjectID string `json:"objectID"`
-	Position int    `json:"position"`
+	ObjectID  string   `json:"objectID,omitempty"`
+	ObjectIDs []string `json:"objectIDs,omitempty"`
+	Position  int      `json:"position"`
 }
 
 type HiddenObject struct {
