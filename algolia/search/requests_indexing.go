@@ -42,3 +42,8 @@ type getObjectsReq struct {
 type batchReq struct {
 	Requests []BatchOperation `json:"requests,omitempty"`
 }
+
+type PartialUpdateOperation struct {
+	Operation string      `json:"_operation"`
+	Value     interface{} `json:"value"`
+}
