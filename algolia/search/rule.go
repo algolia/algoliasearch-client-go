@@ -11,7 +11,9 @@ import (
 
 // Rule represents an Algolia query rule.
 type Rule struct {
+	// Deprecated: Use `Conditions` instead to specify one or more condition(s)
 	Condition   RuleCondition      `json:"condition"`
+	Conditions  []RuleCondition    `json:"conditions,omitempty"`
 	Consequence RuleConsequence    `json:"consequence"`
 	Description string             `json:"description,omitempty"`
 	Enabled     *opt.EnabledOption `json:"enabled,omitempty"`
