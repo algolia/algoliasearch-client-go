@@ -68,10 +68,12 @@ func TestQueryRule(t *testing.T) {
 		},
 		{
 			ObjectID: "query_edits",
-			Condition: search.RuleCondition{
-				Anchoring:    search.Contains,
-				Pattern:      "mobile phone",
-				Alternatives: search.AlternativesEnabled(),
+			Conditions: []search.RuleCondition{
+				{
+					Anchoring:    search.Contains,
+					Pattern:      "mobile phone",
+					Alternatives: search.AlternativesEnabled(),
+				},
 			},
 			Consequence: search.RuleConsequence{
 				Params: &search.RuleParams{
