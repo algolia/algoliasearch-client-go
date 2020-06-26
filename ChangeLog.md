@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.8.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.0...3.8.1) (2020-06-26)
+
+### Fix
+
+- **transport**: correctly URL-encode values (only used by API keys for now) ([c4c2c5e](https://github.com/algolia/algoliasearch-client-go/commit/c4c2c5e))
+
+
+
 ## [v3.8.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.7.0...v3.8.0) (2020-05-20)
 
 ### Feat
