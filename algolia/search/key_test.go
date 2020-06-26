@@ -1,11 +1,13 @@
 package search
 
 import (
+	"encoding/json"
 	"testing"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 	"github.com/stretchr/testify/require"
+
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 func TestAreKeysEqual(t *testing.T) {
@@ -60,5 +62,39 @@ func TestAreKeysEqual(t *testing.T) {
 		require.Equal(t, c2, c.k2.CreatedAt)
 		require.Equal(t, v1, c.k1.Validity)
 		require.Equal(t, v2, c.k2.Validity)
+	}
+}
+
+func TestKeyDeserializer(t *testing.T) {
+	for _, c := range []struct {
+		payload  string
+		expected Key
+	}{
+		{
+			`{}`,
+			Key{CreatedAt: time.Unix(0, 0)},
+		},
+		{
+			`{"queryParameters":"facetFilters=[[%22privatePlatformCodes:-ha%22], [%22biddingStatus:-Closed%22, %22saleStatus:None%22]]"}`,
+			Key{
+				CreatedAt: time.Unix(0, 0),
+				QueryParameters: KeyQueryParams{
+					QueryParams: QueryParams{
+						FacetFilters: opt.FacetFilterAnd(
+							opt.FacetFilter("privatePlatformCodes:-ha"),
+							opt.FacetFilterOr(
+								opt.FacetFilter("biddingStatus:-Closed"),
+								opt.FacetFilter("saleStatus:None"),
+							),
+						),
+					},
+				},
+			},
+		},
+	} {
+		var got Key
+		err := json.Unmarshal([]byte(c.payload), &got)
+		require.NoError(t, err, "cannot unmarshal key payload %s", c.payload)
+		require.Equal(t, c.expected, got, "keys are not equal for payload %s", c.payload)
 	}
 }

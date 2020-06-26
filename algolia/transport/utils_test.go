@@ -2,11 +2,11 @@ package transport
 
 import (
 	"fmt"
-	"reflect"
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/stretchr/testify/require"
+
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 )
 
 func TestShuffle(t *testing.T) {
@@ -77,13 +77,13 @@ func TestURLEncodeDecode(t *testing.T) {
 		},
 	} {
 		encoded1 := URLEncode(c.input)
-		require.Equal(t, c.encoded, encoded1, "wrong URL-encoded string for input %q", c.input)
+		require.Equal(t, c.encoded, encoded1, "wrong URL-encoded string for input %#v", c.input)
 
-		decoded := reflect.New(reflect.TypeOf(c.input)).Interface()
+		decoded := c.input
 		err := URLDecode([]byte(encoded1), &decoded)
-		require.NoError(t, err, "cannot decode back the input %q once encoded (%s)", c.input, encoded1)
+		require.NoError(t, err, "cannot decode back the input %#v once encoded (%s)", c.input, encoded1)
 
 		encoded2 := URLEncode(decoded)
-		require.Equal(t, c.encoded, encoded2, "wrong URL-encoded string for input %q", c.input)
+		require.Equal(t, c.encoded, encoded2, "wrong URL-encoded string for input %#v", c.input)
 	}
 }
