@@ -54,8 +54,12 @@ func URLEncode(itf interface{}) string {
 		case int:
 			value = strconv.Itoa(v)
 		default:
-			jsonValue, _ := json.Marshal(v)
-			value = string(jsonValue)
+			if v == nil {
+				value = ""
+			} else {
+				jsonValue, _ := json.Marshal(v)
+				value = string(jsonValue)
+			}
 		}
 		values.Add(key, value)
 	}
@@ -73,15 +77,7 @@ func URLDecode(data []byte, itf interface{}) error {
 
 	m := make(map[string]interface{})
 	for k, v := range values {
-		if len(v) == 1 {
-			m[k] = convertValue(v[0])
-		} else {
-			var s []interface{}
-			for _, value := range v {
-				s = append(s, convertValue(value))
-			}
-			m[k] = s
-		}
+		m[k] = convertValue(v[0])
 	}
 
 	data, err = json.Marshal(m)
@@ -94,14 +90,20 @@ func URLDecode(data []byte, itf interface{}) error {
 }
 
 func convertValue(v string) interface{} {
-	if len(v) >= 2 && v[0] == '[' && v[len(v)-1] == ']' {
-		var s []interface{}
-		for _, v := range strings.Split(v[1:len(v)-1], ",") {
-			s = append(s, convertValue(v))
-		}
-		return s
+	if len(v) == 0 {
+		return nil
 	}
-
+	if len(v) == 1 {
+		return v
+	}
+	if isArray(v) {
+		var arr []interface{}
+		err := json.Unmarshal([]byte(v), &arr)
+		if err != nil {
+			debug.Printf("cannot decode array value %s: %v\n", v, err)
+		}
+		return arr
+	}
 	trimmed := strings.Trim(v, `"`)
 	if b, err := strconv.ParseBool(trimmed); err == nil {
 		return b
@@ -113,4 +115,10 @@ func convertValue(v string) interface{} {
 		return f
 	}
 	return trimmed
+}
+
+func isArray(v string) bool {
+	firstChar := v[0]
+	lastChar := v[len(v)-1]
+	return firstChar == '[' && lastChar == ']'
 }
