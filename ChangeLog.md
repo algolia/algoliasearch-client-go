@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.8.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.1...3.8.2) (2020-07-03)
+
+### Fix
+
+- **transport**: prevent memory leak when many clients are instantiated by multiple goroutines ([0ab393f](https://github.com/algolia/algoliasearch-client-go/commit/0ab393f))
+
+
+
 ## [3.8.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.0...3.8.1) (2020-06-26)
 
 ### Fix
