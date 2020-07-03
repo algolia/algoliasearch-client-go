@@ -24,17 +24,19 @@ const (
 // pass it to an HTTP interceptor.
 func DefaultHTTPClient() *http.Client {
 	return &http.Client{
-		Transport: &http.Transport{
-			Dial: (&net.Dialer{
-				KeepAlive: DefaultKeepAliveDuration,
-				Timeout:   DefaultConnectTimeout,
-			}).Dial,
-			DisableKeepAlives:   false,
-			MaxIdleConnsPerHost: DefaultMaxIdleConnsPerHost,
-			Proxy:               http.ProxyFromEnvironment,
-			TLSHandshakeTimeout: DefaultTLSHandshakeTimeout,
-		},
+		Transport: defaultTransport,
 	}
+}
+
+var defaultTransport http.RoundTripper = &http.Transport{
+	Dial: (&net.Dialer{
+		KeepAlive: DefaultKeepAliveDuration,
+		Timeout:   DefaultConnectTimeout,
+	}).Dial,
+	DisableKeepAlives:   false,
+	MaxIdleConnsPerHost: DefaultMaxIdleConnsPerHost,
+	Proxy:               http.ProxyFromEnvironment,
+	TLSHandshakeTimeout: DefaultTLSHandshakeTimeout,
 }
 
 type Requester interface {
