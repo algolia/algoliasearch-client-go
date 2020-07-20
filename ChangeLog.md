@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.9.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.2...3.9.0) (2020-07-20)
+
+### Feat
+
+- **rule**: implement multi-condition rules ([e6f5cb6](https://github.com/algolia/algoliasearch-client-go/commit/e6f5cb6))
+
+
+
 ## [3.8.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.1...3.8.2) (2020-07-03)
 
 ### Fix
