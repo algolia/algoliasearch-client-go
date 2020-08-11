@@ -335,4 +335,7 @@ func TestOptionGetters(t *testing.T) {
 	var filterPromotes *FilterPromotesOption = nil
 	filterPromotes.Get()
 
+	var exposeIntermediateNetworkErrors *ExposeIntermediateNetworkErrorsOption = nil
+	exposeIntermediateNetworkErrors.Get()
+
 }
