@@ -167,4 +167,5 @@ var options = []Option{
 	{"limit", Other, 10, ""},
 	{"safe", Other, false, ""},
 	{"filterPromotes", Other, false, ""},
+	{"exposeIntermediateNetworkErrors", Other, false, ""},
 }
