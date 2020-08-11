@@ -3,10 +3,14 @@ package transport
 import (
 	"net/http"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 func TestShouldCompress(t *testing.T) {
@@ -33,4 +37,45 @@ func TestShouldCompress(t *testing.T) {
 		got := shouldCompress(c.compression, c.method, c.body)
 		require.Equal(t, c.expected, got, "compression=%d method=%q", c.compression, c.method)
 	}
+}
+
+func TestShouldNotExposeIntermediateNetworkErrors(t *testing.T) {
+	hosts := []*StatefulHost{NewStatefulHost("", call.IsReadWrite)}
+	requester := newDefaultRequester()
+	transporter := New(
+		hosts,
+		requester,
+		"appID",
+		"apiKey",
+		time.Second,
+		time.Second,
+		nil,
+		"",
+		compression.None,
+	)
+	var res string
+	err := transporter.Request(&res, http.MethodGet, "", nil, call.Read)
+	require.Equal(t, errs.ErrNoMoreHostToTry, err)
+}
+
+func TestShouldExposeIntermediateNetworkErrors(t *testing.T) {
+	hosts := []*StatefulHost{NewStatefulHost("", call.IsReadWrite)}
+	requester := newDefaultRequester()
+	transporter := New(
+		hosts,
+		requester,
+		"appID",
+		"apiKey",
+		time.Second,
+		time.Second,
+		nil,
+		"",
+		compression.None,
+	)
+	opts := []interface{}{opt.ExposeIntermediateNetworkErrors(true)}
+	var res string
+	err := transporter.Request(&res, http.MethodGet, "", nil, call.Read, opts...)
+	noMoreHostToTryErr, ok := err.(*errs.NoMoreHostToTryErr)
+	require.True(t, ok)
+	require.Len(t, noMoreHostToTryErr.IntermediateNetworkErrors(), 1)
 }
