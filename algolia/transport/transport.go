@@ -100,6 +100,9 @@ func (t *Transport) Request(
 		urlParams["forwardToReplicas"] = fmt.Sprintf("%t", forwardToReplicas.Get())
 	}
 
+	exposeIntermediateNetworkErrors := iopt.ExtractExposeIntermediateNetworkErrors(opts...).Get()
+	var intermediateNetworkErrors []error
+
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
 		req, err := buildRequest(t.compression, method, h.host, path, body, headers, urlParams)
 		if err != nil {
@@ -135,6 +138,7 @@ func (t *Transport) Request(
 			cancel()
 			return err
 		default:
+			intermediateNetworkErrors = append(intermediateNetworkErrors, err)
 			if bodyRes != nil {
 				if err = bodyRes.Close(); err != nil {
 					cancel()
@@ -144,6 +148,10 @@ func (t *Transport) Request(
 		}
 
 		cancel()
+	}
+
+	if exposeIntermediateNetworkErrors {
+		return errs.NewNoMoreHostToTryError(intermediateNetworkErrors...)
 	}
 
 	return errs.ErrNoMoreHostToTry
