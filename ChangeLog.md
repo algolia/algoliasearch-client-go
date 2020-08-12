@@ -1,5 +1,15 @@
 # ChangeLog
 
+## [3.10.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.9.0...3.10.0) (2020-08-12)
+
+### Feat
+
+- **transport**: make opt.ExposeIntermediateNetworkErrors return errors upon NoMorHostToTryErr ([f604373](https://github.com/algolia/algoliasearch-client-go/commit/f604373))
+- generate new option opt.ExposeIntermediateNetworkErrors ([aaf0de4](https://github.com/algolia/algoliasearch-client-go/commit/aaf0de4))
+- **search**: expose built-in operations for partial updates with PartialUpdateOperation ([d1b7d08](https://github.com/algolia/algoliasearch-client-go/commit/d1b7d08))
+
+
+
 ## [3.9.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.2...3.9.0) (2020-07-20)
 
 ### Feat
