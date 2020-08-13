@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [3.11.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.10.0...3.11.0) (2020-08-13)
+
+### Feat
+
+- use correct conversion function to compile in Go 1.15 ([dea59d6](https://github.com/algolia/algoliasearch-client-go/commit/dea59d6))
+
+### Refactor
+
+- **batch**: simplify and remove deadcode from automatic batching implementation ([c35bfa7](https://github.com/algolia/algoliasearch-client-go/commit/c35bfa7))
+
+### Fix
+
+- **search**: make negative values for Configuration.MaxBatchSize default to search.MaxBatchSize ([f11ef86](https://github.com/algolia/algoliasearch-client-go/commit/f11ef86))
+
+
+
 ## [3.10.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.9.0...3.10.0) (2020-08-12)
 
 ### Feat
