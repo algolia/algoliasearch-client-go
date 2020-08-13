@@ -54,7 +54,7 @@ func NewClientWithConfig(config Configuration) *Client {
 		}
 	}
 
-	if config.MaxBatchSize == 0 {
+	if config.MaxBatchSize <= 0 {
 		maxBatchSize = DefaultMaxBatchSize
 	} else {
 		maxBatchSize = config.MaxBatchSize
