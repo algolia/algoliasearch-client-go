@@ -27,10 +27,10 @@ func TestEnableURLEncodingIndexName(t *testing.T) {
 		if !unicode.IsPrint(rune(c)) ||
 			unicode.IsNumber(rune(c)) ||
 			unicode.IsLetter(rune(c)) ||
-			strings.Contains(forbiddenCharacters, string(c)) {
+			strings.Contains(forbiddenCharacters, fmt.Sprint(c)) {
 			continue
 		}
-		indexNames = append(indexNames, baseIndexName+string(c))
+		indexNames = append(indexNames, baseIndexName+fmt.Sprint(c))
 	}
 
 	g := wait.NewGroup()
