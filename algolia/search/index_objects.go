@@ -171,7 +171,7 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 			return multipleRes, fmt.Errorf("missing objectID in object %#v", object)
 		}
 
-		if len(batch) >= i.maxBatchSize || object == nil {
+		if shouldSendBatch(i.maxBatchSize, batch, object) {
 			operations, err = newOperationBatch(batch, action)
 			if err != nil {
 				return multipleRes, fmt.Errorf("could not generate intermediate batch: %v", err)
@@ -181,17 +181,24 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 				return multipleRes, fmt.Errorf("could not send intermediate batch: %v", err)
 			}
 			multipleRes.Responses = append(multipleRes.Responses, singleRes)
-			batch = []interface{}{object}
-		} else {
-			batch = append(batch, object)
+			batch = nil
 		}
 
 		if object == nil {
 			break
+		} else {
+			batch = append(batch, object)
 		}
 	}
 
 	return multipleRes, nil
+}
+
+func shouldSendBatch(maxBatchSize int, batch []interface{}, object interface{}) bool {
+	isMaxBatchSizePositive := maxBatchSize > 0
+	isBatchBigEnough := len(batch) >= maxBatchSize
+	isLastBatch := object == nil
+	return isMaxBatchSizePositive && (isBatchBigEnough || isLastBatch)
 }
 
 // Batch sends all the given indexing operations with a single call.
