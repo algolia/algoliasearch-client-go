@@ -138,7 +138,12 @@ func (t *Transport) Request(
 			cancel()
 			return err
 		default:
-			intermediateNetworkErrors = append(intermediateNetworkErrors, err)
+			if err != nil {
+				intermediateNetworkErrors = append(intermediateNetworkErrors, err)
+			} else {
+				responseErr := unmarshalToError(bodyRes)
+				intermediateNetworkErrors = append(intermediateNetworkErrors, responseErr)
+			}
 			if bodyRes != nil {
 				if err = bodyRes.Close(); err != nil {
 					cancel()
