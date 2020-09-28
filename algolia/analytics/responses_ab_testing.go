@@ -54,6 +54,7 @@ type VariantResponse struct {
 	Index                  string              `json:"index"`
 	NoResultCount          int                 `json:"noResultCount"`
 	SearchCount            int                 `json:"searchCount"`
+	TrackedSearchCount     int                 `json:"trackedSearchCount"`
 	TrafficPercentage      int                 `json:"trafficPercentage"`
 	UserCount              int                 `json:"userCount"`
 	CustomSearchParameters *search.QueryParams `json:"customSearchParameters"`
