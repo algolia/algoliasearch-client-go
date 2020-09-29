@@ -1,5 +1,17 @@
 # ChangeLog
 
+## [3.12.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.11.0...3.12.0) (2020-09-29)
+
+### Fix
+
+- **analytics**: correct AB testing average click pos type ([856378f](https://github.com/algolia/algoliasearch-client-go/commit/856378f))
+
+### Feat
+
+- **analytics**: add tracked search count ([ad7acd1](https://github.com/algolia/algoliasearch-client-go/commit/ad7acd1))
+
+
+
 ## [3.11.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.10.0...3.11.0) (2020-08-13)
 
 ### Feat
