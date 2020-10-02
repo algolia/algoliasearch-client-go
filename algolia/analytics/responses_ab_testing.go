@@ -33,7 +33,7 @@ type GetABTestsRes struct {
 // retrieved as part of a response.
 type ABTestResponse struct {
 	ABTestID               int               `json:"abTestID"`
-	ClickSignificance      int               `json:"clickSignificance"`
+	ClickSignificance      float64           `json:"clickSignificance"`
 	ConversionSignificance float64           `json:"conversionSignificance"`
 	CreatedAt              time.Time         `json:"createdAt"`
 	EndAt                  time.Time         `json:"endAt"`
