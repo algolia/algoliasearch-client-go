@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.12.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.0...3.12.1) (2020-10-02)
+
+### Fix
+
+- **analytics**: correct the click significance type ([28520a2](https://github.com/algolia/algoliasearch-client-go/commit/28520a2))
+
+
+
 ## [3.12.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.11.0...3.12.0) (2020-09-29)
 
 ### Fix
