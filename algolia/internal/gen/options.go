@@ -117,6 +117,8 @@ var options = []Option{
 	{"enablePersonalization", Search|Settings, false, ""},
 	{"personalizationImpact", Search, 100, ""},
 	{"userToken", Search, "", ""},
+	{"enableReRanking", Search | Settings, true, ""},
+	{"reRankingApplyFilter", Search | Settings, "", ""},
 
 	// Performance
 	{"numericAttributesForFiltering", Settings, []string{}, "numericAttributesToIndex"},

@@ -62,6 +62,8 @@ type QueryParams struct {
 	EnablePersonalization                   *opt.EnablePersonalizationOption                   `json:"enablePersonalization,omitempty"`
 	PersonalizationImpact                   *opt.PersonalizationImpactOption                   `json:"personalizationImpact,omitempty"`
 	UserToken                               *opt.UserTokenOption                               `json:"userToken,omitempty"`
+	EnableReRanking                         *opt.EnableReRankingOption                         `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter                    *opt.ReRankingApplyFilterOption                    `json:"reRankingApplyFilter,omitempty"`
 	Distinct                                *opt.DistinctOption                                `json:"distinct,omitempty"`
 	GetRankingInfo                          *opt.GetRankingInfoOption                          `json:"getRankingInfo,omitempty"`
 	ClickAnalytics                          *opt.ClickAnalyticsOption                          `json:"clickAnalytics,omitempty"`
@@ -132,6 +134,8 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		EnablePersonalization:                   iopt.ExtractEnablePersonalization(opts...),
 		PersonalizationImpact:                   iopt.ExtractPersonalizationImpact(opts...),
 		UserToken:                               iopt.ExtractUserToken(opts...),
+		EnableReRanking:                         iopt.ExtractEnableReRanking(opts...),
+		ReRankingApplyFilter:                    iopt.ExtractReRankingApplyFilter(opts...),
 		Distinct:                                iopt.ExtractDistinct(opts...),
 		GetRankingInfo:                          iopt.ExtractGetRankingInfo(opts...),
 		ClickAnalytics:                          iopt.ExtractClickAnalytics(opts...),
@@ -314,6 +318,12 @@ func (p *QueryParams) Equal(p2 *QueryParams) bool {
 		return false
 	}
 	if !p.UserToken.Equal(p2.UserToken) {
+		return false
+	}
+	if !p.EnableReRanking.Equal(p2.EnableReRanking) {
+		return false
+	}
+	if !p.ReRankingApplyFilter.Equal(p2.ReRankingApplyFilter) {
 		return false
 	}
 	if !p.Distinct.Equal(p2.Distinct) {

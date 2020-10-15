@@ -215,6 +215,12 @@ func TestOptionGetters(t *testing.T) {
 	var userToken *UserTokenOption = nil
 	userToken.Get()
 
+	var enableReRanking *EnableReRankingOption = nil
+	enableReRanking.Get()
+
+	var reRankingApplyFilter *ReRankingApplyFilterOption = nil
+	reRankingApplyFilter.Get()
+
 	var numericAttributesForFiltering *NumericAttributesForFilteringOption = nil
 	numericAttributesForFiltering.Get()
 
