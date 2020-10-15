@@ -57,6 +57,8 @@ type Settings struct {
 	AdvancedSyntaxFeatures                  *opt.AdvancedSyntaxFeaturesOption                  `json:"advancedSyntaxFeatures,omitempty"`
 	EnableRules                             *opt.EnableRulesOption                             `json:"enableRules,omitempty"`
 	EnablePersonalization                   *opt.EnablePersonalizationOption                   `json:"enablePersonalization,omitempty"`
+	EnableReRanking                         *opt.EnableReRankingOption                         `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter                    *opt.ReRankingApplyFilterOption                    `json:"reRankingApplyFilter,omitempty"`
 	NumericAttributesForFiltering           *opt.NumericAttributesForFilteringOption           `json:"numericAttributesForFiltering,omitempty"`
 	AllowCompressionOfIntegerArray          *opt.AllowCompressionOfIntegerArrayOption          `json:"allowCompressionOfIntegerArray,omitempty"`
 	AttributeForDistinct                    *opt.AttributeForDistinctOption                    `json:"attributeForDistinct,omitempty"`
@@ -154,6 +156,8 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 		"advancedSyntaxFeatures",
 		"enableRules",
 		"enablePersonalization",
+		"enableReRanking",
+		"reRankingApplyFilter",
 		"numericAttributesForFiltering",
 		"numericAttributesToIndex",
 		"allowCompressionOfIntegerArray",
@@ -372,6 +376,14 @@ func (s Settings) Equal(s2 Settings) bool {
 		debug.Printf("Settings.EnablePersonalization are not equal: %#v != %#v\n", s.EnablePersonalization, s2.EnablePersonalization)
 		return false
 	}
+	if !opt.EnableReRankingEqual(s.EnableReRanking, s2.EnableReRanking) {
+		debug.Printf("Settings.EnableReRanking are not equal: %#v != %#v\n", s.EnableReRanking, s2.EnableReRanking)
+		return false
+	}
+	if !opt.ReRankingApplyFilterEqual(s.ReRankingApplyFilter, s2.ReRankingApplyFilter) {
+		debug.Printf("Settings.ReRankingApplyFilter are not equal: %#v != %#v\n", s.ReRankingApplyFilter, s2.ReRankingApplyFilter)
+		return false
+	}
 	if !opt.NumericAttributesForFilteringEqual(s.NumericAttributesForFiltering, s2.NumericAttributesForFiltering) {
 		debug.Printf("Settings.NumericAttributesForFiltering are not equal: %#v != %#v\n", s.NumericAttributesForFiltering, s2.NumericAttributesForFiltering)
 		return false
@@ -465,6 +477,8 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tAdvancedSyntaxFeatures: %v,\n", stringifyReturnValues(s.AdvancedSyntaxFeatures.Get()))
 	settingsStr += fmt.Sprintf("\tEnableRules: %v,\n", stringifyReturnValues(s.EnableRules.Get()))
 	settingsStr += fmt.Sprintf("\tEnablePersonalization: %v,\n", stringifyReturnValues(s.EnablePersonalization.Get()))
+	settingsStr += fmt.Sprintf("\tEnableReRanking: %v,\n", stringifyReturnValues(s.EnableReRanking.Get()))
+	settingsStr += fmt.Sprintf("\tReRankingApplyFilter: %v,\n", stringifyReturnValues(s.ReRankingApplyFilter.Get()))
 	settingsStr += fmt.Sprintf("\tNumericAttributesForFiltering: %v,\n", stringifyReturnValues(s.NumericAttributesForFiltering.Get()))
 	settingsStr += fmt.Sprintf("\tAllowCompressionOfIntegerArray: %v,\n", stringifyReturnValues(s.AllowCompressionOfIntegerArray.Get()))
 	settingsStr += fmt.Sprintf("\tAttributeForDistinct: %v,\n", stringifyReturnValues(s.AttributeForDistinct.Get()))
