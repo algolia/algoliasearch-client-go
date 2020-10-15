@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.13.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.1...3.13.0) (2020-10-15)
+
+### Feat
+
+- Add re-ranking parameters to search parameters and settings ([09f180c](https://github.com/algolia/algoliasearch-client-go/commit/09f180c))
+
+
+
 ## [3.12.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.0...3.12.1) (2020-10-02)
 
 ### Fix
