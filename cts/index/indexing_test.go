@@ -158,6 +158,20 @@ func TestIndexing(t *testing.T) {
 	}
 
 	{
+		res, err := index.SaveObject(map[string]interface{}{"objectID": "taggedObject", "attribute": "value", "_tags": []string{"algolia"}})
+		require.NoError(t, err)
+		g.Collect(res)
+	}
+
+	{
+		res, err := index.DeleteBy(
+			opt.Filters("algolia"),
+		)
+		require.NoError(t, err)
+		g.Collect(res)
+	}
+
+	{
 		for _, objectID := range objectIDs[:7] {
 			res, err := index.DeleteObject(objectID)
 			require.NoError(t, err)
