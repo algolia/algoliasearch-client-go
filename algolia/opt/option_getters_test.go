@@ -299,6 +299,9 @@ func TestOptionGetters(t *testing.T) {
 	var clearExistingRules *ClearExistingRulesOption = nil
 	clearExistingRules.Get()
 
+	var clearExistingSynonyms *ClearExistingSynonymsOption = nil
+	clearExistingSynonyms.Get()
+
 	var replaceExistingSynonyms *ReplaceExistingSynonymsOption = nil
 	replaceExistingSynonyms.Get()
 
