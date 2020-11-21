@@ -138,6 +138,9 @@ func (t *Transport) Request(
 			cancel()
 			return err
 		default:
+			if err == nil {
+				err = fmt.Errorf("request on host %s failed with response=`%s` and code=%d", h.host, bodyRes, code)
+			}
 			intermediateNetworkErrors = append(intermediateNetworkErrors, err)
 			if bodyRes != nil {
 				if err = bodyRes.Close(); err != nil {
