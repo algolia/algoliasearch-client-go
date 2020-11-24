@@ -46,9 +46,14 @@ func (i *Index) SaveSynonym(synonym Synonym, opts ...interface{}) (res UpdateTas
 // Unlike SaveObjects, this method does not batch the given synonyms i.e. all synonyms
 // are sent in a single call.
 func (i *Index) SaveSynonyms(synonyms []Synonym, opts ...interface{}) (res UpdateTaskRes, err error) {
-	if replaceExistingSynonyms := iopt.ExtractReplaceExistingSynonyms(opts...); replaceExistingSynonyms != nil {
+
+	if clearExistingSynonyms := iopt.ExtractClearExistingSynonyms(opts...); clearExistingSynonyms != nil {
+		opts = opt.InsertExtraURLParam(opts, "replaceExistingSynonyms", clearExistingSynonyms.Get())
+	} else if replaceExistingSynonyms := iopt.ExtractReplaceExistingSynonyms(opts...); replaceExistingSynonyms != nil {
+		// if clearExistingSynonyms parameter is missing, attempt to parse legacy replaceExistingSynonyms option
 		opts = opt.InsertExtraURLParam(opts, "replaceExistingSynonyms", replaceExistingSynonyms.Get())
 	}
+
 	path := i.path("/synonyms/batch")
 	err = i.transport.Request(&res, http.MethodPost, path, synonyms, call.Write, opts...)
 	res.wait = i.WaitTask

@@ -7,6 +7,7 @@ type RuleCondition struct {
 	Pattern      string
 	Context      string
 	Alternatives *Alternatives
+	Filters      string
 }
 
 func (c RuleCondition) MarshalJSON() ([]byte, error) {
@@ -20,6 +21,9 @@ func (c RuleCondition) MarshalJSON() ([]byte, error) {
 	}
 	if c.Alternatives != nil {
 		m["alternatives"] = *c.Alternatives
+	}
+	if c.Filters != "" {
+		m["filters"] = c.Filters
 	}
 	return json.Marshal(m)
 }
