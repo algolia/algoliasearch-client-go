@@ -1,5 +1,17 @@
 # ChangeLog
 
+## [3.14.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.13.0...3.14.0) (2020-11-24)
+
+### Feat
+
+- add filters rule condition and unit tests ([14ee0eb](https://github.com/algolia/algoliasearch-client-go/commit/14ee0eb))
+
+### Refactor
+
+- add clearExistingSynonyms option and its handling in saveSynonyms method ([3958984](https://github.com/algolia/algoliasearch-client-go/commit/3958984))
+
+
+
 ## [3.13.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.1...3.13.0) (2020-10-15)
 
 ### Feat
