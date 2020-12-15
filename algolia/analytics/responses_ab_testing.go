@@ -33,7 +33,7 @@ type GetABTestsRes struct {
 // retrieved as part of a response.
 type ABTestResponse struct {
 	ABTestID               int               `json:"abTestID"`
-	ClickSignificance      int               `json:"clickSignificance"`
+	ClickSignificance      float64           `json:"clickSignificance"`
 	ConversionSignificance float64           `json:"conversionSignificance"`
 	CreatedAt              time.Time         `json:"createdAt"`
 	EndAt                  time.Time         `json:"endAt"`
@@ -45,7 +45,7 @@ type ABTestResponse struct {
 // VariantResponse represents an AB test's variant as returned by the Analytics
 // API when retrieved as part of a response.
 type VariantResponse struct {
-	AverageClickPosition   int                 `json:"averageClickPosition"`
+	AverageClickPosition   float64             `json:"averageClickPosition"`
 	ClickCount             int                 `json:"clickCount"`
 	ClickThroughRate       float64             `json:"clickThroughRate"`
 	ConversionCount        int                 `json:"conversionCount"`
@@ -54,6 +54,7 @@ type VariantResponse struct {
 	Index                  string              `json:"index"`
 	NoResultCount          int                 `json:"noResultCount"`
 	SearchCount            int                 `json:"searchCount"`
+	TrackedSearchCount     int                 `json:"trackedSearchCount"`
 	TrafficPercentage      int                 `json:"trafficPercentage"`
 	UserCount              int                 `json:"userCount"`
 	CustomSearchParameters *search.QueryParams `json:"customSearchParameters"`

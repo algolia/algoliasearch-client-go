@@ -114,9 +114,11 @@ var options = []Option{
 	{"enabled", Other, true, ""}, // Used to enable the rule by default
 
 	// Personalization
-	{"enablePersonalization", Search|Settings, false, ""},
+	{"enablePersonalization", Search | Settings, false, ""},
 	{"personalizationImpact", Search, 100, ""},
 	{"userToken", Search, "", ""},
+	{"enableReRanking", Search | Settings, true, ""},
+	{"reRankingApplyFilter", Search | Settings, "", ""},
 
 	// Performance
 	{"numericAttributesForFiltering", Settings, []string{}, "numericAttributesToIndex"},
@@ -153,6 +155,7 @@ var options = []Option{
 	{"query", Other, "", ""},
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
 	{"clearExistingRules", Other, false, ""},
+	{"clearExistingSynonyms", Other, false, ""},
 	{"replaceExistingSynonyms", Other, false, ""},
 	{"type", Other, nil, ""},
 	{"createIfNotExists", Other, true, ""},

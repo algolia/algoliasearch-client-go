@@ -1,5 +1,45 @@
 # ChangeLog
 
+## [3.14.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.13.0...3.14.0) (2020-11-24)
+
+### Feat
+
+- add filters rule condition and unit tests ([14ee0eb](https://github.com/algolia/algoliasearch-client-go/commit/14ee0eb))
+
+### Refactor
+
+- add clearExistingSynonyms option and its handling in saveSynonyms method ([3958984](https://github.com/algolia/algoliasearch-client-go/commit/3958984))
+
+
+
+## [3.13.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.1...3.13.0) (2020-10-15)
+
+### Feat
+
+- Add re-ranking parameters to search parameters and settings ([09f180c](https://github.com/algolia/algoliasearch-client-go/commit/09f180c))
+
+
+
+## [3.12.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.0...3.12.1) (2020-10-02)
+
+### Fix
+
+- **analytics**: correct the click significance type ([28520a2](https://github.com/algolia/algoliasearch-client-go/commit/28520a2))
+
+
+
+## [3.12.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.11.0...3.12.0) (2020-09-29)
+
+### Fix
+
+- **analytics**: correct AB testing average click pos type ([856378f](https://github.com/algolia/algoliasearch-client-go/commit/856378f))
+
+### Feat
+
+- **analytics**: add tracked search count ([ad7acd1](https://github.com/algolia/algoliasearch-client-go/commit/ad7acd1))
+
+
+
 ## [3.11.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.10.0...3.11.0) (2020-08-13)
 
 ### Feat
