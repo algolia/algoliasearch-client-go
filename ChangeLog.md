@@ -1,5 +1,17 @@
 # ChangeLog
 
+## [3.15.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.14.0...3.15.0) (2021-01-06)
+
+### Feat
+
+- **transport**: improve errs.NoMoreHostToTry error message to help investigations ([f8dbf70](https://github.com/algolia/algoliasearch-client-go/commit/f8dbf70))
+
+### Fix
+
+- **transport**: correctly expose errs.AlgoliaErr when opt.ExposeIntermediateNetworkErrors is passed ([dbee9e4](https://github.com/algolia/algoliasearch-client-go/commit/dbee9e4))
+
+
+
 ## [3.14.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.13.0...3.14.0) (2020-11-24)
 
 ### Feat
