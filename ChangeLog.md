@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.15.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.0...3.15.1) (2021-01-14)
+
+### Fix
+
+- correct insights event timestamp conversion to milliseconds and marshalling ([349dabf](https://github.com/algolia/algoliasearch-client-go/commit/349dabf))
+
+
+
 ## [3.15.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.14.0...3.15.0) (2021-01-06)
 
 ### Feat
