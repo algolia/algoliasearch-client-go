@@ -28,7 +28,7 @@ func (e Event) MarshalJSON() ([]byte, error) {
 
 	var timestamp int64
 	if !e.Timestamp.IsZero() {
-		e.Timestamp.Unix()
+		timestamp = int64(time.Nanosecond) * e.Timestamp.UnixNano() / int64(time.Millisecond)
 	}
 
 	return json.Marshal(
