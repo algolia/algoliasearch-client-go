@@ -94,6 +94,7 @@ var options = []Option{
 	{"indexLanguages", Settings, []string{}, ""},
 	{"customNormalization", Settings, map[string]map[string]string{}, ""},
 	{"naturalLanguages", Search, []string{}, ""},
+	{"attributesToTransliterate", Settings, []string{}, ""},
 
 	// Query strategy
 	{"queryType", Settings | Search, "prefixLast", ""},

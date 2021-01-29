@@ -164,6 +164,9 @@ func TestOptionGetters(t *testing.T) {
 	var naturalLanguages *NaturalLanguagesOption = nil
 	naturalLanguages.Get()
 
+	var attributesToTransliterate *AttributesToTransliterateOption = nil
+	attributesToTransliterate.Get()
+
 	var queryType *QueryTypeOption = nil
 	queryType.Get()
 
