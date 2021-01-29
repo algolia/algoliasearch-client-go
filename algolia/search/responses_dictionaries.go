@@ -12,7 +12,7 @@ type SearchDictionariesRes struct {
 	NbPages int         `json:"nbPages"`
 }
 
-func (r SearchDictionariesRes) DictionaryEntires() ([]DictionaryEntry, error) {
+func (r SearchDictionariesRes) DictionaryEntries() ([]DictionaryEntry, error) {
 	var (
 		rawDictionaryEntries []rawDictionaryEntry
 		dictionaryEntries    []DictionaryEntry
