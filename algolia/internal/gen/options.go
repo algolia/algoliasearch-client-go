@@ -86,15 +86,16 @@ var options = []Option{
 
 	// Languages
 	{"ignorePlurals", Settings | Search, nil, ""},
+	{"attributesToTransliterate", Settings, []string{}, ""},
 	{"removeStopWords", Settings | Search, nil, ""},
 	{"camelCaseAttributes", Settings, []string{}, ""},
 	{"decompoundedAttributes", Settings, map[string][]string{}, ""},
 	{"keepDiacriticsOnCharacters", Settings, "", ""},
+	{"customNormalization", Settings, map[string]map[string]string{}, ""},
 	{"queryLanguages", Settings | Search, []string{}, ""},
 	{"indexLanguages", Settings, []string{}, ""},
-	{"customNormalization", Settings, map[string]map[string]string{}, ""},
 	{"naturalLanguages", Search, []string{}, ""},
-	{"attributesToTransliterate", Settings, []string{}, ""},
+	{"decompoundQuery", Settings | Search, true, ""},
 
 	// Query strategy
 	{"queryType", Settings | Search, "prefixLast", ""},

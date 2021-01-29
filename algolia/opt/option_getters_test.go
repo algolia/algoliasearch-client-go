@@ -140,6 +140,9 @@ func TestOptionGetters(t *testing.T) {
 	var ignorePlurals *IgnorePluralsOption = nil
 	ignorePlurals.Get()
 
+	var attributesToTransliterate *AttributesToTransliterateOption = nil
+	attributesToTransliterate.Get()
+
 	var removeStopWords *RemoveStopWordsOption = nil
 	removeStopWords.Get()
 
@@ -152,20 +155,20 @@ func TestOptionGetters(t *testing.T) {
 	var keepDiacriticsOnCharacters *KeepDiacriticsOnCharactersOption = nil
 	keepDiacriticsOnCharacters.Get()
 
+	var customNormalization *CustomNormalizationOption = nil
+	customNormalization.Get()
+
 	var queryLanguages *QueryLanguagesOption = nil
 	queryLanguages.Get()
 
 	var indexLanguages *IndexLanguagesOption = nil
 	indexLanguages.Get()
 
-	var customNormalization *CustomNormalizationOption = nil
-	customNormalization.Get()
-
 	var naturalLanguages *NaturalLanguagesOption = nil
 	naturalLanguages.Get()
 
-	var attributesToTransliterate *AttributesToTransliterateOption = nil
-	attributesToTransliterate.Get()
+	var decompoundQuery *DecompoundQueryOption = nil
+	decompoundQuery.Get()
 
 	var queryType *QueryTypeOption = nil
 	queryType.Get()

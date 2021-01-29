@@ -39,14 +39,15 @@ type Settings struct {
 	DisableTypoToleranceOnWords             *opt.DisableTypoToleranceOnWordsOption             `json:"disableTypoToleranceOnWords,omitempty"`
 	SeparatorsToIndex                       *opt.SeparatorsToIndexOption                       `json:"separatorsToIndex,omitempty"`
 	IgnorePlurals                           *opt.IgnorePluralsOption                           `json:"ignorePlurals,omitempty"`
+	AttributesToTransliterate               *opt.AttributesToTransliterateOption               `json:"attributesToTransliterate,omitempty"`
 	RemoveStopWords                         *opt.RemoveStopWordsOption                         `json:"removeStopWords,omitempty"`
 	CamelCaseAttributes                     *opt.CamelCaseAttributesOption                     `json:"camelCaseAttributes,omitempty"`
 	DecompoundedAttributes                  *opt.DecompoundedAttributesOption                  `json:"decompoundedAttributes,omitempty"`
 	KeepDiacriticsOnCharacters              *opt.KeepDiacriticsOnCharactersOption              `json:"keepDiacriticsOnCharacters,omitempty"`
+	CustomNormalization                     *opt.CustomNormalizationOption                     `json:"customNormalization,omitempty"`
 	QueryLanguages                          *opt.QueryLanguagesOption                          `json:"queryLanguages,omitempty"`
 	IndexLanguages                          *opt.IndexLanguagesOption                          `json:"indexLanguages,omitempty"`
-	CustomNormalization                     *opt.CustomNormalizationOption                     `json:"customNormalization,omitempty"`
-	AttributesToTransliterate               *opt.AttributesToTransliterateOption               `json:"attributesToTransliterate,omitempty"`
+	DecompoundQuery                         *opt.DecompoundQueryOption                         `json:"decompoundQuery,omitempty"`
 	QueryType                               *opt.QueryTypeOption                               `json:"queryType,omitempty"`
 	RemoveWordsIfNoResults                  *opt.RemoveWordsIfNoResultsOption                  `json:"removeWordsIfNoResults,omitempty"`
 	AdvancedSyntax                          *opt.AdvancedSyntaxOption                          `json:"advancedSyntax,omitempty"`
@@ -139,14 +140,15 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 		"disableTypoToleranceOnWords",
 		"separatorsToIndex",
 		"ignorePlurals",
+		"attributesToTransliterate",
 		"removeStopWords",
 		"camelCaseAttributes",
 		"decompoundedAttributes",
 		"keepDiacriticsOnCharacters",
+		"customNormalization",
 		"queryLanguages",
 		"indexLanguages",
-		"customNormalization",
-		"attributesToTransliterate",
+		"decompoundQuery",
 		"queryType",
 		"removeWordsIfNoResults",
 		"advancedSyntax",
@@ -306,6 +308,10 @@ func (s Settings) Equal(s2 Settings) bool {
 		debug.Printf("Settings.IgnorePlurals are not equal: %#v != %#v\n", s.IgnorePlurals, s2.IgnorePlurals)
 		return false
 	}
+	if !opt.AttributesToTransliterateEqual(s.AttributesToTransliterate, s2.AttributesToTransliterate) {
+		debug.Printf("Settings.AttributesToTransliterate are not equal: %#v != %#v\n", s.AttributesToTransliterate, s2.AttributesToTransliterate)
+		return false
+	}
 	if !opt.RemoveStopWordsEqual(s.RemoveStopWords, s2.RemoveStopWords) {
 		debug.Printf("Settings.RemoveStopWords are not equal: %#v != %#v\n", s.RemoveStopWords, s2.RemoveStopWords)
 		return false
@@ -322,6 +328,10 @@ func (s Settings) Equal(s2 Settings) bool {
 		debug.Printf("Settings.KeepDiacriticsOnCharacters are not equal: %#v != %#v\n", s.KeepDiacriticsOnCharacters, s2.KeepDiacriticsOnCharacters)
 		return false
 	}
+	if !opt.CustomNormalizationEqual(s.CustomNormalization, s2.CustomNormalization) {
+		debug.Printf("Settings.CustomNormalization are not equal: %#v != %#v\n", s.CustomNormalization, s2.CustomNormalization)
+		return false
+	}
 	if !opt.QueryLanguagesEqual(s.QueryLanguages, s2.QueryLanguages) {
 		debug.Printf("Settings.QueryLanguages are not equal: %#v != %#v\n", s.QueryLanguages, s2.QueryLanguages)
 		return false
@@ -330,12 +340,8 @@ func (s Settings) Equal(s2 Settings) bool {
 		debug.Printf("Settings.IndexLanguages are not equal: %#v != %#v\n", s.IndexLanguages, s2.IndexLanguages)
 		return false
 	}
-	if !opt.CustomNormalizationEqual(s.CustomNormalization, s2.CustomNormalization) {
-		debug.Printf("Settings.CustomNormalization are not equal: %#v != %#v\n", s.CustomNormalization, s2.CustomNormalization)
-		return false
-	}
-	if !opt.AttributesToTransliterateEqual(s.AttributesToTransliterate, s2.AttributesToTransliterate) {
-		debug.Printf("Settings.AttributesToTransliterate are not equal: %#v != %#v\n", s.AttributesToTransliterate, s2.AttributesToTransliterate)
+	if !opt.DecompoundQueryEqual(s.DecompoundQuery, s2.DecompoundQuery) {
+		debug.Printf("Settings.DecompoundQuery are not equal: %#v != %#v\n", s.DecompoundQuery, s2.DecompoundQuery)
 		return false
 	}
 	if !opt.QueryTypeEqual(s.QueryType, s2.QueryType) {
@@ -465,14 +471,15 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tDisableTypoToleranceOnWords: %v,\n", stringifyReturnValues(s.DisableTypoToleranceOnWords.Get()))
 	settingsStr += fmt.Sprintf("\tSeparatorsToIndex: %v,\n", stringifyReturnValues(s.SeparatorsToIndex.Get()))
 	settingsStr += fmt.Sprintf("\tIgnorePlurals: %v,\n", stringifyReturnValues(s.IgnorePlurals.Get()))
+	settingsStr += fmt.Sprintf("\tAttributesToTransliterate: %v,\n", stringifyReturnValues(s.AttributesToTransliterate.Get()))
 	settingsStr += fmt.Sprintf("\tRemoveStopWords: %v,\n", stringifyReturnValues(s.RemoveStopWords.Get()))
 	settingsStr += fmt.Sprintf("\tCamelCaseAttributes: %v,\n", stringifyReturnValues(s.CamelCaseAttributes.Get()))
 	settingsStr += fmt.Sprintf("\tDecompoundedAttributes: %v,\n", stringifyReturnValues(s.DecompoundedAttributes.Get()))
 	settingsStr += fmt.Sprintf("\tKeepDiacriticsOnCharacters: %v,\n", stringifyReturnValues(s.KeepDiacriticsOnCharacters.Get()))
+	settingsStr += fmt.Sprintf("\tCustomNormalization: %v,\n", stringifyReturnValues(s.CustomNormalization.Get()))
 	settingsStr += fmt.Sprintf("\tQueryLanguages: %v,\n", stringifyReturnValues(s.QueryLanguages.Get()))
 	settingsStr += fmt.Sprintf("\tIndexLanguages: %v,\n", stringifyReturnValues(s.IndexLanguages.Get()))
-	settingsStr += fmt.Sprintf("\tCustomNormalization: %v,\n", stringifyReturnValues(s.CustomNormalization.Get()))
-	settingsStr += fmt.Sprintf("\tAttributesToTransliterate: %v,\n", stringifyReturnValues(s.AttributesToTransliterate.Get()))
+	settingsStr += fmt.Sprintf("\tDecompoundQuery: %v,\n", stringifyReturnValues(s.DecompoundQuery.Get()))
 	settingsStr += fmt.Sprintf("\tQueryType: %v,\n", stringifyReturnValues(s.QueryType.Get()))
 	settingsStr += fmt.Sprintf("\tRemoveWordsIfNoResults: %v,\n", stringifyReturnValues(s.RemoveWordsIfNoResults.Get()))
 	settingsStr += fmt.Sprintf("\tAdvancedSyntax: %v,\n", stringifyReturnValues(s.AdvancedSyntax.Get()))

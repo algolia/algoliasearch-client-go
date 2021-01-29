@@ -47,6 +47,7 @@ type QueryParams struct {
 	RemoveStopWords                         *opt.RemoveStopWordsOption                         `json:"removeStopWords,omitempty"`
 	QueryLanguages                          *opt.QueryLanguagesOption                          `json:"queryLanguages,omitempty"`
 	NaturalLanguages                        *opt.NaturalLanguagesOption                        `json:"naturalLanguages,omitempty"`
+	DecompoundQuery                         *opt.DecompoundQueryOption                         `json:"decompoundQuery,omitempty"`
 	QueryType                               *opt.QueryTypeOption                               `json:"queryType,omitempty"`
 	RemoveWordsIfNoResults                  *opt.RemoveWordsIfNoResultsOption                  `json:"removeWordsIfNoResults,omitempty"`
 	AdvancedSyntax                          *opt.AdvancedSyntaxOption                          `json:"advancedSyntax,omitempty"`
@@ -119,6 +120,7 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		RemoveStopWords:                         iopt.ExtractRemoveStopWords(opts...),
 		QueryLanguages:                          iopt.ExtractQueryLanguages(opts...),
 		NaturalLanguages:                        iopt.ExtractNaturalLanguages(opts...),
+		DecompoundQuery:                         iopt.ExtractDecompoundQuery(opts...),
 		QueryType:                               iopt.ExtractQueryType(opts...),
 		RemoveWordsIfNoResults:                  iopt.ExtractRemoveWordsIfNoResults(opts...),
 		AdvancedSyntax:                          iopt.ExtractAdvancedSyntax(opts...),
@@ -273,6 +275,9 @@ func (p *QueryParams) Equal(p2 *QueryParams) bool {
 		return false
 	}
 	if !p.NaturalLanguages.Equal(p2.NaturalLanguages) {
+		return false
+	}
+	if !p.DecompoundQuery.Equal(p2.DecompoundQuery) {
 		return false
 	}
 	if !p.QueryType.Equal(p2.QueryType) {
