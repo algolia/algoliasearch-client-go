@@ -47,6 +47,15 @@ type ClientInterface interface {
 	SearchUserIDs(query string, opts ...interface{}) (res SearchUserIDRes, err error)
 	HasPendingMappings(opts ...interface{}) (res HasPendingMappingsRes, err error)
 
+	// Custom dictionaries methods
+	SaveDictionaryEntries(dictionaryName DictionaryName, dictionaryEntries []DictionaryEntry, opts ...interface{}) (res UpdateTaskRes, err error)
+	ReplaceDictionaryEntries(dictionaryName DictionaryName, dictionaryEntries []DictionaryEntry, opts ...interface{}) (res UpdateTaskRes, err error)
+	DeleteDictionaryEntries(dictionaryName DictionaryName, objectIDs []string, opts ...interface{}) (res UpdateTaskRes, err error)
+	ClearDictionaryEntries(dictionaryName DictionaryName, opts ...interface{}) (res UpdateTaskRes, err error)
+	SearchDictionaryEntries(dictionaryName DictionaryName, query string, opts ...interface{}) (res SearchDictionariesRes, err error)
+	GetDictionarySettings(opts ...interface{}) (res DictionarySettings, err error)
+	SetDictionarySettings(settings DictionarySettings, opts ...interface{}) (res UpdateTaskRes, err error)
+
 	// Personalization
 
 	// Deprecated: use recommendation.Client.SetPersonalizationStrategy() instead
