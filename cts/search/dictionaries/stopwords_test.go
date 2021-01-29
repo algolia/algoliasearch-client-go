@@ -31,7 +31,7 @@ func TestStopWords(t *testing.T) {
 		res, err := client.SearchDictionaryEntries(search.Stopwords, entryID)
 		require.NoError(t, err)
 		require.Equal(t, 1, res.NbHits)
-		resEntries, err := res.DictionaryEntires()
+		resEntries, err := res.DictionaryEntries()
 		require.NoError(t, err)
 		require.Equal(t, stopwordEntry, resEntries[0])
 	}
@@ -52,7 +52,7 @@ func TestStopWords(t *testing.T) {
 		searchRes, err := client.SearchDictionaryEntries(search.Stopwords, "")
 		require.NoError(t, err)
 
-		previousEntries, err := searchRes.DictionaryEntires()
+		previousEntries, err := searchRes.DictionaryEntries()
 		require.NoError(t, err)
 
 		updateRes, err := client.SaveDictionaryEntries(search.Stopwords, []search.DictionaryEntry{stopwordEntry})

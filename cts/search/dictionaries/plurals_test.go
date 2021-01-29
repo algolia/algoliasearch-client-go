@@ -30,7 +30,7 @@ func TestPlurals(t *testing.T) {
 		res, err := client.SearchDictionaryEntries(search.Plurals, entryID)
 		require.NoError(t, err)
 		require.Equal(t, 1, res.NbHits)
-		resEntries, err := res.DictionaryEntires()
+		resEntries, err := res.DictionaryEntries()
 		require.NoError(t, err)
 		require.Equal(t, pluralEntry, resEntries[0])
 	}

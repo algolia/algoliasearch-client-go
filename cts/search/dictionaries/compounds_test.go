@@ -30,7 +30,7 @@ func TestCompounds(t *testing.T) {
 		res, err := client.SearchDictionaryEntries(search.Compounds, entryID)
 		require.NoError(t, err)
 		require.Equal(t, 1, res.NbHits)
-		resEntries, err := res.DictionaryEntires()
+		resEntries, err := res.DictionaryEntries()
 		require.NoError(t, err)
 		require.Equal(t, compoundEntry, resEntries[0])
 	}
