@@ -56,7 +56,7 @@ func (c *Client) GetDictionarySettings(opts ...interface{}) (res DictionarySetti
 // SetDictionarySettings Set dictionary settings
 func (c *Client) SetDictionarySettings(settings DictionarySettings, opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := c.path("/dictionaries/*/settings")
-	err = c.transport.Request(&res, http.MethodPut, path, settings, call.Read, opts...)
+	err = c.transport.Request(&res, http.MethodPut, path, settings, call.Write, opts...)
 	res.wait = c.WaitTask
 	return
 }
