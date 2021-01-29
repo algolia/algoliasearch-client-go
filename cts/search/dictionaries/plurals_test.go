@@ -12,7 +12,7 @@ func TestPlurals(t *testing.T) {
 	t.Parallel()
 	client := cts.InitSearchClient2(t)
 
-	entryID := cts.RandSeq(10)
+	entryID := cts.GenerateRandomString(10)
 	{
 		res, _ := client.SearchDictionaryEntries(search.Plurals, entryID)
 		require.Empty(t, res.Hits)
@@ -26,24 +26,24 @@ func TestPlurals(t *testing.T) {
 		require.NoError(t, res.Wait())
 	}
 
-	// {
-	// 	res, err := client.SearchDictionaryEntries(search.Plurals, entryID)
-	// 	require.NoError(t, err)
-	// 	require.Equal(t, 1, res.NbHits)
-	// 	resEntries, err := res.DictionaryEntires()
-	// 	require.NoError(t, err)
-	// 	require.Equal(t, pluralEntry, resEntries[0])
-	// }
+	{
+		res, err := client.SearchDictionaryEntries(search.Plurals, entryID)
+		require.NoError(t, err)
+		require.Equal(t, 1, res.NbHits)
+		resEntries, err := res.DictionaryEntires()
+		require.NoError(t, err)
+		require.Equal(t, pluralEntry, resEntries[0])
+	}
 
-	// {
-	// 	res, err := client.DeleteDictionaryEntries(search.Plurals, []string{entryID})
-	// 	require.NoError(t, err)
-	// 	require.NoError(t, res.Wait())
-	// }
+	{
+		res, err := client.DeleteDictionaryEntries(search.Plurals, []string{entryID})
+		require.NoError(t, err)
+		require.NoError(t, res.Wait())
+	}
 
-	// {
-	// 	res, err := client.SearchDictionaryEntries(search.Plurals, entryID)
-	// 	require.NoError(t, err)
-	// 	require.Equal(t, 0, res.NbHits)
-	// }
+	{
+		res, err := client.SearchDictionaryEntries(search.Plurals, entryID)
+		require.NoError(t, err)
+		require.Equal(t, 0, res.NbHits)
+	}
 }

@@ -13,7 +13,7 @@ func TestStopWords(t *testing.T) {
 	t.Parallel()
 	client := cts.InitSearchClient2(t)
 
-	entryID := cts.RandSeq(10)
+	entryID := cts.GenerateRandomString(10)
 	{
 		res, _ := client.SearchDictionaryEntries(search.Stopwords, entryID)
 		require.Empty(t, res.Hits)
