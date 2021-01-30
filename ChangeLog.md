@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.16.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.1...3.16.0) (2021-01-30)
+
+### Feat
+
+- **search**: add request options on wait functions ([9488df7](https://github.com/algolia/algoliasearch-client-go/commit/9488df7))
+
+
+
 ## [3.15.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.0...3.15.1) (2021-01-14)
 
 ### Fix
