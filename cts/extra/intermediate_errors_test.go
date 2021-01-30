@@ -40,6 +40,31 @@ func TestIntermediateErrors(t *testing.T) {
 	}
 }
 
+func TestIntermediateErrorsOnWaitTask(t *testing.T) {
+	algoliaErr := errs.AlgoliaErr{
+		Status:  500,
+		Message: "There was an internal server error",
+	}
+
+	client := search.NewClientWithConfig(search.Configuration{
+		Requester: &httpNetworkErrorRequester{
+			responseErr: algoliaErr,
+		},
+	})
+
+	err := client.InitIndex("test").WaitTask(0, opt.ExposeIntermediateNetworkErrors(true))
+	require.Error(t, err)
+
+	noMoreHostToTryErr, ok := err.(*errs.NoMoreHostToTryErr)
+	require.True(t, ok)
+	errors := noMoreHostToTryErr.IntermediateNetworkErrors()
+	require.Len(t, errors, 4)
+
+	for _, e := range errors {
+		require.Equal(t, algoliaErr.Error(), e.Error())
+	}
+}
+
 type httpNetworkErrorRequester struct {
 	responseErr errs.AlgoliaErr
 }
