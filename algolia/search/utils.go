@@ -29,7 +29,7 @@ func defaultHosts(appID string) (hosts []*transport.StatefulHost) {
 	return
 }
 
-func noWait(_ int64) error {
+func noWait(_ int64, _ ...interface{}) error {
 	return nil
 }
 

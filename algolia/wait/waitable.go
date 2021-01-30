@@ -5,5 +5,5 @@ package wait
 // the `algolia.Waitable` interface in order to wait for their completion using
 // `algolia.NewGroup()` or `algolia.Wait()` provided helpers.
 type Waitable interface {
-	Wait() error
+	Wait(opts ...interface{}) error
 }
