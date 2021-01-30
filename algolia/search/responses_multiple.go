@@ -8,17 +8,17 @@ import (
 type MultipleBatchRes struct {
 	ObjectIDs []string         `json:"objectIDs"`
 	TaskIDs   map[string]int64 `json:"taskID"`
-	wait      func(index string, taskID int64) error
+	wait      func(index string, taskID int64, opts ...interface{}) error
 }
 
-func (r MultipleBatchRes) Wait() error {
+func (r MultipleBatchRes) Wait(opts ...interface{}) error {
 	var wg sync.WaitGroup
 	errs := make(chan error, len(r.TaskIDs))
 
 	for index, taskID := range r.TaskIDs {
 		wg.Add(1)
 		go func(wg *sync.WaitGroup, index string, taskID int64) {
-			errs <- r.wait(index, taskID)
+			errs <- r.wait(index, taskID, opts...)
 			wg.Done()
 		}(&wg, index, taskID)
 	}

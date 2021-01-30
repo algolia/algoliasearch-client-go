@@ -16,8 +16,8 @@ func (c *Client) MultipleBatch(operations []BatchOperationIndexed, opts ...inter
 	return
 }
 
-func (c *Client) waitTask(index string, taskID int64) error {
-	return c.InitIndex(index).WaitTask(taskID)
+func (c *Client) waitTask(index string, taskID int64, opts ...interface{}) error {
+	return c.InitIndex(index).WaitTask(taskID, opts...)
 }
 
 // MultipleGetObjects retrieves multiple objects from potentially multiple
