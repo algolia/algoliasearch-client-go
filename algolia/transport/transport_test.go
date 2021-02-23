@@ -1,6 +1,9 @@
 package transport
 
 import (
+	"bytes"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"testing"
 	"time"
@@ -78,4 +81,23 @@ func TestShouldExposeIntermediateNetworkErrors(t *testing.T) {
 	noMoreHostToTryErr, ok := err.(*errs.NoMoreHostToTryErr)
 	require.True(t, ok)
 	require.Len(t, noMoreHostToTryErr.IntermediateNetworkErrors(), 1)
+}
+
+func TestUnmarshallTo(t *testing.T) {
+	type fakeStruct struct {
+		Attr string `json:"attr"`
+	}
+	for _, v := range []struct {
+		bodyRaw       string
+		expectedError error
+		expectedBody  fakeStruct
+	}{
+		{"<html>Non json answer</html>", fmt.Errorf("cannot deserialize response's body: invalid character '<' looking for beginning of value: <html>Non json answer</html>"), fakeStruct{}},
+		{`{"attr":"value"}`, nil, fakeStruct{"value"}},
+	} {
+		bodyDeserialized := fakeStruct{}
+		err := unmarshalTo(ioutil.NopCloser(bytes.NewReader([]byte(v.bodyRaw))), &bodyDeserialized)
+		require.Equal(t, v.expectedError, err)
+		require.Equal(t, v.expectedBody, bodyDeserialized)
+	}
 }
