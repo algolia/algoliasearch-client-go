@@ -137,6 +137,8 @@ func (t *Transport) Request(
 		case Failure:
 			if bodyRes != nil {
 				err = unmarshalToError(bodyRes)
+			} else if err == nil {
+				err = fmt.Errorf("undefined network error with code: %v", code)
 			}
 			cancel()
 			return err
