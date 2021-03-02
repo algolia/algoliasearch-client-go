@@ -135,7 +135,9 @@ func (t *Transport) Request(
 			cancel()
 			return err
 		case Failure:
-			err = unmarshalToError(bodyRes)
+			if bodyRes != nil {
+				err = unmarshalToError(bodyRes)
+			}
 			cancel()
 			return err
 		default:

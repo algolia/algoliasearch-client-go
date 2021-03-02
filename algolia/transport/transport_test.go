@@ -101,3 +101,55 @@ func TestUnmarshallTo(t *testing.T) {
 		require.Equal(t, v.expectedBody, bodyDeserialized)
 	}
 }
+
+type FakeNetworkError struct {
+	Description string
+}
+
+func (e *FakeNetworkError) Error() string {
+	return e.Description
+}
+
+func (e *FakeNetworkError) Timeout() bool {
+	return false
+}
+
+func (e *FakeNetworkError) Temporary() bool {
+	return false
+}
+
+type FakeRequester struct {
+	Error *FakeNetworkError
+}
+
+func (f *FakeRequester) Request(req *http.Request) (*http.Response, error) {
+	if f.Error == nil {
+		return http.DefaultClient.Do(req)
+	}
+
+	return nil, f.Error
+}
+
+func TestOnNetworkErrorWithNilBody(t *testing.T) {
+	hosts := []*StatefulHost{NewStatefulHost("", call.IsReadWrite)}
+	requester := &FakeRequester{Error: &FakeNetworkError{Description: "oh no"}}
+	transporter := New(
+		hosts,
+		requester,
+		"appID",
+		"apiKey",
+		time.Second,
+		time.Second,
+		nil,
+		"",
+		compression.None,
+	)
+
+	opts := []interface{}{opt.ExposeIntermediateNetworkErrors(true)}
+	var res string
+	err := transporter.Request(&res, http.MethodGet, "", nil, call.Read, opts...)
+	noMoreHostToTryErr, ok := err.(*errs.NoMoreHostToTryErr)
+	require.True(t, ok)
+	require.Len(t, noMoreHostToTryErr.IntermediateNetworkErrors(), 1)
+	require.Equal(t, noMoreHostToTryErr.IntermediateNetworkErrors()[0].Error(), "cannot perform request:\n\terror=oh no\n\tmethod=GET\n\turl=https:")
+}
