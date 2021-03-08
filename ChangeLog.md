@@ -1,5 +1,22 @@
 # ChangeLog
 
+## [3.17.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.16.0...3.17.0) (2021-03-08)
+
+### Feat
+
+- **ListIndexes**: add primary/replicas fields ([4a14292](https://github.com/algolia/algoliasearch-client-go/commit/4a14292))
+- **Transport**: improve error message on unmarshalTo errors ([686dafa](https://github.com/algolia/algoliasearch-client-go/commit/686dafa))
+
+### Misc
+
+- add fallback error in case of nil request error ([6cc6bea](https://github.com/algolia/algoliasearch-client-go/commit/6cc6bea))
+
+### Fix
+
+- panic in case of non-retryable error with nil body ([83d9e98](https://github.com/algolia/algoliasearch-client-go/commit/83d9e98))
+
+
+
 ## [3.16.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.1...3.16.0) (2021-01-30)
 
 ### Feat
