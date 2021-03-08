@@ -20,6 +20,8 @@ type IndexRes struct {
 	NumberOfPendingTasks int64         `json:"numberOfPendingTasks"`
 	PendingTask          bool          `json:"pendingTask"`
 	UpdatedAt            time.Time     `json:"-"`
+	Primary              string        `json:"primary"`
+	Replicas             []string      `json:"replicas"`
 }
 
 func (r *IndexRes) UnmarshalJSON(data []byte) error {
