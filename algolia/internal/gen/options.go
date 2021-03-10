@@ -86,7 +86,7 @@ var options = []Option{
 
 	// Languages
 	{"ignorePlurals", Settings | Search, nil, ""},
-	{"attributesToTransliterate", Settings, []string{}, ""},
+	{"attributesToTransliterate", Settings, []string{"*"}, ""},
 	{"removeStopWords", Settings | Search, nil, ""},
 	{"camelCaseAttributes", Settings, []string{}, ""},
 	{"decompoundedAttributes", Settings, map[string][]string{}, ""},
