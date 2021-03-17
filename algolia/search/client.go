@@ -130,17 +130,17 @@ func (c *Client) CustomRequest(
 
 // GetStatus retrieves the task status according to the Algolia engine for the
 // given task.
-func (c *Client) GetStatus(taskID int64) (res TaskStatusRes, err error) {
+func (c *Client) GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes, err error) {
 	path := c.path("/task/%d", taskID)
-	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read)
+	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
 
 // WaitTask blocks until the task identified by the given taskID is completed on
 // Algolia engine.
-func (c *Client) WaitTask(taskID int64) error {
+func (c *Client) WaitTask(taskID int64, opts ...interface{}) error {
 	return waitWithRetry(func() (bool, error) {
-		res, err := c.GetStatus(taskID)
+		res, err := c.GetStatus(taskID, opts...)
 		if err != nil {
 			return true, err
 		}

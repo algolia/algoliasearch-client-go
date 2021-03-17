@@ -8,6 +8,8 @@ import (
 
 type ClientInterface interface {
 	// Misc
+	WaitTask(taskID int64, opts ...interface{}) error
+	GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes, err error)
 	InitIndex(indexName string) *Index
 	ListIndices(opts ...interface{}) (res ListIndicesRes, err error)
 	GetLogs(opts ...interface{}) (res GetLogsRes, err error)
