@@ -13,6 +13,7 @@ type Stopword struct {
 	State    string
 }
 
+// Stopword implements DictionaryEntry
 func (s Stopword) ObjectID() string { return s.objectID }
 func (s Stopword) Language() string { return s.language }
 

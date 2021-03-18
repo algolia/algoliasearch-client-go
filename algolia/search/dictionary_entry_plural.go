@@ -12,6 +12,7 @@ type Plural struct {
 	Words    []string
 }
 
+// Plural implements DictionaryEntry
 func (p Plural) ObjectID() string { return p.objectID }
 func (p Plural) Language() string { return p.language }
 

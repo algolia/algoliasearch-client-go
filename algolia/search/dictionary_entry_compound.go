@@ -13,6 +13,7 @@ type Compound struct {
 	Decomposition []string
 }
 
+// Compound implements DictionaryEntry
 func (c Compound) ObjectID() string { return c.objectID }
 func (c Compound) Language() string { return c.language }
 
