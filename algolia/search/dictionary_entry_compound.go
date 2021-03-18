@@ -17,7 +17,7 @@ func (c Compound) ObjectID() string { return c.objectID }
 func (c Compound) Language() string { return c.language }
 
 // NewCompound is a constructor of Compound
-func NewCompound(objectID, language string, word string, decomposition []string) Compound {
+func NewCompound(objectID, language, word string, decomposition []string) Compound {
 	return Compound{objectID, language, word, decomposition}
 }
 

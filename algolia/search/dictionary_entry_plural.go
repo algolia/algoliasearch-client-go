@@ -15,7 +15,7 @@ type Plural struct {
 func (p Plural) ObjectID() string { return p.objectID }
 func (p Plural) Language() string { return p.language }
 
-func NewPlural(objectID string, language string, words []string) Plural {
+func NewPlural(objectID, language string, words []string) Plural {
 	return Plural{objectID, language, words}
 }
 

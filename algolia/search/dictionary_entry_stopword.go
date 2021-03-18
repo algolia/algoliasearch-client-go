@@ -16,7 +16,7 @@ type Stopword struct {
 func (s Stopword) ObjectID() string { return s.objectID }
 func (s Stopword) Language() string { return s.language }
 
-func NewStopword(objectID string, language string, word string, state string) Stopword {
+func NewStopword(objectID, language, word, state string) Stopword {
 	return Stopword{objectID, language, word, state}
 }
 
