@@ -33,7 +33,7 @@ func (c *Client) DeleteDictionaryEntries(dictionaryName DictionaryName, objectID
 	return
 }
 
-// ClearDictionaryEntries deletes all the dictionary entries from the give dictonary
+// ClearDictionaryEntries deletes all the dictionary entries from the given dictionary
 func (c *Client) ClearDictionaryEntries(dictionaryName DictionaryName, opts ...interface{}) (res UpdateTaskRes, err error) {
 	return c.ReplaceDictionaryEntries(dictionaryName, []DictionaryEntry{}, opts)
 }
@@ -46,7 +46,7 @@ func (c *Client) SearchDictionaryEntries(dictionaryName DictionaryName, query st
 	return
 }
 
-// GetDictionarySettings Get dictionary settings
+// GetDictionarySettings Retrieve dictionaries settings
 func (c *Client) GetDictionarySettings(opts ...interface{}) (res DictionarySettings, err error) {
 	path := c.path("/dictionaries/*/settings")
 	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
