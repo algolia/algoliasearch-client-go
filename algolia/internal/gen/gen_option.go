@@ -25,6 +25,7 @@ func main() {
 		optionTestMapStringStringTemplate          = createTemplate("templates/option_test/map_string_string.go.tmpl")
 		optionTestMapStringStringSliceTemplate     = createTemplate("templates/option_test/map_string_string_slice.go.tmpl")
 		optionTestMapStringMapStringStringTemplate = createTemplate("templates/option_test/map_string_map_string_string.go.tmpl")
+		optionTestMapStringMapStringBoolTemplate   = createTemplate("templates/option_test/map_string_map_string_bool.go.tmpl")
 		optionTestMapStringInterfaceTemplate       = createTemplate("templates/option_test/map_string_interface_slice.go.tmpl")
 
 		optionLiteralTemplate     = createTemplate("templates/option/literal.go.tmpl")
@@ -59,7 +60,7 @@ func main() {
 			switch opt.DefaultValue.(type) {
 			case bool, int, string:
 				generateFile(optionLiteralTemplate, data, filepath)
-			case map[string]string, map[string][]string, map[string]interface{}, map[string]map[string]string:
+			case map[string]string, map[string][]string, map[string]interface{}, map[string]map[string]string, map[string]map[string]bool:
 				generateFile(optionMapTemplate, data, filepath)
 			case []string:
 				generateFile(optionStringSliceTemplate, data, filepath)
@@ -93,6 +94,8 @@ func main() {
 				generateFile(optionTestMapStringMapStringStringTemplate, data, testFilepath)
 			case map[string]interface{}:
 				generateFile(optionTestMapStringInterfaceTemplate, data, testFilepath)
+			case map[string]map[string]bool:
+				generateFile(optionTestMapStringMapStringBoolTemplate, data, testFilepath)
 			default:
 				fmt.Printf("cannot generate option test file for %s: unhandled type %#v", opt.Name, opt.DefaultValue)
 				os.Exit(1)

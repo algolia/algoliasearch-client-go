@@ -21,7 +21,7 @@ import (
 	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
 )
 
-const version = "3.16.0"
+const version = "3.17.0"
 
 type Transport struct {
 	requester     Requester
@@ -135,7 +135,11 @@ func (t *Transport) Request(
 			cancel()
 			return err
 		case Failure:
-			err = unmarshalToError(bodyRes)
+			if bodyRes != nil {
+				err = unmarshalToError(bodyRes)
+			} else if err == nil {
+				err = fmt.Errorf("undefined network error with code: %v", code)
+			}
 			cancel()
 			return err
 		default:

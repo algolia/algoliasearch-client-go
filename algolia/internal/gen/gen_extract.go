@@ -23,7 +23,7 @@ func main() {
 
 		if shouldBeGenerated(filepath) {
 			switch opt.DefaultValue.(type) {
-			case nil, bool, int, string, []string, map[string][]string, map[string]map[string]string:
+			case nil, bool, int, string, []string, map[string][]string, map[string]map[string]string, map[string]map[string]bool:
 				generateFile(extractLiteralTemplate, opt.Name, filepath)
 			case map[string]string:
 				generateFile(extractMapStringStringTemplate, opt.Name, filepath)

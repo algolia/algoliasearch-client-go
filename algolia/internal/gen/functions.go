@@ -113,6 +113,7 @@ func convertInterfaceToString(defaultValue interface{}) string {
 		map[string]string,
 		map[string][]string,
 		map[string]map[string]string,
+		map[string]map[string]bool,
 		map[string]interface{}:
 		s = fmt.Sprintf("%#v", v)
 	default:

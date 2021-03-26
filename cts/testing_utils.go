@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
+	"math/rand"
 	"os"
 	"os/user"
 	"strings"
@@ -160,4 +161,14 @@ func GenerateSecuredAPIKeyWithArbitraryParameters(
 
 	checksum := hex.EncodeToString(h.Sum(nil))
 	return base64.StdEncoding.EncodeToString([]byte(checksum + message))
+}
+
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func GenerateRandomString(length int) string {
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }
