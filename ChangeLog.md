@@ -1,5 +1,14 @@
 # ChangeLog
 
+## [3.18.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.17.0...3.18.0) (2021-03-26)
+
+### Feat
+
+- Dictionaries API methods (#644) ([7fe9a59](https://github.com/algolia/algoliasearch-client-go/commit/7fe9a59))
+- New languages parameters (#645) ([5ad29f7](https://github.com/algolia/algoliasearch-client-go/commit/5ad29f7))
+- Dockerize the repository (#650) ([f429ef6](https://github.com/algolia/algoliasearch-client-go/commit/f429ef6))
+
+
 ## [3.17.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.16.0...3.17.0) (2021-03-08)
 
 ### Feat
