@@ -144,9 +144,6 @@ func (c *Client) WaitTask(taskID int64, opts ...interface{}) error {
 		if err != nil {
 			return true, err
 		}
-		if res.Status == "published" {
-			return true, nil
-		}
-		return false, nil
+		return res.Status == "published", nil
 	})
 }
