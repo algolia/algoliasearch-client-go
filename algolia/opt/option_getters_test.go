@@ -353,4 +353,10 @@ func TestOptionGetters(t *testing.T) {
 	var exposeIntermediateNetworkErrors *ExposeIntermediateNetworkErrorsOption = nil
 	exposeIntermediateNetworkErrors.Get()
 
+	var language *LanguageOption = nil
+	language.Get()
+
+	var disableStandardEntries *DisableStandardEntriesOption = nil
+	disableStandardEntries.Get()
+
 }

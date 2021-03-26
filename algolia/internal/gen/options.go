@@ -173,4 +173,6 @@ var options = []Option{
 	{"safe", Other, false, ""},
 	{"filterPromotes", Other, false, ""},
 	{"exposeIntermediateNetworkErrors", Other, false, ""},
+	{"language", Other, "", ""},
+	{"disableStandardEntries", Other, map[string]map[string]bool{}, ""},
 }
