@@ -6,7 +6,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
+	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 type searchReq struct {
@@ -73,18 +74,20 @@ func newSearchParams(query string, opts ...interface{}) searchParams {
 	return searchParams{
 		Query:       query,
 		QueryParams: newQueryParams(opts...),
-		ExtraParams: opt.ExtractExtraOptions(opts...).Get(),
+		ExtraParams: iopt.ExtractExtraOptions(opts...).Get(),
 	}
 }
 
 type searchForFacetValuesParams struct {
 	FacetQuery string `json:"facetQuery"`
+	Query *opt.QueryOption `json:"query"`
 	QueryParams
 }
 
 func newSearchForFacetValuesParams(query string, opts ...interface{}) searchForFacetValuesParams {
 	return searchForFacetValuesParams{
 		FacetQuery:  query,
-		QueryParams: newQueryParams(opts...),
+		Query: iopt.ExtractQuery(opts...),
+		QueryParams: newQueryParams( opts...),
 	}
 }
