@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.18.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.0...3.18.1) (2021-04-02)
+
+### Fix
+
+- query parameter support in Search for facet values parameters list (#655) ([c57096a](https://github.com/algolia/algoliasearch-client-go/commit/c57096a))
+
+
+
 ## [3.18.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.17.0...3.18.0) (2021-03-26)
 
 ### Feat
