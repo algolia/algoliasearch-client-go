@@ -27,3 +27,15 @@ func TestNewSearchParams_ExtraOptionsOverride(t *testing.T) {
 	require.True(t, ok)
 	require.True(t, v)
 }
+
+func TestSearchForFacetValuesParams_IncludeQuery(t *testing.T) {
+	params := newSearchForFacetValuesParams("facet query", opt.Query("search query"), opt.MaxFacetHits(5))
+	data, err := json.Marshal(params)
+	require.NoError(t, err)
+
+	var m map[string]interface{}
+	err = json.Unmarshal(data, &m)
+	require.NoError(t, err)
+	require.NotNil(t, m["query"])
+	require.Equal(t, m["query"], "search query")
+}
