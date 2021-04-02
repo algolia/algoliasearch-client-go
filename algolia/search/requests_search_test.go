@@ -37,4 +37,5 @@ func TestSearchForFacetValuesParams_IncludeQuery(t *testing.T) {
 	err = json.Unmarshal(data, &m)
 	require.NoError(t, err)
 	require.NotNil(t, m["query"])
+	require.Equal(t, m["query"], "search query")
 }
