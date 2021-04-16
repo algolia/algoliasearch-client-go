@@ -22,7 +22,7 @@ func AttributesToTransliterate(v ...string) *AttributesToTransliterateOption {
 // Get retrieves the actual value of the option parameter.
 func (o *AttributesToTransliterateOption) Get() []string {
 	if o == nil {
-		return []string{}
+		return []string{"*"}
 	}
 	return o.value
 }
@@ -37,7 +37,7 @@ func (o AttributesToTransliterateOption) MarshalJSON() ([]byte, error) {
 // AttributesToTransliterateOption.
 func (o *AttributesToTransliterateOption) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		o.value = []string{}
+		o.value = []string{"*"}
 		return nil
 	}
 	var s string
@@ -57,10 +57,10 @@ func (o *AttributesToTransliterateOption) UnmarshalJSON(data []byte) error {
 // value of the option.
 func (o *AttributesToTransliterateOption) Equal(o2 *AttributesToTransliterateOption) bool {
 	if o == nil {
-		return o2 == nil || reflect.DeepEqual(o2.value, []string{})
+		return o2 == nil || reflect.DeepEqual(o2.value, []string{"*"})
 	}
 	if o2 == nil {
-		return o == nil || reflect.DeepEqual(o.value, []string{})
+		return o == nil || reflect.DeepEqual(o.value, []string{"*"})
 	}
 	return reflect.DeepEqual(o.value, o2.value)
 }
