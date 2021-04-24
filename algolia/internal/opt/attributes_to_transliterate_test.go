@@ -17,7 +17,7 @@ func TestAttributesToTransliterate(t *testing.T) {
 	}{
 		{
 			opts:     []interface{}{nil},
-			expected: opt.AttributesToTransliterate([]string{}...),
+			expected: opt.AttributesToTransliterate([]string{"*"}...),
 		},
 		{
 			opts:     []interface{}{opt.AttributesToTransliterate("value1")},
