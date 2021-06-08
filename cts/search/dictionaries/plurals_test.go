@@ -9,6 +9,7 @@ import (
 )
 
 func TestPlurals(t *testing.T) {
+	t.Skip("Temporary skip dictionaries tests")
 	t.Parallel()
 	client := cts.InitSearchClient2(t)
 
