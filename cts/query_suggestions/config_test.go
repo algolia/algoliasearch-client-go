@@ -32,7 +32,7 @@ func TestConfig(t *testing.T) {
 
 	indexName := "test_query_suggestion_index"
 
-	indexConfig := query_suggestions.IndexConfig{
+	indexConfig := query_suggestions.IndexConfiguration{
 		IndexName: indexName,
 		SourceIndices: []query_suggestions.SourceIndex{
 			{

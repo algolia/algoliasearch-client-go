@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type IndexConfig struct {
+type IndexConfiguration struct {
 	// Index name to target.
 	IndexName string `json:"indexName"`
 	// List of source indices used to generate a Query Suggestions index.
@@ -35,13 +35,13 @@ type SourceIndex struct {
 }
 
 // CreateConfig creates new query suggestions index with given config.
-func (c *Client) CreateConfig(config IndexConfig, opts ...interface{}) error {
+func (c *Client) CreateConfig(config IndexConfiguration, opts ...interface{}) error {
 	path := c.path("/configs")
 	return c.transport.Request(map[string]interface{}{}, http.MethodPost, path, config, call.Write, opts...)
 }
 
 // UpdateConfig updates the query suggestions index config.
-func (c *Client) UpdateConfig(config IndexConfig, opts ...interface{}) error {
+func (c *Client) UpdateConfig(config IndexConfiguration, opts ...interface{}) error {
 	path := c.path(fmt.Sprintf("/configs/%s", config.IndexName))
 	return c.transport.Request(map[string]interface{}{}, http.MethodPut, path, config, call.Write, opts...)
 }
@@ -53,14 +53,14 @@ func (c *Client) DeleteConfig(indexName string, opts ...interface{}) error {
 }
 
 // GetConfig retrieves the query suggestions index config by the given indexName.
-func (c *Client) GetConfig(indexName string, opts ...interface{}) (config *IndexConfig, err error) {
+func (c *Client) GetConfig(indexName string, opts ...interface{}) (config *IndexConfiguration, err error) {
 	path := c.path(fmt.Sprintf("/configs/%s", indexName))
 	err = c.transport.Request(&config, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
 
 // ListConfigs lists all the configs of the query suggestions in a single call.
-func (c *Client) ListConfigs(opts ...interface{}) (configs []*IndexConfig, err error) {
+func (c *Client) ListConfigs(opts ...interface{}) (configs []*IndexConfiguration, err error) {
 	path := c.path("/configs")
 	err = c.transport.Request(&configs, http.MethodGet, path, nil, call.Read, opts...)
 	return
