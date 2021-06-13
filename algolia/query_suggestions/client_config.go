@@ -30,9 +30,8 @@ type SourceIndex struct {
 	MinLetters *int `json:"minLetters"`
 	// List of facet attributes used to generate Query Suggestions. The resulting suggestions are every combination of the facets in the nested list
 	Generate [][]string `json:"generate,omitempty"`
-	// TODO: Figure out what type we should use for external.
 	// List of external indices to use to generate custom Query Suggestions.
-	// External []string `json:"external,omitempty"`
+	External []string `json:"external,omitempty"`
 }
 
 // CreateConfig creates new query suggestions index with given config.
