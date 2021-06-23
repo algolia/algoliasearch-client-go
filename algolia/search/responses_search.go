@@ -13,6 +13,7 @@ type QueryRes struct {
 	ExhaustiveFacetsCount bool                              `json:"exhaustiveFacetsCount"`
 	ExhaustiveNbHits      bool                              `json:"exhaustiveNbHits"`
 	Explain               map[string]map[string]interface{} `json:"explain"`
+	Extensions            map[string]map[string]interface{} `json:"extensions"`
 	Facets                map[string]map[string]int         `json:"facets"`
 	FacetsStats           map[string]FacetStat              `json:"facets_stats"`
 	Hits                  []map[string]interface{}          `json:"Hits"`
