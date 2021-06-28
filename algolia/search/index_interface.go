@@ -7,6 +7,7 @@ type IndexInterface interface {
 	WaitTask(taskID int64, opts ...interface{}) error
 	GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes, err error)
 	GetAppID() string
+	GetName() string
 	ClearObjects(opts ...interface{}) (res UpdateTaskRes, err error)
 	Delete(opts ...interface{}) (res DeleteTaskRes, err error)
 	Exists() (exists bool, err error)
