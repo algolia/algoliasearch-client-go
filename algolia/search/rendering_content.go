@@ -1,0 +1,70 @@
+package search
+
+import "encoding/json"
+
+// Content defining how the search interface should be rendered.
+// This is set via the settings for a default value and can be overridden via rules
+type RenderingContent struct {
+	FacetOrdering *FacetOrdering `json:"facetOrdering"`
+}
+
+// Facets and facets values ordering rules container
+type FacetOrdering struct {
+	// The ordering of facets.
+	Facets *FacetsOrder `json:"facets"`
+
+	// The ordering of facet values, within an individual list.
+	Values map[string]FacetValuesOrder `json:"values"`
+}
+
+// Facets ordering rule container
+type FacetsOrder struct {
+	// Pinned order of facet lists.
+	Order []string `json:"order"`
+}
+
+// Facet values ordering rule container
+type FacetValuesOrder struct {
+	// Pinned order of facet values.
+	Order []string `json:"order"`
+
+	// How to display the remaining items.
+	SortRemainingBy SortRule `json:"sortRemainingBy"`
+}
+
+func (r *FacetValuesOrder) UnmarshalJSON(data []byte) error {
+	if string(data) == jsonNull {
+		return nil
+	}
+
+	var res struct {
+		Order           []string `json:"order"`
+		SortRemainingBy SortRule `json:"sortRemainingBy"`
+	}
+
+	err := json.Unmarshal(data, &res)
+	if err != nil {
+		return err
+	}
+
+	r.Order = res.Order
+	r.SortRemainingBy = res.SortRemainingBy
+	if res.SortRemainingBy == "" {
+		r.SortRemainingBy = Count
+	}
+	return nil
+}
+
+// Rule defining the sort order of facet values.
+type SortRule string
+
+const (
+	// alphabetical (ascending)
+	Alpha SortRule = "alpha"
+
+	// facet count (descending)
+	Count SortRule = "count"
+
+	// hidden (show only pinned values)
+	Hidden SortRule = "hidden"
+)
