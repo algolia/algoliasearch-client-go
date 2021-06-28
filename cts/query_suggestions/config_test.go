@@ -1,11 +1,12 @@
 package query_suggestions
 
 import (
+	"testing"
+
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/query_suggestions"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestConfig(t *testing.T) {
@@ -36,7 +37,7 @@ func TestConfig(t *testing.T) {
 		IndexName: indexName,
 		SourceIndices: []query_suggestions.SourceIndex{
 			{
-				IndexName:     "test_offerings_query_suggestions",
+				IndexName:     indexName1,
 				AnalyticsTags: nil,
 				Facets:        nil,
 				MinHits:       func() *int { i := 4; return &i }(),
