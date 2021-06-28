@@ -1,9 +1,9 @@
-package query_suggestions
+package suggestions
 
 import (
 	"testing"
 
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/query_suggestions"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/suggestions"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
 	"github.com/stretchr/testify/require"
@@ -33,9 +33,9 @@ func TestConfig(t *testing.T) {
 
 	indexName := "test_query_suggestion_index"
 
-	indexConfig := query_suggestions.IndexConfiguration{
+	indexConfig := suggestions.IndexConfiguration{
 		IndexName: indexName,
-		SourceIndices: []query_suggestions.SourceIndex{
+		SourceIndices: []suggestions.SourceIndex{
 			{
 				IndexName:     indexName1,
 				AnalyticsTags: nil,

@@ -1,9 +1,10 @@
-package query_suggestions
+package suggestions
 
 import (
+	"time"
+
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
-	"time"
 )
 
 // Configuration contains all the different parameters one can change to
@@ -19,4 +20,3 @@ type Configuration struct {
 	Headers        map[string]string
 	ExtraUserAgent string
 }
-

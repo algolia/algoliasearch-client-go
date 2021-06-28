@@ -1,7 +1,8 @@
-package query_suggestions
+package suggestions
 
 import (
 	"fmt"
+
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
@@ -16,4 +17,3 @@ func defaultHosts(r region.Region) (hosts []*transport.StatefulHost) {
 	}
 	return
 }
-

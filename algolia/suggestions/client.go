@@ -1,7 +1,8 @@
-package query_suggestions
+package suggestions
 
 import (
 	"fmt"
+
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
@@ -66,6 +67,6 @@ func NewClientWithConfig(config Configuration) *Client {
 	}
 }
 
-func (c *Client) path(format string, a ...interface{}) string {
+func (c *Client) path(format string, a ...interface{}) string { //nolint:unparam
 	return "/1" + fmt.Sprintf(format, a...)
 }

@@ -1,9 +1,10 @@
-package query_suggestions
+package suggestions
 
 import (
 	"fmt"
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"net/http"
+
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 )
 
 type IndexConfiguration struct {
