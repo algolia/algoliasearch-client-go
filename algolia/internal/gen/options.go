@@ -34,6 +34,7 @@ var options = []Option{
 	// Ranking
 	{"ranking", Settings, []string{"typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"}, ""},
 	{"customRanking", Settings, []string{}, ""},
+	{"relevancyStrictness", Settings | Search, 100, ""},
 	{"replicas", Settings, []string{}, "slaves"},
 	{"primary", Settings, "", ""},
 

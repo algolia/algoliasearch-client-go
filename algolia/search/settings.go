@@ -19,6 +19,7 @@ type Settings struct {
 	AttributesToRetrieve                    *opt.AttributesToRetrieveOption                    `json:"attributesToRetrieve,omitempty"`
 	Ranking                                 *opt.RankingOption                                 `json:"ranking,omitempty"`
 	CustomRanking                           *opt.CustomRankingOption                           `json:"customRanking,omitempty"`
+	RelevancyStrictness                     *opt.RelevancyStrictnessOption                     `json:"relevancyStrictness,omitempty"`
 	Replicas                                *opt.ReplicasOption                                `json:"replicas,omitempty"`
 	Primary                                 *opt.PrimaryOption                                 `json:"primary,omitempty"`
 	MaxValuesPerFacet                       *opt.MaxValuesPerFacetOption                       `json:"maxValuesPerFacet,omitempty"`
@@ -119,6 +120,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 		"attributesToRetrieve",
 		"ranking",
 		"customRanking",
+		"relevancyStrictness",
 		"replicas",
 		"slaves",
 		"primary",
@@ -226,6 +228,10 @@ func (s Settings) Equal(s2 Settings) bool {
 	}
 	if !opt.CustomRankingEqual(s.CustomRanking, s2.CustomRanking) {
 		debug.Printf("Settings.CustomRanking are not equal: %#v != %#v\n", s.CustomRanking, s2.CustomRanking)
+		return false
+	}
+	if !opt.RelevancyStrictnessEqual(s.RelevancyStrictness, s2.RelevancyStrictness) {
+		debug.Printf("Settings.RelevancyStrictness are not equal: %#v != %#v\n", s.RelevancyStrictness, s2.RelevancyStrictness)
 		return false
 	}
 	if !opt.ReplicasEqual(s.Replicas, s2.Replicas) {
@@ -451,6 +457,7 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tAttributesToRetrieve: %v,\n", stringifyReturnValues(s.AttributesToRetrieve.Get()))
 	settingsStr += fmt.Sprintf("\tRanking: %v,\n", stringifyReturnValues(s.Ranking.Get()))
 	settingsStr += fmt.Sprintf("\tCustomRanking: %v,\n", stringifyReturnValues(s.CustomRanking.Get()))
+	settingsStr += fmt.Sprintf("\tRelevancyStrictness: %v,\n", stringifyReturnValues(s.RelevancyStrictness.Get()))
 	settingsStr += fmt.Sprintf("\tReplicas: %v,\n", stringifyReturnValues(s.Replicas.Get()))
 	settingsStr += fmt.Sprintf("\tPrimary: %v,\n", stringifyReturnValues(s.Primary.Get()))
 	settingsStr += fmt.Sprintf("\tMaxValuesPerFacet: %v,\n", stringifyReturnValues(s.MaxValuesPerFacet.Get()))

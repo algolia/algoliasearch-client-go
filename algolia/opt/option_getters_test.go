@@ -26,6 +26,9 @@ func TestOptionGetters(t *testing.T) {
 	var customRanking *CustomRankingOption = nil
 	customRanking.Get()
 
+	var relevancyStrictness *RelevancyStrictnessOption = nil
+	relevancyStrictness.Get()
+
 	var replicas *ReplicasOption = nil
 	replicas.Get()
 
