@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.19.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.1...3.19.0) (2021-06-23)
+
+### Feat
+
+- **QueryRes**: add support for extensions field (#667) ([545ee15](https://github.com/algolia/algoliasearch-client-go/commit/545ee15))
+
+
+
 ## [3.18.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.0...3.18.1) (2021-04-02)
 
 ### Fix
