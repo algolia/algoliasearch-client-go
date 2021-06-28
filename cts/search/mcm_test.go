@@ -24,8 +24,8 @@ func TestMCM(t *testing.T) {
 	cluster := res.Clusters[0]
 
 	userIDPrefix := cts.GenerateCanonicalPrefixName()
-	userIDPrefix = strings.Replace(userIDPrefix, ":", "-", -1)
-	userIDPrefix = strings.Replace(userIDPrefix, "_", "-", -1)
+	userIDPrefix = strings.ReplaceAll(userIDPrefix, ":", "-")
+	userIDPrefix = strings.ReplaceAll(userIDPrefix, "_", "-")
 
 	userIDs := []string{
 		userIDPrefix + "-0",

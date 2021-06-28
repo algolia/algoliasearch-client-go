@@ -76,7 +76,6 @@ func (i *Index) GetName() string {
 	return i.name
 }
 
-
 // ClearObjects deletes all the records of the index.
 func (i *Index) ClearObjects(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/clear")

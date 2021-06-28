@@ -6,7 +6,6 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/query_suggestions"
 	"math/rand"
 	"os"
 	"os/user"
@@ -22,6 +21,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/recommendation"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/suggestions"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
@@ -49,7 +49,7 @@ func cleanIndexName(indexName string) string {
 		"+",
 		"^",
 	} {
-		indexName = strings.Replace(indexName, char, "_", -1)
+		indexName = strings.ReplaceAll(indexName, char, "_")
 	}
 	return indexName
 }
@@ -78,7 +78,7 @@ func InitRecommendationClient(t *testing.T) *recommendation.Client {
 	return initRecommendationClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
 }
 
-func InitQuerySuggestionsClient1(t *testing.T) *query_suggestions.Client {
+func InitQuerySuggestionsClient1(t *testing.T) *suggestions.Client {
 	return initQuerySuggestionsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
 }
 
@@ -111,9 +111,9 @@ func initRecommendationClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string
 	return c
 }
 
-func initQuerySuggestionsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *query_suggestions.Client {
+func initQuerySuggestionsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *suggestions.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
-	c := query_suggestions.NewClient(appID, key)
+	c := suggestions.NewClient(appID, key)
 	return c
 }
 

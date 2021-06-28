@@ -35,7 +35,7 @@ func TestIndex_GetName(t *testing.T) {
 	}{
 		{
 			indexName: "test_index",
-			want: "test_index",
+			want:      "test_index",
 		},
 	}
 	for _, tt := range tests {
