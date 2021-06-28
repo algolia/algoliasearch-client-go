@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/query_suggestions"
 	"math/rand"
 	"os"
 	"os/user"
@@ -77,6 +78,10 @@ func InitRecommendationClient(t *testing.T) *recommendation.Client {
 	return initRecommendationClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
 }
 
+func InitQuerySuggestionsClient1(t *testing.T) *query_suggestions.Client {
+	return initQuerySuggestionsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
+}
+
 func initInsightsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *insights.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
 	c := insights.NewClient(appID, key)
@@ -103,6 +108,12 @@ func initAnalyticsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *an
 func initRecommendationClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *recommendation.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
 	c := recommendation.NewClient(appID, key, region.US)
+	return c
+}
+
+func initQuerySuggestionsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *query_suggestions.Client {
+	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
+	c := query_suggestions.NewClient(appID, key)
 	return c
 }
 
