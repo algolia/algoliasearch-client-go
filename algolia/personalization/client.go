@@ -1,4 +1,4 @@
-package recommendation
+package personalization
 
 import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
@@ -7,13 +7,11 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
-// Deprecated: use personalization.Client instead
 // Client provides methods to interact with the Algolia Recommendation API.
 type Client struct {
 	transport *transport.Transport
 }
 
-// Deprecated: use personalization.NewClient() instead
 // NewClient instantiates a new client able to interact with the Algolia
 // Recommendation API.
 func NewClient(appID, apiKey string, region region.Region) *Client {
