@@ -1,7 +1,5 @@
 package search
 
-import "encoding/json"
-
 // Content defining how the search interface should be rendered.
 // This is set via the settings for a default value and can be overridden via rules
 type RenderingContent struct {
@@ -29,30 +27,7 @@ type FacetValuesOrder struct {
 	Order []string `json:"order"`
 
 	// How to display the remaining items.
-	SortRemainingBy SortRule `json:"sortRemainingBy"`
-}
-
-func (r *FacetValuesOrder) UnmarshalJSON(data []byte) error {
-	if string(data) == jsonNull {
-		return nil
-	}
-
-	var res struct {
-		Order           []string `json:"order"`
-		SortRemainingBy SortRule `json:"sortRemainingBy"`
-	}
-
-	err := json.Unmarshal(data, &res)
-	if err != nil {
-		return err
-	}
-
-	r.Order = res.Order
-	r.SortRemainingBy = res.SortRemainingBy
-	if res.SortRemainingBy == "" {
-		r.SortRemainingBy = Count
-	}
-	return nil
+	SortRemainingBy *SortRule `json:"sortRemainingBy"`
 }
 
 // Rule defining the sort order of facet values.

@@ -30,7 +30,7 @@ func TestUnmarshalRenderingContent(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, r.FacetOrdering.Facets.Order, []string{"brand", "size", "color"})
 	require.Equal(t, r.FacetOrdering.Values["brand"].Order, []string{"Apple", "Sony", "Samsung"})
-	require.Equal(t, r.FacetOrdering.Values["brand"].SortRemainingBy, Alpha)
+	require.Equal(t, *r.FacetOrdering.Values["brand"].SortRemainingBy, Alpha)
 	require.Equal(t, r.FacetOrdering.Values["color"].Order, []string{"red", "green"})
-	require.Equal(t, r.FacetOrdering.Values["color"].SortRemainingBy, Count)
+	require.Nil(t, r.FacetOrdering.Values["color"].SortRemainingBy)
 }
