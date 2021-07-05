@@ -1,4 +1,4 @@
-package recommendation
+package personalization
 
 import (
 	"testing"
@@ -7,19 +7,19 @@ import (
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/recommendation"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/personalization"
 	"github.com/algolia/algoliasearch-client-go/v3/cts"
 )
 
 func TestPersonalizationStrategy(t *testing.T) {
-	client := cts.InitRecommendationClient(t)
+	client := cts.InitPersonalizationClient(t)
 
-	strategy := recommendation.Strategy{
-		EventsScoring: []recommendation.EventsScoring{
+	strategy := personalization.Strategy{
+		EventsScoring: []personalization.EventsScoring{
 			{EventName: "Add to cart", EventType: "conversion", Score: 50},
 			{EventName: "Purchase", EventType: "conversion", Score: 100},
 		},
-		FacetsScoring: []recommendation.FacetsScoring{
+		FacetsScoring: []personalization.FacetsScoring{
 			{FacetName: "brand", Score: 100},
 			{FacetName: "categories", Score: 10},
 		},
