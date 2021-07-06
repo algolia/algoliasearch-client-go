@@ -32,30 +32,31 @@ type GetABTestsRes struct {
 // ABTestResponse represents an AB test as returned by the Analytics API when
 // retrieved as part of a response.
 type ABTestResponse struct {
-	ABTestID               int               `json:"abTestID"`
-	ClickSignificance      float64           `json:"clickSignificance"`
-	ConversionSignificance float64           `json:"conversionSignificance"`
-	CreatedAt              time.Time         `json:"createdAt"`
-	EndAt                  time.Time         `json:"endAt"`
-	Name                   string            `json:"name"`
-	Status                 string            `json:"status"`
-	Variants               []VariantResponse `json:"variants"`
+	ABTestID               int                `json:"abTestID"`
+	Name                   string             `json:"name"`
+	CreatedAt              time.Time          `json:"createdAt"`
+	UpdatedAt              time.Time          `json:"updatedAt"`
+	EndAt                  time.Time          `json:"endAt"`
+	Status                 string             `json:"status"`
+	Variants               [2]VariantResponse `json:"variants"`
+	ClickSignificance      *float64           `json:"clickSignificance"`
+	ConversionSignificance *float64           `json:"conversionSignificance"`
 }
 
 // VariantResponse represents an AB test's variant as returned by the Analytics
 // API when retrieved as part of a response.
 type VariantResponse struct {
-	AverageClickPosition   float64             `json:"averageClickPosition"`
-	ClickCount             int                 `json:"clickCount"`
-	ClickThroughRate       float64             `json:"clickThroughRate"`
-	ConversionCount        int                 `json:"conversionCount"`
-	ConversionRate         float64             `json:"conversionRate"`
-	Description            string              `json:"description"`
 	Index                  string              `json:"index"`
-	NoResultCount          int                 `json:"noResultCount"`
-	SearchCount            int                 `json:"searchCount"`
-	TrackedSearchCount     int                 `json:"trackedSearchCount"`
 	TrafficPercentage      int                 `json:"trafficPercentage"`
-	UserCount              int                 `json:"userCount"`
-	CustomSearchParameters *search.QueryParams `json:"customSearchParameters"`
+	CustomSearchParameters *search.QueryParams `json:"customSearchParameters,omitempty"`
+	Description            *string             `json:"description"`
+	SearchCount            *int                `json:"searchCount"`
+	TrackedSearchCount     *int                `json:"trackedSearchCount"`
+	UserCount              *int                `json:"userCount"`
+	NoResultCount          *int                `json:"noResultCount"`
+	ClickCount             *int                `json:"clickCount"`
+	ClickThroughRate       *float64            `json:"clickThroughRate"`
+	AverageClickPosition   *float64            `json:"averageClickPosition"`
+	ConversionCount        *int                `json:"conversionCount"`
+	ConversionRate         *float64            `json:"conversionRate"`
 }
