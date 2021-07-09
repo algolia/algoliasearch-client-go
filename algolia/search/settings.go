@@ -73,6 +73,7 @@ type Settings struct {
 	Advanced                                *opt.AdvancedOption                                `json:"advanced,omitempty"`
 	AttributeCriteriaComputedByMinProximity *opt.AttributeCriteriaComputedByMinProximityOption `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	UserData                                *opt.UserDataOption                                `json:"userData,omitempty"`
+	RenderingContent                        *RenderingContent                                  `json:"renderingContent"`
 	CustomSettings                          map[string]interface{}                             `json:"-"`
 }
 
@@ -511,6 +512,8 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tAdvanced: %v,\n", stringifyReturnValues(s.Advanced.Get()))
 	settingsStr += fmt.Sprintf("\tAttributeCriteriaComputedByMinProximity: %v,\n", stringifyReturnValues(s.AttributeCriteriaComputedByMinProximity.Get()))
 	settingsStr += fmt.Sprintf("\tUserData: %v,\n", stringifyReturnValues(s.UserData.Get()))
+
+	settingsStr += fmt.Sprintf("\tRenderingContent: %+v\n", *s.RenderingContent)
 
 	settingsStr += "\tCustomSettings{\n"
 	for k, v := range s.CustomSettings {
