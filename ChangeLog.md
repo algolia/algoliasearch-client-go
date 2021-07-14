@@ -1,5 +1,16 @@
 # ChangeLog
 
+## [3.20.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.19.0...3.20.0) (2021-07-05)
+
+### Feat
+
+- **facet ordering**: Dynamic facet ordering support (#668) ([ac10446](https://github.com/algolia/algoliasearch-client-go/commit/ac10446))
+- **virtual indices**: Add virtual indices related params (#661) ([c8b8089](https://github.com/algolia/algoliasearch-client-go/commit/c8b8089))
+- **query suggestions**: Implement client for query suggestions API (#659) ([e638f15](https://github.com/algolia/algoliasearch-client-go/commit/e638f15))
+- **index**: Make it possible to get the index name (#664) ([ae1c159](https://github.com/algolia/algoliasearch-client-go/commit/ae1c159))
+
+
+
 ## [3.19.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.1...3.19.0) (2021-06-23)
 
 ### Feat

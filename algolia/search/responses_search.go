@@ -39,6 +39,7 @@ type QueryRes struct {
 	TimeoutHits                bool                              `json:"timeoutHits"`
 	UserData                   []interface{}                     `json:"userData"`
 	ABTestVariantID            int                               `json:"abTestVariantID"`
+	RenderingContent           *RenderingContent                 `json:"renderingContent"`
 }
 
 type AppliedRule struct {
