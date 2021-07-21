@@ -17,6 +17,7 @@ type Settings struct {
     {{ title $setting.Name }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.Name }},omitempty"`
     {{- end }}
     RenderingContent *RenderingContent `json:"renderingContent,omitempty"`
+    Extensions *Extensions `json:"Extensions,omitempty"`
     CustomSettings map[string]interface{} `json:"-"`
 }
 
