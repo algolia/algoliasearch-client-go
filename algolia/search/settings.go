@@ -74,7 +74,7 @@ type Settings struct {
 	AttributeCriteriaComputedByMinProximity *opt.AttributeCriteriaComputedByMinProximityOption `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	UserData                                *opt.UserDataOption                                `json:"userData,omitempty"`
 	RenderingContent                        *RenderingContent                                  `json:"renderingContent"`
-	Extensions                              *Extensions                                        `json:"Extensions,omitempty"`
+	Extensions                              *Extensions                                        `json:"extensions,omitempty"`
 	CustomSettings                          map[string]interface{}                             `json:"-"`
 }
 
