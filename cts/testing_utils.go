@@ -18,7 +18,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/analytics"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/insights"
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/recommendation"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/personalization"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/suggestions"
@@ -74,8 +74,8 @@ func InitInsightsClient(t *testing.T) *insights.Client {
 	return initInsightsClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
 }
 
-func InitRecommendationClient(t *testing.T) *recommendation.Client {
-	return initRecommendationClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
+func InitPersonalizationClient(t *testing.T) *personalization.Client {
+	return initPersonalizationClientWith(t, "ALGOLIA_APPLICATION_ID_1", "ALGOLIA_ADMIN_KEY_1")
 }
 
 func InitQuerySuggestionsClient1(t *testing.T) *suggestions.Client {
@@ -105,9 +105,9 @@ func initAnalyticsClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *an
 	return c
 }
 
-func initRecommendationClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *recommendation.Client {
+func initPersonalizationClientWith(t *testing.T, appIDEnvVar, apiKeyEnvVar string) *personalization.Client {
 	appID, key := GetTestingCredentials(t, appIDEnvVar, apiKeyEnvVar)
-	c := recommendation.NewClient(appID, key, region.US)
+	c := personalization.NewClient(appID, key, region.US)
 	return c
 }
 
