@@ -26,6 +26,7 @@ func NewClient(appID, apiKey string, region region.Region) *Client {
 	)
 }
 
+// Deprecated: use personalization.NewClientWithConfig() instead
 // NewClientWithConfig instantiates a new client able to interact with the
 // Recommendation API.
 func NewClientWithConfig(config Configuration) *Client {
