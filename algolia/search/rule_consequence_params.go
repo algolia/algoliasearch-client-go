@@ -9,6 +9,7 @@ type RuleParams struct {
 	Query                         *RuleQuery             `json:"query,omitempty"`
 	AutomaticFacetFilters         []AutomaticFacetFilter `json:"automaticFacetFilters,omitempty"`
 	AutomaticOptionalFacetFilters []AutomaticFacetFilter `json:"automaticOptionalFacetFilters,omitempty"`
+	RenderingContent              *RenderingContent      `json:"renderingContent,omitempty"`
 	QueryParams
 }
 
