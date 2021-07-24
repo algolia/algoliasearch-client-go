@@ -16,6 +16,8 @@ type Settings struct {
     {{- range $_, $setting := . }}
     {{ title $setting.Name }} *opt.{{ title $setting.Name }}Option `json:"{{ $setting.Name }},omitempty"`
     {{- end }}
+    RenderingContent *RenderingContent `json:"renderingContent,omitempty"`
+    Extensions *Extensions `json:"extensions,omitempty"`
     CustomSettings map[string]interface{} `json:"-"`
 }
 
@@ -104,6 +106,8 @@ func (s Settings) String() string {
     {{- range $_, $setting := . }}
     settingsStr += fmt.Sprintf("\t{{ title $setting.Name }}: %v,\n", stringifyReturnValues(s.{{ title $setting.Name }}.Get()))
     {{- end }}
+
+    settingsStr += fmt.Sprintf("\tRenderingContent: %+v\n", s.RenderingContent)
 
     settingsStr += "\tCustomSettings{\n"
     for k, v := range s.CustomSettings {

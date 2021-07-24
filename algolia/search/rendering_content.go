@@ -30,6 +30,10 @@ type FacetValuesOrder struct {
 	SortRemainingBy *SortRule `json:"sortRemainingBy"`
 }
 
+func NewFacetValuesOrder(order []string, sortRemainingBy SortRule) FacetValuesOrder {
+	return FacetValuesOrder{Order: order, SortRemainingBy: &sortRemainingBy}
+}
+
 // Rule defining the sort order of facet values.
 type SortRule string
 
