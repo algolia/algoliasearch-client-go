@@ -1,5 +1,18 @@
 # ChangeLog
 
+## [3.21.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.20.0...3.21.0) (2021-07-26)
+
+### Feat
+
+- **Reranking**: Implement Reranking extension settings (#676) ([17d46a2](https://github.com/algolia/algoliasearch-client-go/commit/17d46a2))
+- **RenderingContent**: Add the rendering content as a settings field (#674) ([961cee9](https://github.com/algolia/algoliasearch-client-go/commit/961cee9))
+
+### Fix
+
+- Make index.Exists() to return error if status is not 404 (#673) ([15d0de7](https://github.com/algolia/algoliasearch-client-go/commit/15d0de7))
+
+
+
 ## [3.20.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.19.0...3.20.0) (2021-07-05)
 
 ### Feat
