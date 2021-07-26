@@ -106,10 +106,11 @@ func (i *Index) GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes,
 // with false.
 func (i *Index) Exists() (bool, error) {
 	_, err := i.GetSettings()
-	_, ok := errs.IsAlgoliaErr(err)
-	if !ok && err != nil {
-		return false, err
+	if err == nil {
+		return true, nil
 	}
-	_, ok = errs.IsAlgoliaErrWithCode(err, http.StatusNotFound)
-	return !ok, nil
+	if _, ok := errs.IsAlgoliaErrWithCode(err, http.StatusNotFound); ok {
+		return false, nil
+	}
+	return false, err
 }
