@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/utils"
+
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
 	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
@@ -47,7 +49,7 @@ func NewClientWithConfig(config Configuration) *Client {
 	)
 
 	if len(config.Hosts) == 0 {
-		hosts = defaultHosts(config.AppID)
+		hosts = utils.DefaultHosts(config.AppID)
 	} else {
 		for _, h := range config.Hosts {
 			hosts = append(hosts, transport.NewStatefulHost(h, call.IsReadWrite))
