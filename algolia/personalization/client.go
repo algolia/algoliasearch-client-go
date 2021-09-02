@@ -7,13 +7,13 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
-// Client provides methods to interact with the Algolia Recommendation API.
+// Client provides methods to interact with the Algolia Personalization API.
 type Client struct {
 	transport *transport.Transport
 }
 
 // NewClient instantiates a new client able to interact with the Algolia
-// Recommendation API.
+// Personalization API.
 func NewClient(appID, apiKey string, region region.Region) *Client {
 	return NewClientWithConfig(
 		Configuration{
@@ -25,7 +25,7 @@ func NewClient(appID, apiKey string, region region.Region) *Client {
 }
 
 // NewClientWithConfig instantiates a new client able to interact with the
-// Recommendation API.
+// Personalization API.
 func NewClientWithConfig(config Configuration) *Client {
 	var hosts []*transport.StatefulHost
 
