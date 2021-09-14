@@ -1,4 +1,5 @@
 <p align="center">
+	Build Test
   <a href="https://www.algolia.com">
     <img alt="Algolia for Go" src="https://raw.githubusercontent.com/algolia/algoliasearch-client-common/master/banners/go.png" >
   </a>
