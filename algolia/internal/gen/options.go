@@ -144,6 +144,7 @@ var options = []Option{
 	{"advanced", Settings, 0, ""},
 	{"attributeCriteriaComputedByMinProximity", Settings | Search, false, ""},
 	{"userData", Settings, nil, ""},
+	{"enableReRanking", Search, true, ""},
 
 	// MCM
 	{"retrieveMappings", Other, false, ""},

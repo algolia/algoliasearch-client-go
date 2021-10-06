@@ -79,6 +79,7 @@ type QueryParams struct {
 	PercentileComputation                   *opt.PercentileComputationOption                   `json:"percentileComputation,omitempty"`
 	Explain                                 *opt.ExplainOption                                 `json:"explain,omitempty"`
 	AttributeCriteriaComputedByMinProximity *opt.AttributeCriteriaComputedByMinProximityOption `json:"attributeCriteriaComputedByMinProximity,omitempty"`
+	EnableReRanking                         *opt.EnableReRankingOption                         `json:"enableReRanking,omitempty"`
 }
 
 func newQueryParams(opts ...interface{}) QueryParams {
@@ -153,6 +154,7 @@ func newQueryParams(opts ...interface{}) QueryParams {
 		PercentileComputation:                   iopt.ExtractPercentileComputation(opts...),
 		Explain:                                 iopt.ExtractExplain(opts...),
 		AttributeCriteriaComputedByMinProximity: iopt.ExtractAttributeCriteriaComputedByMinProximity(opts...),
+		EnableReRanking:                         iopt.ExtractEnableReRanking(opts...),
 	}
 }
 
@@ -373,6 +375,9 @@ func (p *QueryParams) Equal(p2 *QueryParams) bool {
 		return false
 	}
 	if !p.AttributeCriteriaComputedByMinProximity.Equal(p2.AttributeCriteriaComputedByMinProximity) {
+		return false
+	}
+	if !p.EnableReRanking.Equal(p2.EnableReRanking) {
 		return false
 	}
 

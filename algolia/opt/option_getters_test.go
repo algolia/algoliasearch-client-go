@@ -284,6 +284,9 @@ func TestOptionGetters(t *testing.T) {
 	var userData *UserDataOption = nil
 	userData.Get()
 
+	var enableReRanking *EnableReRankingOption = nil
+	enableReRanking.Get()
+
 	var retrieveMappings *RetrieveMappingsOption = nil
 	retrieveMappings.Get()
 
