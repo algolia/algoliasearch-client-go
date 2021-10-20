@@ -39,10 +39,15 @@ func TestConfig(t *testing.T) {
 			{
 				IndexName:     indexName1,
 				AnalyticsTags: nil,
-				Facets:        nil,
-				MinHits:       func() *int { i := 4; return &i }(),
-				MinLetters:    func() *int { i := 2; return &i }(),
-				Generate:      nil,
+				Facets: []suggestions.SourceIndexFacet{
+					{
+						Attribute: "test",
+						Amount:    3,
+					},
+				},
+				MinHits:    func() *int { i := 4; return &i }(),
+				MinLetters: func() *int { i := 2; return &i }(),
+				Generate:   nil,
 			},
 		},
 		Languages: []string{"en"},

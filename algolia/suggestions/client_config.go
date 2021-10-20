@@ -24,7 +24,7 @@ type SourceIndex struct {
 	// List of analytics tags to filter the popular searches per tag.
 	AnalyticsTags []string `json:"analyticsTags,omitempty"`
 	// List of facets to define as categories for the query suggestions
-	Facets []map[string]interface{}
+	Facets []SourceIndexFacet `json:"facets,omitempty"`
 	// Minimum number of hits (e.g., matching records in the source index) to generate a suggestions.
 	MinHits *int `json:"minHits"`
 	// Minimum number of required letters for a suggestion to remain.
@@ -33,6 +33,13 @@ type SourceIndex struct {
 	Generate [][]string `json:"generate,omitempty"`
 	// List of external indices to use to generate custom Query Suggestions.
 	External []string `json:"external,omitempty"`
+}
+
+type SourceIndexFacet struct {
+	// Category attribute in the index
+	Attribute string `json:"attribute"`
+	// How many of the top categories to show
+	Amount int `json:"amount"`
 }
 
 // CreateConfig creates new query suggestions index with given config.
