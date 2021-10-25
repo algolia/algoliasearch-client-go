@@ -115,6 +115,34 @@ jobs:
           key: go-cache-1-15
           paths:
             - "~/go/pkg"
+  test-1-16:
+    docker:
+      - image: circleci/golang:1.16
+    steps:
+      - checkout
+      - restore_cache:
+          key: go-cache-1-16
+      - credentials
+      - test:
+          go_version: "1.16"
+      - save_cache:
+          key: go-cache-1-16
+          paths:
+            - "~/go/pkg"
+  test-1-17:
+    docker:
+      - image: circleci/golang:1.17
+    steps:
+      - checkout
+      - restore_cache:
+          key: go-cache-1-17
+      - credentials
+      - test:
+          go_version: "1.17"
+      - save_cache:
+          key: go-cache-1-17
+          paths:
+            - "~/go/pkg"
 
 workflows:
   version: 2
@@ -126,3 +154,5 @@ workflows:
       - test-1-13
       - test-1-14
       - test-1-15
+      - test-1-16
+      - test-1-17
