@@ -45,34 +45,6 @@ jobs:
       - run:
           name: Check formatting
           command: make lint
-  test-1-11:
-    docker:
-      - image: circleci/golang:1.11
-    steps:
-      - checkout
-      - restore_cache:
-          key: go-cache-1-11
-      - credentials
-      - test:
-          go_version: "1.11"
-      - save_cache:
-          key: go-cache-1-11
-          paths:
-            - "~/go/pkg"
-  test-1-12:
-    docker:
-      - image: circleci/golang:1.12
-    steps:
-      - checkout
-      - restore_cache:
-          key: go-cache-1-12
-      - credentials
-      - test:
-          go_version: "1.12"
-      - save_cache:
-          key: go-cache-1-12
-          paths:
-            - "~/go/pkg"
   test-1-13:
     docker:
       - image: circleci/golang:1.13
@@ -149,8 +121,6 @@ workflows:
   build:
     jobs:
       - format
-      - test-1-11
-      - test-1-12
       - test-1-13
       - test-1-14
       - test-1-15
