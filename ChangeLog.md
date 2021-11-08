@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.22.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.21.0...3.22.0) (2021-11-08)
+
+### Feat
+
+- **recommend**: implement Recommend client (#679) ([998b1b8](https://github.com/algolia/algoliasearch-client-go/commit/998b1b8))
+
+
+
 ## [3.21.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.20.0...3.21.0) (2021-07-26)
 
 ### Feat
