@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [4.0.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.22.0...4.0.0) (2022-01-11)
+
+### Fix
+
+- reRankingApplyFilter accept same format as facet filters (#688) ([e4b6b96](https://github.com/algolia/algoliasearch-client-go/commit/e4b6b96))
+
+
+
 ## [3.22.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.21.0...3.22.0) (2021-11-08)
 
 ### Feat
