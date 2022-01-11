@@ -1,6 +1,6 @@
 # ChangeLog
 
-## [4.0.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.22.0...4.0.0) (2022-01-11)
+## [3.23.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.22.0...3.23.0) (2022-01-11)
 
 ### Fix
 
