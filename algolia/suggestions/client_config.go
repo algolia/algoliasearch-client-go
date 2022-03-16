@@ -16,7 +16,7 @@ type IndexConfiguration struct {
 	// true value means that all the languages are supported.
 	// false value means that singulars and plurals are not considered the same for matching purposes (foot will not find feet).
 	// []string a list of language ISO codes for which singular and plural suggestions should be enabled.
-	Languages BoolOrStringArray `json:"languages,omitempty"`
+	Languages BoolOrStringArray `json:"languages"`
 	// List of words and patterns to exclude from the Query Suggestions index.
 	Exclude []string `json:"exclude,omitempty"`
 }
