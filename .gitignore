@@ -21,3 +21,5 @@ build
 dist
 
 .openapi-generator
+
+tests/output/*/.openapi-generator-ignore
