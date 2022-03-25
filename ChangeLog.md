@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.24.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.23.0...3.24.0) (2022-03-25)
+
+### Fix
+
+- Suggestion config bool value support (#690) ([3fea0f7](https://github.com/algolia/algoliasearch-client-go/commit/3fea0f7))
+
+
+
 ## [3.23.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.22.0...3.23.0) (2022-01-11)
 
 ### Fix
