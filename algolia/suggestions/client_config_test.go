@@ -27,11 +27,3 @@ func TestConfig_Unmarshal(t *testing.T) {
 	require.NoError(t, err)
 	require.False(t, c.Languages.IsBool)
 }
-
-func TestConfig_Marshal(t *testing.T) {
-	config := IndexConfiguration{
-		IndexName: "my_index",
-	}
-	json, _ := json.Marshal(config)
-	t.Log(string(json))
-}
