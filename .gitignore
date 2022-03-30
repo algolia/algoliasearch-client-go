@@ -20,6 +20,7 @@ build
 pom.xml
 
 dist
+.cache
 
 .openapi-generator
 
