@@ -8,12 +8,12 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/rand"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 const (
-	jsonNull = "null"
+	jsonNull                = "null"
+	maxDurationBetweenRetry = 10 * time.Second
 )
 
 func defaultHosts(appID string) (hosts []*transport.StatefulHost) {
@@ -34,7 +34,7 @@ func noWait(_ int64, _ ...interface{}) error {
 }
 
 func waitWithRetry(f func() (bool, error)) error {
-	var maxDuration = time.Second
+	d := time.Second
 
 	for {
 		done, err := f()
@@ -42,15 +42,13 @@ func waitWithRetry(f func() (bool, error)) error {
 			return err
 		}
 
-		sleepDuration := rand.Duration(maxDuration)
-		time.Sleep(sleepDuration)
+		time.Sleep(d)
 
-		// Increase the upper boundary used to generate the sleep duration
-		if maxDuration < 10*time.Minute {
-			maxDuration *= 2
-			if maxDuration > 10*time.Minute {
-				maxDuration = 10 * time.Minute
-			}
+		if d < maxDurationBetweenRetry {
+			d *= 2
+		}
+		if d > maxDurationBetweenRetry {
+			d = maxDurationBetweenRetry
 		}
 	}
 }
