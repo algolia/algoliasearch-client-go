@@ -21,7 +21,7 @@ import (
 	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
 )
 
-const version = "3.24.0"
+const version = "3.25.0"
 
 type Transport struct {
 	requester     Requester
@@ -41,7 +41,6 @@ func New(
 	extraUserAgent string,
 	compression compression.Compression,
 ) *Transport {
-
 	if requester == nil {
 		requester = newDefaultRequester()
 	}
@@ -267,7 +266,6 @@ func buildRequest(
 	headers map[string]string,
 	urlParams map[string]string,
 ) (req *http.Request, err error) {
-
 	urlStr := "https://" + host + path
 	isCompressionEnabled := shouldCompress(c, method, body)
 
