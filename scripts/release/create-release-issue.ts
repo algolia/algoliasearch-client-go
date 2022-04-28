@@ -41,7 +41,7 @@ export function getVersionChangesText(versions: Versions): string {
     const { current, releaseType, noCommit, skipRelease } = versions[lang];
 
     if (noCommit) {
-      return `- ~${lang}: v${current} (${TEXT.noCommit})~`;
+      return `- ~${lang}: ${current} (${TEXT.noCommit})~`;
     }
 
     if (!current) {
@@ -51,7 +51,7 @@ export function getVersionChangesText(versions: Versions): string {
     const next = semver.inc(current, releaseType!);
     const checked = skipRelease ? ' ' : 'x';
     return [
-      `- [${checked}] ${lang}: v${current} -> \`${releaseType}\` _(e.g. v${next})_`,
+      `- [${checked}] ${lang}: ${current} -> \`${releaseType}\` _(e.g. ${next})_`,
       skipRelease && TEXT.descriptionForSkippedLang,
     ]
       .filter(Boolean)

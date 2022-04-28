@@ -82,7 +82,7 @@ export function getVersionsToRelease(issueBody: string): VersionsToRelease {
   getMarkdownSection(issueBody, TEXT.versionChangeHeader)
     .split('\n')
     .forEach((line) => {
-      const result = line.match(/- \[x\] (.+): v(.+) -> `(.+)`/);
+      const result = line.match(/- \[x\] (.+): (.+) -> `(.+)`/);
       if (!result) {
         return;
       }
@@ -159,9 +159,9 @@ async function updateChangelog({
   const existingContent = (await exists(changelogPath))
     ? (await fsp.readFile(changelogPath)).toString()
     : '';
-  const changelogHeader = `## [v${next}](${getGitHubUrl(
+  const changelogHeader = `## [${next}](${getGitHubUrl(
     lang
-  )}/compare/v${current}...v${next})`;
+  )}/compare/${current}...${next})`;
   const newChangelog = getMarkdownSection(
     getMarkdownSection(issueBody, TEXT.changelogHeader),
     `### ${lang}`
@@ -170,6 +170,16 @@ async function updateChangelog({
     changelogPath,
     [changelogHeader, newChangelog, existingContent].join('\n\n')
   );
+}
+
+function formatGitTag({
+  lang,
+  version,
+}: {
+  lang: string;
+  version: string;
+}): string {
+  return lang === 'go' ? `v${version}` : version;
 }
 
 async function isAuthorizedRelease(): Promise<boolean> {
@@ -266,11 +276,14 @@ async function processRelease(): Promise<void> {
 
     const { current, releaseType } = versionsToRelease[lang];
     const next = semver.inc(current, releaseType);
+    const tag = formatGitTag({ lang, version: next! });
     await gitCommit({
-      message: `chore: release v${next}`,
+      message: `chore: release ${tag}`,
       cwd: tempGitDir,
     });
-    await execa('git', ['tag', `v${next}`], { cwd: tempGitDir });
+    await execa('git', ['tag', tag], {
+      cwd: tempGitDir,
+    });
     await run(`git push --follow-tags`, { cwd: tempGitDir });
   }
 
