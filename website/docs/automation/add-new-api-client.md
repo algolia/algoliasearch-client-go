@@ -74,7 +74,7 @@ You can copy [an existing client caching step](https://github.com/algolia/api-cl
 ```yaml
 - name: Restore built <languageName> <clientName> client
   if: ${{ inputs.job == 'cts' || inputs.job == 'codegen' }}
-  uses: actions/cache@v2
+  uses: actions/cache@v3
   with:
     path: <PATH_TO_CLIENT_FOLDER>
     key: |

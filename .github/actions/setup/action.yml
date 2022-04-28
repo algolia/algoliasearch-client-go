@@ -17,6 +17,12 @@ runs:
       shell: bash
       run: echo "CACHE_VERSION=$(< .github/.cache_version)" >> $GITHUB_ENV
 
+    - name: Install Node
+      uses: actions/setup-node@v2
+      with:
+        node-version-file: .nvmrc
+        cache: yarn
+
     - name: Install Java
       if: inputs.type != 'minimal'
       uses: actions/setup-java@v2
@@ -28,12 +34,6 @@ runs:
     - name: Validate gradle wrapper
       if: inputs.type != 'minimal'
       uses: gradle/wrapper-validation-action@v1
-
-    - name: Install Node
-      uses: actions/setup-node@v2
-      with:
-        node-version-file: .nvmrc
-        cache: yarn
 
     - name: Run yarn install and install java formatter
       uses: ./.github/actions/cache
@@ -61,7 +61,11 @@ runs:
       id: spec-matrix
       shell: bash
       run: |
-        base_changed=${{ steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 || steps.diff.outputs.SCRIPTS_CHANGED > 0 || steps.diff.outputs.COMMON_SPECS_CHANGED > 0 }}
+        base_changed=${{ 
+          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
+          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
+          steps.diff.outputs.COMMON_SPECS_CHANGED > 0
+        }}
 
         matrix=$(yarn workspace scripts createMatrix $base_changed ${{ steps.diff.outputs.ORIGIN_BRANCH }})
 
@@ -82,7 +86,13 @@ runs:
       id: js-matrix
       shell: bash
       run: |
-        base_changed=${{ steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 || steps.diff.outputs.COMMON_SPECS_CHANGED > 0 || steps.diff.outputs.SCRIPTS_CHANGED > 0 || steps.diff.outputs.GENERATORS_CHANGED > 0 || steps.diff.outputs.JS_TEMPLATE_CHANGED > 0 || steps.diff.outputs.JS_COMMON_CHANGED > 0 }}
+        base_changed=${{
+          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
+          steps.diff.outputs.COMMON_SPECS_CHANGED > 0 ||
+          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
+          steps.diff.outputs.GENERATORS_CHANGED > 0 ||
+          steps.diff.outputs.JS_TEMPLATE_CHANGED > 0 ||
+          steps.diff.outputs.JS_COMMON_CHANGED > 0 }}
         algoliasearch_changed=${{ steps.diff.outputs.JS_ALGOLIASEARCH_CHANGED > 0 }}
         common_changed=${{ steps.diff.outputs.JS_COMMON_CHANGED > 0 }}
 
@@ -115,7 +125,12 @@ runs:
       id: java-matrix
       shell: bash
       run: |
-        base_changed=${{ steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 || steps.diff.outputs.COMMON_SPECS_CHANGED > 0 || steps.diff.outputs.SCRIPTS_CHANGED > 0 || steps.diff.outputs.GENERATORS_CHANGED > 0 || steps.diff.outputs.JAVA_TEMPLATE_CHANGED > 0 }}
+        base_changed=${{
+          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
+          steps.diff.outputs.COMMON_SPECS_CHANGED > 0 ||
+          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
+          steps.diff.outputs.GENERATORS_CHANGED > 0 ||
+          steps.diff.outputs.JAVA_TEMPLATE_CHANGED > 0 }}
 
         matrix=$(yarn workspace scripts createMatrix $base_changed ${{ steps.diff.outputs.ORIGIN_BRANCH }} java)
 
@@ -136,7 +151,12 @@ runs:
       id: php-matrix
       shell: bash
       run: |
-        base_changed=${{ steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 || steps.diff.outputs.COMMON_SPECS_CHANGED > 0 || steps.diff.outputs.SCRIPTS_CHANGED > 0 || steps.diff.outputs.GENERATORS_CHANGED > 0 || steps.diff.outputs.PHP_TEMPLATE_CHANGED > 0 }}
+        base_changed=${{
+          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
+          steps.diff.outputs.COMMON_SPECS_CHANGED > 0 ||
+          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
+          steps.diff.outputs.GENERATORS_CHANGED > 0 ||
+          steps.diff.outputs.PHP_TEMPLATE_CHANGED > 0 }}
 
         matrix=$(yarn workspace scripts createMatrix $base_changed ${{ steps.diff.outputs.ORIGIN_BRANCH }} php)
 

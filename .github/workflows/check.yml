@@ -101,7 +101,7 @@ jobs:
 
       - name: Cache '${{ matrix.client.name }}' bundled specs
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ format('specs/bundled/{0}.yml', matrix.client.name) }}
           key: |
@@ -136,7 +136,7 @@ jobs:
 
       - name: Cache '${{ matrix.client }}' client
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: clients/algoliasearch-client-javascript/packages/${{ matrix.client }}
           key: |
@@ -171,11 +171,12 @@ jobs:
         with:
           job: client
           language: javascript
+          spec: ${{ matrix.client.name }}
           cache_hash: ${{ needs.setup.outputs.CACHE_COMMON_HASH }}
 
       - name: Cache '${{ matrix.client.name }}' client
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ matrix.client.path }}
           key: |
@@ -223,11 +224,12 @@ jobs:
         with:
           job: client
           language: java
+          spec: ${{ matrix.client.name }}
           cache_hash: ${{ needs.setup.outputs.CACHE_COMMON_HASH }}
 
       - name: Cache '${{ matrix.client.name }}' client
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ${{ format('{0}/algoliasearch-core/src/main/java/com/algolia/api/{1}.java', matrix.client.path, matrix.client.api) }}
@@ -273,11 +275,12 @@ jobs:
         with:
           job: client
           language: php
+          spec: ${{ matrix.client.name }}
           cache_hash: ${{ needs.setup.outputs.CACHE_COMMON_HASH }}
 
       - name: Cache '${{ matrix.client.name }}' client
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ${{ format('{0}/lib/Api/{1}.php', matrix.client.path, matrix.client.api) }}
@@ -319,13 +322,13 @@ jobs:
       - name: Restore cache
         uses: ./.github/actions/cache
         with:
-          job: codegen
+          job: algoliasearch
           language: javascript
           cache_hash: ${{ needs.setup.outputs.CACHE_COMMON_HASH }}
 
       - name: Cache 'algoliasearch' client
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: clients/algoliasearch-client-javascript/packages/algoliasearch
           key: |
