@@ -73,18 +73,24 @@ export function getSkippedCommitsText({
     return '_(None)_';
   }
 
-  return `<p></p>
-  <p>${TEXT.skippedCommitsDesc}</p>
+  return `</p>
+<p>${TEXT.skippedCommitsDesc}</p>
 
-  <p>Commits without language scope:</p>
-  <ul>
-    ${commitsWithoutLanguageScope.map((commit) => `<li>${commit}</li>`)}
-  </ul>
+<details>
+  <summary>
+    <i>Commits without language scope:</i>
+  </summary>
 
-  <p>Commits with unknown language scope:</p>
-  <ul>
-    ${commitsWithUnknownLanguageScope.map((commit) => `<li>${commit}</li>`)}
-  </ul>`;
+  ${commitsWithoutLanguageScope.map((commit) => `- ${commit}`).join('\n')}
+</details>
+
+<details>
+  <summary>
+    <i>Commits with unknown language scope:</i>
+  </summary>
+
+  ${commitsWithUnknownLanguageScope.map((commit) => `- ${commit}`).join('\n')}
+</details>`;
 }
 
 export function parseCommit(commit: string): Commit {
@@ -278,13 +284,13 @@ async function createReleaseIssue(): Promise<void> {
     TEXT.header,
     TEXT.versionChangeHeader,
     versionChanges,
-    TEXT.skippedCommitsHeader,
-    skippedCommits,
     TEXT.descriptionVersionChanges,
     TEXT.indenpendentVersioning,
     TEXT.changelogHeader,
     TEXT.changelogDescription,
     changelogs,
+    TEXT.skippedCommitsHeader,
+    skippedCommits,
     TEXT.approvalHeader,
     TEXT.approval,
   ].join('\n\n');

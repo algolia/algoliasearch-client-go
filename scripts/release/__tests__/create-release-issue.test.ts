@@ -265,22 +265,37 @@ describe('create release issue', () => {
 
     expect(
       getSkippedCommitsText({
-        commitsWithoutLanguageScope: ['abcdefg fix: something'],
-        commitsWithUnknownLanguageScope: ['abcdef2 fix(pascal): what'],
+        commitsWithoutLanguageScope: [
+          'abcdefg fix: something',
+          'abcdefg fix: somethin2',
+        ],
+
+        commitsWithUnknownLanguageScope: [
+          'abcdef2 fix(pascal): what',
+          'abcdef2 fix(pascal): what is that',
+        ],
       })
     ).toMatchInlineSnapshot(`
-      "<p></p>
-        <p>It doesn't mean these commits are being excluded from the release. It means they're not taken into account when the release process figured out the next version number, and updated the changelog.</p>
+      "</p>
+      <p>It doesn't mean these commits are being excluded from the release. It means they're not taken into account when the release process figured out the next version number, and updated the changelog.</p>
 
-        <p>Commits without language scope:</p>
-        <ul>
-          <li>abcdefg fix: something</li>
-        </ul>
+      <details>
+        <summary>
+          <i>Commits without language scope:</i>
+        </summary>
 
-        <p>Commits with unknown language scope:</p>
-        <ul>
-          <li>abcdef2 fix(pascal): what</li>
-        </ul>"
+        - abcdefg fix: something
+      - abcdefg fix: somethin2
+      </details>
+
+      <details>
+        <summary>
+          <i>Commits with unknown language scope:</i>
+        </summary>
+
+        - abcdef2 fix(pascal): what
+      - abcdef2 fix(pascal): what is that
+      </details>"
     `);
   });
 });
