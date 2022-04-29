@@ -7,7 +7,7 @@
     "src/**.ts"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist/ && tsc",
     "test": "jest"
   },
   "devDependencies": {

@@ -2,7 +2,7 @@ get:
   tags:
     - Records
   operationId: getObject
-  summary: Retrieve one object from the index.
+  summary: Retrieve an object.
   description: Retrieve one object from the index.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
@@ -38,8 +38,11 @@ put:
   tags:
     - Records
   operationId: addOrUpdateObject
-  summary: Add or replace an object with a given object ID.
-  description: Add or replace an object with a given object ID. If the object does not exist, it will be created. If it already exists, it will be replaced.
+  summary: Add or replace an object.
+  description: |
+    Add or replace an object with a given object ID.
+    If the object does not exist, it will be created.
+    If it already exists, it will be replaced.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
     - $ref: '../../../common/parameters.yml#/ObjectID'
@@ -66,7 +69,7 @@ delete:
   tags:
     - Records
   operationId: deleteObject
-  summary: Delete object.
+  summary: Delete an object.
   description: Delete an existing object.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'

@@ -1,15 +1,14 @@
-/* eslint-disable no-console */
 import type { Rule } from 'eslint';
 
 import { isBLockScalar, isPairWithKey, isScalar } from '../utils';
 
-export const descriptionDot: Rule.RuleModule = {
+export const endWithDot: Rule.RuleModule = {
   meta: {
     docs: {
-      description: 'description must end with a dot',
+      description: '`description`, `summary` must end with a dot',
     },
     messages: {
-      descriptionNoDot: 'description does not end with a dot',
+      endWithDot: 'content does not end with a dot',
     },
     fixable: 'code',
   },
@@ -20,12 +19,17 @@ export const descriptionDot: Rule.RuleModule = {
 
     return {
       YAMLPair(node): void {
-        if (!isPairWithKey(node, 'description')) {
+        if (
+          !isPairWithKey(node, 'description') &&
+          !isPairWithKey(node, 'summary')
+        ) {
           return;
         }
+
         if (!isScalar(node.value)) {
           return;
         }
+
         const value = node.value;
         if (
           typeof value.value !== 'string' ||
@@ -46,7 +50,7 @@ export const descriptionDot: Rule.RuleModule = {
         }
         context.report({
           node: node as any,
-          messageId: 'descriptionNoDot',
+          messageId: 'endWithDot',
           fix(fixer) {
             return fixer.insertTextAfterRange(
               [0, value.range[1] - toTrim],

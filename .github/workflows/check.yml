@@ -172,6 +172,7 @@ jobs:
           job: client
           language: javascript
           spec: ${{ matrix.client.name }}
+          specPath: ${{ matrix.client.specPath }}
           cache_hash: ${{ needs.setup.outputs.CACHE_COMMON_HASH }}
 
       - name: Cache '${{ matrix.client.name }}' client
@@ -182,10 +183,6 @@ jobs:
           key: |
             ${{ env.CACHE_VERSION }}-${{
             hashFiles(
-              format('{0}/src/**', matrix.client.path),
-              format('{0}/model/**', matrix.client.path),
-              format('{0}/builds/**', matrix.client.path),
-              format('{0}/package.json', matrix.client.path),
               format('specs/bundled/{0}.yml', matrix.client.name),
               'templates/javascript/**',
               'generators/src/**'
@@ -334,10 +331,11 @@ jobs:
           key: |
             ${{ env.CACHE_VERSION }}-${{
             hashFiles(
-              'clients/algoliasearch-client-javascript/packages/algoliasearch/**',
-              'clients/algoliasearch-client-javascript/packages/client-search/**',
-              'clients/algoliasearch-client-javascript/packages/client-analytics/**',
-              'clients/algoliasearch-client-javascript/packages/client-personalization/**'
+              'specs/bundled/search.yml',
+              'specs/bundled/analytics.yml',
+              'specs/bundled/personalization.yml',
+              'templates/javascript/**',
+              'generators/src/**'
             )}}
 
       - name: Build 'algoliasearch' client

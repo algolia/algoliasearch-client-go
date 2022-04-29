@@ -2,7 +2,7 @@ get:
   tags:
     - Clusters
   operationId: getUserId
-  summary: Get userID
+  summary: Get userID.
   description: >
     Returns the userID data stored in the mapping.
 
@@ -31,7 +31,7 @@ delete:
   tags:
     - Clusters
   operationId: removeUserId
-  summary: Remove userID
+  summary: Remove userID.
   description: >
     Remove a userID and its associated data from the multi-clusters.
 

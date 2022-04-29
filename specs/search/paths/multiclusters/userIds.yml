@@ -2,7 +2,7 @@ post:
   tags:
     - Clusters
   operationId: assignUserId
-  summary: Assign or Move userID
+  summary: Assign or Move userID.
   description: >
     Assign or Move a userID to a cluster.
 
@@ -43,7 +43,7 @@ get:
   tags:
     - Clusters
   operationId: listUserIds
-  summary: List userIDs
+  summary: List userIDs.
   description: >
     List the userIDs assigned to a multi-clusters appID.
 

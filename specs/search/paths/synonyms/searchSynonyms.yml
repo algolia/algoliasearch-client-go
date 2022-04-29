@@ -2,7 +2,7 @@ post:
   tags:
     - Synonyms
   operationId: searchSynonyms
-  summary: Get all synonyms that match a query.
+  summary: Search synonyms.
   description: Search or browse all synonyms, optionally filtering them by type.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'

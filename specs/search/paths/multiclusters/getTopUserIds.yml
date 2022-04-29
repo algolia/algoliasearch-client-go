@@ -2,7 +2,7 @@ get:
   tags:
     - Clusters
   operationId: getTopUserIds
-  summary: Get top userID
+  summary: Get top userID.
   description: >
     Get the top 10 userIDs with the highest number of records per cluster.
 

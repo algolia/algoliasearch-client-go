@@ -2,7 +2,7 @@ post:
   tags:
     - Clusters
   operationId: searchUserIds
-  summary: Search userID
+  summary: Search userID.
   description: >
     Search for userIDs.
 

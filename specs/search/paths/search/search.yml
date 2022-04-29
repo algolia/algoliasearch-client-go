@@ -2,8 +2,8 @@ post:
   tags:
     - Search
   operationId: search
-  description: Get search results.
-  summary: Get search results.
+  summary: Search in an index.
+  description: Perform a search operation targeting one specific index.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
   requestBody:

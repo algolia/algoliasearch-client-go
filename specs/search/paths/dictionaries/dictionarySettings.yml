@@ -31,8 +31,8 @@ put:
   tags:
     - Dictionnaries
   operationId: setDictionarySettings
-  description: Set dictionary settings.
-  summary: Set dictionary settings.
+  description: Set dictionaries settings.
+  summary: Set dictionaries settings.
   requestBody:
     required: true
     content:

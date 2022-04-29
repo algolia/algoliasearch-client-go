@@ -20,6 +20,7 @@ type ClientMatrix = BaseMatrix & {
   api: string;
   capitalizedName: string;
   camelizedName: string;
+  specPath: string;
 };
 
 type SpecMatrix = BaseMatrix;
@@ -66,6 +67,7 @@ async function getClientMatrix({
       api: `${clientName}Client`,
       capitalizedName: clientName,
       camelizedName: camelize(client),
+      specPath: client === 'algoliasearch-lite' ? 'search' : client,
     });
   }
 

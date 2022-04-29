@@ -2,8 +2,8 @@ get:
   tags:
     - Indices
   operationId: getSettings
-  description: Retrieve settings of a given indexName.
-  summary: Retrieve settings of a given indexName.
+  description: Retrieve settings of an index.
+  summary: Retrieve settings of an index.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
   responses:
@@ -26,8 +26,8 @@ put:
   tags:
     - Indices
   operationId: setSettings
-  description: Update settings of a given indexName. Only specified settings are overridden; unspecified settings are left unchanged. Specifying null for a setting resets it to its default value.
-  summary: Update settings of a given indexName.
+  description: Update settings of an index. Only specified settings are overridden; unspecified settings are left unchanged. Specifying null for a setting resets it to its default value.
+  summary: Update settings of an index.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
     - $ref: '../../../common/parameters.yml#/ForwardToReplicas'

@@ -69,7 +69,7 @@ x-tagGroups:
       - Rules
       - Synonyms
       - Dictionnaries
-  - name: Other
+  - name: Others
     tags:
       - Api Keys
       - Clusters

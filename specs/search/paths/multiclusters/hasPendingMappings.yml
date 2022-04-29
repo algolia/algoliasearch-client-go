@@ -2,7 +2,7 @@ get:
   tags:
     - Clusters
   operationId: hasPendingMappings
-  summary: Has pending mappings
+  summary: Get migration status.
   description: >
     Get the status of your clusters' migrations or user creations.
 

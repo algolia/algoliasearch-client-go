@@ -43,7 +43,7 @@ module.exports = {
       overrides: [{
         files: ['specs/**/*.yml'],
         rules: {
-          "automation-custom/description-dot": "error",
+          "automation-custom/end-with-dot": "error",
           "automation-custom/single-quote-ref": "error",
         },
         overrides: [

@@ -19,7 +19,15 @@ const ALGOLIASEARCH_LITE_OPERATIONS = [
   'post',
 ];
 
-async function propagateTagsToOperations({
+/**
+ * This function will transform properties in the bundle depending on the context.
+ * E.g:
+ * - Check tags definition
+ * - Add name of the client in tags
+ * - Remove unecessary punctuation for documentation
+ * - etc...
+ */
+async function transformBundle({
   bundledPath,
   withDoc,
   clientName,
@@ -50,16 +58,23 @@ async function propagateTagsToOperations({
       // because open-api-generator will use this to determine the name of the client
       specMethod.tags = [clientName];
 
-      if (
-        !withDoc ||
-        !bundledDocSpec ||
-        !bundledDocSpec.paths[pathKey][method].tags
-      ) {
+      // Doc special cases
+      if (!withDoc || !bundledDocSpec) {
+        continue;
+      }
+
+      const docMethod = bundledDocSpec.paths[pathKey][method];
+      if (docMethod.summary) {
+        // Remove dot at the end of summary for better sidebar display
+        docMethod.summary = docMethod.summary.replace(/\.$/gm, '');
+      }
+
+      if (!docMethod.tags) {
         continue;
       }
 
       // Checks that specified tags are well defined at root level
-      for (const tag of bundledDocSpec.paths[pathKey][method].tags) {
+      for (const tag of docMethod.tags) {
         if (tag === clientName || (alias && tag === alias)) {
           return;
         }
@@ -162,7 +177,7 @@ async function buildLiteSpec({
   const liteBundledPath = `specs/bundled/${spec}.${outputFormat}`;
   await fsp.writeFile(toAbsolutePath(liteBundledPath), yaml.dump(parsed));
 
-  await propagateTagsToOperations({
+  await transformBundle({
     bundledPath: toAbsolutePath(liteBundledPath),
     clientName: spec,
     // Lite does not need documentation because it's just a subset
@@ -223,7 +238,7 @@ async function buildSpec(
 
   // Add the correct tags to be able to generate the proper client
   if (!isLite) {
-    await propagateTagsToOperations({
+    await transformBundle({
       bundledPath: toAbsolutePath(bundledPath),
       clientName: spec,
       withDoc: BUNDLE_WITH_DOC,

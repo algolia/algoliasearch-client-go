@@ -2,7 +2,7 @@ get:
   tags:
     - Clusters
   operationId: listClusters
-  summary: List clusters
+  summary: List clusters.
   description: >
     List the clusters available in a multi-clusters setup for a single appID.
 

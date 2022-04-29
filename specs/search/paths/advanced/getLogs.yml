@@ -2,8 +2,8 @@ get:
   tags:
     - Advanced
   operationId: getLogs
-  description: Return the lastest log entries.
-  summary: Return the lastest log entries.
+  description: Return the latest log entries.
+  summary: Return the latest log entries.
   parameters:
     - name: offset
       in: query

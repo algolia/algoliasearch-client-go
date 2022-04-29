@@ -3,7 +3,7 @@ post:
     - Dictionnaries
   operationId: batchDictionaryEntries
   description: Send a batch of dictionary entries.
-  summary: Send a batch of dictionary entries.
+  summary: Batch dictionary entries.
   parameters:
     - $ref: 'common/parameters.yml#/DictionaryName'
   requestBody:

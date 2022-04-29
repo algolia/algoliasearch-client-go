@@ -13,10 +13,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Read current GitHub Actions cache version
-      shell: bash
-      run: echo "CACHE_VERSION=$(< .github/.cache_version)" >> $GITHUB_ENV
-
     - name: Install Node
       uses: actions/setup-node@v2
       with:

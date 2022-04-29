@@ -1,12 +1,12 @@
 import { RuleTester } from 'eslint';
 
-import { descriptionDot } from '../src/rules/descriptionDot';
+import { endWithDot } from '../src/rules/endWithDot';
 
 const ruleTester = new RuleTester({
   parser: require.resolve('yaml-eslint-parser'),
 });
 
-ruleTester.run('description-dot', descriptionDot, {
+ruleTester.run('end-with-dot', endWithDot, {
   valid: [
     `
 simple:

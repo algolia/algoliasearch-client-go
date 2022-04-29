@@ -15,6 +15,9 @@ inputs:
   spec:
     description: The name of the spec to restore, used for client matrix gen.
     required: false
+  specPath:
+    description: The path of the spec to hash
+    required: false
 
 runs:
   using: composite
@@ -45,14 +48,14 @@ runs:
 
     # Restore bundled specs from input: used during 'client' generation
     - name: Restore ${{ inputs.spec }} built spec
-      if: ${{ inputs.job == 'client' && inputs.spec }}
+      if: ${{ inputs.job == 'client' && inputs.spec && inputs.specPath }}
       uses: actions/cache@v3
       with:
         path: ${{ format('specs/bundled/{0}.yml', inputs.spec) }}
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            format('specs/{0}/**', inputs.spec),
+            format('specs/{0}/**', inputs.specPath),
             'specs/common/**'
           )}}
 
@@ -220,10 +223,11 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/algoliasearch/**',
-            'clients/algoliasearch-client-javascript/packages/client-search/**',
-            'clients/algoliasearch-client-javascript/packages/client-analytics/**',
-            'clients/algoliasearch-client-javascript/packages/client-personalization/**'
+            'specs/bundled/search.yml',
+            'specs/bundled/analytics.yml',
+            'specs/bundled/personalization.yml',
+            'templates/javascript/**',
+            'generators/src/**'
           )}}
 
     - name: Restore built JavaScript algoliasearch-lite client
@@ -234,10 +238,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/algoliasearch-lite/src/**',
-            'clients/algoliasearch-client-javascript/packages/algoliasearch-lite/model/**',
-            'clients/algoliasearch-client-javascript/packages/algoliasearch-lite/builds/**',
-            'clients/algoliasearch-client-javascript/packages/algoliasearch-lite/package.json',
             'specs/bundled/algoliasearch-lite.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -251,10 +251,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-search/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-search/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-search/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-search/package.json',
             'specs/bundled/search.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -268,10 +264,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/recommend/src/**',
-            'clients/algoliasearch-client-javascript/packages/recommend/model/**',
-            'clients/algoliasearch-client-javascript/packages/recommend/builds/**',
-            'clients/algoliasearch-client-javascript/packages/recommend/package.json',
             'specs/bundled/recommend.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -285,10 +277,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-query-suggestions/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-query-suggestions/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-query-suggestions/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-query-suggestions/package.json',
             'specs/bundled/query-suggestions.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -302,10 +290,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-personalization/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-personalization/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-personalization/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-personalization/package.json',
             'specs/bundled/personalization.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -319,10 +303,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-analytics/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-analytics/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-analytics/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-analytics/package.json',
             'specs/bundled/analytics.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -336,10 +316,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-abtesting/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-abtesting/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-abtesting/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-abtesting/package.json',
             'specs/bundled/abtesting.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -353,10 +329,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-insights/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-insights/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-insights/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-insights/package.json',
             'specs/bundled/insights.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -370,10 +342,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-sources/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-sources/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-sources/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-sources/package.json',
             'specs/bundled/sources.yml',
             'templates/javascript/**',
             'generators/src/**'
@@ -387,10 +355,6 @@ runs:
         key: |
           ${{ env.CACHE_VERSION }}-${{
           hashFiles(
-            'clients/algoliasearch-client-javascript/packages/client-predict/src/**',
-            'clients/algoliasearch-client-javascript/packages/client-predict/model/**',
-            'clients/algoliasearch-client-javascript/packages/client-predict/builds/**',
-            'clients/algoliasearch-client-javascript/packages/client-predict/package.json',
             'specs/bundled/predict.yml',
             'templates/javascript/**',
             'generators/src/**'
