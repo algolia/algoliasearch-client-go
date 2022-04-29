@@ -83,22 +83,16 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testCreateConfig0()
     {
         $client = $this->getClient();
-
         $client->createConfig([
             'indexName' => 'theIndexName',
-
             'sourceIndices' => [
                 [
                     'indexName' => 'testIndex',
-
                     'facets' => [['attributes' => 'test']],
-
                     'generate' => [['facetA', 'facetB'], ['facetC']],
                 ],
             ],
-
             'languages' => ['french'],
-
             'exclude' => ['test'],
         ]);
 
@@ -120,7 +114,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testDel0()
     {
         $client = $this->getClient();
-
         $client->del('/test/minimal');
 
         $this->assertRequests([
@@ -138,7 +131,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testDel1()
     {
         $client = $this->getClient();
-
         $client->del(
             '/test/all',
             ['query' => 'parameters']
@@ -160,7 +152,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testDeleteConfig0()
     {
         $client = $this->getClient();
-
         $client->deleteConfig('theIndexName');
 
         $this->assertRequests([
@@ -178,7 +169,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testGet0()
     {
         $client = $this->getClient();
-
         $client->get('/test/minimal');
 
         $this->assertRequests([
@@ -196,7 +186,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testGet1()
     {
         $client = $this->getClient();
-
         $client->get(
             '/test/all',
             ['query' => 'parameters']
@@ -218,7 +207,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testGetAllConfigs0()
     {
         $client = $this->getClient();
-
         $client->getAllConfigs();
 
         $this->assertRequests([
@@ -236,7 +224,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testGetConfig0()
     {
         $client = $this->getClient();
-
         $client->getConfig('theIndexName');
 
         $this->assertRequests([
@@ -254,7 +241,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testGetConfigStatus0()
     {
         $client = $this->getClient();
-
         $client->getConfigStatus('theIndexName');
 
         $this->assertRequests([
@@ -272,7 +258,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testGetLogFile0()
     {
         $client = $this->getClient();
-
         $client->getLogFile('theIndexName');
 
         $this->assertRequests([
@@ -290,7 +275,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testPost0()
     {
         $client = $this->getClient();
-
         $client->post('/test/minimal');
 
         $this->assertRequests([
@@ -308,7 +292,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testPost1()
     {
         $client = $this->getClient();
-
         $client->post(
             '/test/all',
             ['query' => 'parameters'],
@@ -332,7 +315,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testPut0()
     {
         $client = $this->getClient();
-
         $client->put('/test/minimal');
 
         $this->assertRequests([
@@ -350,7 +332,6 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testPut1()
     {
         $client = $this->getClient();
-
         $client->put(
             '/test/all',
             ['query' => 'parameters'],
@@ -374,22 +355,17 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
     public function testUpdateConfig0()
     {
         $client = $this->getClient();
-
         $client->updateConfig(
             'theIndexName',
             [
                 'sourceIndices' => [
                     [
                         'indexName' => 'testIndex',
-
                         'facets' => [['attributes' => 'test']],
-
                         'generate' => [['facetA', 'facetB'], ['facetC']],
                     ],
                 ],
-
                 'languages' => ['french'],
-
                 'exclude' => ['test'],
             ]
         );

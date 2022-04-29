@@ -83,7 +83,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testDel0()
     {
         $client = $this->getClient();
-
         $client->del('/test/minimal');
 
         $this->assertRequests([
@@ -101,7 +100,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testDel1()
     {
         $client = $this->getClient();
-
         $client->del(
             '/test/all',
             ['query' => 'parameters']
@@ -123,7 +121,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testDeleteUserProfile0()
     {
         $client = $this->getClient();
-
         $client->deleteUserProfile('UserToken');
 
         $this->assertRequests([
@@ -141,7 +138,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testGet0()
     {
         $client = $this->getClient();
-
         $client->get('/test/minimal');
 
         $this->assertRequests([
@@ -159,7 +155,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testGet1()
     {
         $client = $this->getClient();
-
         $client->get(
             '/test/all',
             ['query' => 'parameters']
@@ -181,7 +176,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testGetPersonalizationStrategy0()
     {
         $client = $this->getClient();
-
         $client->getPersonalizationStrategy();
 
         $this->assertRequests([
@@ -199,7 +193,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testGetUserTokenProfile0()
     {
         $client = $this->getClient();
-
         $client->getUserTokenProfile('UserToken');
 
         $this->assertRequests([
@@ -217,7 +210,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testPost0()
     {
         $client = $this->getClient();
-
         $client->post('/test/minimal');
 
         $this->assertRequests([
@@ -235,7 +227,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testPost1()
     {
         $client = $this->getClient();
-
         $client->post(
             '/test/all',
             ['query' => 'parameters'],
@@ -259,7 +250,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testPut0()
     {
         $client = $this->getClient();
-
         $client->put('/test/minimal');
 
         $this->assertRequests([
@@ -277,7 +267,6 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testPut1()
     {
         $client = $this->getClient();
-
         $client->put(
             '/test/all',
             ['query' => 'parameters'],
@@ -301,20 +290,15 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     public function testSetPersonalizationStrategy0()
     {
         $client = $this->getClient();
-
         $client->setPersonalizationStrategy([
             'eventScoring' => [
                 [
                     'score' => 42,
-
                     'eventName' => 'Algolia',
-
                     'eventType' => 'Event',
                 ],
             ],
-
             'facetScoring' => [['score' => 42, 'facetName' => 'Event']],
-
             'personalizationImpact' => 42,
         ]);
 

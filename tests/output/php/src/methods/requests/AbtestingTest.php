@@ -83,12 +83,9 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testAddABTests0()
     {
         $client = $this->getClient();
-
         $client->addABTests([
             'endAt' => '2022-12-31T00:00:00.000Z',
-
             'name' => 'myABTest',
-
             'variant' => [
                 ['index' => 'AB_TEST_1', 'trafficPercentage' => 30],
 
@@ -114,7 +111,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testDel0()
     {
         $client = $this->getClient();
-
         $client->del('/test/minimal');
 
         $this->assertRequests([
@@ -132,7 +128,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testDel1()
     {
         $client = $this->getClient();
-
         $client->del(
             '/test/all',
             ['query' => 'parameters']
@@ -154,7 +149,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testDeleteABTest0()
     {
         $client = $this->getClient();
-
         $client->deleteABTest(42);
 
         $this->assertRequests([
@@ -172,7 +166,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testGet0()
     {
         $client = $this->getClient();
-
         $client->get('/test/minimal');
 
         $this->assertRequests([
@@ -190,7 +183,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testGet1()
     {
         $client = $this->getClient();
-
         $client->get(
             '/test/all',
             ['query' => 'parameters']
@@ -212,7 +204,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testGetABTest0()
     {
         $client = $this->getClient();
-
         $client->getABTest(42);
 
         $this->assertRequests([
@@ -230,7 +221,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testListABTests0()
     {
         $client = $this->getClient();
-
         $client->listABTests(
             42,
             21
@@ -254,7 +244,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testPost0()
     {
         $client = $this->getClient();
-
         $client->post('/test/minimal');
 
         $this->assertRequests([
@@ -272,7 +261,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testPost1()
     {
         $client = $this->getClient();
-
         $client->post(
             '/test/all',
             ['query' => 'parameters'],
@@ -296,7 +284,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testPut0()
     {
         $client = $this->getClient();
-
         $client->put('/test/minimal');
 
         $this->assertRequests([
@@ -314,7 +301,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testPut1()
     {
         $client = $this->getClient();
-
         $client->put(
             '/test/all',
             ['query' => 'parameters'],
@@ -338,7 +324,6 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testStopABTest0()
     {
         $client = $this->getClient();
-
         $client->stopABTest(42);
 
         $this->assertRequests([

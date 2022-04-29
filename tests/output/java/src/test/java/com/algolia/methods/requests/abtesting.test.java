@@ -33,34 +33,24 @@ class AbtestingClientTests {
     AddABTestsRequest addABTestsRequest0 = new AddABTestsRequest();
     {
       String endAt1 = "2022-12-31T00:00:00.000Z";
-
       addABTestsRequest0.setEndAt(endAt1);
       String name1 = "myABTest";
-
       addABTestsRequest0.setName(name1);
-
       List<AddABTestsVariant> variant1 = new ArrayList<>();
       {
         AbTestsVariant variant_02 = new AbTestsVariant();
         {
           String index3 = "AB_TEST_1";
-
           variant_02.setIndex(index3);
-
           int trafficPercentage3 = 30;
-
           variant_02.setTrafficPercentage(trafficPercentage3);
         }
         variant1.add(AddABTestsVariant.ofAbTestsVariant(variant_02));
-
         AbTestsVariant variant_12 = new AbTestsVariant();
         {
           String index3 = "AB_TEST_2";
-
           variant_12.setIndex(index3);
-
           int trafficPercentage3 = 50;
-
           variant_12.setTrafficPercentage(trafficPercentage3);
         }
         variant1.add(AddABTestsVariant.ofAbTestsVariant(variant_12));
@@ -103,11 +93,9 @@ class AbtestingClientTests {
   @DisplayName("allow del method for a custom path with all parameters")
   void delTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -162,11 +150,9 @@ class AbtestingClientTests {
   @DisplayName("allow get method for a custom path with all parameters")
   void getTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -207,7 +193,6 @@ class AbtestingClientTests {
   @DisplayName("listABTests with minimal parameters")
   void listABTestsTest0() {
     int offset0 = 42;
-
     int limit0 = 21;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -247,18 +232,14 @@ class AbtestingClientTests {
   @DisplayName("allow post method for a custom path with all parameters")
   void postTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 
@@ -307,18 +288,14 @@ class AbtestingClientTests {
   @DisplayName("allow put method for a custom path with all parameters")
   void putTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 

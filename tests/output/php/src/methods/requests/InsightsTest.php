@@ -83,7 +83,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testDel0()
     {
         $client = $this->getClient();
-
         $client->del('/test/minimal');
 
         $this->assertRequests([
@@ -101,7 +100,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testDel1()
     {
         $client = $this->getClient();
-
         $client->del(
             '/test/all',
             ['query' => 'parameters']
@@ -123,7 +121,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testGet0()
     {
         $client = $this->getClient();
-
         $client->get('/test/minimal');
 
         $this->assertRequests([
@@ -141,7 +138,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testGet1()
     {
         $client = $this->getClient();
-
         $client->get(
             '/test/all',
             ['query' => 'parameters']
@@ -163,7 +159,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testPost0()
     {
         $client = $this->getClient();
-
         $client->post('/test/minimal');
 
         $this->assertRequests([
@@ -181,7 +176,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testPost1()
     {
         $client = $this->getClient();
-
         $client->post(
             '/test/all',
             ['query' => 'parameters'],
@@ -205,54 +199,35 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testPushEvents0()
     {
         $client = $this->getClient();
-
         $client->pushEvents([
             'events' => [
                 [
                     'eventType' => 'click',
-
                     'eventName' => 'Product Clicked',
-
                     'index' => 'products',
-
                     'userToken' => 'user-123456',
-
                     'timestamp' => 1641290601962,
-
                     'objectIDs' => ['9780545139700', '9780439784542'],
-
                     'queryID' => '43b15df305339e827f0ac0bdc5ebcaa7',
-
                     'positions' => [7, 6],
                 ],
 
                 [
                     'eventType' => 'view',
-
                     'eventName' => 'Product Detail Page Viewed',
-
                     'index' => 'products',
-
                     'userToken' => 'user-123456',
-
                     'timestamp' => 1641290601962,
-
                     'objectIDs' => ['9780545139700', '9780439784542'],
                 ],
 
                 [
                     'eventType' => 'conversion',
-
                     'eventName' => 'Product Purchased',
-
                     'index' => 'products',
-
                     'userToken' => 'user-123456',
-
                     'timestamp' => 1641290601962,
-
                     'objectIDs' => ['9780545139700', '9780439784542'],
-
                     'queryID' => '43b15df305339e827f0ac0bdc5ebcaa7',
                 ],
             ],
@@ -276,7 +251,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testPut0()
     {
         $client = $this->getClient();
-
         $client->put('/test/minimal');
 
         $this->assertRequests([
@@ -294,7 +268,6 @@ class InsightsTest extends TestCase implements HttpClientInterface
     public function testPut1()
     {
         $client = $this->getClient();
-
         $client->put(
             '/test/all',
             ['query' => 'parameters'],

@@ -45,11 +45,9 @@ class AnalyticsClientTests {
   @DisplayName("allow del method for a custom path with all parameters")
   void delTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -90,11 +88,9 @@ class AnalyticsClientTests {
   @DisplayName("allow get method for a custom path with all parameters")
   void getTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -145,11 +141,8 @@ class AnalyticsClientTests {
   @DisplayName("get getAverageClickPosition with all parameters")
   void getAverageClickPositionTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -204,11 +197,8 @@ class AnalyticsClientTests {
   @DisplayName("get getClickPositions with all parameters")
   void getClickPositionsTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -258,11 +248,8 @@ class AnalyticsClientTests {
   @DisplayName("get getClickThroughRate with all parameters")
   void getClickThroughRateTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -312,11 +299,8 @@ class AnalyticsClientTests {
   @DisplayName("get getConversationRate with all parameters")
   void getConversationRateTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -366,11 +350,8 @@ class AnalyticsClientTests {
   @DisplayName("get getNoClickRate with all parameters")
   void getNoClickRateTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -420,11 +401,8 @@ class AnalyticsClientTests {
   @DisplayName("get getNoResultsRate with all parameters")
   void getNoResultsRateTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -474,11 +452,8 @@ class AnalyticsClientTests {
   @DisplayName("get getSearchesCount with all parameters")
   void getSearchesCountTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -528,15 +503,10 @@ class AnalyticsClientTests {
   @DisplayName("get getSearchesNoClicks with all parameters")
   void getSearchesNoClicksTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -593,15 +563,10 @@ class AnalyticsClientTests {
   @DisplayName("get getSearchesNoResults with all parameters")
   void getSearchesNoResultsTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -682,15 +647,10 @@ class AnalyticsClientTests {
   @DisplayName("get getTopCountries with all parameters")
   void getTopCountriesTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -747,17 +707,11 @@ class AnalyticsClientTests {
   @DisplayName("get getTopFilterAttributes with all parameters")
   void getTopFilterAttributesTest1() {
     String index0 = "index";
-
     String search0 = "mySearch";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -791,7 +745,6 @@ class AnalyticsClientTests {
   @DisplayName("get getTopFilterForAttribute with minimal parameters")
   void getTopFilterForAttributeTest0() {
     String attribute0 = "myAttribute";
-
     String index0 = "index";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -819,7 +772,6 @@ class AnalyticsClientTests {
   )
   void getTopFilterForAttributeTest1() {
     String attribute0 = "myAttribute1,myAttribute2";
-
     String index0 = "index";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -845,19 +797,12 @@ class AnalyticsClientTests {
   @DisplayName("get getTopFilterForAttribute with all parameters")
   void getTopFilterForAttributeTest2() {
     String attribute0 = "myAttribute";
-
     String index0 = "index";
-
     String search0 = "mySearch";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -894,19 +839,12 @@ class AnalyticsClientTests {
   )
   void getTopFilterForAttributeTest3() {
     String attribute0 = "myAttribute1,myAttribute2";
-
     String index0 = "index";
-
     String search0 = "mySearch";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -965,17 +903,11 @@ class AnalyticsClientTests {
   @DisplayName("get getTopFiltersNoResults with all parameters")
   void getTopFiltersNoResultsTest1() {
     String index0 = "index";
-
     String search0 = "mySearch";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1033,19 +965,12 @@ class AnalyticsClientTests {
   @DisplayName("get getTopHits with all parameters")
   void getTopHitsTest1() {
     String index0 = "index";
-
     String search0 = "mySearch";
-
     boolean clickAnalytics0 = true;
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1104,21 +1029,13 @@ class AnalyticsClientTests {
   @DisplayName("get getTopSearches with all parameters")
   void getTopSearchesTest1() {
     String index0 = "index";
-
     boolean clickAnalytics0 = true;
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     OrderBy orderBy0 = OrderBy.fromValue("searchCount");
-
     Direction direction0 = Direction.fromValue("asc");
-
     int limit0 = 21;
-
     int offset0 = 42;
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1178,11 +1095,8 @@ class AnalyticsClientTests {
   @DisplayName("get getUsersCount with all parameters")
   void getUsersCountTest1() {
     String index0 = "index";
-
     String startDate0 = "1999-09-19";
-
     String endDate0 = "2001-01-01";
-
     String tags0 = "tag";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1222,18 +1136,14 @@ class AnalyticsClientTests {
   @DisplayName("allow post method for a custom path with all parameters")
   void postTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 
@@ -1282,18 +1192,14 @@ class AnalyticsClientTests {
   @DisplayName("allow put method for a custom path with all parameters")
   void putTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 

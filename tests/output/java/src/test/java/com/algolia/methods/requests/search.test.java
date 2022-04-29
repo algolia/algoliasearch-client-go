@@ -35,28 +35,18 @@ class SearchClientTests {
       List<Acl> acl1 = new ArrayList<>();
       {
         Acl acl_02 = Acl.fromValue("search");
-
         acl1.add(acl_02);
-
         Acl acl_12 = Acl.fromValue("addObject");
-
         acl1.add(acl_12);
       }
       apiKey0.setAcl(acl1);
       String description1 = "my new api key";
-
       apiKey0.setDescription(description1);
-
       int validity1 = 300;
-
       apiKey0.setValidity(validity1);
-
       int maxQueriesPerIPPerHour1 = 100;
-
       apiKey0.setMaxQueriesPerIPPerHour(maxQueriesPerIPPerHour1);
-
       int maxHitsPerQuery1 = 20;
-
       apiKey0.setMaxHitsPerQuery(maxHitsPerQuery1);
     }
 
@@ -82,13 +72,10 @@ class SearchClientTests {
   @DisplayName("addOrUpdateObject")
   void addOrUpdateObjectTest0() {
     String indexName0 = "indexName";
-
     String objectID0 = "uniqueID";
-
     Map<String, String> body0 = new HashMap<>();
     {
       String key1 = "value";
-
       body0.put("key", key1);
     }
 
@@ -115,10 +102,8 @@ class SearchClientTests {
     Source source0 = new Source();
     {
       String source1 = "theSource";
-
       source0.setSource(source1);
       String description1 = "theDescription";
-
       source0.setDescription(description1);
     }
 
@@ -143,11 +128,9 @@ class SearchClientTests {
   @DisplayName("assignUserId")
   void assignUserIdTest0() {
     String xAlgoliaUserID0 = "userID";
-
     AssignUserIdParams assignUserIdParams0 = new AssignUserIdParams();
     {
       String cluster1 = "theCluster";
-
       assignUserIdParams0.setCluster(cluster1);
     }
 
@@ -182,7 +165,6 @@ class SearchClientTests {
   @DisplayName("batch")
   void batchTest0() {
     String indexName0 = "theIndexName";
-
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
       List<BatchOperation> requests1 = new ArrayList<>();
@@ -190,13 +172,10 @@ class SearchClientTests {
         BatchOperation requests_02 = new BatchOperation();
         {
           Action action3 = Action.fromValue("delete");
-
           requests_02.setAction(action3);
-
           Map<String, String> body3 = new HashMap<>();
           {
             String key4 = "value";
-
             body3.put("key", key4);
           }
           requests_02.setBody(body3);
@@ -227,20 +206,15 @@ class SearchClientTests {
   @DisplayName("batchAssignUserIds")
   void batchAssignUserIdsTest0() {
     String xAlgoliaUserID0 = "userID";
-
     BatchAssignUserIdsParams batchAssignUserIdsParams0 = new BatchAssignUserIdsParams();
     {
       String cluster1 = "theCluster";
-
       batchAssignUserIdsParams0.setCluster(cluster1);
-
       List<String> users1 = new ArrayList<>();
       {
         String users_02 = "user1";
-
         users1.add(users_02);
         String users_12 = "user2";
-
         users1.add(users_12);
       }
       batchAssignUserIdsParams0.setUsers(users1);
@@ -280,7 +254,6 @@ class SearchClientTests {
   @DisplayName("get batchDictionaryEntries results with minimal parameters")
   void batchDictionaryEntriesTest0() {
     DictionaryType dictionaryName0 = DictionaryType.fromValue("compounds");
-
     BatchDictionaryEntriesParams batchDictionaryEntriesParams0 = new BatchDictionaryEntriesParams();
     {
       List<BatchDictionaryEntriesRequest> requests1 = new ArrayList<>();
@@ -288,35 +261,26 @@ class SearchClientTests {
         BatchDictionaryEntriesRequest requests_02 = new BatchDictionaryEntriesRequest();
         {
           DictionaryAction action3 = DictionaryAction.fromValue("addEntry");
-
           requests_02.setAction(action3);
-
           DictionaryEntry body3 = new DictionaryEntry();
           {
             String objectID4 = "1";
-
             body3.setObjectID(objectID4);
             String language4 = "en";
-
             body3.setLanguage(language4);
           }
           requests_02.setBody(body3);
         }
         requests1.add(requests_02);
-
         BatchDictionaryEntriesRequest requests_12 = new BatchDictionaryEntriesRequest();
         {
           DictionaryAction action3 = DictionaryAction.fromValue("deleteEntry");
-
           requests_12.setAction(action3);
-
           DictionaryEntry body3 = new DictionaryEntry();
           {
             String objectID4 = "2";
-
             body3.setObjectID(objectID4);
             String language4 = "fr";
-
             body3.setLanguage(language4);
           }
           requests_12.setBody(body3);
@@ -350,111 +314,81 @@ class SearchClientTests {
   @DisplayName("get batchDictionaryEntries results with all parameters")
   void batchDictionaryEntriesTest1() {
     DictionaryType dictionaryName0 = DictionaryType.fromValue("compounds");
-
     BatchDictionaryEntriesParams batchDictionaryEntriesParams0 = new BatchDictionaryEntriesParams();
     {
       boolean clearExistingDictionaryEntries1 = false;
-
       batchDictionaryEntriesParams0.setClearExistingDictionaryEntries(
         clearExistingDictionaryEntries1
       );
-
       List<BatchDictionaryEntriesRequest> requests1 = new ArrayList<>();
       {
         BatchDictionaryEntriesRequest requests_02 = new BatchDictionaryEntriesRequest();
         {
           DictionaryAction action3 = DictionaryAction.fromValue("addEntry");
-
           requests_02.setAction(action3);
-
           DictionaryEntry body3 = new DictionaryEntry();
           {
             String objectID4 = "1";
-
             body3.setObjectID(objectID4);
             String language4 = "en";
-
             body3.setLanguage(language4);
             String word4 = "fancy";
-
             body3.setWord(word4);
-
             List<String> words4 = new ArrayList<>();
             {
               String words_05 = "believe";
-
               words4.add(words_05);
               String words_15 = "algolia";
-
               words4.add(words_15);
             }
             body3.setWords(words4);
-
             List<String> decomposition4 = new ArrayList<>();
             {
               String decomposition_05 = "trust";
-
               decomposition4.add(decomposition_05);
               String decomposition_15 = "algolia";
-
               decomposition4.add(decomposition_15);
             }
             body3.setDecomposition(decomposition4);
-
             DictionaryEntryState state4 = DictionaryEntryState.fromValue(
               "enabled"
             );
-
             body3.setState(state4);
           }
           requests_02.setBody(body3);
         }
         requests1.add(requests_02);
-
         BatchDictionaryEntriesRequest requests_12 = new BatchDictionaryEntriesRequest();
         {
           DictionaryAction action3 = DictionaryAction.fromValue("deleteEntry");
-
           requests_12.setAction(action3);
-
           DictionaryEntry body3 = new DictionaryEntry();
           {
             String objectID4 = "2";
-
             body3.setObjectID(objectID4);
             String language4 = "fr";
-
             body3.setLanguage(language4);
             String word4 = "humility";
-
             body3.setWord(word4);
-
             List<String> words4 = new ArrayList<>();
             {
               String words_05 = "candor";
-
               words4.add(words_05);
               String words_15 = "algolia";
-
               words4.add(words_15);
             }
             body3.setWords(words4);
-
             List<String> decomposition4 = new ArrayList<>();
             {
               String decomposition_05 = "grit";
-
               decomposition4.add(decomposition_05);
               String decomposition_15 = "algolia";
-
               decomposition4.add(decomposition_15);
             }
             body3.setDecomposition(decomposition4);
-
             DictionaryEntryState state4 = DictionaryEntryState.fromValue(
               "enabled"
             );
-
             body3.setState(state4);
           }
           requests_12.setBody(body3);
@@ -488,37 +422,29 @@ class SearchClientTests {
   @DisplayName("batchRules")
   void batchRulesTest0() {
     String indexName0 = "indexName";
-
     List<Rule> rule0 = new ArrayList<>();
     {
       Rule rule_01 = new Rule();
       {
         String objectID2 = "a-rule-id";
-
         rule_01.setObjectID(objectID2);
-
         List<Condition> conditions2 = new ArrayList<>();
         {
           Condition conditions_03 = new Condition();
           {
             String pattern4 = "smartphone";
-
             conditions_03.setPattern(pattern4);
-
             Anchoring anchoring4 = Anchoring.fromValue("contains");
-
             conditions_03.setAnchoring(anchoring4);
           }
           conditions2.add(conditions_03);
         }
         rule_01.setConditions(conditions2);
-
         Consequence consequence2 = new Consequence();
         {
           ConsequenceParams params3 = new ConsequenceParams();
           {
             String filters4 = "category:smartphone";
-
             params3.setFilters(filters4);
           }
           consequence2.setParams(params3);
@@ -526,35 +452,27 @@ class SearchClientTests {
         rule_01.setConsequence(consequence2);
       }
       rule0.add(rule_01);
-
       Rule rule_11 = new Rule();
       {
         String objectID2 = "a-second-rule-id";
-
         rule_11.setObjectID(objectID2);
-
         List<Condition> conditions2 = new ArrayList<>();
         {
           Condition conditions_03 = new Condition();
           {
             String pattern4 = "apple";
-
             conditions_03.setPattern(pattern4);
-
             Anchoring anchoring4 = Anchoring.fromValue("contains");
-
             conditions_03.setAnchoring(anchoring4);
           }
           conditions2.add(conditions_03);
         }
         rule_11.setConditions(conditions2);
-
         Consequence consequence2 = new Consequence();
         {
           ConsequenceParams params3 = new ConsequenceParams();
           {
             String filters4 = "brand:apple";
-
             params3.setFilters(filters4);
           }
           consequence2.setParams(params3);
@@ -563,9 +481,7 @@ class SearchClientTests {
       }
       rule0.add(rule_11);
     }
-
     boolean forwardToReplicas0 = true;
-
     boolean clearExistingRules0 = true;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -618,14 +534,11 @@ class SearchClientTests {
   @DisplayName("get browse results with all parameters")
   void browseTest1() {
     String indexName0 = "indexName";
-
     BrowseRequest browseRequest0 = new BrowseRequest();
     {
       String params1 = "query=foo&facetFilters=['bar']";
-
       browseRequest0.setParams(params1);
       String cursor1 = "cts";
-
       browseRequest0.setCursor(cursor1);
     }
 
@@ -706,11 +619,9 @@ class SearchClientTests {
   @DisplayName("allow del method for a custom path with all parameters")
   void delTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -751,11 +662,9 @@ class SearchClientTests {
   @DisplayName("deleteBy")
   void deleteByTest0() {
     String indexName0 = "theIndexName";
-
     SearchParamsObject searchParams0 = new SearchParamsObject();
     {
       String query1 = "testQuery";
-
       searchParams0.setQuery(query1);
     }
 
@@ -797,7 +706,6 @@ class SearchClientTests {
   @DisplayName("deleteObject")
   void deleteObjectTest0() {
     String indexName0 = "theIndexName";
-
     String objectID0 = "uniqueID";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -813,7 +721,6 @@ class SearchClientTests {
   @DisplayName("deleteRule")
   void deleteRuleTest0() {
     String indexName0 = "indexName";
-
     String objectID0 = "id1";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -843,7 +750,6 @@ class SearchClientTests {
   @DisplayName("deleteSynonym")
   void deleteSynonymTest0() {
     String indexName0 = "indexName";
-
     String objectID0 = "id1";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -873,11 +779,9 @@ class SearchClientTests {
   @DisplayName("allow get method for a custom path with all parameters")
   void getTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -942,11 +846,8 @@ class SearchClientTests {
   @DisplayName("getLogs")
   void getLogsTest0() {
     int offset0 = 5;
-
     int length0 = 10;
-
     String indexName0 = "theIndexName";
-
     LogType type0 = LogType.fromValue("all");
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -972,16 +873,12 @@ class SearchClientTests {
   @DisplayName("getObject")
   void getObjectTest0() {
     String indexName0 = "theIndexName";
-
     String objectID0 = "uniqueID";
-
     List<String> attributesToRetrieve0 = new ArrayList<>();
     {
       String attributesToRetrieve_01 = "attr1";
-
       attributesToRetrieve0.add(attributesToRetrieve_01);
       String attributesToRetrieve_11 = "attr2";
-
       attributesToRetrieve0.add(attributesToRetrieve_11);
     }
 
@@ -1016,18 +913,14 @@ class SearchClientTests {
           List<String> attributesToRetrieve3 = new ArrayList<>();
           {
             String attributesToRetrieve_04 = "attr1";
-
             attributesToRetrieve3.add(attributesToRetrieve_04);
             String attributesToRetrieve_14 = "attr2";
-
             attributesToRetrieve3.add(attributesToRetrieve_14);
           }
           requests_02.setAttributesToRetrieve(attributesToRetrieve3);
           String objectID3 = "uniqueID";
-
           requests_02.setObjectID(objectID3);
           String indexName3 = "theIndexName";
-
           requests_02.setIndexName(indexName3);
         }
         requests1.add(requests_02);
@@ -1056,7 +949,6 @@ class SearchClientTests {
   @DisplayName("getRule")
   void getRuleTest0() {
     String indexName0 = "indexName";
-
     String objectID0 = "id1";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1098,7 +990,6 @@ class SearchClientTests {
   @DisplayName("getSynonym")
   void getSynonymTest0() {
     String indexName0 = "indexName";
-
     String objectID0 = "id1";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1114,7 +1005,6 @@ class SearchClientTests {
   @DisplayName("getTask")
   void getTaskTest0() {
     String indexName0 = "theIndexName";
-
     int taskID0 = 123;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1228,7 +1118,6 @@ class SearchClientTests {
   @DisplayName("listUserIds")
   void listUserIdsTest0() {
     int page0 = 8;
-
     int hitsPerPage0 = 100;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1260,18 +1149,14 @@ class SearchClientTests {
         MultipleBatchOperation requests_02 = new MultipleBatchOperation();
         {
           Action action3 = Action.fromValue("addObject");
-
           requests_02.setAction(action3);
-
           Map<String, String> body3 = new HashMap<>();
           {
             String key4 = "value";
-
             body3.put("key", key4);
           }
           requests_02.setBody(body3);
           String indexName3 = "theIndexName";
-
           requests_02.setIndexName(indexName3);
         }
         requests1.add(requests_02);
@@ -1306,17 +1191,14 @@ class SearchClientTests {
         MultipleQueries requests_02 = new MultipleQueries();
         {
           String indexName3 = "theIndexName";
-
           requests_02.setIndexName(indexName3);
         }
         requests1.add(requests_02);
       }
       multipleQueriesParams0.setRequests(requests1);
-
       MultipleQueriesStrategy strategy1 = MultipleQueriesStrategy.fromValue(
         "stopIfEnoughMatches"
       );
-
       multipleQueriesParams0.setStrategy(strategy1);
     }
 
@@ -1347,48 +1229,34 @@ class SearchClientTests {
         MultipleQueries requests_02 = new MultipleQueries();
         {
           String indexName3 = "theIndexName";
-
           requests_02.setIndexName(indexName3);
           String query3 = "test";
-
           requests_02.setQuery(query3);
-
           MultipleQueriesType type3 = MultipleQueriesType.fromValue("facet");
-
           requests_02.setType(type3);
           String facet3 = "theFacet";
-
           requests_02.setFacet(facet3);
           String params3 = "testParam";
-
           requests_02.setParams(params3);
         }
         requests1.add(requests_02);
-
         MultipleQueries requests_12 = new MultipleQueries();
         {
           String indexName3 = "theIndexName";
-
           requests_12.setIndexName(indexName3);
           String query3 = "test";
-
           requests_12.setQuery(query3);
-
           MultipleQueriesType type3 = MultipleQueriesType.fromValue("default");
-
           requests_12.setType(type3);
           String params3 = "testParam";
-
           requests_12.setParams(params3);
         }
         requests1.add(requests_12);
       }
       multipleQueriesParams0.setRequests(requests1);
-
       MultipleQueriesStrategy strategy1 = MultipleQueriesStrategy.fromValue(
         "stopIfEnoughMatches"
       );
-
       multipleQueriesParams0.setStrategy(strategy1);
     }
 
@@ -1413,24 +1281,17 @@ class SearchClientTests {
   @DisplayName("operationIndex")
   void operationIndexTest0() {
     String indexName0 = "theIndexName";
-
     OperationIndexParams operationIndexParams0 = new OperationIndexParams();
     {
       OperationType operation1 = OperationType.fromValue("copy");
-
       operationIndexParams0.setOperation(operation1);
       String destination1 = "dest";
-
       operationIndexParams0.setDestination(destination1);
-
       List<ScopeType> scope1 = new ArrayList<>();
       {
         ScopeType scope_02 = ScopeType.fromValue("rules");
-
         scope1.add(scope_02);
-
         ScopeType scope_12 = ScopeType.fromValue("settings");
-
         scope1.add(scope_12);
       }
       operationIndexParams0.setScope(scope1);
@@ -1457,29 +1318,23 @@ class SearchClientTests {
   @DisplayName("partialUpdateObject")
   void partialUpdateObjectTest0() {
     String indexName0 = "theIndexName";
-
     String objectID0 = "uniqueID";
-
     List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation0 = new ArrayList<>();
     {
       Map<String, AttributeOrBuiltInOperation> attributeOrBuiltInOperation_01 = new HashMap<>();
       {
         String id12 = "test";
-
         attributeOrBuiltInOperation_01.put(
           "id1",
           AttributeOrBuiltInOperation.ofString(id12)
         );
-
         BuiltInOperation id22 = new BuiltInOperation();
         {
           BuiltInOperationType operation3 = BuiltInOperationType.fromValue(
             "AddUnique"
           );
-
           id22.setOperation(operation3);
           String value3 = "test2";
-
           id22.setValue(value3);
         }
         attributeOrBuiltInOperation_01.put(
@@ -1489,7 +1344,6 @@ class SearchClientTests {
       }
       attributeOrBuiltInOperation0.add(attributeOrBuiltInOperation_01);
     }
-
     boolean createIfNotExists0 = true;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1542,18 +1396,14 @@ class SearchClientTests {
   @DisplayName("allow post method for a custom path with all parameters")
   void postTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 
@@ -1602,18 +1452,14 @@ class SearchClientTests {
   @DisplayName("allow put method for a custom path with all parameters")
   void putTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 
@@ -1666,10 +1512,8 @@ class SearchClientTests {
       Source source_01 = new Source();
       {
         String source2 = "theSource";
-
         source_01.setSource(source2);
         String description2 = "theDescription";
-
         source_01.setDescription(description2);
       }
       source0.add(source_01);
@@ -1710,14 +1554,11 @@ class SearchClientTests {
   @DisplayName("saveObject")
   void saveObjectTest0() {
     String indexName0 = "theIndexName";
-
     Map<String, String> body0 = new HashMap<>();
     {
       String objectID1 = "id";
-
       body0.put("objectID", objectID1);
       String test1 = "val";
-
       body0.put("test", test1);
     }
 
@@ -1742,44 +1583,34 @@ class SearchClientTests {
   @DisplayName("saveRule")
   void saveRuleTest0() {
     String indexName0 = "indexName";
-
     String objectID0 = "id1";
-
     Rule rule0 = new Rule();
     {
       String objectID1 = "id1";
-
       rule0.setObjectID(objectID1);
-
       List<Condition> conditions1 = new ArrayList<>();
       {
         Condition conditions_02 = new Condition();
         {
           String pattern3 = "apple";
-
           conditions_02.setPattern(pattern3);
-
           Anchoring anchoring3 = Anchoring.fromValue("contains");
-
           conditions_02.setAnchoring(anchoring3);
         }
         conditions1.add(conditions_02);
       }
       rule0.setConditions(conditions1);
-
       Consequence consequence1 = new Consequence();
       {
         ConsequenceParams params2 = new ConsequenceParams();
         {
           String filters3 = "brand:apple";
-
           params2.setFilters(filters3);
         }
         consequence1.setParams(params2);
       }
       rule0.setConsequence(consequence1);
     }
-
     boolean forwardToReplicas0 = true;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1818,34 +1649,24 @@ class SearchClientTests {
   @DisplayName("saveSynonym")
   void saveSynonymTest0() {
     String indexName0 = "indexName";
-
     String objectID0 = "id1";
-
     SynonymHit synonymHit0 = new SynonymHit();
     {
       String objectID1 = "id1";
-
       synonymHit0.setObjectID(objectID1);
-
       SynonymType type1 = SynonymType.fromValue("synonym");
-
       synonymHit0.setType(type1);
-
       List<String> synonyms1 = new ArrayList<>();
       {
         String synonyms_02 = "car";
-
         synonyms1.add(synonyms_02);
         String synonyms_12 = "vehicule";
-
         synonyms1.add(synonyms_12);
         String synonyms_22 = "auto";
-
         synonyms1.add(synonyms_22);
       }
       synonymHit0.setSynonyms(synonyms1);
     }
-
     boolean forwardToReplicas0 = true;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1884,67 +1705,48 @@ class SearchClientTests {
   @DisplayName("saveSynonyms")
   void saveSynonymsTest0() {
     String indexName0 = "indexName";
-
     List<SynonymHit> synonymHit0 = new ArrayList<>();
     {
       SynonymHit synonymHit_01 = new SynonymHit();
       {
         String objectID2 = "id1";
-
         synonymHit_01.setObjectID(objectID2);
-
         SynonymType type2 = SynonymType.fromValue("synonym");
-
         synonymHit_01.setType(type2);
-
         List<String> synonyms2 = new ArrayList<>();
         {
           String synonyms_03 = "car";
-
           synonyms2.add(synonyms_03);
           String synonyms_13 = "vehicule";
-
           synonyms2.add(synonyms_13);
           String synonyms_23 = "auto";
-
           synonyms2.add(synonyms_23);
         }
         synonymHit_01.setSynonyms(synonyms2);
       }
       synonymHit0.add(synonymHit_01);
-
       SynonymHit synonymHit_11 = new SynonymHit();
       {
         String objectID2 = "id2";
-
         synonymHit_11.setObjectID(objectID2);
-
         SynonymType type2 = SynonymType.fromValue("onewaysynonym");
-
         synonymHit_11.setType(type2);
         String input2 = "iphone";
-
         synonymHit_11.setInput(input2);
-
         List<String> synonyms2 = new ArrayList<>();
         {
           String synonyms_03 = "ephone";
-
           synonyms2.add(synonyms_03);
           String synonyms_13 = "aphone";
-
           synonyms2.add(synonyms_13);
           String synonyms_23 = "yphone";
-
           synonyms2.add(synonyms_23);
         }
         synonymHit_11.setSynonyms(synonyms2);
       }
       synonymHit0.add(synonymHit_11);
     }
-
     boolean forwardToReplicas0 = true;
-
     boolean replaceExistingSynonyms0 = false;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -1983,11 +1785,9 @@ class SearchClientTests {
   @DisplayName("search with minimal parameters")
   void searchTest0() {
     String indexName0 = "indexName";
-
     SearchParamsObject searchParams0 = new SearchParamsObject();
     {
       String query1 = "myQuery";
-
       searchParams0.setQuery(query1);
     }
 
@@ -2015,17 +1815,13 @@ class SearchClientTests {
   @DisplayName("search with facetFilters")
   void searchTest1() {
     String indexName0 = "indexName";
-
     SearchParamsObject searchParams0 = new SearchParamsObject();
     {
       String query1 = "myQuery";
-
       searchParams0.setQuery(query1);
-
       List<String> facetFilters1 = new ArrayList<>();
       {
         String facetFilters_02 = "tags:algolia";
-
         facetFilters1.add(facetFilters_02);
       }
       searchParams0.setFacetFilters(FacetFilters.ofListString(facetFilters1));
@@ -2055,11 +1851,9 @@ class SearchClientTests {
   @DisplayName("get searchDictionaryEntries results with minimal parameters")
   void searchDictionaryEntriesTest0() {
     DictionaryType dictionaryName0 = DictionaryType.fromValue("compounds");
-
     SearchDictionaryEntriesParams searchDictionaryEntriesParams0 = new SearchDictionaryEntriesParams();
     {
       String query1 = "foo";
-
       searchDictionaryEntriesParams0.setQuery(query1);
     }
 
@@ -2087,22 +1881,15 @@ class SearchClientTests {
   @DisplayName("get searchDictionaryEntries results with all parameters")
   void searchDictionaryEntriesTest1() {
     DictionaryType dictionaryName0 = DictionaryType.fromValue("compounds");
-
     SearchDictionaryEntriesParams searchDictionaryEntriesParams0 = new SearchDictionaryEntriesParams();
     {
       String query1 = "foo";
-
       searchDictionaryEntriesParams0.setQuery(query1);
-
       int page1 = 4;
-
       searchDictionaryEntriesParams0.setPage(page1);
-
       int hitsPerPage1 = 2;
-
       searchDictionaryEntriesParams0.setHitsPerPage(hitsPerPage1);
       String language1 = "fr";
-
       searchDictionaryEntriesParams0.setLanguage(language1);
     }
 
@@ -2130,7 +1917,6 @@ class SearchClientTests {
   @DisplayName("get searchForFacetValues results with minimal parameters")
   void searchForFacetValuesTest0() {
     String indexName0 = "indexName";
-
     String facetName0 = "facetName";
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -2146,20 +1932,14 @@ class SearchClientTests {
   @DisplayName("get searchForFacetValues results with all parameters")
   void searchForFacetValuesTest1() {
     String indexName0 = "indexName";
-
     String facetName0 = "facetName";
-
     SearchForFacetValuesRequest searchForFacetValuesRequest0 = new SearchForFacetValuesRequest();
     {
       String params1 = "query=foo&facetFilters=['bar']";
-
       searchForFacetValuesRequest0.setParams(params1);
       String facetQuery1 = "foo";
-
       searchForFacetValuesRequest0.setFacetQuery(facetQuery1);
-
       int maxFacetHits1 = 42;
-
       searchForFacetValuesRequest0.setMaxFacetHits(maxFacetHits1);
     }
 
@@ -2188,11 +1968,9 @@ class SearchClientTests {
   @DisplayName("searchRules")
   void searchRulesTest0() {
     String indexName0 = "indexName";
-
     SearchRulesParams searchRulesParams0 = new SearchRulesParams();
     {
       String query1 = "something";
-
       searchRulesParams0.setQuery(query1);
     }
 
@@ -2233,18 +2011,12 @@ class SearchClientTests {
     SearchUserIdsParams searchUserIdsParams0 = new SearchUserIdsParams();
     {
       String query1 = "test";
-
       searchUserIdsParams0.setQuery(query1);
       String clusterName1 = "theClusterName";
-
       searchUserIdsParams0.setClusterName(clusterName1);
-
       int page1 = 5;
-
       searchUserIdsParams0.setPage(page1);
-
       int hitsPerPage1 = 10;
-
       searchUserIdsParams0.setHitsPerPage(hitsPerPage1);
     }
 
@@ -2275,15 +2047,10 @@ class SearchClientTests {
         Map<String, Boolean> plurals2 = new HashMap<>();
         {
           boolean fr3 = false;
-
           plurals2.put("fr", fr3);
-
           boolean en3 = false;
-
           plurals2.put("en", en3);
-
           boolean ru3 = true;
-
           plurals2.put("ru", ru3);
         }
         disableStandardEntries1.setPlurals(plurals2);
@@ -2320,31 +2087,22 @@ class SearchClientTests {
         Map<String, Boolean> plurals2 = new HashMap<>();
         {
           boolean fr3 = false;
-
           plurals2.put("fr", fr3);
-
           boolean en3 = false;
-
           plurals2.put("en", en3);
-
           boolean ru3 = true;
-
           plurals2.put("ru", ru3);
         }
         disableStandardEntries1.setPlurals(plurals2);
-
         Map<String, Boolean> stopwords2 = new HashMap<>();
         {
           boolean fr3 = false;
-
           stopwords2.put("fr", fr3);
         }
         disableStandardEntries1.setStopwords(stopwords2);
-
         Map<String, Boolean> compounds2 = new HashMap<>();
         {
           boolean ru3 = true;
-
           compounds2.put("ru", ru3);
         }
         disableStandardEntries1.setCompounds(compounds2);
@@ -2375,14 +2133,11 @@ class SearchClientTests {
   @DisplayName("setSettings")
   void setSettingsTest0() {
     String indexName0 = "theIndexName";
-
     IndexSettings indexSettings0 = new IndexSettings();
     {
       int paginationLimitedTo1 = 10;
-
       indexSettings0.setPaginationLimitedTo(paginationLimitedTo1);
     }
-
     boolean forwardToReplicas0 = true;
 
     EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
@@ -2420,31 +2175,21 @@ class SearchClientTests {
   @DisplayName("updateApiKey")
   void updateApiKeyTest0() {
     String key0 = "myApiKey";
-
     ApiKey apiKey0 = new ApiKey();
     {
       List<Acl> acl1 = new ArrayList<>();
       {
         Acl acl_02 = Acl.fromValue("search");
-
         acl1.add(acl_02);
-
         Acl acl_12 = Acl.fromValue("addObject");
-
         acl1.add(acl_12);
       }
       apiKey0.setAcl(acl1);
-
       int validity1 = 300;
-
       apiKey0.setValidity(validity1);
-
       int maxQueriesPerIPPerHour1 = 100;
-
       apiKey0.setMaxQueriesPerIPPerHour(maxQueriesPerIPPerHour1);
-
       int maxHitsPerQuery1 = 20;
-
       apiKey0.setMaxHitsPerQuery(maxHitsPerQuery1);
     }
 

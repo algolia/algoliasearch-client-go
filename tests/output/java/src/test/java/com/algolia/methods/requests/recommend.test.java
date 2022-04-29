@@ -45,11 +45,9 @@ class RecommendClientTests {
   @DisplayName("allow del method for a custom path with all parameters")
   void delTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -90,11 +88,9 @@ class RecommendClientTests {
   @DisplayName("allow get method for a custom path with all parameters")
   void getTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -129,20 +125,14 @@ class RecommendClientTests {
         RecommendationRequest requests_02 = new RecommendationRequest();
         {
           String indexName3 = "indexName";
-
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID";
-
           requests_02.setObjectID(objectID3);
-
           RecommendationModels model3 = RecommendationModels.fromValue(
             "related-products"
           );
-
           requests_02.setModel(model3);
-
           int threshold3 = 42;
-
           requests_02.setThreshold(threshold3);
         }
         requests1.add(
@@ -179,36 +169,24 @@ class RecommendClientTests {
         RecommendationRequest requests_02 = new RecommendationRequest();
         {
           String indexName3 = "indexName";
-
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID";
-
           requests_02.setObjectID(objectID3);
-
           RecommendationModels model3 = RecommendationModels.fromValue(
             "related-products"
           );
-
           requests_02.setModel(model3);
-
           int threshold3 = 42;
-
           requests_02.setThreshold(threshold3);
-
           int maxRecommendations3 = 10;
-
           requests_02.setMaxRecommendations(maxRecommendations3);
-
           SearchParamsObject queryParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             queryParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query";
-
               facetFilters4.add(facetFilters_05);
             }
             queryParameters3.setFacetFilters(
@@ -216,17 +194,13 @@ class RecommendClientTests {
             );
           }
           requests_02.setQueryParameters(queryParameters3);
-
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             fallbackParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback";
-
               facetFilters4.add(facetFilters_05);
             }
             fallbackParameters3.setFacetFilters(
@@ -269,15 +243,10 @@ class RecommendClientTests {
         TrendingRequest requests_02 = new TrendingRequest();
         {
           String indexName3 = "indexName";
-
           requests_02.setIndexName(indexName3);
-
           TrendingModels model3 = TrendingModels.fromValue("trending-items");
-
           requests_02.setModel(model3);
-
           int threshold3 = 42;
-
           requests_02.setThreshold(threshold3);
         }
         requests1.add(RecommendationsRequest.ofTrendingRequest(requests_02));
@@ -312,37 +281,24 @@ class RecommendClientTests {
         TrendingRequest requests_02 = new TrendingRequest();
         {
           String indexName3 = "indexName";
-
           requests_02.setIndexName(indexName3);
-
           TrendingModels model3 = TrendingModels.fromValue("trending-items");
-
           requests_02.setModel(model3);
-
           int threshold3 = 42;
-
           requests_02.setThreshold(threshold3);
-
           int maxRecommendations3 = 10;
-
           requests_02.setMaxRecommendations(maxRecommendations3);
           String facetName3 = "myFacetName";
-
           requests_02.setFacetName(facetName3);
           String facetValue3 = "myFacetValue";
-
           requests_02.setFacetValue(facetValue3);
-
           SearchParamsObject queryParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             queryParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query";
-
               facetFilters4.add(facetFilters_05);
             }
             queryParameters3.setFacetFilters(
@@ -350,17 +306,13 @@ class RecommendClientTests {
             );
           }
           requests_02.setQueryParameters(queryParameters3);
-
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             fallbackParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback";
-
               facetFilters4.add(facetFilters_05);
             }
             fallbackParameters3.setFacetFilters(
@@ -401,43 +353,30 @@ class RecommendClientTests {
         RecommendationRequest requests_02 = new RecommendationRequest();
         {
           String indexName3 = "indexName1";
-
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID1";
-
           requests_02.setObjectID(objectID3);
-
           RecommendationModels model3 = RecommendationModels.fromValue(
             "related-products"
           );
-
           requests_02.setModel(model3);
-
           int threshold3 = 21;
-
           requests_02.setThreshold(threshold3);
         }
         requests1.add(
           RecommendationsRequest.ofRecommendationRequest(requests_02)
         );
-
         RecommendationRequest requests_12 = new RecommendationRequest();
         {
           String indexName3 = "indexName2";
-
           requests_12.setIndexName(indexName3);
           String objectID3 = "objectID2";
-
           requests_12.setObjectID(objectID3);
-
           RecommendationModels model3 = RecommendationModels.fromValue(
             "related-products"
           );
-
           requests_12.setModel(model3);
-
           int threshold3 = 21;
-
           requests_12.setThreshold(threshold3);
         }
         requests1.add(
@@ -474,36 +413,24 @@ class RecommendClientTests {
         RecommendationRequest requests_02 = new RecommendationRequest();
         {
           String indexName3 = "indexName1";
-
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID1";
-
           requests_02.setObjectID(objectID3);
-
           RecommendationModels model3 = RecommendationModels.fromValue(
             "related-products"
           );
-
           requests_02.setModel(model3);
-
           int threshold3 = 21;
-
           requests_02.setThreshold(threshold3);
-
           int maxRecommendations3 = 10;
-
           requests_02.setMaxRecommendations(maxRecommendations3);
-
           SearchParamsObject queryParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             queryParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query1";
-
               facetFilters4.add(facetFilters_05);
             }
             queryParameters3.setFacetFilters(
@@ -511,17 +438,13 @@ class RecommendClientTests {
             );
           }
           requests_02.setQueryParameters(queryParameters3);
-
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             fallbackParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback1";
-
               facetFilters4.add(facetFilters_05);
             }
             fallbackParameters3.setFacetFilters(
@@ -533,40 +456,27 @@ class RecommendClientTests {
         requests1.add(
           RecommendationsRequest.ofRecommendationRequest(requests_02)
         );
-
         RecommendationRequest requests_12 = new RecommendationRequest();
         {
           String indexName3 = "indexName2";
-
           requests_12.setIndexName(indexName3);
           String objectID3 = "objectID2";
-
           requests_12.setObjectID(objectID3);
-
           RecommendationModels model3 = RecommendationModels.fromValue(
             "related-products"
           );
-
           requests_12.setModel(model3);
-
           int threshold3 = 21;
-
           requests_12.setThreshold(threshold3);
-
           int maxRecommendations3 = 10;
-
           requests_12.setMaxRecommendations(maxRecommendations3);
-
           SearchParamsObject queryParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             queryParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query2";
-
               facetFilters4.add(facetFilters_05);
             }
             queryParameters3.setFacetFilters(
@@ -574,17 +484,13 @@ class RecommendClientTests {
             );
           }
           requests_12.setQueryParameters(queryParameters3);
-
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
-
             fallbackParameters3.setQuery(query4);
-
             List<String> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback2";
-
               facetFilters4.add(facetFilters_05);
             }
             fallbackParameters3.setFacetFilters(
@@ -627,20 +533,14 @@ class RecommendClientTests {
         RecommendationRequest requests_02 = new RecommendationRequest();
         {
           String indexName3 = "indexName1";
-
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID1";
-
           requests_02.setObjectID(objectID3);
-
           RecommendationModels model3 = RecommendationModels.fromValue(
             "bought-together"
           );
-
           requests_02.setModel(model3);
-
           int threshold3 = 42;
-
           requests_02.setThreshold(threshold3);
         }
         requests1.add(
@@ -685,18 +585,14 @@ class RecommendClientTests {
   @DisplayName("allow post method for a custom path with all parameters")
   void postTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 
@@ -745,18 +641,14 @@ class RecommendClientTests {
   @DisplayName("allow put method for a custom path with all parameters")
   void putTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 

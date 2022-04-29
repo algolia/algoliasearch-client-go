@@ -83,7 +83,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testDel0()
     {
         $client = $this->getClient();
-
         $client->del('/test/minimal');
 
         $this->assertRequests([
@@ -101,7 +100,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testDel1()
     {
         $client = $this->getClient();
-
         $client->del(
             '/test/all',
             ['query' => 'parameters']
@@ -123,7 +121,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGet0()
     {
         $client = $this->getClient();
-
         $client->get('/test/minimal');
 
         $this->assertRequests([
@@ -141,7 +138,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGet1()
     {
         $client = $this->getClient();
-
         $client->get(
             '/test/all',
             ['query' => 'parameters']
@@ -163,16 +159,12 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGetRecommendations0()
     {
         $client = $this->getClient();
-
         $client->getRecommendations([
             'requests' => [
                 [
                     'indexName' => 'indexName',
-
                     'objectID' => 'objectID',
-
                     'model' => 'related-products',
-
                     'threshold' => 42,
                 ],
             ],
@@ -196,29 +188,20 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGetRecommendations1()
     {
         $client = $this->getClient();
-
         $client->getRecommendations([
             'requests' => [
                 [
                     'indexName' => 'indexName',
-
                     'objectID' => 'objectID',
-
                     'model' => 'related-products',
-
                     'threshold' => 42,
-
                     'maxRecommendations' => 10,
-
                     'queryParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['query'],
                     ],
-
                     'fallbackParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['fallback'],
                     ],
                 ],
@@ -243,14 +226,11 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGetRecommendations2()
     {
         $client = $this->getClient();
-
         $client->getRecommendations([
             'requests' => [
                 [
                     'indexName' => 'indexName',
-
                     'model' => 'trending-items',
-
                     'threshold' => 42,
                 ],
             ],
@@ -274,31 +254,21 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGetRecommendations3()
     {
         $client = $this->getClient();
-
         $client->getRecommendations([
             'requests' => [
                 [
                     'indexName' => 'indexName',
-
                     'model' => 'trending-items',
-
                     'threshold' => 42,
-
                     'maxRecommendations' => 10,
-
                     'facetName' => 'myFacetName',
-
                     'facetValue' => 'myFacetValue',
-
                     'queryParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['query'],
                     ],
-
                     'fallbackParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['fallback'],
                     ],
                 ],
@@ -323,26 +293,19 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGetRecommendations4()
     {
         $client = $this->getClient();
-
         $client->getRecommendations([
             'requests' => [
                 [
                     'indexName' => 'indexName1',
-
                     'objectID' => 'objectID1',
-
                     'model' => 'related-products',
-
                     'threshold' => 21,
                 ],
 
                 [
                     'indexName' => 'indexName2',
-
                     'objectID' => 'objectID2',
-
                     'model' => 'related-products',
-
                     'threshold' => 21,
                 ],
             ],
@@ -366,53 +329,36 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGetRecommendations5()
     {
         $client = $this->getClient();
-
         $client->getRecommendations([
             'requests' => [
                 [
                     'indexName' => 'indexName1',
-
                     'objectID' => 'objectID1',
-
                     'model' => 'related-products',
-
                     'threshold' => 21,
-
                     'maxRecommendations' => 10,
-
                     'queryParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['query1'],
                     ],
-
                     'fallbackParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['fallback1'],
                     ],
                 ],
 
                 [
                     'indexName' => 'indexName2',
-
                     'objectID' => 'objectID2',
-
                     'model' => 'related-products',
-
                     'threshold' => 21,
-
                     'maxRecommendations' => 10,
-
                     'queryParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['query2'],
                     ],
-
                     'fallbackParameters' => [
                         'query' => 'myQuery',
-
                         'facetFilters' => ['fallback2'],
                     ],
                 ],
@@ -437,16 +383,12 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testGetRecommendations6()
     {
         $client = $this->getClient();
-
         $client->getRecommendations([
             'requests' => [
                 [
                     'indexName' => 'indexName1',
-
                     'objectID' => 'objectID1',
-
                     'model' => 'bought-together',
-
                     'threshold' => 42,
                 ],
             ],
@@ -470,7 +412,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testPost0()
     {
         $client = $this->getClient();
-
         $client->post('/test/minimal');
 
         $this->assertRequests([
@@ -488,7 +429,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testPost1()
     {
         $client = $this->getClient();
-
         $client->post(
             '/test/all',
             ['query' => 'parameters'],
@@ -512,7 +452,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testPut0()
     {
         $client = $this->getClient();
-
         $client->put('/test/minimal');
 
         $this->assertRequests([
@@ -530,7 +469,6 @@ class RecommendTest extends TestCase implements HttpClientInterface
     public function testPut1()
     {
         $client = $this->getClient();
-
         $client->put(
             '/test/all',
             ['query' => 'parameters'],

@@ -70,16 +70,9 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
     public function test{{#lambda.titlecase}}{{method}}{{/lambda.titlecase}}{{testIndex}}()
     {
         $client = $this->getClient();
-
-        {{#hasParameters}}
-
-        $client->{{{method}}}(
+        $client->{{^hasParameters}}{{{method}}}();{{/hasParameters}}{{#hasParameters}}{{{method}}}(
         {{#parametersWithDataType}}{{> generateParams}}{{/parametersWithDataType}}
-        );
-        {{/hasParameters}}
-        {{^hasParameters}}
-            $client->{{{method}}}();
-        {{/hasParameters}}
+        );{{/hasParameters}}
 
         $this->assertRequests([
             [

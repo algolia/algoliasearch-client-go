@@ -45,11 +45,9 @@ class PersonalizationClientTests {
   @DisplayName("allow del method for a custom path with all parameters")
   void delTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -104,11 +102,9 @@ class PersonalizationClientTests {
   @DisplayName("allow get method for a custom path with all parameters")
   void getTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
 
@@ -175,18 +171,14 @@ class PersonalizationClientTests {
   @DisplayName("allow post method for a custom path with all parameters")
   void postTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 
@@ -235,18 +227,14 @@ class PersonalizationClientTests {
   @DisplayName("allow put method for a custom path with all parameters")
   void putTest1() {
     String path0 = "/test/all";
-
     Map<String, Object> parameters0 = new HashMap<>();
     {
       String query1 = "parameters";
-
       parameters0.put("query", query1);
     }
-
     Map<String, String> body0 = new HashMap<>();
     {
       String body1 = "parameters";
-
       body0.put("body", body1);
     }
 
@@ -287,36 +275,28 @@ class PersonalizationClientTests {
         EventScoring eventScoring_02 = new EventScoring();
         {
           int score3 = 42;
-
           eventScoring_02.setScore(score3);
           String eventName3 = "Algolia";
-
           eventScoring_02.setEventName(eventName3);
           String eventType3 = "Event";
-
           eventScoring_02.setEventType(eventType3);
         }
         eventScoring1.add(eventScoring_02);
       }
       personalizationStrategyParams0.setEventScoring(eventScoring1);
-
       List<FacetScoring> facetScoring1 = new ArrayList<>();
       {
         FacetScoring facetScoring_02 = new FacetScoring();
         {
           int score3 = 42;
-
           facetScoring_02.setScore(score3);
           String facetName3 = "Event";
-
           facetScoring_02.setFacetName(facetName3);
         }
         facetScoring1.add(facetScoring_02);
       }
       personalizationStrategyParams0.setFacetScoring(facetScoring1);
-
       int personalizationImpact1 = 42;
-
       personalizationStrategyParams0.setPersonalizationImpact(
         personalizationImpact1
       );
