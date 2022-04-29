@@ -9,7 +9,7 @@ jobs:
   release:
     name: Publish to Sonatype
     runs-on: ubuntu-20.04
-    if: "startsWith(github.event.head_commit.message, 'chore: release v')"
+    if: "startsWith(github.event.head_commit.message, 'chore: release')"
     env:
       ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
       ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
