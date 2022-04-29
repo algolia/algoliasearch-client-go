@@ -1984,7 +1984,7 @@ x-tagGroups:
       - Rules
       - Synonyms
       - Dictionnaries
-  - name: Other
+  - name: Others
     tags:
       - Api Keys
       - Clusters
@@ -2108,8 +2108,8 @@ paths:
       tags:
         - search
       operationId: search
-      description: Get search results.
-      summary: Get search results.
+      summary: Search in an index.
+      description: Perform a search operation targeting one specific index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
       requestBody:
@@ -2138,8 +2138,8 @@ paths:
       tags:
         - search
       operationId: multipleQueries
-      description: Get search results for the given requests.
-      summary: Get search results for the given requests.
+      summary: Search multiple indices.
+      description: Perform a search operation targeting one or many indices.
       requestBody:
         required: true
         description: The `multipleQueries` requests and strategy.
@@ -2202,7 +2202,7 @@ paths:
       tags:
         - search
       operationId: searchForFacetValues
-      summary: Search for values of a given facet
+      summary: Search for values of a given facet.
       description: >-
         Search for values of a given facet, optionally restricting the returned
         values to those contained in objects matching other search criteria.
@@ -2382,7 +2382,7 @@ paths:
       tags:
         - search
       operationId: getObject
-      summary: Retrieve one object from the index.
+      summary: Retrieve an object.
       description: Retrieve one object from the index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
@@ -2419,10 +2419,11 @@ paths:
       tags:
         - search
       operationId: addOrUpdateObject
-      summary: Add or replace an object with a given object ID.
-      description: >-
-        Add or replace an object with a given object ID. If the object does not
-        exist, it will be created. If it already exists, it will be replaced.
+      summary: Add or replace an object.
+      description: |
+        Add or replace an object with a given object ID.
+        If the object does not exist, it will be created.
+        If it already exists, it will be replaced.
       parameters:
         - $ref: '#/components/parameters/IndexName'
         - $ref: '#/components/parameters/ObjectID'
@@ -2448,7 +2449,7 @@ paths:
       tags:
         - search
       operationId: deleteObject
-      summary: Delete object.
+      summary: Delete an object.
       description: Delete an existing object.
       parameters:
         - $ref: '#/components/parameters/IndexName'
@@ -2572,8 +2573,10 @@ paths:
       tags:
         - search
       operationId: batch
-      description: Performs multiple write operations in a single API call.
-      summary: Performs multiple write operations in a single API call.
+      summary: Batch operations to one index.
+      description: >-
+        Perform multiple write operations targeting one index, in a single API
+        call.
       parameters:
         - $ref: '#/components/parameters/IndexName'
       requestBody:
@@ -2630,7 +2633,7 @@ paths:
       description: >-
         Perform multiple write operations, potentially targeting multiple
         indices, in a single API call.
-      summary: Perform multiple write operations.
+      summary: Batch operations to many indices.
       requestBody:
         required: true
         content:
@@ -2754,8 +2757,8 @@ paths:
       tags:
         - search
       operationId: getSettings
-      description: Retrieve settings of a given indexName.
-      summary: Retrieve settings of a given indexName.
+      description: Retrieve settings of an index.
+      summary: Retrieve settings of an index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
       responses:
@@ -2778,10 +2781,10 @@ paths:
         - search
       operationId: setSettings
       description: >-
-        Update settings of a given indexName. Only specified settings are
-        overridden; unspecified settings are left unchanged. Specifying null for
-        a setting resets it to its default value.
-      summary: Update settings of a given indexName.
+        Update settings of an index. Only specified settings are overridden;
+        unspecified settings are left unchanged. Specifying null for a setting
+        resets it to its default value.
+      summary: Update settings of an index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
         - $ref: '#/components/parameters/ForwardToReplicas'
@@ -2950,7 +2953,7 @@ paths:
       tags:
         - search
       operationId: searchSynonyms
-      summary: Get all synonyms that match a query.
+      summary: Search synonyms.
       description: Search or browse all synonyms, optionally filtering them by type.
       parameters:
         - $ref: '#/components/parameters/IndexName'
@@ -2978,7 +2981,7 @@ paths:
       tags:
         - search
       operationId: listApiKeys
-      summary: Get the full list of API Keys.
+      summary: List API Keys.
       description: List API keys, along with their associated rights.
       responses:
         '200':
@@ -3009,7 +3012,7 @@ paths:
       tags:
         - search
       operationId: addApiKey
-      summary: Create a new API key.
+      summary: Create an API key.
       description: Add a new API Key with specific permissions/restrictions.
       requestBody:
         required: true
@@ -3366,7 +3369,7 @@ paths:
         - search
       operationId: batchDictionaryEntries
       description: Send a batch of dictionary entries.
-      summary: Send a batch of dictionary entries.
+      summary: Batch dictionary entries.
       parameters:
         - $ref: '#/components/parameters/DictionaryName'
       requestBody:
@@ -3421,7 +3424,7 @@ paths:
         - search
       operationId: searchDictionaryEntries
       description: Search the dictionary entries.
-      summary: Search the dictionary entries.
+      summary: Search a dictionary entries.
       parameters:
         - $ref: '#/components/parameters/DictionaryName'
       requestBody:
@@ -3490,8 +3493,8 @@ paths:
       tags:
         - search
       operationId: setDictionarySettings
-      description: Set dictionary settings.
-      summary: Set dictionary settings.
+      description: Set dictionaries settings.
+      summary: Set dictionaries settings.
       requestBody:
         required: true
         content:
@@ -3525,7 +3528,7 @@ paths:
         - search
       operationId: getDictionaryLanguages
       description: List dictionaries supported per language.
-      summary: List dictionaries supported per language.
+      summary: List available languages.
       responses:
         '200':
           description: OK
@@ -3549,7 +3552,7 @@ paths:
       tags:
         - search
       operationId: assignUserId
-      summary: Assign or Move userID
+      summary: Assign or Move userID.
       description: >
         Assign or Move a userID to a cluster.
 
@@ -3591,7 +3594,7 @@ paths:
       tags:
         - search
       operationId: listUserIds
-      summary: List userIDs
+      summary: List userIDs.
       description: >
         List the userIDs assigned to a multi-clusters appID.
 
@@ -3634,7 +3637,7 @@ paths:
       tags:
         - search
       operationId: batchAssignUserIds
-      summary: Batch assign userIDs
+      summary: Batch assign userIDs.
       description: >
         Assign multiple userIDs to a cluster.
 
@@ -3682,7 +3685,7 @@ paths:
       tags:
         - search
       operationId: getTopUserIds
-      summary: Get top userID
+      summary: Get top userID.
       description: >
         Get the top 10 userIDs with the highest number of records per cluster.
 
@@ -3726,7 +3729,7 @@ paths:
       tags:
         - search
       operationId: getUserId
-      summary: Get userID
+      summary: Get userID.
       description: >
         Returns the userID data stored in the mapping.
 
@@ -3757,7 +3760,7 @@ paths:
       tags:
         - search
       operationId: removeUserId
-      summary: Remove userID
+      summary: Remove userID.
       description: >
         Remove a userID and its associated data from the multi-clusters.
 
@@ -3792,7 +3795,7 @@ paths:
       tags:
         - search
       operationId: listClusters
-      summary: List clusters
+      summary: List clusters.
       description: >
         List the clusters available in a multi-clusters setup for a single
         appID.
@@ -3829,7 +3832,7 @@ paths:
       tags:
         - search
       operationId: searchUserIds
-      summary: Search userID
+      summary: Search userID.
       description: >
         Search for userIDs.
 
@@ -3940,7 +3943,7 @@ paths:
       tags:
         - search
       operationId: hasPendingMappings
-      summary: Has pending mappings
+      summary: Get migration status.
       description: >
         Get the status of your clusters' migrations or user creations.
 
@@ -4093,8 +4096,8 @@ paths:
       tags:
         - search
       operationId: getLogs
-      description: Return the lastest log entries.
-      summary: Return the lastest log entries.
+      description: Return the latest log entries.
+      summary: Return the latest log entries.
       parameters:
         - name: offset
           in: query
@@ -4232,7 +4235,7 @@ paths:
         - search
       operationId: getTask
       description: Check the current status of a given task.
-      summary: Check the current status of a given task.
+      summary: Check the status of a task.
       parameters:
         - $ref: '#/components/parameters/IndexName'
         - name: taskID
