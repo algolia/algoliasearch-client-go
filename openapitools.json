@@ -17,9 +17,9 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-search",
           "buildFile": "client-search",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-search",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-algoliasearch-lite": {
@@ -36,9 +36,9 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/algoliasearch-lite",
           "buildFile": "algoliasearch-lite",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/algoliasearch-lite",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-recommend": {
@@ -55,9 +55,9 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/recommend",
           "buildFile": "recommend",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/recommend",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-personalization": {
@@ -73,13 +73,13 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-personalization",
           "buildFile": "client-personalization",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-personalization",
           "hasRegionalHost": true,
           "isEuHost": true,
           "host": "personalization",
           "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-analytics": {
@@ -95,14 +95,14 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-analytics",
           "buildFile": "client-analytics",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-analytics",
           "fallbackToAliasHost": true,
           "hasRegionalHost": true,
           "isDeHost": true,
           "host": "analytics",
           "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-insights": {
@@ -118,14 +118,14 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-insights",
           "buildFile": "client-insights",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-insights",
           "fallbackToAliasHost": true,
           "hasRegionalHost": true,
           "isDeHost": true,
           "host": "insights",
           "topLevelDomain": "io",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-abtesting": {
@@ -141,14 +141,14 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-abtesting",
           "buildFile": "client-abtesting",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-abtesting",
           "hasRegionalHost": true,
           "fallbackToAliasHost": true,
           "isDeHost": true,
           "host": "analytics",
           "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-query-suggestions": {
@@ -164,13 +164,13 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-query-suggestions",
           "buildFile": "client-query-suggestions",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-query-suggestions",
           "hasRegionalHost": true,
           "isEuHost": true,
           "host": "query-suggestions",
           "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-sources": {
@@ -186,13 +186,13 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-sources",
           "buildFile": "client-sources",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-sources",
           "hasRegionalHost": true,
           "isDeHost": true,
           "host": "data",
           "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "javascript-predict": {
@@ -208,10 +208,10 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-predict",
           "buildFile": "client-predict",
-          "packageVersion": "0.2.0",
+          "packageVersion": "0.1.0",
           "packageName": "@experimental-api-clients-automation/client-predict",
           "experimentalHost": "predict-api-432xa6wemq-ew.a.run.app",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.1.0"
         }
       },
       "java-search": {
