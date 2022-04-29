@@ -2,7 +2,6 @@
 import dotenv from 'dotenv';
 import semver from 'semver';
 
-import { getNbGitDiff } from '../ci/utils';
 import {
   LANGUAGES,
   ROOT_ENV_PATH,
@@ -196,25 +195,13 @@ async function createReleaseIssue(): Promise<void> {
     );
   }
 
-  if (
-    (await getNbGitDiff({
-      head: null,
-    })) !== 0
-  ) {
-    throw new Error(
-      'Working directory is not clean. Commit all the changes first.'
-    );
-  }
-
   await run(`git rev-parse --verify refs/tags/${RELEASED_TAG}`, {
     errorMessage: '`released` tag is missing in this repository.',
   });
 
   console.log('Pulling from origin...');
-  run(`git pull`);
-
-  console.log('Pushing to origin...');
-  run(`git push`);
+  await run('git fetch origin');
+  await run('git pull');
 
   const commitsWithUnknownLanguageScope: string[] = [];
   const commitsWithoutLanguageScope: string[] = [];
@@ -295,7 +282,7 @@ async function createReleaseIssue(): Promise<void> {
     TEXT.approval,
   ].join('\n\n');
 
-  const octokit = getOctokit(process.env.GITHUB_TOKEN!);
+  const octokit = getOctokit(process.env.GITHUB_TOKEN);
 
   octokit.rest.issues
     .create({
