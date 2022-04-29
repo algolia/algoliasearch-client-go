@@ -312,6 +312,11 @@ async function createReleaseIssue(): Promise<void> {
       console.log('');
       console.log(`Release issue #${number} is ready for review.`);
       console.log(`  > ${url}`);
+    })
+    .catch((error) => {
+      console.log('Unable to create the release issue');
+
+      throw new Error(error);
     });
 }
 
