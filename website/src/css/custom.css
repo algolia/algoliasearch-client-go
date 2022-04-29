@@ -5,8 +5,9 @@
   --ifm-color-primary: #5468ff;
   --ifm-footer-background-color: #f5f5fa;
   --ifm-menu-color-background-active: var(--ifm-color-emphasis-200);
-  --ifm-font-family-monospace: Open Sans,system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
-  --ifm-font-family-base: Open Sans,system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  --ifm-font-family-base: Open Sans, system-ui, BlinkMacSystemFont,
+    -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
 }
 
 html[data-theme='dark'] {
@@ -51,8 +52,12 @@ html[data-theme='dark'] .header-github-link:before {
 }
 
 /* Font */
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
+/* override italic keywords in code blocks */
+code .token.keyword {
+  font-style: normal !important;
+}
 
 /* Redoc fix */
 .redocusaurus .menu-content label.-depth0 {

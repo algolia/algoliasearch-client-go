@@ -29,7 +29,7 @@
     "scripts:test": "yarn workspace scripts test",
     "specs:fix": "eslint --ext=yml specs/$0 --fix",
     "specs:lint": "eslint --ext=yml specs/$0",
-    "website": "yarn workspace website start --host 0.0.0.0",
+    "website": "BUNDLE_WITH_DOC=true DOCKER=true yarn cli build specs all && yarn workspace website start --host 0.0.0.0",
     "website:build": "yarn workspace website build"
   },
   "devDependencies": {
