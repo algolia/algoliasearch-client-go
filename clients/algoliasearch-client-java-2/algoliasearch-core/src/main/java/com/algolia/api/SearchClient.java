@@ -585,7 +585,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Performs multiple write operations in a single API call.
+   * Perform multiple write operations targeting one index, in a single API call.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param batchWriteParams (required)
@@ -608,7 +608,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Performs multiple write operations in a single API call.
+   * (asynchronously) Perform multiple write operations targeting one index, in a single API call.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param batchWriteParams (required)
@@ -2708,7 +2708,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Return the lastest log entries.
+   * Return the latest log entries.
    *
    * @param offset First entry to retrieve (zero-based). Log entries are sorted by decreasing date,
    *     therefore 0 designates the most recent log entry. (optional, default to 0)
@@ -2743,7 +2743,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Return the lastest log entries.
+   * (asynchronously) Return the latest log entries.
    *
    * @param offset First entry to retrieve (zero-based). Log entries are sorted by decreasing date,
    *     therefore 0 designates the most recent log entry. (optional, default to 0)
@@ -3149,7 +3149,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Retrieve settings of a given indexName.
+   * Retrieve settings of an index.
    *
    * @param indexName The index in which to perform the request. (required)
    * @return IndexSettings
@@ -3169,7 +3169,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Retrieve settings of a given indexName.
+   * (asynchronously) Retrieve settings of an index.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param callback The callback to be executed when the API call finishes
@@ -4199,7 +4199,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Get search results for the given requests.
+   * Perform a search operation targeting one or many indices.
    *
    * @param multipleQueriesParams (required)
    * @return MultipleQueriesResponse
@@ -4220,7 +4220,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Get search results for the given requests.
+   * (asynchronously) Perform a search operation targeting one or many indices.
    *
    * @param multipleQueriesParams (required)
    * @param callback The callback to be executed when the API call finishes
@@ -5638,7 +5638,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Get search results.
+   * Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (required)
@@ -5659,7 +5659,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Get search results.
+   * (asynchronously) Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (required)
@@ -6354,7 +6354,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Set dictionary settings.
+   * Set dictionaries settings.
    *
    * @param dictionarySettingsParams (required)
    * @return UpdatedAtResponse
@@ -6380,7 +6380,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Set dictionary settings.
+   * (asynchronously) Set dictionaries settings.
    *
    * @param dictionarySettingsParams (required)
    * @param callback The callback to be executed when the API call finishes
@@ -6474,8 +6474,8 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Update settings of a given indexName. Only specified settings are overridden; unspecified
-   * settings are left unchanged. Specifying null for a setting resets it to its default value.
+   * Update settings of an index. Only specified settings are overridden; unspecified settings are
+   * left unchanged. Specifying null for a setting resets it to its default value.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param indexSettings (required)
@@ -6513,7 +6513,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Update settings of a given indexName. Only specified settings are overridden;
+   * (asynchronously) Update settings of an index. Only specified settings are overridden;
    * unspecified settings are left unchanged. Specifying null for a setting resets it to its default
    * value.
    *
