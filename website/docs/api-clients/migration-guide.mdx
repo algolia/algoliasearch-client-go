@@ -19,9 +19,9 @@ The amount of changes in this new version is significant. If you were using a ve
 
 The changes below are effective on all of the API clients.
 
-| Previous    | Latest      | Description                                        |
-| ----------- | :---------- | :------------------------------------------------- |
-| `initIndex` | **removed** | All methods are now available at the client level. |
+| Previous    | Latest      | Description                                                                                              |
+| ----------- | :---------- | :------------------------------------------------------------------------------------------------------- |
+| `initIndex` | **removed** | All methods are now available at the client level. [See example below](#methods-targetting-an-indexname) |
 
 ## API Client specific breaking changes
 
@@ -78,19 +78,7 @@ npm uninstall algoliasearch
 
 You can continue this guide on [our installation page](/docs/api-clients/installation).
 
-</TabItem>
-</Tabs>
-
 ### Importing algoliasearch using ES Modules
-
-<Tabs
-  groupId="language"
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<TabItem value="js">
 
 ```diff
 - import algoliasearch from 'algoliasearch/lite';

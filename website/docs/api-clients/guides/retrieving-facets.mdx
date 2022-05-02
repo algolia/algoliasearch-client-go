@@ -1,0 +1,46 @@
+---
+title: Retrieving facets
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+To retrieve facets and their respective counts as part of the JSON response, you must specify a list of facets in the facets parameter at query time.
+
+For example, you can retrieve your books' facets with the `search` method, and the `facets` parameter.
+
+> When the `facets` parameter is empty, the engine returns no facet information.
+
+<Tabs
+  groupId="language"
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
+}>
+<TabItem value="js">
+
+```js
+await client.search({
+  indexName: '<YOUR_INDEX_NAME>',
+  searchParams: {
+    query: '<YOUR_QUERY>',
+    facets: ['author', 'genre'],
+  },
+});
+```
+
+To extract all facet information, you can use a wildcard (`*`).
+
+```js
+await client.search({
+  indexName: '<YOUR_INDEX_NAME>',
+  searchParams: {
+    query: '<YOUR_QUERY>',
+    facets: ['*'],
+  },
+});
+```
+
+</TabItem>
+</Tabs>

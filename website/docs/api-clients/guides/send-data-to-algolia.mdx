@@ -1,0 +1,66 @@
+---
+title: Send data to Algolia
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Algolia doesn’t search directly into your own data source. For data to be searchable, you need to send it to Algolia’s servers.
+
+This happens right after retrieving your data from your data source and reformatting it. Once your data is ready, you can push it to Algolia using the `saveObjects` method.
+
+## Required credentials
+
+To push data to Algolia, you need an Application ID and a valid API key with the right access level. You can find them and create new ones [in the API keys page](https://www.algolia.com/account/api-keys/all?applicationId=QPBQ67WNIG).
+
+## Setting up the API client
+
+> [Make sure to also read the Installation page](/docs/api-clients/installation).
+
+<Tabs
+  groupId="language"
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
+}>
+<TabItem value="js">
+
+```js
+// for the default version
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+// you can also import the lite version, with search only versions
+// import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch-lite';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+```
+
+</TabItem>
+</Tabs>
+
+## Fetching your data
+
+Before sending anything to Algolia, you need to retrieve your data. You can do this in several ways, in our case we will pick it from the source code directly.
+
+<Tabs
+  groupId="language"
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
+}>
+<TabItem value="js">
+
+```js
+const records = [{ name: 'Tom Cruise' }, { name: 'Scarlett Johansson' }];
+
+client.saveObject({
+  indexName: '<YOUR_INDEX_NAME>',
+  // Accepts a free form `Record<string, any>` object.
+  body: records,
+});
+```
+
+</TabItem>
+</Tabs>

@@ -53,6 +53,16 @@ const sidebars = {
       collapsed: false,
       items: ['api-clients/installation', 'api-clients/migration-guide'],
     },
+    {
+      type: 'category',
+      label: 'Guides',
+      collapsed: false,
+      items: [
+        'api-clients/guides/send-data-to-algolia',
+        'api-clients/guides/filtering-your-search',
+        'api-clients/guides/retrieving-facets',
+      ],
+    },
   ],
 };
 

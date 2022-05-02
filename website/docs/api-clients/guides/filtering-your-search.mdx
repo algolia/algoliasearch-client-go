@@ -1,0 +1,120 @@
+---
+title: Filtering your search
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Filtering is primarily used in the context of front-end search. We call this faceting, where filters are displayed on the search UI as clickable items, allowing users to select one or more filters. This enables a more refined, drilled-down search experience.
+
+## How to Filter Your Data
+
+### 1. Define attributes that need to be filterable (at indexing time)
+
+Initially, filter attributes must be defined as facets, using the `attributesForFaceting` parameter. This can be done using the `setSettings` method.
+
+<Tabs
+  groupId="language"
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
+}>
+<TabItem value="js">
+
+```js
+await client.setSettings({
+  indexName: '<YOUR_INDEX_NAME>',
+  indexSettings: {
+    attributesForFaceting: [
+      'actor',
+      'filterOnly(category)',
+      'searchable(publisher)',
+    ],
+  },
+});
+```
+
+</TabItem>
+</Tabs>
+
+### 2. Filter by Attributes (at query time)
+
+The actual filtering of records is performed at query time, not at indexing time. For this, you need to use the filters parameter in your search code.
+
+#### Filtering by string using the `filters` field
+
+<Tabs
+  groupId="language"
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
+}>
+<TabItem value="js">
+
+```js
+// Only "Scarlett Johansson" actor
+await client.search({
+  indexName: '<YOUR_INDEX_NAME>',
+  searchParams: {
+    query: '<YOUR_QUERY>',
+    filters: 'actor:Scarlett Johansson',
+  },
+});
+
+// Only "Tom Cruise" or "Scarlett Johansson" actor
+await client.search({
+  indexName: '<YOUR_INDEX_NAME>',
+  searchParams: {
+    query: '<YOUR_QUERY>',
+    filters: 'actor:Tom Cruise OR actor:Scarlett Johansson',
+  },
+});
+
+// Everything but "Nicolas Cage" actor
+await client.search({
+  indexName: '<YOUR_INDEX_NAME>',
+  searchParams: {
+    query: '<YOUR_QUERY>',
+    filters: 'NOT actor:Nicolas Cage',
+  },
+});
+```
+
+</TabItem>
+</Tabs>
+
+#### Filtering by string using the `facetFilters` field
+
+<Tabs
+  groupId="language"
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
+}>
+<TabItem value="js">
+
+```js
+// Only "Scarlett Johansson" actor
+await client.search({
+  indexName: '<YOUR_INDEX_NAME>',
+  searchParams: {
+    query: '<YOUR_QUERY>',
+    facetFilters: ['actor:Scarlett Johansson'],
+  },
+});
+
+// Only "Tom Cruise" or "Scarlett Johansson" actor
+await client.search({
+  indexName: '<YOUR_INDEX_NAME>',
+  searchParams: {
+    query: '<YOUR_QUERY>',
+    facetFilters: ['actor:Tom Cruise', 'actor:Scarlett Johansson'],
+  },
+});
+```
+
+</TabItem>
+</Tabs>

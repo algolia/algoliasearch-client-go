@@ -116,15 +116,16 @@ console.log('[Results]', res);
 
 <TabItem value="php">
 
-## Installation
-
 First, install Algolia PHP API Client via the composer package manager:
+
 ```bash
 composer require algolia/algoliasearch-client-php
 ```
+
 ## Using the client
 
 Then, create objects on your index:
+
 ```php
 $client = Algolia\AlgoliaSearch\Api\SearchClient::create(
     '<YOUR_APP_ID>',
@@ -135,11 +136,13 @@ $client->saveObject('<YOUR_INDEX>', ['objectID' => 1, 'name' => 'Foo']);
 ```
 
 Finally, you may begin searching an object using the `search` method:
+
 ```php
 $objects = $client->search('<YOUR_INDEX>', ['query' => 'Foo']);
 ```
 
 Another example with the personalization client:
+
 ```php
 $client = Algolia\AlgoliaSearch\Api\PersonalizationClient::create(
     '<YOUR_APP_ID>',
@@ -148,5 +151,6 @@ $client = Algolia\AlgoliaSearch\Api\PersonalizationClient::create(
 
 $res = $client->getUserTokenProfile('<YOUR_TOKEN>');
 ```
+
 </TabItem>
 </Tabs>
