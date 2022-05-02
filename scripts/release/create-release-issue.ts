@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import chalk from 'chalk';
 import dotenv from 'dotenv';
 import semver from 'semver';
 
@@ -218,7 +219,18 @@ async function createReleaseIssue(): Promise<void> {
     await run(`git log --oneline --abbrev=8 ${RELEASED_TAG}..${MAIN_BRANCH}`)
   )
     .split('\n')
-    .filter(Boolean)
+    .filter(Boolean);
+
+  if (latestCommits.length === 0) {
+    console.log(
+      chalk.bgYellow('[INFO]'),
+      `Skipping release because no commit has been added since \`releated\` tag.`
+    );
+    // eslint-disable-next-line no-process-exit
+    process.exit(0);
+  }
+
+  const validCommits = latestCommits
     .map((commitMessage) => {
       const commit = parseCommit(commitMessage);
 
@@ -240,7 +252,7 @@ async function createReleaseIssue(): Promise<void> {
 
   const versions = decideReleaseStrategy({
     versions: readVersions(),
-    commits: latestCommits,
+    commits: validCommits,
   });
 
   const versionChanges = getVersionChangesText(versions);
@@ -260,7 +272,7 @@ async function createReleaseIssue(): Promise<void> {
 
       return [
         `### ${lang}`,
-        ...latestCommits
+        ...validCommits
           .filter((commit) => commit.lang === lang)
           .map((commit) => `- ${commit.raw}`),
       ];
