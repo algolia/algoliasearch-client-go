@@ -395,7 +395,7 @@
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
           "packageVersion": "0.0.1",
-          "experimentalHost": "predict-api-oslcbws3zq-ew.a.run.app"
+          "experimentalHost": "predict-api-432xa6wemq-ew.a.run.app"
         }
       },
       "php-search": {
