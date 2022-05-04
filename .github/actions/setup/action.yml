@@ -4,7 +4,7 @@ description: Setup CI environment.
 
 inputs:
   type:
-    description: Type of setup, `minimal` will only run the JavaScript installation.
+    description: Type of setup, `minimal` will only setup the JavaScript monorepo, `matrix` will set the run variables.
     required: false
   workflow_name:
     description: Name of the workflow that is executing this action.
@@ -13,12 +13,12 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install Node
-      uses: actions/setup-node@v2
-      with:
-        node-version-file: .nvmrc
-        cache: yarn
+    - name: Read current GitHub Actions cache version
+      shell: bash
+      run: |
+        echo "CACHE_VERSION=$(< .github/.cache_version)" >> $GITHUB_ENV
 
+    # Java for code generation
     - name: Install Java
       if: inputs.type != 'minimal'
       uses: actions/setup-java@v2
@@ -31,13 +31,42 @@ runs:
       if: inputs.type != 'minimal'
       uses: gradle/wrapper-validation-action@v1
 
-    - name: Run yarn install and install java formatter
-      uses: ./.github/actions/cache
-      with:
-        language: java
-
-    - name: Setting diff outputs variables
+    - name: Download Java formatter
       if: inputs.type != 'minimal'
+      shell: bash
+      run: curl -L "https://github.com/google/google-java-format/releases/download/v1.13.0/google-java-format-1.13.0-all-deps.jar" > /tmp/java-formatter.jar
+
+    # JavaScript for monorepo and tooling
+    - name: Install Node
+      uses: actions/setup-node@v2
+      with:
+        node-version-file: .nvmrc
+        cache: yarn
+
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-${{ env.CACHE_VERSION }}-${{ hashFiles('yarn.lock') }}
+
+    - name: Get yarn cache directory path
+      shell: bash
+      id: yarn-cache-dir
+      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+    - name: Restore Yarn
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.yarn-cache-dir.outputs.dir || '.yarn/cache' }}
+        key: yarn-cache-${{ env.CACHE_VERSION }}-${{ hashFiles('yarn.lock') }}
+
+    - name: Install JavaScript dependencies
+      shell: bash
+      run: YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
+
+    # Computing jobs that should run
+    - name: Setting diff outputs variables
+      if: inputs.type == 'matrix'
       id: diff
       shell: bash
       run: |
@@ -47,172 +76,68 @@ runs:
 
         yarn workspace scripts setRunVariables "$origin"
 
-    - name: Compute cache common hash
-      if: inputs.type != 'minimal'
-      shell: bash
-      run: echo "CACHE_COMMON_HASH=${{ steps.diff.outputs.COMMON_HASH }}" >> $GITHUB_ENV
-
     - name: Compute specs matrix
-      if: inputs.type != 'minimal'
+      if: inputs.type == 'matrix'
       id: spec-matrix
       shell: bash
-      run: |
-        base_changed=${{ 
-          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
-          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
-          steps.diff.outputs.COMMON_SPECS_CHANGED > 0
-        }}
+      run: yarn workspace scripts createMatrix ${{ steps.diff.outputs.ORIGIN_BRANCH }}
 
-        matrix=$(yarn workspace scripts createMatrix $base_changed ${{ steps.diff.outputs.ORIGIN_BRANCH }})
-
-        if [[ $matrix == '{"client":["no-run"]}' ]]; then
-          run="false"
-        else
-          run="true"
-        fi
-
-        echo "Running spec matrix: $run"
-        echo "Spec matrix: $(echo $matrix | jq .)"
-
-        echo "::set-output name=MATRIX::$matrix"
-        echo "::set-output name=RUN_SPECS::$run"
-
-    - name: Compute the JS client build matrix
-      if: inputs.type != 'minimal'
-      id: js-matrix
+    - name: Compute the client codegen matrix
+      if: inputs.type == 'matrix'
+      id: gen-matrix
       shell: bash
       run: |
-        base_changed=${{
-          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
-          steps.diff.outputs.COMMON_SPECS_CHANGED > 0 ||
-          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
-          steps.diff.outputs.GENERATORS_CHANGED > 0 ||
-          steps.diff.outputs.JS_TEMPLATE_CHANGED > 0 ||
-          steps.diff.outputs.JS_COMMON_CHANGED > 0 }}
-        algoliasearch_changed=${{ steps.diff.outputs.JS_ALGOLIASEARCH_CHANGED > 0 }}
-        common_changed=${{ steps.diff.outputs.JS_COMMON_CHANGED > 0 }}
-
-        matrix=$(yarn workspace scripts createMatrix $base_changed ${{ steps.diff.outputs.ORIGIN_BRANCH }} javascript)
-
-        if [[ $algoliasearch_changed == 'true' || $base_changed == 'true' ]]; then
+        if [[ steps.diff.outputs.JS_ALGOLIASEARCH_CHANGED > 0 ]]; then
           echo "Running algoliasearch: true"
-          echo "::set-output name=RUN_ALGOLIASEARCH::true"
+          echo "::set-output name=RUN_JS_ALGOLIASEARCH::true"
         fi
 
-        if [[ $matrix == '{"client":["no-run"]}' ]]; then
-          run="false"
-        else
-          run="true"
+        if [[ steps.diff.outputs.JS_UTILS_CHANGED > 0 ]]; then
+          echo "Running JavaScript utils: true"
+          echo "::set-output name=RUN_JS_UTILS::true"
         fi
 
-        echo "Running javascript matrix: $run"
-        echo "Javascript matrix: $(echo $matrix | jq .)"
-
-        echo "::set-output name=MATRIX::$matrix"
-        echo "::set-output name=RUN_CLIENT::$run"
-
-        if [[ $base_changed == 'true' ||  $common_changed == 'true' ]]; then
-          echo "Running common javascript: true"
-          echo "::set-output name=RUN_COMMON::true"
-        fi
-
-    - name: Compute the Java client build matrix
-      if: inputs.type != 'minimal'
-      id: java-matrix
-      shell: bash
-      run: |
-        base_changed=${{
-          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
-          steps.diff.outputs.COMMON_SPECS_CHANGED > 0 ||
-          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
-          steps.diff.outputs.GENERATORS_CHANGED > 0 ||
-          steps.diff.outputs.JAVA_TEMPLATE_CHANGED > 0 }}
-
-        matrix=$(yarn workspace scripts createMatrix $base_changed ${{ steps.diff.outputs.ORIGIN_BRANCH }} java)
-
-        if [[ $matrix == '{"client":["no-run"]}' ]]; then
-          run="false"
-        else
-          run="true"
-        fi
-
-        echo "Running java matrix: $run"
-        echo "Java matrix: $(echo $matrix | jq .)"
-
-        echo "::set-output name=MATRIX::$matrix"
-        echo "::set-output name=RUN_CLIENT::$run"
-
-    - name: Compute the PHP client build matrix
-      if: inputs.type != 'minimal'
-      id: php-matrix
-      shell: bash
-      run: |
-        base_changed=${{
-          steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
-          steps.diff.outputs.COMMON_SPECS_CHANGED > 0 ||
-          steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
-          steps.diff.outputs.GENERATORS_CHANGED > 0 ||
-          steps.diff.outputs.PHP_TEMPLATE_CHANGED > 0 }}
-
-        matrix=$(yarn workspace scripts createMatrix $base_changed ${{ steps.diff.outputs.ORIGIN_BRANCH }} php)
-
-        if [[ $matrix == '{"client":["no-run"]}' ]]; then
-          run="false"
-        else
-          run="true"
-        fi
-
-        echo "Running php matrix: $run"
-        echo "PHP matrix: $(echo $matrix | jq .)"
-
-        echo "::set-output name=MATRIX::$matrix"
-        echo "::set-output name=RUN_CLIENT::$run"
+        yarn workspace scripts createMatrix ${{ steps.diff.outputs.ORIGIN_BRANCH }} clients
 
 outputs:
-  RUN_SPECS:
-    description: Determine if the `specs` job should run
-    value: ${{ steps.spec-matrix.outputs.RUN_SPECS }}
-
   RUN_SCRIPTS:
     description: Determine if the `scripts` job should run
     value: ${{ steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 || steps.diff.outputs.SCRIPTS_CHANGED > 0 }}
 
+  RUN_SPECS:
+    description: Determine if the `specs` job should run
+    value: ${{ steps.spec-matrix.outputs.RUN_SPECS }}
   SPECS_MATRIX:
     description: The generated `specs` matrix
     value: ${{ steps.spec-matrix.outputs.MATRIX }}
 
-  RUN_JS:
-    description: Determine if the `client-javascript` job should run
-    value: ${{ steps.js-matrix.outputs.RUN_CLIENT }}
+  RUN_JAVASCRIPT:
+    description: Determine if the `client_javascript` job should run
+    value: ${{ steps.gen-matrix.outputs.RUN_JAVASCRIPT }}
+  JAVASCRIPT_MATRIX:
+    description: The generated `client_javascript` matrix
+    value: ${{ steps.gen-matrix.outputs.JAVASCRIPT_MATRIX }}
+
+  RUN_JAVA:
+    description: Determine if the `client_java` job should run
+    value: ${{ steps.gen-matrix.outputs.RUN_JAVA }}
+  JAVA_MATRIX:
+    description: The generated `client_java` matrix
+    value: ${{ steps.gen-matrix.outputs.JAVA_MATRIX }}
+
+  RUN_PHP:
+    description: Determine if the `client_php` job should run
+    value: ${{ steps.gen-matrix.outputs.RUN_PHP }}
+  PHP_MATRIX:
+    description: The generated `client_php` matrix
+    value: ${{ steps.gen-matrix.outputs.PHP_MATRIX }}
 
   RUN_JS_ALGOLIASEARCH:
     description: Determine if the `client-javascript-algoliasearch` job should run
-    value: ${{ steps.js-matrix.outputs.RUN_ALGOLIASEARCH }}
-
-  RUN_JS_COMMON:
+    value: ${{ steps.gen-matrix.outputs.RUN_JS_ALGOLIASEARCH }}
+  RUN_JS_UTILS:
     description: Whether to build JS client common folders when RUN_JS is false
-    value: ${{ steps.js-matrix.outputs.RUN_COMMON }}
-
-  JS_MATRIX:
-    description: The generated `client-javascript` matrix
-    value: ${{ steps.js-matrix.outputs.MATRIX }}
-
-  RUN_JAVA:
-    description: Determine if the `client-java` job should run
-    value: ${{ steps.java-matrix.outputs.RUN_CLIENT }}
-
-  JAVA_MATRIX:
-    description: The generated `client-java` matrix
-    value: ${{ steps.java-matrix.outputs.MATRIX }}
-
-  RUN_PHP:
-    description: Determine if the `client-php` job should run
-    value: ${{ steps.php-matrix.outputs.RUN_CLIENT }}
-
-  PHP_MATRIX:
-    description: The generated `client-php` matrix
-    value: ${{ steps.php-matrix.outputs.MATRIX }}
-
+    value: ${{ steps.gen-matrix.outputs.RUN_JS_UTILS }}
   RUN_JS_TESTS:
     description: Determine if the `client_javascript_tests` job should run
     value: ${{ steps.diff.outputs.JS_COMMON_TESTS_CHANGED > 0 }}
@@ -233,6 +158,6 @@ outputs:
     description: Determine if the `codegen` job should run
     value: ${{
       steps.spec-matrix.outputs.RUN_SPECS == 'true' ||
-      steps.js-matrix.outputs.RUN_CLIENT == 'true' ||
-      steps.java-matrix.outputs.RUN_CLIENT == 'true' ||
-      steps.php-matrix.outputs.RUN_CLIENT == 'true' }}
+      steps.gen-matrix.outputs.RUN_JAVASCRIPT == 'true' ||
+      steps.gen-matrix.outputs.RUN_JAVA == 'true' ||
+      steps.gen-matrix.outputs.RUN_PHP == 'true' }}
