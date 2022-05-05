@@ -302,6 +302,7 @@ jobs:
     if: |
       always() &&
       needs.setup.outputs.RUN_CODEGEN == 'true' &&
+      github.event_name == 'pull_request' &&
       !contains(needs.*.result, 'cancelled') &&
       !contains(needs.*.result, 'failure')
     steps:
@@ -322,7 +323,6 @@ jobs:
           type: minimal
 
       - name: Push generated code to generated branch
-        if: github.event_name == 'pull_request'
         id: pushGeneratedCode
         run: yarn workspace scripts pushGeneratedCode
         env:
