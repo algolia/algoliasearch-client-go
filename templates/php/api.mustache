@@ -54,7 +54,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
      */
     public static function create($appId = null, $apiKey = null, $region = null)
     {
-        $allowedRegions = explode('-', '{{{allowedRegions}}}');
+        $allowedRegions = [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}];
         $config = {{configClassname}}::create($appId, $apiKey, $region, $allowedRegions);
 
         return static::createWithConfig($config);

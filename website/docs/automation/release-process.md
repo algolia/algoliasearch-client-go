@@ -85,7 +85,7 @@ If it's not a snapshot, you can ignore the sonatype repository.
 ### JavaScript
 
 1. [Get an NPM `publish` token](https://www.npmjs.com/settings/YOUR_USER_NAME/tokens) and put it in your `.env` file at the root of the repository
-2. Go to `openapitools.json` and update every `packageVersion` and `utilsPackageVersion` fields for the `javascript-` generators
+2. Go to `config/openapitools.json` and update every `packageVersion` and `utilsPackageVersion` fields for the `javascript-` generators
 3. Run and build the JavaScript clients `yarn docker generate javascript && yarn docker build clients javascript`
 4. Update the [JavaScript CTS package](https://github.com/algolia/api-clients-automation/blob/main/tests/output/javascript/package.json) and the [playground package]([JavaScript CTS package](https://github.com/algolia/api-clients-automation/blob/main/playground/javascript/node/package.json))
 5. Go to each folder of the packages, at the `package.json` level (e.g. [this folder](https://github.com/algolia/api-clients-automation/tree/main/clients/algoliasearch-client-javascript/packages/algoliasearch/)) and run `npm publish --access public`

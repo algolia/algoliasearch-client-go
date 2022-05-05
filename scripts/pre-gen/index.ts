@@ -1,2 +1,2 @@
 export * from './removeExistingCodegen';
-export * from './setDefaultGeneratorOptions';
+export * from './generateOpenapitools';

@@ -1,3 +1,7 @@
 dist
 node_modules
 vendor
+build
+.gradle
+target
+bin

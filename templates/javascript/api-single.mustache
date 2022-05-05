@@ -28,10 +28,10 @@ export const apiClientVersion = '{{packageVersion}}';
 {{/description}}
 
 {{#hasRegionalHost}}
-export type Region = {{#isDeHost}}'de'{{/isDeHost}}{{#isEuHost}}'eu'{{/isEuHost}} | 'us';
+export type Region = {{#allowedRegions}}'{{.}}'{{^-last}}|{{/-last}}{{/allowedRegions}};
 {{/hasRegionalHost}}
 
-{{^hasRegionalHost}}{{^experimentalHost}}
+{{^hasRegionalHost}}{{^isExperimentalHost}}
 function getDefaultHosts(appId: string): Host[] {
   return (
     [
@@ -66,13 +66,13 @@ function getDefaultHosts(appId: string): Host[] {
     ])
   );
 }
-{{/experimentalHost}}{{/hasRegionalHost}}
+{{/isExperimentalHost}}{{/hasRegionalHost}}
 
-{{#experimentalHost}}
+{{#isExperimentalHost}}
 function getDefaultHosts(): Host[] {
-  return [{ url: '{{experimentalHost}}', accept: 'readWrite', protocol: 'https' }];
+  return [{ url: '{{host}}', accept: 'readWrite', protocol: 'https' }];
 }
-{{/experimentalHost}}
+{{/isExperimentalHost}}
 
 {{#hasRegionalHost}}
 function getDefaultHosts(region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region): Host[] {
@@ -86,7 +86,7 @@ function getDefaultHosts(region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}
 export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasRegionalHost}} & {region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region }{{/hasRegionalHost}}) {
   const auth = createAuth(options.appId, options.apiKey, options.authMode);
   const transporter = createTransporter({
-    hosts: options?.hosts ?? getDefaultHosts({{^hasRegionalHost}}{{^experimentalHost}}options.appId{{/experimentalHost}}{{/hasRegionalHost}}{{#hasRegionalHost}}options.region{{/hasRegionalHost}}),
+    hosts: options?.hosts ?? getDefaultHosts({{^hasRegionalHost}}{{^isExperimentalHost}}options.appId{{/isExperimentalHost}}{{/hasRegionalHost}}{{#hasRegionalHost}}options.region{{/hasRegionalHost}}),
     hostsCache: options.hostsCache,
     requestsCache: options.requestsCache,
     responsesCache: options.responsesCache,

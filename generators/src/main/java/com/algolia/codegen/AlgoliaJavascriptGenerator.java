@@ -54,8 +54,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
   }
 
   /** Set default generator options */
-  private void setDefaultGeneratorOptions(Map<String, Object> client) {
-    CLIENT = (String) client.get("pathPrefix");
+  private void setDefaultGeneratorOptions() {
     String apiName = CLIENT + Utils.API_SUFFIX;
 
     additionalProperties.put("apiName", apiName);
@@ -73,11 +72,14 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
       objs,
       allModels
     );
-    Map<String, Object> client = (Map<String, Object>) results.get(
-      "operations"
-    );
 
-    setDefaultGeneratorOptions(client);
+    CLIENT = Utils.getClientNameCamelCase(results);
+
+    setDefaultGeneratorOptions();
+    Utils.generateServer(
+      Utils.getClientNameKebabCase(results),
+      additionalProperties
+    );
 
     return results;
   }

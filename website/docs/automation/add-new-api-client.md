@@ -45,11 +45,11 @@ Path definition of the paths defined in the [spec file](#specyml-file)
 
 ## 2. Configuring the environment
 
-> The generator follows its own configuration file named `openapitools.json`
+> The generator follows its own configuration file named `config/openapitools.json`
 
 ### Generation config
 
-[openapitools.json](https://github.com/algolia/api-clients-automation/blob/main/openapitools.json) hosts the configuration of all of the generated clients with their available languages.
+[config/openapitools.json](https://github.com/algolia/api-clients-automation/blob/main/config/openapitools.json) hosts the configuration of all of the generated clients with their available languages.
 
 #### `generators`
 

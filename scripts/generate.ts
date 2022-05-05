@@ -3,13 +3,11 @@ import { buildCustomGenerators, CI, run } from './common';
 import { getCustomGenerator, getLanguageFolder } from './config';
 import { formatter } from './formatter';
 import { createSpinner } from './oraLog';
-import { removeExistingCodegen, setDefaultGeneratorOptions } from './pre-gen';
+import { generateOpenapitools, removeExistingCodegen } from './pre-gen';
 import type { Generator } from './types';
 
 async function preGen(gen: Generator, verbose?: boolean): Promise<void> {
   await removeExistingCodegen(gen, verbose);
-
-  await setDefaultGeneratorOptions(gen);
 }
 
 async function generateClient(
@@ -37,6 +35,8 @@ export async function generate(
     const clients = [...new Set(generators.map((gen) => gen.client))];
     await buildSpecs(clients, 'yml', verbose, true);
   }
+
+  await generateOpenapitools(generators);
 
   const availableWorkspaces = await run('yarn workspaces list', { verbose });
   const langs = [...new Set(generators.map((gen) => gen.language))];

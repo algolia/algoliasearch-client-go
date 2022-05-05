@@ -10,15 +10,6 @@ export type Generator = Record<string, any> & {
 export type AdditionalProperties = Partial<{
   packageName: string;
   hasRegionalHost: boolean;
-  fallbackToAliasHost: boolean;
-  isEuHost: boolean;
-  isDeHost: boolean;
-  host: string;
-  topLevelDomain: string;
-  /**
-   * Client name needs to be explicitly set, no variables required in the host.
-   */
-  experimentalHost: string;
 }> &
   Record<string, any>;
 

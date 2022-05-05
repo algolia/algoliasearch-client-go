@@ -28,16 +28,14 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
   }
 
   /** Set default generator options */
-  public void setDefaultGeneratorOptions(Map<String, Object> client) {
-    String spec = (String) client.get("pathPrefix");
-
-    if (spec.equals("search") || spec.equals("recommend")) {
+  public void setDefaultGeneratorOptions(String client) {
+    if (client.equals("search") || client.equals("recommend")) {
       additionalProperties.put("useCache", true);
     }
 
     additionalProperties.put(
       "configClassname",
-      Utils.createClientName(spec, "php") + "Config"
+      Utils.createClientName(client, "php") + "Config"
     );
   }
 
@@ -51,11 +49,11 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
       objs,
       allModels
     );
-    Map<String, Object> client = (Map<String, Object>) results.get(
-      "operations"
-    );
+
+    String client = Utils.getClientNameKebabCase(results);
 
     setDefaultGeneratorOptions(client);
+    Utils.generateServer(client, additionalProperties);
 
     return results;
   }

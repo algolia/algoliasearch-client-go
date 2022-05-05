@@ -6,7 +6,8 @@ import { getNbGitDiff } from '../utils';
 import text from './text';
 
 const PR_NUMBER = parseInt(process.env.PR_NUMBER || '0', 10);
-const FOLDERS_TO_CHECK = 'yarn.lock openapitools.json clients specs/bundled';
+const FOLDERS_TO_CHECK =
+  'yarn.lock config/openapitools.json clients specs/bundled';
 
 async function isUpToDate(baseBranch: string): Promise<boolean> {
   await run('git fetch origin');

@@ -1,15 +1,8 @@
 {
-  "$schema": "./node_modules/@experimental-api-clients-automation/openapi-generator-cli/config.schema.json",
   "generator-cli": {
     "version": "5.4.0",
     "generators": {
       "javascript-search": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/search.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-search",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -23,12 +16,6 @@
         }
       },
       "javascript-algoliasearch-lite": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/algoliasearch-lite.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/algoliasearch-lite",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -42,12 +29,6 @@
         }
       },
       "javascript-recommend": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/recommend.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/recommend",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -61,12 +42,6 @@
         }
       },
       "javascript-personalization": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/personalization.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-personalization",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -75,20 +50,11 @@
           "buildFile": "client-personalization",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-personalization",
-          "hasRegionalHost": true,
-          "isEuHost": true,
-          "host": "personalization",
-          "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.2.0",
+          "hasRegionalHost": true
         }
       },
       "javascript-analytics": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/analytics.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-analytics",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -97,21 +63,11 @@
           "buildFile": "client-analytics",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-analytics",
-          "fallbackToAliasHost": true,
-          "hasRegionalHost": true,
-          "isDeHost": true,
-          "host": "analytics",
-          "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.2.0",
+          "hasRegionalHost": true
         }
       },
       "javascript-insights": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/insights.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-insights",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -120,21 +76,11 @@
           "buildFile": "client-insights",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-insights",
-          "fallbackToAliasHost": true,
-          "hasRegionalHost": true,
-          "isDeHost": true,
-          "host": "insights",
-          "topLevelDomain": "io",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.2.0",
+          "hasRegionalHost": true
         }
       },
       "javascript-abtesting": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/abtesting.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-abtesting",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -143,21 +89,11 @@
           "buildFile": "client-abtesting",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-abtesting",
-          "hasRegionalHost": true,
-          "fallbackToAliasHost": true,
-          "isDeHost": true,
-          "host": "analytics",
-          "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.2.0",
+          "hasRegionalHost": true
         }
       },
       "javascript-query-suggestions": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/query-suggestions.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-query-suggestions",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -166,20 +102,11 @@
           "buildFile": "client-query-suggestions",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-query-suggestions",
-          "hasRegionalHost": true,
-          "isEuHost": true,
-          "host": "query-suggestions",
-          "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.2.0",
+          "hasRegionalHost": true
         }
       },
       "javascript-sources": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/sources.yml",
-        "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-sources",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -188,20 +115,12 @@
           "buildFile": "client-sources",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-sources",
-          "hasRegionalHost": true,
-          "isDeHost": true,
-          "host": "data",
-          "topLevelDomain": "com",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.2.0",
+          "hasRegionalHost": true
         }
       },
       "javascript-predict": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/predict.yml",
         "templateDir": "#{cwd}/templates/javascript/",
-        "generatorName": "algolia-javascript",
         "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-predict",
         "gitRepoId": "algoliasearch-client-javascript",
@@ -210,17 +129,11 @@
           "buildFile": "client-predict",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-predict",
-          "experimentalHost": "predict-api-432xa6wemq-ew.a.run.app",
-          "utilsPackageVersion": "0.2.0"
+          "utilsPackageVersion": "0.2.0",
+          "hasRegionalHost": true
         }
       },
       "java-search": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/search.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -235,12 +148,6 @@
         }
       },
       "java-recommend": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/recommend.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -255,12 +162,6 @@
         }
       },
       "java-personalization": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/personalization.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -272,19 +173,10 @@
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
           "packageVersion": "0.0.1",
-          "hasRegionalHost": true,
-          "isEuHost": true,
-          "host": "personalization",
-          "topLevelDomain": "com"
+          "hasRegionalHost": true
         }
       },
       "java-analytics": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/analytics.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -296,20 +188,10 @@
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
           "packageVersion": "0.0.1",
-          "hasRegionalHost": true,
-          "fallbackToAliasHost": true,
-          "isDeHost": true,
-          "host": "analytics",
-          "topLevelDomain": "com"
+          "hasRegionalHost": true
         }
       },
       "java-insights": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/insights.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -321,20 +203,10 @@
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
           "packageVersion": "0.0.1",
-          "hasRegionalHost": true,
-          "fallbackToAliasHost": true,
-          "isDeHost": true,
-          "host": "insights",
-          "topLevelDomain": "io"
+          "hasRegionalHost": true
         }
       },
       "java-abtesting": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/abtesting.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -346,20 +218,10 @@
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
           "packageVersion": "0.0.1",
-          "hasRegionalHost": true,
-          "fallbackToAliasHost": true,
-          "isDeHost": true,
-          "host": "analytics",
-          "topLevelDomain": "com"
+          "hasRegionalHost": true
         }
       },
       "java-query-suggestions": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/query-suggestions.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -371,19 +233,10 @@
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
           "packageVersion": "0.0.1",
-          "hasRegionalHost": true,
-          "isEuHost": true,
-          "host": "query-suggestions",
-          "topLevelDomain": "com"
+          "hasRegionalHost": true
         }
       },
       "java-predict": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/predict.yml",
-        "templateDir": "#{cwd}/templates/java/",
-        "generatorName": "algolia-java",
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
         "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
@@ -394,17 +247,10 @@
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1",
-          "experimentalHost": "predict-api-432xa6wemq-ew.a.run.app"
+          "packageVersion": "0.0.1"
         }
       },
       "php-search": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/search.yml",
-        "templateDir": "#{cwd}/templates/php/",
-        "generatorName": "algolia-php",
         "output": "#{cwd}/clients/algoliasearch-client-php",
         "gitRepoId": "algoliasearch-client-php",
         "invokerPackage": "Algolia\\AlgoliaSearch",
@@ -415,12 +261,6 @@
         }
       },
       "php-recommend": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/recommend.yml",
-        "templateDir": "#{cwd}/templates/php/",
-        "generatorName": "algolia-php",
         "output": "#{cwd}/clients/algoliasearch-client-php",
         "gitRepoId": "algoliasearch-client-php",
         "invokerPackage": "Algolia\\AlgoliaSearch",
@@ -431,90 +271,47 @@
         }
       },
       "php-personalization": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/personalization.yml",
-        "templateDir": "#{cwd}/templates/php/",
-        "generatorName": "algolia-php",
         "output": "#{cwd}/clients/algoliasearch-client-php",
         "gitRepoId": "algoliasearch-client-php",
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Personalization",
         "additionalProperties": {
-          "hasRegionalHost": true,
-          "allowedRegions": "us-eu",
           "packageName": "algoliasearch-client-php",
           "packageVersion": "0.0.1",
-          "isEuHost": true,
-          "host": "personalization",
-          "topLevelDomain": "com"
+          "hasRegionalHost": true
         }
       },
       "php-analytics": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/analytics.yml",
-        "templateDir": "#{cwd}/templates/php/",
-        "generatorName": "algolia-php",
         "output": "#{cwd}/clients/algoliasearch-client-php",
         "gitRepoId": "algoliasearch-client-php",
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Analytics",
         "additionalProperties": {
-          "hasRegionalHost": true,
-          "allowedRegions": "us-de",
           "packageName": "algoliasearch-client-php",
           "packageVersion": "0.0.1",
-          "fallbackToAliasHost": true,
-          "isDeHost": true,
-          "host": "analytics",
-          "topLevelDomain": "com"
+          "hasRegionalHost": true
         }
       },
       "php-insights": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/insights.yml",
-        "templateDir": "#{cwd}/templates/php/",
-        "generatorName": "algolia-php",
         "output": "#{cwd}/clients/algoliasearch-client-php",
         "gitRepoId": "algoliasearch-client-php",
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Insights",
         "additionalProperties": {
-          "hasRegionalHost": true,
-          "allowedRegions": "us-de",
           "packageName": "algoliasearch-client-php",
           "packageVersion": "0.0.1",
-          "fallbackToAliasHost": true,
-          "isDeHost": true,
-          "host": "insights",
-          "topLevelDomain": "io"
+          "hasRegionalHost": true
         }
       },
       "php-abtesting": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/abtesting.yml",
-        "templateDir": "#{cwd}/templates/php/",
-        "generatorName": "algolia-php",
         "output": "#{cwd}/clients/algoliasearch-client-php",
         "gitRepoId": "algoliasearch-client-php",
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Abtesting",
         "additionalProperties": {
-          "hasRegionalHost": true,
-          "allowedRegions": "us-de",
           "packageName": "algoliasearch-client-php",
           "packageVersion": "0.0.1",
-          "fallbackToAliasHost": true,
-          "isDeHost": true,
-          "host": "analytics",
-          "topLevelDomain": "com"
+          "hasRegionalHost": true
         }
       },
       "php-query-suggestions": {
@@ -529,13 +326,8 @@
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\QuerySuggestions",
         "additionalProperties": {
-          "hasRegionalHost": true,
-          "allowedRegions": "us-eu",
           "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1",
-          "isEuHost": true,
-          "host": "query-suggestions",
-          "topLevelDomain": "com"
+          "packageVersion": "0.0.1"
         }
       }
     }

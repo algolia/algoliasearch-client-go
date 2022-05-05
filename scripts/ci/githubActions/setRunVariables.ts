@@ -9,7 +9,7 @@ const PHP_CLIENT_FOLDER = getLanguageFolder('php');
 
 // Files that are common to every clients
 const CLIENTS_COMMON_FILES = [
-  'openapitools.json',
+  'config/openapitools.json',
   'config/clients.config.json',
 ];
 
