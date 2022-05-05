@@ -1,4 +1,4 @@
-import { run } from './common';
+import { CI, run } from './common';
 import { getLanguageFolder } from './config';
 import { createSpinner } from './oraLog';
 import type { Generator } from './types';
@@ -58,7 +58,7 @@ export async function buildClients(
 ): Promise<void> {
   const langs = [...new Set(generators.map((gen) => gen.language))];
 
-  if (langs.includes('javascript')) {
+  if (!CI && langs.includes('javascript')) {
     const spinner = createSpinner(
       "building 'JavaScript' utils",
       verbose

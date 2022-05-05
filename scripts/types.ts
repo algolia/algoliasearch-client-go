@@ -1,7 +1,7 @@
 import type config from '../config/clients.config.json';
 
 export type Generator = Record<string, any> & {
-  language: string;
+  language: Language;
   client: string;
   key: string;
   additionalProperties: AdditionalProperties;

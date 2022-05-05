@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 import { CLIENTS, GENERATORS, LANGUAGES } from '../../common';
-import { getLanguageApiFolder, getLanguageModelFolder } from '../../config';
-import { camelize, createClientName } from '../../cts/utils';
+import { getLanguageFolder, getTestOutputFolder } from '../../config';
 import type { Language } from '../../types';
 import { getNbGitDiff } from '../utils';
 
 import { DEPENDENCIES } from './setRunVariables';
-import type { CreateMatrix, ClientMatrix, Matrix, SpecMatrix } from './types';
+import type { ClientMatrix, CreateMatrix, Matrix, SpecMatrix } from './types';
 import { computeCacheKey, isBaseChanged } from './utils';
 
 // This empty matrix is required by the CI, otherwise it throws
@@ -38,12 +37,24 @@ const MATRIX_DEPENDENCIES = {
   },
 };
 
+type ToRunMatrix = {
+  path: string;
+  toRun: string[];
+  cacheToCompute: string[];
+};
+
 async function getClientMatrix(baseBranch: string): Promise<void> {
-  const matrix: Record<Language, Matrix<ClientMatrix>> = {
-    java: { client: [] },
-    php: { client: [] },
-    javascript: { client: [] },
-  };
+  const matrix = LANGUAGES.reduce(
+    (curr, lang) => ({
+      ...curr,
+      [lang]: {
+        path: getLanguageFolder(lang),
+        toRun: [],
+        cacheToCompute: [],
+      },
+    }),
+    {} as Record<Language, ToRunMatrix>
+  );
 
   for (const { language, client, output } of Object.values(GENERATORS)) {
     // `algoliasearch` is an aggregation of generated clients.
@@ -71,70 +82,59 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       continue;
     }
 
-    const clientName = createClientName(client, language);
-    const camelizedClientName = camelize(client);
-    const pathToApi = `${output}/${getLanguageApiFolder(language)}`;
-    const pathToModel = `${output}/${getLanguageModelFolder(language)}`;
-
-    const clientMatrix: ClientMatrix = {
-      language,
-      name: client,
-      path: output,
-
-      configName: `${clientName}Config`,
-      apiName: `${clientName}Client`,
-
-      apiPath: pathToApi,
-      modelPath: pathToModel,
-
-      cacheKey: await computeCacheKey(`client-${client}`, [
-        `specs/bundled/${bundledSpec}.yml`,
-        `templates/${language}`,
-        `generators/src`,
-      ]),
-    };
-
-    // While JavaScript have it's own package per client, other language have
-    // API and models in folders common to all clients, so we scope it.
-    switch (language) {
-      case 'java':
-        clientMatrix.apiPath = `${pathToApi}/${clientMatrix.apiName}.java`;
-        clientMatrix.modelPath = `${pathToModel}/${camelizedClientName}/`;
-        break;
-      case 'php':
-        clientMatrix.apiPath = `${pathToApi}/${clientMatrix.apiName}.php`;
-        clientMatrix.modelPath = `${pathToModel}/${clientName}/`;
-        break;
-      default:
-        break;
-    }
-
-    matrix[language].client.push(clientMatrix);
+    matrix[language].toRun.push(client);
+    matrix[language].cacheToCompute.push(`specs/bundled/${bundledSpec}.yml`);
   }
+
+  const clientMatrix: Matrix<ClientMatrix> = {
+    client: [],
+  };
 
   // Set output variables for the CI
   for (const language of LANGUAGES) {
-    const lang = language.toLocaleUpperCase();
-    const shouldRun = matrix[language].client.length > 0;
+    if (matrix[language].toRun.length === 0) {
+      continue;
+    }
 
-    console.log(`::set-output name=RUN_${lang}::${shouldRun}`);
-    console.log(
-      `::set-output name=${lang}_MATRIX::${JSON.stringify(
-        shouldRun ? matrix[language] : EMPTY_MATRIX
-      )}`
-    );
+    clientMatrix.client.push({
+      language,
+      path: matrix[language].path,
+      toRun: matrix[language].toRun.join(' '),
+      cacheKey: await computeCacheKey(`clients-${language}`, [
+        ...matrix[language].cacheToCompute,
+        `templates/${language}`,
+        `generators/src`,
+      ]),
+      testsOutputPath: `./tests/output/${language}/${getTestOutputFolder(
+        language
+      )}`,
+    });
   }
+
+  const shouldRun = clientMatrix.client.length > 0;
+
+  console.log(`::set-output name=RUN_GEN::${shouldRun}`);
+  console.log(
+    `::set-output name=GEN_MATRIX::${JSON.stringify(
+      shouldRun ? clientMatrix : EMPTY_MATRIX
+    )}`
+  );
 }
 
 async function getSpecMatrix(baseBranch: string): Promise<void> {
-  const matrix: Matrix<SpecMatrix> = { client: [] };
+  const matrix: ToRunMatrix = {
+    path: 'specs/bundled',
+    toRun: [],
+    cacheToCompute: [],
+  };
 
   for (const client of CLIENTS) {
     // The `algoliasearch-lite` spec is created by the `search` spec
     const bundledSpecName = client === 'algoliasearch-lite' ? 'search' : client;
+    const path = `specs/${bundledSpecName}`;
     const specChanges = await getNbGitDiff({
       branch: baseBranch,
-      path: `specs/${bundledSpecName}`,
+      path,
     });
     const baseChanged = await isBaseChanged(
       baseBranch,
@@ -146,24 +146,34 @@ async function getSpecMatrix(baseBranch: string): Promise<void> {
       continue;
     }
 
-    const path = `specs/${bundledSpecName}`;
-
-    matrix.client.push({
-      name: client,
-      path,
-      bundledPath: `specs/bundled/${client}.yml`,
-      cacheKey: await computeCacheKey(`spec-${client}`, ['specs/common', path]),
-    });
+    matrix.toRun.push(client);
+    matrix.cacheToCompute.push(path);
   }
 
-  const shouldRun = matrix.client.length > 0;
+  // We have nothing to run
+  if (matrix.toRun.length === 0) {
+    console.log('::set-output name=RUN_SPECS::false');
+    console.log(`::set-output name=MATRIX::${JSON.stringify(EMPTY_MATRIX)}`);
 
-  console.log(`::set-output name=RUN_SPECS::${shouldRun}`);
-  console.log(
-    `::set-output name=MATRIX::${JSON.stringify(
-      shouldRun ? matrix : EMPTY_MATRIX
-    )}`
-  );
+    return;
+  }
+
+  const ciMatrix: Matrix<SpecMatrix> = {
+    client: [
+      {
+        path: matrix.path,
+        bundledPath: 'specs/bundled',
+        toRun: matrix.toRun.join(' '),
+        cacheKey: await computeCacheKey('specs', [
+          ...matrix.cacheToCompute,
+          'specs/common',
+        ]),
+      },
+    ],
+  };
+
+  console.log('::set-output name=RUN_SPECS::true');
+  console.log(`::set-output name=MATRIX::${JSON.stringify(ciMatrix)}`);
 }
 
 /**

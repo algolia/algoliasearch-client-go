@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import execa from 'execa';
 import { copy } from 'fs-extra';
 import semver from 'semver';
-import type { ReleaseType } from 'semver';
 
 import openapiConfig from '../../config/openapitools.json';
 import {
@@ -20,6 +19,7 @@ import {
   emptyDirExceptForDotGit,
 } from '../common';
 import { getLanguageFolder } from '../config';
+import type { Language } from '../types';
 
 import {
   RELEASED_TAG,
@@ -40,7 +40,7 @@ import type {
 dotenv.config({ path: ROOT_ENV_PATH });
 
 const BEFORE_CLIENT_GENERATION: {
-  [lang: string]: BeforeClientGenerationCommand;
+  [lang in Language]?: BeforeClientGenerationCommand;
 } = {
   javascript: async ({ releaseType, dir }) => {
     await run(`yarn release:bump ${releaseType}`, { cwd: dir });
@@ -94,7 +94,7 @@ export function getVersionsToRelease(issueBody: string): VersionsToRelease {
       }
       versionsToRelease[lang] = {
         current,
-        releaseType: releaseType as ReleaseType,
+        releaseType,
       };
     });
 
@@ -104,11 +104,16 @@ export function getVersionsToRelease(issueBody: string): VersionsToRelease {
 async function updateOpenApiTools(
   versionsToRelease: VersionsToRelease
 ): Promise<void> {
-  const nextUtilsPackageVersion = semver.inc(
-    openapiConfig['generator-cli'].generators[MAIN_PACKAGE.javascript]
-      .additionalProperties.utilsPackageVersion,
-    versionsToRelease.javascript?.releaseType
-  );
+  let nextUtilsPackageVersion = '';
+
+  if (versionsToRelease.javascript) {
+    nextUtilsPackageVersion =
+      semver.inc(
+        openapiConfig['generator-cli'].generators[MAIN_PACKAGE.javascript]
+          .additionalProperties.utilsPackageVersion,
+        versionsToRelease.javascript.releaseType
+      ) || '';
+  }
 
   Object.keys(openapiConfig['generator-cli'].generators).forEach((client) => {
     const lang = client.split('-')[0];
@@ -148,7 +153,7 @@ async function updateChangelog({
   current,
   next,
 }: {
-  lang: string;
+  lang: Language;
   issueBody: string;
   current: string;
   next: string;
@@ -222,10 +227,9 @@ async function processRelease(): Promise<void> {
 
   await updateOpenApiTools(versionsToRelease);
 
-  const langsToRelease = Object.keys(versionsToRelease);
-
-  for (const lang of langsToRelease) {
-    const { current, releaseType } = versionsToRelease[lang];
+  for (const [lang, { current, releaseType }] of Object.entries(
+    versionsToRelease
+  )) {
     /*
     About bumping versions of JS clients:
 
@@ -240,7 +244,7 @@ async function processRelease(): Promise<void> {
     */
     await BEFORE_CLIENT_GENERATION[lang]?.({
       releaseType,
-      dir: toAbsolutePath(getLanguageFolder(lang)),
+      dir: toAbsolutePath(getLanguageFolder(lang as Language)),
     });
 
     console.log(`Generating ${lang} client(s)...`);
@@ -248,7 +252,7 @@ async function processRelease(): Promise<void> {
 
     const next = semver.inc(current, releaseType);
     await updateChangelog({
-      lang,
+      lang: lang as Language,
       issueBody,
       current,
       next: next!,
@@ -257,14 +261,16 @@ async function processRelease(): Promise<void> {
 
   // We push commits to each repository AFTER all the generations are done.
   // Otherwise, we will end up having broken release.
-  for (const lang of langsToRelease) {
+  for (const [lang, { current, releaseType }] of Object.entries(
+    versionsToRelease
+  )) {
     const { tempGitDir } = await cloneRepository({
       lang,
       githubToken: process.env.GITHUB_TOKEN,
       tempDir: process.env.RUNNER_TEMP!,
     });
 
-    const clientPath = toAbsolutePath(getLanguageFolder(lang));
+    const clientPath = toAbsolutePath(getLanguageFolder(lang as Language));
     await emptyDirExceptForDotGit(tempGitDir);
     await copy(clientPath, tempGitDir, { preserveTimestamps: true });
 
@@ -274,7 +280,6 @@ async function processRelease(): Promise<void> {
     });
     await run(`git add .`, { cwd: tempGitDir });
 
-    const { current, releaseType } = versionsToRelease[lang];
     const next = semver.inc(current, releaseType);
     const tag = formatGitTag({ lang, version: next! });
     await gitCommit({

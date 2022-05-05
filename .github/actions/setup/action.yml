@@ -111,26 +111,12 @@ outputs:
     description: The generated `specs` matrix
     value: ${{ steps.spec-matrix.outputs.MATRIX }}
 
-  RUN_JAVASCRIPT:
-    description: Determine if the `client_javascript` job should run
-    value: ${{ steps.gen-matrix.outputs.RUN_JAVASCRIPT }}
-  JAVASCRIPT_MATRIX:
-    description: The generated `client_javascript` matrix
-    value: ${{ steps.gen-matrix.outputs.JAVASCRIPT_MATRIX }}
-
-  RUN_JAVA:
-    description: Determine if the `client_java` job should run
-    value: ${{ steps.gen-matrix.outputs.RUN_JAVA }}
-  JAVA_MATRIX:
-    description: The generated `client_java` matrix
-    value: ${{ steps.gen-matrix.outputs.JAVA_MATRIX }}
-
-  RUN_PHP:
-    description: Determine if the `client_php` job should run
-    value: ${{ steps.gen-matrix.outputs.RUN_PHP }}
-  PHP_MATRIX:
-    description: The generated `client_php` matrix
-    value: ${{ steps.gen-matrix.outputs.PHP_MATRIX }}
+  RUN_GEN:
+    description: Determine if the `client_gen` job should run
+    value: ${{ steps.gen-matrix.outputs.RUN_GEN }}
+  GEN_MATRIX:
+    description: The generated `client_gen` matrix
+    value: ${{ steps.gen-matrix.outputs.GEN_MATRIX }}
 
   RUN_JS_ALGOLIASEARCH:
     description: Determine if the `client-javascript-algoliasearch` job should run
@@ -143,7 +129,7 @@ outputs:
     value: ${{ steps.diff.outputs.JS_COMMON_TESTS_CHANGED > 0 }}
 
   RUN_CTS:
-    description: Determine if the `cts` job should run
+    description: Determine if the `cts` jobs should run
     value: ${{
       steps.diff.outputs.GITHUB_ACTIONS_CHANGED > 0 ||
       steps.diff.outputs.SCRIPTS_CHANGED > 0 ||
@@ -158,6 +144,4 @@ outputs:
     description: Determine if the `codegen` job should run
     value: ${{
       steps.spec-matrix.outputs.RUN_SPECS == 'true' ||
-      steps.gen-matrix.outputs.RUN_JAVASCRIPT == 'true' ||
-      steps.gen-matrix.outputs.RUN_JAVA == 'true' ||
-      steps.gen-matrix.outputs.RUN_PHP == 'true' }}
+      steps.gen-matrix.outputs.RUN_GEN == 'true' }}

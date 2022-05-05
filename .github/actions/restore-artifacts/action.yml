@@ -1,0 +1,80 @@
+name: Restore artifacts
+
+description: |
+  When no input is given, artifacts are restored in the current directory, under their artifact `name`.
+
+  This composite restore all of our artifacts, at their right path.
+
+inputs:
+  type:
+    description: Type of artifacts to restore (`all` | `specs` | `utils`)
+    required: false
+
+runs:
+  using: composite
+  steps:
+    # Bundled specs
+    - name: specs
+      if: ${{ inputs.type == 'all' || inputs.type == 'specs' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: specs
+        path: specs/bundled/
+
+    # JavaScript utils
+    - name: client-javascript-utils-client-common
+      if: ${{ inputs.type == 'all' || inputs.type == 'utils' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: client-javascript-utils-client-common
+        path: clients/algoliasearch-client-javascript/packages/client-common/
+
+    - name: client-javascript-utils-requester-browser-xhr
+      if: ${{ inputs.type == 'all' || inputs.type == 'utils' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: client-javascript-utils-requester-browser-xhr
+        path: clients/algoliasearch-client-javascript/packages/requester-browser-xhr/
+
+    - name: client-javascript-utils-requester-node-http
+      if: ${{ inputs.type == 'all' || inputs.type == 'utils' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: client-javascript-utils-requester-node-http
+        path: clients/algoliasearch-client-javascript/packages/requester-node-http/
+
+    # JavaScript
+    - name: Download clients-javascript artifact
+      if: ${{ inputs.type == 'all' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: clients-javascript
+
+    - name: Unzip clients-javascript artifact
+      if: ${{ inputs.type == 'all' }}
+      shell: bash
+      run: unzip -q -o clients-javascript.zip
+
+    # PHP
+    - name: Download clients-php artifact
+      if: ${{ inputs.type == 'all' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: clients-php
+
+    - name: Unzip clients-php artifact
+      if: ${{ inputs.type == 'all' }}
+      shell: bash
+      run: unzip -q -o clients-php.zip
+
+    # Java
+    - name: Download clients-java artifact
+      if: ${{ inputs.type == 'all' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: clients-java
+
+    - name: Unzip clients-java artifact
+      if: ${{ inputs.type == 'all' }}
+      shell: bash
+      run: unzip -q -o clients-java.zip

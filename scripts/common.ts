@@ -14,6 +14,7 @@ import type {
   CheckForCache,
   CheckForCacheOptions,
   Generator,
+  Language,
   RunOptions,
 } from './types';
 
@@ -87,7 +88,7 @@ export const CLIENTS = CLIENTS_JS.filter(
 export function splitGeneratorKey(
   generatorKey: string
 ): Pick<Generator, 'client' | 'key' | 'language'> {
-  const language = generatorKey.slice(0, generatorKey.indexOf('-'));
+  const language = generatorKey.slice(0, generatorKey.indexOf('-')) as Language;
   const client = generatorKey.slice(generatorKey.indexOf('-') + 1);
   return { language, client, key: generatorKey };
 }
@@ -125,7 +126,10 @@ export const getGitHubUrl: GitHubUrl = (
 export function createGeneratorKey({
   language,
   client,
-}: Pick<Generator, 'client' | 'language'>): string {
+}: {
+  language: Language | 'all';
+  client: string;
+}): string {
   return `${language}-${client}`;
 }
 

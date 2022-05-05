@@ -13,10 +13,10 @@ describe('process release', () => {
     `);
 
     expect(Object.keys(versions)).toEqual(['javascript', 'php']);
-    expect(versions.javascript.current).toEqual('1.0.0');
-    expect(versions.javascript.releaseType).toEqual('minor');
-    expect(versions.php.current).toEqual('2.0.0');
-    expect(versions.php.releaseType).toEqual('patch');
+    expect(versions.javascript?.current).toEqual('1.0.0');
+    expect(versions.javascript?.releaseType).toEqual('minor');
+    expect(versions.php?.current).toEqual('2.0.0');
+    expect(versions.php?.releaseType).toEqual('patch');
   });
 
   it('parses issue body correctly', () => {

@@ -122,7 +122,7 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
       {{^bodyParams.0}}
         * @param {{nickname}} - The {{nickname}} object.
           {{#allParams}}
-            * @param {{nickname}}.{{paramName}} {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
+            * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
           {{/allParams}}
       {{/bodyParams.0}}
       {{#bodyParams.0}}
@@ -132,25 +132,25 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
               {{^bodyParams.1}}
                 * @param {{nickname}} - The {{nickname}} object.
                   {{#allParams}}
-                    * @param {{nickname}}.{{paramName}} {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
+                    * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
                   {{/allParams}}
               {{/bodyParams.1}}
             {{/bodyParams.0.isArray}}
             {{^bodyParams.0.isArray}}
-              * @param {{paramName}} {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
+              * @param {{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
             {{/bodyParams.0.isArray}}
           {{/pathParams.0}}
           {{#pathParams.0}}
             * @param {{nickname}} - The {{nickname}} object.
               {{#allParams}}
-                * @param {{nickname}}.{{paramName}} {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
+                * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
               {{/allParams}}
           {{/pathParams.0}}
         {{/queryParams.0}}
         {{#queryParams.0}}
           * @param {{nickname}} - The {{nickname}} object.
             {{#allParams}}
-              * @param {{nickname}}.{{paramName}} {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
+              * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
             {{/allParams}}
         {{/queryParams.0}}
       {{/bodyParams.0}}

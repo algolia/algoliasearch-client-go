@@ -1,10 +1,13 @@
 import { run } from './common';
-import type { Generator } from './types';
+import type { Language } from './types';
 
 export async function playground({
   language,
   client,
-}: Pick<Generator, 'client' | 'language'>): Promise<void> {
+}: {
+  language: Language | 'all';
+  client: string;
+}): Promise<void> {
   const verbose = true;
   switch (language) {
     case 'javascript':

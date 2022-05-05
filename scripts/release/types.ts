@@ -31,7 +31,7 @@ export type Commit =
   | { error: 'unknown-language-scope' };
 
 export type VersionsToRelease = {
-  [lang: string]: {
+  [lang in Language]?: {
     current: string;
     releaseType: ReleaseType;
   };

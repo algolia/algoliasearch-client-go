@@ -3,6 +3,7 @@ import path from 'path';
 
 import { exists, toAbsolutePath } from '../common';
 import { getTestExtension, getTestOutputFolder } from '../config';
+import type { Language } from '../types';
 
 export async function* walk(
   dir: string
@@ -61,7 +62,7 @@ export async function createOutputDir({
   language,
   testPath,
 }: {
-  language: string;
+  language: Language;
   testPath: string;
 }): Promise<void> {
   await fsp.mkdir(
@@ -79,7 +80,7 @@ export function getOutputPath({
   client,
   testPath,
 }: {
-  language: string;
+  language: Language;
   client: string;
   testPath: string;
 }): string {

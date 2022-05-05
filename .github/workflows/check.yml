@@ -53,19 +53,12 @@ jobs:
       RUN_SPECS: ${{ steps.setup.outputs.RUN_SPECS }}
       SPECS_MATRIX: ${{ steps.setup.outputs.SPECS_MATRIX }}
 
-      RUN_JAVASCRIPT: ${{ steps.setup.outputs.RUN_JAVASCRIPT }}
-      JAVASCRIPT_MATRIX: ${{ steps.setup.outputs.JAVASCRIPT_MATRIX }}
-
-      RUN_JAVA: ${{ steps.setup.outputs.RUN_JAVA }}
-      JAVA_MATRIX: ${{ steps.setup.outputs.JAVA_MATRIX }}
-
-      RUN_PHP: ${{ steps.setup.outputs.RUN_PHP }}
-      PHP_MATRIX: ${{ steps.setup.outputs.PHP_MATRIX }}
+      RUN_GEN: ${{ steps.setup.outputs.RUN_GEN }}
+      GEN_MATRIX: ${{ steps.setup.outputs.GEN_MATRIX }}
 
       RUN_JS_ALGOLIASEARCH: ${{ steps.setup.outputs.RUN_JS_ALGOLIASEARCH }}
       RUN_JS_UTILS: ${{ steps.setup.outputs.RUN_JS_UTILS }}
       RUN_JS_TESTS: ${{ steps.setup.outputs.RUN_JS_TESTS }}
-      JS_MATRIX: ${{ steps.setup.outputs.JS_MATRIX }}
 
       RUN_CTS: ${{ steps.setup.outputs.RUN_CTS }}
 
@@ -103,7 +96,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache '${{ matrix.client.name }}' bundled spec
+      - name: Cache bundled specs
         id: cache
         uses: actions/cache@v3
         with:
@@ -116,19 +109,15 @@ jobs:
         with:
           type: minimal
 
-      - name: Building '${{ matrix.client.name }}' spec
+      - name: Building specs
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli build specs ${{ matrix.client.name }}
+        run: yarn cli build specs ${{ matrix.client.toRun }}
 
-      - name: Show diff for '${{ matrix.client.name }}' bundled spec
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: git --no-pager diff
-
-      - name: Store '${{ matrix.client.name }}' bundled spec
+      - name: Store bundled specs
         uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
-          name: spec-${{ matrix.client.name }}
+          name: specs
           path: ${{ matrix.client.bundledPath }}
 
   client_javascript_utils:
@@ -179,8 +168,8 @@ jobs:
           name: client-javascript-utils-${{ matrix.client }}
           path: clients/algoliasearch-client-javascript/packages/${{ matrix.client }}
 
-  client_javascript:
-    timeout-minutes: 10
+  client_gen:
+    timeout-minutes: 15
     runs-on: ubuntu-20.04
     needs:
       - setup
@@ -189,179 +178,86 @@ jobs:
       - client_javascript_utils
     if: |
       always() &&
-      needs.setup.outputs.RUN_JAVASCRIPT == 'true' &&
+      needs.setup.outputs.RUN_GEN == 'true' &&
       !contains(needs.*.result, 'cancelled') &&
       !contains(needs.*.result, 'failure')
     strategy:
-      matrix: ${{ fromJSON(needs.setup.outputs.JAVASCRIPT_MATRIX) }}
+      matrix: ${{ fromJSON(needs.setup.outputs.GEN_MATRIX) }}
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache '${{ matrix.client.name }}' client folder
+      - name: Cache clients folder
         id: cache
         uses: actions/cache@v3
         with:
           key: ${{ matrix.client.cacheKey }}
           path: ${{ matrix.client.path }}
 
-      - name: Download '${{ matrix.client.name }}' bundled spec
+      - name: Download bundled specs
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: actions/download-artifact@v3
         with:
-          name: spec-${{ matrix.client.name }}
+          name: specs
           path: specs/bundled/
+
+      - name: Download specs artifacts
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        uses: ./.github/actions/restore-artifacts
+        with:
+          type: specs
+
+      - name: Download JavaScript utils artifacts
+        if: ${{ matrix.client.language == 'javascript' && steps.cache.outputs.cache-hit != 'true' }}
+        uses: ./.github/actions/restore-artifacts
+        with:
+          type: utils
 
       - name: Setup
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: ./.github/actions/setup
 
-      - name: Generate '${{ matrix.client.language }}' '${{ matrix.client.name }}' client
+      - name: Generate clients
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli generate ${{ matrix.client.language }} ${{ matrix.client.name }}
+        run: yarn cli generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
-      - name: Build '${{ matrix.client.language }}' '${{ matrix.client.name }}' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.name }}
+      - name: Build clients
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language != 'php' }}
+        run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
-      - name: Show diff for '${{ matrix.client.name }}' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: git --no-pager diff
+      - name: Clean CTS output before generate
+        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
+        run: rm -rf ${{ matrix.client.testsOutputPath }}
 
-      - name: Store ${{ matrix.client.name }}-${{ matrix.client.language }} client
+      - name: Generate CTS
+        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
+        run: yarn cli cts generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
+
+      - name: Check diff with pushed CTS
+        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
+        run: |
+          git --no-pager diff
+          exit $(git diff --name-only --diff-filter=d ${{ matrix.client.testsOutputPath }} | wc -l)
+
+      - name: Run CTS
+        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
+        run: yarn cli cts run ${{ matrix.client.language }}
+
+      - name: Zip artifact before storing
+        run: zip -q -r clients-${{ matrix.client.language }}.zip ${{ matrix.client.path }} -x "${{ matrix.client.path }}/node_modules/.**"
+
+      - name: Store ${{ matrix.client.language }} clients
         uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
-          name: client-${{matrix.client.language }}-${{ matrix.client.name }}
-          path: ${{ matrix.client.path }}
-
-  client_java:
-    timeout-minutes: 10
-    runs-on: ubuntu-20.04
-    needs:
-      - setup
-      - specs
-      - scripts
-    if: |
-      always() &&
-      needs.setup.outputs.RUN_JAVA == 'true' &&
-      !contains(needs.*.result, 'cancelled') &&
-      !contains(needs.*.result, 'failure')
-    strategy:
-      matrix: ${{ fromJSON(needs.setup.outputs.JAVA_MATRIX) }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache '${{ matrix.client.name }}' client API and Model
-        id: cache
-        uses: actions/cache@v3
-        with:
-          key: ${{ matrix.client.cacheKey }}
-          path: |
-            ${{ matrix.client.apiPath }}
-            ${{ matrix.client.modelPath }}
-
-      - name: Download '${{ matrix.client.name }}' bundled spec
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/download-artifact@v3
-        with:
-          name: spec-${{ matrix.client.name }}
-          path: specs/bundled/
-
-      - name: Setup
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: ./.github/actions/setup
-
-      - name: Generate '${{ matrix.client.language }}' '${{ matrix.client.name }}' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli generate ${{ matrix.client.language }} ${{ matrix.client.name }}
-
-      - name: Build '${{ matrix.client.language }}' '${{ matrix.client.name }}' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.name }}
-
-      - name: Show diff for '${{ matrix.client.name }}' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: git --no-pager diff
-
-      - name: Store ${{ matrix.client.name }}-${{ matrix.client.language }} client
-        uses: actions/upload-artifact@v3
-        with:
-          if-no-files-found: error
-          name: client-${{matrix.client.language }}-${{ matrix.client.name }}
-          path: |
-            ${{ matrix.client.modelPath }}
-            ${{ matrix.client.apiPath }}
-
-      - name: Store Java utils
-        uses: actions/upload-artifact@v3
-        with:
-          if-no-files-found: error
-          name: client-java-utils
-          path: |
-            clients/algoliasearch-client-java-2/gradle
-            clients/algoliasearch-client-java-2/gradle*
-            clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/*.java
-
-  client_php:
-    timeout-minutes: 10
-    runs-on: ubuntu-20.04
-    needs:
-      - setup
-      - specs
-      - scripts
-    if: |
-      always() &&
-      needs.setup.outputs.RUN_PHP == 'true' &&
-      !contains(needs.*.result, 'cancelled') &&
-      !contains(needs.*.result, 'failure')
-    strategy:
-      matrix: ${{ fromJSON(needs.setup.outputs.PHP_MATRIX) }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache '${{ matrix.client.name }}' client API and Model
-        id: cache
-        uses: actions/cache@v3
-        with:
-          key: ${{ matrix.client.cacheKey }}
-          path: |
-            ${{ matrix.client.apiPath }}
-            ${{ matrix.client.modelPath }}
-
-      - name: Download '${{ matrix.client.name }}' bundled spec
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/download-artifact@v3
-        with:
-          name: spec-${{ matrix.client.name }}
-          path: specs/bundled/
-
-      - name: Setup
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: ./.github/actions/setup
-
-      - name: Generate '${{ matrix.client.language }}' '${{ matrix.client.name }}' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli generate ${{ matrix.client.language }} ${{ matrix.client.name }}
-
-      - name: Show diff for '${{ matrix.client.name }}' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: git --no-pager diff
-
-      - name: Store ${{ matrix.client.name }}-${{ matrix.client.language }} client
-        uses: actions/upload-artifact@v3
-        with:
-          if-no-files-found: error
-          name: client-${{matrix.client.language }}-${{ matrix.client.name }}
-          path: |
-            ${{ matrix.client.modelPath }}
-            ${{ matrix.client.apiPath }}
+          name: clients-${{matrix.client.language }}
+          path: clients-${{matrix.client.language }}.zip
 
   client_javascript_algoliasearch:
     timeout-minutes: 10
     runs-on: ubuntu-20.04
     needs:
       - setup
-      - client_javascript
+      - client_gen
     if: |
       always() &&
       needs.setup.outputs.RUN_JS_ALGOLIASEARCH == 'true' &&
@@ -380,26 +276,12 @@ jobs:
             )}}
           path: clients/algoliasearch-client-javascript/packages/algoliasearch/
 
-      - name: Restore 'analytics' client
+      - name: Restore clients
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: actions/download-artifact@v3
         with:
-          name: client-javascript-analytics
-          path: clients/algoliasearch-client-javascript/packages/client-analytics/
-
-      - name: Restore 'personalization' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/download-artifact@v3
-        with:
-          name: client-javascript-personalization
-          path: clients/algoliasearch-client-javascript/packages/client-personalization/
-
-      - name: Restore 'search' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/download-artifact@v3
-        with:
-          name: client-javascript-search
-          path: clients/algoliasearch-client-javascript/packages/client-search/
+          name: clients-javascript
+          path: clients/algoliasearch-client-javascript/
 
       - name: Setup
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
@@ -411,17 +293,52 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: yarn cli build clients javascript algoliasearch
 
-  cts:
+  codegen_on_pr:
     runs-on: ubuntu-20.04
-    timeout-minutes: 20
+    timeout-minutes: 10
     needs:
       - setup
-      - client_javascript
-      - client_java
-      - client_php
+      - client_gen
     if: |
       always() &&
-      needs.setup.outputs.RUN_CTS == 'true' &&
+      needs.setup.outputs.RUN_CODEGEN == 'true' &&
+      !contains(needs.*.result, 'cancelled') &&
+      !contains(needs.*.result, 'failure')
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.TOKEN_GENERATE_BOT }}
+
+      - name: Download all artifacts
+        uses: ./.github/actions/restore-artifacts
+        with:
+          type: all
+
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          type: minimal
+
+      - name: Push generated code to generated branch
+        if: github.event_name == 'pull_request'
+        id: pushGeneratedCode
+        run: yarn workspace scripts pushGeneratedCode
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
+          PR_NUMBER: ${{ github.event.number }}
+
+  codegen_on_main:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+    needs:
+      - setup
+      - client_gen
+    if: |
+      always() &&
+      github.ref == 'refs/heads/main' &&
+      needs.setup.outputs.RUN_CODEGEN == 'true' &&
       !contains(needs.*.result, 'cancelled') &&
       !contains(needs.*.result, 'failure')
     steps:
@@ -432,63 +349,9 @@ jobs:
           token: ${{ secrets.TOKEN_GENERATE_BOT }}
 
       - name: Download all the previously stored artifacts
-        uses: ./.github/actions/restore-all
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Push generated code to generated branch
-        if: github.event_name == 'pull_request'
-        id: pushGeneratedCode
-        run: yarn workspace scripts pushGeneratedCode
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
-          PR_NUMBER: ${{ github.event.number }}
-
-      - name: Check JavaScript client size
-        run: exit $(yarn workspace algoliasearch-client-javascript test:size | echo $?)
-
-      # ----> This can be added once the PHP build for the CTS is fixed
-      # - name: Cache generated CTS
-      #   id: cache
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: tests/output
-      #     key: ${{ hashFiles( 'tests/output/**' ) }}
-
-      - name: Generate
-        # if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn cli cts generate
-
-      - name: Check diff with pushed CTS
-        # if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          git --no-pager diff
-          exit $(git status --porcelain ./tests/output | wc -l)
-
-      - name: Run
-        run: yarn cli cts run
-
-  codegen_on_main:
-    runs-on: ubuntu-20.04
-    timeout-minutes: 10
-    needs:
-      - setup
-      - cts
-    if: |
-      always() &&
-      github.ref == 'refs/heads/main' &&
-      needs.setup.outputs.RUN_CODEGEN == 'true' &&
-      needs.cts.result == 'success'
-    steps:
-      - uses: actions/checkout@v2
+        uses: ./.github/actions/restore-artifacts
         with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.TOKEN_GENERATE_BOT }}
-
-      - name: Download all the previously stored artifacts
-        uses: ./.github/actions/restore-all
+          type: all
 
       - name: Setup
         uses: ./.github/actions/setup
