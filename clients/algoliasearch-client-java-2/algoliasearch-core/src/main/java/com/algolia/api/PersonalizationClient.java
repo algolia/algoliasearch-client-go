@@ -60,9 +60,7 @@ public class PersonalizationClient extends ApiClient {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
     hosts.add(
       new StatefulHost(
-        "personalization." +
-        (region == null ? "" : region + ".") +
-        "algolia.com",
+        "personalization." + region + "algolia.com",
         "https",
         EnumSet.of(CallType.READ, CallType.WRITE)
       )
