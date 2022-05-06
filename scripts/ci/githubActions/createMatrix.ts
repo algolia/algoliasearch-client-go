@@ -83,7 +83,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
     }
 
     matrix[language].toRun.push(client);
-    matrix[language].cacheToCompute.push(`specs/bundled/${bundledSpec}.yml`);
+    matrix[language].cacheToCompute.push(`specs/${bundledSpec}`);
   }
 
   const clientMatrix: Matrix<ClientMatrix> = {
@@ -102,6 +102,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       toRun: matrix[language].toRun.join(' '),
       cacheKey: await computeCacheKey(`clients-${language}`, [
         ...matrix[language].cacheToCompute,
+        'specs/common',
         `templates/${language}`,
         `generators/src`,
       ]),

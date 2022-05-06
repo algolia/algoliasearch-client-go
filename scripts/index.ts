@@ -184,7 +184,7 @@ buildCommand
       const outputFormat = outputJson ? 'json' : 'yml';
 
       let clientsTodo = client;
-      if (client === ['all']) {
+      if (client[0] === 'all') {
         clientsTodo = CLIENTS;
       }
       // ignore cache when building from cli

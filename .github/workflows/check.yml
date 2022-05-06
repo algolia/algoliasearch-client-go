@@ -213,7 +213,6 @@ jobs:
           type: utils
 
       - name: Setup
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: ./.github/actions/setup
 
       - name: Generate clients
