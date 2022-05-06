@@ -1,10 +1,10 @@
 get:
+  tags:
+    - abtest
   operationId: getABTest
+  summary: Get a test.
   description: >
-    Returns metadata and metrics for A/B test id.
-
-    Behaves in the same way as GET /2/abtests however the endpoint will return 403.
-  summary: Returns metadata and metrics for A/B test id.
+    Returns metadata and metrics for an A/B test.
   parameters:
     - $ref: '../common/parameters.yml#/ID'
   responses:
@@ -24,9 +24,11 @@ get:
       $ref: '../../common/responses/IndexNotFound.yml'
 
 delete:
+  tags:
+    - abtest
   operationId: deleteABTest
-  description: Deletes the A/B Test and removes all associated metadata & metrics.
-  summary: Deletes the A/B Test.
+  summary: Delete a test.
+  description: Delete a test.
   parameters:
     - $ref: '../common/parameters.yml#/ID'
   responses:

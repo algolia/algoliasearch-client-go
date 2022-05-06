@@ -1,10 +1,12 @@
 post:
+  tags:
+    - abtest
   operationId: addABTests
+  summary: Create a test.
   description: >
     Creates a new A/B test with provided configuration.
 
     You can set an A/B test on two different indices with different settings, or on the same index with different search parameters by providing a customSearchParameters setting on one of the variants.
-  summary: Creates a new A/B test with provided configuration.
   requestBody:
     required: true
     content:
@@ -46,10 +48,14 @@ post:
       $ref: '../../common/responses/IndexNotFound.yml'
 
 get:
+  tags:
+    - abtest
   operationId: listABTests
+  summary: List all tests.
   description: >
-    Fetch all existing A/B tests for App that are available for the current API Key. Returns an array of metadata and metrics. When no data has been processed, the metrics will be returned as null.
-  summary: Fetch all existing A/B tests for App that are available for the current API Key.
+    Fetch all existing A/B tests for App that are available for the current API Key.
+
+    When no data has been processed, the metrics will be returned as null.
   parameters:
     - $ref: '../../common/parameters.yml#/Offset'
     - $ref: '../../common/parameters.yml#/Limit'

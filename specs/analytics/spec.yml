@@ -21,6 +21,24 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: advanced
+    x-displayName: Advanced
+    description: Advanced operations.
+  - name: click
+    x-displayName: Click Analytics
+    description: Get all click analytics.
+  - name: search
+    x-displayName: Search Analytics
+    description: Get all search analytics.
+x-tagGroups:
+  - name: General
+    tags:
+      - search
+      - click
+  - name: Others
+    tags:
+      - advanced
 paths:
   # ######################
   # ### Custom request ###

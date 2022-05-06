@@ -21,6 +21,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: abtest
+    x-displayName: A/B Testing
+    description: Manage A/B Tests.
+x-tagGroups:
+  - name: General
+    tags:
+      - abtest
 paths:
   # ######################
   # ### Custom request ###

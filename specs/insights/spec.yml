@@ -21,6 +21,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: events
+    x-displayName: Events
+    description: Events operations.
+x-tagGroups:
+  - name: General
+    tags:
+      - events
 paths:
   # ######################
   # ### Custom request ###

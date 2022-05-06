@@ -32,6 +32,13 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+/* Font */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+/* -------- Navbar */
+.header-restapi {
+  text-transform: capitalize;
+}
 /* GitHub */
 .header-github-link:hover {
   opacity: 0.6;
@@ -51,8 +58,7 @@ html[data-theme='dark'] .header-github-link:before {
     no-repeat;
 }
 
-/* Font */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 
 /* override italic keywords in code blocks */
 code .token.keyword {

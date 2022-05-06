@@ -1,7 +1,13 @@
 get:
+  tags:
+    - click
   operationId: getClickPositions
-  description: Returns the distribution of clicks per range of positions.
-  summary: Returns the distribution of clicks per range of positions.
+  summary: Get clicks per positions.
+  description: |
+    Returns the distribution of clicks per range of positions.
+
+    If the groups all have a count of 0, it means Algolia didn’t receive any click events for the queries with the clickAnalytics search parameter set to true.
+    The count is 0 until Algolia receives at least one click event.
   parameters:
     - $ref: '../../../common/parameters.yml#/Index'
     - $ref: '../../../common/parameters.yml#/StartDate'
@@ -35,9 +41,11 @@ get:
                       description: >
                         Range of positions with the following pattern:
 
-                        Positions from 1 to 10 included are displayed in separated groups.
-                        Positions from 11 to 20 included are grouped together.
-                        Positions from 21 and up are grouped together.
+                        - Positions from 1 to 10 included are displayed in separated groups.
+
+                        - Positions from 11 to 20 included are grouped together.
+
+                        - Positions from 21 and up are grouped together.
                       type: array
                       items:
                         type: integer

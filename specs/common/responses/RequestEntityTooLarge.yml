@@ -1,0 +1,5 @@
+description: Request Entity Too Large.
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/ErrorBase.yml'
