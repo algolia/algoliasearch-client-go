@@ -31,7 +31,7 @@ export const apiClientVersion = '{{packageVersion}}';
 export type Region = {{#allowedRegions}}'{{.}}'{{^-last}}|{{/-last}}{{/allowedRegions}};
 {{/hasRegionalHost}}
 
-{{^hasRegionalHost}}{{^isExperimentalHost}}
+{{^hasRegionalHost}}
 function getDefaultHosts(appId: string): Host[] {
   return (
     [
@@ -66,19 +66,13 @@ function getDefaultHosts(appId: string): Host[] {
     ])
   );
 }
-{{/isExperimentalHost}}{{/hasRegionalHost}}
-
-{{#isExperimentalHost}}
-function getDefaultHosts(): Host[] {
-  return [{ url: '{{host}}', accept: 'readWrite', protocol: 'https' }];
-}
-{{/isExperimentalHost}}
+{{/hasRegionalHost}}
 
 {{#hasRegionalHost}}
 function getDefaultHosts(region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region): Host[] {
-  {{#fallbackToAliasHost}}const regionHost = region ? `.${region}.` : '.';{{/fallbackToAliasHost}}
+  const url = {{#fallbackToAliasHost}}!region ? '{{{hostWithFallback}}}' : {{/fallbackToAliasHost}} '{{{host}}}'.replace('{region}', region);
 
-  return [{ url: `{{{host}}}{{#fallbackToAliasHost}}${regionHost}{{/fallbackToAliasHost}}{{^fallbackToAliasHost}}.${region}.{{/fallbackToAliasHost}}algolia.{{#topLevelDomain}}{{.}}{{/topLevelDomain}}{{^topLevelDomain}}com{{/topLevelDomain}}`, accept: 'readWrite', protocol: 'https' }];
+  return [{ url, accept: 'readWrite', protocol: 'https' }];
 }
 {{/hasRegionalHost}}
 
@@ -86,7 +80,7 @@ function getDefaultHosts(region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}
 export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasRegionalHost}} & {region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region }{{/hasRegionalHost}}) {
   const auth = createAuth(options.appId, options.apiKey, options.authMode);
   const transporter = createTransporter({
-    hosts: options?.hosts ?? getDefaultHosts({{^hasRegionalHost}}{{^isExperimentalHost}}options.appId{{/isExperimentalHost}}{{/hasRegionalHost}}{{#hasRegionalHost}}options.region{{/hasRegionalHost}}),
+    hosts: options?.hosts ?? getDefaultHosts({{^hasRegionalHost}}options.appId{{/hasRegionalHost}}{{#hasRegionalHost}}options.region{{/hasRegionalHost}}),
     hostsCache: options.hostsCache,
     requestsCache: options.requestsCache,
     responsesCache: options.responsesCache,

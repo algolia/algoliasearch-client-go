@@ -38,7 +38,7 @@ export async function generate(
 
   await generateOpenapitools(generators);
 
-  const availableWorkspaces = await run('yarn workspaces list', { verbose });
+  const availableWorkspaces = await run('yarn workspaces list');
   const langs = [...new Set(generators.map((gen) => gen.language))];
   const useCustomGenerator = langs
     .map((lang) => getCustomGenerator(lang))

@@ -102,7 +102,8 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
             // If a list of hosts was passed, we ignore the cache
             $clusterHosts = ClusterHosts::create($hosts);
         } else {
-            $clusterHosts = ClusterHosts::create('{{host}}.'.$config->getRegion().'.algolia.{{topLevelDomain}}');
+            $url = str_replace('{region}', $config->getRegion(), '{{{host}}}');
+            $clusterHosts = ClusterHosts::create($url);
         }
         {{/useCache}}
 

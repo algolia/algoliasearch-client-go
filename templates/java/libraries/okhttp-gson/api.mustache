@@ -50,11 +50,11 @@ public class {{classname}} extends ApiClient {
 
     {{^hasRegionalHost}}
     public {{classname}}(String appId, String apiKey) {
-        this(appId, apiKey, new HttpRequester(getDefaultHosts({{^isExperimentalHost}}appId{{/isExperimentalHost}})), null);
+        this(appId, apiKey, new HttpRequester(getDefaultHosts(appId)), null);
     }
 
     public {{classname}}(String appId, String apiKey, UserAgent.Segment[] userAgentSegments) {
-        this(appId, apiKey, new HttpRequester(getDefaultHosts({{^isExperimentalHost}}appId{{/isExperimentalHost}})), userAgentSegments);
+        this(appId, apiKey, new HttpRequester(getDefaultHosts(appId)), userAgentSegments);
     }
     {{/hasRegionalHost}}
 
@@ -66,7 +66,7 @@ public class {{classname}} extends ApiClient {
         super(appId, apiKey, requester, "{{{baseName}}}", userAgentSegments);
     }
 
-    {{^hasRegionalHost}}{{^isExperimentalHost}}
+    {{^hasRegionalHost}}
     private static List<StatefulHost> getDefaultHosts(String appId) {
       List<StatefulHost> hosts = new ArrayList<StatefulHost>();
       hosts.add(new StatefulHost(appId + "-dsn.algolia.net", "https", EnumSet.of(CallType.READ)));
@@ -81,20 +81,15 @@ public class {{classname}} extends ApiClient {
 
       return Stream.concat(hosts.stream(), commonHosts.stream()).collect(Collectors.toList());
     }
-    {{/isExperimentalHost}}{{/hasRegionalHost}}
-
-    {{#isExperimentalHost}}
-    private static List<StatefulHost> getDefaultHosts() {
-      List<StatefulHost> hosts = new ArrayList<StatefulHost>();
-      hosts.add(new StatefulHost("{{{host}}}", "https", EnumSet.of(CallType.READ, CallType.WRITE)));
-      return hosts;
-    }
-    {{/isExperimentalHost}}
+    {{/hasRegionalHost}}
 
     {{#hasRegionalHost}}
     private static List<StatefulHost> getDefaultHosts(String region) {
       List<StatefulHost> hosts = new ArrayList<StatefulHost>();
-      hosts.add(new StatefulHost("{{{host}}}." + {{#fallbackToAliasHost}}(region == null ? "" : region + "."){{/fallbackToAliasHost}}{{^fallbackToAliasHost}}region{{/fallbackToAliasHost}} + "algolia.{{#topLevelDomain}}{{.}}{{/topLevelDomain}}{{^topLevelDomain}}com{{/topLevelDomain}}", "https", EnumSet.of(CallType.READ, CallType.WRITE)));
+
+      String url = {{#fallbackToAliasHost}}region == null ? "{{{hostWithFallback}}}" : {{/fallbackToAliasHost}} "{{{host}}}".replace("{region}", region);
+
+      hosts.add(new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE)));
       return hosts;
     }
     {{/hasRegionalHost}}

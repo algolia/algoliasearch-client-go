@@ -85,7 +85,7 @@ public class Utils {
       boolean hasRegionalHost = false;
       boolean fallbackToAliasHost = false;
       String host = "";
-      String topLevelDomain = "";
+      String hostWithFallback = "";
       Set<String> allowedRegions = new HashSet<>();
       for (Map<String, Object> server : servers) {
         if (!server.containsKey("url")) {
@@ -102,7 +102,9 @@ public class Utils {
           }
           String otherUrl = (String) otherServer.getOrDefault("url", "");
           if (otherUrl.replace(".{region}", "").equals(server.get("url"))) {
+            URL fallbackURL = new URL(otherUrl.replace(".{region}", ""));
             fallbackToAliasHost = true;
+            hostWithFallback = fallbackURL.getHost();
             break;
           }
         }
@@ -132,26 +134,16 @@ public class Utils {
 
         // This is used for hosts like `insights` that uses `.io`
         URL url = new URL((String) server.get("url"));
-        String[] hostParts = url.getHost().split("\\.");
-        host = hostParts[0];
-        topLevelDomain = hostParts[hostParts.length - 1];
+        host = url.getHost();
       }
+      additionalProperties.put("hostWithFallback", hostWithFallback);
       additionalProperties.put("hasRegionalHost", hasRegionalHost);
       additionalProperties.put("fallbackToAliasHost", fallbackToAliasHost);
       additionalProperties.put("host", host);
-      additionalProperties.put("topLevelDomain", topLevelDomain);
       additionalProperties.put(
         "allowedRegions",
         allowedRegions.toArray(new String[0])
       );
-
-      if (clientKebab.equals("predict")) {
-        additionalProperties.put("isExperimentalHost", true);
-        additionalProperties.put(
-          "host",
-          new URL((String) servers.get(0).get("url")).getHost()
-        );
-      }
     } catch (Exception e) {
       e.printStackTrace();
       System.exit(1);
