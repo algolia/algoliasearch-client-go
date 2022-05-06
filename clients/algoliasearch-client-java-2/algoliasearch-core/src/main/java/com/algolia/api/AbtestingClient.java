@@ -312,7 +312,7 @@ public class AbtestingClient extends ApiClient {
   }
 
   /**
-   * Deletes the A/B Test and removes all associated metadata & metrics.
+   * Delete a test.
    *
    * @param id The A/B test ID. (required)
    * @return ABTestResponse
@@ -332,7 +332,7 @@ public class AbtestingClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Deletes the A/B Test and removes all associated metadata &amp; metrics.
+   * (asynchronously) Delete a test.
    *
    * @param id The A/B test ID. (required)
    * @param callback The callback to be executed when the API call finishes
@@ -503,8 +503,7 @@ public class AbtestingClient extends ApiClient {
   }
 
   /**
-   * Returns metadata and metrics for A/B test id. Behaves in the same way as GET /2/abtests however
-   * the endpoint will return 403.
+   * Returns metadata and metrics for an A/B test.
    *
    * @param id The A/B test ID. (required)
    * @return ABTest
@@ -523,8 +522,7 @@ public class AbtestingClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Returns metadata and metrics for A/B test id. Behaves in the same way as GET
-   * /2/abtests however the endpoint will return 403.
+   * (asynchronously) Returns metadata and metrics for an A/B test.
    *
    * @param id The A/B test ID. (required)
    * @param callback The callback to be executed when the API call finishes
@@ -590,9 +588,8 @@ public class AbtestingClient extends ApiClient {
   }
 
   /**
-   * Fetch all existing A/B tests for App that are available for the current API Key. Returns an
-   * array of metadata and metrics. When no data has been processed, the metrics will be returned as
-   * null.
+   * Fetch all existing A/B tests for App that are available for the current API Key. When no data
+   * has been processed, the metrics will be returned as null.
    *
    * @param offset Position of the starting record. Used for paging. 0 is the first record.
    *     (optional, default to 0)
@@ -620,8 +617,7 @@ public class AbtestingClient extends ApiClient {
 
   /**
    * (asynchronously) Fetch all existing A/B tests for App that are available for the current API
-   * Key. Returns an array of metadata and metrics. When no data has been processed, the metrics
-   * will be returned as null.
+   * Key. When no data has been processed, the metrics will be returned as null.
    *
    * @param offset Position of the starting record. Used for paging. 0 is the first record.
    *     (optional, default to 0)

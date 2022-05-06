@@ -6,7 +6,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-/** An eventType can be a click, a conversion, or a view. */
+/** Gets or Sets eventType */
 @JsonAdapter(EventType.Adapter.class)
 public enum EventType {
   CLICK("click"),

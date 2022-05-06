@@ -87,7 +87,8 @@ public class InsightEvent {
 
   /**
    * A user identifier. Depending if the user is logged-in or not, several strategies can be used
-   * from a sessionId to a technical identifier.
+   * from a sessionId to a technical identifier. You should always send pseudonymous or anonymous
+   * userTokens.
    *
    * @return userToken
    */

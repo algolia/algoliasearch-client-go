@@ -42,7 +42,6 @@ components:
           example: Invalid Application-Id or API-Key
     eventType:
       type: string
-      description: An eventType can be a click, a conversion, or a view.
       enum:
         - click
         - conversion
@@ -72,6 +71,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorBase'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+    UnprocessableEntity:
+      description: Unprocessable Entity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+    RequestEntityTooLarge:
+      description: Request Entity Too Large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
 servers:
   - url: https://insights.{region}.algolia.io
     variables:
@@ -84,6 +101,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: events
+    x-displayName: Events
+    description: Events operations.
+x-tagGroups:
+  - name: General
+    tags:
+      - events
 paths:
   /1{path}:
     get:
@@ -196,9 +221,26 @@ paths:
         - insights
   /1/events:
     post:
+      tags:
+        - insights
       operationId: pushEvents
-      description: This command pushes an array of events.
-      summary: Pushes an array of events.
+      summary: Push events.
+      description: |
+        This command pushes an array of events.
+
+        An event is
+          - an action: `eventName`
+          - performed in a context: `eventType`
+          - at some point in time provided: `timestamp`
+          - by an end user: `userToken`
+          - on something: `index`
+
+
+        Notes:
+          - To be accepted, all events sent must be valid.
+          - The size of the body must be *less than 2 MB*.
+          - When an event is tied to an Algolia search, it must also provide a `queryID`. If that event is a `click`, their absolute `positions` should also be passed.
+          - We consider that an `index` provides access to 2 resources: objects and filters. An event can only interact with a single resource type, but not necessarily on a single item. As such an event will accept an array of `objectIDs` or `filters`.
       requestBody:
         required: true
         content:
@@ -219,21 +261,25 @@ paths:
                     type: object
                     description: Insights event.
                     additionalProperties: false
+                    maximum: 1000
                     properties:
                       eventType:
                         $ref: '#/components/schemas/eventType'
                       eventName:
                         type: string
+                        maximum: 64
                         description: A user-defined string used to categorize events.
                       index:
                         type: string
                         description: Name of the targeted index.
                       userToken:
                         type: string
+                        pattern: '[a-zA-Z0-9_-=/+]{1,128}'
                         description: >-
                           A user identifier. Depending if the user is logged-in
                           or not, several strategies can be used from a
-                          sessionId to a technical identifier.
+                          sessionId to a technical identifier. You should always
+                          send pseudonymous or anonymous userTokens.
                       timestamp:
                         type: integer
                         format: int64
@@ -292,11 +338,9 @@ paths:
                     description: A message confirming the event push.
         '400':
           $ref: '#/components/responses/BadRequest'
-        '402':
-          $ref: '#/components/responses/FeatureNotEnabled'
-        '403':
-          $ref: '#/components/responses/MethodNotAllowed'
-        '404':
-          $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - insights
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '413':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '422':
+          $ref: '#/components/responses/RequestEntityTooLarge'

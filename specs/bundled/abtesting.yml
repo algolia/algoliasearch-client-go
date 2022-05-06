@@ -269,6 +269,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: abtest
+    x-displayName: A/B Testing
+    description: Manage A/B Tests.
+x-tagGroups:
+  - name: General
+    tags:
+      - abtest
 paths:
   /1{path}:
     get:
@@ -381,14 +389,16 @@ paths:
         - abtesting
   /2/abtests:
     post:
+      tags:
+        - abtesting
       operationId: addABTests
+      summary: Create a test.
       description: >
         Creates a new A/B test with provided configuration.
 
         You can set an A/B test on two different indices with different
         settings, or on the same index with different search parameters by
         providing a customSearchParameters setting on one of the variants.
-      summary: Creates a new A/B test with provided configuration.
       requestBody:
         required: true
         content:
@@ -428,17 +438,16 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
+    get:
       tags:
         - abtesting
-    get:
       operationId: listABTests
+      summary: List all tests.
       description: >
         Fetch all existing A/B tests for App that are available for the current
-        API Key. Returns an array of metadata and metrics. When no data has been
-        processed, the metrics will be returned as null.
-      summary: >-
-        Fetch all existing A/B tests for App that are available for the current
         API Key.
+
+        When no data has been processed, the metrics will be returned as null.
       parameters:
         - $ref: '#/components/parameters/Offset'
         - $ref: '#/components/parameters/Limit'
@@ -472,17 +481,14 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - abtesting
   /2/abtests/{id}:
     get:
+      tags:
+        - abtesting
       operationId: getABTest
-      description: >
-        Returns metadata and metrics for A/B test id.
-
-        Behaves in the same way as GET /2/abtests however the endpoint will
-        return 403.
-      summary: Returns metadata and metrics for A/B test id.
+      summary: Get a test.
+      description: |
+        Returns metadata and metrics for an A/B test.
       parameters:
         - $ref: '#/components/parameters/ID'
       responses:
@@ -500,12 +506,12 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
+    delete:
       tags:
         - abtesting
-    delete:
       operationId: deleteABTest
-      description: Deletes the A/B Test and removes all associated metadata & metrics.
-      summary: Deletes the A/B Test.
+      summary: Delete a test.
+      description: Delete a test.
       parameters:
         - $ref: '#/components/parameters/ID'
       responses:
@@ -523,11 +529,12 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - abtesting
   /2/abtests/{id}/stop:
     post:
+      tags:
+        - abtesting
       operationId: stopABTest
+      summary: Stop a test.
       description: >
         Marks the A/B test as stopped.
 
@@ -535,7 +542,6 @@ paths:
         your application is back to normal: index A will perform as usual,
         receiving 100% of all search requests. Associated metadata and metrics
         are still stored.
-      summary: Marks the A/B test as stopped.
       parameters:
         - $ref: '#/components/parameters/ID'
       responses:
@@ -553,5 +559,3 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - abtesting

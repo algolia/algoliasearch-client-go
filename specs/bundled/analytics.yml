@@ -442,6 +442,24 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: advanced
+    x-displayName: Advanced
+    description: Advanced operations.
+  - name: click
+    x-displayName: Click Analytics
+    description: Get all click analytics.
+  - name: search
+    x-displayName: Search Analytics
+    description: Get all search analytics.
+x-tagGroups:
+  - name: General
+    tags:
+      - search
+      - click
+  - name: Others
+    tags:
+      - advanced
 paths:
   /1{path}:
     get:
@@ -554,11 +572,13 @@ paths:
         - analytics
   /2/searches:
     get:
+      tags:
+        - analytics
       operationId: getTopSearches
+      summary: Get top searches.
       description: >-
         Returns top searches. Limited to the 1000 most frequent ones. For each
         search, also returns the average number of hits returned.
-      summary: Returns top searches.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/ClickAnalytics'
@@ -584,16 +604,16 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/searches/count:
     get:
+      tags:
+        - analytics
       operationId: getSearchesCount
+      summary: Get searches count.
       description: >-
         Returns the number of searches across the given time range. The endpoint
         returns a value for the complete given time range, as well as a value
         per day.
-      summary: Returns the number of searches across the given time range.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -636,15 +656,15 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/searches/noResults:
     get:
+      tags:
+        - analytics
       operationId: getSearchesNoResults
+      summary: Get top searches with no results.
       description: >-
         Returns top searches that didn't return any results. Limited to the 1000
         most frequent ones.
-      summary: Returns top searches that didn't return any results.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -689,16 +709,16 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/searches/noClicks:
     get:
+      tags:
+        - analytics
       operationId: getSearchesNoClicks
+      summary: Get top searches with no clicks.
       description: >-
         Returns top searches that didn't lead to any clicks. Limited to the 1000
         most frequent ones. For each search, also returns the average number of
         found hits.
-      summary: Returns top searches that didn't lead to any clicks.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -743,17 +763,17 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/searches/noResultRate:
     get:
+      tags:
+        - analytics
       operationId: getNoResultsRate
+      summary: Get no results rate.
       description: >-
         Returns the rate at which searches didn't return any results. The
         endpoint returns a value for the complete given time range, as well as a
         value per day. It also returns the count of searches and searches
         without results used to compute the rates.
-      summary: Returns the rate at which searches didn't return any results.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -810,17 +830,17 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/searches/noClickRate:
     get:
+      tags:
+        - analytics
       operationId: getNoClickRate
+      summary: Get no click rate.
       description: >-
         Returns the rate at which searches didn't lead to any clicks. The
         endpoint returns a value for the complete given time range, as well as a
         value per day. It also returns the count of searches and searches
         without clicks.
-      summary: Returns the rate at which searches didn't lead to any clicks.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -877,13 +897,13 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/hits:
     get:
+      tags:
+        - analytics
       operationId: getTopHits
+      summary: Get top hits.
       description: Returns top hits. Limited to the 1000 most frequent ones.
-      summary: Returns top hits.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/Search'
@@ -908,16 +928,16 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/users/count:
     get:
+      tags:
+        - analytics
       operationId: getUsersCount
+      summary: Get users count.
       description: >-
         Returns the distinct count of users across the given time range. The
         endpoint returns a value for the complete given time range, as well as a
         value per day.
-      summary: Returns the distinct count of users across the given time range.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -960,13 +980,13 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/filters:
     get:
+      tags:
+        - analytics
       operationId: getTopFilterAttributes
+      summary: Get top filter attributes.
       description: Returns top filter attributes. Limited to the 1000 most used filters.
-      summary: Returns top filter attributes.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/Search'
@@ -990,15 +1010,15 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/filters/{attribute}:
     get:
+      tags:
+        - analytics
       operationId: getTopFilterForAttribute
+      summary: Get top filters for the an attribute.
       description: >-
         Returns top filters for the given attribute. Limited to the 1000 most
         used filters.
-      summary: Returns top filters for the given attribute.
       parameters:
         - $ref: '#/components/parameters/Attribute'
         - $ref: '#/components/parameters/Index'
@@ -1023,15 +1043,15 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/filters/noResults:
     get:
+      tags:
+        - analytics
       operationId: getTopFiltersNoResults
+      summary: Get top filters for a no result search.
       description: >-
         Returns top filters with no results. Limited to the 1000 most used
         filters.
-      summary: Returns top filters with no results.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/Search'
@@ -1055,13 +1075,13 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/countries:
     get:
+      tags:
+        - analytics
       operationId: getTopCountries
+      summary: Get top countries.
       description: Returns top countries. Limited to the 1000 most frequent ones.
-      summary: Returns top countries.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -1104,15 +1124,15 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/clicks/averageClickPosition:
     get:
+      tags:
+        - analytics
       operationId: getAverageClickPosition
+      summary: Get average click position.
       description: >-
         Returns the average click position. The endpoint returns a value for the
         complete given time range, as well as a value per day.
-      summary: Returns the average click position.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -1161,13 +1181,21 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/clicks/positions:
     get:
+      tags:
+        - analytics
       operationId: getClickPositions
-      description: Returns the distribution of clicks per range of positions.
-      summary: Returns the distribution of clicks per range of positions.
+      summary: Get clicks per positions.
+      description: >
+        Returns the distribution of clicks per range of positions.
+
+
+        If the groups all have a count of 0, it means Algolia didn’t receive any
+        click events for the queries with the clickAnalytics search parameter
+        set to true.
+
+        The count is 0 until Algolia receives at least one click event.
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -1201,10 +1229,13 @@ paths:
                           description: >
                             Range of positions with the following pattern:
 
-                            Positions from 1 to 10 included are displayed in
-                            separated groups. Positions from 11 to 20 included
-                            are grouped together. Positions from 21 and up are
-                            grouped together.
+                            - Positions from 1 to 10 included are displayed in
+                            separated groups.
+
+                            - Positions from 11 to 20 included are grouped
+                            together.
+
+                            - Positions from 21 and up are grouped together.
                           type: array
                           items:
                             type: integer
@@ -1218,16 +1249,16 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/clicks/clickThroughRate:
     get:
+      tags:
+        - analytics
       operationId: getClickThroughRate
+      summary: Get click-through rate (CTR).
       description: >-
         Returns a click-through rate (CTR). The endpoint returns a value for the
         complete given time range, as well as a value per day. It also returns
         the count of clicks and searches used to compute the rates.
-      summary: Returns a click-through rate (CTR).
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -1282,16 +1313,16 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/conversions/conversionRate:
     get:
+      tags:
+        - analytics
       operationId: getConversationRate
+      summary: Get conversion rate (CR).
       description: >-
         Returns a conversion rate (CR). The endpoint returns a value for the
         complete given time range, as well as a value per day. It also returns
         the count of conversion and searches used to compute the rates.
-      summary: Returns a conversion rate (CR).
       parameters:
         - $ref: '#/components/parameters/Index'
         - $ref: '#/components/parameters/StartDate'
@@ -1346,16 +1377,16 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
   /2/status:
     get:
+      tags:
+        - analytics
       operationId: getStatus
+      summary: Get Analytics API status.
       description: >-
         Returns the latest update time of the analytics API for a given index.
         If the index has been recently created and/or no search has been
         performed yet the updated time will be null.
-      summary: Get latest update time of the analytics API.
       parameters:
         - $ref: '#/components/parameters/Index'
       responses:
@@ -1380,5 +1411,3 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - analytics
