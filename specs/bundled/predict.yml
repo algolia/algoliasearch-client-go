@@ -96,6 +96,7 @@ servers:
     variables:
       region:
         enum:
+          - ue
           - ew
         default: ew
 security:
