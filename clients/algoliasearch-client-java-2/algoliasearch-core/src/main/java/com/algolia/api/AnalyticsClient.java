@@ -58,12 +58,13 @@ public class AnalyticsClient extends ApiClient {
 
   private static List<StatefulHost> getDefaultHosts(String region) {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    String url = region == null
+      ? "analytics.algolia.com"
+      : "analytics.{region}.algolia.com".replace("{region}", region);
+
     hosts.add(
-      new StatefulHost(
-        "analytics." + (region == null ? "" : region + ".") + "algolia.com",
-        "https",
-        EnumSet.of(CallType.READ, CallType.WRITE)
-      )
+      new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE))
     );
     return hosts;
   }

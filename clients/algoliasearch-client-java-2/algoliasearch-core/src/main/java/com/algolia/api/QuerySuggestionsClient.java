@@ -58,12 +58,12 @@ public class QuerySuggestionsClient extends ApiClient {
 
   private static List<StatefulHost> getDefaultHosts(String region) {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    String url =
+      "query-suggestions.{region}.algolia.com".replace("{region}", region);
+
     hosts.add(
-      new StatefulHost(
-        "query-suggestions." + region + "algolia.com",
-        "https",
-        EnumSet.of(CallType.READ, CallType.WRITE)
-      )
+      new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE))
     );
     return hosts;
   }

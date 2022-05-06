@@ -21,19 +21,20 @@ import okhttp3.Call;
 
 public class PredictClient extends ApiClient {
 
-  public PredictClient(String appId, String apiKey) {
-    this(appId, apiKey, new HttpRequester(getDefaultHosts()), null);
+  public PredictClient(String appId, String apiKey, String region) {
+    this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), null);
   }
 
   public PredictClient(
     String appId,
     String apiKey,
+    String region,
     UserAgent.Segment[] userAgentSegments
   ) {
     this(
       appId,
       apiKey,
-      new HttpRequester(getDefaultHosts()),
+      new HttpRequester(getDefaultHosts(region)),
       userAgentSegments
     );
   }
@@ -51,14 +52,14 @@ public class PredictClient extends ApiClient {
     super(appId, apiKey, requester, "Predict", userAgentSegments);
   }
 
-  private static List<StatefulHost> getDefaultHosts() {
+  private static List<StatefulHost> getDefaultHosts(String region) {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    String url =
+      "predict-api-432xa6wemq-{region}.a.run.app".replace("{region}", region);
+
     hosts.add(
-      new StatefulHost(
-        "predict-api-432xa6wemq-ew.a.run.app",
-        "https",
-        EnumSet.of(CallType.READ, CallType.WRITE)
-      )
+      new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE))
     );
     return hosts;
   }

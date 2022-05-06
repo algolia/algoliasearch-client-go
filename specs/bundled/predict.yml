@@ -92,7 +92,12 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorBase'
 servers:
-  - url: https://predict-api-432xa6wemq-ew.a.run.app
+  - url: https://predict-api-432xa6wemq-{region}.a.run.app
+    variables:
+      region:
+        enum:
+          - ew
+        default: ew
 security:
   - appId: []
     apiKey: []

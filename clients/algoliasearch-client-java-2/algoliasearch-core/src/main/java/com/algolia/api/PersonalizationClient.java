@@ -58,12 +58,12 @@ public class PersonalizationClient extends ApiClient {
 
   private static List<StatefulHost> getDefaultHosts(String region) {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    String url =
+      "personalization.{region}.algolia.com".replace("{region}", region);
+
     hosts.add(
-      new StatefulHost(
-        "personalization." + region + "algolia.com",
-        "https",
-        EnumSet.of(CallType.READ, CallType.WRITE)
-      )
+      new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE))
     );
     return hosts;
   }

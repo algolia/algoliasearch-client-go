@@ -58,12 +58,13 @@ public class InsightsClient extends ApiClient {
 
   private static List<StatefulHost> getDefaultHosts(String region) {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    String url = region == null
+      ? "insights.algolia.io"
+      : "insights.{region}.algolia.io".replace("{region}", region);
+
     hosts.add(
-      new StatefulHost(
-        "insights." + (region == null ? "" : region + ".") + "algolia.io",
-        "https",
-        EnumSet.of(CallType.READ, CallType.WRITE)
-      )
+      new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE))
     );
     return hosts;
   }
