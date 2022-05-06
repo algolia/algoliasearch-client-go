@@ -13,7 +13,7 @@ export async function formatter(
   let cmd = '';
   switch (language) {
     case 'javascript':
-      cmd = `yarn eslint --ext=ts ${folder} --fix`;
+      cmd = `yarn eslint --ext=ts ${folder} --fix --no-error-on-unmatched-pattern`;
       break;
     case 'java':
       cmd = `find ${folder} -type f -name "*.java" | xargs java --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
