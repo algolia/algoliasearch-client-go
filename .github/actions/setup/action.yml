@@ -86,18 +86,22 @@ runs:
       if: inputs.type == 'matrix'
       id: gen-matrix
       shell: bash
+      run: yarn workspace scripts createMatrix ${{ steps.diff.outputs.ORIGIN_BRANCH }} clients
+
+    - name: Check if JavaScript utils should run
+      if: inputs.type == 'matrix'
+      id: js-utils
+      shell: bash
       run: |
-        if [[ ${{ steps.diff.outputs.JS_ALGOLIASEARCH_CHANGED }} > 0 ]]; then
+        if [[ ${{ steps.gen-matrix.outputs.RUN_GEN_JAVASCRIPT || steps.diff.outputs.JS_ALGOLIASEARCH_CHANGED > 0 }} ]]; then
           echo "Running algoliasearch: true"
           echo "::set-output name=RUN_JS_ALGOLIASEARCH::true"
         fi
 
-        if [[ ${{ steps.diff.outputs.JS_UTILS_CHANGED }} > 0 ]]; then
+        if [[ ${{ steps.gen-matrix.outputs.RUN_GEN_JAVASCRIPT || steps.diff.outputs.JS_UTILS_CHANGED > 0 }} ]]; then
           echo "Running JavaScript utils: true"
           echo "::set-output name=RUN_JS_UTILS::true"
         fi
-
-        yarn workspace scripts createMatrix ${{ steps.diff.outputs.ORIGIN_BRANCH }} clients
 
 outputs:
   RUN_SCRIPTS:
@@ -120,10 +124,10 @@ outputs:
 
   RUN_JS_ALGOLIASEARCH:
     description: Determine if the `client-javascript-algoliasearch` job should run
-    value: ${{ steps.gen-matrix.outputs.RUN_JS_ALGOLIASEARCH }}
+    value: ${{ steps.js-utils.outputs.RUN_JS_ALGOLIASEARCH }}
   RUN_JS_UTILS:
     description: Whether to build JS client common folders when RUN_JS is false
-    value: ${{ steps.gen-matrix.outputs.RUN_JS_UTILS }}
+    value: ${{ steps.js-utils.outputs.RUN_JS_UTILS }}
   RUN_JS_TESTS:
     description: Determine if the `client_javascript_tests` job should run
     value: ${{ steps.diff.outputs.JS_COMMON_TESTS_CHANGED > 0 }}

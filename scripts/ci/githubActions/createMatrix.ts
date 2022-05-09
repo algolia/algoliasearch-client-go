@@ -82,6 +82,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       continue;
     }
 
+    console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
     matrix[language].toRun.push(client);
     matrix[language].cacheToCompute.push(`specs/${bundledSpec}`);
   }

@@ -300,7 +300,6 @@ jobs:
       - client_gen
     if: |
       always() &&
-      needs.setup.outputs.RUN_CODEGEN == 'true' &&
       github.event_name == 'pull_request' &&
       !contains(needs.*.result, 'cancelled') &&
       !contains(needs.*.result, 'failure')
@@ -311,15 +310,16 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.TOKEN_GENERATE_BOT }}
 
-      - name: Download all artifacts
-        uses: ./.github/actions/restore-artifacts
-        with:
-          type: all
-
       - name: Setup
         uses: ./.github/actions/setup
         with:
           type: minimal
+
+      - name: Download all artifacts
+        if: ${{ needs.setup.outputs.RUN_CODEGEN == 'true' }}
+        uses: ./.github/actions/restore-artifacts
+        with:
+          type: all
 
       - name: Push generated code to generated branch
         id: pushGeneratedCode
