@@ -7,13 +7,14 @@ import TabItem from '@theme/TabItem';
 
 <Tabs
   groupId="language"
-  defaultValue="js"
+  defaultValue="javascript"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'PHP', value: 'php', }
+    { label: 'JavaScript', value: 'javascript', },
+    { label: 'PHP', value: 'php', },
+    { label: 'Java', value: 'java' }
   ]
 }>
-<TabItem value="js">
+<TabItem value="javascript">
 
 To get started, you first need to install `algoliasearch` (or any other available API client package). You can find the full list of available packages [here](https://www.npmjs.com/org/experimental-api-clients-automation).
 
@@ -153,4 +154,107 @@ $res = $client->getUserTokenProfile('<YOUR_TOKEN>');
 ```
 
 </TabItem>
+
+<TabItem value="java">
+
+To get started, add the [algoliasearch-core](https://oss.sonatype.org/content/repositories/snapshots/com/algolia/algoliasearch-core/0.0.1-SNAPSHOT/) dependency to your project, either with [Maven](https://maven.apache.org/):
+```xml
+<repositories>
+  <repository>
+    <id>oss.sonatype.org-snapshot</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <releases>
+      <enabled>false</enabled>
+    </releases>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.algolia</groupId>
+  <artifactId>algoliasearch-core</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+</dependency>
+```
+
+or [Gradle](https://gradle.org/):
+```groovy
+repositories() {
+  maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+  testImplementation 'com.algolia:algoliasearch-core:0.0.1-SNAPSHOT'
+}
+```
+
+## Using the client
+
+The package is divided into multiples API Clients, you can find the list [here](https://github.com/algolia/algoliasearch-client-java-2/tree/next/algoliasearch-core/src/main/java/com/algolia/api).
+To instanciate a client, prepare your credentials and follow this example:
+
+```java
+import com.algolia.api.SearchClient;
+
+public class AlgoliaTest {
+  public static void main(String[] args) {
+    SearchClient client = new SearchClient("<YOUR_APP_ID>", "<YOUR_API_KEY>");
+  }
+}
+```
+
+You can add segments to the `User Agent`:
+```java
+import com.algolia.utils.UserAgent;
+
+SearchClient client = new SearchClient(
+  "<YOUR_APP_ID>", 
+  "<YOUR_API_KEY>",
+  new UserAgent.Segment[] { 
+    new UserAgent.Segment("tracker", "8.0.0") 
+  }
+);
+```
+
+And also specify a custom `Requester`:
+```java
+import com.algolia.utils.echo.EchoRequester;
+
+SearchClient client = new SearchClient(
+  "<YOUR_APP_ID>", 
+  "<YOUR_API_KEY>",
+  new EchoRequester()
+);
+```
+
+Or use a completely different client (some clients might require a `region` parameter):
+```java
+import com.algolia.api.AbtestingClient;
+
+AbtestingClient client = new AbtestingClient("<YOUR_APP_ID>", "<YOUR_API_KEY>", "us");
+```
+
+Once the client is setup, you can play with the Algolia API!
+
+```java
+import com.algolia.model.search.*;
+
+SearchParamsObject params = new SearchParamsObject();
+params.setQuery("your query");
+
+try {
+  SearchResponse result = client.search(
+    "the index name",
+    SearchParams.ofSearchParamsObject(params)
+  );
+  System.out.println(result);
+} catch (AlgoliaRuntimeException e) {
+  e.printStackTrace();
+}
+```
+
+</TabItem>
+
 </Tabs>
