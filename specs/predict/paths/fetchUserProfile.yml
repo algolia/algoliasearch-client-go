@@ -1,4 +1,6 @@
 post:
+  tags:
+    - profiles
   operationId: fetchUserProfile
   description: Get predictions, properties (raw, computed or custom) and segments (computed or custom) for a user profile.
   summary: Get user profile.

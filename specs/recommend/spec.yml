@@ -33,6 +33,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: recommendations
+    x-displayName: Recommendations & Trending
+    description: Manage recommendations.
+x-tagGroups:
+  - name: General
+    tags:
+      - recommendations
 paths:
   # ######################
   # ### Custom request ###

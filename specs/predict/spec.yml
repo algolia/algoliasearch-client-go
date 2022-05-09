@@ -20,6 +20,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: profiles
+    x-displayName: Profiles
+    description: Manage users' profiles.
+x-tagGroups:
+  - name: General
+    tags:
+      - profiles
 paths:
   # ######################
   # ### Custom request ###

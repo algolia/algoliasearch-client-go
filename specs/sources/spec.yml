@@ -20,6 +20,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: jobs
+    x-displayName: Jobs
+    description: Manage jobs.
+x-tagGroups:
+  - name: General
+    tags:
+      - jobs
 paths:
   # ######################
   # ### Custom request ###

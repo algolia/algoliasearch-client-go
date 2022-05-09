@@ -20,6 +20,20 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: advanced
+    x-displayName: Advanced
+    description: Advanced operations.
+  - name: configurations
+    x-displayName: Configurations
+    description: Manage Query Suggestions configurations.
+x-tagGroups:
+  - name: General
+    tags:
+      - configurations
+  - name: Others
+    tags:
+      - advanced
 paths:
   # ######################
   # ### Custom request ###

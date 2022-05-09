@@ -20,6 +20,18 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: profiles
+    x-displayName: Profiles
+    description: Manage users' profiles.
+  - name: strategies
+    x-displayName: Strategies
+    description: Manage personalization strategies.
+x-tagGroups:
+  - name: General
+    tags:
+      - profiles
+      - strategies
 paths:
   # ######################
   # ### Custom request ###
