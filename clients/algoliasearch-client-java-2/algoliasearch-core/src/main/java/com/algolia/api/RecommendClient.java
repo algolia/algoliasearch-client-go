@@ -358,7 +358,7 @@ public class RecommendClient extends ApiClient {
   }
 
   /**
-   * Returns recommendations for a specific model and objectID.
+   * Returns recommendations or trending results, for a specific model and `objectID`.
    *
    * @param getRecommendationsParams (required)
    * @return GetRecommendationsResponse
@@ -385,7 +385,8 @@ public class RecommendClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Returns recommendations for a specific model and objectID.
+   * (asynchronously) Returns recommendations or trending results, for a specific model and
+   * &#x60;objectID&#x60;.
    *
    * @param getRecommendationsParams (required)
    * @param callback The callback to be executed when the API call finishes

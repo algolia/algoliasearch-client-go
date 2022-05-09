@@ -311,6 +311,20 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: advanced
+    x-displayName: Advanced
+    description: Advanced operations.
+  - name: configurations
+    x-displayName: Configurations
+    description: Manage Query Suggestions configurations.
+x-tagGroups:
+  - name: General
+    tags:
+      - configurations
+  - name: Others
+    tags:
+      - advanced
 paths:
   /1{path}:
     get:
@@ -422,12 +436,41 @@ paths:
       tags:
         - query-suggestions
   /1/configs:
+    get:
+      tags:
+        - query-suggestions
+      operationId: getAllConfigs
+      summary: List configurations.
+      description: >
+        Get all the configurations of Query Suggestions.
+
+        For each index, you get a block of JSON with a list of its configuration
+        settings.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuerySuggestionsIndex'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '422':
+          $ref: '#/components/responses/StatusUnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
     post:
+      tags:
+        - query-suggestions
       operationId: createConfig
+      summary: Create a configuration.
       description: >-
         Create a configuration of a Query Suggestions index. There's a limit of
         100 configurations per application.
-      summary: Create a configuration of a Query Suggestions index.
       requestBody:
         required: true
         content:
@@ -447,85 +490,13 @@ paths:
           $ref: '#/components/responses/StatusUnprocessableEntity'
         '500':
           $ref: '#/components/responses/InternalError'
-      tags:
-        - query-suggestions
-    get:
-      operationId: getAllConfigs
-      description: >
-        Get all the configurations of Query Suggestions.
-
-        For each index, you get a block of JSON with a list of its configuration
-        settings.
-      summary: Get all the configurations of Query Suggestions.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/QuerySuggestionsIndex'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/MethodNotAllowed'
-        '422':
-          $ref: '#/components/responses/StatusUnprocessableEntity'
-        '500':
-          $ref: '#/components/responses/InternalError'
-      tags:
-        - query-suggestions
   /1/configs/{indexName}:
-    put:
-      operationId: updateConfig
-      description: Update the configuration of a Query Suggestions index.
-      summary: Update the configuration of a Query Suggestions index.
-      parameters:
-        - $ref: '#/components/parameters/IndexName'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QuerySuggestionsIndexParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/Success'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalError'
-      tags:
-        - query-suggestions
-    delete:
-      operationId: deleteConfig
-      description: >
-        Delete a configuration of a Query Suggestion's index.
-
-        By deleting a configuraton, you stop all updates to the underlying query
-        suggestion index.
-
-        Note that when doing this, the underlying index does not change -
-        existing suggestions remain untouched.
-      summary: Delete a configuration of a Query Suggestion's index.
-      parameters:
-        - $ref: '#/components/parameters/IndexName'
-      responses:
-        '200':
-          $ref: '#/components/responses/Success'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/MethodNotAllowed'
-        '500':
-          $ref: '#/components/responses/InternalError'
-      tags:
-        - query-suggestions
     get:
+      tags:
+        - query-suggestions
       operationId: getConfig
+      summary: Get a single configuration.
       description: Get the configuration of a single Query Suggestions index.
-      summary: Get the configuration of a single Query Suggestions index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
       responses:
@@ -545,17 +516,62 @@ paths:
           $ref: '#/components/responses/IndexNotFound'
         '500':
           $ref: '#/components/responses/InternalError'
+    put:
       tags:
         - query-suggestions
+      operationId: updateConfig
+      summary: Update a configuration.
+      description: Update the configuration of a Query Suggestions index.
+      parameters:
+        - $ref: '#/components/parameters/IndexName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuerySuggestionsIndexParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+        - query-suggestions
+      operationId: deleteConfig
+      summary: Delete a configuration.
+      description: >
+        Delete a configuration of a Query Suggestion's index.
+
+        By deleting a configuraton, you stop all updates to the underlying query
+        suggestion index.
+
+        Note that when doing this, the underlying index does not change -
+        existing suggestions remain untouched.
+      parameters:
+        - $ref: '#/components/parameters/IndexName'
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '500':
+          $ref: '#/components/responses/InternalError'
   /1/configs/{indexName}/status:
     get:
+      tags:
+        - query-suggestions
       operationId: getConfigStatus
+      summary: Get configuration status.
       description: >
         Get the status of a Query Suggestion's index.
 
         The status includes whether the Query Suggestions index is currently in
         the process of being built, and the last build time.
-      summary: Get the status of a Query Suggestion's index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
       responses:
@@ -588,13 +604,13 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '500':
           $ref: '#/components/responses/InternalError'
-      tags:
-        - query-suggestions
   /1/logs/{indexName}:
     get:
+      tags:
+        - query-suggestions
       operationId: getLogFile
+      summary: Get a log file.
       description: Get the log file of the last build of a single Query Suggestion index.
-      summary: Get the log file of the last build of a single Query Suggestion index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
       responses:
@@ -636,5 +652,3 @@ paths:
           $ref: '#/components/responses/IndexNotFound'
         '500':
           $ref: '#/components/responses/InternalError'
-      tags:
-        - query-suggestions

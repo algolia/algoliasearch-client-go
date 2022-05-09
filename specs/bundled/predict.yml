@@ -102,6 +102,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: profiles
+    x-displayName: Profiles
+    description: Manage users' profiles.
+x-tagGroups:
+  - name: General
+    tags:
+      - profiles
 paths:
   /1{path}:
     get:
@@ -214,6 +222,8 @@ paths:
         - predict
   /1/users/{userID}/fetch:
     post:
+      tags:
+        - predict
       operationId: fetchUserProfile
       description: >-
         Get predictions, properties (raw, computed or custom) and segments
@@ -345,5 +355,3 @@ paths:
           $ref: '#/components/responses/UserNotFound'
         '405':
           $ref: '#/components/responses/MethodNotAllowed'
-      tags:
-        - predict

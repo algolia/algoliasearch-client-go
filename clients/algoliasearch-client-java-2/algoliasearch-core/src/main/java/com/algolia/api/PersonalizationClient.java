@@ -223,11 +223,11 @@ public class PersonalizationClient extends ApiClient {
   }
 
   /**
-   * Returns, as part of the response, a date until which the data can safely be considered as
-   * deleted for the given user. This means that if you send events for the given user before this
-   * date, they will be ignored. Any data received after the deletedUntil date will start building a
-   * new user profile. It might take a couple hours before for the deletion request to be fully
-   * processed.
+   * Delete the user profile and all its associated data. Returns, as part of the response, a date
+   * until which the data can safely be considered as deleted for the given user. This means if you
+   * send events for the given user before this date, they will be ignored. Any data received after
+   * the deletedUntil date will start building a new user profile. It might take a couple hours for
+   * the deletion request to be fully processed.
    *
    * @param userToken userToken representing the user for which to fetch the Personalization
    *     profile. (required)
@@ -250,11 +250,11 @@ public class PersonalizationClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Returns, as part of the response, a date until which the data can safely be
-   * considered as deleted for the given user. This means that if you send events for the given user
-   * before this date, they will be ignored. Any data received after the deletedUntil date will
-   * start building a new user profile. It might take a couple hours before for the deletion request
-   * to be fully processed.
+   * (asynchronously) Delete the user profile and all its associated data. Returns, as part of the
+   * response, a date until which the data can safely be considered as deleted for the given user.
+   * This means if you send events for the given user before this date, they will be ignored. Any
+   * data received after the deletedUntil date will start building a new user profile. It might take
+   * a couple hours for the deletion request to be fully processed.
    *
    * @param userToken userToken representing the user for which to fetch the Personalization
    *     profile. (required)
@@ -508,10 +508,11 @@ public class PersonalizationClient extends ApiClient {
   }
 
   /**
-   * The profile is structured by facet name used in the strategy. Each facet value is mapped to its
-   * score. Each score represents the user affinity for a specific facet value given the userToken
-   * past events and the Personalization strategy defined. Scores are bounded to 20. The last
-   * processed event timestamp is provided using the ISO 8601 format for debugging purposes.
+   * Get the user profile built from Personalization strategy. The profile is structured by facet
+   * name used in the strategy. Each facet value is mapped to its score. Each score represents the
+   * user affinity for a specific facet value given the userToken past events and the
+   * Personalization strategy defined. Scores are bounded to 20. The last processed event timestamp
+   * is provided using the ISO 8601 format for debugging purposes.
    *
    * @param userToken userToken representing the user for which to fetch the Personalization
    *     profile. (required)
@@ -534,11 +535,11 @@ public class PersonalizationClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) The profile is structured by facet name used in the strategy. Each facet value
-   * is mapped to its score. Each score represents the user affinity for a specific facet value
-   * given the userToken past events and the Personalization strategy defined. Scores are bounded to
-   * 20. The last processed event timestamp is provided using the ISO 8601 format for debugging
-   * purposes.
+   * (asynchronously) Get the user profile built from Personalization strategy. The profile is
+   * structured by facet name used in the strategy. Each facet value is mapped to its score. Each
+   * score represents the user affinity for a specific facet value given the userToken past events
+   * and the Personalization strategy defined. Scores are bounded to 20. The last processed event
+   * timestamp is provided using the ISO 8601 format for debugging purposes.
    *
    * @param userToken userToken representing the user for which to fetch the Personalization
    *     profile. (required)

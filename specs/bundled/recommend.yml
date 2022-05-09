@@ -1016,6 +1016,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: recommendations
+    x-displayName: Recommendations & Trending
+    description: Manage recommendations.
+x-tagGroups:
+  - name: General
+    tags:
+      - recommendations
 paths:
   /1{path}:
     get:
@@ -1128,9 +1136,13 @@ paths:
         - recommend
   /1/indexes/*/recommendations:
     post:
+      tags:
+        - recommend
       operationId: getRecommendations
-      description: Returns recommendations for a specific model and objectID.
-      summary: Returns recommendations for a specific model and objectID.
+      summary: Get results.
+      description: >-
+        Returns recommendations or trending results, for a specific model and
+        `objectID`.
       requestBody:
         required: true
         content:
@@ -1170,5 +1182,3 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - recommend

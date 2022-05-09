@@ -145,6 +145,18 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: profiles
+    x-displayName: Profiles
+    description: Manage users' profiles.
+  - name: strategies
+    x-displayName: Strategies
+    description: Manage personalization strategies.
+x-tagGroups:
+  - name: General
+    tags:
+      - profiles
+      - strategies
 paths:
   /1{path}:
     get:
@@ -257,15 +269,20 @@ paths:
         - personalization
   /1/profiles/personalization/{userToken}:
     get:
+      tags:
+        - personalization
       operationId: getUserTokenProfile
-      description: >-
+      summary: Get a user profile.
+      description: >
+        Get the user profile built from Personalization strategy.
+
+
         The profile is structured by facet name used in the strategy. Each facet
         value is mapped to its score. Each score represents the user affinity
         for a specific facet value given the userToken past events and the
         Personalization strategy defined. Scores are bounded to 20. The last
         processed event timestamp is provided using the ISO 8601 format for
         debugging purposes.
-      summary: Get the user profile built from Personalization strategy.
       parameters:
         - $ref: '#/components/parameters/UserToken'
       responses:
@@ -298,19 +315,25 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - personalization
   /1/profiles/{userToken}:
     delete:
+      tags:
+        - personalization
       operationId: deleteUserProfile
-      description: >-
+      summary: Delete a user profile.
+      description: >
+        Delete the user profile and all its associated data.
+
+
         Returns, as part of the response, a date until which the data can safely
-        be considered as deleted for the given user. This means that if you send
+        be considered as deleted for the given user. This means if you send
         events for the given user before this date, they will be ignored. Any
         data received after the deletedUntil date will start building a new user
-        profile. It might take a couple hours before for the deletion request to
-        be fully processed.
-      summary: Delete the user profile and all its associated data.
+        profile.
+
+
+        It might take a couple hours for the deletion request to be fully
+        processed.
       parameters:
         - $ref: '#/components/parameters/UserToken'
       responses:
@@ -333,7 +356,8 @@ paths:
                     description: >-
                       A date until which the data can safely be considered as
                       deleted for the given user. Any data received after the
-                      deletedUntil date will start building a new user profile.
+                      `deletedUntil` date will start building a new user
+                      profile.
         '400':
           $ref: '#/components/responses/BadRequest'
         '402':
@@ -342,15 +366,38 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
+  /1/strategies/personalization:
+    get:
       tags:
         - personalization
-  /1/strategies/personalization:
+      operationId: getPersonalizationStrategy
+      summary: Get the current strategy.
+      description: >-
+        The strategy contains information on the events and facets that impact
+        user profiles and personalized search results.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/personalizationStrategyParams'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          $ref: '#/components/responses/FeatureNotEnabled'
+        '403':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
     post:
+      tags:
+        - personalization
       operationId: setPersonalizationStrategy
+      summary: Set a new strategy.
       description: >-
         A strategy defines the events and facets that impact user profiles and
         personalized search results.
-      summary: Set a new personalization strategy.
       requestBody:
         required: true
         content:
@@ -380,28 +427,3 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'
         '404':
           $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - personalization
-    get:
-      operationId: getPersonalizationStrategy
-      description: >-
-        The strategy contains information on the events and facets that impact
-        user profiles and personalized search results.
-      summary: Get the current personalization strategy.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/personalizationStrategyParams'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '402':
-          $ref: '#/components/responses/FeatureNotEnabled'
-        '403':
-          $ref: '#/components/responses/MethodNotAllowed'
-        '404':
-          $ref: '#/components/responses/IndexNotFound'
-      tags:
-        - personalization

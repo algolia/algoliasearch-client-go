@@ -117,6 +117,14 @@ servers:
 security:
   - appId: []
     apiKey: []
+tags:
+  - name: jobs
+    x-displayName: Jobs
+    description: Manage jobs.
+x-tagGroups:
+  - name: General
+    tags:
+      - jobs
 paths:
   /1{path}:
     get:
@@ -229,8 +237,10 @@ paths:
         - sources
   /1/ingest/url:
     post:
+      tags:
+        - sources
       operationId: postIngestUrl
-      summary: Create a new ingestion job via URL.
+      summary: Create fetch URL job.
       description: Add an ingestion job that will fetch data from an URL.
       requestBody:
         required: true
@@ -321,5 +331,3 @@ paths:
                     $ref: '#/components/schemas/task'
         '400':
           $ref: '#/components/responses/BadRequest'
-      tags:
-        - sources
