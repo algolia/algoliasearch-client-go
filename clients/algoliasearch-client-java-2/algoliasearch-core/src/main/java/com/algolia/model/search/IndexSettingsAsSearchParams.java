@@ -149,7 +149,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addSearchableAttributesItem(
+  public IndexSettingsAsSearchParams addSearchableAttributes(
     String searchableAttributesItem
   ) {
     if (this.searchableAttributes == null) {
@@ -176,7 +176,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addAttributesForFacetingItem(
+  public IndexSettingsAsSearchParams addAttributesForFaceting(
     String attributesForFacetingItem
   ) {
     if (this.attributesForFaceting == null) {
@@ -203,7 +203,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addUnretrievableAttributesItem(
+  public IndexSettingsAsSearchParams addUnretrievableAttributes(
     String unretrievableAttributesItem
   ) {
     if (this.unretrievableAttributes == null) {
@@ -230,7 +230,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addAttributesToRetrieveItem(
+  public IndexSettingsAsSearchParams addAttributesToRetrieve(
     String attributesToRetrieveItem
   ) {
     if (this.attributesToRetrieve == null) {
@@ -257,7 +257,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addRestrictSearchableAttributesItem(
+  public IndexSettingsAsSearchParams addRestrictSearchableAttributes(
     String restrictSearchableAttributesItem
   ) {
     if (this.restrictSearchableAttributes == null) {
@@ -282,7 +282,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addRankingItem(String rankingItem) {
+  public IndexSettingsAsSearchParams addRanking(String rankingItem) {
     if (this.ranking == null) {
       this.ranking = new ArrayList<>();
     }
@@ -307,7 +307,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addCustomRankingItem(
+  public IndexSettingsAsSearchParams addCustomRanking(
     String customRankingItem
   ) {
     if (this.customRanking == null) {
@@ -352,7 +352,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addAttributesToHighlightItem(
+  public IndexSettingsAsSearchParams addAttributesToHighlight(
     String attributesToHighlightItem
   ) {
     if (this.attributesToHighlight == null) {
@@ -379,7 +379,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addAttributesToSnippetItem(
+  public IndexSettingsAsSearchParams addAttributesToSnippet(
     String attributesToSnippetItem
   ) {
     if (this.attributesToSnippet == null) {
@@ -559,7 +559,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addDisableTypoToleranceOnAttributesItem(
+  public IndexSettingsAsSearchParams addDisableTypoToleranceOnAttributes(
     String disableTypoToleranceOnAttributesItem
   ) {
     if (this.disableTypoToleranceOnAttributes == null) {
@@ -654,7 +654,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addQueryLanguagesItem(
+  public IndexSettingsAsSearchParams addQueryLanguages(
     String queryLanguagesItem
   ) {
     if (this.queryLanguages == null) {
@@ -778,7 +778,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addOptionalWordsItem(
+  public IndexSettingsAsSearchParams addOptionalWords(
     String optionalWordsItem
   ) {
     if (this.optionalWords == null) {
@@ -805,7 +805,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addDisableExactOnAttributesItem(
+  public IndexSettingsAsSearchParams addDisableExactOnAttributes(
     String disableExactOnAttributesItem
   ) {
     if (this.disableExactOnAttributes == null) {
@@ -849,7 +849,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addAlternativesAsExactItem(
+  public IndexSettingsAsSearchParams addAlternativesAsExact(
     AlternativesAsExact alternativesAsExactItem
   ) {
     if (this.alternativesAsExact == null) {
@@ -876,7 +876,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addAdvancedSyntaxFeaturesItem(
+  public IndexSettingsAsSearchParams addAdvancedSyntaxFeatures(
     AdvancedSyntaxFeatures advancedSyntaxFeaturesItem
   ) {
     if (this.advancedSyntaxFeatures == null) {
@@ -967,7 +967,7 @@ public class IndexSettingsAsSearchParams {
     return this;
   }
 
-  public IndexSettingsAsSearchParams addResponseFieldsItem(
+  public IndexSettingsAsSearchParams addResponseFields(
     String responseFieldsItem
   ) {
     if (this.responseFields == null) {

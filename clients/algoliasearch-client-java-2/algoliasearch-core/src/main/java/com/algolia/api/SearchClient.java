@@ -1,12 +1,9 @@
 package com.algolia.api;
 
-import com.algolia.ApiCallback;
 import com.algolia.ApiClient;
-import com.algolia.ApiResponse;
 import com.algolia.exceptions.*;
 import com.algolia.model.search.*;
 import com.algolia.utils.*;
-import com.algolia.utils.echo.*;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
 import com.google.gson.reflect.TypeToken;
@@ -18,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import okhttp3.Call;
@@ -102,49 +100,6 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Build call for addApiKey
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call addApiKeyCall(
-    ApiKey apiKey,
-    final ApiCallback<AddApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = apiKey;
-
-    // create path and map variables
-    String requestPath = "/1/keys";
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call addApiKeyValidateBeforeCall(
-    ApiKey apiKey,
-    final ApiCallback<AddApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'apiKey' is set
-    if (apiKey == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'apiKey' when calling addApiKey(Async)"
-      );
-    }
-
-    return addApiKeyCall(apiKey, callback);
-  }
-
-  /**
    * Add a new API Key with specific permissions/restrictions.
    *
    * @param apiKey (required)
@@ -154,99 +109,37 @@ public class SearchClient extends ApiClient {
    */
   public AddApiKeyResponse addApiKey(ApiKey apiKey)
     throws AlgoliaRuntimeException {
-    Call req = addApiKeyValidateBeforeCall(apiKey, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.AddApiKey(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
-    ApiResponse<AddApiKeyResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(addApiKeyAsync(apiKey));
   }
 
   /**
    * (asynchronously) Add a new API Key with specific permissions/restrictions.
    *
    * @param apiKey (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call addApiKeyAsync(
-    ApiKey apiKey,
-    final ApiCallback<AddApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = addApiKeyValidateBeforeCall(apiKey, callback);
-    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+  public CompletableFuture<AddApiKeyResponse> addApiKeyAsync(ApiKey apiKey)
+    throws AlgoliaRuntimeException {
+    if (apiKey == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'apiKey' when calling addApiKey(Async)"
+      );
+    }
 
-  /**
-   * Build call for addOrUpdateObject
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call addOrUpdateObjectCall(
-    String indexName,
-    String objectID,
-    Object body,
-    final ApiCallback<UpdatedAtWithObjectIdResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = body;
+    Object bodyObj = apiKey;
 
     // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/{objectID}".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        )
-        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+    String requestPath = "/1/keys";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call addOrUpdateObjectValidateBeforeCall(
-    String indexName,
-    String objectID,
-    Object body,
-    final ApiCallback<UpdatedAtWithObjectIdResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling addOrUpdateObject(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling addOrUpdateObject(Async)"
-      );
-    }
-
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'body' when calling addOrUpdateObject(Async)"
-      );
-    }
-
-    return addOrUpdateObjectCall(indexName, objectID, body, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -265,23 +158,9 @@ public class SearchClient extends ApiClient {
     String objectID,
     Object body
   ) throws AlgoliaRuntimeException {
-    Call req = addOrUpdateObjectValidateBeforeCall(
-      indexName,
-      objectID,
-      body,
-      null
+    return LaunderThrowable.await(
+      addOrUpdateObjectAsync(indexName, objectID, body)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.AddOrUpdateObject(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
-      .getType();
-    ApiResponse<UpdatedAtWithObjectIdResponse> res =
-      this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
@@ -291,70 +170,51 @@ public class SearchClient extends ApiClient {
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
    * @param body The Algolia object. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call addOrUpdateObjectAsync(
+  public CompletableFuture<UpdatedAtWithObjectIdResponse> addOrUpdateObjectAsync(
     String indexName,
     String objectID,
-    Object body,
-    final ApiCallback<UpdatedAtWithObjectIdResponse> callback
+    Object body
   ) throws AlgoliaRuntimeException {
-    Call call = addOrUpdateObjectValidateBeforeCall(
-      indexName,
-      objectID,
-      body,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
-      .getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling addOrUpdateObject(Async)"
+      );
+    }
 
-  /**
-   * Build call for appendSource
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call appendSourceCall(
-    Source source,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = source;
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling addOrUpdateObject(Async)"
+      );
+    }
+
+    if (body == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'body' when calling addOrUpdateObject(Async)"
+      );
+    }
+
+    Object bodyObj = body;
 
     // create path and map variables
-    String requestPath = "/1/security/sources/append";
+    String requestPath =
+      "/1/indexes/{indexName}/{objectID}".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        )
+        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call appendSourceValidateBeforeCall(
-    Source source,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'source' is set
-    if (source == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'source' when calling appendSource(Async)"
-      );
-    }
-
-    return appendSourceCall(source, callback);
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
+      .getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -367,89 +227,37 @@ public class SearchClient extends ApiClient {
    */
   public CreatedAtResponse appendSource(Source source)
     throws AlgoliaRuntimeException {
-    Call req = appendSourceValidateBeforeCall(source, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.AppendSource(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    ApiResponse<CreatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(appendSourceAsync(source));
   }
 
   /**
    * (asynchronously) Add a single source to the list of allowed sources.
    *
    * @param source The source to add. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call appendSourceAsync(
-    Source source,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = appendSourceValidateBeforeCall(source, callback);
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+  public CompletableFuture<CreatedAtResponse> appendSourceAsync(Source source)
+    throws AlgoliaRuntimeException {
+    if (source == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'source' when calling appendSource(Async)"
+      );
+    }
 
-  /**
-   * Build call for assignUserId
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call assignUserIdCall(
-    String xAlgoliaUserID,
-    AssignUserIdParams assignUserIdParams,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = assignUserIdParams;
+    Object bodyObj = source;
 
     // create path and map variables
-    String requestPath = "/1/clusters/mapping";
+    String requestPath = "/1/security/sources/append";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (xAlgoliaUserID != null) {
-      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
-    }
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call assignUserIdValidateBeforeCall(
-    String xAlgoliaUserID,
-    AssignUserIdParams assignUserIdParams,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'xAlgoliaUserID' is set
-    if (xAlgoliaUserID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'xAlgoliaUserID' when calling assignUserId(Async)"
-      );
-    }
-
-    // verify the required parameter 'assignUserIdParams' is set
-    if (assignUserIdParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'assignUserIdParams' when calling assignUserId(Async)"
-      );
-    }
-
-    return assignUserIdCall(xAlgoliaUserID, assignUserIdParams, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -468,18 +276,9 @@ public class SearchClient extends ApiClient {
     String xAlgoliaUserID,
     AssignUserIdParams assignUserIdParams
   ) throws AlgoliaRuntimeException {
-    Call req = assignUserIdValidateBeforeCall(
-      xAlgoliaUserID,
-      assignUserIdParams,
-      null
+    return LaunderThrowable.await(
+      assignUserIdAsync(xAlgoliaUserID, assignUserIdParams)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.AssignUserId(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    ApiResponse<CreatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
@@ -490,80 +289,42 @@ public class SearchClient extends ApiClient {
    *
    * @param xAlgoliaUserID userID to assign. (required)
    * @param assignUserIdParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call assignUserIdAsync(
+  public CompletableFuture<CreatedAtResponse> assignUserIdAsync(
     String xAlgoliaUserID,
-    AssignUserIdParams assignUserIdParams,
-    final ApiCallback<CreatedAtResponse> callback
+    AssignUserIdParams assignUserIdParams
   ) throws AlgoliaRuntimeException {
-    Call call = assignUserIdValidateBeforeCall(
-      xAlgoliaUserID,
-      assignUserIdParams,
-      callback
-    );
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (xAlgoliaUserID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'xAlgoliaUserID' when calling assignUserId(Async)"
+      );
+    }
 
-  /**
-   * Build call for batch
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call batchCall(
-    String indexName,
-    BatchWriteParams batchWriteParams,
-    final ApiCallback<BatchResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = batchWriteParams;
+    if (assignUserIdParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'assignUserIdParams' when calling assignUserId(Async)"
+      );
+    }
+
+    Object bodyObj = assignUserIdParams;
 
     // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/batch".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        );
+    String requestPath = "/1/clusters/mapping";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call batchValidateBeforeCall(
-    String indexName,
-    BatchWriteParams batchWriteParams,
-    final ApiCallback<BatchResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling batch(Async)"
-      );
+    if (xAlgoliaUserID != null) {
+      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
     }
 
-    // verify the required parameter 'batchWriteParams' is set
-    if (batchWriteParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'batchWriteParams' when calling batch(Async)"
-      );
-    }
-
-    return batchCall(indexName, batchWriteParams, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -579,14 +340,7 @@ public class SearchClient extends ApiClient {
     String indexName,
     BatchWriteParams batchWriteParams
   ) throws AlgoliaRuntimeException {
-    Call req = batchValidateBeforeCall(indexName, batchWriteParams, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.Batch(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<BatchResponse>() {}.getType();
-    ApiResponse<BatchResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(batchAsync(indexName, batchWriteParams));
   }
 
   /**
@@ -594,81 +348,42 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param batchWriteParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call batchAsync(
+  public CompletableFuture<BatchResponse> batchAsync(
     String indexName,
-    BatchWriteParams batchWriteParams,
-    final ApiCallback<BatchResponse> callback
+    BatchWriteParams batchWriteParams
   ) throws AlgoliaRuntimeException {
-    Call call = batchValidateBeforeCall(indexName, batchWriteParams, callback);
-    Type returnType = new TypeToken<BatchResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling batch(Async)"
+      );
+    }
 
-  /**
-   * Build call for batchAssignUserIds
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call batchAssignUserIdsCall(
-    String xAlgoliaUserID,
-    BatchAssignUserIdsParams batchAssignUserIdsParams,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = batchAssignUserIdsParams;
+    if (batchWriteParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'batchWriteParams' when calling batch(Async)"
+      );
+    }
+
+    Object bodyObj = batchWriteParams;
 
     // create path and map variables
-    String requestPath = "/1/clusters/mapping/batch";
+    String requestPath =
+      "/1/indexes/{indexName}/batch".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (xAlgoliaUserID != null) {
-      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
-    }
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call batchAssignUserIdsValidateBeforeCall(
-    String xAlgoliaUserID,
-    BatchAssignUserIdsParams batchAssignUserIdsParams,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'xAlgoliaUserID' is set
-    if (xAlgoliaUserID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'xAlgoliaUserID' when calling batchAssignUserIds(Async)"
-      );
-    }
-
-    // verify the required parameter 'batchAssignUserIdsParams' is set
-    if (batchAssignUserIdsParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'batchAssignUserIdsParams' when calling" +
-        " batchAssignUserIds(Async)"
-      );
-    }
-
-    return batchAssignUserIdsCall(
-      xAlgoliaUserID,
-      batchAssignUserIdsParams,
-      callback
-    );
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<BatchResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -686,20 +401,9 @@ public class SearchClient extends ApiClient {
     String xAlgoliaUserID,
     BatchAssignUserIdsParams batchAssignUserIdsParams
   ) throws AlgoliaRuntimeException {
-    Call req = batchAssignUserIdsValidateBeforeCall(
-      xAlgoliaUserID,
-      batchAssignUserIdsParams,
-      null
+    return LaunderThrowable.await(
+      batchAssignUserIdsAsync(xAlgoliaUserID, batchAssignUserIdsParams)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.BatchAssignUserIds(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    ApiResponse<CreatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
@@ -709,86 +413,43 @@ public class SearchClient extends ApiClient {
    *
    * @param xAlgoliaUserID userID to assign. (required)
    * @param batchAssignUserIdsParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call batchAssignUserIdsAsync(
+  public CompletableFuture<CreatedAtResponse> batchAssignUserIdsAsync(
     String xAlgoliaUserID,
-    BatchAssignUserIdsParams batchAssignUserIdsParams,
-    final ApiCallback<CreatedAtResponse> callback
+    BatchAssignUserIdsParams batchAssignUserIdsParams
   ) throws AlgoliaRuntimeException {
-    Call call = batchAssignUserIdsValidateBeforeCall(
-      xAlgoliaUserID,
-      batchAssignUserIdsParams,
-      callback
-    );
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (xAlgoliaUserID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'xAlgoliaUserID' when calling batchAssignUserIds(Async)"
+      );
+    }
 
-  /**
-   * Build call for batchDictionaryEntries
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call batchDictionaryEntriesCall(
-    DictionaryType dictionaryName,
-    BatchDictionaryEntriesParams batchDictionaryEntriesParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = batchDictionaryEntriesParams;
+    if (batchAssignUserIdsParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'batchAssignUserIdsParams' when calling" +
+        " batchAssignUserIds(Async)"
+      );
+    }
+
+    Object bodyObj = batchAssignUserIdsParams;
 
     // create path and map variables
-    String requestPath =
-      "/1/dictionaries/{dictionaryName}/batch".replaceAll(
-          "\\{dictionaryName\\}",
-          this.escapeString(dictionaryName.toString())
-        );
+    String requestPath = "/1/clusters/mapping/batch";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call batchDictionaryEntriesValidateBeforeCall(
-    DictionaryType dictionaryName,
-    BatchDictionaryEntriesParams batchDictionaryEntriesParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'dictionaryName' is set
-    if (dictionaryName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'dictionaryName' when calling" +
-        " batchDictionaryEntries(Async)"
-      );
+    if (xAlgoliaUserID != null) {
+      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
     }
 
-    // verify the required parameter 'batchDictionaryEntriesParams' is set
-    if (batchDictionaryEntriesParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'batchDictionaryEntriesParams' when calling" +
-        " batchDictionaryEntries(Async)"
-      );
-    }
-
-    return batchDictionaryEntriesCall(
-      dictionaryName,
-      batchDictionaryEntriesParams,
-      callback
-    );
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -804,20 +465,9 @@ public class SearchClient extends ApiClient {
     DictionaryType dictionaryName,
     BatchDictionaryEntriesParams batchDictionaryEntriesParams
   ) throws AlgoliaRuntimeException {
-    Call req = batchDictionaryEntriesValidateBeforeCall(
-      dictionaryName,
-      batchDictionaryEntriesParams,
-      null
+    return LaunderThrowable.await(
+      batchDictionaryEntriesAsync(dictionaryName, batchDictionaryEntriesParams)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.BatchDictionaryEntries(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
@@ -825,40 +475,106 @@ public class SearchClient extends ApiClient {
    *
    * @param dictionaryName The dictionary to search in. (required)
    * @param batchDictionaryEntriesParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call batchDictionaryEntriesAsync(
+  public CompletableFuture<UpdatedAtResponse> batchDictionaryEntriesAsync(
     DictionaryType dictionaryName,
-    BatchDictionaryEntriesParams batchDictionaryEntriesParams,
-    final ApiCallback<UpdatedAtResponse> callback
+    BatchDictionaryEntriesParams batchDictionaryEntriesParams
   ) throws AlgoliaRuntimeException {
-    Call call = batchDictionaryEntriesValidateBeforeCall(
-      dictionaryName,
-      batchDictionaryEntriesParams,
-      callback
-    );
+    if (dictionaryName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'dictionaryName' when calling" +
+        " batchDictionaryEntries(Async)"
+      );
+    }
+
+    if (batchDictionaryEntriesParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'batchDictionaryEntriesParams' when calling" +
+        " batchDictionaryEntries(Async)"
+      );
+    }
+
+    Object bodyObj = batchDictionaryEntriesParams;
+
+    // create path and map variables
+    String requestPath =
+      "/1/dictionaries/{dictionaryName}/batch".replaceAll(
+          "\\{dictionaryName\\}",
+          this.escapeString(dictionaryName.toString())
+        );
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for batchRules
+   * Create or update a batch of Rules.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param indexName The index in which to perform the request. (required)
+   * @param rule (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
+   *     false, existing Rules are kept. (optional)
+   * @return UpdatedAtResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call batchRulesCall(
+  public UpdatedAtResponse batchRules(
     String indexName,
     List<Rule> rule,
     Boolean forwardToReplicas,
-    Boolean clearExistingRules,
-    final ApiCallback<UpdatedAtResponse> callback
+    Boolean clearExistingRules
   ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      batchRulesAsync(indexName, rule, forwardToReplicas, clearExistingRules)
+    );
+  }
+
+  public UpdatedAtResponse batchRules(String indexName, List<Rule> rule)
+    throws AlgoliaRuntimeException {
+    return this.batchRules(indexName, rule, null, null);
+  }
+
+  /**
+   * (asynchronously) Create or update a batch of Rules.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param rule (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
+   *     false, existing Rules are kept. (optional)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<UpdatedAtResponse> batchRulesAsync(
+    String indexName,
+    List<Rule> rule,
+    Boolean forwardToReplicas,
+    Boolean clearExistingRules
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling batchRules(Async)"
+      );
+    }
+
+    if (rule == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'rule' when calling batchRules(Async)"
+      );
+    }
+
     Object bodyObj = rule;
 
     // create path and map variables
@@ -885,166 +601,10 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call batchRulesValidateBeforeCall(
-    String indexName,
-    List<Rule> rule,
-    Boolean forwardToReplicas,
-    Boolean clearExistingRules,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling batchRules(Async)"
-      );
-    }
-
-    // verify the required parameter 'rule' is set
-    if (rule == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'rule' when calling batchRules(Async)"
-      );
-    }
-
-    return batchRulesCall(
-      indexName,
-      rule,
-      forwardToReplicas,
-      clearExistingRules,
-      callback
-    );
-  }
-
-  /**
-   * Create or update a batch of Rules.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
-   *     false, existing Rules are kept. (optional)
-   * @return UpdatedAtResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public UpdatedAtResponse batchRules(
-    String indexName,
-    List<Rule> rule,
-    Boolean forwardToReplicas,
-    Boolean clearExistingRules
-  ) throws AlgoliaRuntimeException {
-    Call req = batchRulesValidateBeforeCall(
-      indexName,
-      rule,
-      forwardToReplicas,
-      clearExistingRules,
-      null
-    );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.BatchRules(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public UpdatedAtResponse batchRules(String indexName, List<Rule> rule)
-    throws AlgoliaRuntimeException {
-    return this.batchRules(indexName, rule, null, null);
-  }
-
-  /**
-   * (asynchronously) Create or update a batch of Rules.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
-   *     false, existing Rules are kept. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call batchRulesAsync(
-    String indexName,
-    List<Rule> rule,
-    Boolean forwardToReplicas,
-    Boolean clearExistingRules,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = batchRulesValidateBeforeCall(
-      indexName,
-      rule,
-      forwardToReplicas,
-      clearExistingRules,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for browse
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call browseCall(
-    String indexName,
-    BrowseRequest browseRequest,
-    final ApiCallback<BrowseResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = browseRequest;
-
-    // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/browse".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        );
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call browseValidateBeforeCall(
-    String indexName,
-    BrowseRequest browseRequest,
-    final ApiCallback<BrowseResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling browse(Async)"
-      );
-    }
-
-    return browseCall(indexName, browseRequest, callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -1063,14 +623,7 @@ public class SearchClient extends ApiClient {
    */
   public BrowseResponse browse(String indexName, BrowseRequest browseRequest)
     throws AlgoliaRuntimeException {
-    Call req = browseValidateBeforeCall(indexName, browseRequest, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.Browse(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<BrowseResponse>() {}.getType();
-    ApiResponse<BrowseResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(browseAsync(indexName, browseRequest));
   }
 
   public BrowseResponse browse(String indexName)
@@ -1089,34 +642,82 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param browseRequest (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call browseAsync(
+  public CompletableFuture<BrowseResponse> browseAsync(
     String indexName,
-    BrowseRequest browseRequest,
-    final ApiCallback<BrowseResponse> callback
+    BrowseRequest browseRequest
   ) throws AlgoliaRuntimeException {
-    Call call = browseValidateBeforeCall(indexName, browseRequest, callback);
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling browse(Async)"
+      );
+    }
+
+    Object bodyObj = browseRequest;
+
+    // create path and map variables
+    String requestPath =
+      "/1/indexes/{indexName}/browse".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        );
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<BrowseResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for clearAllSynonyms
+   * Remove all synonyms from an index.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param indexName The index in which to perform the request. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return UpdatedAtResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call clearAllSynonymsCall(
+  public UpdatedAtResponse clearAllSynonyms(
     String indexName,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
+    Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      clearAllSynonymsAsync(indexName, forwardToReplicas)
+    );
+  }
+
+  public UpdatedAtResponse clearAllSynonyms(String indexName)
+    throws AlgoliaRuntimeException {
+    return this.clearAllSynonyms(indexName, null);
+  }
+
+  /**
+   * (asynchronously) Remove all synonyms from an index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<UpdatedAtResponse> clearAllSynonymsAsync(
+    String indexName,
+    Boolean forwardToReplicas
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling clearAllSynonyms(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -1136,137 +737,10 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call clearAllSynonymsValidateBeforeCall(
-    String indexName,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling clearAllSynonyms(Async)"
-      );
-    }
-
-    return clearAllSynonymsCall(indexName, forwardToReplicas, callback);
-  }
-
-  /**
-   * Remove all synonyms from an index.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @return UpdatedAtResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public UpdatedAtResponse clearAllSynonyms(
-    String indexName,
-    Boolean forwardToReplicas
-  ) throws AlgoliaRuntimeException {
-    Call req = clearAllSynonymsValidateBeforeCall(
-      indexName,
-      forwardToReplicas,
-      null
-    );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ClearAllSynonyms(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public UpdatedAtResponse clearAllSynonyms(String indexName)
-    throws AlgoliaRuntimeException {
-    return this.clearAllSynonyms(indexName, null);
-  }
-
-  /**
-   * (asynchronously) Remove all synonyms from an index.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call clearAllSynonymsAsync(
-    String indexName,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = clearAllSynonymsValidateBeforeCall(
-      indexName,
-      forwardToReplicas,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for clearObjects
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call clearObjectsCall(
-    String indexName,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
-
-    // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/clear".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        );
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call clearObjectsValidateBeforeCall(
-    String indexName,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling clearObjects(Async)"
-      );
-    }
-
-    return clearObjectsCall(indexName, callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -1279,14 +753,7 @@ public class SearchClient extends ApiClient {
    */
   public UpdatedAtResponse clearObjects(String indexName)
     throws AlgoliaRuntimeException {
-    Call req = clearObjectsValidateBeforeCall(indexName, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ClearObjects(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(clearObjectsAsync(indexName));
   }
 
   /**
@@ -1294,33 +761,81 @@ public class SearchClient extends ApiClient {
    * untouched.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call clearObjectsAsync(
-    String indexName,
-    final ApiCallback<UpdatedAtResponse> callback
+  public CompletableFuture<UpdatedAtResponse> clearObjectsAsync(
+    String indexName
   ) throws AlgoliaRuntimeException {
-    Call call = clearObjectsValidateBeforeCall(indexName, callback);
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling clearObjects(Async)"
+      );
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath =
+      "/1/indexes/{indexName}/clear".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        );
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for clearRules
+   * Delete all Rules in the index.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param indexName The index in which to perform the request. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return UpdatedAtResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call clearRulesCall(
+  public UpdatedAtResponse clearRules(
     String indexName,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
+    Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      clearRulesAsync(indexName, forwardToReplicas)
+    );
+  }
+
+  public UpdatedAtResponse clearRules(String indexName)
+    throws AlgoliaRuntimeException {
+    return this.clearRules(indexName, null);
+  }
+
+  /**
+   * (asynchronously) Delete all Rules in the index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<UpdatedAtResponse> clearRulesAsync(
+    String indexName,
+    Boolean forwardToReplicas
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling clearRules(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -1340,98 +855,51 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call clearRulesValidateBeforeCall(
-    String indexName,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling clearRules(Async)"
-      );
-    }
-
-    return clearRulesCall(indexName, forwardToReplicas, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Delete all Rules in the index.
+   * This method allow you to send requests to the Algolia REST API.
    *
-   * @param indexName The index in which to perform the request. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @return UpdatedAtResponse
+   * @param path The path of the API endpoint to target, anything after the /1 needs to be
+   *     specified. (required)
+   * @param parameters Query parameters to be applied to the current query. (optional)
+   * @return Object
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public UpdatedAtResponse clearRules(
-    String indexName,
-    Boolean forwardToReplicas
-  ) throws AlgoliaRuntimeException {
-    Call req = clearRulesValidateBeforeCall(indexName, forwardToReplicas, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ClearRules(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+  public Object del(String path, Map<String, Object> parameters)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(delAsync(path, parameters));
   }
 
-  public UpdatedAtResponse clearRules(String indexName)
-    throws AlgoliaRuntimeException {
-    return this.clearRules(indexName, null);
+  public Object del(String path) throws AlgoliaRuntimeException {
+    return this.del(path, null);
   }
 
   /**
-   * (asynchronously) Delete all Rules in the index.
+   * (asynchronously) This method allow you to send requests to the Algolia REST API.
    *
-   * @param indexName The index in which to perform the request. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @param path The path of the API endpoint to target, anything after the /1 needs to be
+   *     specified. (required)
+   * @param parameters Query parameters to be applied to the current query. (optional)
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call clearRulesAsync(
-    String indexName,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = clearRulesValidateBeforeCall(
-      indexName,
-      forwardToReplicas,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for del
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call delCall(
+  public CompletableFuture<Object> delAsync(
     String path,
-    Map<String, Object> parameters,
-    final ApiCallback<Object> callback
+    Map<String, Object> parameters
   ) throws AlgoliaRuntimeException {
+    if (path == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'path' when calling del(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -1449,124 +917,10 @@ public class SearchClient extends ApiClient {
       }
     }
 
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call delValidateBeforeCall(
-    String path,
-    Map<String, Object> parameters,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling del(Async)"
-      );
-    }
-
-    return delCall(path, parameters, callback);
-  }
-
-  /**
-   * This method allow you to send requests to the Algolia REST API.
-   *
-   * @param path The path of the API endpoint to target, anything after the /1 needs to be
-   *     specified. (required)
-   * @param parameters Query parameters to be applied to the current query. (optional)
-   * @return Object
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public Object del(String path, Map<String, Object> parameters)
-    throws AlgoliaRuntimeException {
-    Call req = delValidateBeforeCall(path, parameters, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.Del(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<Object>() {}.getType();
-    ApiResponse<Object> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public Object del(String path) throws AlgoliaRuntimeException {
-    return this.del(path, null);
-  }
-
-  /**
-   * (asynchronously) This method allow you to send requests to the Algolia REST API.
-   *
-   * @param path The path of the API endpoint to target, anything after the /1 needs to be
-   *     specified. (required)
-   * @param parameters Query parameters to be applied to the current query. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call delAsync(
-    String path,
-    Map<String, Object> parameters,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = delValidateBeforeCall(path, parameters, callback);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for deleteApiKey
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call deleteApiKeyCall(
-    String key,
-    final ApiCallback<DeleteApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
-
-    // create path and map variables
-    String requestPath =
-      "/1/keys/{key}".replaceAll(
-          "\\{key\\}",
-          this.escapeString(key.toString())
-        );
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call deleteApiKeyValidateBeforeCall(
-    String key,
-    final ApiCallback<DeleteApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'key' is set
-    if (key == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'key' when calling deleteApiKey(Async)"
-      );
-    }
-
-    return deleteApiKeyCall(key, callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -1579,89 +933,41 @@ public class SearchClient extends ApiClient {
    */
   public DeleteApiKeyResponse deleteApiKey(String key)
     throws AlgoliaRuntimeException {
-    Call req = deleteApiKeyValidateBeforeCall(key, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.DeleteApiKey(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<DeleteApiKeyResponse>() {}.getType();
-    ApiResponse<DeleteApiKeyResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(deleteApiKeyAsync(key));
   }
 
   /**
    * (asynchronously) Delete an existing API Key.
    *
    * @param key API Key string. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call deleteApiKeyAsync(
-    String key,
-    final ApiCallback<DeleteApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = deleteApiKeyValidateBeforeCall(key, callback);
-    Type returnType = new TypeToken<DeleteApiKeyResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+  public CompletableFuture<DeleteApiKeyResponse> deleteApiKeyAsync(String key)
+    throws AlgoliaRuntimeException {
+    if (key == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'key' when calling deleteApiKey(Async)"
+      );
+    }
 
-  /**
-   * Build call for deleteBy
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call deleteByCall(
-    String indexName,
-    SearchParams searchParams,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = searchParams;
+    Object bodyObj = null;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/deleteByQuery".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
+      "/1/keys/{key}".replaceAll(
+          "\\{key\\}",
+          this.escapeString(key.toString())
         );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call deleteByValidateBeforeCall(
-    String indexName,
-    SearchParams searchParams,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling deleteBy(Async)"
-      );
-    }
-
-    // verify the required parameter 'searchParams' is set
-    if (searchParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'searchParams' when calling deleteBy(Async)"
-      );
-    }
-
-    return deleteByCall(indexName, searchParams, callback);
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<DeleteApiKeyResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -1679,14 +985,7 @@ public class SearchClient extends ApiClient {
     String indexName,
     SearchParams searchParams
   ) throws AlgoliaRuntimeException {
-    Call req = deleteByValidateBeforeCall(indexName, searchParams, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.DeleteBy(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    ApiResponse<DeletedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(deleteByAsync(indexName, searchParams));
   }
 
   /**
@@ -1696,38 +995,31 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call deleteByAsync(
+  public CompletableFuture<DeletedAtResponse> deleteByAsync(
     String indexName,
-    SearchParams searchParams,
-    final ApiCallback<DeletedAtResponse> callback
+    SearchParams searchParams
   ) throws AlgoliaRuntimeException {
-    Call call = deleteByValidateBeforeCall(indexName, searchParams, callback);
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling deleteBy(Async)"
+      );
+    }
 
-  /**
-   * Build call for deleteIndex
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call deleteIndexCall(
-    String indexName,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
+    if (searchParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'searchParams' when calling deleteBy(Async)"
+      );
+    }
+
+    Object bodyObj = searchParams;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}".replaceAll(
+      "/1/indexes/{indexName}/deleteByQuery".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
         );
@@ -1735,28 +1027,10 @@ public class SearchClient extends ApiClient {
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call deleteIndexValidateBeforeCall(
-    String indexName,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling deleteIndex(Async)"
-      );
-    }
-
-    return deleteIndexCall(indexName, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -1769,90 +1043,42 @@ public class SearchClient extends ApiClient {
    */
   public DeletedAtResponse deleteIndex(String indexName)
     throws AlgoliaRuntimeException {
-    Call req = deleteIndexValidateBeforeCall(indexName, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.DeleteIndex(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    ApiResponse<DeletedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(deleteIndexAsync(indexName));
   }
 
   /**
    * (asynchronously) Delete an existing index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call deleteIndexAsync(
-    String indexName,
-    final ApiCallback<DeletedAtResponse> callback
+  public CompletableFuture<DeletedAtResponse> deleteIndexAsync(
+    String indexName
   ) throws AlgoliaRuntimeException {
-    Call call = deleteIndexValidateBeforeCall(indexName, callback);
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling deleteIndex(Async)"
+      );
+    }
 
-  /**
-   * Build call for deleteObject
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call deleteObjectCall(
-    String indexName,
-    String objectID,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/{objectID}".replaceAll(
+      "/1/indexes/{indexName}".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
-        )
-        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call deleteObjectValidateBeforeCall(
-    String indexName,
-    String objectID,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling deleteObject(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling deleteObject(Async)"
-      );
-    }
-
-    return deleteObjectCall(indexName, objectID, callback);
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -1866,14 +1092,7 @@ public class SearchClient extends ApiClient {
    */
   public DeletedAtResponse deleteObject(String indexName, String objectID)
     throws AlgoliaRuntimeException {
-    Call req = deleteObjectValidateBeforeCall(indexName, objectID, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.DeleteObject(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    ApiResponse<DeletedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(deleteObjectAsync(indexName, objectID));
   }
 
   /**
@@ -1881,35 +1100,99 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call deleteObjectAsync(
+  public CompletableFuture<DeletedAtResponse> deleteObjectAsync(
     String indexName,
-    String objectID,
-    final ApiCallback<DeletedAtResponse> callback
+    String objectID
   ) throws AlgoliaRuntimeException {
-    Call call = deleteObjectValidateBeforeCall(indexName, objectID, callback);
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling deleteObject(Async)"
+      );
+    }
+
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling deleteObject(Async)"
+      );
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath =
+      "/1/indexes/{indexName}/{objectID}".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        )
+        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for deleteRule
+   * Delete the Rule with the specified objectID.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param indexName The index in which to perform the request. (required)
+   * @param objectID Unique identifier of an object. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return UpdatedAtResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call deleteRuleCall(
+  public UpdatedAtResponse deleteRule(
     String indexName,
     String objectID,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
+    Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      deleteRuleAsync(indexName, objectID, forwardToReplicas)
+    );
+  }
+
+  public UpdatedAtResponse deleteRule(String indexName, String objectID)
+    throws AlgoliaRuntimeException {
+    return this.deleteRule(indexName, objectID, null);
+  }
+
+  /**
+   * (asynchronously) Delete the Rule with the specified objectID.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param objectID Unique identifier of an object. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<UpdatedAtResponse> deleteRuleAsync(
+    String indexName,
+    String objectID,
+    Boolean forwardToReplicas
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling deleteRule(Async)"
+      );
+    }
+
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling deleteRule(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -1930,149 +1213,10 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call deleteRuleValidateBeforeCall(
-    String indexName,
-    String objectID,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling deleteRule(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling deleteRule(Async)"
-      );
-    }
-
-    return deleteRuleCall(indexName, objectID, forwardToReplicas, callback);
-  }
-
-  /**
-   * Delete the Rule with the specified objectID.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param objectID Unique identifier of an object. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @return UpdatedAtResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public UpdatedAtResponse deleteRule(
-    String indexName,
-    String objectID,
-    Boolean forwardToReplicas
-  ) throws AlgoliaRuntimeException {
-    Call req = deleteRuleValidateBeforeCall(
-      indexName,
-      objectID,
-      forwardToReplicas,
-      null
-    );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.DeleteRule(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public UpdatedAtResponse deleteRule(String indexName, String objectID)
-    throws AlgoliaRuntimeException {
-    return this.deleteRule(indexName, objectID, null);
-  }
-
-  /**
-   * (asynchronously) Delete the Rule with the specified objectID.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param objectID Unique identifier of an object. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call deleteRuleAsync(
-    String indexName,
-    String objectID,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = deleteRuleValidateBeforeCall(
-      indexName,
-      objectID,
-      forwardToReplicas,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for deleteSource
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call deleteSourceCall(
-    String source,
-    final ApiCallback<DeleteSourceResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
-
-    // create path and map variables
-    String requestPath =
-      "/1/security/sources/{source}".replaceAll(
-          "\\{source\\}",
-          this.escapeString(source.toString())
-        );
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call deleteSourceValidateBeforeCall(
-    String source,
-    final ApiCallback<DeleteSourceResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'source' is set
-    if (source == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'source' when calling deleteSource(Async)"
-      );
-    }
-
-    return deleteSourceCall(source, callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -2085,48 +1229,98 @@ public class SearchClient extends ApiClient {
    */
   public DeleteSourceResponse deleteSource(String source)
     throws AlgoliaRuntimeException {
-    Call req = deleteSourceValidateBeforeCall(source, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.DeleteSource(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<DeleteSourceResponse>() {}.getType();
-    ApiResponse<DeleteSourceResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(deleteSourceAsync(source));
   }
 
   /**
    * (asynchronously) Remove a single source from the list of allowed sources.
    *
    * @param source The IP range of the source. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call deleteSourceAsync(
-    String source,
-    final ApiCallback<DeleteSourceResponse> callback
+  public CompletableFuture<DeleteSourceResponse> deleteSourceAsync(
+    String source
   ) throws AlgoliaRuntimeException {
-    Call call = deleteSourceValidateBeforeCall(source, callback);
+    if (source == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'source' when calling deleteSource(Async)"
+      );
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath =
+      "/1/security/sources/{source}".replaceAll(
+          "\\{source\\}",
+          this.escapeString(source.toString())
+        );
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<DeleteSourceResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for deleteSynonym
+   * Delete a single synonyms set, identified by the given objectID.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param indexName The index in which to perform the request. (required)
+   * @param objectID Unique identifier of an object. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return DeletedAtResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call deleteSynonymCall(
+  public DeletedAtResponse deleteSynonym(
     String indexName,
     String objectID,
-    Boolean forwardToReplicas,
-    final ApiCallback<DeletedAtResponse> callback
+    Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      deleteSynonymAsync(indexName, objectID, forwardToReplicas)
+    );
+  }
+
+  public DeletedAtResponse deleteSynonym(String indexName, String objectID)
+    throws AlgoliaRuntimeException {
+    return this.deleteSynonym(indexName, objectID, null);
+  }
+
+  /**
+   * (asynchronously) Delete a single synonyms set, identified by the given objectID.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param objectID Unique identifier of an object. (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<DeletedAtResponse> deleteSynonymAsync(
+    String indexName,
+    String objectID,
+    Boolean forwardToReplicas
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling deleteSynonym(Async)"
+      );
+    }
+
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling deleteSynonym(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -2147,116 +1341,51 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call deleteSynonymValidateBeforeCall(
-    String indexName,
-    String objectID,
-    Boolean forwardToReplicas,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling deleteSynonym(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling deleteSynonym(Async)"
-      );
-    }
-
-    return deleteSynonymCall(indexName, objectID, forwardToReplicas, callback);
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Delete a single synonyms set, identified by the given objectID.
+   * This method allow you to send requests to the Algolia REST API.
    *
-   * @param indexName The index in which to perform the request. (required)
-   * @param objectID Unique identifier of an object. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @return DeletedAtResponse
+   * @param path The path of the API endpoint to target, anything after the /1 needs to be
+   *     specified. (required)
+   * @param parameters Query parameters to be applied to the current query. (optional)
+   * @return Object
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public DeletedAtResponse deleteSynonym(
-    String indexName,
-    String objectID,
-    Boolean forwardToReplicas
-  ) throws AlgoliaRuntimeException {
-    Call req = deleteSynonymValidateBeforeCall(
-      indexName,
-      objectID,
-      forwardToReplicas,
-      null
-    );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.DeleteSynonym(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    ApiResponse<DeletedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+  public Object get(String path, Map<String, Object> parameters)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getAsync(path, parameters));
   }
 
-  public DeletedAtResponse deleteSynonym(String indexName, String objectID)
-    throws AlgoliaRuntimeException {
-    return this.deleteSynonym(indexName, objectID, null);
+  public Object get(String path) throws AlgoliaRuntimeException {
+    return this.get(path, null);
   }
 
   /**
-   * (asynchronously) Delete a single synonyms set, identified by the given objectID.
+   * (asynchronously) This method allow you to send requests to the Algolia REST API.
    *
-   * @param indexName The index in which to perform the request. (required)
-   * @param objectID Unique identifier of an object. (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @param path The path of the API endpoint to target, anything after the /1 needs to be
+   *     specified. (required)
+   * @param parameters Query parameters to be applied to the current query. (optional)
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call deleteSynonymAsync(
-    String indexName,
-    String objectID,
-    Boolean forwardToReplicas,
-    final ApiCallback<DeletedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = deleteSynonymValidateBeforeCall(
-      indexName,
-      objectID,
-      forwardToReplicas,
-      callback
-    );
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for get
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getCall(
+  public CompletableFuture<Object> getAsync(
     String path,
-    Map<String, Object> parameters,
-    final ApiCallback<Object> callback
+    Map<String, Object> parameters
   ) throws AlgoliaRuntimeException {
+    if (path == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'path' when calling get(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -2274,88 +1403,40 @@ public class SearchClient extends ApiClient {
       }
     }
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getValidateBeforeCall(
-    String path,
-    Map<String, Object> parameters,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling get(Async)"
-      );
-    }
-
-    return getCall(path, parameters, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<Object>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * This method allow you to send requests to the Algolia REST API.
+   * Get the permissions of an API key.
    *
-   * @param path The path of the API endpoint to target, anything after the /1 needs to be
-   *     specified. (required)
-   * @param parameters Query parameters to be applied to the current query. (optional)
-   * @return Object
+   * @param key API Key string. (required)
+   * @return Key
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object get(String path, Map<String, Object> parameters)
-    throws AlgoliaRuntimeException {
-    Call req = getValidateBeforeCall(path, parameters, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.Get(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<Object>() {}.getType();
-    ApiResponse<Object> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public Object get(String path) throws AlgoliaRuntimeException {
-    return this.get(path, null);
+  public Key getApiKey(String key) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getApiKeyAsync(key));
   }
 
   /**
-   * (asynchronously) This method allow you to send requests to the Algolia REST API.
+   * (asynchronously) Get the permissions of an API key.
    *
-   * @param path The path of the API endpoint to target, anything after the /1 needs to be
-   *     specified. (required)
-   * @param parameters Query parameters to be applied to the current query. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @param key API Key string. (required)
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getAsync(
-    String path,
-    Map<String, Object> parameters,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = getValidateBeforeCall(path, parameters, callback);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getApiKey
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getApiKeyCall(String key, final ApiCallback<Key> callback)
+  public CompletableFuture<Key> getApiKeyAsync(String key)
     throws AlgoliaRuntimeException {
+    if (key == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'key' when calling getApiKey(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -2368,98 +1449,10 @@ public class SearchClient extends ApiClient {
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getApiKeyValidateBeforeCall(
-    String key,
-    final ApiCallback<Key> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'key' is set
-    if (key == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'key' when calling getApiKey(Async)"
-      );
-    }
-
-    return getApiKeyCall(key, callback);
-  }
-
-  /**
-   * Get the permissions of an API key.
-   *
-   * @param key API Key string. (required)
-   * @return Key
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public Key getApiKey(String key) throws AlgoliaRuntimeException {
-    Call req = getApiKeyValidateBeforeCall(key, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetApiKey(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<Key>() {}.getType();
-    ApiResponse<Key> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  /**
-   * (asynchronously) Get the permissions of an API key.
-   *
-   * @param key API Key string. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call getApiKeyAsync(String key, final ApiCallback<Key> callback)
-    throws AlgoliaRuntimeException {
-    Call call = getApiKeyValidateBeforeCall(key, callback);
-    Type returnType = new TypeToken<Key>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getDictionaryLanguages
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getDictionaryLanguagesCall(
-    final ApiCallback<Map<String, Languages>> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
-
-    // create path and map variables
-    String requestPath = "/1/dictionaries/*/languages";
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getDictionaryLanguagesValidateBeforeCall(
-    final ApiCallback<Map<String, Languages>> callback
-  ) throws AlgoliaRuntimeException {
-    return getDictionaryLanguagesCall(callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -2471,67 +1464,30 @@ public class SearchClient extends ApiClient {
    */
   public Map<String, Languages> getDictionaryLanguages()
     throws AlgoliaRuntimeException {
-    Call req = getDictionaryLanguagesValidateBeforeCall(null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetDictionaryLanguages(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<Map<String, Languages>>() {}.getType();
-    ApiResponse<Map<String, Languages>> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getDictionaryLanguagesAsync());
   }
 
   /**
    * (asynchronously) List dictionaries supported per language.
    *
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getDictionaryLanguagesAsync(
-    final ApiCallback<Map<String, Languages>> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = getDictionaryLanguagesValidateBeforeCall(callback);
-    Type returnType = new TypeToken<Map<String, Languages>>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getDictionarySettings
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getDictionarySettingsCall(
-    final ApiCallback<GetDictionarySettingsResponse> callback
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Map<String, Languages>> getDictionaryLanguagesAsync()
+    throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/dictionaries/*/settings";
+    String requestPath = "/1/dictionaries/*/languages";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getDictionarySettingsValidateBeforeCall(
-    final ApiCallback<GetDictionarySettingsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return getDictionarySettingsCall(callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<Map<String, Languages>>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -2544,52 +1500,84 @@ public class SearchClient extends ApiClient {
    */
   public GetDictionarySettingsResponse getDictionarySettings()
     throws AlgoliaRuntimeException {
-    Call req = getDictionarySettingsValidateBeforeCall(null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetDictionarySettings(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<GetDictionarySettingsResponse>() {}
-      .getType();
-    ApiResponse<GetDictionarySettingsResponse> res =
-      this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getDictionarySettingsAsync());
   }
 
   /**
    * (asynchronously) Retrieve dictionaries settings. The API stores languages whose standard
    * entries are disabled. Fetch settings does not return false values.
    *
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getDictionarySettingsAsync(
-    final ApiCallback<GetDictionarySettingsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = getDictionarySettingsValidateBeforeCall(callback);
+  public CompletableFuture<GetDictionarySettingsResponse> getDictionarySettingsAsync()
+    throws AlgoliaRuntimeException {
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/dictionaries/*/settings";
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<GetDictionarySettingsResponse>() {}
       .getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for getLogs
+   * Return the latest log entries.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param offset First entry to retrieve (zero-based). Log entries are sorted by decreasing date,
+   *     therefore 0 designates the most recent log entry. (optional, default to 0)
+   * @param length Maximum number of entries to retrieve. The maximum allowed value is 1000.
+   *     (optional, default to 10)
+   * @param indexName Index for which log entries should be retrieved. When omitted, log entries are
+   *     retrieved across all indices. (optional)
+   * @param type Type of log entries to retrieve. When omitted, all log entries are retrieved.
+   *     (optional, default to all)
+   * @return GetLogsResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call getLogsCall(
+  public GetLogsResponse getLogs(
     Integer offset,
     Integer length,
     String indexName,
-    LogType type,
-    final ApiCallback<GetLogsResponse> callback
+    LogType type
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      getLogsAsync(offset, length, indexName, type)
+    );
+  }
+
+  public GetLogsResponse getLogs() throws AlgoliaRuntimeException {
+    return this.getLogs(null, null, null, null);
+  }
+
+  /**
+   * (asynchronously) Return the latest log entries.
+   *
+   * @param offset First entry to retrieve (zero-based). Log entries are sorted by decreasing date,
+   *     therefore 0 designates the most recent log entry. (optional, default to 0)
+   * @param length Maximum number of entries to retrieve. The maximum allowed value is 1000.
+   *     (optional, default to 10)
+   * @param indexName Index for which log entries should be retrieved. When omitted, log entries are
+   *     retrieved across all indices. (optional)
+   * @param type Type of log entries to retrieve. When omitted, all log entries are retrieved.
+   *     (optional, default to all)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<GetLogsResponse> getLogsAsync(
+    Integer offset,
+    Integer length,
+    String indexName,
+    LogType type
   ) throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
@@ -2615,109 +1603,66 @@ public class SearchClient extends ApiClient {
       queryParams.put("type", parameterToString(type));
     }
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getLogsValidateBeforeCall(
-    Integer offset,
-    Integer length,
-    String indexName,
-    LogType type,
-    final ApiCallback<GetLogsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return getLogsCall(offset, length, indexName, type, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<GetLogsResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Return the latest log entries.
+   * Retrieve one object from the index.
    *
-   * @param offset First entry to retrieve (zero-based). Log entries are sorted by decreasing date,
-   *     therefore 0 designates the most recent log entry. (optional, default to 0)
-   * @param length Maximum number of entries to retrieve. The maximum allowed value is 1000.
-   *     (optional, default to 10)
-   * @param indexName Index for which log entries should be retrieved. When omitted, log entries are
-   *     retrieved across all indices. (optional)
-   * @param type Type of log entries to retrieve. When omitted, all log entries are retrieved.
-   *     (optional, default to all)
-   * @return GetLogsResponse
+   * @param indexName The index in which to perform the request. (required)
+   * @param objectID Unique identifier of an object. (required)
+   * @param attributesToRetrieve List of attributes to retrieve. If not specified, all retrievable
+   *     attributes are returned. (optional)
+   * @return Map&lt;String, String&gt;
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public GetLogsResponse getLogs(
-    Integer offset,
-    Integer length,
+  public Map<String, String> getObject(
     String indexName,
-    LogType type
+    String objectID,
+    List<String> attributesToRetrieve
   ) throws AlgoliaRuntimeException {
-    Call req = getLogsValidateBeforeCall(offset, length, indexName, type, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetLogs(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<GetLogsResponse>() {}.getType();
-    ApiResponse<GetLogsResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(
+      getObjectAsync(indexName, objectID, attributesToRetrieve)
+    );
   }
 
-  public GetLogsResponse getLogs() throws AlgoliaRuntimeException {
-    return this.getLogs(null, null, null, null);
+  public Map<String, String> getObject(String indexName, String objectID)
+    throws AlgoliaRuntimeException {
+    return this.getObject(indexName, objectID, null);
   }
 
   /**
-   * (asynchronously) Return the latest log entries.
+   * (asynchronously) Retrieve one object from the index.
    *
-   * @param offset First entry to retrieve (zero-based). Log entries are sorted by decreasing date,
-   *     therefore 0 designates the most recent log entry. (optional, default to 0)
-   * @param length Maximum number of entries to retrieve. The maximum allowed value is 1000.
-   *     (optional, default to 10)
-   * @param indexName Index for which log entries should be retrieved. When omitted, log entries are
-   *     retrieved across all indices. (optional)
-   * @param type Type of log entries to retrieve. When omitted, all log entries are retrieved.
-   *     (optional, default to all)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @param indexName The index in which to perform the request. (required)
+   * @param objectID Unique identifier of an object. (required)
+   * @param attributesToRetrieve List of attributes to retrieve. If not specified, all retrievable
+   *     attributes are returned. (optional)
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getLogsAsync(
-    Integer offset,
-    Integer length,
-    String indexName,
-    LogType type,
-    final ApiCallback<GetLogsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = getLogsValidateBeforeCall(
-      offset,
-      length,
-      indexName,
-      type,
-      callback
-    );
-    Type returnType = new TypeToken<GetLogsResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getObject
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getObjectCall(
+  public CompletableFuture<Map<String, String>> getObjectAsync(
     String indexName,
     String objectID,
-    List<String> attributesToRetrieve,
-    final ApiCallback<Map<String, String>> callback
+    List<String> attributesToRetrieve
   ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling getObject(Async)"
+      );
+    }
+
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling getObject(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -2738,145 +1683,10 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getObjectValidateBeforeCall(
-    String indexName,
-    String objectID,
-    List<String> attributesToRetrieve,
-    final ApiCallback<Map<String, String>> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling getObject(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling getObject(Async)"
-      );
-    }
-
-    return getObjectCall(indexName, objectID, attributesToRetrieve, callback);
-  }
-
-  /**
-   * Retrieve one object from the index.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param objectID Unique identifier of an object. (required)
-   * @param attributesToRetrieve List of attributes to retrieve. If not specified, all retrievable
-   *     attributes are returned. (optional)
-   * @return Map&lt;String, String&gt;
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public Map<String, String> getObject(
-    String indexName,
-    String objectID,
-    List<String> attributesToRetrieve
-  ) throws AlgoliaRuntimeException {
-    Call req = getObjectValidateBeforeCall(
-      indexName,
-      objectID,
-      attributesToRetrieve,
-      null
-    );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetObject(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<Map<String, String>>() {}.getType();
-    ApiResponse<Map<String, String>> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public Map<String, String> getObject(String indexName, String objectID)
-    throws AlgoliaRuntimeException {
-    return this.getObject(indexName, objectID, null);
-  }
-
-  /**
-   * (asynchronously) Retrieve one object from the index.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param objectID Unique identifier of an object. (required)
-   * @param attributesToRetrieve List of attributes to retrieve. If not specified, all retrievable
-   *     attributes are returned. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call getObjectAsync(
-    String indexName,
-    String objectID,
-    List<String> attributesToRetrieve,
-    final ApiCallback<Map<String, String>> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = getObjectValidateBeforeCall(
-      indexName,
-      objectID,
-      attributesToRetrieve,
-      callback
-    );
-    Type returnType = new TypeToken<Map<String, String>>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getObjects
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getObjectsCall(
-    GetObjectsParams getObjectsParams,
-    final ApiCallback<GetObjectsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = getObjectsParams;
-
-    // create path and map variables
-    String requestPath = "/1/indexes/*/objects";
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getObjectsValidateBeforeCall(
-    GetObjectsParams getObjectsParams,
-    final ApiCallback<GetObjectsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'getObjectsParams' is set
-    if (getObjectsParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'getObjectsParams' when calling getObjects(Async)"
-      );
-    }
-
-    return getObjectsCall(getObjectsParams, callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -2889,14 +1699,7 @@ public class SearchClient extends ApiClient {
    */
   public GetObjectsResponse getObjects(GetObjectsParams getObjectsParams)
     throws AlgoliaRuntimeException {
-    Call req = getObjectsValidateBeforeCall(getObjectsParams, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetObjects(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<GetObjectsResponse>() {}.getType();
-    ApiResponse<GetObjectsResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getObjectsAsync(getObjectsParams));
   }
 
   /**
@@ -2904,76 +1707,31 @@ public class SearchClient extends ApiClient {
    * API call.
    *
    * @param getObjectsParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getObjectsAsync(
-    GetObjectsParams getObjectsParams,
-    final ApiCallback<GetObjectsResponse> callback
+  public CompletableFuture<GetObjectsResponse> getObjectsAsync(
+    GetObjectsParams getObjectsParams
   ) throws AlgoliaRuntimeException {
-    Call call = getObjectsValidateBeforeCall(getObjectsParams, callback);
-    Type returnType = new TypeToken<GetObjectsResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (getObjectsParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'getObjectsParams' when calling getObjects(Async)"
+      );
+    }
 
-  /**
-   * Build call for getRule
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getRuleCall(
-    String indexName,
-    String objectID,
-    final ApiCallback<Rule> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
+    Object bodyObj = getObjectsParams;
 
     // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/rules/{objectID}".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        )
-        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+    String requestPath = "/1/indexes/*/objects";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getRuleValidateBeforeCall(
-    String indexName,
-    String objectID,
-    final ApiCallback<Rule> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling getRule(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling getRule(Async)"
-      );
-    }
-
-    return getRuleCall(indexName, objectID, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<GetObjectsResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -2987,14 +1745,7 @@ public class SearchClient extends ApiClient {
    */
   public Rule getRule(String indexName, String objectID)
     throws AlgoliaRuntimeException {
-    Call req = getRuleValidateBeforeCall(indexName, objectID, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetRule(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<Rule>() {}.getType();
-    ApiResponse<Rule> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getRuleAsync(indexName, objectID));
   }
 
   /**
@@ -3002,67 +1753,43 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getRuleAsync(
+  public CompletableFuture<Rule> getRuleAsync(
     String indexName,
-    String objectID,
-    final ApiCallback<Rule> callback
+    String objectID
   ) throws AlgoliaRuntimeException {
-    Call call = getRuleValidateBeforeCall(indexName, objectID, callback);
-    Type returnType = new TypeToken<Rule>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling getRule(Async)"
+      );
+    }
 
-  /**
-   * Build call for getSettings
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getSettingsCall(
-    String indexName,
-    final ApiCallback<IndexSettings> callback
-  ) throws AlgoliaRuntimeException {
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling getRule(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/settings".replaceAll(
+      "/1/indexes/{indexName}/rules/{objectID}".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
-        );
+        )
+        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getSettingsValidateBeforeCall(
-    String indexName,
-    final ApiCallback<IndexSettings> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling getSettings(Async)"
-      );
-    }
-
-    return getSettingsCall(indexName, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<Rule>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3075,66 +1802,41 @@ public class SearchClient extends ApiClient {
    */
   public IndexSettings getSettings(String indexName)
     throws AlgoliaRuntimeException {
-    Call req = getSettingsValidateBeforeCall(indexName, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetSettings(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<IndexSettings>() {}.getType();
-    ApiResponse<IndexSettings> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getSettingsAsync(indexName));
   }
 
   /**
    * (asynchronously) Retrieve settings of an index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getSettingsAsync(
-    String indexName,
-    final ApiCallback<IndexSettings> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = getSettingsValidateBeforeCall(indexName, callback);
-    Type returnType = new TypeToken<IndexSettings>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getSources
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getSourcesCall(final ApiCallback<List<Source>> callback)
+  public CompletableFuture<IndexSettings> getSettingsAsync(String indexName)
     throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling getSettings(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/security/sources";
+    String requestPath =
+      "/1/indexes/{indexName}/settings".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getSourcesValidateBeforeCall(
-    final ApiCallback<List<Source>> callback
-  ) throws AlgoliaRuntimeException {
-    return getSourcesCall(callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<IndexSettings>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3145,87 +1847,30 @@ public class SearchClient extends ApiClient {
    *     deserialize the response body
    */
   public List<Source> getSources() throws AlgoliaRuntimeException {
-    Call req = getSourcesValidateBeforeCall(null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetSources(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<List<Source>>() {}.getType();
-    ApiResponse<List<Source>> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getSourcesAsync());
   }
 
   /**
    * (asynchronously) List all allowed sources.
    *
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getSourcesAsync(final ApiCallback<List<Source>> callback)
+  public CompletableFuture<List<Source>> getSourcesAsync()
     throws AlgoliaRuntimeException {
-    Call call = getSourcesValidateBeforeCall(callback);
-    Type returnType = new TypeToken<List<Source>>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getSynonym
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getSynonymCall(
-    String indexName,
-    String objectID,
-    final ApiCallback<SynonymHit> callback
-  ) throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/synonyms/{objectID}".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        )
-        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+    String requestPath = "/1/security/sources";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getSynonymValidateBeforeCall(
-    String indexName,
-    String objectID,
-    final ApiCallback<SynonymHit> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling getSynonym(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling getSynonym(Async)"
-      );
-    }
-
-    return getSynonymCall(indexName, objectID, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<List<Source>>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3239,14 +1884,7 @@ public class SearchClient extends ApiClient {
    */
   public SynonymHit getSynonym(String indexName, String objectID)
     throws AlgoliaRuntimeException {
-    Call req = getSynonymValidateBeforeCall(indexName, objectID, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetSynonym(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<SynonymHit>() {}.getType();
-    ApiResponse<SynonymHit> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getSynonymAsync(indexName, objectID));
   }
 
   /**
@@ -3254,77 +1892,43 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getSynonymAsync(
+  public CompletableFuture<SynonymHit> getSynonymAsync(
     String indexName,
-    String objectID,
-    final ApiCallback<SynonymHit> callback
+    String objectID
   ) throws AlgoliaRuntimeException {
-    Call call = getSynonymValidateBeforeCall(indexName, objectID, callback);
-    Type returnType = new TypeToken<SynonymHit>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling getSynonym(Async)"
+      );
+    }
 
-  /**
-   * Build call for getTask
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getTaskCall(
-    String indexName,
-    Integer taskID,
-    final ApiCallback<GetTaskResponse> callback
-  ) throws AlgoliaRuntimeException {
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling getSynonym(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/task/{taskID}".replaceAll(
+      "/1/indexes/{indexName}/synonyms/{objectID}".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
         )
-        .replaceAll("\\{taskID\\}", this.escapeString(taskID.toString()));
+        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getTaskValidateBeforeCall(
-    String indexName,
-    Integer taskID,
-    final ApiCallback<GetTaskResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling getTask(Async)"
-      );
-    }
-
-    // verify the required parameter 'taskID' is set
-    if (taskID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'taskID' when calling getTask(Async)"
-      );
-    }
-
-    return getTaskCall(indexName, taskID, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<SynonymHit>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3338,14 +1942,7 @@ public class SearchClient extends ApiClient {
    */
   public GetTaskResponse getTask(String indexName, Integer taskID)
     throws AlgoliaRuntimeException {
-    Call req = getTaskValidateBeforeCall(indexName, taskID, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetTask(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<GetTaskResponse>() {}.getType();
-    ApiResponse<GetTaskResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getTaskAsync(indexName, taskID));
   }
 
   /**
@@ -3353,54 +1950,43 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param taskID Unique identifier of an task. Numeric value (up to 64bits). (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getTaskAsync(
+  public CompletableFuture<GetTaskResponse> getTaskAsync(
     String indexName,
-    Integer taskID,
-    final ApiCallback<GetTaskResponse> callback
+    Integer taskID
   ) throws AlgoliaRuntimeException {
-    Call call = getTaskValidateBeforeCall(indexName, taskID, callback);
-    Type returnType = new TypeToken<GetTaskResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling getTask(Async)"
+      );
+    }
 
-  /**
-   * Build call for getTopUserIds
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getTopUserIdsCall(
-    final ApiCallback<GetTopUserIdsResponse> callback
-  ) throws AlgoliaRuntimeException {
+    if (taskID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'taskID' when calling getTask(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/clusters/mapping/top";
+    String requestPath =
+      "/1/indexes/{indexName}/task/{taskID}".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        )
+        .replaceAll("\\{taskID\\}", this.escapeString(taskID.toString()));
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getTopUserIdsValidateBeforeCall(
-    final ApiCallback<GetTopUserIdsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return getTopUserIdsCall(callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<GetTaskResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3414,14 +2000,7 @@ public class SearchClient extends ApiClient {
    *     deserialize the response body
    */
   public GetTopUserIdsResponse getTopUserIds() throws AlgoliaRuntimeException {
-    Call req = getTopUserIdsValidateBeforeCall(null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetTopUserIds(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<GetTopUserIdsResponse>() {}.getType();
-    ApiResponse<GetTopUserIdsResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getTopUserIdsAsync());
   }
 
   /**
@@ -3430,63 +2009,24 @@ public class SearchClient extends ApiClient {
    * to a few seconds to propagate to the different clusters. Upon success, the response is 200 OK
    * and contains the following array of userIDs and clusters.
    *
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getTopUserIdsAsync(
-    final ApiCallback<GetTopUserIdsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = getTopUserIdsValidateBeforeCall(callback);
-    Type returnType = new TypeToken<GetTopUserIdsResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for getUserId
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call getUserIdCall(String userID, final ApiCallback<UserId> callback)
+  public CompletableFuture<GetTopUserIdsResponse> getTopUserIdsAsync()
     throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath =
-      "/1/clusters/mapping/{userID}".replaceAll(
-          "\\{userID\\}",
-          this.escapeString(userID.toString())
-        );
+    String requestPath = "/1/clusters/mapping/top";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call getUserIdValidateBeforeCall(
-    String userID,
-    final ApiCallback<UserId> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'userID' is set
-    if (userID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'userID' when calling getUserId(Async)"
-      );
-    }
-
-    return getUserIdCall(userID, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<GetTopUserIdsResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3501,14 +2041,7 @@ public class SearchClient extends ApiClient {
    *     deserialize the response body
    */
   public UserId getUserId(String userID) throws AlgoliaRuntimeException {
-    Call req = getUserIdValidateBeforeCall(userID, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.GetUserId(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UserId>() {}.getType();
-    ApiResponse<UserId> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(getUserIdAsync(userID));
   }
 
   /**
@@ -3518,57 +2051,34 @@ public class SearchClient extends ApiClient {
    * following userID data.
    *
    * @param userID userID to assign. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call getUserIdAsync(String userID, final ApiCallback<UserId> callback)
+  public CompletableFuture<UserId> getUserIdAsync(String userID)
     throws AlgoliaRuntimeException {
-    Call call = getUserIdValidateBeforeCall(userID, callback);
-    Type returnType = new TypeToken<UserId>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (userID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'userID' when calling getUserId(Async)"
+      );
+    }
 
-  /**
-   * Build call for hasPendingMappings
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call hasPendingMappingsCall(
-    Boolean getClusters,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/clusters/mapping/pending";
+    String requestPath =
+      "/1/clusters/mapping/{userID}".replaceAll(
+          "\\{userID\\}",
+          this.escapeString(userID.toString())
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (getClusters != null) {
-      queryParams.put("getClusters", parameterToString(getClusters));
-    }
-
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call hasPendingMappingsValidateBeforeCall(
-    Boolean getClusters,
-    final ApiCallback<CreatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return hasPendingMappingsCall(getClusters, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UserId>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3585,16 +2095,7 @@ public class SearchClient extends ApiClient {
    */
   public CreatedAtResponse hasPendingMappings(Boolean getClusters)
     throws AlgoliaRuntimeException {
-    Call req = hasPendingMappingsValidateBeforeCall(getClusters, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.HasPendingMappings(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    ApiResponse<CreatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(hasPendingMappingsAsync(getClusters));
   }
 
   public CreatedAtResponse hasPendingMappings() throws AlgoliaRuntimeException {
@@ -3609,52 +2110,29 @@ public class SearchClient extends ApiClient {
    * account, and the userIDs are directly usable.
    *
    * @param getClusters Whether to get clusters or not. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call hasPendingMappingsAsync(
-    Boolean getClusters,
-    final ApiCallback<CreatedAtResponse> callback
+  public CompletableFuture<CreatedAtResponse> hasPendingMappingsAsync(
+    Boolean getClusters
   ) throws AlgoliaRuntimeException {
-    Call call = hasPendingMappingsValidateBeforeCall(getClusters, callback);
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for listApiKeys
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call listApiKeysCall(final ApiCallback<ListApiKeysResponse> callback)
-    throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/keys";
+    String requestPath = "/1/clusters/mapping/pending";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
+    if (getClusters != null) {
+      queryParams.put("getClusters", parameterToString(getClusters));
+    }
 
-  private Call listApiKeysValidateBeforeCall(
-    final ApiCallback<ListApiKeysResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return listApiKeysCall(callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3665,64 +2143,30 @@ public class SearchClient extends ApiClient {
    *     deserialize the response body
    */
   public ListApiKeysResponse listApiKeys() throws AlgoliaRuntimeException {
-    Call req = listApiKeysValidateBeforeCall(null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ListApiKeys(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<ListApiKeysResponse>() {}.getType();
-    ApiResponse<ListApiKeysResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(listApiKeysAsync());
   }
 
   /**
    * (asynchronously) List API keys, along with their associated rights.
    *
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call listApiKeysAsync(final ApiCallback<ListApiKeysResponse> callback)
+  public CompletableFuture<ListApiKeysResponse> listApiKeysAsync()
     throws AlgoliaRuntimeException {
-    Call call = listApiKeysValidateBeforeCall(callback);
-    Type returnType = new TypeToken<ListApiKeysResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for listClusters
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call listClustersCall(
-    final ApiCallback<ListClustersResponse> callback
-  ) throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/clusters";
+    String requestPath = "/1/keys";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call listClustersValidateBeforeCall(
-    final ApiCallback<ListClustersResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return listClustersCall(callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<ListApiKeysResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3734,72 +2178,31 @@ public class SearchClient extends ApiClient {
    *     deserialize the response body
    */
   public ListClustersResponse listClusters() throws AlgoliaRuntimeException {
-    Call req = listClustersValidateBeforeCall(null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ListClusters(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<ListClustersResponse>() {}.getType();
-    ApiResponse<ListClustersResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(listClustersAsync());
   }
 
   /**
    * (asynchronously) List the clusters available in a multi-clusters setup for a single appID. Upon
    * success, the response is 200 OK and contains the following clusters.
    *
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call listClustersAsync(
-    final ApiCallback<ListClustersResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = listClustersValidateBeforeCall(callback);
-    Type returnType = new TypeToken<ListClustersResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for listIndices
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call listIndicesCall(
-    Integer page,
-    final ApiCallback<ListIndicesResponse> callback
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ListClustersResponse> listClustersAsync()
+    throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/indexes";
+    String requestPath = "/1/clusters";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (page != null) {
-      queryParams.put("page", parameterToString(page));
-    }
-
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call listIndicesValidateBeforeCall(
-    Integer page,
-    final ApiCallback<ListIndicesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return listIndicesCall(page, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<ListClustersResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3814,14 +2217,7 @@ public class SearchClient extends ApiClient {
    */
   public ListIndicesResponse listIndices(Integer page)
     throws AlgoliaRuntimeException {
-    Call req = listIndicesValidateBeforeCall(page, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ListIndices(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<ListIndicesResponse>() {}.getType();
-    ApiResponse<ListIndicesResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(listIndicesAsync(page));
   }
 
   public ListIndicesResponse listIndices() throws AlgoliaRuntimeException {
@@ -3834,37 +2230,16 @@ public class SearchClient extends ApiClient {
    * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
    *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
    *     (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call listIndicesAsync(
-    Integer page,
-    final ApiCallback<ListIndicesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = listIndicesValidateBeforeCall(page, callback);
-    Type returnType = new TypeToken<ListIndicesResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for listUserIds
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call listUserIdsCall(
-    Integer page,
-    Integer hitsPerPage,
-    final ApiCallback<ListUserIdsResponse> callback
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ListIndicesResponse> listIndicesAsync(Integer page)
+    throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/clusters/mapping";
+    String requestPath = "/1/indexes";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
@@ -3873,26 +2248,10 @@ public class SearchClient extends ApiClient {
       queryParams.put("page", parameterToString(page));
     }
 
-    if (hitsPerPage != null) {
-      queryParams.put("hitsPerPage", parameterToString(hitsPerPage));
-    }
-
-    return this.buildCall(
-        requestPath,
-        "GET",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call listUserIdsValidateBeforeCall(
-    Integer page,
-    Integer hitsPerPage,
-    final ApiCallback<ListUserIdsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    return listUserIdsCall(page, hitsPerPage, callback);
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<ListIndicesResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -3911,14 +2270,7 @@ public class SearchClient extends ApiClient {
    */
   public ListUserIdsResponse listUserIds(Integer page, Integer hitsPerPage)
     throws AlgoliaRuntimeException {
-    Call req = listUserIdsValidateBeforeCall(page, hitsPerPage, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ListUserIds(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<ListUserIdsResponse>() {}.getType();
-    ApiResponse<ListUserIdsResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(listUserIdsAsync(page, hitsPerPage));
   }
 
   public ListUserIdsResponse listUserIds() throws AlgoliaRuntimeException {
@@ -3935,63 +2287,34 @@ public class SearchClient extends ApiClient {
    *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
    *     (optional)
    * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call listUserIdsAsync(
+  public CompletableFuture<ListUserIdsResponse> listUserIdsAsync(
     Integer page,
-    Integer hitsPerPage,
-    final ApiCallback<ListUserIdsResponse> callback
+    Integer hitsPerPage
   ) throws AlgoliaRuntimeException {
-    Call call = listUserIdsValidateBeforeCall(page, hitsPerPage, callback);
-    Type returnType = new TypeToken<ListUserIdsResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for multipleBatch
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call multipleBatchCall(
-    BatchParams batchParams,
-    final ApiCallback<MultipleBatchResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = batchParams;
+    Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/indexes/*/batch";
+    String requestPath = "/1/clusters/mapping";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call multipleBatchValidateBeforeCall(
-    BatchParams batchParams,
-    final ApiCallback<MultipleBatchResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'batchParams' is set
-    if (batchParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'batchParams' when calling multipleBatch(Async)"
-      );
+    if (page != null) {
+      queryParams.put("page", parameterToString(page));
     }
 
-    return multipleBatchCall(batchParams, callback);
+    if (hitsPerPage != null) {
+      queryParams.put("hitsPerPage", parameterToString(hitsPerPage));
+    }
+
+    Call call =
+      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<ListUserIdsResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4005,14 +2328,7 @@ public class SearchClient extends ApiClient {
    */
   public MultipleBatchResponse multipleBatch(BatchParams batchParams)
     throws AlgoliaRuntimeException {
-    Call req = multipleBatchValidateBeforeCall(batchParams, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.MultipleBatch(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<MultipleBatchResponse>() {}.getType();
-    ApiResponse<MultipleBatchResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(multipleBatchAsync(batchParams));
   }
 
   /**
@@ -4020,63 +2336,31 @@ public class SearchClient extends ApiClient {
    * a single API call.
    *
    * @param batchParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call multipleBatchAsync(
-    BatchParams batchParams,
-    final ApiCallback<MultipleBatchResponse> callback
+  public CompletableFuture<MultipleBatchResponse> multipleBatchAsync(
+    BatchParams batchParams
   ) throws AlgoliaRuntimeException {
-    Call call = multipleBatchValidateBeforeCall(batchParams, callback);
-    Type returnType = new TypeToken<MultipleBatchResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (batchParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'batchParams' when calling multipleBatch(Async)"
+      );
+    }
 
-  /**
-   * Build call for multipleQueries
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call multipleQueriesCall(
-    MultipleQueriesParams multipleQueriesParams,
-    final ApiCallback<MultipleQueriesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = multipleQueriesParams;
+    Object bodyObj = batchParams;
 
     // create path and map variables
-    String requestPath = "/1/indexes/*/queries";
+    String requestPath = "/1/indexes/*/batch";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call multipleQueriesValidateBeforeCall(
-    MultipleQueriesParams multipleQueriesParams,
-    final ApiCallback<MultipleQueriesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'multipleQueriesParams' is set
-    if (multipleQueriesParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'multipleQueriesParams' when calling" +
-        " multipleQueries(Async)"
-      );
-    }
-
-    return multipleQueriesCall(multipleQueriesParams, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<MultipleBatchResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4090,93 +2374,39 @@ public class SearchClient extends ApiClient {
   public MultipleQueriesResponse multipleQueries(
     MultipleQueriesParams multipleQueriesParams
   ) throws AlgoliaRuntimeException {
-    Call req = multipleQueriesValidateBeforeCall(multipleQueriesParams, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.MultipleQueries(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<MultipleQueriesResponse>() {}.getType();
-    ApiResponse<MultipleQueriesResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(multipleQueriesAsync(multipleQueriesParams));
   }
 
   /**
    * (asynchronously) Perform a search operation targeting one or many indices.
    *
    * @param multipleQueriesParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call multipleQueriesAsync(
-    MultipleQueriesParams multipleQueriesParams,
-    final ApiCallback<MultipleQueriesResponse> callback
+  public CompletableFuture<MultipleQueriesResponse> multipleQueriesAsync(
+    MultipleQueriesParams multipleQueriesParams
   ) throws AlgoliaRuntimeException {
-    Call call = multipleQueriesValidateBeforeCall(
-      multipleQueriesParams,
-      callback
-    );
-    Type returnType = new TypeToken<MultipleQueriesResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (multipleQueriesParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'multipleQueriesParams' when calling" +
+        " multipleQueries(Async)"
+      );
+    }
 
-  /**
-   * Build call for operationIndex
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call operationIndexCall(
-    String indexName,
-    OperationIndexParams operationIndexParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = operationIndexParams;
+    Object bodyObj = multipleQueriesParams;
 
     // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/operation".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        );
+    String requestPath = "/1/indexes/*/queries";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call operationIndexValidateBeforeCall(
-    String indexName,
-    OperationIndexParams operationIndexParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling operationIndex(Async)"
-      );
-    }
-
-    // verify the required parameter 'operationIndexParams' is set
-    if (operationIndexParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'operationIndexParams' when calling" +
-        " operationIndex(Async)"
-      );
-    }
-
-    return operationIndexCall(indexName, operationIndexParams, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<MultipleQueriesResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4192,18 +2422,9 @@ public class SearchClient extends ApiClient {
     String indexName,
     OperationIndexParams operationIndexParams
   ) throws AlgoliaRuntimeException {
-    Call req = operationIndexValidateBeforeCall(
-      indexName,
-      operationIndexParams,
-      null
+    return LaunderThrowable.await(
+      operationIndexAsync(indexName, operationIndexParams)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.OperationIndex(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
@@ -4211,106 +2432,43 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param operationIndexParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call operationIndexAsync(
+  public CompletableFuture<UpdatedAtResponse> operationIndexAsync(
     String indexName,
-    OperationIndexParams operationIndexParams,
-    final ApiCallback<UpdatedAtResponse> callback
+    OperationIndexParams operationIndexParams
   ) throws AlgoliaRuntimeException {
-    Call call = operationIndexValidateBeforeCall(
-      indexName,
-      operationIndexParams,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling operationIndex(Async)"
+      );
+    }
 
-  /**
-   * Build call for partialUpdateObject
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call partialUpdateObjectCall(
-    String indexName,
-    String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
-    Boolean createIfNotExists,
-    final ApiCallback<UpdatedAtWithObjectIdResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = attributeOrBuiltInOperation;
+    if (operationIndexParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'operationIndexParams' when calling" +
+        " operationIndex(Async)"
+      );
+    }
+
+    Object bodyObj = operationIndexParams;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/{objectID}/partial".replaceAll(
+      "/1/indexes/{indexName}/operation".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
-        )
-        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (createIfNotExists != null) {
-      queryParams.put(
-        "createIfNotExists",
-        parameterToString(createIfNotExists)
-      );
-    }
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call partialUpdateObjectValidateBeforeCall(
-    String indexName,
-    String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
-    Boolean createIfNotExists,
-    final ApiCallback<UpdatedAtWithObjectIdResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling partialUpdateObject(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling partialUpdateObject(Async)"
-      );
-    }
-
-    // verify the required parameter 'attributeOrBuiltInOperation' is set
-    if (attributeOrBuiltInOperation == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'attributeOrBuiltInOperation' when calling" +
-        " partialUpdateObject(Async)"
-      );
-    }
-
-    return partialUpdateObjectCall(
-      indexName,
-      objectID,
-      attributeOrBuiltInOperation,
-      createIfNotExists,
-      callback
-    );
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4334,24 +2492,14 @@ public class SearchClient extends ApiClient {
     List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
     Boolean createIfNotExists
   ) throws AlgoliaRuntimeException {
-    Call req = partialUpdateObjectValidateBeforeCall(
-      indexName,
-      objectID,
-      attributeOrBuiltInOperation,
-      createIfNotExists,
-      null
+    return LaunderThrowable.await(
+      partialUpdateObjectAsync(
+        indexName,
+        objectID,
+        attributeOrBuiltInOperation,
+        createIfNotExists
+      )
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.PartialUpdateObject(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
-      .getType();
-    ApiResponse<UpdatedAtWithObjectIdResponse> res =
-      this.execute(call, returnType);
-    return res.getData();
   }
 
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
@@ -4378,85 +2526,60 @@ public class SearchClient extends ApiClient {
    * @param attributeOrBuiltInOperation List of attributes to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call partialUpdateObjectAsync(
+  public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
     List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
-    Boolean createIfNotExists,
-    final ApiCallback<UpdatedAtWithObjectIdResponse> callback
+    Boolean createIfNotExists
   ) throws AlgoliaRuntimeException {
-    Call call = partialUpdateObjectValidateBeforeCall(
-      indexName,
-      objectID,
-      attributeOrBuiltInOperation,
-      createIfNotExists,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
-      .getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling partialUpdateObject(Async)"
+      );
+    }
 
-  /**
-   * Build call for post
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call postCall(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = body;
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling partialUpdateObject(Async)"
+      );
+    }
+
+    if (attributeOrBuiltInOperation == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'attributeOrBuiltInOperation' when calling" +
+        " partialUpdateObject(Async)"
+      );
+    }
+
+    Object bodyObj = attributeOrBuiltInOperation;
 
     // create path and map variables
-    String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
+    String requestPath =
+      "/1/indexes/{indexName}/{objectID}/partial".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        )
+        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (parameters != null) {
-      for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
-      }
-    }
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call postValidateBeforeCall(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling post(Async)"
+    if (createIfNotExists != null) {
+      queryParams.put(
+        "createIfNotExists",
+        parameterToString(createIfNotExists)
       );
     }
 
-    return postCall(path, parameters, body, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
+      .getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4472,14 +2595,7 @@ public class SearchClient extends ApiClient {
    */
   public Object post(String path, Map<String, Object> parameters, Object body)
     throws AlgoliaRuntimeException {
-    Call req = postValidateBeforeCall(path, parameters, body, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.Post(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<Object>() {}.getType();
-    ApiResponse<Object> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(postAsync(path, parameters, body));
   }
 
   public Object post(String path) throws AlgoliaRuntimeException {
@@ -4493,36 +2609,21 @@ public class SearchClient extends ApiClient {
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
    * @param body The parameters to send with the custom request. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call postAsync(
+  public CompletableFuture<Object> postAsync(
     String path,
     Map<String, Object> parameters,
-    Object body,
-    final ApiCallback<Object> callback
+    Object body
   ) throws AlgoliaRuntimeException {
-    Call call = postValidateBeforeCall(path, parameters, body, callback);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (path == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'path' when calling post(Async)"
+      );
+    }
 
-  /**
-   * Build call for put
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call putCall(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
     Object bodyObj = body;
 
     // create path and map variables
@@ -4540,30 +2641,10 @@ public class SearchClient extends ApiClient {
       }
     }
 
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call putValidateBeforeCall(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    final ApiCallback<Object> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling put(Async)"
-      );
-    }
-
-    return putCall(path, parameters, body, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<Object>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4579,14 +2660,7 @@ public class SearchClient extends ApiClient {
    */
   public Object put(String path, Map<String, Object> parameters, Object body)
     throws AlgoliaRuntimeException {
-    Call req = putValidateBeforeCall(path, parameters, body, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.Put(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<Object>() {}.getType();
-    ApiResponse<Object> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(putAsync(path, parameters, body));
   }
 
   public Object put(String path) throws AlgoliaRuntimeException {
@@ -4600,68 +2674,42 @@ public class SearchClient extends ApiClient {
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
    * @param body The parameters to send with the custom request. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call putAsync(
+  public CompletableFuture<Object> putAsync(
     String path,
     Map<String, Object> parameters,
-    Object body,
-    final ApiCallback<Object> callback
+    Object body
   ) throws AlgoliaRuntimeException {
-    Call call = putValidateBeforeCall(path, parameters, body, callback);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (path == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'path' when calling put(Async)"
+      );
+    }
 
-  /**
-   * Build call for removeUserId
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call removeUserIdCall(
-    String userID,
-    final ApiCallback<RemoveUserIdResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
+    Object bodyObj = body;
 
     // create path and map variables
-    String requestPath =
-      "/1/clusters/mapping/{userID}".replaceAll(
-          "\\{userID\\}",
-          this.escapeString(userID.toString())
-        );
+    String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "DELETE",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call removeUserIdValidateBeforeCall(
-    String userID,
-    final ApiCallback<RemoveUserIdResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'userID' is set
-    if (userID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'userID' when calling removeUserId(Async)"
-      );
+    if (parameters != null) {
+      for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
+        );
+      }
     }
 
-    return removeUserIdCall(userID, callback);
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<Object>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4675,14 +2723,7 @@ public class SearchClient extends ApiClient {
    */
   public RemoveUserIdResponse removeUserId(String userID)
     throws AlgoliaRuntimeException {
-    Call req = removeUserIdValidateBeforeCall(userID, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.RemoveUserId(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<RemoveUserIdResponse>() {}.getType();
-    ApiResponse<RemoveUserIdResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(removeUserIdAsync(userID));
   }
 
   /**
@@ -4690,62 +2731,35 @@ public class SearchClient extends ApiClient {
    * the response is 200 OK and a task is created to remove the userID data and mapping.
    *
    * @param userID userID to assign. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call removeUserIdAsync(
-    String userID,
-    final ApiCallback<RemoveUserIdResponse> callback
+  public CompletableFuture<RemoveUserIdResponse> removeUserIdAsync(
+    String userID
   ) throws AlgoliaRuntimeException {
-    Call call = removeUserIdValidateBeforeCall(userID, callback);
-    Type returnType = new TypeToken<RemoveUserIdResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (userID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'userID' when calling removeUserId(Async)"
+      );
+    }
 
-  /**
-   * Build call for replaceSources
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call replaceSourcesCall(
-    List<Source> source,
-    final ApiCallback<ReplaceSourceResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = source;
+    Object bodyObj = null;
 
     // create path and map variables
-    String requestPath = "/1/security/sources";
+    String requestPath =
+      "/1/clusters/mapping/{userID}".replaceAll(
+          "\\{userID\\}",
+          this.escapeString(userID.toString())
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call replaceSourcesValidateBeforeCall(
-    List<Source> source,
-    final ApiCallback<ReplaceSourceResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'source' is set
-    if (source == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'source' when calling replaceSources(Async)"
-      );
-    }
-
-    return replaceSourcesCall(source, callback);
+    Call call =
+      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<RemoveUserIdResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4758,80 +2772,38 @@ public class SearchClient extends ApiClient {
    */
   public ReplaceSourceResponse replaceSources(List<Source> source)
     throws AlgoliaRuntimeException {
-    Call req = replaceSourcesValidateBeforeCall(source, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.ReplaceSources(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<ReplaceSourceResponse>() {}.getType();
-    ApiResponse<ReplaceSourceResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(replaceSourcesAsync(source));
   }
 
   /**
    * (asynchronously) Replace all allowed sources.
    *
    * @param source The sources to allow. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call replaceSourcesAsync(
-    List<Source> source,
-    final ApiCallback<ReplaceSourceResponse> callback
+  public CompletableFuture<ReplaceSourceResponse> replaceSourcesAsync(
+    List<Source> source
   ) throws AlgoliaRuntimeException {
-    Call call = replaceSourcesValidateBeforeCall(source, callback);
-    Type returnType = new TypeToken<ReplaceSourceResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (source == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'source' when calling replaceSources(Async)"
+      );
+    }
 
-  /**
-   * Build call for restoreApiKey
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call restoreApiKeyCall(
-    String key,
-    final ApiCallback<AddApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = null;
+    Object bodyObj = source;
 
     // create path and map variables
-    String requestPath =
-      "/1/keys/{key}/restore".replaceAll(
-          "\\{key\\}",
-          this.escapeString(key.toString())
-        );
+    String requestPath = "/1/security/sources";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call restoreApiKeyValidateBeforeCall(
-    String key,
-    final ApiCallback<AddApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'key' is set
-    if (key == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'key' when calling restoreApiKey(Async)"
-      );
-    }
-
-    return restoreApiKeyCall(key, callback);
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<ReplaceSourceResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4844,89 +2816,41 @@ public class SearchClient extends ApiClient {
    */
   public AddApiKeyResponse restoreApiKey(String key)
     throws AlgoliaRuntimeException {
-    Call req = restoreApiKeyValidateBeforeCall(key, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.RestoreApiKey(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
-    ApiResponse<AddApiKeyResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(restoreApiKeyAsync(key));
   }
 
   /**
    * (asynchronously) Restore a deleted API key, along with its associated rights.
    *
    * @param key API Key string. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call restoreApiKeyAsync(
-    String key,
-    final ApiCallback<AddApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = restoreApiKeyValidateBeforeCall(key, callback);
-    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+  public CompletableFuture<AddApiKeyResponse> restoreApiKeyAsync(String key)
+    throws AlgoliaRuntimeException {
+    if (key == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'key' when calling restoreApiKey(Async)"
+      );
+    }
 
-  /**
-   * Build call for saveObject
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call saveObjectCall(
-    String indexName,
-    Object body,
-    final ApiCallback<SaveObjectResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = body;
+    Object bodyObj = null;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
+      "/1/keys/{key}/restore".replaceAll(
+          "\\{key\\}",
+          this.escapeString(key.toString())
         );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call saveObjectValidateBeforeCall(
-    String indexName,
-    Object body,
-    final ApiCallback<SaveObjectResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling saveObject(Async)"
-      );
-    }
-
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'body' when calling saveObject(Async)"
-      );
-    }
-
-    return saveObjectCall(indexName, body, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -4940,14 +2864,7 @@ public class SearchClient extends ApiClient {
    */
   public SaveObjectResponse saveObject(String indexName, Object body)
     throws AlgoliaRuntimeException {
-    Call req = saveObjectValidateBeforeCall(indexName, body, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SaveObject(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<SaveObjectResponse>() {}.getType();
-    ApiResponse<SaveObjectResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(saveObjectAsync(indexName, body));
   }
 
   /**
@@ -4955,95 +2872,42 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param body The Algolia record. (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call saveObjectAsync(
+  public CompletableFuture<SaveObjectResponse> saveObjectAsync(
     String indexName,
-    Object body,
-    final ApiCallback<SaveObjectResponse> callback
+    Object body
   ) throws AlgoliaRuntimeException {
-    Call call = saveObjectValidateBeforeCall(indexName, body, callback);
-    Type returnType = new TypeToken<SaveObjectResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling saveObject(Async)"
+      );
+    }
 
-  /**
-   * Build call for saveRule
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call saveRuleCall(
-    String indexName,
-    String objectID,
-    Rule rule,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedRuleResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = rule;
+    if (body == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'body' when calling saveObject(Async)"
+      );
+    }
+
+    Object bodyObj = body;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/rules/{objectID}".replaceAll(
+      "/1/indexes/{indexName}".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
-        )
-        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (forwardToReplicas != null) {
-      queryParams.put(
-        "forwardToReplicas",
-        parameterToString(forwardToReplicas)
-      );
-    }
-
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call saveRuleValidateBeforeCall(
-    String indexName,
-    String objectID,
-    Rule rule,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedRuleResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling saveRule(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling saveRule(Async)"
-      );
-    }
-
-    // verify the required parameter 'rule' is set
-    if (rule == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'rule' when calling saveRule(Async)"
-      );
-    }
-
-    return saveRuleCall(indexName, objectID, rule, forwardToReplicas, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<SaveObjectResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -5064,20 +2928,9 @@ public class SearchClient extends ApiClient {
     Rule rule,
     Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
-    Call req = saveRuleValidateBeforeCall(
-      indexName,
-      objectID,
-      rule,
-      forwardToReplicas,
-      null
+    return LaunderThrowable.await(
+      saveRuleAsync(indexName, objectID, rule, forwardToReplicas)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SaveRule(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedRuleResponse>() {}.getType();
-    ApiResponse<UpdatedRuleResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   public UpdatedRuleResponse saveRule(
@@ -5096,49 +2949,39 @@ public class SearchClient extends ApiClient {
    * @param rule (required)
    * @param forwardToReplicas When true, changes are also propagated to replicas of the given
    *     indexName. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call saveRuleAsync(
+  public CompletableFuture<UpdatedRuleResponse> saveRuleAsync(
     String indexName,
     String objectID,
     Rule rule,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedRuleResponse> callback
+    Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
-    Call call = saveRuleValidateBeforeCall(
-      indexName,
-      objectID,
-      rule,
-      forwardToReplicas,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedRuleResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling saveRule(Async)"
+      );
+    }
 
-  /**
-   * Build call for saveSynonym
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call saveSynonymCall(
-    String indexName,
-    String objectID,
-    SynonymHit synonymHit,
-    Boolean forwardToReplicas,
-    final ApiCallback<SaveSynonymResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = synonymHit;
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling saveRule(Async)"
+      );
+    }
+
+    if (rule == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'rule' when calling saveRule(Async)"
+      );
+    }
+
+    Object bodyObj = rule;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/synonyms/{objectID}".replaceAll(
+      "/1/indexes/{indexName}/rules/{objectID}".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
         )
@@ -5154,51 +2997,10 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call saveSynonymValidateBeforeCall(
-    String indexName,
-    String objectID,
-    SynonymHit synonymHit,
-    Boolean forwardToReplicas,
-    final ApiCallback<SaveSynonymResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling saveSynonym(Async)"
-      );
-    }
-
-    // verify the required parameter 'objectID' is set
-    if (objectID == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'objectID' when calling saveSynonym(Async)"
-      );
-    }
-
-    // verify the required parameter 'synonymHit' is set
-    if (synonymHit == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'synonymHit' when calling saveSynonym(Async)"
-      );
-    }
-
-    return saveSynonymCall(
-      indexName,
-      objectID,
-      synonymHit,
-      forwardToReplicas,
-      callback
-    );
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedRuleResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -5219,20 +3021,9 @@ public class SearchClient extends ApiClient {
     SynonymHit synonymHit,
     Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
-    Call req = saveSynonymValidateBeforeCall(
-      indexName,
-      objectID,
-      synonymHit,
-      forwardToReplicas,
-      null
+    return LaunderThrowable.await(
+      saveSynonymAsync(indexName, objectID, synonymHit, forwardToReplicas)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SaveSynonym(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<SaveSynonymResponse>() {}.getType();
-    ApiResponse<SaveSynonymResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   public SaveSynonymResponse saveSynonym(
@@ -5252,44 +3043,129 @@ public class SearchClient extends ApiClient {
    * @param synonymHit (required)
    * @param forwardToReplicas When true, changes are also propagated to replicas of the given
    *     indexName. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call saveSynonymAsync(
+  public CompletableFuture<SaveSynonymResponse> saveSynonymAsync(
     String indexName,
     String objectID,
     SynonymHit synonymHit,
-    Boolean forwardToReplicas,
-    final ApiCallback<SaveSynonymResponse> callback
+    Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
-    Call call = saveSynonymValidateBeforeCall(
-      indexName,
-      objectID,
-      synonymHit,
-      forwardToReplicas,
-      callback
-    );
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling saveSynonym(Async)"
+      );
+    }
+
+    if (objectID == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'objectID' when calling saveSynonym(Async)"
+      );
+    }
+
+    if (synonymHit == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'synonymHit' when calling saveSynonym(Async)"
+      );
+    }
+
+    Object bodyObj = synonymHit;
+
+    // create path and map variables
+    String requestPath =
+      "/1/indexes/{indexName}/synonyms/{objectID}".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        )
+        .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    if (forwardToReplicas != null) {
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
+      );
+    }
+
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<SaveSynonymResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for saveSynonyms
+   * Create/update multiple synonym objects at once, potentially replacing the entire list of
+   * synonyms if replaceExistingSynonyms is true.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param indexName The index in which to perform the request. (required)
+   * @param synonymHit (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @param replaceExistingSynonyms Replace all synonyms of the index with the ones sent with this
+   *     request. (optional)
+   * @return UpdatedAtResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call saveSynonymsCall(
+  public UpdatedAtResponse saveSynonyms(
     String indexName,
     List<SynonymHit> synonymHit,
     Boolean forwardToReplicas,
-    Boolean replaceExistingSynonyms,
-    final ApiCallback<UpdatedAtResponse> callback
+    Boolean replaceExistingSynonyms
   ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      saveSynonymsAsync(
+        indexName,
+        synonymHit,
+        forwardToReplicas,
+        replaceExistingSynonyms
+      )
+    );
+  }
+
+  public UpdatedAtResponse saveSynonyms(
+    String indexName,
+    List<SynonymHit> synonymHit
+  ) throws AlgoliaRuntimeException {
+    return this.saveSynonyms(indexName, synonymHit, null, null);
+  }
+
+  /**
+   * (asynchronously) Create/update multiple synonym objects at once, potentially replacing the
+   * entire list of synonyms if replaceExistingSynonyms is true.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param synonymHit (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @param replaceExistingSynonyms Replace all synonyms of the index with the ones sent with this
+   *     request. (optional)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<UpdatedAtResponse> saveSynonymsAsync(
+    String indexName,
+    List<SynonymHit> synonymHit,
+    Boolean forwardToReplicas,
+    Boolean replaceExistingSynonyms
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling saveSynonyms(Async)"
+      );
+    }
+
+    if (synonymHit == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'synonymHit' when calling saveSynonyms(Async)"
+      );
+    }
+
     Object bodyObj = synonymHit;
 
     // create path and map variables
@@ -5316,177 +3192,10 @@ public class SearchClient extends ApiClient {
       );
     }
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call saveSynonymsValidateBeforeCall(
-    String indexName,
-    List<SynonymHit> synonymHit,
-    Boolean forwardToReplicas,
-    Boolean replaceExistingSynonyms,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling saveSynonyms(Async)"
-      );
-    }
-
-    // verify the required parameter 'synonymHit' is set
-    if (synonymHit == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'synonymHit' when calling saveSynonyms(Async)"
-      );
-    }
-
-    return saveSynonymsCall(
-      indexName,
-      synonymHit,
-      forwardToReplicas,
-      replaceExistingSynonyms,
-      callback
-    );
-  }
-
-  /**
-   * Create/update multiple synonym objects at once, potentially replacing the entire list of
-   * synonyms if replaceExistingSynonyms is true.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param synonymHit (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param replaceExistingSynonyms Replace all synonyms of the index with the ones sent with this
-   *     request. (optional)
-   * @return UpdatedAtResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public UpdatedAtResponse saveSynonyms(
-    String indexName,
-    List<SynonymHit> synonymHit,
-    Boolean forwardToReplicas,
-    Boolean replaceExistingSynonyms
-  ) throws AlgoliaRuntimeException {
-    Call req = saveSynonymsValidateBeforeCall(
-      indexName,
-      synonymHit,
-      forwardToReplicas,
-      replaceExistingSynonyms,
-      null
-    );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SaveSynonyms(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public UpdatedAtResponse saveSynonyms(
-    String indexName,
-    List<SynonymHit> synonymHit
-  ) throws AlgoliaRuntimeException {
-    return this.saveSynonyms(indexName, synonymHit, null, null);
-  }
-
-  /**
-   * (asynchronously) Create/update multiple synonym objects at once, potentially replacing the
-   * entire list of synonyms if replaceExistingSynonyms is true.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param synonymHit (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param replaceExistingSynonyms Replace all synonyms of the index with the ones sent with this
-   *     request. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call saveSynonymsAsync(
-    String indexName,
-    List<SynonymHit> synonymHit,
-    Boolean forwardToReplicas,
-    Boolean replaceExistingSynonyms,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = saveSynonymsValidateBeforeCall(
-      indexName,
-      synonymHit,
-      forwardToReplicas,
-      replaceExistingSynonyms,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for search
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call searchCall(
-    String indexName,
-    SearchParams searchParams,
-    final ApiCallback<SearchResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = searchParams;
-
-    // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/query".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        );
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call searchValidateBeforeCall(
-    String indexName,
-    SearchParams searchParams,
-    final ApiCallback<SearchResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling search(Async)"
-      );
-    }
-
-    // verify the required parameter 'searchParams' is set
-    if (searchParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'searchParams' when calling search(Async)"
-      );
-    }
-
-    return searchCall(indexName, searchParams, callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -5500,14 +3209,7 @@ public class SearchClient extends ApiClient {
    */
   public SearchResponse search(String indexName, SearchParams searchParams)
     throws AlgoliaRuntimeException {
-    Call req = searchValidateBeforeCall(indexName, searchParams, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.Search(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<SearchResponse>() {}.getType();
-    ApiResponse<SearchResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(searchAsync(indexName, searchParams));
   }
 
   /**
@@ -5515,82 +3217,42 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call searchAsync(
+  public CompletableFuture<SearchResponse> searchAsync(
     String indexName,
-    SearchParams searchParams,
-    final ApiCallback<SearchResponse> callback
+    SearchParams searchParams
   ) throws AlgoliaRuntimeException {
-    Call call = searchValidateBeforeCall(indexName, searchParams, callback);
-    Type returnType = new TypeToken<SearchResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling search(Async)"
+      );
+    }
 
-  /**
-   * Build call for searchDictionaryEntries
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call searchDictionaryEntriesCall(
-    DictionaryType dictionaryName,
-    SearchDictionaryEntriesParams searchDictionaryEntriesParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = searchDictionaryEntriesParams;
+    if (searchParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'searchParams' when calling search(Async)"
+      );
+    }
+
+    Object bodyObj = searchParams;
 
     // create path and map variables
     String requestPath =
-      "/1/dictionaries/{dictionaryName}/search".replaceAll(
-          "\\{dictionaryName\\}",
-          this.escapeString(dictionaryName.toString())
+      "/1/indexes/{indexName}/query".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
         );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call searchDictionaryEntriesValidateBeforeCall(
-    DictionaryType dictionaryName,
-    SearchDictionaryEntriesParams searchDictionaryEntriesParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'dictionaryName' is set
-    if (dictionaryName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'dictionaryName' when calling" +
-        " searchDictionaryEntries(Async)"
-      );
-    }
-
-    // verify the required parameter 'searchDictionaryEntriesParams' is set
-    if (searchDictionaryEntriesParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'searchDictionaryEntriesParams' when calling" +
-        " searchDictionaryEntries(Async)"
-      );
-    }
-
-    return searchDictionaryEntriesCall(
-      dictionaryName,
-      searchDictionaryEntriesParams,
-      callback
-    );
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<SearchResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -5606,20 +3268,12 @@ public class SearchClient extends ApiClient {
     DictionaryType dictionaryName,
     SearchDictionaryEntriesParams searchDictionaryEntriesParams
   ) throws AlgoliaRuntimeException {
-    Call req = searchDictionaryEntriesValidateBeforeCall(
-      dictionaryName,
-      searchDictionaryEntriesParams,
-      null
+    return LaunderThrowable.await(
+      searchDictionaryEntriesAsync(
+        dictionaryName,
+        searchDictionaryEntriesParams
+      )
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SearchDictionaryEntries(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
@@ -5627,88 +3281,44 @@ public class SearchClient extends ApiClient {
    *
    * @param dictionaryName The dictionary to search in. (required)
    * @param searchDictionaryEntriesParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call searchDictionaryEntriesAsync(
+  public CompletableFuture<UpdatedAtResponse> searchDictionaryEntriesAsync(
     DictionaryType dictionaryName,
-    SearchDictionaryEntriesParams searchDictionaryEntriesParams,
-    final ApiCallback<UpdatedAtResponse> callback
+    SearchDictionaryEntriesParams searchDictionaryEntriesParams
   ) throws AlgoliaRuntimeException {
-    Call call = searchDictionaryEntriesValidateBeforeCall(
-      dictionaryName,
-      searchDictionaryEntriesParams,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (dictionaryName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'dictionaryName' when calling" +
+        " searchDictionaryEntries(Async)"
+      );
+    }
 
-  /**
-   * Build call for searchForFacetValues
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call searchForFacetValuesCall(
-    String indexName,
-    String facetName,
-    SearchForFacetValuesRequest searchForFacetValuesRequest,
-    final ApiCallback<SearchForFacetValuesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = searchForFacetValuesRequest;
+    if (searchDictionaryEntriesParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'searchDictionaryEntriesParams' when calling" +
+        " searchDictionaryEntries(Async)"
+      );
+    }
+
+    Object bodyObj = searchDictionaryEntriesParams;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/facets/{facetName}/query".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        )
-        .replaceAll("\\{facetName\\}", this.escapeString(facetName.toString()));
+      "/1/dictionaries/{dictionaryName}/search".replaceAll(
+          "\\{dictionaryName\\}",
+          this.escapeString(dictionaryName.toString())
+        );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call searchForFacetValuesValidateBeforeCall(
-    String indexName,
-    String facetName,
-    SearchForFacetValuesRequest searchForFacetValuesRequest,
-    final ApiCallback<SearchForFacetValuesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling searchForFacetValues(Async)"
-      );
-    }
-
-    // verify the required parameter 'facetName' is set
-    if (facetName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'facetName' when calling searchForFacetValues(Async)"
-      );
-    }
-
-    return searchForFacetValuesCall(
-      indexName,
-      facetName,
-      searchForFacetValuesRequest,
-      callback
-    );
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -5727,23 +3337,13 @@ public class SearchClient extends ApiClient {
     String facetName,
     SearchForFacetValuesRequest searchForFacetValuesRequest
   ) throws AlgoliaRuntimeException {
-    Call req = searchForFacetValuesValidateBeforeCall(
-      indexName,
-      facetName,
-      searchForFacetValuesRequest,
-      null
+    return LaunderThrowable.await(
+      searchForFacetValuesAsync(
+        indexName,
+        facetName,
+        searchForFacetValuesRequest
+      )
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SearchForFacetValues(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<SearchForFacetValuesResponse>() {}
-      .getType();
-    ApiResponse<SearchForFacetValuesResponse> res =
-      this.execute(call, returnType);
-    return res.getData();
   }
 
   public SearchForFacetValuesResponse searchForFacetValues(
@@ -5760,83 +3360,45 @@ public class SearchClient extends ApiClient {
    * @param indexName The index in which to perform the request. (required)
    * @param facetName The facet name. (required)
    * @param searchForFacetValuesRequest (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call searchForFacetValuesAsync(
+  public CompletableFuture<SearchForFacetValuesResponse> searchForFacetValuesAsync(
     String indexName,
     String facetName,
-    SearchForFacetValuesRequest searchForFacetValuesRequest,
-    final ApiCallback<SearchForFacetValuesResponse> callback
+    SearchForFacetValuesRequest searchForFacetValuesRequest
   ) throws AlgoliaRuntimeException {
-    Call call = searchForFacetValuesValidateBeforeCall(
-      indexName,
-      facetName,
-      searchForFacetValuesRequest,
-      callback
-    );
-    Type returnType = new TypeToken<SearchForFacetValuesResponse>() {}
-      .getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling searchForFacetValues(Async)"
+      );
+    }
 
-  /**
-   * Build call for searchRules
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call searchRulesCall(
-    String indexName,
-    SearchRulesParams searchRulesParams,
-    final ApiCallback<SearchRulesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = searchRulesParams;
+    if (facetName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'facetName' when calling searchForFacetValues(Async)"
+      );
+    }
+
+    Object bodyObj = searchForFacetValuesRequest;
 
     // create path and map variables
     String requestPath =
-      "/1/indexes/{indexName}/rules/search".replaceAll(
+      "/1/indexes/{indexName}/facets/{facetName}/query".replaceAll(
           "\\{indexName\\}",
           this.escapeString(indexName.toString())
-        );
+        )
+        .replaceAll("\\{facetName\\}", this.escapeString(facetName.toString()));
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call searchRulesValidateBeforeCall(
-    String indexName,
-    SearchRulesParams searchRulesParams,
-    final ApiCallback<SearchRulesResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling searchRules(Async)"
-      );
-    }
-
-    // verify the required parameter 'searchRulesParams' is set
-    if (searchRulesParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'searchRulesParams' when calling searchRules(Async)"
-      );
-    }
-
-    return searchRulesCall(indexName, searchRulesParams, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<SearchForFacetValuesResponse>() {}
+      .getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -5852,18 +3414,9 @@ public class SearchClient extends ApiClient {
     String indexName,
     SearchRulesParams searchRulesParams
   ) throws AlgoliaRuntimeException {
-    Call req = searchRulesValidateBeforeCall(
-      indexName,
-      searchRulesParams,
-      null
+    return LaunderThrowable.await(
+      searchRulesAsync(indexName, searchRulesParams)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SearchRules(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<SearchRulesResponse>() {}.getType();
-    ApiResponse<SearchRulesResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
@@ -5871,41 +3424,102 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchRulesParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call searchRulesAsync(
+  public CompletableFuture<SearchRulesResponse> searchRulesAsync(
     String indexName,
-    SearchRulesParams searchRulesParams,
-    final ApiCallback<SearchRulesResponse> callback
+    SearchRulesParams searchRulesParams
   ) throws AlgoliaRuntimeException {
-    Call call = searchRulesValidateBeforeCall(
-      indexName,
-      searchRulesParams,
-      callback
-    );
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling searchRules(Async)"
+      );
+    }
+
+    if (searchRulesParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'searchRulesParams' when calling searchRules(Async)"
+      );
+    }
+
+    Object bodyObj = searchRulesParams;
+
+    // create path and map variables
+    String requestPath =
+      "/1/indexes/{indexName}/rules/search".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        );
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<SearchRulesResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 
   /**
-   * Build call for searchSynonyms
+   * Search or browse all synonyms, optionally filtering them by type.
    *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
+   * @param indexName The index in which to perform the request. (required)
+   * @param query Search for specific synonyms matching this string. (optional, default to )
+   * @param type Only search for specific types of synonyms. (optional)
+   * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
+   *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
+   *     (optional, default to 0)
+   * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
+   * @return SearchSynonymsResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
    */
-  private Call searchSynonymsCall(
+  public SearchSynonymsResponse searchSynonyms(
     String indexName,
     String query,
     SynonymType type,
     Integer page,
-    Integer hitsPerPage,
-    final ApiCallback<SearchSynonymsResponse> callback
+    Integer hitsPerPage
   ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      searchSynonymsAsync(indexName, query, type, page, hitsPerPage)
+    );
+  }
+
+  public SearchSynonymsResponse searchSynonyms(String indexName)
+    throws AlgoliaRuntimeException {
+    return this.searchSynonyms(indexName, null, null, null, null);
+  }
+
+  /**
+   * (asynchronously) Search or browse all synonyms, optionally filtering them by type.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param query Search for specific synonyms matching this string. (optional, default to )
+   * @param type Only search for specific types of synonyms. (optional)
+   * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
+   *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
+   *     (optional, default to 0)
+   * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<SearchSynonymsResponse> searchSynonymsAsync(
+    String indexName,
+    String query,
+    SynonymType type,
+    Integer page,
+    Integer hitsPerPage
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling searchSynonyms(Async)"
+      );
+    }
+
     Object bodyObj = null;
 
     // create path and map variables
@@ -5934,161 +3548,10 @@ public class SearchClient extends ApiClient {
       queryParams.put("hitsPerPage", parameterToString(hitsPerPage));
     }
 
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call searchSynonymsValidateBeforeCall(
-    String indexName,
-    String query,
-    SynonymType type,
-    Integer page,
-    Integer hitsPerPage,
-    final ApiCallback<SearchSynonymsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling searchSynonyms(Async)"
-      );
-    }
-
-    return searchSynonymsCall(
-      indexName,
-      query,
-      type,
-      page,
-      hitsPerPage,
-      callback
-    );
-  }
-
-  /**
-   * Search or browse all synonyms, optionally filtering them by type.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param query Search for specific synonyms matching this string. (optional, default to )
-   * @param type Only search for specific types of synonyms. (optional)
-   * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
-   *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
-   *     (optional, default to 0)
-   * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
-   * @return SearchSynonymsResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public SearchSynonymsResponse searchSynonyms(
-    String indexName,
-    String query,
-    SynonymType type,
-    Integer page,
-    Integer hitsPerPage
-  ) throws AlgoliaRuntimeException {
-    Call req = searchSynonymsValidateBeforeCall(
-      indexName,
-      query,
-      type,
-      page,
-      hitsPerPage,
-      null
-    );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SearchSynonyms(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<SearchSynonymsResponse>() {}.getType();
-    ApiResponse<SearchSynonymsResponse> res = this.execute(call, returnType);
-    return res.getData();
-  }
-
-  public SearchSynonymsResponse searchSynonyms(String indexName)
-    throws AlgoliaRuntimeException {
-    return this.searchSynonyms(indexName, null, null, null, null);
-  }
-
-  /**
-   * (asynchronously) Search or browse all synonyms, optionally filtering them by type.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param query Search for specific synonyms matching this string. (optional, default to )
-   * @param type Only search for specific types of synonyms. (optional)
-   * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
-   *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
-   *     (optional, default to 0)
-   * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public Call searchSynonymsAsync(
-    String indexName,
-    String query,
-    SynonymType type,
-    Integer page,
-    Integer hitsPerPage,
-    final ApiCallback<SearchSynonymsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Call call = searchSynonymsValidateBeforeCall(
-      indexName,
-      query,
-      type,
-      page,
-      hitsPerPage,
-      callback
-    );
-    Type returnType = new TypeToken<SearchSynonymsResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
-
-  /**
-   * Build call for searchUserIds
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call searchUserIdsCall(
-    SearchUserIdsParams searchUserIdsParams,
-    final ApiCallback<SearchUserIdsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = searchUserIdsParams;
-
-    // create path and map variables
-    String requestPath = "/1/clusters/mapping/search";
-
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    return this.buildCall(
-        requestPath,
-        "POST",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call searchUserIdsValidateBeforeCall(
-    SearchUserIdsParams searchUserIdsParams,
-    final ApiCallback<SearchUserIdsResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'searchUserIdsParams' is set
-    if (searchUserIdsParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'searchUserIdsParams' when calling searchUserIds(Async)"
-      );
-    }
-
-    return searchUserIdsCall(searchUserIdsParams, callback);
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -6108,14 +3571,7 @@ public class SearchClient extends ApiClient {
   public SearchUserIdsResponse searchUserIds(
     SearchUserIdsParams searchUserIdsParams
   ) throws AlgoliaRuntimeException {
-    Call req = searchUserIdsValidateBeforeCall(searchUserIdsParams, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SearchUserIds(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<SearchUserIdsResponse>() {}.getType();
-    ApiResponse<SearchUserIdsResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(searchUserIdsAsync(searchUserIdsParams));
   }
 
   /**
@@ -6128,63 +3584,31 @@ public class SearchClient extends ApiClient {
    * every 12h. Upon success, the response is 200 OK and contains the following userIDs data.
    *
    * @param searchUserIdsParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call searchUserIdsAsync(
-    SearchUserIdsParams searchUserIdsParams,
-    final ApiCallback<SearchUserIdsResponse> callback
+  public CompletableFuture<SearchUserIdsResponse> searchUserIdsAsync(
+    SearchUserIdsParams searchUserIdsParams
   ) throws AlgoliaRuntimeException {
-    Call call = searchUserIdsValidateBeforeCall(searchUserIdsParams, callback);
-    Type returnType = new TypeToken<SearchUserIdsResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (searchUserIdsParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'searchUserIdsParams' when calling searchUserIds(Async)"
+      );
+    }
 
-  /**
-   * Build call for setDictionarySettings
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call setDictionarySettingsCall(
-    DictionarySettingsParams dictionarySettingsParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = dictionarySettingsParams;
+    Object bodyObj = searchUserIdsParams;
 
     // create path and map variables
-    String requestPath = "/1/dictionaries/*/settings";
+    String requestPath = "/1/clusters/mapping/search";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call setDictionarySettingsValidateBeforeCall(
-    DictionarySettingsParams dictionarySettingsParams,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'dictionarySettingsParams' is set
-    if (dictionarySettingsParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'dictionarySettingsParams' when calling" +
-        " setDictionarySettings(Async)"
-      );
-    }
-
-    return setDictionarySettingsCall(dictionarySettingsParams, callback);
+    Call call =
+      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<SearchUserIdsResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -6198,111 +3622,41 @@ public class SearchClient extends ApiClient {
   public UpdatedAtResponse setDictionarySettings(
     DictionarySettingsParams dictionarySettingsParams
   ) throws AlgoliaRuntimeException {
-    Call req = setDictionarySettingsValidateBeforeCall(
-      dictionarySettingsParams,
-      null
+    return LaunderThrowable.await(
+      setDictionarySettingsAsync(dictionarySettingsParams)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SetDictionarySettings(
-        ((CallEcho) req).request()
-      );
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   /**
    * (asynchronously) Set dictionaries settings.
    *
    * @param dictionarySettingsParams (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call setDictionarySettingsAsync(
-    DictionarySettingsParams dictionarySettingsParams,
-    final ApiCallback<UpdatedAtResponse> callback
+  public CompletableFuture<UpdatedAtResponse> setDictionarySettingsAsync(
+    DictionarySettingsParams dictionarySettingsParams
   ) throws AlgoliaRuntimeException {
-    Call call = setDictionarySettingsValidateBeforeCall(
-      dictionarySettingsParams,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (dictionarySettingsParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'dictionarySettingsParams' when calling" +
+        " setDictionarySettings(Async)"
+      );
+    }
 
-  /**
-   * Build call for setSettings
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call setSettingsCall(
-    String indexName,
-    IndexSettings indexSettings,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = indexSettings;
+    Object bodyObj = dictionarySettingsParams;
 
     // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/settings".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        );
+    String requestPath = "/1/dictionaries/*/settings";
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    if (forwardToReplicas != null) {
-      queryParams.put(
-        "forwardToReplicas",
-        parameterToString(forwardToReplicas)
-      );
-    }
-
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call setSettingsValidateBeforeCall(
-    String indexName,
-    IndexSettings indexSettings,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'indexName' is set
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling setSettings(Async)"
-      );
-    }
-
-    // verify the required parameter 'indexSettings' is set
-    if (indexSettings == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexSettings' when calling setSettings(Async)"
-      );
-    }
-
-    return setSettingsCall(
-      indexName,
-      indexSettings,
-      forwardToReplicas,
-      callback
-    );
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -6322,19 +3676,9 @@ public class SearchClient extends ApiClient {
     IndexSettings indexSettings,
     Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
-    Call req = setSettingsValidateBeforeCall(
-      indexName,
-      indexSettings,
-      forwardToReplicas,
-      null
+    return LaunderThrowable.await(
+      setSettingsAsync(indexName, indexSettings, forwardToReplicas)
     );
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.SetSettings(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    ApiResponse<UpdatedAtResponse> res = this.execute(call, returnType);
-    return res.getData();
   }
 
   public UpdatedAtResponse setSettings(
@@ -6353,82 +3697,50 @@ public class SearchClient extends ApiClient {
    * @param indexSettings (required)
    * @param forwardToReplicas When true, changes are also propagated to replicas of the given
    *     indexName. (optional)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call setSettingsAsync(
+  public CompletableFuture<UpdatedAtResponse> setSettingsAsync(
     String indexName,
     IndexSettings indexSettings,
-    Boolean forwardToReplicas,
-    final ApiCallback<UpdatedAtResponse> callback
+    Boolean forwardToReplicas
   ) throws AlgoliaRuntimeException {
-    Call call = setSettingsValidateBeforeCall(
-      indexName,
-      indexSettings,
-      forwardToReplicas,
-      callback
-    );
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
-  }
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling setSettings(Async)"
+      );
+    }
 
-  /**
-   * Build call for updateApiKey
-   *
-   * @param callback Callback for upload/download progress
-   * @return Call to execute
-   * @throws AlgoliaRuntimeException If fail to serialize the request body object
-   */
-  private Call updateApiKeyCall(
-    String key,
-    ApiKey apiKey,
-    final ApiCallback<UpdateApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    Object bodyObj = apiKey;
+    if (indexSettings == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexSettings' when calling setSettings(Async)"
+      );
+    }
+
+    Object bodyObj = indexSettings;
 
     // create path and map variables
     String requestPath =
-      "/1/keys/{key}".replaceAll(
-          "\\{key\\}",
-          this.escapeString(key.toString())
+      "/1/indexes/{indexName}/settings".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
         );
 
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    return this.buildCall(
-        requestPath,
-        "PUT",
-        queryParams,
-        bodyObj,
-        headers,
-        callback
-      );
-  }
-
-  private Call updateApiKeyValidateBeforeCall(
-    String key,
-    ApiKey apiKey,
-    final ApiCallback<UpdateApiKeyResponse> callback
-  ) throws AlgoliaRuntimeException {
-    // verify the required parameter 'key' is set
-    if (key == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'key' when calling updateApiKey(Async)"
+    if (forwardToReplicas != null) {
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
 
-    // verify the required parameter 'apiKey' is set
-    if (apiKey == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'apiKey' when calling updateApiKey(Async)"
-      );
-    }
-
-    return updateApiKeyCall(key, apiKey, callback);
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
+    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
   }
 
   /**
@@ -6442,14 +3754,7 @@ public class SearchClient extends ApiClient {
    */
   public UpdateApiKeyResponse updateApiKey(String key, ApiKey apiKey)
     throws AlgoliaRuntimeException {
-    Call req = updateApiKeyValidateBeforeCall(key, apiKey, null);
-    if (req instanceof CallEcho) {
-      return new EchoResponseSearch.UpdateApiKey(((CallEcho) req).request());
-    }
-    Call call = (Call) req;
-    Type returnType = new TypeToken<UpdateApiKeyResponse>() {}.getType();
-    ApiResponse<UpdateApiKeyResponse> res = this.execute(call, returnType);
-    return res.getData();
+    return LaunderThrowable.await(updateApiKeyAsync(key, apiKey));
   }
 
   /**
@@ -6457,19 +3762,41 @@ public class SearchClient extends ApiClient {
    *
    * @param key API Key string. (required)
    * @param apiKey (required)
-   * @param callback The callback to be executed when the API call finishes
-   * @return The request call
+   * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public Call updateApiKeyAsync(
+  public CompletableFuture<UpdateApiKeyResponse> updateApiKeyAsync(
     String key,
-    ApiKey apiKey,
-    final ApiCallback<UpdateApiKeyResponse> callback
+    ApiKey apiKey
   ) throws AlgoliaRuntimeException {
-    Call call = updateApiKeyValidateBeforeCall(key, apiKey, callback);
+    if (key == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'key' when calling updateApiKey(Async)"
+      );
+    }
+
+    if (apiKey == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'apiKey' when calling updateApiKey(Async)"
+      );
+    }
+
+    Object bodyObj = apiKey;
+
+    // create path and map variables
+    String requestPath =
+      "/1/keys/{key}".replaceAll(
+          "\\{key\\}",
+          this.escapeString(key.toString())
+        );
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
     Type returnType = new TypeToken<UpdateApiKeyResponse>() {}.getType();
-    this.executeAsync(call, returnType, callback);
-    return call;
+    return this.executeAsync(call, returnType);
   }
 }

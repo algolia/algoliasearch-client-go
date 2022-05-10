@@ -24,7 +24,7 @@ public class QuerySuggestionsIndexParam {
     return this;
   }
 
-  public QuerySuggestionsIndexParam addSourceIndicesItem(
+  public QuerySuggestionsIndexParam addSourceIndices(
     SourceIndex sourceIndicesItem
   ) {
     this.sourceIndices.add(sourceIndicesItem);
@@ -46,7 +46,7 @@ public class QuerySuggestionsIndexParam {
     return this;
   }
 
-  public QuerySuggestionsIndexParam addLanguagesItem(String languagesItem) {
+  public QuerySuggestionsIndexParam addLanguages(String languagesItem) {
     if (this.languages == null) {
       this.languages = new ArrayList<>();
     }
@@ -72,7 +72,7 @@ public class QuerySuggestionsIndexParam {
     return this;
   }
 
-  public QuerySuggestionsIndexParam addExcludeItem(String excludeItem) {
+  public QuerySuggestionsIndexParam addExclude(String excludeItem) {
     if (this.exclude == null) {
       this.exclude = new ArrayList<>();
     }

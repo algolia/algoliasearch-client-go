@@ -204,10 +204,7 @@ public class BrowseResponse {
     return this;
   }
 
-  public BrowseResponse putFacetsItem(
-    String key,
-    Map<String, String> facetsItem
-  ) {
+  public BrowseResponse putFacets(String key, Map<String, String> facetsItem) {
     if (this.facets == null) {
       this.facets = new HashMap<>();
     }
@@ -232,7 +229,7 @@ public class BrowseResponse {
     return this;
   }
 
-  public BrowseResponse putFacetsStatsItem(
+  public BrowseResponse putFacetsStats(
     String key,
     BaseSearchResponseFacetsStats facetsStatsItem
   ) {
@@ -485,7 +482,7 @@ public class BrowseResponse {
     return this;
   }
 
-  public BrowseResponse addHitsItem(Hit hitsItem) {
+  public BrowseResponse addHits(Hit hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

@@ -18,7 +18,7 @@ public class GetRecommendationsParams {
     return this;
   }
 
-  public GetRecommendationsParams addRequestsItem(
+  public GetRecommendationsParams addRequests(
     RecommendationsRequest requestsItem
   ) {
     this.requests.add(requestsItem);

@@ -16,7 +16,7 @@ public class ListApiKeysResponse {
     return this;
   }
 
-  public ListApiKeysResponse addKeysItem(Key keysItem) {
+  public ListApiKeysResponse addKeys(Key keysItem) {
     this.keys.add(keysItem);
     return this;
   }

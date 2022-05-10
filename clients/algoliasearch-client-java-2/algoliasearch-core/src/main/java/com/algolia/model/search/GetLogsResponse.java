@@ -16,7 +16,7 @@ public class GetLogsResponse {
     return this;
   }
 
-  public GetLogsResponse addLogsItem(GetLogsResponseLogs logsItem) {
+  public GetLogsResponse addLogs(GetLogsResponseLogs logsItem) {
     this.logs.add(logsItem);
     return this;
   }

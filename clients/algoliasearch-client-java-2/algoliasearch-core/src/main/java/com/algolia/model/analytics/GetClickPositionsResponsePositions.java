@@ -21,9 +21,7 @@ public class GetClickPositionsResponsePositions {
     return this;
   }
 
-  public GetClickPositionsResponsePositions addPositionItem(
-    Integer positionItem
-  ) {
+  public GetClickPositionsResponsePositions addPosition(Integer positionItem) {
     this.position.add(positionItem);
     return this;
   }

@@ -28,7 +28,7 @@ public class SearchUserIdsResponse {
     return this;
   }
 
-  public SearchUserIdsResponse addHitsItem(SearchUserIdsResponseHits hitsItem) {
+  public SearchUserIdsResponse addHits(SearchUserIdsResponseHits hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

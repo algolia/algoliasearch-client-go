@@ -19,7 +19,7 @@ public class PredictionsFunnelStage {
     return this;
   }
 
-  public PredictionsFunnelStage addValueItem(FunnelStage valueItem) {
+  public PredictionsFunnelStage addValue(FunnelStage valueItem) {
     if (this.value == null) {
       this.value = new ArrayList<>();
     }

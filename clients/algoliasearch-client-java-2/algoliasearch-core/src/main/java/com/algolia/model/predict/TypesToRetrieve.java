@@ -18,7 +18,7 @@ public class TypesToRetrieve {
     return this;
   }
 
-  public TypesToRetrieve addTypesToRetrieveItem(
+  public TypesToRetrieve addTypesToRetrieve(
     TypesToRetrieveEnum typesToRetrieveItem
   ) {
     this.typesToRetrieve.add(typesToRetrieveItem);

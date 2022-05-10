@@ -18,7 +18,7 @@ public class GetSearchesNoClicksResponse {
     return this;
   }
 
-  public GetSearchesNoClicksResponse addSearchesItem(
+  public GetSearchesNoClicksResponse addSearches(
     GetSearchesNoClicksResponseSearches searchesItem
   ) {
     this.searches.add(searchesItem);

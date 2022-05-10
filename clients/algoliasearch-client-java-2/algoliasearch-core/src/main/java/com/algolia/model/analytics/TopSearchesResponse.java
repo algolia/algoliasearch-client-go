@@ -18,7 +18,7 @@ public class TopSearchesResponse {
     return this;
   }
 
-  public TopSearchesResponse addSearchesItem(
+  public TopSearchesResponse addSearches(
     GetSearchesNoResultsResponseSearches searchesItem
   ) {
     this.searches.add(searchesItem);

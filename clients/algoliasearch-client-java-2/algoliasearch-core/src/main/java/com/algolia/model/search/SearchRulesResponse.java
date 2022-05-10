@@ -25,7 +25,7 @@ public class SearchRulesResponse {
     return this;
   }
 
-  public SearchRulesResponse addHitsItem(Rule hitsItem) {
+  public SearchRulesResponse addHits(Rule hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

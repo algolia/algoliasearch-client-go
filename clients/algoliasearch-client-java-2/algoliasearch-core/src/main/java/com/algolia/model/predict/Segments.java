@@ -19,7 +19,7 @@ public class Segments {
     return this;
   }
 
-  public Segments addComputedItem(String computedItem) {
+  public Segments addComputed(String computedItem) {
     if (this.computed == null) {
       this.computed = new ArrayList<>();
     }
@@ -42,7 +42,7 @@ public class Segments {
     return this;
   }
 
-  public Segments addCustomItem(String customItem) {
+  public Segments addCustom(String customItem) {
     if (this.custom == null) {
       this.custom = new ArrayList<>();
     }

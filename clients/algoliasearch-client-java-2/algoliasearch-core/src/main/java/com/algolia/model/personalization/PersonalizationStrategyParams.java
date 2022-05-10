@@ -24,7 +24,7 @@ public class PersonalizationStrategyParams {
     return this;
   }
 
-  public PersonalizationStrategyParams addEventScoringItem(
+  public PersonalizationStrategyParams addEventScoring(
     EventScoring eventScoringItem
   ) {
     this.eventScoring.add(eventScoringItem);
@@ -48,7 +48,7 @@ public class PersonalizationStrategyParams {
     return this;
   }
 
-  public PersonalizationStrategyParams addFacetScoringItem(
+  public PersonalizationStrategyParams addFacetScoring(
     FacetScoring facetScoringItem
   ) {
     this.facetScoring.add(facetScoringItem);

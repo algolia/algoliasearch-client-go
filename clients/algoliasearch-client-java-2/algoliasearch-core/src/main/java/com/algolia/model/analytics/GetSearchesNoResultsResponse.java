@@ -18,7 +18,7 @@ public class GetSearchesNoResultsResponse {
     return this;
   }
 
-  public GetSearchesNoResultsResponse addSearchesItem(
+  public GetSearchesNoResultsResponse addSearches(
     GetSearchesNoResultsResponseSearches searchesItem
   ) {
     this.searches.add(searchesItem);

@@ -203,7 +203,7 @@ public class RecommendationsResponse {
     return this;
   }
 
-  public RecommendationsResponse putFacetsItem(
+  public RecommendationsResponse putFacets(
     String key,
     Map<String, String> facetsItem
   ) {
@@ -231,7 +231,7 @@ public class RecommendationsResponse {
     return this;
   }
 
-  public RecommendationsResponse putFacetsStatsItem(
+  public RecommendationsResponse putFacetsStats(
     String key,
     BaseSearchResponseFacetsStats facetsStatsItem
   ) {
@@ -486,7 +486,7 @@ public class RecommendationsResponse {
     return this;
   }
 
-  public RecommendationsResponse addHitsItem(RecommendHit hitsItem) {
+  public RecommendationsResponse addHits(RecommendHit hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

@@ -77,7 +77,7 @@ public class DictionaryEntry extends HashMap<String, Object> {
     return this;
   }
 
-  public DictionaryEntry addWordsItem(String wordsItem) {
+  public DictionaryEntry addWords(String wordsItem) {
     if (this.words == null) {
       this.words = new ArrayList<>();
     }
@@ -100,7 +100,7 @@ public class DictionaryEntry extends HashMap<String, Object> {
     return this;
   }
 
-  public DictionaryEntry addDecompositionItem(String decompositionItem) {
+  public DictionaryEntry addDecomposition(String decompositionItem) {
     if (this.decomposition == null) {
       this.decomposition = new ArrayList<>();
     }

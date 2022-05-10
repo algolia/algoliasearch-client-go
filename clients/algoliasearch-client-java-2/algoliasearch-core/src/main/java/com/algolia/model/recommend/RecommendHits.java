@@ -16,7 +16,7 @@ public class RecommendHits {
     return this;
   }
 
-  public RecommendHits addHitsItem(RecommendHit hitsItem) {
+  public RecommendHits addHits(RecommendHit hitsItem) {
     if (this.hits == null) {
       this.hits = new ArrayList<>();
     }

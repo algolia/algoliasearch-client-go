@@ -144,7 +144,7 @@ public class ABTest {
     return this;
   }
 
-  public ABTest addVariantsItem(Variant variantsItem) {
+  public ABTest addVariants(Variant variantsItem) {
     this.variants.add(variantsItem);
     return this;
   }

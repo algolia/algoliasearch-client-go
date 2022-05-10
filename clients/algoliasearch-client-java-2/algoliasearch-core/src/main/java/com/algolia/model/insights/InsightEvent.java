@@ -132,7 +132,7 @@ public class InsightEvent {
     return this;
   }
 
-  public InsightEvent addObjectIDsItem(String objectIDsItem) {
+  public InsightEvent addObjectIDs(String objectIDsItem) {
     if (this.objectIDs == null) {
       this.objectIDs = new ArrayList<>();
     }
@@ -156,7 +156,7 @@ public class InsightEvent {
     return this;
   }
 
-  public InsightEvent addFiltersItem(String filtersItem) {
+  public InsightEvent addFilters(String filtersItem) {
     if (this.filters == null) {
       this.filters = new ArrayList<>();
     }
@@ -180,7 +180,7 @@ public class InsightEvent {
     return this;
   }
 
-  public InsightEvent addPositionsItem(Integer positionsItem) {
+  public InsightEvent addPositions(Integer positionsItem) {
     if (this.positions == null) {
       this.positions = new ArrayList<>();
     }

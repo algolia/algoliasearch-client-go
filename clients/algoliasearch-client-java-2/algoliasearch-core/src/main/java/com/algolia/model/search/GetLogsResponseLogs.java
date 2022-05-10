@@ -270,7 +270,7 @@ public class GetLogsResponseLogs {
     return this;
   }
 
-  public GetLogsResponseLogs addInnerQueriesItem(
+  public GetLogsResponseLogs addInnerQueries(
     GetLogsResponseInnerQueries innerQueriesItem
   ) {
     if (this.innerQueries == null) {

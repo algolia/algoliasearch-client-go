@@ -19,7 +19,7 @@ public class PredictionsAffinities {
     return this;
   }
 
-  public PredictionsAffinities addValueItem(Affinities valueItem) {
+  public PredictionsAffinities addValue(Affinities valueItem) {
     if (this.value == null) {
       this.value = new ArrayList<>();
     }

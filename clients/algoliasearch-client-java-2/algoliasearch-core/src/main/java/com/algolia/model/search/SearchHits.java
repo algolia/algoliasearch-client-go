@@ -16,7 +16,7 @@ public class SearchHits {
     return this;
   }
 
-  public SearchHits addHitsItem(Hit hitsItem) {
+  public SearchHits addHits(Hit hitsItem) {
     if (this.hits == null) {
       this.hits = new ArrayList<>();
     }

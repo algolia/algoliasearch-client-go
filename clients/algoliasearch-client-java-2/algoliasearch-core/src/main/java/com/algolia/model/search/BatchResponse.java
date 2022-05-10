@@ -34,7 +34,7 @@ public class BatchResponse {
     return this;
   }
 
-  public BatchResponse addObjectIDsItem(String objectIDsItem) {
+  public BatchResponse addObjectIDs(String objectIDsItem) {
     if (this.objectIDs == null) {
       this.objectIDs = new ArrayList<>();
     }

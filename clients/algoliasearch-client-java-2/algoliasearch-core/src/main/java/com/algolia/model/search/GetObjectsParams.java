@@ -16,9 +16,7 @@ public class GetObjectsParams {
     return this;
   }
 
-  public GetObjectsParams addRequestsItem(
-    MultipleGetObjectsParams requestsItem
-  ) {
+  public GetObjectsParams addRequests(MultipleGetObjectsParams requestsItem) {
     if (this.requests == null) {
       this.requests = new ArrayList<>();
     }

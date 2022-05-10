@@ -16,7 +16,7 @@ public class InsightEvents {
     return this;
   }
 
-  public InsightEvents addEventsItem(InsightEvent eventsItem) {
+  public InsightEvents addEvents(InsightEvent eventsItem) {
     this.events.add(eventsItem);
     return this;
   }

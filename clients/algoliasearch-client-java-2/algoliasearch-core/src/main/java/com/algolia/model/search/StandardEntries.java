@@ -25,7 +25,7 @@ public class StandardEntries {
     return this;
   }
 
-  public StandardEntries putPluralsItem(String key, Boolean pluralsItem) {
+  public StandardEntries putPlurals(String key, Boolean pluralsItem) {
     if (this.plurals == null) {
       this.plurals = new HashMap<>();
     }
@@ -48,7 +48,7 @@ public class StandardEntries {
     return this;
   }
 
-  public StandardEntries putStopwordsItem(String key, Boolean stopwordsItem) {
+  public StandardEntries putStopwords(String key, Boolean stopwordsItem) {
     if (this.stopwords == null) {
       this.stopwords = new HashMap<>();
     }
@@ -71,7 +71,7 @@ public class StandardEntries {
     return this;
   }
 
-  public StandardEntries putCompoundsItem(String key, Boolean compoundsItem) {
+  public StandardEntries putCompounds(String key, Boolean compoundsItem) {
     if (this.compounds == null) {
       this.compounds = new HashMap<>();
     }

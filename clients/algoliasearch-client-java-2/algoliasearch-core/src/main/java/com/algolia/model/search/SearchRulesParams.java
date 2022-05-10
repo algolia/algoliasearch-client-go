@@ -125,7 +125,7 @@ public class SearchRulesParams {
     return this;
   }
 
-  public SearchRulesParams addRequestOptionsItem(Object requestOptionsItem) {
+  public SearchRulesParams addRequestOptions(Object requestOptionsItem) {
     if (this.requestOptions == null) {
       this.requestOptions = new ArrayList<>();
     }

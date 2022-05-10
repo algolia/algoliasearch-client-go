@@ -16,7 +16,7 @@ public class GetObjectsResponse {
     return this;
   }
 
-  public GetObjectsResponse addResultsItem(Object resultsItem) {
+  public GetObjectsResponse addResults(Object resultsItem) {
     if (this.results == null) {
       this.results = new ArrayList<>();
     }

@@ -358,7 +358,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addFacetsItem(String facetsItem) {
+  public SearchParamsObject addFacets(String facetsItem) {
     if (this.facets == null) {
       this.facets = new ArrayList<>();
     }
@@ -553,7 +553,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addInsideBoundingBoxItem(
+  public SearchParamsObject addInsideBoundingBox(
     BigDecimal insideBoundingBoxItem
   ) {
     if (this.insideBoundingBox == null) {
@@ -578,7 +578,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addInsidePolygonItem(BigDecimal insidePolygonItem) {
+  public SearchParamsObject addInsidePolygon(BigDecimal insidePolygonItem) {
     if (this.insidePolygon == null) {
       this.insidePolygon = new ArrayList<>();
     }
@@ -601,9 +601,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addNaturalLanguagesItem(
-    String naturalLanguagesItem
-  ) {
+  public SearchParamsObject addNaturalLanguages(String naturalLanguagesItem) {
     if (this.naturalLanguages == null) {
       this.naturalLanguages = new ArrayList<>();
     }
@@ -630,7 +628,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addRuleContextsItem(String ruleContextsItem) {
+  public SearchParamsObject addRuleContexts(String ruleContextsItem) {
     if (this.ruleContexts == null) {
       this.ruleContexts = new ArrayList<>();
     }
@@ -730,7 +728,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addAnalyticsTagsItem(String analyticsTagsItem) {
+  public SearchParamsObject addAnalyticsTags(String analyticsTagsItem) {
     if (this.analyticsTags == null) {
       this.analyticsTags = new ArrayList<>();
     }
@@ -834,7 +832,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addSearchableAttributesItem(
+  public SearchParamsObject addSearchableAttributes(
     String searchableAttributesItem
   ) {
     if (this.searchableAttributes == null) {
@@ -861,7 +859,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addAttributesForFacetingItem(
+  public SearchParamsObject addAttributesForFaceting(
     String attributesForFacetingItem
   ) {
     if (this.attributesForFaceting == null) {
@@ -888,7 +886,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addUnretrievableAttributesItem(
+  public SearchParamsObject addUnretrievableAttributes(
     String unretrievableAttributesItem
   ) {
     if (this.unretrievableAttributes == null) {
@@ -915,7 +913,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addAttributesToRetrieveItem(
+  public SearchParamsObject addAttributesToRetrieve(
     String attributesToRetrieveItem
   ) {
     if (this.attributesToRetrieve == null) {
@@ -942,7 +940,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addRestrictSearchableAttributesItem(
+  public SearchParamsObject addRestrictSearchableAttributes(
     String restrictSearchableAttributesItem
   ) {
     if (this.restrictSearchableAttributes == null) {
@@ -967,7 +965,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addRankingItem(String rankingItem) {
+  public SearchParamsObject addRanking(String rankingItem) {
     if (this.ranking == null) {
       this.ranking = new ArrayList<>();
     }
@@ -990,7 +988,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addCustomRankingItem(String customRankingItem) {
+  public SearchParamsObject addCustomRanking(String customRankingItem) {
     if (this.customRanking == null) {
       this.customRanking = new ArrayList<>();
     }
@@ -1033,7 +1031,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addAttributesToHighlightItem(
+  public SearchParamsObject addAttributesToHighlight(
     String attributesToHighlightItem
   ) {
     if (this.attributesToHighlight == null) {
@@ -1060,7 +1058,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addAttributesToSnippetItem(
+  public SearchParamsObject addAttributesToSnippet(
     String attributesToSnippetItem
   ) {
     if (this.attributesToSnippet == null) {
@@ -1232,7 +1230,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addDisableTypoToleranceOnAttributesItem(
+  public SearchParamsObject addDisableTypoToleranceOnAttributes(
     String disableTypoToleranceOnAttributesItem
   ) {
     if (this.disableTypoToleranceOnAttributes == null) {
@@ -1321,7 +1319,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addQueryLanguagesItem(String queryLanguagesItem) {
+  public SearchParamsObject addQueryLanguages(String queryLanguagesItem) {
     if (this.queryLanguages == null) {
       this.queryLanguages = new ArrayList<>();
     }
@@ -1439,7 +1437,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addOptionalWordsItem(String optionalWordsItem) {
+  public SearchParamsObject addOptionalWords(String optionalWordsItem) {
     if (this.optionalWords == null) {
       this.optionalWords = new ArrayList<>();
     }
@@ -1464,7 +1462,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addDisableExactOnAttributesItem(
+  public SearchParamsObject addDisableExactOnAttributes(
     String disableExactOnAttributesItem
   ) {
     if (this.disableExactOnAttributes == null) {
@@ -1508,7 +1506,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addAlternativesAsExactItem(
+  public SearchParamsObject addAlternativesAsExact(
     AlternativesAsExact alternativesAsExactItem
   ) {
     if (this.alternativesAsExact == null) {
@@ -1535,7 +1533,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addAdvancedSyntaxFeaturesItem(
+  public SearchParamsObject addAdvancedSyntaxFeatures(
     AdvancedSyntaxFeatures advancedSyntaxFeaturesItem
   ) {
     if (this.advancedSyntaxFeatures == null) {
@@ -1624,7 +1622,7 @@ public class SearchParamsObject {
     return this;
   }
 
-  public SearchParamsObject addResponseFieldsItem(String responseFieldsItem) {
+  public SearchParamsObject addResponseFields(String responseFieldsItem) {
     if (this.responseFields == null) {
       this.responseFields = new ArrayList<>();
     }

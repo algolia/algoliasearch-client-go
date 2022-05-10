@@ -49,7 +49,7 @@ public class BaseIndexSettings {
     return this;
   }
 
-  public BaseIndexSettings addReplicasItem(String replicasItem) {
+  public BaseIndexSettings addReplicas(String replicasItem) {
     if (this.replicas == null) {
       this.replicas = new ArrayList<>();
     }
@@ -89,7 +89,7 @@ public class BaseIndexSettings {
     return this;
   }
 
-  public BaseIndexSettings addDisableTypoToleranceOnWordsItem(
+  public BaseIndexSettings addDisableTypoToleranceOnWords(
     String disableTypoToleranceOnWordsItem
   ) {
     if (this.disableTypoToleranceOnWords == null) {
@@ -116,7 +116,7 @@ public class BaseIndexSettings {
     return this;
   }
 
-  public BaseIndexSettings addAttributesToTransliterateItem(
+  public BaseIndexSettings addAttributesToTransliterate(
     String attributesToTransliterateItem
   ) {
     if (this.attributesToTransliterate == null) {
@@ -143,7 +143,7 @@ public class BaseIndexSettings {
     return this;
   }
 
-  public BaseIndexSettings addCamelCaseAttributesItem(
+  public BaseIndexSettings addCamelCaseAttributes(
     String camelCaseAttributesItem
   ) {
     if (this.camelCaseAttributes == null) {
@@ -186,7 +186,7 @@ public class BaseIndexSettings {
     return this;
   }
 
-  public BaseIndexSettings addIndexLanguagesItem(String indexLanguagesItem) {
+  public BaseIndexSettings addIndexLanguages(String indexLanguagesItem) {
     if (this.indexLanguages == null) {
       this.indexLanguages = new ArrayList<>();
     }
@@ -228,7 +228,7 @@ public class BaseIndexSettings {
     return this;
   }
 
-  public BaseIndexSettings addDisablePrefixOnAttributesItem(
+  public BaseIndexSettings addDisablePrefixOnAttributes(
     String disablePrefixOnAttributesItem
   ) {
     if (this.disablePrefixOnAttributes == null) {
@@ -272,7 +272,7 @@ public class BaseIndexSettings {
     return this;
   }
 
-  public BaseIndexSettings addNumericAttributesForFilteringItem(
+  public BaseIndexSettings addNumericAttributesForFiltering(
     String numericAttributesForFilteringItem
   ) {
     if (this.numericAttributesForFiltering == null) {

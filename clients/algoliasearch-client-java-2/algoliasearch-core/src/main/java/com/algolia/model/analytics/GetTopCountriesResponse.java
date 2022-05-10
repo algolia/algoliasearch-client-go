@@ -18,7 +18,7 @@ public class GetTopCountriesResponse {
     return this;
   }
 
-  public GetTopCountriesResponse addCountriesItem(
+  public GetTopCountriesResponse addCountries(
     GetTopCountriesResponseCountries countriesItem
   ) {
     this.countries.add(countriesItem);

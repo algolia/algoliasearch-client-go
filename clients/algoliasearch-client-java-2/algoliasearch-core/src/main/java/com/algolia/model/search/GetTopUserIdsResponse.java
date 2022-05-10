@@ -19,7 +19,7 @@ public class GetTopUserIdsResponse {
     return this;
   }
 
-  public GetTopUserIdsResponse addTopUsersItem(
+  public GetTopUserIdsResponse addTopUsers(
     Map<String, List<UserId>> topUsersItem
   ) {
     this.topUsers.add(topUsersItem);

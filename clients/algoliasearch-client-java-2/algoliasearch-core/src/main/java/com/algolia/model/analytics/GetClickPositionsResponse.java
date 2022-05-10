@@ -18,7 +18,7 @@ public class GetClickPositionsResponse {
     return this;
   }
 
-  public GetClickPositionsResponse addPositionsItem(
+  public GetClickPositionsResponse addPositions(
     GetClickPositionsResponsePositions positionsItem
   ) {
     this.positions.add(positionsItem);

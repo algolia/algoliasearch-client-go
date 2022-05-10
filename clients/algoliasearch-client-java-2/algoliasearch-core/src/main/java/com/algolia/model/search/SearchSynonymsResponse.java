@@ -20,7 +20,7 @@ public class SearchSynonymsResponse extends HashMap<String, Object> {
     return this;
   }
 
-  public SearchSynonymsResponse addHitsItem(SynonymHit hitsItem) {
+  public SearchSynonymsResponse addHits(SynonymHit hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

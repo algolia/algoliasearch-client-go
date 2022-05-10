@@ -49,7 +49,7 @@ public class SourceIndex {
     return this;
   }
 
-  public SourceIndex addAnalyticsTagsItem(String analyticsTagsItem) {
+  public SourceIndex addAnalyticsTags(String analyticsTagsItem) {
     if (this.analyticsTags == null) {
       this.analyticsTags = new ArrayList<>();
     }
@@ -72,7 +72,7 @@ public class SourceIndex {
     return this;
   }
 
-  public SourceIndex addFacetsItem(Object facetsItem) {
+  public SourceIndex addFacets(Object facetsItem) {
     if (this.facets == null) {
       this.facets = new ArrayList<>();
     }
@@ -125,7 +125,7 @@ public class SourceIndex {
     return this;
   }
 
-  public SourceIndex addGenerateItem(List<String> generateItem) {
+  public SourceIndex addGenerate(List<String> generateItem) {
     if (this.generate == null) {
       this.generate = new ArrayList<>();
     }
@@ -149,7 +149,7 @@ public class SourceIndex {
     return this;
   }
 
-  public SourceIndex addExternalItem(SourceIndexExternal externalItem) {
+  public SourceIndex addExternal(SourceIndexExternal externalItem) {
     if (this.external == null) {
       this.external = new ArrayList<>();
     }

@@ -38,7 +38,7 @@ public class BatchDictionaryEntriesParams {
     return this;
   }
 
-  public BatchDictionaryEntriesParams addRequestsItem(
+  public BatchDictionaryEntriesParams addRequests(
     BatchDictionaryEntriesRequest requestsItem
   ) {
     this.requests.add(requestsItem);

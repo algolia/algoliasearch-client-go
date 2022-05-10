@@ -196,7 +196,7 @@ public class BaseSearchResponse {
     return this;
   }
 
-  public BaseSearchResponse putFacetsItem(
+  public BaseSearchResponse putFacets(
     String key,
     Map<String, String> facetsItem
   ) {
@@ -224,7 +224,7 @@ public class BaseSearchResponse {
     return this;
   }
 
-  public BaseSearchResponse putFacetsStatsItem(
+  public BaseSearchResponse putFacetsStats(
     String key,
     BaseSearchResponseFacetsStats facetsStatsItem
   ) {

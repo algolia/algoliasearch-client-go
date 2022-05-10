@@ -34,7 +34,7 @@ public class MultipleBatchResponse {
     return this;
   }
 
-  public MultipleBatchResponse addObjectIDsItem(String objectIDsItem) {
+  public MultipleBatchResponse addObjectIDs(String objectIDsItem) {
     if (this.objectIDs == null) {
       this.objectIDs = new ArrayList<>();
     }

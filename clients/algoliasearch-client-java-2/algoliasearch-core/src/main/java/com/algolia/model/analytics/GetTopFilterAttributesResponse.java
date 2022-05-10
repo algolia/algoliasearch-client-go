@@ -18,7 +18,7 @@ public class GetTopFilterAttributesResponse {
     return this;
   }
 
-  public GetTopFilterAttributesResponse addAttributesItem(
+  public GetTopFilterAttributesResponse addAttributes(
     GetTopFilterAttribute attributesItem
   ) {
     this.attributes.add(attributesItem);

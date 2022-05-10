@@ -42,7 +42,7 @@ public class QuerySuggestionsIndex {
     return this;
   }
 
-  public QuerySuggestionsIndex addSourceIndicesItem(
+  public QuerySuggestionsIndex addSourceIndices(
     SourceIndiceWithReplicas sourceIndicesItem
   ) {
     this.sourceIndices.add(sourceIndicesItem);
@@ -64,7 +64,7 @@ public class QuerySuggestionsIndex {
     return this;
   }
 
-  public QuerySuggestionsIndex addLanguagesItem(String languagesItem) {
+  public QuerySuggestionsIndex addLanguages(String languagesItem) {
     this.languages.add(languagesItem);
     return this;
   }
@@ -87,7 +87,7 @@ public class QuerySuggestionsIndex {
     return this;
   }
 
-  public QuerySuggestionsIndex addExcludeItem(String excludeItem) {
+  public QuerySuggestionsIndex addExclude(String excludeItem) {
     this.exclude.add(excludeItem);
     return this;
   }

@@ -21,7 +21,7 @@ public class AllParams {
     return this;
   }
 
-  public AllParams addModelsToRetrieveItem(
+  public AllParams addModelsToRetrieve(
     ModelsToRetrieveEnum modelsToRetrieveItem
   ) {
     this.modelsToRetrieve.add(modelsToRetrieveItem);
@@ -45,9 +45,7 @@ public class AllParams {
     return this;
   }
 
-  public AllParams addTypesToRetrieveItem(
-    TypesToRetrieveEnum typesToRetrieveItem
-  ) {
+  public AllParams addTypesToRetrieve(TypesToRetrieveEnum typesToRetrieveItem) {
     this.typesToRetrieve.add(typesToRetrieveItem);
     return this;
   }

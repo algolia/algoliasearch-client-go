@@ -19,7 +19,7 @@ public class MultipleQueriesParams {
     return this;
   }
 
-  public MultipleQueriesParams addRequestsItem(MultipleQueries requestsItem) {
+  public MultipleQueriesParams addRequests(MultipleQueries requestsItem) {
     this.requests.add(requestsItem);
     return this;
   }

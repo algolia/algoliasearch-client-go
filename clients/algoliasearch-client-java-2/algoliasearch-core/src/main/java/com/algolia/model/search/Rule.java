@@ -46,7 +46,7 @@ public class Rule {
     return this;
   }
 
-  public Rule addConditionsItem(Condition conditionsItem) {
+  public Rule addConditions(Condition conditionsItem) {
     if (this.conditions == null) {
       this.conditions = new ArrayList<>();
     }
@@ -117,7 +117,7 @@ public class Rule {
     return this;
   }
 
-  public Rule addValidityItem(TimeRange validityItem) {
+  public Rule addValidity(TimeRange validityItem) {
     if (this.validity == null) {
       this.validity = new ArrayList<>();
     }

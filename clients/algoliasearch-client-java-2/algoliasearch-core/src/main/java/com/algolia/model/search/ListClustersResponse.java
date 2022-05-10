@@ -16,7 +16,7 @@ public class ListClustersResponse {
     return this;
   }
 
-  public ListClustersResponse addTopUsersItem(String topUsersItem) {
+  public ListClustersResponse addTopUsers(String topUsersItem) {
     this.topUsers.add(topUsersItem);
     return this;
   }

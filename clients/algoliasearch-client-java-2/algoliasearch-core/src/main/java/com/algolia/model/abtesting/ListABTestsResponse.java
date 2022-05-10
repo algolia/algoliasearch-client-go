@@ -22,7 +22,7 @@ public class ListABTestsResponse {
     return this;
   }
 
-  public ListABTestsResponse addAbtestsItem(ABTest abtestsItem) {
+  public ListABTestsResponse addAbtests(ABTest abtestsItem) {
     this.abtests.add(abtestsItem);
     return this;
   }

@@ -18,7 +18,7 @@ public class ModelsToRetrieve {
     return this;
   }
 
-  public ModelsToRetrieve addModelsToRetrieveItem(
+  public ModelsToRetrieve addModelsToRetrieve(
     ModelsToRetrieveEnum modelsToRetrieveItem
   ) {
     this.modelsToRetrieve.add(modelsToRetrieveItem);

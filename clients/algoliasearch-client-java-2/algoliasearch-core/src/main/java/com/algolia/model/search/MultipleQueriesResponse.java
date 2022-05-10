@@ -16,7 +16,7 @@ public class MultipleQueriesResponse {
     return this;
   }
 
-  public MultipleQueriesResponse addResultsItem(SearchResponse resultsItem) {
+  public MultipleQueriesResponse addResults(SearchResponse resultsItem) {
     if (this.results == null) {
       this.results = new ArrayList<>();
     }

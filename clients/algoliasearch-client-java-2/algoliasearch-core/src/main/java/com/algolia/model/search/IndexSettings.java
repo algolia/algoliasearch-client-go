@@ -183,7 +183,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addReplicasItem(String replicasItem) {
+  public IndexSettings addReplicas(String replicasItem) {
     if (this.replicas == null) {
       this.replicas = new ArrayList<>();
     }
@@ -223,7 +223,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addDisableTypoToleranceOnWordsItem(
+  public IndexSettings addDisableTypoToleranceOnWords(
     String disableTypoToleranceOnWordsItem
   ) {
     if (this.disableTypoToleranceOnWords == null) {
@@ -250,7 +250,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addAttributesToTransliterateItem(
+  public IndexSettings addAttributesToTransliterate(
     String attributesToTransliterateItem
   ) {
     if (this.attributesToTransliterate == null) {
@@ -277,9 +277,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addCamelCaseAttributesItem(
-    String camelCaseAttributesItem
-  ) {
+  public IndexSettings addCamelCaseAttributes(String camelCaseAttributesItem) {
     if (this.camelCaseAttributes == null) {
       this.camelCaseAttributes = new ArrayList<>();
     }
@@ -320,7 +318,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addIndexLanguagesItem(String indexLanguagesItem) {
+  public IndexSettings addIndexLanguages(String indexLanguagesItem) {
     if (this.indexLanguages == null) {
       this.indexLanguages = new ArrayList<>();
     }
@@ -362,7 +360,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addDisablePrefixOnAttributesItem(
+  public IndexSettings addDisablePrefixOnAttributes(
     String disablePrefixOnAttributesItem
   ) {
     if (this.disablePrefixOnAttributes == null) {
@@ -406,7 +404,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addNumericAttributesForFilteringItem(
+  public IndexSettings addNumericAttributesForFiltering(
     String numericAttributesForFilteringItem
   ) {
     if (this.numericAttributesForFiltering == null) {
@@ -448,7 +446,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addSearchableAttributesItem(
+  public IndexSettings addSearchableAttributes(
     String searchableAttributesItem
   ) {
     if (this.searchableAttributes == null) {
@@ -475,7 +473,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addAttributesForFacetingItem(
+  public IndexSettings addAttributesForFaceting(
     String attributesForFacetingItem
   ) {
     if (this.attributesForFaceting == null) {
@@ -502,7 +500,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addUnretrievableAttributesItem(
+  public IndexSettings addUnretrievableAttributes(
     String unretrievableAttributesItem
   ) {
     if (this.unretrievableAttributes == null) {
@@ -529,7 +527,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addAttributesToRetrieveItem(
+  public IndexSettings addAttributesToRetrieve(
     String attributesToRetrieveItem
   ) {
     if (this.attributesToRetrieve == null) {
@@ -556,7 +554,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addRestrictSearchableAttributesItem(
+  public IndexSettings addRestrictSearchableAttributes(
     String restrictSearchableAttributesItem
   ) {
     if (this.restrictSearchableAttributes == null) {
@@ -581,7 +579,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addRankingItem(String rankingItem) {
+  public IndexSettings addRanking(String rankingItem) {
     if (this.ranking == null) {
       this.ranking = new ArrayList<>();
     }
@@ -604,7 +602,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addCustomRankingItem(String customRankingItem) {
+  public IndexSettings addCustomRanking(String customRankingItem) {
     if (this.customRanking == null) {
       this.customRanking = new ArrayList<>();
     }
@@ -645,7 +643,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addAttributesToHighlightItem(
+  public IndexSettings addAttributesToHighlight(
     String attributesToHighlightItem
   ) {
     if (this.attributesToHighlight == null) {
@@ -672,9 +670,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addAttributesToSnippetItem(
-    String attributesToSnippetItem
-  ) {
+  public IndexSettings addAttributesToSnippet(String attributesToSnippetItem) {
     if (this.attributesToSnippet == null) {
       this.attributesToSnippet = new ArrayList<>();
     }
@@ -840,7 +836,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addDisableTypoToleranceOnAttributesItem(
+  public IndexSettings addDisableTypoToleranceOnAttributes(
     String disableTypoToleranceOnAttributesItem
   ) {
     if (this.disableTypoToleranceOnAttributes == null) {
@@ -929,7 +925,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addQueryLanguagesItem(String queryLanguagesItem) {
+  public IndexSettings addQueryLanguages(String queryLanguagesItem) {
     if (this.queryLanguages == null) {
       this.queryLanguages = new ArrayList<>();
     }
@@ -1045,7 +1041,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addOptionalWordsItem(String optionalWordsItem) {
+  public IndexSettings addOptionalWords(String optionalWordsItem) {
     if (this.optionalWords == null) {
       this.optionalWords = new ArrayList<>();
     }
@@ -1070,7 +1066,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addDisableExactOnAttributesItem(
+  public IndexSettings addDisableExactOnAttributes(
     String disableExactOnAttributesItem
   ) {
     if (this.disableExactOnAttributes == null) {
@@ -1114,7 +1110,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addAlternativesAsExactItem(
+  public IndexSettings addAlternativesAsExact(
     AlternativesAsExact alternativesAsExactItem
   ) {
     if (this.alternativesAsExact == null) {
@@ -1141,7 +1137,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addAdvancedSyntaxFeaturesItem(
+  public IndexSettings addAdvancedSyntaxFeatures(
     AdvancedSyntaxFeatures advancedSyntaxFeaturesItem
   ) {
     if (this.advancedSyntaxFeatures == null) {
@@ -1230,7 +1226,7 @@ public class IndexSettings {
     return this;
   }
 
-  public IndexSettings addResponseFieldsItem(String responseFieldsItem) {
+  public IndexSettings addResponseFields(String responseFieldsItem) {
     if (this.responseFields == null) {
       this.responseFields = new ArrayList<>();
     }

@@ -18,7 +18,7 @@ public class GetTopFiltersNoResultsResponse {
     return this;
   }
 
-  public GetTopFiltersNoResultsResponse addValuesItem(
+  public GetTopFiltersNoResultsResponse addValues(
     GetTopFiltersNoResultsValues valuesItem
   ) {
     this.values.add(valuesItem);

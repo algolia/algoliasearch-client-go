@@ -18,7 +18,7 @@ public class TopSearchesResponseWithAnalytics {
     return this;
   }
 
-  public TopSearchesResponseWithAnalytics addSearchesItem(
+  public TopSearchesResponseWithAnalytics addSearches(
     TopSearchesResponseWithAnalyticsSearches searchesItem
   ) {
     this.searches.add(searchesItem);

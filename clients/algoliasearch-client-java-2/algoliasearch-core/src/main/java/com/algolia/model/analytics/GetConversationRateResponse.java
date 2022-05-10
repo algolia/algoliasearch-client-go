@@ -76,7 +76,7 @@ public class GetConversationRateResponse {
     return this;
   }
 
-  public GetConversationRateResponse addDatesItem(
+  public GetConversationRateResponse addDates(
     GetConversationRateResponseDates datesItem
   ) {
     this.dates.add(datesItem);

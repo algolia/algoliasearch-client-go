@@ -37,7 +37,7 @@ public class AddABTestsRequest {
     return this;
   }
 
-  public AddABTestsRequest addVariantItem(AddABTestsVariant variantItem) {
+  public AddABTestsRequest addVariant(AddABTestsVariant variantItem) {
     this.variant.add(variantItem);
     return this;
   }

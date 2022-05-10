@@ -24,7 +24,7 @@ public class MultipleGetObjectsParams {
     return this;
   }
 
-  public MultipleGetObjectsParams addAttributesToRetrieveItem(
+  public MultipleGetObjectsParams addAttributesToRetrieve(
     String attributesToRetrieveItem
   ) {
     if (this.attributesToRetrieve == null) {

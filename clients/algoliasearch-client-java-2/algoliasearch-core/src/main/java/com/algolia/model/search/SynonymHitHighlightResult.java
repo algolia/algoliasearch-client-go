@@ -34,9 +34,7 @@ public class SynonymHitHighlightResult {
     return this;
   }
 
-  public SynonymHitHighlightResult addSynonymsItem(
-    HighlightResult synonymsItem
-  ) {
+  public SynonymHitHighlightResult addSynonyms(HighlightResult synonymsItem) {
     if (this.synonyms == null) {
       this.synonyms = new ArrayList<>();
     }

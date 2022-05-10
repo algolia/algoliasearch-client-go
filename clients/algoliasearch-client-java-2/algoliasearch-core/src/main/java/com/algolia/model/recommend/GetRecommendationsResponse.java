@@ -18,7 +18,7 @@ public class GetRecommendationsResponse {
     return this;
   }
 
-  public GetRecommendationsResponse addResultsItem(
+  public GetRecommendationsResponse addResults(
     RecommendationsResponse resultsItem
   ) {
     if (this.results == null) {

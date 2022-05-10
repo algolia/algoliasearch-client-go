@@ -55,7 +55,7 @@ public class HighlightResult {
     return this;
   }
 
-  public HighlightResult addMatchedWordsItem(String matchedWordsItem) {
+  public HighlightResult addMatchedWords(String matchedWordsItem) {
     if (this.matchedWords == null) {
       this.matchedWords = new ArrayList<>();
     }

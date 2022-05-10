@@ -37,7 +37,7 @@ public class ApiKey {
     return this;
   }
 
-  public ApiKey addAclItem(Acl aclItem) {
+  public ApiKey addAcl(Acl aclItem) {
     this.acl.add(aclItem);
     return this;
   }
@@ -73,7 +73,7 @@ public class ApiKey {
     return this;
   }
 
-  public ApiKey addIndexesItem(String indexesItem) {
+  public ApiKey addIndexes(String indexesItem) {
     if (this.indexes == null) {
       this.indexes = new ArrayList<>();
     }
@@ -143,7 +143,7 @@ public class ApiKey {
     return this;
   }
 
-  public ApiKey addReferersItem(String referersItem) {
+  public ApiKey addReferers(String referersItem) {
     if (this.referers == null) {
       this.referers = new ArrayList<>();
     }

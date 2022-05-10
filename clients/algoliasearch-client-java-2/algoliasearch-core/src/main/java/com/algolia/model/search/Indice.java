@@ -197,7 +197,7 @@ public class Indice {
     return this;
   }
 
-  public Indice addReplicasItem(String replicasItem) {
+  public Indice addReplicas(String replicasItem) {
     if (this.replicas == null) {
       this.replicas = new ArrayList<>();
     }

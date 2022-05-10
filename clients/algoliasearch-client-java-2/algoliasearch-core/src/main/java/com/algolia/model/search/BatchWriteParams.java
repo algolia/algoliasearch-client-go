@@ -16,7 +16,7 @@ public class BatchWriteParams {
     return this;
   }
 
-  public BatchWriteParams addRequestsItem(BatchOperation requestsItem) {
+  public BatchWriteParams addRequests(BatchOperation requestsItem) {
     if (this.requests == null) {
       this.requests = new ArrayList<>();
     }

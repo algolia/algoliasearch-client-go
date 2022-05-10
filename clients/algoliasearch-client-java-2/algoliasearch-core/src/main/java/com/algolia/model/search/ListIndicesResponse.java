@@ -19,7 +19,7 @@ public class ListIndicesResponse {
     return this;
   }
 
-  public ListIndicesResponse addItemsItem(Indice itemsItem) {
+  public ListIndicesResponse addItems(Indice itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<>();
     }

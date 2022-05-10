@@ -52,7 +52,7 @@ public class OperationIndexParams {
     return this;
   }
 
-  public OperationIndexParams addScopeItem(ScopeType scopeItem) {
+  public OperationIndexParams addScope(ScopeType scopeItem) {
     if (this.scope == null) {
       this.scope = new ArrayList<>();
     }

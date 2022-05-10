@@ -36,7 +36,7 @@ public class GetSearchesCountResponse {
     return this;
   }
 
-  public GetSearchesCountResponse addDatesItem(
+  public GetSearchesCountResponse addDates(
     GetSearchesCountResponseDates datesItem
   ) {
     this.dates.add(datesItem);

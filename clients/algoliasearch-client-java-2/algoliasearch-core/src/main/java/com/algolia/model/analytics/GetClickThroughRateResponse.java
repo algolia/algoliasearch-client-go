@@ -74,7 +74,7 @@ public class GetClickThroughRateResponse {
     return this;
   }
 
-  public GetClickThroughRateResponse addDatesItem(
+  public GetClickThroughRateResponse addDates(
     GetClickThroughRateResponseDates datesItem
   ) {
     this.dates.add(datesItem);

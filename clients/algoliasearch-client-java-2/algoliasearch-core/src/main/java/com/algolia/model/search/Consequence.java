@@ -43,7 +43,7 @@ public class Consequence {
     return this;
   }
 
-  public Consequence addPromoteItem(Promote promoteItem) {
+  public Consequence addPromote(Promote promoteItem) {
     if (this.promote == null) {
       this.promote = new ArrayList<>();
     }
@@ -83,7 +83,7 @@ public class Consequence {
     return this;
   }
 
-  public Consequence addHideItem(ConsequenceHide hideItem) {
+  public Consequence addHide(ConsequenceHide hideItem) {
     if (this.hide == null) {
       this.hide = new ArrayList<>();
     }

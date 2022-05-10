@@ -54,7 +54,7 @@ public class GetAverageClickPositionResponse {
     return this;
   }
 
-  public GetAverageClickPositionResponse addDatesItem(
+  public GetAverageClickPositionResponse addDates(
     GetAverageClickPositionResponseDates datesItem
   ) {
     this.dates.add(datesItem);

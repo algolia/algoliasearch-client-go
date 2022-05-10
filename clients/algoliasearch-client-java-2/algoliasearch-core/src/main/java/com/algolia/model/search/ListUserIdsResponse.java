@@ -16,7 +16,7 @@ public class ListUserIdsResponse {
     return this;
   }
 
-  public ListUserIdsResponse addUserIDsItem(UserId userIDsItem) {
+  public ListUserIdsResponse addUserIDs(UserId userIDsItem) {
     this.userIDs.add(userIDsItem);
     return this;
   }

@@ -16,7 +16,7 @@ public class TopHitsResponse {
     return this;
   }
 
-  public TopHitsResponse addHitsItem(TopHitsResponseHits hitsItem) {
+  public TopHitsResponse addHits(TopHitsResponseHits hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

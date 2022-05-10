@@ -201,10 +201,7 @@ public class SearchResponse {
     return this;
   }
 
-  public SearchResponse putFacetsItem(
-    String key,
-    Map<String, String> facetsItem
-  ) {
+  public SearchResponse putFacets(String key, Map<String, String> facetsItem) {
     if (this.facets == null) {
       this.facets = new HashMap<>();
     }
@@ -229,7 +226,7 @@ public class SearchResponse {
     return this;
   }
 
-  public SearchResponse putFacetsStatsItem(
+  public SearchResponse putFacetsStats(
     String key,
     BaseSearchResponseFacetsStats facetsStatsItem
   ) {
@@ -482,7 +479,7 @@ public class SearchResponse {
     return this;
   }
 
-  public SearchResponse addHitsItem(Hit hitsItem) {
+  public SearchResponse addHits(Hit hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

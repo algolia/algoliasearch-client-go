@@ -37,7 +37,7 @@ public class Promote {
     return this;
   }
 
-  public Promote addObjectIDsItem(String objectIDsItem) {
+  public Promote addObjectIDs(String objectIDsItem) {
     if (this.objectIDs == null) {
       this.objectIDs = new ArrayList<>();
     }

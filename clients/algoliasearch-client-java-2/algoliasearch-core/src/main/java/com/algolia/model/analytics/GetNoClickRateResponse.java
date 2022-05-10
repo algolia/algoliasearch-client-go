@@ -72,7 +72,7 @@ public class GetNoClickRateResponse {
     return this;
   }
 
-  public GetNoClickRateResponse addDatesItem(
+  public GetNoClickRateResponse addDates(
     GetNoClickRateResponseDates datesItem
   ) {
     this.dates.add(datesItem);

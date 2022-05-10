@@ -34,7 +34,7 @@ public class BatchAssignUserIdsParams {
     return this;
   }
 
-  public BatchAssignUserIdsParams addUsersItem(String usersItem) {
+  public BatchAssignUserIdsParams addUsers(String usersItem) {
     this.users.add(usersItem);
     return this;
   }

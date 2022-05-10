@@ -18,7 +18,7 @@ public class TopHitsResponseWithAnalytics {
     return this;
   }
 
-  public TopHitsResponseWithAnalytics addHitsItem(
+  public TopHitsResponseWithAnalytics addHits(
     TopHitsResponseWithAnalyticsHits hitsItem
   ) {
     this.hits.add(hitsItem);

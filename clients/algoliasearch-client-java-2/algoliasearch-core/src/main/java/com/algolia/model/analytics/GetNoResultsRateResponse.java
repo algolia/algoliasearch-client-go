@@ -72,7 +72,7 @@ public class GetNoResultsRateResponse {
     return this;
   }
 
-  public GetNoResultsRateResponse addDatesItem(
+  public GetNoResultsRateResponse addDates(
     GetNoResultsRateResponseDates datesItem
   ) {
     this.dates.add(datesItem);

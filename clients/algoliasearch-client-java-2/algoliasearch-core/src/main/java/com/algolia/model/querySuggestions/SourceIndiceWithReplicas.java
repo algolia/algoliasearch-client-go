@@ -67,9 +67,7 @@ public class SourceIndiceWithReplicas {
     return this;
   }
 
-  public SourceIndiceWithReplicas addAnalyticsTagsItem(
-    String analyticsTagsItem
-  ) {
+  public SourceIndiceWithReplicas addAnalyticsTags(String analyticsTagsItem) {
     this.analyticsTags.add(analyticsTagsItem);
     return this;
   }
@@ -89,7 +87,7 @@ public class SourceIndiceWithReplicas {
     return this;
   }
 
-  public SourceIndiceWithReplicas addFacetsItem(Object facetsItem) {
+  public SourceIndiceWithReplicas addFacets(Object facetsItem) {
     this.facets.add(facetsItem);
     return this;
   }
@@ -139,7 +137,7 @@ public class SourceIndiceWithReplicas {
     return this;
   }
 
-  public SourceIndiceWithReplicas addGenerateItem(List<String> generateItem) {
+  public SourceIndiceWithReplicas addGenerate(List<String> generateItem) {
     this.generate.add(generateItem);
     return this;
   }
@@ -162,7 +160,7 @@ public class SourceIndiceWithReplicas {
     return this;
   }
 
-  public SourceIndiceWithReplicas addExternalItem(
+  public SourceIndiceWithReplicas addExternal(
     SourceIndexExternal externalItem
   ) {
     this.external.add(externalItem);

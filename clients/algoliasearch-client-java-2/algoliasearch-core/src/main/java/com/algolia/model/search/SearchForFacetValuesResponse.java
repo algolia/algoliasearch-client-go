@@ -18,7 +18,7 @@ public class SearchForFacetValuesResponse {
     return this;
   }
 
-  public SearchForFacetValuesResponse addFacetHitsItem(
+  public SearchForFacetValuesResponse addFacetHits(
     SearchForFacetValuesResponseFacetHits facetHitsItem
   ) {
     this.facetHits.add(facetHitsItem);

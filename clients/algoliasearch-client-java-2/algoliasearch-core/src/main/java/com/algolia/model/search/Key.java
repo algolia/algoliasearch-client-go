@@ -40,7 +40,7 @@ public class Key {
     return this;
   }
 
-  public Key addAclItem(Acl aclItem) {
+  public Key addAcl(Acl aclItem) {
     this.acl.add(aclItem);
     return this;
   }
@@ -76,7 +76,7 @@ public class Key {
     return this;
   }
 
-  public Key addIndexesItem(String indexesItem) {
+  public Key addIndexes(String indexesItem) {
     if (this.indexes == null) {
       this.indexes = new ArrayList<>();
     }
@@ -146,7 +146,7 @@ public class Key {
     return this;
   }
 
-  public Key addReferersItem(String referersItem) {
+  public Key addReferers(String referersItem) {
     if (this.referers == null) {
       this.referers = new ArrayList<>();
     }

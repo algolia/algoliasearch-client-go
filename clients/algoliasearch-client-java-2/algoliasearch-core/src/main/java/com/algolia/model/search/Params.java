@@ -39,7 +39,7 @@ public class Params {
     return this;
   }
 
-  public Params addAutomaticFacetFiltersItem(
+  public Params addAutomaticFacetFilters(
     AutomaticFacetFilter automaticFacetFiltersItem
   ) {
     if (this.automaticFacetFilters == null) {
@@ -67,7 +67,7 @@ public class Params {
     return this;
   }
 
-  public Params addAutomaticOptionalFacetFiltersItem(
+  public Params addAutomaticOptionalFacetFilters(
     AutomaticFacetFilter automaticOptionalFacetFiltersItem
   ) {
     if (this.automaticOptionalFacetFilters == null) {

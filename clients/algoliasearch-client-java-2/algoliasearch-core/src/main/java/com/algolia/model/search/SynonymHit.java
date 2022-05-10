@@ -70,7 +70,7 @@ public class SynonymHit {
     return this;
   }
 
-  public SynonymHit addSynonymsItem(String synonymsItem) {
+  public SynonymHit addSynonyms(String synonymsItem) {
     if (this.synonyms == null) {
       this.synonyms = new ArrayList<>();
     }
@@ -123,7 +123,7 @@ public class SynonymHit {
     return this;
   }
 
-  public SynonymHit addCorrectionsItem(String correctionsItem) {
+  public SynonymHit addCorrections(String correctionsItem) {
     if (this.corrections == null) {
       this.corrections = new ArrayList<>();
     }
@@ -161,7 +161,7 @@ public class SynonymHit {
     return this;
   }
 
-  public SynonymHit addReplacementsItem(String replacementsItem) {
+  public SynonymHit addReplacements(String replacementsItem) {
     if (this.replacements == null) {
       this.replacements = new ArrayList<>();
     }

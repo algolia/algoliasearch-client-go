@@ -273,7 +273,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAutomaticFacetFiltersItem(
+  public ConsequenceParams addAutomaticFacetFilters(
     AutomaticFacetFilter automaticFacetFiltersItem
   ) {
     if (this.automaticFacetFilters == null) {
@@ -301,7 +301,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAutomaticOptionalFacetFiltersItem(
+  public ConsequenceParams addAutomaticOptionalFacetFilters(
     AutomaticFacetFilter automaticOptionalFacetFiltersItem
   ) {
     if (this.automaticOptionalFacetFilters == null) {
@@ -432,7 +432,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addFacetsItem(String facetsItem) {
+  public ConsequenceParams addFacets(String facetsItem) {
     if (this.facets == null) {
       this.facets = new ArrayList<>();
     }
@@ -625,7 +625,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addInsideBoundingBoxItem(
+  public ConsequenceParams addInsideBoundingBox(
     BigDecimal insideBoundingBoxItem
   ) {
     if (this.insideBoundingBox == null) {
@@ -650,7 +650,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addInsidePolygonItem(BigDecimal insidePolygonItem) {
+  public ConsequenceParams addInsidePolygon(BigDecimal insidePolygonItem) {
     if (this.insidePolygon == null) {
       this.insidePolygon = new ArrayList<>();
     }
@@ -673,9 +673,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addNaturalLanguagesItem(
-    String naturalLanguagesItem
-  ) {
+  public ConsequenceParams addNaturalLanguages(String naturalLanguagesItem) {
     if (this.naturalLanguages == null) {
       this.naturalLanguages = new ArrayList<>();
     }
@@ -702,7 +700,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addRuleContextsItem(String ruleContextsItem) {
+  public ConsequenceParams addRuleContexts(String ruleContextsItem) {
     if (this.ruleContexts == null) {
       this.ruleContexts = new ArrayList<>();
     }
@@ -802,7 +800,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAnalyticsTagsItem(String analyticsTagsItem) {
+  public ConsequenceParams addAnalyticsTags(String analyticsTagsItem) {
     if (this.analyticsTags == null) {
       this.analyticsTags = new ArrayList<>();
     }
@@ -891,7 +889,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addSearchableAttributesItem(
+  public ConsequenceParams addSearchableAttributes(
     String searchableAttributesItem
   ) {
     if (this.searchableAttributes == null) {
@@ -918,7 +916,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAttributesForFacetingItem(
+  public ConsequenceParams addAttributesForFaceting(
     String attributesForFacetingItem
   ) {
     if (this.attributesForFaceting == null) {
@@ -945,7 +943,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addUnretrievableAttributesItem(
+  public ConsequenceParams addUnretrievableAttributes(
     String unretrievableAttributesItem
   ) {
     if (this.unretrievableAttributes == null) {
@@ -972,7 +970,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAttributesToRetrieveItem(
+  public ConsequenceParams addAttributesToRetrieve(
     String attributesToRetrieveItem
   ) {
     if (this.attributesToRetrieve == null) {
@@ -999,7 +997,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addRestrictSearchableAttributesItem(
+  public ConsequenceParams addRestrictSearchableAttributes(
     String restrictSearchableAttributesItem
   ) {
     if (this.restrictSearchableAttributes == null) {
@@ -1024,7 +1022,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addRankingItem(String rankingItem) {
+  public ConsequenceParams addRanking(String rankingItem) {
     if (this.ranking == null) {
       this.ranking = new ArrayList<>();
     }
@@ -1047,7 +1045,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addCustomRankingItem(String customRankingItem) {
+  public ConsequenceParams addCustomRanking(String customRankingItem) {
     if (this.customRanking == null) {
       this.customRanking = new ArrayList<>();
     }
@@ -1088,7 +1086,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAttributesToHighlightItem(
+  public ConsequenceParams addAttributesToHighlight(
     String attributesToHighlightItem
   ) {
     if (this.attributesToHighlight == null) {
@@ -1115,7 +1113,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAttributesToSnippetItem(
+  public ConsequenceParams addAttributesToSnippet(
     String attributesToSnippetItem
   ) {
     if (this.attributesToSnippet == null) {
@@ -1285,7 +1283,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addDisableTypoToleranceOnAttributesItem(
+  public ConsequenceParams addDisableTypoToleranceOnAttributes(
     String disableTypoToleranceOnAttributesItem
   ) {
     if (this.disableTypoToleranceOnAttributes == null) {
@@ -1374,7 +1372,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addQueryLanguagesItem(String queryLanguagesItem) {
+  public ConsequenceParams addQueryLanguages(String queryLanguagesItem) {
     if (this.queryLanguages == null) {
       this.queryLanguages = new ArrayList<>();
     }
@@ -1492,7 +1490,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addOptionalWordsItem(String optionalWordsItem) {
+  public ConsequenceParams addOptionalWords(String optionalWordsItem) {
     if (this.optionalWords == null) {
       this.optionalWords = new ArrayList<>();
     }
@@ -1517,7 +1515,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addDisableExactOnAttributesItem(
+  public ConsequenceParams addDisableExactOnAttributes(
     String disableExactOnAttributesItem
   ) {
     if (this.disableExactOnAttributes == null) {
@@ -1561,7 +1559,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAlternativesAsExactItem(
+  public ConsequenceParams addAlternativesAsExact(
     AlternativesAsExact alternativesAsExactItem
   ) {
     if (this.alternativesAsExact == null) {
@@ -1588,7 +1586,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addAdvancedSyntaxFeaturesItem(
+  public ConsequenceParams addAdvancedSyntaxFeatures(
     AdvancedSyntaxFeatures advancedSyntaxFeaturesItem
   ) {
     if (this.advancedSyntaxFeatures == null) {
@@ -1677,7 +1675,7 @@ public class ConsequenceParams {
     return this;
   }
 
-  public ConsequenceParams addResponseFieldsItem(String responseFieldsItem) {
+  public ConsequenceParams addResponseFields(String responseFieldsItem) {
     if (this.responseFields == null) {
       this.responseFields = new ArrayList<>();
     }

@@ -36,7 +36,7 @@ public class GetTopFiltersNoResultsValues {
     return this;
   }
 
-  public GetTopFiltersNoResultsValues addValuesItem(
+  public GetTopFiltersNoResultsValues addValues(
     GetTopFiltersNoResultsValue valuesItem
   ) {
     this.values.add(valuesItem);

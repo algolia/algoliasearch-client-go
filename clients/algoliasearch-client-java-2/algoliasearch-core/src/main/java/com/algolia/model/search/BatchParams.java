@@ -16,7 +16,7 @@ public class BatchParams {
     return this;
   }
 
-  public BatchParams addRequestsItem(MultipleBatchOperation requestsItem) {
+  public BatchParams addRequests(MultipleBatchOperation requestsItem) {
     if (this.requests == null) {
       this.requests = new ArrayList<>();
     }

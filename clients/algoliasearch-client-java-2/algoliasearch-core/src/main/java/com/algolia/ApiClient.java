@@ -1,6 +1,7 @@
 package com.algolia;
 
 import com.algolia.exceptions.*;
+import com.algolia.utils.JSON;
 import com.algolia.utils.Requester;
 import com.algolia.utils.UserAgent;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
 
@@ -195,7 +197,7 @@ public class ApiClient {
    * @param mime MIME (Multipurpose Internet Mail Extensions)
    * @return True if the given MIME is JSON, false otherwise.
    */
-  public boolean isJsonMime(String mime) {
+  public static boolean isJsonMime(String mime) {
     String jsonMime =
       "(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
     return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
@@ -212,65 +214,6 @@ public class ApiClient {
       return URLEncoder.encode(str, "utf8").replaceAll("\\+", "%20");
     } catch (UnsupportedEncodingException e) {
       return str;
-    }
-  }
-
-  /**
-   * Deserialize response body to Java object, according to the return type and the Content-Type
-   * response header.
-   *
-   * @param <T> Type
-   * @param response HTTP response
-   * @param returnType The type of the Java object
-   * @return The deserialized Java object
-   * @throws AlgoliaRuntimeException If fail to deserialize response body, i.e. cannot read response
-   *     body or the Content-Type of the response is not supported.
-   */
-  public <T> T deserialize(Response response, Type returnType)
-    throws AlgoliaRuntimeException {
-    if (response == null || returnType == null) {
-      return null;
-    }
-
-    if ("byte[]".equals(returnType.toString())) {
-      // Handle binary response (byte array).
-      try {
-        return (T) response.body().bytes();
-      } catch (IOException e) {
-        throw new AlgoliaRuntimeException(e);
-      }
-    }
-
-    String respBody;
-    try {
-      if (response.body() != null) respBody =
-        response.body().string(); else respBody = null;
-    } catch (IOException e) {
-      throw new AlgoliaRuntimeException(e);
-    }
-
-    if (respBody == null || "".equals(respBody)) {
-      return null;
-    }
-
-    String contentType = response.headers().get("Content-Type");
-    if (contentType == null) {
-      // ensuring a default content type
-      contentType = "application/json";
-    }
-    if (isJsonMime(contentType)) {
-      return JSON.deserialize(respBody, returnType);
-    } else if (returnType.equals(String.class)) {
-      // Expecting string, return the raw response body.
-      return (T) respBody;
-    } else {
-      throw new AlgoliaApiException(
-        "Content type \"" +
-        contentType +
-        "\" is not supported for type: " +
-        returnType,
-        response.code()
-      );
     }
   }
 
@@ -304,146 +247,39 @@ public class ApiClient {
   }
 
   /**
-   * {@link #execute(Call, Type)}
-   *
-   * @param <T> Type
-   * @param call An instance of the Call object
-   * @return ApiResponse&lt;T&gt;
-   * @throws AlgoliaRuntimeException If fail to execute the call
-   */
-  public <T> ApiResponse<T> execute(Call call) throws AlgoliaRuntimeException {
-    return execute(call, null);
-  }
-
-  /**
-   * Execute HTTP call and deserialize the HTTP response body into the given return type.
-   *
-   * @param returnType The return type used to deserialize HTTP response body
-   * @param <T> The return type corresponding to (same with) returnType
-   * @param call Call
-   * @return ApiResponse object containing response status, headers and data, which is a Java object
-   *     deserialized from response body and would be null when returnType is null.
-   * @throws AlgoliaRuntimeException If fail to execute the call
-   */
-  public <T> ApiResponse<T> execute(Call call, Type returnType)
-    throws AlgoliaRuntimeException {
-    try {
-      Response response = call.execute();
-      T data = handleResponse(response, returnType);
-      return new ApiResponse<T>(
-        response.code(),
-        response.headers().toMultimap(),
-        data
-      );
-    } catch (IOException e) {
-      throw new AlgoliaRuntimeException(e);
-    }
-  }
-
-  /**
-   * {@link #executeAsync(Call, Type, ApiCallback)}
-   *
-   * @param <T> Type
-   * @param call An instance of the Call object
-   * @param callback ApiCallback&lt;T&gt;
-   */
-  public <T> void executeAsync(Call call, ApiCallback<T> callback) {
-    executeAsync(call, null, callback);
-  }
-
-  /**
    * Execute HTTP call asynchronously.
    *
    * @param <T> Type
-   * @param call The callback to be executed when the API call finishes
    * @param returnType Return type
-   * @param callback ApiCallback
    * @see #execute(Call, Type)
    */
-  public <T> void executeAsync(
+  public <T> CompletableFuture<T> executeAsync(
     Call call,
-    final Type returnType,
-    final ApiCallback<T> callback
+    final Type returnType
   ) {
+    final CompletableFuture<T> future = new CompletableFuture<>();
     call.enqueue(
       new Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
-          callback.onFailure(new AlgoliaRuntimeException(e), 0, null);
+          future.completeExceptionally(new AlgoliaRuntimeException(e));
         }
 
         @Override
         public void onResponse(Call call, Response response)
           throws IOException {
-          T result;
           try {
-            result = (T) handleResponse(response, returnType);
+            T result = requester.handleResponse(response, returnType);
+            future.complete(result);
           } catch (AlgoliaRuntimeException e) {
-            callback.onFailure(
-              e,
-              response.code(),
-              response.headers().toMultimap()
-            );
-            return;
+            future.completeExceptionally(e);
           } catch (Exception e) {
-            callback.onFailure(
-              new AlgoliaRuntimeException(e),
-              response.code(),
-              response.headers().toMultimap()
-            );
-            return;
+            future.completeExceptionally(new AlgoliaRuntimeException(e));
           }
-          callback.onSuccess(
-            result,
-            response.code(),
-            response.headers().toMultimap()
-          );
         }
       }
     );
-  }
-
-  /**
-   * Handle the given response, return the deserialized object when the response is successful.
-   *
-   * @param <T> Type
-   * @param response Response
-   * @param returnType Return type
-   * @return Type
-   * @throws AlgoliaRuntimeException If the response has an unsuccessful status code or fail to
-   *     deserialize the response body
-   */
-  public <T> T handleResponse(Response response, Type returnType)
-    throws AlgoliaRuntimeException {
-    if (response.isSuccessful()) {
-      if (returnType == null || response.code() == 204) {
-        // returning null if the returnType is not defined,
-        // or the status code is 204 (No Content)
-        if (response.body() != null) {
-          try {
-            response.body().close();
-          } catch (Exception e) {
-            throw new AlgoliaApiException(
-              response.message(),
-              e,
-              response.code()
-            );
-          }
-        }
-        return null;
-      } else {
-        return deserialize(response, returnType);
-      }
-    } else {
-      if (response.body() != null) {
-        try {
-          response.body().string();
-        } catch (IOException e) {
-          throw new AlgoliaApiException(response.message(), e, response.code());
-        }
-      }
-      throw new AlgoliaApiException(response.message(), response.code());
-    }
+    return future;
   }
 
   /**
@@ -455,7 +291,6 @@ public class ApiClient {
    * @param queryParams The query parameters
    * @param body The request body object
    * @param headerParams The header parameters
-   * @param callback Callback for upload/download progress
    * @return The HTTP call
    * @throws AlgoliaRuntimeException If fail to serialize the request body object
    */
@@ -464,16 +299,14 @@ public class ApiClient {
     String method,
     Map<String, String> queryParams,
     Object body,
-    Map<String, String> headerParams,
-    ApiCallback callback
+    Map<String, String> headerParams
   ) throws AlgoliaRuntimeException {
     Request request = buildRequest(
       path,
       method,
       queryParams,
       body,
-      headerParams,
-      callback
+      headerParams
     );
 
     return requester.newCall(request);
@@ -488,7 +321,6 @@ public class ApiClient {
    * @param queryParams The query parameters
    * @param body The request body object
    * @param headerParams The header parameters
-   * @param callback Callback for upload/download progress
    * @return The HTTP request
    * @throws AlgoliaRuntimeException If fail to serialize the request body object
    */
@@ -497,19 +329,20 @@ public class ApiClient {
     String method,
     Map<String, String> queryParams,
     Object body,
-    Map<String, String> headerParams,
-    ApiCallback callback
+    Map<String, String> headerParams
   ) throws AlgoliaRuntimeException {
     headerParams.put("X-Algolia-Application-Id", this.appId);
     headerParams.put("X-Algolia-API-Key", this.apiKey);
     headerParams.put("Accept", "application/json");
     headerParams.put("Content-Type", "application/json");
 
+    String contentType = "application/json";
+    headerParams.put("Accept", contentType);
+    headerParams.put("Content-Type", contentType);
+
     final String url = buildUrl(path, queryParams);
     final Request.Builder reqBuilder = new Request.Builder().url(url);
     processHeaderParams(headerParams, reqBuilder);
-
-    String contentType = (String) headerParams.get("Content-Type");
 
     RequestBody reqBody;
     if (!HttpMethod.permitsRequestBody(method)) {
@@ -526,23 +359,7 @@ public class ApiClient {
       reqBody = serialize(body, contentType);
     }
 
-    // Associate callback with request (if not null) so interceptor can
-    // access it when creating ProgressResponseBody
-    reqBuilder.tag(callback);
-
-    Request request = null;
-
-    if (callback != null && reqBody != null) {
-      ProgressRequestBody progressRequestBody = new ProgressRequestBody(
-        reqBody,
-        callback
-      );
-      request = reqBuilder.method(method, progressRequestBody).build();
-    } else {
-      request = reqBuilder.method(method, reqBody).build();
-    }
-
-    return request;
+    return reqBuilder.method(method, reqBody).build();
   }
 
   /**
