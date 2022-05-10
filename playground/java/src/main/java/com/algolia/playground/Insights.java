@@ -3,17 +3,16 @@ package com.algolia.playground;
 import com.algolia.exceptions.AlgoliaApiException;
 import com.algolia.exceptions.AlgoliaRetryException;
 import com.algolia.exceptions.AlgoliaRuntimeException;
-import com.algolia.model.search.*;
-import com.algolia.api.SearchClient;
+import com.algolia.model.insights.*;
+import com.algolia.api.InsightsClient;
 import com.algolia.utils.UserAgent;
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class App {
-
+public class Insights {
   public static void main(String[] args) {
     Dotenv dotenv = Dotenv.configure().directory("../").load();
 
-    SearchClient client = new SearchClient(
+    InsightsClient client = new InsightsClient(
       dotenv.get("ALGOLIA_APPLICATION_ID"),
       dotenv.get("ALGOLIA_SEARCH_KEY"),
       new UserAgent.Segment[] {
@@ -24,19 +23,20 @@ public class App {
     );
 
     String indexName = dotenv.get("SEARCH_INDEX");
-    SearchParamsObject params = new SearchParamsObject();
-    params.setAroundRadius(AroundRadius.ofInteger(5));
-    params.setQuery(dotenv.get("SEARCH_QUERY"));
+    InsightEvents params = new InsightEvents();
+    InsightEvent event = new InsightEvent();
+    event.setEventType(EventType.CLICK);
+    event.setUserToken("user");
+    event.setIndex("test_what");
+    event.setEventName("test");
+    params.addEvents(event);
 
     try {
-      SearchResponse result = client.search(
-        indexName,
-        SearchParams.ofSearchParamsObject(params)
-      );
+      PushEventsResponse result = client.pushEvents(params);
       System.out.println(result);
     } catch (AlgoliaApiException e) {
       // the API failed
-      System.err.println("Exception when calling SearchClient#search");
+      System.err.println("Exception when calling InsightsClient#pushEvents");
       System.err.println("Status code: " + e.getHttpErrorCode());
       System.err.println("Reason: " + e.getMessage());
       e.printStackTrace();

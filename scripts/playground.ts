@@ -1,4 +1,5 @@
 import { run } from './common';
+import { capitalize } from './cts/utils';
 import type { Language } from './types';
 
 export async function playground({
@@ -16,9 +17,14 @@ export async function playground({
       });
       break;
     case 'java':
-      await run(`./gradle/gradlew -p playground/java run`, {
-        verbose,
-      });
+      await run(
+        `./gradle/gradlew -p playground/java -PmainClass=com.algolia.playground.${capitalize(
+          client
+        )} run`,
+        {
+          verbose,
+        }
+      );
       break;
     case 'php':
       await run(

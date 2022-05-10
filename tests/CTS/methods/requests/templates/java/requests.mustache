@@ -12,21 +12,24 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.BeforeAll;
 import com.google.gson.reflect.TypeToken;
 
-import com.algolia.JSON;
-import com.algolia.Pair;
+import com.algolia.utils.JSON;
 import com.algolia.model.{{import}}.*;
 import com.algolia.api.{{client}};
-import com.algolia.utils.echo.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
+import com.algolia.EchoRequester;
+import com.algolia.EchoResponse;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class {{client}}Tests {
     private {{client}} client;
+    private EchoRequester requester;
 
     @BeforeAll
     void init() {
-        client = new {{client}}("appId", "apiKey", new EchoRequester());
+        requester = new EchoRequester();
+        client = new {{client}}("appId", "apiKey", requester);
     }
 
     {{#blocks}}
@@ -36,22 +39,24 @@ class {{client}}Tests {
     void {{method}}Test{{testIndex}}() {
         {{#parametersWithDataType}}{{> generateParams}}{{/parametersWithDataType}}
 
-        EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-            return client.{{method}}({{#parametersWithDataType}}{{> maybeConvertOneOf}}{{^-last}},{{/-last}}{{/parametersWithDataType}});
+        assertDoesNotThrow(() -> {
+            client.{{method}}({{#parametersWithDataType}}{{> maybeConvertOneOf}}{{^-last}},{{/-last}}{{/parametersWithDataType}});
         });
+        EchoResponse req = requester.getLastEchoResponse();
 
-        assertEquals(req.getPath(), "{{{request.path}}}");
-        assertEquals(req.getMethod(), "{{{request.method}}}");
+        assertEquals(req.path, "{{{request.path}}}");
+        assertEquals(req.method, "{{{request.method}}}");
 
         {{#request.body}}
         assertDoesNotThrow(() -> {
-            JSONAssert.assertEquals("{{#lambda.escapequotes}}{{{request.body}}}{{/lambda.escapequotes}}", req.getBody(), JSONCompareMode.STRICT_ORDER);
+            JSONAssert.assertEquals("{{#lambda.escapequotes}}{{{request.body}}}{{/lambda.escapequotes}}", req.body, JSONCompareMode.STRICT_ORDER);
         });
         {{/request.body}}
 
         {{#request.queryParameters}}
         Map<String, String> expectedQuery = JSON.deserialize("{{#lambda.escapequotes}}{{{request.queryParameters}}}{{/lambda.escapequotes}}", new TypeToken<HashMap<String, String>>() {}.getType());
-        Map<String, String> actualQuery = req.getQueryParams();
+        Map<String, String> actualQuery = req.queryParameters;
+
         assertEquals(expectedQuery.size(), actualQuery.size());
         for (Map.Entry<String, String> p : actualQuery.entrySet()) {
           assertEquals(expectedQuery.get(p.getKey()), p.getValue());

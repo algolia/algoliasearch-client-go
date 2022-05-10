@@ -3,10 +3,11 @@ package com.algolia.methods.requests;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.algolia.JSON;
+import com.algolia.EchoRequester;
+import com.algolia.EchoResponse;
 import com.algolia.api.SearchClient;
 import com.algolia.model.search.*;
-import com.algolia.utils.echo.*;
+import com.algolia.utils.JSON;
 import com.google.gson.reflect.TypeToken;
 import java.util.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,10 +21,12 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 class SearchClientTests {
 
   private SearchClient client;
+  private EchoRequester requester;
 
   @BeforeAll
   void init() {
-    client = new SearchClient("appId", "apiKey", new EchoRequester());
+    requester = new EchoRequester();
+    client = new SearchClient("appId", "apiKey", requester);
   }
 
   @Test
@@ -49,19 +52,19 @@ class SearchClientTests {
       apiKey0.setMaxHitsPerQuery(maxHitsPerQuery1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.addApiKey(apiKey0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.addApiKey(apiKey0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/keys");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/keys");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"acl\":[\"search\",\"addObject\"],\"description\":\"my new api" +
         " key\",\"validity\":300,\"maxQueriesPerIPPerHour\":100,\"maxHitsPerQuery\":20}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -78,18 +81,18 @@ class SearchClientTests {
       body0.put("key", key1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.addOrUpdateObject(indexName0, objectID0, body0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.addOrUpdateObject(indexName0, objectID0, body0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/uniqueID");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/indexes/indexName/uniqueID");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"key\":\"value\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -106,18 +109,18 @@ class SearchClientTests {
       source0.setDescription(description1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.appendSource(source0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.appendSource(source0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/security/sources/append");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/security/sources/append");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"source\":\"theSource\",\"description\":\"theDescription\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -133,18 +136,18 @@ class SearchClientTests {
       assignUserIdParams0.setCluster(cluster1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.assignUserId(xAlgoliaUserID0, assignUserIdParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.assignUserId(xAlgoliaUserID0, assignUserIdParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/clusters/mapping");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"cluster\":\"theCluster\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -153,7 +156,8 @@ class SearchClientTests {
       "{\"X-Algolia-User-ID\":\"userID\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -184,18 +188,18 @@ class SearchClientTests {
       batchWriteParams0.setRequests(requests1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.batch(indexName0, batchWriteParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.batch(indexName0, batchWriteParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/batch");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/theIndexName/batch");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"delete\",\"body\":{\"key\":\"value\"}}]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -219,21 +223,18 @@ class SearchClientTests {
       batchAssignUserIdsParams0.setUsers(users1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.batchAssignUserIds(
-          xAlgoliaUserID0,
-          batchAssignUserIdsParams0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.batchAssignUserIds(xAlgoliaUserID0, batchAssignUserIdsParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping/batch");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/clusters/mapping/batch");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -242,7 +243,8 @@ class SearchClientTests {
       "{\"X-Algolia-User-ID\":\"userID\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -289,21 +291,21 @@ class SearchClientTests {
       batchDictionaryEntriesParams0.setRequests(requests1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.batchDictionaryEntries(
-          dictionaryName0,
-          batchDictionaryEntriesParams0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.batchDictionaryEntries(
+        dictionaryName0,
+        batchDictionaryEntriesParams0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/compounds/batch");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/dictionaries/compounds/batch");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\"}},{\"action\":\"deleteEntry\",\"body\":{\"objectID\":\"2\",\"language\":\"fr\"}}]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -397,21 +399,21 @@ class SearchClientTests {
       batchDictionaryEntriesParams0.setRequests(requests1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.batchDictionaryEntries(
-          dictionaryName0,
-          batchDictionaryEntriesParams0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.batchDictionaryEntries(
+        dictionaryName0,
+        batchDictionaryEntriesParams0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/compounds/batch");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/dictionaries/compounds/batch");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"clearExistingDictionaryEntries\":false,\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\",\"word\":\"fancy\",\"words\":[\"believe\",\"algolia\"],\"decomposition\":[\"trust\",\"algolia\"],\"state\":\"enabled\"}},{\"action\":\"deleteEntry\",\"body\":{\"objectID\":\"2\",\"language\":\"fr\",\"word\":\"humility\",\"words\":[\"candor\",\"algolia\"],\"decomposition\":[\"grit\",\"algolia\"],\"state\":\"enabled\"}}]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -483,23 +485,23 @@ class SearchClientTests {
     boolean forwardToReplicas0 = true;
     boolean clearExistingRules0 = true;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.batchRules(
-          indexName0,
-          rule0,
-          forwardToReplicas0,
-          clearExistingRules0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.batchRules(
+        indexName0,
+        rule0,
+        forwardToReplicas0,
+        clearExistingRules0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/rules/batch");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/rules/batch");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -508,7 +510,8 @@ class SearchClientTests {
       "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -520,13 +523,13 @@ class SearchClientTests {
   void browseTest0() {
     String indexName0 = "indexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.browse(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.browse(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/browse");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/browse");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -541,18 +544,18 @@ class SearchClientTests {
       browseRequest0.setCursor(cursor1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.browse(indexName0, browseRequest0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.browse(indexName0, browseRequest0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/browse");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/browse");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -563,13 +566,13 @@ class SearchClientTests {
   void clearAllSynonymsTest0() {
     String indexName0 = "indexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.clearAllSynonyms(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.clearAllSynonyms(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/synonyms/clear");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/synonyms/clear");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -577,13 +580,13 @@ class SearchClientTests {
   void clearObjectsTest0() {
     String indexName0 = "theIndexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.clearObjects(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.clearObjects(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/clear");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/theIndexName/clear");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -591,13 +594,13 @@ class SearchClientTests {
   void clearRulesTest0() {
     String indexName0 = "indexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.clearRules(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.clearRules(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/rules/clear");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/rules/clear");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -605,13 +608,13 @@ class SearchClientTests {
   void delTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.del(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.del(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -624,19 +627,20 @@ class SearchClientTests {
       parameters0.put("query", query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.del(path0, parameters0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.del(path0, parameters0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "DELETE");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -648,13 +652,13 @@ class SearchClientTests {
   void deleteApiKeyTest0() {
     String key0 = "myTestApiKey";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteApiKey(key0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteApiKey(key0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/keys/myTestApiKey");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/keys/myTestApiKey");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -667,21 +671,21 @@ class SearchClientTests {
       searchParams0.setQuery(query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteBy(
-          indexName0,
-          SearchParams.ofSearchParamsObject(searchParams0)
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteBy(
+        indexName0,
+        SearchParams.ofSearchParamsObject(searchParams0)
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/deleteByQuery");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/theIndexName/deleteByQuery");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"testQuery\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -692,13 +696,13 @@ class SearchClientTests {
   void deleteIndexTest0() {
     String indexName0 = "theIndexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteIndex(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteIndex(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/indexes/theIndexName");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -707,13 +711,13 @@ class SearchClientTests {
     String indexName0 = "theIndexName";
     String objectID0 = "uniqueID";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteObject(indexName0, objectID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteObject(indexName0, objectID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/uniqueID");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/indexes/theIndexName/uniqueID");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -722,13 +726,13 @@ class SearchClientTests {
     String indexName0 = "indexName";
     String objectID0 = "id1";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteRule(indexName0, objectID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteRule(indexName0, objectID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/rules/id1");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/indexes/indexName/rules/id1");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -736,13 +740,13 @@ class SearchClientTests {
   void deleteSourceTest0() {
     String source0 = "theSource";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteSource(source0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteSource(source0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/security/sources/theSource");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/security/sources/theSource");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -751,13 +755,13 @@ class SearchClientTests {
     String indexName0 = "indexName";
     String objectID0 = "id1";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteSynonym(indexName0, objectID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteSynonym(indexName0, objectID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/synonyms/id1");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -765,13 +769,13 @@ class SearchClientTests {
   void getTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.get(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.get(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -784,19 +788,20 @@ class SearchClientTests {
       parameters0.put("query", query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.get(path0, parameters0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.get(path0, parameters0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "GET");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -808,37 +813,37 @@ class SearchClientTests {
   void getApiKeyTest0() {
     String key0 = "myTestApiKey";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getApiKey(key0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getApiKey(key0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/keys/myTestApiKey");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/keys/myTestApiKey");
+    assertEquals(req.method, "GET");
   }
 
   @Test
   @DisplayName("get getDictionaryLanguages")
   void getDictionaryLanguagesTest0() {
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getDictionaryLanguages();
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getDictionaryLanguages();
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/*/languages");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/dictionaries/*/languages");
+    assertEquals(req.method, "GET");
   }
 
   @Test
   @DisplayName("get getDictionarySettings results")
   void getDictionarySettingsTest0() {
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getDictionarySettings();
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getDictionarySettings();
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/*/settings");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/dictionaries/*/settings");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -849,19 +854,20 @@ class SearchClientTests {
     String indexName0 = "theIndexName";
     LogType type0 = LogType.fromValue("all");
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getLogs(offset0, length0, indexName0, type0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getLogs(offset0, length0, indexName0, type0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/logs");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/logs");
+    assertEquals(req.method, "GET");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"offset\":\"5\",\"length\":\"10\",\"indexName\":\"theIndexName\",\"type\":\"all\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -881,19 +887,20 @@ class SearchClientTests {
       attributesToRetrieve0.add(attributesToRetrieve_11);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getObject(indexName0, objectID0, attributesToRetrieve0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getObject(indexName0, objectID0, attributesToRetrieve0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/uniqueID");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/indexes/theIndexName/uniqueID");
+    assertEquals(req.method, "GET");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"attributesToRetrieve\":\"attr1,attr2\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -927,18 +934,18 @@ class SearchClientTests {
       getObjectsParams0.setRequests(requests1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getObjects(getObjectsParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getObjects(getObjectsParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/*/objects");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/*/objects");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"attributesToRetrieve\":[\"attr1\",\"attr2\"],\"objectID\":\"uniqueID\",\"indexName\":\"theIndexName\"}]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -950,13 +957,13 @@ class SearchClientTests {
     String indexName0 = "indexName";
     String objectID0 = "id1";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getRule(indexName0, objectID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getRule(indexName0, objectID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/rules/id1");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/indexes/indexName/rules/id1");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -964,25 +971,25 @@ class SearchClientTests {
   void getSettingsTest0() {
     String indexName0 = "theIndexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getSettings(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getSettings(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/settings");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "GET");
   }
 
   @Test
   @DisplayName("getSources")
   void getSourcesTest0() {
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getSources();
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getSources();
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/security/sources");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/security/sources");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -991,13 +998,13 @@ class SearchClientTests {
     String indexName0 = "indexName";
     String objectID0 = "id1";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getSynonym(indexName0, objectID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getSynonym(indexName0, objectID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/synonyms/id1");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -1006,25 +1013,25 @@ class SearchClientTests {
     String indexName0 = "theIndexName";
     int taskID0 = 123;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getTask(indexName0, taskID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getTask(indexName0, taskID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/task/123");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/indexes/theIndexName/task/123");
+    assertEquals(req.method, "GET");
   }
 
   @Test
   @DisplayName("getTopUserIds")
   void getTopUserIdsTest0() {
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getTopUserIds();
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getTopUserIds();
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping/top");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/clusters/mapping/top");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -1032,13 +1039,13 @@ class SearchClientTests {
   void getUserIdTest0() {
     String userID0 = "uniqueID";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getUserId(userID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getUserId(userID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping/uniqueID");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/clusters/mapping/uniqueID");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -1046,19 +1053,20 @@ class SearchClientTests {
   void hasPendingMappingsTest0() {
     boolean getClusters0 = true;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.hasPendingMappings(getClusters0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.hasPendingMappings(getClusters0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping/pending");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/clusters/mapping/pending");
+    assertEquals(req.method, "GET");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"getClusters\":\"true\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1068,25 +1076,25 @@ class SearchClientTests {
   @Test
   @DisplayName("listApiKeys")
   void listApiKeysTest0() {
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.listApiKeys();
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.listApiKeys();
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/keys");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/keys");
+    assertEquals(req.method, "GET");
   }
 
   @Test
   @DisplayName("listClusters")
   void listClustersTest0() {
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.listClusters();
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.listClusters();
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/clusters");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -1094,19 +1102,20 @@ class SearchClientTests {
   void listIndicesTest0() {
     int page0 = 8;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.listIndices(page0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.listIndices(page0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/indexes");
+    assertEquals(req.method, "GET");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"page\":\"8\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1119,19 +1128,20 @@ class SearchClientTests {
     int page0 = 8;
     int hitsPerPage0 = 100;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.listUserIds(page0, hitsPerPage0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.listUserIds(page0, hitsPerPage0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/clusters/mapping");
+    assertEquals(req.method, "GET");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"page\":\"8\",\"hitsPerPage\":\"100\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1163,18 +1173,18 @@ class SearchClientTests {
       batchParams0.setRequests(requests1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.multipleBatch(batchParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.multipleBatch(batchParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/*/batch");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/*/batch");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"},\"indexName\":\"theIndexName\"}]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1201,18 +1211,18 @@ class SearchClientTests {
       multipleQueriesParams0.setStrategy(strategy1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.multipleQueries(multipleQueriesParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.multipleQueries(multipleQueriesParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/*/queries");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\"}],\"strategy\":\"stopIfEnoughMatches\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1259,18 +1269,18 @@ class SearchClientTests {
       multipleQueriesParams0.setStrategy(strategy1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.multipleQueries(multipleQueriesParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.multipleQueries(multipleQueriesParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/*/queries");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":\"testParam\"},{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"default\",\"params\":\"testParam\"}],\"strategy\":\"stopIfEnoughMatches\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1296,18 +1306,18 @@ class SearchClientTests {
       operationIndexParams0.setScope(scope1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.operationIndex(indexName0, operationIndexParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.operationIndex(indexName0, operationIndexParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/operation");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/theIndexName/operation");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"operation\":\"copy\",\"destination\":\"dest\",\"scope\":[\"rules\",\"settings\"]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1345,23 +1355,23 @@ class SearchClientTests {
     }
     boolean createIfNotExists0 = true;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.partialUpdateObject(
-          indexName0,
-          objectID0,
-          attributeOrBuiltInOperation0,
-          createIfNotExists0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.partialUpdateObject(
+        indexName0,
+        objectID0,
+        attributeOrBuiltInOperation0,
+        createIfNotExists0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/uniqueID/partial");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/theIndexName/uniqueID/partial");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"id1\":\"test\",\"id2\":{\"_operation\":\"AddUnique\",\"value\":\"test2\"}}]",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1370,7 +1380,8 @@ class SearchClientTests {
       "{\"createIfNotExists\":\"true\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1382,13 +1393,13 @@ class SearchClientTests {
   void postTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.post(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.post(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -1406,18 +1417,18 @@ class SearchClientTests {
       body0.put("body", body1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.post(path0, parameters0, body0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"body\":\"parameters\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1426,7 +1437,8 @@ class SearchClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1438,13 +1450,13 @@ class SearchClientTests {
   void putTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.put(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.put(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "PUT");
   }
 
   @Test
@@ -1462,18 +1474,18 @@ class SearchClientTests {
       body0.put("body", body1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.put(path0, parameters0, body0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.put(path0, parameters0, body0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"body\":\"parameters\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1482,7 +1494,8 @@ class SearchClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1494,13 +1507,13 @@ class SearchClientTests {
   void removeUserIdTest0() {
     String userID0 = "uniqueID";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.removeUserId(userID0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.removeUserId(userID0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping/uniqueID");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/clusters/mapping/uniqueID");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -1518,18 +1531,18 @@ class SearchClientTests {
       source0.add(source_01);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.replaceSources(source0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.replaceSources(source0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/security/sources");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/security/sources");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"source\":\"theSource\",\"description\":\"theDescription\"}]",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1540,13 +1553,13 @@ class SearchClientTests {
   void restoreApiKeyTest0() {
     String key0 = "myApiKey";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.restoreApiKey(key0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.restoreApiKey(key0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/keys/myApiKey/restore");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/keys/myApiKey/restore");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -1561,18 +1574,18 @@ class SearchClientTests {
       body0.put("test", test1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.saveObject(indexName0, body0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.saveObject(indexName0, body0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/theIndexName");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id\",\"test\":\"val\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1612,23 +1625,18 @@ class SearchClientTests {
     }
     boolean forwardToReplicas0 = true;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.saveRule(
-          indexName0,
-          objectID0,
-          rule0,
-          forwardToReplicas0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.saveRule(indexName0, objectID0, rule0, forwardToReplicas0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/rules/id1");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/indexes/indexName/rules/id1");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1637,7 +1645,8 @@ class SearchClientTests {
       "{\"forwardToReplicas\":\"true\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1668,23 +1677,23 @@ class SearchClientTests {
     }
     boolean forwardToReplicas0 = true;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.saveSynonym(
-          indexName0,
-          objectID0,
-          synonymHit0,
-          forwardToReplicas0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.saveSynonym(
+        indexName0,
+        objectID0,
+        synonymHit0,
+        forwardToReplicas0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/synonyms/id1");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id1\",\"type\":\"synonym\",\"synonyms\":[\"car\",\"vehicule\",\"auto\"]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1693,7 +1702,8 @@ class SearchClientTests {
       "{\"forwardToReplicas\":\"true\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1748,23 +1758,23 @@ class SearchClientTests {
     boolean forwardToReplicas0 = true;
     boolean replaceExistingSynonyms0 = false;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.saveSynonyms(
-          indexName0,
-          synonymHit0,
-          forwardToReplicas0,
-          replaceExistingSynonyms0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.saveSynonyms(
+        indexName0,
+        synonymHit0,
+        forwardToReplicas0,
+        replaceExistingSynonyms0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/synonyms/batch");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/synonyms/batch");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"objectID\":\"id1\",\"type\":\"synonym\",\"synonyms\":[\"car\",\"vehicule\",\"auto\"]},{\"objectID\":\"id2\",\"type\":\"onewaysynonym\",\"input\":\"iphone\",\"synonyms\":[\"ephone\",\"aphone\",\"yphone\"]}]",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1773,7 +1783,8 @@ class SearchClientTests {
       "{\"forwardToReplicas\":\"true\",\"replaceExistingSynonyms\":\"false\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -1790,21 +1801,21 @@ class SearchClientTests {
       searchParams0.setQuery(query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.search(
-          indexName0,
-          SearchParams.ofSearchParamsObject(searchParams0)
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.search(
+        indexName0,
+        SearchParams.ofSearchParamsObject(searchParams0)
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/query");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/query");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"myQuery\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1826,21 +1837,21 @@ class SearchClientTests {
       searchParams0.setFacetFilters(FacetFilters.ofListString(facetFilters1));
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.search(
-          indexName0,
-          SearchParams.ofSearchParamsObject(searchParams0)
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.search(
+        indexName0,
+        SearchParams.ofSearchParamsObject(searchParams0)
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/query");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/query");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1856,21 +1867,21 @@ class SearchClientTests {
       searchDictionaryEntriesParams0.setQuery(query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.searchDictionaryEntries(
-          dictionaryName0,
-          searchDictionaryEntriesParams0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.searchDictionaryEntries(
+        dictionaryName0,
+        searchDictionaryEntriesParams0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/compounds/search");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/dictionaries/compounds/search");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"foo\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1892,21 +1903,21 @@ class SearchClientTests {
       searchDictionaryEntriesParams0.setLanguage(language1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.searchDictionaryEntries(
-          dictionaryName0,
-          searchDictionaryEntriesParams0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.searchDictionaryEntries(
+        dictionaryName0,
+        searchDictionaryEntriesParams0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/compounds/search");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/dictionaries/compounds/search");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"foo\",\"page\":4,\"hitsPerPage\":2,\"language\":\"fr\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1918,13 +1929,13 @@ class SearchClientTests {
     String indexName0 = "indexName";
     String facetName0 = "facetName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.searchForFacetValues(indexName0, facetName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.searchForFacetValues(indexName0, facetName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/facets/facetName/query");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/facets/facetName/query");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -1942,22 +1953,22 @@ class SearchClientTests {
       searchForFacetValuesRequest0.setMaxFacetHits(maxFacetHits1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.searchForFacetValues(
-          indexName0,
-          facetName0,
-          searchForFacetValuesRequest0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.searchForFacetValues(
+        indexName0,
+        facetName0,
+        searchForFacetValuesRequest0
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/facets/facetName/query");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/facets/facetName/query");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"params\":\"query=foo&facetFilters=['bar']\",\"facetQuery\":\"foo\",\"maxFacetHits\":42}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1973,18 +1984,18 @@ class SearchClientTests {
       searchRulesParams0.setQuery(query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.searchRules(indexName0, searchRulesParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.searchRules(indexName0, searchRulesParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/rules/search");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/rules/search");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"something\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -1995,13 +2006,13 @@ class SearchClientTests {
   void searchSynonymsTest0() {
     String indexName0 = "indexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.searchSynonyms(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.searchSynonyms(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/indexName/synonyms/search");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/indexes/indexName/synonyms/search");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -2019,18 +2030,18 @@ class SearchClientTests {
       searchUserIdsParams0.setHitsPerPage(hitsPerPage1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.searchUserIds(searchUserIdsParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.searchUserIds(searchUserIdsParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/clusters/mapping/search");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/clusters/mapping/search");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"test\",\"clusterName\":\"theClusterName\",\"page\":5,\"hitsPerPage\":10}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -2059,18 +2070,18 @@ class SearchClientTests {
       );
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.setDictionarySettings(dictionarySettingsParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.setDictionarySettings(dictionarySettingsParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/*/settings");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/dictionaries/*/settings");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"disableStandardEntries\":{\"plurals\":{\"fr\":false,\"en\":false,\"ru\":true}}}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -2111,18 +2122,18 @@ class SearchClientTests {
       );
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.setDictionarySettings(dictionarySettingsParams0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.setDictionarySettings(dictionarySettingsParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/dictionaries/*/settings");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/dictionaries/*/settings");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"disableStandardEntries\":{\"plurals\":{\"fr\":false,\"en\":false,\"ru\":true},\"stopwords\":{\"fr\":false},\"compounds\":{\"ru\":true}}}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -2139,22 +2150,18 @@ class SearchClientTests {
     }
     boolean forwardToReplicas0 = true;
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.setSettings(
-          indexName0,
-          indexSettings0,
-          forwardToReplicas0
-        );
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/indexes/theIndexName/settings");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"paginationLimitedTo\":10}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -2163,7 +2170,8 @@ class SearchClientTests {
       "{\"forwardToReplicas\":\"true\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -2192,18 +2200,18 @@ class SearchClientTests {
       apiKey0.setMaxHitsPerQuery(maxHitsPerQuery1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.updateApiKey(key0, apiKey0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.updateApiKey(key0, apiKey0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/keys/myApiKey");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/keys/myApiKey");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"acl\":[\"search\",\"addObject\"],\"validity\":300,\"maxQueriesPerIPPerHour\":100,\"maxHitsPerQuery\":20}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });

@@ -6,6 +6,8 @@ package com.algolia.exceptions;
  */
 public class AlgoliaRetryException extends AlgoliaRuntimeException {
 
+  public static final long serialVersionUID = -1L;
+
   public AlgoliaRetryException(String message, Throwable cause) {
     super(message, cause);
   }

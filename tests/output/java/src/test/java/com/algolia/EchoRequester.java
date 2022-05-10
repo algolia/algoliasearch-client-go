@@ -1,11 +1,18 @@
-package com.algolia.utils.echo;
+package com.algolia;
 
+import com.algolia.exceptions.*;
+import com.algolia.utils.JSON;
 import com.algolia.utils.Requester;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import okhttp3.Request;
+import okhttp3.Response;
 
 public class EchoRequester implements Requester {
 
   private int connectionTimeout, readTimeout, writeTimeout;
+
+  private Response lastResponse;
 
   public EchoRequester() {
     this.connectionTimeout = 100;
@@ -15,6 +22,21 @@ public class EchoRequester implements Requester {
 
   public CallEcho newCall(Request request) {
     return new CallEcho(request);
+  }
+
+  public <T> T handleResponse(Response response, Type returnType)
+    throws AlgoliaRuntimeException {
+    lastResponse = response;
+    return null;
+  }
+
+  public EchoResponse getLastEchoResponse() {
+    try {
+      return JSON.deserialize(lastResponse.body().string(), EchoResponse.class);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   // NO-OP for now

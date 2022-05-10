@@ -220,15 +220,15 @@ jobs:
         run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
       - name: Clean CTS output before generate
-        run: rm -rf ${{ matrix.client.testsOutputPath }}
+        run: rm -rf ${{ matrix.client.testsOutputPathToClean }} || true
 
       - name: Generate CTS
         run: yarn cli cts generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
       - name: Check diff with pushed CTS
         run: |
-          git --no-pager diff
-          exit $(git diff --name-only --diff-filter=d ${{ matrix.client.testsOutputPath }} | wc -l)
+          git --no-pager diff -- ${{ matrix.client.testsOutputPathToClean }}
+          exit $(git diff --name-only --diff-filter=d ${{ matrix.client.testsOutputPathToClean }} | wc -l)
 
       - name: Run CTS
         run: yarn cli cts run ${{ matrix.client.language }}

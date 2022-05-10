@@ -32,7 +32,7 @@ export type ClientMatrix = BaseMatrix & {
   /**
    * The test output path to clean.
    */
-  testsOutputPath: string;
+  testsOutputPathToClean: string;
 };
 
 export type SpecMatrix = BaseMatrix & {

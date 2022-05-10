@@ -22,5 +22,5 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainClass = "com.algolia.playground.App"
+    mainClass = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "NULL"
 }

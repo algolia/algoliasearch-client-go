@@ -7,6 +7,7 @@
 api/**
 docs/**
 src/**
+gradle/**
 README.md
 
 .travis.yml

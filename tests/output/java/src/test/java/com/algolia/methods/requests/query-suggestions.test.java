@@ -3,10 +3,11 @@ package com.algolia.methods.requests;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.algolia.JSON;
+import com.algolia.EchoRequester;
+import com.algolia.EchoResponse;
 import com.algolia.api.QuerySuggestionsClient;
 import com.algolia.model.querySuggestions.*;
-import com.algolia.utils.echo.*;
+import com.algolia.utils.JSON;
 import com.google.gson.reflect.TypeToken;
 import java.util.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,10 +21,12 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 class QuerySuggestionsClientTests {
 
   private QuerySuggestionsClient client;
+  private EchoRequester requester;
 
   @BeforeAll
   void init() {
-    client = new QuerySuggestionsClient("appId", "apiKey", new EchoRequester());
+    requester = new EchoRequester();
+    client = new QuerySuggestionsClient("appId", "apiKey", requester);
   }
 
   @Test
@@ -85,18 +88,18 @@ class QuerySuggestionsClientTests {
       querySuggestionsIndexWithIndexParam0.setExclude(exclude1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.createConfig(querySuggestionsIndexWithIndexParam0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.createConfig(querySuggestionsIndexWithIndexParam0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/configs");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/configs");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"indexName\":\"theIndexName\",\"sourceIndices\":[{\"indexName\":\"testIndex\",\"facets\":[{\"attributes\":\"test\"}],\"generate\":[[\"facetA\",\"facetB\"],[\"facetC\"]]}],\"languages\":[\"french\"],\"exclude\":[\"test\"]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -107,13 +110,13 @@ class QuerySuggestionsClientTests {
   void delTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.del(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.del(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -126,19 +129,20 @@ class QuerySuggestionsClientTests {
       parameters0.put("query", query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.del(path0, parameters0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.del(path0, parameters0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "DELETE");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -150,13 +154,13 @@ class QuerySuggestionsClientTests {
   void deleteConfigTest0() {
     String indexName0 = "theIndexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.deleteConfig(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.deleteConfig(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/configs/theIndexName");
-    assertEquals(req.getMethod(), "DELETE");
+    assertEquals(req.path, "/1/configs/theIndexName");
+    assertEquals(req.method, "DELETE");
   }
 
   @Test
@@ -164,13 +168,13 @@ class QuerySuggestionsClientTests {
   void getTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.get(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.get(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -183,19 +187,20 @@ class QuerySuggestionsClientTests {
       parameters0.put("query", query1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.get(path0, parameters0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.get(path0, parameters0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "GET");
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -205,13 +210,13 @@ class QuerySuggestionsClientTests {
   @Test
   @DisplayName("getAllConfigs")
   void getAllConfigsTest0() {
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getAllConfigs();
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getAllConfigs();
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/configs");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/configs");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -219,13 +224,13 @@ class QuerySuggestionsClientTests {
   void getConfigTest0() {
     String indexName0 = "theIndexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getConfig(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getConfig(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/configs/theIndexName");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/configs/theIndexName");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -233,13 +238,13 @@ class QuerySuggestionsClientTests {
   void getConfigStatusTest0() {
     String indexName0 = "theIndexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getConfigStatus(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getConfigStatus(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/configs/theIndexName/status");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/configs/theIndexName/status");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -247,13 +252,13 @@ class QuerySuggestionsClientTests {
   void getLogFileTest0() {
     String indexName0 = "theIndexName";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.getLogFile(indexName0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.getLogFile(indexName0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/logs/theIndexName");
-    assertEquals(req.getMethod(), "GET");
+    assertEquals(req.path, "/1/logs/theIndexName");
+    assertEquals(req.method, "GET");
   }
 
   @Test
@@ -261,13 +266,13 @@ class QuerySuggestionsClientTests {
   void postTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.post(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.post(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "POST");
   }
 
   @Test
@@ -285,18 +290,18 @@ class QuerySuggestionsClientTests {
       body0.put("body", body1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.post(path0, parameters0, body0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "POST");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"body\":\"parameters\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -305,7 +310,8 @@ class QuerySuggestionsClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -317,13 +323,13 @@ class QuerySuggestionsClientTests {
   void putTest0() {
     String path0 = "/test/minimal";
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.put(path0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.put(path0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/minimal");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/test/minimal");
+    assertEquals(req.method, "PUT");
   }
 
   @Test
@@ -341,18 +347,18 @@ class QuerySuggestionsClientTests {
       body0.put("body", body1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.put(path0, parameters0, body0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.put(path0, parameters0, body0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/test/all");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/test/all");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"body\":\"parameters\"}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
@@ -361,7 +367,8 @@ class QuerySuggestionsClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    Map<String, String> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.queryParameters;
+
     assertEquals(expectedQuery.size(), actualQuery.size());
     for (Map.Entry<String, String> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
@@ -426,18 +433,18 @@ class QuerySuggestionsClientTests {
       querySuggestionsIndexParam0.setExclude(exclude1);
     }
 
-    EchoResponseInterface req = (EchoResponseInterface) assertDoesNotThrow(() -> {
-        return client.updateConfig(indexName0, querySuggestionsIndexParam0);
-      }
-    );
+    assertDoesNotThrow(() -> {
+      client.updateConfig(indexName0, querySuggestionsIndexParam0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.getPath(), "/1/configs/theIndexName");
-    assertEquals(req.getMethod(), "PUT");
+    assertEquals(req.path, "/1/configs/theIndexName");
+    assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"sourceIndices\":[{\"indexName\":\"testIndex\",\"facets\":[{\"attributes\":\"test\"}],\"generate\":[[\"facetA\",\"facetB\"],[\"facetC\"]]}],\"languages\":[\"french\"],\"exclude\":[\"test\"]}",
-        req.getBody(),
+        req.body,
         JSONCompareMode.STRICT_ORDER
       );
     });
