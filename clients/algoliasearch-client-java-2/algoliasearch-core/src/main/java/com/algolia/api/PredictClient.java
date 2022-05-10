@@ -3,7 +3,6 @@ package com.algolia.api;
 import com.algolia.ApiCallback;
 import com.algolia.ApiClient;
 import com.algolia.ApiResponse;
-import com.algolia.Pair;
 import com.algolia.exceptions.*;
 import com.algolia.model.predict.*;
 import com.algolia.utils.*;
@@ -81,19 +80,17 @@ public class PredictClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -189,11 +186,8 @@ public class PredictClient extends ApiClient {
           this.escapeString(userID.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -294,19 +288,17 @@ public class PredictClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -399,19 +391,17 @@ public class PredictClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -508,19 +498,17 @@ public class PredictClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,

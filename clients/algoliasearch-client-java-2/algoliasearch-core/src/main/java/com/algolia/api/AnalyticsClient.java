@@ -3,7 +3,6 @@ package com.algolia.api;
 import com.algolia.ApiCallback;
 import com.algolia.ApiClient;
 import com.algolia.ApiResponse;
-import com.algolia.Pair;
 import com.algolia.exceptions.*;
 import com.algolia.model.analytics.*;
 import com.algolia.utils.*;
@@ -86,19 +85,17 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -190,19 +187,17 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -296,27 +291,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/clicks/averageClickPosition";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -454,27 +446,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/clicks/positions";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -606,27 +595,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/clicks/clickThroughRate";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -758,27 +744,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/conversions/conversionRate";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -910,27 +893,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/searches/noClickRate";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1061,27 +1041,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/searches/noResultRate";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1212,27 +1189,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/searches/count";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1363,35 +1337,32 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/searches/noClicks";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1549,35 +1520,32 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/searches/noResults";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1731,15 +1699,12 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/status";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1828,35 +1793,32 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/countries";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2012,39 +1974,36 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/filters";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (search != null) {
-      queryParams.addAll(this.parameterToPair("search", search));
+      queryParams.put("search", parameterToString(search));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2224,39 +2183,36 @@ public class AnalyticsClient extends ApiClient {
           this.escapeString(attribute.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (search != null) {
-      queryParams.addAll(this.parameterToPair("search", search));
+      queryParams.put("search", parameterToString(search));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2451,39 +2407,36 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/filters/noResults";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (search != null) {
-      queryParams.addAll(this.parameterToPair("search", search));
+      queryParams.put("search", parameterToString(search));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2659,45 +2612,40 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/hits";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (search != null) {
-      queryParams.addAll(this.parameterToPair("search", search));
+      queryParams.put("search", parameterToString(search));
     }
 
     if (clickAnalytics != null) {
-      queryParams.addAll(
-        this.parameterToPair("clickAnalytics", clickAnalytics)
-      );
+      queryParams.put("clickAnalytics", parameterToString(clickAnalytics));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2871,49 +2819,44 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/searches";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (clickAnalytics != null) {
-      queryParams.addAll(
-        this.parameterToPair("clickAnalytics", clickAnalytics)
-      );
+      queryParams.put("clickAnalytics", parameterToString(clickAnalytics));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (orderBy != null) {
-      queryParams.addAll(this.parameterToPair("orderBy", orderBy));
+      queryParams.put("orderBy", parameterToString(orderBy));
     }
 
     if (direction != null) {
-      queryParams.addAll(this.parameterToPair("direction", direction));
+      queryParams.put("direction", parameterToString(direction));
     }
 
     if (limit != null) {
-      queryParams.addAll(this.parameterToPair("limit", limit));
+      queryParams.put("limit", parameterToString(limit));
     }
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3104,27 +3047,24 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/users/count";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (index != null) {
-      queryParams.addAll(this.parameterToPair("index", index));
+      queryParams.put("index", parameterToString(index));
     }
 
     if (startDate != null) {
-      queryParams.addAll(this.parameterToPair("startDate", startDate));
+      queryParams.put("startDate", parameterToString(startDate));
     }
 
     if (endDate != null) {
-      queryParams.addAll(this.parameterToPair("endDate", endDate));
+      queryParams.put("endDate", parameterToString(endDate));
     }
 
     if (tags != null) {
-      queryParams.addAll(this.parameterToPair("tags", tags));
+      queryParams.put("tags", parameterToString(tags));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3252,19 +3192,17 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3361,19 +3299,17 @@ public class AnalyticsClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,

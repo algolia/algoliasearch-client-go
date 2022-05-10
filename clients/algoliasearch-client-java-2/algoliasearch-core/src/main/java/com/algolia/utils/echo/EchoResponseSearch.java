@@ -1,11 +1,10 @@
 package com.algolia.utils.echo;
 
-import com.algolia.Pair;
 import com.algolia.model.search.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okio.Buffer;
@@ -23,12 +22,12 @@ public class EchoResponseSearch {
     }
   }
 
-  private static List<Pair> buildQueryParams(Request req) {
-    List<Pair> params = new ArrayList<Pair>();
+  private static Map<String, String> buildQueryParams(Request req) {
+    Map<String, String> params = new HashMap<String, String>();
     HttpUrl url = req.url();
     for (String name : url.queryParameterNames()) {
       for (String value : url.queryParameterValues(name)) {
-        params.add(new Pair(name, value));
+        params.put(name, value);
       }
     }
     return params;
@@ -56,7 +55,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -88,7 +87,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -120,7 +119,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -152,7 +151,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -184,7 +183,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -216,7 +215,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -248,7 +247,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -280,7 +279,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -312,7 +311,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -344,7 +343,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -376,7 +375,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -408,7 +407,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -438,7 +437,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -470,7 +469,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -502,7 +501,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -534,7 +533,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -566,7 +565,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -598,7 +597,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -630,7 +629,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -662,7 +661,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -692,7 +691,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -722,7 +721,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -754,7 +753,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -786,7 +785,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -818,7 +817,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -850,7 +849,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -882,7 +881,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -912,7 +911,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -944,7 +943,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -976,7 +975,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1008,7 +1007,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1040,7 +1039,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1072,7 +1071,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1104,7 +1103,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1136,7 +1135,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1168,7 +1167,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1200,7 +1199,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1232,7 +1231,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1264,7 +1263,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1296,7 +1295,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1328,7 +1327,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1360,7 +1359,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1392,7 +1391,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1422,7 +1421,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1452,7 +1451,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1484,7 +1483,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1516,7 +1515,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1548,7 +1547,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1580,7 +1579,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1612,7 +1611,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1644,7 +1643,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1676,7 +1675,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1708,7 +1707,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1740,7 +1739,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1772,7 +1771,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1804,7 +1803,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1836,7 +1835,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1868,7 +1867,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1900,7 +1899,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1932,7 +1931,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 
@@ -1964,7 +1963,7 @@ public class EchoResponseSearch {
       return parseRequestBody(request);
     }
 
-    public List<Pair> getQueryParams() {
+    public Map<String, String> getQueryParams() {
       return buildQueryParams(request);
     }
 

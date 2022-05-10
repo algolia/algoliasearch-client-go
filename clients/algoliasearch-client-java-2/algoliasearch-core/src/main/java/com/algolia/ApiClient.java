@@ -189,118 +189,6 @@ public class ApiClient {
   }
 
   /**
-   * Formats the specified query parameter to a list containing a single {@code Pair} object.
-   *
-   * <p>Note that {@code value} must not be a collection.
-   *
-   * @param name The name of the parameter.
-   * @param value The value of the parameter.
-   * @return A list containing a single {@code Pair} object.
-   */
-  public List<Pair> parameterToPair(String name, Object value) {
-    List<Pair> params = new ArrayList<Pair>();
-
-    // preconditions
-    if (name == null || name.isEmpty() || value == null) {
-      return params;
-    }
-
-    params.add(new Pair(name, parameterToString(value)));
-    return params;
-  }
-
-  /**
-   * Formats the specified collection query parameters to a list of {@code Pair} objects.
-   *
-   * <p>Note that the values of each of the returned Pair objects are percent-encoded.
-   *
-   * @param collectionFormat The collection format of the parameter.
-   * @param name The name of the parameter.
-   * @param value The value of the parameter.
-   * @return A list of {@code Pair} objects.
-   */
-  public List<Pair> parameterToPairs(
-    String collectionFormat,
-    String name,
-    Collection value
-  ) {
-    List<Pair> params = new ArrayList<Pair>();
-
-    // preconditions
-    if (name == null || name.isEmpty() || value == null || value.isEmpty()) {
-      return params;
-    }
-
-    // create the params based on the collection format
-    if ("multi".equals(collectionFormat)) {
-      for (Object item : value) {
-        params.add(new Pair(name, escapeString(parameterToString(item))));
-      }
-      return params;
-    }
-
-    // collectionFormat is assumed to be "csv" by default
-    String delimiter = ",";
-
-    // escape all delimiters except commas, which are URI reserved
-    // characters
-    if ("ssv".equals(collectionFormat)) {
-      delimiter = escapeString(" ");
-    } else if ("tsv".equals(collectionFormat)) {
-      delimiter = escapeString("\t");
-    } else if ("pipes".equals(collectionFormat)) {
-      delimiter = escapeString("|");
-    }
-
-    StringBuilder sb = new StringBuilder();
-    for (Object item : value) {
-      sb.append(delimiter);
-      sb.append(escapeString(parameterToString(item)));
-    }
-
-    params.add(new Pair(name, sb.substring(delimiter.length())));
-
-    return params;
-  }
-
-  /**
-   * Formats the specified collection path parameter to a string value.
-   *
-   * @param collectionFormat The collection format of the parameter.
-   * @param value The value of the parameter.
-   * @return String representation of the parameter
-   */
-  public String collectionPathParameterToString(
-    String collectionFormat,
-    Collection value
-  ) {
-    // create the value based on the collection format
-    if ("multi".equals(collectionFormat)) {
-      // not valid for path params
-      return parameterToString(value);
-    }
-
-    // collectionFormat is assumed to be "csv" by default
-    String delimiter = ",";
-
-    if ("ssv".equals(collectionFormat)) {
-      delimiter = " ";
-    } else if ("tsv".equals(collectionFormat)) {
-      delimiter = "\t";
-    } else if ("pipes".equals(collectionFormat)) {
-      delimiter = "|";
-    }
-
-    StringBuilder sb = new StringBuilder();
-    for (Object item : value) {
-      sb.append(delimiter);
-      sb.append(parameterToString(item));
-    }
-
-    return sb.substring(delimiter.length());
-  }
-
-  /**
    * Check if the given MIME is a JSON MIME. JSON MIME examples: application/json application/json;
    * charset=UTF8 APPLICATION/JSON application/vnd.company+json "* / *" is also default to JSON
    *
@@ -574,7 +462,7 @@ public class ApiClient {
   public Call buildCall(
     String path,
     String method,
-    List<Pair> queryParams,
+    Map<String, String> queryParams,
     Object body,
     Map<String, String> headerParams,
     ApiCallback callback
@@ -607,23 +495,21 @@ public class ApiClient {
   public Request buildRequest(
     String path,
     String method,
-    List<Pair> queryParams,
+    Map<String, String> queryParams,
     Object body,
     Map<String, String> headerParams,
     ApiCallback callback
   ) throws AlgoliaRuntimeException {
     headerParams.put("X-Algolia-Application-Id", this.appId);
     headerParams.put("X-Algolia-API-Key", this.apiKey);
+    headerParams.put("Accept", "application/json");
+    headerParams.put("Content-Type", "application/json");
 
     final String url = buildUrl(path, queryParams);
     final Request.Builder reqBuilder = new Request.Builder().url(url);
     processHeaderParams(headerParams, reqBuilder);
 
     String contentType = (String) headerParams.get("Content-Type");
-    // ensuring a default content type
-    if (contentType == null) {
-      contentType = "application/json";
-    }
 
     RequestBody reqBody;
     if (!HttpMethod.permitsRequestBody(method)) {
@@ -666,7 +552,7 @@ public class ApiClient {
    * @param queryParams The query parameters
    * @return The full URL
    */
-  public String buildUrl(String path, List<Pair> queryParams) {
+  public String buildUrl(String path, Map<String, String> queryParams) {
     final StringBuilder url = new StringBuilder();
 
     // The real host will be assigned by the retry strategy
@@ -675,7 +561,7 @@ public class ApiClient {
     if (queryParams != null && !queryParams.isEmpty()) {
       // support (constant) query string in `path`, e.g. "/posts?draft=1"
       String prefix = path.contains("?") ? "&" : "?";
-      for (Pair param : queryParams) {
+      for (Entry<String, String> param : queryParams.entrySet()) {
         if (param.getValue() != null) {
           if (prefix != null) {
             url.append(prefix);
@@ -685,7 +571,7 @@ public class ApiClient {
           }
           String value = parameterToString(param.getValue());
           url
-            .append(escapeString(param.getName()))
+            .append(escapeString(param.getKey()))
             .append("=")
             .append(escapeString(value));
         }

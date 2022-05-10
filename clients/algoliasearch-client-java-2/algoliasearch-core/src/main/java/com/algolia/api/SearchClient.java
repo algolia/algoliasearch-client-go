@@ -3,7 +3,6 @@ package com.algolia.api;
 import com.algolia.ApiCallback;
 import com.algolia.ApiClient;
 import com.algolia.ApiResponse;
-import com.algolia.Pair;
 import com.algolia.exceptions.*;
 import com.algolia.model.search.*;
 import com.algolia.utils.*;
@@ -118,11 +117,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/keys";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -210,11 +206,8 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -337,11 +330,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources/append";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -423,17 +413,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
-      queryParams.addAll(
-        this.parameterToPair("X-Algolia-User-ID", xAlgoliaUserID)
-      );
+      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -546,11 +531,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -645,17 +627,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/batch";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
-      queryParams.addAll(
-        this.parameterToPair("X-Algolia-User-ID", xAlgoliaUserID)
-      );
+      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -773,11 +750,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(dictionaryName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -894,23 +868,22 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
 
     if (clearExistingRules != null) {
-      queryParams.addAll(
-        this.parameterToPair("clearExistingRules", clearExistingRules)
+      queryParams.put(
+        "clearExistingRules",
+        parameterToString(clearExistingRules)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1046,11 +1019,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1156,17 +1126,15 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1274,11 +1242,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1365,17 +1330,15 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1474,19 +1437,17 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1581,11 +1542,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1671,11 +1629,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1777,11 +1732,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1868,11 +1820,8 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -1971,17 +1920,15 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2101,11 +2048,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(source.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2193,17 +2137,15 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2320,19 +2262,17 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2425,11 +2365,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2506,11 +2443,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/languages";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2581,11 +2515,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/settings";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2665,27 +2596,24 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/logs";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (offset != null) {
-      queryParams.addAll(this.parameterToPair("offset", offset));
+      queryParams.put("offset", parameterToString(offset));
     }
 
     if (length != null) {
-      queryParams.addAll(this.parameterToPair("length", length));
+      queryParams.put("length", parameterToString(length));
     }
 
     if (indexName != null) {
-      queryParams.addAll(this.parameterToPair("indexName", indexName));
+      queryParams.put("indexName", parameterToString(indexName));
     }
 
     if (type != null) {
-      queryParams.addAll(this.parameterToPair("type", type));
+      queryParams.put("type", parameterToString(type));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2800,17 +2728,15 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (attributesToRetrieve != null) {
-      queryParams.addAll(
-        this.parameterToPair("attributesToRetrieve", attributesToRetrieve)
+      queryParams.put(
+        "attributesToRetrieve",
+        parameterToString(attributesToRetrieve)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -2926,11 +2852,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/objects";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3018,11 +2941,8 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3118,11 +3038,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3201,11 +3118,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3279,11 +3193,8 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3381,11 +3292,8 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{taskID\\}", this.escapeString(taskID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3476,11 +3384,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/top";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3557,11 +3462,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(userID.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3645,15 +3547,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/pending";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (getClusters != null) {
-      queryParams.addAll(this.parameterToPair("getClusters", getClusters));
+      queryParams.put("getClusters", parameterToString(getClusters));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3739,11 +3638,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/keys";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3810,11 +3706,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3885,15 +3778,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (page != null) {
-      queryParams.addAll(this.parameterToPair("page", page));
+      queryParams.put("page", parameterToString(page));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -3976,19 +3866,16 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (page != null) {
-      queryParams.addAll(this.parameterToPair("page", page));
+      queryParams.put("page", parameterToString(page));
     }
 
     if (hitsPerPage != null) {
-      queryParams.addAll(this.parameterToPair("hitsPerPage", hitsPerPage));
+      queryParams.put("hitsPerPage", parameterToString(hitsPerPage));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4080,11 +3967,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/batch";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4167,11 +4051,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/queries";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4262,11 +4143,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4377,17 +4255,15 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (createIfNotExists != null) {
-      queryParams.addAll(
-        this.parameterToPair("createIfNotExists", createIfNotExists)
+      queryParams.put(
+        "createIfNotExists",
+        parameterToString(createIfNotExists)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4545,19 +4421,17 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4654,19 +4528,17 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.addAll(
-          this.parameterToPair(parameter.getKey(), parameter.getValue())
+        queryParams.put(
+          parameter.getKey().toString(),
+          parameterToString(parameter.getValue())
         );
       }
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4765,11 +4637,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(userID.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4852,11 +4721,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -4941,11 +4807,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5031,11 +4894,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5135,17 +4995,15 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5286,17 +5144,15 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5443,23 +5299,22 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
 
     if (replaceExistingSynonyms != null) {
-      queryParams.addAll(
-        this.parameterToPair("replaceExistingSynonyms", replaceExistingSynonyms)
+      queryParams.put(
+        "replaceExistingSynonyms",
+        parameterToString(replaceExistingSynonyms)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5599,11 +5454,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5700,11 +5552,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(dictionaryName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5821,11 +5670,8 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{facetName\\}", this.escapeString(facetName.toString()));
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -5958,11 +5804,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -6072,27 +5915,24 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (query != null) {
-      queryParams.addAll(this.parameterToPair("query", query));
+      queryParams.put("query", parameterToString(query));
     }
 
     if (type != null) {
-      queryParams.addAll(this.parameterToPair("type", type));
+      queryParams.put("type", parameterToString(type));
     }
 
     if (page != null) {
-      queryParams.addAll(this.parameterToPair("page", page));
+      queryParams.put("page", parameterToString(page));
     }
 
     if (hitsPerPage != null) {
-      queryParams.addAll(this.parameterToPair("hitsPerPage", hitsPerPage));
+      queryParams.put("hitsPerPage", parameterToString(hitsPerPage));
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -6224,11 +6064,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/search";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -6322,11 +6159,8 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/settings";
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -6423,17 +6257,15 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.addAll(
-        this.parameterToPair("forwardToReplicas", forwardToReplicas)
+      queryParams.put(
+        "forwardToReplicas",
+        parameterToString(forwardToReplicas)
       );
     }
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
@@ -6564,11 +6396,8 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    List<Pair> queryParams = new ArrayList<Pair>();
+    Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
 
     return this.buildCall(
         requestPath,
