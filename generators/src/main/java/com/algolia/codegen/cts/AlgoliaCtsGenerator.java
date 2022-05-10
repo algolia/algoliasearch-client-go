@@ -145,6 +145,7 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
       bundle.put("clientPrefix", Utils.createClientName(client, language));
       bundle.put("import", createImportName());
       bundle.put("hasRegionalHost", hasRegionalHost);
+      bundle.put("defaultRegion", client.equals("predict") ? "ew" : "us");
       bundle.put("lambda", lambda);
 
       List<Object> blocks = new ArrayList<>();

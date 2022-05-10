@@ -101,6 +101,7 @@ export async function generateClientTests(
       client: `${createClientName(client, language)}Client`,
       blocks: modifyForMustache(testsBlocks),
       hasRegionalHost: hasRegionalHost ? true : undefined,
+      defaultRegion: client === 'predict' ? 'ew' : 'us',
     },
     partialTemplates
   );

@@ -11,22 +11,7 @@ post:
     content:
       application/json:
         schema:
-          title: params
-          type: object
-          description: Object with models and types to retrieve.
-          additionalProperties: false
-          properties:
-            modelsToRetrieve:
-              type: array
-              description: List with model types for which to retrieve predictions.
-              items:
-                $ref: '../common/enums.yml#/modelsToRetrieve'
-            typesToRetrieve:
-              type: array
-              description: List with types to be retrieved.
-              items:
-                $ref: '../common/enums.yml#/typesToRetrieve'
-              minItems: 1
+          $ref: '../common/schemas/Params.yml#/params'
   responses:
     '200':
       description: OK

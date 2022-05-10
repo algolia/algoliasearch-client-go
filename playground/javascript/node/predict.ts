@@ -11,7 +11,7 @@ const apiKey =
 const userId = 'user1';
 
 // Init client with appId and apiKey
-const client = predictClient(appId, apiKey);
+const client = predictClient(appId, apiKey, 'ew');
 
 async function testPredict() {
   try {

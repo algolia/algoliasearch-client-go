@@ -13220,6 +13220,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.2.0
     "@experimental-api-clients-automation/client-insights": 0.2.0
     "@experimental-api-clients-automation/client-personalization": 0.2.0
+    "@experimental-api-clients-automation/client-predict": 0.2.0
     "@experimental-api-clients-automation/client-query-suggestions": 0.2.0
     "@experimental-api-clients-automation/client-search": 0.2.0
     "@experimental-api-clients-automation/client-sources": 0.2.0

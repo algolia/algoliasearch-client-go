@@ -11,7 +11,7 @@ const apiKey = 'test-api-key';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function createClient() {
-  return {{client}}(appId, apiKey, {{#hasRegionalHost}}'us', {{/hasRegionalHost}}{ requester: echoRequester() });
+  return {{client}}(appId, apiKey, {{#hasRegionalHost}}'{{{defaultRegion}}}', {{/hasRegionalHost}}{ requester: echoRequester() });
 }
 
 {{#blocks}}
