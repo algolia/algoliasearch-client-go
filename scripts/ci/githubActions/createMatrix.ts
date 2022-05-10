@@ -138,10 +138,10 @@ async function getSpecMatrix(baseBranch: string): Promise<void> {
       branch: baseBranch,
       path,
     });
-    const baseChanged = await isBaseChanged(
-      baseBranch,
-      MATRIX_DEPENDENCIES.common
-    );
+    const baseChanged = await isBaseChanged(baseBranch, {
+      ...MATRIX_DEPENDENCIES.common,
+      ...MATRIX_DEPENDENCIES.clients.common,
+    });
 
     // No changes found, we don't put this job in the matrix
     if (specChanges === 0 && !baseChanged) {

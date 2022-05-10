@@ -1,7 +1,6 @@
 package com.algolia.utils.echo;
 
-import com.algolia.Pair;
-import java.util.List;
+import java.util.Map;
 
 public interface EchoResponseInterface {
   public String getPath();
@@ -10,5 +9,5 @@ public interface EchoResponseInterface {
 
   public String getBody();
 
-  public List<Pair> getQueryParams();
+  public Map<String, String> getQueryParams();
 }

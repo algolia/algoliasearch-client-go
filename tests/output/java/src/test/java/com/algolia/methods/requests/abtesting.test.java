@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.algolia.JSON;
-import com.algolia.Pair;
 import com.algolia.api.AbtestingClient;
 import com.algolia.model.abtesting.*;
 import com.algolia.utils.echo.*;
@@ -111,10 +110,10 @@ class AbtestingClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    List<Pair> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.getQueryParams();
     assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Pair p : actualQuery) {
-      assertEquals(expectedQuery.get(p.getName()), p.getValue());
+    for (Map.Entry<String, String> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
     }
   }
 
@@ -168,10 +167,10 @@ class AbtestingClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    List<Pair> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.getQueryParams();
     assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Pair p : actualQuery) {
-      assertEquals(expectedQuery.get(p.getName()), p.getValue());
+    for (Map.Entry<String, String> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
     }
   }
 
@@ -207,10 +206,10 @@ class AbtestingClientTests {
       "{\"offset\":\"42\",\"limit\":\"21\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    List<Pair> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.getQueryParams();
     assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Pair p : actualQuery) {
-      assertEquals(expectedQuery.get(p.getName()), p.getValue());
+    for (Map.Entry<String, String> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
     }
   }
 
@@ -263,10 +262,10 @@ class AbtestingClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    List<Pair> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.getQueryParams();
     assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Pair p : actualQuery) {
-      assertEquals(expectedQuery.get(p.getName()), p.getValue());
+    for (Map.Entry<String, String> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
     }
   }
 
@@ -319,10 +318,10 @@ class AbtestingClientTests {
       "{\"query\":\"parameters\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
-    List<Pair> actualQuery = req.getQueryParams();
+    Map<String, String> actualQuery = req.getQueryParams();
     assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Pair p : actualQuery) {
-      assertEquals(expectedQuery.get(p.getName()), p.getValue());
+    for (Map.Entry<String, String> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
     }
   }
 

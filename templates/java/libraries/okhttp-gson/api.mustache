@@ -120,17 +120,17 @@ public class {{classname}} extends ApiClient {
             {{#x-is-custom-request}}{{{paramName}}}.toString(){{/x-is-custom-request}}{{^x-is-custom-request}}this.escapeString({{{paramName}}}.toString()){{/x-is-custom-request}}
         ){{/pathParams}}{{/vendorExtensions}};
 
-        {{javaUtilPrefix}}List<Pair> queryParams = new {{javaUtilPrefix}}ArrayList<Pair>();
+        {{javaUtilPrefix}}Map<String, String> queryParams = new {{javaUtilPrefix}}HashMap<String, String>();
         {{javaUtilPrefix}}Map<String, String> headers = new {{javaUtilPrefix}}HashMap<String, String>();
 
         {{#vendorExtensions}}{{#queryParams}}
         if ({{paramName}} != null) {
           {{^x-is-custom-request}}
-            queryParams.addAll(this.parameterToPair("{{baseName}}", {{paramName}}));
+            queryParams.put("{{baseName}}", parameterToString({{paramName}}));
           {{/x-is-custom-request}}
           {{#x-is-custom-request}}
             for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-              queryParams.addAll(this.parameterToPair(parameter.getKey(), parameter.getValue()));
+              queryParams.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
             }
           {{/x-is-custom-request}}
         }
@@ -142,8 +142,6 @@ public class {{classname}} extends ApiClient {
         }
 
         {{/headerParams}}
-        headers.put("Accept", "application/json");
-        headers.put("Content-Type", "application/json");
 
         return this.buildCall(requestPath, "{{httpMethod}}", queryParams, bodyObj, headers, callback);
     }
