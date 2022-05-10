@@ -112,89 +112,36 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
     {{#summary}}
     * @summary {{&summary}}
     {{/summary}}
-    {{#allParams.0}}
-      {{^bodyParams.0}}
-        * @param {{nickname}} - The {{nickname}} object.
-          {{#allParams}}
-            * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
-          {{/allParams}}
-      {{/bodyParams.0}}
-      {{#bodyParams.0}}
-        {{^queryParams.0}}
-          {{^pathParams.0}}
-            {{#bodyParams.0.isArray}}
-              {{^bodyParams.1}}
-                * @param {{nickname}} - The {{nickname}} object.
-                  {{#allParams}}
-                    * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
-                  {{/allParams}}
-              {{/bodyParams.1}}
-            {{/bodyParams.0.isArray}}
-            {{^bodyParams.0.isArray}}
-              * @param {{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
-            {{/bodyParams.0.isArray}}
-          {{/pathParams.0}}
-          {{#pathParams.0}}
-            * @param {{nickname}} - The {{nickname}} object.
-              {{#allParams}}
-                * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
-              {{/allParams}}
-          {{/pathParams.0}}
-        {{/queryParams.0}}
-        {{#queryParams.0}}
-          * @param {{nickname}} - The {{nickname}} object.
-            {{#allParams}}
-              * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
-            {{/allParams}}
-        {{/queryParams.0}}
-      {{/bodyParams.0}}
-    {{/allParams.0}}
+    {{#vendorExtensions}}
+      {{#x-create-wrapping-object}}
+      * @param {{nickname}} - The {{nickname}} object.
+      {{#allParams}}
+      * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
+      {{/allParams}}
+      {{/x-create-wrapping-object}}
+      {{#x-is-single-body-param}}
+        {{#bodyParams}}
+          * @param {{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
+        {{/bodyParams}}
+      {{/x-is-single-body-param}}
+    {{/vendorExtensions}}
     * @param requestOptions - The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
     */
     {{nickname}}(
-      {{#allParams.0}}
-        {{^bodyParams.0}}
+      {{#vendorExtensions}}
+        {{#x-create-wrapping-object}}
           {
             {{#allParams}}
               {{paramName}},
             {{/allParams}}
           }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
-        {{/bodyParams.0}}
-        {{#bodyParams.0}}
-          {{^queryParams.0}}
-            {{^pathParams.0}}
-              {{#bodyParams.0.isArray}}
-                {{^bodyParams.1}}
-                {
-                  {{#allParams}}
-                    {{paramName}},
-                  {{/allParams}}
-                }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
-                {{/bodyParams.1}}
-              {{/bodyParams.0.isArray}}
-              {{^bodyParams.0.isArray}}
-                {{#bodyParams}}
-                  {{paramName}}: {{{dataType}}},
-                {{/bodyParams}}
-              {{/bodyParams.0.isArray}}
-            {{/pathParams.0}}
-            {{#pathParams.0}}
-              {
-                {{#allParams}}
-                  {{paramName}},
-                {{/allParams}}
-              }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
-            {{/pathParams.0}}
-          {{/queryParams.0}}
-          {{#queryParams.0}}
-            {
-              {{#allParams}}
-                {{paramName}},
-              {{/allParams}}
-            }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
-          {{/queryParams.0}}
-        {{/bodyParams.0}}
-      {{/allParams.0}}
+        {{/x-create-wrapping-object}}
+        {{#x-is-single-body-param}}
+          {{#bodyParams}}
+            {{paramName}}: {{{dataType}}},
+          {{/bodyParams}}
+        {{/x-is-single-body-param}}
+      {{/vendorExtensions}}
       requestOptions?: RequestOptions
         ) : Promise<{{{returnType}}}> {
       {{#allParams}}
@@ -252,8 +199,7 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
 export type {{capitalizedApiName}} = ReturnType<typeof create{{capitalizedApiName}}>;
 
 {{#operation}}
-{{#allParams.0}}
-  {{^bodyParams.0}}
+{{#vendorExtensions.x-create-wrapping-object}}
 export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
   {{#allParams}}
     {{#description}}
@@ -264,52 +210,7 @@ export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
     {{paramName}}{{^required}}?{{/required}}: {{{dataType}}};
   {{/allParams}}
 }
-  {{/bodyParams.0}}
-  {{#bodyParams.0}}
-    {{^queryParams.0}}
-      {{^pathParams.0}}
-        {{#bodyParams.0.isArray}}
-          {{^bodyParams.1}}
-export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
-  {{#allParams}}
-    {{#description}}
-    /**
-    * {{{description}}}
-    */
-    {{/description}}
-    {{paramName}}{{^required}}?{{/required}}: {{{dataType}}};
-  {{/allParams}}
-}
-          {{/bodyParams.1}}
-        {{/bodyParams.0.isArray}}
-      {{/pathParams.0}}
-      {{#pathParams.0}}
-export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
-  {{#allParams}}
-    {{#description}}
-    /**
-    * {{{description}}}
-    */
-    {{/description}}
-    {{paramName}}{{^required}}?{{/required}}: {{{dataType}}};
-  {{/allParams}}
-}
-      {{/pathParams.0}}
-    {{/queryParams.0}}
-    {{#queryParams.0}}
-export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
-  {{#allParams}}
-    {{#description}}
-    /**
-    * {{{description}}}
-    */
-    {{/description}}
-    {{paramName}}{{^required}}?{{/required}}: {{{dataType}}};
-  {{/allParams}}
-}
-    {{/queryParams.0}}
-  {{/bodyParams.0}}
-{{/allParams.0}}
+{{/vendorExtensions.x-create-wrapping-object}}
 
 {{/operation}}
 
