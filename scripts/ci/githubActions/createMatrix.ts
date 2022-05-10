@@ -4,38 +4,12 @@ import { getLanguageFolder, getTestOutputFolder } from '../../config';
 import type { Language } from '../../types';
 import { getNbGitDiff } from '../utils';
 
-import { DEPENDENCIES } from './setRunVariables';
+import { DEPENDENCIES, COMMON_DEPENDENCIES } from './setRunVariables';
 import type { ClientMatrix, CreateMatrix, Matrix, SpecMatrix } from './types';
 import { computeCacheKey, isBaseChanged } from './utils';
 
 // This empty matrix is required by the CI, otherwise it throws
 const EMPTY_MATRIX = { client: ['no-run'] };
-
-/**
- * List of dependencies based on the language, inherited from `./setRunVariables.ts` in a more dynamic form.
- */
-const MATRIX_DEPENDENCIES = {
-  common: {
-    GITHUB_ACTIONS_CHANGED: DEPENDENCIES.GITHUB_ACTIONS_CHANGED,
-    SCRIPTS_CHANGED: DEPENDENCIES.SCRIPTS_CHANGED,
-    COMMON_SPECS_CHANGED: DEPENDENCIES.COMMON_SPECS_CHANGED,
-  },
-  clients: {
-    common: {
-      GENERATORS_CHANGED: DEPENDENCIES.GENERATORS_CHANGED,
-    },
-    javascript: {
-      JS_UTILS_CHANGED: DEPENDENCIES.JS_UTILS_CHANGED,
-      JS_TEMPLATE_CHANGED: DEPENDENCIES.JS_TEMPLATE_CHANGED,
-    },
-    php: {
-      PHP_TEMPLATE_CHANGED: DEPENDENCIES.PHP_TEMPLATE_CHANGED,
-    },
-    java: {
-      JAVA_TEMPLATE_CHANGED: DEPENDENCIES.JAVA_TEMPLATE_CHANGED,
-    },
-  },
-};
 
 type ToRunMatrix = {
   path: string;
@@ -62,6 +36,20 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       continue;
     }
 
+    const languageDependencies = Object.entries(DEPENDENCIES).reduce(
+      (finalDeps, [key, deps]) => {
+        if (key.startsWith(`${language.toUpperCase()}_`)) {
+          return {
+            ...finalDeps,
+            [key]: deps,
+          };
+        }
+
+        return finalDeps;
+      },
+      {} as Record<string, string[]>
+    );
+
     const bundledSpec = client === 'algoliasearch-lite' ? 'search' : client;
     const specChanges = await getNbGitDiff({
       branch: baseBranch,
@@ -72,9 +60,8 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       path: output,
     });
     const baseChanged = await isBaseChanged(baseBranch, {
-      ...MATRIX_DEPENDENCIES.common,
-      ...MATRIX_DEPENDENCIES.clients.common,
-      ...MATRIX_DEPENDENCIES.clients[language],
+      ...COMMON_DEPENDENCIES,
+      ...languageDependencies,
     });
 
     // No changes found, we don't put this job in the matrix
@@ -82,7 +69,6 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       continue;
     }
 
-    console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
     matrix[language].toRun.push(client);
     matrix[language].cacheToCompute.push(`specs/${bundledSpec}`);
   }
@@ -111,6 +97,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
         language
       )}`,
     });
+    console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
   }
 
   const shouldRun = clientMatrix.client.length > 0;
@@ -123,7 +110,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
   );
 }
 
-async function getSpecMatrix(baseBranch: string): Promise<void> {
+async function getSpecMatrix(): Promise<void> {
   const matrix: ToRunMatrix = {
     path: 'specs/bundled',
     toRun: [],
@@ -133,31 +120,9 @@ async function getSpecMatrix(baseBranch: string): Promise<void> {
   for (const client of CLIENTS) {
     // The `algoliasearch-lite` spec is created by the `search` spec
     const bundledSpecName = client === 'algoliasearch-lite' ? 'search' : client;
-    const path = `specs/${bundledSpecName}`;
-    const specChanges = await getNbGitDiff({
-      branch: baseBranch,
-      path,
-    });
-    const baseChanged = await isBaseChanged(baseBranch, {
-      ...MATRIX_DEPENDENCIES.common,
-      ...MATRIX_DEPENDENCIES.clients.common,
-    });
-
-    // No changes found, we don't put this job in the matrix
-    if (specChanges === 0 && !baseChanged) {
-      continue;
-    }
 
     matrix.toRun.push(client);
-    matrix.cacheToCompute.push(path);
-  }
-
-  // We have nothing to run
-  if (matrix.toRun.length === 0) {
-    console.log('::set-output name=RUN_SPECS::false');
-    console.log(`::set-output name=MATRIX::${JSON.stringify(EMPTY_MATRIX)}`);
-
-    return;
+    matrix.cacheToCompute.push(`specs/${bundledSpecName}`);
   }
 
   const ciMatrix: Matrix<SpecMatrix> = {
@@ -174,7 +139,6 @@ async function getSpecMatrix(baseBranch: string): Promise<void> {
     ],
   };
 
-  console.log('::set-output name=RUN_SPECS::true');
   console.log(`::set-output name=MATRIX::${JSON.stringify(ciMatrix)}`);
 }
 
@@ -186,7 +150,7 @@ async function createMatrix(opts: CreateMatrix): Promise<void> {
     return await getClientMatrix(opts.baseBranch);
   }
 
-  return await getSpecMatrix(opts.baseBranch);
+  return await getSpecMatrix();
 }
 
 if (require.main === module) {

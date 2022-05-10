@@ -50,7 +50,6 @@ jobs:
     outputs:
       RUN_SCRIPTS: ${{ steps.setup.outputs.RUN_SCRIPTS }}
 
-      RUN_SPECS: ${{ steps.setup.outputs.RUN_SPECS }}
       SPECS_MATRIX: ${{ steps.setup.outputs.SPECS_MATRIX }}
 
       RUN_GEN: ${{ steps.setup.outputs.RUN_GEN }}
@@ -59,8 +58,6 @@ jobs:
       RUN_JS_ALGOLIASEARCH: ${{ steps.setup.outputs.RUN_JS_ALGOLIASEARCH }}
       RUN_JS_UTILS: ${{ steps.setup.outputs.RUN_JS_UTILS }}
       RUN_JS_TESTS: ${{ steps.setup.outputs.RUN_JS_TESTS }}
-
-      RUN_CTS: ${{ steps.setup.outputs.RUN_CTS }}
 
       RUN_CODEGEN: ${{ steps.setup.outputs.RUN_CODEGEN }}
 
@@ -90,7 +87,6 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     needs: setup
-    if: ${{ needs.setup.outputs.RUN_SPECS == 'true' }}
     strategy:
       matrix: ${{ fromJSON(needs.setup.outputs.SPECS_MATRIX) }}
     steps:
@@ -224,21 +220,17 @@ jobs:
         run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
       - name: Clean CTS output before generate
-        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
         run: rm -rf ${{ matrix.client.testsOutputPath }}
 
       - name: Generate CTS
-        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
         run: yarn cli cts generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
       - name: Check diff with pushed CTS
-        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
         run: |
           git --no-pager diff
           exit $(git diff --name-only --diff-filter=d ${{ matrix.client.testsOutputPath }} | wc -l)
 
       - name: Run CTS
-        if: ${{ needs.setup.outputs.RUN_CTS == 'true' }}
         run: yarn cli cts run ${{ matrix.client.language }}
 
       - name: Zip artifact before storing

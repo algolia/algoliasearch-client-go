@@ -11,60 +11,72 @@ const PHP_CLIENT_FOLDER = getLanguageFolder('php');
 const CLIENTS_COMMON_FILES = [
   'config/openapitools.json',
   'config/clients.config.json',
+  'generators/src/main/java/com/algolia/codegen/Utils.java',
 ];
 
 /**
- * Exhaustive list of output variables to use in the CI.
- *
- * Those variables are used to determine if jobs should run, based on the changes
- * made in their respective `path`s.
- *
- * Negative paths should start with `:!`.
- *
- * The variable will be accessible in the CI via `steps.diff.outputs.<name>`.
+ * Dependencies that are common to every specs, clients or CTS jobs.
  */
-export const DEPENDENCIES = {
+export const COMMON_DEPENDENCIES = {
   GITHUB_ACTIONS_CHANGED: [
     '.github/actions',
     '.github/workflows',
     '.github/.cache_version',
   ],
-  SHOULD_RUN_SPECS: [
-    ...CLIENTS_COMMON_FILES,
-    'specs',
-    'templates',
-    'generators',
-    ':!specs/bundled',
-  ],
-  COMMON_SPECS_CHANGED: ['specs/common'],
-  TESTS_CHANGED: ['tests'],
   SCRIPTS_CHANGED: ['scripts'],
-  GENERATORS_CHANGED: ['generators'],
-  JS_CLIENT_CHANGED: [
-    ...CLIENTS_COMMON_FILES,
-    JS_CLIENT_FOLDER,
-    `:!${JS_CLIENT_FOLDER}/.github`,
-    `:!${JS_CLIENT_FOLDER}/README.md`,
-  ],
+  COMMON_SPECS_CHANGED: ['specs/common'],
+};
+
+/**
+ * Exhaustive list of output variables to use in the CI.
+ *
+ * Those variables are used to determine if jobs should run, based on the changes
+ * made in their respective dependencies.
+ *
+ * Negative paths should start with `:!`.
+ *
+ * The variable will be accessible in the CI via `steps.diff.outputs.<name>`.
+ *
+ * Variables starting by `LANGUAGENAME_` will be used in the `createMatrix` to determine
+ * if a job should be added.
+ */
+export const DEPENDENCIES = {
+  ...COMMON_DEPENDENCIES,
+  TESTS_CHANGED: ['tests'],
   JS_ALGOLIASEARCH_CHANGED: [
     `${JS_CLIENT_FOLDER}/packages/algoliasearch`,
     `${JS_CLIENT_FOLDER}/packages/client-search`,
     `${JS_CLIENT_FOLDER}/packages/client-analytics`,
     `${JS_CLIENT_FOLDER}/packages/client-personalization`,
   ],
-  JS_UTILS_CHANGED: [
+  JS_COMMON_TESTS_CHANGED: [
+    `${JS_CLIENT_FOLDER}/packages/client-common/src/__tests__`,
+  ],
+  JAVASCRIPT_UTILS_CHANGED: [
     `${JS_CLIENT_FOLDER}/packages/client-common`,
     `${JS_CLIENT_FOLDER}/packages/requester-browser-xhr`,
     `${JS_CLIENT_FOLDER}/packages/requester-node-http`,
   ],
-  JS_COMMON_TESTS_CHANGED: [
-    `${JS_CLIENT_FOLDER}/packages/client-common/src/__tests__`,
+  JAVASCRIPT_CLIENT_CHANGED: [
+    ...CLIENTS_COMMON_FILES,
+    JS_CLIENT_FOLDER,
+    'templates/javascript',
+    'generators/src/main/java/com/algolia/codegen/AlgoliaJavascriptGenerator.java',
+    `:!${JS_CLIENT_FOLDER}/.github`,
+    `:!${JS_CLIENT_FOLDER}/README.md`,
   ],
-  JS_TEMPLATE_CHANGED: ['templates/javascript'],
-  JAVA_CLIENT_CHANGED: [...CLIENTS_COMMON_FILES, JAVA_CLIENT_FOLDER],
-  JAVA_TEMPLATE_CHANGED: ['templates/java'],
-  PHP_CLIENT_CHANGED: [...CLIENTS_COMMON_FILES, PHP_CLIENT_FOLDER],
-  PHP_TEMPLATE_CHANGED: ['templates/php'],
+  JAVA_CLIENT_CHANGED: [
+    ...CLIENTS_COMMON_FILES,
+    JAVA_CLIENT_FOLDER,
+    'templates/java',
+    'generators/src/main/java/com/algolia/codegen/AlgoliaJavaGenerator.java',
+  ],
+  PHP_CLIENT_CHANGED: [
+    ...CLIENTS_COMMON_FILES,
+    PHP_CLIENT_FOLDER,
+    'templates/php',
+    'generators/src/main/java/com/algolia/codegen/AlgoliaPhpGenerator.java',
+  ],
 };
 
 /**
