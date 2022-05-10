@@ -49,17 +49,44 @@ components:
         message:
           type: string
           example: Invalid Application-Id or API-Key
-    modelsToRetrieve:
+    modelsToRetrieveEnum:
       type: string
       enum:
         - funnel_stage
         - order_value
         - affinities
-    typesToRetrieve:
+    modelsToRetrieve:
+      type: object
+      required:
+        - modelsToRetrieve
+      properties:
+        modelsToRetrieve:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelsToRetrieveEnum'
+    typesToRetrieveEnum:
       type: string
       enum:
         - properties
         - segments
+    typesToRetrieve:
+      type: object
+      required:
+        - typesToRetrieve
+      properties:
+        typesToRetrieve:
+          type: array
+          items:
+            $ref: '#/components/schemas/typesToRetrieveEnum'
+    allParams:
+      allOf:
+        - $ref: '#/components/schemas/modelsToRetrieve'
+        - $ref: '#/components/schemas/typesToRetrieve'
+    params:
+      oneOf:
+        - $ref: '#/components/schemas/modelsToRetrieve'
+        - $ref: '#/components/schemas/typesToRetrieve'
+        - $ref: '#/components/schemas/allParams'
   responses:
     BadRequest:
       description: Bad request or request arguments.
@@ -236,22 +263,7 @@ paths:
         content:
           application/json:
             schema:
-              title: params
-              type: object
-              description: Object with models and types to retrieve.
-              additionalProperties: false
-              properties:
-                modelsToRetrieve:
-                  type: array
-                  description: List with model types for which to retrieve predictions.
-                  items:
-                    $ref: '#/components/schemas/modelsToRetrieve'
-                typesToRetrieve:
-                  type: array
-                  description: List with types to be retrieved.
-                  items:
-                    $ref: '#/components/schemas/typesToRetrieve'
-                  minItems: 1
+              $ref: '#/components/schemas/params'
       responses:
         '200':
           description: OK

@@ -1,108 +1,88 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.algolia.JSON;
+import com.algolia.utils.CompoundType;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
-/** Object with models and types to retrieve. */
-public class Params {
+@JsonAdapter(Params.Adapter.class)
+public abstract class Params implements CompoundType {
 
-  @SerializedName("modelsToRetrieve")
-  private List<ModelsToRetrieve> modelsToRetrieve = null;
-
-  @SerializedName("typesToRetrieve")
-  private List<TypesToRetrieve> typesToRetrieve = null;
-
-  public Params setModelsToRetrieve(List<ModelsToRetrieve> modelsToRetrieve) {
-    this.modelsToRetrieve = modelsToRetrieve;
-    return this;
+  public static Params ofAllParams(AllParams inside) {
+    return new ParamsAllParams(inside);
   }
 
-  public Params addModelsToRetrieveItem(ModelsToRetrieve modelsToRetrieveItem) {
-    if (this.modelsToRetrieve == null) {
-      this.modelsToRetrieve = new ArrayList<>();
+  public static Params ofModelsToRetrieve(ModelsToRetrieve inside) {
+    return new ParamsModelsToRetrieve(inside);
+  }
+
+  public static Params ofTypesToRetrieve(TypesToRetrieve inside) {
+    return new ParamsTypesToRetrieve(inside);
+  }
+
+  public static class Adapter extends TypeAdapter<Params> {
+
+    @Override
+    public void write(final JsonWriter out, final Params oneOf)
+      throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
+        .getGson()
+        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
-    this.modelsToRetrieve.add(modelsToRetrieveItem);
-    return this;
-  }
 
-  /**
-   * List with model types for which to retrieve predictions.
-   *
-   * @return modelsToRetrieve
-   */
-  @javax.annotation.Nullable
-  public List<ModelsToRetrieve> getModelsToRetrieve() {
-    return modelsToRetrieve;
-  }
-
-  public Params setTypesToRetrieve(List<TypesToRetrieve> typesToRetrieve) {
-    this.typesToRetrieve = typesToRetrieve;
-    return this;
-  }
-
-  public Params addTypesToRetrieveItem(TypesToRetrieve typesToRetrieveItem) {
-    if (this.typesToRetrieve == null) {
-      this.typesToRetrieve = new ArrayList<>();
+    @Override
+    public Params read(final JsonReader jsonReader) throws IOException {
+      return null;
     }
-    this.typesToRetrieve.add(typesToRetrieveItem);
-    return this;
   }
+}
 
-  /**
-   * List with types to be retrieved.
-   *
-   * @return typesToRetrieve
-   */
-  @javax.annotation.Nullable
-  public List<TypesToRetrieve> getTypesToRetrieve() {
-    return typesToRetrieve;
+@JsonAdapter(Params.Adapter.class)
+class ParamsAllParams extends Params {
+
+  private final AllParams insideValue;
+
+  ParamsAllParams(AllParams insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Params params = (Params) o;
-    return (
-      Objects.equals(this.modelsToRetrieve, params.modelsToRetrieve) &&
-      Objects.equals(this.typesToRetrieve, params.typesToRetrieve)
-    );
+  public AllParams getInsideValue() {
+    return insideValue;
+  }
+}
+
+@JsonAdapter(Params.Adapter.class)
+class ParamsModelsToRetrieve extends Params {
+
+  private final ModelsToRetrieve insideValue;
+
+  ParamsModelsToRetrieve(ModelsToRetrieve insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(modelsToRetrieve, typesToRetrieve);
+  public ModelsToRetrieve getInsideValue() {
+    return insideValue;
+  }
+}
+
+@JsonAdapter(Params.Adapter.class)
+class ParamsTypesToRetrieve extends Params {
+
+  private final TypesToRetrieve insideValue;
+
+  ParamsTypesToRetrieve(TypesToRetrieve insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Params {\n");
-    sb
-      .append("    modelsToRetrieve: ")
-      .append(toIndentedString(modelsToRetrieve))
-      .append("\n");
-    sb
-      .append("    typesToRetrieve: ")
-      .append(toIndentedString(typesToRetrieve))
-      .append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  public TypesToRetrieve getInsideValue() {
+    return insideValue;
   }
 }

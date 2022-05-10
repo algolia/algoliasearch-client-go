@@ -1,59 +1,79 @@
 package com.algolia.model.predict;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-/** Gets or Sets modelsToRetrieve */
-@JsonAdapter(ModelsToRetrieve.Adapter.class)
-public enum ModelsToRetrieve {
-  FUNNEL_STAGE("funnel_stage"),
+/** ModelsToRetrieve */
+public class ModelsToRetrieve {
 
-  ORDER_VALUE("order_value"),
+  @SerializedName("modelsToRetrieve")
+  private List<ModelsToRetrieveEnum> modelsToRetrieve = new ArrayList<>();
 
-  AFFINITIES("affinities");
-
-  private final String value;
-
-  ModelsToRetrieve(String value) {
-    this.value = value;
+  public ModelsToRetrieve setModelsToRetrieve(
+    List<ModelsToRetrieveEnum> modelsToRetrieve
+  ) {
+    this.modelsToRetrieve = modelsToRetrieve;
+    return this;
   }
 
-  public String getValue() {
-    return value;
+  public ModelsToRetrieve addModelsToRetrieveItem(
+    ModelsToRetrieveEnum modelsToRetrieveItem
+  ) {
+    this.modelsToRetrieve.add(modelsToRetrieveItem);
+    return this;
+  }
+
+  /**
+   * Get modelsToRetrieve
+   *
+   * @return modelsToRetrieve
+   */
+  @javax.annotation.Nonnull
+  public List<ModelsToRetrieveEnum> getModelsToRetrieve() {
+    return modelsToRetrieve;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ModelsToRetrieve modelsToRetrieve = (ModelsToRetrieve) o;
+    return Objects.equals(
+      this.modelsToRetrieve,
+      modelsToRetrieve.modelsToRetrieve
+    );
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(modelsToRetrieve);
   }
 
   @Override
   public String toString() {
-    return String.valueOf(value);
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ModelsToRetrieve {\n");
+    sb
+      .append("    modelsToRetrieve: ")
+      .append(toIndentedString(modelsToRetrieve))
+      .append("\n");
+    sb.append("}");
+    return sb.toString();
   }
 
-  public static ModelsToRetrieve fromValue(String value) {
-    for (ModelsToRetrieve b : ModelsToRetrieve.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+  /**
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<ModelsToRetrieve> {
-
-    @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final ModelsToRetrieve enumeration
-    ) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public ModelsToRetrieve read(final JsonReader jsonReader)
-      throws IOException {
-      String value = jsonReader.nextString();
-      return ModelsToRetrieve.fromValue(value);
-    }
+    return o.toString().replace("\n", "\n    ");
   }
 }
