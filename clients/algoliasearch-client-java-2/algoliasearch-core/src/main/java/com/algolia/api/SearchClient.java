@@ -318,7 +318,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
-      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
+      headers.put("X-Algolia-User-ID", this.parameterToString(xAlgoliaUserID));
     }
 
     Call call =
@@ -443,7 +443,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
-      queryParams.put("X-Algolia-User-ID", parameterToString(xAlgoliaUserID));
+      headers.put("X-Algolia-User-ID", this.parameterToString(xAlgoliaUserID));
     }
 
     Call call =

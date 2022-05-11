@@ -151,17 +151,6 @@ class SearchClientTests {
         JSONCompareMode.STRICT_ORDER
       );
     });
-
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"X-Algolia-User-ID\":\"userID\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, String> actualQuery = req.queryParameters;
-
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, String> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
-    }
   }
 
   @Test
@@ -238,17 +227,6 @@ class SearchClientTests {
         JSONCompareMode.STRICT_ORDER
       );
     });
-
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"X-Algolia-User-ID\":\"userID\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, String> actualQuery = req.queryParameters;
-
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, String> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
-    }
   }
 
   @Test

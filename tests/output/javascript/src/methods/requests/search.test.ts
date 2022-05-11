@@ -72,7 +72,7 @@ describe('assignUserId', () => {
     expect(req.path).toEqual('/1/clusters/mapping');
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({ cluster: 'theCluster' });
-    expect(req.searchParams).toStrictEqual({ 'X-Algolia-User-ID': 'userID' });
+    expect(req.searchParams).toStrictEqual(undefined);
   });
 });
 
@@ -110,7 +110,7 @@ describe('batchAssignUserIds', () => {
       cluster: 'theCluster',
       users: ['user1', 'user2'],
     });
-    expect(req.searchParams).toStrictEqual({ 'X-Algolia-User-ID': 'userID' });
+    expect(req.searchParams).toStrictEqual(undefined);
   });
 });
 

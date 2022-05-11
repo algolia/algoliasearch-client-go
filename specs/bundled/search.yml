@@ -127,10 +127,10 @@ components:
         type: integer
         nullable: true
         default: null
-    UserIDInQuery:
+    UserIDInHeader:
       name: X-Algolia-User-ID
       description: userID to assign.
-      in: query
+      in: header
       required: true
       schema:
         type: string
@@ -3564,7 +3564,7 @@ paths:
         A successful response indicates that the operation has been taken into
         account, and the userID is directly usable.
       parameters:
-        - $ref: '#/components/parameters/UserIDInQuery'
+        - $ref: '#/components/parameters/UserIDInHeader'
       requestBody:
         required: true
         content:
@@ -3646,7 +3646,7 @@ paths:
         A successful response indicates that the operation has been taken into
         account, and the userIDs are directly usable.
       parameters:
-        - $ref: '#/components/parameters/UserIDInQuery'
+        - $ref: '#/components/parameters/UserIDInHeader'
       requestBody:
         required: true
         content:
