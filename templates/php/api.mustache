@@ -205,7 +205,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         {{/allParams}}
 
         $resourcePath = '{{{path}}}';
-        $queryParams = [];
+        $queryParameters = [];
         $httpBody = [];
         {{#vendorExtensions}}{{#queryParams}}
 
@@ -214,15 +214,15 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         {{#style}}
             if(is_array(${{paramName}}) && ! in_array('{{paramName}}', RequestOptionsFactory::getAttributesToFormat())) {
                 foreach(${{paramName}} as $key => $value) {
-                    $queryParams[$key] = $value;
+                    $queryParameters[$key] = $value;
                 }
             }
             else {
-                $queryParams{{^x-is-custom-request}}['{{baseName}}']{{/x-is-custom-request}} = ${{paramName}};
+                $queryParameters{{^x-is-custom-request}}['{{baseName}}']{{/x-is-custom-request}} = ${{paramName}};
             }
         {{/style}}
         {{^style}}
-            $queryParams['{{baseName}}'] = ${{paramName}};
+            $queryParameters['{{baseName}}'] = ${{paramName}};
         {{/style}}
         }
         {{/isExplode}}
@@ -231,7 +231,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
             ${{paramName}} = ObjectSerializer::serializeCollection(${{paramName}}, '{{style}}{{^style}}{{collectionFormat}}{{/style}}', true);
         }
         if (${{paramName}} !== null) {
-            $queryParams['{{baseName}}'] = ${{paramName}};
+            $queryParameters['{{baseName}}'] = ${{paramName}};
         }
         {{/isExplode}}
         {{/queryParams}}{{/vendorExtensions}}
@@ -257,7 +257,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         } 
         {{/bodyParams}}
         {{#headerParams}}
-            $queryParams['{{baseName}}'] = ${{paramName}};
+            $queryParameters['{{baseName}}'] = ${{paramName}};
         {{/headerParams}}
         {{#servers.0}}
         $operationHosts = [{{#servers}}"{{{url}}}"{{^-last}}, {{/-last}}{{/servers}}];
@@ -267,16 +267,16 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         $operationHost = $operationHosts[$this->hostIndex];
 
         {{/servers.0}}
-        $requestOptions += $queryParams;
+        $requestOptions += $queryParameters;
 
-        return $this->sendRequest('{{httpMethod}}', $resourcePath, $queryParams, $httpBody, $requestOptions);
+        return $this->sendRequest('{{httpMethod}}', $resourcePath, $queryParameters, $httpBody, $requestOptions);
     }
 
     {{/operation}}
 
-    private function sendRequest($method, $resourcePath, $queryParams, $httpBody, $requestOptions)
+    private function sendRequest($method, $resourcePath, $queryParameters, $httpBody, $requestOptions)
     {
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        $query = \GuzzleHttp\Psr7\Query::build($queryParameters);
 
         if($method == 'GET') {
             $request = $this->api->read(

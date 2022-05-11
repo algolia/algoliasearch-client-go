@@ -50,7 +50,7 @@ public class CallEcho implements Call {
     }
   }
 
-  private Map<String, String> buildQueryParams() {
+  private Map<String, String> buildQueryParameters() {
     Map<String, String> params = new HashMap<>();
     HttpUrl url = request.url();
     for (String name : url.queryParameterNames()) {
@@ -73,7 +73,7 @@ public class CallEcho implements Call {
       body.path = request.url().encodedPath();
       body.method = request.method();
       body.body = processResponseBody();
-      body.queryParameters = buildQueryParams();
+      body.queryParameters = buildQueryParameters();
       builder.body(
         ResponseBody.create(
           JSON.serialize(body),

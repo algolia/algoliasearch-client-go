@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public class RequestOptions {
 
   private final Map<String, String> headers = new HashMap<String, String>();
-  private final Map<String, String> queryParams = new HashMap<String, String>();
+  private final Map<String, String> queryParameters = new HashMap<String, String>();
   private Integer timeout = null;
 
   public RequestOptions addExtraHeader(
@@ -26,7 +26,7 @@ public class RequestOptions {
     @Nonnull String key,
     @Nonnull String value
   ) {
-    queryParams.put(key, value);
+    queryParameters.put(key, value);
     return this;
   }
 
@@ -34,8 +34,8 @@ public class RequestOptions {
     return headers;
   }
 
-  public Map<String, String> getExtraQueryParams() {
-    return queryParams;
+  public Map<String, String> getExtraQueryParameters() {
+    return queryParameters;
   }
 
   public Integer getTimeout() {
@@ -53,8 +53,8 @@ public class RequestOptions {
       "RequestOptions{" +
       "headers=" +
       headers +
-      ", queryParams=" +
-      queryParams +
+      ", queryParameters=" +
+      queryParameters +
       '\'' +
       '}'
     );
