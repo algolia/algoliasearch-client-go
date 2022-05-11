@@ -33,6 +33,20 @@ public abstract class AroundRadius implements CompoundType {
 
     @Override
     public AroundRadius read(final JsonReader jsonReader) throws IOException {
+      AroundRadiusAll aroundradiusall = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<AroundRadiusAll>() {}.getType()
+      );
+      if (aroundradiusall != null) {
+        return AroundRadius.ofAroundRadiusAll(aroundradiusall);
+      }
+      Integer integer = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<Integer>() {}.getType()
+      );
+      if (integer != null) {
+        return AroundRadius.ofInteger(integer);
+      }
       return null;
     }
   }

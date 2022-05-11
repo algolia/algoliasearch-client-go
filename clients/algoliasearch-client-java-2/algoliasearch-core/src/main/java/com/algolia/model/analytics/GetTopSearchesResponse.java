@@ -38,6 +38,24 @@ public abstract class GetTopSearchesResponse implements CompoundType {
     @Override
     public GetTopSearchesResponse read(final JsonReader jsonReader)
       throws IOException {
+      TopSearchesResponse topsearchesresponse = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<TopSearchesResponse>() {}.getType()
+      );
+      if (topsearchesresponse != null) {
+        return GetTopSearchesResponse.ofTopSearchesResponse(
+          topsearchesresponse
+        );
+      }
+      TopSearchesResponseWithAnalytics topsearchesresponsewithanalytics = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<TopSearchesResponseWithAnalytics>() {}.getType()
+      );
+      if (topsearchesresponsewithanalytics != null) {
+        return GetTopSearchesResponse.ofTopSearchesResponseWithAnalytics(
+          topsearchesresponsewithanalytics
+        );
+      }
       return null;
     }
   }

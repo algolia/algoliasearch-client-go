@@ -34,6 +34,20 @@ public abstract class FacetFilters implements CompoundType {
 
     @Override
     public FacetFilters read(final JsonReader jsonReader) throws IOException {
+      List<List<String>> listliststring = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<List<String>>>() {}.getType()
+      );
+      if (listliststring != null) {
+        return FacetFilters.ofListListString(listliststring);
+      }
+      List<String> liststring = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<String>>() {}.getType()
+      );
+      if (liststring != null) {
+        return FacetFilters.ofListString(liststring);
+      }
       return null;
     }
   }

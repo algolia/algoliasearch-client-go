@@ -36,6 +36,22 @@ public abstract class GetTopHitsResponse implements CompoundType {
     @Override
     public GetTopHitsResponse read(final JsonReader jsonReader)
       throws IOException {
+      TopHitsResponse tophitsresponse = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<TopHitsResponse>() {}.getType()
+      );
+      if (tophitsresponse != null) {
+        return GetTopHitsResponse.ofTopHitsResponse(tophitsresponse);
+      }
+      TopHitsResponseWithAnalytics tophitsresponsewithanalytics = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<TopHitsResponseWithAnalytics>() {}.getType()
+      );
+      if (tophitsresponsewithanalytics != null) {
+        return GetTopHitsResponse.ofTopHitsResponseWithAnalytics(
+          tophitsresponsewithanalytics
+        );
+      }
       return null;
     }
   }

@@ -35,6 +35,20 @@ public abstract class OptionalFilters implements CompoundType {
     @Override
     public OptionalFilters read(final JsonReader jsonReader)
       throws IOException {
+      List<List<String>> listliststring = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<List<String>>>() {}.getType()
+      );
+      if (listliststring != null) {
+        return OptionalFilters.ofListListString(listliststring);
+      }
+      List<String> liststring = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<String>>() {}.getType()
+      );
+      if (liststring != null) {
+        return OptionalFilters.ofListString(liststring);
+      }
       return null;
     }
   }

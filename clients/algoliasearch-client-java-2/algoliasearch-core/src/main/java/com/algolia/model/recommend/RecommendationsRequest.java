@@ -38,6 +38,22 @@ public abstract class RecommendationsRequest implements CompoundType {
     @Override
     public RecommendationsRequest read(final JsonReader jsonReader)
       throws IOException {
+      RecommendationRequest recommendationrequest = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<RecommendationRequest>() {}.getType()
+      );
+      if (recommendationrequest != null) {
+        return RecommendationsRequest.ofRecommendationRequest(
+          recommendationrequest
+        );
+      }
+      TrendingRequest trendingrequest = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<TrendingRequest>() {}.getType()
+      );
+      if (trendingrequest != null) {
+        return RecommendationsRequest.ofTrendingRequest(trendingrequest);
+      }
       return null;
     }
   }

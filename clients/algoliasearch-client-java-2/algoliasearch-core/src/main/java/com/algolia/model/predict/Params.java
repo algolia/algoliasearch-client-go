@@ -37,6 +37,27 @@ public abstract class Params implements CompoundType {
 
     @Override
     public Params read(final JsonReader jsonReader) throws IOException {
+      AllParams allparams = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<AllParams>() {}.getType()
+      );
+      if (allparams != null) {
+        return Params.ofAllParams(allparams);
+      }
+      ModelsToRetrieve modelstoretrieve = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<ModelsToRetrieve>() {}.getType()
+      );
+      if (modelstoretrieve != null) {
+        return Params.ofModelsToRetrieve(modelstoretrieve);
+      }
+      TypesToRetrieve typestoretrieve = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<TypesToRetrieve>() {}.getType()
+      );
+      if (typestoretrieve != null) {
+        return Params.ofTypesToRetrieve(typestoretrieve);
+      }
       return null;
     }
   }

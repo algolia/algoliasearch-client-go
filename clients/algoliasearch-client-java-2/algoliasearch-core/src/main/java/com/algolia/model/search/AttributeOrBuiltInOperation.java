@@ -38,6 +38,20 @@ public abstract class AttributeOrBuiltInOperation implements CompoundType {
     @Override
     public AttributeOrBuiltInOperation read(final JsonReader jsonReader)
       throws IOException {
+      BuiltInOperation builtinoperation = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<BuiltInOperation>() {}.getType()
+      );
+      if (builtinoperation != null) {
+        return AttributeOrBuiltInOperation.ofBuiltInOperation(builtinoperation);
+      }
+      String string = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<String>() {}.getType()
+      );
+      if (string != null) {
+        return AttributeOrBuiltInOperation.ofString(string);
+      }
       return null;
     }
   }

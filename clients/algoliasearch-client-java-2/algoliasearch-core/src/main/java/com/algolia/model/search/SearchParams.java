@@ -33,6 +33,20 @@ public abstract class SearchParams implements CompoundType {
 
     @Override
     public SearchParams read(final JsonReader jsonReader) throws IOException {
+      SearchParamsObject searchparamsobject = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<SearchParamsObject>() {}.getType()
+      );
+      if (searchparamsobject != null) {
+        return SearchParams.ofSearchParamsObject(searchparamsobject);
+      }
+      SearchParamsString searchparamsstring = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<SearchParamsString>() {}.getType()
+      );
+      if (searchparamsstring != null) {
+        return SearchParams.ofSearchParamsString(searchparamsstring);
+      }
       return null;
     }
   }

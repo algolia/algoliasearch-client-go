@@ -36,6 +36,22 @@ public abstract class AddABTestsVariant implements CompoundType {
     @Override
     public AddABTestsVariant read(final JsonReader jsonReader)
       throws IOException {
+      AbTestsVariant abtestsvariant = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<AbTestsVariant>() {}.getType()
+      );
+      if (abtestsvariant != null) {
+        return AddABTestsVariant.ofAbTestsVariant(abtestsvariant);
+      }
+      AbTestsVariantSearchParams abtestsvariantsearchparams = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<AbTestsVariantSearchParams>() {}.getType()
+      );
+      if (abtestsvariantsearchparams != null) {
+        return AddABTestsVariant.ofAbTestsVariantSearchParams(
+          abtestsvariantsearchparams
+        );
+      }
       return null;
     }
   }
