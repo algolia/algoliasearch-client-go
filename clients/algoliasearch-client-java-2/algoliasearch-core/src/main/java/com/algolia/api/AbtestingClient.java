@@ -4,6 +4,7 @@ import com.algolia.ApiClient;
 import com.algolia.exceptions.*;
 import com.algolia.model.abtesting.*;
 import com.algolia.utils.*;
+import com.algolia.utils.RequestOptions;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
 import com.google.gson.reflect.TypeToken;
@@ -85,13 +86,24 @@ public class AbtestingClient extends ApiClient {
    * providing a customSearchParameters setting on one of the variants.
    *
    * @param addABTestsRequest (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return ABTestResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public ABTestResponse addABTests(
+    AddABTestsRequest addABTestsRequest,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      addABTestsAsync(addABTestsRequest, requestOptions)
+    );
+  }
+
   public ABTestResponse addABTests(AddABTestsRequest addABTestsRequest)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(addABTestsAsync(addABTestsRequest));
+    return this.addABTests(addABTestsRequest, null);
   }
 
   /**
@@ -100,12 +112,15 @@ public class AbtestingClient extends ApiClient {
    * parameters by providing a customSearchParameters setting on one of the variants.
    *
    * @param addABTestsRequest (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
   public CompletableFuture<ABTestResponse> addABTestsAsync(
-    AddABTestsRequest addABTestsRequest
+    AddABTestsRequest addABTestsRequest,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (addABTestsRequest == null) {
       throw new AlgoliaRuntimeException(
@@ -122,9 +137,22 @@ public class AbtestingClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
-      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "POST",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<ABTestResponse>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<ABTestResponse> addABTestsAsync(
+    AddABTestsRequest addABTestsRequest
+  ) throws AlgoliaRuntimeException {
+    return this.addABTestsAsync(addABTestsRequest, null);
   }
 
   /**
@@ -133,17 +161,32 @@ public class AbtestingClient extends ApiClient {
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return Object
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public Object del(
+    String path,
+    Map<String, Object> parameters,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(delAsync(path, parameters, requestOptions));
+  }
+
   public Object del(String path, Map<String, Object> parameters)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(delAsync(path, parameters));
+    return this.del(path, parameters, null);
+  }
+
+  public Object del(String path, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.del(path, null, requestOptions);
   }
 
   public Object del(String path) throws AlgoliaRuntimeException {
-    return this.del(path, null);
+    return this.del(path, null, null);
   }
 
   /**
@@ -152,13 +195,16 @@ public class AbtestingClient extends ApiClient {
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
   public CompletableFuture<Object> delAsync(
     String path,
-    Map<String, Object> parameters
+    Map<String, Object> parameters,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (path == null) {
       throw new AlgoliaRuntimeException(
@@ -184,34 +230,71 @@ public class AbtestingClient extends ApiClient {
     }
 
     Call call =
-      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "DELETE",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<Object> delAsync(
+    String path,
+    Map<String, Object> parameters
+  ) throws AlgoliaRuntimeException {
+    return this.delAsync(path, parameters, null);
+  }
+
+  public CompletableFuture<Object> delAsync(
+    String path,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return this.delAsync(path, null, requestOptions);
+  }
+
+  public CompletableFuture<Object> delAsync(String path)
+    throws AlgoliaRuntimeException {
+    return this.delAsync(path, null, null);
   }
 
   /**
    * Delete a test.
    *
    * @param id The A/B test ID. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return ABTestResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public ABTestResponse deleteABTest(Integer id, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(deleteABTestAsync(id, requestOptions));
+  }
+
   public ABTestResponse deleteABTest(Integer id)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(deleteABTestAsync(id));
+    return this.deleteABTest(id, null);
   }
 
   /**
    * (asynchronously) Delete a test.
    *
    * @param id The A/B test ID. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ABTestResponse> deleteABTestAsync(Integer id)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> deleteABTestAsync(
+    Integer id,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
     if (id == null) {
       throw new AlgoliaRuntimeException(
         "Missing the required parameter 'id' when calling deleteABTest(Async)"
@@ -231,9 +314,21 @@ public class AbtestingClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
-      this.buildCall(requestPath, "DELETE", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "DELETE",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<ABTestResponse>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<ABTestResponse> deleteABTestAsync(Integer id)
+    throws AlgoliaRuntimeException {
+    return this.deleteABTestAsync(id, null);
   }
 
   /**
@@ -242,17 +337,32 @@ public class AbtestingClient extends ApiClient {
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return Object
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public Object get(
+    String path,
+    Map<String, Object> parameters,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getAsync(path, parameters, requestOptions));
+  }
+
   public Object get(String path, Map<String, Object> parameters)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(getAsync(path, parameters));
+    return this.get(path, parameters, null);
+  }
+
+  public Object get(String path, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.get(path, null, requestOptions);
   }
 
   public Object get(String path) throws AlgoliaRuntimeException {
-    return this.get(path, null);
+    return this.get(path, null, null);
   }
 
   /**
@@ -261,13 +371,16 @@ public class AbtestingClient extends ApiClient {
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
   public CompletableFuture<Object> getAsync(
     String path,
-    Map<String, Object> parameters
+    Map<String, Object> parameters,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (path == null) {
       throw new AlgoliaRuntimeException(
@@ -293,33 +406,70 @@ public class AbtestingClient extends ApiClient {
     }
 
     Call call =
-      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "GET",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<Object> getAsync(
+    String path,
+    Map<String, Object> parameters
+  ) throws AlgoliaRuntimeException {
+    return this.getAsync(path, parameters, null);
+  }
+
+  public CompletableFuture<Object> getAsync(
+    String path,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return this.getAsync(path, null, requestOptions);
+  }
+
+  public CompletableFuture<Object> getAsync(String path)
+    throws AlgoliaRuntimeException {
+    return this.getAsync(path, null, null);
   }
 
   /**
    * Returns metadata and metrics for an A/B test.
    *
    * @param id The A/B test ID. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return ABTest
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public ABTest getABTest(Integer id, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getABTestAsync(id, requestOptions));
+  }
+
   public ABTest getABTest(Integer id) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(getABTestAsync(id));
+    return this.getABTest(id, null);
   }
 
   /**
    * (asynchronously) Returns metadata and metrics for an A/B test.
    *
    * @param id The A/B test ID. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ABTest> getABTestAsync(Integer id)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTest> getABTestAsync(
+    Integer id,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
     if (id == null) {
       throw new AlgoliaRuntimeException(
         "Missing the required parameter 'id' when calling getABTest(Async)"
@@ -339,9 +489,21 @@ public class AbtestingClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
-      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "GET",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<ABTest>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<ABTest> getABTestAsync(Integer id)
+    throws AlgoliaRuntimeException {
+    return this.getABTestAsync(id, null);
   }
 
   /**
@@ -352,17 +514,34 @@ public class AbtestingClient extends ApiClient {
    *     (optional, default to 0)
    * @param limit Number of records to return. Limit is the size of the page. (optional, default to
    *     10)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return ListABTestsResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public ListABTestsResponse listABTests(
+    Integer offset,
+    Integer limit,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      listABTestsAsync(offset, limit, requestOptions)
+    );
+  }
+
   public ListABTestsResponse listABTests(Integer offset, Integer limit)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(listABTestsAsync(offset, limit));
+    return this.listABTests(offset, limit, null);
+  }
+
+  public ListABTestsResponse listABTests(RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.listABTests(null, null, requestOptions);
   }
 
   public ListABTestsResponse listABTests() throws AlgoliaRuntimeException {
-    return this.listABTests(null, null);
+    return this.listABTests(null, null, null);
   }
 
   /**
@@ -373,13 +552,16 @@ public class AbtestingClient extends ApiClient {
    *     (optional, default to 0)
    * @param limit Number of records to return. Limit is the size of the page. (optional, default to
    *     10)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
   public CompletableFuture<ListABTestsResponse> listABTestsAsync(
     Integer offset,
-    Integer limit
+    Integer limit,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
@@ -398,9 +580,34 @@ public class AbtestingClient extends ApiClient {
     }
 
     Call call =
-      this.buildCall(requestPath, "GET", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "GET",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<ListABTestsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<ListABTestsResponse> listABTestsAsync(
+    Integer offset,
+    Integer limit
+  ) throws AlgoliaRuntimeException {
+    return this.listABTestsAsync(offset, limit, null);
+  }
+
+  public CompletableFuture<ListABTestsResponse> listABTestsAsync(
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return this.listABTestsAsync(null, null, requestOptions);
+  }
+
+  public CompletableFuture<ListABTestsResponse> listABTestsAsync()
+    throws AlgoliaRuntimeException {
+    return this.listABTestsAsync(null, null, null);
   }
 
   /**
@@ -410,17 +617,35 @@ public class AbtestingClient extends ApiClient {
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
    * @param body The parameters to send with the custom request. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return Object
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public Object post(
+    String path,
+    Map<String, Object> parameters,
+    Object body,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      postAsync(path, parameters, body, requestOptions)
+    );
+  }
+
   public Object post(String path, Map<String, Object> parameters, Object body)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(postAsync(path, parameters, body));
+    return this.post(path, parameters, body, null);
+  }
+
+  public Object post(String path, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.post(path, null, null, requestOptions);
   }
 
   public Object post(String path) throws AlgoliaRuntimeException {
-    return this.post(path, null, null);
+    return this.post(path, null, null, null);
   }
 
   /**
@@ -430,6 +655,8 @@ public class AbtestingClient extends ApiClient {
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
    * @param body The parameters to send with the custom request. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
@@ -437,7 +664,8 @@ public class AbtestingClient extends ApiClient {
   public CompletableFuture<Object> postAsync(
     String path,
     Map<String, Object> parameters,
-    Object body
+    Object body,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (path == null) {
       throw new AlgoliaRuntimeException(
@@ -463,9 +691,36 @@ public class AbtestingClient extends ApiClient {
     }
 
     Call call =
-      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "POST",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<Object> postAsync(
+    String path,
+    Map<String, Object> parameters,
+    Object body
+  ) throws AlgoliaRuntimeException {
+    return this.postAsync(path, parameters, body, null);
+  }
+
+  public CompletableFuture<Object> postAsync(
+    String path,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return this.postAsync(path, null, null, requestOptions);
+  }
+
+  public CompletableFuture<Object> postAsync(String path)
+    throws AlgoliaRuntimeException {
+    return this.postAsync(path, null, null, null);
   }
 
   /**
@@ -475,17 +730,35 @@ public class AbtestingClient extends ApiClient {
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
    * @param body The parameters to send with the custom request. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return Object
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public Object put(
+    String path,
+    Map<String, Object> parameters,
+    Object body,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      putAsync(path, parameters, body, requestOptions)
+    );
+  }
+
   public Object put(String path, Map<String, Object> parameters, Object body)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(putAsync(path, parameters, body));
+    return this.put(path, parameters, body, null);
+  }
+
+  public Object put(String path, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.put(path, null, null, requestOptions);
   }
 
   public Object put(String path) throws AlgoliaRuntimeException {
-    return this.put(path, null, null);
+    return this.put(path, null, null, null);
   }
 
   /**
@@ -495,6 +768,8 @@ public class AbtestingClient extends ApiClient {
    *     specified. (required)
    * @param parameters Query parameters to be applied to the current query. (optional)
    * @param body The parameters to send with the custom request. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
@@ -502,7 +777,8 @@ public class AbtestingClient extends ApiClient {
   public CompletableFuture<Object> putAsync(
     String path,
     Map<String, Object> parameters,
-    Object body
+    Object body,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (path == null) {
       throw new AlgoliaRuntimeException(
@@ -528,9 +804,36 @@ public class AbtestingClient extends ApiClient {
     }
 
     Call call =
-      this.buildCall(requestPath, "PUT", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "PUT",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<Object> putAsync(
+    String path,
+    Map<String, Object> parameters,
+    Object body
+  ) throws AlgoliaRuntimeException {
+    return this.putAsync(path, parameters, body, null);
+  }
+
+  public CompletableFuture<Object> putAsync(
+    String path,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return this.putAsync(path, null, null, requestOptions);
+  }
+
+  public CompletableFuture<Object> putAsync(String path)
+    throws AlgoliaRuntimeException {
+    return this.putAsync(path, null, null, null);
   }
 
   /**
@@ -539,12 +842,19 @@ public class AbtestingClient extends ApiClient {
    * all search requests. Associated metadata and metrics are still stored.
    *
    * @param id The A/B test ID. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return ABTestResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
+  public ABTestResponse stopABTest(Integer id, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(stopABTestAsync(id, requestOptions));
+  }
+
   public ABTestResponse stopABTest(Integer id) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(stopABTestAsync(id));
+    return this.stopABTest(id, null);
   }
 
   /**
@@ -553,12 +863,16 @@ public class AbtestingClient extends ApiClient {
    * receiving 100% of all search requests. Associated metadata and metrics are still stored.
    *
    * @param id The A/B test ID. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ABTestResponse> stopABTestAsync(Integer id)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> stopABTestAsync(
+    Integer id,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
     if (id == null) {
       throw new AlgoliaRuntimeException(
         "Missing the required parameter 'id' when calling stopABTest(Async)"
@@ -578,8 +892,20 @@ public class AbtestingClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
-      this.buildCall(requestPath, "POST", queryParams, bodyObj, headers);
+      this.buildCall(
+          requestPath,
+          "POST",
+          queryParams,
+          bodyObj,
+          headers,
+          requestOptions
+        );
     Type returnType = new TypeToken<ABTestResponse>() {}.getType();
     return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<ABTestResponse> stopABTestAsync(Integer id)
+    throws AlgoliaRuntimeException {
+    return this.stopABTestAsync(id, null);
   }
 }

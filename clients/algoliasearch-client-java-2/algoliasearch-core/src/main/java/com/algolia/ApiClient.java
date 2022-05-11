@@ -2,6 +2,7 @@ package com.algolia;
 
 import com.algolia.exceptions.*;
 import com.algolia.utils.JSON;
+import com.algolia.utils.RequestOptions;
 import com.algolia.utils.Requester;
 import com.algolia.utils.UserAgent;
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class ApiClient {
   private boolean debugging = false;
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
 
-  private String appId, apiKey;
+  private String contentType;
 
   private DateFormat dateFormat;
 
@@ -38,6 +39,8 @@ public class ApiClient {
     String clientName,
     UserAgent.Segment[] segments
   ) {
+    this.contentType = "application/json";
+
     UserAgent ua = new UserAgent("0.0.1");
     ua.addSegment(new UserAgent.Segment(clientName, "0.0.1"));
     if (segments != null) {
@@ -47,8 +50,11 @@ public class ApiClient {
     }
     setUserAgent(ua.toString());
 
-    this.appId = appId;
-    this.apiKey = apiKey;
+    defaultHeaderMap.put("X-Algolia-Application-Id", appId);
+    defaultHeaderMap.put("X-Algolia-API-Key", apiKey);
+    defaultHeaderMap.put("Accept", this.contentType);
+    defaultHeaderMap.put("Content-Type", this.contentType);
+
     this.requester = requester;
   }
 
@@ -191,19 +197,6 @@ public class ApiClient {
   }
 
   /**
-   * Check if the given MIME is a JSON MIME. JSON MIME examples: application/json application/json;
-   * charset=UTF8 APPLICATION/JSON application/vnd.company+json "* / *" is also default to JSON
-   *
-   * @param mime MIME (Multipurpose Internet Mail Extensions)
-   * @return True if the given MIME is JSON, false otherwise.
-   */
-  public static boolean isJsonMime(String mime) {
-    String jsonMime =
-      "(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
-    return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
-  }
-
-  /**
    * Escape the given string to be used as URL query value.
    *
    * @param str String to be escaped
@@ -222,28 +215,19 @@ public class ApiClient {
    * request Content-Type.
    *
    * @param obj The Java object
-   * @param contentType The request Content-Type
    * @return The serialized request body
    * @throws AlgoliaRuntimeException If fail to serialize the given object
    */
-  public RequestBody serialize(Object obj, String contentType)
-    throws AlgoliaRuntimeException {
-    if (obj instanceof byte[]) {
-      // Binary (byte array) body parameter support.
-      return RequestBody.create((byte[]) obj, MediaType.parse(contentType));
-    } else if (isJsonMime(contentType)) {
-      String content;
-      if (obj != null) {
-        content = JSON.serialize(obj);
-      } else {
-        content = null;
-      }
-      return RequestBody.create(content, MediaType.parse(contentType));
+  public RequestBody serialize(Object obj) throws AlgoliaRuntimeException {
+    String content;
+
+    if (obj != null) {
+      content = JSON.serialize(obj);
     } else {
-      throw new AlgoliaRuntimeException(
-        "Content type \"" + contentType + "\" is not supported"
-      );
+      content = null;
     }
+
+    return RequestBody.create(content, MediaType.parse(this.contentType));
   }
 
   /**
@@ -291,6 +275,8 @@ public class ApiClient {
    * @param queryParams The query parameters
    * @param body The request body object
    * @param headerParams The header parameters
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The HTTP call
    * @throws AlgoliaRuntimeException If fail to serialize the request body object
    */
@@ -299,14 +285,16 @@ public class ApiClient {
     String method,
     Map<String, String> queryParams,
     Object body,
-    Map<String, String> headerParams
+    Map<String, String> headerParams,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     Request request = buildRequest(
       path,
       method,
       queryParams,
       body,
-      headerParams
+      headerParams,
+      requestOptions
     );
 
     return requester.newCall(request);
@@ -321,6 +309,8 @@ public class ApiClient {
    * @param queryParams The query parameters
    * @param body The request body object
    * @param headerParams The header parameters
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
    * @return The HTTP request
    * @throws AlgoliaRuntimeException If fail to serialize the request body object
    */
@@ -329,20 +319,21 @@ public class ApiClient {
     String method,
     Map<String, String> queryParams,
     Object body,
-    Map<String, String> headerParams
+    Map<String, String> headerParams,
+    RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    headerParams.put("X-Algolia-Application-Id", this.appId);
-    headerParams.put("X-Algolia-API-Key", this.apiKey);
-    headerParams.put("Accept", "application/json");
-    headerParams.put("Content-Type", "application/json");
-
-    String contentType = "application/json";
-    headerParams.put("Accept", contentType);
-    headerParams.put("Content-Type", contentType);
-
-    final String url = buildUrl(path, queryParams);
+    boolean hasRequestOptions = requestOptions != null;
+    final String url = buildUrl(
+      path,
+      queryParams,
+      hasRequestOptions ? requestOptions.getExtraQueryParams() : null
+    );
     final Request.Builder reqBuilder = new Request.Builder().url(url);
-    processHeaderParams(headerParams, reqBuilder);
+    processHeaderParams(
+      headerParams,
+      hasRequestOptions ? requestOptions.getExtraHeaders() : null,
+      reqBuilder
+    );
 
     RequestBody reqBody;
     if (!HttpMethod.permitsRequestBody(method)) {
@@ -353,10 +344,10 @@ public class ApiClient {
         reqBody = null;
       } else {
         // use an empty request body (for POST, PUT and PATCH)
-        reqBody = RequestBody.create("", MediaType.parse(contentType));
+        reqBody = RequestBody.create("", MediaType.parse(this.contentType));
       }
     } else {
-      reqBody = serialize(body, contentType);
+      reqBody = serialize(body);
     }
 
     return reqBuilder.method(method, reqBody).build();
@@ -367,14 +358,38 @@ public class ApiClient {
    *
    * @param path The sub path
    * @param queryParams The query parameters
+   * @param extraQueryParams The query parameters, coming from the requestOptions
    * @return The full URL
    */
-  public String buildUrl(String path, Map<String, String> queryParams) {
-    final StringBuilder url = new StringBuilder();
+  public String buildUrl(
+    String path,
+    Map<String, String> queryParams,
+    Map<String, String> extraQueryParams
+  ) {
+    StringBuilder url = new StringBuilder();
 
     // The real host will be assigned by the retry strategy
     url.append("http://temp.path").append(path);
 
+    url = parseQueryParameters(path, url, queryParams);
+    url = parseQueryParameters(path, url, extraQueryParams);
+
+    return url.toString();
+  }
+
+  /**
+   * Parses the given map of Query Parameters to a given URL.
+   *
+   * @param path The sub path
+   * @param url The url to add queryParams to
+   * @param queryParams The query parameters
+   * @return The URL
+   */
+  public StringBuilder parseQueryParameters(
+    String path,
+    StringBuilder url,
+    Map<String, String> queryParams
+  ) {
     if (queryParams != null && !queryParams.isEmpty()) {
       // support (constant) query string in `path`, e.g. "/posts?draft=1"
       String prefix = path.contains("?") ? "&" : "?";
@@ -395,17 +410,19 @@ public class ApiClient {
       }
     }
 
-    return url.toString();
+    return url;
   }
 
   /**
    * Set header parameters to the request builder, including default headers.
    *
    * @param headerParams Header parameters in the form of Map
+   * @param extraHeaderParams Header parameters in the form of Map, coming from RequestOptions
    * @param reqBuilder Request.Builder
    */
   public void processHeaderParams(
     Map<String, String> headerParams,
+    Map<String, String> extraHeaderParams,
     Request.Builder reqBuilder
   ) {
     for (Entry<String, String> param : headerParams.entrySet()) {
@@ -413,6 +430,14 @@ public class ApiClient {
     }
     for (Entry<String, String> header : defaultHeaderMap.entrySet()) {
       if (!headerParams.containsKey(header.getKey())) {
+        reqBuilder.header(
+          header.getKey(),
+          parameterToString(header.getValue())
+        );
+      }
+    }
+    if (extraHeaderParams != null) {
+      for (Entry<String, String> header : extraHeaderParams.entrySet()) {
         reqBuilder.header(
           header.getKey(),
           parameterToString(header.getValue())
