@@ -1,6 +1,5 @@
 package com.algolia.utils;
 
-import com.algolia.ApiClient;
 import com.algolia.exceptions.*;
 import com.algolia.utils.retry.RetryStrategy;
 import com.algolia.utils.retry.StatefulHost;
@@ -99,20 +98,8 @@ public class HttpRequester implements Requester {
     if (contentType == null) {
       contentType = "application/json";
     }
-    if (ApiClient.isJsonMime(contentType)) {
-      return JSON.deserialize(respBody, returnType);
-    } else if (returnType.equals(String.class)) {
-      // Expecting string, return the raw response body.
-      return (T) respBody;
-    } else {
-      throw new AlgoliaApiException(
-        "Content type \"" +
-        contentType +
-        "\" is not supported for type: " +
-        returnType,
-        response.code()
-      );
-    }
+
+    return JSON.deserialize(respBody, returnType);
   }
 
   public void setDebugging(boolean debugging) {
