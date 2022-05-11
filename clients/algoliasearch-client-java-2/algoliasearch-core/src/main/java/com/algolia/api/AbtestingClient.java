@@ -133,14 +133,14 @@ public class AbtestingClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/abtests";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -217,12 +217,12 @@ public class AbtestingClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -233,7 +233,7 @@ public class AbtestingClient extends ApiClient {
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -310,14 +310,14 @@ public class AbtestingClient extends ApiClient {
           this.escapeString(id.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -393,12 +393,12 @@ public class AbtestingClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -409,7 +409,7 @@ public class AbtestingClient extends ApiClient {
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -485,14 +485,14 @@ public class AbtestingClient extends ApiClient {
           this.escapeString(id.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -568,22 +568,22 @@ public class AbtestingClient extends ApiClient {
     // create path and map variables
     String requestPath = "/2/abtests";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (offset != null) {
-      queryParams.put("offset", parameterToString(offset));
+      queryParameters.put("offset", parameterToString(offset));
     }
 
     if (limit != null) {
-      queryParams.put("limit", parameterToString(limit));
+      queryParameters.put("limit", parameterToString(limit));
     }
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -678,12 +678,12 @@ public class AbtestingClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -694,7 +694,7 @@ public class AbtestingClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -791,12 +791,12 @@ public class AbtestingClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -807,7 +807,7 @@ public class AbtestingClient extends ApiClient {
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -888,14 +888,14 @@ public class AbtestingClient extends ApiClient {
           this.escapeString(id.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions

@@ -147,14 +147,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/keys";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -247,14 +247,14 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -319,14 +319,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources/append";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -407,7 +407,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
@@ -418,7 +418,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -499,14 +499,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -596,7 +596,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/batch";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
@@ -607,7 +607,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -702,14 +702,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(dictionaryName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -833,18 +833,18 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
     }
 
     if (clearExistingRules != null) {
-      queryParams.put(
+      queryParameters.put(
         "clearExistingRules",
         parameterToString(clearExistingRules)
       );
@@ -854,7 +854,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -971,14 +971,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1079,11 +1079,11 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
@@ -1093,7 +1093,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1174,14 +1174,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1269,11 +1269,11 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
@@ -1283,7 +1283,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1373,12 +1373,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -1389,7 +1389,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1468,14 +1468,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1558,14 +1558,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1632,14 +1632,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1718,14 +1718,14 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1827,11 +1827,11 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
@@ -1841,7 +1841,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -1924,14 +1924,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(source.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2032,11 +2032,11 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
@@ -2046,7 +2046,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2145,12 +2145,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -2161,7 +2161,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2237,14 +2237,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2295,14 +2295,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/languages";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2355,14 +2355,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/settings";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2453,30 +2453,30 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/logs";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (offset != null) {
-      queryParams.put("offset", parameterToString(offset));
+      queryParameters.put("offset", parameterToString(offset));
     }
 
     if (length != null) {
-      queryParams.put("length", parameterToString(length));
+      queryParameters.put("length", parameterToString(length));
     }
 
     if (indexName != null) {
-      queryParams.put("indexName", parameterToString(indexName));
+      queryParameters.put("indexName", parameterToString(indexName));
     }
 
     if (type != null) {
-      queryParams.put("type", parameterToString(type));
+      queryParameters.put("type", parameterToString(type));
     }
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2591,11 +2591,11 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (attributesToRetrieve != null) {
-      queryParams.put(
+      queryParameters.put(
         "attributesToRetrieve",
         parameterToString(attributesToRetrieve)
       );
@@ -2605,7 +2605,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2687,14 +2687,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/objects";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2773,14 +2773,14 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2847,14 +2847,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2903,14 +2903,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -2988,14 +2988,14 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3075,14 +3075,14 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{taskID\\}", this.escapeString(taskID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3139,14 +3139,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/top";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3214,14 +3214,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(userID.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3295,18 +3295,18 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/pending";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (getClusters != null) {
-      queryParams.put("getClusters", parameterToString(getClusters));
+      queryParameters.put("getClusters", parameterToString(getClusters));
     }
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3367,14 +3367,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/keys";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3425,14 +3425,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3500,18 +3500,18 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (page != null) {
-      queryParams.put("page", parameterToString(page));
+      queryParameters.put("page", parameterToString(page));
     }
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3602,22 +3602,22 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (page != null) {
-      queryParams.put("page", parameterToString(page));
+      queryParameters.put("page", parameterToString(page));
     }
 
     if (hitsPerPage != null) {
-      queryParams.put("hitsPerPage", parameterToString(hitsPerPage));
+      queryParameters.put("hitsPerPage", parameterToString(hitsPerPage));
     }
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3695,14 +3695,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/batch";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3768,14 +3768,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/queries";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -3856,14 +3856,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4011,11 +4011,11 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (createIfNotExists != null) {
-      queryParams.put(
+      queryParameters.put(
         "createIfNotExists",
         parameterToString(createIfNotExists)
       );
@@ -4025,7 +4025,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4147,12 +4147,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -4163,7 +4163,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4260,12 +4260,12 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -4276,7 +4276,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4358,14 +4358,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(userID.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4427,14 +4427,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4500,14 +4500,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4584,14 +4584,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4714,11 +4714,11 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
@@ -4728,7 +4728,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -4889,11 +4889,11 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
@@ -4903,7 +4903,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5058,18 +5058,18 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
     }
 
     if (replaceExistingSynonyms != null) {
-      queryParams.put(
+      queryParameters.put(
         "replaceExistingSynonyms",
         parameterToString(replaceExistingSynonyms)
       );
@@ -5079,7 +5079,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5187,14 +5187,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5285,14 +5285,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(dictionaryName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5415,14 +5415,14 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{facetName\\}", this.escapeString(facetName.toString()));
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5530,14 +5530,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5657,30 +5657,30 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (query != null) {
-      queryParams.put("query", parameterToString(query));
+      queryParameters.put("query", parameterToString(query));
     }
 
     if (type != null) {
-      queryParams.put("type", parameterToString(type));
+      queryParameters.put("type", parameterToString(type));
     }
 
     if (page != null) {
-      queryParams.put("page", parameterToString(page));
+      queryParameters.put("page", parameterToString(page));
     }
 
     if (hitsPerPage != null) {
-      queryParams.put("hitsPerPage", parameterToString(hitsPerPage));
+      queryParameters.put("hitsPerPage", parameterToString(hitsPerPage));
     }
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5788,14 +5788,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/search";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5861,14 +5861,14 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/settings";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -5978,11 +5978,11 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
-      queryParams.put(
+      queryParameters.put(
         "forwardToReplicas",
         parameterToString(forwardToReplicas)
       );
@@ -5992,7 +5992,7 @@ public class SearchClient extends ApiClient {
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -6097,14 +6097,14 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions

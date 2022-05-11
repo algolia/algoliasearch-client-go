@@ -272,7 +272,7 @@ public class ApiClient {
    * @param path The sub-path of the HTTP URL
    * @param method The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and
    *     "DELETE"
-   * @param queryParams The query parameters
+   * @param queryParameters The query parameters
    * @param body The request body object
    * @param headerParams The header parameters
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
@@ -283,7 +283,7 @@ public class ApiClient {
   public Call buildCall(
     String path,
     String method,
-    Map<String, String> queryParams,
+    Map<String, String> queryParameters,
     Object body,
     Map<String, String> headerParams,
     RequestOptions requestOptions
@@ -291,7 +291,7 @@ public class ApiClient {
     Request request = buildRequest(
       path,
       method,
-      queryParams,
+      queryParameters,
       body,
       headerParams,
       requestOptions
@@ -306,7 +306,7 @@ public class ApiClient {
    * @param path The sub-path of the HTTP URL
    * @param method The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and
    *     "DELETE"
-   * @param queryParams The query parameters
+   * @param queryParameters The query parameters
    * @param body The request body object
    * @param headerParams The header parameters
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
@@ -317,7 +317,7 @@ public class ApiClient {
   public Request buildRequest(
     String path,
     String method,
-    Map<String, String> queryParams,
+    Map<String, String> queryParameters,
     Object body,
     Map<String, String> headerParams,
     RequestOptions requestOptions
@@ -325,8 +325,8 @@ public class ApiClient {
     boolean hasRequestOptions = requestOptions != null;
     final String url = buildUrl(
       path,
-      queryParams,
-      hasRequestOptions ? requestOptions.getExtraQueryParams() : null
+      queryParameters,
+      hasRequestOptions ? requestOptions.getExtraQueryParameters() : null
     );
     final Request.Builder reqBuilder = new Request.Builder().url(url);
     processHeaderParams(
@@ -357,22 +357,22 @@ public class ApiClient {
    * Build full URL by concatenating base path, the given sub path and query parameters.
    *
    * @param path The sub path
-   * @param queryParams The query parameters
-   * @param extraQueryParams The query parameters, coming from the requestOptions
+   * @param queryParameters The query parameters
+   * @param extraQueryParameters The query parameters, coming from the requestOptions
    * @return The full URL
    */
   public String buildUrl(
     String path,
-    Map<String, String> queryParams,
-    Map<String, String> extraQueryParams
+    Map<String, String> queryParameters,
+    Map<String, String> extraQueryParameters
   ) {
     StringBuilder url = new StringBuilder();
 
     // The real host will be assigned by the retry strategy
     url.append("http://temp.path").append(path);
 
-    url = parseQueryParameters(path, url, queryParams);
-    url = parseQueryParameters(path, url, extraQueryParams);
+    url = parseQueryParameters(path, url, queryParameters);
+    url = parseQueryParameters(path, url, extraQueryParameters);
 
     return url.toString();
   }
@@ -381,19 +381,19 @@ public class ApiClient {
    * Parses the given map of Query Parameters to a given URL.
    *
    * @param path The sub path
-   * @param url The url to add queryParams to
-   * @param queryParams The query parameters
+   * @param url The url to add queryParameters to
+   * @param queryParameters The query parameters
    * @return The URL
    */
   public StringBuilder parseQueryParameters(
     String path,
     StringBuilder url,
-    Map<String, String> queryParams
+    Map<String, String> queryParameters
   ) {
-    if (queryParams != null && !queryParams.isEmpty()) {
+    if (queryParameters != null && !queryParameters.isEmpty()) {
       // support (constant) query string in `path`, e.g. "/posts?draft=1"
       String prefix = path.contains("?") ? "&" : "?";
-      for (Entry<String, String> param : queryParams.entrySet()) {
+      for (Entry<String, String> param : queryParameters.entrySet()) {
         if (param.getValue() != null) {
           if (prefix != null) {
             url.append(prefix);

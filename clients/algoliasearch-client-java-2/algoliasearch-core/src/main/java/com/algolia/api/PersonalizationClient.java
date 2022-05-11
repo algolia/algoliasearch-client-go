@@ -128,12 +128,12 @@ public class PersonalizationClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -144,7 +144,7 @@ public class PersonalizationClient extends ApiClient {
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -235,14 +235,14 @@ public class PersonalizationClient extends ApiClient {
           this.escapeString(userToken.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "DELETE",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -319,12 +319,12 @@ public class PersonalizationClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -335,7 +335,7 @@ public class PersonalizationClient extends ApiClient {
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -404,14 +404,14 @@ public class PersonalizationClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/strategies/personalization";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -489,14 +489,14 @@ public class PersonalizationClient extends ApiClient {
           this.escapeString(userToken.toString())
         );
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "GET",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -579,12 +579,12 @@ public class PersonalizationClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -595,7 +595,7 @@ public class PersonalizationClient extends ApiClient {
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -692,12 +692,12 @@ public class PersonalizationClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParams.put(
+        queryParameters.put(
           parameter.getKey().toString(),
           parameterToString(parameter.getValue())
         );
@@ -708,7 +708,7 @@ public class PersonalizationClient extends ApiClient {
       this.buildCall(
           requestPath,
           "PUT",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
@@ -793,14 +793,14 @@ public class PersonalizationClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/strategies/personalization";
 
-    Map<String, String> queryParams = new HashMap<String, String>();
+    Map<String, String> queryParameters = new HashMap<String, String>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
       this.buildCall(
           requestPath,
           "POST",
-          queryParams,
+          queryParameters,
           bodyObj,
           headers,
           requestOptions
