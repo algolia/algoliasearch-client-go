@@ -97,7 +97,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
         `templates/${language}`,
         `generators/src`,
       ]),
-      testsOutputPathToClean: `${testOutputBase}/client ${testOutputBase}/methods`,
+      testsOutputPath: `${testOutputBase}/client ${testOutputBase}/methods`,
     });
     console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
   }

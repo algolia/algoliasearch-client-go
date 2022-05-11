@@ -6,8 +6,6 @@ import { getNbGitDiff } from '../utils';
 import text from './text';
 
 const PR_NUMBER = parseInt(process.env.PR_NUMBER || '0', 10);
-const FOLDERS_TO_CHECK =
-  'yarn.lock config/openapitools.json clients specs/bundled';
 
 async function isUpToDate(baseBranch: string): Promise<boolean> {
   await run('git fetch origin');
@@ -33,7 +31,6 @@ export async function pushGeneratedCode(): Promise<void> {
   const nbDiff = await getNbGitDiff({
     branch: baseBranch,
     head: null,
-    path: FOLDERS_TO_CHECK,
   });
 
   if (nbDiff === 0) {
@@ -46,7 +43,7 @@ export async function pushGeneratedCode(): Promise<void> {
     return;
   }
 
-  console.log(`${nbDiff} changes found for ${FOLDERS_TO_CHECK}`);
+  console.log(`${nbDiff} changes found`);
 
   // determine generated branch name based on current branch
   const branchToPush = isMainBranch ? baseBranch : `generated/${baseBranch}`;
@@ -72,10 +69,8 @@ export async function pushGeneratedCode(): Promise<void> {
 Co-authored-by: %an <%ae>
 %(trailers:key=Co-authored-by)"`);
 
-  console.log(
-    `Pushing code for folders '${FOLDERS_TO_CHECK}' to generated branch: '${branchToPush}'`
-  );
-  await run(`git add ${FOLDERS_TO_CHECK}`);
+  console.log(`Pushing code to generated branch: '${branchToPush}'`);
+  await run(`git add .`);
   await run(`git commit -m "${commitMessage}"`);
   await run(`git push origin ${branchToPush}`);
 
