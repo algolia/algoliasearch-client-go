@@ -119,6 +119,16 @@ outputs:
     description: The generated `client_gen` matrix
     value: ${{ steps.gen-matrix.outputs.GEN_MATRIX }}
 
+  RUN_GEN_JAVASCRIPT:
+    description: Indicates if we plan to run the job for this language
+    value: ${{ steps.gen-matrix.outputs.RUN_GEN_JAVASCRIPT }}
+  RUN_GEN_JAVA:
+    description: Indicates if we plan to run the job for this language
+    value: ${{ steps.gen-matrix.outputs.RUN_GEN_JAVA }}
+  RUN_GEN_PHP:
+    description: Indicates if we plan to run the job for this language
+    value: ${{ steps.gen-matrix.outputs.RUN_GEN_PHP }}
+
   RUN_JS_ALGOLIASEARCH:
     description: Determine if the `client-javascript-algoliasearch` job should run
     value: ${{ steps.js-utils.outputs.RUN_JS_ALGOLIASEARCH }}

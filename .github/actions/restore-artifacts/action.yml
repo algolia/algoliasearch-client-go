@@ -7,7 +7,16 @@ description: |
 
 inputs:
   type:
-    description: Type of artifacts to restore (`all` | `specs` | `utils`)
+    description: Type of artifacts to restore (`all` | `specs` | `js_utils`)
+    required: false
+  php:
+    description: Whether this job ran or not
+    required: false
+  java:
+    description: Whether this job ran or not
+    required: false
+  javascript:
+    description: Whether this job ran or not
     required: false
 
 runs:
@@ -23,21 +32,21 @@ runs:
 
     # JavaScript utils
     - name: client-javascript-utils-client-common
-      if: ${{ inputs.type == 'all' || inputs.type == 'utils' }}
+      if: ${{ inputs.type == 'all' || inputs.type == 'js_utils' }}
       uses: actions/download-artifact@v3
       with:
         name: client-javascript-utils-client-common
         path: clients/algoliasearch-client-javascript/packages/client-common/
 
     - name: client-javascript-utils-requester-browser-xhr
-      if: ${{ inputs.type == 'all' || inputs.type == 'utils' }}
+      if: ${{ inputs.type == 'all' || inputs.type == 'js_utils' }}
       uses: actions/download-artifact@v3
       with:
         name: client-javascript-utils-requester-browser-xhr
         path: clients/algoliasearch-client-javascript/packages/requester-browser-xhr/
 
     - name: client-javascript-utils-requester-node-http
-      if: ${{ inputs.type == 'all' || inputs.type == 'utils' }}
+      if: ${{ inputs.type == 'all' || inputs.type == 'js_utils' }}
       uses: actions/download-artifact@v3
       with:
         name: client-javascript-utils-requester-node-http
@@ -45,36 +54,36 @@ runs:
 
     # JavaScript
     - name: Download clients-javascript artifact
-      if: ${{ inputs.type == 'all' }}
+      if: ${{ inputs.javascript == 'true' && inputs.type == 'all' }}
       uses: actions/download-artifact@v3
       with:
         name: clients-javascript
 
     - name: Unzip clients-javascript artifact
-      if: ${{ inputs.type == 'all' }}
+      if: ${{ inputs.javascript == 'true' && inputs.type == 'all' }}
       shell: bash
       run: unzip -q -o clients-javascript.zip
 
     # PHP
     - name: Download clients-php artifact
-      if: ${{ inputs.type == 'all' }}
+      if: ${{ inputs.php == 'true' && inputs.type == 'all' }}
       uses: actions/download-artifact@v3
       with:
         name: clients-php
 
     - name: Unzip clients-php artifact
-      if: ${{ inputs.type == 'all' }}
+      if: ${{ inputs.php == 'true' && inputs.type == 'all' }}
       shell: bash
       run: unzip -q -o clients-php.zip
 
     # Java
     - name: Download clients-java artifact
-      if: ${{ inputs.type == 'all' }}
+      if: ${{ inputs.java == 'true' && inputs.type == 'all' }}
       uses: actions/download-artifact@v3
       with:
         name: clients-java
 
     - name: Unzip clients-java artifact
-      if: ${{ inputs.type == 'all' }}
+      if: ${{ inputs.java == 'true' && inputs.type == 'all' }}
       shell: bash
       run: unzip -q -o clients-java.zip

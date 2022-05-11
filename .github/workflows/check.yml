@@ -55,6 +55,10 @@ jobs:
       RUN_GEN: ${{ steps.setup.outputs.RUN_GEN }}
       GEN_MATRIX: ${{ steps.setup.outputs.GEN_MATRIX }}
 
+      RUN_GEN_JAVASCRIPT: ${{ steps.setup.outputs.RUN_GEN_JAVASCRIPT }}
+      RUN_GEN_JAVA: ${{ steps.setup.outputs.RUN_GEN_JAVA }}
+      RUN_GEN_PHP: ${{ steps.setup.outputs.RUN_GEN_PHP }}
+
       RUN_JS_ALGOLIASEARCH: ${{ steps.setup.outputs.RUN_JS_ALGOLIASEARCH }}
       RUN_JS_UTILS: ${{ steps.setup.outputs.RUN_JS_UTILS }}
       RUN_JS_TESTS: ${{ steps.setup.outputs.RUN_JS_TESTS }}
@@ -189,13 +193,6 @@ jobs:
           key: ${{ matrix.client.cacheKey }}
           path: ${{ matrix.client.path }}
 
-      - name: Download bundled specs
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/download-artifact@v3
-        with:
-          name: specs
-          path: specs/bundled/
-
       - name: Download specs artifacts
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: ./.github/actions/restore-artifacts
@@ -206,7 +203,7 @@ jobs:
         if: ${{ matrix.client.language == 'javascript' && steps.cache.outputs.cache-hit != 'true' }}
         uses: ./.github/actions/restore-artifacts
         with:
-          type: utils
+          type: js_utils
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -284,7 +281,7 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: yarn cli build clients javascript algoliasearch
 
-  codegen_on_pr:
+  codegen:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     needs:
@@ -292,7 +289,6 @@ jobs:
       - client_gen
     if: |
       always() &&
-      github.event_name == 'pull_request' &&
       !contains(needs.*.result, 'cancelled') &&
       !contains(needs.*.result, 'failure')
     steps:
@@ -312,51 +308,20 @@ jobs:
         uses: ./.github/actions/restore-artifacts
         with:
           type: all
+          javascript: ${{ needs.setup.outputs.RUN_GEN_JAVASCRIPT }}
+          php: ${{ needs.setup.outputs.RUN_GEN_PHP }}
+          java: ${{ needs.setup.outputs.RUN_GEN_JAVA }}
 
-      - name: Push generated code to generated branch
+      - name: Push generated code
         id: pushGeneratedCode
+        if: ${{ needs.setup.outputs.RUN_CODEGEN == 'true' }}
         run: yarn workspace scripts pushGeneratedCode
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
           PR_NUMBER: ${{ github.event.number }}
 
-  codegen_on_main:
-    runs-on: ubuntu-20.04
-    timeout-minutes: 10
-    needs:
-      - setup
-      - client_gen
-    if: |
-      always() &&
-      github.ref == 'refs/heads/main' &&
-      needs.setup.outputs.RUN_CODEGEN == 'true' &&
-      !contains(needs.*.result, 'cancelled') &&
-      !contains(needs.*.result, 'failure')
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.TOKEN_GENERATE_BOT }}
-
-      - name: Download all the previously stored artifacts
-        uses: ./.github/actions/restore-artifacts
-        with:
-          type: all
-
-      - name: Setup
-        uses: ./.github/actions/setup
-        with:
-          type: minimal
-
-      - name: Push generated code to main
-        id: pushGeneratedCode
-        run: yarn workspace scripts pushGeneratedCode
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
-
       - name: Spread generation to each repository
-        if: steps.pushGeneratedCode.exitcode == 0
+        if: ${{ steps.pushGeneratedCode.exitcode == 0 && github.ref == 'refs/heads/main' }}
         run: yarn workspace scripts spreadGeneration
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
