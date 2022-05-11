@@ -32,6 +32,10 @@ jobs:
       - name: Upload Artifacts
         run: ./gradlew clean publish --no-parallel --stacktrace
 
+      - name: Check snapshot
+        id: check-snapshot
+        run: cat ./gradle.properties | grep 'VERSION_NAME=.*-SNAPSHOT'
+
       - name: Release Artifacts
-        if: ! cat ./gradle.properties | grep 'VERSION_NAME=.*-SNAPSHOT'
+        if: ${{ steps.check-snapshot.exitcode == 1 }}
         run: ./gradlew closeAndReleaseRepository
