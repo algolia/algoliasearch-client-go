@@ -8,10 +8,11 @@ HitsPerPage:
     description: Number of hits per page.
     default: 20
 
-UserIDInQuery:
+# headers
+UserIDInHeader:
   name: X-Algolia-User-ID
   description: userID to assign.
-  in: query
+  in: header
   required: true
   schema:
     type: string

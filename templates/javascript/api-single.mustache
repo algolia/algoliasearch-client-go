@@ -175,7 +175,9 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
       {{/queryParams}}{{/vendorExtensions.x-is-custom-request}}
 
       {{#headerParams}}
-      headers['{{baseName}}'] = {{paramName}};
+      if ({{paramName}} !== undefined) {
+        headers['{{baseName}}'] = {{paramName}}.toString();
+      }
       {{/headerParams}}
 
       const request: Request = {

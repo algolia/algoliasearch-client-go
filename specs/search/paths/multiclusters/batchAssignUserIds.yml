@@ -10,7 +10,7 @@ post:
 
     A successful response indicates that the operation has been taken into account, and the userIDs are directly usable.
   parameters:
-    - $ref: '../../common/parameters.yml#/UserIDInQuery'
+    - $ref: '../../common/parameters.yml#/UserIDInHeader'
   requestBody:
     required: true
     content:

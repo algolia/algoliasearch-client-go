@@ -19,9 +19,6 @@
           "user1",
           "user2"
         ]
-      },
-      "queryParameters": {
-        "X-Algolia-User-ID": "userID"
       }
     }
   }

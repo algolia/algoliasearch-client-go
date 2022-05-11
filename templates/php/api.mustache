@@ -2,15 +2,11 @@
 
 namespace {{apiPackage}};
 
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\RequestOptions;
-use GuzzleHttp\Utils;
 use {{invokerPackage}}\Algolia;
 use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration\{{configClassname}};
 use {{invokerPackage}}\ObjectSerializer;
+use {{invokerPackage}}\RequestOptions\RequestOptionsFactory;
 use {{invokerPackage}}\RetryStrategy\ApiWrapper;
 use {{invokerPackage}}\RetryStrategy\ApiWrapperInterface;
 use {{invokerPackage}}\RetryStrategy\ClusterHosts;
@@ -143,13 +139,14 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
      * @see {{{dataType}}}
 {{/isModel}}
 {{/allParams}}
+     * @param array $requestOptions Request Options
      *
      * @return {{#returnType}}{{#responses}}{{#dataType}}{{#-first}}array<string, mixed>|{{{dataType}}}{{/-first}}{{/dataType}}{{/responses}}{{/returnType}}{{^returnType}}void{{/returnType}}
   {{#isDeprecated}}
      * @deprecated
   {{/isDeprecated}}
      */
-    public function {{operationId}}({{^vendorExtensions.x-group-parameters}}{{#allParams}}${{paramName}}{{^required}} = {{{defaultValue}}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}$associative_array{{/vendorExtensions.x-group-parameters}})
+    public function {{operationId}}({{^vendorExtensions.x-group-parameters}}{{#allParams}}${{paramName}}{{^required}} = null{{/required}}, {{/allParams}}{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}$associative_array{{/vendorExtensions.x-group-parameters}} $requestOptions = [])
     {
         {{#vendorExtensions.x-group-parameters}}
         // unbox the parameters from the associative array
@@ -215,7 +212,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         {{#isExplode}}
         if (${{paramName}} !== null) {
         {{#style}}
-            if('form' === '{{style}}' && is_array(${{paramName}})) {
+            if(is_array(${{paramName}}) && ! in_array('{{paramName}}', RequestOptionsFactory::getAttributesToFormat())) {
                 foreach(${{paramName}} as $key => $value) {
                     $queryParams[$key] = $value;
                 }
@@ -259,7 +256,9 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
             $httpBody = ${{paramName}};
         } 
         {{/bodyParams}}
-
+        {{#headerParams}}
+            $queryParams['{{baseName}}'] = ${{paramName}};
+        {{/headerParams}}
         {{#servers.0}}
         $operationHosts = [{{#servers}}"{{{url}}}"{{^-last}}, {{/-last}}{{/servers}}];
         if ($this->hostIndex < 0 || $this->hostIndex >= sizeof($operationHosts)) {
@@ -268,26 +267,29 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         $operationHost = $operationHosts[$this->hostIndex];
 
         {{/servers.0}}
+        $requestOptions += $queryParams;
 
-        return $this->sendRequest('{{httpMethod}}', $resourcePath, $queryParams, $httpBody);
+        return $this->sendRequest('{{httpMethod}}', $resourcePath, $queryParams, $httpBody, $requestOptions);
     }
 
     {{/operation}}
 
-    private function sendRequest($method, $resourcePath, $queryParams, $httpBody)
+    private function sendRequest($method, $resourcePath, $queryParams, $httpBody, $requestOptions)
     {
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
 
         if($method == 'GET') {
             $request = $this->api->read(
                 $method,
-                $resourcePath . ($query ? "?{$query}" : '')
+                $resourcePath . ($query ? "?{$query}" : ''),
+                $requestOptions
             );
         } else {
             $request = $this->api->write(
                 $method,
                 $resourcePath . ($query ? "?{$query}" : ''),
-                $httpBody
+                $httpBody,
+                $requestOptions
             );
         }
 

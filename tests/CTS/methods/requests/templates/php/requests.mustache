@@ -8,6 +8,7 @@ use Algolia\AlgoliaSearch\Http\HttpClientInterface;
 use Algolia\AlgoliaSearch\Http\Psr7\Response;
 use Algolia\AlgoliaSearch\RetryStrategy\ApiWrapper;
 use Algolia\AlgoliaSearch\RetryStrategy\ClusterHosts;
+use GuzzleHttp\Psr7\Query;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -40,6 +41,13 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
                 $this->assertEquals(
                     json_encode($request['body']),
                     $recordedRequest->getBody()->getContents()
+                );
+            }
+
+            if (isset($request['queryParameters'])) {
+                $this->assertEquals(
+                    Query::build($request['queryParameters']),
+                    $recordedRequest->getUri()->getQuery()
                 );
             }
         }
@@ -82,7 +90,7 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
                 "body" => json_decode("{{#lambda.escapequotes}}{{{request.body}}}{{/lambda.escapequotes}}"),
                 {{/request.body}}
                 {{#request.queryParameters}}
-                "queryParameters" => json_decode("{{#lambda.escapequotes}}{{{request.queryParameters}}}{{/lambda.escapequotes}}"),
+                "queryParameters" => json_decode("{{#lambda.escapequotes}}{{{request.queryParameters}}}{{/lambda.escapequotes}}", true),
                 {{/request.queryParameters}}
             ],
         ]);

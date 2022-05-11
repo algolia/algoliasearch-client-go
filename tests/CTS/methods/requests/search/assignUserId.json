@@ -11,9 +11,6 @@
       "method": "POST",
       "body": {
         "cluster": "theCluster"
-      },
-      "queryParameters": {
-        "X-Algolia-User-ID": "userID"
       }
     }
   }
