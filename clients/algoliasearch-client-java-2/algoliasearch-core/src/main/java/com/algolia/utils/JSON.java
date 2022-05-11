@@ -113,6 +113,14 @@ public class JSON {
       }
     }
   }
+
+  public static <T> T tryDeserialize(JsonReader reader, Type returnType) {
+    try {
+      return gson.fromJson(reader, returnType);
+    } catch (JsonParseException e) {
+      return null;
+    }
+  }
 }
 
 /** Gson TypeAdapter for Byte Array type */

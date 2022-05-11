@@ -32,21 +32,21 @@ runs:
 
     # JavaScript utils
     - name: client-javascript-utils-client-common
-      if: ${{ inputs.type == 'all' || inputs.type == 'js_utils' }}
+      if: ${{ (inputs.javascript == 'true' && inputs.type == 'all') || inputs.type == 'js_utils' }}
       uses: actions/download-artifact@v3
       with:
         name: client-javascript-utils-client-common
         path: clients/algoliasearch-client-javascript/packages/client-common/
 
     - name: client-javascript-utils-requester-browser-xhr
-      if: ${{ inputs.type == 'all' || inputs.type == 'js_utils' }}
+      if: ${{ (inputs.javascript == 'true' && inputs.type == 'all') || inputs.type == 'js_utils' }}
       uses: actions/download-artifact@v3
       with:
         name: client-javascript-utils-requester-browser-xhr
         path: clients/algoliasearch-client-javascript/packages/requester-browser-xhr/
 
     - name: client-javascript-utils-requester-node-http
-      if: ${{ inputs.type == 'all' || inputs.type == 'js_utils' }}
+      if: ${{ (inputs.javascript == 'true' && inputs.type == 'all') || inputs.type == 'js_utils' }}
       uses: actions/download-artifact@v3
       with:
         name: client-javascript-utils-requester-node-http

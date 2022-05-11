@@ -31,6 +31,12 @@ public abstract class {{classname}} implements CompoundType {
         @Override
         public {{classname}} read(final JsonReader jsonReader)
             throws IOException {
+        {{#vendorExtensions.x-is-one-of-list}}
+        {{{type}}} {{#lambda.lowercase}}{{name}}{{/lambda.lowercase}} = JSON.tryDeserialize(jsonReader, new TypeToken<{{{type}}}>() {}.getType());
+        if({{#lambda.lowercase}}{{name}}{{/lambda.lowercase}} != null) {
+          return {{classname}}.of{{name}}({{#lambda.lowercase}}{{name}}{{/lambda.lowercase}});
+        }
+        {{/vendorExtensions.x-is-one-of-list}}
         return null;
         }
     }
