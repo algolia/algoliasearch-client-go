@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   title: Search API
   description: API powering the Search feature of Algolia.
-  version: 0.1.0
+  version: 1.0.0
 components:
   securitySchemes:
     appId:
