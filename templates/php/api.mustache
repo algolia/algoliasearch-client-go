@@ -139,7 +139,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
      * @see {{{dataType}}}
 {{/isModel}}
 {{/allParams}}
-     * @param array $requestOptions Request Options
+     * @param array $requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
      *
      * @return {{#returnType}}{{#responses}}{{#dataType}}{{#-first}}array<string, mixed>|{{{dataType}}}{{/-first}}{{/dataType}}{{/responses}}{{/returnType}}{{^returnType}}void{{/returnType}}
   {{#isDeprecated}}
@@ -206,6 +206,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
 
         $resourcePath = '{{{path}}}';
         $queryParameters = [];
+        $headers = [];
         $httpBody = [];
         {{#vendorExtensions}}{{#queryParams}}
 
@@ -257,7 +258,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         } 
         {{/bodyParams}}
         {{#headerParams}}
-            $queryParameters['{{baseName}}'] = ${{paramName}};
+            $headers['{{baseName}}'] = ${{paramName}};
         {{/headerParams}}
         {{#servers.0}}
         $operationHosts = [{{#servers}}"{{{url}}}"{{^-last}}, {{/-last}}{{/servers}}];
@@ -267,16 +268,25 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         $operationHost = $operationHosts[$this->hostIndex];
 
         {{/servers.0}}
-        $requestOptions += $queryParameters;
 
-        return $this->sendRequest('{{httpMethod}}', $resourcePath, $queryParameters, $httpBody, $requestOptions);
+        return $this->sendRequest('{{httpMethod}}', $resourcePath, $headers, $queryParameters, $httpBody, $requestOptions);
     }
 
     {{/operation}}
 
-    private function sendRequest($method, $resourcePath, $queryParameters, $httpBody, $requestOptions)
+    private function sendRequest($method, $resourcePath, $headers, $queryParameters, $httpBody, $requestOptions)
     {
-        $query = \GuzzleHttp\Psr7\Query::build($queryParameters);
+        if (!isset($requestOptions['headers'])) {
+            $requestOptions['headers'] = [];
+        }
+        if (!isset($requestOptions['queryParameters'])) {
+            $requestOptions['queryParameters'] = [];
+        }
+
+        $requestOptions['headers'] = array_merge($headers, $requestOptions['headers']);
+        $requestOptions['queryParameters'] = array_merge($queryParameters, $requestOptions['queryParameters']);
+
+        $query = \GuzzleHttp\Psr7\Query::build($requestOptions['queryParameters']);
 
         if($method == 'GET') {
             $request = $this->api->read(
