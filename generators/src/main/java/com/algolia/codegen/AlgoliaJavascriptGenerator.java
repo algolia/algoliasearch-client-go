@@ -76,10 +76,15 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
     CLIENT = Utils.getClientNameCamelCase(results);
 
     setDefaultGeneratorOptions();
-    Utils.generateServer(
-      Utils.getClientNameKebabCase(results),
-      additionalProperties
-    );
+    try {
+      Utils.generateServer(
+        Utils.getClientNameKebabCase(results),
+        additionalProperties
+      );
+    } catch (GenerationException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     List<CodegenOperation> operations =
       ((Map<String, List<CodegenOperation>>) results.get("operations")).get(

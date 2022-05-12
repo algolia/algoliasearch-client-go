@@ -1,7 +1,11 @@
 package com.algolia.codegen;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Sets;
+import io.swagger.v3.core.util.Json;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import org.openapitools.codegen.CodegenOperation;
@@ -72,7 +76,7 @@ public class Utils {
   public static void generateServer(
     String clientKebab,
     Map<String, Object> additionalProperties
-  ) {
+  ) throws GenerationException {
     Yaml yaml = new Yaml();
     try {
       Map<String, Object> spec = yaml.load(
@@ -145,8 +149,29 @@ public class Utils {
         allowedRegions.toArray(new String[0])
       );
     } catch (Exception e) {
-      e.printStackTrace();
-      System.exit(1);
+      throw new GenerationException("Couldn't generate servers", e);
+    }
+  }
+
+  // Get the package version from clients.config.json (doesn't work for JavaScript)
+  public static String getPackageVersion(String language)
+    throws GenerationException {
+    if (language.equals("javascript")) {
+      throw new GenerationException(
+        "Cannot use getPackageVersion with language=\"javascript\", " +
+        "read openapitools.json instead"
+      );
+    }
+    try {
+      JsonNode config = Json
+        .mapper()
+        .readTree(new File("config/clients.config.json"));
+      return config.get(language).get("packageVersion").asText();
+    } catch (IOException e) {
+      throw new GenerationException(
+        "Couldn't read packageVersion from clients.config.json",
+        e
+      );
     }
   }
 }

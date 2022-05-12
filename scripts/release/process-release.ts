@@ -6,6 +6,7 @@ import execa from 'execa';
 import { copy } from 'fs-extra';
 import semver from 'semver';
 
+import clientsConfig from '../../config/clients.config.json';
 import openapiConfig from '../../config/openapitools.json';
 import {
   ROOT_ENV_PATH,
@@ -17,8 +18,10 @@ import {
   OWNER,
   REPO,
   emptyDirExceptForDotGit,
+  GENERATORS,
+  LANGUAGES,
 } from '../common';
-import { getLanguageFolder } from '../config';
+import { getLanguageFolder, getPackageVersionDefault } from '../config';
 import type { Language } from '../types';
 
 import {
@@ -28,7 +31,6 @@ import {
   configureGitHubAuthor,
   cloneRepository,
   getOctokit,
-  MAIN_PACKAGE,
 } from './common';
 import TEXT from './text';
 import type {
@@ -101,49 +103,69 @@ export function getVersionsToRelease(issueBody: string): VersionsToRelease {
   return versionsToRelease;
 }
 
-async function updateOpenApiTools(
+// Bump each client version of the JavaScript client in openapitools.json
+async function updateVersionForJavascript(
   versionsToRelease: VersionsToRelease
 ): Promise<void> {
-  let nextUtilsPackageVersion = '';
-
-  if (versionsToRelease.javascript) {
-    nextUtilsPackageVersion =
-      semver.inc(
-        openapiConfig['generator-cli'].generators[MAIN_PACKAGE.javascript]
-          .additionalProperties.utilsPackageVersion,
-        versionsToRelease.javascript.releaseType
-      ) || '';
+  if (!versionsToRelease.javascript) {
+    return;
   }
-
-  Object.keys(openapiConfig['generator-cli'].generators).forEach((client) => {
-    const lang = client.split('-')[0];
-    if (versionsToRelease[lang]) {
+  const jsVersion = versionsToRelease.javascript;
+  const nextUtilsPackageVersion =
+    semver.inc(
+      openapiConfig['generator-cli'].generators['javascript-search']
+        .additionalProperties.utilsPackageVersion,
+      jsVersion.releaseType
+    ) || '';
+  Object.values(GENERATORS)
+    .filter((gen) => gen.language === 'javascript')
+    .forEach((gen) => {
       const additionalProperties =
-        openapiConfig['generator-cli'].generators[client].additionalProperties;
-      const releaseType = versionsToRelease[lang].releaseType;
+        openapiConfig['generator-cli'].generators[gen.key].additionalProperties;
 
       const newVersion = semver.inc(
         additionalProperties.packageVersion,
-        releaseType
+        jsVersion.releaseType
       );
       if (!newVersion) {
         throw new Error(
-          `Failed to bump version ${additionalProperties.packageVersion} by ${releaseType}.`
+          `Failed to bump version ${additionalProperties.packageVersion} by ${jsVersion.releaseType}.`
         );
       }
       additionalProperties.packageVersion = newVersion;
-
-      // In case we're not releasing javascript package,
-      // we shouldn't bump the utils version.
-      // At that time `nextUtilsPackageVersion` is undefined, and the following branch is skipped.
-      if (lang === 'javascript' && nextUtilsPackageVersion) {
-        additionalProperties.utilsPackageVersion = nextUtilsPackageVersion;
-      }
-    }
-  });
+      additionalProperties.utilsPackageVersion = nextUtilsPackageVersion;
+    });
   await fsp.writeFile(
     toAbsolutePath('config/openapitools.json'),
     JSON.stringify(openapiConfig, null, 2)
+  );
+}
+
+async function updateConfigFiles(
+  versionsToRelease: VersionsToRelease
+): Promise<void> {
+  await updateVersionForJavascript(versionsToRelease);
+
+  // update the other versions in clients.config.json
+  LANGUAGES.forEach((lang) => {
+    if (lang === 'javascript' || !versionsToRelease[lang]) {
+      return;
+    }
+    const releaseType = versionsToRelease[lang]!.releaseType;
+
+    const newVersion = semver.inc(getPackageVersionDefault(lang), releaseType);
+    if (!newVersion) {
+      throw new Error(
+        `Failed to bump version ${getPackageVersionDefault(
+          lang
+        )} by ${releaseType}.`
+      );
+    }
+    clientsConfig[lang].packageVersion = newVersion;
+  });
+  await fsp.writeFile(
+    toAbsolutePath('config/clients.config.json'),
+    JSON.stringify(clientsConfig, null, 2)
   );
 }
 
@@ -225,7 +247,7 @@ async function processRelease(): Promise<void> {
   const issueBody = await getIssueBody();
   const versionsToRelease = getVersionsToRelease(issueBody);
 
-  await updateOpenApiTools(versionsToRelease);
+  await updateConfigFiles(versionsToRelease);
 
   for (const [lang, { current, releaseType }] of Object.entries(
     versionsToRelease

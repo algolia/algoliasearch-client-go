@@ -2,21 +2,11 @@ import path from 'path';
 
 import { Octokit } from '@octokit/rest';
 
-import clientsConfig from '../../config/clients.config.json';
 import config from '../../config/release.config.json';
 import { getGitHubUrl, run } from '../common';
 
 export const RELEASED_TAG = config.releasedTag;
 export const TEAM_SLUG = config.teamSlug;
-export const MAIN_PACKAGE = Object.keys(clientsConfig).reduce(
-  (mainPackage: { [lang: string]: string }, lang: string) => {
-    return {
-      ...mainPackage,
-      [lang]: clientsConfig[lang].mainPackage,
-    };
-  },
-  {}
-);
 
 export function getOctokit(githubToken: string): Octokit {
   return new Octokit({

@@ -7,14 +7,14 @@ import {
   LANGUAGES,
   ROOT_ENV_PATH,
   run,
-  getPackageVersion,
   MAIN_BRANCH,
   OWNER,
   REPO,
 } from '../common';
+import { getPackageVersionDefault } from '../config';
 import type { Language } from '../types';
 
-import { RELEASED_TAG, MAIN_PACKAGE, getOctokit } from './common';
+import { RELEASED_TAG, getOctokit } from './common';
 import TEXT from './text';
 import type {
   Versions,
@@ -26,14 +26,9 @@ import type {
 dotenv.config({ path: ROOT_ENV_PATH });
 
 export function readVersions(): VersionsWithoutReleaseType {
-  return Object.keys(MAIN_PACKAGE).reduce((acc, lang) => {
-    return {
-      ...acc,
-      [lang]: {
-        current: getPackageVersion(MAIN_PACKAGE[lang]),
-      },
-    };
-  }, {});
+  return Object.fromEntries(
+    LANGUAGES.map((lang) => [lang, { current: getPackageVersionDefault(lang) }])
+  );
 }
 
 export function getVersionChangesText(versions: Versions): string {

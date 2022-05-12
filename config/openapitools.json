@@ -143,8 +143,7 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1"
+          "packageName": "algoliasearch-client-java-2"
         }
       },
       "java-recommend": {
@@ -157,8 +156,7 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1"
+          "packageName": "algoliasearch-client-java-2"
         }
       },
       "java-personalization": {
@@ -172,7 +170,6 @@
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -187,7 +184,6 @@
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -202,7 +198,6 @@
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -217,7 +212,6 @@
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -232,7 +226,6 @@
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -246,8 +239,7 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
-          "packageVersion": "0.0.1"
+          "packageName": "algoliasearch-client-java-2"
         }
       },
       "php-search": {
@@ -256,8 +248,7 @@
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Search",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1"
+          "packageName": "algoliasearch-client-php"
         }
       },
       "php-recommend": {
@@ -266,8 +257,7 @@
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Recommend",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1"
+          "packageName": "algoliasearch-client-php"
         }
       },
       "php-personalization": {
@@ -277,7 +267,6 @@
         "modelPackage": "Model\\Personalization",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -288,7 +277,6 @@
         "modelPackage": "Model\\Analytics",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -299,7 +287,6 @@
         "modelPackage": "Model\\Insights",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -310,7 +297,6 @@
         "modelPackage": "Model\\Abtesting",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1",
           "hasRegionalHost": true
         }
       },
@@ -326,8 +312,7 @@
         "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\QuerySuggestions",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-php",
-          "packageVersion": "0.0.1"
+          "packageName": "algoliasearch-client-php"
         }
       }
     }
