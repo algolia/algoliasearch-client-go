@@ -277,3 +277,14 @@ export async function emptyDirExceptForDotGit(dir: string): Promise<void> {
     }
   }
 }
+
+export async function runComposerUpdate(verbose: boolean): Promise<void> {
+  if (!CI) {
+    await run(
+      'composer update --working-dir=clients/algoliasearch-client-php && composer dump-autoload --working-dir=clients/algoliasearch-client-php',
+      {
+        verbose,
+      }
+    );
+  }
+}
