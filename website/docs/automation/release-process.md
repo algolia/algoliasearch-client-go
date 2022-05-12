@@ -43,7 +43,7 @@ Each language repository should have their own release process, and should run o
 
 ### Java
 
-Java is released to [sonatype](https://oss.sonatype.org/) before being sent to [Maven](https://search.maven.org/artifact/com.algolia/algoliasearch-core) central repository, the `jar` need to be signed before publishing, and then verified on sonatype by using `closeAndRelease` target on Gradle.
+Java is released to [sonatype](https://oss.sonatype.org/) before being sent to [Maven](https://search.maven.org/artifact/com.algolia/algoliasearch-client-java) central repository, the `jar` need to be signed before publishing, and then verified on sonatype by using `closeAndRelease` target on Gradle.
 All of this is handled in the [release action](https://github.com/algolia/algoliasearch-client-java-2/tree/next/.github/workflows/release.yml), executed on the [Java repository](https://github.com/algolia/algoliasearch-client-java-2).
 If you want to release manually, you need to copy some secrets to either:
 
@@ -76,7 +76,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.algolia:algoliasearch-core:0.0.1-SNAPSHOT'
+    implementation 'com.algolia:algoliasearch-client-java:0.0.1-SNAPSHOT'
 }
 ```
 

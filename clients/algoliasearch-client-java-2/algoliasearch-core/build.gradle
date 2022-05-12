@@ -4,9 +4,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
-description = 'algoliasearch-client-java-2'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-
 repositories {
     mavenCentral()
 }

@@ -11,9 +11,11 @@ module.exports = {
 
     // Java
     '!clients/algoliasearch-client-java-2/*.gradle',
+    '!clients/algoliasearch-client-java-2/gradlew',
     '!clients/algoliasearch-client-java-2/.gitignore',
     '!clients/algoliasearch-client-java-2/gradle/wrapper/**',
     '!clients/algoliasearch-client-java-2/algoliasearch-core/build.gradle',
+    '!clients/algoliasearch-client-java-2/algoliasearch-core/gradle.properties',
     '!clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/exceptions/**',
     '!clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/utils/**',
 

@@ -135,7 +135,6 @@
       },
       "java-search": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -143,12 +142,11 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2"
+          "packageName": "algoliasearch-client-java"
         }
       },
       "java-recommend": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -156,12 +154,11 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2"
+          "packageName": "algoliasearch-client-java"
         }
       },
       "java-personalization": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -169,13 +166,12 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
+          "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
         }
       },
       "java-analytics": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -183,13 +179,12 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
+          "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
         }
       },
       "java-insights": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -197,13 +192,12 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
+          "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
         }
       },
       "java-abtesting": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -211,13 +205,12 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
+          "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
         }
       },
       "java-query-suggestions": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -225,13 +218,12 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2",
+          "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
         }
       },
       "java-predict": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "artifactId": "algoliasearch-client-java-2",
         "groupId": "com.algolia",
         "apiPackage": "com.algolia.api",
         "invokerPackage": "com.algolia",
@@ -239,7 +231,7 @@
         "library": "okhttp-gson",
         "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
-          "packageName": "algoliasearch-client-java-2"
+          "packageName": "algoliasearch-client-java"
         }
       },
       "php-search": {
