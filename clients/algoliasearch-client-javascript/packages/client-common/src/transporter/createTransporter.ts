@@ -240,13 +240,13 @@ export function createTransporter({
       cacheable: baseRequestOptions?.cacheable,
       timeout: baseRequestOptions?.timeout,
       queryParameters: {
-        ...methodOptions.queryParameters,
         ...baseRequestOptions?.queryParameters,
+        ...methodOptions.queryParameters,
       },
       headers: {
         Accept: 'application/json',
-        ...methodOptions.headers,
         ...baseRequestOptions?.headers,
+        ...methodOptions.headers,
       },
     };
 
