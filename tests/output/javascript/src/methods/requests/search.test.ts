@@ -73,6 +73,9 @@ describe('assignUserId', () => {
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({ cluster: 'theCluster' });
     expect(req.searchParams).toStrictEqual(undefined);
+    expect(req.headers).toEqual(
+      expect.objectContaining({ 'x-algolia-user-id': 'userID' })
+    );
   });
 });
 
@@ -111,6 +114,9 @@ describe('batchAssignUserIds', () => {
       users: ['user1', 'user2'],
     });
     expect(req.searchParams).toStrictEqual(undefined);
+    expect(req.headers).toEqual(
+      expect.objectContaining({ 'x-algolia-user-id': 'userID' })
+    );
   });
 });
 

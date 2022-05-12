@@ -56,6 +56,19 @@ class InsightsTest extends TestCase implements HttpClientInterface
                     $recordedRequest->getUri()->getQuery()
                 );
             }
+
+            if (isset($request['headers'])) {
+                foreach ($request['headers'] as $key => $value) {
+                    $this->assertArrayHasKey(
+                        $key,
+                        $recordedRequest->getHeaders()
+                    );
+                    $this->assertEquals(
+                        $recordedRequest->getHeaderLine($key),
+                        $value
+                    );
+                }
+            }
         }
     }
 

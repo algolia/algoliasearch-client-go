@@ -426,12 +426,15 @@ public class ApiClient {
     Request.Builder reqBuilder
   ) {
     for (Entry<String, String> param : headerParams.entrySet()) {
-      reqBuilder.header(param.getKey(), parameterToString(param.getValue()));
+      reqBuilder.header(
+        param.getKey().toLowerCase(),
+        parameterToString(param.getValue())
+      );
     }
     for (Entry<String, String> header : defaultHeaderMap.entrySet()) {
       if (!headerParams.containsKey(header.getKey())) {
         reqBuilder.header(
-          header.getKey(),
+          header.getKey().toLowerCase(),
           parameterToString(header.getValue())
         );
       }
@@ -439,7 +442,7 @@ public class ApiClient {
     if (extraHeaderParams != null) {
       for (Entry<String, String> header : extraHeaderParams.entrySet()) {
         reqBuilder.header(
-          header.getKey(),
+          header.getKey().toLowerCase(),
           parameterToString(header.getValue())
         );
       }

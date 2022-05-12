@@ -56,6 +56,19 @@ class SearchTest extends TestCase implements HttpClientInterface
                     $recordedRequest->getUri()->getQuery()
                 );
             }
+
+            if (isset($request['headers'])) {
+                foreach ($request['headers'] as $key => $value) {
+                    $this->assertArrayHasKey(
+                        $key,
+                        $recordedRequest->getHeaders()
+                    );
+                    $this->assertEquals(
+                        $recordedRequest->getHeaderLine($key),
+                        $value
+                    );
+                }
+            }
         }
     }
 
@@ -172,6 +185,10 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/clusters/mapping',
                 'method' => 'POST',
                 'body' => json_decode("{\"cluster\":\"theCluster\"}"),
+                'headers' => json_decode(
+                    "{\"x-algolia-user-id\":\"userID\"}",
+                    true
+                ),
             ],
         ]);
     }
@@ -221,6 +238,10 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'method' => 'POST',
                 'body' => json_decode(
                     "{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}"
+                ),
+                'headers' => json_decode(
+                    "{\"x-algolia-user-id\":\"userID\"}",
+                    true
                 ),
             ],
         ]);
