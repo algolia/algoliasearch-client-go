@@ -19,6 +19,9 @@
           "user1",
           "user2"
         ]
+      },
+      "headers": {
+        "x-algolia-user-id": "userID"
       }
     }
   }

@@ -11,6 +11,9 @@
       "method": "POST",
       "body": {
         "cluster": "theCluster"
+      },
+      "headers": {
+        "x-algolia-user-id": "userID"
       }
     }
   }

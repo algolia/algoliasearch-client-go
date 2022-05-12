@@ -17,6 +17,11 @@ describe('{{operationId}}', () => {
     expect(req.method).toEqual('{{{request.method}}}');
     expect(req.data).toEqual({{#request.body}}{{{.}}}{{/request.body}}{{^request.body}}undefined{{/request.body}});
     expect(req.searchParams).toStrictEqual({{#request.queryParameters}}{{{.}}}{{/request.queryParameters}}{{^request.queryParameters}}undefined{{/request.queryParameters}});
+    {{#request.headers}}
+    expect(req.headers).toEqual(
+      expect.objectContaining({{{request.headers}}})
+    );
+    {{/request.headers}}
   });
 
   {{/tests}}

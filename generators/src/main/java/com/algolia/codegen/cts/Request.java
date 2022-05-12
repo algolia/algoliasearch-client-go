@@ -39,6 +39,9 @@ class RequestProp {
   @JsonDeserialize(using = RawDeserializer.class)
   public String queryParameters;
 
+  @JsonDeserialize(using = RawDeserializer.class)
+  public String headers;
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -47,6 +50,7 @@ class RequestProp {
     sb.append("    method: ").append(method).append("\n");
     sb.append("    body: ").append(body).append("\n");
     sb.append("    queryParameters: ").append(queryParameters).append("\n");
+    sb.append("    headers: ").append(headers).append("\n");
     sb.append("}");
     return sb.toString();
   }

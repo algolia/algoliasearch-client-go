@@ -62,6 +62,15 @@ class {{client}}Tests {
           assertEquals(expectedQuery.get(p.getKey()), p.getValue());
         }
         {{/request.queryParameters}}
+
+        {{#request.headers}}
+        Map<String, String> expectedHeaders = JSON.deserialize("{{#lambda.escapequotes}}{{{request.headers}}}{{/lambda.escapequotes}}", new TypeToken<HashMap<String, String>>() {}.getType());
+        Map<String, String> actualHeaders = req.headers;
+
+        for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
+          assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+        }
+        {{/request.headers}}
     }
     {{/tests}}
     {{/blocks}}

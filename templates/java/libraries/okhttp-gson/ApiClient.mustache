@@ -387,22 +387,28 @@ public class ApiClient {
      * @param reqBuilder Request.Builder
      */
     public void processHeaderParams(Map<String, String> headerParams, Map<String, String> extraHeaderParams, Request.Builder reqBuilder) {
-        for (Entry<String, String> param : headerParams.entrySet()) {
-          reqBuilder.header(param.getKey(), parameterToString(param.getValue()));
+      for (Entry<String, String> param : headerParams.entrySet()) {
+        reqBuilder.header(
+          param.getKey().toLowerCase(),
+          parameterToString(param.getValue())
+        );
+      }
+      for (Entry<String, String> header : defaultHeaderMap.entrySet()) {
+        if (!headerParams.containsKey(header.getKey())) {
+          reqBuilder.header(
+            header.getKey().toLowerCase(),
+            parameterToString(header.getValue())
+          );
         }
-        for (Entry<String, String> header : defaultHeaderMap.entrySet()) {
-          if (!headerParams.containsKey(header.getKey())) {
-              reqBuilder.header(header.getKey(), parameterToString(header.getValue()));
-          }
+      }
+      if (extraHeaderParams != null) {
+        for (Entry<String, String> header : extraHeaderParams.entrySet()) {
+          reqBuilder.header(
+            header.getKey().toLowerCase(),
+            parameterToString(header.getValue())
+          );
         }
-        if (extraHeaderParams != null) {
-          for (Entry<String, String> header : extraHeaderParams.entrySet()) {
-            reqBuilder.header(
-              header.getKey(),
-              parameterToString(header.getValue())
-            );
-          }
-        }
+      }
     }
 
     /**

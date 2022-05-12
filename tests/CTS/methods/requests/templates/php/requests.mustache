@@ -50,6 +50,19 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
                     $recordedRequest->getUri()->getQuery()
                 );
             }
+
+            if (isset($request['headers'])) {
+                foreach ($request['headers'] as $key => $value) {
+                    $this->assertArrayHasKey(
+                        $key,
+                        $recordedRequest->getHeaders()
+                    );
+                    $this->assertEquals(
+                        $recordedRequest->getHeaderLine($key),
+                        $value
+                    );
+                }
+            }
         }
     }
 
@@ -92,6 +105,9 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
                 {{#request.queryParameters}}
                 "queryParameters" => json_decode("{{#lambda.escapequotes}}{{{request.queryParameters}}}{{/lambda.escapequotes}}", true),
                 {{/request.queryParameters}}
+                {{#request.headers}}
+                "headers" => json_decode("{{#lambda.escapequotes}}{{{request.headers}}}{{/lambda.escapequotes}}", true),
+                {{/request.headers}}
             ],
         ]);
     }

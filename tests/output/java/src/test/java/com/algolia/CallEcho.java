@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.Protocol;
@@ -61,6 +62,14 @@ public class CallEcho implements Call {
     return params;
   }
 
+  private Map<String, String> buildHeaders(Headers headers) {
+    Map<String, String> mapHeaders = new HashMap<>();
+    for (String headerName : headers.names()) {
+      mapHeaders.put(headerName, headers.get(headerName));
+    }
+    return mapHeaders;
+  }
+
   @Override
   public void enqueue(Callback callback) {
     Response.Builder builder = new Response.Builder();
@@ -74,6 +83,8 @@ public class CallEcho implements Call {
       body.method = request.method();
       body.body = processResponseBody();
       body.queryParameters = buildQueryParameters();
+      body.headers = buildHeaders(request.headers());
+
       builder.body(
         ResponseBody.create(
           JSON.serialize(body),
