@@ -72,6 +72,7 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
     // generator specific options
     setApiNameSuffix(Utils.API_SUFFIX);
     setParameterNamingConvention("camelCase");
+    additionalProperties.put("invokerPackage", "Algolia\\AlgoliaSearch");
 
     super.processOpts();
 
@@ -87,5 +88,9 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
         "Configuration.php"
       )
     );
+  }
+
+  public String getComposerPackageName() {
+    return "algolia/algoliasearch-client-php";
   }
 }

@@ -13,7 +13,6 @@ import {
   toAbsolutePath,
   run,
   exists,
-  getGitHubUrl,
   gitCommit,
   OWNER,
   REPO,
@@ -21,7 +20,11 @@ import {
   GENERATORS,
   LANGUAGES,
 } from '../common';
-import { getLanguageFolder, getPackageVersionDefault } from '../config';
+import {
+  getGitHubUrl,
+  getLanguageFolder,
+  getPackageVersionDefault,
+} from '../config';
 import type { Language } from '../types';
 
 import {
@@ -287,7 +290,7 @@ async function processRelease(): Promise<void> {
     versionsToRelease
   )) {
     const { tempGitDir } = await cloneRepository({
-      lang,
+      lang: lang as Language,
       githubToken: process.env.GITHUB_TOKEN,
       tempDir: process.env.RUNNER_TEMP!,
     });

@@ -3,7 +3,9 @@ import path from 'path';
 import { Octokit } from '@octokit/rest';
 
 import config from '../../config/release.config.json';
-import { getGitHubUrl, run } from '../common';
+import { run } from '../common';
+import { getGitHubUrl } from '../config';
+import type { Language } from '../types';
 
 export const RELEASED_TAG = config.releasedTag;
 export const TEAM_SLUG = config.teamSlug;
@@ -50,7 +52,7 @@ export async function cloneRepository({
   githubToken,
   tempDir,
 }: {
-  lang: string;
+  lang: Language;
   githubToken: string;
   tempDir: string;
 }): Promise<{ tempGitDir: string }> {

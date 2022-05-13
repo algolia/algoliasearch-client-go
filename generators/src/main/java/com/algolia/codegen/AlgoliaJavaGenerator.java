@@ -111,8 +111,11 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
   public void processOpts() {
     // generator specific options
     setDateLibrary("java8");
+    setLibrary("okhttp-gson");
     setSourceFolder("algoliasearch-core/src/main/java");
-    setInvokerPackage("com.algolia");
+    setGroupId("com.algolia");
+    additionalProperties.put("invokerPackage", "com.algolia");
+    setApiPackage("com.algolia.api");
     setApiNameSuffix(Utils.API_SUFFIX);
 
     super.processOpts();

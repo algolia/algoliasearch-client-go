@@ -1,6 +1,7 @@
 {
   "java": {
     "folder": "clients/algoliasearch-client-java-2",
+    "gitRepoId": "algoliasearch-client-java-2",
     "packageVersion": "0.0.1",
     "modelFolder": "algoliasearch-core/src/main/java/com/algolia/model",
     "apiFolder": "algoliasearch-core/src/main/java/com/algolia/api",
@@ -12,6 +13,7 @@
   },
   "javascript": {
     "folder": "clients/algoliasearch-client-javascript",
+    "gitRepoId": "algoliasearch-client-javascript",
     "modelFolder": "model",
     "apiFolder": "src",
     "customGenerator": "algolia-javascript",
@@ -22,6 +24,7 @@
   },
   "php": {
     "folder": "clients/algoliasearch-client-php",
+    "gitRepoId": "algoliasearch-client-php",
     "packageVersion": "0.0.1",
     "modelFolder": "lib/Model",
     "customGenerator": "algolia-php",

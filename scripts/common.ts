@@ -86,36 +86,6 @@ export function splitGeneratorKey(
   return { language, client, key: generatorKey };
 }
 
-type GitHubUrl = (
-  lang: string,
-  options?: {
-    token?: string;
-  }
-) => string;
-
-export const getGitHubUrl: GitHubUrl = (
-  lang: string,
-  { token } = {}
-): string => {
-  const entry = Object.entries(openapiConfig['generator-cli'].generators).find(
-    (_entry) => _entry[0].startsWith(`${lang}-`)
-  );
-
-  if (!entry) {
-    throw new Error(`\`${lang}\` is not found from \`openapitools.json\`.`);
-  }
-  const { gitRepoId } = entry[1];
-
-  // GitHub Action provides a default token for authentication
-  // https://docs.github.com/en/actions/security-guides/automatic-token-authentication
-  // But it has access to only the self repository.
-  // If we want to do something like pushing commits to other repositories,
-  // we need to specify a token with more access.
-  return token
-    ? `https://${token}:${token}@github.com/algolia/${gitRepoId}`
-    : `https://github.com/algolia/${gitRepoId}`;
-};
-
 export function createGeneratorKey({
   language,
   client,

@@ -26,7 +26,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
     // generator specific options
     setSupportsES6(true);
     setModelPropertyNaming("original");
-
+    setApiPackage("src");
     // clear all supported files to avoid unwanted ones
     supportingFiles.clear();
     // model
@@ -60,6 +60,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
     additionalProperties.put("apiName", apiName);
     additionalProperties.put("capitalizedApiName", Utils.capitalize(apiName));
     additionalProperties.put("userAgent", Utils.capitalize(CLIENT));
+    additionalProperties.put("gitRepoId", "algoliasearch-client-javascript");
   }
 
   /** Provides an opportunity to inspect and modify operation data before the code is generated. */

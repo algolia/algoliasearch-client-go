@@ -3,9 +3,7 @@
     "version": "5.4.0",
     "generators": {
       "javascript-search": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-search",
-        "gitRepoId": "algoliasearch-client-javascript",
         "reservedWordsMappings": "queryParameters=queryParameters,requestOptions=requestOptions",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-search",
@@ -16,9 +14,7 @@
         }
       },
       "javascript-algoliasearch-lite": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/algoliasearch-lite",
-        "gitRepoId": "algoliasearch-client-javascript",
         "reservedWordsMappings": "queryParameters=queryParameters,requestOptions=requestOptions",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/algoliasearch-lite",
@@ -29,9 +25,7 @@
         }
       },
       "javascript-recommend": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/recommend",
-        "gitRepoId": "algoliasearch-client-javascript",
         "reservedWordsMappings": "queryParameters=queryParameters",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/recommend",
@@ -42,9 +36,7 @@
         }
       },
       "javascript-personalization": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-personalization",
-        "gitRepoId": "algoliasearch-client-javascript",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-personalization",
           "buildFile": "client-personalization",
@@ -55,9 +47,7 @@
         }
       },
       "javascript-analytics": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-analytics",
-        "gitRepoId": "algoliasearch-client-javascript",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-analytics",
           "buildFile": "client-analytics",
@@ -68,9 +58,7 @@
         }
       },
       "javascript-insights": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-insights",
-        "gitRepoId": "algoliasearch-client-javascript",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-insights",
           "buildFile": "client-insights",
@@ -81,9 +69,7 @@
         }
       },
       "javascript-abtesting": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-abtesting",
-        "gitRepoId": "algoliasearch-client-javascript",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-abtesting",
           "buildFile": "client-abtesting",
@@ -94,9 +80,7 @@
         }
       },
       "javascript-query-suggestions": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-query-suggestions",
-        "gitRepoId": "algoliasearch-client-javascript",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-query-suggestions",
           "buildFile": "client-query-suggestions",
@@ -107,9 +91,7 @@
         }
       },
       "javascript-sources": {
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-sources",
-        "gitRepoId": "algoliasearch-client-javascript",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-sources",
           "buildFile": "client-sources",
@@ -121,9 +103,7 @@
       },
       "javascript-predict": {
         "templateDir": "#{cwd}/templates/javascript/",
-        "apiPackage": "src",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-predict",
-        "gitRepoId": "algoliasearch-client-javascript",
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-predict",
           "buildFile": "client-predict",
@@ -135,36 +115,21 @@
       },
       "java-search": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.search",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java"
         }
       },
       "java-recommend": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.recommend",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java"
         }
       },
       "java-personalization": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.personalization",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
@@ -172,12 +137,7 @@
       },
       "java-analytics": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.analytics",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
@@ -185,12 +145,7 @@
       },
       "java-insights": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.insights",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
@@ -198,12 +153,7 @@
       },
       "java-abtesting": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.abtesting",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
@@ -211,12 +161,7 @@
       },
       "java-query-suggestions": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.querySuggestions",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java",
           "hasRegionalHost": true
@@ -224,20 +169,13 @@
       },
       "java-predict": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "groupId": "com.algolia",
-        "apiPackage": "com.algolia.api",
-        "invokerPackage": "com.algolia",
         "modelPackage": "com.algolia.model.predict",
-        "library": "okhttp-gson",
-        "gitRepoId": "algoliasearch-client-java-2",
         "additionalProperties": {
           "packageName": "algoliasearch-client-java"
         }
       },
       "php-search": {
         "output": "#{cwd}/clients/algoliasearch-client-php",
-        "gitRepoId": "algoliasearch-client-php",
-        "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Search",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php"
@@ -245,8 +183,6 @@
       },
       "php-recommend": {
         "output": "#{cwd}/clients/algoliasearch-client-php",
-        "gitRepoId": "algoliasearch-client-php",
-        "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Recommend",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php"
@@ -254,8 +190,6 @@
       },
       "php-personalization": {
         "output": "#{cwd}/clients/algoliasearch-client-php",
-        "gitRepoId": "algoliasearch-client-php",
-        "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Personalization",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
@@ -264,8 +198,6 @@
       },
       "php-analytics": {
         "output": "#{cwd}/clients/algoliasearch-client-php",
-        "gitRepoId": "algoliasearch-client-php",
-        "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Analytics",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
@@ -274,8 +206,6 @@
       },
       "php-insights": {
         "output": "#{cwd}/clients/algoliasearch-client-php",
-        "gitRepoId": "algoliasearch-client-php",
-        "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Insights",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
@@ -284,8 +214,6 @@
       },
       "php-abtesting": {
         "output": "#{cwd}/clients/algoliasearch-client-php",
-        "gitRepoId": "algoliasearch-client-php",
-        "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\Abtesting",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php",
@@ -293,15 +221,7 @@
         }
       },
       "php-query-suggestions": {
-        "config": "#{cwd}/openapitools.json",
-        "gitHost": "algolia",
-        "gitUserId": "algolia",
-        "glob": "specs/bundled/query-suggestions.yml",
-        "templateDir": "#{cwd}/templates/php/",
-        "generatorName": "algolia-php",
         "output": "#{cwd}/clients/algoliasearch-client-php",
-        "gitRepoId": "algoliasearch-client-php",
-        "invokerPackage": "Algolia\\AlgoliaSearch",
         "modelPackage": "Model\\QuerySuggestions",
         "additionalProperties": {
           "packageName": "algoliasearch-client-php"
