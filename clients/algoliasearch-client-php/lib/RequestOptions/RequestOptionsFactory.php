@@ -71,14 +71,14 @@ final class RequestOptionsFactory
                         $headersToLowerCase[mb_strtolower($key)] = $v;
                     }
 
-                    $normalized[$optionName] += $this->format(
+                    $normalized[$optionName] = $this->format(
                         $headersToLowerCase
                     );
                 } else {
-                    $normalized[$optionName] += $this->format($value);
+                    $normalized[$optionName] = $this->format($value);
                 }
             } else {
-                $normalized[$optionName] += $value;
+                $normalized[$optionName] = $value;
             }
         }
 
