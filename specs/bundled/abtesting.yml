@@ -217,6 +217,7 @@ components:
         - $ref: '#/components/schemas/abTestsVariantSearchParams'
     taskID:
       type: integer
+      format: int64
       description: taskID of the task to wait for.
     ABTestResponse:
       type: object

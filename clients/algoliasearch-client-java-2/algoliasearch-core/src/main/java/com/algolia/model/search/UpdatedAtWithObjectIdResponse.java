@@ -7,7 +7,7 @@ import java.util.Objects;
 public class UpdatedAtWithObjectIdResponse {
 
   @SerializedName("taskID")
-  private Integer taskID;
+  private Long taskID;
 
   @SerializedName("updatedAt")
   private String updatedAt;
@@ -15,7 +15,7 @@ public class UpdatedAtWithObjectIdResponse {
   @SerializedName("objectID")
   private String objectID;
 
-  public UpdatedAtWithObjectIdResponse setTaskID(Integer taskID) {
+  public UpdatedAtWithObjectIdResponse setTaskID(Long taskID) {
     this.taskID = taskID;
     return this;
   }
@@ -26,7 +26,7 @@ public class UpdatedAtWithObjectIdResponse {
    * @return taskID
    */
   @javax.annotation.Nullable
-  public Integer getTaskID() {
+  public Long getTaskID() {
     return taskID;
   }
 

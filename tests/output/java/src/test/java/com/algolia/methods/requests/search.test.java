@@ -1009,7 +1009,7 @@ class SearchClientTests {
   @DisplayName("getTask")
   void getTaskTest0() {
     String indexName0 = "theIndexName";
-    int taskID0 = 123;
+    long taskID0 = 123L;
 
     assertDoesNotThrow(() -> {
       client.getTask(indexName0, taskID0);

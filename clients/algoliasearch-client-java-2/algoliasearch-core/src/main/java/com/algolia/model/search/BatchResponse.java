@@ -9,12 +9,12 @@ import java.util.Objects;
 public class BatchResponse {
 
   @SerializedName("taskID")
-  private Integer taskID;
+  private Long taskID;
 
   @SerializedName("objectIDs")
   private List<String> objectIDs = null;
 
-  public BatchResponse setTaskID(Integer taskID) {
+  public BatchResponse setTaskID(Long taskID) {
     this.taskID = taskID;
     return this;
   }
@@ -25,7 +25,7 @@ public class BatchResponse {
    * @return taskID
    */
   @javax.annotation.Nullable
-  public Integer getTaskID() {
+  public Long getTaskID() {
     return taskID;
   }
 

@@ -13,7 +13,7 @@ public class UpdatedRuleResponse {
   private String updatedAt;
 
   @SerializedName("taskID")
-  private Integer taskID;
+  private Long taskID;
 
   public UpdatedRuleResponse setObjectID(String objectID) {
     this.objectID = objectID;
@@ -45,7 +45,7 @@ public class UpdatedRuleResponse {
     return updatedAt;
   }
 
-  public UpdatedRuleResponse setTaskID(Integer taskID) {
+  public UpdatedRuleResponse setTaskID(Long taskID) {
     this.taskID = taskID;
     return this;
   }
@@ -56,7 +56,7 @@ public class UpdatedRuleResponse {
    * @return taskID
    */
   @javax.annotation.Nonnull
-  public Integer getTaskID() {
+  public Long getTaskID() {
     return taskID;
   }
 

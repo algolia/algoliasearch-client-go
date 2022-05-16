@@ -13,7 +13,7 @@ public class ABTestResponse {
   private Integer abTestID;
 
   @SerializedName("taskID")
-  private Integer taskID;
+  private Long taskID;
 
   public ABTestResponse setIndex(String index) {
     this.index = index;
@@ -45,7 +45,7 @@ public class ABTestResponse {
     return abTestID;
   }
 
-  public ABTestResponse setTaskID(Integer taskID) {
+  public ABTestResponse setTaskID(Long taskID) {
     this.taskID = taskID;
     return this;
   }
@@ -56,7 +56,7 @@ public class ABTestResponse {
    * @return taskID
    */
   @javax.annotation.Nonnull
-  public Integer getTaskID() {
+  public Long getTaskID() {
     return taskID;
   }
 

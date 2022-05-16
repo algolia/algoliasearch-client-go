@@ -7,7 +7,7 @@ import java.util.Objects;
 public class SaveSynonymResponse {
 
   @SerializedName("taskID")
-  private Integer taskID;
+  private Long taskID;
 
   @SerializedName("updatedAt")
   private String updatedAt;
@@ -15,7 +15,7 @@ public class SaveSynonymResponse {
   @SerializedName("id")
   private String id;
 
-  public SaveSynonymResponse setTaskID(Integer taskID) {
+  public SaveSynonymResponse setTaskID(Long taskID) {
     this.taskID = taskID;
     return this;
   }
@@ -26,7 +26,7 @@ public class SaveSynonymResponse {
    * @return taskID
    */
   @javax.annotation.Nonnull
-  public Integer getTaskID() {
+  public Long getTaskID() {
     return taskID;
   }
 

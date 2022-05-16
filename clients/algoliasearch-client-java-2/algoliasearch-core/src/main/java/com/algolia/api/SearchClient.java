@@ -3024,7 +3024,7 @@ public class SearchClient extends ApiClient {
    */
   public GetTaskResponse getTask(
     String indexName,
-    Integer taskID,
+    Long taskID,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(
@@ -3032,7 +3032,7 @@ public class SearchClient extends ApiClient {
     );
   }
 
-  public GetTaskResponse getTask(String indexName, Integer taskID)
+  public GetTaskResponse getTask(String indexName, Long taskID)
     throws AlgoliaRuntimeException {
     return this.getTask(indexName, taskID, null);
   }
@@ -3050,7 +3050,7 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<GetTaskResponse> getTaskAsync(
     String indexName,
-    Integer taskID,
+    Long taskID,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
@@ -3093,7 +3093,7 @@ public class SearchClient extends ApiClient {
 
   public CompletableFuture<GetTaskResponse> getTaskAsync(
     String indexName,
-    Integer taskID
+    Long taskID
   ) throws AlgoliaRuntimeException {
     return this.getTaskAsync(indexName, taskID, null);
   }

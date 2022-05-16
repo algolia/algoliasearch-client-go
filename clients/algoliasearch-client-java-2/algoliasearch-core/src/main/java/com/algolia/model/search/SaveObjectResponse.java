@@ -10,7 +10,7 @@ public class SaveObjectResponse {
   private String createdAt;
 
   @SerializedName("taskID")
-  private Integer taskID;
+  private Long taskID;
 
   @SerializedName("objectID")
   private String objectID;
@@ -30,7 +30,7 @@ public class SaveObjectResponse {
     return createdAt;
   }
 
-  public SaveObjectResponse setTaskID(Integer taskID) {
+  public SaveObjectResponse setTaskID(Long taskID) {
     this.taskID = taskID;
     return this;
   }
@@ -41,7 +41,7 @@ public class SaveObjectResponse {
    * @return taskID
    */
   @javax.annotation.Nullable
-  public Integer getTaskID() {
+  public Long getTaskID() {
     return taskID;
   }
 

@@ -716,16 +716,6 @@ components:
       oneOf:
         - $ref: '#/components/schemas/searchParamsString'
         - $ref: '#/components/schemas/searchParamsObject'
-    abTestID:
-      type: integer
-      description: >-
-        If a search encounters an index that is being A/B tested, abTestID
-        reports the ongoing A/B test ID.
-    abTestVariantID:
-      type: integer
-      description: >-
-        If a search encounters an index that is being A/B tested,
-        abTestVariantID reports the variant ID of the index used.
     nbHits:
       type: integer
       description: Number of hits that the search query matched.
@@ -754,9 +744,15 @@ components:
         - params
       properties:
         abTestID:
-          $ref: '#/components/schemas/abTestID'
+          type: integer
+          description: >-
+            If a search encounters an index that is being A/B tested, abTestID
+            reports the ongoing A/B test ID.
         abTestVariantID:
-          $ref: '#/components/schemas/abTestVariantID'
+          type: integer
+          description: >-
+            If a search encounters an index that is being A/B tested,
+            abTestVariantID reports the variant ID of the index used.
         aroundLatLng:
           type: string
           description: The computed geo location.
@@ -1050,6 +1046,7 @@ components:
         - $ref: '#/components/schemas/baseBrowseResponse'
     taskID:
       type: integer
+      format: int64
       description: taskID of the task to wait for.
     deletedAt:
       type: string
