@@ -174,4 +174,15 @@ public class Utils {
       );
     }
   }
+
+  public static JsonNode readJsonFile(String filePath) {
+    JsonNode json = null;
+    try {
+      json = Json.mapper().readTree(new File(filePath));
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+    return json;
+  }
 }

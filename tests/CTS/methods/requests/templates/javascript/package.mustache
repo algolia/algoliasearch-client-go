@@ -1,0 +1,22 @@
+{
+  "name": "javascript-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    {{#packageDependencies}}
+    "{{{packageName}}}": "{{packageVersion}}",
+    {{/packageDependencies}}
+    "@experimental-api-clients-automation/client-common": "{{utilsPackageVersion}}",
+    "@experimental-api-clients-automation/requester-node-http": "{{utilsPackageVersion}}"
+  },
+  "devDependencies": {
+    "@types/jest": "27.4.1",
+    "@types/node": "16.11.26",
+    "jest": "27.5.1",
+    "ts-jest": "27.1.4",
+    "ts-node": "10.7.0",
+    "typescript": "4.6.3"
+  }
+}

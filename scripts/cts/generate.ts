@@ -46,10 +46,6 @@ export async function ctsGenerateMany(
     if (!getTestOutputFolder(lang)) {
       continue;
     }
-    await formatter(
-      lang,
-      toAbsolutePath(`tests/output/${lang}/${getTestOutputFolder(lang)}`),
-      verbose
-    );
+    await formatter(lang, toAbsolutePath(`tests/output/${lang}`), verbose);
   }
 }
