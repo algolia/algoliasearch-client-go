@@ -50,9 +50,9 @@ put:
             additionalProperties: false
             properties:
               taskID:
-                $ref: '../../../common/parameters.yml#/taskID'
+                $ref: '../../../common/responses/common.yml#/taskID'
               updatedAt:
-                $ref: '../../../common/parameters.yml#/updatedAt'
+                $ref: '../../../common/responses/common.yml#/updatedAt'
               id:
                 $ref: '../../../common/parameters.yml#/id'
             required:

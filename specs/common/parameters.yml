@@ -94,10 +94,6 @@ Limit:
     default: 10
 
 # misc
-taskID:
-  type: integer
-  description: taskID of the task to wait for.
-
 objectID:
   type: string
   description: Unique identifier of the object.
@@ -105,37 +101,6 @@ objectID:
 id:
   type: string
   description: objectID of the inserted object.
-
-objectIDs:
-  type: array
-  items:
-    type: string
-  description: List of objectID.
-
-queryID:
-  type: string
-  pattern: '^[a-f0-9]{32}$'
-  example: 43b15df305339e827f0ac0bdc5ebcaa7
-
-abTestID:
-  type: integer
-  description: If a search encounters an index that is being A/B tested, abTestID reports the ongoing A/B test ID.
-
-abTestVariantID:
-  type: integer
-  description: If a search encounters an index that is being A/B tested, abTestVariantID reports the variant ID of the index used.
-
-createdAt:
-  type: string
-  description: Date of creation (ISO-8601 format).
-
-updatedAt:
-  type: string
-  description: Date of last update (ISO-8601 format).
-
-deletedAt:
-  type: string
-  description: Date of deletion (ISO-8601 format).
 
 indexName:
   type: string

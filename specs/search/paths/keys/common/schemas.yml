@@ -55,7 +55,7 @@ createdAtObject:
     - createdAt
   properties:
     createdAt:
-      $ref: '../../../../common/parameters.yml#/createdAt'
+      $ref: '../../../../common/responses/common.yml#/createdAt'
 
 key:
   allOf:
@@ -69,7 +69,7 @@ addApiKeyResponse:
     key:
       $ref: '#/keyString'
     createdAt:
-      $ref: '../../../../common/parameters.yml#/createdAt'
+      $ref: '../../../../common/responses/common.yml#/createdAt'
   required:
     - key
     - createdAt

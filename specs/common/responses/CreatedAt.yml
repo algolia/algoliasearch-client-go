@@ -10,4 +10,4 @@ content:
         - createdAt
       properties:
         createdAt:
-          $ref: '../parameters.yml#/createdAt'
+          $ref: '../responses/common.yml#/createdAt'

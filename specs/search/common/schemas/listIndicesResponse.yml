@@ -23,7 +23,7 @@ indice:
       type: string
       description: Index creation date. An empty string means that the index has no records.
     updatedAt:
-      $ref: '../../../common/parameters.yml#/updatedAt'
+      $ref: '../../../common/responses/common.yml#/updatedAt'
     entries:
       type: integer
       description: Number of records contained in the index.

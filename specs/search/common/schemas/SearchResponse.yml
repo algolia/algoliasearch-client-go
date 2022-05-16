@@ -43,9 +43,11 @@ baseSearchResponse:
     - params
   properties:
     abTestID:
-      $ref: '../../../common/parameters.yml#/abTestID'
+      type: integer
+      description: If a search encounters an index that is being A/B tested, abTestID reports the ongoing A/B test ID.
     abTestVariantID:
-      $ref: '../../../common/parameters.yml#/abTestVariantID'
+      type: integer
+      description: If a search encounters an index that is being A/B tested, abTestVariantID reports the variant ID of the index used.
     aroundLatLng:
       type: string
       description: The computed geo location.

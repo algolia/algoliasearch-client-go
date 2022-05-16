@@ -25,7 +25,7 @@ delete:
               - deletedAt
             properties:
               deletedAt:
-                $ref: '../../../common/parameters.yml#/deletedAt'
+                $ref: '../../../common/responses/common.yml#/deletedAt'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

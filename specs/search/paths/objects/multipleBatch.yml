@@ -43,7 +43,7 @@ post:
                 type: object
                 description: List of tasksIDs per index.
               objectIDs:
-                $ref: '../../../common/parameters.yml#/objectIDs'
+                $ref: '../../../common/responses/common.yml#/objectIDs'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

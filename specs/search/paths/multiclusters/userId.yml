@@ -49,7 +49,7 @@ delete:
             additionalProperties: false
             properties:
               deletedAt:
-                $ref: '../../../common/parameters.yml#/deletedAt'
+                $ref: '../../../common/responses/common.yml#/deletedAt'
             required:
               - deletedAt
     '400':

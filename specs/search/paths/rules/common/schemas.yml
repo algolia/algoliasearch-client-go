@@ -166,9 +166,9 @@ updatedRuleResponse:
     objectID:
       $ref: '../../../../common/parameters.yml#/objectID'
     updatedAt:
-      $ref: '../../../../common/parameters.yml#/updatedAt'
+      $ref: '../../../../common/responses/common.yml#/updatedAt'
     taskID:
-      $ref: '../../../../common/parameters.yml#/taskID'
+      $ref: '../../../../common/responses/common.yml#/taskID'
   required:
     - objectID
     - updatedAt

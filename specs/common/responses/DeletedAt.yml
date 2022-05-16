@@ -11,6 +11,6 @@ content:
         - deletedAt
       properties:
         taskID:
-          $ref: '../parameters.yml#/taskID'
+          $ref: '../responses/common.yml#/taskID'
         deletedAt:
-          $ref: '../parameters.yml#/deletedAt'
+          $ref: '../responses/common.yml#/deletedAt'

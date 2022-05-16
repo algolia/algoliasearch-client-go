@@ -12,6 +12,7 @@ get:
       required: true
       schema:
         type: integer
+        format: int64
         example: '13235'
   responses:
     '200':

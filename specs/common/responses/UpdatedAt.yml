@@ -11,6 +11,6 @@ content:
         - updatedAt
       properties:
         taskID:
-          $ref: '../parameters.yml#/taskID'
+          $ref: '../responses/common.yml#/taskID'
         updatedAt:
-          $ref: '../parameters.yml#/updatedAt'
+          $ref: '../responses/common.yml#/updatedAt'

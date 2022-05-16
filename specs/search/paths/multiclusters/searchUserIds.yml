@@ -83,7 +83,7 @@ post:
               hitsPerPage:
                 $ref: '../../../common/parameters.yml#/hitsPerPage'
               updatedAt:
-                $ref: '../../../common/parameters.yml#/updatedAt'
+                $ref: '../../../common/responses/common.yml#/updatedAt'
             required:
               - hits
               - nbHits

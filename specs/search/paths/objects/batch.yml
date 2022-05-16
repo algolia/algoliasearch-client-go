@@ -39,9 +39,9 @@ post:
             additionalProperties: false
             properties:
               taskID:
-                $ref: '../../../common/parameters.yml#/taskID'
+                $ref: '../../../common/responses/common.yml#/taskID'
               objectIDs:
-                $ref: '../../../common/parameters.yml#/objectIDs'
+                $ref: '../../../common/responses/common.yml#/objectIDs'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':
