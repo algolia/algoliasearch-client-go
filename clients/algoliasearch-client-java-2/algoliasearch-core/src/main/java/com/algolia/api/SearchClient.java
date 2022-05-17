@@ -147,7 +147,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/keys";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -247,7 +247,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -319,7 +319,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources/append";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -407,7 +407,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
@@ -499,7 +499,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -596,7 +596,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/batch";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (xAlgoliaUserID != null) {
@@ -702,7 +702,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(dictionaryName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -833,7 +833,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -971,7 +971,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -1079,7 +1079,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -1174,7 +1174,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -1269,7 +1269,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -1373,7 +1373,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
@@ -1468,7 +1468,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -1558,7 +1558,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -1632,7 +1632,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -1718,7 +1718,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -1827,7 +1827,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -1924,7 +1924,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(source.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2032,7 +2032,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -2145,7 +2145,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
@@ -2237,7 +2237,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2295,7 +2295,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/languages";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2355,7 +2355,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/settings";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2453,7 +2453,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/logs";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (offset != null) {
@@ -2591,7 +2591,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (attributesToRetrieve != null) {
@@ -2687,7 +2687,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/objects";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2773,7 +2773,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2847,7 +2847,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2903,7 +2903,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -2988,7 +2988,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3075,7 +3075,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{taskID\\}", this.escapeString(taskID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3139,7 +3139,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/top";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3214,7 +3214,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(userID.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3295,7 +3295,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/pending";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (getClusters != null) {
@@ -3367,7 +3367,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/keys";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3425,7 +3425,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3500,7 +3500,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (page != null) {
@@ -3602,7 +3602,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (page != null) {
@@ -3695,7 +3695,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/batch";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3768,7 +3768,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/queries";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -3856,7 +3856,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -4011,7 +4011,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (createIfNotExists != null) {
@@ -4147,7 +4147,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
@@ -4260,7 +4260,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
@@ -4358,7 +4358,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(userID.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -4427,7 +4427,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/security/sources";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -4500,7 +4500,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -4584,7 +4584,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -4714,7 +4714,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -4889,7 +4889,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{objectID\\}", this.escapeString(objectID.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -5058,7 +5058,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -5187,7 +5187,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -5285,7 +5285,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(dictionaryName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -5415,7 +5415,7 @@ public class SearchClient extends ApiClient {
         )
         .replaceAll("\\{facetName\\}", this.escapeString(facetName.toString()));
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -5530,7 +5530,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -5657,7 +5657,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (query != null) {
@@ -5788,7 +5788,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/clusters/mapping/search";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -5861,7 +5861,7 @@ public class SearchClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/dictionaries/*/settings";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -5978,7 +5978,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(indexName.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (forwardToReplicas != null) {
@@ -6097,7 +6097,7 @@ public class SearchClient extends ApiClient {
           this.escapeString(key.toString())
         );
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =

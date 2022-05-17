@@ -162,7 +162,7 @@ public class RecommendClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
@@ -268,7 +268,7 @@ public class RecommendClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
@@ -364,7 +364,7 @@ public class RecommendClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1/indexes/*/recommendations";
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call =
@@ -454,7 +454,7 @@ public class RecommendClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {
@@ -567,7 +567,7 @@ public class RecommendClient extends ApiClient {
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
 
-    Map<String, String> queryParameters = new HashMap<String, String>();
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
     if (parameters != null) {

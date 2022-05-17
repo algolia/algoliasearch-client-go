@@ -283,7 +283,7 @@ public class ApiClient {
   public Call buildCall(
     String path,
     String method,
-    Map<String, String> queryParameters,
+    Map<String, Object> queryParameters,
     Object body,
     Map<String, String> headerParams,
     RequestOptions requestOptions
@@ -317,7 +317,7 @@ public class ApiClient {
   public Request buildRequest(
     String path,
     String method,
-    Map<String, String> queryParameters,
+    Map<String, Object> queryParameters,
     Object body,
     Map<String, String> headerParams,
     RequestOptions requestOptions
@@ -363,37 +363,24 @@ public class ApiClient {
    */
   public String buildUrl(
     String path,
-    Map<String, String> queryParameters,
-    Map<String, String> extraQueryParameters
+    Map<String, Object> queryParameters,
+    Map<String, Object> extraQueryParameters
   ) {
-    StringBuilder url = new StringBuilder();
+    if (extraQueryParameters != null) {
+      for (Entry<String, Object> param : extraQueryParameters.entrySet()) {
+        queryParameters.put(param.getKey(), param.getValue());
+      }
+    }
+
+    final StringBuilder url = new StringBuilder();
 
     // The real host will be assigned by the retry strategy
     url.append("http://temp.path").append(path);
 
-    url = parseQueryParameters(path, url, queryParameters);
-    url = parseQueryParameters(path, url, extraQueryParameters);
-
-    return url.toString();
-  }
-
-  /**
-   * Parses the given map of Query Parameters to a given URL.
-   *
-   * @param path The sub path
-   * @param url The url to add queryParameters to
-   * @param queryParameters The query parameters
-   * @return The URL
-   */
-  public StringBuilder parseQueryParameters(
-    String path,
-    StringBuilder url,
-    Map<String, String> queryParameters
-  ) {
     if (queryParameters != null && !queryParameters.isEmpty()) {
       // support (constant) query string in `path`, e.g. "/posts?draft=1"
       String prefix = path.contains("?") ? "&" : "?";
-      for (Entry<String, String> param : queryParameters.entrySet()) {
+      for (Entry<String, Object> param : queryParameters.entrySet()) {
         if (param.getValue() != null) {
           if (prefix != null) {
             url.append(prefix);
@@ -410,7 +397,7 @@ public class ApiClient {
       }
     }
 
-    return url;
+    return url.toString();
   }
 
   /**
