@@ -194,6 +194,7 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
       if (e.isSkipable()) {
         System.exit(0);
       }
+      e.printStackTrace();
       System.exit(1);
     } catch (Exception e) {
       e.printStackTrace();

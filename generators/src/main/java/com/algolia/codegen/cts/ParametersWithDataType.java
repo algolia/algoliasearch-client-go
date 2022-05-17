@@ -39,8 +39,49 @@ public class ParametersWithDataType {
     test.put("testName", req.testName == null ? operationId : req.testName);
     test.put("testIndex", testIndex);
     test.put("request", req.request);
-
     test.put("hasParameters", req.parameters.size() != 0);
+
+    if (req.requestOptions != null) {
+      test.put("hasRequestOptions", true);
+      test.put(
+        "requestOptions",
+        Json.mapper().writeValueAsString(req.requestOptions)
+      );
+      Map<String, Object> requestOptions = new HashMap<>();
+
+      if (req.requestOptions.queryParameters != null) {
+        CodegenParameter objSpec = new CodegenParameter();
+        objSpec.dataType =
+          inferDataType(req.requestOptions.queryParameters, objSpec, null);
+        requestOptions.put(
+          "queryParameters",
+          traverseParams(
+            "queryParameters",
+            req.requestOptions.queryParameters,
+            objSpec,
+            "",
+            0
+          )
+        );
+      }
+
+      if (req.requestOptions.headers != null) {
+        List<Map<String, String>> headers = new ArrayList<Map<String, String>>();
+
+        for (Entry<String, String> entry : req.requestOptions.headers.entrySet()) {
+          Map<String, String> parameter = new HashMap<>();
+
+          parameter.put("key", entry.getKey());
+          parameter.put("value", entry.getValue());
+
+          headers.add(parameter);
+        }
+
+        requestOptions.put("headers", headers);
+      }
+
+      test.put("requestOptionsWithDataType", requestOptions);
+    }
 
     if (req.parameters.size() == 0) {
       return test;
@@ -479,6 +520,21 @@ public class ParametersWithDataType {
         if (spec != null) spec.setIsBoolean(true);
         if (output != null) output.put("isBoolean", true);
         return "Boolean";
+      case "ArrayList":
+        if (spec != null) {
+          spec.setIsArray(true);
+          // This is just to find the correct path in `handlePrimitive`,
+          // but it's not always the real type
+          CodegenProperty baseItems = new CodegenProperty();
+          baseItems.dataType = "String";
+          spec.setItems(baseItems);
+        }
+        if (output != null) output.put("isArray", true);
+        return "List";
+      case "LinkedHashMap":
+        if (spec != null) spec.baseType = "Object";
+        if (output != null) output.put("isFreeFormObject", true);
+        return "Object";
       default:
         throw new CTSException(
           "Unknown type: " + param.getClass().getSimpleName()

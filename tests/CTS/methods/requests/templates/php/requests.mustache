@@ -91,8 +91,25 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
     public function test{{#lambda.titlecase}}{{method}}{{/lambda.titlecase}}{{testIndex}}()
     {
         $client = $this->getClient();
+        {{#hasRequestOptions}}
+          $requestOptions = [
+            'queryParameters' => [
+              {{#requestOptionsWithDataType.queryParameters.value.0}}
+                '{{{key}}}' => 
+                {{#isArray}}[{{#value}}{{> requestOptionsParams}}{{^-last}},{{/-last}}{{/value}}]{{/isArray}}
+                {{^isArray}}{{{#value}}}{{> requestOptionsParams}}{{{/value}}}{{/isArray}},
+              {{/requestOptionsWithDataType.queryParameters.value.0}}
+            ],
+            'headers' => [
+              {{#requestOptionsWithDataType.headers}}
+                '{{{key}}}' => '{{{value}}}',
+              {{/requestOptionsWithDataType.headers}}
+            ]
+          ];
+        {{/hasRequestOptions}}
         $client->{{^hasParameters}}{{{method}}}();{{/hasParameters}}{{#hasParameters}}{{{method}}}(
         {{#parametersWithDataType}}{{> generateParams}}{{/parametersWithDataType}}
+        {{#hasRequestOptions}}$requestOptions{{/hasRequestOptions}}
         );{{/hasParameters}}
 
         $this->assertRequests([

@@ -8,6 +8,10 @@ public class CTSException extends Exception {
     super(message);
   }
 
+  public CTSException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
   public CTSException(String message, boolean skipable) {
     this(message);
     this.skipable = skipable;
