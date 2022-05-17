@@ -6,7 +6,6 @@ use {{invokerPackage}}\Algolia;
 use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration\{{configClassname}};
 use {{invokerPackage}}\ObjectSerializer;
-use {{invokerPackage}}\RequestOptions\RequestOptionsFactory;
 use {{invokerPackage}}\RetryStrategy\ApiWrapper;
 use {{invokerPackage}}\RetryStrategy\ApiWrapperInterface;
 use {{invokerPackage}}\RetryStrategy\ClusterHosts;
@@ -213,14 +212,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
         {{#isExplode}}
         if (${{paramName}} !== null) {
         {{#style}}
-            if(is_array(${{paramName}}) && ! in_array('{{paramName}}', RequestOptionsFactory::getAttributesToFormat())) {
-                foreach(${{paramName}} as $key => $value) {
-                    $queryParameters[$key] = $value;
-                }
-            }
-            else {
-                $queryParameters{{^x-is-custom-request}}['{{baseName}}']{{/x-is-custom-request}} = ${{paramName}};
-            }
+            $queryParameters{{^x-is-custom-request}}['{{baseName}}']{{/x-is-custom-request}} = ${{paramName}};
         {{/style}}
         {{^style}}
             $queryParameters['{{baseName}}'] = ${{paramName}};

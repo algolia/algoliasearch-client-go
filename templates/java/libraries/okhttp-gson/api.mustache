@@ -170,7 +170,7 @@ public class {{classname}} extends ApiClient {
         {{#x-is-custom-request}}{{{paramName}}}.toString(){{/x-is-custom-request}}{{^x-is-custom-request}}this.escapeString({{{paramName}}}.toString()){{/x-is-custom-request}}
     ){{/pathParams}}{{/vendorExtensions}};
 
-    {{javaUtilPrefix}}Map<String, String> queryParameters = new {{javaUtilPrefix}}HashMap<String, String>();
+    {{javaUtilPrefix}}Map<String, Object> queryParameters = new {{javaUtilPrefix}}HashMap<String, Object>();
     {{javaUtilPrefix}}Map<String, String> headers = new {{javaUtilPrefix}}HashMap<String, String>();
 
     {{#vendorExtensions}}{{#queryParams}}

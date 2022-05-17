@@ -51,8 +51,8 @@ public class CallEcho implements Call {
     }
   }
 
-  private Map<String, String> buildQueryParameters() {
-    Map<String, String> params = new HashMap<>();
+  private Map<String, Object> buildQueryParameters() {
+    Map<String, Object> params = new HashMap<>();
     HttpUrl url = request.url();
     for (String name : url.queryParameterNames()) {
       for (String value : url.queryParameterValues(name)) {

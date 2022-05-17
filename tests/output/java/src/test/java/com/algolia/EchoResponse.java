@@ -7,6 +7,6 @@ public class EchoResponse {
   public String path;
   public String method;
   public String body;
-  public Map<String, String> queryParameters;
+  public Map<String, Object> queryParameters;
   public Map<String, String> headers;
 }
