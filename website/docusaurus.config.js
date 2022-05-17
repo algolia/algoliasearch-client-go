@@ -178,6 +178,7 @@ function getSpecsForNavBar() {
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
+          additionalLanguages: ['java', 'php'],
         },
       }),
   }
