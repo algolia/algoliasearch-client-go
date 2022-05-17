@@ -8,6 +8,7 @@ import com.algolia.EchoResponse;
 import com.algolia.api.PersonalizationClient;
 import com.algolia.model.personalization.*;
 import com.algolia.utils.JSON;
+import com.algolia.utils.RequestOptions;
 import com.google.gson.reflect.TypeToken;
 import java.util.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -204,6 +205,459 @@ class PersonalizationClientTests {
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"query\":\"parameters\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions can override default query parameters")
+  void postTest2() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    requestOptions.addExtraQueryParameters("query", "myQueryParameter");
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"myQueryParameter\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions merges query parameters with default ones")
+  void postTest3() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    requestOptions.addExtraQueryParameters("query2", "myQueryParameter");
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\",\"query2\":\"myQueryParameter\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions can override default headers")
+  void postTest4() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    requestOptions.addExtraHeader("x-algolia-api-key", "myApiKey");
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+
+    Map<String, String> expectedHeaders = JSON.deserialize(
+      "{\"x-algolia-api-key\":\"myApiKey\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, String> actualHeaders = req.headers;
+
+    for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
+      assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions merges headers with default ones")
+  void postTest5() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    requestOptions.addExtraHeader("x-algolia-api-key", "myApiKey");
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+
+    Map<String, String> expectedHeaders = JSON.deserialize(
+      "{\"x-algolia-api-key\":\"myApiKey\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, String> actualHeaders = req.headers;
+
+    for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
+      assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions queryParameters accepts booleans")
+  void postTest6() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    requestOptions.addExtraQueryParameters("isItWorking", true);
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\",\"isItWorking\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions queryParameters accepts integers")
+  void postTest7() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    requestOptions.addExtraQueryParameters("myParam", 2);
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\",\"myParam\":\"2\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions queryParameters accepts list of string")
+  void postTest8() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    List<Object> requestOptionsQueryParameters = new ArrayList<>();
+    requestOptionsQueryParameters.add("c");
+    requestOptionsQueryParameters.add("d");
+    requestOptions.addExtraQueryParameters(
+      "myParam",
+      requestOptionsQueryParameters
+    );
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\",\"myParam\":\"c,d\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions queryParameters accepts list of booleans")
+  void postTest9() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    List<Object> requestOptionsQueryParameters = new ArrayList<>();
+    requestOptionsQueryParameters.add(true);
+    requestOptionsQueryParameters.add(true);
+    requestOptionsQueryParameters.add(false);
+    requestOptions.addExtraQueryParameters(
+      "myParam",
+      requestOptionsQueryParameters
+    );
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\",\"myParam\":\"true,true,false\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("requestOptions queryParameters accepts list of integers")
+  void postTest10() {
+    String path0 = "/test/requestOptions";
+    Map<String, Object> parameters0 = new HashMap<>();
+    {
+      String query1 = "parameters";
+      parameters0.put("query", query1);
+    }
+    Map<String, String> body0 = new HashMap<>();
+    {
+      String facet1 = "filters";
+      body0.put("facet", facet1);
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    List<Object> requestOptionsQueryParameters = new ArrayList<>();
+    requestOptionsQueryParameters.add(1);
+    requestOptionsQueryParameters.add(2);
+    requestOptions.addExtraQueryParameters(
+      "myParam",
+      requestOptionsQueryParameters
+    );
+
+    assertDoesNotThrow(() -> {
+      client.post(path0, parameters0, body0, requestOptions);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/test/requestOptions");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"facet\":\"filters\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"query\":\"parameters\",\"myParam\":\"1,2\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
     Map<String, Object> actualQuery = req.queryParameters;
