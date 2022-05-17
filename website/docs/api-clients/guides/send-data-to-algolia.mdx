@@ -21,7 +21,8 @@ To push data to Algolia, you need an Application ID and a valid API key with the
   groupId="language"
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'PHP', value: 'php', }
   ]
 }>
 <TabItem value="js">
@@ -37,6 +38,16 @@ const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 ```
 
 </TabItem>
+<TabItem value="php">
+
+  ```php
+  <?php
+  $client = Algolia\AlgoliaSearch\Api\SearchClient::create(
+    '<YOUR_APP_ID>',
+    '<YOUR_API_KEY>'
+  );
+  ```
+</TabItem>
 </Tabs>
 
 ## Fetching your data
@@ -47,7 +58,8 @@ Before sending anything to Algolia, you need to retrieve your data. You can do t
   groupId="language"
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'PHP', value: 'php', }
   ]
 }>
 <TabItem value="js">
@@ -55,11 +67,32 @@ Before sending anything to Algolia, you need to retrieve your data. You can do t
 ```js
 const records = [{ name: 'Tom Cruise' }, { name: 'Scarlett Johansson' }];
 
-client.saveObject({
-  indexName: '<YOUR_INDEX_NAME>',
-  // Accepts a free form `Record<string, any>` object.
-  body: records,
-});
+for (const record of records) {
+  client.saveObject({
+    indexName: '<YOUR_INDEX_NAME>',
+    // Accepts a free form `Record<string, any>` object.
+    body: record,
+  });
+}
+
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+$records = [
+  ['name' => 'Tom Cruise'],
+  ['name' => 'Scarlett Johansson']
+];
+
+foreach ($records as $record) {
+  $client->saveObject(
+    '<YOUR_INDEX_NAME>',
+    $record
+  );
+}
+
 ```
 
 </TabItem>

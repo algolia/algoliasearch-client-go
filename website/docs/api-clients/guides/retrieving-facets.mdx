@@ -15,7 +15,8 @@ For example, you can retrieve your books' facets with the `search` method, and t
   groupId="language"
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'PHP', value: 'php', }
   ]
 }>
 <TabItem value="js">
@@ -40,6 +41,32 @@ await client.search({
     facets: ['*'],
   },
 });
+```
+
+</TabItem>
+
+<TabItem value="php">
+
+```php
+$client->search(
+  '<YOUR_INDEX_NAME>',
+  [
+    'query' => '<YOUR_QUERY>',
+    'facets' => ['author', 'genre'],
+  ]
+);
+```
+
+To extract all facet information, you can use a wildcard (`*`).
+
+```php
+$client->search(
+  '<YOUR_INDEX_NAME>',
+  [
+    'query' => '<YOUR_QUERY>',
+    'facets' => ['*'],
+  ]
+);
 ```
 
 </TabItem>

@@ -17,7 +17,8 @@ Initially, filter attributes must be defined as facets, using the `attributesFor
   groupId="language"
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'PHP', value: 'php', }
   ]
 }>
 <TabItem value="js">
@@ -36,6 +37,15 @@ await client.setSettings({
 ```
 
 </TabItem>
+<TabItem value="php">
+
+```php
+$client->setSettings(
+  '<YOUR_INDEX_NAME>',
+  ['attributesForFaceting' => ['actor', 'filterOnly(category)', 'searchable(publisher)']]
+);
+```
+</TabItem>
 </Tabs>
 
 ### 2. Filter by Attributes (at query time)
@@ -48,7 +58,8 @@ The actual filtering of records is performed at query time, not at indexing time
   groupId="language"
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'PHP', value: 'php', }
   ]
 }>
 <TabItem value="js">
@@ -83,6 +94,38 @@ await client.search({
 ```
 
 </TabItem>
+<TabItem value="php">
+
+```php
+// Only "Scarlett Johansson" actor
+$client->search(
+  '<YOUR_INDEX_NAME>',
+  [
+    'query' => '<YOUR_QUERY>',
+    'filters' => 'actor:Scarlett Johansson',
+  ]
+);
+
+// Only "Tom Cruise" or "Scarlett Johansson" actor
+$client->search(
+  '<YOUR_INDEX_NAME>',
+  [
+    'query' => '<YOUR_QUERY>',
+    'filters' => 'actor:Tom Cruise OR actor:Scarlett Johansson',
+  ]
+);
+
+// Everything but "Nicolas Cage" actor
+$client->search(
+  '<YOUR_INDEX_NAME>',
+  [
+    'query' => '<YOUR_QUERY>',
+    'filters' => 'NOT actor:Nicolas Cage',
+  ]
+);
+
+```
+</TabItem>
 </Tabs>
 
 #### Filtering by string using the `facetFilters` field
@@ -91,7 +134,8 @@ await client.search({
   groupId="language"
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'PHP', value: 'php', }
   ]
 }>
 <TabItem value="js">
@@ -116,5 +160,27 @@ await client.search({
 });
 ```
 
+</TabItem>
+<TabItem value="php">
+
+```php
+// Only "Scarlett Johansson" actor
+$client->search(
+  '<YOUR_INDEX_NAME>',
+  [
+    'query' => '<YOUR_QUERY>',
+    'facetFilters' => ['actor:Scarlett Johansson'],
+  ]
+);
+
+// Only "Tom Cruise" or "Scarlett Johansson" actor
+$client->search(
+  '<YOUR_INDEX_NAME>',
+  [
+    'query' => '<YOUR_QUERY>',
+    'facetFilters' => ['actor:Tom Cruise', 'actor:Scarlett Johansson'],
+  ]
+);
+```
 </TabItem>
 </Tabs>
