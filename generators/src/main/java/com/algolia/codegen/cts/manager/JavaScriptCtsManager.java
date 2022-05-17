@@ -13,7 +13,7 @@ public class JavaScriptCtsManager extends CtsManager {
     );
   }
 
-  public List<Object> getPackageDependencies() {
+  private List<Object> getPackageDependencies() {
     List<Object> result = new ArrayList<Object>();
 
     JsonNode openApiToolsConfig = Utils.readJsonFile(
@@ -45,6 +45,7 @@ public class JavaScriptCtsManager extends CtsManager {
   }
 
   protected void addExtraToBundle(Map<String, Object> bundle) {
+    bundle.put("packageDependencies", this.getPackageDependencies());
     bundle.put("utilsPackageVersion", this.getUtilsPackageVersion());
   }
 

@@ -19,6 +19,7 @@ module.exports = {
     '!clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/exceptions/**',
     '!clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/utils/**',
 
+    'tests/output/java/build.gradle',
     'tests/output/java/src/test/java/com/algolia/methods/**', // this could be added automatically by the script, but with overhead
     'tests/output/java/src/test/java/com/algolia/client/**',
 
