@@ -30,13 +30,13 @@ public class RecommendClient extends ApiClient {
   public RecommendClient(
     String appId,
     String apiKey,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
     this(
       appId,
       apiKey,
       new HttpRequester(getDefaultHosts(appId)),
-      userAgentSegments
+      algoliaAgentSegments
     );
   }
 
@@ -48,9 +48,9 @@ public class RecommendClient extends ApiClient {
     String appId,
     String apiKey,
     Requester requester,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
-    super(appId, apiKey, requester, "Recommend", userAgentSegments);
+    super(appId, apiKey, requester, "Recommend", algoliaAgentSegments);
   }
 
   private static List<StatefulHost> getDefaultHosts(String appId) {

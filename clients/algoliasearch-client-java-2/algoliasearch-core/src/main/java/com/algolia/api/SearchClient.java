@@ -30,13 +30,13 @@ public class SearchClient extends ApiClient {
   public SearchClient(
     String appId,
     String apiKey,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
     this(
       appId,
       apiKey,
       new HttpRequester(getDefaultHosts(appId)),
-      userAgentSegments
+      algoliaAgentSegments
     );
   }
 
@@ -48,9 +48,9 @@ public class SearchClient extends ApiClient {
     String appId,
     String apiKey,
     Requester requester,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
-    super(appId, apiKey, requester, "Search", userAgentSegments);
+    super(appId, apiKey, requester, "Search", algoliaAgentSegments);
   }
 
   private static List<StatefulHost> getDefaultHosts(String appId) {

@@ -26,13 +26,13 @@ public class AbtestingClient extends ApiClient {
   public AbtestingClient(
     String appId,
     String apiKey,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
     this(
       appId,
       apiKey,
       new HttpRequester(getDefaultHosts(null)),
-      userAgentSegments
+      algoliaAgentSegments
     );
   }
 
@@ -44,13 +44,13 @@ public class AbtestingClient extends ApiClient {
     String appId,
     String apiKey,
     String region,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
     this(
       appId,
       apiKey,
       new HttpRequester(getDefaultHosts(region)),
-      userAgentSegments
+      algoliaAgentSegments
     );
   }
 
@@ -62,9 +62,9 @@ public class AbtestingClient extends ApiClient {
     String appId,
     String apiKey,
     Requester requester,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
-    super(appId, apiKey, requester, "Abtesting", userAgentSegments);
+    super(appId, apiKey, requester, "Abtesting", algoliaAgentSegments);
   }
 
   private static List<StatefulHost> getDefaultHosts(String region) {

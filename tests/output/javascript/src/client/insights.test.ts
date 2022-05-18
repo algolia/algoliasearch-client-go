@@ -24,7 +24,7 @@ describe('api', () => {
       actual = await actual;
     }
 
-    expect(actual.userAgent).toMatch(
+    expect(actual.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });

@@ -27,13 +27,13 @@ public class PredictClient extends ApiClient {
     String appId,
     String apiKey,
     String region,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
     this(
       appId,
       apiKey,
       new HttpRequester(getDefaultHosts(region)),
-      userAgentSegments
+      algoliaAgentSegments
     );
   }
 
@@ -45,9 +45,9 @@ public class PredictClient extends ApiClient {
     String appId,
     String apiKey,
     Requester requester,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
-    super(appId, apiKey, requester, "Predict", userAgentSegments);
+    super(appId, apiKey, requester, "Predict", algoliaAgentSegments);
   }
 
   private static List<StatefulHost> getDefaultHosts(String region) {

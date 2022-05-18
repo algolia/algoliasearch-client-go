@@ -1,10 +1,10 @@
 package com.algolia;
 
 import com.algolia.exceptions.*;
+import com.algolia.utils.AlgoliaAgent;
 import com.algolia.utils.JSON;
 import com.algolia.utils.RequestOptions;
 import com.algolia.utils.Requester;
-import com.algolia.utils.UserAgent;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -37,18 +37,18 @@ public class ApiClient {
     String apiKey,
     Requester requester,
     String clientName,
-    UserAgent.Segment[] segments
+    AlgoliaAgent.Segment[] segments
   ) {
     this.contentType = "application/json";
 
-    UserAgent ua = new UserAgent("0.0.1");
-    ua.addSegment(new UserAgent.Segment(clientName, "0.0.1"));
+    AlgoliaAgent ua = new AlgoliaAgent("0.0.1");
+    ua.addSegment(new AlgoliaAgent.Segment(clientName, "0.0.1"));
     if (segments != null) {
-      for (UserAgent.Segment segment : segments) {
+      for (AlgoliaAgent.Segment segment : segments) {
         ua.addSegment(segment);
       }
     }
-    setUserAgent(ua.toString());
+    setAlgoliaAgent(ua.toString());
 
     defaultHeaderMap.put("X-Algolia-Application-Id", appId);
     defaultHeaderMap.put("X-Algolia-API-Key", apiKey);
@@ -65,11 +65,11 @@ public class ApiClient {
   /**
    * Set the User-Agent header's value (by adding to the default header map).
    *
-   * @param userAgent HTTP request's user agent
+   * @param algoliaAgent HTTP request's user agent
    * @return ApiClient
    */
-  public ApiClient setUserAgent(String userAgent) {
-    addDefaultHeader("User-Agent", userAgent);
+  public ApiClient setAlgoliaAgent(String algoliaAgent) {
+    addDefaultHeader("User-Agent", algoliaAgent);
     return this;
   }
 

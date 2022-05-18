@@ -27,13 +27,13 @@ public class PersonalizationClient extends ApiClient {
     String appId,
     String apiKey,
     String region,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
     this(
       appId,
       apiKey,
       new HttpRequester(getDefaultHosts(region)),
-      userAgentSegments
+      algoliaAgentSegments
     );
   }
 
@@ -49,9 +49,9 @@ public class PersonalizationClient extends ApiClient {
     String appId,
     String apiKey,
     Requester requester,
-    UserAgent.Segment[] userAgentSegments
+    AlgoliaAgent.Segment[] algoliaAgentSegments
   ) {
-    super(appId, apiKey, requester, "Personalization", userAgentSegments);
+    super(appId, apiKey, requester, "Personalization", algoliaAgentSegments);
   }
 
   private static List<StatefulHost> getDefaultHosts(String region) {
