@@ -207,13 +207,13 @@ public class AlgoliaTest {
 
 You can add segments to the `User Agent`:
 ```java
-import com.algolia.utils.UserAgent;
+import com.algolia.utils.AlgoliaAgent;
 
 SearchClient client = new SearchClient(
   "<YOUR_APP_ID>", 
   "<YOUR_API_KEY>",
-  new UserAgent.Segment[] { 
-    new UserAgent.Segment("tracker", "8.0.0") 
+  new AlgoliaAgent.Segment[] { 
+    new AlgoliaAgent.Segment("tracker", "8.0.0") 
   }
 );
 ```

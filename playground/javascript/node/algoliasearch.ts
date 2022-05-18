@@ -27,7 +27,7 @@ const personalizationApiKey =
 // Init client with appId and apiKey
 const client = algoliasearch(appId, apiKey);
 
-client.addUserAgent('algoliasearch node playground', '0.0.1');
+client.addAlgoliaAgent('algoliasearch node playground', '0.0.1');
 
 async function testAlgoliasearch() {
   try {

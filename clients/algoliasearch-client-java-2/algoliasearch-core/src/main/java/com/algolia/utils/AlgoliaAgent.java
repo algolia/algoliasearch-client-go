@@ -3,13 +3,13 @@ package com.algolia.utils;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class UserAgent {
+public class AlgoliaAgent {
 
   private final Set<String> segments;
 
   private String finalValue;
 
-  public UserAgent(String clientVersion) {
+  public AlgoliaAgent(String clientVersion) {
     this.finalValue = String.format("Algolia for Java (%s)", clientVersion);
     this.segments = new LinkedHashSet<String>();
     this.addSegment(new Segment("JVM", System.getProperty("java.version")));

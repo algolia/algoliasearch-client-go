@@ -13,7 +13,7 @@ const searchQuery = process.env.SEARCH_QUERY || 'test_query';
 // Init client with appId and apiKey
 const client = searchClient(appId, apiKey);
 
-client.addUserAgent('Node playground', '0.0.1');
+client.addAlgoliaAgent('Node playground', '0.0.1');
 
 async function testSearch() {
   try {

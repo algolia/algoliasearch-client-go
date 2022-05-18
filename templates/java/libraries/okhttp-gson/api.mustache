@@ -36,8 +36,8 @@ public class {{classname}} extends ApiClient {
         this(appId, apiKey, new HttpRequester(getDefaultHosts(null)), null);
     }
 
-    public {{classname}}(String appId, String apiKey, UserAgent.Segment[] userAgentSegments) {
-        this(appId, apiKey, new HttpRequester(getDefaultHosts(null)), userAgentSegments);
+    public {{classname}}(String appId, String apiKey, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+        this(appId, apiKey, new HttpRequester(getDefaultHosts(null)), algoliaAgentSegments);
     }
     
     {{/fallbackToAliasHost}}
@@ -45,8 +45,8 @@ public class {{classname}} extends ApiClient {
         this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), null);
     }
 
-    public {{classname}}(String appId, String apiKey, String region, UserAgent.Segment[] userAgentSegments) {
-        this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), userAgentSegments);
+    public {{classname}}(String appId, String apiKey, String region, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+        this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), algoliaAgentSegments);
     }
     {{/hasRegionalHost}}
 
@@ -55,8 +55,8 @@ public class {{classname}} extends ApiClient {
         this(appId, apiKey, new HttpRequester(getDefaultHosts(appId)), null);
     }
 
-    public {{classname}}(String appId, String apiKey, UserAgent.Segment[] userAgentSegments) {
-        this(appId, apiKey, new HttpRequester(getDefaultHosts(appId)), userAgentSegments);
+    public {{classname}}(String appId, String apiKey, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+        this(appId, apiKey, new HttpRequester(getDefaultHosts(appId)), algoliaAgentSegments);
     }
     {{/hasRegionalHost}}
 
@@ -64,8 +64,8 @@ public class {{classname}} extends ApiClient {
         this(appId, apiKey, requester, null);
     }
 
-    public {{classname}}(String appId, String apiKey, Requester requester, UserAgent.Segment[] userAgentSegments) {
-        super(appId, apiKey, requester, "{{{baseName}}}", userAgentSegments);
+    public {{classname}}(String appId, String apiKey, Requester requester, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+        super(appId, apiKey, requester, "{{{baseName}}}", algoliaAgentSegments);
     }
 
     {{^hasRegionalHost}}

@@ -4,7 +4,7 @@ import './app.css';
 
 const client = searchClient('QPBQ67WNIG', 'b590ae1153bf574215ca1605c19eb1fe');
 
-client.addUserAgent('Browser playground', '0.0.1');
+client.addAlgoliaAgent('Browser playground', '0.0.1');
 
 const searchButton = document.querySelector('#search');
 

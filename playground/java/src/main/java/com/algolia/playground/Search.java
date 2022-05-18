@@ -5,7 +5,7 @@ import com.algolia.exceptions.AlgoliaRetryException;
 import com.algolia.exceptions.AlgoliaRuntimeException;
 import com.algolia.model.search.*;
 import com.algolia.api.SearchClient;
-import com.algolia.utils.UserAgent;
+import com.algolia.utils.AlgoliaAgent;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -19,10 +19,10 @@ public class Search {
     SearchClient client = new SearchClient(
       dotenv.get("ALGOLIA_APPLICATION_ID"),
       dotenv.get("ALGOLIA_SEARCH_KEY"),
-      new UserAgent.Segment[] {
-        new UserAgent.Segment("test", "8.0.0"),
-        new UserAgent.Segment("JVM", "11.0.14"),
-        new UserAgent.Segment("no version"),
+      new AlgoliaAgent.Segment[] {
+        new AlgoliaAgent.Segment("test", "8.0.0"),
+        new AlgoliaAgent.Segment("JVM", "11.0.14"),
+        new AlgoliaAgent.Segment("no version"),
       }
     );
 

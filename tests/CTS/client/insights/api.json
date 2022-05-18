@@ -12,7 +12,7 @@
           }
         ],
         "expected": {
-          "testSubject": "actual.userAgent",
+          "testSubject": "actual.algoliaAgent",
           "match": {
             "regexp": "/Algolia%20for%20(.+)%20\\(\\d+\\.\\d+\\.\\d+\\)/"
           }

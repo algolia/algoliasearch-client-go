@@ -1,7 +1,7 @@
 import {
   createAuth,
   createTransporter,
-  getUserAgent,
+  getAlgoliaAgent,
   shuffle,
 } from '@experimental-api-clients-automation/client-common';
 import type {
@@ -89,21 +89,21 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
       ...auth.headers(),
     },
     baseQueryParameters: auth.queryParameters(),
-    userAgent: getUserAgent({
-      userAgents: options.userAgents,
-      client: '{{{userAgent}}}',
+    algoliaAgent: getAlgoliaAgent({
+      algoliaAgents: options.algoliaAgents,
+      client: '{{{algoliaAgent}}}',
       version: apiClientVersion,
     }),
     timeouts: options.timeouts,
     requester: options.requester,
   });
 
-  function addUserAgent(segment: string, version?: string): void {
-    transporter.userAgent.add({ segment, version });
+  function addAlgoliaAgent(segment: string, version?: string): void {
+    transporter.algoliaAgent.add({ segment, version });
   }
 
   return {
-    addUserAgent,
+    addAlgoliaAgent,
     {{#operation}}
     /**
     {{#notes}}
