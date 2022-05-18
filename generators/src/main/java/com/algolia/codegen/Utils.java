@@ -153,20 +153,21 @@ public class Utils {
     }
   }
 
-  // Get the package version from clients.config.json (doesn't work for JavaScript)
-  public static String getPackageVersion(String language)
+  /** Get the `field` value in the `config/clients.config.json` file for the given language */
+  public static String getClientConfigField(String language, String field)
     throws GenerationException {
-    if (language.equals("javascript")) {
+    if (language.equals("javascript") && field.equals("packageVersion")) {
       throw new GenerationException(
-        "Cannot use getPackageVersion with language=\"javascript\", " +
-        "read openapitools.json instead"
+        "Cannot read 'packageVersion' with language=\"javascript\", " +
+        "read configs/openapitools.json instead"
       );
     }
+
     try {
       JsonNode config = Json
         .mapper()
         .readTree(new File("config/clients.config.json"));
-      return config.get(language).get("packageVersion").asText();
+      return config.get(language).get(field).asText();
     } catch (IOException e) {
       throw new GenerationException(
         "Couldn't read packageVersion from clients.config.json",

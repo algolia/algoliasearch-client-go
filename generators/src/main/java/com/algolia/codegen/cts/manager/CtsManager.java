@@ -1,5 +1,6 @@
 package com.algolia.codegen.cts.manager;
 
+import com.algolia.codegen.GenerationException;
 import com.algolia.codegen.Utils;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.*;
@@ -9,10 +10,16 @@ public abstract class CtsManager {
 
   public abstract void addSupportingFiles(List<SupportingFile> supportingFiles);
 
-  protected void addExtraToBundle(Map<String, Object> bundle) {}
+  protected void addExtraToBundle(Map<String, Object> bundle)
+    throws GenerationException {}
 
   public void addDataToBundle(Map<String, Object> bundle) {
-    this.addExtraToBundle(bundle);
+    try {
+      this.addExtraToBundle(bundle);
+    } catch (GenerationException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
   }
 
   protected Object[] getFilteredPackageVersions(List<String> packages) {

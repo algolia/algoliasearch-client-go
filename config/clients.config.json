@@ -14,6 +14,7 @@
   "javascript": {
     "folder": "clients/algoliasearch-client-javascript",
     "gitRepoId": "algoliasearch-client-javascript",
+    "utilsPackageVersion": "0.2.0",
     "modelFolder": "model",
     "apiFolder": "src",
     "customGenerator": "algolia-javascript",

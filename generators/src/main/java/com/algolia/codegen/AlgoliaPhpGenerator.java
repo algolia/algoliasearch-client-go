@@ -57,7 +57,7 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
       Utils.generateServer(client, additionalProperties);
       additionalProperties.put(
         "packageVersion",
-        Utils.getPackageVersion("php")
+        Utils.getClientConfigField("php", "packageVersion")
       );
     } catch (GenerationException e) {
       e.printStackTrace();

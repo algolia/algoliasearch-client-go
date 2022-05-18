@@ -57,13 +57,12 @@ Generators are referenced by key with the following pattern `<languageName>-<cli
 
 Below are the options you need to **make sure to define for your client**, other options are automatically added in the [`setDefaultOptions` script](https://github.com/algolia/api-clients-automation/blob/main/scripts/pre-gen/setDefaultGeneratorOptions.ts) and the generators.
 
-| Option              |  Type  |  Language  |             Example             | Definition                                                                                                           |
-| ------------------- | :----: | :--------: | :-----------------------------: | :------------------------------------------------------------------------------------------------------------------- |
-| output              | string |   Common   | `path/to/client/client-sources` | The output path of the client.                                                                                       |
-| gitRepoId           | string |   Common   |  `algoliasearch-client-java-2`  | The name of the repository under the Algolia org.                                                                    |
-| packageName         | string |   common   |         `AlgoliaSearch`         | Name of the API package, used in [CTS](/docs/automation/testing/common-test-suite).                                  |
-| packageVersion      | string | JavaScript |             `1.2.3`             | The version you'd like to publish the first iteration of the generated client. It will be automatically incremented. |
-| utilsPackageVersion | string | JavaScript |             `0.1.2`             | The version you'd like to publish the first iteration of the utils package. It will be automatically incremented.    |
+| Option         |  Type  |  Language  |             Example             | Definition                                                                                                           |
+| -------------- | :----: | :--------: | :-----------------------------: | :------------------------------------------------------------------------------------------------------------------- |
+| output         | string |   Common   | `path/to/client/client-sources` | The output path of the client.                                                                                       |
+| gitRepoId      | string |   Common   |  `algoliasearch-client-java-2`  | The name of the repository under the Algolia org.                                                                    |
+| packageName    | string |   common   |         `AlgoliaSearch`         | Name of the API package, used in [CTS](/docs/automation/testing/common-test-suite).                                  |
+| packageVersion | string | JavaScript |             `1.2.3`             | The version you'd like to publish the first iteration of the generated client. It will be automatically incremented. |
 
 ### GitHub actions
 

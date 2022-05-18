@@ -9,8 +9,7 @@
           "npmName": "@experimental-api-clients-automation/client-search",
           "buildFile": "client-search",
           "packageVersion": "0.2.0",
-          "packageName": "@experimental-api-clients-automation/client-search",
-          "utilsPackageVersion": "0.2.0"
+          "packageName": "@experimental-api-clients-automation/client-search"
         }
       },
       "javascript-algoliasearch-lite": {
@@ -20,8 +19,7 @@
           "npmName": "@experimental-api-clients-automation/algoliasearch-lite",
           "buildFile": "algoliasearch-lite",
           "packageVersion": "0.2.0",
-          "packageName": "@experimental-api-clients-automation/algoliasearch-lite",
-          "utilsPackageVersion": "0.2.0"
+          "packageName": "@experimental-api-clients-automation/algoliasearch-lite"
         }
       },
       "javascript-recommend": {
@@ -31,8 +29,7 @@
           "npmName": "@experimental-api-clients-automation/recommend",
           "buildFile": "recommend",
           "packageVersion": "0.2.0",
-          "packageName": "@experimental-api-clients-automation/recommend",
-          "utilsPackageVersion": "0.2.0"
+          "packageName": "@experimental-api-clients-automation/recommend"
         }
       },
       "javascript-personalization": {
@@ -42,7 +39,6 @@
           "buildFile": "client-personalization",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-personalization",
-          "utilsPackageVersion": "0.2.0",
           "hasRegionalHost": true
         }
       },
@@ -53,7 +49,6 @@
           "buildFile": "client-analytics",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-analytics",
-          "utilsPackageVersion": "0.2.0",
           "hasRegionalHost": true
         }
       },
@@ -64,7 +59,6 @@
           "buildFile": "client-insights",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-insights",
-          "utilsPackageVersion": "0.2.0",
           "hasRegionalHost": true
         }
       },
@@ -75,7 +69,6 @@
           "buildFile": "client-abtesting",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-abtesting",
-          "utilsPackageVersion": "0.2.0",
           "hasRegionalHost": true
         }
       },
@@ -86,7 +79,6 @@
           "buildFile": "client-query-suggestions",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-query-suggestions",
-          "utilsPackageVersion": "0.2.0",
           "hasRegionalHost": true
         }
       },
@@ -97,7 +89,6 @@
           "buildFile": "client-sources",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-sources",
-          "utilsPackageVersion": "0.2.0",
           "hasRegionalHost": true
         }
       },
@@ -109,7 +100,6 @@
           "buildFile": "client-predict",
           "packageVersion": "0.2.0",
           "packageName": "@experimental-api-clients-automation/client-predict",
-          "utilsPackageVersion": "0.2.0",
           "hasRegionalHost": true
         }
       },

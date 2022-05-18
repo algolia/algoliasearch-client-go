@@ -60,7 +60,7 @@ export const DEPENDENCIES = {
     ...CLIENTS_COMMON_FILES,
     JS_CLIENT_FOLDER,
     'templates/javascript',
-    'generators/src/main/java/com/algolia/codegen/AlgoliaJavascriptGenerator.java',
+    'generators/src/main/java/com/algolia/codegen/AlgoliaJavaScriptGenerator.java',
     `:!${JS_CLIENT_FOLDER}/.github`,
     `:!${JS_CLIENT_FOLDER}/README.md`,
     'tests/CTS/methods/requests/templates/javascript',

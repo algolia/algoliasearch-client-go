@@ -1,5 +1,6 @@
 package com.algolia.codegen.cts.manager;
 
+import com.algolia.codegen.GenerationException;
 import com.algolia.codegen.Utils;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.*;
@@ -44,24 +45,12 @@ public class JavaScriptCtsManager extends CtsManager {
     return result;
   }
 
-  protected void addExtraToBundle(Map<String, Object> bundle) {
+  protected void addExtraToBundle(Map<String, Object> bundle)
+    throws GenerationException {
     bundle.put("packageDependencies", this.getPackageDependencies());
-    bundle.put("utilsPackageVersion", this.getUtilsPackageVersion());
-  }
-
-  private String getUtilsPackageVersion() {
-    JsonNode openApiToolsConfig = Utils.readJsonFile(
-      "config/openapitools.json"
+    bundle.put(
+      "utilsPackageVersion",
+      Utils.getClientConfigField("javascript", "utilsPackageVersion")
     );
-
-    String utilsPackageVersion = openApiToolsConfig
-      .get("generator-cli")
-      .get("generators")
-      .get("javascript-search")
-      .get("additionalProperties")
-      .get("utilsPackageVersion")
-      .asText();
-
-    return utilsPackageVersion;
   }
 }

@@ -1,6 +1,7 @@
 import execa from 'execa';
 
 import { gitCommit } from '../common';
+import { getClientsConfigField } from '../config';
 
 jest.mock('execa');
 
@@ -49,5 +50,29 @@ describe('gitCommit', () => {
       ],
       { cwd: expect.any(String) }
     );
+  });
+});
+
+describe('config', () => {
+  describe('getClientsConfigField', () => {
+    it('throws if the field is not found', () => {
+      expect(() => {
+        getClientsConfigField('javascript', 'packageVersion');
+      }).toThrowErrorMatchingInlineSnapshot(
+        `"Unable to find 'packageVersion' for 'javascript'"`
+      );
+
+      expect(() => {
+        getClientsConfigField('java', 'utilsPackageVersion');
+      }).toThrowErrorMatchingInlineSnapshot(
+        `"Unable to find 'utilsPackageVersion' for 'java'"`
+      );
+    });
+
+    it('find the field if it exists', () => {
+      expect(getClientsConfigField('java', ['tests', 'extension'])).toEqual(
+        '.test.java'
+      );
+    });
   });
 });

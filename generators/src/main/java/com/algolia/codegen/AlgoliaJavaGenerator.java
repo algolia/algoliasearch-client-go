@@ -52,7 +52,7 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
       );
       additionalProperties.put(
         "packageVersion",
-        Utils.getPackageVersion("java")
+        Utils.getClientConfigField("java", "packageVersion")
       );
     } catch (GenerationException e) {
       e.printStackTrace();

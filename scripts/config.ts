@@ -1,39 +1,58 @@
 import clientsConfig from '../config/clients.config.json';
 import openapiConfig from '../config/openapitools.json';
 
-import type { Language } from './types';
+import type { Language, LanguageConfig } from './types';
+
+export function getClientsConfigField(
+  language: Language,
+  pathToField: string[] | string
+): any {
+  const config: LanguageConfig = clientsConfig[language];
+  const path = Array.isArray(pathToField) ? pathToField : [pathToField];
+
+  return path.reduce((current, key) => {
+    if (!current || !current[key]) {
+      throw new Error(`Unable to find '${pathToField}' for '${language}'`);
+    }
+
+    return current[key];
+  }, config);
+}
 
 export function getLanguageFolder(language: Language): string {
-  return clientsConfig[language].folder;
+  return getClientsConfigField(language, 'folder');
 }
 
 export function getLanguageApiFolder(language: Language): string {
-  return clientsConfig[language].apiFolder;
+  return getClientsConfigField(language, 'apiFolder');
 }
 
 export function getLanguageModelFolder(language: Language): string {
-  return clientsConfig[language].modelFolder;
+  return getClientsConfigField(language, 'modelFolder');
 }
 
 export function getTestExtension(language: Language): string {
-  return clientsConfig[language].tests.extension;
+  return getClientsConfigField(language, ['tests', 'extension']);
 }
 
 export function getTestOutputFolder(language: Language): string {
-  return clientsConfig[language].tests.outputFolder;
+  return getClientsConfigField(language, ['tests', 'outputFolder']);
 }
 
 export function getCustomGenerator(language: Language): string {
-  return clientsConfig[language].customGenerator;
+  return getClientsConfigField(language, 'customGenerator');
 }
 
-// Returns the version of the package from clients.config.json, except for JavaScript where it returns the version of javascript-search
+/**
+ * Returns the version of the package from clients.config.json, except for JavaScript where it returns the version of javascript-search.
+ */
 export function getPackageVersionDefault(language: Language): string {
   if (language === 'javascript') {
     return openapiConfig['generator-cli'].generators['javascript-search']
       .additionalProperties.packageVersion;
   }
-  return clientsConfig[language].packageVersion;
+
+  return getClientsConfigField(language, 'packageVersion');
 }
 
 export function getGitHubUrl(

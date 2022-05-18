@@ -1,5 +1,24 @@
 import type config from '../config/clients.config.json';
 
+/**
+ * Config.
+ */
+export type ClientsConfig = Record<Language, LanguageConfig>;
+
+export type LanguageConfig = {
+  folder: string;
+  gitRepoId: string;
+  modelFolder: string;
+  apiFolder: string;
+  customGenerator: string;
+  packageVersion?: string;
+  utilsPackageVersion?: string;
+  tests: {
+    extension: string;
+    outputFolder: string;
+  };
+};
+
 export type Generator = Record<string, any> & {
   language: Language;
   client: string;
