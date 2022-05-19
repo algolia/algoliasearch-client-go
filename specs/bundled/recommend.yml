@@ -50,6 +50,10 @@ components:
       type: string
       example: products
       description: The Algolia index name.
+    query:
+      type: string
+      description: The text to search in the index.
+      default: ''
     searchFiltersArrayString:
       type: array
       items:
@@ -107,6 +111,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        query:
+          $ref: '#/components/schemas/query'
         similarQuery:
           type: string
           description: >-
@@ -259,18 +265,6 @@ components:
           default: true
         reRankingApplyFilter:
           $ref: '#/components/schemas/reRankingApplyFilter'
-    query:
-      type: string
-      description: The text to search in the index.
-      default: ''
-    requiredSearchParams:
-      type: object
-      additionalProperties: false
-      required:
-        - query
-      properties:
-        query:
-          $ref: '#/components/schemas/query'
     hitsPerPage:
       type: integer
       description: Set the number of hits per page.
@@ -598,7 +592,6 @@ components:
     searchParamsObject:
       allOf:
         - $ref: '#/components/schemas/baseSearchParams'
-        - $ref: '#/components/schemas/requiredSearchParams'
         - $ref: '#/components/schemas/indexSettingsAsSearchParams'
     baseRecommendRequest:
       type: object

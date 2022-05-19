@@ -3718,79 +3718,6 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Perform a search operation targeting one or many indices.
-   *
-   * @param multipleQueriesParams (required)
-   * @param requestOptions The requestOptions to send along with the query, they will be merged with
-   *     the transporter requestOptions.
-   * @return MultipleQueriesResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public MultipleQueriesResponse multipleQueries(
-    MultipleQueriesParams multipleQueriesParams,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      multipleQueriesAsync(multipleQueriesParams, requestOptions)
-    );
-  }
-
-  public MultipleQueriesResponse multipleQueries(
-    MultipleQueriesParams multipleQueriesParams
-  ) throws AlgoliaRuntimeException {
-    return this.multipleQueries(multipleQueriesParams, null);
-  }
-
-  /**
-   * (asynchronously) Perform a search operation targeting one or many indices.
-   *
-   * @param multipleQueriesParams (required)
-   * @param requestOptions The requestOptions to send along with the query, they will be merged with
-   *     the transporter requestOptions.
-   * @return The awaitable future
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public CompletableFuture<MultipleQueriesResponse> multipleQueriesAsync(
-    MultipleQueriesParams multipleQueriesParams,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    if (multipleQueriesParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'multipleQueriesParams' when calling" +
-        " multipleQueries(Async)"
-      );
-    }
-
-    Object bodyObj = multipleQueriesParams;
-
-    // create path and map variables
-    String requestPath = "/1/indexes/*/queries";
-
-    Map<String, Object> queryParameters = new HashMap<String, Object>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    Call call =
-      this.buildCall(
-          requestPath,
-          "POST",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions
-        );
-    Type returnType = new TypeToken<MultipleQueriesResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
-  }
-
-  public CompletableFuture<MultipleQueriesResponse> multipleQueriesAsync(
-    MultipleQueriesParams multipleQueriesParams
-  ) throws AlgoliaRuntimeException {
-    return this.multipleQueriesAsync(multipleQueriesParams, null);
-  }
-
-  /**
    * Performs a copy or a move operation on a index.
    *
    * @param indexName The index in which to perform the request. (required)
@@ -5125,67 +5052,53 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Perform a search operation targeting one specific index.
+   * Perform a search operation targeting one or many indices.
    *
-   * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param searchMethodParams (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return SearchResponse
+   * @return SearchResponses
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public SearchResponse search(
-    String indexName,
-    SearchParams searchParams,
+  public SearchResponses search(
+    SearchMethodParams searchMethodParams,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(
-      searchAsync(indexName, searchParams, requestOptions)
+      searchAsync(searchMethodParams, requestOptions)
     );
   }
 
-  public SearchResponse search(String indexName, SearchParams searchParams)
+  public SearchResponses search(SearchMethodParams searchMethodParams)
     throws AlgoliaRuntimeException {
-    return this.search(indexName, searchParams, null);
+    return this.search(searchMethodParams, null);
   }
 
   /**
-   * (asynchronously) Perform a search operation targeting one specific index.
+   * (asynchronously) Perform a search operation targeting one or many indices.
    *
-   * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param searchMethodParams (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return The awaitable future
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<SearchResponse> searchAsync(
-    String indexName,
-    SearchParams searchParams,
+  public CompletableFuture<SearchResponses> searchAsync(
+    SearchMethodParams searchMethodParams,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    if (indexName == null) {
+    if (searchMethodParams == null) {
       throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'indexName' when calling search(Async)"
+        "Missing the required parameter 'searchMethodParams' when calling search(Async)"
       );
     }
 
-    if (searchParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'searchParams' when calling search(Async)"
-      );
-    }
-
-    Object bodyObj = searchParams;
+    Object bodyObj = searchMethodParams;
 
     // create path and map variables
-    String requestPath =
-      "/1/indexes/{indexName}/query".replaceAll(
-          "\\{indexName\\}",
-          this.escapeString(indexName.toString())
-        );
+    String requestPath = "/1/indexes/*/queries";
 
     Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
@@ -5199,15 +5112,14 @@ public class SearchClient extends ApiClient {
           headers,
           requestOptions
         );
-    Type returnType = new TypeToken<SearchResponse>() {}.getType();
+    Type returnType = new TypeToken<SearchResponses>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<SearchResponse> searchAsync(
-    String indexName,
-    SearchParams searchParams
+  public CompletableFuture<SearchResponses> searchAsync(
+    SearchMethodParams searchMethodParams
   ) throws AlgoliaRuntimeException {
-    return this.searchAsync(indexName, searchParams, null);
+    return this.searchAsync(searchMethodParams, null);
   }
 
   /**
@@ -5551,6 +5463,94 @@ public class SearchClient extends ApiClient {
     SearchRulesParams searchRulesParams
   ) throws AlgoliaRuntimeException {
     return this.searchRulesAsync(indexName, searchRulesParams, null);
+  }
+
+  /**
+   * Perform a search operation targeting one specific index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param searchParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return SearchResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
+   */
+  public SearchResponse searchSingleIndex(
+    String indexName,
+    SearchParams searchParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(
+      searchSingleIndexAsync(indexName, searchParams, requestOptions)
+    );
+  }
+
+  public SearchResponse searchSingleIndex(
+    String indexName,
+    SearchParams searchParams
+  ) throws AlgoliaRuntimeException {
+    return this.searchSingleIndex(indexName, searchParams, null);
+  }
+
+  /**
+   * (asynchronously) Perform a search operation targeting one specific index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param searchParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<SearchResponse> searchSingleIndexAsync(
+    String indexName,
+    SearchParams searchParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'indexName' when calling searchSingleIndex(Async)"
+      );
+    }
+
+    if (searchParams == null) {
+      throw new AlgoliaRuntimeException(
+        "Missing the required parameter 'searchParams' when calling searchSingleIndex(Async)"
+      );
+    }
+
+    Object bodyObj = searchParams;
+
+    // create path and map variables
+    String requestPath =
+      "/1/indexes/{indexName}/query".replaceAll(
+          "\\{indexName\\}",
+          this.escapeString(indexName.toString())
+        );
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call =
+      this.buildCall(
+          requestPath,
+          "POST",
+          queryParameters,
+          bodyObj,
+          headers,
+          requestOptions
+        );
+    Type returnType = new TypeToken<SearchResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<SearchResponse> searchSingleIndexAsync(
+    String indexName,
+    SearchParams searchParams
+  ) throws AlgoliaRuntimeException {
+    return this.searchSingleIndexAsync(indexName, searchParams, null);
   }
 
   /**

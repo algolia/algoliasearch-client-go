@@ -162,6 +162,10 @@ components:
       properties:
         params:
           $ref: '#/components/schemas/paramsAsString'
+    query:
+      type: string
+      description: The text to search in the index.
+      default: ''
     searchFiltersArrayString:
       type: array
       items:
@@ -219,6 +223,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        query:
+          $ref: '#/components/schemas/query'
         similarQuery:
           type: string
           description: >-
@@ -371,18 +377,6 @@ components:
           default: true
         reRankingApplyFilter:
           $ref: '#/components/schemas/reRankingApplyFilter'
-    query:
-      type: string
-      description: The text to search in the index.
-      default: ''
-    requiredSearchParams:
-      type: object
-      additionalProperties: false
-      required:
-        - query
-      properties:
-        query:
-          $ref: '#/components/schemas/query'
     hitsPerPage:
       type: integer
       description: Set the number of hits per page.
@@ -710,7 +704,6 @@ components:
     searchParamsObject:
       allOf:
         - $ref: '#/components/schemas/baseSearchParams'
-        - $ref: '#/components/schemas/requiredSearchParams'
         - $ref: '#/components/schemas/indexSettingsAsSearchParams'
     searchParams:
       oneOf:
@@ -1003,7 +996,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/hit'
-    searchResponse:
+    SearchResponse:
       allOf:
         - $ref: '#/components/schemas/baseSearchResponse'
         - $ref: '#/components/schemas/searchHits'
@@ -1011,7 +1004,7 @@ components:
       type: string
       example: products
       description: The Algolia index name.
-    multipleQueriesType:
+    searchType:
       type: string
       enum:
         - default
@@ -1020,7 +1013,7 @@ components:
       description: >-
         Perform a search query with `default`, will search for facet values if
         `facet` is given.
-    multipleQueriesStrategy:
+    searchStrategy:
       type: string
       enum:
         - none
@@ -2022,57 +2015,27 @@ paths:
           $ref: '#/components/responses/IndexNotFound'
       tags:
         - algoliasearch-lite
-  /1/indexes/{indexName}/query:
-    post:
-      tags:
-        - algoliasearch-lite
-      operationId: search
-      summary: Search in an index.
-      description: Perform a search operation targeting one specific index.
-      parameters:
-        - $ref: '#/components/parameters/IndexName'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/searchParams'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/searchResponse'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '402':
-          $ref: '#/components/responses/FeatureNotEnabled'
-        '403':
-          $ref: '#/components/responses/MethodNotAllowed'
-        '404':
-          $ref: '#/components/responses/IndexNotFound'
   /1/indexes/*/queries:
     post:
       tags:
         - algoliasearch-lite
-      operationId: multipleQueries
+      operationId: search
       summary: Search multiple indices.
       description: Perform a search operation targeting one or many indices.
       requestBody:
         required: true
-        description: The `multipleQueries` requests and strategy.
+        description: The `search` requests and strategy.
         content:
           application/json:
             schema:
-              title: multipleQueriesParams
+              title: searchMethodParams
               type: object
               additionalProperties: false
               properties:
                 requests:
                   type: array
                   items:
-                    title: multipleQueries
+                    title: searchQueries
                     type: object
                     additionalProperties: false
                     properties:
@@ -2081,17 +2044,16 @@ paths:
                       query:
                         $ref: '#/components/schemas/query'
                       type:
-                        $ref: '#/components/schemas/multipleQueriesType'
+                        $ref: '#/components/schemas/searchType'
                       facet:
                         type: string
                         description: The `facet` name.
                       params:
-                        type: string
-                        description: A query string of search parameters.
+                        $ref: '#/components/schemas/searchParams'
                     required:
                       - indexName
                 strategy:
-                  $ref: '#/components/schemas/multipleQueriesStrategy'
+                  $ref: '#/components/schemas/searchStrategy'
               required:
                 - requests
       responses:
@@ -2100,14 +2062,14 @@ paths:
           content:
             application/json:
               schema:
-                title: multipleQueriesResponse
+                title: searchResponses
                 type: object
                 additionalProperties: false
                 properties:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/searchResponse'
+                      $ref: '#/components/schemas/SearchResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '402':

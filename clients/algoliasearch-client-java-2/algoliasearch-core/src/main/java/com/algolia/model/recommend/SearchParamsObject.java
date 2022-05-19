@@ -9,6 +9,9 @@ import java.util.Objects;
 /** SearchParamsObject */
 public class SearchParamsObject {
 
+  @SerializedName("query")
+  private String query = "";
+
   @SerializedName("similarQuery")
   private String similarQuery = "";
 
@@ -107,9 +110,6 @@ public class SearchParamsObject {
 
   @SerializedName("reRankingApplyFilter")
   private ReRankingApplyFilter reRankingApplyFilter;
-
-  @SerializedName("query")
-  private String query = "";
 
   @SerializedName("searchableAttributes")
   private List<String> searchableAttributes = null;
@@ -244,6 +244,21 @@ public class SearchParamsObject {
 
   @SerializedName("renderingContent")
   private Object renderingContent = new Object();
+
+  public SearchParamsObject setQuery(String query) {
+    this.query = query;
+    return this;
+  }
+
+  /**
+   * The text to search in the index.
+   *
+   * @return query
+   */
+  @javax.annotation.Nullable
+  public String getQuery() {
+    return query;
+  }
 
   public SearchParamsObject setSimilarQuery(String similarQuery) {
     this.similarQuery = similarQuery;
@@ -808,21 +823,6 @@ public class SearchParamsObject {
   @javax.annotation.Nullable
   public ReRankingApplyFilter getReRankingApplyFilter() {
     return reRankingApplyFilter;
-  }
-
-  public SearchParamsObject setQuery(String query) {
-    this.query = query;
-    return this;
-  }
-
-  /**
-   * The text to search in the index.
-   *
-   * @return query
-   */
-  @javax.annotation.Nonnull
-  public String getQuery() {
-    return query;
   }
 
   public SearchParamsObject setSearchableAttributes(
@@ -1702,6 +1702,7 @@ public class SearchParamsObject {
     }
     SearchParamsObject searchParamsObject = (SearchParamsObject) o;
     return (
+      Objects.equals(this.query, searchParamsObject.query) &&
       Objects.equals(this.similarQuery, searchParamsObject.similarQuery) &&
       Objects.equals(this.filters, searchParamsObject.filters) &&
       Objects.equals(this.facetFilters, searchParamsObject.facetFilters) &&
@@ -1777,7 +1778,6 @@ public class SearchParamsObject {
         this.reRankingApplyFilter,
         searchParamsObject.reRankingApplyFilter
       ) &&
-      Objects.equals(this.query, searchParamsObject.query) &&
       Objects.equals(
         this.searchableAttributes,
         searchParamsObject.searchableAttributes
@@ -1912,6 +1912,7 @@ public class SearchParamsObject {
   @Override
   public int hashCode() {
     return Objects.hash(
+      query,
       similarQuery,
       filters,
       facetFilters,
@@ -1945,7 +1946,6 @@ public class SearchParamsObject {
       enableABTest,
       enableReRanking,
       reRankingApplyFilter,
-      query,
       searchableAttributes,
       attributesForFaceting,
       unretrievableAttributes,
@@ -1997,6 +1997,7 @@ public class SearchParamsObject {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchParamsObject {\n");
+    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb
       .append("    similarQuery: ")
       .append(toIndentedString(similarQuery))
@@ -2114,7 +2115,6 @@ public class SearchParamsObject {
       .append("    reRankingApplyFilter: ")
       .append(toIndentedString(reRankingApplyFilter))
       .append("\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb
       .append("    searchableAttributes: ")
       .append(toIndentedString(searchableAttributes))

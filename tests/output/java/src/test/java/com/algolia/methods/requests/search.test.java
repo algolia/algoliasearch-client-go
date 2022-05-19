@@ -1190,102 +1190,6 @@ class SearchClientTests {
   }
 
   @Test
-  @DisplayName("multipleQueries for a single request with minimal parameters")
-  void multipleQueriesTest0() {
-    MultipleQueriesParams multipleQueriesParams0 = new MultipleQueriesParams();
-    {
-      List<MultipleQueries> requests1 = new ArrayList<>();
-      {
-        MultipleQueries requests_02 = new MultipleQueries();
-        {
-          String indexName3 = "theIndexName";
-          requests_02.setIndexName(indexName3);
-        }
-        requests1.add(requests_02);
-      }
-      multipleQueriesParams0.setRequests(requests1);
-      MultipleQueriesStrategy strategy1 = MultipleQueriesStrategy.fromValue(
-        "stopIfEnoughMatches"
-      );
-      multipleQueriesParams0.setStrategy(strategy1);
-    }
-
-    assertDoesNotThrow(() -> {
-      client.multipleQueries(multipleQueriesParams0);
-    });
-    EchoResponse req = requester.getLastEchoResponse();
-
-    assertEquals(req.path, "/1/indexes/*/queries");
-    assertEquals(req.method, "POST");
-
-    assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"requests\":[{\"indexName\":\"theIndexName\"}],\"strategy\":\"stopIfEnoughMatches\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
-    });
-  }
-
-  @Test
-  @DisplayName("multipleQueries for multiple requests with all parameters")
-  void multipleQueriesTest1() {
-    MultipleQueriesParams multipleQueriesParams0 = new MultipleQueriesParams();
-    {
-      List<MultipleQueries> requests1 = new ArrayList<>();
-      {
-        MultipleQueries requests_02 = new MultipleQueries();
-        {
-          String indexName3 = "theIndexName";
-          requests_02.setIndexName(indexName3);
-          String query3 = "test";
-          requests_02.setQuery(query3);
-          MultipleQueriesType type3 = MultipleQueriesType.fromValue("facet");
-          requests_02.setType(type3);
-          String facet3 = "theFacet";
-          requests_02.setFacet(facet3);
-          String params3 = "testParam";
-          requests_02.setParams(params3);
-        }
-        requests1.add(requests_02);
-        MultipleQueries requests_12 = new MultipleQueries();
-        {
-          String indexName3 = "theIndexName";
-          requests_12.setIndexName(indexName3);
-          String query3 = "test";
-          requests_12.setQuery(query3);
-          MultipleQueriesType type3 = MultipleQueriesType.fromValue("default");
-          requests_12.setType(type3);
-          String params3 = "testParam";
-          requests_12.setParams(params3);
-        }
-        requests1.add(requests_12);
-      }
-      multipleQueriesParams0.setRequests(requests1);
-      MultipleQueriesStrategy strategy1 = MultipleQueriesStrategy.fromValue(
-        "stopIfEnoughMatches"
-      );
-      multipleQueriesParams0.setStrategy(strategy1);
-    }
-
-    assertDoesNotThrow(() -> {
-      client.multipleQueries(multipleQueriesParams0);
-    });
-    EchoResponse req = requester.getLastEchoResponse();
-
-    assertEquals(req.path, "/1/indexes/*/queries");
-    assertEquals(req.method, "POST");
-
-    assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":\"testParam\"},{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"default\",\"params\":\"testParam\"}],\"strategy\":\"stopIfEnoughMatches\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
-    });
-  }
-
-  @Test
   @DisplayName("operationIndex")
   void operationIndexTest0() {
     String indexName0 = "theIndexName";
@@ -2244,29 +2148,33 @@ class SearchClientTests {
   }
 
   @Test
-  @DisplayName("search with minimal parameters")
+  @DisplayName("search for a single request with minimal parameters")
   void searchTest0() {
-    String indexName0 = "indexName";
-    SearchParamsObject searchParams0 = new SearchParamsObject();
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
-      String query1 = "myQuery";
-      searchParams0.setQuery(query1);
+      List<SearchQueries> requests1 = new ArrayList<>();
+      {
+        SearchQueries requests_02 = new SearchQueries();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+        }
+        requests1.add(requests_02);
+      }
+      searchMethodParams0.setRequests(requests1);
     }
 
     assertDoesNotThrow(() -> {
-      client.search(
-        indexName0,
-        SearchParams.ofSearchParamsObject(searchParams0)
-      );
+      client.search(searchMethodParams0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.path, "/1/indexes/indexName/query");
+    assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "{\"query\":\"myQuery\"}",
+        "{\"requests\":[{\"indexName\":\"theIndexName\"}]}",
         req.body,
         JSONCompareMode.STRICT_ORDER
       );
@@ -2274,35 +2182,117 @@ class SearchClientTests {
   }
 
   @Test
-  @DisplayName("search with facetFilters")
+  @DisplayName("search for a single request with all parameters")
   void searchTest1() {
-    String indexName0 = "indexName";
-    SearchParamsObject searchParams0 = new SearchParamsObject();
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
-      String query1 = "myQuery";
-      searchParams0.setQuery(query1);
-      List<String> facetFilters1 = new ArrayList<>();
+      List<SearchQueries> requests1 = new ArrayList<>();
       {
-        String facetFilters_02 = "tags:algolia";
-        facetFilters1.add(facetFilters_02);
+        SearchQueries requests_02 = new SearchQueries();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+          String query3 = "test";
+          requests_02.setQuery(query3);
+          SearchType type3 = SearchType.fromValue("facet");
+          requests_02.setType(type3);
+          String facet3 = "theFacet";
+          requests_02.setFacet(facet3);
+          SearchParamsObject params3 = new SearchParamsObject();
+          {
+            int hitsPerPage4 = 50;
+            params3.setHitsPerPage(hitsPerPage4);
+          }
+          requests_02.setParams(SearchParams.ofSearchParamsObject(params3));
+        }
+        requests1.add(requests_02);
       }
-      searchParams0.setFacetFilters(FacetFilters.ofListString(facetFilters1));
+      searchMethodParams0.setRequests(requests1);
+      SearchStrategy strategy1 = SearchStrategy.fromValue(
+        "stopIfEnoughMatches"
+      );
+      searchMethodParams0.setStrategy(strategy1);
     }
 
     assertDoesNotThrow(() -> {
-      client.search(
-        indexName0,
-        SearchParams.ofSearchParamsObject(searchParams0)
-      );
+      client.search(searchMethodParams0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
-    assertEquals(req.path, "/1/indexes/indexName/query");
+    assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}",
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}}],\"strategy\":\"stopIfEnoughMatches\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName(
+    "search for multiple requests in multiple indices with all parameters"
+  )
+  void searchTest2() {
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
+    {
+      List<SearchQueries> requests1 = new ArrayList<>();
+      {
+        SearchQueries requests_02 = new SearchQueries();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+          String query3 = "test";
+          requests_02.setQuery(query3);
+          SearchType type3 = SearchType.fromValue("facet");
+          requests_02.setType(type3);
+          String facet3 = "theFacet";
+          requests_02.setFacet(facet3);
+          SearchParamsObject params3 = new SearchParamsObject();
+          {
+            int hitsPerPage4 = 50;
+            params3.setHitsPerPage(hitsPerPage4);
+          }
+          requests_02.setParams(SearchParams.ofSearchParamsObject(params3));
+        }
+        requests1.add(requests_02);
+        SearchQueries requests_12 = new SearchQueries();
+        {
+          String indexName3 = "theIndexName2";
+          requests_12.setIndexName(indexName3);
+          String query3 = "test";
+          requests_12.setQuery(query3);
+          SearchType type3 = SearchType.fromValue("default");
+          requests_12.setType(type3);
+          SearchParamsObject params3 = new SearchParamsObject();
+          {
+            int hitsPerPage4 = 100;
+            params3.setHitsPerPage(hitsPerPage4);
+          }
+          requests_12.setParams(SearchParams.ofSearchParamsObject(params3));
+        }
+        requests1.add(requests_12);
+      }
+      searchMethodParams0.setRequests(requests1);
+      SearchStrategy strategy1 = SearchStrategy.fromValue(
+        "stopIfEnoughMatches"
+      );
+      searchMethodParams0.setStrategy(strategy1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.search(searchMethodParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}},{\"indexName\":\"theIndexName2\",\"query\":\"test\",\"type\":\"default\",\"params\":{\"hitsPerPage\":100}}],\"strategy\":\"stopIfEnoughMatches\"}",
         req.body,
         JSONCompareMode.STRICT_ORDER
       );
@@ -2447,6 +2437,72 @@ class SearchClientTests {
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"something\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("search with minimal parameters")
+  void searchSingleIndexTest0() {
+    String indexName0 = "indexName";
+    SearchParamsObject searchParams0 = new SearchParamsObject();
+    {
+      String query1 = "myQuery";
+      searchParams0.setQuery(query1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.searchSingleIndex(
+        indexName0,
+        SearchParams.ofSearchParamsObject(searchParams0)
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/indexes/indexName/query");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"query\":\"myQuery\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("search with facetFilters")
+  void searchSingleIndexTest1() {
+    String indexName0 = "indexName";
+    SearchParamsObject searchParams0 = new SearchParamsObject();
+    {
+      String query1 = "myQuery";
+      searchParams0.setQuery(query1);
+      List<String> facetFilters1 = new ArrayList<>();
+      {
+        String facetFilters_02 = "tags:algolia";
+        facetFilters1.add(facetFilters_02);
+      }
+      searchParams0.setFacetFilters(FacetFilters.ofListString(facetFilters1));
+    }
+
+    assertDoesNotThrow(() -> {
+      client.searchSingleIndex(
+        indexName0,
+        SearchParams.ofSearchParamsObject(searchParams0)
+      );
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/indexes/indexName/query");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}",
         req.body,
         JSONCompareMode.STRICT_ORDER
       );

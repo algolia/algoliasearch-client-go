@@ -1068,67 +1068,6 @@ class SearchTest extends TestCase implements HttpClientInterface
     }
 
     /**
-     * Test case for MultipleQueries
-     * multipleQueries for a single request with minimal parameters
-     */
-    public function testMultipleQueries0()
-    {
-        $client = $this->getClient();
-        $client->multipleQueries([
-            'requests' => [['indexName' => 'theIndexName']],
-            'strategy' => 'stopIfEnoughMatches',
-        ]);
-
-        $this->assertRequests([
-            [
-                'path' => '/1/indexes/*/queries',
-                'method' => 'POST',
-                'body' => json_decode(
-                    "{\"requests\":[{\"indexName\":\"theIndexName\"}],\"strategy\":\"stopIfEnoughMatches\"}"
-                ),
-            ],
-        ]);
-    }
-
-    /**
-     * Test case for MultipleQueries
-     * multipleQueries for multiple requests with all parameters
-     */
-    public function testMultipleQueries1()
-    {
-        $client = $this->getClient();
-        $client->multipleQueries([
-            'requests' => [
-                [
-                    'indexName' => 'theIndexName',
-                    'query' => 'test',
-                    'type' => 'facet',
-                    'facet' => 'theFacet',
-                    'params' => 'testParam',
-                ],
-
-                [
-                    'indexName' => 'theIndexName',
-                    'query' => 'test',
-                    'type' => 'default',
-                    'params' => 'testParam',
-                ],
-            ],
-            'strategy' => 'stopIfEnoughMatches',
-        ]);
-
-        $this->assertRequests([
-            [
-                'path' => '/1/indexes/*/queries',
-                'method' => 'POST',
-                'body' => json_decode(
-                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":\"testParam\"},{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"default\",\"params\":\"testParam\"}],\"strategy\":\"stopIfEnoughMatches\"}"
-                ),
-            ],
-        ]);
-    }
-
-    /**
      * Test case for OperationIndex
      * operationIndex
      */
@@ -1769,43 +1708,88 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Search
-     * search with minimal parameters
+     * search for a single request with minimal parameters
      */
     public function testSearch0()
     {
         $client = $this->getClient();
-        $client->search(
-            'indexName',
-            ['query' => 'myQuery']
-        );
+        $client->search(['requests' => [['indexName' => 'theIndexName']]]);
 
         $this->assertRequests([
             [
-                'path' => '/1/indexes/indexName/query',
+                'path' => '/1/indexes/*/queries',
                 'method' => 'POST',
-                'body' => json_decode("{\"query\":\"myQuery\"}"),
+                'body' => json_decode(
+                    "{\"requests\":[{\"indexName\":\"theIndexName\"}]}"
+                ),
             ],
         ]);
     }
 
     /**
      * Test case for Search
-     * search with facetFilters
+     * search for a single request with all parameters
      */
     public function testSearch1()
     {
         $client = $this->getClient();
-        $client->search(
-            'indexName',
-            ['query' => 'myQuery', 'facetFilters' => ['tags:algolia']]
-        );
+        $client->search([
+            'requests' => [
+                [
+                    'indexName' => 'theIndexName',
+                    'query' => 'test',
+                    'type' => 'facet',
+                    'facet' => 'theFacet',
+                    'params' => ['hitsPerPage' => 50],
+                ],
+            ],
+            'strategy' => 'stopIfEnoughMatches',
+        ]);
 
         $this->assertRequests([
             [
-                'path' => '/1/indexes/indexName/query',
+                'path' => '/1/indexes/*/queries',
                 'method' => 'POST',
                 'body' => json_decode(
-                    "{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}"
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}}],\"strategy\":\"stopIfEnoughMatches\"}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Search
+     * search for multiple requests in multiple indices with all parameters
+     */
+    public function testSearch2()
+    {
+        $client = $this->getClient();
+        $client->search([
+            'requests' => [
+                [
+                    'indexName' => 'theIndexName',
+                    'query' => 'test',
+                    'type' => 'facet',
+                    'facet' => 'theFacet',
+                    'params' => ['hitsPerPage' => 50],
+                ],
+
+                [
+                    'indexName' => 'theIndexName2',
+                    'query' => 'test',
+                    'type' => 'default',
+                    'params' => ['hitsPerPage' => 100],
+                ],
+            ],
+            'strategy' => 'stopIfEnoughMatches',
+        ]);
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/*/queries',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}},{\"indexName\":\"theIndexName2\",\"query\":\"test\",\"type\":\"default\",\"params\":{\"hitsPerPage\":100}}],\"strategy\":\"stopIfEnoughMatches\"}"
                 ),
             ],
         ]);
@@ -1925,6 +1909,50 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/indexName/rules/search',
                 'method' => 'POST',
                 'body' => json_decode("{\"query\":\"something\"}"),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SearchSingleIndex
+     * search with minimal parameters
+     */
+    public function testSearchSingleIndex0()
+    {
+        $client = $this->getClient();
+        $client->searchSingleIndex(
+            'indexName',
+            ['query' => 'myQuery']
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/indexName/query',
+                'method' => 'POST',
+                'body' => json_decode("{\"query\":\"myQuery\"}"),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SearchSingleIndex
+     * search with facetFilters
+     */
+    public function testSearchSingleIndex1()
+    {
+        $client = $this->getClient();
+        $client->searchSingleIndex(
+            'indexName',
+            ['query' => 'myQuery', 'facetFilters' => ['tags:algolia']]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/indexName/query',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}"
+                ),
             ],
         ]);
     }

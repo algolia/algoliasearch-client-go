@@ -10,7 +10,7 @@ import java.util.Objects;
 public class ConsequenceParams {
 
   @SerializedName("query")
-  private String query;
+  private String query = "";
 
   @SerializedName("automaticFacetFilters")
   private List<AutomaticFacetFilter> automaticFacetFilters = null;
@@ -257,7 +257,7 @@ public class ConsequenceParams {
   }
 
   /**
-   * Query string.
+   * The text to search in the index.
    *
    * @return query
    */

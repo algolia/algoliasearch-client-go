@@ -18,7 +18,7 @@ describe('api', () => {
 
     let actual;
 
-    actual = $client.search({ indexName: 'my-index', searchParams: {} });
+    actual = $client.search({ requests: [{ indexName: 'my-index' }] });
 
     if (actual instanceof Promise) {
       actual = await actual;
@@ -35,7 +35,7 @@ describe('api', () => {
 
     let actual;
 
-    actual = $client.search({ indexName: 'my-index', searchParams: {} });
+    actual = $client.search({ requests: [{ indexName: 'my-index' }] });
 
     if (actual instanceof Promise) {
       actual = await actual;
@@ -52,7 +52,7 @@ describe('api', () => {
 
     let actual;
 
-    actual = $client.search({ indexName: 'my-index', searchParams: {} });
+    actual = $client.search({ requests: [{ indexName: 'my-index' }] });
 
     if (actual instanceof Promise) {
       actual = await actual;

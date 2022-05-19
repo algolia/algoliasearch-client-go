@@ -748,66 +748,6 @@ describe('multipleBatch', () => {
   });
 });
 
-describe('multipleQueries', () => {
-  test('multipleQueries for a single request with minimal parameters', async () => {
-    const req = (await client.multipleQueries({
-      requests: [{ indexName: 'theIndexName' }],
-      strategy: 'stopIfEnoughMatches',
-    })) as unknown as EchoResponse;
-
-    expect(req.path).toEqual('/1/indexes/*/queries');
-    expect(req.method).toEqual('POST');
-    expect(req.data).toEqual({
-      requests: [{ indexName: 'theIndexName' }],
-      strategy: 'stopIfEnoughMatches',
-    });
-    expect(req.searchParams).toStrictEqual(undefined);
-  });
-
-  test('multipleQueries for multiple requests with all parameters', async () => {
-    const req = (await client.multipleQueries({
-      requests: [
-        {
-          indexName: 'theIndexName',
-          query: 'test',
-          type: 'facet',
-          facet: 'theFacet',
-          params: 'testParam',
-        },
-        {
-          indexName: 'theIndexName',
-          query: 'test',
-          type: 'default',
-          params: 'testParam',
-        },
-      ],
-      strategy: 'stopIfEnoughMatches',
-    })) as unknown as EchoResponse;
-
-    expect(req.path).toEqual('/1/indexes/*/queries');
-    expect(req.method).toEqual('POST');
-    expect(req.data).toEqual({
-      requests: [
-        {
-          indexName: 'theIndexName',
-          query: 'test',
-          type: 'facet',
-          facet: 'theFacet',
-          params: 'testParam',
-        },
-        {
-          indexName: 'theIndexName',
-          query: 'test',
-          type: 'default',
-          params: 'testParam',
-        },
-      ],
-      strategy: 'stopIfEnoughMatches',
-    });
-    expect(req.searchParams).toStrictEqual(undefined);
-  });
-});
-
 describe('operationIndex', () => {
   test('operationIndex', async () => {
     const req = (await client.operationIndex({
@@ -1251,29 +1191,87 @@ describe('saveSynonyms', () => {
 });
 
 describe('search', () => {
-  test('search with minimal parameters', async () => {
+  test('search for a single request with minimal parameters', async () => {
     const req = (await client.search({
-      indexName: 'indexName',
-      searchParams: { query: 'myQuery' },
+      requests: [{ indexName: 'theIndexName' }],
     })) as unknown as EchoResponse;
 
-    expect(req.path).toEqual('/1/indexes/indexName/query');
+    expect(req.path).toEqual('/1/indexes/*/queries');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual({ query: 'myQuery' });
+    expect(req.data).toEqual({ requests: [{ indexName: 'theIndexName' }] });
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('search with facetFilters', async () => {
+  test('search for a single request with all parameters', async () => {
     const req = (await client.search({
-      indexName: 'indexName',
-      searchParams: { query: 'myQuery', facetFilters: ['tags:algolia'] },
+      requests: [
+        {
+          indexName: 'theIndexName',
+          query: 'test',
+          type: 'facet',
+          facet: 'theFacet',
+          params: { hitsPerPage: 50 },
+        },
+      ],
+      strategy: 'stopIfEnoughMatches',
     })) as unknown as EchoResponse;
 
-    expect(req.path).toEqual('/1/indexes/indexName/query');
+    expect(req.path).toEqual('/1/indexes/*/queries');
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({
-      query: 'myQuery',
-      facetFilters: ['tags:algolia'],
+      requests: [
+        {
+          indexName: 'theIndexName',
+          query: 'test',
+          type: 'facet',
+          facet: 'theFacet',
+          params: { hitsPerPage: 50 },
+        },
+      ],
+      strategy: 'stopIfEnoughMatches',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('search for multiple requests in multiple indices with all parameters', async () => {
+    const req = (await client.search({
+      requests: [
+        {
+          indexName: 'theIndexName',
+          query: 'test',
+          type: 'facet',
+          facet: 'theFacet',
+          params: { hitsPerPage: 50 },
+        },
+        {
+          indexName: 'theIndexName2',
+          query: 'test',
+          type: 'default',
+          params: { hitsPerPage: 100 },
+        },
+      ],
+      strategy: 'stopIfEnoughMatches',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/*/queries');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        {
+          indexName: 'theIndexName',
+          query: 'test',
+          type: 'facet',
+          facet: 'theFacet',
+          params: { hitsPerPage: 50 },
+        },
+        {
+          indexName: 'theIndexName2',
+          query: 'test',
+          type: 'default',
+          params: { hitsPerPage: 100 },
+        },
+      ],
+      strategy: 'stopIfEnoughMatches',
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });
@@ -1360,6 +1358,35 @@ describe('searchRules', () => {
     expect(req.path).toEqual('/1/indexes/indexName/rules/search');
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({ query: 'something' });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('searchSingleIndex', () => {
+  test('search with minimal parameters', async () => {
+    const req = (await client.searchSingleIndex({
+      indexName: 'indexName',
+      searchParams: { query: 'myQuery' },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/indexName/query');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ query: 'myQuery' });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('search with facetFilters', async () => {
+    const req = (await client.searchSingleIndex({
+      indexName: 'indexName',
+      searchParams: { query: 'myQuery', facetFilters: ['tags:algolia'] },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/indexName/query');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      query: 'myQuery',
+      facetFilters: ['tags:algolia'],
+    });
     expect(req.searchParams).toStrictEqual(undefined);
   });
 });
