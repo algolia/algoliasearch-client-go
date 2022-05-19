@@ -771,7 +771,7 @@ components:
         exhaustiveTypo:
           type: boolean
           description: >-
-            Indicate if the typo-tolerence search was exhaustive or approximate
+            Indicate if the typo-tolerance search was exhaustive or approximate
             (only included when typo-tolerance is enabled).
         facets:
           type: object
@@ -1760,7 +1760,7 @@ components:
         - settings
         - synonyms
         - rules
-    indice:
+    fetchedIndex:
       type: object
       additionalProperties: false
       properties:
@@ -1825,7 +1825,7 @@ components:
           type: array
           description: List of the fetched indices.
           items:
-            $ref: '#/components/schemas/indice'
+            $ref: '#/components/schemas/fetchedIndex'
         nbPages:
           type: integer
           description: Number of pages.
@@ -1952,8 +1952,8 @@ tags:
     description: Manage your Api Keys.
   - name: Clusters
     description: Clusters operations.
-  - name: Dictionnaries
-    description: Dictionnaries operations.
+  - name: Dictionaries
+    description: Dictionaries operations.
   - name: Indices
     description: Manage indices.
   - name: Records
@@ -1980,7 +1980,7 @@ x-tagGroups:
     tags:
       - Rules
       - Synonyms
-      - Dictionnaries
+      - Dictionaries
   - name: Others
     tags:
       - Api Keys
@@ -4150,7 +4150,7 @@ paths:
                           description: Timestamp in ISO-8601 format.
                         method:
                           type: string
-                          description: HTTP method of the perfomed request.
+                          description: HTTP method of the performed request.
                         answer_code:
                           type: string
                           description: HTTP response code.
@@ -4165,7 +4165,7 @@ paths:
                           description: Request URL.
                         ip:
                           type: string
-                          description: IP of the client which perfomed the request.
+                          description: IP of the client which performed the request.
                         query_headers:
                           type: string
                           description: Request Headers (API Key is obfuscated).
@@ -4271,7 +4271,7 @@ paths:
         - search
       operationId: operationIndex
       summary: Copy/move index.
-      description: Peforms a copy or a move operation on a index.
+      description: Performs a copy or a move operation on a index.
       parameters:
         - $ref: '#/components/parameters/IndexName'
       requestBody:

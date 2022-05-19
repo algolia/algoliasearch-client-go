@@ -9,17 +9,17 @@ import java.util.Objects;
 public class ListIndicesResponse {
 
   @SerializedName("items")
-  private List<Indice> items = null;
+  private List<FetchedIndex> items = null;
 
   @SerializedName("nbPages")
   private Integer nbPages;
 
-  public ListIndicesResponse setItems(List<Indice> items) {
+  public ListIndicesResponse setItems(List<FetchedIndex> items) {
     this.items = items;
     return this;
   }
 
-  public ListIndicesResponse addItems(Indice itemsItem) {
+  public ListIndicesResponse addItems(FetchedIndex itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<>();
     }
@@ -33,7 +33,7 @@ public class ListIndicesResponse {
    * @return items
    */
   @javax.annotation.Nullable
-  public List<Indice> getItems() {
+  public List<FetchedIndex> getItems() {
     return items;
   }
 

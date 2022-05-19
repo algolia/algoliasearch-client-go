@@ -3791,7 +3791,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Peforms a copy or a move operation on a index.
+   * Performs a copy or a move operation on a index.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param operationIndexParams (required)
@@ -3819,7 +3819,7 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * (asynchronously) Peforms a copy or a move operation on a index.
+   * (asynchronously) Performs a copy or a move operation on a index.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param operationIndexParams (required)

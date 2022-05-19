@@ -198,7 +198,7 @@ public class Variant {
   }
 
   /**
-   * The traffic perfecentage for the A/B test.
+   * The traffic percentage for the A/B test.
    *
    * @return trafficPercentage
    */

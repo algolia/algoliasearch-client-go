@@ -101,10 +101,10 @@ components:
       items:
         $ref: '#/components/schemas/SourceIndexExternal'
       description: List of external indices to use to generate custom Query Suggestions.
-    SourceIndiceWithReplicas:
+    SourceIndexWithReplicas:
       type: object
       additionalProperties: false
-      description: Source indice with replicas used to generate a Query Suggestions index.
+      description: Source index with replicas used to generate a Query Suggestions index.
       required:
         - replicas
         - indexName
@@ -136,7 +136,7 @@ components:
       type: array
       description: List of source indices used to generate a Query Suggestions index.
       items:
-        $ref: '#/components/schemas/SourceIndiceWithReplicas'
+        $ref: '#/components/schemas/SourceIndexWithReplicas'
     QuerySuggestionsIndex:
       type: object
       additionalProperties: false
@@ -286,7 +286,7 @@ components:
         application/json:
           schema:
             type: object
-            title: SucessResponse
+            title: SuccessResponse
             additionalProperties: false
             required:
               - status
@@ -545,8 +545,8 @@ paths:
       description: >
         Delete a configuration of a Query Suggestion's index.
 
-        By deleting a configuraton, you stop all updates to the underlying query
-        suggestion index.
+        By deleting a configuration, you stop all updates to the underlying
+        query suggestion index.
 
         Note that when doing this, the underlying index does not change -
         existing suggestions remain untouched.

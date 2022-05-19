@@ -74,7 +74,7 @@ public class GetLogsResponseLogs {
   }
 
   /**
-   * HTTP method of the perfomed request.
+   * HTTP method of the performed request.
    *
    * @return method
    */
@@ -149,7 +149,7 @@ public class GetLogsResponseLogs {
   }
 
   /**
-   * IP of the client which perfomed the request.
+   * IP of the client which performed the request.
    *
    * @return ip
    */

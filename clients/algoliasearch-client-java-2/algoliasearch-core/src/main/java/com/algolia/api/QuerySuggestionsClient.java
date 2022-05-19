@@ -73,11 +73,11 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param querySuggestionsIndexWithIndexParam (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return SucessResponse
+   * @return SuccessResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public SucessResponse createConfig(
+  public SuccessResponse createConfig(
     QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
@@ -86,7 +86,7 @@ public class QuerySuggestionsClient extends ApiClient {
     );
   }
 
-  public SucessResponse createConfig(
+  public SuccessResponse createConfig(
     QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam
   ) throws AlgoliaRuntimeException {
     return this.createConfig(querySuggestionsIndexWithIndexParam, null);
@@ -103,7 +103,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<SucessResponse> createConfigAsync(
+  public CompletableFuture<SuccessResponse> createConfigAsync(
     QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
@@ -131,11 +131,11 @@ public class QuerySuggestionsClient extends ApiClient {
           headers,
           requestOptions
         );
-    Type returnType = new TypeToken<SucessResponse>() {}.getType();
+    Type returnType = new TypeToken<SuccessResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<SucessResponse> createConfigAsync(
+  public CompletableFuture<SuccessResponse> createConfigAsync(
     QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam
   ) throws AlgoliaRuntimeException {
     return this.createConfigAsync(querySuggestionsIndexWithIndexParam, null);
@@ -248,32 +248,32 @@ public class QuerySuggestionsClient extends ApiClient {
   }
 
   /**
-   * Delete a configuration of a Query Suggestion's index. By deleting a configuraton, you stop all
+   * Delete a configuration of a Query Suggestion's index. By deleting a configuration, you stop all
    * updates to the underlying query suggestion index. Note that when doing this, the underlying
    * index does not change - existing suggestions remain untouched.
    *
    * @param indexName The index in which to perform the request. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return SucessResponse
+   * @return SuccessResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public SucessResponse deleteConfig(
+  public SuccessResponse deleteConfig(
     String indexName,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(deleteConfigAsync(indexName, requestOptions));
   }
 
-  public SucessResponse deleteConfig(String indexName)
+  public SuccessResponse deleteConfig(String indexName)
     throws AlgoliaRuntimeException {
     return this.deleteConfig(indexName, null);
   }
 
   /**
    * (asynchronously) Delete a configuration of a Query Suggestion&#39;s index. By deleting a
-   * configuraton, you stop all updates to the underlying query suggestion index. Note that when
+   * configuration, you stop all updates to the underlying query suggestion index. Note that when
    * doing this, the underlying index does not change - existing suggestions remain untouched.
    *
    * @param indexName The index in which to perform the request. (required)
@@ -283,7 +283,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<SucessResponse> deleteConfigAsync(
+  public CompletableFuture<SuccessResponse> deleteConfigAsync(
     String indexName,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
@@ -314,11 +314,11 @@ public class QuerySuggestionsClient extends ApiClient {
           headers,
           requestOptions
         );
-    Type returnType = new TypeToken<SucessResponse>() {}.getType();
+    Type returnType = new TypeToken<SuccessResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<SucessResponse> deleteConfigAsync(String indexName)
+  public CompletableFuture<SuccessResponse> deleteConfigAsync(String indexName)
     throws AlgoliaRuntimeException {
     return this.deleteConfigAsync(indexName, null);
   }
@@ -944,11 +944,11 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param querySuggestionsIndexParam (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return SucessResponse
+   * @return SuccessResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public SucessResponse updateConfig(
+  public SuccessResponse updateConfig(
     String indexName,
     QuerySuggestionsIndexParam querySuggestionsIndexParam,
     RequestOptions requestOptions
@@ -958,7 +958,7 @@ public class QuerySuggestionsClient extends ApiClient {
     );
   }
 
-  public SucessResponse updateConfig(
+  public SuccessResponse updateConfig(
     String indexName,
     QuerySuggestionsIndexParam querySuggestionsIndexParam
   ) throws AlgoliaRuntimeException {
@@ -976,7 +976,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<SucessResponse> updateConfigAsync(
+  public CompletableFuture<SuccessResponse> updateConfigAsync(
     String indexName,
     QuerySuggestionsIndexParam querySuggestionsIndexParam,
     RequestOptions requestOptions
@@ -1015,11 +1015,11 @@ public class QuerySuggestionsClient extends ApiClient {
           headers,
           requestOptions
         );
-    Type returnType = new TypeToken<SucessResponse>() {}.getType();
+    Type returnType = new TypeToken<SuccessResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<SucessResponse> updateConfigAsync(
+  public CompletableFuture<SuccessResponse> updateConfigAsync(
     String indexName,
     QuerySuggestionsIndexParam querySuggestionsIndexParam
   ) throws AlgoliaRuntimeException {

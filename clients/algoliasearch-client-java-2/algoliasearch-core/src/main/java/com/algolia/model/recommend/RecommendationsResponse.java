@@ -186,7 +186,7 @@ public class RecommendationsResponse {
   }
 
   /**
-   * Indicate if the typo-tolerence search was exhaustive or approximate (only included when
+   * Indicate if the typo-tolerance search was exhaustive or approximate (only included when
    * typo-tolerance is enabled).
    *
    * @return exhaustiveTypo

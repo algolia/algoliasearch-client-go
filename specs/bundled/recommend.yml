@@ -723,7 +723,7 @@ components:
         exhaustiveTypo:
           type: boolean
           description: >-
-            Indicate if the typo-tolerence search was exhaustive or approximate
+            Indicate if the typo-tolerance search was exhaustive or approximate
             (only included when typo-tolerance is enabled).
         facets:
           type: object

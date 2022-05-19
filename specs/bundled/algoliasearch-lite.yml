@@ -771,7 +771,7 @@ components:
         exhaustiveTypo:
           type: boolean
           description: >-
-            Indicate if the typo-tolerence search was exhaustive or approximate
+            Indicate if the typo-tolerance search was exhaustive or approximate
             (only included when typo-tolerance is enabled).
         facets:
           type: object
@@ -1760,7 +1760,7 @@ components:
         - settings
         - synonyms
         - rules
-    indice:
+    fetchedIndex:
       type: object
       additionalProperties: false
       properties:
@@ -1825,7 +1825,7 @@ components:
           type: array
           description: List of the fetched indices.
           items:
-            $ref: '#/components/schemas/indice'
+            $ref: '#/components/schemas/fetchedIndex'
         nbPages:
           type: integer
           description: Number of pages.
@@ -1952,8 +1952,8 @@ tags:
     description: Manage your Api Keys.
   - name: Clusters
     description: Clusters operations.
-  - name: Dictionnaries
-    description: Dictionnaries operations.
+  - name: Dictionaries
+    description: Dictionaries operations.
   - name: Indices
     description: Manage indices.
   - name: Records
@@ -1980,7 +1980,7 @@ x-tagGroups:
     tags:
       - Rules
       - Synonyms
-      - Dictionnaries
+      - Dictionaries
   - name: Others
     tags:
       - Api Keys

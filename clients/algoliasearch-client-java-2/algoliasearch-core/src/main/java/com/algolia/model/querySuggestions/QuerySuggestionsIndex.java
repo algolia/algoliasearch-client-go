@@ -12,7 +12,7 @@ public class QuerySuggestionsIndex {
   private String indexName;
 
   @SerializedName("sourceIndices")
-  private List<SourceIndiceWithReplicas> sourceIndices = new ArrayList<>();
+  private List<SourceIndexWithReplicas> sourceIndices = new ArrayList<>();
 
   @SerializedName("languages")
   private List<String> languages = new ArrayList<>();
@@ -36,14 +36,14 @@ public class QuerySuggestionsIndex {
   }
 
   public QuerySuggestionsIndex setSourceIndices(
-    List<SourceIndiceWithReplicas> sourceIndices
+    List<SourceIndexWithReplicas> sourceIndices
   ) {
     this.sourceIndices = sourceIndices;
     return this;
   }
 
   public QuerySuggestionsIndex addSourceIndices(
-    SourceIndiceWithReplicas sourceIndicesItem
+    SourceIndexWithReplicas sourceIndicesItem
   ) {
     this.sourceIndices.add(sourceIndicesItem);
     return this;
@@ -55,7 +55,7 @@ public class QuerySuggestionsIndex {
    * @return sourceIndices
    */
   @javax.annotation.Nonnull
-  public List<SourceIndiceWithReplicas> getSourceIndices() {
+  public List<SourceIndexWithReplicas> getSourceIndices() {
     return sourceIndices;
   }
 
