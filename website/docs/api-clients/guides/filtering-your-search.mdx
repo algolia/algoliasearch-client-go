@@ -45,6 +45,7 @@ $client->setSettings(
   ['attributesForFaceting' => ['actor', 'filterOnly(category)', 'searchable(publisher)']]
 );
 ```
+
 </TabItem>
 </Tabs>
 
@@ -67,29 +68,41 @@ The actual filtering of records is performed at query time, not at indexing time
 ```js
 // Only "Scarlett Johansson" actor
 await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: '<YOUR_QUERY>',
-    filters: 'actor:Scarlett Johansson',
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      params: {
+        filters: 'actor:Scarlett Johansson',
+      },
+    },
+  ],
 });
 
 // Only "Tom Cruise" or "Scarlett Johansson" actor
 await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: '<YOUR_QUERY>',
-    filters: 'actor:Tom Cruise OR actor:Scarlett Johansson',
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      params: {
+        filters: 'actor:Tom Cruise OR actor:Scarlett Johansson',
+      },
+    },
+  ],
 });
 
 // Everything but "Nicolas Cage" actor
 await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: '<YOUR_QUERY>',
-    filters: 'NOT actor:Nicolas Cage',
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      params: {
+        filters: 'NOT actor:Nicolas Cage',
+      },
+    },
+  ],
 });
 ```
 
@@ -98,33 +111,39 @@ await client.search({
 
 ```php
 // Only "Scarlett Johansson" actor
-$client->search(
-  '<YOUR_INDEX_NAME>',
-  [
-    'query' => '<YOUR_QUERY>',
-    'filters' => 'actor:Scarlett Johansson',
-  ]
-);
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'params' => ['filters' => 'actor:Scarlett Johansson'],
+        ],
+    ],
+]);
 
 // Only "Tom Cruise" or "Scarlett Johansson" actor
-$client->search(
-  '<YOUR_INDEX_NAME>',
-  [
-    'query' => '<YOUR_QUERY>',
-    'filters' => 'actor:Tom Cruise OR actor:Scarlett Johansson',
-  ]
-);
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'params' => ['filters' => 'actor:Tom Cruise OR actor:Scarlett Johansson'],
+        ],
+    ],
+]);
 
 // Everything but "Nicolas Cage" actor
-$client->search(
-  '<YOUR_INDEX_NAME>',
-  [
-    'query' => '<YOUR_QUERY>',
-    'filters' => 'NOT actor:Nicolas Cage',
-  ]
-);
-
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'params' => ['filters' => 'NOT actor:Nicolas Cage'],
+        ],
+    ],
+]);
 ```
+
 </TabItem>
 </Tabs>
 
@@ -165,22 +184,27 @@ await client.search({
 
 ```php
 // Only "Scarlett Johansson" actor
-$client->search(
-  '<YOUR_INDEX_NAME>',
-  [
-    'query' => '<YOUR_QUERY>',
-    'facetFilters' => ['actor:Scarlett Johansson'],
-  ]
-);
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'params' => ['facetFilters' => ['actor:Scarlett Johansson']],
+        ],
+    ],
+]);
 
 // Only "Tom Cruise" or "Scarlett Johansson" actor
-$client->search(
-  '<YOUR_INDEX_NAME>',
-  [
-    'query' => '<YOUR_QUERY>',
-    'facetFilters' => ['actor:Tom Cruise', 'actor:Scarlett Johansson'],
-  ]
-);
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'params' => ['facetFilters' => ['actor:Tom Cruise', 'actor:Scarlett Johansson']],
+        ],
+    ],
+]);
 ```
+
 </TabItem>
 </Tabs>

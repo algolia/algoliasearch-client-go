@@ -18,8 +18,12 @@ client.addAlgoliaAgent('Node playground', '0.0.1');
 async function testSearch() {
   try {
     const res = await client.search({
-      indexName: searchIndex,
-      searchParams: { query: searchQuery },
+      requests: [
+        {
+          indexName: searchIndex,
+          query: searchQuery,
+        },
+      ],
     });
 
     console.log(`[OK]`, res);

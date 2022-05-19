@@ -23,11 +23,15 @@ For example, you can retrieve your books' facets with the `search` method, and t
 
 ```js
 await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: '<YOUR_QUERY>',
-    facets: ['author', 'genre'],
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      params: {
+        facets: ['author', 'genre'],
+      },
+    },
+  ],
 });
 ```
 
@@ -35,11 +39,15 @@ To extract all facet information, you can use a wildcard (`*`).
 
 ```js
 await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: '<YOUR_QUERY>',
-    facets: ['*'],
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      params: {
+        facets: ['*'],
+      },
+    },
+  ],
 });
 ```
 
@@ -48,25 +56,29 @@ await client.search({
 <TabItem value="php">
 
 ```php
-$client->search(
-  '<YOUR_INDEX_NAME>',
-  [
-    'query' => '<YOUR_QUERY>',
-    'facets' => ['author', 'genre'],
-  ]
-);
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'params' => ['facets' => ['author', 'genre']],
+        ],
+    ],
+]);
 ```
 
 To extract all facet information, you can use a wildcard (`*`).
 
 ```php
-$client->search(
-  '<YOUR_INDEX_NAME>',
-  [
-    'query' => '<YOUR_QUERY>',
-    'facets' => ['*'],
-  ]
-);
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'params' => ['facets' => ['*']],
+        ],
+    ],
+]);
 ```
 
 </TabItem>

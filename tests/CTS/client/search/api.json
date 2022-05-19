@@ -8,8 +8,11 @@
         "path": "search",
         "parameters": [
           {
-            "indexName": "my-index",
-            "searchParams": {}
+            "requests": [
+              {
+                "indexName": "my-index"
+              }
+            ]
           }
         ],
         "expected": {
@@ -31,8 +34,11 @@
         "path": "search",
         "parameters": [
           {
-            "indexName": "my-index",
-            "searchParams": {}
+            "requests": [
+              {
+                "indexName": "my-index"
+              }
+            ]
           }
         ],
         "expected": {
@@ -53,8 +59,11 @@
         "path": "search",
         "parameters": [
           {
-            "indexName": "my-index",
-            "searchParams": {}
+            "requests": [
+              {
+                "indexName": "my-index"
+              }
+            ]
           }
         ],
         "expected": {

@@ -42,7 +42,70 @@ Add the following JavaScript snippet to the `<head>` of your website:
 <script src="https://cdn.jsdelivr.net/npm/@experimental-api-clients-automation/algoliasearch/dist/algoliasearch.umd.browser.js"></script>
 ```
 
+</TabItem>
+
+<TabItem value="php">
+
+First, install Algolia PHP API Client via the composer package manager:
+
+```bash
+composer require algolia/algoliasearch-client-php
+```
+
+</TabItem>
+
+<TabItem value="java">
+
+To get started, add the [algoliasearch-client-java](https://oss.sonatype.org/content/repositories/snapshots/com/algolia/algoliasearch-client-java/0.0.1-SNAPSHOT/) dependency to your project, either with [Maven](https://maven.apache.org/):
+
+```xml
+<repositories>
+  <repository>
+    <id>oss.sonatype.org-snapshot</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <releases>
+      <enabled>false</enabled>
+    </releases>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.algolia</groupId>
+  <artifactId>algoliasearch-client-java</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+</dependency>
+```
+
+or [Gradle](https://gradle.org/):
+
+```groovy
+repositories() {
+  maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+  testImplementation 'com.algolia:algoliasearch-client-java:0.0.1-SNAPSHOT'
+}
+```
+
+</TabItem>
+</Tabs>
+
 ## Using the client
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', },
+    { label: 'PHP', value: 'php', },
+    { label: 'Java', value: 'java' }
+  ]
+}>
+<TabItem value="javascript">
 
 Then you need to import the correct package:
 
@@ -60,12 +123,16 @@ const personalizationClient = client.initPersonalization(
 );
 
 const searchRes = await client.search({
-  indexName: '<YOUR_INDEX>',
-  searchParams: { query: searchQuery },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+    },
+  ],
 });
 const analyticsRes = await analyticsClient.getTopFilterForAttribute({
   attribute: 'myAttribute1,myAttribute2',
-  index: '<YOUR_INDEX>',
+  index: '<YOUR_INDEX_NAME>',
 });
 
 console.log('[Results]', searchRes, analyticsRes);
@@ -96,8 +163,12 @@ Once the client is setup, you can play with the Algolia API!
 
 ```js
 const res = await client.search({
-  indexName: '<YOUR_INDEX>',
-  searchParams: { query: 'words to query' },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+    },
+  ],
 });
 
 console.log('[Results]', res);
@@ -117,14 +188,6 @@ console.log('[Results]', res);
 
 <TabItem value="php">
 
-First, install Algolia PHP API Client via the composer package manager:
-
-```bash
-composer require algolia/algoliasearch-client-php
-```
-
-## Using the client
-
 Then, create objects on your index:
 
 ```php
@@ -133,13 +196,17 @@ $client = Algolia\AlgoliaSearch\Api\SearchClient::create(
     '<YOUR_API_KEY>'
 );
 
-$client->saveObject('<YOUR_INDEX>', ['objectID' => 1, 'name' => 'Foo']);
+$client->saveObject('<YOUR_INDEX_NAME>', ['objectID' => 1, 'name' => 'Foo']);
 ```
 
 Finally, you may begin searching an object using the `search` method:
 
 ```php
-$objects = $client->search('<YOUR_INDEX>', ['query' => 'Foo']);
+$client->search([
+    'requests' => [
+        ['indexName' => '<YOUR_INDEX_NAME>', 'query' => '<YOUR_QUERY>'],
+    ],
+])
 ```
 
 Another example with the personalization client:
@@ -157,41 +224,6 @@ $res = $client->getUserTokenProfile('<YOUR_TOKEN>');
 
 <TabItem value="java">
 
-To get started, add the [algoliasearch-client-java](https://oss.sonatype.org/content/repositories/snapshots/com/algolia/algoliasearch-client-java/0.0.1-SNAPSHOT/) dependency to your project, either with [Maven](https://maven.apache.org/):
-```xml
-<repositories>
-  <repository>
-    <id>oss.sonatype.org-snapshot</id>
-    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    <releases>
-      <enabled>false</enabled>
-    </releases>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-</repositories>
-
-<dependency>
-  <groupId>com.algolia</groupId>
-  <artifactId>algoliasearch-client-java</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-</dependency>
-```
-
-or [Gradle](https://gradle.org/):
-```groovy
-repositories() {
-  maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
-}
-
-dependencies {
-  testImplementation 'com.algolia:algoliasearch-client-java:0.0.1-SNAPSHOT'
-}
-```
-
-## Using the client
-
 The package is divided into multiples API Clients, you can find the list [here](https://github.com/algolia/algoliasearch-client-java-2/tree/next/algoliasearch-core/src/main/java/com/algolia/api).
 To instanciate a client, prepare your credentials and follow this example:
 
@@ -199,37 +231,42 @@ To instanciate a client, prepare your credentials and follow this example:
 import com.algolia.api.SearchClient;
 
 public class AlgoliaTest {
+
   public static void main(String[] args) {
     SearchClient client = new SearchClient("<YOUR_APP_ID>", "<YOUR_API_KEY>");
   }
 }
+
 ```
 
 You can add segments to the `User Agent`:
+
 ```java
 import com.algolia.utils.AlgoliaAgent;
 
 SearchClient client = new SearchClient(
-  "<YOUR_APP_ID>", 
+  "<YOUR_APP_ID>",
   "<YOUR_API_KEY>",
-  new AlgoliaAgent.Segment[] { 
-    new AlgoliaAgent.Segment("tracker", "8.0.0") 
+  new AlgoliaAgent.Segment[] {
+    new AlgoliaAgent.Segment("tracker", "8.0.0")
   }
 );
 ```
 
 And also specify a custom `Requester`:
+
 ```java
 import com.algolia.utils.echo.EchoRequester;
 
 SearchClient client = new SearchClient(
-  "<YOUR_APP_ID>", 
+  "<YOUR_APP_ID>",
   "<YOUR_API_KEY>",
   new EchoRequester()
 );
 ```
 
 Or use a completely different client (some clients might require a `region` parameter):
+
 ```java
 import com.algolia.api.AbtestingClient;
 
@@ -241,13 +278,15 @@ Once the client is setup, you can play with the Algolia API!
 ```java
 import com.algolia.model.search.*;
 
-SearchParamsObject params = new SearchParamsObject();
-params.setQuery("your query");
+SearchMethodParams searchMethodParams = new SearchMethodParams();
+SearchQueries requests = new SearchQueries();
+requests.setIndexName("<YOUR_INDEX_NAME>");
+requests.setQuery("<YOUR_QUERY>");
+searchMethodParams.setRequests(requests);
 
 try {
   SearchResponse result = client.search(
-    "the index name",
-    SearchParams.ofSearchParamsObject(params)
+    searchMethodParams
   );
   System.out.println(result);
 } catch (AlgoliaRuntimeException e) {

@@ -1,40 +1,108 @@
 [
   {
-    "testName": "search with minimal parameters",
+    "testName": "search for a single request with minimal parameters",
     "parameters": {
-      "indexName": "indexName",
-      "searchParams": {
-        "query": "myQuery"
-      }
+      "requests": [
+        {
+          "indexName": "theIndexName"
+        }
+      ]
     },
     "request": {
-      "path": "/1/indexes/indexName/query",
+      "path": "/1/indexes/*/queries",
       "method": "POST",
       "body": {
-        "query": "myQuery"
+        "requests": [
+          {
+            "indexName": "theIndexName"
+          }
+        ]
       }
     }
   },
   {
-    "method": "search",
-    "testName": "search with facetFilters",
+    "testName": "search for a single request with all parameters",
     "parameters": {
-      "indexName": "indexName",
-      "searchParams": {
-        "query": "myQuery",
-        "facetFilters": [
-          "tags:algolia"
-        ]
-      }
+      "requests": [
+        {
+          "indexName": "theIndexName",
+          "query": "test",
+          "type": "facet",
+          "facet": "theFacet",
+          "params": {
+            "hitsPerPage": 50
+          }
+        }
+      ],
+      "strategy": "stopIfEnoughMatches"
     },
     "request": {
-      "path": "/1/indexes/indexName/query",
+      "path": "/1/indexes/*/queries",
       "method": "POST",
       "body": {
-        "query": "myQuery",
-        "facetFilters": [
-          "tags:algolia"
-        ]
+        "requests": [
+          {
+            "indexName": "theIndexName",
+            "query": "test",
+            "type": "facet",
+            "facet": "theFacet",
+            "params": {
+              "hitsPerPage": 50
+            }
+          }
+        ],
+        "strategy": "stopIfEnoughMatches"
+      }
+    }
+  },
+  {
+    "testName": "search for multiple requests in multiple indices with all parameters",
+    "parameters": {
+      "requests": [
+        {
+          "indexName": "theIndexName",
+          "query": "test",
+          "type": "facet",
+          "facet": "theFacet",
+          "params": {
+            "hitsPerPage": 50
+          }
+        },
+        {
+          "indexName": "theIndexName2",
+          "query": "test",
+          "type": "default",
+          "params": {
+            "hitsPerPage": 100
+          }
+        }
+      ],
+      "strategy": "stopIfEnoughMatches"
+    },
+    "request": {
+      "path": "/1/indexes/*/queries",
+      "method": "POST",
+      "body": {
+        "requests": [
+          {
+            "indexName": "theIndexName",
+            "query": "test",
+            "type": "facet",
+            "facet": "theFacet",
+            "params": {
+              "hitsPerPage": 50
+            }
+          },
+          {
+            "indexName": "theIndexName2",
+            "query": "test",
+            "type": "default",
+            "params": {
+              "hitsPerPage": 100
+            }
+          }
+        ],
+        "strategy": "stopIfEnoughMatches"
       }
     }
   }

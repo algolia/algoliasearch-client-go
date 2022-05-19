@@ -1,4 +1,4 @@
-searchResponse:
+SearchResponse:
   allOf:
     - $ref: '#/baseSearchResponse'
     - $ref: '#/searchHits'

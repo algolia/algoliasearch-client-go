@@ -38,11 +38,11 @@ For informations regarding the installation of the package, please see [the inst
 }>
 <TabItem value="js">
 
-| Previous             | Latest                                 | Description                                                                                                                                                                                                          |
-| -------------------- | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@algolia`           | `@experimental-api-clients-automation` | **During the beta phase**, the clients are available under the NPM `@experimental-api-clients-automation` namespace, you can find a full list [here](https://www.npmjs.com/org/experimental-api-clients-automation). |
-| `algoliasearch/lite` | `algoliasearch-lite`                   | The lite version of the client now have [its own package](https://www.npmjs.com/package/@experimental-api-clients-automation/algoliasearch-lite).                                                                    |
-| `search`             | `searchClient`                         | Exported clients are suffixed by `Client`.                                                                                                                                                                           |
+| Previous             | Latest                                 | Impacted clients | Description                                                                                                                                                                                                          |
+| -------------------- | :------------------------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@algolia`           | `@experimental-api-clients-automation` | JavaScript       | **During the beta phase**, the clients are available under the NPM `@experimental-api-clients-automation` namespace, you can find a full list [here](https://www.npmjs.com/org/experimental-api-clients-automation). |
+| `algoliasearch/lite` | `algoliasearch-lite`                   | JavaScript       | The lite version of the client now have [its own package](https://www.npmjs.com/package/@experimental-api-clients-automation/algoliasearch-lite).                                                                    |
+| `search`             | `searchClient`                         | all              | Exported clients are suffixed by `Client`.                                                                                                                                                                           |
 
 </TabItem>
 </Tabs>
@@ -51,9 +51,9 @@ For informations regarding the installation of the package, please see [the inst
 
 <Tabs
   groupId="language"
-  defaultValue="js"
+  defaultValue="javascript"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'javascript', }
   ]
 }>
 <TabItem value="js">
@@ -95,9 +95,9 @@ You can continue this guide on [our installation page](/docs/api-clients/install
 
 <Tabs
   groupId="language"
-  defaultValue="js"
+  defaultValue="javascript"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'javascript', }
   ]
 }>
 <TabItem value="js">
@@ -111,18 +111,26 @@ const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 
 // only query string
 const searchResults = await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: { query: 'myQuery' },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+    },
+  ],
 });
 
 // with params
 const searchResults2 = await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: 'myQuery',
-    attributesToRetrieve: ['firstname', 'lastname'],
-    hitsPerPage: 50,
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      params: {
+        attributesToRetrieve: ['firstname', 'lastname'],
+        hitsPerPage: 50,
+      },
+    },
+  ],
 });
 ```
 

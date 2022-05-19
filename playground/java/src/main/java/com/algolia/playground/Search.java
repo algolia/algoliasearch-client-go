@@ -1,18 +1,19 @@
 package com.algolia.playground;
 
+import com.algolia.api.SearchClient;
 import com.algolia.exceptions.AlgoliaApiException;
 import com.algolia.exceptions.AlgoliaRetryException;
 import com.algolia.exceptions.AlgoliaRuntimeException;
 import com.algolia.model.search.*;
-import com.algolia.api.SearchClient;
 import com.algolia.utils.AlgoliaAgent;
 import io.github.cdimascio.dotenv.Dotenv;
+import java.lang.InterruptedException;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.lang.InterruptedException;
 
 public class Search {
-  
+
   public static void main(String[] args) {
     Dotenv dotenv = Dotenv.configure().directory("../").load();
 
@@ -27,21 +28,27 @@ public class Search {
     );
 
     String indexName = dotenv.get("SEARCH_INDEX");
-    SearchParamsObject params = new SearchParamsObject();
-    params.setAroundRadius(AroundRadius.ofInteger(5));
-    params.setQuery(dotenv.get("SEARCH_QUERY"));
+    String query = dotenv.get("SEARCH_QUERY");
 
     try {
-      CompletableFuture<SearchResponse> result = client.searchAsync(
-        indexName,
-        SearchParams.ofSearchParamsObject(params)
+      SearchMethodParams searchMethodParams = new SearchMethodParams();
+      List<SearchQueries> requests = new ArrayList<>();
+      SearchQueries request = new SearchQueries();
+      request.setIndexName(indexName);
+      request.setQuery(query);
+      requests.add(request);
+      searchMethodParams.setRequests(requests);
+
+      CompletableFuture<SearchResponses> result = client.searchAsync(
+        searchMethodParams
       );
-      SearchResponse sr = result.get();
+
+      SearchResponses sr = result.get();
       System.out.println(sr);
-    } catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       System.err.println("InterrupedException" + e.getMessage());
       e.printStackTrace();
-    } catch(ExecutionException e) {
+    } catch (ExecutionException e) {
       System.err.println("ExecutionException" + e.getMessage());
       e.printStackTrace();
     } catch (AlgoliaApiException e) {

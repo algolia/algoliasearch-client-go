@@ -6,22 +6,14 @@ searchParams:
 searchParamsObject:
   allOf:
     - $ref: '#/baseSearchParams'
-    - $ref: '#/requiredSearchParams'
     - $ref: '../../common/schemas/IndexSettings.yml#/indexSettingsAsSearchParams'
-
-requiredSearchParams:
-  type: object
-  additionalProperties: false
-  required:
-    - query
-  properties:
-    query:
-      $ref: '#/query'
 
 baseSearchParams:
   type: object
   additionalProperties: false
   properties:
+    query:
+      $ref: '#/query'
     similarQuery:
       type: string
       description: Overrides the query parameter and performs a more generic search that can be used to find "similar" results.

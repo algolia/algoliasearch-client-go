@@ -2,23 +2,56 @@ post:
   tags:
     - Search
   operationId: search
-  summary: Search in an index.
-  description: Perform a search operation targeting one specific index.
-  parameters:
-    - $ref: '../../../common/parameters.yml#/IndexName'
+  summary: Search multiple indices.
+  description: Perform a search operation targeting one or many indices.
   requestBody:
     required: true
+    description: The `search` requests and strategy.
     content:
       application/json:
         schema:
-          $ref: '../../../common/schemas/SearchParams.yml#/searchParams'
+          title: searchMethodParams
+          type: object
+          additionalProperties: false
+          properties:
+            requests:
+              type: array
+              items:
+                title: searchQueries
+                type: object
+                additionalProperties: false
+                properties:
+                  indexName:
+                    $ref: '../../../common/parameters.yml#/indexName'
+                  query:
+                    $ref: '../../../common/schemas/SearchParams.yml#/query'
+                  type:
+                    $ref: '../../common/enums.yml#/searchType'
+                  facet:
+                    type: string
+                    description: The `facet` name.
+                  params:
+                    $ref: '../../../common/schemas/SearchParams.yml#/searchParams'
+                required:
+                  - indexName
+            strategy:
+              $ref: '../../common/enums.yml#/searchStrategy'
+          required:
+            - requests
   responses:
     '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: '../../common/schemas/SearchResponse.yml#/searchResponse'
+            title: searchResponses
+            type: object
+            additionalProperties: false
+            properties:
+              results:
+                type: array
+                items:
+                  $ref: '../../common/schemas/SearchResponse.yml#/SearchResponse'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':
