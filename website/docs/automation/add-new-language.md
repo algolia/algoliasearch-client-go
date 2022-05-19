@@ -109,6 +109,8 @@ Algolia for Java (5.0.0); Search (5.0.0); JVM (11.0.14); experimental
 
 You can take a look at the Java implementation [here](https://github.com/algolia/api-clients-automation/pull/347).
 
+The function must be named `addAlgoliaAgent` because of JavaScript exception that doesn't allow custom `User-Agent` in the header, and must use `x-algolia-agent`.
+
 ### Dependencies
 
 You can use any dependency you want to create the client, it can be Json parser or HTTP client, but it's important to never expose those dependencies through the client, meaning:

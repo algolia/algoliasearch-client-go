@@ -23,7 +23,7 @@ export const COMMON_DEPENDENCIES = {
     '.github/workflows',
     '.github/.cache_version',
   ],
-  SCRIPTS_CHANGED: ['scripts'],
+  SCRIPTS_CHANGED: ['scripts', 'eslint'],
   COMMON_SPECS_CHANGED: ['specs/common'],
 };
 

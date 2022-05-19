@@ -38,7 +38,7 @@ responses:
 simple:
   description: a number
     `,
-      errors: [{ messageId: 'descriptionNoDot' }],
+      errors: [{ messageId: 'endWithDot' }],
       output: `
 simple:
   description: a number.
@@ -51,7 +51,7 @@ multi:
     Multiline comment
     on description
     `,
-      errors: [{ messageId: 'descriptionNoDot' }],
+      errors: [{ messageId: 'endWithDot' }],
       output: `
 multi:
   description: >

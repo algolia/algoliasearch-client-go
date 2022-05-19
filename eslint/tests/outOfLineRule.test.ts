@@ -1,12 +1,13 @@
 import { RuleTester } from 'eslint';
 
-import { outOfLineEnum } from '../src/rules/outOfLineEnum';
+import { createOutOfLineRule } from '../src/rules/outOfLineRule';
 
 const ruleTester = new RuleTester({
   parser: require.resolve('yaml-eslint-parser'),
 });
 
-ruleTester.run('out-of-line-enum', outOfLineEnum, {
+// this test is enough for oneOf, allOf, anyOf, as they use the same rule.
+ruleTester.run('out-of-line-enum', createOutOfLineRule({ property: 'enum' }), {
   valid: [
     `
 simple:

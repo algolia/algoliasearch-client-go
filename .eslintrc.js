@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ['.eslintrc.js', '**/node_modules', '**/build', '**/dist', '**/target', '**/.yarn'],
+  ignorePatterns: ['.eslintrc.js', '**/node_modules', '**/build', '**/dist', '**/target', '**/.yarn', 'specs/bundled/*.doc.yml'],
 
   overrides: [
     {
@@ -51,6 +51,10 @@ module.exports = {
             files: ['!specs/bundled/*.yml'],
             rules: {
               "automation-custom/out-of-line-enum": "error",
+              "automation-custom/out-of-line-one-of": "error",
+              "automation-custom/out-of-line-all-of": "error",
+              "automation-custom/out-of-line-any-of": "error",
+
             }
           }
         ]
