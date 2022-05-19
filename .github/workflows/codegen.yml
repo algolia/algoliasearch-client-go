@@ -41,11 +41,11 @@ jobs:
         with:
           type: minimal
 
-      - name: Clean previously generated branch
-        run: yarn workspace scripts cleanGeneratedBranch ${{ github.head_ref }}
-
       - name: Add cleanup comment
         run: yarn workspace scripts upsertGenerationComment cleanup
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
           PR_NUMBER: ${{ github.event.number }}
+
+      - name: Clean previously generated branch
+        run: yarn workspace scripts cleanGeneratedBranch ${{ github.head_ref }}

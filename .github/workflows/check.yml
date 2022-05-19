@@ -316,7 +316,6 @@ jobs:
 
       - name: Push generated code
         id: pushGeneratedCode
-        if: ${{ needs.setup.outputs.RUN_CODEGEN == 'true' }}
         run: yarn workspace scripts pushGeneratedCode
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}

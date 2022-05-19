@@ -7,6 +7,11 @@ import {
   upsertGenerationComment,
 } from '../upsertGenerationComment';
 
+jest.mock('../../../common', () => ({
+  ...(jest.requireActual('../../../common') as any),
+  run: jest.fn().mockResolvedValue('mocked'),
+}));
+
 describe('codegen', () => {
   describe('cleanGeneratedBranch', () => {
     it('throws without parameters', async () => {
@@ -51,7 +56,7 @@ describe('codegen', () => {
       expect(await getCommentBody('notification')).toMatchInlineSnapshot(`
         "### 🔨 The codegen job will run at the end of the CI.
 
-        _Make sure your last commit does not contains generated code, it will be automatically pushed by our CI._"
+        _Make sure your last commit does not contain generated code, it will be automatically pushed by our CI._"
       `);
     });
 
@@ -67,7 +72,8 @@ describe('codegen', () => {
       expect(await getCommentBody('cleanup')).toMatchInlineSnapshot(`
         "### ✗ The generated branch has been deleted.
 
-        If the PR has been merged, you can check the generated code on the [\`${MAIN_BRANCH}\` branch](https://github.com/algolia/api-clients-automation/tree/${MAIN_BRANCH})."
+        If the PR has been merged, you can check the generated code on the [\`${MAIN_BRANCH}\` branch](https://github.com/algolia/api-clients-automation/tree/${MAIN_BRANCH}).
+        You can still access [the last generated commit](https://github.com/algolia/api-clients-automation/commit/mocked)."
       `);
     });
 
@@ -75,10 +81,10 @@ describe('codegen', () => {
       it('creates a comment body for the parameters', () => {
         expect(
           commentText.codegen.body(
+            'theGeneratedCommit',
             'myBranch',
             'myCommit',
-            42,
-            'theGeneratedCommit'
+            42
           )
         ).toMatchInlineSnapshot(`
           "

@@ -26,8 +26,7 @@ export async function cleanGeneratedBranch(headRef: string): Promise<void> {
   await run(`git push -d origin ${generatedCodeBranch}`);
 }
 
-const args = process.argv.slice(2);
-
 if (require.main === module) {
+  const args = process.argv.slice(2);
   cleanGeneratedBranch(args[0]);
 }

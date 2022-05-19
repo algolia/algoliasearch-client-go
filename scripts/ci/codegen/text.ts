@@ -4,31 +4,34 @@ export default {
   commitStartMessage: 'chore: generated code for commit',
   notification: {
     header: '### 🔨 The codegen job will run at the end of the CI.',
-    body: '_Make sure your last commit does not contains generated code, it will be automatically pushed by our CI._',
+    body: (): string =>
+      '_Make sure your last commit does not contain generated code, it will be automatically pushed by our CI._',
   },
   noGen: {
     header: '### ✗ No code generated.',
-    body: `_If you believe this is an issue on our side, please [open an issue](${REPO_URL}/issues/new?template=Bug_report.md)._`,
+    body: (): string =>
+      `_If you believe this is an issue on our side, please [open an issue](${REPO_URL}/issues/new?template=Bug_report.md)._`,
   },
   cleanup: {
     header: '### ✗ The generated branch has been deleted.',
-    body: `If the PR has been merged, you can check the generated code on the [\`${MAIN_BRANCH}\` branch](${REPO_URL}/tree/${MAIN_BRANCH}).`,
+    body: (
+      generatedCommit: string
+    ): string => `If the PR has been merged, you can check the generated code on the [\`${MAIN_BRANCH}\` branch](${REPO_URL}/tree/${MAIN_BRANCH}).
+You can still access [the last generated commit](${REPO_URL}/commit/${generatedCommit}).`,
   },
   codegen: {
     header: '### ✔️ Code generated!',
-    body(
+    body: (
+      generatedCommit: string,
       branch: string,
       commit: string,
-      eventNumber: number,
-      generatedCommit: string
-    ): string {
-      return `
+      eventNumber: number
+    ): string => `
 |  Name | Link |
 |---------------------------------|------------------------|
 | 🔨 Triggered by | [\`${commit}\`](${REPO_URL}/pull/${eventNumber}/commits/${commit}) |
 | 🔍 Generated code | [\`${generatedCommit}\`](${REPO_URL}/commit/${generatedCommit}) |
 | 🌲 Generated branch | [\`${branch}\`](${REPO_URL}/tree/${branch}) |
-`;
-    },
+`,
   },
 };
