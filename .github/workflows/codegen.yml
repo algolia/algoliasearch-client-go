@@ -25,6 +25,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
           PR_NUMBER: ${{ github.event.number }}
+          HEAD_BRANCH: ${{ github.head_ref }}
 
   cleanup:
     runs-on: ubuntu-20.04

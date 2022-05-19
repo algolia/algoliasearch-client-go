@@ -19,10 +19,16 @@ const allowedTriggers = [
 type Trigger = typeof allowedTriggers[number];
 
 export async function getCommentBody(trigger: Trigger): Promise<string> {
-  const generatedBranch = await run('git branch --show-current');
+  let generatedBranch = await run('git branch --show-current');
+
+  // `cleanup` is triggered on PR close, which runs on `main`, so we lose the
+  // branch name context at this point
+  if (generatedBranch === 'main' && process.env.HEAD_BRANCH) {
+    generatedBranch = `generated/${process.env.HEAD_BRANCH}`;
+  }
+
   const baseBranch = generatedBranch.replace('generated/', '');
   const baseCommit = await run(`git show ${baseBranch} -s --format=%H`);
-
   const generatedCommit = await run(
     `git show ${generatedBranch} -s --format=%H`
   );

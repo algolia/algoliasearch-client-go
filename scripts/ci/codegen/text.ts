@@ -15,9 +15,10 @@ export default {
   cleanup: {
     header: '### ✗ The generated branch has been deleted.',
     body: (
-      generatedCommit: string
+      generatedCommit: string,
+      branch: string
     ): string => `If the PR has been merged, you can check the generated code on the [\`${MAIN_BRANCH}\` branch](${REPO_URL}/tree/${MAIN_BRANCH}).
-You can still access [the last generated commit](${REPO_URL}/commit/${generatedCommit}).`,
+You can still access the code generated on \`${branch}\` via [this commit](${REPO_URL}/commit/${generatedCommit}).`,
   },
   codegen: {
     header: '### ✔️ Code generated!',
