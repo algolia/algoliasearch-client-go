@@ -1,6 +1,6 @@
 get:
   tags:
-    - Dictionnaries
+    - Dictionaries
   operationId: getDictionarySettings
   description: Retrieve dictionaries settings. The API stores languages whose standard entries are disabled. Fetch settings does not return false values.
   summary: Retrieve dictionaries settings.
@@ -29,7 +29,7 @@ get:
 
 put:
   tags:
-    - Dictionnaries
+    - Dictionaries
   operationId: setDictionarySettings
   description: Set dictionaries settings.
   summary: Set dictionaries settings.

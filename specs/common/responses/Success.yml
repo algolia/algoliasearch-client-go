@@ -3,7 +3,7 @@ content:
   application/json:
     schema:
       type: object
-      title: SucessResponse
+      title: SuccessResponse
       additionalProperties: false
       required:
         - status

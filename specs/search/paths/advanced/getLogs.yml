@@ -51,7 +51,7 @@ get:
                       description: Timestamp in ISO-8601 format.
                     method:
                       type: string
-                      description: HTTP method of the perfomed request.
+                      description: HTTP method of the performed request.
                     answer_code:
                       type: string
                       description: HTTP response code.
@@ -66,7 +66,7 @@ get:
                       description: Request URL.
                     ip:
                       type: string
-                      description: IP of the client which perfomed the request.
+                      description: IP of the client which performed the request.
                     query_headers:
                       type: string
                       description: Request Headers (API Key is obfuscated).

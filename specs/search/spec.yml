@@ -40,8 +40,8 @@ tags:
     description: Manage your Api Keys.
   - name: Clusters
     description: Clusters operations.
-  - name: Dictionnaries
-    description: Dictionnaries operations.
+  - name: Dictionaries
+    description: Dictionaries operations.
   - name: Indices
     description: Manage indices.
   - name: Records
@@ -68,7 +68,7 @@ x-tagGroups:
     tags:
       - Rules
       - Synonyms
-      - Dictionnaries
+      - Dictionaries
   - name: Others
     tags:
       - Api Keys

@@ -54,7 +54,7 @@ delete:
   description: >
     Delete a configuration of a Query Suggestion's index.
 
-    By deleting a configuraton, you stop all updates to the underlying query suggestion index.
+    By deleting a configuration, you stop all updates to the underlying query suggestion index.
 
     Note that when doing this, the underlying index does not change - existing suggestions remain untouched.
   parameters:

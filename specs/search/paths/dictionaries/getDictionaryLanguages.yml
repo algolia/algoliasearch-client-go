@@ -1,6 +1,6 @@
 get:
   tags:
-    - Dictionnaries
+    - Dictionaries
   operationId: getDictionaryLanguages
   description: List dictionaries supported per language.
   summary: List available languages.

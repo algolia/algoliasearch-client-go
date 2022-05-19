@@ -34,4 +34,4 @@ description:
 
 trafficPercentage:
   type: integer
-  description: The traffic perfecentage for the A/B test.
+  description: The traffic percentage for the A/B test.

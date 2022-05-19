@@ -27,12 +27,12 @@ SourceIndicesWithReplicas:
   type: array
   description: List of source indices used to generate a Query Suggestions index.
   items:
-    $ref: '#/SourceIndiceWithReplicas'
+    $ref: '#/SourceIndexWithReplicas'
 
-SourceIndiceWithReplicas:
+SourceIndexWithReplicas:
   type: object
   additionalProperties: false
-  description: Source indice with replicas used to generate a Query Suggestions index.
+  description: Source index with replicas used to generate a Query Suggestions index.
   required:
     - replicas
     - indexName

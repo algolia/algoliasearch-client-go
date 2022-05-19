@@ -1,6 +1,6 @@
 post:
   tags:
-    - Dictionnaries
+    - Dictionaries
   operationId: batchDictionaryEntries
   description: Send a batch of dictionary entries.
   summary: Batch dictionary entries.

@@ -3,7 +3,7 @@ post:
     - Indices
   operationId: operationIndex
   summary: Copy/move index.
-  description: Peforms a copy or a move operation on a index.
+  description: Performs a copy or a move operation on a index.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
   requestBody:
