@@ -61,6 +61,7 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     additionalProperties.put("capitalizedApiName", Utils.capitalize(apiName));
     additionalProperties.put("algoliaAgent", Utils.capitalize(CLIENT));
     additionalProperties.put("gitRepoId", "algoliasearch-client-javascript");
+    additionalProperties.put("isSearchClient", CLIENT.equals("search"));
   }
 
   /** Provides an opportunity to inspect and modify operation data before the code is generated. */
