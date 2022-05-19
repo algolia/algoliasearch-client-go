@@ -120,9 +120,7 @@ async function updateVersionForJavascript(
   Object.values(GENERATORS)
     .filter((gen) => gen.language === 'javascript')
     .forEach((gen) => {
-      const additionalProperties =
-        openapiConfig['generator-cli'].generators[gen.key].additionalProperties;
-
+      const additionalProperties = gen.additionalProperties;
       const newVersion = semver.inc(
         additionalProperties.packageVersion,
         jsVersion.releaseType
