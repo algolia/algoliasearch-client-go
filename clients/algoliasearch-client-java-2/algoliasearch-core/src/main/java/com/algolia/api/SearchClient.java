@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import okhttp3.Call;
@@ -6118,5 +6119,57 @@ public class SearchClient extends ApiClient {
     ApiKey apiKey
   ) throws AlgoliaRuntimeException {
     return this.updateApiKeyAsync(key, apiKey, null);
+  }
+
+  public void waitForTask(
+    String indexName,
+    Long taskID,
+    RequestOptions requestOptions,
+    int maxTrial,
+    IntUnaryOperator timeout
+  ) {
+    TaskUtils.retryUntil(
+      () -> {
+        return this.getTaskAsync(indexName, taskID, requestOptions);
+      },
+      (GetTaskResponse task) -> {
+        return task.getStatus() == TaskStatus.PUBLISHED;
+      },
+      maxTrial,
+      timeout
+    );
+  }
+
+  public void waitForTask(
+    String indexName,
+    Long taskID,
+    RequestOptions requestOptions
+  ) {
+    this.waitForTask(
+        indexName,
+        taskID,
+        requestOptions,
+        TaskUtils.DEFAULT_MAX_TRIAL,
+        TaskUtils.DEFAULT_TIMEOUT
+      );
+  }
+
+  public void waitForTask(
+    String indexName,
+    Long taskID,
+    int maxTrial,
+    IntUnaryOperator timeout
+  ) {
+    this.waitForTask(indexName, taskID, null, maxTrial, timeout);
+  }
+
+  public void waitForTask(String indexName, Long taskID) {
+    this.waitForTask(
+        indexName,
+        taskID,
+        null,
+        TaskUtils.DEFAULT_MAX_TRIAL,
+        TaskUtils.DEFAULT_TIMEOUT
+      );
   }
 }
