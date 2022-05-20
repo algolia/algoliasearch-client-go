@@ -19,6 +19,8 @@ import {
   emptyDirExceptForDotGit,
   GENERATORS,
   LANGUAGES,
+  getOctokit,
+  ensureGitHubToken,
 } from '../common';
 import {
   getClientsConfigField,
@@ -34,7 +36,6 @@ import {
   getMarkdownSection,
   configureGitHubAuthor,
   cloneRepository,
-  getOctokit,
 } from './common';
 import TEXT from './text';
 import type {
@@ -61,7 +62,7 @@ const BEFORE_CLIENT_COMMIT: { [lang: string]: BeforeClientCommitCommand } = {
 };
 
 async function getIssueBody(): Promise<string> {
-  const octokit = getOctokit(process.env.GITHUB_TOKEN!);
+  const octokit = getOctokit();
   const {
     data: { body },
   } = await octokit.rest.issues.get({
@@ -230,7 +231,7 @@ function formatGitTag({
 }
 
 async function isAuthorizedRelease(): Promise<boolean> {
-  const octokit = getOctokit(process.env.GITHUB_TOKEN!);
+  const octokit = getOctokit();
   const { data: members } = await octokit.rest.teams.listMembersInOrg({
     org: OWNER,
     team_slug: TEAM_SLUG,
@@ -250,9 +251,7 @@ async function isAuthorizedRelease(): Promise<boolean> {
 }
 
 async function processRelease(): Promise<void> {
-  if (!process.env.GITHUB_TOKEN) {
-    throw new Error('Environment variable `GITHUB_TOKEN` does not exist.');
-  }
+  const githubToken = ensureGitHubToken();
 
   if (!process.env.EVENT_NUMBER) {
     throw new Error('Environment variable `EVENT_NUMBER` does not exist.');
@@ -308,7 +307,7 @@ async function processRelease(): Promise<void> {
   )) {
     const { tempGitDir } = await cloneRepository({
       lang: lang as Language,
-      githubToken: process.env.GITHUB_TOKEN,
+      githubToken,
       tempDir: process.env.RUNNER_TEMP!,
     });
 

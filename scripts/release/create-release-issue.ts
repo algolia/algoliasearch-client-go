@@ -10,10 +10,12 @@ import {
   MAIN_BRANCH,
   OWNER,
   REPO,
+  getOctokit,
+  ensureGitHubToken,
 } from '../common';
 import { getPackageVersionDefault } from '../config';
 
-import { RELEASED_TAG, getOctokit } from './common';
+import { RELEASED_TAG } from './common';
 import TEXT from './text';
 import type {
   Versions,
@@ -188,9 +190,7 @@ export function decideReleaseStrategy({
 /* eslint-enable no-param-reassign */
 
 async function createReleaseIssue(): Promise<void> {
-  if (!process.env.GITHUB_TOKEN) {
-    throw new Error('Environment variable `GITHUB_TOKEN` does not exist.');
-  }
+  ensureGitHubToken();
 
   if ((await run('git rev-parse --abbrev-ref HEAD')) !== MAIN_BRANCH) {
     throw new Error(
@@ -299,7 +299,7 @@ async function createReleaseIssue(): Promise<void> {
     TEXT.approval,
   ].join('\n\n');
 
-  const octokit = getOctokit(process.env.GITHUB_TOKEN);
+  const octokit = getOctokit();
 
   octokit.rest.issues
     .create({

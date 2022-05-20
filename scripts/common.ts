@@ -1,6 +1,7 @@
 import fsp from 'fs/promises';
 import path from 'path';
 
+import { Octokit } from '@octokit/rest';
 import execa from 'execa'; // https://github.com/sindresorhus/execa/tree/v5.1.1
 import { hashElement } from 'folder-hash';
 import { remove } from 'fs-extra';
@@ -257,4 +258,28 @@ export async function runComposerUpdate(verbose: boolean): Promise<void> {
       }
     );
   }
+}
+
+export function ensureGitHubToken(): string {
+  // use process.env here to mock with jest
+  if (!process.env.GITHUB_TOKEN) {
+    throw new Error('Environment variable `GITHUB_TOKEN` does not exist.');
+  }
+  return process.env.GITHUB_TOKEN;
+}
+
+export function getOctokit(): Octokit {
+  const token = ensureGitHubToken();
+  return new Octokit({
+    auth: `token ${token}`,
+  });
+}
+
+export function wait(waitTime: number): Promise<void> {
+  if (waitTime <= 0) {
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => {
+    setTimeout(resolve, waitTime);
+  });
 }

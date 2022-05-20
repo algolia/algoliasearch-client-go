@@ -32,6 +32,7 @@ __metadata:
     mustache: 4.2.0
     prettier: 2.6.2
     prettier-plugin-java: 1.6.1
+    renovate-config-algolia: 2.1.10
     typescript: 4.6.3
   languageName: unknown
   linkType: soft
@@ -18791,6 +18792,13 @@ __metadata:
     lodash: ^4.17.21
     strip-ansi: ^6.0.1
   checksum: 77162b62d6f33ab81f337c39efce0439ff0d1f6d441e29c35183151f83041c7850774fb904da163d6c844264d440d10557714e6daa0b19e4561a5cd4ef305d41
+  languageName: node
+  linkType: hard
+
+"renovate-config-algolia@npm:2.1.10":
+  version: 2.1.10
+  resolution: "renovate-config-algolia@npm:2.1.10"
+  checksum: 2fa9e541ce8672c2dd96b0719ae0ca054e9e4fcbc24c9a4b7aee9047cd22f0f7d48f45142b65b41a7bb7da7738deee40a02920ce7893c6eabd24d40c5828ed3e
   languageName: node
   linkType: hard
 

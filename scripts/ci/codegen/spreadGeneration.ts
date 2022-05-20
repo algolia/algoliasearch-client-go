@@ -8,6 +8,7 @@ import {
   run,
   toAbsolutePath,
   REPO_URL,
+  ensureGitHubToken,
 } from '../../common';
 import { getLanguageFolder } from '../../config';
 import { cloneRepository, configureGitHubAuthor } from '../../release/common';
@@ -60,9 +61,7 @@ export function cleanUpCommitMessage(commitMessage: string): string {
 }
 
 async function spreadGeneration(): Promise<void> {
-  if (!process.env.GITHUB_TOKEN) {
-    throw new Error('Environment variable `GITHUB_TOKEN` does not exist.');
-  }
+  const githubToken = ensureGitHubToken();
 
   const lastCommitMessage = await run('git log -1 --format="%s"');
   const author = (
@@ -81,7 +80,7 @@ async function spreadGeneration(): Promise<void> {
   for (const lang of langs) {
     const { tempGitDir } = await cloneRepository({
       lang,
-      githubToken: process.env.GITHUB_TOKEN,
+      githubToken,
       tempDir: process.env.RUNNER_TEMP!,
     });
 

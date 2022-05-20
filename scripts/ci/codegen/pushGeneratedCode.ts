@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { MAIN_BRANCH, run } from '../../common';
+import { ensureGitHubToken, MAIN_BRANCH, run } from '../../common';
 import { configureGitHubAuthor } from '../../release/common';
 import { getNbGitDiff } from '../utils';
 
@@ -18,9 +18,7 @@ async function isUpToDate(baseBranch: string): Promise<boolean> {
  * Push generated code for the current `JOB` and `CLIENT` on a `generated/` branch.
  */
 export async function pushGeneratedCode(): Promise<void> {
-  if (!process.env.GITHUB_TOKEN) {
-    throw new Error('Environment variable `GITHUB_TOKEN` does not exist.');
-  }
+  ensureGitHubToken();
 
   await configureGitHubAuthor();
 

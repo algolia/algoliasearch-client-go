@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "config:js-app",
+    "algolia"
+  ],
+  "enabledManagers": [
+    "npm",
+    "nvm"
+  ],
+  "baseBranches": [
+    "chore/renovateBaseBranch"
+  ],
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "required_provider"
+      ],
+      "rangeStrategy": "bump"
+    }
+  ],
+  "prHourlyLimit": 10,
+  "prConcurrentLimit": 50
+}

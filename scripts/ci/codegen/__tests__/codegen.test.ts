@@ -21,6 +21,7 @@ describe('codegen', () => {
 
   describe('pushGeneratedCode', () => {
     it('throws without GITHUB_TOKEN environment variable', async () => {
+      process.env.GITHUB_TOKEN = '';
       await expect(pushGeneratedCode()).rejects.toThrow(
         'Environment variable `GITHUB_TOKEN` does not exist.'
       );
@@ -28,6 +29,10 @@ describe('codegen', () => {
   });
 
   describe('upsertGenerationComment', () => {
+    beforeAll(() => {
+      process.env.GITHUB_TOKEN = 'mocked';
+    });
+
     it('throws without parameter', async () => {
       await expect(
         // @ts-expect-error a parameter is required
@@ -38,8 +43,6 @@ describe('codegen', () => {
     });
 
     it('throws without PR_NUMBER environment variable', async () => {
-      process.env.GITHUB_TOKEN = 'foo';
-
       await expect(upsertGenerationComment('codegen')).rejects.toThrow(
         '`upsertGenerationComment` requires a `PR_NUMBER` environment variable.'
       );

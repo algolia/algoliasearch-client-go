@@ -45,7 +45,9 @@ jobs:
           exit $diff
 
       - name: Lint json files
-        run: yarn eslint --ext=json .
+        run: |
+          yarn eslint --ext=json .
+          echo 'Use yarn fix:json to fix issues'
 
     outputs:
       RUN_SCRIPTS: ${{ steps.setup.outputs.RUN_SCRIPTS }}

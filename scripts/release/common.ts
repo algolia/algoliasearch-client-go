@@ -1,7 +1,5 @@
 import path from 'path';
 
-import { Octokit } from '@octokit/rest';
-
 import config from '../../config/release.config.json';
 import { run } from '../common';
 import { getGitHubUrl } from '../config';
@@ -9,12 +7,6 @@ import type { Language } from '../types';
 
 export const RELEASED_TAG = config.releasedTag;
 export const TEAM_SLUG = config.teamSlug;
-
-export function getOctokit(githubToken: string): Octokit {
-  return new Octokit({
-    auth: `token ${githubToken}`,
-  });
-}
 
 export function getTargetBranch(language: string): string {
   return config.targetBranch[language] || config.defaultTargetBranch;
