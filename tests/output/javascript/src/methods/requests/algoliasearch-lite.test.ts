@@ -326,38 +326,3 @@ describe('search', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 });
-
-describe('searchForFacetValues', () => {
-  test('get searchForFacetValues results with minimal parameters', async () => {
-    const req = (await client.searchForFacetValues({
-      indexName: 'indexName',
-      facetName: 'facetName',
-    })) as unknown as EchoResponse;
-
-    expect(req.path).toEqual('/1/indexes/indexName/facets/facetName/query');
-    expect(req.method).toEqual('POST');
-    expect(req.data).toEqual(undefined);
-    expect(req.searchParams).toStrictEqual(undefined);
-  });
-
-  test('get searchForFacetValues results with all parameters', async () => {
-    const req = (await client.searchForFacetValues({
-      indexName: 'indexName',
-      facetName: 'facetName',
-      searchForFacetValuesRequest: {
-        params: "query=foo&facetFilters=['bar']",
-        facetQuery: 'foo',
-        maxFacetHits: 42,
-      },
-    })) as unknown as EchoResponse;
-
-    expect(req.path).toEqual('/1/indexes/indexName/facets/facetName/query');
-    expect(req.method).toEqual('POST');
-    expect(req.data).toEqual({
-      params: "query=foo&facetFilters=['bar']",
-      facetQuery: 'foo',
-      maxFacetHits: 42,
-    });
-    expect(req.searchParams).toStrictEqual(undefined);
-  });
-});
