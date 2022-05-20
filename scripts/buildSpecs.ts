@@ -12,12 +12,7 @@ import {
 import { createSpinner } from './oraLog';
 import type { Spec } from './types';
 
-const ALGOLIASEARCH_LITE_OPERATIONS = [
-  'search',
-  'multipleQueries',
-  'searchForFacetValues',
-  'post',
-];
+const ALGOLIASEARCH_LITE_OPERATIONS = ['search', 'post'];
 
 /**
  * This function will transform properties in the bundle depending on the context.
