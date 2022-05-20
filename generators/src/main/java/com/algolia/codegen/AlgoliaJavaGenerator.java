@@ -51,6 +51,10 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
         additionalProperties
       );
       additionalProperties.put(
+        "isSearchClient",
+        Utils.getClientNameKebabCase(results).equals("search")
+      );
+      additionalProperties.put(
         "packageVersion",
         Utils.getClientConfigField("java", "packageVersion")
       );

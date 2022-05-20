@@ -199,8 +199,9 @@ jobs:
         with:
           type: specs
 
+        # Always download the utils for js, in case they changed we want to include them in the zip
       - name: Download JavaScript utils artifacts
-        if: ${{ matrix.client.language == 'javascript' && steps.cache.outputs.cache-hit != 'true' }}
+        if: ${{ matrix.client.language == 'javascript' }}
         uses: ./.github/actions/restore-artifacts
         with:
           type: js_utils
