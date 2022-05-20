@@ -17,10 +17,15 @@ export type VersionsWithoutReleaseType = {
   [lang: string]: Omit<Version, 'releaseType'>;
 };
 
+export type Scope = Language | 'specs';
+
 export type PassedCommit = {
   hash: string;
   type: string;
-  lang: Language;
+  /**
+   * A commit can be scoped to a language, or the specs, which impacts all clients.
+   */
+  scope: Scope;
   message: string;
   raw: string;
 };

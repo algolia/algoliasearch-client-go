@@ -12,7 +12,6 @@ import {
   REPO,
 } from '../common';
 import { getPackageVersionDefault } from '../config';
-import type { Language } from '../types';
 
 import { RELEASED_TAG, getOctokit } from './common';
 import TEXT from './text';
@@ -21,9 +20,12 @@ import type {
   VersionsWithoutReleaseType,
   PassedCommit,
   Commit,
+  Scope,
 } from './types';
 
 dotenv.config({ path: ROOT_ENV_PATH });
+
+const COMMON_SCOPES = ['specs'];
 
 export function readVersions(): VersionsWithoutReleaseType {
   return Object.fromEntries(
@@ -101,16 +103,18 @@ export function parseCommit(commit: string): Commit {
   }
   message = message.slice(message.indexOf(':') + 1).trim();
   type = matchResult[1];
-  const lang = matchResult[2] as Language;
+  const scope = matchResult[2] as Scope;
+  // A spec commit should be added to every clients, as it mostly imply a client change.
+  const allowedScopes = [...LANGUAGES, ...COMMON_SCOPES];
 
-  if (!LANGUAGES.includes(lang)) {
+  if (!allowedScopes.includes(scope)) {
     return { error: 'unknown-language-scope' };
   }
 
   return {
     hash,
     type, // `fix` | `feat` | `chore` | ...
-    lang, // `javascript` | `php` | `java` | ...
+    scope, // `specs` | `javascript` | `php` | `java` | ...
     message,
     raw: commit,
   };
@@ -126,7 +130,10 @@ export function decideReleaseStrategy({
 }): Versions {
   return Object.entries(versions).reduce(
     (versionsWithReleaseType: Versions, [lang, version]) => {
-      const commitsPerLang = commits.filter((commit) => commit.lang === lang);
+      const commitsPerLang = commits.filter(
+        (commit) =>
+          commit.scope === lang || COMMON_SCOPES.includes(commit.scope)
+      );
       const currentVersion = versions[lang].current;
 
       if (commitsPerLang.length === 0) {
@@ -268,7 +275,10 @@ async function createReleaseIssue(): Promise<void> {
       return [
         `### ${lang}`,
         ...validCommits
-          .filter((commit) => commit.lang === lang)
+          .filter(
+            (commit) =>
+              commit.scope === lang || COMMON_SCOPES.includes(commit.scope)
+          )
           .map((commit) => `- ${commit.raw}`),
       ];
     })
