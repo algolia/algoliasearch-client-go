@@ -1,6 +1,7 @@
 package com.algolia.utils.retry;
 
 import com.algolia.exceptions.*;
+import com.algolia.utils.UseReadTransporter;
 import com.algolia.utils.Utils;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -28,8 +29,11 @@ public class RetryStrategy {
       @Override
       public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
+        UseReadTransporter useReadTransporter = (UseReadTransporter) request.tag();
         Iterator<StatefulHost> hostsIter = getTryableHosts(
-          request.method().equals("GET") ? CallType.READ : CallType.WRITE
+          (useReadTransporter != null || request.method().equals("GET"))
+            ? CallType.READ
+            : CallType.WRITE
         )
           .iterator();
         while (hostsIter.hasNext()) {

@@ -2,6 +2,7 @@ post:
   tags:
     - Search
   operationId: searchSingleIndex
+  x-use-read-transporter: true
   summary: Search in a single index.
   description: Perform a search operation targeting one specific index.
   parameters:

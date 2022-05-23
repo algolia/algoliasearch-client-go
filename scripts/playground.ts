@@ -28,10 +28,10 @@ export async function playground({
       break;
     case 'php':
       await run(
-        `cd playground/php && \
+        `cd clients/algoliasearch-client-php/ && \
        composer update && \
        composer dump-autoload && \
-       cd src && \
+       cd ../../playground/php/src && \
        php8 ${client}.php`,
         { verbose }
       );

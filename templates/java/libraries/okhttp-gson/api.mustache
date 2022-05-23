@@ -193,7 +193,7 @@ public class {{classname}} extends ApiClient {
     }
 
     {{/headerParams}}
-    Call call = this.buildCall(requestPath, "{{httpMethod}}", queryParameters, bodyObj, headers, requestOptions);
+    Call call = this.buildCall(requestPath, "{{httpMethod}}", queryParameters, bodyObj, headers, requestOptions, {{#vendorExtensions.x-use-read-transporter}}true{{/vendorExtensions.x-use-read-transporter}}{{^vendorExtensions.x-use-read-transporter}}false{{/vendorExtensions.x-use-read-transporter}});
     Type returnType = new TypeToken<{{{returnType}}}>() {}.getType();
     return this.executeAsync(call, returnType);
   }

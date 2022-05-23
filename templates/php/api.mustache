@@ -35,7 +35,6 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
     public function __construct(ApiWrapperInterface $apiWrapper, {{configClassname}} $config)
     {
         $this->config = $config;
-
         $this->api = $apiWrapper;
     }
 
@@ -261,12 +260,12 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
 
         {{/servers.0}}
 
-        return $this->sendRequest('{{httpMethod}}', $resourcePath, $headers, $queryParameters, $httpBody, $requestOptions);
+        return $this->sendRequest('{{httpMethod}}', $resourcePath, $headers, $queryParameters, $httpBody, $requestOptions, {{#vendorExtensions.x-use-read-transporter}}true{{/vendorExtensions.x-use-read-transporter}});
     }
 
     {{/operation}}
 
-    private function sendRequest($method, $resourcePath, $headers, $queryParameters, $httpBody, $requestOptions)
+    private function sendRequest($method, $resourcePath, $headers, $queryParameters, $httpBody, $requestOptions, $useReadTransporter = false)
     {
         if (!isset($requestOptions['headers'])) {
             $requestOptions['headers'] = [];
@@ -277,25 +276,15 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
 
         $requestOptions['headers'] = array_merge($headers, $requestOptions['headers']);
         $requestOptions['queryParameters'] = array_merge($queryParameters, $requestOptions['queryParameters']);
-
         $query = \GuzzleHttp\Psr7\Query::build($requestOptions['queryParameters']);
 
-        if($method == 'GET') {
-            $request = $this->api->read(
-                $method,
-                $resourcePath . ($query ? "?{$query}" : ''),
-                $requestOptions
-            );
-        } else {
-            $request = $this->api->write(
-                $method,
-                $resourcePath . ($query ? "?{$query}" : ''),
-                $httpBody,
-                $requestOptions
-            );
-        }
-
-        return $request;
+        return $this->api->sendRequest(
+            $method,
+            $resourcePath . ($query ? "?{$query}" : ''),
+            $httpBody,
+            $requestOptions,
+            $useReadTransporter
+        );
     }
 }
 {{/operations}}

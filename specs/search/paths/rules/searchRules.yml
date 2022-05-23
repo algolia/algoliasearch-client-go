@@ -2,6 +2,7 @@ post:
   tags:
     - Rules
   operationId: searchRules
+  x-use-read-transporter: true
   summary: Search for rules.
   description: Search for rules matching various criteria.
   parameters:

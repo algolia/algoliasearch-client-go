@@ -18,7 +18,7 @@
         "expected": {
           "match": {
             "objectContaining": {
-              "host": "test-app-id.algolia.net"
+              "host": "test-app-id-dsn.algolia.net"
             }
           }
         }
@@ -70,7 +70,7 @@
           "match": {
             "objectContaining": {
               "connectTimeout": 2,
-              "responseTimeout": 30
+              "responseTimeout": 5
             }
           }
         }

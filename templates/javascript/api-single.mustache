@@ -218,6 +218,9 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
         {{#bodyParam}}
         data: {{paramName}},
         {{/bodyParam}}
+        {{#vendorExtensions.x-use-read-transporter}}
+        useReadTransporter: true,
+        {{/vendorExtensions.x-use-read-transporter}}
       };
 
       return transporter.request(request, {

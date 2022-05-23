@@ -1,10 +1,7 @@
 package {{invokerPackage}};
 
-import com.algolia.utils.Requester;
 import com.algolia.exceptions.*;
-import com.algolia.utils.AlgoliaAgent;
-import com.algolia.utils.JSON;
-import com.algolia.utils.RequestOptions;
+import com.algolia.utils.*;
 
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
@@ -270,11 +267,12 @@ public class ApiClient {
      * @param body The request body object
      * @param headerParams The header parameters
      * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
+     * @param useReadTransporter Some POST methods in the Algolia REST API uses the `read` transporter. This information is defined at the spec level.
      * @return The HTTP call
      * @throws AlgoliaRuntimeException If fail to serialize the request body object
      */
-    public Call buildCall(String path, String method, Map<String, Object> queryParameters, Object body, Map<String, String> headerParams, RequestOptions requestOptions) throws AlgoliaRuntimeException {
-        Request request = buildRequest(path, method, queryParameters, body, headerParams, requestOptions);
+    public Call buildCall(String path, String method, Map<String, Object> queryParameters, Object body, Map<String, String> headerParams, RequestOptions requestOptions, Boolean useReadTransporter) throws AlgoliaRuntimeException {
+        Request request = buildRequest(path, method, queryParameters, body, headerParams, requestOptions, useReadTransporter);
 
         return requester.newCall(request);
     }
@@ -288,39 +286,52 @@ public class ApiClient {
      * @param body The request body object
      * @param headerParams The header parameters
      * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
+     * @param useReadTransporter Some POST methods in the Algolia REST API uses the `read` transporter. This information is defined at the spec level.
      * @return The HTTP request
      * @throws AlgoliaRuntimeException If fail to serialize the request body object
      */
-    public Request buildRequest(String path, String method, Map<String, Object> queryParameters, Object body, Map<String, String> headerParams, RequestOptions requestOptions) throws AlgoliaRuntimeException {
-        boolean hasRequestOptions = requestOptions != null;
-        final String url = buildUrl(
-          path,
-          queryParameters,
-          hasRequestOptions ? requestOptions.getExtraQueryParameters() : null
-        );
-        final Request.Builder reqBuilder = new Request.Builder().url(url);
-        processHeaderParams(
-          headerParams,
-          hasRequestOptions ? requestOptions.getExtraHeaders() : null,
-          reqBuilder
-        );
+    public Request buildRequest(
+      String path,
+      String method,
+      Map<String, Object> queryParameters,
+      Object body,
+      Map<String, String> headerParams,
+      RequestOptions requestOptions,
+      Boolean useReadTransporter
+    ) throws AlgoliaRuntimeException {
+      boolean hasRequestOptions = requestOptions != null;
+      final String url = buildUrl(
+        path,
+        queryParameters,
+        hasRequestOptions ? requestOptions.getExtraQueryParameters() : null
+      );
+      final Request.Builder reqBuilder = new Request.Builder().url(url);
+      processHeaderParams(
+        headerParams,
+        hasRequestOptions ? requestOptions.getExtraHeaders() : null,
+        reqBuilder
+      );
 
-        RequestBody reqBody;
-        if (!HttpMethod.permitsRequestBody(method)) {
-            reqBody = null;
-        } else if (body == null) {
-            if ("DELETE".equals(method)) {
-              // allow calling DELETE without sending a request body
-              reqBody = null;
-            } else {
-              // use an empty request body (for POST, PUT and PATCH)
-              reqBody = RequestBody.create("", MediaType.parse(this.contentType));
-            }
-          } else {
-            reqBody = serialize(body);
-          }
+      RequestBody reqBody;
+      if (!HttpMethod.permitsRequestBody(method)) {
+        reqBody = null;
+      } else if (body == null) {
+        if ("DELETE".equals(method)) {
+          // allow calling DELETE without sending a request body
+          reqBody = null;
+        } else {
+          // use an empty request body (for POST, PUT and PATCH)
+          reqBody = RequestBody.create("", MediaType.parse(this.contentType));
+        }
+      } else {
+        reqBody = serialize(body);
+      }
 
-        return reqBuilder.method(method, reqBody).build();
+      if (useReadTransporter) {
+        reqBuilder.tag(new UseReadTransporter());
+      }
+
+      return reqBuilder.method(method, reqBody).build();
     }
 
     /**
@@ -400,19 +411,5 @@ public class ApiClient {
           );
         }
       }
-    }
-
-    /**
-     * Build a form-encoding request body with the given form parameters.
-     *
-     * @param formParams Form parameters in the form of Map
-     * @return RequestBody
-     */
-    public RequestBody buildRequestBodyFormEncoding(Map<String, Object> formParams) {
-        okhttp3.FormBody.Builder formBuilder = new okhttp3.FormBody.Builder();
-        for (Entry<String, Object> param : formParams.entrySet()) {
-            formBuilder.add(param.getKey(), parameterToString(param.getValue()));
-        }
-        return formBuilder.build();
     }
 }

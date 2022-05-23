@@ -2,6 +2,7 @@ post:
   tags:
     - Records
   operationId: getObjects
+  x-use-read-transporter: true
   summary: Retrieve one or more objects.
   description: Retrieve one or more objects, potentially from different indices, in a single API call.
   requestBody:

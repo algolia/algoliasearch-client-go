@@ -2,6 +2,7 @@ post:
   tags:
     - Clusters
   operationId: searchUserIds
+  x-use-read-transporter: true
   summary: Search userID.
   description: >
     Search for userIDs.
