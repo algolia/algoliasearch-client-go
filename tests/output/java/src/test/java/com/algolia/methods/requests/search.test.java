@@ -2148,18 +2148,18 @@ class SearchClientTests {
   }
 
   @Test
-  @DisplayName("search for a single request with minimal parameters")
+  @DisplayName("search for a single hits request with minimal parameters")
   void searchTest0() {
     SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
-      List<SearchQueries> requests1 = new ArrayList<>();
+      List<SearchQuery> requests1 = new ArrayList<>();
       {
-        SearchQueries requests_02 = new SearchQueries();
+        SearchForHits requests_02 = new SearchForHits();
         {
           String indexName3 = "theIndexName";
           requests_02.setIndexName(indexName3);
         }
-        requests1.add(requests_02);
+        requests1.add(SearchQuery.ofSearchForHits(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
     }
@@ -2182,30 +2182,22 @@ class SearchClientTests {
   }
 
   @Test
-  @DisplayName("search for a single request with all parameters")
+  @DisplayName("search for a single facet request with minimal parameters")
   void searchTest1() {
     SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
-      List<SearchQueries> requests1 = new ArrayList<>();
+      List<SearchQuery> requests1 = new ArrayList<>();
       {
-        SearchQueries requests_02 = new SearchQueries();
+        SearchForFacets requests_02 = new SearchForFacets();
         {
           String indexName3 = "theIndexName";
           requests_02.setIndexName(indexName3);
-          String query3 = "test";
-          requests_02.setQuery(query3);
-          SearchType type3 = SearchType.fromValue("facet");
+          SearchTypeFacet type3 = SearchTypeFacet.fromValue("facet");
           requests_02.setType(type3);
           String facet3 = "theFacet";
           requests_02.setFacet(facet3);
-          SearchParamsObject params3 = new SearchParamsObject();
-          {
-            int hitsPerPage4 = 50;
-            params3.setHitsPerPage(hitsPerPage4);
-          }
-          requests_02.setParams(SearchParams.ofSearchParamsObject(params3));
         }
-        requests1.add(requests_02);
+        requests1.add(SearchQuery.ofSearchForFacets(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
       SearchStrategy strategy1 = SearchStrategy.fromValue(
@@ -2224,7 +2216,95 @@ class SearchClientTests {
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}}],\"strategy\":\"stopIfEnoughMatches\"}",
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\"}],\"strategy\":\"stopIfEnoughMatches\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("search for a single hits request with all parameters")
+  void searchTest2() {
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
+    {
+      List<SearchQuery> requests1 = new ArrayList<>();
+      {
+        SearchForHits requests_02 = new SearchForHits();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+          String query3 = "myQuery";
+          requests_02.setQuery(query3);
+          int hitsPerPage3 = 50;
+          requests_02.setHitsPerPage(hitsPerPage3);
+          SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
+          requests_02.setType(type3);
+        }
+        requests1.add(SearchQuery.ofSearchForHits(requests_02));
+      }
+      searchMethodParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.search(searchMethodParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}]}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("search for a single facet request with all parameters")
+  void searchTest3() {
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
+    {
+      List<SearchQuery> requests1 = new ArrayList<>();
+      {
+        SearchForFacets requests_02 = new SearchForFacets();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+          SearchTypeFacet type3 = SearchTypeFacet.fromValue("facet");
+          requests_02.setType(type3);
+          String facet3 = "theFacet";
+          requests_02.setFacet(facet3);
+          String facetQuery3 = "theFacetQuery";
+          requests_02.setFacetQuery(facetQuery3);
+          String query3 = "theQuery";
+          requests_02.setQuery(query3);
+          int maxFacetHits3 = 50;
+          requests_02.setMaxFacetHits(maxFacetHits3);
+        }
+        requests1.add(SearchQuery.ofSearchForFacets(requests_02));
+      }
+      searchMethodParams0.setRequests(requests1);
+      SearchStrategy strategy1 = SearchStrategy.fromValue(
+        "stopIfEnoughMatches"
+      );
+      searchMethodParams0.setStrategy(strategy1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.search(searchMethodParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50}],\"strategy\":\"stopIfEnoughMatches\"}",
         req.body,
         JSONCompareMode.STRICT_ORDER
       );
@@ -2233,47 +2313,37 @@ class SearchClientTests {
 
   @Test
   @DisplayName(
-    "search for multiple requests in multiple indices with all parameters"
+    "search for multiple mixed requests in multiple indices with minimal parameters"
   )
-  void searchTest2() {
+  void searchTest4() {
     SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
-      List<SearchQueries> requests1 = new ArrayList<>();
+      List<SearchQuery> requests1 = new ArrayList<>();
       {
-        SearchQueries requests_02 = new SearchQueries();
+        SearchForHits requests_02 = new SearchForHits();
         {
           String indexName3 = "theIndexName";
           requests_02.setIndexName(indexName3);
-          String query3 = "test";
-          requests_02.setQuery(query3);
-          SearchType type3 = SearchType.fromValue("facet");
-          requests_02.setType(type3);
-          String facet3 = "theFacet";
-          requests_02.setFacet(facet3);
-          SearchParamsObject params3 = new SearchParamsObject();
-          {
-            int hitsPerPage4 = 50;
-            params3.setHitsPerPage(hitsPerPage4);
-          }
-          requests_02.setParams(SearchParams.ofSearchParamsObject(params3));
         }
-        requests1.add(requests_02);
-        SearchQueries requests_12 = new SearchQueries();
+        requests1.add(SearchQuery.ofSearchForHits(requests_02));
+        SearchForFacets requests_12 = new SearchForFacets();
         {
           String indexName3 = "theIndexName2";
           requests_12.setIndexName(indexName3);
-          String query3 = "test";
-          requests_12.setQuery(query3);
-          SearchType type3 = SearchType.fromValue("default");
+          SearchTypeFacet type3 = SearchTypeFacet.fromValue("facet");
           requests_12.setType(type3);
-          SearchParamsObject params3 = new SearchParamsObject();
-          {
-            int hitsPerPage4 = 100;
-            params3.setHitsPerPage(hitsPerPage4);
-          }
-          requests_12.setParams(SearchParams.ofSearchParamsObject(params3));
+          String facet3 = "theFacet";
+          requests_12.setFacet(facet3);
         }
-        requests1.add(requests_12);
+        requests1.add(SearchQuery.ofSearchForFacets(requests_12));
+        SearchForHits requests_22 = new SearchForHits();
+        {
+          String indexName3 = "theIndexName";
+          requests_22.setIndexName(indexName3);
+          SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
+          requests_22.setType(type3);
+        }
+        requests1.add(SearchQuery.ofSearchForHits(requests_22));
       }
       searchMethodParams0.setRequests(requests1);
       SearchStrategy strategy1 = SearchStrategy.fromValue(
@@ -2292,7 +2362,69 @@ class SearchClientTests {
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}},{\"indexName\":\"theIndexName2\",\"query\":\"test\",\"type\":\"default\",\"params\":{\"hitsPerPage\":100}}],\"strategy\":\"stopIfEnoughMatches\"}",
+        "{\"requests\":[{\"indexName\":\"theIndexName\"},{\"indexName\":\"theIndexName2\",\"type\":\"facet\",\"facet\":\"theFacet\"},{\"indexName\":\"theIndexName\",\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName(
+    "search for multiple mixed requests in multiple indices with all parameters"
+  )
+  void searchTest5() {
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
+    {
+      List<SearchQuery> requests1 = new ArrayList<>();
+      {
+        SearchForFacets requests_02 = new SearchForFacets();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+          SearchTypeFacet type3 = SearchTypeFacet.fromValue("facet");
+          requests_02.setType(type3);
+          String facet3 = "theFacet";
+          requests_02.setFacet(facet3);
+          String facetQuery3 = "theFacetQuery";
+          requests_02.setFacetQuery(facetQuery3);
+          String query3 = "theQuery";
+          requests_02.setQuery(query3);
+          int maxFacetHits3 = 50;
+          requests_02.setMaxFacetHits(maxFacetHits3);
+        }
+        requests1.add(SearchQuery.ofSearchForFacets(requests_02));
+        SearchForHits requests_12 = new SearchForHits();
+        {
+          String indexName3 = "theIndexName";
+          requests_12.setIndexName(indexName3);
+          String query3 = "myQuery";
+          requests_12.setQuery(query3);
+          int hitsPerPage3 = 50;
+          requests_12.setHitsPerPage(hitsPerPage3);
+          SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
+          requests_12.setType(type3);
+        }
+        requests1.add(SearchQuery.ofSearchForHits(requests_12));
+      }
+      searchMethodParams0.setRequests(requests1);
+      SearchStrategy strategy1 = SearchStrategy.fromValue(
+        "stopIfEnoughMatches"
+      );
+      searchMethodParams0.setStrategy(strategy1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.search(searchMethodParams0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50},{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}",
         req.body,
         JSONCompareMode.STRICT_ORDER
       );

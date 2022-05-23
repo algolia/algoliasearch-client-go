@@ -9,17 +9,17 @@ import java.util.Objects;
 public class SearchMethodParams {
 
   @SerializedName("requests")
-  private List<SearchQueries> requests = new ArrayList<>();
+  private List<SearchQuery> requests = new ArrayList<>();
 
   @SerializedName("strategy")
   private SearchStrategy strategy;
 
-  public SearchMethodParams setRequests(List<SearchQueries> requests) {
+  public SearchMethodParams setRequests(List<SearchQuery> requests) {
     this.requests = requests;
     return this;
   }
 
-  public SearchMethodParams addRequests(SearchQueries requestsItem) {
+  public SearchMethodParams addRequests(SearchQuery requestsItem) {
     this.requests.add(requestsItem);
     return this;
   }
@@ -30,7 +30,7 @@ public class SearchMethodParams {
    * @return requests
    */
   @javax.annotation.Nonnull
-  public List<SearchQueries> getRequests() {
+  public List<SearchQuery> getRequests() {
     return requests;
   }
 

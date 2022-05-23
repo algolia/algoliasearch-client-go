@@ -1708,7 +1708,7 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Search
-     * search for a single request with minimal parameters
+     * search for a single hits request with minimal parameters
      */
     public function testSearch0()
     {
@@ -1728,7 +1728,7 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Search
-     * search for a single request with all parameters
+     * search for a single facet request with minimal parameters
      */
     public function testSearch1()
     {
@@ -1737,10 +1737,8 @@ class SearchTest extends TestCase implements HttpClientInterface
             'requests' => [
                 [
                     'indexName' => 'theIndexName',
-                    'query' => 'test',
                     'type' => 'facet',
                     'facet' => 'theFacet',
-                    'params' => ['hitsPerPage' => 50],
                 ],
             ],
             'strategy' => 'stopIfEnoughMatches',
@@ -1751,7 +1749,7 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/*/queries',
                 'method' => 'POST',
                 'body' => json_decode(
-                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}}],\"strategy\":\"stopIfEnoughMatches\"}"
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\"}],\"strategy\":\"stopIfEnoughMatches\"}"
                 ),
             ],
         ]);
@@ -1759,7 +1757,7 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Search
-     * search for multiple requests in multiple indices with all parameters
+     * search for a single hits request with all parameters
      */
     public function testSearch2()
     {
@@ -1768,17 +1766,40 @@ class SearchTest extends TestCase implements HttpClientInterface
             'requests' => [
                 [
                     'indexName' => 'theIndexName',
-                    'query' => 'test',
+                    'query' => 'myQuery',
+                    'hitsPerPage' => 50,
+                    'type' => 'default',
+                ],
+            ],
+        ]);
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/*/queries',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Search
+     * search for a single facet request with all parameters
+     */
+    public function testSearch3()
+    {
+        $client = $this->getClient();
+        $client->search([
+            'requests' => [
+                [
+                    'indexName' => 'theIndexName',
                     'type' => 'facet',
                     'facet' => 'theFacet',
-                    'params' => ['hitsPerPage' => 50],
-                ],
-
-                [
-                    'indexName' => 'theIndexName2',
-                    'query' => 'test',
-                    'type' => 'default',
-                    'params' => ['hitsPerPage' => 100],
+                    'facetQuery' => 'theFacetQuery',
+                    'query' => 'theQuery',
+                    'maxFacetHits' => 50,
                 ],
             ],
             'strategy' => 'stopIfEnoughMatches',
@@ -1789,7 +1810,79 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/*/queries',
                 'method' => 'POST',
                 'body' => json_decode(
-                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"test\",\"type\":\"facet\",\"facet\":\"theFacet\",\"params\":{\"hitsPerPage\":50}},{\"indexName\":\"theIndexName2\",\"query\":\"test\",\"type\":\"default\",\"params\":{\"hitsPerPage\":100}}],\"strategy\":\"stopIfEnoughMatches\"}"
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50}],\"strategy\":\"stopIfEnoughMatches\"}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Search
+     * search for multiple mixed requests in multiple indices with minimal parameters
+     */
+    public function testSearch4()
+    {
+        $client = $this->getClient();
+        $client->search([
+            'requests' => [
+                ['indexName' => 'theIndexName'],
+
+                [
+                    'indexName' => 'theIndexName2',
+                    'type' => 'facet',
+                    'facet' => 'theFacet',
+                ],
+
+                ['indexName' => 'theIndexName', 'type' => 'default'],
+            ],
+            'strategy' => 'stopIfEnoughMatches',
+        ]);
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/*/queries',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"indexName\":\"theIndexName\"},{\"indexName\":\"theIndexName2\",\"type\":\"facet\",\"facet\":\"theFacet\"},{\"indexName\":\"theIndexName\",\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Search
+     * search for multiple mixed requests in multiple indices with all parameters
+     */
+    public function testSearch5()
+    {
+        $client = $this->getClient();
+        $client->search([
+            'requests' => [
+                [
+                    'indexName' => 'theIndexName',
+                    'type' => 'facet',
+                    'facet' => 'theFacet',
+                    'facetQuery' => 'theFacetQuery',
+                    'query' => 'theQuery',
+                    'maxFacetHits' => 50,
+                ],
+
+                [
+                    'indexName' => 'theIndexName',
+                    'query' => 'myQuery',
+                    'hitsPerPage' => 50,
+                    'type' => 'default',
+                ],
+            ],
+            'strategy' => 'stopIfEnoughMatches',
+        ]);
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/*/queries',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50},{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}"
                 ),
             ],
         ]);

@@ -9,7 +9,7 @@ import java.util.Objects;
 public class SearchResponses {
 
   @SerializedName("results")
-  private List<SearchResponse> results = null;
+  private List<SearchResponse> results = new ArrayList<>();
 
   public SearchResponses setResults(List<SearchResponse> results) {
     this.results = results;
@@ -17,9 +17,6 @@ public class SearchResponses {
   }
 
   public SearchResponses addResults(SearchResponse resultsItem) {
-    if (this.results == null) {
-      this.results = new ArrayList<>();
-    }
     this.results.add(resultsItem);
     return this;
   }
@@ -29,7 +26,7 @@ public class SearchResponses {
    *
    * @return results
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<SearchResponse> getResults() {
     return results;
   }

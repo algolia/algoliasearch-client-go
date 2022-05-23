@@ -1004,15 +1004,64 @@ components:
       type: string
       example: products
       description: The Algolia index name.
-    searchType:
+    searchTypeDefault:
       type: string
       enum:
         - default
-        - facet
       default: default
       description: >-
         Perform a search query with `default`, will search for facet values if
         `facet` is given.
+    searchForHitsOptions:
+      x-is-SearchForHitsOptions: true
+      type: object
+      properties:
+        indexName:
+          $ref: '#/components/schemas/indexName'
+        type:
+          $ref: '#/components/schemas/searchTypeDefault'
+      required:
+        - indexName
+    SearchForHits:
+      allOf:
+        - $ref: '#/components/schemas/searchParams'
+        - $ref: '#/components/schemas/searchForHitsOptions'
+    searchTypeFacet:
+      type: string
+      enum:
+        - facet
+      default: facet
+      description: >-
+        Perform a search query with `default`, will search for facet values if
+        `facet` is given.
+    searchForFacetsOptions:
+      type: object
+      properties:
+        facet:
+          type: string
+          description: The `facet` name.
+        indexName:
+          $ref: '#/components/schemas/indexName'
+        facetQuery:
+          type: string
+          description: Text to search inside the facet's values.
+          default: ''
+        maxFacetHits:
+          $ref: '#/components/schemas/maxFacetHits'
+        type:
+          $ref: '#/components/schemas/searchTypeFacet'
+      required:
+        - indexName
+        - type
+        - facet
+    SearchForFacets:
+      allOf:
+        - $ref: '#/components/schemas/searchParams'
+        - $ref: '#/components/schemas/searchForFacetsOptions'
+    SearchQuery:
+      oneOf:
+        - $ref: '#/components/schemas/SearchForHits'
+        - $ref: '#/components/schemas/SearchForFacets'
     searchStrategy:
       type: string
       enum:
@@ -2036,23 +2085,7 @@ paths:
                 requests:
                   type: array
                   items:
-                    title: searchQueries
-                    type: object
-                    additionalProperties: false
-                    properties:
-                      indexName:
-                        $ref: '#/components/schemas/indexName'
-                      query:
-                        $ref: '#/components/schemas/query'
-                      type:
-                        $ref: '#/components/schemas/searchType'
-                      facet:
-                        type: string
-                        description: The `facet` name.
-                      params:
-                        $ref: '#/components/schemas/searchParams'
-                    required:
-                      - indexName
+                    $ref: '#/components/schemas/SearchQuery'
                 strategy:
                   $ref: '#/components/schemas/searchStrategy'
               required:
@@ -2071,6 +2104,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SearchResponse'
+                required:
+                  - results
         '400':
           $ref: '#/components/responses/BadRequest'
         '402':

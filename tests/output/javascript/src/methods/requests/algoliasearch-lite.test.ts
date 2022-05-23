@@ -241,7 +241,7 @@ describe('post', () => {
 });
 
 describe('search', () => {
-  test('search for a single request with minimal parameters', async () => {
+  test('search for a single hits request with minimal parameters', async () => {
     const req = (await client.search({
       requests: [{ indexName: 'theIndexName' }],
     })) as unknown as EchoResponse;
@@ -252,15 +252,62 @@ describe('search', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('search for a single request with all parameters', async () => {
+  test('search for a single facet request with minimal parameters', async () => {
+    const req = (await client.search({
+      requests: [
+        { indexName: 'theIndexName', type: 'facet', facet: 'theFacet' },
+      ],
+      strategy: 'stopIfEnoughMatches',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/*/queries');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        { indexName: 'theIndexName', type: 'facet', facet: 'theFacet' },
+      ],
+      strategy: 'stopIfEnoughMatches',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('search for a single hits request with all parameters', async () => {
     const req = (await client.search({
       requests: [
         {
           indexName: 'theIndexName',
-          query: 'test',
+          query: 'myQuery',
+          hitsPerPage: 50,
+          type: 'default',
+        },
+      ],
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/*/queries');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        {
+          indexName: 'theIndexName',
+          query: 'myQuery',
+          hitsPerPage: 50,
+          type: 'default',
+        },
+      ],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('search for a single facet request with all parameters', async () => {
+    const req = (await client.search({
+      requests: [
+        {
+          indexName: 'theIndexName',
           type: 'facet',
           facet: 'theFacet',
-          params: { hitsPerPage: 50 },
+          facetQuery: 'theFacetQuery',
+          query: 'theQuery',
+          maxFacetHits: 50,
         },
       ],
       strategy: 'stopIfEnoughMatches',
@@ -272,10 +319,11 @@ describe('search', () => {
       requests: [
         {
           indexName: 'theIndexName',
-          query: 'test',
           type: 'facet',
           facet: 'theFacet',
-          params: { hitsPerPage: 50 },
+          facetQuery: 'theFacetQuery',
+          query: 'theQuery',
+          maxFacetHits: 50,
         },
       ],
       strategy: 'stopIfEnoughMatches',
@@ -283,21 +331,45 @@ describe('search', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('search for multiple requests in multiple indices with all parameters', async () => {
+  test('search for multiple mixed requests in multiple indices with minimal parameters', async () => {
+    const req = (await client.search({
+      requests: [
+        { indexName: 'theIndexName' },
+        { indexName: 'theIndexName2', type: 'facet', facet: 'theFacet' },
+        { indexName: 'theIndexName', type: 'default' },
+      ],
+      strategy: 'stopIfEnoughMatches',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/*/queries');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        { indexName: 'theIndexName' },
+        { indexName: 'theIndexName2', type: 'facet', facet: 'theFacet' },
+        { indexName: 'theIndexName', type: 'default' },
+      ],
+      strategy: 'stopIfEnoughMatches',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('search for multiple mixed requests in multiple indices with all parameters', async () => {
     const req = (await client.search({
       requests: [
         {
           indexName: 'theIndexName',
-          query: 'test',
           type: 'facet',
           facet: 'theFacet',
-          params: { hitsPerPage: 50 },
+          facetQuery: 'theFacetQuery',
+          query: 'theQuery',
+          maxFacetHits: 50,
         },
         {
-          indexName: 'theIndexName2',
-          query: 'test',
+          indexName: 'theIndexName',
+          query: 'myQuery',
+          hitsPerPage: 50,
           type: 'default',
-          params: { hitsPerPage: 100 },
         },
       ],
       strategy: 'stopIfEnoughMatches',
@@ -309,16 +381,17 @@ describe('search', () => {
       requests: [
         {
           indexName: 'theIndexName',
-          query: 'test',
           type: 'facet',
           facet: 'theFacet',
-          params: { hitsPerPage: 50 },
+          facetQuery: 'theFacetQuery',
+          query: 'theQuery',
+          maxFacetHits: 50,
         },
         {
-          indexName: 'theIndexName2',
-          query: 'test',
+          indexName: 'theIndexName',
+          query: 'myQuery',
+          hitsPerPage: 50,
           type: 'default',
-          params: { hitsPerPage: 100 },
         },
       ],
       strategy: 'stopIfEnoughMatches',
