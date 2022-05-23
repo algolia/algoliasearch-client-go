@@ -72,9 +72,7 @@ await client.search({
     {
       indexName: '<YOUR_INDEX_NAME>',
       query: '<YOUR_QUERY>',
-      params: {
-        filters: 'actor:Scarlett Johansson',
-      },
+      filters: 'actor:Scarlett Johansson',
     },
   ],
 });
@@ -85,9 +83,7 @@ await client.search({
     {
       indexName: '<YOUR_INDEX_NAME>',
       query: '<YOUR_QUERY>',
-      params: {
-        filters: 'actor:Tom Cruise OR actor:Scarlett Johansson',
-      },
+      filters: 'actor:Tom Cruise OR actor:Scarlett Johansson',
     },
   ],
 });
@@ -98,9 +94,7 @@ await client.search({
     {
       indexName: '<YOUR_INDEX_NAME>',
       query: '<YOUR_QUERY>',
-      params: {
-        filters: 'NOT actor:Nicolas Cage',
-      },
+      filters: 'NOT actor:Nicolas Cage',
     },
   ],
 });
@@ -116,7 +110,7 @@ $client->search([
         [
             'indexName' => '<YOUR_INDEX_NAME>',
             'query' => '<YOUR_QUERY>',
-            'params' => ['filters' => 'actor:Scarlett Johansson'],
+            'filters' => 'actor:Scarlett Johansson',
         ],
     ],
 ]);
@@ -127,7 +121,7 @@ $client->search([
         [
             'indexName' => '<YOUR_INDEX_NAME>',
             'query' => '<YOUR_QUERY>',
-            'params' => ['filters' => 'actor:Tom Cruise OR actor:Scarlett Johansson'],
+            'filters' => 'actor:Tom Cruise OR actor:Scarlett Johansson',
         ],
     ],
 ]);
@@ -138,7 +132,7 @@ $client->search([
         [
             'indexName' => '<YOUR_INDEX_NAME>',
             'query' => '<YOUR_QUERY>',
-            'params' => ['filters' => 'NOT actor:Nicolas Cage'],
+            'filters' => 'NOT actor:Nicolas Cage',
         ],
     ],
 ]);
@@ -162,20 +156,24 @@ $client->search([
 ```js
 // Only "Scarlett Johansson" actor
 await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: '<YOUR_QUERY>',
-    facetFilters: ['actor:Scarlett Johansson'],
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      facetFilters: ['actor:Scarlett Johansson'],
+    },
+  ],
 });
 
 // Only "Tom Cruise" or "Scarlett Johansson" actor
 await client.search({
-  indexName: '<YOUR_INDEX_NAME>',
-  searchParams: {
-    query: '<YOUR_QUERY>',
-    facetFilters: ['actor:Tom Cruise', 'actor:Scarlett Johansson'],
-  },
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      facetFilters: ['actor:Tom Cruise', 'actor:Scarlett Johansson'],
+    },
+  ],
 });
 ```
 
@@ -189,7 +187,7 @@ $client->search([
         [
             'indexName' => '<YOUR_INDEX_NAME>',
             'query' => '<YOUR_QUERY>',
-            'params' => ['facetFilters' => ['actor:Scarlett Johansson']],
+            'facetFilters' => ['actor:Scarlett Johansson'],
         ],
     ],
 ]);
@@ -200,7 +198,7 @@ $client->search([
         [
             'indexName' => '<YOUR_INDEX_NAME>',
             'query' => '<YOUR_QUERY>',
-            'params' => ['facetFilters' => ['actor:Tom Cruise', 'actor:Scarlett Johansson']],
+            'facetFilters' => ['actor:Tom Cruise', 'actor:Scarlett Johansson'],
         ],
     ],
 ]);

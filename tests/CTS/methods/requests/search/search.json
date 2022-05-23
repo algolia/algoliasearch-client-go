@@ -1,6 +1,6 @@
 [
   {
-    "testName": "search for a single request with minimal parameters",
+    "testName": "search for a single hits request with minimal parameters",
     "parameters": {
       "requests": [
         {
@@ -21,17 +21,13 @@
     }
   },
   {
-    "testName": "search for a single request with all parameters",
+    "testName": "search for a single facet request with minimal parameters",
     "parameters": {
       "requests": [
         {
           "indexName": "theIndexName",
-          "query": "test",
           "type": "facet",
-          "facet": "theFacet",
-          "params": {
-            "hitsPerPage": 50
-          }
+          "facet": "theFacet"
         }
       ],
       "strategy": "stopIfEnoughMatches"
@@ -43,12 +39,8 @@
         "requests": [
           {
             "indexName": "theIndexName",
-            "query": "test",
             "type": "facet",
-            "facet": "theFacet",
-            "params": {
-              "hitsPerPage": 50
-            }
+            "facet": "theFacet"
           }
         ],
         "strategy": "stopIfEnoughMatches"
@@ -56,25 +48,43 @@
     }
   },
   {
-    "testName": "search for multiple requests in multiple indices with all parameters",
+    "testName": "search for a single hits request with all parameters",
     "parameters": {
       "requests": [
         {
           "indexName": "theIndexName",
-          "query": "test",
+          "query": "myQuery",
+          "hitsPerPage": 50,
+          "type": "default"
+        }
+      ]
+    },
+    "request": {
+      "path": "/1/indexes/*/queries",
+      "method": "POST",
+      "body": {
+        "requests": [
+          {
+            "indexName": "theIndexName",
+            "query": "myQuery",
+            "hitsPerPage": 50,
+            "type": "default"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "testName": "search for a single facet request with all parameters",
+    "parameters": {
+      "requests": [
+        {
+          "indexName": "theIndexName",
           "type": "facet",
           "facet": "theFacet",
-          "params": {
-            "hitsPerPage": 50
-          }
-        },
-        {
-          "indexName": "theIndexName2",
-          "query": "test",
-          "type": "default",
-          "params": {
-            "hitsPerPage": 100
-          }
+          "facetQuery": "theFacetQuery",
+          "query": "theQuery",
+          "maxFacetHits": 50
         }
       ],
       "strategy": "stopIfEnoughMatches"
@@ -86,20 +96,97 @@
         "requests": [
           {
             "indexName": "theIndexName",
-            "query": "test",
             "type": "facet",
             "facet": "theFacet",
-            "params": {
-              "hitsPerPage": 50
-            }
+            "facetQuery": "theFacetQuery",
+            "query": "theQuery",
+            "maxFacetHits": 50
+          }
+        ],
+        "strategy": "stopIfEnoughMatches"
+      }
+    }
+  },
+  {
+    "testName": "search for multiple mixed requests in multiple indices with minimal parameters",
+    "parameters": {
+      "requests": [
+        {
+          "indexName": "theIndexName"
+        },
+        {
+          "indexName": "theIndexName2",
+          "type": "facet",
+          "facet": "theFacet"
+        },
+        {
+          "indexName": "theIndexName",
+          "type": "default"
+        }
+      ],
+      "strategy": "stopIfEnoughMatches"
+    },
+    "request": {
+      "path": "/1/indexes/*/queries",
+      "method": "POST",
+      "body": {
+        "requests": [
+          {
+            "indexName": "theIndexName"
           },
           {
             "indexName": "theIndexName2",
-            "query": "test",
-            "type": "default",
-            "params": {
-              "hitsPerPage": 100
-            }
+            "type": "facet",
+            "facet": "theFacet"
+          },
+          {
+            "indexName": "theIndexName",
+            "type": "default"
+          }
+        ],
+        "strategy": "stopIfEnoughMatches"
+      }
+    }
+  },
+  {
+    "testName": "search for multiple mixed requests in multiple indices with all parameters",
+    "parameters": {
+      "requests": [
+        {
+          "indexName": "theIndexName",
+          "type": "facet",
+          "facet": "theFacet",
+          "facetQuery": "theFacetQuery",
+          "query": "theQuery",
+          "maxFacetHits": 50
+        },
+        {
+          "indexName": "theIndexName",
+          "query": "myQuery",
+          "hitsPerPage": 50,
+          "type": "default"
+        }
+      ],
+      "strategy": "stopIfEnoughMatches"
+    },
+    "request": {
+      "path": "/1/indexes/*/queries",
+      "method": "POST",
+      "body": {
+        "requests": [
+          {
+            "indexName": "theIndexName",
+            "type": "facet",
+            "facet": "theFacet",
+            "facetQuery": "theFacetQuery",
+            "query": "theQuery",
+            "maxFacetHits": 50
+          },
+          {
+            "indexName": "theIndexName",
+            "query": "myQuery",
+            "hitsPerPage": 50,
+            "type": "default"
           }
         ],
         "strategy": "stopIfEnoughMatches"

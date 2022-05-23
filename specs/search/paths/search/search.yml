@@ -18,23 +18,7 @@ post:
             requests:
               type: array
               items:
-                title: searchQueries
-                type: object
-                additionalProperties: false
-                properties:
-                  indexName:
-                    $ref: '../../../common/parameters.yml#/indexName'
-                  query:
-                    $ref: '../../../common/schemas/SearchParams.yml#/query'
-                  type:
-                    $ref: '../../common/enums.yml#/searchType'
-                  facet:
-                    type: string
-                    description: The `facet` name.
-                  params:
-                    $ref: '../../../common/schemas/SearchParams.yml#/searchParams'
-                required:
-                  - indexName
+                $ref: '../../common/schemas/SearchQuery.yml#/SearchQuery'
             strategy:
               $ref: '../../common/enums.yml#/searchStrategy'
           required:
@@ -53,6 +37,8 @@ post:
                 type: array
                 items:
                   $ref: '../../common/schemas/SearchResponse.yml#/SearchResponse'
+            required:
+              - results
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

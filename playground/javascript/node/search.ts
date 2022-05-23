@@ -22,6 +22,7 @@ async function testSearch() {
         {
           indexName: searchIndex,
           query: searchQuery,
+          hitsPerPage: 50,
         },
       ],
     });

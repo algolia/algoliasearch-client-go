@@ -27,9 +27,7 @@ await client.search({
     {
       indexName: '<YOUR_INDEX_NAME>',
       query: '<YOUR_QUERY>',
-      params: {
-        facets: ['author', 'genre'],
-      },
+      facets: ['author', 'genre'],
     },
   ],
 });
@@ -43,9 +41,7 @@ await client.search({
     {
       indexName: '<YOUR_INDEX_NAME>',
       query: '<YOUR_QUERY>',
-      params: {
-        facets: ['*'],
-      },
+      facets: ['*'],
     },
   ],
 });
@@ -61,7 +57,7 @@ $client->search([
         [
             'indexName' => '<YOUR_INDEX_NAME>',
             'query' => '<YOUR_QUERY>',
-            'params' => ['facets' => ['author', 'genre']],
+            'facets' => ['author', 'genre'],
         ],
     ],
 ]);
@@ -75,7 +71,7 @@ $client->search([
         [
             'indexName' => '<YOUR_INDEX_NAME>',
             'query' => '<YOUR_QUERY>',
-            'params' => ['facets' => ['*']],
+            'facets' => ['*'],
         ],
     ],
 ]);

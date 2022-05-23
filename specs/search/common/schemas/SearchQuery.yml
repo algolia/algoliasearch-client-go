@@ -1,0 +1,60 @@
+SearchQuery:
+  oneOf:
+    - $ref: '#/SearchForHits'
+    - $ref: '#/SearchForFacets'
+
+SearchForHits:
+  allOf:
+    - $ref: '../../../common/schemas/SearchParams.yml#/searchParams'
+    - $ref: '#/searchForHitsOptions'
+
+SearchForFacets:
+  allOf:
+    - $ref: '../../../common/schemas/SearchParams.yml#/searchParams'
+    - $ref: '#/searchForFacetsOptions'
+
+searchForFacetsOptions:
+  type: object
+  properties:
+    facet:
+      type: string
+      description: The `facet` name.
+    indexName:
+      $ref: '../../../common/parameters.yml#/indexName'
+    facetQuery:
+      type: string
+      description: Text to search inside the facet's values.
+      default: ''
+    maxFacetHits:
+      $ref: '../../../common/schemas/IndexSettings.yml#/maxFacetHits'
+    type:
+      $ref: '#/searchTypeFacet'
+  required:
+    - indexName
+    - type
+    - facet
+
+searchForHitsOptions:
+  # We provide this option because TypeScript can't distinguish union with optional keys
+  # if they are not completely the same, see usage in `templates/javascript/model.mustache`
+  x-is-SearchForHitsOptions: true
+  type: object
+  properties:
+    indexName:
+      $ref: '../../../common/parameters.yml#/indexName'
+    type:
+      $ref: '#/searchTypeDefault'
+  required:
+    - indexName
+
+searchTypeFacet:
+  type: string
+  enum: [facet]
+  default: facet
+  description: Perform a search query with `default`, will search for facet values if `facet` is given.
+
+searchTypeDefault:
+  type: string
+  enum: [default]
+  default: default
+  description: Perform a search query with `default`, will search for facet values if `facet` is given.

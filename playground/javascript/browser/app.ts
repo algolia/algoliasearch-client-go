@@ -9,16 +9,19 @@ client.addAlgoliaAgent('Browser playground', '0.0.1');
 const searchButton = document.querySelector('#search');
 
 searchButton?.addEventListener('click', async () => {
-  const results = await client.search({
-    indexName: 'docsearch',
-    searchParams: {
-      query: 'docsearch',
-    },
+  const { results } = await client.search({
+    requests: [
+      {
+        indexName: 'docsearch',
+        query: 'docsearch',
+        hitsPerPage: 50,
+      },
+    ],
   });
 
   const parent = document.querySelector('#results');
 
-  results.hits?.forEach(({ objectID }) => {
+  results[0].hits?.forEach(({ objectID }) => {
     const children = document.createElement('p');
     children.innerHTML = objectID;
 

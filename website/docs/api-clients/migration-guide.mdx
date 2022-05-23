@@ -125,10 +125,8 @@ const searchResults2 = await client.search({
     {
       indexName: '<YOUR_INDEX_NAME>',
       query: '<YOUR_QUERY>',
-      params: {
-        attributesToRetrieve: ['firstname', 'lastname'],
-        hitsPerPage: 50,
-      },
+      attributesToRetrieve: ['firstname', 'lastname'],
+      hitsPerPage: 50,
     },
   ],
 });
