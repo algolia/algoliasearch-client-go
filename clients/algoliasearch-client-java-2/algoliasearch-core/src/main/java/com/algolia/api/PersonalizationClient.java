@@ -147,7 +147,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -245,7 +246,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<DeleteUserProfileResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -338,7 +340,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -414,7 +417,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<PersonalizationStrategyParams>() {}
       .getType();
@@ -499,7 +503,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetUserTokenResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -598,7 +603,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -711,7 +717,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -803,7 +810,8 @@ public class PersonalizationClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<SetPersonalizationStrategyResponse>() {}
       .getType();

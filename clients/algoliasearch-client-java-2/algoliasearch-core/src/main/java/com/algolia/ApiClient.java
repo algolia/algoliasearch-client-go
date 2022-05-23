@@ -1,10 +1,7 @@
 package com.algolia;
 
 import com.algolia.exceptions.*;
-import com.algolia.utils.AlgoliaAgent;
-import com.algolia.utils.JSON;
-import com.algolia.utils.RequestOptions;
-import com.algolia.utils.Requester;
+import com.algolia.utils.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -277,6 +274,8 @@ public class ApiClient {
    * @param headerParams The header parameters
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
+   * @param useReadTransporter Some POST methods in the Algolia REST API uses the `read`
+   *     transporter. This information is defined at the spec level.
    * @return The HTTP call
    * @throws AlgoliaRuntimeException If fail to serialize the request body object
    */
@@ -286,7 +285,8 @@ public class ApiClient {
     Map<String, Object> queryParameters,
     Object body,
     Map<String, String> headerParams,
-    RequestOptions requestOptions
+    RequestOptions requestOptions,
+    Boolean useReadTransporter
   ) throws AlgoliaRuntimeException {
     Request request = buildRequest(
       path,
@@ -294,7 +294,8 @@ public class ApiClient {
       queryParameters,
       body,
       headerParams,
-      requestOptions
+      requestOptions,
+      useReadTransporter
     );
 
     return requester.newCall(request);
@@ -311,6 +312,8 @@ public class ApiClient {
    * @param headerParams The header parameters
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
+   * @param useReadTransporter Some POST methods in the Algolia REST API uses the `read`
+   *     transporter. This information is defined at the spec level.
    * @return The HTTP request
    * @throws AlgoliaRuntimeException If fail to serialize the request body object
    */
@@ -320,7 +323,8 @@ public class ApiClient {
     Map<String, Object> queryParameters,
     Object body,
     Map<String, String> headerParams,
-    RequestOptions requestOptions
+    RequestOptions requestOptions,
+    Boolean useReadTransporter
   ) throws AlgoliaRuntimeException {
     boolean hasRequestOptions = requestOptions != null;
     final String url = buildUrl(
@@ -348,6 +352,10 @@ public class ApiClient {
       }
     } else {
       reqBody = serialize(body);
+    }
+
+    if (useReadTransporter) {
+      reqBuilder.tag(new UseReadTransporter());
     }
 
     return reqBuilder.method(method, reqBody).build();
@@ -434,21 +442,5 @@ public class ApiClient {
         );
       }
     }
-  }
-
-  /**
-   * Build a form-encoding request body with the given form parameters.
-   *
-   * @param formParams Form parameters in the form of Map
-   * @return RequestBody
-   */
-  public RequestBody buildRequestBodyFormEncoding(
-    Map<String, Object> formParams
-  ) {
-    okhttp3.FormBody.Builder formBuilder = new okhttp3.FormBody.Builder();
-    for (Entry<String, Object> param : formParams.entrySet()) {
-      formBuilder.add(param.getKey(), parameterToString(param.getValue()));
-    }
-    return formBuilder.build();
   }
 }

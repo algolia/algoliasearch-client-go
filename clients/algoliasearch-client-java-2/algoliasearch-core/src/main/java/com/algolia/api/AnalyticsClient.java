@@ -161,7 +161,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -267,7 +268,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -417,7 +419,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetAverageClickPositionResponse>() {}
       .getType();
@@ -574,7 +577,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetClickPositionsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -717,7 +721,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetClickThroughRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -866,7 +871,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetConversationRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1015,7 +1021,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetNoClickRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1158,7 +1165,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetNoResultsRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1299,7 +1307,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetSearchesCountResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1486,7 +1495,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetSearchesNoClicksResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1698,7 +1708,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetSearchesNoResultsResponse>() {}
       .getType();
@@ -1817,7 +1828,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetStatusResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1985,7 +1997,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTopCountriesResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2209,7 +2222,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTopFilterAttributesResponse>() {}
       .getType();
@@ -2470,7 +2484,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTopFilterForAttributeResponse>() {}
       .getType();
@@ -2713,7 +2728,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTopFiltersNoResultsResponse>() {}
       .getType();
@@ -2965,7 +2981,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTopHitsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3234,7 +3251,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTopSearchesResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3413,7 +3431,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetUsersCountResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3528,7 +3547,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3641,7 +3661,8 @@ public class AnalyticsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);

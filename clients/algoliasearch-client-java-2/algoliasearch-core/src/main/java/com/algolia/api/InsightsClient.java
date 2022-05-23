@@ -161,7 +161,8 @@ public class InsightsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -267,7 +268,8 @@ public class InsightsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -379,7 +381,8 @@ public class InsightsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -480,7 +483,8 @@ public class InsightsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<PushEventsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -579,7 +583,8 @@ public class InsightsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);

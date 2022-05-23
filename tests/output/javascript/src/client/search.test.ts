@@ -25,7 +25,7 @@ describe('api', () => {
     }
 
     expect(actual).toEqual(
-      expect.objectContaining({ host: 'test-app-id.algolia.net' })
+      expect.objectContaining({ host: 'test-app-id-dsn.algolia.net' })
     );
   });
 
@@ -59,7 +59,7 @@ describe('api', () => {
     }
 
     expect(actual).toEqual(
-      expect.objectContaining({ connectTimeout: 2, responseTimeout: 30 })
+      expect.objectContaining({ connectTimeout: 2, responseTimeout: 5 })
     );
   });
 });

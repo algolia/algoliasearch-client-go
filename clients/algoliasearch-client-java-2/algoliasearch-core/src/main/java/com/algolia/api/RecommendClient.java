@@ -181,7 +181,8 @@ public class RecommendClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -287,7 +288,8 @@ public class RecommendClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -374,7 +376,8 @@ public class RecommendClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<GetRecommendationsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -473,7 +476,8 @@ public class RecommendClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -586,7 +590,8 @@ public class RecommendClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);

@@ -1128,6 +1128,7 @@ paths:
       tags:
         - recommend
       operationId: getRecommendations
+      x-use-read-transporter: true
       summary: Get results.
       description: >-
         Returns recommendations or trending results, for a specific model and

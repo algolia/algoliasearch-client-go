@@ -129,7 +129,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<SuccessResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -222,7 +223,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -312,7 +314,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<SuccessResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -404,7 +407,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -478,7 +482,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<List<QuerySuggestionsIndex>>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -550,7 +555,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<QuerySuggestionsIndex>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -628,7 +634,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Status>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -700,7 +707,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<List<LogFile>>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -798,7 +806,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -911,7 +920,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1013,7 +1023,8 @@ public class QuerySuggestionsClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<SuccessResponse>() {}.getType();
     return this.executeAsync(call, returnType);

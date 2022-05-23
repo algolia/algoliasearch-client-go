@@ -158,7 +158,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -258,7 +259,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
       .getType();
@@ -330,7 +332,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -422,7 +425,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -510,7 +514,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<BatchResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -611,7 +616,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -713,7 +719,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -858,7 +865,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -982,7 +990,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<BrowseResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1097,7 +1106,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1185,7 +1195,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1287,7 +1298,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1393,7 +1405,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1479,7 +1492,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<DeleteApiKeyResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1569,7 +1583,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1643,7 +1658,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1729,7 +1745,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1845,7 +1862,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -1935,7 +1953,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<DeleteSourceResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2050,7 +2069,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2165,7 +2185,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2248,7 +2269,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Key>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2306,7 +2328,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Map<String, Languages>>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2366,7 +2389,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetDictionarySettingsResponse>() {}
       .getType();
@@ -2480,7 +2504,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetLogsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2609,7 +2634,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Map<String, String>>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2698,7 +2724,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<GetObjectsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2784,7 +2811,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Rule>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2858,7 +2886,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<IndexSettings>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2914,7 +2943,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<List<Source>>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -2999,7 +3029,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<SynonymHit>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3086,7 +3117,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTaskResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3150,7 +3182,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<GetTopUserIdsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3225,7 +3258,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UserId>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3310,7 +3344,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3378,7 +3413,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<ListApiKeysResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3436,7 +3472,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<ListClustersResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3515,7 +3552,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<ListIndicesResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3621,7 +3659,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<ListUserIdsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3706,7 +3745,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<MultipleBatchResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3794,7 +3834,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -3956,7 +3997,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}
       .getType();
@@ -4094,7 +4136,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -4207,7 +4250,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -4296,7 +4340,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<RemoveUserIdResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -4365,7 +4410,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<ReplaceSourceResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -4438,7 +4484,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -4522,7 +4569,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<SaveObjectResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -4659,7 +4707,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedRuleResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -4834,7 +4883,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<SaveSynonymResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5010,7 +5060,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5111,7 +5162,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<SearchResponses>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5208,7 +5260,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5338,7 +5391,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<SearchForFacetValuesResponse>() {}
       .getType();
@@ -5453,7 +5507,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<SearchRulesResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5541,7 +5596,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<SearchResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5684,7 +5740,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<SearchSynonymsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5799,7 +5856,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          true
         );
     Type returnType = new TypeToken<SearchUserIdsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5872,7 +5930,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -5996,7 +6055,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
     return this.executeAsync(call, returnType);
@@ -6108,7 +6168,8 @@ public class SearchClient extends ApiClient {
           queryParameters,
           bodyObj,
           headers,
-          requestOptions
+          requestOptions,
+          false
         );
     Type returnType = new TypeToken<UpdateApiKeyResponse>() {}.getType();
     return this.executeAsync(call, returnType);

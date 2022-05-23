@@ -2098,6 +2098,7 @@ paths:
       tags:
         - search
       operationId: searchSingleIndex
+      x-use-read-transporter: true
       summary: Search in a single index.
       description: Perform a search operation targeting one specific index.
       parameters:
@@ -2128,6 +2129,7 @@ paths:
       tags:
         - search
       operationId: search
+      x-use-read-transporter: true
       summary: Search multiple indices.
       description: Perform a search operation targeting one or many indices.
       requestBody:
@@ -2191,6 +2193,7 @@ paths:
       tags:
         - search
       operationId: searchForFacetValues
+      x-use-read-transporter: true
       summary: Search for values of a given facet.
       description: >-
         Search for values of a given facet, optionally restricting the returned
@@ -2678,6 +2681,7 @@ paths:
       tags:
         - search
       operationId: getObjects
+      x-use-read-transporter: true
       summary: Retrieve one or more objects.
       description: >-
         Retrieve one or more objects, potentially from different indices, in a
@@ -2942,6 +2946,7 @@ paths:
       tags:
         - search
       operationId: searchSynonyms
+      x-use-read-transporter: true
       summary: Search synonyms.
       description: Search or browse all synonyms, optionally filtering them by type.
       parameters:
@@ -3275,6 +3280,7 @@ paths:
       tags:
         - search
       operationId: searchRules
+      x-use-read-transporter: true
       summary: Search for rules.
       description: Search for rules matching various criteria.
       parameters:
@@ -3412,6 +3418,7 @@ paths:
       tags:
         - search
       operationId: searchDictionaryEntries
+      x-use-read-transporter: true
       description: Search the dictionary entries.
       summary: Search a dictionary entries.
       parameters:
@@ -3821,6 +3828,7 @@ paths:
       tags:
         - search
       operationId: searchUserIds
+      x-use-read-transporter: true
       summary: Search userID.
       description: >
         Search for userIDs.

@@ -50,8 +50,7 @@ final class RequestOptionsFactory
             'headers' => [
                 'x-algolia-application-id' => $this->config->getAppId(),
                 'x-algolia-api-key' => $this->config->getAlgoliaApiKey(),
-                'User-Agent' =>
-                    $this->config->getAlgoliaAgent() !== null
+                'User-Agent' => $this->config->getAlgoliaAgent() !== null
                         ? $this->config->getAlgoliaAgent()
                         : AlgoliaAgent::get(),
                 'Content-Type' => 'application/json',
