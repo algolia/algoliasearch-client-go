@@ -20,18 +20,32 @@
       "rangeStrategy": "bump"
     }
   ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "config/openapitools.json"
+      ],
+      "matchString": [
+        "\"version\": \"(?<currentValue>.*?)\","
+      ],
+      "depNameTemplate": "com.openapitools:openapi-generator-cli",
+      "datasourceTemplate": "maven"
+    }
+  ],
   "ignorePaths": [
     "**/client-abtesting/**",
     "**/algoliasearch/**",
     "**/algoliasearch-lite/**",
     "**/client-analytics/**",
     "**/client-insights/**",
-    "**/client-personalisation/**",
+    "**/client-personalization/**",
     "**/client-predict/**",
     "**/client-query-suggestions/**",
     "**/client-search/**",
     "**/client-sources/**",
-    "**/recommend/**"
+    "**/recommend/**",
+    "clients/algoliasearch-client-php/composer.json",
+    "tests/output/**"
   ],
   "prHourlyLimit": 10,
   "prConcurrentLimit": 50
