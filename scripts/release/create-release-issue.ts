@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import semver from 'semver';
 
+import generationCommitText from '../ci/codegen/text';
 import {
   LANGUAGES,
   ROOT_ENV_PATH,
@@ -99,6 +100,12 @@ export function parseCommit(commit: string): Commit {
   let type = message.slice(0, message.indexOf(':'));
   const matchResult = type.match(/(.+)\((.+)\)/);
   if (!matchResult) {
+    if (commit.startsWith(generationCommitText.commitStartMessage)) {
+      return {
+        error: 'generation-commit',
+      };
+    }
+
     return {
       error: 'missing-language-scope',
     };
@@ -237,6 +244,12 @@ async function createReleaseIssue(): Promise<void> {
       const commit = parseCommit(commitMessage);
 
       if ('error' in commit) {
+        // We don't do anything in that case, as we don't really care about
+        // those commits
+        if (commit.error === 'generation-commit') {
+          return undefined;
+        }
+
         if (commit.error === 'missing-language-scope') {
           commitsWithoutLanguageScope.push(commitMessage);
           return undefined;

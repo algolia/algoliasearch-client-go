@@ -32,6 +32,7 @@ export type PassedCommit = {
 
 export type Commit =
   | PassedCommit
+  | { error: 'generation-commit' }
   | { error: 'missing-language-scope' }
   | { error: 'unknown-language-scope' };
 

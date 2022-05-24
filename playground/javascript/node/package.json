@@ -15,18 +15,18 @@
     "start:predict": "ts-node predict.ts"
   },
   "dependencies": {
-    "@experimental-api-clients-automation/algoliasearch": "0.2.0",
-    "@experimental-api-clients-automation/client-abtesting": "0.2.0",
-    "@experimental-api-clients-automation/client-analytics": "0.2.0",
-    "@experimental-api-clients-automation/client-common": "0.2.0",
-    "@experimental-api-clients-automation/client-insights": "0.2.0",
-    "@experimental-api-clients-automation/client-personalization": "0.2.0",
-    "@experimental-api-clients-automation/client-predict": "0.2.0",
-    "@experimental-api-clients-automation/client-query-suggestions": "0.2.0",
-    "@experimental-api-clients-automation/client-search": "0.2.0",
-    "@experimental-api-clients-automation/client-sources": "0.2.0",
-    "@experimental-api-clients-automation/recommend": "0.2.0",
-    "@experimental-api-clients-automation/requester-node-http": "0.2.0"
+    "@experimental-api-clients-automation/algoliasearch": "0.3.0",
+    "@experimental-api-clients-automation/client-abtesting": "0.3.0",
+    "@experimental-api-clients-automation/client-analytics": "0.3.0",
+    "@experimental-api-clients-automation/client-common": "0.3.0",
+    "@experimental-api-clients-automation/client-insights": "0.3.0",
+    "@experimental-api-clients-automation/client-personalization": "0.3.0",
+    "@experimental-api-clients-automation/client-predict": "0.3.0",
+    "@experimental-api-clients-automation/client-query-suggestions": "0.3.0",
+    "@experimental-api-clients-automation/client-search": "0.3.0",
+    "@experimental-api-clients-automation/client-sources": "0.3.0",
+    "@experimental-api-clients-automation/recommend": "0.3.0",
+    "@experimental-api-clients-automation/requester-node-http": "0.3.0"
   },
   "devDependencies": {
     "dotenv": "16.0.0",

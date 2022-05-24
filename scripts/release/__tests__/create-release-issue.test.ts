@@ -1,3 +1,4 @@
+import generationCommitText from '../../ci/codegen/text';
 import {
   parseCommit,
   getVersionChangesText,
@@ -47,6 +48,14 @@ describe('create release issue', () => {
     it('returns error when language scope is unknown', () => {
       expect(parseCommit(`b2501882 fix(basic): fix the thing`)).toEqual({
         error: 'unknown-language-scope',
+      });
+    });
+
+    it('returns error when it is a generated commit', () => {
+      expect(
+        parseCommit(`${generationCommitText.commitStartMessage} ABCDEF`)
+      ).toEqual({
+        error: 'generation-commit',
       });
     });
   });

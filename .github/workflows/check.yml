@@ -142,7 +142,8 @@ jobs:
         with:
           key: |
             ${{ matrix.client }}-${{ hashFiles(
-              format('clients/algoliasearch-client-javascript/packages/{0}/**', matrix.client)
+              format('clients/algoliasearch-client-javascript/packages/{0}/**', matrix.client),
+              'yarn.lock'
             )}}
           path: clients/algoliasearch-client-javascript/packages/${{ matrix.client }}
 
@@ -258,7 +259,8 @@ jobs:
         with:
           key: |
             algoliasearch-${{ hashFiles(
-              'clients/algoliasearch-client-javascript/packages/algoliasearch/**'
+              'clients/algoliasearch-client-javascript/packages/algoliasearch/**',
+              'yarn.lock'
             )}}
           path: clients/algoliasearch-client-javascript/packages/algoliasearch/
 
