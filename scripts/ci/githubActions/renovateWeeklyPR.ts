@@ -99,7 +99,7 @@ async function createPR(octokit: Octokit): Promise<any> {
     owner: OWNER,
     title,
     body: `Weekly dependencies update.
-Contributes to #528
+Contributes to #532
     `,
     head: BRANCH,
     base: BRANCH_BASE,

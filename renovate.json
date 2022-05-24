@@ -5,7 +5,9 @@
   ],
   "enabledManagers": [
     "npm",
-    "nvm"
+    "nvm",
+    "gradle",
+    "composer"
   ],
   "baseBranches": [
     "chore/renovateBaseBranch"
@@ -17,6 +19,10 @@
       ],
       "rangeStrategy": "bump"
     }
+  ],
+  "ignorePaths": [
+    "!clients/algoliasearch-client-javascript/requester-*/**",
+    "!clients/algoliasearch-client-javascript/client-common/**"
   ],
   "prHourlyLimit": 10,
   "prConcurrentLimit": 50
