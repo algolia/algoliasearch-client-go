@@ -1,6 +1,6 @@
-package com.algolia.codegen.cts;
+package com.algolia.codegen.exceptions;
 
-public class CTSException extends Exception {
+public class CTSException extends GeneratorException {
 
   private boolean skipable;
 

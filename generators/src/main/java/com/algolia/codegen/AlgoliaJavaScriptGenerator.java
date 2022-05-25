@@ -1,5 +1,6 @@
 package com.algolia.codegen;
 
+import com.algolia.codegen.exceptions.*;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -29,28 +30,22 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     setApiPackage("src");
     // clear all supported files to avoid unwanted ones
     supportingFiles.clear();
-    // model
-    supportingFiles.add(
-      new SupportingFile("modelBarrel.mustache", "model", "index.ts")
-    );
-    // builds
-    supportingFiles.add(
-      new SupportingFile("browser.mustache", "builds", "browser.ts")
-    );
-    supportingFiles.add(
-      new SupportingFile("node.mustache", "builds", "node.ts")
-    );
+
+    supportingFiles.add(new SupportingFile("modelBarrel.mustache", "model", "index.ts"));
+    supportingFiles.add(new SupportingFile("browser.mustache", "builds", "browser.ts"));
+    supportingFiles.add(new SupportingFile("node.mustache", "builds", "node.ts"));
+
     // root
     supportingFiles.add(new SupportingFile("index.mustache", "", "index.js"));
-    supportingFiles.add(
-      new SupportingFile("index.d.mustache", "", "index.d.ts")
-    );
-    supportingFiles.add(
-      new SupportingFile("package.mustache", "", "package.json")
-    );
-    supportingFiles.add(
-      new SupportingFile("tsconfig.mustache", "", "tsconfig.json")
-    );
+    supportingFiles.add(new SupportingFile("index.d.mustache", "", "index.d.ts"));
+
+    supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
+    supportingFiles.add(new SupportingFile("tsconfig.mustache", "", "tsconfig.json"));
+  }
+
+  @Override
+  public CodegenOperation fromOperation(String path, String httpMethod, Operation operation, List<Server> servers) {
+    return Utils.specifyCustomRequest(super.fromOperation(path, httpMethod, operation, servers));
   }
 
   /** Set default generator options */
@@ -66,36 +61,21 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
 
   /** Provides an opportunity to inspect and modify operation data before the code is generated. */
   @Override
-  public Map<String, Object> postProcessOperationsWithModels(
-    Map<String, Object> objs,
-    List<Object> allModels
-  ) {
-    Map<String, Object> results = super.postProcessOperationsWithModels(
-      objs,
-      allModels
-    );
+  public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+    Map<String, Object> results = super.postProcessOperationsWithModels(objs, allModels);
 
     CLIENT = Utils.getClientNameCamelCase(results);
 
     setDefaultGeneratorOptions();
     try {
-      Utils.generateServer(
-        Utils.getClientNameKebabCase(results),
-        additionalProperties
-      );
-      additionalProperties.put(
-        "utilsPackageVersion",
-        Utils.getClientConfigField("javascript", "utilsPackageVersion")
-      );
-    } catch (GenerationException e) {
+      Utils.generateServer(Utils.getClientNameKebabCase(results), additionalProperties);
+      additionalProperties.put("utilsPackageVersion", Utils.getClientConfigField("javascript", "utilsPackageVersion"));
+    } catch (GeneratorException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
-    List<CodegenOperation> operations =
-      ((Map<String, List<CodegenOperation>>) results.get("operations")).get(
-          "operation"
-        );
+    List<CodegenOperation> operations = ((Map<String, List<CodegenOperation>>) results.get("operations")).get("operation");
 
     // We read operations and detect if we should wrap parameters under an object.
     // We only wrap if there is a mix between body parameters and other parameters.
@@ -111,9 +91,7 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
       boolean hasPathParams = !ope.pathParams.isEmpty();
 
       // If there is nothing but body params, we just check if it's a single param
-      if (
-        hasBodyParams && !hasHeaderParams && !hasQueryParams && !hasPathParams
-      ) {
+      if (hasBodyParams && !hasHeaderParams && !hasQueryParams && !hasPathParams) {
         // At this point the single parameter is already an object, to avoid double wrapping
         // we skip it
         if (ope.bodyParams.size() == 1 && !ope.bodyParams.get(0).isArray) {
@@ -158,18 +136,6 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
   @Override
   public String apiFilename(String templateName, String tag) {
     return super.apiFilename(templateName, toApiFilename(CLIENT));
-  }
-
-  @Override
-  public CodegenOperation fromOperation(
-    String path,
-    String httpMethod,
-    Operation operation,
-    List<Server> servers
-  ) {
-    return Utils.specifyCustomRequest(
-      super.fromOperation(path, httpMethod, operation, servers)
-    );
   }
 
   @Override

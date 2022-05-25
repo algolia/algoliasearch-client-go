@@ -8,8 +8,7 @@ import java.io.Writer;
 public class EscapeQuotesLambda implements Mustache.Lambda {
 
   @Override
-  public void execute(Template.Fragment fragment, Writer writer)
-    throws IOException {
+  public void execute(Template.Fragment fragment, Writer writer) throws IOException {
     String text = fragment.execute();
     writer.write(text.replace("\"", "\\\""));
   }

@@ -3,10 +3,9 @@ package com.algolia.codegen.cts;
 import com.algolia.codegen.Utils;
 import com.algolia.codegen.cts.manager.CtsManager;
 import com.algolia.codegen.cts.manager.CtsManagerFactory;
+import com.algolia.codegen.exceptions.*;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.samskivert.mustache.Mustache.Lambda;
 import io.swagger.v3.core.util.Json;
@@ -27,37 +26,14 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
   private String packageName;
   private CtsManager ctsManager;
 
-  /**
-   * Configures the type of generator.
-   *
-   * @return the CodegenType for this generator
-   * @see org.openapitools.codegen.CodegenType
-   */
   @Override
   public CodegenType getTag() {
     return CodegenType.OTHER;
   }
 
-  /**
-   * Configures a friendly name for the generator. This will be used by the generator to select the
-   * library with the -g flag.
-   *
-   * @return the friendly name for the generator
-   */
   @Override
   public String getName() {
     return "algolia-cts";
-  }
-
-  /**
-   * Returns human-friendly help for the generator. Provide the consumer with help tips, parameters
-   * here
-   *
-   * @return A string value for the help message
-   */
-  @Override
-  public String getHelp() {
-    return "Generates the CTS";
   }
 
   @Override
@@ -69,30 +45,13 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
     packageName = (String) additionalProperties.get("packageName");
     ctsManager = CtsManagerFactory.getManager(language);
 
-    JsonNode config = Utils.readJsonFile("config/clients.config.json");
-    TestConfig testConfig = null;
-    try {
-      testConfig =
-        Json
-          .mapper()
-          .treeToValue(config.get(language).get("tests"), TestConfig.class);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    String outputFolder = Utils.getClientConfigField(language, "tests", "outputFolder");
+    String extension = Utils.getClientConfigField(language, "tests", "extension");
 
     setTemplateDir("tests/CTS/methods/requests/templates/" + language);
     setOutputDir("tests/output/" + language);
-    String clientName = language.equals("php")
-      ? Utils.createClientName(client, language)
-      : client;
-    supportingFiles.add(
-      new SupportingFile(
-        "requests.mustache",
-        testConfig.outputFolder + "/methods/requests",
-        clientName + testConfig.extension
-      )
-    );
+    String clientName = language.equals("php") ? Utils.createClientName(client, language) : client;
+    supportingFiles.add(new SupportingFile("requests.mustache", outputFolder + "/methods/requests", clientName + extension));
 
     ctsManager.addSupportingFiles(supportingFiles);
   }
@@ -101,13 +60,9 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
   public Map<String, Object> postProcessAllModels(Map<String, Object> objs) {
     Map<String, Object> mod = super.postProcessAllModels(objs);
     for (Entry<String, Object> entry : mod.entrySet()) {
-      List<Object> innerModel =
-        ((Map<String, List<Object>>) entry.getValue()).get("models");
+      List<Object> innerModel = ((Map<String, List<Object>>) entry.getValue()).get("models");
       if (!innerModel.isEmpty()) {
-        models.put(
-          entry.getKey(),
-          (CodegenModel) ((Map<String, Object>) innerModel.get(0)).get("model")
-        );
+        models.put(entry.getKey(), (CodegenModel) ((Map<String, Object>) innerModel.get(0)).get("model"));
       }
     }
     return mod;
@@ -122,32 +77,24 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
   }
 
   @Override
-  public Map<String, Object> postProcessSupportingFileData(
-    Map<String, Object> objs
-  ) {
+  public Map<String, Object> postProcessSupportingFileData(Map<String, Object> objs) {
     Map<String, Request[]> cts = null;
     try {
       cts = loadCTS();
 
       Map<String, CodegenOperation> operations = buildOperations(objs);
 
-      // The return value of this function is not used, we need to modify the param
-      // itself.
+      // The return value of this function is not used, we need to modify the param itself.
       Object lambda = objs.get("lambda");
       List<CodegenServer> servers = (List<CodegenServer>) objs.get("servers");
       boolean hasRegionalHost = servers
         .stream()
-        .anyMatch(server ->
-          server.variables
-            .stream()
-            .anyMatch(variable -> variable.name.equals("region"))
-        );
+        .anyMatch(server -> server.variables.stream().anyMatch(variable -> variable.name.equals("region")));
 
       Map<String, Object> bundle = objs;
       bundle.clear();
 
-      // We can put whatever we want in the bundle, and it will be accessible in the
-      // template
+      // We can put whatever we want in the bundle, and it will be accessible in the template
       bundle.put("client", Utils.createClientName(client, language) + "Client");
       bundle.put("clientPrefix", Utils.createClientName(client, language));
       bundle.put("import", createImportName());
@@ -157,28 +104,18 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
       ctsManager.addDataToBundle(bundle);
 
       List<Object> blocks = new ArrayList<>();
-      ParametersWithDataType paramsType = new ParametersWithDataType(
-        models,
-        language
-      );
+      ParametersWithDataType paramsType = new ParametersWithDataType(models, language);
 
       for (Entry<String, CodegenOperation> entry : operations.entrySet()) {
         String operationId = entry.getKey();
         if (!cts.containsKey(operationId)) {
-          throw new CTSException(
-            "operationId " + operationId + " does not exist in the spec"
-          );
+          throw new CTSException("operationId " + operationId + " does not exist in the spec");
         }
         Request[] op = cts.get(operationId);
 
         List<Object> tests = new ArrayList<>();
         for (int i = 0; i < op.length; i++) {
-          Map<String, Object> test = paramsType.buildJSONForRequest(
-            operationId,
-            op[i],
-            entry.getValue(),
-            i
-          );
+          Map<String, Object> test = paramsType.buildJSONForRequest(operationId, op[i], entry.getValue(), i);
           tests.add(test);
         }
         Map<String, Object> testObj = new HashMap<>();
@@ -190,8 +127,8 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
 
       return bundle;
     } catch (CTSException e) {
-      System.out.println(e.getMessage());
       if (e.isSkipable()) {
+        System.out.println(e.getMessage());
         System.exit(0);
       }
       e.printStackTrace();
@@ -203,17 +140,13 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
     return null;
   }
 
-  private Map<String, Request[]> loadCTS()
-    throws JsonParseException, JsonMappingException, IOException, CTSException {
+  private Map<String, Request[]> loadCTS() throws JsonParseException, JsonMappingException, IOException, CTSException {
     TreeMap<String, Request[]> cts = new TreeMap<>();
     String clientName = client;
 
-    // This special case allow us to read the `search` CTS to generated the
-    // tests for the `algoliasearch-lite` client, which is only available
-    // in JavaScript
-    if (
-      language.equals("javascript") && clientName.equals("algoliasearch-lite")
-    ) {
+    // This special case allow us to read the `search` CTS to generated the tests for the
+    // `algoliasearch-lite` client, which is only available in JavaScript
+    if (language.equals("javascript") && clientName.equals("algoliasearch-lite")) {
       clientName = "search";
     }
 
@@ -223,35 +156,21 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
       throw new CTSException("CTS not found at " + dir.getAbsolutePath(), true);
     }
     if (!commonTestDir.exists()) {
-      throw new CTSException(
-        "CTS not found at " + commonTestDir.getAbsolutePath(),
-        true
-      );
+      throw new CTSException("CTS not found at " + commonTestDir.getAbsolutePath(), true);
     }
     for (File f : dir.listFiles()) {
-      cts.put(
-        f.getName().replace(".json", ""),
-        Json.mapper().readValue(f, Request[].class)
-      );
+      cts.put(f.getName().replace(".json", ""), Json.mapper().readValue(f, Request[].class));
     }
     for (File f : commonTestDir.listFiles()) {
-      cts.put(
-        f.getName().replace(".json", ""),
-        Json.mapper().readValue(f, Request[].class)
-      );
+      cts.put(f.getName().replace(".json", ""), Json.mapper().readValue(f, Request[].class));
     }
     return cts;
   }
 
   // operationId -> CodegenOperation
-  private TreeMap<String, CodegenOperation> buildOperations(
-    Map<String, Object> objs
-  ) {
+  private TreeMap<String, CodegenOperation> buildOperations(Map<String, Object> objs) {
     HashMap<String, CodegenOperation> result = new HashMap<>();
-    List<Map<String, Object>> apis =
-      ((Map<String, List<Map<String, Object>>>) objs.get("apiInfo")).get(
-          "apis"
-        );
+    List<Map<String, Object>> apis = ((Map<String, List<Map<String, Object>>>) objs.get("apiInfo")).get("apis");
 
     for (Map<String, Object> api : apis) {
       String apiName = ((String) api.get("baseName")).toLowerCase();
@@ -259,10 +178,7 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
         continue;
       }
 
-      List<CodegenOperation> operations =
-        ((Map<String, List<CodegenOperation>>) api.get("operations")).get(
-            "operation"
-          );
+      List<CodegenOperation> operations = ((Map<String, List<CodegenOperation>>) api.get("operations")).get("operation");
 
       for (CodegenOperation ope : operations) {
         result.put(ope.operationId, ope);
@@ -286,24 +202,11 @@ public class AlgoliaCtsGenerator extends DefaultCodegen {
     return name;
   }
 
-  /**
-   * override with any special text escaping logic to handle unsafe characters so as to avoid code
-   * injection
-   *
-   * @param input String to be cleaned up
-   * @return string with unsafe characters removed or escaped
-   */
   @Override
   public String escapeUnsafeCharacters(String input) {
     return input;
   }
 
-  /**
-   * Escape single and/or double quote to avoid code injection
-   *
-   * @param input String to be cleaned up
-   * @return string with quotation mark removed or escaped
-   */
   public String escapeQuotationMark(String input) {
     return input.replace("\"", "\\\"");
   }

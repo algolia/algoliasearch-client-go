@@ -1,5 +1,6 @@
 package com.algolia.codegen;
 
+import com.algolia.codegen.exceptions.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Sets;
 import io.swagger.v3.core.util.Json;
@@ -16,12 +17,11 @@ public class Utils {
   /** The suffix of our client names. */
   public static final String API_SUFFIX = "Client";
 
-  public static final Set<String> CUSTOM_METHOD = Sets.newHashSet(
-    "del",
-    "get",
-    "post",
-    "put"
-  );
+  public static final Set<String> CUSTOM_METHOD = Sets.newHashSet("del", "get", "post", "put");
+
+  private static JsonNode cacheConfig;
+
+  private Utils() {}
 
   public static String capitalize(String str) {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
@@ -58,33 +58,20 @@ public class Utils {
   }
 
   public static String getClientNameKebabCase(Map<String, Object> data) {
-    String client = (String) ((Map<String, Object>) data.get("operations")).get(
-        "pathPrefix"
-      );
-    return client
-      .replaceAll("(.+?)([A-Z]|[0-9])", "$1-$2")
-      .toLowerCase(Locale.ROOT);
+    String client = (String) ((Map<String, Object>) data.get("operations")).get("pathPrefix");
+    return client.replaceAll("(.+?)([A-Z]|[0-9])", "$1-$2").toLowerCase(Locale.ROOT);
   }
 
   public static String getClientNameCamelCase(Map<String, Object> data) {
-    return (String) ((Map<String, Object>) data.get("operations")).get(
-        "pathPrefix"
-      );
+    return (String) ((Map<String, Object>) data.get("operations")).get("pathPrefix");
   }
 
   /** Inject server info into the client to generate the right URL */
-  public static void generateServer(
-    String clientKebab,
-    Map<String, Object> additionalProperties
-  ) throws GenerationException {
+  public static void generateServer(String clientKebab, Map<String, Object> additionalProperties) throws ConfigException {
     Yaml yaml = new Yaml();
     try {
-      Map<String, Object> spec = yaml.load(
-        new FileInputStream("specs/bundled/" + clientKebab + ".yml")
-      );
-      List<Map<String, Object>> servers = (List<Map<String, Object>>) spec.get(
-        "servers"
-      );
+      Map<String, Object> spec = yaml.load(new FileInputStream("specs/bundled/" + clientKebab + ".yml"));
+      List<Map<String, Object>> servers = (List<Map<String, Object>>) spec.get("servers");
 
       boolean hasRegionalHost = false;
       boolean fallbackToAliasHost = false;
@@ -93,9 +80,7 @@ public class Utils {
       Set<String> allowedRegions = new HashSet<>();
       for (Map<String, Object> server : servers) {
         if (!server.containsKey("url")) {
-          throw new GenerationException(
-            "Invalid server, does not contains 'url'"
-          );
+          throw new ConfigException("Invalid server, does not contains 'url'");
         }
 
         // Determine if the current URL with `region` also have an alias without
@@ -117,19 +102,12 @@ public class Utils {
           continue;
         }
 
-        Map<String, Map<String, Object>> variables = (Map<String, Map<String, Object>>) server.get(
-          "variables"
-        );
+        Map<String, Map<String, Object>> variables = (Map<String, Map<String, Object>>) server.get("variables");
 
-        if (
-          !variables.containsKey("region") ||
-          !variables.get("region").containsKey("enum")
-        ) {
+        if (!variables.containsKey("region") || !variables.get("region").containsKey("enum")) {
           continue;
         }
-        ArrayList<String> regions = (ArrayList<String>) variables
-          .get("region")
-          .get("enum");
+        ArrayList<String> regions = (ArrayList<String>) variables.get("region").get("enum");
         hasRegionalHost = true;
 
         for (String region : regions) {
@@ -144,46 +122,38 @@ public class Utils {
       additionalProperties.put("hasRegionalHost", hasRegionalHost);
       additionalProperties.put("fallbackToAliasHost", fallbackToAliasHost);
       additionalProperties.put("host", host);
-      additionalProperties.put(
-        "allowedRegions",
-        allowedRegions.toArray(new String[0])
-      );
+      additionalProperties.put("allowedRegions", allowedRegions.toArray(new String[0]));
     } catch (Exception e) {
-      throw new GenerationException("Couldn't generate servers", e);
+      throw new ConfigException("Couldn't generate servers", e);
     }
   }
 
   /** Get the `field` value in the `config/clients.config.json` file for the given language */
-  public static String getClientConfigField(String language, String field)
-    throws GenerationException {
-    if (language.equals("javascript") && field.equals("packageVersion")) {
-      throw new GenerationException(
-        "Cannot read 'packageVersion' with language=\"javascript\", " +
-        "read configs/openapitools.json instead"
-      );
+  public static String getClientConfigField(String language, String... fields) throws ConfigException {
+    if (fields.length == 0) {
+      throw new ConfigException("getClientConfigField requires at least one field");
     }
-
-    try {
-      JsonNode config = Json
-        .mapper()
-        .readTree(new File("config/clients.config.json"));
-      return config.get(language).get(field).asText();
-    } catch (IOException e) {
-      throw new GenerationException(
-        "Couldn't read packageVersion from clients.config.json",
-        e
-      );
+    if (language.equals("javascript") && fields[0].equals("packageVersion")) {
+      throw new ConfigException("Cannot read 'packageVersion' with language=\"javascript\", " + "read configs/openapitools.json instead");
     }
+    if (cacheConfig == null) {
+      cacheConfig = readJsonFile("config/clients.config.json");
+    }
+    JsonNode value = cacheConfig.get(language);
+    for (String field : fields) {
+      value = value.get(field);
+    }
+    if (!value.isTextual()) {
+      throw new ConfigException(fields[fields.length - 1] + " is not a string");
+    }
+    return value.asText();
   }
 
-  public static JsonNode readJsonFile(String filePath) {
-    JsonNode json = null;
+  public static JsonNode readJsonFile(String filePath) throws ConfigException {
     try {
-      json = Json.mapper().readTree(new File(filePath));
+      return Json.mapper().readTree(new File(filePath));
     } catch (IOException e) {
-      e.printStackTrace();
-      System.exit(1);
+      throw new ConfigException("Cannot read json file " + filePath, e);
     }
-    return json;
   }
 }

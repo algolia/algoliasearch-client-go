@@ -85,12 +85,7 @@ public class CallEcho implements Call {
       body.queryParameters = buildQueryParameters();
       body.headers = buildHeaders(request.headers());
 
-      builder.body(
-        ResponseBody.create(
-          JSON.serialize(body),
-          MediaType.parse("application/json")
-        )
-      );
+      builder.body(ResponseBody.create(JSON.serialize(body), MediaType.parse("application/json")));
       callback.onResponse(this, builder.build());
     } catch (Exception e) {
       e.printStackTrace();

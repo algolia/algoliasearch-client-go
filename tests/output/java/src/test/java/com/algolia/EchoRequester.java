@@ -24,8 +24,7 @@ public class EchoRequester implements Requester {
     return new CallEcho(request);
   }
 
-  public <T> T handleResponse(Response response, Type returnType)
-    throws AlgoliaRuntimeException {
+  public <T> T handleResponse(Response response, Type returnType) throws AlgoliaRuntimeException {
     lastResponse = response;
     return null;
   }

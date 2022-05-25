@@ -1,41 +1,38 @@
 package com.algolia.codegen.cts.manager;
 
-import com.algolia.codegen.GenerationException;
 import com.algolia.codegen.Utils;
+import com.algolia.codegen.exceptions.GeneratorException;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.*;
+import java.util.Map.Entry;
 import org.openapitools.codegen.SupportingFile;
 
-public class JavaScriptCtsManager extends CtsManager {
+public class JavaScriptCtsManager implements CtsManager {
 
+  @Override
   public void addSupportingFiles(List<SupportingFile> supportingFiles) {
-    supportingFiles.add(
-      new SupportingFile("package.mustache", ".", "package.json")
-    );
+    supportingFiles.add(new SupportingFile("package.mustache", ".", "package.json"));
   }
 
-  private List<Object> getPackageDependencies() {
-    List<Object> result = new ArrayList<Object>();
+  @Override
+  public void addDataToBundle(Map<String, Object> bundle) throws GeneratorException {
+    bundle.put("packageDependencies", this.getPackageDependencies());
+    bundle.put("utilsPackageVersion", Utils.getClientConfigField("javascript", "utilsPackageVersion"));
+  }
 
-    JsonNode openApiToolsConfig = Utils.readJsonFile(
-      "config/openapitools.json"
-    );
-    Iterator<Map.Entry<String, JsonNode>> fieldIterator = openApiToolsConfig
-      .get("generator-cli")
-      .get("generators")
-      .fields();
+  private List<Map<String, String>> getPackageDependencies() {
+    List<Map<String, String>> result = new ArrayList<>();
 
-    while (fieldIterator.hasNext()) {
-      Map.Entry<String, JsonNode> field = fieldIterator.next();
+    JsonNode openApiToolsConfig = Utils.readJsonFile("config/openapitools.json");
+    for (Entry<String, JsonNode> field : (Iterable<Entry<String, JsonNode>>) () ->
+      openApiToolsConfig.get("generator-cli").get("generators").fields()) {
       if (!field.getKey().startsWith("javascript-")) {
         continue;
       }
       JsonNode generator = field.getValue();
       JsonNode additionalProperties = generator.get("additionalProperties");
       String packageName = additionalProperties.get("packageName").asText();
-      String packageVersion = additionalProperties
-        .get("packageVersion")
-        .asText();
+      String packageVersion = additionalProperties.get("packageVersion").asText();
 
       Map<String, String> newEntry = new HashMap<>();
       newEntry.put("packageName", packageName);
@@ -43,14 +40,5 @@ public class JavaScriptCtsManager extends CtsManager {
       result.add(newEntry);
     }
     return result;
-  }
-
-  protected void addExtraToBundle(Map<String, Object> bundle)
-    throws GenerationException {
-    bundle.put("packageDependencies", this.getPackageDependencies());
-    bundle.put(
-      "utilsPackageVersion",
-      Utils.getClientConfigField("javascript", "utilsPackageVersion")
-    );
   }
 }

@@ -1,11 +1,17 @@
 {
   "trailingComma": "es5",
   "singleQuote": true,
-  "overrides" : [
+  "overrides": [
     {
       "files": "*.php",
       "options": {
-          "tabWidth": 4
+        "tabWidth": 4
+      }
+    },
+    {
+      "files": "*.java",
+      "options": {
+        "printWidth": 140
       }
     }
   ]
