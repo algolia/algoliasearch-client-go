@@ -1,8 +1,8 @@
-import { getVersionChangesText } from '../create-release-issue';
-import { getVersionsToRelease } from '../process-release';
+import { getVersionChangesText } from '../createReleasePR';
 import TEXT from '../text';
+import { getVersionsToRelease } from '../updateAPIVersions';
 
-describe('process release', () => {
+describe('updateAPIversions', () => {
   it('gets versions to release', () => {
     const versions = getVersionsToRelease(`
     ## Version Changes
@@ -20,8 +20,8 @@ describe('process release', () => {
     expect(versions.php?.releaseType).toEqual('patch');
   });
 
-  it('parses issue body correctly', () => {
-    // This test is a glue between create-release-issue and process-release.
+  it('correctly reads clients version and their next release type', () => {
+    // This test is a glue between createReleasePR and updateAPIVersions.
     const issueBody = [
       TEXT.versionChangeHeader,
       getVersionChangesText({

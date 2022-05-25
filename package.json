@@ -24,7 +24,7 @@
     "github-actions:lint": "eslint --ext=yml .github/",
     "postinstall": "husky install && yarn workspace eslint-plugin-automation-custom build",
     "playground:browser": "yarn workspace javascript-browser-playground start",
-    "release": "yarn workspace scripts createReleaseIssue",
+    "release": "yarn workspace scripts createReleasePR",
     "scripts:lint": "eslint --ext=ts scripts/",
     "scripts:test": "yarn workspace scripts test",
     "specs:fix": "eslint --ext=yml specs/$0 --fix",

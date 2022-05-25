@@ -4,7 +4,7 @@
   "scripts": {
     "cleanGeneratedBranch": "ts-node ci/codegen/cleanGeneratedBranch.ts",
     "createMatrix": "ts-node ci/githubActions/createMatrix.ts",
-    "createReleaseIssue": "ts-node release/create-release-issue.ts",
+    "createReleasePR": "ts-node release/createReleasePR.ts",
     "pre-commit": "./ci/husky/pre-commit.js",
     "pushGeneratedCode": "ts-node ci/codegen/pushGeneratedCode.ts",
     "renovateWeeklyPR": "ts-node ci/githubActions/renovateWeeklyPR.ts",

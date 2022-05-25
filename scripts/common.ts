@@ -272,7 +272,7 @@ export function ensureGitHubToken(): string {
 export function getOctokit(): Octokit {
   const token = ensureGitHubToken();
   return new Octokit({
-    auth: `token ${token}`,
+    auth: token,
   });
 }
 

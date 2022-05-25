@@ -5,9 +5,9 @@ import {
   getSkippedCommitsText,
   decideReleaseStrategy,
   readVersions,
-} from '../create-release-issue';
+} from '../createReleasePR';
 
-describe('create release issue', () => {
+describe('createReleasePR', () => {
   it('reads versions of the current language', () => {
     expect(readVersions()).toEqual({
       java: {
@@ -92,10 +92,10 @@ describe('create release issue', () => {
           },
         })
       ).toMatchInlineSnapshot(`
-      "- javascript: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
-      - java: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
-      - php: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**"
-    `);
+              "- javascript: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
+              - java: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
+              - php: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**"
+          `);
     });
 
     it('generates text for version changes with a language with no commit', () => {
@@ -118,10 +118,10 @@ describe('create release issue', () => {
           },
         })
       ).toMatchInlineSnapshot(`
-      "- javascript: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
-      - java: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
-      - ~php: 0.0.1 (no commit)~"
-    `);
+              "- javascript: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
+              - java: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
+              - ~php: 0.0.1 (no commit)~"
+          `);
     });
 
     it('generates text for version changes with a language to skip', () => {
@@ -144,11 +144,11 @@ describe('create release issue', () => {
           },
         })
       ).toMatchInlineSnapshot(`
-      "- javascript: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
-      - ~java: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**~
-        - No \`feat\` or \`fix\` commit, thus unchecked by default.
-      - php: 0.0.1 -> **\`minor\` _(e.g. 0.1.0)_**"
-    `);
+              "- javascript: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
+              - ~java: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**~
+                - No \`feat\` or \`fix\` commit, thus unchecked by default.
+              - php: 0.0.1 -> **\`minor\` _(e.g. 0.1.0)_**"
+          `);
     });
   });
 
@@ -363,47 +363,117 @@ describe('create release issue', () => {
     });
   });
 
-  it('generates text for skipped commits', () => {
-    expect(
-      getSkippedCommitsText({
-        commitsWithoutLanguageScope: [],
-        commitsWithUnknownLanguageScope: [],
-      })
-    ).toMatchInlineSnapshot(`"_(None)_"`);
+  describe('getSkippedCommitsText', () => {
+    it('does not generate text if there is no commits', () => {
+      expect(
+        getSkippedCommitsText({
+          commitsWithoutLanguageScope: [],
+          commitsWithUnknownLanguageScope: [],
+        })
+      ).toMatchInlineSnapshot(`"_(None)_"`);
+    });
 
-    expect(
-      getSkippedCommitsText({
-        commitsWithoutLanguageScope: [
-          'abcdefg fix: something',
-          'abcdefg fix: somethin2',
-        ],
+    it('generates text for skipped commits', () => {
+      expect(
+        getSkippedCommitsText({
+          commitsWithoutLanguageScope: [
+            'abcdefg fix: something',
+            'abcdefg fix: somethin2',
+          ],
 
-        commitsWithUnknownLanguageScope: [
-          'abcdef2 fix(pascal): what',
-          'abcdef2 fix(pascal): what is that',
-        ],
-      })
-    ).toMatchInlineSnapshot(`
-      "</p>
-      <p>It doesn't mean these commits are being excluded from the release. It means they're not taken into account when the release process figured out the next version number, and updated the changelog.</p>
+          commitsWithUnknownLanguageScope: [
+            'abcdef2 fix(pascal): what',
+            'abcdef2 fix(pascal): what is that',
+          ],
+        })
+      ).toMatchInlineSnapshot(`
+        "
+        <p>It doesn't mean these commits are being excluded from the release. It means they're not taken into account when the release process figured out the next version number, and updated the changelog.</p>
 
-      <details>
-        <summary>
-          <i>Commits without language scope:</i>
-        </summary>
+        <details>
+          <summary>
+            <i>Commits without language scope:</i>
+          </summary>
 
-        - abcdefg fix: something
-      - abcdefg fix: somethin2
-      </details>
+          - abcdefg fix: something
+        - abcdefg fix: somethin2
+        </details>
 
-      <details>
-        <summary>
-          <i>Commits with unknown language scope:</i>
-        </summary>
+        <details>
+          <summary>
+            <i>Commits with unknown language scope:</i>
+          </summary>
 
-        - abcdef2 fix(pascal): what
-      - abcdef2 fix(pascal): what is that
-      </details>"
-    `);
+          - abcdef2 fix(pascal): what
+        - abcdef2 fix(pascal): what is that
+        </details>"
+      `);
+    });
+
+    it('limits the size of the commits to 15 if there is too many', () => {
+      const fakeCommitsWithoutLanguageScope: string[] = [];
+      const fakeCommitsWithUnknownLanguageScope: string[] = [];
+
+      for (let i = 0; i < 100; i++) {
+        fakeCommitsWithoutLanguageScope.push(`abcdefg${i} fix: something`);
+        fakeCommitsWithUnknownLanguageScope.push(
+          `abcdefg${i} fix(pascal): something`
+        );
+      }
+
+      expect(
+        getSkippedCommitsText({
+          commitsWithoutLanguageScope: fakeCommitsWithoutLanguageScope,
+          commitsWithUnknownLanguageScope: fakeCommitsWithUnknownLanguageScope,
+        })
+      ).toMatchInlineSnapshot(`
+        "
+        <p>It doesn't mean these commits are being excluded from the release. It means they're not taken into account when the release process figured out the next version number, and updated the changelog.</p>
+
+        <details>
+          <summary>
+            <i>Commits without language scope:</i>
+          </summary>
+
+          - abcdefg0 fix: something
+        - abcdefg1 fix: something
+        - abcdefg2 fix: something
+        - abcdefg3 fix: something
+        - abcdefg4 fix: something
+        - abcdefg5 fix: something
+        - abcdefg6 fix: something
+        - abcdefg7 fix: something
+        - abcdefg8 fix: something
+        - abcdefg9 fix: something
+        - abcdefg10 fix: something
+        - abcdefg11 fix: something
+        - abcdefg12 fix: something
+        - abcdefg13 fix: something
+        - abcdefg14 fix: something
+        </details>
+
+        <details>
+          <summary>
+            <i>Commits with unknown language scope:</i>
+          </summary>
+
+          - abcdefg0 fix(pascal): something
+        - abcdefg1 fix(pascal): something
+        - abcdefg2 fix(pascal): something
+        - abcdefg3 fix(pascal): something
+        - abcdefg4 fix(pascal): something
+        - abcdefg5 fix(pascal): something
+        - abcdefg6 fix(pascal): something
+        - abcdefg7 fix(pascal): something
+        - abcdefg8 fix(pascal): something
+        - abcdefg9 fix(pascal): something
+        - abcdefg10 fix(pascal): something
+        - abcdefg11 fix(pascal): something
+        - abcdefg12 fix(pascal): something
+        - abcdefg13 fix(pascal): something
+        - abcdefg14 fix(pascal): something
+        </details>"
+      `);
+    });
   });
 });

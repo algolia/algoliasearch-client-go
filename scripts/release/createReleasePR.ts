@@ -19,7 +19,6 @@ import {
 import { getPackageVersionDefault } from '../config';
 
 import { RELEASED_TAG } from './common';
-import { processRelease } from './process-release';
 import TEXT from './text';
 import type {
   Versions,
@@ -29,6 +28,7 @@ import type {
   Scope,
   Changelog,
 } from './types';
+import { updateAPIVersions } from './updateAPIVersions';
 
 dotenv.config({ path: ROOT_ENV_PATH });
 
@@ -79,7 +79,10 @@ export function getSkippedCommitsText({
     return '_(None)_';
   }
 
-  return `</p>
+  // GitHub API restrict the size of a PR body, if we send too many commits
+  // we might end up with 502 errors when trying to send the pull request
+  // So we limit the size of the missed commits
+  return `
 <p>${TEXT.skippedCommitsDesc}</p>
 
 <details>
@@ -87,7 +90,10 @@ export function getSkippedCommitsText({
     <i>Commits without language scope:</i>
   </summary>
 
-  ${commitsWithoutLanguageScope.map((commit) => `- ${commit}`).join('\n')}
+  ${commitsWithoutLanguageScope
+    .slice(0, 15)
+    .map((commit) => `- ${commit}`)
+    .join('\n')}
 </details>
 
 <details>
@@ -95,7 +101,10 @@ export function getSkippedCommitsText({
     <i>Commits with unknown language scope:</i>
   </summary>
 
-  ${commitsWithUnknownLanguageScope.map((commit) => `- ${commit}`).join('\n')}
+  ${commitsWithUnknownLanguageScope
+    .slice(0, 15)
+    .map((commit) => `- ${commit}`)
+    .join('\n')}
 </details>`;
 }
 
@@ -270,7 +279,7 @@ async function getCommits(): Promise<{
   };
 }
 
-async function createReleaseIssue(): Promise<void> {
+async function createReleasePR(): Promise<void> {
   ensureGitHubToken();
 
   if (!process.env.LOCAL_TEST_DEV) {
@@ -336,38 +345,42 @@ async function createReleaseIssue(): Promise<void> {
   const headBranch = `chore/prepare-release-${TODAY}`;
 
   console.log('Updating config files...');
-  await processRelease(versionChanges, changelog, headBranch);
+  await updateAPIVersions(versionChanges, changelog, headBranch);
 
   console.log('Creating pull request...');
   const octokit = getOctokit();
 
-  try {
-    const {
-      data: { number, html_url: url },
-    } = await octokit.rest.pulls.create({
-      owner: OWNER,
-      repo: REPO,
-      title: `chore: prepare release ${TODAY}`,
-      body: [
-        TEXT.header,
-        TEXT.summary,
-        TEXT.versionChangeHeader,
-        versionChanges,
-        TEXT.skippedCommitsHeader,
-        skippedCommits,
-      ].join('\n\n'),
-      base: 'main',
-      head: headBranch,
-    });
+  const {
+    data: { number, html_url: url },
+  } = await octokit.pulls.create({
+    owner: OWNER,
+    repo: REPO,
+    title: `chore: prepare release ${TODAY}`,
+    body: [
+      TEXT.header,
+      TEXT.summary,
+      TEXT.versionChangeHeader,
+      versionChanges,
+      TEXT.skippedCommitsHeader,
+      skippedCommits,
+    ].join('\n\n'),
+    base: 'main',
+    head: headBranch,
+  });
 
-    console.log(`Release PR #${number} is ready for review.`);
-    console.log(`  > ${url}`);
-  } catch (e) {
-    throw new Error(`Unable to create the release PR: ${e}`);
-  }
+  console.log('Assigning team members to the PR...');
+  await octokit.pulls.requestReviewers({
+    owner: OWNER,
+    repo: REPO,
+    pull_number: number,
+    team_reviewers: ['api-clients-automation'],
+  });
+
+  console.log(`Release PR #${number} is ready for review.`);
+  console.log(`  > ${url}`);
 }
 
 // JS version of `if __name__ == '__main__'`
 if (require.main === module) {
-  createReleaseIssue();
+  createReleasePR();
 }

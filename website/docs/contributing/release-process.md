@@ -18,24 +18,20 @@ Once setup, you can run:
 yarn release
 ```
 
-It will create [a release issue](https://github.com/algolia/api-clients-automation/issues/407).
+It will create [a release PR](https://github.com/algolia/api-clients-automation/pull/545).
 
-## 2. Review the release issue.
+## 2. Review the release PR.
 
-You need to review the release issue, in two parts:
+You need to review the release PR, in two parts:
 
 1.  version changes
 2.  CHANGELOGs
 
-Any changes applied in the issue will be taken into account by the release process.
+You need approval from a member of the [`@algolia/api-clients-automation`](https://github.com/orgs/algolia/teams/api-clients-automation) team to release clients.
 
-You need approval from a member of the [`@algolia/api-clients-automation`](https://github.com/orgs/algolia/teams/api-clients-automation) team to release clients. Commenting "approved" will close the issue and trigger [the release action](#3-the-release-action).
+## 3. The release process.
 
-## 3. The release action.
-
-The [GitHub action release](https://github.com/algolia/api-clients-automation/blob/main/.github/workflows/process-release.yml) is triggered. It generates clients and push changes to each language repository on their `next` branch.
-
-This part runs conditionally according to what has been done in [the issue review](#2-review-the-release-issue). Under "Version Changes" section of the release issue, if a language is checked, this part will creates a commit like `chore: release v<NEXT-VERSION>` in each repository. If it is not checked, it will create a commit like `chore: update repo <DATE-STAMP>`.
+After a full CI run, a release commit will be sent to every repository and spread changes to their `next` branch.
 
 Each language repository should have their own release process, and should run only when the latest commit starts with `chore: release`. By doing so, we have a way to just update the repository, for example READMEs, without having to release.
 
