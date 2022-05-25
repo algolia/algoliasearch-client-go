@@ -10,8 +10,10 @@ The Clients commands are used to [`generate`](#generate) and [`build`](#build) A
 
 > `language` and `client` defaults to `all`
 
+> The `client` parameter is variadic, you can pass multiple `client` name
+
 ```bash
-yarn docker generate <language | all> <client | all>
+yarn docker generate <language | all> <client... | all>
 ```
 
 ### Available options
@@ -35,6 +37,12 @@ yarn docker generate
 yarn docker generate java sources
 ```
 
+### Generate many client for specific language
+
+```bash
+yarn docker generate php sources recommend search
+```
+
 ## Build
 
 ### Build all clients for all supported languages
@@ -47,4 +55,10 @@ yarn docker build clients
 
 ```bash
 yarn docker build clients javascript recommend
+```
+
+### Build many client for specific language
+
+```bash
+yarn docker build clients php sources recommend search
 ```

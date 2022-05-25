@@ -34,9 +34,7 @@ openapi-generator author template -g typescript-node -o templates/javascript/
 
 ## Update the generator config
 
-Add each client in the file [`config/openapitools.json`](https://github.com/algolia/api-clients-automation/blob/main/config/openapitools.json), following the others client structure.
-
-> See [`add a new client`](/docs/contributing/add-new-api-client) for informations on how to structure your new client.
+Please read the [`add a new client guide`](/docs/contributing/add-new-api-client) for information on how to structure your new client and setup the configuration files.
 
 ### Algolia requirements
 
@@ -123,6 +121,20 @@ It matters because when a dependency is exposed, a breaking change from our deps
 and that prevent us from upgrading our deps. In some languages it also requires the user to add our internal dependencies to his build system, which is very inconvenient and our clients should always be standalone.
 
 To achieve this you can create interfaces that can be exposed, and wrap the method you want to be exposed, for an HTTP client for example.
+
+### `useReadTransporter`
+
+Some methods of our REST API send `POST` requests via the `read` transporter of the API client, to reflect this implementation, we provide a variable in the template for you to distinguish those methods, called `vendorExtensions.x-use-read-transporter`.
+
+This option is provided [at the spec level](https://github.com/algolia/api-clients-automation/blob/main/specs/search/paths/search/search.yml#L5) and [used in the mustache files](https://github.com/algolia/api-clients-automation/blob/bf4271246f9282d3c11dd46918e74cb86d9c96dc/templates/javascript/api-single.mustache#L221-L223).
+
+You can take a look at the implementation over all clients, [in this pull request](https://github.com/algolia/api-clients-automation/pull/525).
+
+### `requestOptions`
+
+Every methods of every clients provide a parameter that does not exist in the REST API, called `requestOptions`.
+
+This parameter **must** be the last parameter of a method, and allow a user to override/merge extra `query parameters` or `headers` with the transporter ones.
 
 ### Requesters
 

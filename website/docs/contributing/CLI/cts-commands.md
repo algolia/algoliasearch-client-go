@@ -16,8 +16,10 @@ The Common Test Suite commands are used to [`generate`](#generate) and [`run`](#
 
 > `language` and `client` defaults to `all`
 
+> The `client` parameter is variadic, you can pass multiple `client` name
+
 ```bash
-yarn docker cts generate <language | all> <client | all>
+yarn docker cts generate <language | all> <client... | all>
 ```
 
 ### Available options
@@ -41,10 +43,22 @@ yarn docker cts generate
 yarn docker cts generate java sources
 ```
 
+### Generate CTS for many client for specific language
+
+```bash
+yarn docker cts generate php sources recommend search
+```
+
 ## Run
 
 ### Run CTS for all supported languages
 
 ```bash
 yarn docker cts run
+```
+
+### Run CTS for a specific languages
+
+```bash
+yarn docker cts run javascript
 ```

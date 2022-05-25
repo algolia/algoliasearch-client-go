@@ -5,7 +5,7 @@ title: Common Test Suite
 # Common Test Suite
 
 The CTS aims at ensuring minimal working operation for the API clients, by comparing the request formed by sample parameters.
-It is automaticaly generated for all languages, from a JSON entry point.
+It is automatically generated for all languages, from a JSON entry point.
 
 :::info
 
@@ -24,24 +24,39 @@ The test generation script requires a JSON file name from the `operationId` (e.g
 ```json
 [
   {
-    "testName": "the name of the test (e.g. test('search endpoint')) (default: 'method')",
+    "testName": "The name of the test (e.g. 'searches to testIndex with query parameters')",
+    // The parameters of you'd like to pass to the method
     "parameters": {
       "indexName": "testIndex",
-      "searchParam": {
-        // query parameters
+      "searchParams": {
         "offset": 42,
         "limit": 21,
-        // data parameters
         "query": "the string to search"
       },
-      "otherParam": 22
+      "facets": ["*"]
     },
+    // Extra options sent with your method
+    "requestOptions": {
+      // Merged with transporter query parameters
+      "queryParameters": {
+        "anOtherParam": true
+      },
+      // Merged with transporter headers
+      "headers": {
+        "x-header": "test"
+      }
+    },
+    // The payload of the request
     "request": {
       "path": "/1/indexes/testIndex/query",
       "method": "POST",
       "body": { "query": "the string to search" },
       "queryParameters": {
-        "otherParam": "22"
+        "otherParam": "22",
+        "anOtherParam": "true"
+      },
+      "headers": {
+        "x-header": "test"
       }
     }
   }
@@ -60,66 +75,110 @@ Create a template in [`tests/CTS/methods/requests/templates/<languageName>/reque
 
 When writing your template, here is a list of variables accessible from `mustache`:
 
-```js
+```json
 {
   "import": "the name of the package or library to import",
   "client": "the name of the API Client object to instanciate and import",
-  "blocks": [{
-    // The list of test to implement
-    "operationID": "the name of the endpoint and the cts file to test",
-    "tests": [{
-      "testName": "the descriptive name test (default to `method`)"
-      "method": "the method to call on the API Client",
-      "parameters": {
-        // Object of all parameters with their name, to be used for languages that require the parameter name
-        "parameterName": "value",
-        ...
-      },
-      "parametersWithDataType": [
-          {
-            "key": "key",
-            "value": "value",
-            // booleans indicating the data type
-            "isArray": false,
-            "isObject": true,
-            "isFreeFormObject": false,
-            "isString": false,
-            "isInteger": false,
-            "isLong": false,
-            "isDouble": false,
-            "isEnum": false,
-            "isBoolean": false,
-            "objectName": "SearchParams",
-            // oneOfModel empty if there is no oneOf
-            "oneOfModel": {
-              "parentClassName": "SearchParams",
-              "type": "SearchParamsObject"
+  "blocks": [
+    {
+      // The list of test to implement
+      "operationID": "the name of the endpoint and the cts file to test",
+      "tests": [
+        {
+          "testName": "the descriptive name test (default to `method`)",
+          "method": "the method to call on the API Client",
+          "parameters": {
+            // Object of all parameters with their name, to be used for languages that require the parameter name
+            "parameterName": "value"
+            // ...
+          },
+          "parametersWithDataType": [
+            {
+              "key": "key",
+              "value": "value",
+              // booleans indicating the data type
+              "isArray": false,
+              "isObject": true,
+              "isFreeFormObject": false,
+              "isString": false,
+              "isInteger": false,
+              "isLong": false,
+              "isDouble": false,
+              "isEnum": false,
+              "isBoolean": false,
+              "objectName": "SearchParams",
+              // oneOfModel empty if there is no oneOf
+              "oneOfModel": {
+                "parentClassName": "SearchParams",
+                "type": "SearchParamsObject"
+              },
+              // properties used to have unique name and link to parent
+              "parent": "theParentObject",
+              "suffix": 7,
+              "parentSuffix": 6,
+              // boolean indicating if it is the last parameter
+              "-last": false
+            }
+          ],
+          "requestOptionsWithDataType": [
+            {
+              "key": "key",
+              "value": "value",
+              // booleans indicating the data type
+              "isArray": false,
+              "isObject": true,
+              "isFreeFormObject": false,
+              "isString": false,
+              "isInteger": false,
+              "isLong": false,
+              "isDouble": false,
+              "isEnum": false,
+              "isBoolean": false,
+              "objectName": "SearchParams",
+              // oneOfModel empty if there is no oneOf
+              "oneOfModel": {
+                "parentClassName": "SearchParams",
+                "type": "SearchParamsObject"
+              },
+              // properties used to have unique name and link to parent
+              "parent": "theParentObject",
+              "suffix": 7,
+              "parentSuffix": 6,
+              // boolean indicating if it is the last parameter
+              "-last": false
+            }
+          ],
+          // boolean indicating if the method has parameters, useful for `GET` requests
+          "hasParameters": true,
+          // boolean indicating if the method has requestOptions, useful to shape your template only if provided
+          "hasRequestOptions": true,
+          "request": {
+            "path": "the expected path of the request",
+            "method": "the expected method: GET, POST, PUT, DELETE or PATCH",
+            "body": {
+              // The expected body of the request
             },
-            // properties used to have unique name and link to parent
-            "parent": "theParentObject",
-            "suffix": 7,
-            "parentSuffix": 6,
-            // boolean indicating if it is the last parameter
-            "-last": false,
+            "queryParameters": {
+              // key: string map
+              "parameterName": "stringify version of the value"
+            },
+            "headers": {
+              // key: string map
+              "headerName": "stringify version of the value"
+            }
           }
-      ],
-      // boolean indicating if the method has parameters, useful for `GET` requests
-      "hasParameters": true,
-      "request": {
-        "path": "the expected path of the request",
-        "method": "the expected method: GET, POST, PUT, DELETE or PATCH",
-        "body": {
-          // The expected body of the request
         }
-        "queryParameters": {
-          // key: string map
-          "parameterName": "stringify version of the value"
-        }
-      }
-    }]
-  }]
+      ]
+    }
+  ]
 }
 ```
+
+## Add common tests to every clients
+
+You might want to test how every clients behaves, without having to duplicate the same tests. We provide 4 methods on every clients, common to all languages.
+
+You can find [the common folder](https://github.com/algolia/api-clients-automation/tree/main/tests/CTS/methods/requests/common) in the CTS too. [Adding a test](#how-to-add-test) in this folder will generate tests for all the clients.
 
 ## Get the list of remaining CTS to implement
 

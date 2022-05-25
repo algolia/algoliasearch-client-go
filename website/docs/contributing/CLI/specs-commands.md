@@ -10,8 +10,10 @@ The Specs commands are used to [`build`](#build), [`lint`](#lint) and validate t
 
 > `client` defaults to `all`
 
+> The `client` parameter is variadic, you can pass multiple `client` name
+
 ```bash
-yarn docker build specs <client | all>
+yarn docker build specs <client... | all>
 ```
 
 ### Available options
@@ -34,6 +36,12 @@ yarn docker build specs
 
 ```bash
 yarn docker build specs recommend
+```
+
+### Build many spec
+
+```bash
+yarn docker build specs recommend search predict
 ```
 
 ## Lint

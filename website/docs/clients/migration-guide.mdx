@@ -23,20 +23,18 @@ The changes below are effective on all of the API clients.
 | ----------- | :---------- | :------------------------------------------------------------------------------------------------------ |
 | `initIndex` | **removed** | All methods are now available at the client level. [See example below](#methods-targeting-an-indexname) |
 
-## API Client specific breaking changes
+## Client's specific breaking changes
 
-The changes below are effective on the selected API client.
-
-For informations regarding the installation of the package, please see [the installation page](/docs/clients/installation)
+The changes below are effective on the selected API client. For information regarding the installation of the package, please see [the installation page](/docs/clients/installation).
 
 <Tabs
   groupId="language"
-  defaultValue="js"
+  defaultValue="javascript"
   values={[
-    { label: 'JavaScript', value: 'js', }
+    { label: 'JavaScript', value: 'javascript', }
   ]
 }>
-<TabItem value="js">
+<TabItem value="javascript">
 
 | Previous             | Latest                                 | Impacted clients | Description                                                                                                                                                                                                          |
 | -------------------- | :------------------------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -47,7 +45,7 @@ For informations regarding the installation of the package, please see [the inst
 </TabItem>
 </Tabs>
 
-### Installation
+### Usage
 
 <Tabs
   groupId="language"
@@ -56,7 +54,13 @@ For informations regarding the installation of the package, please see [the inst
     { label: 'JavaScript', value: 'javascript', }
   ]
 }>
-<TabItem value="js">
+<TabItem value="javascript">
+
+| Previous             | Latest                                 | Impacted clients | Description                                                                                                                                                                                                          |
+| -------------------- | :------------------------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@algolia`           | `@experimental-api-clients-automation` | JavaScript       | **During the beta phase**, the clients are available under the NPM `@experimental-api-clients-automation` namespace, you can find a full list [here](https://www.npmjs.com/org/experimental-api-clients-automation). |
+| `algoliasearch/lite` | `algoliasearch-lite`                   | JavaScript       | The lite version of the client now have [its own package](https://www.npmjs.com/package/@experimental-api-clients-automation/algoliasearch-lite).                                                                    |
+| `search`             | `searchClient`                         | all              | Exported clients are suffixed by `Client`.                                                                                                                                                                           |
 
 To get started, first install the `algoliasearch` client.
 
@@ -100,7 +104,7 @@ You can continue this guide on [our installation page](/docs/clients/installatio
     { label: 'JavaScript', value: 'javascript', }
   ]
 }>
-<TabItem value="js">
+<TabItem value="javascript">
 
 Prior to the `initIndex` removal stated in the [Common breaking changes](#common-breaking-changes), all methods previously available at the `initIndex` level requires the `indexName` to be sent with the query.
 
