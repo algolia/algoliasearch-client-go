@@ -116,12 +116,12 @@ function getSpecsForNavBar() {
             // left
             {
               label: 'Clients',
-              to: 'docs/api-clients/introduction',
+              to: 'docs/clients/introduction',
               position: 'left',
             },
             {
               label: 'Contributing',
-              to: 'docs/automation/introduction',
+              to: 'docs/contributing/introduction',
               position: 'right',
             },
             {

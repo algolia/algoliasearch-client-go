@@ -8,7 +8,7 @@ Adding an API client requires a manual steps in order to setup the tooling, gene
 
 :::info
 
-Make sure to first [setup the repository tooling](/docs/automation/setup-repository) to ease your journey!
+Make sure to first [setup the repository tooling](/docs/contributing/setup-repository) to ease your journey!
 
 :::
 
@@ -61,7 +61,7 @@ Below are the options you need to **make sure to define for your client**, other
 | -------------- | :----: | :--------: | :-----------------------------: | :------------------------------------------------------------------------------------------------------------------- |
 | output         | string |   Common   | `path/to/client/client-sources` | The output path of the client.                                                                                       |
 | gitRepoId      | string |   Common   |  `algoliasearch-client-java-2`  | The name of the repository under the Algolia org.                                                                    |
-| packageName    | string |   common   |         `AlgoliaSearch`         | Name of the API package, used in [CTS](/docs/automation/testing/common-test-suite).                                  |
+| packageName    | string |   common   |         `AlgoliaSearch`         | Name of the API package, used in [CTS](/docs/contributing/testing/common-test-suite).                                |
 | packageVersion | string | JavaScript |             `1.2.3`             | The version you'd like to publish the first iteration of the generated client. It will be automatically incremented. |
 
 ### GitHub actions
@@ -88,7 +88,7 @@ You can copy [an existing client caching step](https://github.com/algolia/api-cl
 
 ## 3. Generate new client
 
-> You can find all the commands in the [CLI > clients commands page](/docs/automation/CLI/clients-commands) and [CLI > specs commands page](/docs/automation/CLI/specs-commands).
+> You can find all the commands in the [CLI > clients commands page](/docs/contributing/CLI/clients-commands) and [CLI > specs commands page](/docs/contributing/CLI/specs-commands).
 
 ```bash
 yarn docker generate <languageName> <clientName>
@@ -96,4 +96,4 @@ yarn docker generate <languageName> <clientName>
 
 ## 4. Implementing the Common Test Suite
 
-Clients needs to be tested, you can read more in the [Common Test Suite](/docs/automation/testing/common-test-suite) guide.
+Clients needs to be tested, you can read more in the [Common Test Suite](/docs/contributing/testing/common-test-suite) guide.

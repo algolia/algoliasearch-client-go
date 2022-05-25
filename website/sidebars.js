@@ -4,21 +4,21 @@
 const sidebars = {
   // Everything related to the API Clients Automation
   automation: [
-    'automation/introduction',
+    'contributing/introduction',
     {
       type: 'category',
       label: 'Getting Started',
       collapsed: false,
       items: [
-        'automation/setup-repository',
+        'contributing/setup-repository',
         {
           type: 'category',
           label: 'CLI',
           collapsed: false,
           items: [
-            'automation/CLI/specs-commands',
-            'automation/CLI/clients-commands',
-            'automation/CLI/cts-commands',
+            'contributing/CLI/specs-commands',
+            'contributing/CLI/clients-commands',
+            'contributing/CLI/cts-commands',
           ],
         },
       ],
@@ -28,39 +28,39 @@ const sidebars = {
       label: 'Contributing',
       collapsed: false,
       items: [
-        'automation/add-new-api-client',
-        'automation/add-new-language',
+        'contributing/add-new-api-client',
+        'contributing/add-new-language',
         {
           type: 'category',
           label: 'Testing',
           collapsed: false,
           items: [
-            'automation/testing/common-test-suite',
-            'automation/testing/playground',
+            'contributing/testing/common-test-suite',
+            'contributing/testing/playground',
           ],
         },
-        'automation/commit-and-pull-request',
-        'automation/release-process',
+        'contributing/commit-and-pull-request',
+        'contributing/release-process',
       ],
     },
   ],
   // Everything related to the generated clients usage
   clients: [
-    'api-clients/introduction',
+    'clients/introduction',
     {
       type: 'category',
       label: 'Getting Started',
       collapsed: false,
-      items: ['api-clients/installation', 'api-clients/migration-guide'],
+      items: ['clients/installation', 'clients/migration-guide'],
     },
     {
       type: 'category',
       label: 'Guides',
       collapsed: false,
       items: [
-        'api-clients/guides/send-data-to-algolia',
-        'api-clients/guides/filtering-your-search',
-        'api-clients/guides/retrieving-facets',
+        'clients/guides/send-data-to-algolia',
+        'clients/guides/filtering-your-search',
+        'clients/guides/retrieving-facets',
       ],
     },
   ],

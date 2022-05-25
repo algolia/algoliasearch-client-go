@@ -4,7 +4,7 @@ title: Introduction
 
 # Introduction
 
-This section hosts informations about the [usage of the API clients](https://github.com/algolia/api-clients-automation). For informations regarding the automation and how to contribute, see [the automation page](/docs/automation/introduction).
+This section hosts informations about the [usage of the API clients](https://github.com/algolia/api-clients-automation). For informations regarding the automation and how to contribute, see [the automation page](/docs/contributing/introduction).
 
 ## Repositories
 
@@ -16,9 +16,9 @@ Generated code in production can be find on repository of the clients.
 
 ## Usage
 
-See [the installation](/docs/api-clients/installation) page.
+See [the installation](/docs/clients/installation) page.
 
-You can also check the [playground](/docs/automation/testing/playground) if you'd like to test clients locally.
+You can also check the [playground](/docs/contributing/testing/playground) if you'd like to test clients locally.
 
 ## Feedbacks
 

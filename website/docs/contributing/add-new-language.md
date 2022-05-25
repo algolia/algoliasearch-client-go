@@ -6,7 +6,7 @@ title: Support a new language
 
 :::info
 
-Make sure to first [setup the repository tooling](/docs/automation/setup-repository) to ease your journey!
+Make sure to first [setup the repository tooling](/docs/contributing/setup-repository) to ease your journey!
 
 You will also need to have the [openapi-generator](https://openapi-generator.tech/docs/installation/) installed.
 
@@ -36,7 +36,7 @@ openapi-generator author template -g typescript-node -o templates/javascript/
 
 Add each client in the file [`config/openapitools.json`](https://github.com/algolia/api-clients-automation/blob/main/config/openapitools.json), following the others client structure.
 
-> See [`add a new client`](/docs/automation/add-new-api-client) for informations on how to structure your new client.
+> See [`add a new client`](/docs/contributing/add-new-api-client) for informations on how to structure your new client.
 
 ### Algolia requirements
 
@@ -77,7 +77,7 @@ The retry strategy cannot be generated and needs to be implemented outside of th
 
 Some Algolia clients (search and recommend) targets the default appId host (`${appId}-dsn.algolia.net`, `${appId}.algolia.net`, etc.), while clients like `personalization` have their own regional `host` (`eu` | `us` | `de`).
 
-As the generator does not support reading `servers` in a spec file **yet**, hosts methods and variables are extracted with a custom script and create variables for you to use in the mustache templates, [read more here](/docs/automation/add-new-api-client#generators).
+As the generator does not support reading `servers` in a spec file **yet**, hosts methods and variables are extracted with a custom script and create variables for you to use in the mustache templates, [read more here](/docs/contributing/add-new-api-client#generators).
 
 ### User Agent
 
@@ -114,9 +114,10 @@ The function must be named `addAlgoliaAgent` because of JavaScript exception tha
 ### Dependencies
 
 You can use any dependency you want to create the client, it can be Json parser or HTTP client, but it's important to never expose those dependencies through the client, meaning:
- - a function cannot return an object from a dependency
- - a function cannot accept an object from a dependency as a parameter
- - and so on
+
+- a function cannot return an object from a dependency
+- a function cannot accept an object from a dependency as a parameter
+- and so on
 
 It matters because when a dependency is exposed, a breaking change from our deps can affect the user code while the API client is still working correctly (because they have to use the dependency in their code),
 and that prevent us from upgrading our deps. In some languages it also requires the user to add our internal dependencies to his build system, which is very inconvenient and our clients should always be standalone.

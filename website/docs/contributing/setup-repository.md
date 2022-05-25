@@ -54,11 +54,11 @@ yarn docker:clean
 
 Once you've successfully built and mounted the Docker image, you can now play with the repository! Read our guides on:
 
-- [How to add a new client](/docs/automation/add-new-api-client)
-- [How to add a new language](/docs/automation/add-new-language)
-- [Use CLI specs commands](/docs/automation/CLI/specs-commands)
-- [Use CLI clients commands](/docs/automation/CLI/clients-commands)
-- [Use CLI Common Test Suite commands](/docs/automation/CLI/specs-commands)
+- [How to add a new client](/docs/contributing/add-new-api-client)
+- [How to add a new language](/docs/contributing/add-new-language)
+- [Use CLI specs commands](/docs/contributing/CLI/specs-commands)
+- [Use CLI clients commands](/docs/contributing/CLI/clients-commands)
+- [Use CLI Common Test Suite commands](/docs/contributing/CLI/specs-commands)
 
 ## Troubleshooting
 

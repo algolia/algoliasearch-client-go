@@ -15,7 +15,7 @@ To push data to Algolia, you need an Application ID and a valid API key with the
 
 ## Setting up the API client
 
-> [Make sure to also read the Installation page](/docs/api-clients/installation).
+> [Make sure to also read the Installation page](/docs/clients/installation).
 
 <Tabs
   groupId="language"
@@ -40,13 +40,14 @@ const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 </TabItem>
 <TabItem value="php">
 
-  ```php
-  <?php
-  $client = Algolia\AlgoliaSearch\Api\SearchClient::create(
-    '<YOUR_APP_ID>',
-    '<YOUR_API_KEY>'
-  );
-  ```
+```php
+<?php
+$client = Algolia\AlgoliaSearch\Api\SearchClient::create(
+  '<YOUR_APP_ID>',
+  '<YOUR_API_KEY>'
+);
+```
+
 </TabItem>
 </Tabs>
 
@@ -74,7 +75,6 @@ for (const record of records) {
     body: record,
   });
 }
-
 ```
 
 </TabItem>
@@ -92,7 +92,6 @@ foreach ($records as $record) {
     $record
   );
 }
-
 ```
 
 </TabItem>
