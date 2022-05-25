@@ -30,9 +30,13 @@ export type ClientMatrix = BaseMatrix & {
    */
   language: string;
   /**
-   * The test output path to clean.
+   * The test output path to delete before running the CTS generation.
    */
-  testsOutputPath: string;
+  testsToDelete: string;
+  /**
+   * The test output path to store in the artifact.
+   */
+  testsToStore: string;
 };
 
 export type SpecMatrix = BaseMatrix & {

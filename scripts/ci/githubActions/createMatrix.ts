@@ -83,9 +83,21 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       continue;
     }
 
-    const testOutputBase = `./tests/output/${language}/${getTestOutputFolder(
-      language
-    )}`;
+    const testsBasePath = `./tests/output/${language}`;
+    const testsOutputBase = `${testsBasePath}/${getTestOutputFolder(language)}`;
+    const testsToDelete = `${testsOutputBase}/client ${testsOutputBase}/methods`;
+    let testsToStore = testsToDelete;
+
+    switch (language) {
+      case 'javascript':
+        testsToStore = `${testsToDelete} ${testsBasePath}/package.json`;
+        break;
+      case 'java':
+        testsToStore = `${testsToDelete} ${testsBasePath}/build.gradle`;
+        break;
+      default:
+        break;
+    }
 
     clientMatrix.client.push({
       language,
@@ -97,7 +109,8 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
         `templates/${language}`,
         `generators/src`,
       ]),
-      testsOutputPath: `${testOutputBase}/client ${testOutputBase}/methods`,
+      testsToDelete,
+      testsToStore,
     });
     console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
   }
