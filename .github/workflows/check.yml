@@ -288,12 +288,23 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: yarn cli build clients javascript algoliasearch
 
+      - name: Zip artifact before storing
+        run: zip -r -y client-javascript-algoliasearch.zip clients/algoliasearch-client-javascript/packages/algoliasearch/ -x "**/node_modules/**" "**/node_modules/.**" "clients/algoliasearch-client-javascript/.yarn/**"
+
+      - name: Store JavaScript 'algoliasearch' client
+        uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          name: client-javascript-algoliasearch
+          path: client-javascript-algoliasearch.zip
+
   codegen:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     needs:
       - setup
       - client_gen
+      - client_javascript_algoliasearch
     if: |
       always() &&
       !contains(needs.*.result, 'cancelled') &&
@@ -305,11 +316,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.TOKEN_GENERATE_BOT }}
 
-      - name: Setup
-        uses: ./.github/actions/setup
-        with:
-          type: minimal
-
       - name: Download all artifacts
         if: ${{ needs.setup.outputs.RUN_CODEGEN == 'true' }}
         uses: ./.github/actions/restore-artifacts
@@ -318,6 +324,11 @@ jobs:
           javascript: ${{ needs.setup.outputs.RUN_GEN_JAVASCRIPT }}
           php: ${{ needs.setup.outputs.RUN_GEN_PHP }}
           java: ${{ needs.setup.outputs.RUN_GEN_JAVA }}
+
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          type: minimal
 
       - name: Push generated code
         id: pushGeneratedCode

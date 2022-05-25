@@ -53,6 +53,17 @@ runs:
         path: clients/algoliasearch-client-javascript/packages/requester-node-http/
 
     # JavaScript
+    - name: Download client-javascript-algoliasearch artifact
+      if: ${{ inputs.javascript == 'true' && inputs.type == 'all' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: client-javascript-algoliasearch
+
+    - name: Unzip client-javascript-algoliasearch artifact
+      if: ${{ inputs.javascript == 'true' && inputs.type == 'all' }}
+      shell: bash
+      run: unzip -q -o client-javascript-algoliasearch.zip && rm client-javascript-algoliasearch.zip
+
     - name: Download clients-javascript artifact
       if: ${{ inputs.javascript == 'true' && inputs.type == 'all' }}
       uses: actions/download-artifact@v3
