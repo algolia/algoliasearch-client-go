@@ -40,16 +40,12 @@ public enum TypesToRetrieveEnum {
   public static class Adapter extends TypeAdapter<TypesToRetrieveEnum> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final TypesToRetrieveEnum enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final TypesToRetrieveEnum enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public TypesToRetrieveEnum read(final JsonReader jsonReader)
-      throws IOException {
+    public TypesToRetrieveEnum read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return TypesToRetrieveEnum.fromValue(value);
     }

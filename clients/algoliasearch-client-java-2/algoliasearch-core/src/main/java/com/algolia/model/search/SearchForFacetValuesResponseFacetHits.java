@@ -30,9 +30,7 @@ public class SearchForFacetValuesResponseFacetHits {
     return value;
   }
 
-  public SearchForFacetValuesResponseFacetHits setHighlighted(
-    String highlighted
-  ) {
+  public SearchForFacetValuesResponseFacetHits setHighlighted(String highlighted) {
     this.highlighted = highlighted;
     return this;
   }
@@ -74,10 +72,7 @@ public class SearchForFacetValuesResponseFacetHits {
     SearchForFacetValuesResponseFacetHits searchForFacetValuesResponseFacetHits = (SearchForFacetValuesResponseFacetHits) o;
     return (
       Objects.equals(this.value, searchForFacetValuesResponseFacetHits.value) &&
-      Objects.equals(
-        this.highlighted,
-        searchForFacetValuesResponseFacetHits.highlighted
-      ) &&
+      Objects.equals(this.highlighted, searchForFacetValuesResponseFacetHits.highlighted) &&
       Objects.equals(this.count, searchForFacetValuesResponseFacetHits.count)
     );
   }
@@ -92,10 +87,7 @@ public class SearchForFacetValuesResponseFacetHits {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchForFacetValuesResponseFacetHits {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb
-      .append("    highlighted: ")
-      .append(toIndentedString(highlighted))
-      .append("\n");
+    sb.append("    highlighted: ").append(toIndentedString(highlighted)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("}");
     return sb.toString();

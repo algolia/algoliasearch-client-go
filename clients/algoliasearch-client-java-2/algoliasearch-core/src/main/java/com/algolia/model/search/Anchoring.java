@@ -47,8 +47,7 @@ public enum Anchoring {
   public static class Adapter extends TypeAdapter<Anchoring> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final Anchoring enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final Anchoring enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

@@ -223,50 +223,22 @@ public class InsightEvent {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      eventType,
-      eventName,
-      index,
-      userToken,
-      timestamp,
-      queryID,
-      objectIDs,
-      filters,
-      positions
-    );
+    return Objects.hash(eventType, eventName, index, userToken, timestamp, queryID, objectIDs, filters, positions);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InsightEvent {\n");
-    sb
-      .append("    eventType: ")
-      .append(toIndentedString(eventType))
-      .append("\n");
-    sb
-      .append("    eventName: ")
-      .append(toIndentedString(eventName))
-      .append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
+    sb.append("    eventName: ").append(toIndentedString(eventName)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb
-      .append("    userToken: ")
-      .append(toIndentedString(userToken))
-      .append("\n");
-    sb
-      .append("    timestamp: ")
-      .append(toIndentedString(timestamp))
-      .append("\n");
+    sb.append("    userToken: ").append(toIndentedString(userToken)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    queryID: ").append(toIndentedString(queryID)).append("\n");
-    sb
-      .append("    objectIDs: ")
-      .append(toIndentedString(objectIDs))
-      .append("\n");
+    sb.append("    objectIDs: ").append(toIndentedString(objectIDs)).append("\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
-    sb
-      .append("    positions: ")
-      .append(toIndentedString(positions))
-      .append("\n");
+    sb.append("    positions: ").append(toIndentedString(positions)).append("\n");
     sb.append("}");
     return sb.toString();
   }

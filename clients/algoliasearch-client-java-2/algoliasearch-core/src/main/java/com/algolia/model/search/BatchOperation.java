@@ -51,10 +51,7 @@ public class BatchOperation {
       return false;
     }
     BatchOperation batchOperation = (BatchOperation) o;
-    return (
-      Objects.equals(this.action, batchOperation.action) &&
-      Objects.equals(this.body, batchOperation.body)
-    );
+    return Objects.equals(this.action, batchOperation.action) && Objects.equals(this.body, batchOperation.body);
   }
 
   @Override

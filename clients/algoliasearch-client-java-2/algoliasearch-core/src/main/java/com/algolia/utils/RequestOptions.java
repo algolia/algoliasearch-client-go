@@ -14,18 +14,12 @@ public class RequestOptions {
   private final Map<String, Object> queryParameters = new HashMap<String, Object>();
   private Integer timeout = null;
 
-  public RequestOptions addExtraHeader(
-    @Nonnull String key,
-    @Nonnull String value
-  ) {
+  public RequestOptions addExtraHeader(@Nonnull String key, @Nonnull String value) {
     headers.put(key, value);
     return this;
   }
 
-  public RequestOptions addExtraQueryParameters(
-    @Nonnull String key,
-    @Nonnull Object value
-  ) {
+  public RequestOptions addExtraQueryParameters(@Nonnull String key, @Nonnull Object value) {
     queryParameters.put(key, value);
     return this;
   }
@@ -49,14 +43,6 @@ public class RequestOptions {
 
   @Override
   public String toString() {
-    return (
-      "RequestOptions{" +
-      "headers=" +
-      headers +
-      ", queryParameters=" +
-      queryParameters +
-      '\'' +
-      '}'
-    );
+    return ("RequestOptions{" + "headers=" + headers + ", queryParameters=" + queryParameters + '\'' + '}');
   }
 }

@@ -51,10 +51,7 @@ public class SucessResponse {
       return false;
     }
     SucessResponse sucessResponse = (SucessResponse) o;
-    return (
-      Objects.equals(this.status, sucessResponse.status) &&
-      Objects.equals(this.message, sucessResponse.message)
-    );
+    return (Objects.equals(this.status, sucessResponse.status) && Objects.equals(this.message, sucessResponse.message));
   }
 
   @Override

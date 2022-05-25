@@ -48,9 +48,7 @@ public class GetClickThroughRateResponseDates {
     return clickCount;
   }
 
-  public GetClickThroughRateResponseDates setTrackedSearchCount(
-    Integer trackedSearchCount
-  ) {
+  public GetClickThroughRateResponseDates setTrackedSearchCount(Integer trackedSearchCount) {
     this.trackedSearchCount = trackedSearchCount;
     return this;
   }
@@ -91,14 +89,8 @@ public class GetClickThroughRateResponseDates {
     GetClickThroughRateResponseDates getClickThroughRateResponseDates = (GetClickThroughRateResponseDates) o;
     return (
       Objects.equals(this.rate, getClickThroughRateResponseDates.rate) &&
-      Objects.equals(
-        this.clickCount,
-        getClickThroughRateResponseDates.clickCount
-      ) &&
-      Objects.equals(
-        this.trackedSearchCount,
-        getClickThroughRateResponseDates.trackedSearchCount
-      ) &&
+      Objects.equals(this.clickCount, getClickThroughRateResponseDates.clickCount) &&
+      Objects.equals(this.trackedSearchCount, getClickThroughRateResponseDates.trackedSearchCount) &&
       Objects.equals(this.date, getClickThroughRateResponseDates.date)
     );
   }
@@ -113,14 +105,8 @@ public class GetClickThroughRateResponseDates {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetClickThroughRateResponseDates {\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
-    sb
-      .append("    clickCount: ")
-      .append(toIndentedString(clickCount))
-      .append("\n");
-    sb
-      .append("    trackedSearchCount: ")
-      .append(toIndentedString(trackedSearchCount))
-      .append("\n");
+    sb.append("    clickCount: ").append(toIndentedString(clickCount)).append("\n");
+    sb.append("    trackedSearchCount: ").append(toIndentedString(trackedSearchCount)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -58,10 +58,7 @@ public class BatchAssignUserIdsParams {
       return false;
     }
     BatchAssignUserIdsParams batchAssignUserIdsParams = (BatchAssignUserIdsParams) o;
-    return (
-      Objects.equals(this.cluster, batchAssignUserIdsParams.cluster) &&
-      Objects.equals(this.users, batchAssignUserIdsParams.users)
-    );
+    return Objects.equals(this.cluster, batchAssignUserIdsParams.cluster) && Objects.equals(this.users, batchAssignUserIdsParams.users);
   }
 
   @Override

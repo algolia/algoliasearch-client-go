@@ -91,11 +91,7 @@ class SearchClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"key\":\"value\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"key\":\"value\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -119,11 +115,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"source\":\"theSource\",\"description\":\"theDescription\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"source\":\"theSource\",\"description\":\"theDescription\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -146,11 +138,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"cluster\":\"theCluster\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"cluster\":\"theCluster\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedHeaders = JSON.deserialize(
@@ -232,11 +220,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedHeaders = JSON.deserialize(
@@ -291,10 +275,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.batchDictionaryEntries(
-        dictionaryName0,
-        batchDictionaryEntriesParams0
-      );
+      client.batchDictionaryEntries(dictionaryName0, batchDictionaryEntriesParams0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -317,9 +298,7 @@ class SearchClientTests {
     BatchDictionaryEntriesParams batchDictionaryEntriesParams0 = new BatchDictionaryEntriesParams();
     {
       boolean clearExistingDictionaryEntries1 = false;
-      batchDictionaryEntriesParams0.setClearExistingDictionaryEntries(
-        clearExistingDictionaryEntries1
-      );
+      batchDictionaryEntriesParams0.setClearExistingDictionaryEntries(clearExistingDictionaryEntries1);
       List<BatchDictionaryEntriesRequest> requests1 = new ArrayList<>();
       {
         BatchDictionaryEntriesRequest requests_02 = new BatchDictionaryEntriesRequest();
@@ -350,9 +329,7 @@ class SearchClientTests {
               decomposition4.add(decomposition_15);
             }
             body3.setDecomposition(decomposition4);
-            DictionaryEntryState state4 = DictionaryEntryState.fromValue(
-              "enabled"
-            );
+            DictionaryEntryState state4 = DictionaryEntryState.fromValue("enabled");
             body3.setState(state4);
           }
           requests_02.setBody(body3);
@@ -386,9 +363,7 @@ class SearchClientTests {
               decomposition4.add(decomposition_15);
             }
             body3.setDecomposition(decomposition4);
-            DictionaryEntryState state4 = DictionaryEntryState.fromValue(
-              "enabled"
-            );
+            DictionaryEntryState state4 = DictionaryEntryState.fromValue("enabled");
             body3.setState(state4);
           }
           requests_12.setBody(body3);
@@ -399,10 +374,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.batchDictionaryEntries(
-        dictionaryName0,
-        batchDictionaryEntriesParams0
-      );
+      client.batchDictionaryEntries(dictionaryName0, batchDictionaryEntriesParams0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -485,12 +457,7 @@ class SearchClientTests {
     boolean clearExistingRules0 = true;
 
     assertDoesNotThrow(() -> {
-      client.batchRules(
-        indexName0,
-        rule0,
-        forwardToReplicas0,
-        clearExistingRules0
-      );
+      client.batchRules(indexName0, rule0, forwardToReplicas0, clearExistingRules0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -552,11 +519,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -671,10 +634,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.deleteBy(
-        indexName0,
-        SearchParams.ofSearchParamsObject(searchParams0)
-      );
+      client.deleteBy(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -682,11 +642,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"query\":\"testQuery\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"query\":\"testQuery\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -1109,10 +1065,7 @@ class SearchClientTests {
     assertEquals(req.path, "/1/indexes");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"page\":\"8\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"page\":\"8\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -1236,35 +1189,22 @@ class SearchClientTests {
       Map<String, AttributeOrBuiltInOperation> attributeOrBuiltInOperation_01 = new HashMap<>();
       {
         String id12 = "test";
-        attributeOrBuiltInOperation_01.put(
-          "id1",
-          AttributeOrBuiltInOperation.ofString(id12)
-        );
+        attributeOrBuiltInOperation_01.put("id1", AttributeOrBuiltInOperation.ofString(id12));
         BuiltInOperation id22 = new BuiltInOperation();
         {
-          BuiltInOperationType operation3 = BuiltInOperationType.fromValue(
-            "AddUnique"
-          );
+          BuiltInOperationType operation3 = BuiltInOperationType.fromValue("AddUnique");
           id22.setOperation(operation3);
           String value3 = "test2";
           id22.setValue(value3);
         }
-        attributeOrBuiltInOperation_01.put(
-          "id2",
-          AttributeOrBuiltInOperation.ofBuiltInOperation(id22)
-        );
+        attributeOrBuiltInOperation_01.put("id2", AttributeOrBuiltInOperation.ofBuiltInOperation(id22));
       }
       attributeOrBuiltInOperation0.add(attributeOrBuiltInOperation_01);
     }
     boolean createIfNotExists0 = true;
 
     assertDoesNotThrow(() -> {
-      client.partialUpdateObject(
-        indexName0,
-        objectID0,
-        attributeOrBuiltInOperation0,
-        createIfNotExists0
-      );
+      client.partialUpdateObject(indexName0, objectID0, attributeOrBuiltInOperation0, createIfNotExists0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -1329,11 +1269,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1375,11 +1311,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1421,11 +1353,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1467,11 +1395,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1523,11 +1447,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1579,11 +1499,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1625,11 +1541,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1663,10 +1575,7 @@ class SearchClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add("c");
     requestOptionsQueryParameters.add("d");
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1677,11 +1586,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1716,10 +1621,7 @@ class SearchClientTests {
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(false);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1730,11 +1632,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1768,10 +1666,7 @@ class SearchClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add(1);
     requestOptionsQueryParameters.add(2);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1782,11 +1677,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1839,11 +1730,7 @@ class SearchClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1896,11 +1783,7 @@ class SearchClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "[{\"source\":\"theSource\",\"description\":\"theDescription\"}]",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("[{\"source\":\"theSource\",\"description\":\"theDescription\"}]", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -1939,11 +1822,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"objectID\":\"id\",\"test\":\"val\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"objectID\":\"id\",\"test\":\"val\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -2034,12 +1913,7 @@ class SearchClientTests {
     boolean forwardToReplicas0 = true;
 
     assertDoesNotThrow(() -> {
-      client.saveSynonym(
-        indexName0,
-        objectID0,
-        synonymHit0,
-        forwardToReplicas0
-      );
+      client.saveSynonym(indexName0, objectID0, synonymHit0, forwardToReplicas0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -2115,12 +1989,7 @@ class SearchClientTests {
     boolean replaceExistingSynonyms0 = false;
 
     assertDoesNotThrow(() -> {
-      client.saveSynonyms(
-        indexName0,
-        synonymHit0,
-        forwardToReplicas0,
-        replaceExistingSynonyms0
-      );
+      client.saveSynonyms(indexName0, synonymHit0, forwardToReplicas0, replaceExistingSynonyms0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -2173,11 +2042,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"requests\":[{\"indexName\":\"theIndexName\"}]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"requests\":[{\"indexName\":\"theIndexName\"}]}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -2200,9 +2065,7 @@ class SearchClientTests {
         requests1.add(SearchQuery.ofSearchForFacets(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
-      SearchStrategy strategy1 = SearchStrategy.fromValue(
-        "stopIfEnoughMatches"
-      );
+      SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
       searchMethodParams0.setStrategy(strategy1);
     }
 
@@ -2288,9 +2151,7 @@ class SearchClientTests {
         requests1.add(SearchQuery.ofSearchForFacets(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
-      SearchStrategy strategy1 = SearchStrategy.fromValue(
-        "stopIfEnoughMatches"
-      );
+      SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
       searchMethodParams0.setStrategy(strategy1);
     }
 
@@ -2312,9 +2173,7 @@ class SearchClientTests {
   }
 
   @Test
-  @DisplayName(
-    "search for multiple mixed requests in multiple indices with minimal parameters"
-  )
+  @DisplayName("search for multiple mixed requests in multiple indices with minimal parameters")
   void searchTest4() {
     SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
@@ -2346,9 +2205,7 @@ class SearchClientTests {
         requests1.add(SearchQuery.ofSearchForHits(requests_22));
       }
       searchMethodParams0.setRequests(requests1);
-      SearchStrategy strategy1 = SearchStrategy.fromValue(
-        "stopIfEnoughMatches"
-      );
+      SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
       searchMethodParams0.setStrategy(strategy1);
     }
 
@@ -2370,9 +2227,7 @@ class SearchClientTests {
   }
 
   @Test
-  @DisplayName(
-    "search for multiple mixed requests in multiple indices with all parameters"
-  )
+  @DisplayName("search for multiple mixed requests in multiple indices with all parameters")
   void searchTest5() {
     SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
@@ -2408,9 +2263,7 @@ class SearchClientTests {
         requests1.add(SearchQuery.ofSearchForHits(requests_12));
       }
       searchMethodParams0.setRequests(requests1);
-      SearchStrategy strategy1 = SearchStrategy.fromValue(
-        "stopIfEnoughMatches"
-      );
+      SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
       searchMethodParams0.setStrategy(strategy1);
     }
 
@@ -2442,10 +2295,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchDictionaryEntries(
-        dictionaryName0,
-        searchDictionaryEntriesParams0
-      );
+      client.searchDictionaryEntries(dictionaryName0, searchDictionaryEntriesParams0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -2453,11 +2303,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"query\":\"foo\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"query\":\"foo\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -2478,10 +2324,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchDictionaryEntries(
-        dictionaryName0,
-        searchDictionaryEntriesParams0
-      );
+      client.searchDictionaryEntries(dictionaryName0, searchDictionaryEntriesParams0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -2528,11 +2371,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchForFacetValues(
-        indexName0,
-        facetName0,
-        searchForFacetValuesRequest0
-      );
+      client.searchForFacetValues(indexName0, facetName0, searchForFacetValuesRequest0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -2567,11 +2406,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"query\":\"something\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"query\":\"something\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -2586,10 +2421,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchSingleIndex(
-        indexName0,
-        SearchParams.ofSearchParamsObject(searchParams0)
-      );
+      client.searchSingleIndex(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -2597,11 +2429,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"query\":\"myQuery\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"query\":\"myQuery\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -2622,10 +2450,7 @@ class SearchClientTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchSingleIndex(
-        indexName0,
-        SearchParams.ofSearchParamsObject(searchParams0)
-      );
+      client.searchSingleIndex(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -2633,11 +2458,7 @@ class SearchClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -2705,9 +2526,7 @@ class SearchClientTests {
         }
         disableStandardEntries1.setPlurals(plurals2);
       }
-      dictionarySettingsParams0.setDisableStandardEntries(
-        disableStandardEntries1
-      );
+      dictionarySettingsParams0.setDisableStandardEntries(disableStandardEntries1);
     }
 
     assertDoesNotThrow(() -> {
@@ -2757,9 +2576,7 @@ class SearchClientTests {
         }
         disableStandardEntries1.setCompounds(compounds2);
       }
-      dictionarySettingsParams0.setDisableStandardEntries(
-        disableStandardEntries1
-      );
+      dictionarySettingsParams0.setDisableStandardEntries(disableStandardEntries1);
     }
 
     assertDoesNotThrow(() -> {
@@ -2799,11 +2616,7 @@ class SearchClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"paginationLimitedTo\":10}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"paginationLimitedTo\":10}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(

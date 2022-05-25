@@ -85,14 +85,8 @@ public class Personalization {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Personalization {\n");
-    sb
-      .append("    filtersScore: ")
-      .append(toIndentedString(filtersScore))
-      .append("\n");
-    sb
-      .append("    rankingScore: ")
-      .append(toIndentedString(rankingScore))
-      .append("\n");
+    sb.append("    filtersScore: ").append(toIndentedString(filtersScore)).append("\n");
+    sb.append("    rankingScore: ").append(toIndentedString(rankingScore)).append("\n");
     sb.append("    score: ").append(toIndentedString(score)).append("\n");
     sb.append("}");
     return sb.toString();

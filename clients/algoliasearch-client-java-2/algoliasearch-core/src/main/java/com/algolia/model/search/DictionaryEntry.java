@@ -155,15 +155,7 @@ public class DictionaryEntry extends HashMap<String, Object> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      objectID,
-      language,
-      word,
-      words,
-      decomposition,
-      state,
-      super.hashCode()
-    );
+    return Objects.hash(objectID, language, word, words, decomposition, state, super.hashCode());
   }
 
   @Override
@@ -175,10 +167,7 @@ public class DictionaryEntry extends HashMap<String, Object> {
     sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("    word: ").append(toIndentedString(word)).append("\n");
     sb.append("    words: ").append(toIndentedString(words)).append("\n");
-    sb
-      .append("    decomposition: ")
-      .append(toIndentedString(decomposition))
-      .append("\n");
+    sb.append("    decomposition: ").append(toIndentedString(decomposition)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("}");
     return sb.toString();

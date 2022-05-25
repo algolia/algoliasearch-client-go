@@ -11,16 +11,12 @@ public class GetClickPositionsResponse {
   @SerializedName("positions")
   private List<GetClickPositionsResponsePositions> positions = new ArrayList<>();
 
-  public GetClickPositionsResponse setPositions(
-    List<GetClickPositionsResponsePositions> positions
-  ) {
+  public GetClickPositionsResponse setPositions(List<GetClickPositionsResponsePositions> positions) {
     this.positions = positions;
     return this;
   }
 
-  public GetClickPositionsResponse addPositions(
-    GetClickPositionsResponsePositions positionsItem
-  ) {
+  public GetClickPositionsResponse addPositions(GetClickPositionsResponsePositions positionsItem) {
     this.positions.add(positionsItem);
     return this;
   }
@@ -56,10 +52,7 @@ public class GetClickPositionsResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetClickPositionsResponse {\n");
-    sb
-      .append("    positions: ")
-      .append(toIndentedString(positions))
-      .append("\n");
+    sb.append("    positions: ").append(toIndentedString(positions)).append("\n");
     sb.append("}");
     return sb.toString();
   }

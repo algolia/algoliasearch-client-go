@@ -45,10 +45,7 @@ public class IndexName {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class IndexName {\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

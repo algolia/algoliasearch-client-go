@@ -82,17 +82,11 @@ class PredictClientTests {
     {
       List<ModelsToRetrieveEnum> modelsToRetrieve1 = new ArrayList<>();
       {
-        ModelsToRetrieveEnum modelsToRetrieve_02 = ModelsToRetrieveEnum.fromValue(
-          "funnel_stage"
-        );
+        ModelsToRetrieveEnum modelsToRetrieve_02 = ModelsToRetrieveEnum.fromValue("funnel_stage");
         modelsToRetrieve1.add(modelsToRetrieve_02);
-        ModelsToRetrieveEnum modelsToRetrieve_12 = ModelsToRetrieveEnum.fromValue(
-          "order_value"
-        );
+        ModelsToRetrieveEnum modelsToRetrieve_12 = ModelsToRetrieveEnum.fromValue("order_value");
         modelsToRetrieve1.add(modelsToRetrieve_12);
-        ModelsToRetrieveEnum modelsToRetrieve_22 = ModelsToRetrieveEnum.fromValue(
-          "affinities"
-        );
+        ModelsToRetrieveEnum modelsToRetrieve_22 = ModelsToRetrieveEnum.fromValue("affinities");
         modelsToRetrieve1.add(modelsToRetrieve_22);
       }
       params0.setModelsToRetrieve(modelsToRetrieve1);
@@ -123,13 +117,9 @@ class PredictClientTests {
     {
       List<TypesToRetrieveEnum> typesToRetrieve1 = new ArrayList<>();
       {
-        TypesToRetrieveEnum typesToRetrieve_02 = TypesToRetrieveEnum.fromValue(
-          "properties"
-        );
+        TypesToRetrieveEnum typesToRetrieve_02 = TypesToRetrieveEnum.fromValue("properties");
         typesToRetrieve1.add(typesToRetrieve_02);
-        TypesToRetrieveEnum typesToRetrieve_12 = TypesToRetrieveEnum.fromValue(
-          "segments"
-        );
+        TypesToRetrieveEnum typesToRetrieve_12 = TypesToRetrieveEnum.fromValue("segments");
         typesToRetrieve1.add(typesToRetrieve_12);
       }
       params0.setTypesToRetrieve(typesToRetrieve1);
@@ -144,11 +134,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"typesToRetrieve\":[\"properties\",\"segments\"]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"typesToRetrieve\":[\"properties\",\"segments\"]}", req.body, JSONCompareMode.STRICT_ORDER);
     });
   }
 
@@ -160,29 +146,19 @@ class PredictClientTests {
     {
       List<ModelsToRetrieveEnum> modelsToRetrieve1 = new ArrayList<>();
       {
-        ModelsToRetrieveEnum modelsToRetrieve_02 = ModelsToRetrieveEnum.fromValue(
-          "funnel_stage"
-        );
+        ModelsToRetrieveEnum modelsToRetrieve_02 = ModelsToRetrieveEnum.fromValue("funnel_stage");
         modelsToRetrieve1.add(modelsToRetrieve_02);
-        ModelsToRetrieveEnum modelsToRetrieve_12 = ModelsToRetrieveEnum.fromValue(
-          "order_value"
-        );
+        ModelsToRetrieveEnum modelsToRetrieve_12 = ModelsToRetrieveEnum.fromValue("order_value");
         modelsToRetrieve1.add(modelsToRetrieve_12);
-        ModelsToRetrieveEnum modelsToRetrieve_22 = ModelsToRetrieveEnum.fromValue(
-          "affinities"
-        );
+        ModelsToRetrieveEnum modelsToRetrieve_22 = ModelsToRetrieveEnum.fromValue("affinities");
         modelsToRetrieve1.add(modelsToRetrieve_22);
       }
       params0.setModelsToRetrieve(modelsToRetrieve1);
       List<TypesToRetrieveEnum> typesToRetrieve1 = new ArrayList<>();
       {
-        TypesToRetrieveEnum typesToRetrieve_02 = TypesToRetrieveEnum.fromValue(
-          "properties"
-        );
+        TypesToRetrieveEnum typesToRetrieve_02 = TypesToRetrieveEnum.fromValue("properties");
         typesToRetrieve1.add(typesToRetrieve_02);
-        TypesToRetrieveEnum typesToRetrieve_12 = TypesToRetrieveEnum.fromValue(
-          "segments"
-        );
+        TypesToRetrieveEnum typesToRetrieve_12 = TypesToRetrieveEnum.fromValue("segments");
         typesToRetrieve1.add(typesToRetrieve_12);
       }
       params0.setTypesToRetrieve(typesToRetrieve1);
@@ -287,11 +263,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -333,11 +305,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -379,11 +347,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -425,11 +389,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -481,11 +441,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -537,11 +493,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -583,11 +535,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -621,10 +569,7 @@ class PredictClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add("c");
     requestOptionsQueryParameters.add("d");
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -635,11 +580,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -674,10 +615,7 @@ class PredictClientTests {
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(false);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -688,11 +626,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -726,10 +660,7 @@ class PredictClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add(1);
     requestOptionsQueryParameters.add(2);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -740,11 +671,7 @@ class PredictClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -797,11 +724,7 @@ class PredictClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(

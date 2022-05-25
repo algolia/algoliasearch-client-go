@@ -23,27 +23,18 @@ public abstract class SearchQuery implements CompoundType {
   public static class Adapter extends TypeAdapter<SearchQuery> {
 
     @Override
-    public void write(final JsonWriter out, final SearchQuery oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final SearchQuery oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
     public SearchQuery read(final JsonReader jsonReader) throws IOException {
-      SearchForFacets searchforfacets = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<SearchForFacets>() {}.getType()
-      );
+      SearchForFacets searchforfacets = JSON.tryDeserialize(jsonReader, new TypeToken<SearchForFacets>() {}.getType());
       if (searchforfacets != null) {
         return SearchQuery.ofSearchForFacets(searchforfacets);
       }
-      SearchForHits searchforhits = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<SearchForHits>() {}.getType()
-      );
+      SearchForHits searchforhits = JSON.tryDeserialize(jsonReader, new TypeToken<SearchForHits>() {}.getType());
       if (searchforhits != null) {
         return SearchQuery.ofSearchForHits(searchforhits);
       }

@@ -51,10 +51,7 @@ public class SearchForHitsOptions {
       return false;
     }
     SearchForHitsOptions searchForHitsOptions = (SearchForHitsOptions) o;
-    return (
-      Objects.equals(this.indexName, searchForHitsOptions.indexName) &&
-      Objects.equals(this.type, searchForHitsOptions.type)
-    );
+    return Objects.equals(this.indexName, searchForHitsOptions.indexName) && Objects.equals(this.type, searchForHitsOptions.type);
   }
 
   @Override
@@ -66,10 +63,7 @@ public class SearchForHitsOptions {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchForHitsOptions {\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();

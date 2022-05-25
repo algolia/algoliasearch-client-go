@@ -86,14 +86,8 @@ public class BaseTrendingRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class BaseTrendingRequest {\n");
     sb.append("    model: ").append(toIndentedString(model)).append("\n");
-    sb
-      .append("    facetName: ")
-      .append(toIndentedString(facetName))
-      .append("\n");
-    sb
-      .append("    facetValue: ")
-      .append(toIndentedString(facetValue))
-      .append("\n");
+    sb.append("    facetName: ").append(toIndentedString(facetName)).append("\n");
+    sb.append("    facetValue: ").append(toIndentedString(facetValue)).append("\n");
     sb.append("}");
     return sb.toString();
   }

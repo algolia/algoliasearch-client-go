@@ -11,16 +11,12 @@ public class ModelsToRetrieve {
   @SerializedName("modelsToRetrieve")
   private List<ModelsToRetrieveEnum> modelsToRetrieve = new ArrayList<>();
 
-  public ModelsToRetrieve setModelsToRetrieve(
-    List<ModelsToRetrieveEnum> modelsToRetrieve
-  ) {
+  public ModelsToRetrieve setModelsToRetrieve(List<ModelsToRetrieveEnum> modelsToRetrieve) {
     this.modelsToRetrieve = modelsToRetrieve;
     return this;
   }
 
-  public ModelsToRetrieve addModelsToRetrieve(
-    ModelsToRetrieveEnum modelsToRetrieveItem
-  ) {
+  public ModelsToRetrieve addModelsToRetrieve(ModelsToRetrieveEnum modelsToRetrieveItem) {
     this.modelsToRetrieve.add(modelsToRetrieveItem);
     return this;
   }
@@ -44,10 +40,7 @@ public class ModelsToRetrieve {
       return false;
     }
     ModelsToRetrieve modelsToRetrieve = (ModelsToRetrieve) o;
-    return Objects.equals(
-      this.modelsToRetrieve,
-      modelsToRetrieve.modelsToRetrieve
-    );
+    return Objects.equals(this.modelsToRetrieve, modelsToRetrieve.modelsToRetrieve);
   }
 
   @Override
@@ -59,10 +52,7 @@ public class ModelsToRetrieve {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ModelsToRetrieve {\n");
-    sb
-      .append("    modelsToRetrieve: ")
-      .append(toIndentedString(modelsToRetrieve))
-      .append("\n");
+    sb.append("    modelsToRetrieve: ").append(toIndentedString(modelsToRetrieve)).append("\n");
     sb.append("}");
     return sb.toString();
   }

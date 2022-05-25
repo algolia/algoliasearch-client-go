@@ -61,10 +61,7 @@ public class MultipleBatchResponse {
       return false;
     }
     MultipleBatchResponse multipleBatchResponse = (MultipleBatchResponse) o;
-    return (
-      Objects.equals(this.taskID, multipleBatchResponse.taskID) &&
-      Objects.equals(this.objectIDs, multipleBatchResponse.objectIDs)
-    );
+    return Objects.equals(this.taskID, multipleBatchResponse.taskID) && Objects.equals(this.objectIDs, multipleBatchResponse.objectIDs);
   }
 
   @Override
@@ -77,10 +74,7 @@ public class MultipleBatchResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class MultipleBatchResponse {\n");
     sb.append("    taskID: ").append(toIndentedString(taskID)).append("\n");
-    sb
-      .append("    objectIDs: ")
-      .append(toIndentedString(objectIDs))
-      .append("\n");
+    sb.append("    objectIDs: ").append(toIndentedString(objectIDs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

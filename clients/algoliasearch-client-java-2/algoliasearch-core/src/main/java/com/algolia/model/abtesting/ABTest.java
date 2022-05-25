@@ -171,10 +171,7 @@ public class ABTest {
     return (
       Objects.equals(this.abTestID, abTest.abTestID) &&
       Objects.equals(this.clickSignificance, abTest.clickSignificance) &&
-      Objects.equals(
-        this.conversionSignificance,
-        abTest.conversionSignificance
-      ) &&
+      Objects.equals(this.conversionSignificance, abTest.conversionSignificance) &&
       Objects.equals(this.endAt, abTest.endAt) &&
       Objects.equals(this.createdAt, abTest.createdAt) &&
       Objects.equals(this.name, abTest.name) &&
@@ -185,16 +182,7 @@ public class ABTest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      abTestID,
-      clickSignificance,
-      conversionSignificance,
-      endAt,
-      createdAt,
-      name,
-      status,
-      variants
-    );
+    return Objects.hash(abTestID, clickSignificance, conversionSignificance, endAt, createdAt, name, status, variants);
   }
 
   @Override
@@ -202,19 +190,10 @@ public class ABTest {
     StringBuilder sb = new StringBuilder();
     sb.append("class ABTest {\n");
     sb.append("    abTestID: ").append(toIndentedString(abTestID)).append("\n");
-    sb
-      .append("    clickSignificance: ")
-      .append(toIndentedString(clickSignificance))
-      .append("\n");
-    sb
-      .append("    conversionSignificance: ")
-      .append(toIndentedString(conversionSignificance))
-      .append("\n");
+    sb.append("    clickSignificance: ").append(toIndentedString(clickSignificance)).append("\n");
+    sb.append("    conversionSignificance: ").append(toIndentedString(conversionSignificance)).append("\n");
     sb.append("    endAt: ").append(toIndentedString(endAt)).append("\n");
-    sb
-      .append("    createdAt: ")
-      .append(toIndentedString(createdAt))
-      .append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    variants: ").append(toIndentedString(variants)).append("\n");

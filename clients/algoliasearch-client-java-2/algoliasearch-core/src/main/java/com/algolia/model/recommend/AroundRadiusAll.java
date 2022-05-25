@@ -38,16 +38,12 @@ public enum AroundRadiusAll {
   public static class Adapter extends TypeAdapter<AroundRadiusAll> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final AroundRadiusAll enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final AroundRadiusAll enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public AroundRadiusAll read(final JsonReader jsonReader)
-      throws IOException {
+    public AroundRadiusAll read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return AroundRadiusAll.fromValue(value);
     }

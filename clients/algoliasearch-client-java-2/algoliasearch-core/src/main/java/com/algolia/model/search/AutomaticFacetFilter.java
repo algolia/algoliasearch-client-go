@@ -87,10 +87,7 @@ public class AutomaticFacetFilter {
     sb.append("class AutomaticFacetFilter {\n");
     sb.append("    facet: ").append(toIndentedString(facet)).append("\n");
     sb.append("    score: ").append(toIndentedString(score)).append("\n");
-    sb
-      .append("    disjunctive: ")
-      .append(toIndentedString(disjunctive))
-      .append("\n");
+    sb.append("    disjunctive: ").append(toIndentedString(disjunctive)).append("\n");
     sb.append("}");
     return sb.toString();
   }

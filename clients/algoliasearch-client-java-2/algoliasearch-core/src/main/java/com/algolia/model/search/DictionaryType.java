@@ -42,10 +42,7 @@ public enum DictionaryType {
   public static class Adapter extends TypeAdapter<DictionaryType> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final DictionaryType enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final DictionaryType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

@@ -118,14 +118,7 @@ public class Hit extends HashMap<String, Object> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      objectID,
-      highlightResult,
-      snippetResult,
-      rankingInfo,
-      distinctSeqID,
-      super.hashCode()
-    );
+    return Objects.hash(objectID, highlightResult, snippetResult, rankingInfo, distinctSeqID, super.hashCode());
   }
 
   @Override
@@ -134,22 +127,10 @@ public class Hit extends HashMap<String, Object> {
     sb.append("class Hit {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
-    sb
-      .append("    highlightResult: ")
-      .append(toIndentedString(highlightResult))
-      .append("\n");
-    sb
-      .append("    snippetResult: ")
-      .append(toIndentedString(snippetResult))
-      .append("\n");
-    sb
-      .append("    rankingInfo: ")
-      .append(toIndentedString(rankingInfo))
-      .append("\n");
-    sb
-      .append("    distinctSeqID: ")
-      .append(toIndentedString(distinctSeqID))
-      .append("\n");
+    sb.append("    highlightResult: ").append(toIndentedString(highlightResult)).append("\n");
+    sb.append("    snippetResult: ").append(toIndentedString(snippetResult)).append("\n");
+    sb.append("    rankingInfo: ").append(toIndentedString(rankingInfo)).append("\n");
+    sb.append("    distinctSeqID: ").append(toIndentedString(distinctSeqID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

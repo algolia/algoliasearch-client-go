@@ -14,9 +14,7 @@ public class BatchDictionaryEntriesParams {
   @SerializedName("requests")
   private List<BatchDictionaryEntriesRequest> requests = new ArrayList<>();
 
-  public BatchDictionaryEntriesParams setClearExistingDictionaryEntries(
-    Boolean clearExistingDictionaryEntries
-  ) {
+  public BatchDictionaryEntriesParams setClearExistingDictionaryEntries(Boolean clearExistingDictionaryEntries) {
     this.clearExistingDictionaryEntries = clearExistingDictionaryEntries;
     return this;
   }
@@ -31,16 +29,12 @@ public class BatchDictionaryEntriesParams {
     return clearExistingDictionaryEntries;
   }
 
-  public BatchDictionaryEntriesParams setRequests(
-    List<BatchDictionaryEntriesRequest> requests
-  ) {
+  public BatchDictionaryEntriesParams setRequests(List<BatchDictionaryEntriesRequest> requests) {
     this.requests = requests;
     return this;
   }
 
-  public BatchDictionaryEntriesParams addRequests(
-    BatchDictionaryEntriesRequest requestsItem
-  ) {
+  public BatchDictionaryEntriesParams addRequests(BatchDictionaryEntriesRequest requestsItem) {
     this.requests.add(requestsItem);
     return this;
   }
@@ -65,10 +59,7 @@ public class BatchDictionaryEntriesParams {
     }
     BatchDictionaryEntriesParams batchDictionaryEntriesParams = (BatchDictionaryEntriesParams) o;
     return (
-      Objects.equals(
-        this.clearExistingDictionaryEntries,
-        batchDictionaryEntriesParams.clearExistingDictionaryEntries
-      ) &&
+      Objects.equals(this.clearExistingDictionaryEntries, batchDictionaryEntriesParams.clearExistingDictionaryEntries) &&
       Objects.equals(this.requests, batchDictionaryEntriesParams.requests)
     );
   }
@@ -82,10 +73,7 @@ public class BatchDictionaryEntriesParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BatchDictionaryEntriesParams {\n");
-    sb
-      .append("    clearExistingDictionaryEntries: ")
-      .append(toIndentedString(clearExistingDictionaryEntries))
-      .append("\n");
+    sb.append("    clearExistingDictionaryEntries: ").append(toIndentedString(clearExistingDictionaryEntries)).append("\n");
     sb.append("    requests: ").append(toIndentedString(requests)).append("\n");
     sb.append("}");
     return sb.toString();

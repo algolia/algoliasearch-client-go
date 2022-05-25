@@ -85,14 +85,8 @@ public class GetUserTokenResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetUserTokenResponse {\n");
-    sb
-      .append("    userToken: ")
-      .append(toIndentedString(userToken))
-      .append("\n");
-    sb
-      .append("    lastEventAt: ")
-      .append(toIndentedString(lastEventAt))
-      .append("\n");
+    sb.append("    userToken: ").append(toIndentedString(userToken)).append("\n");
+    sb.append("    lastEventAt: ").append(toIndentedString(lastEventAt)).append("\n");
     sb.append("    scores: ").append(toIndentedString(scores)).append("\n");
     sb.append("}");
     return sb.toString();

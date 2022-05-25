@@ -12,9 +12,7 @@ import java.io.IOException;
 @JsonAdapter(AttributeOrBuiltInOperation.Adapter.class)
 public abstract class AttributeOrBuiltInOperation implements CompoundType {
 
-  public static AttributeOrBuiltInOperation ofBuiltInOperation(
-    BuiltInOperation inside
-  ) {
+  public static AttributeOrBuiltInOperation ofBuiltInOperation(BuiltInOperation inside) {
     return new AttributeOrBuiltInOperationBuiltInOperation(inside);
   }
 
@@ -25,30 +23,18 @@ public abstract class AttributeOrBuiltInOperation implements CompoundType {
   public static class Adapter extends TypeAdapter<AttributeOrBuiltInOperation> {
 
     @Override
-    public void write(
-      final JsonWriter out,
-      final AttributeOrBuiltInOperation oneOf
-    ) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final AttributeOrBuiltInOperation oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
-    public AttributeOrBuiltInOperation read(final JsonReader jsonReader)
-      throws IOException {
-      BuiltInOperation builtinoperation = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<BuiltInOperation>() {}.getType()
-      );
+    public AttributeOrBuiltInOperation read(final JsonReader jsonReader) throws IOException {
+      BuiltInOperation builtinoperation = JSON.tryDeserialize(jsonReader, new TypeToken<BuiltInOperation>() {}.getType());
       if (builtinoperation != null) {
         return AttributeOrBuiltInOperation.ofBuiltInOperation(builtinoperation);
       }
-      String string = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<String>() {}.getType()
-      );
+      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
       if (string != null) {
         return AttributeOrBuiltInOperation.ofString(string);
       }
@@ -58,8 +44,7 @@ public abstract class AttributeOrBuiltInOperation implements CompoundType {
 }
 
 @JsonAdapter(AttributeOrBuiltInOperation.Adapter.class)
-class AttributeOrBuiltInOperationBuiltInOperation
-  extends AttributeOrBuiltInOperation {
+class AttributeOrBuiltInOperationBuiltInOperation extends AttributeOrBuiltInOperation {
 
   private final BuiltInOperation insideValue;
 

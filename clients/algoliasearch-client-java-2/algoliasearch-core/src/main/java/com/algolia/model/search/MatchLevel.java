@@ -42,10 +42,7 @@ public enum MatchLevel {
   public static class Adapter extends TypeAdapter<MatchLevel> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final MatchLevel enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final MatchLevel enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

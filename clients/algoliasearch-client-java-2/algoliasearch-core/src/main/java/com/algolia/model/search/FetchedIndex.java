@@ -233,10 +233,7 @@ public class FetchedIndex {
       Objects.equals(this.dataSize, fetchedIndex.dataSize) &&
       Objects.equals(this.fileSize, fetchedIndex.fileSize) &&
       Objects.equals(this.lastBuildTimeS, fetchedIndex.lastBuildTimeS) &&
-      Objects.equals(
-        this.numberOfPendingTask,
-        fetchedIndex.numberOfPendingTask
-      ) &&
+      Objects.equals(this.numberOfPendingTask, fetchedIndex.numberOfPendingTask) &&
       Objects.equals(this.pendingTask, fetchedIndex.pendingTask) &&
       Objects.equals(this.primary, fetchedIndex.primary) &&
       Objects.equals(this.replicas, fetchedIndex.replicas)
@@ -265,29 +262,14 @@ public class FetchedIndex {
     StringBuilder sb = new StringBuilder();
     sb.append("class FetchedIndex {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb
-      .append("    createdAt: ")
-      .append(toIndentedString(createdAt))
-      .append("\n");
-    sb
-      .append("    updatedAt: ")
-      .append(toIndentedString(updatedAt))
-      .append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    entries: ").append(toIndentedString(entries)).append("\n");
     sb.append("    dataSize: ").append(toIndentedString(dataSize)).append("\n");
     sb.append("    fileSize: ").append(toIndentedString(fileSize)).append("\n");
-    sb
-      .append("    lastBuildTimeS: ")
-      .append(toIndentedString(lastBuildTimeS))
-      .append("\n");
-    sb
-      .append("    numberOfPendingTask: ")
-      .append(toIndentedString(numberOfPendingTask))
-      .append("\n");
-    sb
-      .append("    pendingTask: ")
-      .append(toIndentedString(pendingTask))
-      .append("\n");
+    sb.append("    lastBuildTimeS: ").append(toIndentedString(lastBuildTimeS)).append("\n");
+    sb.append("    numberOfPendingTask: ").append(toIndentedString(numberOfPendingTask)).append("\n");
+    sb.append("    pendingTask: ").append(toIndentedString(pendingTask)).append("\n");
     sb.append("    primary: ").append(toIndentedString(primary)).append("\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
     sb.append("}");

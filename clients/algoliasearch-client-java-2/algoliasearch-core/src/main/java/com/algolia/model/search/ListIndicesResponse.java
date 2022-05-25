@@ -61,10 +61,7 @@ public class ListIndicesResponse {
       return false;
     }
     ListIndicesResponse listIndicesResponse = (ListIndicesResponse) o;
-    return (
-      Objects.equals(this.items, listIndicesResponse.items) &&
-      Objects.equals(this.nbPages, listIndicesResponse.nbPages)
-    );
+    return Objects.equals(this.items, listIndicesResponse.items) && Objects.equals(this.nbPages, listIndicesResponse.nbPages);
   }
 
   @Override

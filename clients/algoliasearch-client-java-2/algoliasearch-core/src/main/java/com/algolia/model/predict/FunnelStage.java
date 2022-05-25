@@ -52,10 +52,7 @@ public class FunnelStage {
       return false;
     }
     FunnelStage funnelStage = (FunnelStage) o;
-    return (
-      Objects.equals(this.name, funnelStage.name) &&
-      Objects.equals(this.probability, funnelStage.probability)
-    );
+    return Objects.equals(this.name, funnelStage.name) && Objects.equals(this.probability, funnelStage.probability);
   }
 
   @Override
@@ -68,10 +65,7 @@ public class FunnelStage {
     StringBuilder sb = new StringBuilder();
     sb.append("class FunnelStage {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb
-      .append("    probability: ")
-      .append(toIndentedString(probability))
-      .append("\n");
+    sb.append("    probability: ").append(toIndentedString(probability)).append("\n");
     sb.append("}");
     return sb.toString();
   }

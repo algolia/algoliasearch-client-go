@@ -85,10 +85,7 @@ public class SaveObjectResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SaveObjectResponse {\n");
-    sb
-      .append("    createdAt: ")
-      .append(toIndentedString(createdAt))
-      .append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    taskID: ").append(toIndentedString(taskID)).append("\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
     sb.append("}");

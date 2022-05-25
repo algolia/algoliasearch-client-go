@@ -219,17 +219,7 @@ public class Key {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      acl,
-      description,
-      indexes,
-      maxHitsPerQuery,
-      maxQueriesPerIPPerHour,
-      queryParameters,
-      referers,
-      validity,
-      createdAt
-    );
+    return Objects.hash(acl, description, indexes, maxHitsPerQuery, maxQueriesPerIPPerHour, queryParameters, referers, validity, createdAt);
   }
 
   @Override
@@ -237,29 +227,14 @@ public class Key {
     StringBuilder sb = new StringBuilder();
     sb.append("class Key {\n");
     sb.append("    acl: ").append(toIndentedString(acl)).append("\n");
-    sb
-      .append("    description: ")
-      .append(toIndentedString(description))
-      .append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    indexes: ").append(toIndentedString(indexes)).append("\n");
-    sb
-      .append("    maxHitsPerQuery: ")
-      .append(toIndentedString(maxHitsPerQuery))
-      .append("\n");
-    sb
-      .append("    maxQueriesPerIPPerHour: ")
-      .append(toIndentedString(maxQueriesPerIPPerHour))
-      .append("\n");
-    sb
-      .append("    queryParameters: ")
-      .append(toIndentedString(queryParameters))
-      .append("\n");
+    sb.append("    maxHitsPerQuery: ").append(toIndentedString(maxHitsPerQuery)).append("\n");
+    sb.append("    maxQueriesPerIPPerHour: ").append(toIndentedString(maxQueriesPerIPPerHour)).append("\n");
+    sb.append("    queryParameters: ").append(toIndentedString(queryParameters)).append("\n");
     sb.append("    referers: ").append(toIndentedString(referers)).append("\n");
     sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
-    sb
-      .append("    createdAt: ")
-      .append(toIndentedString(createdAt))
-      .append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -38,16 +38,12 @@ public enum SearchTypeFacet {
   public static class Adapter extends TypeAdapter<SearchTypeFacet> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final SearchTypeFacet enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final SearchTypeFacet enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public SearchTypeFacet read(final JsonReader jsonReader)
-      throws IOException {
+    public SearchTypeFacet read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return SearchTypeFacet.fromValue(value);
     }

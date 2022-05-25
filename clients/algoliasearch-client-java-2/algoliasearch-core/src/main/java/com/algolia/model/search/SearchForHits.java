@@ -202,8 +202,7 @@ public class SearchForHits {
   private QueryType queryType = QueryType.PREFIX_LAST;
 
   @SerializedName("removeWordsIfNoResults")
-  private RemoveWordsIfNoResults removeWordsIfNoResults =
-    RemoveWordsIfNoResults.NONE;
+  private RemoveWordsIfNoResults removeWordsIfNoResults = RemoveWordsIfNoResults.NONE;
 
   @SerializedName("advancedSyntax")
   private Boolean advancedSyntax = false;
@@ -215,8 +214,7 @@ public class SearchForHits {
   private List<String> disableExactOnAttributes = null;
 
   @SerializedName("exactOnSingleWordQuery")
-  private ExactOnSingleWordQuery exactOnSingleWordQuery =
-    ExactOnSingleWordQuery.ATTRIBUTE;
+  private ExactOnSingleWordQuery exactOnSingleWordQuery = ExactOnSingleWordQuery.ATTRIBUTE;
 
   @SerializedName("alternativesAsExact")
   private List<AlternativesAsExact> alternativesAsExact = null;
@@ -579,9 +577,7 @@ public class SearchForHits {
     return minimumAroundRadius;
   }
 
-  public SearchForHits setInsideBoundingBox(
-    List<BigDecimal> insideBoundingBox
-  ) {
+  public SearchForHits setInsideBoundingBox(List<BigDecimal> insideBoundingBox) {
     this.insideBoundingBox = insideBoundingBox;
     return this;
   }
@@ -820,9 +816,7 @@ public class SearchForHits {
     return enableReRanking;
   }
 
-  public SearchForHits setReRankingApplyFilter(
-    ReRankingApplyFilter reRankingApplyFilter
-  ) {
+  public SearchForHits setReRankingApplyFilter(ReRankingApplyFilter reRankingApplyFilter) {
     this.reRankingApplyFilter = reRankingApplyFilter;
     return this;
   }
@@ -837,16 +831,12 @@ public class SearchForHits {
     return reRankingApplyFilter;
   }
 
-  public SearchForHits setSearchableAttributes(
-    List<String> searchableAttributes
-  ) {
+  public SearchForHits setSearchableAttributes(List<String> searchableAttributes) {
     this.searchableAttributes = searchableAttributes;
     return this;
   }
 
-  public SearchForHits addSearchableAttributes(
-    String searchableAttributesItem
-  ) {
+  public SearchForHits addSearchableAttributes(String searchableAttributesItem) {
     if (this.searchableAttributes == null) {
       this.searchableAttributes = new ArrayList<>();
     }
@@ -864,16 +854,12 @@ public class SearchForHits {
     return searchableAttributes;
   }
 
-  public SearchForHits setAttributesForFaceting(
-    List<String> attributesForFaceting
-  ) {
+  public SearchForHits setAttributesForFaceting(List<String> attributesForFaceting) {
     this.attributesForFaceting = attributesForFaceting;
     return this;
   }
 
-  public SearchForHits addAttributesForFaceting(
-    String attributesForFacetingItem
-  ) {
+  public SearchForHits addAttributesForFaceting(String attributesForFacetingItem) {
     if (this.attributesForFaceting == null) {
       this.attributesForFaceting = new ArrayList<>();
     }
@@ -891,16 +877,12 @@ public class SearchForHits {
     return attributesForFaceting;
   }
 
-  public SearchForHits setUnretrievableAttributes(
-    List<String> unretrievableAttributes
-  ) {
+  public SearchForHits setUnretrievableAttributes(List<String> unretrievableAttributes) {
     this.unretrievableAttributes = unretrievableAttributes;
     return this;
   }
 
-  public SearchForHits addUnretrievableAttributes(
-    String unretrievableAttributesItem
-  ) {
+  public SearchForHits addUnretrievableAttributes(String unretrievableAttributesItem) {
     if (this.unretrievableAttributes == null) {
       this.unretrievableAttributes = new ArrayList<>();
     }
@@ -918,16 +900,12 @@ public class SearchForHits {
     return unretrievableAttributes;
   }
 
-  public SearchForHits setAttributesToRetrieve(
-    List<String> attributesToRetrieve
-  ) {
+  public SearchForHits setAttributesToRetrieve(List<String> attributesToRetrieve) {
     this.attributesToRetrieve = attributesToRetrieve;
     return this;
   }
 
-  public SearchForHits addAttributesToRetrieve(
-    String attributesToRetrieveItem
-  ) {
+  public SearchForHits addAttributesToRetrieve(String attributesToRetrieveItem) {
     if (this.attributesToRetrieve == null) {
       this.attributesToRetrieve = new ArrayList<>();
     }
@@ -945,16 +923,12 @@ public class SearchForHits {
     return attributesToRetrieve;
   }
 
-  public SearchForHits setRestrictSearchableAttributes(
-    List<String> restrictSearchableAttributes
-  ) {
+  public SearchForHits setRestrictSearchableAttributes(List<String> restrictSearchableAttributes) {
     this.restrictSearchableAttributes = restrictSearchableAttributes;
     return this;
   }
 
-  public SearchForHits addRestrictSearchableAttributes(
-    String restrictSearchableAttributesItem
-  ) {
+  public SearchForHits addRestrictSearchableAttributes(String restrictSearchableAttributesItem) {
     if (this.restrictSearchableAttributes == null) {
       this.restrictSearchableAttributes = new ArrayList<>();
     }
@@ -1034,16 +1008,12 @@ public class SearchForHits {
     return relevancyStrictness;
   }
 
-  public SearchForHits setAttributesToHighlight(
-    List<String> attributesToHighlight
-  ) {
+  public SearchForHits setAttributesToHighlight(List<String> attributesToHighlight) {
     this.attributesToHighlight = attributesToHighlight;
     return this;
   }
 
-  public SearchForHits addAttributesToHighlight(
-    String attributesToHighlightItem
-  ) {
+  public SearchForHits addAttributesToHighlight(String attributesToHighlightItem) {
     if (this.attributesToHighlight == null) {
       this.attributesToHighlight = new ArrayList<>();
     }
@@ -1061,9 +1031,7 @@ public class SearchForHits {
     return attributesToHighlight;
   }
 
-  public SearchForHits setAttributesToSnippet(
-    List<String> attributesToSnippet
-  ) {
+  public SearchForHits setAttributesToSnippet(List<String> attributesToSnippet) {
     this.attributesToSnippet = attributesToSnippet;
     return this;
   }
@@ -1131,9 +1099,7 @@ public class SearchForHits {
     return snippetEllipsisText;
   }
 
-  public SearchForHits setRestrictHighlightAndSnippetArrays(
-    Boolean restrictHighlightAndSnippetArrays
-  ) {
+  public SearchForHits setRestrictHighlightAndSnippetArrays(Boolean restrictHighlightAndSnippetArrays) {
     this.restrictHighlightAndSnippetArrays = restrictHighlightAndSnippetArrays;
     return this;
   }
@@ -1210,9 +1176,7 @@ public class SearchForHits {
     return typoTolerance;
   }
 
-  public SearchForHits setAllowTyposOnNumericTokens(
-    Boolean allowTyposOnNumericTokens
-  ) {
+  public SearchForHits setAllowTyposOnNumericTokens(Boolean allowTyposOnNumericTokens) {
     this.allowTyposOnNumericTokens = allowTyposOnNumericTokens;
     return this;
   }
@@ -1227,22 +1191,16 @@ public class SearchForHits {
     return allowTyposOnNumericTokens;
   }
 
-  public SearchForHits setDisableTypoToleranceOnAttributes(
-    List<String> disableTypoToleranceOnAttributes
-  ) {
+  public SearchForHits setDisableTypoToleranceOnAttributes(List<String> disableTypoToleranceOnAttributes) {
     this.disableTypoToleranceOnAttributes = disableTypoToleranceOnAttributes;
     return this;
   }
 
-  public SearchForHits addDisableTypoToleranceOnAttributes(
-    String disableTypoToleranceOnAttributesItem
-  ) {
+  public SearchForHits addDisableTypoToleranceOnAttributes(String disableTypoToleranceOnAttributesItem) {
     if (this.disableTypoToleranceOnAttributes == null) {
       this.disableTypoToleranceOnAttributes = new ArrayList<>();
     }
-    this.disableTypoToleranceOnAttributes.add(
-        disableTypoToleranceOnAttributesItem
-      );
+    this.disableTypoToleranceOnAttributes.add(disableTypoToleranceOnAttributesItem);
     return this;
   }
 
@@ -1301,9 +1259,7 @@ public class SearchForHits {
     return removeStopWords;
   }
 
-  public SearchForHits setKeepDiacriticsOnCharacters(
-    String keepDiacriticsOnCharacters
-  ) {
+  public SearchForHits setKeepDiacriticsOnCharacters(String keepDiacriticsOnCharacters) {
     this.keepDiacriticsOnCharacters = keepDiacriticsOnCharacters;
     return this;
   }
@@ -1402,9 +1358,7 @@ public class SearchForHits {
     return queryType;
   }
 
-  public SearchForHits setRemoveWordsIfNoResults(
-    RemoveWordsIfNoResults removeWordsIfNoResults
-  ) {
+  public SearchForHits setRemoveWordsIfNoResults(RemoveWordsIfNoResults removeWordsIfNoResults) {
     this.removeWordsIfNoResults = removeWordsIfNoResults;
     return this;
   }
@@ -1457,16 +1411,12 @@ public class SearchForHits {
     return optionalWords;
   }
 
-  public SearchForHits setDisableExactOnAttributes(
-    List<String> disableExactOnAttributes
-  ) {
+  public SearchForHits setDisableExactOnAttributes(List<String> disableExactOnAttributes) {
     this.disableExactOnAttributes = disableExactOnAttributes;
     return this;
   }
 
-  public SearchForHits addDisableExactOnAttributes(
-    String disableExactOnAttributesItem
-  ) {
+  public SearchForHits addDisableExactOnAttributes(String disableExactOnAttributesItem) {
     if (this.disableExactOnAttributes == null) {
       this.disableExactOnAttributes = new ArrayList<>();
     }
@@ -1484,9 +1434,7 @@ public class SearchForHits {
     return disableExactOnAttributes;
   }
 
-  public SearchForHits setExactOnSingleWordQuery(
-    ExactOnSingleWordQuery exactOnSingleWordQuery
-  ) {
+  public SearchForHits setExactOnSingleWordQuery(ExactOnSingleWordQuery exactOnSingleWordQuery) {
     this.exactOnSingleWordQuery = exactOnSingleWordQuery;
     return this;
   }
@@ -1501,16 +1449,12 @@ public class SearchForHits {
     return exactOnSingleWordQuery;
   }
 
-  public SearchForHits setAlternativesAsExact(
-    List<AlternativesAsExact> alternativesAsExact
-  ) {
+  public SearchForHits setAlternativesAsExact(List<AlternativesAsExact> alternativesAsExact) {
     this.alternativesAsExact = alternativesAsExact;
     return this;
   }
 
-  public SearchForHits addAlternativesAsExact(
-    AlternativesAsExact alternativesAsExactItem
-  ) {
+  public SearchForHits addAlternativesAsExact(AlternativesAsExact alternativesAsExactItem) {
     if (this.alternativesAsExact == null) {
       this.alternativesAsExact = new ArrayList<>();
     }
@@ -1528,16 +1472,12 @@ public class SearchForHits {
     return alternativesAsExact;
   }
 
-  public SearchForHits setAdvancedSyntaxFeatures(
-    List<AdvancedSyntaxFeatures> advancedSyntaxFeatures
-  ) {
+  public SearchForHits setAdvancedSyntaxFeatures(List<AdvancedSyntaxFeatures> advancedSyntaxFeatures) {
     this.advancedSyntaxFeatures = advancedSyntaxFeatures;
     return this;
   }
 
-  public SearchForHits addAdvancedSyntaxFeatures(
-    AdvancedSyntaxFeatures advancedSyntaxFeaturesItem
-  ) {
+  public SearchForHits addAdvancedSyntaxFeatures(AdvancedSyntaxFeatures advancedSyntaxFeaturesItem) {
     if (this.advancedSyntaxFeatures == null) {
       this.advancedSyntaxFeatures = new ArrayList<>();
     }
@@ -1586,9 +1526,7 @@ public class SearchForHits {
     return synonyms;
   }
 
-  public SearchForHits setReplaceSynonymsInHighlight(
-    Boolean replaceSynonymsInHighlight
-  ) {
+  public SearchForHits setReplaceSynonymsInHighlight(Boolean replaceSynonymsInHighlight) {
     this.replaceSynonymsInHighlight = replaceSynonymsInHighlight;
     return this;
   }
@@ -1659,11 +1597,8 @@ public class SearchForHits {
     return maxFacetHits;
   }
 
-  public SearchForHits setAttributeCriteriaComputedByMinProximity(
-    Boolean attributeCriteriaComputedByMinProximity
-  ) {
-    this.attributeCriteriaComputedByMinProximity =
-      attributeCriteriaComputedByMinProximity;
+  public SearchForHits setAttributeCriteriaComputedByMinProximity(Boolean attributeCriteriaComputedByMinProximity) {
+    this.attributeCriteriaComputedByMinProximity = attributeCriteriaComputedByMinProximity;
     return this;
   }
 
@@ -1742,16 +1677,10 @@ public class SearchForHits {
       Objects.equals(this.optionalFilters, searchForHits.optionalFilters) &&
       Objects.equals(this.numericFilters, searchForHits.numericFilters) &&
       Objects.equals(this.tagFilters, searchForHits.tagFilters) &&
-      Objects.equals(
-        this.sumOrFiltersScores,
-        searchForHits.sumOrFiltersScores
-      ) &&
+      Objects.equals(this.sumOrFiltersScores, searchForHits.sumOrFiltersScores) &&
       Objects.equals(this.facets, searchForHits.facets) &&
       Objects.equals(this.maxValuesPerFacet, searchForHits.maxValuesPerFacet) &&
-      Objects.equals(
-        this.facetingAfterDistinct,
-        searchForHits.facetingAfterDistinct
-      ) &&
+      Objects.equals(this.facetingAfterDistinct, searchForHits.facetingAfterDistinct) &&
       Objects.equals(this.sortFacetValuesBy, searchForHits.sortFacetValuesBy) &&
       Objects.equals(this.page, searchForHits.page) &&
       Objects.equals(this.offset, searchForHits.offset) &&
@@ -1760,145 +1689,64 @@ public class SearchForHits {
       Objects.equals(this.aroundLatLngViaIP, searchForHits.aroundLatLngViaIP) &&
       Objects.equals(this.aroundRadius, searchForHits.aroundRadius) &&
       Objects.equals(this.aroundPrecision, searchForHits.aroundPrecision) &&
-      Objects.equals(
-        this.minimumAroundRadius,
-        searchForHits.minimumAroundRadius
-      ) &&
+      Objects.equals(this.minimumAroundRadius, searchForHits.minimumAroundRadius) &&
       Objects.equals(this.insideBoundingBox, searchForHits.insideBoundingBox) &&
       Objects.equals(this.insidePolygon, searchForHits.insidePolygon) &&
       Objects.equals(this.naturalLanguages, searchForHits.naturalLanguages) &&
       Objects.equals(this.ruleContexts, searchForHits.ruleContexts) &&
-      Objects.equals(
-        this.personalizationImpact,
-        searchForHits.personalizationImpact
-      ) &&
+      Objects.equals(this.personalizationImpact, searchForHits.personalizationImpact) &&
       Objects.equals(this.userToken, searchForHits.userToken) &&
       Objects.equals(this.getRankingInfo, searchForHits.getRankingInfo) &&
       Objects.equals(this.clickAnalytics, searchForHits.clickAnalytics) &&
       Objects.equals(this.analytics, searchForHits.analytics) &&
       Objects.equals(this.analyticsTags, searchForHits.analyticsTags) &&
-      Objects.equals(
-        this.percentileComputation,
-        searchForHits.percentileComputation
-      ) &&
+      Objects.equals(this.percentileComputation, searchForHits.percentileComputation) &&
       Objects.equals(this.enableABTest, searchForHits.enableABTest) &&
       Objects.equals(this.enableReRanking, searchForHits.enableReRanking) &&
-      Objects.equals(
-        this.reRankingApplyFilter,
-        searchForHits.reRankingApplyFilter
-      ) &&
-      Objects.equals(
-        this.searchableAttributes,
-        searchForHits.searchableAttributes
-      ) &&
-      Objects.equals(
-        this.attributesForFaceting,
-        searchForHits.attributesForFaceting
-      ) &&
-      Objects.equals(
-        this.unretrievableAttributes,
-        searchForHits.unretrievableAttributes
-      ) &&
-      Objects.equals(
-        this.attributesToRetrieve,
-        searchForHits.attributesToRetrieve
-      ) &&
-      Objects.equals(
-        this.restrictSearchableAttributes,
-        searchForHits.restrictSearchableAttributes
-      ) &&
+      Objects.equals(this.reRankingApplyFilter, searchForHits.reRankingApplyFilter) &&
+      Objects.equals(this.searchableAttributes, searchForHits.searchableAttributes) &&
+      Objects.equals(this.attributesForFaceting, searchForHits.attributesForFaceting) &&
+      Objects.equals(this.unretrievableAttributes, searchForHits.unretrievableAttributes) &&
+      Objects.equals(this.attributesToRetrieve, searchForHits.attributesToRetrieve) &&
+      Objects.equals(this.restrictSearchableAttributes, searchForHits.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, searchForHits.ranking) &&
       Objects.equals(this.customRanking, searchForHits.customRanking) &&
-      Objects.equals(
-        this.relevancyStrictness,
-        searchForHits.relevancyStrictness
-      ) &&
-      Objects.equals(
-        this.attributesToHighlight,
-        searchForHits.attributesToHighlight
-      ) &&
-      Objects.equals(
-        this.attributesToSnippet,
-        searchForHits.attributesToSnippet
-      ) &&
+      Objects.equals(this.relevancyStrictness, searchForHits.relevancyStrictness) &&
+      Objects.equals(this.attributesToHighlight, searchForHits.attributesToHighlight) &&
+      Objects.equals(this.attributesToSnippet, searchForHits.attributesToSnippet) &&
       Objects.equals(this.highlightPreTag, searchForHits.highlightPreTag) &&
       Objects.equals(this.highlightPostTag, searchForHits.highlightPostTag) &&
-      Objects.equals(
-        this.snippetEllipsisText,
-        searchForHits.snippetEllipsisText
-      ) &&
-      Objects.equals(
-        this.restrictHighlightAndSnippetArrays,
-        searchForHits.restrictHighlightAndSnippetArrays
-      ) &&
+      Objects.equals(this.snippetEllipsisText, searchForHits.snippetEllipsisText) &&
+      Objects.equals(this.restrictHighlightAndSnippetArrays, searchForHits.restrictHighlightAndSnippetArrays) &&
       Objects.equals(this.hitsPerPage, searchForHits.hitsPerPage) &&
-      Objects.equals(
-        this.minWordSizefor1Typo,
-        searchForHits.minWordSizefor1Typo
-      ) &&
-      Objects.equals(
-        this.minWordSizefor2Typos,
-        searchForHits.minWordSizefor2Typos
-      ) &&
+      Objects.equals(this.minWordSizefor1Typo, searchForHits.minWordSizefor1Typo) &&
+      Objects.equals(this.minWordSizefor2Typos, searchForHits.minWordSizefor2Typos) &&
       Objects.equals(this.typoTolerance, searchForHits.typoTolerance) &&
-      Objects.equals(
-        this.allowTyposOnNumericTokens,
-        searchForHits.allowTyposOnNumericTokens
-      ) &&
-      Objects.equals(
-        this.disableTypoToleranceOnAttributes,
-        searchForHits.disableTypoToleranceOnAttributes
-      ) &&
+      Objects.equals(this.allowTyposOnNumericTokens, searchForHits.allowTyposOnNumericTokens) &&
+      Objects.equals(this.disableTypoToleranceOnAttributes, searchForHits.disableTypoToleranceOnAttributes) &&
       Objects.equals(this.separatorsToIndex, searchForHits.separatorsToIndex) &&
       Objects.equals(this.ignorePlurals, searchForHits.ignorePlurals) &&
       Objects.equals(this.removeStopWords, searchForHits.removeStopWords) &&
-      Objects.equals(
-        this.keepDiacriticsOnCharacters,
-        searchForHits.keepDiacriticsOnCharacters
-      ) &&
+      Objects.equals(this.keepDiacriticsOnCharacters, searchForHits.keepDiacriticsOnCharacters) &&
       Objects.equals(this.queryLanguages, searchForHits.queryLanguages) &&
       Objects.equals(this.decompoundQuery, searchForHits.decompoundQuery) &&
       Objects.equals(this.enableRules, searchForHits.enableRules) &&
-      Objects.equals(
-        this.enablePersonalization,
-        searchForHits.enablePersonalization
-      ) &&
+      Objects.equals(this.enablePersonalization, searchForHits.enablePersonalization) &&
       Objects.equals(this.queryType, searchForHits.queryType) &&
-      Objects.equals(
-        this.removeWordsIfNoResults,
-        searchForHits.removeWordsIfNoResults
-      ) &&
+      Objects.equals(this.removeWordsIfNoResults, searchForHits.removeWordsIfNoResults) &&
       Objects.equals(this.advancedSyntax, searchForHits.advancedSyntax) &&
       Objects.equals(this.optionalWords, searchForHits.optionalWords) &&
-      Objects.equals(
-        this.disableExactOnAttributes,
-        searchForHits.disableExactOnAttributes
-      ) &&
-      Objects.equals(
-        this.exactOnSingleWordQuery,
-        searchForHits.exactOnSingleWordQuery
-      ) &&
-      Objects.equals(
-        this.alternativesAsExact,
-        searchForHits.alternativesAsExact
-      ) &&
-      Objects.equals(
-        this.advancedSyntaxFeatures,
-        searchForHits.advancedSyntaxFeatures
-      ) &&
+      Objects.equals(this.disableExactOnAttributes, searchForHits.disableExactOnAttributes) &&
+      Objects.equals(this.exactOnSingleWordQuery, searchForHits.exactOnSingleWordQuery) &&
+      Objects.equals(this.alternativesAsExact, searchForHits.alternativesAsExact) &&
+      Objects.equals(this.advancedSyntaxFeatures, searchForHits.advancedSyntaxFeatures) &&
       Objects.equals(this.distinct, searchForHits.distinct) &&
       Objects.equals(this.synonyms, searchForHits.synonyms) &&
-      Objects.equals(
-        this.replaceSynonymsInHighlight,
-        searchForHits.replaceSynonymsInHighlight
-      ) &&
+      Objects.equals(this.replaceSynonymsInHighlight, searchForHits.replaceSynonymsInHighlight) &&
       Objects.equals(this.minProximity, searchForHits.minProximity) &&
       Objects.equals(this.responseFields, searchForHits.responseFields) &&
       Objects.equals(this.maxFacetHits, searchForHits.maxFacetHits) &&
-      Objects.equals(
-        this.attributeCriteriaComputedByMinProximity,
-        searchForHits.attributeCriteriaComputedByMinProximity
-      ) &&
+      Objects.equals(this.attributeCriteriaComputedByMinProximity, searchForHits.attributeCriteriaComputedByMinProximity) &&
       Objects.equals(this.renderingContent, searchForHits.renderingContent) &&
       Objects.equals(this.indexName, searchForHits.indexName) &&
       Objects.equals(this.type, searchForHits.type)
@@ -1998,294 +1846,87 @@ public class SearchForHits {
     sb.append("class SearchForHits {\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    similarQuery: ")
-      .append(toIndentedString(similarQuery))
-      .append("\n");
+    sb.append("    similarQuery: ").append(toIndentedString(similarQuery)).append("\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
-    sb
-      .append("    facetFilters: ")
-      .append(toIndentedString(facetFilters))
-      .append("\n");
-    sb
-      .append("    optionalFilters: ")
-      .append(toIndentedString(optionalFilters))
-      .append("\n");
-    sb
-      .append("    numericFilters: ")
-      .append(toIndentedString(numericFilters))
-      .append("\n");
-    sb
-      .append("    tagFilters: ")
-      .append(toIndentedString(tagFilters))
-      .append("\n");
-    sb
-      .append("    sumOrFiltersScores: ")
-      .append(toIndentedString(sumOrFiltersScores))
-      .append("\n");
+    sb.append("    facetFilters: ").append(toIndentedString(facetFilters)).append("\n");
+    sb.append("    optionalFilters: ").append(toIndentedString(optionalFilters)).append("\n");
+    sb.append("    numericFilters: ").append(toIndentedString(numericFilters)).append("\n");
+    sb.append("    tagFilters: ").append(toIndentedString(tagFilters)).append("\n");
+    sb.append("    sumOrFiltersScores: ").append(toIndentedString(sumOrFiltersScores)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
-    sb
-      .append("    maxValuesPerFacet: ")
-      .append(toIndentedString(maxValuesPerFacet))
-      .append("\n");
-    sb
-      .append("    facetingAfterDistinct: ")
-      .append(toIndentedString(facetingAfterDistinct))
-      .append("\n");
-    sb
-      .append("    sortFacetValuesBy: ")
-      .append(toIndentedString(sortFacetValuesBy))
-      .append("\n");
+    sb.append("    maxValuesPerFacet: ").append(toIndentedString(maxValuesPerFacet)).append("\n");
+    sb.append("    facetingAfterDistinct: ").append(toIndentedString(facetingAfterDistinct)).append("\n");
+    sb.append("    sortFacetValuesBy: ").append(toIndentedString(sortFacetValuesBy)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    length: ").append(toIndentedString(length)).append("\n");
-    sb
-      .append("    aroundLatLng: ")
-      .append(toIndentedString(aroundLatLng))
-      .append("\n");
-    sb
-      .append("    aroundLatLngViaIP: ")
-      .append(toIndentedString(aroundLatLngViaIP))
-      .append("\n");
-    sb
-      .append("    aroundRadius: ")
-      .append(toIndentedString(aroundRadius))
-      .append("\n");
-    sb
-      .append("    aroundPrecision: ")
-      .append(toIndentedString(aroundPrecision))
-      .append("\n");
-    sb
-      .append("    minimumAroundRadius: ")
-      .append(toIndentedString(minimumAroundRadius))
-      .append("\n");
-    sb
-      .append("    insideBoundingBox: ")
-      .append(toIndentedString(insideBoundingBox))
-      .append("\n");
-    sb
-      .append("    insidePolygon: ")
-      .append(toIndentedString(insidePolygon))
-      .append("\n");
-    sb
-      .append("    naturalLanguages: ")
-      .append(toIndentedString(naturalLanguages))
-      .append("\n");
-    sb
-      .append("    ruleContexts: ")
-      .append(toIndentedString(ruleContexts))
-      .append("\n");
-    sb
-      .append("    personalizationImpact: ")
-      .append(toIndentedString(personalizationImpact))
-      .append("\n");
-    sb
-      .append("    userToken: ")
-      .append(toIndentedString(userToken))
-      .append("\n");
-    sb
-      .append("    getRankingInfo: ")
-      .append(toIndentedString(getRankingInfo))
-      .append("\n");
-    sb
-      .append("    clickAnalytics: ")
-      .append(toIndentedString(clickAnalytics))
-      .append("\n");
-    sb
-      .append("    analytics: ")
-      .append(toIndentedString(analytics))
-      .append("\n");
-    sb
-      .append("    analyticsTags: ")
-      .append(toIndentedString(analyticsTags))
-      .append("\n");
-    sb
-      .append("    percentileComputation: ")
-      .append(toIndentedString(percentileComputation))
-      .append("\n");
-    sb
-      .append("    enableABTest: ")
-      .append(toIndentedString(enableABTest))
-      .append("\n");
-    sb
-      .append("    enableReRanking: ")
-      .append(toIndentedString(enableReRanking))
-      .append("\n");
-    sb
-      .append("    reRankingApplyFilter: ")
-      .append(toIndentedString(reRankingApplyFilter))
-      .append("\n");
-    sb
-      .append("    searchableAttributes: ")
-      .append(toIndentedString(searchableAttributes))
-      .append("\n");
-    sb
-      .append("    attributesForFaceting: ")
-      .append(toIndentedString(attributesForFaceting))
-      .append("\n");
-    sb
-      .append("    unretrievableAttributes: ")
-      .append(toIndentedString(unretrievableAttributes))
-      .append("\n");
-    sb
-      .append("    attributesToRetrieve: ")
-      .append(toIndentedString(attributesToRetrieve))
-      .append("\n");
-    sb
-      .append("    restrictSearchableAttributes: ")
-      .append(toIndentedString(restrictSearchableAttributes))
-      .append("\n");
+    sb.append("    aroundLatLng: ").append(toIndentedString(aroundLatLng)).append("\n");
+    sb.append("    aroundLatLngViaIP: ").append(toIndentedString(aroundLatLngViaIP)).append("\n");
+    sb.append("    aroundRadius: ").append(toIndentedString(aroundRadius)).append("\n");
+    sb.append("    aroundPrecision: ").append(toIndentedString(aroundPrecision)).append("\n");
+    sb.append("    minimumAroundRadius: ").append(toIndentedString(minimumAroundRadius)).append("\n");
+    sb.append("    insideBoundingBox: ").append(toIndentedString(insideBoundingBox)).append("\n");
+    sb.append("    insidePolygon: ").append(toIndentedString(insidePolygon)).append("\n");
+    sb.append("    naturalLanguages: ").append(toIndentedString(naturalLanguages)).append("\n");
+    sb.append("    ruleContexts: ").append(toIndentedString(ruleContexts)).append("\n");
+    sb.append("    personalizationImpact: ").append(toIndentedString(personalizationImpact)).append("\n");
+    sb.append("    userToken: ").append(toIndentedString(userToken)).append("\n");
+    sb.append("    getRankingInfo: ").append(toIndentedString(getRankingInfo)).append("\n");
+    sb.append("    clickAnalytics: ").append(toIndentedString(clickAnalytics)).append("\n");
+    sb.append("    analytics: ").append(toIndentedString(analytics)).append("\n");
+    sb.append("    analyticsTags: ").append(toIndentedString(analyticsTags)).append("\n");
+    sb.append("    percentileComputation: ").append(toIndentedString(percentileComputation)).append("\n");
+    sb.append("    enableABTest: ").append(toIndentedString(enableABTest)).append("\n");
+    sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
+    sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
+    sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
+    sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
+    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
+    sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
+    sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");
-    sb
-      .append("    customRanking: ")
-      .append(toIndentedString(customRanking))
-      .append("\n");
-    sb
-      .append("    relevancyStrictness: ")
-      .append(toIndentedString(relevancyStrictness))
-      .append("\n");
-    sb
-      .append("    attributesToHighlight: ")
-      .append(toIndentedString(attributesToHighlight))
-      .append("\n");
-    sb
-      .append("    attributesToSnippet: ")
-      .append(toIndentedString(attributesToSnippet))
-      .append("\n");
-    sb
-      .append("    highlightPreTag: ")
-      .append(toIndentedString(highlightPreTag))
-      .append("\n");
-    sb
-      .append("    highlightPostTag: ")
-      .append(toIndentedString(highlightPostTag))
-      .append("\n");
-    sb
-      .append("    snippetEllipsisText: ")
-      .append(toIndentedString(snippetEllipsisText))
-      .append("\n");
-    sb
-      .append("    restrictHighlightAndSnippetArrays: ")
-      .append(toIndentedString(restrictHighlightAndSnippetArrays))
-      .append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
-    sb
-      .append("    minWordSizefor1Typo: ")
-      .append(toIndentedString(minWordSizefor1Typo))
-      .append("\n");
-    sb
-      .append("    minWordSizefor2Typos: ")
-      .append(toIndentedString(minWordSizefor2Typos))
-      .append("\n");
-    sb
-      .append("    typoTolerance: ")
-      .append(toIndentedString(typoTolerance))
-      .append("\n");
-    sb
-      .append("    allowTyposOnNumericTokens: ")
-      .append(toIndentedString(allowTyposOnNumericTokens))
-      .append("\n");
-    sb
-      .append("    disableTypoToleranceOnAttributes: ")
-      .append(toIndentedString(disableTypoToleranceOnAttributes))
-      .append("\n");
-    sb
-      .append("    separatorsToIndex: ")
-      .append(toIndentedString(separatorsToIndex))
-      .append("\n");
-    sb
-      .append("    ignorePlurals: ")
-      .append(toIndentedString(ignorePlurals))
-      .append("\n");
-    sb
-      .append("    removeStopWords: ")
-      .append(toIndentedString(removeStopWords))
-      .append("\n");
-    sb
-      .append("    keepDiacriticsOnCharacters: ")
-      .append(toIndentedString(keepDiacriticsOnCharacters))
-      .append("\n");
-    sb
-      .append("    queryLanguages: ")
-      .append(toIndentedString(queryLanguages))
-      .append("\n");
-    sb
-      .append("    decompoundQuery: ")
-      .append(toIndentedString(decompoundQuery))
-      .append("\n");
-    sb
-      .append("    enableRules: ")
-      .append(toIndentedString(enableRules))
-      .append("\n");
-    sb
-      .append("    enablePersonalization: ")
-      .append(toIndentedString(enablePersonalization))
-      .append("\n");
-    sb
-      .append("    queryType: ")
-      .append(toIndentedString(queryType))
-      .append("\n");
-    sb
-      .append("    removeWordsIfNoResults: ")
-      .append(toIndentedString(removeWordsIfNoResults))
-      .append("\n");
-    sb
-      .append("    advancedSyntax: ")
-      .append(toIndentedString(advancedSyntax))
-      .append("\n");
-    sb
-      .append("    optionalWords: ")
-      .append(toIndentedString(optionalWords))
-      .append("\n");
-    sb
-      .append("    disableExactOnAttributes: ")
-      .append(toIndentedString(disableExactOnAttributes))
-      .append("\n");
-    sb
-      .append("    exactOnSingleWordQuery: ")
-      .append(toIndentedString(exactOnSingleWordQuery))
-      .append("\n");
-    sb
-      .append("    alternativesAsExact: ")
-      .append(toIndentedString(alternativesAsExact))
-      .append("\n");
-    sb
-      .append("    advancedSyntaxFeatures: ")
-      .append(toIndentedString(advancedSyntaxFeatures))
-      .append("\n");
+    sb.append("    customRanking: ").append(toIndentedString(customRanking)).append("\n");
+    sb.append("    relevancyStrictness: ").append(toIndentedString(relevancyStrictness)).append("\n");
+    sb.append("    attributesToHighlight: ").append(toIndentedString(attributesToHighlight)).append("\n");
+    sb.append("    attributesToSnippet: ").append(toIndentedString(attributesToSnippet)).append("\n");
+    sb.append("    highlightPreTag: ").append(toIndentedString(highlightPreTag)).append("\n");
+    sb.append("    highlightPostTag: ").append(toIndentedString(highlightPostTag)).append("\n");
+    sb.append("    snippetEllipsisText: ").append(toIndentedString(snippetEllipsisText)).append("\n");
+    sb.append("    restrictHighlightAndSnippetArrays: ").append(toIndentedString(restrictHighlightAndSnippetArrays)).append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
+    sb.append("    minWordSizefor1Typo: ").append(toIndentedString(minWordSizefor1Typo)).append("\n");
+    sb.append("    minWordSizefor2Typos: ").append(toIndentedString(minWordSizefor2Typos)).append("\n");
+    sb.append("    typoTolerance: ").append(toIndentedString(typoTolerance)).append("\n");
+    sb.append("    allowTyposOnNumericTokens: ").append(toIndentedString(allowTyposOnNumericTokens)).append("\n");
+    sb.append("    disableTypoToleranceOnAttributes: ").append(toIndentedString(disableTypoToleranceOnAttributes)).append("\n");
+    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
+    sb.append("    ignorePlurals: ").append(toIndentedString(ignorePlurals)).append("\n");
+    sb.append("    removeStopWords: ").append(toIndentedString(removeStopWords)).append("\n");
+    sb.append("    keepDiacriticsOnCharacters: ").append(toIndentedString(keepDiacriticsOnCharacters)).append("\n");
+    sb.append("    queryLanguages: ").append(toIndentedString(queryLanguages)).append("\n");
+    sb.append("    decompoundQuery: ").append(toIndentedString(decompoundQuery)).append("\n");
+    sb.append("    enableRules: ").append(toIndentedString(enableRules)).append("\n");
+    sb.append("    enablePersonalization: ").append(toIndentedString(enablePersonalization)).append("\n");
+    sb.append("    queryType: ").append(toIndentedString(queryType)).append("\n");
+    sb.append("    removeWordsIfNoResults: ").append(toIndentedString(removeWordsIfNoResults)).append("\n");
+    sb.append("    advancedSyntax: ").append(toIndentedString(advancedSyntax)).append("\n");
+    sb.append("    optionalWords: ").append(toIndentedString(optionalWords)).append("\n");
+    sb.append("    disableExactOnAttributes: ").append(toIndentedString(disableExactOnAttributes)).append("\n");
+    sb.append("    exactOnSingleWordQuery: ").append(toIndentedString(exactOnSingleWordQuery)).append("\n");
+    sb.append("    alternativesAsExact: ").append(toIndentedString(alternativesAsExact)).append("\n");
+    sb.append("    advancedSyntaxFeatures: ").append(toIndentedString(advancedSyntaxFeatures)).append("\n");
     sb.append("    distinct: ").append(toIndentedString(distinct)).append("\n");
     sb.append("    synonyms: ").append(toIndentedString(synonyms)).append("\n");
-    sb
-      .append("    replaceSynonymsInHighlight: ")
-      .append(toIndentedString(replaceSynonymsInHighlight))
-      .append("\n");
-    sb
-      .append("    minProximity: ")
-      .append(toIndentedString(minProximity))
-      .append("\n");
-    sb
-      .append("    responseFields: ")
-      .append(toIndentedString(responseFields))
-      .append("\n");
-    sb
-      .append("    maxFacetHits: ")
-      .append(toIndentedString(maxFacetHits))
-      .append("\n");
+    sb.append("    replaceSynonymsInHighlight: ").append(toIndentedString(replaceSynonymsInHighlight)).append("\n");
+    sb.append("    minProximity: ").append(toIndentedString(minProximity)).append("\n");
+    sb.append("    responseFields: ").append(toIndentedString(responseFields)).append("\n");
+    sb.append("    maxFacetHits: ").append(toIndentedString(maxFacetHits)).append("\n");
     sb
       .append("    attributeCriteriaComputedByMinProximity: ")
       .append(toIndentedString(attributeCriteriaComputedByMinProximity))
       .append("\n");
-    sb
-      .append("    renderingContent: ")
-      .append(toIndentedString(renderingContent))
-      .append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();

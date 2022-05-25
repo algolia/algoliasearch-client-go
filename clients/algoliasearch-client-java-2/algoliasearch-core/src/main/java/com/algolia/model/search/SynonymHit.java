@@ -179,9 +179,7 @@ public class SynonymHit {
     return replacements;
   }
 
-  public SynonymHit setHighlightResult(
-    SynonymHitHighlightResult highlightResult
-  ) {
+  public SynonymHit setHighlightResult(SynonymHitHighlightResult highlightResult) {
     this.highlightResult = highlightResult;
     return this;
   }
@@ -220,17 +218,7 @@ public class SynonymHit {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      objectID,
-      type,
-      synonyms,
-      input,
-      word,
-      corrections,
-      placeholder,
-      replacements,
-      highlightResult
-    );
+    return Objects.hash(objectID, type, synonyms, input, word, corrections, placeholder, replacements, highlightResult);
   }
 
   @Override
@@ -242,22 +230,10 @@ public class SynonymHit {
     sb.append("    synonyms: ").append(toIndentedString(synonyms)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
     sb.append("    word: ").append(toIndentedString(word)).append("\n");
-    sb
-      .append("    corrections: ")
-      .append(toIndentedString(corrections))
-      .append("\n");
-    sb
-      .append("    placeholder: ")
-      .append(toIndentedString(placeholder))
-      .append("\n");
-    sb
-      .append("    replacements: ")
-      .append(toIndentedString(replacements))
-      .append("\n");
-    sb
-      .append("    highlightResult: ")
-      .append(toIndentedString(highlightResult))
-      .append("\n");
+    sb.append("    corrections: ").append(toIndentedString(corrections)).append("\n");
+    sb.append("    placeholder: ").append(toIndentedString(placeholder)).append("\n");
+    sb.append("    replacements: ").append(toIndentedString(replacements)).append("\n");
+    sb.append("    highlightResult: ").append(toIndentedString(highlightResult)).append("\n");
     sb.append("}");
     return sb.toString();
   }

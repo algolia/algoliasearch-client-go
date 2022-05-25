@@ -196,11 +196,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -242,11 +238,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -288,11 +280,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -334,11 +322,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -390,11 +374,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -446,11 +426,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -492,11 +468,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -530,10 +502,7 @@ class PersonalizationClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add("c");
     requestOptionsQueryParameters.add("d");
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -544,11 +513,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -583,10 +548,7 @@ class PersonalizationClientTests {
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(false);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -597,11 +559,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -635,10 +593,7 @@ class PersonalizationClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add(1);
     requestOptionsQueryParameters.add(2);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -649,11 +604,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -706,11 +657,7 @@ class PersonalizationClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -757,9 +704,7 @@ class PersonalizationClientTests {
       }
       personalizationStrategyParams0.setFacetScoring(facetScoring1);
       int personalizationImpact1 = 42;
-      personalizationStrategyParams0.setPersonalizationImpact(
-        personalizationImpact1
-      );
+      personalizationStrategyParams0.setPersonalizationImpact(personalizationImpact1);
     }
 
     assertDoesNotThrow(() -> {

@@ -51,10 +51,7 @@ public class BaseRecommendationRequest {
       return false;
     }
     BaseRecommendationRequest baseRecommendationRequest = (BaseRecommendationRequest) o;
-    return (
-      Objects.equals(this.model, baseRecommendationRequest.model) &&
-      Objects.equals(this.objectID, baseRecommendationRequest.objectID)
-    );
+    return Objects.equals(this.model, baseRecommendationRequest.model) && Objects.equals(this.objectID, baseRecommendationRequest.objectID);
   }
 
   @Override

@@ -205,8 +205,7 @@ public class ConsequenceParams {
   private QueryType queryType = QueryType.PREFIX_LAST;
 
   @SerializedName("removeWordsIfNoResults")
-  private RemoveWordsIfNoResults removeWordsIfNoResults =
-    RemoveWordsIfNoResults.NONE;
+  private RemoveWordsIfNoResults removeWordsIfNoResults = RemoveWordsIfNoResults.NONE;
 
   @SerializedName("advancedSyntax")
   private Boolean advancedSyntax = false;
@@ -218,8 +217,7 @@ public class ConsequenceParams {
   private List<String> disableExactOnAttributes = null;
 
   @SerializedName("exactOnSingleWordQuery")
-  private ExactOnSingleWordQuery exactOnSingleWordQuery =
-    ExactOnSingleWordQuery.ATTRIBUTE;
+  private ExactOnSingleWordQuery exactOnSingleWordQuery = ExactOnSingleWordQuery.ATTRIBUTE;
 
   @SerializedName("alternativesAsExact")
   private List<AlternativesAsExact> alternativesAsExact = null;
@@ -266,16 +264,12 @@ public class ConsequenceParams {
     return query;
   }
 
-  public ConsequenceParams setAutomaticFacetFilters(
-    List<AutomaticFacetFilter> automaticFacetFilters
-  ) {
+  public ConsequenceParams setAutomaticFacetFilters(List<AutomaticFacetFilter> automaticFacetFilters) {
     this.automaticFacetFilters = automaticFacetFilters;
     return this;
   }
 
-  public ConsequenceParams addAutomaticFacetFilters(
-    AutomaticFacetFilter automaticFacetFiltersItem
-  ) {
+  public ConsequenceParams addAutomaticFacetFilters(AutomaticFacetFilter automaticFacetFiltersItem) {
     if (this.automaticFacetFilters == null) {
       this.automaticFacetFilters = new ArrayList<>();
     }
@@ -294,16 +288,12 @@ public class ConsequenceParams {
     return automaticFacetFilters;
   }
 
-  public ConsequenceParams setAutomaticOptionalFacetFilters(
-    List<AutomaticFacetFilter> automaticOptionalFacetFilters
-  ) {
+  public ConsequenceParams setAutomaticOptionalFacetFilters(List<AutomaticFacetFilter> automaticOptionalFacetFilters) {
     this.automaticOptionalFacetFilters = automaticOptionalFacetFilters;
     return this;
   }
 
-  public ConsequenceParams addAutomaticOptionalFacetFilters(
-    AutomaticFacetFilter automaticOptionalFacetFiltersItem
-  ) {
+  public ConsequenceParams addAutomaticOptionalFacetFilters(AutomaticFacetFilter automaticOptionalFacetFiltersItem) {
     if (this.automaticOptionalFacetFilters == null) {
       this.automaticOptionalFacetFilters = new ArrayList<>();
     }
@@ -465,9 +455,7 @@ public class ConsequenceParams {
     return maxValuesPerFacet;
   }
 
-  public ConsequenceParams setFacetingAfterDistinct(
-    Boolean facetingAfterDistinct
-  ) {
+  public ConsequenceParams setFacetingAfterDistinct(Boolean facetingAfterDistinct) {
     this.facetingAfterDistinct = facetingAfterDistinct;
     return this;
   }
@@ -618,16 +606,12 @@ public class ConsequenceParams {
     return minimumAroundRadius;
   }
 
-  public ConsequenceParams setInsideBoundingBox(
-    List<BigDecimal> insideBoundingBox
-  ) {
+  public ConsequenceParams setInsideBoundingBox(List<BigDecimal> insideBoundingBox) {
     this.insideBoundingBox = insideBoundingBox;
     return this;
   }
 
-  public ConsequenceParams addInsideBoundingBox(
-    BigDecimal insideBoundingBoxItem
-  ) {
+  public ConsequenceParams addInsideBoundingBox(BigDecimal insideBoundingBoxItem) {
     if (this.insideBoundingBox == null) {
       this.insideBoundingBox = new ArrayList<>();
     }
@@ -718,9 +702,7 @@ public class ConsequenceParams {
     return ruleContexts;
   }
 
-  public ConsequenceParams setPersonalizationImpact(
-    Integer personalizationImpact
-  ) {
+  public ConsequenceParams setPersonalizationImpact(Integer personalizationImpact) {
     this.personalizationImpact = personalizationImpact;
     return this;
   }
@@ -818,9 +800,7 @@ public class ConsequenceParams {
     return analyticsTags;
   }
 
-  public ConsequenceParams setPercentileComputation(
-    Boolean percentileComputation
-  ) {
+  public ConsequenceParams setPercentileComputation(Boolean percentileComputation) {
     this.percentileComputation = percentileComputation;
     return this;
   }
@@ -865,9 +845,7 @@ public class ConsequenceParams {
     return enableReRanking;
   }
 
-  public ConsequenceParams setReRankingApplyFilter(
-    ReRankingApplyFilter reRankingApplyFilter
-  ) {
+  public ConsequenceParams setReRankingApplyFilter(ReRankingApplyFilter reRankingApplyFilter) {
     this.reRankingApplyFilter = reRankingApplyFilter;
     return this;
   }
@@ -882,16 +860,12 @@ public class ConsequenceParams {
     return reRankingApplyFilter;
   }
 
-  public ConsequenceParams setSearchableAttributes(
-    List<String> searchableAttributes
-  ) {
+  public ConsequenceParams setSearchableAttributes(List<String> searchableAttributes) {
     this.searchableAttributes = searchableAttributes;
     return this;
   }
 
-  public ConsequenceParams addSearchableAttributes(
-    String searchableAttributesItem
-  ) {
+  public ConsequenceParams addSearchableAttributes(String searchableAttributesItem) {
     if (this.searchableAttributes == null) {
       this.searchableAttributes = new ArrayList<>();
     }
@@ -909,16 +883,12 @@ public class ConsequenceParams {
     return searchableAttributes;
   }
 
-  public ConsequenceParams setAttributesForFaceting(
-    List<String> attributesForFaceting
-  ) {
+  public ConsequenceParams setAttributesForFaceting(List<String> attributesForFaceting) {
     this.attributesForFaceting = attributesForFaceting;
     return this;
   }
 
-  public ConsequenceParams addAttributesForFaceting(
-    String attributesForFacetingItem
-  ) {
+  public ConsequenceParams addAttributesForFaceting(String attributesForFacetingItem) {
     if (this.attributesForFaceting == null) {
       this.attributesForFaceting = new ArrayList<>();
     }
@@ -936,16 +906,12 @@ public class ConsequenceParams {
     return attributesForFaceting;
   }
 
-  public ConsequenceParams setUnretrievableAttributes(
-    List<String> unretrievableAttributes
-  ) {
+  public ConsequenceParams setUnretrievableAttributes(List<String> unretrievableAttributes) {
     this.unretrievableAttributes = unretrievableAttributes;
     return this;
   }
 
-  public ConsequenceParams addUnretrievableAttributes(
-    String unretrievableAttributesItem
-  ) {
+  public ConsequenceParams addUnretrievableAttributes(String unretrievableAttributesItem) {
     if (this.unretrievableAttributes == null) {
       this.unretrievableAttributes = new ArrayList<>();
     }
@@ -963,16 +929,12 @@ public class ConsequenceParams {
     return unretrievableAttributes;
   }
 
-  public ConsequenceParams setAttributesToRetrieve(
-    List<String> attributesToRetrieve
-  ) {
+  public ConsequenceParams setAttributesToRetrieve(List<String> attributesToRetrieve) {
     this.attributesToRetrieve = attributesToRetrieve;
     return this;
   }
 
-  public ConsequenceParams addAttributesToRetrieve(
-    String attributesToRetrieveItem
-  ) {
+  public ConsequenceParams addAttributesToRetrieve(String attributesToRetrieveItem) {
     if (this.attributesToRetrieve == null) {
       this.attributesToRetrieve = new ArrayList<>();
     }
@@ -990,16 +952,12 @@ public class ConsequenceParams {
     return attributesToRetrieve;
   }
 
-  public ConsequenceParams setRestrictSearchableAttributes(
-    List<String> restrictSearchableAttributes
-  ) {
+  public ConsequenceParams setRestrictSearchableAttributes(List<String> restrictSearchableAttributes) {
     this.restrictSearchableAttributes = restrictSearchableAttributes;
     return this;
   }
 
-  public ConsequenceParams addRestrictSearchableAttributes(
-    String restrictSearchableAttributesItem
-  ) {
+  public ConsequenceParams addRestrictSearchableAttributes(String restrictSearchableAttributesItem) {
     if (this.restrictSearchableAttributes == null) {
       this.restrictSearchableAttributes = new ArrayList<>();
     }
@@ -1079,16 +1037,12 @@ public class ConsequenceParams {
     return relevancyStrictness;
   }
 
-  public ConsequenceParams setAttributesToHighlight(
-    List<String> attributesToHighlight
-  ) {
+  public ConsequenceParams setAttributesToHighlight(List<String> attributesToHighlight) {
     this.attributesToHighlight = attributesToHighlight;
     return this;
   }
 
-  public ConsequenceParams addAttributesToHighlight(
-    String attributesToHighlightItem
-  ) {
+  public ConsequenceParams addAttributesToHighlight(String attributesToHighlightItem) {
     if (this.attributesToHighlight == null) {
       this.attributesToHighlight = new ArrayList<>();
     }
@@ -1106,16 +1060,12 @@ public class ConsequenceParams {
     return attributesToHighlight;
   }
 
-  public ConsequenceParams setAttributesToSnippet(
-    List<String> attributesToSnippet
-  ) {
+  public ConsequenceParams setAttributesToSnippet(List<String> attributesToSnippet) {
     this.attributesToSnippet = attributesToSnippet;
     return this;
   }
 
-  public ConsequenceParams addAttributesToSnippet(
-    String attributesToSnippetItem
-  ) {
+  public ConsequenceParams addAttributesToSnippet(String attributesToSnippetItem) {
     if (this.attributesToSnippet == null) {
       this.attributesToSnippet = new ArrayList<>();
     }
@@ -1178,9 +1128,7 @@ public class ConsequenceParams {
     return snippetEllipsisText;
   }
 
-  public ConsequenceParams setRestrictHighlightAndSnippetArrays(
-    Boolean restrictHighlightAndSnippetArrays
-  ) {
+  public ConsequenceParams setRestrictHighlightAndSnippetArrays(Boolean restrictHighlightAndSnippetArrays) {
     this.restrictHighlightAndSnippetArrays = restrictHighlightAndSnippetArrays;
     return this;
   }
@@ -1226,9 +1174,7 @@ public class ConsequenceParams {
     return minWordSizefor1Typo;
   }
 
-  public ConsequenceParams setMinWordSizefor2Typos(
-    Integer minWordSizefor2Typos
-  ) {
+  public ConsequenceParams setMinWordSizefor2Typos(Integer minWordSizefor2Typos) {
     this.minWordSizefor2Typos = minWordSizefor2Typos;
     return this;
   }
@@ -1259,9 +1205,7 @@ public class ConsequenceParams {
     return typoTolerance;
   }
 
-  public ConsequenceParams setAllowTyposOnNumericTokens(
-    Boolean allowTyposOnNumericTokens
-  ) {
+  public ConsequenceParams setAllowTyposOnNumericTokens(Boolean allowTyposOnNumericTokens) {
     this.allowTyposOnNumericTokens = allowTyposOnNumericTokens;
     return this;
   }
@@ -1276,22 +1220,16 @@ public class ConsequenceParams {
     return allowTyposOnNumericTokens;
   }
 
-  public ConsequenceParams setDisableTypoToleranceOnAttributes(
-    List<String> disableTypoToleranceOnAttributes
-  ) {
+  public ConsequenceParams setDisableTypoToleranceOnAttributes(List<String> disableTypoToleranceOnAttributes) {
     this.disableTypoToleranceOnAttributes = disableTypoToleranceOnAttributes;
     return this;
   }
 
-  public ConsequenceParams addDisableTypoToleranceOnAttributes(
-    String disableTypoToleranceOnAttributesItem
-  ) {
+  public ConsequenceParams addDisableTypoToleranceOnAttributes(String disableTypoToleranceOnAttributesItem) {
     if (this.disableTypoToleranceOnAttributes == null) {
       this.disableTypoToleranceOnAttributes = new ArrayList<>();
     }
-    this.disableTypoToleranceOnAttributes.add(
-        disableTypoToleranceOnAttributesItem
-      );
+    this.disableTypoToleranceOnAttributes.add(disableTypoToleranceOnAttributesItem);
     return this;
   }
 
@@ -1350,9 +1288,7 @@ public class ConsequenceParams {
     return removeStopWords;
   }
 
-  public ConsequenceParams setKeepDiacriticsOnCharacters(
-    String keepDiacriticsOnCharacters
-  ) {
+  public ConsequenceParams setKeepDiacriticsOnCharacters(String keepDiacriticsOnCharacters) {
     this.keepDiacriticsOnCharacters = keepDiacriticsOnCharacters;
     return this;
   }
@@ -1421,9 +1357,7 @@ public class ConsequenceParams {
     return enableRules;
   }
 
-  public ConsequenceParams setEnablePersonalization(
-    Boolean enablePersonalization
-  ) {
+  public ConsequenceParams setEnablePersonalization(Boolean enablePersonalization) {
     this.enablePersonalization = enablePersonalization;
     return this;
   }
@@ -1453,9 +1387,7 @@ public class ConsequenceParams {
     return queryType;
   }
 
-  public ConsequenceParams setRemoveWordsIfNoResults(
-    RemoveWordsIfNoResults removeWordsIfNoResults
-  ) {
+  public ConsequenceParams setRemoveWordsIfNoResults(RemoveWordsIfNoResults removeWordsIfNoResults) {
     this.removeWordsIfNoResults = removeWordsIfNoResults;
     return this;
   }
@@ -1508,16 +1440,12 @@ public class ConsequenceParams {
     return optionalWords;
   }
 
-  public ConsequenceParams setDisableExactOnAttributes(
-    List<String> disableExactOnAttributes
-  ) {
+  public ConsequenceParams setDisableExactOnAttributes(List<String> disableExactOnAttributes) {
     this.disableExactOnAttributes = disableExactOnAttributes;
     return this;
   }
 
-  public ConsequenceParams addDisableExactOnAttributes(
-    String disableExactOnAttributesItem
-  ) {
+  public ConsequenceParams addDisableExactOnAttributes(String disableExactOnAttributesItem) {
     if (this.disableExactOnAttributes == null) {
       this.disableExactOnAttributes = new ArrayList<>();
     }
@@ -1535,9 +1463,7 @@ public class ConsequenceParams {
     return disableExactOnAttributes;
   }
 
-  public ConsequenceParams setExactOnSingleWordQuery(
-    ExactOnSingleWordQuery exactOnSingleWordQuery
-  ) {
+  public ConsequenceParams setExactOnSingleWordQuery(ExactOnSingleWordQuery exactOnSingleWordQuery) {
     this.exactOnSingleWordQuery = exactOnSingleWordQuery;
     return this;
   }
@@ -1552,16 +1478,12 @@ public class ConsequenceParams {
     return exactOnSingleWordQuery;
   }
 
-  public ConsequenceParams setAlternativesAsExact(
-    List<AlternativesAsExact> alternativesAsExact
-  ) {
+  public ConsequenceParams setAlternativesAsExact(List<AlternativesAsExact> alternativesAsExact) {
     this.alternativesAsExact = alternativesAsExact;
     return this;
   }
 
-  public ConsequenceParams addAlternativesAsExact(
-    AlternativesAsExact alternativesAsExactItem
-  ) {
+  public ConsequenceParams addAlternativesAsExact(AlternativesAsExact alternativesAsExactItem) {
     if (this.alternativesAsExact == null) {
       this.alternativesAsExact = new ArrayList<>();
     }
@@ -1579,16 +1501,12 @@ public class ConsequenceParams {
     return alternativesAsExact;
   }
 
-  public ConsequenceParams setAdvancedSyntaxFeatures(
-    List<AdvancedSyntaxFeatures> advancedSyntaxFeatures
-  ) {
+  public ConsequenceParams setAdvancedSyntaxFeatures(List<AdvancedSyntaxFeatures> advancedSyntaxFeatures) {
     this.advancedSyntaxFeatures = advancedSyntaxFeatures;
     return this;
   }
 
-  public ConsequenceParams addAdvancedSyntaxFeatures(
-    AdvancedSyntaxFeatures advancedSyntaxFeaturesItem
-  ) {
+  public ConsequenceParams addAdvancedSyntaxFeatures(AdvancedSyntaxFeatures advancedSyntaxFeaturesItem) {
     if (this.advancedSyntaxFeatures == null) {
       this.advancedSyntaxFeatures = new ArrayList<>();
     }
@@ -1637,9 +1555,7 @@ public class ConsequenceParams {
     return synonyms;
   }
 
-  public ConsequenceParams setReplaceSynonymsInHighlight(
-    Boolean replaceSynonymsInHighlight
-  ) {
+  public ConsequenceParams setReplaceSynonymsInHighlight(Boolean replaceSynonymsInHighlight) {
     this.replaceSynonymsInHighlight = replaceSynonymsInHighlight;
     return this;
   }
@@ -1710,11 +1626,8 @@ public class ConsequenceParams {
     return maxFacetHits;
   }
 
-  public ConsequenceParams setAttributeCriteriaComputedByMinProximity(
-    Boolean attributeCriteriaComputedByMinProximity
-  ) {
-    this.attributeCriteriaComputedByMinProximity =
-      attributeCriteriaComputedByMinProximity;
+  public ConsequenceParams setAttributeCriteriaComputedByMinProximity(Boolean attributeCriteriaComputedByMinProximity) {
+    this.attributeCriteriaComputedByMinProximity = attributeCriteriaComputedByMinProximity;
     return this;
   }
 
@@ -1756,198 +1669,84 @@ public class ConsequenceParams {
     ConsequenceParams consequenceParams = (ConsequenceParams) o;
     return (
       Objects.equals(this.query, consequenceParams.query) &&
-      Objects.equals(
-        this.automaticFacetFilters,
-        consequenceParams.automaticFacetFilters
-      ) &&
-      Objects.equals(
-        this.automaticOptionalFacetFilters,
-        consequenceParams.automaticOptionalFacetFilters
-      ) &&
+      Objects.equals(this.automaticFacetFilters, consequenceParams.automaticFacetFilters) &&
+      Objects.equals(this.automaticOptionalFacetFilters, consequenceParams.automaticOptionalFacetFilters) &&
       Objects.equals(this.similarQuery, consequenceParams.similarQuery) &&
       Objects.equals(this.filters, consequenceParams.filters) &&
       Objects.equals(this.facetFilters, consequenceParams.facetFilters) &&
       Objects.equals(this.optionalFilters, consequenceParams.optionalFilters) &&
       Objects.equals(this.numericFilters, consequenceParams.numericFilters) &&
       Objects.equals(this.tagFilters, consequenceParams.tagFilters) &&
-      Objects.equals(
-        this.sumOrFiltersScores,
-        consequenceParams.sumOrFiltersScores
-      ) &&
+      Objects.equals(this.sumOrFiltersScores, consequenceParams.sumOrFiltersScores) &&
       Objects.equals(this.facets, consequenceParams.facets) &&
-      Objects.equals(
-        this.maxValuesPerFacet,
-        consequenceParams.maxValuesPerFacet
-      ) &&
-      Objects.equals(
-        this.facetingAfterDistinct,
-        consequenceParams.facetingAfterDistinct
-      ) &&
-      Objects.equals(
-        this.sortFacetValuesBy,
-        consequenceParams.sortFacetValuesBy
-      ) &&
+      Objects.equals(this.maxValuesPerFacet, consequenceParams.maxValuesPerFacet) &&
+      Objects.equals(this.facetingAfterDistinct, consequenceParams.facetingAfterDistinct) &&
+      Objects.equals(this.sortFacetValuesBy, consequenceParams.sortFacetValuesBy) &&
       Objects.equals(this.page, consequenceParams.page) &&
       Objects.equals(this.offset, consequenceParams.offset) &&
       Objects.equals(this.length, consequenceParams.length) &&
       Objects.equals(this.aroundLatLng, consequenceParams.aroundLatLng) &&
-      Objects.equals(
-        this.aroundLatLngViaIP,
-        consequenceParams.aroundLatLngViaIP
-      ) &&
+      Objects.equals(this.aroundLatLngViaIP, consequenceParams.aroundLatLngViaIP) &&
       Objects.equals(this.aroundRadius, consequenceParams.aroundRadius) &&
       Objects.equals(this.aroundPrecision, consequenceParams.aroundPrecision) &&
-      Objects.equals(
-        this.minimumAroundRadius,
-        consequenceParams.minimumAroundRadius
-      ) &&
-      Objects.equals(
-        this.insideBoundingBox,
-        consequenceParams.insideBoundingBox
-      ) &&
+      Objects.equals(this.minimumAroundRadius, consequenceParams.minimumAroundRadius) &&
+      Objects.equals(this.insideBoundingBox, consequenceParams.insideBoundingBox) &&
       Objects.equals(this.insidePolygon, consequenceParams.insidePolygon) &&
-      Objects.equals(
-        this.naturalLanguages,
-        consequenceParams.naturalLanguages
-      ) &&
+      Objects.equals(this.naturalLanguages, consequenceParams.naturalLanguages) &&
       Objects.equals(this.ruleContexts, consequenceParams.ruleContexts) &&
-      Objects.equals(
-        this.personalizationImpact,
-        consequenceParams.personalizationImpact
-      ) &&
+      Objects.equals(this.personalizationImpact, consequenceParams.personalizationImpact) &&
       Objects.equals(this.userToken, consequenceParams.userToken) &&
       Objects.equals(this.getRankingInfo, consequenceParams.getRankingInfo) &&
       Objects.equals(this.clickAnalytics, consequenceParams.clickAnalytics) &&
       Objects.equals(this.analytics, consequenceParams.analytics) &&
       Objects.equals(this.analyticsTags, consequenceParams.analyticsTags) &&
-      Objects.equals(
-        this.percentileComputation,
-        consequenceParams.percentileComputation
-      ) &&
+      Objects.equals(this.percentileComputation, consequenceParams.percentileComputation) &&
       Objects.equals(this.enableABTest, consequenceParams.enableABTest) &&
       Objects.equals(this.enableReRanking, consequenceParams.enableReRanking) &&
-      Objects.equals(
-        this.reRankingApplyFilter,
-        consequenceParams.reRankingApplyFilter
-      ) &&
-      Objects.equals(
-        this.searchableAttributes,
-        consequenceParams.searchableAttributes
-      ) &&
-      Objects.equals(
-        this.attributesForFaceting,
-        consequenceParams.attributesForFaceting
-      ) &&
-      Objects.equals(
-        this.unretrievableAttributes,
-        consequenceParams.unretrievableAttributes
-      ) &&
-      Objects.equals(
-        this.attributesToRetrieve,
-        consequenceParams.attributesToRetrieve
-      ) &&
-      Objects.equals(
-        this.restrictSearchableAttributes,
-        consequenceParams.restrictSearchableAttributes
-      ) &&
+      Objects.equals(this.reRankingApplyFilter, consequenceParams.reRankingApplyFilter) &&
+      Objects.equals(this.searchableAttributes, consequenceParams.searchableAttributes) &&
+      Objects.equals(this.attributesForFaceting, consequenceParams.attributesForFaceting) &&
+      Objects.equals(this.unretrievableAttributes, consequenceParams.unretrievableAttributes) &&
+      Objects.equals(this.attributesToRetrieve, consequenceParams.attributesToRetrieve) &&
+      Objects.equals(this.restrictSearchableAttributes, consequenceParams.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, consequenceParams.ranking) &&
       Objects.equals(this.customRanking, consequenceParams.customRanking) &&
-      Objects.equals(
-        this.relevancyStrictness,
-        consequenceParams.relevancyStrictness
-      ) &&
-      Objects.equals(
-        this.attributesToHighlight,
-        consequenceParams.attributesToHighlight
-      ) &&
-      Objects.equals(
-        this.attributesToSnippet,
-        consequenceParams.attributesToSnippet
-      ) &&
+      Objects.equals(this.relevancyStrictness, consequenceParams.relevancyStrictness) &&
+      Objects.equals(this.attributesToHighlight, consequenceParams.attributesToHighlight) &&
+      Objects.equals(this.attributesToSnippet, consequenceParams.attributesToSnippet) &&
       Objects.equals(this.highlightPreTag, consequenceParams.highlightPreTag) &&
-      Objects.equals(
-        this.highlightPostTag,
-        consequenceParams.highlightPostTag
-      ) &&
-      Objects.equals(
-        this.snippetEllipsisText,
-        consequenceParams.snippetEllipsisText
-      ) &&
-      Objects.equals(
-        this.restrictHighlightAndSnippetArrays,
-        consequenceParams.restrictHighlightAndSnippetArrays
-      ) &&
+      Objects.equals(this.highlightPostTag, consequenceParams.highlightPostTag) &&
+      Objects.equals(this.snippetEllipsisText, consequenceParams.snippetEllipsisText) &&
+      Objects.equals(this.restrictHighlightAndSnippetArrays, consequenceParams.restrictHighlightAndSnippetArrays) &&
       Objects.equals(this.hitsPerPage, consequenceParams.hitsPerPage) &&
-      Objects.equals(
-        this.minWordSizefor1Typo,
-        consequenceParams.minWordSizefor1Typo
-      ) &&
-      Objects.equals(
-        this.minWordSizefor2Typos,
-        consequenceParams.minWordSizefor2Typos
-      ) &&
+      Objects.equals(this.minWordSizefor1Typo, consequenceParams.minWordSizefor1Typo) &&
+      Objects.equals(this.minWordSizefor2Typos, consequenceParams.minWordSizefor2Typos) &&
       Objects.equals(this.typoTolerance, consequenceParams.typoTolerance) &&
-      Objects.equals(
-        this.allowTyposOnNumericTokens,
-        consequenceParams.allowTyposOnNumericTokens
-      ) &&
-      Objects.equals(
-        this.disableTypoToleranceOnAttributes,
-        consequenceParams.disableTypoToleranceOnAttributes
-      ) &&
-      Objects.equals(
-        this.separatorsToIndex,
-        consequenceParams.separatorsToIndex
-      ) &&
+      Objects.equals(this.allowTyposOnNumericTokens, consequenceParams.allowTyposOnNumericTokens) &&
+      Objects.equals(this.disableTypoToleranceOnAttributes, consequenceParams.disableTypoToleranceOnAttributes) &&
+      Objects.equals(this.separatorsToIndex, consequenceParams.separatorsToIndex) &&
       Objects.equals(this.ignorePlurals, consequenceParams.ignorePlurals) &&
       Objects.equals(this.removeStopWords, consequenceParams.removeStopWords) &&
-      Objects.equals(
-        this.keepDiacriticsOnCharacters,
-        consequenceParams.keepDiacriticsOnCharacters
-      ) &&
+      Objects.equals(this.keepDiacriticsOnCharacters, consequenceParams.keepDiacriticsOnCharacters) &&
       Objects.equals(this.queryLanguages, consequenceParams.queryLanguages) &&
       Objects.equals(this.decompoundQuery, consequenceParams.decompoundQuery) &&
       Objects.equals(this.enableRules, consequenceParams.enableRules) &&
-      Objects.equals(
-        this.enablePersonalization,
-        consequenceParams.enablePersonalization
-      ) &&
+      Objects.equals(this.enablePersonalization, consequenceParams.enablePersonalization) &&
       Objects.equals(this.queryType, consequenceParams.queryType) &&
-      Objects.equals(
-        this.removeWordsIfNoResults,
-        consequenceParams.removeWordsIfNoResults
-      ) &&
+      Objects.equals(this.removeWordsIfNoResults, consequenceParams.removeWordsIfNoResults) &&
       Objects.equals(this.advancedSyntax, consequenceParams.advancedSyntax) &&
       Objects.equals(this.optionalWords, consequenceParams.optionalWords) &&
-      Objects.equals(
-        this.disableExactOnAttributes,
-        consequenceParams.disableExactOnAttributes
-      ) &&
-      Objects.equals(
-        this.exactOnSingleWordQuery,
-        consequenceParams.exactOnSingleWordQuery
-      ) &&
-      Objects.equals(
-        this.alternativesAsExact,
-        consequenceParams.alternativesAsExact
-      ) &&
-      Objects.equals(
-        this.advancedSyntaxFeatures,
-        consequenceParams.advancedSyntaxFeatures
-      ) &&
+      Objects.equals(this.disableExactOnAttributes, consequenceParams.disableExactOnAttributes) &&
+      Objects.equals(this.exactOnSingleWordQuery, consequenceParams.exactOnSingleWordQuery) &&
+      Objects.equals(this.alternativesAsExact, consequenceParams.alternativesAsExact) &&
+      Objects.equals(this.advancedSyntaxFeatures, consequenceParams.advancedSyntaxFeatures) &&
       Objects.equals(this.distinct, consequenceParams.distinct) &&
       Objects.equals(this.synonyms, consequenceParams.synonyms) &&
-      Objects.equals(
-        this.replaceSynonymsInHighlight,
-        consequenceParams.replaceSynonymsInHighlight
-      ) &&
+      Objects.equals(this.replaceSynonymsInHighlight, consequenceParams.replaceSynonymsInHighlight) &&
       Objects.equals(this.minProximity, consequenceParams.minProximity) &&
       Objects.equals(this.responseFields, consequenceParams.responseFields) &&
       Objects.equals(this.maxFacetHits, consequenceParams.maxFacetHits) &&
-      Objects.equals(
-        this.attributeCriteriaComputedByMinProximity,
-        consequenceParams.attributeCriteriaComputedByMinProximity
-      ) &&
+      Objects.equals(this.attributeCriteriaComputedByMinProximity, consequenceParams.attributeCriteriaComputedByMinProximity) &&
       Objects.equals(this.renderingContent, consequenceParams.renderingContent)
     );
   }
@@ -2043,298 +1842,88 @@ public class ConsequenceParams {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConsequenceParams {\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    automaticFacetFilters: ")
-      .append(toIndentedString(automaticFacetFilters))
-      .append("\n");
-    sb
-      .append("    automaticOptionalFacetFilters: ")
-      .append(toIndentedString(automaticOptionalFacetFilters))
-      .append("\n");
-    sb
-      .append("    similarQuery: ")
-      .append(toIndentedString(similarQuery))
-      .append("\n");
+    sb.append("    automaticFacetFilters: ").append(toIndentedString(automaticFacetFilters)).append("\n");
+    sb.append("    automaticOptionalFacetFilters: ").append(toIndentedString(automaticOptionalFacetFilters)).append("\n");
+    sb.append("    similarQuery: ").append(toIndentedString(similarQuery)).append("\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
-    sb
-      .append("    facetFilters: ")
-      .append(toIndentedString(facetFilters))
-      .append("\n");
-    sb
-      .append("    optionalFilters: ")
-      .append(toIndentedString(optionalFilters))
-      .append("\n");
-    sb
-      .append("    numericFilters: ")
-      .append(toIndentedString(numericFilters))
-      .append("\n");
-    sb
-      .append("    tagFilters: ")
-      .append(toIndentedString(tagFilters))
-      .append("\n");
-    sb
-      .append("    sumOrFiltersScores: ")
-      .append(toIndentedString(sumOrFiltersScores))
-      .append("\n");
+    sb.append("    facetFilters: ").append(toIndentedString(facetFilters)).append("\n");
+    sb.append("    optionalFilters: ").append(toIndentedString(optionalFilters)).append("\n");
+    sb.append("    numericFilters: ").append(toIndentedString(numericFilters)).append("\n");
+    sb.append("    tagFilters: ").append(toIndentedString(tagFilters)).append("\n");
+    sb.append("    sumOrFiltersScores: ").append(toIndentedString(sumOrFiltersScores)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
-    sb
-      .append("    maxValuesPerFacet: ")
-      .append(toIndentedString(maxValuesPerFacet))
-      .append("\n");
-    sb
-      .append("    facetingAfterDistinct: ")
-      .append(toIndentedString(facetingAfterDistinct))
-      .append("\n");
-    sb
-      .append("    sortFacetValuesBy: ")
-      .append(toIndentedString(sortFacetValuesBy))
-      .append("\n");
+    sb.append("    maxValuesPerFacet: ").append(toIndentedString(maxValuesPerFacet)).append("\n");
+    sb.append("    facetingAfterDistinct: ").append(toIndentedString(facetingAfterDistinct)).append("\n");
+    sb.append("    sortFacetValuesBy: ").append(toIndentedString(sortFacetValuesBy)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    length: ").append(toIndentedString(length)).append("\n");
-    sb
-      .append("    aroundLatLng: ")
-      .append(toIndentedString(aroundLatLng))
-      .append("\n");
-    sb
-      .append("    aroundLatLngViaIP: ")
-      .append(toIndentedString(aroundLatLngViaIP))
-      .append("\n");
-    sb
-      .append("    aroundRadius: ")
-      .append(toIndentedString(aroundRadius))
-      .append("\n");
-    sb
-      .append("    aroundPrecision: ")
-      .append(toIndentedString(aroundPrecision))
-      .append("\n");
-    sb
-      .append("    minimumAroundRadius: ")
-      .append(toIndentedString(minimumAroundRadius))
-      .append("\n");
-    sb
-      .append("    insideBoundingBox: ")
-      .append(toIndentedString(insideBoundingBox))
-      .append("\n");
-    sb
-      .append("    insidePolygon: ")
-      .append(toIndentedString(insidePolygon))
-      .append("\n");
-    sb
-      .append("    naturalLanguages: ")
-      .append(toIndentedString(naturalLanguages))
-      .append("\n");
-    sb
-      .append("    ruleContexts: ")
-      .append(toIndentedString(ruleContexts))
-      .append("\n");
-    sb
-      .append("    personalizationImpact: ")
-      .append(toIndentedString(personalizationImpact))
-      .append("\n");
-    sb
-      .append("    userToken: ")
-      .append(toIndentedString(userToken))
-      .append("\n");
-    sb
-      .append("    getRankingInfo: ")
-      .append(toIndentedString(getRankingInfo))
-      .append("\n");
-    sb
-      .append("    clickAnalytics: ")
-      .append(toIndentedString(clickAnalytics))
-      .append("\n");
-    sb
-      .append("    analytics: ")
-      .append(toIndentedString(analytics))
-      .append("\n");
-    sb
-      .append("    analyticsTags: ")
-      .append(toIndentedString(analyticsTags))
-      .append("\n");
-    sb
-      .append("    percentileComputation: ")
-      .append(toIndentedString(percentileComputation))
-      .append("\n");
-    sb
-      .append("    enableABTest: ")
-      .append(toIndentedString(enableABTest))
-      .append("\n");
-    sb
-      .append("    enableReRanking: ")
-      .append(toIndentedString(enableReRanking))
-      .append("\n");
-    sb
-      .append("    reRankingApplyFilter: ")
-      .append(toIndentedString(reRankingApplyFilter))
-      .append("\n");
-    sb
-      .append("    searchableAttributes: ")
-      .append(toIndentedString(searchableAttributes))
-      .append("\n");
-    sb
-      .append("    attributesForFaceting: ")
-      .append(toIndentedString(attributesForFaceting))
-      .append("\n");
-    sb
-      .append("    unretrievableAttributes: ")
-      .append(toIndentedString(unretrievableAttributes))
-      .append("\n");
-    sb
-      .append("    attributesToRetrieve: ")
-      .append(toIndentedString(attributesToRetrieve))
-      .append("\n");
-    sb
-      .append("    restrictSearchableAttributes: ")
-      .append(toIndentedString(restrictSearchableAttributes))
-      .append("\n");
+    sb.append("    aroundLatLng: ").append(toIndentedString(aroundLatLng)).append("\n");
+    sb.append("    aroundLatLngViaIP: ").append(toIndentedString(aroundLatLngViaIP)).append("\n");
+    sb.append("    aroundRadius: ").append(toIndentedString(aroundRadius)).append("\n");
+    sb.append("    aroundPrecision: ").append(toIndentedString(aroundPrecision)).append("\n");
+    sb.append("    minimumAroundRadius: ").append(toIndentedString(minimumAroundRadius)).append("\n");
+    sb.append("    insideBoundingBox: ").append(toIndentedString(insideBoundingBox)).append("\n");
+    sb.append("    insidePolygon: ").append(toIndentedString(insidePolygon)).append("\n");
+    sb.append("    naturalLanguages: ").append(toIndentedString(naturalLanguages)).append("\n");
+    sb.append("    ruleContexts: ").append(toIndentedString(ruleContexts)).append("\n");
+    sb.append("    personalizationImpact: ").append(toIndentedString(personalizationImpact)).append("\n");
+    sb.append("    userToken: ").append(toIndentedString(userToken)).append("\n");
+    sb.append("    getRankingInfo: ").append(toIndentedString(getRankingInfo)).append("\n");
+    sb.append("    clickAnalytics: ").append(toIndentedString(clickAnalytics)).append("\n");
+    sb.append("    analytics: ").append(toIndentedString(analytics)).append("\n");
+    sb.append("    analyticsTags: ").append(toIndentedString(analyticsTags)).append("\n");
+    sb.append("    percentileComputation: ").append(toIndentedString(percentileComputation)).append("\n");
+    sb.append("    enableABTest: ").append(toIndentedString(enableABTest)).append("\n");
+    sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
+    sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
+    sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
+    sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
+    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
+    sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
+    sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");
-    sb
-      .append("    customRanking: ")
-      .append(toIndentedString(customRanking))
-      .append("\n");
-    sb
-      .append("    relevancyStrictness: ")
-      .append(toIndentedString(relevancyStrictness))
-      .append("\n");
-    sb
-      .append("    attributesToHighlight: ")
-      .append(toIndentedString(attributesToHighlight))
-      .append("\n");
-    sb
-      .append("    attributesToSnippet: ")
-      .append(toIndentedString(attributesToSnippet))
-      .append("\n");
-    sb
-      .append("    highlightPreTag: ")
-      .append(toIndentedString(highlightPreTag))
-      .append("\n");
-    sb
-      .append("    highlightPostTag: ")
-      .append(toIndentedString(highlightPostTag))
-      .append("\n");
-    sb
-      .append("    snippetEllipsisText: ")
-      .append(toIndentedString(snippetEllipsisText))
-      .append("\n");
-    sb
-      .append("    restrictHighlightAndSnippetArrays: ")
-      .append(toIndentedString(restrictHighlightAndSnippetArrays))
-      .append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
-    sb
-      .append("    minWordSizefor1Typo: ")
-      .append(toIndentedString(minWordSizefor1Typo))
-      .append("\n");
-    sb
-      .append("    minWordSizefor2Typos: ")
-      .append(toIndentedString(minWordSizefor2Typos))
-      .append("\n");
-    sb
-      .append("    typoTolerance: ")
-      .append(toIndentedString(typoTolerance))
-      .append("\n");
-    sb
-      .append("    allowTyposOnNumericTokens: ")
-      .append(toIndentedString(allowTyposOnNumericTokens))
-      .append("\n");
-    sb
-      .append("    disableTypoToleranceOnAttributes: ")
-      .append(toIndentedString(disableTypoToleranceOnAttributes))
-      .append("\n");
-    sb
-      .append("    separatorsToIndex: ")
-      .append(toIndentedString(separatorsToIndex))
-      .append("\n");
-    sb
-      .append("    ignorePlurals: ")
-      .append(toIndentedString(ignorePlurals))
-      .append("\n");
-    sb
-      .append("    removeStopWords: ")
-      .append(toIndentedString(removeStopWords))
-      .append("\n");
-    sb
-      .append("    keepDiacriticsOnCharacters: ")
-      .append(toIndentedString(keepDiacriticsOnCharacters))
-      .append("\n");
-    sb
-      .append("    queryLanguages: ")
-      .append(toIndentedString(queryLanguages))
-      .append("\n");
-    sb
-      .append("    decompoundQuery: ")
-      .append(toIndentedString(decompoundQuery))
-      .append("\n");
-    sb
-      .append("    enableRules: ")
-      .append(toIndentedString(enableRules))
-      .append("\n");
-    sb
-      .append("    enablePersonalization: ")
-      .append(toIndentedString(enablePersonalization))
-      .append("\n");
-    sb
-      .append("    queryType: ")
-      .append(toIndentedString(queryType))
-      .append("\n");
-    sb
-      .append("    removeWordsIfNoResults: ")
-      .append(toIndentedString(removeWordsIfNoResults))
-      .append("\n");
-    sb
-      .append("    advancedSyntax: ")
-      .append(toIndentedString(advancedSyntax))
-      .append("\n");
-    sb
-      .append("    optionalWords: ")
-      .append(toIndentedString(optionalWords))
-      .append("\n");
-    sb
-      .append("    disableExactOnAttributes: ")
-      .append(toIndentedString(disableExactOnAttributes))
-      .append("\n");
-    sb
-      .append("    exactOnSingleWordQuery: ")
-      .append(toIndentedString(exactOnSingleWordQuery))
-      .append("\n");
-    sb
-      .append("    alternativesAsExact: ")
-      .append(toIndentedString(alternativesAsExact))
-      .append("\n");
-    sb
-      .append("    advancedSyntaxFeatures: ")
-      .append(toIndentedString(advancedSyntaxFeatures))
-      .append("\n");
+    sb.append("    customRanking: ").append(toIndentedString(customRanking)).append("\n");
+    sb.append("    relevancyStrictness: ").append(toIndentedString(relevancyStrictness)).append("\n");
+    sb.append("    attributesToHighlight: ").append(toIndentedString(attributesToHighlight)).append("\n");
+    sb.append("    attributesToSnippet: ").append(toIndentedString(attributesToSnippet)).append("\n");
+    sb.append("    highlightPreTag: ").append(toIndentedString(highlightPreTag)).append("\n");
+    sb.append("    highlightPostTag: ").append(toIndentedString(highlightPostTag)).append("\n");
+    sb.append("    snippetEllipsisText: ").append(toIndentedString(snippetEllipsisText)).append("\n");
+    sb.append("    restrictHighlightAndSnippetArrays: ").append(toIndentedString(restrictHighlightAndSnippetArrays)).append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
+    sb.append("    minWordSizefor1Typo: ").append(toIndentedString(minWordSizefor1Typo)).append("\n");
+    sb.append("    minWordSizefor2Typos: ").append(toIndentedString(minWordSizefor2Typos)).append("\n");
+    sb.append("    typoTolerance: ").append(toIndentedString(typoTolerance)).append("\n");
+    sb.append("    allowTyposOnNumericTokens: ").append(toIndentedString(allowTyposOnNumericTokens)).append("\n");
+    sb.append("    disableTypoToleranceOnAttributes: ").append(toIndentedString(disableTypoToleranceOnAttributes)).append("\n");
+    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
+    sb.append("    ignorePlurals: ").append(toIndentedString(ignorePlurals)).append("\n");
+    sb.append("    removeStopWords: ").append(toIndentedString(removeStopWords)).append("\n");
+    sb.append("    keepDiacriticsOnCharacters: ").append(toIndentedString(keepDiacriticsOnCharacters)).append("\n");
+    sb.append("    queryLanguages: ").append(toIndentedString(queryLanguages)).append("\n");
+    sb.append("    decompoundQuery: ").append(toIndentedString(decompoundQuery)).append("\n");
+    sb.append("    enableRules: ").append(toIndentedString(enableRules)).append("\n");
+    sb.append("    enablePersonalization: ").append(toIndentedString(enablePersonalization)).append("\n");
+    sb.append("    queryType: ").append(toIndentedString(queryType)).append("\n");
+    sb.append("    removeWordsIfNoResults: ").append(toIndentedString(removeWordsIfNoResults)).append("\n");
+    sb.append("    advancedSyntax: ").append(toIndentedString(advancedSyntax)).append("\n");
+    sb.append("    optionalWords: ").append(toIndentedString(optionalWords)).append("\n");
+    sb.append("    disableExactOnAttributes: ").append(toIndentedString(disableExactOnAttributes)).append("\n");
+    sb.append("    exactOnSingleWordQuery: ").append(toIndentedString(exactOnSingleWordQuery)).append("\n");
+    sb.append("    alternativesAsExact: ").append(toIndentedString(alternativesAsExact)).append("\n");
+    sb.append("    advancedSyntaxFeatures: ").append(toIndentedString(advancedSyntaxFeatures)).append("\n");
     sb.append("    distinct: ").append(toIndentedString(distinct)).append("\n");
     sb.append("    synonyms: ").append(toIndentedString(synonyms)).append("\n");
-    sb
-      .append("    replaceSynonymsInHighlight: ")
-      .append(toIndentedString(replaceSynonymsInHighlight))
-      .append("\n");
-    sb
-      .append("    minProximity: ")
-      .append(toIndentedString(minProximity))
-      .append("\n");
-    sb
-      .append("    responseFields: ")
-      .append(toIndentedString(responseFields))
-      .append("\n");
-    sb
-      .append("    maxFacetHits: ")
-      .append(toIndentedString(maxFacetHits))
-      .append("\n");
+    sb.append("    replaceSynonymsInHighlight: ").append(toIndentedString(replaceSynonymsInHighlight)).append("\n");
+    sb.append("    minProximity: ").append(toIndentedString(minProximity)).append("\n");
+    sb.append("    responseFields: ").append(toIndentedString(responseFields)).append("\n");
+    sb.append("    maxFacetHits: ").append(toIndentedString(maxFacetHits)).append("\n");
     sb
       .append("    attributeCriteriaComputedByMinProximity: ")
       .append(toIndentedString(attributeCriteriaComputedByMinProximity))
       .append("\n");
-    sb
-      .append("    renderingContent: ")
-      .append(toIndentedString(renderingContent))
-      .append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -11,16 +11,12 @@ public class GetSearchesNoClicksResponse {
   @SerializedName("searches")
   private List<GetSearchesNoClicksResponseSearches> searches = new ArrayList<>();
 
-  public GetSearchesNoClicksResponse setSearches(
-    List<GetSearchesNoClicksResponseSearches> searches
-  ) {
+  public GetSearchesNoClicksResponse setSearches(List<GetSearchesNoClicksResponseSearches> searches) {
     this.searches = searches;
     return this;
   }
 
-  public GetSearchesNoClicksResponse addSearches(
-    GetSearchesNoClicksResponseSearches searchesItem
-  ) {
+  public GetSearchesNoClicksResponse addSearches(GetSearchesNoClicksResponseSearches searchesItem) {
     this.searches.add(searchesItem);
     return this;
   }

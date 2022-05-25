@@ -52,8 +52,7 @@ public class BatchDictionaryEntriesRequest {
     }
     BatchDictionaryEntriesRequest batchDictionaryEntriesRequest = (BatchDictionaryEntriesRequest) o;
     return (
-      Objects.equals(this.action, batchDictionaryEntriesRequest.action) &&
-      Objects.equals(this.body, batchDictionaryEntriesRequest.body)
+      Objects.equals(this.action, batchDictionaryEntriesRequest.action) && Objects.equals(this.body, batchDictionaryEntriesRequest.body)
     );
   }
 

@@ -71,10 +71,7 @@ public class AbTestsVariant {
     AbTestsVariant abTestsVariant = (AbTestsVariant) o;
     return (
       Objects.equals(this.index, abTestsVariant.index) &&
-      Objects.equals(
-        this.trafficPercentage,
-        abTestsVariant.trafficPercentage
-      ) &&
+      Objects.equals(this.trafficPercentage, abTestsVariant.trafficPercentage) &&
       Objects.equals(this.description, abTestsVariant.description)
     );
   }
@@ -89,14 +86,8 @@ public class AbTestsVariant {
     StringBuilder sb = new StringBuilder();
     sb.append("class AbTestsVariant {\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb
-      .append("    trafficPercentage: ")
-      .append(toIndentedString(trafficPercentage))
-      .append("\n");
-    sb
-      .append("    description: ")
-      .append(toIndentedString(description))
-      .append("\n");
+    sb.append("    trafficPercentage: ").append(toIndentedString(trafficPercentage)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

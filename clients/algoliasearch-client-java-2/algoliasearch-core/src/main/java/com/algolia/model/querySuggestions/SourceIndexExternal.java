@@ -51,10 +51,7 @@ public class SourceIndexExternal {
       return false;
     }
     SourceIndexExternal sourceIndexExternal = (SourceIndexExternal) o;
-    return (
-      Objects.equals(this.query, sourceIndexExternal.query) &&
-      Objects.equals(this.count, sourceIndexExternal.count)
-    );
+    return Objects.equals(this.query, sourceIndexExternal.query) && Objects.equals(this.count, sourceIndexExternal.count);
   }
 
   @Override

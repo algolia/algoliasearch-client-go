@@ -11,16 +11,12 @@ public class TypesToRetrieve {
   @SerializedName("typesToRetrieve")
   private List<TypesToRetrieveEnum> typesToRetrieve = new ArrayList<>();
 
-  public TypesToRetrieve setTypesToRetrieve(
-    List<TypesToRetrieveEnum> typesToRetrieve
-  ) {
+  public TypesToRetrieve setTypesToRetrieve(List<TypesToRetrieveEnum> typesToRetrieve) {
     this.typesToRetrieve = typesToRetrieve;
     return this;
   }
 
-  public TypesToRetrieve addTypesToRetrieve(
-    TypesToRetrieveEnum typesToRetrieveItem
-  ) {
+  public TypesToRetrieve addTypesToRetrieve(TypesToRetrieveEnum typesToRetrieveItem) {
     this.typesToRetrieve.add(typesToRetrieveItem);
     return this;
   }
@@ -44,10 +40,7 @@ public class TypesToRetrieve {
       return false;
     }
     TypesToRetrieve typesToRetrieve = (TypesToRetrieve) o;
-    return Objects.equals(
-      this.typesToRetrieve,
-      typesToRetrieve.typesToRetrieve
-    );
+    return Objects.equals(this.typesToRetrieve, typesToRetrieve.typesToRetrieve);
   }
 
   @Override
@@ -59,10 +52,7 @@ public class TypesToRetrieve {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TypesToRetrieve {\n");
-    sb
-      .append("    typesToRetrieve: ")
-      .append(toIndentedString(typesToRetrieve))
-      .append("\n");
+    sb.append("    typesToRetrieve: ").append(toIndentedString(typesToRetrieve)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -35,16 +35,12 @@ public class QuerySuggestionsIndex {
     return indexName;
   }
 
-  public QuerySuggestionsIndex setSourceIndices(
-    List<SourceIndexWithReplicas> sourceIndices
-  ) {
+  public QuerySuggestionsIndex setSourceIndices(List<SourceIndexWithReplicas> sourceIndices) {
     this.sourceIndices = sourceIndices;
     return this;
   }
 
-  public QuerySuggestionsIndex addSourceIndices(
-    SourceIndexWithReplicas sourceIndicesItem
-  ) {
+  public QuerySuggestionsIndex addSourceIndices(SourceIndexWithReplicas sourceIndicesItem) {
     this.sourceIndices.add(sourceIndicesItem);
     return this;
   }
@@ -128,18 +124,9 @@ public class QuerySuggestionsIndex {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class QuerySuggestionsIndex {\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    sourceIndices: ")
-      .append(toIndentedString(sourceIndices))
-      .append("\n");
-    sb
-      .append("    languages: ")
-      .append(toIndentedString(languages))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    sourceIndices: ").append(toIndentedString(sourceIndices)).append("\n");
+    sb.append("    languages: ").append(toIndentedString(languages)).append("\n");
     sb.append("    exclude: ").append(toIndentedString(exclude)).append("\n");
     sb.append("}");
     return sb.toString();

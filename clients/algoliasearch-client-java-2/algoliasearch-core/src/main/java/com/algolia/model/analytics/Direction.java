@@ -40,8 +40,7 @@ public enum Direction {
   public static class Adapter extends TypeAdapter<Direction> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final Direction enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final Direction enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

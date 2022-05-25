@@ -51,10 +51,7 @@ public class TimeRange {
       return false;
     }
     TimeRange timeRange = (TimeRange) o;
-    return (
-      Objects.equals(this.from, timeRange.from) &&
-      Objects.equals(this.until, timeRange.until)
-    );
+    return Objects.equals(this.from, timeRange.from) && Objects.equals(this.until, timeRange.until);
   }
 
   @Override

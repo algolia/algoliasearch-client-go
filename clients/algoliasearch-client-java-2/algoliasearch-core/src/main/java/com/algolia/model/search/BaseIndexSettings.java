@@ -82,16 +82,12 @@ public class BaseIndexSettings {
     return paginationLimitedTo;
   }
 
-  public BaseIndexSettings setDisableTypoToleranceOnWords(
-    List<String> disableTypoToleranceOnWords
-  ) {
+  public BaseIndexSettings setDisableTypoToleranceOnWords(List<String> disableTypoToleranceOnWords) {
     this.disableTypoToleranceOnWords = disableTypoToleranceOnWords;
     return this;
   }
 
-  public BaseIndexSettings addDisableTypoToleranceOnWords(
-    String disableTypoToleranceOnWordsItem
-  ) {
+  public BaseIndexSettings addDisableTypoToleranceOnWords(String disableTypoToleranceOnWordsItem) {
     if (this.disableTypoToleranceOnWords == null) {
       this.disableTypoToleranceOnWords = new ArrayList<>();
     }
@@ -109,16 +105,12 @@ public class BaseIndexSettings {
     return disableTypoToleranceOnWords;
   }
 
-  public BaseIndexSettings setAttributesToTransliterate(
-    List<String> attributesToTransliterate
-  ) {
+  public BaseIndexSettings setAttributesToTransliterate(List<String> attributesToTransliterate) {
     this.attributesToTransliterate = attributesToTransliterate;
     return this;
   }
 
-  public BaseIndexSettings addAttributesToTransliterate(
-    String attributesToTransliterateItem
-  ) {
+  public BaseIndexSettings addAttributesToTransliterate(String attributesToTransliterateItem) {
     if (this.attributesToTransliterate == null) {
       this.attributesToTransliterate = new ArrayList<>();
     }
@@ -136,16 +128,12 @@ public class BaseIndexSettings {
     return attributesToTransliterate;
   }
 
-  public BaseIndexSettings setCamelCaseAttributes(
-    List<String> camelCaseAttributes
-  ) {
+  public BaseIndexSettings setCamelCaseAttributes(List<String> camelCaseAttributes) {
     this.camelCaseAttributes = camelCaseAttributes;
     return this;
   }
 
-  public BaseIndexSettings addCamelCaseAttributes(
-    String camelCaseAttributesItem
-  ) {
+  public BaseIndexSettings addCamelCaseAttributes(String camelCaseAttributesItem) {
     if (this.camelCaseAttributes == null) {
       this.camelCaseAttributes = new ArrayList<>();
     }
@@ -163,9 +151,7 @@ public class BaseIndexSettings {
     return camelCaseAttributes;
   }
 
-  public BaseIndexSettings setDecompoundedAttributes(
-    Object decompoundedAttributes
-  ) {
+  public BaseIndexSettings setDecompoundedAttributes(Object decompoundedAttributes) {
     this.decompoundedAttributes = decompoundedAttributes;
     return this;
   }
@@ -221,16 +207,12 @@ public class BaseIndexSettings {
     return filterPromotes;
   }
 
-  public BaseIndexSettings setDisablePrefixOnAttributes(
-    List<String> disablePrefixOnAttributes
-  ) {
+  public BaseIndexSettings setDisablePrefixOnAttributes(List<String> disablePrefixOnAttributes) {
     this.disablePrefixOnAttributes = disablePrefixOnAttributes;
     return this;
   }
 
-  public BaseIndexSettings addDisablePrefixOnAttributes(
-    String disablePrefixOnAttributesItem
-  ) {
+  public BaseIndexSettings addDisablePrefixOnAttributes(String disablePrefixOnAttributesItem) {
     if (this.disablePrefixOnAttributes == null) {
       this.disablePrefixOnAttributes = new ArrayList<>();
     }
@@ -248,9 +230,7 @@ public class BaseIndexSettings {
     return disablePrefixOnAttributes;
   }
 
-  public BaseIndexSettings setAllowCompressionOfIntegerArray(
-    Boolean allowCompressionOfIntegerArray
-  ) {
+  public BaseIndexSettings setAllowCompressionOfIntegerArray(Boolean allowCompressionOfIntegerArray) {
     this.allowCompressionOfIntegerArray = allowCompressionOfIntegerArray;
     return this;
   }
@@ -265,16 +245,12 @@ public class BaseIndexSettings {
     return allowCompressionOfIntegerArray;
   }
 
-  public BaseIndexSettings setNumericAttributesForFiltering(
-    List<String> numericAttributesForFiltering
-  ) {
+  public BaseIndexSettings setNumericAttributesForFiltering(List<String> numericAttributesForFiltering) {
     this.numericAttributesForFiltering = numericAttributesForFiltering;
     return this;
   }
 
-  public BaseIndexSettings addNumericAttributesForFiltering(
-    String numericAttributesForFilteringItem
-  ) {
+  public BaseIndexSettings addNumericAttributesForFiltering(String numericAttributesForFilteringItem) {
     if (this.numericAttributesForFiltering == null) {
       this.numericAttributesForFiltering = new ArrayList<>();
     }
@@ -318,40 +294,16 @@ public class BaseIndexSettings {
     BaseIndexSettings baseIndexSettings = (BaseIndexSettings) o;
     return (
       Objects.equals(this.replicas, baseIndexSettings.replicas) &&
-      Objects.equals(
-        this.paginationLimitedTo,
-        baseIndexSettings.paginationLimitedTo
-      ) &&
-      Objects.equals(
-        this.disableTypoToleranceOnWords,
-        baseIndexSettings.disableTypoToleranceOnWords
-      ) &&
-      Objects.equals(
-        this.attributesToTransliterate,
-        baseIndexSettings.attributesToTransliterate
-      ) &&
-      Objects.equals(
-        this.camelCaseAttributes,
-        baseIndexSettings.camelCaseAttributes
-      ) &&
-      Objects.equals(
-        this.decompoundedAttributes,
-        baseIndexSettings.decompoundedAttributes
-      ) &&
+      Objects.equals(this.paginationLimitedTo, baseIndexSettings.paginationLimitedTo) &&
+      Objects.equals(this.disableTypoToleranceOnWords, baseIndexSettings.disableTypoToleranceOnWords) &&
+      Objects.equals(this.attributesToTransliterate, baseIndexSettings.attributesToTransliterate) &&
+      Objects.equals(this.camelCaseAttributes, baseIndexSettings.camelCaseAttributes) &&
+      Objects.equals(this.decompoundedAttributes, baseIndexSettings.decompoundedAttributes) &&
       Objects.equals(this.indexLanguages, baseIndexSettings.indexLanguages) &&
       Objects.equals(this.filterPromotes, baseIndexSettings.filterPromotes) &&
-      Objects.equals(
-        this.disablePrefixOnAttributes,
-        baseIndexSettings.disablePrefixOnAttributes
-      ) &&
-      Objects.equals(
-        this.allowCompressionOfIntegerArray,
-        baseIndexSettings.allowCompressionOfIntegerArray
-      ) &&
-      Objects.equals(
-        this.numericAttributesForFiltering,
-        baseIndexSettings.numericAttributesForFiltering
-      ) &&
+      Objects.equals(this.disablePrefixOnAttributes, baseIndexSettings.disablePrefixOnAttributes) &&
+      Objects.equals(this.allowCompressionOfIntegerArray, baseIndexSettings.allowCompressionOfIntegerArray) &&
+      Objects.equals(this.numericAttributesForFiltering, baseIndexSettings.numericAttributesForFiltering) &&
       Objects.equals(this.userData, baseIndexSettings.userData)
     );
   }
@@ -379,46 +331,16 @@ public class BaseIndexSettings {
     StringBuilder sb = new StringBuilder();
     sb.append("class BaseIndexSettings {\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
-    sb
-      .append("    paginationLimitedTo: ")
-      .append(toIndentedString(paginationLimitedTo))
-      .append("\n");
-    sb
-      .append("    disableTypoToleranceOnWords: ")
-      .append(toIndentedString(disableTypoToleranceOnWords))
-      .append("\n");
-    sb
-      .append("    attributesToTransliterate: ")
-      .append(toIndentedString(attributesToTransliterate))
-      .append("\n");
-    sb
-      .append("    camelCaseAttributes: ")
-      .append(toIndentedString(camelCaseAttributes))
-      .append("\n");
-    sb
-      .append("    decompoundedAttributes: ")
-      .append(toIndentedString(decompoundedAttributes))
-      .append("\n");
-    sb
-      .append("    indexLanguages: ")
-      .append(toIndentedString(indexLanguages))
-      .append("\n");
-    sb
-      .append("    filterPromotes: ")
-      .append(toIndentedString(filterPromotes))
-      .append("\n");
-    sb
-      .append("    disablePrefixOnAttributes: ")
-      .append(toIndentedString(disablePrefixOnAttributes))
-      .append("\n");
-    sb
-      .append("    allowCompressionOfIntegerArray: ")
-      .append(toIndentedString(allowCompressionOfIntegerArray))
-      .append("\n");
-    sb
-      .append("    numericAttributesForFiltering: ")
-      .append(toIndentedString(numericAttributesForFiltering))
-      .append("\n");
+    sb.append("    paginationLimitedTo: ").append(toIndentedString(paginationLimitedTo)).append("\n");
+    sb.append("    disableTypoToleranceOnWords: ").append(toIndentedString(disableTypoToleranceOnWords)).append("\n");
+    sb.append("    attributesToTransliterate: ").append(toIndentedString(attributesToTransliterate)).append("\n");
+    sb.append("    camelCaseAttributes: ").append(toIndentedString(camelCaseAttributes)).append("\n");
+    sb.append("    decompoundedAttributes: ").append(toIndentedString(decompoundedAttributes)).append("\n");
+    sb.append("    indexLanguages: ").append(toIndentedString(indexLanguages)).append("\n");
+    sb.append("    filterPromotes: ").append(toIndentedString(filterPromotes)).append("\n");
+    sb.append("    disablePrefixOnAttributes: ").append(toIndentedString(disablePrefixOnAttributes)).append("\n");
+    sb.append("    allowCompressionOfIntegerArray: ").append(toIndentedString(allowCompressionOfIntegerArray)).append("\n");
+    sb.append("    numericAttributesForFiltering: ").append(toIndentedString(numericAttributesForFiltering)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
     sb.append("}");
     return sb.toString();

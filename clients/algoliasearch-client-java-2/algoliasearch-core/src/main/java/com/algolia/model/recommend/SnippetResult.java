@@ -51,10 +51,7 @@ public class SnippetResult {
       return false;
     }
     SnippetResult snippetResult = (SnippetResult) o;
-    return (
-      Objects.equals(this.value, snippetResult.value) &&
-      Objects.equals(this.matchLevel, snippetResult.matchLevel)
-    );
+    return Objects.equals(this.value, snippetResult.value) && Objects.equals(this.matchLevel, snippetResult.matchLevel);
   }
 
   @Override
@@ -67,10 +64,7 @@ public class SnippetResult {
     StringBuilder sb = new StringBuilder();
     sb.append("class SnippetResult {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb
-      .append("    matchLevel: ")
-      .append(toIndentedString(matchLevel))
-      .append("\n");
+    sb.append("    matchLevel: ").append(toIndentedString(matchLevel)).append("\n");
     sb.append("}");
     return sb.toString();
   }

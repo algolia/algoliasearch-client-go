@@ -119,9 +119,7 @@ class RecommendClientTests {
   }
 
   @Test
-  @DisplayName(
-    "get recommendations for recommend model with minimal parameters"
-  )
+  @DisplayName("get recommendations for recommend model with minimal parameters")
   void getRecommendationsTest0() {
     GetRecommendationsParams getRecommendationsParams0 = new GetRecommendationsParams();
     {
@@ -133,16 +131,12 @@ class RecommendClientTests {
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID";
           requests_02.setObjectID(objectID3);
-          RecommendationModels model3 = RecommendationModels.fromValue(
-            "related-products"
-          );
+          RecommendationModels model3 = RecommendationModels.fromValue("related-products");
           requests_02.setModel(model3);
           int threshold3 = 42;
           requests_02.setThreshold(threshold3);
         }
-        requests1.add(
-          RecommendationsRequest.ofRecommendationRequest(requests_02)
-        );
+        requests1.add(RecommendationsRequest.ofRecommendationRequest(requests_02));
       }
       getRecommendationsParams0.setRequests(requests1);
     }
@@ -177,9 +171,7 @@ class RecommendClientTests {
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID";
           requests_02.setObjectID(objectID3);
-          RecommendationModels model3 = RecommendationModels.fromValue(
-            "related-products"
-          );
+          RecommendationModels model3 = RecommendationModels.fromValue("related-products");
           requests_02.setModel(model3);
           int threshold3 = 42;
           requests_02.setThreshold(threshold3);
@@ -194,9 +186,7 @@ class RecommendClientTests {
               String facetFilters_05 = "query";
               facetFilters4.add(facetFilters_05);
             }
-            queryParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            queryParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_02.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
@@ -208,15 +198,11 @@ class RecommendClientTests {
               String facetFilters_05 = "fallback";
               facetFilters4.add(facetFilters_05);
             }
-            fallbackParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            fallbackParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_02.setFallbackParameters(fallbackParameters3);
         }
-        requests1.add(
-          RecommendationsRequest.ofRecommendationRequest(requests_02)
-        );
+        requests1.add(RecommendationsRequest.ofRecommendationRequest(requests_02));
       }
       getRecommendationsParams0.setRequests(requests1);
     }
@@ -306,9 +292,7 @@ class RecommendClientTests {
               String facetFilters_05 = "query";
               facetFilters4.add(facetFilters_05);
             }
-            queryParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            queryParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_02.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
@@ -320,9 +304,7 @@ class RecommendClientTests {
               String facetFilters_05 = "fallback";
               facetFilters4.add(facetFilters_05);
             }
-            fallbackParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            fallbackParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_02.setFallbackParameters(fallbackParameters3);
         }
@@ -361,32 +343,24 @@ class RecommendClientTests {
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID1";
           requests_02.setObjectID(objectID3);
-          RecommendationModels model3 = RecommendationModels.fromValue(
-            "related-products"
-          );
+          RecommendationModels model3 = RecommendationModels.fromValue("related-products");
           requests_02.setModel(model3);
           int threshold3 = 21;
           requests_02.setThreshold(threshold3);
         }
-        requests1.add(
-          RecommendationsRequest.ofRecommendationRequest(requests_02)
-        );
+        requests1.add(RecommendationsRequest.ofRecommendationRequest(requests_02));
         RecommendationRequest requests_12 = new RecommendationRequest();
         {
           String indexName3 = "indexName2";
           requests_12.setIndexName(indexName3);
           String objectID3 = "objectID2";
           requests_12.setObjectID(objectID3);
-          RecommendationModels model3 = RecommendationModels.fromValue(
-            "related-products"
-          );
+          RecommendationModels model3 = RecommendationModels.fromValue("related-products");
           requests_12.setModel(model3);
           int threshold3 = 21;
           requests_12.setThreshold(threshold3);
         }
-        requests1.add(
-          RecommendationsRequest.ofRecommendationRequest(requests_12)
-        );
+        requests1.add(RecommendationsRequest.ofRecommendationRequest(requests_12));
       }
       getRecommendationsParams0.setRequests(requests1);
     }
@@ -421,9 +395,7 @@ class RecommendClientTests {
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID1";
           requests_02.setObjectID(objectID3);
-          RecommendationModels model3 = RecommendationModels.fromValue(
-            "related-products"
-          );
+          RecommendationModels model3 = RecommendationModels.fromValue("related-products");
           requests_02.setModel(model3);
           int threshold3 = 21;
           requests_02.setThreshold(threshold3);
@@ -438,9 +410,7 @@ class RecommendClientTests {
               String facetFilters_05 = "query1";
               facetFilters4.add(facetFilters_05);
             }
-            queryParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            queryParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_02.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
@@ -452,24 +422,18 @@ class RecommendClientTests {
               String facetFilters_05 = "fallback1";
               facetFilters4.add(facetFilters_05);
             }
-            fallbackParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            fallbackParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_02.setFallbackParameters(fallbackParameters3);
         }
-        requests1.add(
-          RecommendationsRequest.ofRecommendationRequest(requests_02)
-        );
+        requests1.add(RecommendationsRequest.ofRecommendationRequest(requests_02));
         RecommendationRequest requests_12 = new RecommendationRequest();
         {
           String indexName3 = "indexName2";
           requests_12.setIndexName(indexName3);
           String objectID3 = "objectID2";
           requests_12.setObjectID(objectID3);
-          RecommendationModels model3 = RecommendationModels.fromValue(
-            "related-products"
-          );
+          RecommendationModels model3 = RecommendationModels.fromValue("related-products");
           requests_12.setModel(model3);
           int threshold3 = 21;
           requests_12.setThreshold(threshold3);
@@ -484,9 +448,7 @@ class RecommendClientTests {
               String facetFilters_05 = "query2";
               facetFilters4.add(facetFilters_05);
             }
-            queryParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            queryParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_12.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
@@ -498,15 +460,11 @@ class RecommendClientTests {
               String facetFilters_05 = "fallback2";
               facetFilters4.add(facetFilters_05);
             }
-            fallbackParameters3.setFacetFilters(
-              FacetFilters.ofListString(facetFilters4)
-            );
+            fallbackParameters3.setFacetFilters(FacetFilters.ofListString(facetFilters4));
           }
           requests_12.setFallbackParameters(fallbackParameters3);
         }
-        requests1.add(
-          RecommendationsRequest.ofRecommendationRequest(requests_12)
-        );
+        requests1.add(RecommendationsRequest.ofRecommendationRequest(requests_12));
       }
       getRecommendationsParams0.setRequests(requests1);
     }
@@ -541,16 +499,12 @@ class RecommendClientTests {
           requests_02.setIndexName(indexName3);
           String objectID3 = "objectID1";
           requests_02.setObjectID(objectID3);
-          RecommendationModels model3 = RecommendationModels.fromValue(
-            "bought-together"
-          );
+          RecommendationModels model3 = RecommendationModels.fromValue("bought-together");
           requests_02.setModel(model3);
           int threshold3 = 42;
           requests_02.setThreshold(threshold3);
         }
-        requests1.add(
-          RecommendationsRequest.ofRecommendationRequest(requests_02)
-        );
+        requests1.add(RecommendationsRequest.ofRecommendationRequest(requests_02));
       }
       getRecommendationsParams0.setRequests(requests1);
     }
@@ -610,11 +564,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -656,11 +606,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -702,11 +648,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -748,11 +690,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -804,11 +742,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -860,11 +794,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -906,11 +836,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -944,10 +870,7 @@ class RecommendClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add("c");
     requestOptionsQueryParameters.add("d");
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -958,11 +881,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -997,10 +916,7 @@ class RecommendClientTests {
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(false);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1011,11 +927,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1049,10 +961,7 @@ class RecommendClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add(1);
     requestOptionsQueryParameters.add(2);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1063,11 +972,7 @@ class RecommendClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1120,11 +1025,7 @@ class RecommendClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(

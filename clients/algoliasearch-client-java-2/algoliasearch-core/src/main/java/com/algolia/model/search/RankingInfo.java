@@ -106,9 +106,7 @@ public class RankingInfo {
     return geoPrecision;
   }
 
-  public RankingInfo setMatchedGeoLocation(
-    MatchedGeoLocation matchedGeoLocation
-  ) {
+  public RankingInfo setMatchedGeoLocation(MatchedGeoLocation matchedGeoLocation) {
     this.matchedGeoLocation = matchedGeoLocation;
     return this;
   }
@@ -294,45 +292,18 @@ public class RankingInfo {
     StringBuilder sb = new StringBuilder();
     sb.append("class RankingInfo {\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
-    sb
-      .append("    firstMatchedWord: ")
-      .append(toIndentedString(firstMatchedWord))
-      .append("\n");
-    sb
-      .append("    geoDistance: ")
-      .append(toIndentedString(geoDistance))
-      .append("\n");
-    sb
-      .append("    geoPrecision: ")
-      .append(toIndentedString(geoPrecision))
-      .append("\n");
-    sb
-      .append("    matchedGeoLocation: ")
-      .append(toIndentedString(matchedGeoLocation))
-      .append("\n");
-    sb
-      .append("    personalization: ")
-      .append(toIndentedString(personalization))
-      .append("\n");
-    sb
-      .append("    nbExactWords: ")
-      .append(toIndentedString(nbExactWords))
-      .append("\n");
+    sb.append("    firstMatchedWord: ").append(toIndentedString(firstMatchedWord)).append("\n");
+    sb.append("    geoDistance: ").append(toIndentedString(geoDistance)).append("\n");
+    sb.append("    geoPrecision: ").append(toIndentedString(geoPrecision)).append("\n");
+    sb.append("    matchedGeoLocation: ").append(toIndentedString(matchedGeoLocation)).append("\n");
+    sb.append("    personalization: ").append(toIndentedString(personalization)).append("\n");
+    sb.append("    nbExactWords: ").append(toIndentedString(nbExactWords)).append("\n");
     sb.append("    nbTypos: ").append(toIndentedString(nbTypos)).append("\n");
     sb.append("    promoted: ").append(toIndentedString(promoted)).append("\n");
-    sb
-      .append("    proximityDistance: ")
-      .append(toIndentedString(proximityDistance))
-      .append("\n");
-    sb
-      .append("    userScore: ")
-      .append(toIndentedString(userScore))
-      .append("\n");
+    sb.append("    proximityDistance: ").append(toIndentedString(proximityDistance)).append("\n");
+    sb.append("    userScore: ").append(toIndentedString(userScore)).append("\n");
     sb.append("    words: ").append(toIndentedString(words)).append("\n");
-    sb
-      .append("    promotedByReRanking: ")
-      .append(toIndentedString(promotedByReRanking))
-      .append("\n");
+    sb.append("    promotedByReRanking: ").append(toIndentedString(promotedByReRanking)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -23,60 +23,32 @@ public class AnalyticsClient extends ApiClient {
     this(appId, apiKey, new HttpRequester(getDefaultHosts(null)), null);
   }
 
-  public AnalyticsClient(
-    String appId,
-    String apiKey,
-    AlgoliaAgent.Segment[] algoliaAgentSegments
-  ) {
-    this(
-      appId,
-      apiKey,
-      new HttpRequester(getDefaultHosts(null)),
-      algoliaAgentSegments
-    );
+  public AnalyticsClient(String appId, String apiKey, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+    this(appId, apiKey, new HttpRequester(getDefaultHosts(null)), algoliaAgentSegments);
   }
 
   public AnalyticsClient(String appId, String apiKey, String region) {
     this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), null);
   }
 
-  public AnalyticsClient(
-    String appId,
-    String apiKey,
-    String region,
-    AlgoliaAgent.Segment[] algoliaAgentSegments
-  ) {
-    this(
-      appId,
-      apiKey,
-      new HttpRequester(getDefaultHosts(region)),
-      algoliaAgentSegments
-    );
+  public AnalyticsClient(String appId, String apiKey, String region, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+    this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), algoliaAgentSegments);
   }
 
   public AnalyticsClient(String appId, String apiKey, Requester requester) {
     this(appId, apiKey, requester, null);
   }
 
-  public AnalyticsClient(
-    String appId,
-    String apiKey,
-    Requester requester,
-    AlgoliaAgent.Segment[] algoliaAgentSegments
-  ) {
+  public AnalyticsClient(String appId, String apiKey, Requester requester, AlgoliaAgent.Segment[] algoliaAgentSegments) {
     super(appId, apiKey, requester, "Analytics", algoliaAgentSegments);
   }
 
   private static List<StatefulHost> getDefaultHosts(String region) {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
 
-    String url = region == null
-      ? "analytics.algolia.com"
-      : "analytics.{region}.algolia.com".replace("{region}", region);
+    String url = region == null ? "analytics.algolia.com" : "analytics.{region}.algolia.com".replace("{region}", region);
 
-    hosts.add(
-      new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE))
-    );
+    hosts.add(new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE)));
     return hosts;
   }
 
@@ -92,21 +64,15 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object del(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public Object del(String path, Map<String, Object> parameters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(delAsync(path, parameters, requestOptions));
   }
 
-  public Object del(String path, Map<String, Object> parameters)
-    throws AlgoliaRuntimeException {
+  public Object del(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.del(path, parameters, null);
   }
 
-  public Object del(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object del(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.del(path, null, requestOptions);
   }
 
@@ -126,15 +92,10 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> delAsync(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling del(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
     }
 
     Object bodyObj = null;
@@ -147,43 +108,24 @@ public class AnalyticsClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "DELETE",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> delAsync(
-    String path,
-    Map<String, Object> parameters
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.delAsync(path, parameters, null);
   }
 
-  public CompletableFuture<Object> delAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.delAsync(path, null, requestOptions);
   }
 
-  public CompletableFuture<Object> delAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path) throws AlgoliaRuntimeException {
     return this.delAsync(path, null, null);
   }
 
@@ -199,21 +141,15 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object get(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public Object get(String path, Map<String, Object> parameters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getAsync(path, parameters, requestOptions));
   }
 
-  public Object get(String path, Map<String, Object> parameters)
-    throws AlgoliaRuntimeException {
+  public Object get(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.get(path, parameters, null);
   }
 
-  public Object get(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object get(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.get(path, null, requestOptions);
   }
 
@@ -233,15 +169,10 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> getAsync(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling get(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
     }
 
     Object bodyObj = null;
@@ -254,43 +185,24 @@ public class AnalyticsClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> getAsync(
-    String path,
-    Map<String, Object> parameters
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.getAsync(path, parameters, null);
   }
 
-  public CompletableFuture<Object> getAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getAsync(path, null, requestOptions);
   }
 
-  public CompletableFuture<Object> getAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path) throws AlgoliaRuntimeException {
     return this.getAsync(path, null, null);
   }
 
@@ -319,41 +231,20 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getAverageClickPositionAsync(
-        index,
-        startDate,
-        endDate,
-        tags,
-        requestOptions
-      )
-    );
+    return LaunderThrowable.await(getAverageClickPositionAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetAverageClickPositionResponse getAverageClickPosition(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetAverageClickPositionResponse getAverageClickPosition(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getAverageClickPosition(index, startDate, endDate, tags, null);
   }
 
-  public GetAverageClickPositionResponse getAverageClickPosition(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getAverageClickPosition(
-        index,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetAverageClickPositionResponse getAverageClickPosition(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getAverageClickPosition(index, null, null, null, requestOptions);
   }
 
-  public GetAverageClickPositionResponse getAverageClickPosition(String index)
-    throws AlgoliaRuntimeException {
+  public GetAverageClickPositionResponse getAverageClickPosition(String index) throws AlgoliaRuntimeException {
     return this.getAverageClickPosition(index, null, null, null, null);
   }
 
@@ -383,9 +274,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getAverageClickPosition(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getAverageClickPosition(Async)");
     }
 
     Object bodyObj = null;
@@ -412,18 +301,8 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
-    Type returnType = new TypeToken<GetAverageClickPositionResponse>() {}
-      .getType();
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    Type returnType = new TypeToken<GetAverageClickPositionResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
@@ -433,31 +312,15 @@ public class AnalyticsClient extends ApiClient {
     String endDate,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getAverageClickPositionAsync(
-        index,
-        startDate,
-        endDate,
-        tags,
-        null
-      );
+    return this.getAverageClickPositionAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetAverageClickPositionResponse> getAverageClickPositionAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getAverageClickPositionAsync(
-        index,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetAverageClickPositionResponse> getAverageClickPositionAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getAverageClickPositionAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetAverageClickPositionResponse> getAverageClickPositionAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetAverageClickPositionResponse> getAverageClickPositionAsync(String index) throws AlgoliaRuntimeException {
     return this.getAverageClickPositionAsync(index, null, null, null, null);
   }
 
@@ -487,29 +350,19 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getClickPositionsAsync(index, startDate, endDate, tags, requestOptions)
-    );
+    return LaunderThrowable.await(getClickPositionsAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetClickPositionsResponse getClickPositions(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetClickPositionsResponse getClickPositions(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getClickPositions(index, startDate, endDate, tags, null);
   }
 
-  public GetClickPositionsResponse getClickPositions(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetClickPositionsResponse getClickPositions(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getClickPositions(index, null, null, null, requestOptions);
   }
 
-  public GetClickPositionsResponse getClickPositions(String index)
-    throws AlgoliaRuntimeException {
+  public GetClickPositionsResponse getClickPositions(String index) throws AlgoliaRuntimeException {
     return this.getClickPositions(index, null, null, null, null);
   }
 
@@ -541,9 +394,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getClickPositions(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getClickPositions(Async)");
     }
 
     Object bodyObj = null;
@@ -570,39 +421,22 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetClickPositionsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<GetClickPositionsResponse> getClickPositionsAsync(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetClickPositionsResponse> getClickPositionsAsync(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getClickPositionsAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetClickPositionsResponse> getClickPositionsAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetClickPositionsResponse> getClickPositionsAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     return this.getClickPositionsAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetClickPositionsResponse> getClickPositionsAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetClickPositionsResponse> getClickPositionsAsync(String index) throws AlgoliaRuntimeException {
     return this.getClickPositionsAsync(index, null, null, null, null);
   }
 
@@ -632,29 +466,19 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getClickThroughRateAsync(index, startDate, endDate, tags, requestOptions)
-    );
+    return LaunderThrowable.await(getClickThroughRateAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetClickThroughRateResponse getClickThroughRate(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetClickThroughRateResponse getClickThroughRate(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getClickThroughRate(index, startDate, endDate, tags, null);
   }
 
-  public GetClickThroughRateResponse getClickThroughRate(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetClickThroughRateResponse getClickThroughRate(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getClickThroughRate(index, null, null, null, requestOptions);
   }
 
-  public GetClickThroughRateResponse getClickThroughRate(String index)
-    throws AlgoliaRuntimeException {
+  public GetClickThroughRateResponse getClickThroughRate(String index) throws AlgoliaRuntimeException {
     return this.getClickThroughRate(index, null, null, null, null);
   }
 
@@ -685,9 +509,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getClickThroughRate(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getClickThroughRate(Async)");
     }
 
     Object bodyObj = null;
@@ -714,16 +536,7 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetClickThroughRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
@@ -737,22 +550,12 @@ public class AnalyticsClient extends ApiClient {
     return this.getClickThroughRateAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetClickThroughRateResponse> getClickThroughRateAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getClickThroughRateAsync(
-        index,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetClickThroughRateResponse> getClickThroughRateAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getClickThroughRateAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetClickThroughRateResponse> getClickThroughRateAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetClickThroughRateResponse> getClickThroughRateAsync(String index) throws AlgoliaRuntimeException {
     return this.getClickThroughRateAsync(index, null, null, null, null);
   }
 
@@ -782,29 +585,19 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getConversationRateAsync(index, startDate, endDate, tags, requestOptions)
-    );
+    return LaunderThrowable.await(getConversationRateAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetConversationRateResponse getConversationRate(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetConversationRateResponse getConversationRate(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getConversationRate(index, startDate, endDate, tags, null);
   }
 
-  public GetConversationRateResponse getConversationRate(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetConversationRateResponse getConversationRate(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getConversationRate(index, null, null, null, requestOptions);
   }
 
-  public GetConversationRateResponse getConversationRate(String index)
-    throws AlgoliaRuntimeException {
+  public GetConversationRateResponse getConversationRate(String index) throws AlgoliaRuntimeException {
     return this.getConversationRate(index, null, null, null, null);
   }
 
@@ -835,9 +628,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getConversationRate(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getConversationRate(Async)");
     }
 
     Object bodyObj = null;
@@ -864,16 +655,7 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetConversationRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
@@ -887,22 +669,12 @@ public class AnalyticsClient extends ApiClient {
     return this.getConversationRateAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetConversationRateResponse> getConversationRateAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getConversationRateAsync(
-        index,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetConversationRateResponse> getConversationRateAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getConversationRateAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetConversationRateResponse> getConversationRateAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetConversationRateResponse> getConversationRateAsync(String index) throws AlgoliaRuntimeException {
     return this.getConversationRateAsync(index, null, null, null, null);
   }
 
@@ -925,36 +697,20 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public GetNoClickRateResponse getNoClickRate(
-    String index,
-    String startDate,
-    String endDate,
-    String tags,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getNoClickRateAsync(index, startDate, endDate, tags, requestOptions)
-    );
+  public GetNoClickRateResponse getNoClickRate(String index, String startDate, String endDate, String tags, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getNoClickRateAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetNoClickRateResponse getNoClickRate(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetNoClickRateResponse getNoClickRate(String index, String startDate, String endDate, String tags) throws AlgoliaRuntimeException {
     return this.getNoClickRate(index, startDate, endDate, tags, null);
   }
 
-  public GetNoClickRateResponse getNoClickRate(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetNoClickRateResponse getNoClickRate(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getNoClickRate(index, null, null, null, requestOptions);
   }
 
-  public GetNoClickRateResponse getNoClickRate(String index)
-    throws AlgoliaRuntimeException {
+  public GetNoClickRateResponse getNoClickRate(String index) throws AlgoliaRuntimeException {
     return this.getNoClickRate(index, null, null, null, null);
   }
 
@@ -985,9 +741,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getNoClickRate(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getNoClickRate(Async)");
     }
 
     Object bodyObj = null;
@@ -1014,39 +768,22 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetNoClickRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<GetNoClickRateResponse> getNoClickRateAsync(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetNoClickRateResponse> getNoClickRateAsync(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getNoClickRateAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetNoClickRateResponse> getNoClickRateAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetNoClickRateResponse> getNoClickRateAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     return this.getNoClickRateAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetNoClickRateResponse> getNoClickRateAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetNoClickRateResponse> getNoClickRateAsync(String index) throws AlgoliaRuntimeException {
     return this.getNoClickRateAsync(index, null, null, null, null);
   }
 
@@ -1076,29 +813,19 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getNoResultsRateAsync(index, startDate, endDate, tags, requestOptions)
-    );
+    return LaunderThrowable.await(getNoResultsRateAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetNoResultsRateResponse getNoResultsRate(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetNoResultsRateResponse getNoResultsRate(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getNoResultsRate(index, startDate, endDate, tags, null);
   }
 
-  public GetNoResultsRateResponse getNoResultsRate(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetNoResultsRateResponse getNoResultsRate(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getNoResultsRate(index, null, null, null, requestOptions);
   }
 
-  public GetNoResultsRateResponse getNoResultsRate(String index)
-    throws AlgoliaRuntimeException {
+  public GetNoResultsRateResponse getNoResultsRate(String index) throws AlgoliaRuntimeException {
     return this.getNoResultsRate(index, null, null, null, null);
   }
 
@@ -1129,9 +856,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getNoResultsRate(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getNoResultsRate(Async)");
     }
 
     Object bodyObj = null;
@@ -1158,39 +883,22 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetNoResultsRateResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<GetNoResultsRateResponse> getNoResultsRateAsync(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetNoResultsRateResponse> getNoResultsRateAsync(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getNoResultsRateAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetNoResultsRateResponse> getNoResultsRateAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetNoResultsRateResponse> getNoResultsRateAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     return this.getNoResultsRateAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetNoResultsRateResponse> getNoResultsRateAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetNoResultsRateResponse> getNoResultsRateAsync(String index) throws AlgoliaRuntimeException {
     return this.getNoResultsRateAsync(index, null, null, null, null);
   }
 
@@ -1219,29 +927,19 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getSearchesCountAsync(index, startDate, endDate, tags, requestOptions)
-    );
+    return LaunderThrowable.await(getSearchesCountAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetSearchesCountResponse getSearchesCount(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetSearchesCountResponse getSearchesCount(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getSearchesCount(index, startDate, endDate, tags, null);
   }
 
-  public GetSearchesCountResponse getSearchesCount(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetSearchesCountResponse getSearchesCount(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getSearchesCount(index, null, null, null, requestOptions);
   }
 
-  public GetSearchesCountResponse getSearchesCount(String index)
-    throws AlgoliaRuntimeException {
+  public GetSearchesCountResponse getSearchesCount(String index) throws AlgoliaRuntimeException {
     return this.getSearchesCount(index, null, null, null, null);
   }
 
@@ -1271,9 +969,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getSearchesCount(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getSearchesCount(Async)");
     }
 
     Object bodyObj = null;
@@ -1300,39 +996,22 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetSearchesCountResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<GetSearchesCountResponse> getSearchesCountAsync(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetSearchesCountResponse> getSearchesCountAsync(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getSearchesCountAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetSearchesCountResponse> getSearchesCountAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetSearchesCountResponse> getSearchesCountAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     return this.getSearchesCountAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetSearchesCountResponse> getSearchesCountAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetSearchesCountResponse> getSearchesCountAsync(String index) throws AlgoliaRuntimeException {
     return this.getSearchesCountAsync(index, null, null, null, null);
   }
 
@@ -1367,17 +1046,7 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getSearchesNoClicksAsync(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
-    );
+    return LaunderThrowable.await(getSearchesNoClicksAsync(index, startDate, endDate, limit, offset, tags, requestOptions));
   }
 
   public GetSearchesNoClicksResponse getSearchesNoClicks(
@@ -1388,34 +1057,14 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoClicks(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getSearchesNoClicks(index, startDate, endDate, limit, offset, tags, null);
   }
 
-  public GetSearchesNoClicksResponse getSearchesNoClicks(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoClicks(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetSearchesNoClicksResponse getSearchesNoClicks(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getSearchesNoClicks(index, null, null, null, null, null, requestOptions);
   }
 
-  public GetSearchesNoClicksResponse getSearchesNoClicks(String index)
-    throws AlgoliaRuntimeException {
+  public GetSearchesNoClicksResponse getSearchesNoClicks(String index) throws AlgoliaRuntimeException {
     return this.getSearchesNoClicks(index, null, null, null, null, null, null);
   }
 
@@ -1451,9 +1100,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getSearchesNoClicks(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getSearchesNoClicks(Async)");
     }
 
     Object bodyObj = null;
@@ -1488,16 +1135,7 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetSearchesNoClicksResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
@@ -1510,44 +1148,16 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoClicksAsync(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getSearchesNoClicksAsync(index, startDate, endDate, limit, offset, tags, null);
   }
 
-  public CompletableFuture<GetSearchesNoClicksResponse> getSearchesNoClicksAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoClicksAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetSearchesNoClicksResponse> getSearchesNoClicksAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getSearchesNoClicksAsync(index, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetSearchesNoClicksResponse> getSearchesNoClicksAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoClicksAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public CompletableFuture<GetSearchesNoClicksResponse> getSearchesNoClicksAsync(String index) throws AlgoliaRuntimeException {
+    return this.getSearchesNoClicksAsync(index, null, null, null, null, null, null);
   }
 
   /**
@@ -1580,17 +1190,7 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getSearchesNoResultsAsync(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
-    );
+    return LaunderThrowable.await(getSearchesNoResultsAsync(index, startDate, endDate, limit, offset, tags, requestOptions));
   }
 
   public GetSearchesNoResultsResponse getSearchesNoResults(
@@ -1601,34 +1201,14 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoResults(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getSearchesNoResults(index, startDate, endDate, limit, offset, tags, null);
   }
 
-  public GetSearchesNoResultsResponse getSearchesNoResults(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoResults(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetSearchesNoResultsResponse getSearchesNoResults(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getSearchesNoResults(index, null, null, null, null, null, requestOptions);
   }
 
-  public GetSearchesNoResultsResponse getSearchesNoResults(String index)
-    throws AlgoliaRuntimeException {
+  public GetSearchesNoResultsResponse getSearchesNoResults(String index) throws AlgoliaRuntimeException {
     return this.getSearchesNoResults(index, null, null, null, null, null, null);
   }
 
@@ -1664,9 +1244,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getSearchesNoResults(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getSearchesNoResults(Async)");
     }
 
     Object bodyObj = null;
@@ -1701,18 +1279,8 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
-    Type returnType = new TypeToken<GetSearchesNoResultsResponse>() {}
-      .getType();
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    Type returnType = new TypeToken<GetSearchesNoResultsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
@@ -1724,44 +1292,16 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoResultsAsync(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getSearchesNoResultsAsync(index, startDate, endDate, limit, offset, tags, null);
   }
 
-  public CompletableFuture<GetSearchesNoResultsResponse> getSearchesNoResultsAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoResultsAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetSearchesNoResultsResponse> getSearchesNoResultsAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getSearchesNoResultsAsync(index, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetSearchesNoResultsResponse> getSearchesNoResultsAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
-    return this.getSearchesNoResultsAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public CompletableFuture<GetSearchesNoResultsResponse> getSearchesNoResultsAsync(String index) throws AlgoliaRuntimeException {
+    return this.getSearchesNoResultsAsync(index, null, null, null, null, null, null);
   }
 
   /**
@@ -1775,15 +1315,11 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public GetStatusResponse getStatus(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetStatusResponse getStatus(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getStatusAsync(index, requestOptions));
   }
 
-  public GetStatusResponse getStatus(String index)
-    throws AlgoliaRuntimeException {
+  public GetStatusResponse getStatus(String index) throws AlgoliaRuntimeException {
     return this.getStatus(index, null);
   }
 
@@ -1799,14 +1335,9 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<GetStatusResponse> getStatusAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetStatusResponse> getStatusAsync(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getStatus(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getStatus(Async)");
     }
 
     Object bodyObj = null;
@@ -1821,22 +1352,12 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("index", parameterToString(index));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetStatusResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<GetStatusResponse> getStatusAsync(String index)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<GetStatusResponse> getStatusAsync(String index) throws AlgoliaRuntimeException {
     return this.getStatusAsync(index, null);
   }
 
@@ -1870,17 +1391,7 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getTopCountriesAsync(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
-    );
+    return LaunderThrowable.await(getTopCountriesAsync(index, startDate, endDate, limit, offset, tags, requestOptions));
   }
 
   public GetTopCountriesResponse getTopCountries(
@@ -1891,34 +1402,14 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopCountries(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopCountries(index, startDate, endDate, limit, offset, tags, null);
   }
 
-  public GetTopCountriesResponse getTopCountries(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopCountries(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetTopCountriesResponse getTopCountries(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getTopCountries(index, null, null, null, null, null, requestOptions);
   }
 
-  public GetTopCountriesResponse getTopCountries(String index)
-    throws AlgoliaRuntimeException {
+  public GetTopCountriesResponse getTopCountries(String index) throws AlgoliaRuntimeException {
     return this.getTopCountries(index, null, null, null, null, null, null);
   }
 
@@ -1953,9 +1444,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getTopCountries(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopCountries(Async)");
     }
 
     Object bodyObj = null;
@@ -1990,16 +1479,7 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetTopCountriesResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
@@ -2012,35 +1492,15 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopCountriesAsync(
-        index,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopCountriesAsync(index, startDate, endDate, limit, offset, tags, null);
   }
 
-  public CompletableFuture<GetTopCountriesResponse> getTopCountriesAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopCountriesAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetTopCountriesResponse> getTopCountriesAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getTopCountriesAsync(index, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetTopCountriesResponse> getTopCountriesAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetTopCountriesResponse> getTopCountriesAsync(String index) throws AlgoliaRuntimeException {
     return this.getTopCountriesAsync(index, null, null, null, null, null, null);
   }
 
@@ -2076,18 +1536,7 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getTopFilterAttributesAsync(
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
-    );
+    return LaunderThrowable.await(getTopFilterAttributesAsync(index, search, startDate, endDate, limit, offset, tags, requestOptions));
   }
 
   public GetTopFilterAttributesResponse getTopFilterAttributes(
@@ -2099,46 +1548,15 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopFilterAttributes(
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopFilterAttributes(index, search, startDate, endDate, limit, offset, tags, null);
   }
 
-  public GetTopFilterAttributesResponse getTopFilterAttributes(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFilterAttributes(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetTopFilterAttributesResponse getTopFilterAttributes(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getTopFilterAttributes(index, null, null, null, null, null, null, requestOptions);
   }
 
-  public GetTopFilterAttributesResponse getTopFilterAttributes(String index)
-    throws AlgoliaRuntimeException {
-    return this.getTopFilterAttributes(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public GetTopFilterAttributesResponse getTopFilterAttributes(String index) throws AlgoliaRuntimeException {
+    return this.getTopFilterAttributes(index, null, null, null, null, null, null, null);
   }
 
   /**
@@ -2174,9 +1592,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getTopFilterAttributes(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopFilterAttributes(Async)");
     }
 
     Object bodyObj = null;
@@ -2215,18 +1631,8 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
-    Type returnType = new TypeToken<GetTopFilterAttributesResponse>() {}
-      .getType();
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    Type returnType = new TypeToken<GetTopFilterAttributesResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
@@ -2239,47 +1645,16 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopFilterAttributesAsync(
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopFilterAttributesAsync(index, search, startDate, endDate, limit, offset, tags, null);
   }
 
-  public CompletableFuture<GetTopFilterAttributesResponse> getTopFilterAttributesAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFilterAttributesAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetTopFilterAttributesResponse> getTopFilterAttributesAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getTopFilterAttributesAsync(index, null, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetTopFilterAttributesResponse> getTopFilterAttributesAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFilterAttributesAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public CompletableFuture<GetTopFilterAttributesResponse> getTopFilterAttributesAsync(String index) throws AlgoliaRuntimeException {
+    return this.getTopFilterAttributesAsync(index, null, null, null, null, null, null, null);
   }
 
   /**
@@ -2317,17 +1692,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(
-      getTopFilterForAttributeAsync(
-        attribute,
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
+      getTopFilterForAttributeAsync(attribute, index, search, startDate, endDate, limit, offset, tags, requestOptions)
     );
   }
 
@@ -2341,52 +1706,16 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopFilterForAttribute(
-        attribute,
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopFilterForAttribute(attribute, index, search, startDate, endDate, limit, offset, tags, null);
   }
 
-  public GetTopFilterForAttributeResponse getTopFilterForAttribute(
-    String attribute,
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFilterForAttribute(
-        attribute,
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetTopFilterForAttributeResponse getTopFilterForAttribute(String attribute, String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getTopFilterForAttribute(attribute, index, null, null, null, null, null, null, requestOptions);
   }
 
-  public GetTopFilterForAttributeResponse getTopFilterForAttribute(
-    String attribute,
-    String index
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFilterForAttribute(
-        attribute,
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public GetTopFilterForAttributeResponse getTopFilterForAttribute(String attribute, String index) throws AlgoliaRuntimeException {
+    return this.getTopFilterForAttribute(attribute, index, null, null, null, null, null, null, null);
   }
 
   /**
@@ -2425,26 +1754,17 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (attribute == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'attribute' when calling" +
-        " getTopFilterForAttribute(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'attribute' when calling" + " getTopFilterForAttribute(Async)");
     }
 
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getTopFilterForAttribute(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopFilterForAttribute(Async)");
     }
 
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath =
-      "/2/filters/{attribute}".replaceAll(
-          "\\{attribute\\}",
-          this.escapeString(attribute.toString())
-        );
+    String requestPath = "/2/filters/{attribute}".replaceAll("\\{attribute\\}", this.escapeString(attribute.toString()));
 
     Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
@@ -2477,18 +1797,8 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
-    Type returnType = new TypeToken<GetTopFilterForAttributeResponse>() {}
-      .getType();
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    Type returnType = new TypeToken<GetTopFilterForAttributeResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
@@ -2502,17 +1812,7 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopFilterForAttributeAsync(
-        attribute,
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopFilterForAttributeAsync(attribute, index, search, startDate, endDate, limit, offset, tags, null);
   }
 
   public CompletableFuture<GetTopFilterForAttributeResponse> getTopFilterForAttributeAsync(
@@ -2520,34 +1820,12 @@ public class AnalyticsClient extends ApiClient {
     String index,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return this.getTopFilterForAttributeAsync(
-        attribute,
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+    return this.getTopFilterForAttributeAsync(attribute, index, null, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetTopFilterForAttributeResponse> getTopFilterForAttributeAsync(
-    String attribute,
-    String index
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFilterForAttributeAsync(
-        attribute,
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public CompletableFuture<GetTopFilterForAttributeResponse> getTopFilterForAttributeAsync(String attribute, String index)
+    throws AlgoliaRuntimeException {
+    return this.getTopFilterForAttributeAsync(attribute, index, null, null, null, null, null, null, null);
   }
 
   /**
@@ -2582,18 +1860,7 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getTopFiltersNoResultsAsync(
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
-    );
+    return LaunderThrowable.await(getTopFiltersNoResultsAsync(index, search, startDate, endDate, limit, offset, tags, requestOptions));
   }
 
   public GetTopFiltersNoResultsResponse getTopFiltersNoResults(
@@ -2605,46 +1872,15 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopFiltersNoResults(
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopFiltersNoResults(index, search, startDate, endDate, limit, offset, tags, null);
   }
 
-  public GetTopFiltersNoResultsResponse getTopFiltersNoResults(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFiltersNoResults(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetTopFiltersNoResultsResponse getTopFiltersNoResults(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getTopFiltersNoResults(index, null, null, null, null, null, null, requestOptions);
   }
 
-  public GetTopFiltersNoResultsResponse getTopFiltersNoResults(String index)
-    throws AlgoliaRuntimeException {
-    return this.getTopFiltersNoResults(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public GetTopFiltersNoResultsResponse getTopFiltersNoResults(String index) throws AlgoliaRuntimeException {
+    return this.getTopFiltersNoResults(index, null, null, null, null, null, null, null);
   }
 
   /**
@@ -2680,9 +1916,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getTopFiltersNoResults(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopFiltersNoResults(Async)");
     }
 
     Object bodyObj = null;
@@ -2721,18 +1955,8 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
-    Type returnType = new TypeToken<GetTopFiltersNoResultsResponse>() {}
-      .getType();
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    Type returnType = new TypeToken<GetTopFiltersNoResultsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
@@ -2745,47 +1969,16 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopFiltersNoResultsAsync(
-        index,
-        search,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopFiltersNoResultsAsync(index, search, startDate, endDate, limit, offset, tags, null);
   }
 
-  public CompletableFuture<GetTopFiltersNoResultsResponse> getTopFiltersNoResultsAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFiltersNoResultsAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetTopFiltersNoResultsResponse> getTopFiltersNoResultsAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getTopFiltersNoResultsAsync(index, null, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetTopFiltersNoResultsResponse> getTopFiltersNoResultsAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
-    return this.getTopFiltersNoResultsAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public CompletableFuture<GetTopFiltersNoResultsResponse> getTopFiltersNoResultsAsync(String index) throws AlgoliaRuntimeException {
+    return this.getTopFiltersNoResultsAsync(index, null, null, null, null, null, null, null);
   }
 
   /**
@@ -2823,19 +2016,7 @@ public class AnalyticsClient extends ApiClient {
     String tags,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getTopHitsAsync(
-        index,
-        search,
-        clickAnalytics,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
-    );
+    return LaunderThrowable.await(getTopHitsAsync(index, search, clickAnalytics, startDate, endDate, limit, offset, tags, requestOptions));
   }
 
   public GetTopHitsResponse getTopHits(
@@ -2848,49 +2029,15 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopHits(
-        index,
-        search,
-        clickAnalytics,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopHits(index, search, clickAnalytics, startDate, endDate, limit, offset, tags, null);
   }
 
-  public GetTopHitsResponse getTopHits(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopHits(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetTopHitsResponse getTopHits(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getTopHits(index, null, null, null, null, null, null, null, requestOptions);
   }
 
-  public GetTopHitsResponse getTopHits(String index)
-    throws AlgoliaRuntimeException {
-    return this.getTopHits(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public GetTopHitsResponse getTopHits(String index) throws AlgoliaRuntimeException {
+    return this.getTopHits(index, null, null, null, null, null, null, null, null);
   }
 
   /**
@@ -2929,9 +2076,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getTopHits(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopHits(Async)");
     }
 
     Object bodyObj = null;
@@ -2974,16 +2119,7 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetTopHitsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
@@ -2998,49 +2134,15 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopHitsAsync(
-        index,
-        search,
-        clickAnalytics,
-        startDate,
-        endDate,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopHitsAsync(index, search, clickAnalytics, startDate, endDate, limit, offset, tags, null);
   }
 
-  public CompletableFuture<GetTopHitsResponse> getTopHitsAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopHitsAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetTopHitsResponse> getTopHitsAsync(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getTopHitsAsync(index, null, null, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetTopHitsResponse> getTopHitsAsync(String index)
-    throws AlgoliaRuntimeException {
-    return this.getTopHitsAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public CompletableFuture<GetTopHitsResponse> getTopHitsAsync(String index) throws AlgoliaRuntimeException {
+    return this.getTopHitsAsync(index, null, null, null, null, null, null, null, null);
   }
 
   /**
@@ -3082,18 +2184,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(
-      getTopSearchesAsync(
-        index,
-        clickAnalytics,
-        startDate,
-        endDate,
-        orderBy,
-        direction,
-        limit,
-        offset,
-        tags,
-        requestOptions
-      )
+      getTopSearchesAsync(index, clickAnalytics, startDate, endDate, orderBy, direction, limit, offset, tags, requestOptions)
     );
   }
 
@@ -3108,52 +2199,15 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopSearches(
-        index,
-        clickAnalytics,
-        startDate,
-        endDate,
-        orderBy,
-        direction,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopSearches(index, clickAnalytics, startDate, endDate, orderBy, direction, limit, offset, tags, null);
   }
 
-  public GetTopSearchesResponse getTopSearches(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopSearches(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public GetTopSearchesResponse getTopSearches(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.getTopSearches(index, null, null, null, null, null, null, null, null, requestOptions);
   }
 
-  public GetTopSearchesResponse getTopSearches(String index)
-    throws AlgoliaRuntimeException {
-    return this.getTopSearches(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public GetTopSearchesResponse getTopSearches(String index) throws AlgoliaRuntimeException {
+    return this.getTopSearches(index, null, null, null, null, null, null, null, null, null);
   }
 
   /**
@@ -3195,9 +2249,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getTopSearches(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopSearches(Async)");
     }
 
     Object bodyObj = null;
@@ -3244,16 +2296,7 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetTopSearchesResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
@@ -3269,53 +2312,16 @@ public class AnalyticsClient extends ApiClient {
     Integer offset,
     String tags
   ) throws AlgoliaRuntimeException {
-    return this.getTopSearchesAsync(
-        index,
-        clickAnalytics,
-        startDate,
-        endDate,
-        orderBy,
-        direction,
-        limit,
-        offset,
-        tags,
-        null
-      );
+    return this.getTopSearchesAsync(index, clickAnalytics, startDate, endDate, orderBy, direction, limit, offset, tags, null);
   }
 
-  public CompletableFuture<GetTopSearchesResponse> getTopSearchesAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return this.getTopSearchesAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        requestOptions
-      );
+  public CompletableFuture<GetTopSearchesResponse> getTopSearchesAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.getTopSearchesAsync(index, null, null, null, null, null, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetTopSearchesResponse> getTopSearchesAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
-    return this.getTopSearchesAsync(
-        index,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
+  public CompletableFuture<GetTopSearchesResponse> getTopSearchesAsync(String index) throws AlgoliaRuntimeException {
+    return this.getTopSearchesAsync(index, null, null, null, null, null, null, null, null, null);
   }
 
   /**
@@ -3336,36 +2342,20 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public GetUsersCountResponse getUsersCount(
-    String index,
-    String startDate,
-    String endDate,
-    String tags,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      getUsersCountAsync(index, startDate, endDate, tags, requestOptions)
-    );
+  public GetUsersCountResponse getUsersCount(String index, String startDate, String endDate, String tags, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getUsersCountAsync(index, startDate, endDate, tags, requestOptions));
   }
 
-  public GetUsersCountResponse getUsersCount(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public GetUsersCountResponse getUsersCount(String index, String startDate, String endDate, String tags) throws AlgoliaRuntimeException {
     return this.getUsersCount(index, startDate, endDate, tags, null);
   }
 
-  public GetUsersCountResponse getUsersCount(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public GetUsersCountResponse getUsersCount(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getUsersCount(index, null, null, null, requestOptions);
   }
 
-  public GetUsersCountResponse getUsersCount(String index)
-    throws AlgoliaRuntimeException {
+  public GetUsersCountResponse getUsersCount(String index) throws AlgoliaRuntimeException {
     return this.getUsersCount(index, null, null, null, null);
   }
 
@@ -3395,9 +2385,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'index' when calling getUsersCount(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getUsersCount(Async)");
     }
 
     Object bodyObj = null;
@@ -3424,39 +2412,22 @@ public class AnalyticsClient extends ApiClient {
       queryParameters.put("tags", parameterToString(tags));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<GetUsersCountResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<GetUsersCountResponse> getUsersCountAsync(
-    String index,
-    String startDate,
-    String endDate,
-    String tags
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetUsersCountResponse> getUsersCountAsync(String index, String startDate, String endDate, String tags)
+    throws AlgoliaRuntimeException {
     return this.getUsersCountAsync(index, startDate, endDate, tags, null);
   }
 
-  public CompletableFuture<GetUsersCountResponse> getUsersCountAsync(
-    String index,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetUsersCountResponse> getUsersCountAsync(String index, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     return this.getUsersCountAsync(index, null, null, null, requestOptions);
   }
 
-  public CompletableFuture<GetUsersCountResponse> getUsersCountAsync(
-    String index
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetUsersCountResponse> getUsersCountAsync(String index) throws AlgoliaRuntimeException {
     return this.getUsersCountAsync(index, null, null, null, null);
   }
 
@@ -3473,24 +2444,16 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object post(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      postAsync(path, parameters, body, requestOptions)
-    );
+  public Object post(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(postAsync(path, parameters, body, requestOptions));
   }
 
-  public Object post(String path, Map<String, Object> parameters, Object body)
-    throws AlgoliaRuntimeException {
+  public Object post(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.post(path, parameters, body, null);
   }
 
-  public Object post(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object post(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.post(path, null, null, requestOptions);
   }
 
@@ -3511,16 +2474,10 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> postAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling post(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
     }
 
     Object bodyObj = body;
@@ -3533,44 +2490,24 @@ public class AnalyticsClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "POST",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> postAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.postAsync(path, parameters, body, null);
   }
 
-  public CompletableFuture<Object> postAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.postAsync(path, null, null, requestOptions);
   }
 
-  public CompletableFuture<Object> postAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path) throws AlgoliaRuntimeException {
     return this.postAsync(path, null, null, null);
   }
 
@@ -3587,24 +2524,16 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object put(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      putAsync(path, parameters, body, requestOptions)
-    );
+  public Object put(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(putAsync(path, parameters, body, requestOptions));
   }
 
-  public Object put(String path, Map<String, Object> parameters, Object body)
-    throws AlgoliaRuntimeException {
+  public Object put(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.put(path, parameters, body, null);
   }
 
-  public Object put(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object put(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.put(path, null, null, requestOptions);
   }
 
@@ -3625,16 +2554,10 @@ public class AnalyticsClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> putAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling put(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
     }
 
     Object bodyObj = body;
@@ -3647,44 +2570,24 @@ public class AnalyticsClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "PUT",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> putAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.putAsync(path, parameters, body, null);
   }
 
-  public CompletableFuture<Object> putAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.putAsync(path, null, null, requestOptions);
   }
 
-  public CompletableFuture<Object> putAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path) throws AlgoliaRuntimeException {
     return this.putAsync(path, null, null, null);
   }
 }

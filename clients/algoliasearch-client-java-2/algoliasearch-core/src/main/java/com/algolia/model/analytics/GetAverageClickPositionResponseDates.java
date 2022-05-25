@@ -30,9 +30,7 @@ public class GetAverageClickPositionResponseDates {
     return average;
   }
 
-  public GetAverageClickPositionResponseDates setClickCount(
-    Integer clickCount
-  ) {
+  public GetAverageClickPositionResponseDates setClickCount(Integer clickCount) {
     this.clickCount = clickCount;
     return this;
   }
@@ -72,14 +70,8 @@ public class GetAverageClickPositionResponseDates {
     }
     GetAverageClickPositionResponseDates getAverageClickPositionResponseDates = (GetAverageClickPositionResponseDates) o;
     return (
-      Objects.equals(
-        this.average,
-        getAverageClickPositionResponseDates.average
-      ) &&
-      Objects.equals(
-        this.clickCount,
-        getAverageClickPositionResponseDates.clickCount
-      ) &&
+      Objects.equals(this.average, getAverageClickPositionResponseDates.average) &&
+      Objects.equals(this.clickCount, getAverageClickPositionResponseDates.clickCount) &&
       Objects.equals(this.date, getAverageClickPositionResponseDates.date)
     );
   }
@@ -94,10 +86,7 @@ public class GetAverageClickPositionResponseDates {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetAverageClickPositionResponseDates {\n");
     sb.append("    average: ").append(toIndentedString(average)).append("\n");
-    sb
-      .append("    clickCount: ")
-      .append(toIndentedString(clickCount))
-      .append("\n");
+    sb.append("    clickCount: ").append(toIndentedString(clickCount)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("}");
     return sb.toString();

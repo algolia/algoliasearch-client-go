@@ -189,35 +189,18 @@ public class SourceIndex {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      indexName,
-      analyticsTags,
-      facets,
-      minHits,
-      minLetters,
-      generate,
-      external
-    );
+    return Objects.hash(indexName, analyticsTags, facets, minHits, minLetters, generate, external);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SourceIndex {\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    analyticsTags: ")
-      .append(toIndentedString(analyticsTags))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    analyticsTags: ").append(toIndentedString(analyticsTags)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
     sb.append("    minHits: ").append(toIndentedString(minHits)).append("\n");
-    sb
-      .append("    minLetters: ")
-      .append(toIndentedString(minLetters))
-      .append("\n");
+    sb.append("    minLetters: ").append(toIndentedString(minLetters)).append("\n");
     sb.append("    generate: ").append(toIndentedString(generate)).append("\n");
     sb.append("    external: ").append(toIndentedString(external)).append("\n");
     sb.append("}");

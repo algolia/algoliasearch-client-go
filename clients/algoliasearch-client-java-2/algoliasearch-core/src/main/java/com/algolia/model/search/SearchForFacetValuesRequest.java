@@ -73,10 +73,7 @@ public class SearchForFacetValuesRequest {
     return (
       Objects.equals(this.params, searchForFacetValuesRequest.params) &&
       Objects.equals(this.facetQuery, searchForFacetValuesRequest.facetQuery) &&
-      Objects.equals(
-        this.maxFacetHits,
-        searchForFacetValuesRequest.maxFacetHits
-      )
+      Objects.equals(this.maxFacetHits, searchForFacetValuesRequest.maxFacetHits)
     );
   }
 
@@ -90,14 +87,8 @@ public class SearchForFacetValuesRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchForFacetValuesRequest {\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
-    sb
-      .append("    facetQuery: ")
-      .append(toIndentedString(facetQuery))
-      .append("\n");
-    sb
-      .append("    maxFacetHits: ")
-      .append(toIndentedString(maxFacetHits))
-      .append("\n");
+    sb.append("    facetQuery: ").append(toIndentedString(facetQuery)).append("\n");
+    sb.append("    maxFacetHits: ").append(toIndentedString(maxFacetHits)).append("\n");
     sb.append("}");
     return sb.toString();
   }

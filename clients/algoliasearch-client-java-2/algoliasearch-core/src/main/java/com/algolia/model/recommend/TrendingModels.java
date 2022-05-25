@@ -40,10 +40,7 @@ public enum TrendingModels {
   public static class Adapter extends TypeAdapter<TrendingModels> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final TrendingModels enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final TrendingModels enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

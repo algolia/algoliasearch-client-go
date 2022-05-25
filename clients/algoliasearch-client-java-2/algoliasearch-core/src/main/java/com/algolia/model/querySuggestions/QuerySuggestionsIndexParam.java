@@ -17,16 +17,12 @@ public class QuerySuggestionsIndexParam {
   @SerializedName("exclude")
   private List<String> exclude = null;
 
-  public QuerySuggestionsIndexParam setSourceIndices(
-    List<SourceIndex> sourceIndices
-  ) {
+  public QuerySuggestionsIndexParam setSourceIndices(List<SourceIndex> sourceIndices) {
     this.sourceIndices = sourceIndices;
     return this;
   }
 
-  public QuerySuggestionsIndexParam addSourceIndices(
-    SourceIndex sourceIndicesItem
-  ) {
+  public QuerySuggestionsIndexParam addSourceIndices(SourceIndex sourceIndicesItem) {
     this.sourceIndices.add(sourceIndicesItem);
     return this;
   }
@@ -100,10 +96,7 @@ public class QuerySuggestionsIndexParam {
     }
     QuerySuggestionsIndexParam querySuggestionsIndexParam = (QuerySuggestionsIndexParam) o;
     return (
-      Objects.equals(
-        this.sourceIndices,
-        querySuggestionsIndexParam.sourceIndices
-      ) &&
+      Objects.equals(this.sourceIndices, querySuggestionsIndexParam.sourceIndices) &&
       Objects.equals(this.languages, querySuggestionsIndexParam.languages) &&
       Objects.equals(this.exclude, querySuggestionsIndexParam.exclude)
     );
@@ -118,14 +111,8 @@ public class QuerySuggestionsIndexParam {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class QuerySuggestionsIndexParam {\n");
-    sb
-      .append("    sourceIndices: ")
-      .append(toIndentedString(sourceIndices))
-      .append("\n");
-    sb
-      .append("    languages: ")
-      .append(toIndentedString(languages))
-      .append("\n");
+    sb.append("    sourceIndices: ").append(toIndentedString(sourceIndices)).append("\n");
+    sb.append("    languages: ").append(toIndentedString(languages)).append("\n");
     sb.append("    exclude: ").append(toIndentedString(exclude)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -11,16 +11,12 @@ public class TopSearchesResponse {
   @SerializedName("searches")
   private List<GetSearchesNoResultsResponseSearches> searches = new ArrayList<>();
 
-  public TopSearchesResponse setSearches(
-    List<GetSearchesNoResultsResponseSearches> searches
-  ) {
+  public TopSearchesResponse setSearches(List<GetSearchesNoResultsResponseSearches> searches) {
     this.searches = searches;
     return this;
   }
 
-  public TopSearchesResponse addSearches(
-    GetSearchesNoResultsResponseSearches searchesItem
-  ) {
+  public TopSearchesResponse addSearches(GetSearchesNoResultsResponseSearches searchesItem) {
     this.searches.add(searchesItem);
     return this;
   }

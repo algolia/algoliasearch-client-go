@@ -51,10 +51,7 @@ public class GetSearchesCountResponseDates {
       return false;
     }
     GetSearchesCountResponseDates getSearchesCountResponseDates = (GetSearchesCountResponseDates) o;
-    return (
-      Objects.equals(this.date, getSearchesCountResponseDates.date) &&
-      Objects.equals(this.count, getSearchesCountResponseDates.count)
-    );
+    return Objects.equals(this.date, getSearchesCountResponseDates.date) && Objects.equals(this.count, getSearchesCountResponseDates.count);
   }
 
   @Override

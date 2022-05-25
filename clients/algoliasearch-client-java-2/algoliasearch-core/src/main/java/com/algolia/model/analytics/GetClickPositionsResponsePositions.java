@@ -14,9 +14,7 @@ public class GetClickPositionsResponsePositions {
   @SerializedName("clickCount")
   private Integer clickCount;
 
-  public GetClickPositionsResponsePositions setPosition(
-    List<Integer> position
-  ) {
+  public GetClickPositionsResponsePositions setPosition(List<Integer> position) {
     this.position = position;
     return this;
   }
@@ -63,14 +61,8 @@ public class GetClickPositionsResponsePositions {
     }
     GetClickPositionsResponsePositions getClickPositionsResponsePositions = (GetClickPositionsResponsePositions) o;
     return (
-      Objects.equals(
-        this.position,
-        getClickPositionsResponsePositions.position
-      ) &&
-      Objects.equals(
-        this.clickCount,
-        getClickPositionsResponsePositions.clickCount
-      )
+      Objects.equals(this.position, getClickPositionsResponsePositions.position) &&
+      Objects.equals(this.clickCount, getClickPositionsResponsePositions.clickCount)
     );
   }
 
@@ -84,10 +76,7 @@ public class GetClickPositionsResponsePositions {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetClickPositionsResponsePositions {\n");
     sb.append("    position: ").append(toIndentedString(position)).append("\n");
-    sb
-      .append("    clickCount: ")
-      .append(toIndentedString(clickCount))
-      .append("\n");
+    sb.append("    clickCount: ").append(toIndentedString(clickCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -67,14 +67,8 @@ public class DeleteUserProfileResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeleteUserProfileResponse {\n");
-    sb
-      .append("    userToken: ")
-      .append(toIndentedString(userToken))
-      .append("\n");
-    sb
-      .append("    deletedUntil: ")
-      .append(toIndentedString(deletedUntil))
-      .append("\n");
+    sb.append("    userToken: ").append(toIndentedString(userToken)).append("\n");
+    sb.append("    deletedUntil: ").append(toIndentedString(deletedUntil)).append("\n");
     sb.append("}");
     return sb.toString();
   }

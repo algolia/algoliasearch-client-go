@@ -44,8 +44,7 @@ public enum OrderBy {
   public static class Adapter extends TypeAdapter<OrderBy> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final OrderBy enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final OrderBy enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

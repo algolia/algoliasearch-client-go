@@ -70,10 +70,7 @@ public class GetSearchesNoResultsResponseSearches {
     }
     GetSearchesNoResultsResponseSearches getSearchesNoResultsResponseSearches = (GetSearchesNoResultsResponseSearches) o;
     return (
-      Objects.equals(
-        this.search,
-        getSearchesNoResultsResponseSearches.search
-      ) &&
+      Objects.equals(this.search, getSearchesNoResultsResponseSearches.search) &&
       Objects.equals(this.count, getSearchesNoResultsResponseSearches.count) &&
       Objects.equals(this.nbHits, getSearchesNoResultsResponseSearches.nbHits)
     );

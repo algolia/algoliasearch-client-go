@@ -45,10 +45,7 @@ public class GetStatusResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetStatusResponse {\n");
-    sb
-      .append("    updatedAt: ")
-      .append(toIndentedString(updatedAt))
-      .append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

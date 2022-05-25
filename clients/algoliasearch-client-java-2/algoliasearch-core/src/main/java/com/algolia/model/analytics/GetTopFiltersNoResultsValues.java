@@ -29,16 +29,12 @@ public class GetTopFiltersNoResultsValues {
     return count;
   }
 
-  public GetTopFiltersNoResultsValues setValues(
-    List<GetTopFiltersNoResultsValue> values
-  ) {
+  public GetTopFiltersNoResultsValues setValues(List<GetTopFiltersNoResultsValue> values) {
     this.values = values;
     return this;
   }
 
-  public GetTopFiltersNoResultsValues addValues(
-    GetTopFiltersNoResultsValue valuesItem
-  ) {
+  public GetTopFiltersNoResultsValues addValues(GetTopFiltersNoResultsValue valuesItem) {
     this.values.add(valuesItem);
     return this;
   }
@@ -63,8 +59,7 @@ public class GetTopFiltersNoResultsValues {
     }
     GetTopFiltersNoResultsValues getTopFiltersNoResultsValues = (GetTopFiltersNoResultsValues) o;
     return (
-      Objects.equals(this.count, getTopFiltersNoResultsValues.count) &&
-      Objects.equals(this.values, getTopFiltersNoResultsValues.values)
+      Objects.equals(this.count, getTopFiltersNoResultsValues.count) && Objects.equals(this.values, getTopFiltersNoResultsValues.values)
     );
   }
 

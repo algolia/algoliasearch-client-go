@@ -16,30 +16,21 @@ public abstract class GetTopHitsResponse implements CompoundType {
     return new GetTopHitsResponseTopHitsResponse(inside);
   }
 
-  public static GetTopHitsResponse ofTopHitsResponseWithAnalytics(
-    TopHitsResponseWithAnalytics inside
-  ) {
+  public static GetTopHitsResponse ofTopHitsResponseWithAnalytics(TopHitsResponseWithAnalytics inside) {
     return new GetTopHitsResponseTopHitsResponseWithAnalytics(inside);
   }
 
   public static class Adapter extends TypeAdapter<GetTopHitsResponse> {
 
     @Override
-    public void write(final JsonWriter out, final GetTopHitsResponse oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final GetTopHitsResponse oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
-    public GetTopHitsResponse read(final JsonReader jsonReader)
-      throws IOException {
-      TopHitsResponse tophitsresponse = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<TopHitsResponse>() {}.getType()
-      );
+    public GetTopHitsResponse read(final JsonReader jsonReader) throws IOException {
+      TopHitsResponse tophitsresponse = JSON.tryDeserialize(jsonReader, new TypeToken<TopHitsResponse>() {}.getType());
       if (tophitsresponse != null) {
         return GetTopHitsResponse.ofTopHitsResponse(tophitsresponse);
       }
@@ -48,9 +39,7 @@ public abstract class GetTopHitsResponse implements CompoundType {
         new TypeToken<TopHitsResponseWithAnalytics>() {}.getType()
       );
       if (tophitsresponsewithanalytics != null) {
-        return GetTopHitsResponse.ofTopHitsResponseWithAnalytics(
-          tophitsresponsewithanalytics
-        );
+        return GetTopHitsResponse.ofTopHitsResponseWithAnalytics(tophitsresponsewithanalytics);
       }
       return null;
     }
@@ -73,14 +62,11 @@ class GetTopHitsResponseTopHitsResponse extends GetTopHitsResponse {
 }
 
 @JsonAdapter(GetTopHitsResponse.Adapter.class)
-class GetTopHitsResponseTopHitsResponseWithAnalytics
-  extends GetTopHitsResponse {
+class GetTopHitsResponseTopHitsResponseWithAnalytics extends GetTopHitsResponse {
 
   private final TopHitsResponseWithAnalytics insideValue;
 
-  GetTopHitsResponseTopHitsResponseWithAnalytics(
-    TopHitsResponseWithAnalytics insideValue
-  ) {
+  GetTopHitsResponseTopHitsResponseWithAnalytics(TopHitsResponseWithAnalytics insideValue) {
     this.insideValue = insideValue;
   }
 

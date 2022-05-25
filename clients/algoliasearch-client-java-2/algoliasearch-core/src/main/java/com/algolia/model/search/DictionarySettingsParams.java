@@ -9,9 +9,7 @@ public class DictionarySettingsParams {
   @SerializedName("disableStandardEntries")
   private StandardEntries disableStandardEntries;
 
-  public DictionarySettingsParams setDisableStandardEntries(
-    StandardEntries disableStandardEntries
-  ) {
+  public DictionarySettingsParams setDisableStandardEntries(StandardEntries disableStandardEntries) {
     this.disableStandardEntries = disableStandardEntries;
     return this;
   }
@@ -35,10 +33,7 @@ public class DictionarySettingsParams {
       return false;
     }
     DictionarySettingsParams dictionarySettingsParams = (DictionarySettingsParams) o;
-    return Objects.equals(
-      this.disableStandardEntries,
-      dictionarySettingsParams.disableStandardEntries
-    );
+    return Objects.equals(this.disableStandardEntries, dictionarySettingsParams.disableStandardEntries);
   }
 
   @Override
@@ -50,10 +45,7 @@ public class DictionarySettingsParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class DictionarySettingsParams {\n");
-    sb
-      .append("    disableStandardEntries: ")
-      .append(toIndentedString(disableStandardEntries))
-      .append("\n");
+    sb.append("    disableStandardEntries: ").append(toIndentedString(disableStandardEntries)).append("\n");
     sb.append("}");
     return sb.toString();
   }

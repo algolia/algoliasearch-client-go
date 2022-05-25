@@ -45,9 +45,7 @@ public class GetSearchesNoClicksResponseSearches {
     return count;
   }
 
-  public GetSearchesNoClicksResponseSearches setWithFilterCount(
-    Integer withFilterCount
-  ) {
+  public GetSearchesNoClicksResponseSearches setWithFilterCount(Integer withFilterCount) {
     this.withFilterCount = withFilterCount;
     return this;
   }
@@ -74,10 +72,7 @@ public class GetSearchesNoClicksResponseSearches {
     return (
       Objects.equals(this.search, getSearchesNoClicksResponseSearches.search) &&
       Objects.equals(this.count, getSearchesNoClicksResponseSearches.count) &&
-      Objects.equals(
-        this.withFilterCount,
-        getSearchesNoClicksResponseSearches.withFilterCount
-      )
+      Objects.equals(this.withFilterCount, getSearchesNoClicksResponseSearches.withFilterCount)
     );
   }
 
@@ -92,10 +87,7 @@ public class GetSearchesNoClicksResponseSearches {
     sb.append("class GetSearchesNoClicksResponseSearches {\n");
     sb.append("    search: ").append(toIndentedString(search)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb
-      .append("    withFilterCount: ")
-      .append(toIndentedString(withFilterCount))
-      .append("\n");
+    sb.append("    withFilterCount: ").append(toIndentedString(withFilterCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

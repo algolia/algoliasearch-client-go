@@ -12,9 +12,7 @@ public class SearchUserIdsResponseHighlightResult {
   @SerializedName("clusterName")
   private HighlightResult clusterName;
 
-  public SearchUserIdsResponseHighlightResult setUserID(
-    HighlightResult userID
-  ) {
+  public SearchUserIdsResponseHighlightResult setUserID(HighlightResult userID) {
     this.userID = userID;
     return this;
   }
@@ -29,9 +27,7 @@ public class SearchUserIdsResponseHighlightResult {
     return userID;
   }
 
-  public SearchUserIdsResponseHighlightResult setClusterName(
-    HighlightResult clusterName
-  ) {
+  public SearchUserIdsResponseHighlightResult setClusterName(HighlightResult clusterName) {
     this.clusterName = clusterName;
     return this;
   }
@@ -56,14 +52,8 @@ public class SearchUserIdsResponseHighlightResult {
     }
     SearchUserIdsResponseHighlightResult searchUserIdsResponseHighlightResult = (SearchUserIdsResponseHighlightResult) o;
     return (
-      Objects.equals(
-        this.userID,
-        searchUserIdsResponseHighlightResult.userID
-      ) &&
-      Objects.equals(
-        this.clusterName,
-        searchUserIdsResponseHighlightResult.clusterName
-      )
+      Objects.equals(this.userID, searchUserIdsResponseHighlightResult.userID) &&
+      Objects.equals(this.clusterName, searchUserIdsResponseHighlightResult.clusterName)
     );
   }
 
@@ -77,10 +67,7 @@ public class SearchUserIdsResponseHighlightResult {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchUserIdsResponseHighlightResult {\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
-    sb
-      .append("    clusterName: ")
-      .append(toIndentedString(clusterName))
-      .append("\n");
+    sb.append("    clusterName: ").append(toIndentedString(clusterName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

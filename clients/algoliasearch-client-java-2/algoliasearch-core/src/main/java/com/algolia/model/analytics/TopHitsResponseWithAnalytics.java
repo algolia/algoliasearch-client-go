@@ -11,16 +11,12 @@ public class TopHitsResponseWithAnalytics {
   @SerializedName("hits")
   private List<TopHitsResponseWithAnalyticsHits> hits = new ArrayList<>();
 
-  public TopHitsResponseWithAnalytics setHits(
-    List<TopHitsResponseWithAnalyticsHits> hits
-  ) {
+  public TopHitsResponseWithAnalytics setHits(List<TopHitsResponseWithAnalyticsHits> hits) {
     this.hits = hits;
     return this;
   }
 
-  public TopHitsResponseWithAnalytics addHits(
-    TopHitsResponseWithAnalyticsHits hitsItem
-  ) {
+  public TopHitsResponseWithAnalytics addHits(TopHitsResponseWithAnalyticsHits hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }

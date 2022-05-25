@@ -52,10 +52,7 @@ public class BrowseRequest {
       return false;
     }
     BrowseRequest browseRequest = (BrowseRequest) o;
-    return (
-      Objects.equals(this.params, browseRequest.params) &&
-      Objects.equals(this.cursor, browseRequest.cursor)
-    );
+    return Objects.equals(this.params, browseRequest.params) && Objects.equals(this.cursor, browseRequest.cursor);
   }
 
   @Override

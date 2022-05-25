@@ -61,10 +61,7 @@ public class SynonymHitHighlightResult {
       return false;
     }
     SynonymHitHighlightResult synonymHitHighlightResult = (SynonymHitHighlightResult) o;
-    return (
-      Objects.equals(this.type, synonymHitHighlightResult.type) &&
-      Objects.equals(this.synonyms, synonymHitHighlightResult.synonyms)
-    );
+    return Objects.equals(this.type, synonymHitHighlightResult.type) && Objects.equals(this.synonyms, synonymHitHighlightResult.synonyms);
   }
 
   @Override

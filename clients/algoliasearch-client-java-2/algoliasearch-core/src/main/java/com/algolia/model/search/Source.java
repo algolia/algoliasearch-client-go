@@ -51,10 +51,7 @@ public class Source {
       return false;
     }
     Source source = (Source) o;
-    return (
-      Objects.equals(this.source, source.source) &&
-      Objects.equals(this.description, source.description)
-    );
+    return Objects.equals(this.source, source.source) && Objects.equals(this.description, source.description);
   }
 
   @Override
@@ -67,10 +64,7 @@ public class Source {
     StringBuilder sb = new StringBuilder();
     sb.append("class Source {\n");
     sb.append("    source: ").append(toIndentedString(source)).append("\n");
-    sb
-      .append("    description: ")
-      .append(toIndentedString(description))
-      .append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

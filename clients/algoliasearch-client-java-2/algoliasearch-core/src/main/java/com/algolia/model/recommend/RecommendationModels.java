@@ -40,16 +40,12 @@ public enum RecommendationModels {
   public static class Adapter extends TypeAdapter<RecommendationModels> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final RecommendationModels enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final RecommendationModels enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public RecommendationModels read(final JsonReader jsonReader)
-      throws IOException {
+    public RecommendationModels read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return RecommendationModels.fromValue(value);
     }

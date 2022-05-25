@@ -86,10 +86,7 @@ public class UpdatedRuleResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdatedRuleResponse {\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
-    sb
-      .append("    updatedAt: ")
-      .append(toIndentedString(updatedAt))
-      .append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    taskID: ").append(toIndentedString(taskID)).append("\n");
     sb.append("}");
     return sb.toString();

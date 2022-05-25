@@ -99,9 +99,7 @@ public class SearchUserIdsResponseHits {
     return objectID;
   }
 
-  public SearchUserIdsResponseHits setHighlightResult(
-    SearchUserIdsResponseHighlightResult highlightResult
-  ) {
+  public SearchUserIdsResponseHits setHighlightResult(SearchUserIdsResponseHighlightResult highlightResult) {
     this.highlightResult = highlightResult;
     return this;
   }
@@ -131,23 +129,13 @@ public class SearchUserIdsResponseHits {
       Objects.equals(this.nbRecords, searchUserIdsResponseHits.nbRecords) &&
       Objects.equals(this.dataSize, searchUserIdsResponseHits.dataSize) &&
       Objects.equals(this.objectID, searchUserIdsResponseHits.objectID) &&
-      Objects.equals(
-        this.highlightResult,
-        searchUserIdsResponseHits.highlightResult
-      )
+      Objects.equals(this.highlightResult, searchUserIdsResponseHits.highlightResult)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      userID,
-      clusterName,
-      nbRecords,
-      dataSize,
-      objectID,
-      highlightResult
-    );
+    return Objects.hash(userID, clusterName, nbRecords, dataSize, objectID, highlightResult);
   }
 
   @Override
@@ -155,20 +143,11 @@ public class SearchUserIdsResponseHits {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchUserIdsResponseHits {\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
-    sb
-      .append("    clusterName: ")
-      .append(toIndentedString(clusterName))
-      .append("\n");
-    sb
-      .append("    nbRecords: ")
-      .append(toIndentedString(nbRecords))
-      .append("\n");
+    sb.append("    clusterName: ").append(toIndentedString(clusterName)).append("\n");
+    sb.append("    nbRecords: ").append(toIndentedString(nbRecords)).append("\n");
     sb.append("    dataSize: ").append(toIndentedString(dataSize)).append("\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
-    sb
-      .append("    highlightResult: ")
-      .append(toIndentedString(highlightResult))
-      .append("\n");
+    sb.append("    highlightResult: ").append(toIndentedString(highlightResult)).append("\n");
     sb.append("}");
     return sb.toString();
   }

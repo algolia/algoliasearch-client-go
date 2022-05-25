@@ -51,10 +51,7 @@ public class FacetScoring {
       return false;
     }
     FacetScoring facetScoring = (FacetScoring) o;
-    return (
-      Objects.equals(this.score, facetScoring.score) &&
-      Objects.equals(this.facetName, facetScoring.facetName)
-    );
+    return Objects.equals(this.score, facetScoring.score) && Objects.equals(this.facetName, facetScoring.facetName);
   }
 
   @Override
@@ -67,10 +64,7 @@ public class FacetScoring {
     StringBuilder sb = new StringBuilder();
     sb.append("class FacetScoring {\n");
     sb.append("    score: ").append(toIndentedString(score)).append("\n");
-    sb
-      .append("    facetName: ")
-      .append(toIndentedString(facetName))
-      .append("\n");
+    sb.append("    facetName: ").append(toIndentedString(facetName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

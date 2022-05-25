@@ -53,8 +53,7 @@ public class PredictionsOrderValue {
     }
     PredictionsOrderValue predictionsOrderValue = (PredictionsOrderValue) o;
     return (
-      Objects.equals(this.value, predictionsOrderValue.value) &&
-      Objects.equals(this.lastUpdatedAt, predictionsOrderValue.lastUpdatedAt)
+      Objects.equals(this.value, predictionsOrderValue.value) && Objects.equals(this.lastUpdatedAt, predictionsOrderValue.lastUpdatedAt)
     );
   }
 
@@ -68,10 +67,7 @@ public class PredictionsOrderValue {
     StringBuilder sb = new StringBuilder();
     sb.append("class PredictionsOrderValue {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb
-      .append("    lastUpdatedAt: ")
-      .append(toIndentedString(lastUpdatedAt))
-      .append("\n");
+    sb.append("    lastUpdatedAt: ").append(toIndentedString(lastUpdatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

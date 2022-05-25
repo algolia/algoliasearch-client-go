@@ -11,16 +11,12 @@ public class TopSearchesResponseWithAnalytics {
   @SerializedName("searches")
   private List<TopSearchesResponseWithAnalyticsSearches> searches = new ArrayList<>();
 
-  public TopSearchesResponseWithAnalytics setSearches(
-    List<TopSearchesResponseWithAnalyticsSearches> searches
-  ) {
+  public TopSearchesResponseWithAnalytics setSearches(List<TopSearchesResponseWithAnalyticsSearches> searches) {
     this.searches = searches;
     return this;
   }
 
-  public TopSearchesResponseWithAnalytics addSearches(
-    TopSearchesResponseWithAnalyticsSearches searchesItem
-  ) {
+  public TopSearchesResponseWithAnalytics addSearches(TopSearchesResponseWithAnalyticsSearches searchesItem) {
     this.searches.add(searchesItem);
     return this;
   }
@@ -44,10 +40,7 @@ public class TopSearchesResponseWithAnalytics {
       return false;
     }
     TopSearchesResponseWithAnalytics topSearchesResponseWithAnalytics = (TopSearchesResponseWithAnalytics) o;
-    return Objects.equals(
-      this.searches,
-      topSearchesResponseWithAnalytics.searches
-    );
+    return Objects.equals(this.searches, topSearchesResponseWithAnalytics.searches);
   }
 
   @Override

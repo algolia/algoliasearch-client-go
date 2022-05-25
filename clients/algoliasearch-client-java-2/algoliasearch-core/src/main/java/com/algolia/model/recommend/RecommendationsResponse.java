@@ -148,9 +148,7 @@ public class RecommendationsResponse {
     return automaticRadius;
   }
 
-  public RecommendationsResponse setExhaustiveFacetsCount(
-    Boolean exhaustiveFacetsCount
-  ) {
+  public RecommendationsResponse setExhaustiveFacetsCount(Boolean exhaustiveFacetsCount) {
     this.exhaustiveFacetsCount = exhaustiveFacetsCount;
     return this;
   }
@@ -196,17 +194,12 @@ public class RecommendationsResponse {
     return exhaustiveTypo;
   }
 
-  public RecommendationsResponse setFacets(
-    Map<String, Map<String, String>> facets
-  ) {
+  public RecommendationsResponse setFacets(Map<String, Map<String, String>> facets) {
     this.facets = facets;
     return this;
   }
 
-  public RecommendationsResponse putFacets(
-    String key,
-    Map<String, String> facetsItem
-  ) {
+  public RecommendationsResponse putFacets(String key, Map<String, String> facetsItem) {
     if (this.facets == null) {
       this.facets = new HashMap<>();
     }
@@ -224,17 +217,12 @@ public class RecommendationsResponse {
     return facets;
   }
 
-  public RecommendationsResponse setFacetsStats(
-    Map<String, BaseSearchResponseFacetsStats> facetsStats
-  ) {
+  public RecommendationsResponse setFacetsStats(Map<String, BaseSearchResponseFacetsStats> facetsStats) {
     this.facetsStats = facetsStats;
     return this;
   }
 
-  public RecommendationsResponse putFacetsStats(
-    String key,
-    BaseSearchResponseFacetsStats facetsStatsItem
-  ) {
+  public RecommendationsResponse putFacetsStats(String key, BaseSearchResponseFacetsStats facetsStatsItem) {
     if (this.facetsStats == null) {
       this.facetsStats = new HashMap<>();
     }
@@ -433,9 +421,7 @@ public class RecommendationsResponse {
     return query;
   }
 
-  public RecommendationsResponse setQueryAfterRemoval(
-    String queryAfterRemoval
-  ) {
+  public RecommendationsResponse setQueryAfterRemoval(String queryAfterRemoval) {
     this.queryAfterRemoval = queryAfterRemoval;
     return this;
   }
@@ -512,27 +498,12 @@ public class RecommendationsResponse {
     RecommendationsResponse recommendationsResponse = (RecommendationsResponse) o;
     return (
       Objects.equals(this.abTestID, recommendationsResponse.abTestID) &&
-      Objects.equals(
-        this.abTestVariantID,
-        recommendationsResponse.abTestVariantID
-      ) &&
+      Objects.equals(this.abTestVariantID, recommendationsResponse.abTestVariantID) &&
       Objects.equals(this.aroundLatLng, recommendationsResponse.aroundLatLng) &&
-      Objects.equals(
-        this.automaticRadius,
-        recommendationsResponse.automaticRadius
-      ) &&
-      Objects.equals(
-        this.exhaustiveFacetsCount,
-        recommendationsResponse.exhaustiveFacetsCount
-      ) &&
-      Objects.equals(
-        this.exhaustiveNbHits,
-        recommendationsResponse.exhaustiveNbHits
-      ) &&
-      Objects.equals(
-        this.exhaustiveTypo,
-        recommendationsResponse.exhaustiveTypo
-      ) &&
+      Objects.equals(this.automaticRadius, recommendationsResponse.automaticRadius) &&
+      Objects.equals(this.exhaustiveFacetsCount, recommendationsResponse.exhaustiveFacetsCount) &&
+      Objects.equals(this.exhaustiveNbHits, recommendationsResponse.exhaustiveNbHits) &&
+      Objects.equals(this.exhaustiveTypo, recommendationsResponse.exhaustiveTypo) &&
       Objects.equals(this.facets, recommendationsResponse.facets) &&
       Objects.equals(this.facetsStats, recommendationsResponse.facetsStats) &&
       Objects.equals(this.hitsPerPage, recommendationsResponse.hitsPerPage) &&
@@ -545,15 +516,9 @@ public class RecommendationsResponse {
       Objects.equals(this.page, recommendationsResponse.page) &&
       Objects.equals(this.params, recommendationsResponse.params) &&
       Objects.equals(this.parsedQuery, recommendationsResponse.parsedQuery) &&
-      Objects.equals(
-        this.processingTimeMS,
-        recommendationsResponse.processingTimeMS
-      ) &&
+      Objects.equals(this.processingTimeMS, recommendationsResponse.processingTimeMS) &&
       Objects.equals(this.query, recommendationsResponse.query) &&
-      Objects.equals(
-        this.queryAfterRemoval,
-        recommendationsResponse.queryAfterRemoval
-      ) &&
+      Objects.equals(this.queryAfterRemoval, recommendationsResponse.queryAfterRemoval) &&
       Objects.equals(this.serverUsed, recommendationsResponse.serverUsed) &&
       Objects.equals(this.userData, recommendationsResponse.userData) &&
       Objects.equals(this.hits, recommendationsResponse.hits)
@@ -596,70 +561,28 @@ public class RecommendationsResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class RecommendationsResponse {\n");
     sb.append("    abTestID: ").append(toIndentedString(abTestID)).append("\n");
-    sb
-      .append("    abTestVariantID: ")
-      .append(toIndentedString(abTestVariantID))
-      .append("\n");
-    sb
-      .append("    aroundLatLng: ")
-      .append(toIndentedString(aroundLatLng))
-      .append("\n");
-    sb
-      .append("    automaticRadius: ")
-      .append(toIndentedString(automaticRadius))
-      .append("\n");
-    sb
-      .append("    exhaustiveFacetsCount: ")
-      .append(toIndentedString(exhaustiveFacetsCount))
-      .append("\n");
-    sb
-      .append("    exhaustiveNbHits: ")
-      .append(toIndentedString(exhaustiveNbHits))
-      .append("\n");
-    sb
-      .append("    exhaustiveTypo: ")
-      .append(toIndentedString(exhaustiveTypo))
-      .append("\n");
+    sb.append("    abTestVariantID: ").append(toIndentedString(abTestVariantID)).append("\n");
+    sb.append("    aroundLatLng: ").append(toIndentedString(aroundLatLng)).append("\n");
+    sb.append("    automaticRadius: ").append(toIndentedString(automaticRadius)).append("\n");
+    sb.append("    exhaustiveFacetsCount: ").append(toIndentedString(exhaustiveFacetsCount)).append("\n");
+    sb.append("    exhaustiveNbHits: ").append(toIndentedString(exhaustiveNbHits)).append("\n");
+    sb.append("    exhaustiveTypo: ").append(toIndentedString(exhaustiveTypo)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
-    sb
-      .append("    facetsStats: ")
-      .append(toIndentedString(facetsStats))
-      .append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
+    sb.append("    facetsStats: ").append(toIndentedString(facetsStats)).append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb
-      .append("    indexUsed: ")
-      .append(toIndentedString(indexUsed))
-      .append("\n");
+    sb.append("    indexUsed: ").append(toIndentedString(indexUsed)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    nbHits: ").append(toIndentedString(nbHits)).append("\n");
     sb.append("    nbPages: ").append(toIndentedString(nbPages)).append("\n");
-    sb
-      .append("    nbSortedHits: ")
-      .append(toIndentedString(nbSortedHits))
-      .append("\n");
+    sb.append("    nbSortedHits: ").append(toIndentedString(nbSortedHits)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
-    sb
-      .append("    parsedQuery: ")
-      .append(toIndentedString(parsedQuery))
-      .append("\n");
-    sb
-      .append("    processingTimeMS: ")
-      .append(toIndentedString(processingTimeMS))
-      .append("\n");
+    sb.append("    parsedQuery: ").append(toIndentedString(parsedQuery)).append("\n");
+    sb.append("    processingTimeMS: ").append(toIndentedString(processingTimeMS)).append("\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    queryAfterRemoval: ")
-      .append(toIndentedString(queryAfterRemoval))
-      .append("\n");
-    sb
-      .append("    serverUsed: ")
-      .append(toIndentedString(serverUsed))
-      .append("\n");
+    sb.append("    queryAfterRemoval: ").append(toIndentedString(queryAfterRemoval)).append("\n");
+    sb.append("    serverUsed: ").append(toIndentedString(serverUsed)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
     sb.append("    hits: ").append(toIndentedString(hits)).append("\n");
     sb.append("}");

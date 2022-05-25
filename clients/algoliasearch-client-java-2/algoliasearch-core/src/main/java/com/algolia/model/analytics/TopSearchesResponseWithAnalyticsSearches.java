@@ -63,9 +63,7 @@ public class TopSearchesResponseWithAnalyticsSearches {
     return count;
   }
 
-  public TopSearchesResponseWithAnalyticsSearches setClickThroughRate(
-    Double clickThroughRate
-  ) {
+  public TopSearchesResponseWithAnalyticsSearches setClickThroughRate(Double clickThroughRate) {
     this.clickThroughRate = clickThroughRate;
     return this;
   }
@@ -80,9 +78,7 @@ public class TopSearchesResponseWithAnalyticsSearches {
     return clickThroughRate;
   }
 
-  public TopSearchesResponseWithAnalyticsSearches setAverageClickPosition(
-    Integer averageClickPosition
-  ) {
+  public TopSearchesResponseWithAnalyticsSearches setAverageClickPosition(Integer averageClickPosition) {
     this.averageClickPosition = averageClickPosition;
     return this;
   }
@@ -97,9 +93,7 @@ public class TopSearchesResponseWithAnalyticsSearches {
     return averageClickPosition;
   }
 
-  public TopSearchesResponseWithAnalyticsSearches setConversionRate(
-    Double conversionRate
-  ) {
+  public TopSearchesResponseWithAnalyticsSearches setConversionRate(Double conversionRate) {
     this.conversionRate = conversionRate;
     return this;
   }
@@ -114,9 +108,7 @@ public class TopSearchesResponseWithAnalyticsSearches {
     return conversionRate;
   }
 
-  public TopSearchesResponseWithAnalyticsSearches setTrackedSearchCount(
-    Integer trackedSearchCount
-  ) {
+  public TopSearchesResponseWithAnalyticsSearches setTrackedSearchCount(Integer trackedSearchCount) {
     this.trackedSearchCount = trackedSearchCount;
     return this;
   }
@@ -131,9 +123,7 @@ public class TopSearchesResponseWithAnalyticsSearches {
     return trackedSearchCount;
   }
 
-  public TopSearchesResponseWithAnalyticsSearches setClickCount(
-    Integer clickCount
-  ) {
+  public TopSearchesResponseWithAnalyticsSearches setClickCount(Integer clickCount) {
     this.clickCount = clickCount;
     return this;
   }
@@ -148,9 +138,7 @@ public class TopSearchesResponseWithAnalyticsSearches {
     return clickCount;
   }
 
-  public TopSearchesResponseWithAnalyticsSearches setConversionCount(
-    Integer conversionCount
-  ) {
+  public TopSearchesResponseWithAnalyticsSearches setConversionCount(Integer conversionCount) {
     this.conversionCount = conversionCount;
     return this;
   }
@@ -190,42 +178,15 @@ public class TopSearchesResponseWithAnalyticsSearches {
     }
     TopSearchesResponseWithAnalyticsSearches topSearchesResponseWithAnalyticsSearches = (TopSearchesResponseWithAnalyticsSearches) o;
     return (
-      Objects.equals(
-        this.search,
-        topSearchesResponseWithAnalyticsSearches.search
-      ) &&
-      Objects.equals(
-        this.count,
-        topSearchesResponseWithAnalyticsSearches.count
-      ) &&
-      Objects.equals(
-        this.clickThroughRate,
-        topSearchesResponseWithAnalyticsSearches.clickThroughRate
-      ) &&
-      Objects.equals(
-        this.averageClickPosition,
-        topSearchesResponseWithAnalyticsSearches.averageClickPosition
-      ) &&
-      Objects.equals(
-        this.conversionRate,
-        topSearchesResponseWithAnalyticsSearches.conversionRate
-      ) &&
-      Objects.equals(
-        this.trackedSearchCount,
-        topSearchesResponseWithAnalyticsSearches.trackedSearchCount
-      ) &&
-      Objects.equals(
-        this.clickCount,
-        topSearchesResponseWithAnalyticsSearches.clickCount
-      ) &&
-      Objects.equals(
-        this.conversionCount,
-        topSearchesResponseWithAnalyticsSearches.conversionCount
-      ) &&
-      Objects.equals(
-        this.nbHits,
-        topSearchesResponseWithAnalyticsSearches.nbHits
-      )
+      Objects.equals(this.search, topSearchesResponseWithAnalyticsSearches.search) &&
+      Objects.equals(this.count, topSearchesResponseWithAnalyticsSearches.count) &&
+      Objects.equals(this.clickThroughRate, topSearchesResponseWithAnalyticsSearches.clickThroughRate) &&
+      Objects.equals(this.averageClickPosition, topSearchesResponseWithAnalyticsSearches.averageClickPosition) &&
+      Objects.equals(this.conversionRate, topSearchesResponseWithAnalyticsSearches.conversionRate) &&
+      Objects.equals(this.trackedSearchCount, topSearchesResponseWithAnalyticsSearches.trackedSearchCount) &&
+      Objects.equals(this.clickCount, topSearchesResponseWithAnalyticsSearches.clickCount) &&
+      Objects.equals(this.conversionCount, topSearchesResponseWithAnalyticsSearches.conversionCount) &&
+      Objects.equals(this.nbHits, topSearchesResponseWithAnalyticsSearches.nbHits)
     );
   }
 
@@ -250,30 +211,12 @@ public class TopSearchesResponseWithAnalyticsSearches {
     sb.append("class TopSearchesResponseWithAnalyticsSearches {\n");
     sb.append("    search: ").append(toIndentedString(search)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb
-      .append("    clickThroughRate: ")
-      .append(toIndentedString(clickThroughRate))
-      .append("\n");
-    sb
-      .append("    averageClickPosition: ")
-      .append(toIndentedString(averageClickPosition))
-      .append("\n");
-    sb
-      .append("    conversionRate: ")
-      .append(toIndentedString(conversionRate))
-      .append("\n");
-    sb
-      .append("    trackedSearchCount: ")
-      .append(toIndentedString(trackedSearchCount))
-      .append("\n");
-    sb
-      .append("    clickCount: ")
-      .append(toIndentedString(clickCount))
-      .append("\n");
-    sb
-      .append("    conversionCount: ")
-      .append(toIndentedString(conversionCount))
-      .append("\n");
+    sb.append("    clickThroughRate: ").append(toIndentedString(clickThroughRate)).append("\n");
+    sb.append("    averageClickPosition: ").append(toIndentedString(averageClickPosition)).append("\n");
+    sb.append("    conversionRate: ").append(toIndentedString(conversionRate)).append("\n");
+    sb.append("    trackedSearchCount: ").append(toIndentedString(trackedSearchCount)).append("\n");
+    sb.append("    clickCount: ").append(toIndentedString(clickCount)).append("\n");
+    sb.append("    conversionCount: ").append(toIndentedString(conversionCount)).append("\n");
     sb.append("    nbHits: ").append(toIndentedString(nbHits)).append("\n");
     sb.append("}");
     return sb.toString();

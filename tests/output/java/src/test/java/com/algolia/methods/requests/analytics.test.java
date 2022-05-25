@@ -131,10 +131,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/clicks/averageClickPosition");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -184,10 +181,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/clicks/positions");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -237,10 +231,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/clicks/clickThroughRate");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -290,10 +281,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/conversions/conversionRate");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -343,10 +331,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/searches/noClickRate");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -396,10 +381,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/searches/noResultRate");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -449,10 +431,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/searches/count");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -502,10 +481,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/searches/noClicks");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -525,14 +501,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getSearchesNoClicks(
-        index0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getSearchesNoClicks(index0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -564,10 +533,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/searches/noResults");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -587,14 +553,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getSearchesNoResults(
-        index0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getSearchesNoResults(index0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -626,10 +585,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/status");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -651,10 +607,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/countries");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -674,14 +627,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getTopCountries(
-        index0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getTopCountries(index0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -713,10 +659,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/filters");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -737,15 +680,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getTopFilterAttributes(
-        index0,
-        search0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getTopFilterAttributes(index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -778,10 +713,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/filters/myAttribute");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -791,9 +723,7 @@ class AnalyticsClientTests {
   }
 
   @Test
-  @DisplayName(
-    "get getTopFilterForAttribute with minimal parameters and multiple attributes"
-  )
+  @DisplayName("get getTopFilterForAttribute with minimal parameters and multiple attributes")
   void getTopFilterForAttributeTest1() {
     String attribute0 = "myAttribute1,myAttribute2";
     String index0 = "index";
@@ -806,10 +736,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/filters/myAttribute1%2CmyAttribute2");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -831,16 +758,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getTopFilterForAttribute(
-        attribute0,
-        index0,
-        search0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getTopFilterForAttribute(attribute0, index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -860,9 +778,7 @@ class AnalyticsClientTests {
   }
 
   @Test
-  @DisplayName(
-    "get getTopFilterForAttribute with all parameters and multiple attributes"
-  )
+  @DisplayName("get getTopFilterForAttribute with all parameters and multiple attributes")
   void getTopFilterForAttributeTest3() {
     String attribute0 = "myAttribute1,myAttribute2";
     String index0 = "index";
@@ -874,16 +790,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getTopFilterForAttribute(
-        attribute0,
-        index0,
-        search0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getTopFilterForAttribute(attribute0, index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -915,10 +822,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/filters/noResults");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -939,15 +843,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getTopFiltersNoResults(
-        index0,
-        search0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getTopFiltersNoResults(index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -979,10 +875,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/hits");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -1004,16 +897,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getTopHits(
-        index0,
-        search0,
-        clickAnalytics0,
-        startDate0,
-        endDate0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getTopHits(index0, search0, clickAnalytics0, startDate0, endDate0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -1045,10 +929,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/searches");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -1071,17 +952,7 @@ class AnalyticsClientTests {
     String tags0 = "tag";
 
     assertDoesNotThrow(() -> {
-      client.getTopSearches(
-        index0,
-        clickAnalytics0,
-        startDate0,
-        endDate0,
-        orderBy0,
-        direction0,
-        limit0,
-        offset0,
-        tags0
-      );
+      client.getTopSearches(index0, clickAnalytics0, startDate0, endDate0, orderBy0, direction0, limit0, offset0, tags0);
     });
     EchoResponse req = requester.getLastEchoResponse();
 
@@ -1113,10 +984,7 @@ class AnalyticsClientTests {
     assertEquals(req.path, "/2/users/count");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"index\":\"index\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
+    Map<String, String> expectedQuery = JSON.deserialize("{\"index\":\"index\"}", new TypeToken<HashMap<String, String>>() {}.getType());
     Map<String, Object> actualQuery = req.queryParameters;
 
     assertEquals(expectedQuery.size(), actualQuery.size());
@@ -1191,11 +1059,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1237,11 +1101,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1283,11 +1143,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1329,11 +1185,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1385,11 +1237,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1441,11 +1289,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1487,11 +1331,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1525,10 +1365,7 @@ class AnalyticsClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add("c");
     requestOptionsQueryParameters.add("d");
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1539,11 +1376,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1578,10 +1411,7 @@ class AnalyticsClientTests {
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(true);
     requestOptionsQueryParameters.add(false);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1592,11 +1422,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1630,10 +1456,7 @@ class AnalyticsClientTests {
     List<Object> requestOptionsQueryParameters = new ArrayList<>();
     requestOptionsQueryParameters.add(1);
     requestOptionsQueryParameters.add(2);
-    requestOptions.addExtraQueryParameters(
-      "myParam",
-      requestOptionsQueryParameters
-    );
+    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -1644,11 +1467,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"facet\":\"filters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1701,11 +1520,7 @@ class AnalyticsClientTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"body\":\"parameters\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(

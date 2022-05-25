@@ -40,12 +40,6 @@ public class TaskUtils {
 
       retryCount++;
     }
-    throw new AlgoliaRetriesExceededException(
-      "The maximum number of trials exceeded. (" +
-      (retryCount + 1) +
-      "/" +
-      maxTrial +
-      ")"
-    );
+    throw new AlgoliaRetriesExceededException("The maximum number of trials exceeded. (" + (retryCount + 1) + "/" + maxTrial + ")");
   }
 }

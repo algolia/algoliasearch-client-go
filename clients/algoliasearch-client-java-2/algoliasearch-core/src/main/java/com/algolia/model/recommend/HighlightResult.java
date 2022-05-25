@@ -115,18 +115,9 @@ public class HighlightResult {
     StringBuilder sb = new StringBuilder();
     sb.append("class HighlightResult {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb
-      .append("    matchLevel: ")
-      .append(toIndentedString(matchLevel))
-      .append("\n");
-    sb
-      .append("    matchedWords: ")
-      .append(toIndentedString(matchedWords))
-      .append("\n");
-    sb
-      .append("    fullyHighlighted: ")
-      .append(toIndentedString(fullyHighlighted))
-      .append("\n");
+    sb.append("    matchLevel: ").append(toIndentedString(matchLevel)).append("\n");
+    sb.append("    matchedWords: ").append(toIndentedString(matchedWords)).append("\n");
+    sb.append("    fullyHighlighted: ").append(toIndentedString(fullyHighlighted)).append("\n");
     sb.append("}");
     return sb.toString();
   }

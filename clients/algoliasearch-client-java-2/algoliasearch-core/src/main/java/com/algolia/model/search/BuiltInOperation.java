@@ -54,10 +54,7 @@ public class BuiltInOperation {
       return false;
     }
     BuiltInOperation builtInOperation = (BuiltInOperation) o;
-    return (
-      Objects.equals(this.operation, builtInOperation.operation) &&
-      Objects.equals(this.value, builtInOperation.value)
-    );
+    return Objects.equals(this.operation, builtInOperation.operation) && Objects.equals(this.value, builtInOperation.value);
   }
 
   @Override
@@ -69,10 +66,7 @@ public class BuiltInOperation {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BuiltInOperation {\n");
-    sb
-      .append("    operation: ")
-      .append(toIndentedString(operation))
-      .append("\n");
+    sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();

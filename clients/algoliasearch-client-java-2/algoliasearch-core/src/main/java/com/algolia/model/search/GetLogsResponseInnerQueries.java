@@ -85,14 +85,8 @@ public class GetLogsResponseInnerQueries {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetLogsResponseInnerQueries {\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    userToken: ")
-      .append(toIndentedString(userToken))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    userToken: ").append(toIndentedString(userToken)).append("\n");
     sb.append("    queryId: ").append(toIndentedString(queryId)).append("\n");
     sb.append("}");
     return sb.toString();

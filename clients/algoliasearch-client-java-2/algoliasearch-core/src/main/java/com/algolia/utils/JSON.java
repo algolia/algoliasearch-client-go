@@ -46,11 +46,7 @@ public class JSON {
   private static final RetainFieldMapFactory mapAdapter = new RetainFieldMapFactory();
 
   static {
-    gson =
-      createGson()
-        .registerTypeAdapter(byte[].class, byteArrayAdapter)
-        .registerTypeAdapterFactory(mapAdapter)
-        .create();
+    gson = createGson().registerTypeAdapter(byte[].class, byteArrayAdapter).registerTypeAdapterFactory(mapAdapter).create();
   }
 
   public static GsonBuilder createGson() {
@@ -151,13 +147,8 @@ class ByteArrayAdapter extends TypeAdapter<byte[]> {
 class RetainFieldMapFactory implements TypeAdapterFactory {
 
   FieldNamingPolicy fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
-  ConstructorConstructor constructorConstructor = new ConstructorConstructor(
-    Collections.<Type, InstanceCreator<?>>emptyMap()
-  );
-  MapTypeAdapterFactory defaultMapFactory = new MapTypeAdapterFactory(
-    constructorConstructor,
-    false
-  );
+  ConstructorConstructor constructorConstructor = new ConstructorConstructor(Collections.<Type, InstanceCreator<?>>emptyMap());
+  MapTypeAdapterFactory defaultMapFactory = new MapTypeAdapterFactory(constructorConstructor, false);
   ReflectiveFilterMapFieldFactory defaultObjectFactory = new ReflectiveFilterMapFieldFactory(
     constructorConstructor,
     fieldNamingPolicy,
@@ -168,10 +159,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
   public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
     final TypeAdapter<T> mapAdapter = defaultMapFactory.create(gson, type);
     if (mapAdapter != null) {
-      return (TypeAdapter<T>) new RetainFieldMapAdapter(
-        mapAdapter,
-        defaultObjectFactory.create(gson, type)
-      );
+      return (TypeAdapter<T>) new RetainFieldMapAdapter(mapAdapter, defaultObjectFactory.create(gson, type));
     }
     return mapAdapter;
   }
@@ -181,17 +169,13 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
     TypeAdapter<Map<String, Object>> mapAdapter;
     ReflectiveTypeAdapterFactory.Adapter<Map<String, Object>> objectAdapter;
 
-    RetainFieldMapAdapter(
-      TypeAdapter mapAdapter,
-      ReflectiveTypeAdapterFactory.Adapter objectAdapter
-    ) {
+    RetainFieldMapAdapter(TypeAdapter mapAdapter, ReflectiveTypeAdapterFactory.Adapter objectAdapter) {
       this.mapAdapter = mapAdapter;
       this.objectAdapter = objectAdapter;
     }
 
     @Override
-    public void write(final JsonWriter out, Map<String, Object> value)
-      throws IOException {
+    public void write(final JsonWriter out, Map<String, Object> value) throws IOException {
       if (value == null) {
         out.nullValue();
         return;
@@ -217,9 +201,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
       Map<String, Object> map = mapAdapter.read(in);
 
       // 2.create object from created map
-      Map<String, Object> object = objectAdapter.fromJsonTree(
-        mapAdapter.toJsonTree(map)
-      );
+      Map<String, Object> object = objectAdapter.fromJsonTree(mapAdapter.toJsonTree(map));
 
       // 3.remove fields in object from map
       for (String field : objectAdapter.boundFields.keySet()) {
@@ -231,8 +213,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
     }
   }
 
-  static class ReflectiveFilterMapFieldFactory
-    extends ReflectiveTypeAdapterFactory {
+  static class ReflectiveFilterMapFieldFactory extends ReflectiveTypeAdapterFactory {
 
     public ReflectiveFilterMapFieldFactory(
       ConstructorConstructor constructorConstructor,
@@ -243,10 +224,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
     }
 
     @Override
-    protected boolean shouldFindFieldInClass(
-      Class willFindClass,
-      Class<?> originalRaw
-    ) {
+    protected boolean shouldFindFieldInClass(Class willFindClass, Class<?> originalRaw) {
       Class[] endClasses = new Class[] {
         Object.class,
         HashMap.class,
@@ -289,17 +267,12 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
     }
 
     public boolean excludeField(Field f, boolean serialize) {
-      return (
-        !excluder.excludeClass(f.getType(), serialize) &&
-        !excluder.excludeField(f, serialize)
-      );
+      return (!excluder.excludeClass(f.getType(), serialize) && !excluder.excludeField(f, serialize));
     }
 
     private String getFieldName(Field f) {
       SerializedName serializedName = f.getAnnotation(SerializedName.class);
-      return serializedName == null
-        ? fieldNamingPolicy.translateName(f)
-        : serializedName.value();
+      return serializedName == null ? fieldNamingPolicy.translateName(f) : serializedName.value();
     }
 
     public <T> Adapter<T> create(Gson gson, final TypeToken<T> type) {
@@ -321,34 +294,22 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
       boolean serialize,
       boolean deserialize
     ) {
-      final boolean isPrimitive = Primitives.isPrimitive(
-        fieldType.getRawType()
-      );
+      final boolean isPrimitive = Primitives.isPrimitive(fieldType.getRawType());
 
       // special casing primitives here saves ~5% on Android...
-      return new ReflectiveTypeAdapterFactory.BoundField(
-        name,
-        serialize,
-        deserialize
-      ) {
+      return new ReflectiveTypeAdapterFactory.BoundField(name, serialize, deserialize) {
         final TypeAdapter<?> typeAdapter = context.getAdapter(fieldType);
 
         @SuppressWarnings({ "unchecked", "rawtypes" }) // the type adapter and field type always agree
         @Override
-        void write(JsonWriter writer, Object value)
-          throws IOException, IllegalAccessException {
+        void write(JsonWriter writer, Object value) throws IOException, IllegalAccessException {
           Object fieldValue = field.get(value);
-          TypeAdapter t = new TypeAdapterRuntimeTypeWrapper(
-            context,
-            this.typeAdapter,
-            fieldType.getType()
-          );
+          TypeAdapter t = new TypeAdapterRuntimeTypeWrapper(context, this.typeAdapter, fieldType.getType());
           t.write(writer, fieldValue);
         }
 
         @Override
-        void read(JsonReader reader, Object value)
-          throws IOException, IllegalAccessException {
+        void read(JsonReader reader, Object value) throws IOException, IllegalAccessException {
           Object fieldValue = typeAdapter.read(reader);
           if (fieldValue != null || !isPrimitive) {
             field.set(value, fieldValue);
@@ -357,11 +318,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
       };
     }
 
-    private Map<String, BoundField> getBoundFields(
-      Gson context,
-      TypeToken<?> type,
-      Class<?> raw
-    ) {
+    private Map<String, BoundField> getBoundFields(Gson context, TypeToken<?> type, Class<?> raw) {
       Map<String, BoundField> result = new LinkedHashMap<String, BoundField>();
       if (raw.isInterface()) {
         return result;
@@ -378,41 +335,20 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
             continue;
           }
           field.setAccessible(true);
-          Type fieldType = $Gson$Types.resolve(
-            type.getType(),
-            raw,
-            field.getGenericType()
-          );
-          BoundField boundField = createBoundField(
-            context,
-            field,
-            getFieldName(field),
-            TypeToken.get(fieldType),
-            serialize,
-            deserialize
-          );
+          Type fieldType = $Gson$Types.resolve(type.getType(), raw, field.getGenericType());
+          BoundField boundField = createBoundField(context, field, getFieldName(field), TypeToken.get(fieldType), serialize, deserialize);
           BoundField previous = result.put(boundField.name, boundField);
           if (previous != null) {
-            throw new IllegalArgumentException(
-              declaredType +
-              " declares multiple JSON fields named " +
-              previous.name
-            );
+            throw new IllegalArgumentException(declaredType + " declares multiple JSON fields named " + previous.name);
           }
         }
-        type =
-          TypeToken.get(
-            $Gson$Types.resolve(type.getType(), raw, raw.getGenericSuperclass())
-          );
+        type = TypeToken.get($Gson$Types.resolve(type.getType(), raw, raw.getGenericSuperclass()));
         raw = type.getRawType();
       }
       return result;
     }
 
-    protected boolean shouldFindFieldInClass(
-      Class willFindClass,
-      Class<?> originalRaw
-    ) {
+    protected boolean shouldFindFieldInClass(Class willFindClass, Class<?> originalRaw) {
       return willFindClass != Object.class;
     }
 
@@ -422,21 +358,15 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
       final boolean serialized;
       final boolean deserialized;
 
-      protected BoundField(
-        String name,
-        boolean serialized,
-        boolean deserialized
-      ) {
+      protected BoundField(String name, boolean serialized, boolean deserialized) {
         this.name = name;
         this.serialized = serialized;
         this.deserialized = deserialized;
       }
 
-      abstract void write(JsonWriter writer, Object value)
-        throws IOException, IllegalAccessException;
+      abstract void write(JsonWriter writer, Object value) throws IOException, IllegalAccessException;
 
-      abstract void read(JsonReader reader, Object value)
-        throws IOException, IllegalAccessException;
+      abstract void read(JsonReader reader, Object value) throws IOException, IllegalAccessException;
     }
 
     public static final class Adapter<T> extends TypeAdapter<T> {
@@ -444,10 +374,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
       private final ObjectConstructor<T> constructor;
       private final Map<String, BoundField> boundFields;
 
-      private Adapter(
-        ObjectConstructor<T> constructor,
-        Map<String, BoundField> boundFields
-      ) {
+      private Adapter(ObjectConstructor<T> constructor, Map<String, BoundField> boundFields) {
         this.constructor = constructor;
         this.boundFields = boundFields;
       }
@@ -510,11 +437,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
     private final TypeAdapter<T> delegate;
     private final Type type;
 
-    TypeAdapterRuntimeTypeWrapper(
-      Gson context,
-      TypeAdapter<T> delegate,
-      Type type
-    ) {
+    TypeAdapterRuntimeTypeWrapper(Gson context, TypeAdapter<T> delegate, Type type) {
       this.context = context;
       this.delegate = delegate;
       this.type = type;
@@ -538,17 +461,11 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
       TypeAdapter chosen = delegate;
       Type runtimeType = getRuntimeTypeIfMoreSpecific(type, value);
       if (runtimeType != type) {
-        TypeAdapter runtimeTypeAdapter = context.getAdapter(
-          TypeToken.get(runtimeType)
-        );
-        if (
-          !(runtimeTypeAdapter instanceof ReflectiveTypeAdapterFactory.Adapter)
-        ) {
+        TypeAdapter runtimeTypeAdapter = context.getAdapter(TypeToken.get(runtimeType));
+        if (!(runtimeTypeAdapter instanceof ReflectiveTypeAdapterFactory.Adapter)) {
           // The user registered a type adapter for the runtime type, so we will use that
           chosen = runtimeTypeAdapter;
-        } else if (
-          !(delegate instanceof ReflectiveTypeAdapterFactory.Adapter)
-        ) {
+        } else if (!(delegate instanceof ReflectiveTypeAdapterFactory.Adapter)) {
           // The user registered a type adapter for Base class, so we prefer it over the
           // reflective type adapter for the runtime type
           chosen = delegate;
@@ -562,14 +479,7 @@ class RetainFieldMapFactory implements TypeAdapterFactory {
 
     /** Finds a compatible runtime type if it is more specific */
     private Type getRuntimeTypeIfMoreSpecific(Type type, Object value) {
-      if (
-        value != null &&
-        (
-          type == Object.class ||
-          type instanceof TypeVariable<?> ||
-          type instanceof Class<?>
-        )
-      ) {
+      if (value != null && (type == Object.class || type instanceof TypeVariable<?> || type instanceof Class<?>)) {
         type = value.getClass();
       }
       return type;

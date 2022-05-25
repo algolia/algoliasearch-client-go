@@ -90,10 +90,7 @@ public class SearchDictionaryEntriesParams {
     return (
       Objects.equals(this.query, searchDictionaryEntriesParams.query) &&
       Objects.equals(this.page, searchDictionaryEntriesParams.page) &&
-      Objects.equals(
-        this.hitsPerPage,
-        searchDictionaryEntriesParams.hitsPerPage
-      ) &&
+      Objects.equals(this.hitsPerPage, searchDictionaryEntriesParams.hitsPerPage) &&
       Objects.equals(this.language, searchDictionaryEntriesParams.language)
     );
   }
@@ -109,10 +106,7 @@ public class SearchDictionaryEntriesParams {
     sb.append("class SearchDictionaryEntriesParams {\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
     sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("}");
     return sb.toString();

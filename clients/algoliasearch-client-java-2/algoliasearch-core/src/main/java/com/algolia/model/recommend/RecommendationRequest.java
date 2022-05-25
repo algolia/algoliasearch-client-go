@@ -87,9 +87,7 @@ public class RecommendationRequest {
     return threshold;
   }
 
-  public RecommendationRequest setMaxRecommendations(
-    Integer maxRecommendations
-  ) {
+  public RecommendationRequest setMaxRecommendations(Integer maxRecommendations) {
     this.maxRecommendations = maxRecommendations;
     return this;
   }
@@ -105,9 +103,7 @@ public class RecommendationRequest {
     return maxRecommendations;
   }
 
-  public RecommendationRequest setQueryParameters(
-    SearchParamsObject queryParameters
-  ) {
+  public RecommendationRequest setQueryParameters(SearchParamsObject queryParameters) {
     this.queryParameters = queryParameters;
     return this;
   }
@@ -122,9 +118,7 @@ public class RecommendationRequest {
     return queryParameters;
   }
 
-  public RecommendationRequest setFallbackParameters(
-    SearchParamsObject fallbackParameters
-  ) {
+  public RecommendationRequest setFallbackParameters(SearchParamsObject fallbackParameters) {
     this.fallbackParameters = fallbackParameters;
     return this;
   }
@@ -153,32 +147,15 @@ public class RecommendationRequest {
       Objects.equals(this.objectID, recommendationRequest.objectID) &&
       Objects.equals(this.indexName, recommendationRequest.indexName) &&
       Objects.equals(this.threshold, recommendationRequest.threshold) &&
-      Objects.equals(
-        this.maxRecommendations,
-        recommendationRequest.maxRecommendations
-      ) &&
-      Objects.equals(
-        this.queryParameters,
-        recommendationRequest.queryParameters
-      ) &&
-      Objects.equals(
-        this.fallbackParameters,
-        recommendationRequest.fallbackParameters
-      )
+      Objects.equals(this.maxRecommendations, recommendationRequest.maxRecommendations) &&
+      Objects.equals(this.queryParameters, recommendationRequest.queryParameters) &&
+      Objects.equals(this.fallbackParameters, recommendationRequest.fallbackParameters)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      model,
-      objectID,
-      indexName,
-      threshold,
-      maxRecommendations,
-      queryParameters,
-      fallbackParameters
-    );
+    return Objects.hash(model, objectID, indexName, threshold, maxRecommendations, queryParameters, fallbackParameters);
   }
 
   @Override
@@ -187,26 +164,11 @@ public class RecommendationRequest {
     sb.append("class RecommendationRequest {\n");
     sb.append("    model: ").append(toIndentedString(model)).append("\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    threshold: ")
-      .append(toIndentedString(threshold))
-      .append("\n");
-    sb
-      .append("    maxRecommendations: ")
-      .append(toIndentedString(maxRecommendations))
-      .append("\n");
-    sb
-      .append("    queryParameters: ")
-      .append(toIndentedString(queryParameters))
-      .append("\n");
-    sb
-      .append("    fallbackParameters: ")
-      .append(toIndentedString(fallbackParameters))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
+    sb.append("    maxRecommendations: ").append(toIndentedString(maxRecommendations)).append("\n");
+    sb.append("    queryParameters: ").append(toIndentedString(queryParameters)).append("\n");
+    sb.append("    fallbackParameters: ").append(toIndentedString(fallbackParameters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

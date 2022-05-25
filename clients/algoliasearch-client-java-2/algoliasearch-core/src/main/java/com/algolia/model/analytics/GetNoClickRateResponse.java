@@ -65,16 +65,12 @@ public class GetNoClickRateResponse {
     return noClickCount;
   }
 
-  public GetNoClickRateResponse setDates(
-    List<GetNoClickRateResponseDates> dates
-  ) {
+  public GetNoClickRateResponse setDates(List<GetNoClickRateResponseDates> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetNoClickRateResponse addDates(
-    GetNoClickRateResponseDates datesItem
-  ) {
+  public GetNoClickRateResponse addDates(GetNoClickRateResponseDates datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -117,10 +113,7 @@ public class GetNoClickRateResponse {
     sb.append("class GetNoClickRateResponse {\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb
-      .append("    noClickCount: ")
-      .append(toIndentedString(noClickCount))
-      .append("\n");
+    sb.append("    noClickCount: ").append(toIndentedString(noClickCount)).append("\n");
     sb.append("    dates: ").append(toIndentedString(dates)).append("\n");
     sb.append("}");
     return sb.toString();

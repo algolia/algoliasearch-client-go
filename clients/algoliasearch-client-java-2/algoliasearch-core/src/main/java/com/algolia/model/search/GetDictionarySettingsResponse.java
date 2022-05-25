@@ -9,9 +9,7 @@ public class GetDictionarySettingsResponse {
   @SerializedName("disableStandardEntries")
   private StandardEntries disableStandardEntries;
 
-  public GetDictionarySettingsResponse setDisableStandardEntries(
-    StandardEntries disableStandardEntries
-  ) {
+  public GetDictionarySettingsResponse setDisableStandardEntries(StandardEntries disableStandardEntries) {
     this.disableStandardEntries = disableStandardEntries;
     return this;
   }
@@ -35,10 +33,7 @@ public class GetDictionarySettingsResponse {
       return false;
     }
     GetDictionarySettingsResponse getDictionarySettingsResponse = (GetDictionarySettingsResponse) o;
-    return Objects.equals(
-      this.disableStandardEntries,
-      getDictionarySettingsResponse.disableStandardEntries
-    );
+    return Objects.equals(this.disableStandardEntries, getDictionarySettingsResponse.disableStandardEntries);
   }
 
   @Override
@@ -50,10 +45,7 @@ public class GetDictionarySettingsResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetDictionarySettingsResponse {\n");
-    sb
-      .append("    disableStandardEntries: ")
-      .append(toIndentedString(disableStandardEntries))
-      .append("\n");
+    sb.append("    disableStandardEntries: ").append(toIndentedString(disableStandardEntries)).append("\n");
     sb.append("}");
     return sb.toString();
   }

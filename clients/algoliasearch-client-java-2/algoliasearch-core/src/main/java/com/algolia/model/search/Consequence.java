@@ -147,10 +147,7 @@ public class Consequence {
     sb.append("class Consequence {\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
     sb.append("    promote: ").append(toIndentedString(promote)).append("\n");
-    sb
-      .append("    filterPromotes: ")
-      .append(toIndentedString(filterPromotes))
-      .append("\n");
+    sb.append("    filterPromotes: ").append(toIndentedString(filterPromotes)).append("\n");
     sb.append("    hide: ").append(toIndentedString(hide)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
     sb.append("}");

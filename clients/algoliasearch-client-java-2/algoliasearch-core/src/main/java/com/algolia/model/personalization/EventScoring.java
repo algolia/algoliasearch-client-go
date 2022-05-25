@@ -86,14 +86,8 @@ public class EventScoring {
     StringBuilder sb = new StringBuilder();
     sb.append("class EventScoring {\n");
     sb.append("    score: ").append(toIndentedString(score)).append("\n");
-    sb
-      .append("    eventName: ")
-      .append(toIndentedString(eventName))
-      .append("\n");
-    sb
-      .append("    eventType: ")
-      .append(toIndentedString(eventType))
-      .append("\n");
+    sb.append("    eventName: ").append(toIndentedString(eventName)).append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

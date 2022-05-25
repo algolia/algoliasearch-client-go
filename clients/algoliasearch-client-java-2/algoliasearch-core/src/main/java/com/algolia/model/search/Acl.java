@@ -64,8 +64,7 @@ public enum Acl {
   public static class Adapter extends TypeAdapter<Acl> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final Acl enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final Acl enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

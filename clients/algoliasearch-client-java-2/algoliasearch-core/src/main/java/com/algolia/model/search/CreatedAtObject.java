@@ -45,10 +45,7 @@ public class CreatedAtObject {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreatedAtObject {\n");
-    sb
-      .append("    createdAt: ")
-      .append(toIndentedString(createdAt))
-      .append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

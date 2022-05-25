@@ -105,16 +105,10 @@ public class LogFile {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LogFile {\n");
-    sb
-      .append("    timestamp: ")
-      .append(toIndentedString(timestamp))
-      .append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb
-      .append("    contextLevel: ")
-      .append(toIndentedString(contextLevel))
-      .append("\n");
+    sb.append("    contextLevel: ").append(toIndentedString(contextLevel)).append("\n");
     sb.append("}");
     return sb.toString();
   }

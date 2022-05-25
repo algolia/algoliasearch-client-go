@@ -44,8 +44,7 @@ public enum LogType {
   public static class Adapter extends TypeAdapter<LogType> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final LogType enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final LogType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

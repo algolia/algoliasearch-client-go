@@ -40,10 +40,7 @@ public enum OperationType {
   public static class Adapter extends TypeAdapter<OperationType> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final OperationType enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final OperationType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

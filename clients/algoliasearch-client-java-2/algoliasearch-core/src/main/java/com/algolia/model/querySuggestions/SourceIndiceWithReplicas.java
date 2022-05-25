@@ -153,16 +153,12 @@ public class SourceIndiceWithReplicas {
     return generate;
   }
 
-  public SourceIndiceWithReplicas setExternal(
-    List<SourceIndexExternal> external
-  ) {
+  public SourceIndiceWithReplicas setExternal(List<SourceIndexExternal> external) {
     this.external = external;
     return this;
   }
 
-  public SourceIndiceWithReplicas addExternal(
-    SourceIndexExternal externalItem
-  ) {
+  public SourceIndiceWithReplicas addExternal(SourceIndexExternal externalItem) {
     this.external.add(externalItem);
     return this;
   }
@@ -189,10 +185,7 @@ public class SourceIndiceWithReplicas {
     return (
       Objects.equals(this.replicas, sourceIndiceWithReplicas.replicas) &&
       Objects.equals(this.indexName, sourceIndiceWithReplicas.indexName) &&
-      Objects.equals(
-        this.analyticsTags,
-        sourceIndiceWithReplicas.analyticsTags
-      ) &&
+      Objects.equals(this.analyticsTags, sourceIndiceWithReplicas.analyticsTags) &&
       Objects.equals(this.facets, sourceIndiceWithReplicas.facets) &&
       Objects.equals(this.minHits, sourceIndiceWithReplicas.minHits) &&
       Objects.equals(this.minLetters, sourceIndiceWithReplicas.minLetters) &&
@@ -203,16 +196,7 @@ public class SourceIndiceWithReplicas {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      replicas,
-      indexName,
-      analyticsTags,
-      facets,
-      minHits,
-      minLetters,
-      generate,
-      external
-    );
+    return Objects.hash(replicas, indexName, analyticsTags, facets, minHits, minLetters, generate, external);
   }
 
   @Override
@@ -220,20 +204,11 @@ public class SourceIndiceWithReplicas {
     StringBuilder sb = new StringBuilder();
     sb.append("class SourceIndiceWithReplicas {\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    analyticsTags: ")
-      .append(toIndentedString(analyticsTags))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    analyticsTags: ").append(toIndentedString(analyticsTags)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
     sb.append("    minHits: ").append(toIndentedString(minHits)).append("\n");
-    sb
-      .append("    minLetters: ")
-      .append(toIndentedString(minLetters))
-      .append("\n");
+    sb.append("    minLetters: ").append(toIndentedString(minLetters)).append("\n");
     sb.append("    generate: ").append(toIndentedString(generate)).append("\n");
     sb.append("    external: ").append(toIndentedString(external)).append("\n");
     sb.append("}");

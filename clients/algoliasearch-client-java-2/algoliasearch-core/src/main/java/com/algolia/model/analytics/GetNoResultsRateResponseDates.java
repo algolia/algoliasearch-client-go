@@ -89,10 +89,7 @@ public class GetNoResultsRateResponseDates {
     GetNoResultsRateResponseDates getNoResultsRateResponseDates = (GetNoResultsRateResponseDates) o;
     return (
       Objects.equals(this.date, getNoResultsRateResponseDates.date) &&
-      Objects.equals(
-        this.noResultCount,
-        getNoResultsRateResponseDates.noResultCount
-      ) &&
+      Objects.equals(this.noResultCount, getNoResultsRateResponseDates.noResultCount) &&
       Objects.equals(this.count, getNoResultsRateResponseDates.count) &&
       Objects.equals(this.rate, getNoResultsRateResponseDates.rate)
     );
@@ -108,10 +105,7 @@ public class GetNoResultsRateResponseDates {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetNoResultsRateResponseDates {\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
-    sb
-      .append("    noResultCount: ")
-      .append(toIndentedString(noResultCount))
-      .append("\n");
+    sb.append("    noResultCount: ").append(toIndentedString(noResultCount)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("}");

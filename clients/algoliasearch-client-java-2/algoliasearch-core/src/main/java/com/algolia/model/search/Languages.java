@@ -86,14 +86,8 @@ public class Languages {
     StringBuilder sb = new StringBuilder();
     sb.append("class Languages {\n");
     sb.append("    plurals: ").append(toIndentedString(plurals)).append("\n");
-    sb
-      .append("    stopwords: ")
-      .append(toIndentedString(stopwords))
-      .append("\n");
-    sb
-      .append("    compounds: ")
-      .append(toIndentedString(compounds))
-      .append("\n");
+    sb.append("    stopwords: ").append(toIndentedString(stopwords)).append("\n");
+    sb.append("    compounds: ").append(toIndentedString(compounds)).append("\n");
     sb.append("}");
     return sb.toString();
   }

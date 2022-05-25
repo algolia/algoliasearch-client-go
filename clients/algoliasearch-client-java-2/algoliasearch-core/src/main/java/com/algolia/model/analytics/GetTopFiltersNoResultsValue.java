@@ -85,10 +85,7 @@ public class GetTopFiltersNoResultsValue {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetTopFiltersNoResultsValue {\n");
-    sb
-      .append("    attribute: ")
-      .append(toIndentedString(attribute))
-      .append("\n");
+    sb.append("    attribute: ").append(toIndentedString(attribute)).append("\n");
     sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");

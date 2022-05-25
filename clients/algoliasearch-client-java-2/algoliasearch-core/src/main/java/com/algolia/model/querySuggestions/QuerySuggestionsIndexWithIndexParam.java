@@ -20,16 +20,12 @@ public class QuerySuggestionsIndexWithIndexParam {
   @SerializedName("indexName")
   private String indexName;
 
-  public QuerySuggestionsIndexWithIndexParam setSourceIndices(
-    List<SourceIndex> sourceIndices
-  ) {
+  public QuerySuggestionsIndexWithIndexParam setSourceIndices(List<SourceIndex> sourceIndices) {
     this.sourceIndices = sourceIndices;
     return this;
   }
 
-  public QuerySuggestionsIndexWithIndexParam addSourceIndices(
-    SourceIndex sourceIndicesItem
-  ) {
+  public QuerySuggestionsIndexWithIndexParam addSourceIndices(SourceIndex sourceIndicesItem) {
     this.sourceIndices.add(sourceIndicesItem);
     return this;
   }
@@ -44,16 +40,12 @@ public class QuerySuggestionsIndexWithIndexParam {
     return sourceIndices;
   }
 
-  public QuerySuggestionsIndexWithIndexParam setLanguages(
-    List<String> languages
-  ) {
+  public QuerySuggestionsIndexWithIndexParam setLanguages(List<String> languages) {
     this.languages = languages;
     return this;
   }
 
-  public QuerySuggestionsIndexWithIndexParam addLanguages(
-    String languagesItem
-  ) {
+  public QuerySuggestionsIndexWithIndexParam addLanguages(String languagesItem) {
     if (this.languages == null) {
       this.languages = new ArrayList<>();
     }
@@ -122,22 +114,10 @@ public class QuerySuggestionsIndexWithIndexParam {
     }
     QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam = (QuerySuggestionsIndexWithIndexParam) o;
     return (
-      Objects.equals(
-        this.sourceIndices,
-        querySuggestionsIndexWithIndexParam.sourceIndices
-      ) &&
-      Objects.equals(
-        this.languages,
-        querySuggestionsIndexWithIndexParam.languages
-      ) &&
-      Objects.equals(
-        this.exclude,
-        querySuggestionsIndexWithIndexParam.exclude
-      ) &&
-      Objects.equals(
-        this.indexName,
-        querySuggestionsIndexWithIndexParam.indexName
-      )
+      Objects.equals(this.sourceIndices, querySuggestionsIndexWithIndexParam.sourceIndices) &&
+      Objects.equals(this.languages, querySuggestionsIndexWithIndexParam.languages) &&
+      Objects.equals(this.exclude, querySuggestionsIndexWithIndexParam.exclude) &&
+      Objects.equals(this.indexName, querySuggestionsIndexWithIndexParam.indexName)
     );
   }
 
@@ -150,19 +130,10 @@ public class QuerySuggestionsIndexWithIndexParam {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class QuerySuggestionsIndexWithIndexParam {\n");
-    sb
-      .append("    sourceIndices: ")
-      .append(toIndentedString(sourceIndices))
-      .append("\n");
-    sb
-      .append("    languages: ")
-      .append(toIndentedString(languages))
-      .append("\n");
+    sb.append("    sourceIndices: ").append(toIndentedString(sourceIndices)).append("\n");
+    sb.append("    languages: ").append(toIndentedString(languages)).append("\n");
     sb.append("    exclude: ").append(toIndentedString(exclude)).append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

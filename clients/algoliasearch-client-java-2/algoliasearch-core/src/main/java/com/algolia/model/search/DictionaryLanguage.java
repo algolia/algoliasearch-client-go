@@ -34,10 +34,7 @@ public class DictionaryLanguage {
       return false;
     }
     DictionaryLanguage dictionaryLanguage = (DictionaryLanguage) o;
-    return Objects.equals(
-      this.nbCustomEntires,
-      dictionaryLanguage.nbCustomEntires
-    );
+    return Objects.equals(this.nbCustomEntires, dictionaryLanguage.nbCustomEntires);
   }
 
   @Override
@@ -49,10 +46,7 @@ public class DictionaryLanguage {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class DictionaryLanguage {\n");
-    sb
-      .append("    nbCustomEntires: ")
-      .append(toIndentedString(nbCustomEntires))
-      .append("\n");
+    sb.append("    nbCustomEntires: ").append(toIndentedString(nbCustomEntires)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -31,28 +31,18 @@ public class RetryStrategy {
         Request request = chain.request();
         UseReadTransporter useReadTransporter = (UseReadTransporter) request.tag();
         Iterator<StatefulHost> hostsIter = getTryableHosts(
-          (useReadTransporter != null || request.method().equals("GET"))
-            ? CallType.READ
-            : CallType.WRITE
+          (useReadTransporter != null || request.method().equals("GET")) ? CallType.READ : CallType.WRITE
         )
           .iterator();
         while (hostsIter.hasNext()) {
           StatefulHost currentHost = hostsIter.next();
 
           // Building the request URL
-          HttpUrl newUrl = request
-            .url()
-            .newBuilder()
-            .scheme(currentHost.getScheme())
-            .host(currentHost.getHost())
-            .build();
+          HttpUrl newUrl = request.url().newBuilder().scheme(currentHost.getScheme()).host(currentHost.getHost()).build();
           request = request.newBuilder().url(newUrl).build();
 
           // Computing timeout with the retry count
-          chain.withConnectTimeout(
-            chain.connectTimeoutMillis() + currentHost.getRetryCount() * 1000,
-            TimeUnit.MILLISECONDS
-          );
+          chain.withConnectTimeout(chain.connectTimeoutMillis() + currentHost.getRetryCount() * 1000, TimeUnit.MILLISECONDS);
 
           try {
             Response response = chain.proceed(request);
@@ -104,20 +94,10 @@ public class RetryStrategy {
   List<StatefulHost> getTryableHosts(CallType callType) {
     synchronized (this) {
       resetExpiredHosts();
-      if (
-        hosts
-          .stream()
-          .anyMatch(h -> h.isUp() && h.getAccept().contains(callType))
-      ) {
-        return hosts
-          .stream()
-          .filter(h -> h.isUp() && h.getAccept().contains(callType))
-          .collect(Collectors.toList());
+      if (hosts.stream().anyMatch(h -> h.isUp() && h.getAccept().contains(callType))) {
+        return hosts.stream().filter(h -> h.isUp() && h.getAccept().contains(callType)).collect(Collectors.toList());
       } else {
-        for (StatefulHost host : hosts
-          .stream()
-          .filter(h -> h.getAccept().contains(callType))
-          .collect(Collectors.toList())) {
+        for (StatefulHost host : hosts.stream().filter(h -> h.getAccept().contains(callType)).collect(Collectors.toList())) {
           reset(host);
         }
 
@@ -138,9 +118,7 @@ public class RetryStrategy {
   /** Reset all hosts down for more than 5 minutes. */
   private void resetExpiredHosts() {
     for (StatefulHost host : hosts) {
-      long lastUse = Duration
-        .between(Utils.nowUTC(), host.getLastUse())
-        .getSeconds();
+      long lastUse = Duration.between(Utils.nowUTC(), host.getLastUse()).getSeconds();
       if (!host.isUp() && Math.abs(lastUse) > 5 * 60) {
         reset(host);
       }

@@ -35,9 +35,7 @@ public class GetConversationRateResponse {
     return rate;
   }
 
-  public GetConversationRateResponse setTrackedSearchCount(
-    Integer trackedSearchCount
-  ) {
+  public GetConversationRateResponse setTrackedSearchCount(Integer trackedSearchCount) {
     this.trackedSearchCount = trackedSearchCount;
     return this;
   }
@@ -52,9 +50,7 @@ public class GetConversationRateResponse {
     return trackedSearchCount;
   }
 
-  public GetConversationRateResponse setConversionCount(
-    Integer conversionCount
-  ) {
+  public GetConversationRateResponse setConversionCount(Integer conversionCount) {
     this.conversionCount = conversionCount;
     return this;
   }
@@ -69,16 +65,12 @@ public class GetConversationRateResponse {
     return conversionCount;
   }
 
-  public GetConversationRateResponse setDates(
-    List<GetConversationRateResponseDates> dates
-  ) {
+  public GetConversationRateResponse setDates(List<GetConversationRateResponseDates> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetConversationRateResponse addDates(
-    GetConversationRateResponseDates datesItem
-  ) {
+  public GetConversationRateResponse addDates(GetConversationRateResponseDates datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -104,14 +96,8 @@ public class GetConversationRateResponse {
     GetConversationRateResponse getConversationRateResponse = (GetConversationRateResponse) o;
     return (
       Objects.equals(this.rate, getConversationRateResponse.rate) &&
-      Objects.equals(
-        this.trackedSearchCount,
-        getConversationRateResponse.trackedSearchCount
-      ) &&
-      Objects.equals(
-        this.conversionCount,
-        getConversationRateResponse.conversionCount
-      ) &&
+      Objects.equals(this.trackedSearchCount, getConversationRateResponse.trackedSearchCount) &&
+      Objects.equals(this.conversionCount, getConversationRateResponse.conversionCount) &&
       Objects.equals(this.dates, getConversationRateResponse.dates)
     );
   }
@@ -126,14 +112,8 @@ public class GetConversationRateResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetConversationRateResponse {\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
-    sb
-      .append("    trackedSearchCount: ")
-      .append(toIndentedString(trackedSearchCount))
-      .append("\n");
-    sb
-      .append("    conversionCount: ")
-      .append(toIndentedString(conversionCount))
-      .append("\n");
+    sb.append("    trackedSearchCount: ").append(toIndentedString(trackedSearchCount)).append("\n");
+    sb.append("    conversionCount: ").append(toIndentedString(conversionCount)).append("\n");
     sb.append("    dates: ").append(toIndentedString(dates)).append("\n");
     sb.append("}");
     return sb.toString();

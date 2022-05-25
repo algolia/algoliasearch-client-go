@@ -50,16 +50,12 @@ public enum BuiltInOperationType {
   public static class Adapter extends TypeAdapter<BuiltInOperationType> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final BuiltInOperationType enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final BuiltInOperationType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public BuiltInOperationType read(final JsonReader jsonReader)
-      throws IOException {
+    public BuiltInOperationType read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return BuiltInOperationType.fromValue(value);
     }

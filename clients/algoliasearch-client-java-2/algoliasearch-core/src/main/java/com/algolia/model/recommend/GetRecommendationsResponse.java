@@ -11,16 +11,12 @@ public class GetRecommendationsResponse {
   @SerializedName("results")
   private List<RecommendationsResponse> results = null;
 
-  public GetRecommendationsResponse setResults(
-    List<RecommendationsResponse> results
-  ) {
+  public GetRecommendationsResponse setResults(List<RecommendationsResponse> results) {
     this.results = results;
     return this;
   }
 
-  public GetRecommendationsResponse addResults(
-    RecommendationsResponse resultsItem
-  ) {
+  public GetRecommendationsResponse addResults(RecommendationsResponse resultsItem) {
     if (this.results == null) {
       this.results = new ArrayList<>();
     }

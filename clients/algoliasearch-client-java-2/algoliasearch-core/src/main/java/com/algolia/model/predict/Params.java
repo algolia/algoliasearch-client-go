@@ -27,34 +27,22 @@ public abstract class Params implements CompoundType {
   public static class Adapter extends TypeAdapter<Params> {
 
     @Override
-    public void write(final JsonWriter out, final Params oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final Params oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
     public Params read(final JsonReader jsonReader) throws IOException {
-      AllParams allparams = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<AllParams>() {}.getType()
-      );
+      AllParams allparams = JSON.tryDeserialize(jsonReader, new TypeToken<AllParams>() {}.getType());
       if (allparams != null) {
         return Params.ofAllParams(allparams);
       }
-      ModelsToRetrieve modelstoretrieve = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<ModelsToRetrieve>() {}.getType()
-      );
+      ModelsToRetrieve modelstoretrieve = JSON.tryDeserialize(jsonReader, new TypeToken<ModelsToRetrieve>() {}.getType());
       if (modelstoretrieve != null) {
         return Params.ofModelsToRetrieve(modelstoretrieve);
       }
-      TypesToRetrieve typestoretrieve = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<TypesToRetrieve>() {}.getType()
-      );
+      TypesToRetrieve typestoretrieve = JSON.tryDeserialize(jsonReader, new TypeToken<TypesToRetrieve>() {}.getType());
       if (typestoretrieve != null) {
         return Params.ofTypesToRetrieve(typestoretrieve);
       }

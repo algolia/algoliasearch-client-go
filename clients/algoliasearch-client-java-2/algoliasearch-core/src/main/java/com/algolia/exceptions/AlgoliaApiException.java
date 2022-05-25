@@ -11,11 +11,7 @@ public class AlgoliaApiException extends AlgoliaRuntimeException {
 
   private final int httpErrorCode;
 
-  public AlgoliaApiException(
-    String message,
-    Throwable cause,
-    int httpErrorCode
-  ) {
+  public AlgoliaApiException(String message, Throwable cause, int httpErrorCode) {
     super(message, cause);
     this.httpErrorCode = httpErrorCode;
   }

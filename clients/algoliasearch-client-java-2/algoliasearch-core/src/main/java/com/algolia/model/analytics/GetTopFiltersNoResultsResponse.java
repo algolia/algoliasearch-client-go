@@ -11,16 +11,12 @@ public class GetTopFiltersNoResultsResponse {
   @SerializedName("values")
   private List<GetTopFiltersNoResultsValues> values = new ArrayList<>();
 
-  public GetTopFiltersNoResultsResponse setValues(
-    List<GetTopFiltersNoResultsValues> values
-  ) {
+  public GetTopFiltersNoResultsResponse setValues(List<GetTopFiltersNoResultsValues> values) {
     this.values = values;
     return this;
   }
 
-  public GetTopFiltersNoResultsResponse addValues(
-    GetTopFiltersNoResultsValues valuesItem
-  ) {
+  public GetTopFiltersNoResultsResponse addValues(GetTopFiltersNoResultsValues valuesItem) {
     this.values.add(valuesItem);
     return this;
   }

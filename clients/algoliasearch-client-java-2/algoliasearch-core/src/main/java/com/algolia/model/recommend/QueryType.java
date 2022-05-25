@@ -42,8 +42,7 @@ public enum QueryType {
   public static class Adapter extends TypeAdapter<QueryType> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final QueryType enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final QueryType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

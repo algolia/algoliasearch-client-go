@@ -16,30 +16,21 @@ public abstract class AddABTestsVariant implements CompoundType {
     return new AddABTestsVariantAbTestsVariant(inside);
   }
 
-  public static AddABTestsVariant ofAbTestsVariantSearchParams(
-    AbTestsVariantSearchParams inside
-  ) {
+  public static AddABTestsVariant ofAbTestsVariantSearchParams(AbTestsVariantSearchParams inside) {
     return new AddABTestsVariantAbTestsVariantSearchParams(inside);
   }
 
   public static class Adapter extends TypeAdapter<AddABTestsVariant> {
 
     @Override
-    public void write(final JsonWriter out, final AddABTestsVariant oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final AddABTestsVariant oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
-    public AddABTestsVariant read(final JsonReader jsonReader)
-      throws IOException {
-      AbTestsVariant abtestsvariant = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<AbTestsVariant>() {}.getType()
-      );
+    public AddABTestsVariant read(final JsonReader jsonReader) throws IOException {
+      AbTestsVariant abtestsvariant = JSON.tryDeserialize(jsonReader, new TypeToken<AbTestsVariant>() {}.getType());
       if (abtestsvariant != null) {
         return AddABTestsVariant.ofAbTestsVariant(abtestsvariant);
       }
@@ -48,9 +39,7 @@ public abstract class AddABTestsVariant implements CompoundType {
         new TypeToken<AbTestsVariantSearchParams>() {}.getType()
       );
       if (abtestsvariantsearchparams != null) {
-        return AddABTestsVariant.ofAbTestsVariantSearchParams(
-          abtestsvariantsearchparams
-        );
+        return AddABTestsVariant.ofAbTestsVariantSearchParams(abtestsvariantsearchparams);
       }
       return null;
     }
@@ -77,9 +66,7 @@ class AddABTestsVariantAbTestsVariantSearchParams extends AddABTestsVariant {
 
   private final AbTestsVariantSearchParams insideValue;
 
-  AddABTestsVariantAbTestsVariantSearchParams(
-    AbTestsVariantSearchParams insideValue
-  ) {
+  AddABTestsVariantAbTestsVariantSearchParams(AbTestsVariantSearchParams insideValue) {
     this.insideValue = insideValue;
   }
 

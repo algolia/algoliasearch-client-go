@@ -50,9 +50,7 @@ public class GetClickThroughRateResponse {
     return clickCount;
   }
 
-  public GetClickThroughRateResponse setTrackedSearchCount(
-    Integer trackedSearchCount
-  ) {
+  public GetClickThroughRateResponse setTrackedSearchCount(Integer trackedSearchCount) {
     this.trackedSearchCount = trackedSearchCount;
     return this;
   }
@@ -67,16 +65,12 @@ public class GetClickThroughRateResponse {
     return trackedSearchCount;
   }
 
-  public GetClickThroughRateResponse setDates(
-    List<GetClickThroughRateResponseDates> dates
-  ) {
+  public GetClickThroughRateResponse setDates(List<GetClickThroughRateResponseDates> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetClickThroughRateResponse addDates(
-    GetClickThroughRateResponseDates datesItem
-  ) {
+  public GetClickThroughRateResponse addDates(GetClickThroughRateResponseDates datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -103,10 +97,7 @@ public class GetClickThroughRateResponse {
     return (
       Objects.equals(this.rate, getClickThroughRateResponse.rate) &&
       Objects.equals(this.clickCount, getClickThroughRateResponse.clickCount) &&
-      Objects.equals(
-        this.trackedSearchCount,
-        getClickThroughRateResponse.trackedSearchCount
-      ) &&
+      Objects.equals(this.trackedSearchCount, getClickThroughRateResponse.trackedSearchCount) &&
       Objects.equals(this.dates, getClickThroughRateResponse.dates)
     );
   }
@@ -121,14 +112,8 @@ public class GetClickThroughRateResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetClickThroughRateResponse {\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
-    sb
-      .append("    clickCount: ")
-      .append(toIndentedString(clickCount))
-      .append("\n");
-    sb
-      .append("    trackedSearchCount: ")
-      .append(toIndentedString(trackedSearchCount))
-      .append("\n");
+    sb.append("    clickCount: ").append(toIndentedString(clickCount)).append("\n");
+    sb.append("    trackedSearchCount: ").append(toIndentedString(trackedSearchCount)).append("\n");
     sb.append("    dates: ").append(toIndentedString(dates)).append("\n");
     sb.append("}");
     return sb.toString();

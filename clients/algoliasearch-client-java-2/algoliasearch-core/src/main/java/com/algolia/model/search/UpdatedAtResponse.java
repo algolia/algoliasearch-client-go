@@ -51,10 +51,7 @@ public class UpdatedAtResponse {
       return false;
     }
     UpdatedAtResponse updatedAtResponse = (UpdatedAtResponse) o;
-    return (
-      Objects.equals(this.taskID, updatedAtResponse.taskID) &&
-      Objects.equals(this.updatedAt, updatedAtResponse.updatedAt)
-    );
+    return Objects.equals(this.taskID, updatedAtResponse.taskID) && Objects.equals(this.updatedAt, updatedAtResponse.updatedAt);
   }
 
   @Override
@@ -67,10 +64,7 @@ public class UpdatedAtResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdatedAtResponse {\n");
     sb.append("    taskID: ").append(toIndentedString(taskID)).append("\n");
-    sb
-      .append("    updatedAt: ")
-      .append(toIndentedString(updatedAt))
-      .append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

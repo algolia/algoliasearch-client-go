@@ -23,27 +23,18 @@ public abstract class AroundRadius implements CompoundType {
   public static class Adapter extends TypeAdapter<AroundRadius> {
 
     @Override
-    public void write(final JsonWriter out, final AroundRadius oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final AroundRadius oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
     public AroundRadius read(final JsonReader jsonReader) throws IOException {
-      AroundRadiusAll aroundradiusall = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<AroundRadiusAll>() {}.getType()
-      );
+      AroundRadiusAll aroundradiusall = JSON.tryDeserialize(jsonReader, new TypeToken<AroundRadiusAll>() {}.getType());
       if (aroundradiusall != null) {
         return AroundRadius.ofAroundRadiusAll(aroundradiusall);
       }
-      Integer integer = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<Integer>() {}.getType()
-      );
+      Integer integer = JSON.tryDeserialize(jsonReader, new TypeToken<Integer>() {}.getType());
       if (integer != null) {
         return AroundRadius.ofInteger(integer);
       }

@@ -11,16 +11,12 @@ public class GetTopCountriesResponse {
   @SerializedName("countries")
   private List<GetTopCountriesResponseCountries> countries = new ArrayList<>();
 
-  public GetTopCountriesResponse setCountries(
-    List<GetTopCountriesResponseCountries> countries
-  ) {
+  public GetTopCountriesResponse setCountries(List<GetTopCountriesResponseCountries> countries) {
     this.countries = countries;
     return this;
   }
 
-  public GetTopCountriesResponse addCountries(
-    GetTopCountriesResponseCountries countriesItem
-  ) {
+  public GetTopCountriesResponse addCountries(GetTopCountriesResponseCountries countriesItem) {
     this.countries.add(countriesItem);
     return this;
   }
@@ -56,10 +52,7 @@ public class GetTopCountriesResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetTopCountriesResponse {\n");
-    sb
-      .append("    countries: ")
-      .append(toIndentedString(countries))
-      .append("\n");
+    sb.append("    countries: ").append(toIndentedString(countries)).append("\n");
     sb.append("}");
     return sb.toString();
   }

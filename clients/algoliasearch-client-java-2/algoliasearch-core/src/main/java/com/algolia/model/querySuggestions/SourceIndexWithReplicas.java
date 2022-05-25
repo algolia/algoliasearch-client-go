@@ -153,9 +153,7 @@ public class SourceIndexWithReplicas {
     return generate;
   }
 
-  public SourceIndexWithReplicas setExternal(
-    List<SourceIndexExternal> external
-  ) {
+  public SourceIndexWithReplicas setExternal(List<SourceIndexExternal> external) {
     this.external = external;
     return this;
   }
@@ -187,10 +185,7 @@ public class SourceIndexWithReplicas {
     return (
       Objects.equals(this.replicas, sourceIndexWithReplicas.replicas) &&
       Objects.equals(this.indexName, sourceIndexWithReplicas.indexName) &&
-      Objects.equals(
-        this.analyticsTags,
-        sourceIndexWithReplicas.analyticsTags
-      ) &&
+      Objects.equals(this.analyticsTags, sourceIndexWithReplicas.analyticsTags) &&
       Objects.equals(this.facets, sourceIndexWithReplicas.facets) &&
       Objects.equals(this.minHits, sourceIndexWithReplicas.minHits) &&
       Objects.equals(this.minLetters, sourceIndexWithReplicas.minLetters) &&
@@ -201,16 +196,7 @@ public class SourceIndexWithReplicas {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      replicas,
-      indexName,
-      analyticsTags,
-      facets,
-      minHits,
-      minLetters,
-      generate,
-      external
-    );
+    return Objects.hash(replicas, indexName, analyticsTags, facets, minHits, minLetters, generate, external);
   }
 
   @Override
@@ -218,20 +204,11 @@ public class SourceIndexWithReplicas {
     StringBuilder sb = new StringBuilder();
     sb.append("class SourceIndexWithReplicas {\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    analyticsTags: ")
-      .append(toIndentedString(analyticsTags))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    analyticsTags: ").append(toIndentedString(analyticsTags)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
     sb.append("    minHits: ").append(toIndentedString(minHits)).append("\n");
-    sb
-      .append("    minLetters: ")
-      .append(toIndentedString(minLetters))
-      .append("\n");
+    sb.append("    minLetters: ").append(toIndentedString(minLetters)).append("\n");
     sb.append("    generate: ").append(toIndentedString(generate)).append("\n");
     sb.append("    external: ").append(toIndentedString(external)).append("\n");
     sb.append("}");

@@ -14,16 +14,12 @@ public class AllParams {
   @SerializedName("typesToRetrieve")
   private List<TypesToRetrieveEnum> typesToRetrieve = new ArrayList<>();
 
-  public AllParams setModelsToRetrieve(
-    List<ModelsToRetrieveEnum> modelsToRetrieve
-  ) {
+  public AllParams setModelsToRetrieve(List<ModelsToRetrieveEnum> modelsToRetrieve) {
     this.modelsToRetrieve = modelsToRetrieve;
     return this;
   }
 
-  public AllParams addModelsToRetrieve(
-    ModelsToRetrieveEnum modelsToRetrieveItem
-  ) {
+  public AllParams addModelsToRetrieve(ModelsToRetrieveEnum modelsToRetrieveItem) {
     this.modelsToRetrieve.add(modelsToRetrieveItem);
     return this;
   }
@@ -38,9 +34,7 @@ public class AllParams {
     return modelsToRetrieve;
   }
 
-  public AllParams setTypesToRetrieve(
-    List<TypesToRetrieveEnum> typesToRetrieve
-  ) {
+  public AllParams setTypesToRetrieve(List<TypesToRetrieveEnum> typesToRetrieve) {
     this.typesToRetrieve = typesToRetrieve;
     return this;
   }
@@ -70,8 +64,7 @@ public class AllParams {
     }
     AllParams allParams = (AllParams) o;
     return (
-      Objects.equals(this.modelsToRetrieve, allParams.modelsToRetrieve) &&
-      Objects.equals(this.typesToRetrieve, allParams.typesToRetrieve)
+      Objects.equals(this.modelsToRetrieve, allParams.modelsToRetrieve) && Objects.equals(this.typesToRetrieve, allParams.typesToRetrieve)
     );
   }
 
@@ -84,14 +77,8 @@ public class AllParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AllParams {\n");
-    sb
-      .append("    modelsToRetrieve: ")
-      .append(toIndentedString(modelsToRetrieve))
-      .append("\n");
-    sb
-      .append("    typesToRetrieve: ")
-      .append(toIndentedString(typesToRetrieve))
-      .append("\n");
+    sb.append("    modelsToRetrieve: ").append(toIndentedString(modelsToRetrieve)).append("\n");
+    sb.append("    typesToRetrieve: ").append(toIndentedString(typesToRetrieve)).append("\n");
     sb.append("}");
     return sb.toString();
   }

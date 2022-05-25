@@ -46,10 +46,7 @@ public enum SynonymType {
   public static class Adapter extends TypeAdapter<SynonymType> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final SynonymType enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final SynonymType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

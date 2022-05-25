@@ -42,16 +42,12 @@ public enum AlternativesAsExact {
   public static class Adapter extends TypeAdapter<AlternativesAsExact> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final AlternativesAsExact enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final AlternativesAsExact enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public AlternativesAsExact read(final JsonReader jsonReader)
-      throws IOException {
+    public AlternativesAsExact read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return AlternativesAsExact.fromValue(value);
     }

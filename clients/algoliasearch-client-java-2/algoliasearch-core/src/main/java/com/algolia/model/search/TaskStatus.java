@@ -40,10 +40,7 @@ public enum TaskStatus {
   public static class Adapter extends TypeAdapter<TaskStatus> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final TaskStatus enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final TaskStatus enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

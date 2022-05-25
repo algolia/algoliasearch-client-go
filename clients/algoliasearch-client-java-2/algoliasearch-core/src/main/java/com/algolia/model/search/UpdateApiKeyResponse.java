@@ -51,10 +51,7 @@ public class UpdateApiKeyResponse {
       return false;
     }
     UpdateApiKeyResponse updateApiKeyResponse = (UpdateApiKeyResponse) o;
-    return (
-      Objects.equals(this.key, updateApiKeyResponse.key) &&
-      Objects.equals(this.updatedAt, updateApiKeyResponse.updatedAt)
-    );
+    return Objects.equals(this.key, updateApiKeyResponse.key) && Objects.equals(this.updatedAt, updateApiKeyResponse.updatedAt);
   }
 
   @Override
@@ -67,10 +64,7 @@ public class UpdateApiKeyResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateApiKeyResponse {\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
-    sb
-      .append("    updatedAt: ")
-      .append(toIndentedString(updatedAt))
-      .append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

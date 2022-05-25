@@ -87,10 +87,7 @@ public class MultipleBatchOperation {
     sb.append("class MultipleBatchOperation {\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

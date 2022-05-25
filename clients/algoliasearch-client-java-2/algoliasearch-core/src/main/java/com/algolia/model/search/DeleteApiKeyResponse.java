@@ -45,10 +45,7 @@ public class DeleteApiKeyResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeleteApiKeyResponse {\n");
-    sb
-      .append("    deletedAt: ")
-      .append(toIndentedString(deletedAt))
-      .append("\n");
+    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

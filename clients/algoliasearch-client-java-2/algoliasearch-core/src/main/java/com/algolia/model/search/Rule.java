@@ -157,14 +157,7 @@ public class Rule {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      objectID,
-      conditions,
-      consequence,
-      description,
-      enabled,
-      validity
-    );
+    return Objects.hash(objectID, conditions, consequence, description, enabled, validity);
   }
 
   @Override
@@ -172,18 +165,9 @@ public class Rule {
     StringBuilder sb = new StringBuilder();
     sb.append("class Rule {\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
-    sb
-      .append("    conditions: ")
-      .append(toIndentedString(conditions))
-      .append("\n");
-    sb
-      .append("    consequence: ")
-      .append(toIndentedString(consequence))
-      .append("\n");
-    sb
-      .append("    description: ")
-      .append(toIndentedString(description))
-      .append("\n");
+    sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
+    sb.append("    consequence: ").append(toIndentedString(consequence)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
     sb.append("}");

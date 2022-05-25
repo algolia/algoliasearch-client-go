@@ -148,9 +148,7 @@ public class SearchResponse {
     return automaticRadius;
   }
 
-  public SearchResponse setExhaustiveFacetsCount(
-    Boolean exhaustiveFacetsCount
-  ) {
+  public SearchResponse setExhaustiveFacetsCount(Boolean exhaustiveFacetsCount) {
     this.exhaustiveFacetsCount = exhaustiveFacetsCount;
     return this;
   }
@@ -219,17 +217,12 @@ public class SearchResponse {
     return facets;
   }
 
-  public SearchResponse setFacetsStats(
-    Map<String, BaseSearchResponseFacetsStats> facetsStats
-  ) {
+  public SearchResponse setFacetsStats(Map<String, BaseSearchResponseFacetsStats> facetsStats) {
     this.facetsStats = facetsStats;
     return this;
   }
 
-  public SearchResponse putFacetsStats(
-    String key,
-    BaseSearchResponseFacetsStats facetsStatsItem
-  ) {
+  public SearchResponse putFacetsStats(String key, BaseSearchResponseFacetsStats facetsStatsItem) {
     if (this.facetsStats == null) {
       this.facetsStats = new HashMap<>();
     }
@@ -508,10 +501,7 @@ public class SearchResponse {
       Objects.equals(this.abTestVariantID, searchResponse.abTestVariantID) &&
       Objects.equals(this.aroundLatLng, searchResponse.aroundLatLng) &&
       Objects.equals(this.automaticRadius, searchResponse.automaticRadius) &&
-      Objects.equals(
-        this.exhaustiveFacetsCount,
-        searchResponse.exhaustiveFacetsCount
-      ) &&
+      Objects.equals(this.exhaustiveFacetsCount, searchResponse.exhaustiveFacetsCount) &&
       Objects.equals(this.exhaustiveNbHits, searchResponse.exhaustiveNbHits) &&
       Objects.equals(this.exhaustiveTypo, searchResponse.exhaustiveTypo) &&
       Objects.equals(this.facets, searchResponse.facets) &&
@@ -528,10 +518,7 @@ public class SearchResponse {
       Objects.equals(this.parsedQuery, searchResponse.parsedQuery) &&
       Objects.equals(this.processingTimeMS, searchResponse.processingTimeMS) &&
       Objects.equals(this.query, searchResponse.query) &&
-      Objects.equals(
-        this.queryAfterRemoval,
-        searchResponse.queryAfterRemoval
-      ) &&
+      Objects.equals(this.queryAfterRemoval, searchResponse.queryAfterRemoval) &&
       Objects.equals(this.serverUsed, searchResponse.serverUsed) &&
       Objects.equals(this.userData, searchResponse.userData) &&
       Objects.equals(this.hits, searchResponse.hits)
@@ -574,70 +561,28 @@ public class SearchResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchResponse {\n");
     sb.append("    abTestID: ").append(toIndentedString(abTestID)).append("\n");
-    sb
-      .append("    abTestVariantID: ")
-      .append(toIndentedString(abTestVariantID))
-      .append("\n");
-    sb
-      .append("    aroundLatLng: ")
-      .append(toIndentedString(aroundLatLng))
-      .append("\n");
-    sb
-      .append("    automaticRadius: ")
-      .append(toIndentedString(automaticRadius))
-      .append("\n");
-    sb
-      .append("    exhaustiveFacetsCount: ")
-      .append(toIndentedString(exhaustiveFacetsCount))
-      .append("\n");
-    sb
-      .append("    exhaustiveNbHits: ")
-      .append(toIndentedString(exhaustiveNbHits))
-      .append("\n");
-    sb
-      .append("    exhaustiveTypo: ")
-      .append(toIndentedString(exhaustiveTypo))
-      .append("\n");
+    sb.append("    abTestVariantID: ").append(toIndentedString(abTestVariantID)).append("\n");
+    sb.append("    aroundLatLng: ").append(toIndentedString(aroundLatLng)).append("\n");
+    sb.append("    automaticRadius: ").append(toIndentedString(automaticRadius)).append("\n");
+    sb.append("    exhaustiveFacetsCount: ").append(toIndentedString(exhaustiveFacetsCount)).append("\n");
+    sb.append("    exhaustiveNbHits: ").append(toIndentedString(exhaustiveNbHits)).append("\n");
+    sb.append("    exhaustiveTypo: ").append(toIndentedString(exhaustiveTypo)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
-    sb
-      .append("    facetsStats: ")
-      .append(toIndentedString(facetsStats))
-      .append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
+    sb.append("    facetsStats: ").append(toIndentedString(facetsStats)).append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb
-      .append("    indexUsed: ")
-      .append(toIndentedString(indexUsed))
-      .append("\n");
+    sb.append("    indexUsed: ").append(toIndentedString(indexUsed)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    nbHits: ").append(toIndentedString(nbHits)).append("\n");
     sb.append("    nbPages: ").append(toIndentedString(nbPages)).append("\n");
-    sb
-      .append("    nbSortedHits: ")
-      .append(toIndentedString(nbSortedHits))
-      .append("\n");
+    sb.append("    nbSortedHits: ").append(toIndentedString(nbSortedHits)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
-    sb
-      .append("    parsedQuery: ")
-      .append(toIndentedString(parsedQuery))
-      .append("\n");
-    sb
-      .append("    processingTimeMS: ")
-      .append(toIndentedString(processingTimeMS))
-      .append("\n");
+    sb.append("    parsedQuery: ").append(toIndentedString(parsedQuery)).append("\n");
+    sb.append("    processingTimeMS: ").append(toIndentedString(processingTimeMS)).append("\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    queryAfterRemoval: ")
-      .append(toIndentedString(queryAfterRemoval))
-      .append("\n");
-    sb
-      .append("    serverUsed: ")
-      .append(toIndentedString(serverUsed))
-      .append("\n");
+    sb.append("    queryAfterRemoval: ").append(toIndentedString(queryAfterRemoval)).append("\n");
+    sb.append("    serverUsed: ").append(toIndentedString(serverUsed)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
     sb.append("    hits: ").append(toIndentedString(hits)).append("\n");
     sb.append("}");

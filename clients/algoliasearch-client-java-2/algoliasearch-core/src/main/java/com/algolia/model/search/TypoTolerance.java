@@ -44,10 +44,7 @@ public enum TypoTolerance {
   public static class Adapter extends TypeAdapter<TypoTolerance> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final TypoTolerance enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final TypoTolerance enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

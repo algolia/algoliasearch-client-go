@@ -11,16 +11,12 @@ public class GetRecommendationsParams {
   @SerializedName("requests")
   private List<RecommendationsRequest> requests = new ArrayList<>();
 
-  public GetRecommendationsParams setRequests(
-    List<RecommendationsRequest> requests
-  ) {
+  public GetRecommendationsParams setRequests(List<RecommendationsRequest> requests) {
     this.requests = requests;
     return this;
   }
 
-  public GetRecommendationsParams addRequests(
-    RecommendationsRequest requestsItem
-  ) {
+  public GetRecommendationsParams addRequests(RecommendationsRequest requestsItem) {
     this.requests.add(requestsItem);
     return this;
   }

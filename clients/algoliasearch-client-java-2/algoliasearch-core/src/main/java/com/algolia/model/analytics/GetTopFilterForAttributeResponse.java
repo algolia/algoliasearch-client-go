@@ -11,16 +11,12 @@ public class GetTopFilterForAttributeResponse {
   @SerializedName("values")
   private List<GetTopFilterForAttribute> values = new ArrayList<>();
 
-  public GetTopFilterForAttributeResponse setValues(
-    List<GetTopFilterForAttribute> values
-  ) {
+  public GetTopFilterForAttributeResponse setValues(List<GetTopFilterForAttribute> values) {
     this.values = values;
     return this;
   }
 
-  public GetTopFilterForAttributeResponse addValues(
-    GetTopFilterForAttribute valuesItem
-  ) {
+  public GetTopFilterForAttributeResponse addValues(GetTopFilterForAttribute valuesItem) {
     this.values.add(valuesItem);
     return this;
   }

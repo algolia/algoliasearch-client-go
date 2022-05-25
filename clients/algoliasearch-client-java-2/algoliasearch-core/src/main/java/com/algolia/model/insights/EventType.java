@@ -42,8 +42,7 @@ public enum EventType {
   public static class Adapter extends TypeAdapter<EventType> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final EventType enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final EventType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

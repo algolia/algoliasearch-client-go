@@ -96,14 +96,8 @@ public class OperationIndexParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OperationIndexParams {\n");
-    sb
-      .append("    operation: ")
-      .append(toIndentedString(operation))
-      .append("\n");
-    sb
-      .append("    destination: ")
-      .append(toIndentedString(destination))
-      .append("\n");
+    sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
+    sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
     sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
     sb.append("}");
     return sb.toString();

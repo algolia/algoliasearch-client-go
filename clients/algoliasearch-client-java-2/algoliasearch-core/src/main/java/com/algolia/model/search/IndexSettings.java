@@ -132,8 +132,7 @@ public class IndexSettings {
   private QueryType queryType = QueryType.PREFIX_LAST;
 
   @SerializedName("removeWordsIfNoResults")
-  private RemoveWordsIfNoResults removeWordsIfNoResults =
-    RemoveWordsIfNoResults.NONE;
+  private RemoveWordsIfNoResults removeWordsIfNoResults = RemoveWordsIfNoResults.NONE;
 
   @SerializedName("advancedSyntax")
   private Boolean advancedSyntax = false;
@@ -145,8 +144,7 @@ public class IndexSettings {
   private List<String> disableExactOnAttributes = null;
 
   @SerializedName("exactOnSingleWordQuery")
-  private ExactOnSingleWordQuery exactOnSingleWordQuery =
-    ExactOnSingleWordQuery.ATTRIBUTE;
+  private ExactOnSingleWordQuery exactOnSingleWordQuery = ExactOnSingleWordQuery.ATTRIBUTE;
 
   @SerializedName("alternativesAsExact")
   private List<AlternativesAsExact> alternativesAsExact = null;
@@ -216,16 +214,12 @@ public class IndexSettings {
     return paginationLimitedTo;
   }
 
-  public IndexSettings setDisableTypoToleranceOnWords(
-    List<String> disableTypoToleranceOnWords
-  ) {
+  public IndexSettings setDisableTypoToleranceOnWords(List<String> disableTypoToleranceOnWords) {
     this.disableTypoToleranceOnWords = disableTypoToleranceOnWords;
     return this;
   }
 
-  public IndexSettings addDisableTypoToleranceOnWords(
-    String disableTypoToleranceOnWordsItem
-  ) {
+  public IndexSettings addDisableTypoToleranceOnWords(String disableTypoToleranceOnWordsItem) {
     if (this.disableTypoToleranceOnWords == null) {
       this.disableTypoToleranceOnWords = new ArrayList<>();
     }
@@ -243,16 +237,12 @@ public class IndexSettings {
     return disableTypoToleranceOnWords;
   }
 
-  public IndexSettings setAttributesToTransliterate(
-    List<String> attributesToTransliterate
-  ) {
+  public IndexSettings setAttributesToTransliterate(List<String> attributesToTransliterate) {
     this.attributesToTransliterate = attributesToTransliterate;
     return this;
   }
 
-  public IndexSettings addAttributesToTransliterate(
-    String attributesToTransliterateItem
-  ) {
+  public IndexSettings addAttributesToTransliterate(String attributesToTransliterateItem) {
     if (this.attributesToTransliterate == null) {
       this.attributesToTransliterate = new ArrayList<>();
     }
@@ -270,9 +260,7 @@ public class IndexSettings {
     return attributesToTransliterate;
   }
 
-  public IndexSettings setCamelCaseAttributes(
-    List<String> camelCaseAttributes
-  ) {
+  public IndexSettings setCamelCaseAttributes(List<String> camelCaseAttributes) {
     this.camelCaseAttributes = camelCaseAttributes;
     return this;
   }
@@ -295,9 +283,7 @@ public class IndexSettings {
     return camelCaseAttributes;
   }
 
-  public IndexSettings setDecompoundedAttributes(
-    Object decompoundedAttributes
-  ) {
+  public IndexSettings setDecompoundedAttributes(Object decompoundedAttributes) {
     this.decompoundedAttributes = decompoundedAttributes;
     return this;
   }
@@ -353,16 +339,12 @@ public class IndexSettings {
     return filterPromotes;
   }
 
-  public IndexSettings setDisablePrefixOnAttributes(
-    List<String> disablePrefixOnAttributes
-  ) {
+  public IndexSettings setDisablePrefixOnAttributes(List<String> disablePrefixOnAttributes) {
     this.disablePrefixOnAttributes = disablePrefixOnAttributes;
     return this;
   }
 
-  public IndexSettings addDisablePrefixOnAttributes(
-    String disablePrefixOnAttributesItem
-  ) {
+  public IndexSettings addDisablePrefixOnAttributes(String disablePrefixOnAttributesItem) {
     if (this.disablePrefixOnAttributes == null) {
       this.disablePrefixOnAttributes = new ArrayList<>();
     }
@@ -380,9 +362,7 @@ public class IndexSettings {
     return disablePrefixOnAttributes;
   }
 
-  public IndexSettings setAllowCompressionOfIntegerArray(
-    Boolean allowCompressionOfIntegerArray
-  ) {
+  public IndexSettings setAllowCompressionOfIntegerArray(Boolean allowCompressionOfIntegerArray) {
     this.allowCompressionOfIntegerArray = allowCompressionOfIntegerArray;
     return this;
   }
@@ -397,16 +377,12 @@ public class IndexSettings {
     return allowCompressionOfIntegerArray;
   }
 
-  public IndexSettings setNumericAttributesForFiltering(
-    List<String> numericAttributesForFiltering
-  ) {
+  public IndexSettings setNumericAttributesForFiltering(List<String> numericAttributesForFiltering) {
     this.numericAttributesForFiltering = numericAttributesForFiltering;
     return this;
   }
 
-  public IndexSettings addNumericAttributesForFiltering(
-    String numericAttributesForFilteringItem
-  ) {
+  public IndexSettings addNumericAttributesForFiltering(String numericAttributesForFilteringItem) {
     if (this.numericAttributesForFiltering == null) {
       this.numericAttributesForFiltering = new ArrayList<>();
     }
@@ -439,16 +415,12 @@ public class IndexSettings {
     return userData;
   }
 
-  public IndexSettings setSearchableAttributes(
-    List<String> searchableAttributes
-  ) {
+  public IndexSettings setSearchableAttributes(List<String> searchableAttributes) {
     this.searchableAttributes = searchableAttributes;
     return this;
   }
 
-  public IndexSettings addSearchableAttributes(
-    String searchableAttributesItem
-  ) {
+  public IndexSettings addSearchableAttributes(String searchableAttributesItem) {
     if (this.searchableAttributes == null) {
       this.searchableAttributes = new ArrayList<>();
     }
@@ -466,16 +438,12 @@ public class IndexSettings {
     return searchableAttributes;
   }
 
-  public IndexSettings setAttributesForFaceting(
-    List<String> attributesForFaceting
-  ) {
+  public IndexSettings setAttributesForFaceting(List<String> attributesForFaceting) {
     this.attributesForFaceting = attributesForFaceting;
     return this;
   }
 
-  public IndexSettings addAttributesForFaceting(
-    String attributesForFacetingItem
-  ) {
+  public IndexSettings addAttributesForFaceting(String attributesForFacetingItem) {
     if (this.attributesForFaceting == null) {
       this.attributesForFaceting = new ArrayList<>();
     }
@@ -493,16 +461,12 @@ public class IndexSettings {
     return attributesForFaceting;
   }
 
-  public IndexSettings setUnretrievableAttributes(
-    List<String> unretrievableAttributes
-  ) {
+  public IndexSettings setUnretrievableAttributes(List<String> unretrievableAttributes) {
     this.unretrievableAttributes = unretrievableAttributes;
     return this;
   }
 
-  public IndexSettings addUnretrievableAttributes(
-    String unretrievableAttributesItem
-  ) {
+  public IndexSettings addUnretrievableAttributes(String unretrievableAttributesItem) {
     if (this.unretrievableAttributes == null) {
       this.unretrievableAttributes = new ArrayList<>();
     }
@@ -520,16 +484,12 @@ public class IndexSettings {
     return unretrievableAttributes;
   }
 
-  public IndexSettings setAttributesToRetrieve(
-    List<String> attributesToRetrieve
-  ) {
+  public IndexSettings setAttributesToRetrieve(List<String> attributesToRetrieve) {
     this.attributesToRetrieve = attributesToRetrieve;
     return this;
   }
 
-  public IndexSettings addAttributesToRetrieve(
-    String attributesToRetrieveItem
-  ) {
+  public IndexSettings addAttributesToRetrieve(String attributesToRetrieveItem) {
     if (this.attributesToRetrieve == null) {
       this.attributesToRetrieve = new ArrayList<>();
     }
@@ -547,16 +507,12 @@ public class IndexSettings {
     return attributesToRetrieve;
   }
 
-  public IndexSettings setRestrictSearchableAttributes(
-    List<String> restrictSearchableAttributes
-  ) {
+  public IndexSettings setRestrictSearchableAttributes(List<String> restrictSearchableAttributes) {
     this.restrictSearchableAttributes = restrictSearchableAttributes;
     return this;
   }
 
-  public IndexSettings addRestrictSearchableAttributes(
-    String restrictSearchableAttributesItem
-  ) {
+  public IndexSettings addRestrictSearchableAttributes(String restrictSearchableAttributesItem) {
     if (this.restrictSearchableAttributes == null) {
       this.restrictSearchableAttributes = new ArrayList<>();
     }
@@ -636,16 +592,12 @@ public class IndexSettings {
     return relevancyStrictness;
   }
 
-  public IndexSettings setAttributesToHighlight(
-    List<String> attributesToHighlight
-  ) {
+  public IndexSettings setAttributesToHighlight(List<String> attributesToHighlight) {
     this.attributesToHighlight = attributesToHighlight;
     return this;
   }
 
-  public IndexSettings addAttributesToHighlight(
-    String attributesToHighlightItem
-  ) {
+  public IndexSettings addAttributesToHighlight(String attributesToHighlightItem) {
     if (this.attributesToHighlight == null) {
       this.attributesToHighlight = new ArrayList<>();
     }
@@ -663,9 +615,7 @@ public class IndexSettings {
     return attributesToHighlight;
   }
 
-  public IndexSettings setAttributesToSnippet(
-    List<String> attributesToSnippet
-  ) {
+  public IndexSettings setAttributesToSnippet(List<String> attributesToSnippet) {
     this.attributesToSnippet = attributesToSnippet;
     return this;
   }
@@ -733,9 +683,7 @@ public class IndexSettings {
     return snippetEllipsisText;
   }
 
-  public IndexSettings setRestrictHighlightAndSnippetArrays(
-    Boolean restrictHighlightAndSnippetArrays
-  ) {
+  public IndexSettings setRestrictHighlightAndSnippetArrays(Boolean restrictHighlightAndSnippetArrays) {
     this.restrictHighlightAndSnippetArrays = restrictHighlightAndSnippetArrays;
     return this;
   }
@@ -812,9 +760,7 @@ public class IndexSettings {
     return typoTolerance;
   }
 
-  public IndexSettings setAllowTyposOnNumericTokens(
-    Boolean allowTyposOnNumericTokens
-  ) {
+  public IndexSettings setAllowTyposOnNumericTokens(Boolean allowTyposOnNumericTokens) {
     this.allowTyposOnNumericTokens = allowTyposOnNumericTokens;
     return this;
   }
@@ -829,22 +775,16 @@ public class IndexSettings {
     return allowTyposOnNumericTokens;
   }
 
-  public IndexSettings setDisableTypoToleranceOnAttributes(
-    List<String> disableTypoToleranceOnAttributes
-  ) {
+  public IndexSettings setDisableTypoToleranceOnAttributes(List<String> disableTypoToleranceOnAttributes) {
     this.disableTypoToleranceOnAttributes = disableTypoToleranceOnAttributes;
     return this;
   }
 
-  public IndexSettings addDisableTypoToleranceOnAttributes(
-    String disableTypoToleranceOnAttributesItem
-  ) {
+  public IndexSettings addDisableTypoToleranceOnAttributes(String disableTypoToleranceOnAttributesItem) {
     if (this.disableTypoToleranceOnAttributes == null) {
       this.disableTypoToleranceOnAttributes = new ArrayList<>();
     }
-    this.disableTypoToleranceOnAttributes.add(
-        disableTypoToleranceOnAttributesItem
-      );
+    this.disableTypoToleranceOnAttributes.add(disableTypoToleranceOnAttributesItem);
     return this;
   }
 
@@ -903,9 +843,7 @@ public class IndexSettings {
     return removeStopWords;
   }
 
-  public IndexSettings setKeepDiacriticsOnCharacters(
-    String keepDiacriticsOnCharacters
-  ) {
+  public IndexSettings setKeepDiacriticsOnCharacters(String keepDiacriticsOnCharacters) {
     this.keepDiacriticsOnCharacters = keepDiacriticsOnCharacters;
     return this;
   }
@@ -1004,9 +942,7 @@ public class IndexSettings {
     return queryType;
   }
 
-  public IndexSettings setRemoveWordsIfNoResults(
-    RemoveWordsIfNoResults removeWordsIfNoResults
-  ) {
+  public IndexSettings setRemoveWordsIfNoResults(RemoveWordsIfNoResults removeWordsIfNoResults) {
     this.removeWordsIfNoResults = removeWordsIfNoResults;
     return this;
   }
@@ -1059,16 +995,12 @@ public class IndexSettings {
     return optionalWords;
   }
 
-  public IndexSettings setDisableExactOnAttributes(
-    List<String> disableExactOnAttributes
-  ) {
+  public IndexSettings setDisableExactOnAttributes(List<String> disableExactOnAttributes) {
     this.disableExactOnAttributes = disableExactOnAttributes;
     return this;
   }
 
-  public IndexSettings addDisableExactOnAttributes(
-    String disableExactOnAttributesItem
-  ) {
+  public IndexSettings addDisableExactOnAttributes(String disableExactOnAttributesItem) {
     if (this.disableExactOnAttributes == null) {
       this.disableExactOnAttributes = new ArrayList<>();
     }
@@ -1086,9 +1018,7 @@ public class IndexSettings {
     return disableExactOnAttributes;
   }
 
-  public IndexSettings setExactOnSingleWordQuery(
-    ExactOnSingleWordQuery exactOnSingleWordQuery
-  ) {
+  public IndexSettings setExactOnSingleWordQuery(ExactOnSingleWordQuery exactOnSingleWordQuery) {
     this.exactOnSingleWordQuery = exactOnSingleWordQuery;
     return this;
   }
@@ -1103,16 +1033,12 @@ public class IndexSettings {
     return exactOnSingleWordQuery;
   }
 
-  public IndexSettings setAlternativesAsExact(
-    List<AlternativesAsExact> alternativesAsExact
-  ) {
+  public IndexSettings setAlternativesAsExact(List<AlternativesAsExact> alternativesAsExact) {
     this.alternativesAsExact = alternativesAsExact;
     return this;
   }
 
-  public IndexSettings addAlternativesAsExact(
-    AlternativesAsExact alternativesAsExactItem
-  ) {
+  public IndexSettings addAlternativesAsExact(AlternativesAsExact alternativesAsExactItem) {
     if (this.alternativesAsExact == null) {
       this.alternativesAsExact = new ArrayList<>();
     }
@@ -1130,16 +1056,12 @@ public class IndexSettings {
     return alternativesAsExact;
   }
 
-  public IndexSettings setAdvancedSyntaxFeatures(
-    List<AdvancedSyntaxFeatures> advancedSyntaxFeatures
-  ) {
+  public IndexSettings setAdvancedSyntaxFeatures(List<AdvancedSyntaxFeatures> advancedSyntaxFeatures) {
     this.advancedSyntaxFeatures = advancedSyntaxFeatures;
     return this;
   }
 
-  public IndexSettings addAdvancedSyntaxFeatures(
-    AdvancedSyntaxFeatures advancedSyntaxFeaturesItem
-  ) {
+  public IndexSettings addAdvancedSyntaxFeatures(AdvancedSyntaxFeatures advancedSyntaxFeaturesItem) {
     if (this.advancedSyntaxFeatures == null) {
       this.advancedSyntaxFeatures = new ArrayList<>();
     }
@@ -1188,9 +1110,7 @@ public class IndexSettings {
     return synonyms;
   }
 
-  public IndexSettings setReplaceSynonymsInHighlight(
-    Boolean replaceSynonymsInHighlight
-  ) {
+  public IndexSettings setReplaceSynonymsInHighlight(Boolean replaceSynonymsInHighlight) {
     this.replaceSynonymsInHighlight = replaceSynonymsInHighlight;
     return this;
   }
@@ -1261,11 +1181,8 @@ public class IndexSettings {
     return maxFacetHits;
   }
 
-  public IndexSettings setAttributeCriteriaComputedByMinProximity(
-    Boolean attributeCriteriaComputedByMinProximity
-  ) {
-    this.attributeCriteriaComputedByMinProximity =
-      attributeCriteriaComputedByMinProximity;
+  public IndexSettings setAttributeCriteriaComputedByMinProximity(Boolean attributeCriteriaComputedByMinProximity) {
+    this.attributeCriteriaComputedByMinProximity = attributeCriteriaComputedByMinProximity;
     return this;
   }
 
@@ -1307,153 +1224,60 @@ public class IndexSettings {
     IndexSettings indexSettings = (IndexSettings) o;
     return (
       Objects.equals(this.replicas, indexSettings.replicas) &&
-      Objects.equals(
-        this.paginationLimitedTo,
-        indexSettings.paginationLimitedTo
-      ) &&
-      Objects.equals(
-        this.disableTypoToleranceOnWords,
-        indexSettings.disableTypoToleranceOnWords
-      ) &&
-      Objects.equals(
-        this.attributesToTransliterate,
-        indexSettings.attributesToTransliterate
-      ) &&
-      Objects.equals(
-        this.camelCaseAttributes,
-        indexSettings.camelCaseAttributes
-      ) &&
-      Objects.equals(
-        this.decompoundedAttributes,
-        indexSettings.decompoundedAttributes
-      ) &&
+      Objects.equals(this.paginationLimitedTo, indexSettings.paginationLimitedTo) &&
+      Objects.equals(this.disableTypoToleranceOnWords, indexSettings.disableTypoToleranceOnWords) &&
+      Objects.equals(this.attributesToTransliterate, indexSettings.attributesToTransliterate) &&
+      Objects.equals(this.camelCaseAttributes, indexSettings.camelCaseAttributes) &&
+      Objects.equals(this.decompoundedAttributes, indexSettings.decompoundedAttributes) &&
       Objects.equals(this.indexLanguages, indexSettings.indexLanguages) &&
       Objects.equals(this.filterPromotes, indexSettings.filterPromotes) &&
-      Objects.equals(
-        this.disablePrefixOnAttributes,
-        indexSettings.disablePrefixOnAttributes
-      ) &&
-      Objects.equals(
-        this.allowCompressionOfIntegerArray,
-        indexSettings.allowCompressionOfIntegerArray
-      ) &&
-      Objects.equals(
-        this.numericAttributesForFiltering,
-        indexSettings.numericAttributesForFiltering
-      ) &&
+      Objects.equals(this.disablePrefixOnAttributes, indexSettings.disablePrefixOnAttributes) &&
+      Objects.equals(this.allowCompressionOfIntegerArray, indexSettings.allowCompressionOfIntegerArray) &&
+      Objects.equals(this.numericAttributesForFiltering, indexSettings.numericAttributesForFiltering) &&
       Objects.equals(this.userData, indexSettings.userData) &&
-      Objects.equals(
-        this.searchableAttributes,
-        indexSettings.searchableAttributes
-      ) &&
-      Objects.equals(
-        this.attributesForFaceting,
-        indexSettings.attributesForFaceting
-      ) &&
-      Objects.equals(
-        this.unretrievableAttributes,
-        indexSettings.unretrievableAttributes
-      ) &&
-      Objects.equals(
-        this.attributesToRetrieve,
-        indexSettings.attributesToRetrieve
-      ) &&
-      Objects.equals(
-        this.restrictSearchableAttributes,
-        indexSettings.restrictSearchableAttributes
-      ) &&
+      Objects.equals(this.searchableAttributes, indexSettings.searchableAttributes) &&
+      Objects.equals(this.attributesForFaceting, indexSettings.attributesForFaceting) &&
+      Objects.equals(this.unretrievableAttributes, indexSettings.unretrievableAttributes) &&
+      Objects.equals(this.attributesToRetrieve, indexSettings.attributesToRetrieve) &&
+      Objects.equals(this.restrictSearchableAttributes, indexSettings.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, indexSettings.ranking) &&
       Objects.equals(this.customRanking, indexSettings.customRanking) &&
-      Objects.equals(
-        this.relevancyStrictness,
-        indexSettings.relevancyStrictness
-      ) &&
-      Objects.equals(
-        this.attributesToHighlight,
-        indexSettings.attributesToHighlight
-      ) &&
-      Objects.equals(
-        this.attributesToSnippet,
-        indexSettings.attributesToSnippet
-      ) &&
+      Objects.equals(this.relevancyStrictness, indexSettings.relevancyStrictness) &&
+      Objects.equals(this.attributesToHighlight, indexSettings.attributesToHighlight) &&
+      Objects.equals(this.attributesToSnippet, indexSettings.attributesToSnippet) &&
       Objects.equals(this.highlightPreTag, indexSettings.highlightPreTag) &&
       Objects.equals(this.highlightPostTag, indexSettings.highlightPostTag) &&
-      Objects.equals(
-        this.snippetEllipsisText,
-        indexSettings.snippetEllipsisText
-      ) &&
-      Objects.equals(
-        this.restrictHighlightAndSnippetArrays,
-        indexSettings.restrictHighlightAndSnippetArrays
-      ) &&
+      Objects.equals(this.snippetEllipsisText, indexSettings.snippetEllipsisText) &&
+      Objects.equals(this.restrictHighlightAndSnippetArrays, indexSettings.restrictHighlightAndSnippetArrays) &&
       Objects.equals(this.hitsPerPage, indexSettings.hitsPerPage) &&
-      Objects.equals(
-        this.minWordSizefor1Typo,
-        indexSettings.minWordSizefor1Typo
-      ) &&
-      Objects.equals(
-        this.minWordSizefor2Typos,
-        indexSettings.minWordSizefor2Typos
-      ) &&
+      Objects.equals(this.minWordSizefor1Typo, indexSettings.minWordSizefor1Typo) &&
+      Objects.equals(this.minWordSizefor2Typos, indexSettings.minWordSizefor2Typos) &&
       Objects.equals(this.typoTolerance, indexSettings.typoTolerance) &&
-      Objects.equals(
-        this.allowTyposOnNumericTokens,
-        indexSettings.allowTyposOnNumericTokens
-      ) &&
-      Objects.equals(
-        this.disableTypoToleranceOnAttributes,
-        indexSettings.disableTypoToleranceOnAttributes
-      ) &&
+      Objects.equals(this.allowTyposOnNumericTokens, indexSettings.allowTyposOnNumericTokens) &&
+      Objects.equals(this.disableTypoToleranceOnAttributes, indexSettings.disableTypoToleranceOnAttributes) &&
       Objects.equals(this.separatorsToIndex, indexSettings.separatorsToIndex) &&
       Objects.equals(this.ignorePlurals, indexSettings.ignorePlurals) &&
       Objects.equals(this.removeStopWords, indexSettings.removeStopWords) &&
-      Objects.equals(
-        this.keepDiacriticsOnCharacters,
-        indexSettings.keepDiacriticsOnCharacters
-      ) &&
+      Objects.equals(this.keepDiacriticsOnCharacters, indexSettings.keepDiacriticsOnCharacters) &&
       Objects.equals(this.queryLanguages, indexSettings.queryLanguages) &&
       Objects.equals(this.decompoundQuery, indexSettings.decompoundQuery) &&
       Objects.equals(this.enableRules, indexSettings.enableRules) &&
-      Objects.equals(
-        this.enablePersonalization,
-        indexSettings.enablePersonalization
-      ) &&
+      Objects.equals(this.enablePersonalization, indexSettings.enablePersonalization) &&
       Objects.equals(this.queryType, indexSettings.queryType) &&
-      Objects.equals(
-        this.removeWordsIfNoResults,
-        indexSettings.removeWordsIfNoResults
-      ) &&
+      Objects.equals(this.removeWordsIfNoResults, indexSettings.removeWordsIfNoResults) &&
       Objects.equals(this.advancedSyntax, indexSettings.advancedSyntax) &&
       Objects.equals(this.optionalWords, indexSettings.optionalWords) &&
-      Objects.equals(
-        this.disableExactOnAttributes,
-        indexSettings.disableExactOnAttributes
-      ) &&
-      Objects.equals(
-        this.exactOnSingleWordQuery,
-        indexSettings.exactOnSingleWordQuery
-      ) &&
-      Objects.equals(
-        this.alternativesAsExact,
-        indexSettings.alternativesAsExact
-      ) &&
-      Objects.equals(
-        this.advancedSyntaxFeatures,
-        indexSettings.advancedSyntaxFeatures
-      ) &&
+      Objects.equals(this.disableExactOnAttributes, indexSettings.disableExactOnAttributes) &&
+      Objects.equals(this.exactOnSingleWordQuery, indexSettings.exactOnSingleWordQuery) &&
+      Objects.equals(this.alternativesAsExact, indexSettings.alternativesAsExact) &&
+      Objects.equals(this.advancedSyntaxFeatures, indexSettings.advancedSyntaxFeatures) &&
       Objects.equals(this.distinct, indexSettings.distinct) &&
       Objects.equals(this.synonyms, indexSettings.synonyms) &&
-      Objects.equals(
-        this.replaceSynonymsInHighlight,
-        indexSettings.replaceSynonymsInHighlight
-      ) &&
+      Objects.equals(this.replaceSynonymsInHighlight, indexSettings.replaceSynonymsInHighlight) &&
       Objects.equals(this.minProximity, indexSettings.minProximity) &&
       Objects.equals(this.responseFields, indexSettings.responseFields) &&
       Objects.equals(this.maxFacetHits, indexSettings.maxFacetHits) &&
-      Objects.equals(
-        this.attributeCriteriaComputedByMinProximity,
-        indexSettings.attributeCriteriaComputedByMinProximity
-      ) &&
+      Objects.equals(this.attributeCriteriaComputedByMinProximity, indexSettings.attributeCriteriaComputedByMinProximity) &&
       Objects.equals(this.renderingContent, indexSettings.renderingContent)
     );
   }
@@ -1525,214 +1349,64 @@ public class IndexSettings {
     StringBuilder sb = new StringBuilder();
     sb.append("class IndexSettings {\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
-    sb
-      .append("    paginationLimitedTo: ")
-      .append(toIndentedString(paginationLimitedTo))
-      .append("\n");
-    sb
-      .append("    disableTypoToleranceOnWords: ")
-      .append(toIndentedString(disableTypoToleranceOnWords))
-      .append("\n");
-    sb
-      .append("    attributesToTransliterate: ")
-      .append(toIndentedString(attributesToTransliterate))
-      .append("\n");
-    sb
-      .append("    camelCaseAttributes: ")
-      .append(toIndentedString(camelCaseAttributes))
-      .append("\n");
-    sb
-      .append("    decompoundedAttributes: ")
-      .append(toIndentedString(decompoundedAttributes))
-      .append("\n");
-    sb
-      .append("    indexLanguages: ")
-      .append(toIndentedString(indexLanguages))
-      .append("\n");
-    sb
-      .append("    filterPromotes: ")
-      .append(toIndentedString(filterPromotes))
-      .append("\n");
-    sb
-      .append("    disablePrefixOnAttributes: ")
-      .append(toIndentedString(disablePrefixOnAttributes))
-      .append("\n");
-    sb
-      .append("    allowCompressionOfIntegerArray: ")
-      .append(toIndentedString(allowCompressionOfIntegerArray))
-      .append("\n");
-    sb
-      .append("    numericAttributesForFiltering: ")
-      .append(toIndentedString(numericAttributesForFiltering))
-      .append("\n");
+    sb.append("    paginationLimitedTo: ").append(toIndentedString(paginationLimitedTo)).append("\n");
+    sb.append("    disableTypoToleranceOnWords: ").append(toIndentedString(disableTypoToleranceOnWords)).append("\n");
+    sb.append("    attributesToTransliterate: ").append(toIndentedString(attributesToTransliterate)).append("\n");
+    sb.append("    camelCaseAttributes: ").append(toIndentedString(camelCaseAttributes)).append("\n");
+    sb.append("    decompoundedAttributes: ").append(toIndentedString(decompoundedAttributes)).append("\n");
+    sb.append("    indexLanguages: ").append(toIndentedString(indexLanguages)).append("\n");
+    sb.append("    filterPromotes: ").append(toIndentedString(filterPromotes)).append("\n");
+    sb.append("    disablePrefixOnAttributes: ").append(toIndentedString(disablePrefixOnAttributes)).append("\n");
+    sb.append("    allowCompressionOfIntegerArray: ").append(toIndentedString(allowCompressionOfIntegerArray)).append("\n");
+    sb.append("    numericAttributesForFiltering: ").append(toIndentedString(numericAttributesForFiltering)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
-    sb
-      .append("    searchableAttributes: ")
-      .append(toIndentedString(searchableAttributes))
-      .append("\n");
-    sb
-      .append("    attributesForFaceting: ")
-      .append(toIndentedString(attributesForFaceting))
-      .append("\n");
-    sb
-      .append("    unretrievableAttributes: ")
-      .append(toIndentedString(unretrievableAttributes))
-      .append("\n");
-    sb
-      .append("    attributesToRetrieve: ")
-      .append(toIndentedString(attributesToRetrieve))
-      .append("\n");
-    sb
-      .append("    restrictSearchableAttributes: ")
-      .append(toIndentedString(restrictSearchableAttributes))
-      .append("\n");
+    sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
+    sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
+    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
+    sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
+    sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");
-    sb
-      .append("    customRanking: ")
-      .append(toIndentedString(customRanking))
-      .append("\n");
-    sb
-      .append("    relevancyStrictness: ")
-      .append(toIndentedString(relevancyStrictness))
-      .append("\n");
-    sb
-      .append("    attributesToHighlight: ")
-      .append(toIndentedString(attributesToHighlight))
-      .append("\n");
-    sb
-      .append("    attributesToSnippet: ")
-      .append(toIndentedString(attributesToSnippet))
-      .append("\n");
-    sb
-      .append("    highlightPreTag: ")
-      .append(toIndentedString(highlightPreTag))
-      .append("\n");
-    sb
-      .append("    highlightPostTag: ")
-      .append(toIndentedString(highlightPostTag))
-      .append("\n");
-    sb
-      .append("    snippetEllipsisText: ")
-      .append(toIndentedString(snippetEllipsisText))
-      .append("\n");
-    sb
-      .append("    restrictHighlightAndSnippetArrays: ")
-      .append(toIndentedString(restrictHighlightAndSnippetArrays))
-      .append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
-    sb
-      .append("    minWordSizefor1Typo: ")
-      .append(toIndentedString(minWordSizefor1Typo))
-      .append("\n");
-    sb
-      .append("    minWordSizefor2Typos: ")
-      .append(toIndentedString(minWordSizefor2Typos))
-      .append("\n");
-    sb
-      .append("    typoTolerance: ")
-      .append(toIndentedString(typoTolerance))
-      .append("\n");
-    sb
-      .append("    allowTyposOnNumericTokens: ")
-      .append(toIndentedString(allowTyposOnNumericTokens))
-      .append("\n");
-    sb
-      .append("    disableTypoToleranceOnAttributes: ")
-      .append(toIndentedString(disableTypoToleranceOnAttributes))
-      .append("\n");
-    sb
-      .append("    separatorsToIndex: ")
-      .append(toIndentedString(separatorsToIndex))
-      .append("\n");
-    sb
-      .append("    ignorePlurals: ")
-      .append(toIndentedString(ignorePlurals))
-      .append("\n");
-    sb
-      .append("    removeStopWords: ")
-      .append(toIndentedString(removeStopWords))
-      .append("\n");
-    sb
-      .append("    keepDiacriticsOnCharacters: ")
-      .append(toIndentedString(keepDiacriticsOnCharacters))
-      .append("\n");
-    sb
-      .append("    queryLanguages: ")
-      .append(toIndentedString(queryLanguages))
-      .append("\n");
-    sb
-      .append("    decompoundQuery: ")
-      .append(toIndentedString(decompoundQuery))
-      .append("\n");
-    sb
-      .append("    enableRules: ")
-      .append(toIndentedString(enableRules))
-      .append("\n");
-    sb
-      .append("    enablePersonalization: ")
-      .append(toIndentedString(enablePersonalization))
-      .append("\n");
-    sb
-      .append("    queryType: ")
-      .append(toIndentedString(queryType))
-      .append("\n");
-    sb
-      .append("    removeWordsIfNoResults: ")
-      .append(toIndentedString(removeWordsIfNoResults))
-      .append("\n");
-    sb
-      .append("    advancedSyntax: ")
-      .append(toIndentedString(advancedSyntax))
-      .append("\n");
-    sb
-      .append("    optionalWords: ")
-      .append(toIndentedString(optionalWords))
-      .append("\n");
-    sb
-      .append("    disableExactOnAttributes: ")
-      .append(toIndentedString(disableExactOnAttributes))
-      .append("\n");
-    sb
-      .append("    exactOnSingleWordQuery: ")
-      .append(toIndentedString(exactOnSingleWordQuery))
-      .append("\n");
-    sb
-      .append("    alternativesAsExact: ")
-      .append(toIndentedString(alternativesAsExact))
-      .append("\n");
-    sb
-      .append("    advancedSyntaxFeatures: ")
-      .append(toIndentedString(advancedSyntaxFeatures))
-      .append("\n");
+    sb.append("    customRanking: ").append(toIndentedString(customRanking)).append("\n");
+    sb.append("    relevancyStrictness: ").append(toIndentedString(relevancyStrictness)).append("\n");
+    sb.append("    attributesToHighlight: ").append(toIndentedString(attributesToHighlight)).append("\n");
+    sb.append("    attributesToSnippet: ").append(toIndentedString(attributesToSnippet)).append("\n");
+    sb.append("    highlightPreTag: ").append(toIndentedString(highlightPreTag)).append("\n");
+    sb.append("    highlightPostTag: ").append(toIndentedString(highlightPostTag)).append("\n");
+    sb.append("    snippetEllipsisText: ").append(toIndentedString(snippetEllipsisText)).append("\n");
+    sb.append("    restrictHighlightAndSnippetArrays: ").append(toIndentedString(restrictHighlightAndSnippetArrays)).append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
+    sb.append("    minWordSizefor1Typo: ").append(toIndentedString(minWordSizefor1Typo)).append("\n");
+    sb.append("    minWordSizefor2Typos: ").append(toIndentedString(minWordSizefor2Typos)).append("\n");
+    sb.append("    typoTolerance: ").append(toIndentedString(typoTolerance)).append("\n");
+    sb.append("    allowTyposOnNumericTokens: ").append(toIndentedString(allowTyposOnNumericTokens)).append("\n");
+    sb.append("    disableTypoToleranceOnAttributes: ").append(toIndentedString(disableTypoToleranceOnAttributes)).append("\n");
+    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
+    sb.append("    ignorePlurals: ").append(toIndentedString(ignorePlurals)).append("\n");
+    sb.append("    removeStopWords: ").append(toIndentedString(removeStopWords)).append("\n");
+    sb.append("    keepDiacriticsOnCharacters: ").append(toIndentedString(keepDiacriticsOnCharacters)).append("\n");
+    sb.append("    queryLanguages: ").append(toIndentedString(queryLanguages)).append("\n");
+    sb.append("    decompoundQuery: ").append(toIndentedString(decompoundQuery)).append("\n");
+    sb.append("    enableRules: ").append(toIndentedString(enableRules)).append("\n");
+    sb.append("    enablePersonalization: ").append(toIndentedString(enablePersonalization)).append("\n");
+    sb.append("    queryType: ").append(toIndentedString(queryType)).append("\n");
+    sb.append("    removeWordsIfNoResults: ").append(toIndentedString(removeWordsIfNoResults)).append("\n");
+    sb.append("    advancedSyntax: ").append(toIndentedString(advancedSyntax)).append("\n");
+    sb.append("    optionalWords: ").append(toIndentedString(optionalWords)).append("\n");
+    sb.append("    disableExactOnAttributes: ").append(toIndentedString(disableExactOnAttributes)).append("\n");
+    sb.append("    exactOnSingleWordQuery: ").append(toIndentedString(exactOnSingleWordQuery)).append("\n");
+    sb.append("    alternativesAsExact: ").append(toIndentedString(alternativesAsExact)).append("\n");
+    sb.append("    advancedSyntaxFeatures: ").append(toIndentedString(advancedSyntaxFeatures)).append("\n");
     sb.append("    distinct: ").append(toIndentedString(distinct)).append("\n");
     sb.append("    synonyms: ").append(toIndentedString(synonyms)).append("\n");
-    sb
-      .append("    replaceSynonymsInHighlight: ")
-      .append(toIndentedString(replaceSynonymsInHighlight))
-      .append("\n");
-    sb
-      .append("    minProximity: ")
-      .append(toIndentedString(minProximity))
-      .append("\n");
-    sb
-      .append("    responseFields: ")
-      .append(toIndentedString(responseFields))
-      .append("\n");
-    sb
-      .append("    maxFacetHits: ")
-      .append(toIndentedString(maxFacetHits))
-      .append("\n");
+    sb.append("    replaceSynonymsInHighlight: ").append(toIndentedString(replaceSynonymsInHighlight)).append("\n");
+    sb.append("    minProximity: ").append(toIndentedString(minProximity)).append("\n");
+    sb.append("    responseFields: ").append(toIndentedString(responseFields)).append("\n");
+    sb.append("    maxFacetHits: ").append(toIndentedString(maxFacetHits)).append("\n");
     sb
       .append("    attributeCriteriaComputedByMinProximity: ")
       .append(toIndentedString(attributeCriteriaComputedByMinProximity))
       .append("\n");
-    sb
-      .append("    renderingContent: ")
-      .append(toIndentedString(renderingContent))
-      .append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -58,10 +58,7 @@ public class SearchMethodParams {
       return false;
     }
     SearchMethodParams searchMethodParams = (SearchMethodParams) o;
-    return (
-      Objects.equals(this.requests, searchMethodParams.requests) &&
-      Objects.equals(this.strategy, searchMethodParams.strategy)
-    );
+    return Objects.equals(this.requests, searchMethodParams.requests) && Objects.equals(this.strategy, searchMethodParams.strategy);
   }
 
   @Override

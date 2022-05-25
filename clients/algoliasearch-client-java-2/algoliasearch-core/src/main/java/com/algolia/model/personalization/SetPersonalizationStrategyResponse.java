@@ -33,10 +33,7 @@ public class SetPersonalizationStrategyResponse {
       return false;
     }
     SetPersonalizationStrategyResponse setPersonalizationStrategyResponse = (SetPersonalizationStrategyResponse) o;
-    return Objects.equals(
-      this.message,
-      setPersonalizationStrategyResponse.message
-    );
+    return Objects.equals(this.message, setPersonalizationStrategyResponse.message);
   }
 
   @Override

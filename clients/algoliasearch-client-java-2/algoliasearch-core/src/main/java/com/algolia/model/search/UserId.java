@@ -105,14 +105,8 @@ public class UserId {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserId {\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
-    sb
-      .append("    clusterName: ")
-      .append(toIndentedString(clusterName))
-      .append("\n");
-    sb
-      .append("    nbRecords: ")
-      .append(toIndentedString(nbRecords))
-      .append("\n");
+    sb.append("    clusterName: ").append(toIndentedString(clusterName)).append("\n");
+    sb.append("    nbRecords: ").append(toIndentedString(nbRecords)).append("\n");
     sb.append("    dataSize: ").append(toIndentedString(dataSize)).append("\n");
     sb.append("}");
     return sb.toString();

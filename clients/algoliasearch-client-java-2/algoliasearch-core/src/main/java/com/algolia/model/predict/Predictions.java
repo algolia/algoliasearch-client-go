@@ -85,18 +85,9 @@ public class Predictions {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Predictions {\n");
-    sb
-      .append("    funnelStage: ")
-      .append(toIndentedString(funnelStage))
-      .append("\n");
-    sb
-      .append("    orderValue: ")
-      .append(toIndentedString(orderValue))
-      .append("\n");
-    sb
-      .append("    affinities: ")
-      .append(toIndentedString(affinities))
-      .append("\n");
+    sb.append("    funnelStage: ").append(toIndentedString(funnelStage)).append("\n");
+    sb.append("    orderValue: ").append(toIndentedString(orderValue)).append("\n");
+    sb.append("    affinities: ").append(toIndentedString(affinities)).append("\n");
     sb.append("}");
     return sb.toString();
   }

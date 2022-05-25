@@ -51,10 +51,7 @@ public class GetTopFilterAttribute {
       return false;
     }
     GetTopFilterAttribute getTopFilterAttribute = (GetTopFilterAttribute) o;
-    return (
-      Objects.equals(this.attribute, getTopFilterAttribute.attribute) &&
-      Objects.equals(this.count, getTopFilterAttribute.count)
-    );
+    return Objects.equals(this.attribute, getTopFilterAttribute.attribute) && Objects.equals(this.count, getTopFilterAttribute.count);
   }
 
   @Override
@@ -66,10 +63,7 @@ public class GetTopFilterAttribute {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetTopFilterAttribute {\n");
-    sb
-      .append("    attribute: ")
-      .append(toIndentedString(attribute))
-      .append("\n");
+    sb.append("    attribute: ").append(toIndentedString(attribute)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("}");
     return sb.toString();

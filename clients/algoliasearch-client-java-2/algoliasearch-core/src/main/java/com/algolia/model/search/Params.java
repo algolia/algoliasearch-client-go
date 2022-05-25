@@ -32,16 +32,12 @@ public class Params {
     return query;
   }
 
-  public Params setAutomaticFacetFilters(
-    List<AutomaticFacetFilter> automaticFacetFilters
-  ) {
+  public Params setAutomaticFacetFilters(List<AutomaticFacetFilter> automaticFacetFilters) {
     this.automaticFacetFilters = automaticFacetFilters;
     return this;
   }
 
-  public Params addAutomaticFacetFilters(
-    AutomaticFacetFilter automaticFacetFiltersItem
-  ) {
+  public Params addAutomaticFacetFilters(AutomaticFacetFilter automaticFacetFiltersItem) {
     if (this.automaticFacetFilters == null) {
       this.automaticFacetFilters = new ArrayList<>();
     }
@@ -60,16 +56,12 @@ public class Params {
     return automaticFacetFilters;
   }
 
-  public Params setAutomaticOptionalFacetFilters(
-    List<AutomaticFacetFilter> automaticOptionalFacetFilters
-  ) {
+  public Params setAutomaticOptionalFacetFilters(List<AutomaticFacetFilter> automaticOptionalFacetFilters) {
     this.automaticOptionalFacetFilters = automaticOptionalFacetFilters;
     return this;
   }
 
-  public Params addAutomaticOptionalFacetFilters(
-    AutomaticFacetFilter automaticOptionalFacetFiltersItem
-  ) {
+  public Params addAutomaticOptionalFacetFilters(AutomaticFacetFilter automaticOptionalFacetFiltersItem) {
     if (this.automaticOptionalFacetFilters == null) {
       this.automaticOptionalFacetFilters = new ArrayList<>();
     }
@@ -98,24 +90,14 @@ public class Params {
     Params params = (Params) o;
     return (
       Objects.equals(this.query, params.query) &&
-      Objects.equals(
-        this.automaticFacetFilters,
-        params.automaticFacetFilters
-      ) &&
-      Objects.equals(
-        this.automaticOptionalFacetFilters,
-        params.automaticOptionalFacetFilters
-      )
+      Objects.equals(this.automaticFacetFilters, params.automaticFacetFilters) &&
+      Objects.equals(this.automaticOptionalFacetFilters, params.automaticOptionalFacetFilters)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      query,
-      automaticFacetFilters,
-      automaticOptionalFacetFilters
-    );
+    return Objects.hash(query, automaticFacetFilters, automaticOptionalFacetFilters);
   }
 
   @Override
@@ -123,14 +105,8 @@ public class Params {
     StringBuilder sb = new StringBuilder();
     sb.append("class Params {\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    automaticFacetFilters: ")
-      .append(toIndentedString(automaticFacetFilters))
-      .append("\n");
-    sb
-      .append("    automaticOptionalFacetFilters: ")
-      .append(toIndentedString(automaticOptionalFacetFilters))
-      .append("\n");
+    sb.append("    automaticFacetFilters: ").append(toIndentedString(automaticFacetFilters)).append("\n");
+    sb.append("    automaticOptionalFacetFilters: ").append(toIndentedString(automaticOptionalFacetFilters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

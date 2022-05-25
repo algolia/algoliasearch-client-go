@@ -61,10 +61,7 @@ public class BatchResponse {
       return false;
     }
     BatchResponse batchResponse = (BatchResponse) o;
-    return (
-      Objects.equals(this.taskID, batchResponse.taskID) &&
-      Objects.equals(this.objectIDs, batchResponse.objectIDs)
-    );
+    return Objects.equals(this.taskID, batchResponse.taskID) && Objects.equals(this.objectIDs, batchResponse.objectIDs);
   }
 
   @Override
@@ -77,10 +74,7 @@ public class BatchResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class BatchResponse {\n");
     sb.append("    taskID: ").append(toIndentedString(taskID)).append("\n");
-    sb
-      .append("    objectIDs: ")
-      .append(toIndentedString(objectIDs))
-      .append("\n");
+    sb.append("    objectIDs: ").append(toIndentedString(objectIDs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

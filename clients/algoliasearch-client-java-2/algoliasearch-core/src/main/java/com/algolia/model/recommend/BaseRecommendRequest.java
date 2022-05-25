@@ -51,9 +51,7 @@ public class BaseRecommendRequest {
     return threshold;
   }
 
-  public BaseRecommendRequest setMaxRecommendations(
-    Integer maxRecommendations
-  ) {
+  public BaseRecommendRequest setMaxRecommendations(Integer maxRecommendations) {
     this.maxRecommendations = maxRecommendations;
     return this;
   }
@@ -69,9 +67,7 @@ public class BaseRecommendRequest {
     return maxRecommendations;
   }
 
-  public BaseRecommendRequest setQueryParameters(
-    SearchParamsObject queryParameters
-  ) {
+  public BaseRecommendRequest setQueryParameters(SearchParamsObject queryParameters) {
     this.queryParameters = queryParameters;
     return this;
   }
@@ -86,9 +82,7 @@ public class BaseRecommendRequest {
     return queryParameters;
   }
 
-  public BaseRecommendRequest setFallbackParameters(
-    SearchParamsObject fallbackParameters
-  ) {
+  public BaseRecommendRequest setFallbackParameters(SearchParamsObject fallbackParameters) {
     this.fallbackParameters = fallbackParameters;
     return this;
   }
@@ -115,56 +109,26 @@ public class BaseRecommendRequest {
     return (
       Objects.equals(this.indexName, baseRecommendRequest.indexName) &&
       Objects.equals(this.threshold, baseRecommendRequest.threshold) &&
-      Objects.equals(
-        this.maxRecommendations,
-        baseRecommendRequest.maxRecommendations
-      ) &&
-      Objects.equals(
-        this.queryParameters,
-        baseRecommendRequest.queryParameters
-      ) &&
-      Objects.equals(
-        this.fallbackParameters,
-        baseRecommendRequest.fallbackParameters
-      )
+      Objects.equals(this.maxRecommendations, baseRecommendRequest.maxRecommendations) &&
+      Objects.equals(this.queryParameters, baseRecommendRequest.queryParameters) &&
+      Objects.equals(this.fallbackParameters, baseRecommendRequest.fallbackParameters)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      indexName,
-      threshold,
-      maxRecommendations,
-      queryParameters,
-      fallbackParameters
-    );
+    return Objects.hash(indexName, threshold, maxRecommendations, queryParameters, fallbackParameters);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BaseRecommendRequest {\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    threshold: ")
-      .append(toIndentedString(threshold))
-      .append("\n");
-    sb
-      .append("    maxRecommendations: ")
-      .append(toIndentedString(maxRecommendations))
-      .append("\n");
-    sb
-      .append("    queryParameters: ")
-      .append(toIndentedString(queryParameters))
-      .append("\n");
-    sb
-      .append("    fallbackParameters: ")
-      .append(toIndentedString(fallbackParameters))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
+    sb.append("    maxRecommendations: ").append(toIndentedString(maxRecommendations)).append("\n");
+    sb.append("    queryParameters: ").append(toIndentedString(queryParameters)).append("\n");
+    sb.append("    fallbackParameters: ").append(toIndentedString(fallbackParameters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

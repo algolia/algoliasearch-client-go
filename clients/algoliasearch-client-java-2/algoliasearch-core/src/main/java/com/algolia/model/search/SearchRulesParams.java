@@ -165,15 +165,7 @@ public class SearchRulesParams {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      query,
-      anchoring,
-      context,
-      page,
-      hitsPerPage,
-      enabled,
-      requestOptions
-    );
+    return Objects.hash(query, anchoring, context, page, hitsPerPage, enabled, requestOptions);
   }
 
   @Override
@@ -181,21 +173,12 @@ public class SearchRulesParams {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchRulesParams {\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    anchoring: ")
-      .append(toIndentedString(anchoring))
-      .append("\n");
+    sb.append("    anchoring: ").append(toIndentedString(anchoring)).append("\n");
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
-    sb
-      .append("    requestOptions: ")
-      .append(toIndentedString(requestOptions))
-      .append("\n");
+    sb.append("    requestOptions: ").append(toIndentedString(requestOptions)).append("\n");
     sb.append("}");
     return sb.toString();
   }

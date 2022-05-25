@@ -24,28 +24,18 @@ public abstract class OptionalFilters implements CompoundType {
   public static class Adapter extends TypeAdapter<OptionalFilters> {
 
     @Override
-    public void write(final JsonWriter out, final OptionalFilters oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final OptionalFilters oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
-    public OptionalFilters read(final JsonReader jsonReader)
-      throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<List<List<String>>>() {}.getType()
-      );
+    public OptionalFilters read(final JsonReader jsonReader) throws IOException {
+      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
       if (listliststring != null) {
         return OptionalFilters.ofListListString(listliststring);
       }
-      List<String> liststring = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<List<String>>() {}.getType()
-      );
+      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
       if (liststring != null) {
         return OptionalFilters.ofListString(liststring);
       }

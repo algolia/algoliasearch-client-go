@@ -121,9 +121,7 @@ public class TrendingRequest {
     return maxRecommendations;
   }
 
-  public TrendingRequest setQueryParameters(
-    SearchParamsObject queryParameters
-  ) {
+  public TrendingRequest setQueryParameters(SearchParamsObject queryParameters) {
     this.queryParameters = queryParameters;
     return this;
   }
@@ -138,9 +136,7 @@ public class TrendingRequest {
     return queryParameters;
   }
 
-  public TrendingRequest setFallbackParameters(
-    SearchParamsObject fallbackParameters
-  ) {
+  public TrendingRequest setFallbackParameters(SearchParamsObject fallbackParameters) {
     this.fallbackParameters = fallbackParameters;
     return this;
   }
@@ -170,30 +166,15 @@ public class TrendingRequest {
       Objects.equals(this.facetValue, trendingRequest.facetValue) &&
       Objects.equals(this.indexName, trendingRequest.indexName) &&
       Objects.equals(this.threshold, trendingRequest.threshold) &&
-      Objects.equals(
-        this.maxRecommendations,
-        trendingRequest.maxRecommendations
-      ) &&
+      Objects.equals(this.maxRecommendations, trendingRequest.maxRecommendations) &&
       Objects.equals(this.queryParameters, trendingRequest.queryParameters) &&
-      Objects.equals(
-        this.fallbackParameters,
-        trendingRequest.fallbackParameters
-      )
+      Objects.equals(this.fallbackParameters, trendingRequest.fallbackParameters)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      model,
-      facetName,
-      facetValue,
-      indexName,
-      threshold,
-      maxRecommendations,
-      queryParameters,
-      fallbackParameters
-    );
+    return Objects.hash(model, facetName, facetValue, indexName, threshold, maxRecommendations, queryParameters, fallbackParameters);
   }
 
   @Override
@@ -201,34 +182,13 @@ public class TrendingRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class TrendingRequest {\n");
     sb.append("    model: ").append(toIndentedString(model)).append("\n");
-    sb
-      .append("    facetName: ")
-      .append(toIndentedString(facetName))
-      .append("\n");
-    sb
-      .append("    facetValue: ")
-      .append(toIndentedString(facetValue))
-      .append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    threshold: ")
-      .append(toIndentedString(threshold))
-      .append("\n");
-    sb
-      .append("    maxRecommendations: ")
-      .append(toIndentedString(maxRecommendations))
-      .append("\n");
-    sb
-      .append("    queryParameters: ")
-      .append(toIndentedString(queryParameters))
-      .append("\n");
-    sb
-      .append("    fallbackParameters: ")
-      .append(toIndentedString(fallbackParameters))
-      .append("\n");
+    sb.append("    facetName: ").append(toIndentedString(facetName)).append("\n");
+    sb.append("    facetValue: ").append(toIndentedString(facetValue)).append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
+    sb.append("    maxRecommendations: ").append(toIndentedString(maxRecommendations)).append("\n");
+    sb.append("    queryParameters: ").append(toIndentedString(queryParameters)).append("\n");
+    sb.append("    fallbackParameters: ").append(toIndentedString(fallbackParameters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

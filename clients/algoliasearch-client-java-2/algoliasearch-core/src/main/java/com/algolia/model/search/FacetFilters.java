@@ -24,27 +24,18 @@ public abstract class FacetFilters implements CompoundType {
   public static class Adapter extends TypeAdapter<FacetFilters> {
 
     @Override
-    public void write(final JsonWriter out, final FacetFilters oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final FacetFilters oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
     public FacetFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<List<List<String>>>() {}.getType()
-      );
+      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
       if (listliststring != null) {
         return FacetFilters.ofListListString(listliststring);
       }
-      List<String> liststring = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<List<String>>() {}.getType()
-      );
+      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
       if (liststring != null) {
         return FacetFilters.ofListString(liststring);
       }

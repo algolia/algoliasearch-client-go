@@ -105,14 +105,8 @@ public class FetchUserProfileResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class FetchUserProfileResponse {\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
-    sb
-      .append("    predictions: ")
-      .append(toIndentedString(predictions))
-      .append("\n");
-    sb
-      .append("    properties: ")
-      .append(toIndentedString(properties))
-      .append("\n");
+    sb.append("    predictions: ").append(toIndentedString(predictions)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("    segments: ").append(toIndentedString(segments)).append("\n");
     sb.append("}");
     return sb.toString();

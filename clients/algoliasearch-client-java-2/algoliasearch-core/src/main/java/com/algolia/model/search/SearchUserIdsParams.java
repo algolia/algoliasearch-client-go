@@ -106,15 +106,9 @@ public class SearchUserIdsParams {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchUserIdsParams {\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    clusterName: ")
-      .append(toIndentedString(clusterName))
-      .append("\n");
+    sb.append("    clusterName: ").append(toIndentedString(clusterName)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
-    sb
-      .append("    hitsPerPage: ")
-      .append(toIndentedString(hitsPerPage))
-      .append("\n");
+    sb.append("    hitsPerPage: ").append(toIndentedString(hitsPerPage)).append("\n");
     sb.append("}");
     return sb.toString();
   }

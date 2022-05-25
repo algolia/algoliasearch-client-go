@@ -40,16 +40,12 @@ public enum DictionaryEntryState {
   public static class Adapter extends TypeAdapter<DictionaryEntryState> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final DictionaryEntryState enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final DictionaryEntryState enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public DictionaryEntryState read(final JsonReader jsonReader)
-      throws IOException {
+    public DictionaryEntryState read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return DictionaryEntryState.fromValue(value);
     }

@@ -17,16 +17,12 @@ public class MultipleGetObjectsParams {
   @SerializedName("indexName")
   private String indexName;
 
-  public MultipleGetObjectsParams setAttributesToRetrieve(
-    List<String> attributesToRetrieve
-  ) {
+  public MultipleGetObjectsParams setAttributesToRetrieve(List<String> attributesToRetrieve) {
     this.attributesToRetrieve = attributesToRetrieve;
     return this;
   }
 
-  public MultipleGetObjectsParams addAttributesToRetrieve(
-    String attributesToRetrieveItem
-  ) {
+  public MultipleGetObjectsParams addAttributesToRetrieve(String attributesToRetrieveItem) {
     if (this.attributesToRetrieve == null) {
       this.attributesToRetrieve = new ArrayList<>();
     }
@@ -84,10 +80,7 @@ public class MultipleGetObjectsParams {
     }
     MultipleGetObjectsParams multipleGetObjectsParams = (MultipleGetObjectsParams) o;
     return (
-      Objects.equals(
-        this.attributesToRetrieve,
-        multipleGetObjectsParams.attributesToRetrieve
-      ) &&
+      Objects.equals(this.attributesToRetrieve, multipleGetObjectsParams.attributesToRetrieve) &&
       Objects.equals(this.objectID, multipleGetObjectsParams.objectID) &&
       Objects.equals(this.indexName, multipleGetObjectsParams.indexName)
     );
@@ -102,15 +95,9 @@ public class MultipleGetObjectsParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class MultipleGetObjectsParams {\n");
-    sb
-      .append("    attributesToRetrieve: ")
-      .append(toIndentedString(attributesToRetrieve))
-      .append("\n");
+    sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

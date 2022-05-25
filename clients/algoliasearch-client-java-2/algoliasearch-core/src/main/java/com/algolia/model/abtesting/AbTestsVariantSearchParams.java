@@ -33,9 +33,7 @@ public class AbTestsVariantSearchParams {
     return index;
   }
 
-  public AbTestsVariantSearchParams setTrafficPercentage(
-    Integer trafficPercentage
-  ) {
+  public AbTestsVariantSearchParams setTrafficPercentage(Integer trafficPercentage) {
     this.trafficPercentage = trafficPercentage;
     return this;
   }
@@ -65,9 +63,7 @@ public class AbTestsVariantSearchParams {
     return description;
   }
 
-  public AbTestsVariantSearchParams setCustomSearchParameters(
-    Object customSearchParameters
-  ) {
+  public AbTestsVariantSearchParams setCustomSearchParameters(Object customSearchParameters) {
     this.customSearchParameters = customSearchParameters;
     return this;
   }
@@ -93,29 +89,15 @@ public class AbTestsVariantSearchParams {
     AbTestsVariantSearchParams abTestsVariantSearchParams = (AbTestsVariantSearchParams) o;
     return (
       Objects.equals(this.index, abTestsVariantSearchParams.index) &&
-      Objects.equals(
-        this.trafficPercentage,
-        abTestsVariantSearchParams.trafficPercentage
-      ) &&
-      Objects.equals(
-        this.description,
-        abTestsVariantSearchParams.description
-      ) &&
-      Objects.equals(
-        this.customSearchParameters,
-        abTestsVariantSearchParams.customSearchParameters
-      )
+      Objects.equals(this.trafficPercentage, abTestsVariantSearchParams.trafficPercentage) &&
+      Objects.equals(this.description, abTestsVariantSearchParams.description) &&
+      Objects.equals(this.customSearchParameters, abTestsVariantSearchParams.customSearchParameters)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      index,
-      trafficPercentage,
-      description,
-      customSearchParameters
-    );
+    return Objects.hash(index, trafficPercentage, description, customSearchParameters);
   }
 
   @Override
@@ -123,18 +105,9 @@ public class AbTestsVariantSearchParams {
     StringBuilder sb = new StringBuilder();
     sb.append("class AbTestsVariantSearchParams {\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb
-      .append("    trafficPercentage: ")
-      .append(toIndentedString(trafficPercentage))
-      .append("\n");
-    sb
-      .append("    description: ")
-      .append(toIndentedString(description))
-      .append("\n");
-    sb
-      .append("    customSearchParameters: ")
-      .append(toIndentedString(customSearchParameters))
-      .append("\n");
+    sb.append("    trafficPercentage: ").append(toIndentedString(trafficPercentage)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    customSearchParameters: ").append(toIndentedString(customSearchParameters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

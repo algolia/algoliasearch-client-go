@@ -62,8 +62,7 @@ public class PredictionsAffinities {
     }
     PredictionsAffinities predictionsAffinities = (PredictionsAffinities) o;
     return (
-      Objects.equals(this.value, predictionsAffinities.value) &&
-      Objects.equals(this.lastUpdatedAt, predictionsAffinities.lastUpdatedAt)
+      Objects.equals(this.value, predictionsAffinities.value) && Objects.equals(this.lastUpdatedAt, predictionsAffinities.lastUpdatedAt)
     );
   }
 
@@ -77,10 +76,7 @@ public class PredictionsAffinities {
     StringBuilder sb = new StringBuilder();
     sb.append("class PredictionsAffinities {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb
-      .append("    lastUpdatedAt: ")
-      .append(toIndentedString(lastUpdatedAt))
-      .append("\n");
+    sb.append("    lastUpdatedAt: ").append(toIndentedString(lastUpdatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

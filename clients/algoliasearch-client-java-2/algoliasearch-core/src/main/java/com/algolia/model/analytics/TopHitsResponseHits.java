@@ -51,10 +51,7 @@ public class TopHitsResponseHits {
       return false;
     }
     TopHitsResponseHits topHitsResponseHits = (TopHitsResponseHits) o;
-    return (
-      Objects.equals(this.hit, topHitsResponseHits.hit) &&
-      Objects.equals(this.count, topHitsResponseHits.count)
-    );
+    return Objects.equals(this.hit, topHitsResponseHits.hit) && Objects.equals(this.count, topHitsResponseHits.count);
   }
 
   @Override

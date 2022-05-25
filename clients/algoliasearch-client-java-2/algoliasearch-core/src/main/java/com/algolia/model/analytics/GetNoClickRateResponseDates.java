@@ -90,10 +90,7 @@ public class GetNoClickRateResponseDates {
     return (
       Objects.equals(this.rate, getNoClickRateResponseDates.rate) &&
       Objects.equals(this.count, getNoClickRateResponseDates.count) &&
-      Objects.equals(
-        this.noClickCount,
-        getNoClickRateResponseDates.noClickCount
-      ) &&
+      Objects.equals(this.noClickCount, getNoClickRateResponseDates.noClickCount) &&
       Objects.equals(this.date, getNoClickRateResponseDates.date)
     );
   }
@@ -109,10 +106,7 @@ public class GetNoClickRateResponseDates {
     sb.append("class GetNoClickRateResponseDates {\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb
-      .append("    noClickCount: ")
-      .append(toIndentedString(noClickCount))
-      .append("\n");
+    sb.append("    noClickCount: ").append(toIndentedString(noClickCount)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("}");
     return sb.toString();

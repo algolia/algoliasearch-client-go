@@ -51,10 +51,7 @@ public class DeletedAtResponse {
       return false;
     }
     DeletedAtResponse deletedAtResponse = (DeletedAtResponse) o;
-    return (
-      Objects.equals(this.taskID, deletedAtResponse.taskID) &&
-      Objects.equals(this.deletedAt, deletedAtResponse.deletedAt)
-    );
+    return Objects.equals(this.taskID, deletedAtResponse.taskID) && Objects.equals(this.deletedAt, deletedAtResponse.deletedAt);
   }
 
   @Override
@@ -67,10 +64,7 @@ public class DeletedAtResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeletedAtResponse {\n");
     sb.append("    taskID: ").append(toIndentedString(taskID)).append("\n");
-    sb
-      .append("    deletedAt: ")
-      .append(toIndentedString(deletedAt))
-      .append("\n");
+    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

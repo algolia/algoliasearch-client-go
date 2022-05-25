@@ -65,16 +65,12 @@ public class GetNoResultsRateResponse {
     return noResultCount;
   }
 
-  public GetNoResultsRateResponse setDates(
-    List<GetNoResultsRateResponseDates> dates
-  ) {
+  public GetNoResultsRateResponse setDates(List<GetNoResultsRateResponseDates> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetNoResultsRateResponse addDates(
-    GetNoResultsRateResponseDates datesItem
-  ) {
+  public GetNoResultsRateResponse addDates(GetNoResultsRateResponseDates datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -101,10 +97,7 @@ public class GetNoResultsRateResponse {
     return (
       Objects.equals(this.rate, getNoResultsRateResponse.rate) &&
       Objects.equals(this.count, getNoResultsRateResponse.count) &&
-      Objects.equals(
-        this.noResultCount,
-        getNoResultsRateResponse.noResultCount
-      ) &&
+      Objects.equals(this.noResultCount, getNoResultsRateResponse.noResultCount) &&
       Objects.equals(this.dates, getNoResultsRateResponse.dates)
     );
   }
@@ -120,10 +113,7 @@ public class GetNoResultsRateResponse {
     sb.append("class GetNoResultsRateResponse {\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb
-      .append("    noResultCount: ")
-      .append(toIndentedString(noResultCount))
-      .append("\n");
+    sb.append("    noResultCount: ").append(toIndentedString(noResultCount)).append("\n");
     sb.append("    dates: ").append(toIndentedString(dates)).append("\n");
     sb.append("}");
     return sb.toString();

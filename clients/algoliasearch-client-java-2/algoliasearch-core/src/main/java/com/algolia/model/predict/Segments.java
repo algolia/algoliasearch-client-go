@@ -69,10 +69,7 @@ public class Segments {
       return false;
     }
     Segments segments = (Segments) o;
-    return (
-      Objects.equals(this.computed, segments.computed) &&
-      Objects.equals(this.custom, segments.custom)
-    );
+    return Objects.equals(this.computed, segments.computed) && Objects.equals(this.custom, segments.custom);
   }
 
   @Override

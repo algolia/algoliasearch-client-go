@@ -98,10 +98,7 @@ public class Promote {
     StringBuilder sb = new StringBuilder();
     sb.append("class Promote {\n");
     sb.append("    objectID: ").append(toIndentedString(objectID)).append("\n");
-    sb
-      .append("    objectIDs: ")
-      .append(toIndentedString(objectIDs))
-      .append("\n");
+    sb.append("    objectIDs: ").append(toIndentedString(objectIDs)).append("\n");
     sb.append("    position: ").append(toIndentedString(position)).append("\n");
     sb.append("}");
     return sb.toString();

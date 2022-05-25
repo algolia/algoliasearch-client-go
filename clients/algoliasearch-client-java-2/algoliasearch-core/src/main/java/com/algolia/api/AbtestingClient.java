@@ -23,60 +23,32 @@ public class AbtestingClient extends ApiClient {
     this(appId, apiKey, new HttpRequester(getDefaultHosts(null)), null);
   }
 
-  public AbtestingClient(
-    String appId,
-    String apiKey,
-    AlgoliaAgent.Segment[] algoliaAgentSegments
-  ) {
-    this(
-      appId,
-      apiKey,
-      new HttpRequester(getDefaultHosts(null)),
-      algoliaAgentSegments
-    );
+  public AbtestingClient(String appId, String apiKey, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+    this(appId, apiKey, new HttpRequester(getDefaultHosts(null)), algoliaAgentSegments);
   }
 
   public AbtestingClient(String appId, String apiKey, String region) {
     this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), null);
   }
 
-  public AbtestingClient(
-    String appId,
-    String apiKey,
-    String region,
-    AlgoliaAgent.Segment[] algoliaAgentSegments
-  ) {
-    this(
-      appId,
-      apiKey,
-      new HttpRequester(getDefaultHosts(region)),
-      algoliaAgentSegments
-    );
+  public AbtestingClient(String appId, String apiKey, String region, AlgoliaAgent.Segment[] algoliaAgentSegments) {
+    this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), algoliaAgentSegments);
   }
 
   public AbtestingClient(String appId, String apiKey, Requester requester) {
     this(appId, apiKey, requester, null);
   }
 
-  public AbtestingClient(
-    String appId,
-    String apiKey,
-    Requester requester,
-    AlgoliaAgent.Segment[] algoliaAgentSegments
-  ) {
+  public AbtestingClient(String appId, String apiKey, Requester requester, AlgoliaAgent.Segment[] algoliaAgentSegments) {
     super(appId, apiKey, requester, "Abtesting", algoliaAgentSegments);
   }
 
   private static List<StatefulHost> getDefaultHosts(String region) {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
 
-    String url = region == null
-      ? "analytics.algolia.com"
-      : "analytics.{region}.algolia.com".replace("{region}", region);
+    String url = region == null ? "analytics.algolia.com" : "analytics.{region}.algolia.com".replace("{region}", region);
 
-    hosts.add(
-      new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE))
-    );
+    hosts.add(new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE)));
     return hosts;
   }
 
@@ -92,17 +64,11 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public ABTestResponse addABTests(
-    AddABTestsRequest addABTestsRequest,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      addABTestsAsync(addABTestsRequest, requestOptions)
-    );
+  public ABTestResponse addABTests(AddABTestsRequest addABTestsRequest, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(addABTestsAsync(addABTestsRequest, requestOptions));
   }
 
-  public ABTestResponse addABTests(AddABTestsRequest addABTestsRequest)
-    throws AlgoliaRuntimeException {
+  public ABTestResponse addABTests(AddABTestsRequest addABTestsRequest) throws AlgoliaRuntimeException {
     return this.addABTests(addABTestsRequest, null);
   }
 
@@ -118,14 +84,10 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ABTestResponse> addABTestsAsync(
-    AddABTestsRequest addABTestsRequest,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> addABTestsAsync(AddABTestsRequest addABTestsRequest, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (addABTestsRequest == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'addABTestsRequest' when calling addABTests(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'addABTestsRequest' when calling addABTests(Async)");
     }
 
     Object bodyObj = addABTestsRequest;
@@ -136,23 +98,12 @@ public class AbtestingClient extends ApiClient {
     Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "POST",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<ABTestResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<ABTestResponse> addABTestsAsync(
-    AddABTestsRequest addABTestsRequest
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> addABTestsAsync(AddABTestsRequest addABTestsRequest) throws AlgoliaRuntimeException {
     return this.addABTestsAsync(addABTestsRequest, null);
   }
 
@@ -168,21 +119,15 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object del(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public Object del(String path, Map<String, Object> parameters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(delAsync(path, parameters, requestOptions));
   }
 
-  public Object del(String path, Map<String, Object> parameters)
-    throws AlgoliaRuntimeException {
+  public Object del(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.del(path, parameters, null);
   }
 
-  public Object del(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object del(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.del(path, null, requestOptions);
   }
 
@@ -202,15 +147,10 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> delAsync(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling del(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
     }
 
     Object bodyObj = null;
@@ -223,43 +163,24 @@ public class AbtestingClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "DELETE",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> delAsync(
-    String path,
-    Map<String, Object> parameters
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.delAsync(path, parameters, null);
   }
 
-  public CompletableFuture<Object> delAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.delAsync(path, null, requestOptions);
   }
 
-  public CompletableFuture<Object> delAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> delAsync(String path) throws AlgoliaRuntimeException {
     return this.delAsync(path, null, null);
   }
 
@@ -273,13 +194,11 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public ABTestResponse deleteABTest(Integer id, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public ABTestResponse deleteABTest(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(deleteABTestAsync(id, requestOptions));
   }
 
-  public ABTestResponse deleteABTest(Integer id)
-    throws AlgoliaRuntimeException {
+  public ABTestResponse deleteABTest(Integer id) throws AlgoliaRuntimeException {
     return this.deleteABTest(id, null);
   }
 
@@ -293,44 +212,25 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ABTestResponse> deleteABTestAsync(
-    Integer id,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> deleteABTestAsync(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (id == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'id' when calling deleteABTest(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'id' when calling deleteABTest(Async)");
     }
 
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath =
-      "/2/abtests/{id}".replaceAll(
-          "\\{id\\}",
-          this.escapeString(id.toString())
-        );
+    String requestPath = "/2/abtests/{id}".replaceAll("\\{id\\}", this.escapeString(id.toString()));
 
     Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "DELETE",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<ABTestResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<ABTestResponse> deleteABTestAsync(Integer id)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> deleteABTestAsync(Integer id) throws AlgoliaRuntimeException {
     return this.deleteABTestAsync(id, null);
   }
 
@@ -346,21 +246,15 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object get(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public Object get(String path, Map<String, Object> parameters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getAsync(path, parameters, requestOptions));
   }
 
-  public Object get(String path, Map<String, Object> parameters)
-    throws AlgoliaRuntimeException {
+  public Object get(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.get(path, parameters, null);
   }
 
-  public Object get(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object get(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.get(path, null, requestOptions);
   }
 
@@ -380,15 +274,10 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> getAsync(
-    String path,
-    Map<String, Object> parameters,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling get(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
     }
 
     Object bodyObj = null;
@@ -401,43 +290,24 @@ public class AbtestingClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> getAsync(
-    String path,
-    Map<String, Object> parameters
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters) throws AlgoliaRuntimeException {
     return this.getAsync(path, parameters, null);
   }
 
-  public CompletableFuture<Object> getAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.getAsync(path, null, requestOptions);
   }
 
-  public CompletableFuture<Object> getAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> getAsync(String path) throws AlgoliaRuntimeException {
     return this.getAsync(path, null, null);
   }
 
@@ -451,8 +321,7 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public ABTest getABTest(Integer id, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public ABTest getABTest(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getABTestAsync(id, requestOptions));
   }
 
@@ -470,44 +339,25 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ABTest> getABTestAsync(
-    Integer id,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTest> getABTestAsync(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (id == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'id' when calling getABTest(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'id' when calling getABTest(Async)");
     }
 
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath =
-      "/2/abtests/{id}".replaceAll(
-          "\\{id\\}",
-          this.escapeString(id.toString())
-        );
+    String requestPath = "/2/abtests/{id}".replaceAll("\\{id\\}", this.escapeString(id.toString()));
 
     Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<ABTest>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<ABTest> getABTestAsync(Integer id)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTest> getABTestAsync(Integer id) throws AlgoliaRuntimeException {
     return this.getABTestAsync(id, null);
   }
 
@@ -525,23 +375,15 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public ListABTestsResponse listABTests(
-    Integer offset,
-    Integer limit,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      listABTestsAsync(offset, limit, requestOptions)
-    );
+  public ListABTestsResponse listABTests(Integer offset, Integer limit, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(listABTestsAsync(offset, limit, requestOptions));
   }
 
-  public ListABTestsResponse listABTests(Integer offset, Integer limit)
-    throws AlgoliaRuntimeException {
+  public ListABTestsResponse listABTests(Integer offset, Integer limit) throws AlgoliaRuntimeException {
     return this.listABTests(offset, limit, null);
   }
 
-  public ListABTestsResponse listABTests(RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public ListABTestsResponse listABTests(RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.listABTests(null, null, requestOptions);
   }
 
@@ -563,11 +405,8 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ListABTestsResponse> listABTestsAsync(
-    Integer offset,
-    Integer limit,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ListABTestsResponse> listABTestsAsync(Integer offset, Integer limit, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
     // create path and map variables
@@ -584,35 +423,20 @@ public class AbtestingClient extends ApiClient {
       queryParameters.put("limit", parameterToString(limit));
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "GET",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<ListABTestsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<ListABTestsResponse> listABTestsAsync(
-    Integer offset,
-    Integer limit
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ListABTestsResponse> listABTestsAsync(Integer offset, Integer limit) throws AlgoliaRuntimeException {
     return this.listABTestsAsync(offset, limit, null);
   }
 
-  public CompletableFuture<ListABTestsResponse> listABTestsAsync(
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ListABTestsResponse> listABTestsAsync(RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.listABTestsAsync(null, null, requestOptions);
   }
 
-  public CompletableFuture<ListABTestsResponse> listABTestsAsync()
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<ListABTestsResponse> listABTestsAsync() throws AlgoliaRuntimeException {
     return this.listABTestsAsync(null, null, null);
   }
 
@@ -629,24 +453,16 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object post(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      postAsync(path, parameters, body, requestOptions)
-    );
+  public Object post(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(postAsync(path, parameters, body, requestOptions));
   }
 
-  public Object post(String path, Map<String, Object> parameters, Object body)
-    throws AlgoliaRuntimeException {
+  public Object post(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.post(path, parameters, body, null);
   }
 
-  public Object post(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object post(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.post(path, null, null, requestOptions);
   }
 
@@ -667,16 +483,10 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> postAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling post(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
     }
 
     Object bodyObj = body;
@@ -689,44 +499,24 @@ public class AbtestingClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "POST",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> postAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.postAsync(path, parameters, body, null);
   }
 
-  public CompletableFuture<Object> postAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.postAsync(path, null, null, requestOptions);
   }
 
-  public CompletableFuture<Object> postAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> postAsync(String path) throws AlgoliaRuntimeException {
     return this.postAsync(path, null, null, null);
   }
 
@@ -743,24 +533,16 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public Object put(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      putAsync(path, parameters, body, requestOptions)
-    );
+  public Object put(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(putAsync(path, parameters, body, requestOptions));
   }
 
-  public Object put(String path, Map<String, Object> parameters, Object body)
-    throws AlgoliaRuntimeException {
+  public Object put(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.put(path, parameters, body, null);
   }
 
-  public Object put(String path, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public Object put(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.put(path, null, null, requestOptions);
   }
 
@@ -781,16 +563,10 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<Object> putAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'path' when calling put(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
     }
 
     Object bodyObj = body;
@@ -803,44 +579,24 @@ public class AbtestingClient extends ApiClient {
 
     if (parameters != null) {
       for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-        queryParameters.put(
-          parameter.getKey().toString(),
-          parameterToString(parameter.getValue())
-        );
+        queryParameters.put(parameter.getKey().toString(), parameterToString(parameter.getValue()));
       }
     }
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "PUT",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<Object>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<Object> putAsync(
-    String path,
-    Map<String, Object> parameters,
-    Object body
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body) throws AlgoliaRuntimeException {
     return this.putAsync(path, parameters, body, null);
   }
 
-  public CompletableFuture<Object> putAsync(
-    String path,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.putAsync(path, null, null, requestOptions);
   }
 
-  public CompletableFuture<Object> putAsync(String path)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<Object> putAsync(String path) throws AlgoliaRuntimeException {
     return this.putAsync(path, null, null, null);
   }
 
@@ -856,8 +612,7 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public ABTestResponse stopABTest(Integer id, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public ABTestResponse stopABTest(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(stopABTestAsync(id, requestOptions));
   }
 
@@ -877,44 +632,25 @@ public class AbtestingClient extends ApiClient {
    * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
    *     body object
    */
-  public CompletableFuture<ABTestResponse> stopABTestAsync(
-    Integer id,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> stopABTestAsync(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (id == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'id' when calling stopABTest(Async)"
-      );
+      throw new AlgoliaRuntimeException("Missing the required parameter 'id' when calling stopABTest(Async)");
     }
 
     Object bodyObj = null;
 
     // create path and map variables
-    String requestPath =
-      "/2/abtests/{id}/stop".replaceAll(
-          "\\{id\\}",
-          this.escapeString(id.toString())
-        );
+    String requestPath = "/2/abtests/{id}/stop".replaceAll("\\{id\\}", this.escapeString(id.toString()));
 
     Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
 
-    Call call =
-      this.buildCall(
-          requestPath,
-          "POST",
-          queryParameters,
-          bodyObj,
-          headers,
-          requestOptions,
-          false
-        );
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
     Type returnType = new TypeToken<ABTestResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
-  public CompletableFuture<ABTestResponse> stopABTestAsync(Integer id)
-    throws AlgoliaRuntimeException {
+  public CompletableFuture<ABTestResponse> stopABTestAsync(Integer id) throws AlgoliaRuntimeException {
     return this.stopABTestAsync(id, null);
   }
 }

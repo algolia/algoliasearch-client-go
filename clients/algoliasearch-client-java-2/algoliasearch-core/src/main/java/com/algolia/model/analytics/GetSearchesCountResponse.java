@@ -29,16 +29,12 @@ public class GetSearchesCountResponse {
     return count;
   }
 
-  public GetSearchesCountResponse setDates(
-    List<GetSearchesCountResponseDates> dates
-  ) {
+  public GetSearchesCountResponse setDates(List<GetSearchesCountResponseDates> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetSearchesCountResponse addDates(
-    GetSearchesCountResponseDates datesItem
-  ) {
+  public GetSearchesCountResponse addDates(GetSearchesCountResponseDates datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -62,10 +58,7 @@ public class GetSearchesCountResponse {
       return false;
     }
     GetSearchesCountResponse getSearchesCountResponse = (GetSearchesCountResponse) o;
-    return (
-      Objects.equals(this.count, getSearchesCountResponse.count) &&
-      Objects.equals(this.dates, getSearchesCountResponse.dates)
-    );
+    return Objects.equals(this.count, getSearchesCountResponse.count) && Objects.equals(this.dates, getSearchesCountResponse.dates);
   }
 
   @Override

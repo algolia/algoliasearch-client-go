@@ -9,9 +9,7 @@ public class CustomSearchParams {
   @SerializedName("customSearchParameters")
   private Object customSearchParameters;
 
-  public CustomSearchParams setCustomSearchParameters(
-    Object customSearchParameters
-  ) {
+  public CustomSearchParams setCustomSearchParameters(Object customSearchParameters) {
     this.customSearchParameters = customSearchParameters;
     return this;
   }
@@ -35,10 +33,7 @@ public class CustomSearchParams {
       return false;
     }
     CustomSearchParams customSearchParams = (CustomSearchParams) o;
-    return Objects.equals(
-      this.customSearchParameters,
-      customSearchParams.customSearchParameters
-    );
+    return Objects.equals(this.customSearchParameters, customSearchParams.customSearchParameters);
   }
 
   @Override
@@ -50,10 +45,7 @@ public class CustomSearchParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CustomSearchParams {\n");
-    sb
-      .append("    customSearchParameters: ")
-      .append(toIndentedString(customSearchParameters))
-      .append("\n");
+    sb.append("    customSearchParameters: ").append(toIndentedString(customSearchParameters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

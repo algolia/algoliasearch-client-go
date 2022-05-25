@@ -269,51 +269,18 @@ public class Variant {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Variant {\n");
-    sb
-      .append("    averageClickPosition: ")
-      .append(toIndentedString(averageClickPosition))
-      .append("\n");
-    sb
-      .append("    clickCount: ")
-      .append(toIndentedString(clickCount))
-      .append("\n");
-    sb
-      .append("    clickThroughRate: ")
-      .append(toIndentedString(clickThroughRate))
-      .append("\n");
-    sb
-      .append("    conversionCount: ")
-      .append(toIndentedString(conversionCount))
-      .append("\n");
-    sb
-      .append("    conversionRate: ")
-      .append(toIndentedString(conversionRate))
-      .append("\n");
-    sb
-      .append("    description: ")
-      .append(toIndentedString(description))
-      .append("\n");
+    sb.append("    averageClickPosition: ").append(toIndentedString(averageClickPosition)).append("\n");
+    sb.append("    clickCount: ").append(toIndentedString(clickCount)).append("\n");
+    sb.append("    clickThroughRate: ").append(toIndentedString(clickThroughRate)).append("\n");
+    sb.append("    conversionCount: ").append(toIndentedString(conversionCount)).append("\n");
+    sb.append("    conversionRate: ").append(toIndentedString(conversionRate)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb
-      .append("    noResultCount: ")
-      .append(toIndentedString(noResultCount))
-      .append("\n");
-    sb
-      .append("    searchCount: ")
-      .append(toIndentedString(searchCount))
-      .append("\n");
-    sb
-      .append("    trackedSearchCount: ")
-      .append(toIndentedString(trackedSearchCount))
-      .append("\n");
-    sb
-      .append("    trafficPercentage: ")
-      .append(toIndentedString(trafficPercentage))
-      .append("\n");
-    sb
-      .append("    userCount: ")
-      .append(toIndentedString(userCount))
-      .append("\n");
+    sb.append("    noResultCount: ").append(toIndentedString(noResultCount)).append("\n");
+    sb.append("    searchCount: ").append(toIndentedString(searchCount)).append("\n");
+    sb.append("    trackedSearchCount: ").append(toIndentedString(trackedSearchCount)).append("\n");
+    sb.append("    trafficPercentage: ").append(toIndentedString(trafficPercentage)).append("\n");
+    sb.append("    userCount: ").append(toIndentedString(userCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

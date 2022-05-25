@@ -11,16 +11,12 @@ public class GetTopFilterAttributesResponse {
   @SerializedName("attributes")
   private List<GetTopFilterAttribute> attributes = new ArrayList<>();
 
-  public GetTopFilterAttributesResponse setAttributes(
-    List<GetTopFilterAttribute> attributes
-  ) {
+  public GetTopFilterAttributesResponse setAttributes(List<GetTopFilterAttribute> attributes) {
     this.attributes = attributes;
     return this;
   }
 
-  public GetTopFilterAttributesResponse addAttributes(
-    GetTopFilterAttribute attributesItem
-  ) {
+  public GetTopFilterAttributesResponse addAttributes(GetTopFilterAttribute attributesItem) {
     this.attributes.add(attributesItem);
     return this;
   }
@@ -44,10 +40,7 @@ public class GetTopFilterAttributesResponse {
       return false;
     }
     GetTopFilterAttributesResponse getTopFilterAttributesResponse = (GetTopFilterAttributesResponse) o;
-    return Objects.equals(
-      this.attributes,
-      getTopFilterAttributesResponse.attributes
-    );
+    return Objects.equals(this.attributes, getTopFilterAttributesResponse.attributes);
   }
 
   @Override
@@ -59,10 +52,7 @@ public class GetTopFilterAttributesResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetTopFilterAttributesResponse {\n");
-    sb
-      .append("    attributes: ")
-      .append(toIndentedString(attributes))
-      .append("\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
     sb.append("}");
     return sb.toString();
   }

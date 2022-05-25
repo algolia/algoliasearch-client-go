@@ -35,8 +35,7 @@ public class HttpRequester implements Requester {
     return httpClient.newCall(request);
   }
 
-  public <T> T handleResponse(Response response, Type returnType)
-    throws AlgoliaRuntimeException {
+  public <T> T handleResponse(Response response, Type returnType) throws AlgoliaRuntimeException {
     if (response.isSuccessful()) {
       if (returnType == null || response.code() == 204) {
         // returning null if the returnType is not defined, or the status code is 204 (No Content)
@@ -44,11 +43,7 @@ public class HttpRequester implements Requester {
           try {
             response.body().close();
           } catch (Exception e) {
-            throw new AlgoliaApiException(
-              response.message(),
-              e,
-              response.code()
-            );
+            throw new AlgoliaApiException(response.message(), e, response.code());
           }
         }
         return null;
@@ -67,8 +62,7 @@ public class HttpRequester implements Requester {
     }
   }
 
-  private <T> T deserialize(Response response, Type returnType)
-    throws AlgoliaRuntimeException {
+  private <T> T deserialize(Response response, Type returnType) throws AlgoliaRuntimeException {
     if (response == null || returnType == null) {
       return null;
     }
@@ -84,8 +78,7 @@ public class HttpRequester implements Requester {
 
     String respBody;
     try {
-      if (response.body() != null) respBody =
-        response.body().string(); else respBody = null;
+      if (response.body() != null) respBody = response.body().string(); else respBody = null;
     } catch (IOException e) {
       throw new AlgoliaRuntimeException(e);
     }
@@ -107,8 +100,7 @@ public class HttpRequester implements Requester {
       if (debugging) {
         loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(Level.BODY);
-        httpClient =
-          httpClient.newBuilder().addInterceptor(loggingInterceptor).build();
+        httpClient = httpClient.newBuilder().addInterceptor(loggingInterceptor).build();
       } else {
         final OkHttpClient.Builder builder = httpClient.newBuilder();
         builder.interceptors().remove(loggingInterceptor);
@@ -124,11 +116,7 @@ public class HttpRequester implements Requester {
   }
 
   public void setConnectTimeout(int connectionTimeout) {
-    httpClient =
-      httpClient
-        .newBuilder()
-        .connectTimeout(connectionTimeout, TimeUnit.MILLISECONDS)
-        .build();
+    httpClient = httpClient.newBuilder().connectTimeout(connectionTimeout, TimeUnit.MILLISECONDS).build();
   }
 
   public int getReadTimeout() {
@@ -136,11 +124,7 @@ public class HttpRequester implements Requester {
   }
 
   public void setReadTimeout(int readTimeout) {
-    httpClient =
-      httpClient
-        .newBuilder()
-        .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
-        .build();
+    httpClient = httpClient.newBuilder().readTimeout(readTimeout, TimeUnit.MILLISECONDS).build();
   }
 
   public int getWriteTimeout() {
@@ -148,10 +132,6 @@ public class HttpRequester implements Requester {
   }
 
   public void setWriteTimeout(int writeTimeout) {
-    httpClient =
-      httpClient
-        .newBuilder()
-        .writeTimeout(writeTimeout, TimeUnit.MILLISECONDS)
-        .build();
+    httpClient = httpClient.newBuilder().writeTimeout(writeTimeout, TimeUnit.MILLISECONDS).build();
   }
 }

@@ -40,10 +40,7 @@ public enum SearchStrategy {
   public static class Adapter extends TypeAdapter<SearchStrategy> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final SearchStrategy enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final SearchStrategy enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

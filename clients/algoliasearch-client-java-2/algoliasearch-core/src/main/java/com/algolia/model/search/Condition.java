@@ -105,14 +105,8 @@ public class Condition {
     StringBuilder sb = new StringBuilder();
     sb.append("class Condition {\n");
     sb.append("    pattern: ").append(toIndentedString(pattern)).append("\n");
-    sb
-      .append("    anchoring: ")
-      .append(toIndentedString(anchoring))
-      .append("\n");
-    sb
-      .append("    alternatives: ")
-      .append(toIndentedString(alternatives))
-      .append("\n");
+    sb.append("    anchoring: ").append(toIndentedString(anchoring)).append("\n");
+    sb.append("    alternatives: ").append(toIndentedString(alternatives)).append("\n");
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("}");
     return sb.toString();

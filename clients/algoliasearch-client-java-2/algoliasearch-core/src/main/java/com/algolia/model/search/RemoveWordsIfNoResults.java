@@ -44,16 +44,12 @@ public enum RemoveWordsIfNoResults {
   public static class Adapter extends TypeAdapter<RemoveWordsIfNoResults> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final RemoveWordsIfNoResults enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final RemoveWordsIfNoResults enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public RemoveWordsIfNoResults read(final JsonReader jsonReader)
-      throws IOException {
+    public RemoveWordsIfNoResults read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return RemoveWordsIfNoResults.fromValue(value);
     }

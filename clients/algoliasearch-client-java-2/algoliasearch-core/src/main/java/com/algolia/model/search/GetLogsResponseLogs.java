@@ -263,16 +263,12 @@ public class GetLogsResponseLogs {
     return queryNbHits;
   }
 
-  public GetLogsResponseLogs setInnerQueries(
-    List<GetLogsResponseInnerQueries> innerQueries
-  ) {
+  public GetLogsResponseLogs setInnerQueries(List<GetLogsResponseInnerQueries> innerQueries) {
     this.innerQueries = innerQueries;
     return this;
   }
 
-  public GetLogsResponseLogs addInnerQueries(
-    GetLogsResponseInnerQueries innerQueriesItem
-  ) {
+  public GetLogsResponseLogs addInnerQueries(GetLogsResponseInnerQueries innerQueriesItem) {
     if (this.innerQueries == null) {
       this.innerQueries = new ArrayList<>();
     }
@@ -310,10 +306,7 @@ public class GetLogsResponseLogs {
       Objects.equals(this.queryHeaders, getLogsResponseLogs.queryHeaders) &&
       Objects.equals(this.sha1, getLogsResponseLogs.sha1) &&
       Objects.equals(this.nbApiCalls, getLogsResponseLogs.nbApiCalls) &&
-      Objects.equals(
-        this.processingTimeMs,
-        getLogsResponseLogs.processingTimeMs
-      ) &&
+      Objects.equals(this.processingTimeMs, getLogsResponseLogs.processingTimeMs) &&
       Objects.equals(this.index, getLogsResponseLogs.index) &&
       Objects.equals(this.queryParams, getLogsResponseLogs.queryParams) &&
       Objects.equals(this.queryNbHits, getLogsResponseLogs.queryNbHits) &&
@@ -346,48 +339,21 @@ public class GetLogsResponseLogs {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetLogsResponseLogs {\n");
-    sb
-      .append("    timestamp: ")
-      .append(toIndentedString(timestamp))
-      .append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    method: ").append(toIndentedString(method)).append("\n");
-    sb
-      .append("    answerCode: ")
-      .append(toIndentedString(answerCode))
-      .append("\n");
-    sb
-      .append("    queryBody: ")
-      .append(toIndentedString(queryBody))
-      .append("\n");
+    sb.append("    answerCode: ").append(toIndentedString(answerCode)).append("\n");
+    sb.append("    queryBody: ").append(toIndentedString(queryBody)).append("\n");
     sb.append("    answer: ").append(toIndentedString(answer)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    ip: ").append(toIndentedString(ip)).append("\n");
-    sb
-      .append("    queryHeaders: ")
-      .append(toIndentedString(queryHeaders))
-      .append("\n");
+    sb.append("    queryHeaders: ").append(toIndentedString(queryHeaders)).append("\n");
     sb.append("    sha1: ").append(toIndentedString(sha1)).append("\n");
-    sb
-      .append("    nbApiCalls: ")
-      .append(toIndentedString(nbApiCalls))
-      .append("\n");
-    sb
-      .append("    processingTimeMs: ")
-      .append(toIndentedString(processingTimeMs))
-      .append("\n");
+    sb.append("    nbApiCalls: ").append(toIndentedString(nbApiCalls)).append("\n");
+    sb.append("    processingTimeMs: ").append(toIndentedString(processingTimeMs)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb
-      .append("    queryParams: ")
-      .append(toIndentedString(queryParams))
-      .append("\n");
-    sb
-      .append("    queryNbHits: ")
-      .append(toIndentedString(queryNbHits))
-      .append("\n");
-    sb
-      .append("    innerQueries: ")
-      .append(toIndentedString(innerQueries))
-      .append("\n");
+    sb.append("    queryParams: ").append(toIndentedString(queryParams)).append("\n");
+    sb.append("    queryNbHits: ").append(toIndentedString(queryNbHits)).append("\n");
+    sb.append("    innerQueries: ").append(toIndentedString(innerQueries)).append("\n");
     sb.append("}");
     return sb.toString();
   }

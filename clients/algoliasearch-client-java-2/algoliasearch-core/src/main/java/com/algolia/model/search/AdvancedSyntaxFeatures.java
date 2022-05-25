@@ -40,16 +40,12 @@ public enum AdvancedSyntaxFeatures {
   public static class Adapter extends TypeAdapter<AdvancedSyntaxFeatures> {
 
     @Override
-    public void write(
-      final JsonWriter jsonWriter,
-      final AdvancedSyntaxFeatures enumeration
-    ) throws IOException {
+    public void write(final JsonWriter jsonWriter, final AdvancedSyntaxFeatures enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public AdvancedSyntaxFeatures read(final JsonReader jsonReader)
-      throws IOException {
+    public AdvancedSyntaxFeatures read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
       return AdvancedSyntaxFeatures.fromValue(value);
     }

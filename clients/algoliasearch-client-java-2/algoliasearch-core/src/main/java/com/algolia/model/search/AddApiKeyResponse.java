@@ -51,10 +51,7 @@ public class AddApiKeyResponse {
       return false;
     }
     AddApiKeyResponse addApiKeyResponse = (AddApiKeyResponse) o;
-    return (
-      Objects.equals(this.key, addApiKeyResponse.key) &&
-      Objects.equals(this.createdAt, addApiKeyResponse.createdAt)
-    );
+    return Objects.equals(this.key, addApiKeyResponse.key) && Objects.equals(this.createdAt, addApiKeyResponse.createdAt);
   }
 
   @Override
@@ -67,10 +64,7 @@ public class AddApiKeyResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class AddApiKeyResponse {\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
-    sb
-      .append("    createdAt: ")
-      .append(toIndentedString(createdAt))
-      .append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

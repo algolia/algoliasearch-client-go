@@ -125,18 +125,9 @@ public class SearchForFacetsOptions {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchForFacetsOptions {\n");
     sb.append("    facet: ").append(toIndentedString(facet)).append("\n");
-    sb
-      .append("    indexName: ")
-      .append(toIndentedString(indexName))
-      .append("\n");
-    sb
-      .append("    facetQuery: ")
-      .append(toIndentedString(facetQuery))
-      .append("\n");
-    sb
-      .append("    maxFacetHits: ")
-      .append(toIndentedString(maxFacetHits))
-      .append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("    facetQuery: ").append(toIndentedString(facetQuery)).append("\n");
+    sb.append("    maxFacetHits: ").append(toIndentedString(maxFacetHits)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();

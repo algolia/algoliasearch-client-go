@@ -88,10 +88,7 @@ public class Affinities {
     sb.append("class Affinities {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb
-      .append("    probability: ")
-      .append(toIndentedString(probability))
-      .append("\n");
+    sb.append("    probability: ").append(toIndentedString(probability)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -23,27 +23,18 @@ public abstract class SearchParams implements CompoundType {
   public static class Adapter extends TypeAdapter<SearchParams> {
 
     @Override
-    public void write(final JsonWriter out, final SearchParams oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final SearchParams oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
     public SearchParams read(final JsonReader jsonReader) throws IOException {
-      SearchParamsObject searchparamsobject = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<SearchParamsObject>() {}.getType()
-      );
+      SearchParamsObject searchparamsobject = JSON.tryDeserialize(jsonReader, new TypeToken<SearchParamsObject>() {}.getType());
       if (searchparamsobject != null) {
         return SearchParams.ofSearchParamsObject(searchparamsobject);
       }
-      SearchParamsString searchparamsstring = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<SearchParamsString>() {}.getType()
-      );
+      SearchParamsString searchparamsstring = JSON.tryDeserialize(jsonReader, new TypeToken<SearchParamsString>() {}.getType());
       if (searchparamsstring != null) {
         return SearchParams.ofSearchParamsString(searchparamsstring);
       }

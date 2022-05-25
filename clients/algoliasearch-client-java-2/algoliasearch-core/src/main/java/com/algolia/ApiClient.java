@@ -29,13 +29,7 @@ public class ApiClient {
   /*
    * Constructor for ApiClient with custom Requester
    */
-  public ApiClient(
-    String appId,
-    String apiKey,
-    Requester requester,
-    String clientName,
-    AlgoliaAgent.Segment[] segments
-  ) {
+  public ApiClient(String appId, String apiKey, Requester requester, String clientName, AlgoliaAgent.Segment[] segments) {
     this.contentType = "application/json";
 
     AlgoliaAgent ua = new AlgoliaAgent("0.0.1");
@@ -174,11 +168,7 @@ public class ApiClient {
   public String parameterToString(Object param) {
     if (param == null) {
       return "";
-    } else if (
-      param instanceof Date ||
-      param instanceof OffsetDateTime ||
-      param instanceof LocalDate
-    ) {
+    } else if (param instanceof Date || param instanceof OffsetDateTime || param instanceof LocalDate) {
       // Serialize to json string and remove the " enclosing characters
       String jsonStr = JSON.serialize(param);
       return jsonStr.substring(1, jsonStr.length() - 1);
@@ -234,10 +224,7 @@ public class ApiClient {
    * @param returnType Return type
    * @see #execute(Call, Type)
    */
-  public <T> CompletableFuture<T> executeAsync(
-    Call call,
-    final Type returnType
-  ) {
+  public <T> CompletableFuture<T> executeAsync(Call call, final Type returnType) {
     final CompletableFuture<T> future = new CompletableFuture<>();
     call.enqueue(
       new Callback() {
@@ -247,8 +234,7 @@ public class ApiClient {
         }
 
         @Override
-        public void onResponse(Call call, Response response)
-          throws IOException {
+        public void onResponse(Call call, Response response) throws IOException {
           try {
             T result = requester.handleResponse(response, returnType);
             future.complete(result);
@@ -288,15 +274,7 @@ public class ApiClient {
     RequestOptions requestOptions,
     Boolean useReadTransporter
   ) throws AlgoliaRuntimeException {
-    Request request = buildRequest(
-      path,
-      method,
-      queryParameters,
-      body,
-      headerParams,
-      requestOptions,
-      useReadTransporter
-    );
+    Request request = buildRequest(path, method, queryParameters, body, headerParams, requestOptions, useReadTransporter);
 
     return requester.newCall(request);
   }
@@ -327,17 +305,9 @@ public class ApiClient {
     Boolean useReadTransporter
   ) throws AlgoliaRuntimeException {
     boolean hasRequestOptions = requestOptions != null;
-    final String url = buildUrl(
-      path,
-      queryParameters,
-      hasRequestOptions ? requestOptions.getExtraQueryParameters() : null
-    );
+    final String url = buildUrl(path, queryParameters, hasRequestOptions ? requestOptions.getExtraQueryParameters() : null);
     final Request.Builder reqBuilder = new Request.Builder().url(url);
-    processHeaderParams(
-      headerParams,
-      hasRequestOptions ? requestOptions.getExtraHeaders() : null,
-      reqBuilder
-    );
+    processHeaderParams(headerParams, hasRequestOptions ? requestOptions.getExtraHeaders() : null, reqBuilder);
 
     RequestBody reqBody;
     if (!HttpMethod.permitsRequestBody(method)) {
@@ -369,11 +339,7 @@ public class ApiClient {
    * @param extraQueryParameters The query parameters, coming from the requestOptions
    * @return The full URL
    */
-  public String buildUrl(
-    String path,
-    Map<String, Object> queryParameters,
-    Map<String, Object> extraQueryParameters
-  ) {
+  public String buildUrl(String path, Map<String, Object> queryParameters, Map<String, Object> extraQueryParameters) {
     if (extraQueryParameters != null) {
       for (Entry<String, Object> param : extraQueryParameters.entrySet()) {
         queryParameters.put(param.getKey(), param.getValue());
@@ -397,10 +363,7 @@ public class ApiClient {
             url.append("&");
           }
           String value = parameterToString(param.getValue());
-          url
-            .append(escapeString(param.getKey()))
-            .append("=")
-            .append(escapeString(value));
+          url.append(escapeString(param.getKey())).append("=").append(escapeString(value));
         }
       }
     }
@@ -415,31 +378,18 @@ public class ApiClient {
    * @param extraHeaderParams Header parameters in the form of Map, coming from RequestOptions
    * @param reqBuilder Request.Builder
    */
-  public void processHeaderParams(
-    Map<String, String> headerParams,
-    Map<String, String> extraHeaderParams,
-    Request.Builder reqBuilder
-  ) {
+  public void processHeaderParams(Map<String, String> headerParams, Map<String, String> extraHeaderParams, Request.Builder reqBuilder) {
     for (Entry<String, String> param : headerParams.entrySet()) {
-      reqBuilder.header(
-        param.getKey().toLowerCase(),
-        parameterToString(param.getValue())
-      );
+      reqBuilder.header(param.getKey().toLowerCase(), parameterToString(param.getValue()));
     }
     for (Entry<String, String> header : defaultHeaderMap.entrySet()) {
       if (!headerParams.containsKey(header.getKey())) {
-        reqBuilder.header(
-          header.getKey().toLowerCase(),
-          parameterToString(header.getValue())
-        );
+        reqBuilder.header(header.getKey().toLowerCase(), parameterToString(header.getValue()));
       }
     }
     if (extraHeaderParams != null) {
       for (Entry<String, String> header : extraHeaderParams.entrySet()) {
-        reqBuilder.header(
-          header.getKey().toLowerCase(),
-          parameterToString(header.getValue())
-        );
+        reqBuilder.header(header.getKey().toLowerCase(), parameterToString(header.getValue()));
       }
     }
   }

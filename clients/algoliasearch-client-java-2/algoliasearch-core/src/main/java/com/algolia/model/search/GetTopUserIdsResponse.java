@@ -12,16 +12,12 @@ public class GetTopUserIdsResponse {
   @SerializedName("topUsers")
   private List<Map<String, List<UserId>>> topUsers = new ArrayList<>();
 
-  public GetTopUserIdsResponse setTopUsers(
-    List<Map<String, List<UserId>>> topUsers
-  ) {
+  public GetTopUserIdsResponse setTopUsers(List<Map<String, List<UserId>>> topUsers) {
     this.topUsers = topUsers;
     return this;
   }
 
-  public GetTopUserIdsResponse addTopUsers(
-    Map<String, List<UserId>> topUsersItem
-  ) {
+  public GetTopUserIdsResponse addTopUsers(Map<String, List<UserId>> topUsersItem) {
     this.topUsers.add(topUsersItem);
     return this;
   }

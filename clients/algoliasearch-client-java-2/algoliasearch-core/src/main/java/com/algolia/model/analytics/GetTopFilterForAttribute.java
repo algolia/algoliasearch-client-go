@@ -104,10 +104,7 @@ public class GetTopFilterForAttribute {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetTopFilterForAttribute {\n");
-    sb
-      .append("    attribute: ")
-      .append(toIndentedString(attribute))
-      .append("\n");
+    sb.append("    attribute: ").append(toIndentedString(attribute)).append("\n");
     sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");

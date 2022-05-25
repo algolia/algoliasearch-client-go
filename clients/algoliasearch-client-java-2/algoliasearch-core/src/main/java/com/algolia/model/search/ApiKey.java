@@ -191,10 +191,7 @@ public class ApiKey {
       Objects.equals(this.description, apiKey.description) &&
       Objects.equals(this.indexes, apiKey.indexes) &&
       Objects.equals(this.maxHitsPerQuery, apiKey.maxHitsPerQuery) &&
-      Objects.equals(
-        this.maxQueriesPerIPPerHour,
-        apiKey.maxQueriesPerIPPerHour
-      ) &&
+      Objects.equals(this.maxQueriesPerIPPerHour, apiKey.maxQueriesPerIPPerHour) &&
       Objects.equals(this.queryParameters, apiKey.queryParameters) &&
       Objects.equals(this.referers, apiKey.referers) &&
       Objects.equals(this.validity, apiKey.validity)
@@ -203,16 +200,7 @@ public class ApiKey {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-      acl,
-      description,
-      indexes,
-      maxHitsPerQuery,
-      maxQueriesPerIPPerHour,
-      queryParameters,
-      referers,
-      validity
-    );
+    return Objects.hash(acl, description, indexes, maxHitsPerQuery, maxQueriesPerIPPerHour, queryParameters, referers, validity);
   }
 
   @Override
@@ -220,23 +208,11 @@ public class ApiKey {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiKey {\n");
     sb.append("    acl: ").append(toIndentedString(acl)).append("\n");
-    sb
-      .append("    description: ")
-      .append(toIndentedString(description))
-      .append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    indexes: ").append(toIndentedString(indexes)).append("\n");
-    sb
-      .append("    maxHitsPerQuery: ")
-      .append(toIndentedString(maxHitsPerQuery))
-      .append("\n");
-    sb
-      .append("    maxQueriesPerIPPerHour: ")
-      .append(toIndentedString(maxQueriesPerIPPerHour))
-      .append("\n");
-    sb
-      .append("    queryParameters: ")
-      .append(toIndentedString(queryParameters))
-      .append("\n");
+    sb.append("    maxHitsPerQuery: ").append(toIndentedString(maxHitsPerQuery)).append("\n");
+    sb.append("    maxQueriesPerIPPerHour: ").append(toIndentedString(maxQueriesPerIPPerHour)).append("\n");
+    sb.append("    queryParameters: ").append(toIndentedString(queryParameters)).append("\n");
     sb.append("    referers: ").append(toIndentedString(referers)).append("\n");
     sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
     sb.append("}");

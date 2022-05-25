@@ -11,16 +11,12 @@ public class SearchForFacetValuesResponse {
   @SerializedName("facetHits")
   private List<SearchForFacetValuesResponseFacetHits> facetHits = new ArrayList<>();
 
-  public SearchForFacetValuesResponse setFacetHits(
-    List<SearchForFacetValuesResponseFacetHits> facetHits
-  ) {
+  public SearchForFacetValuesResponse setFacetHits(List<SearchForFacetValuesResponseFacetHits> facetHits) {
     this.facetHits = facetHits;
     return this;
   }
 
-  public SearchForFacetValuesResponse addFacetHits(
-    SearchForFacetValuesResponseFacetHits facetHitsItem
-  ) {
+  public SearchForFacetValuesResponse addFacetHits(SearchForFacetValuesResponseFacetHits facetHitsItem) {
     this.facetHits.add(facetHitsItem);
     return this;
   }
@@ -44,10 +40,7 @@ public class SearchForFacetValuesResponse {
       return false;
     }
     SearchForFacetValuesResponse searchForFacetValuesResponse = (SearchForFacetValuesResponse) o;
-    return Objects.equals(
-      this.facetHits,
-      searchForFacetValuesResponse.facetHits
-    );
+    return Objects.equals(this.facetHits, searchForFacetValuesResponse.facetHits);
   }
 
   @Override
@@ -59,10 +52,7 @@ public class SearchForFacetValuesResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchForFacetValuesResponse {\n");
-    sb
-      .append("    facetHits: ")
-      .append(toIndentedString(facetHits))
-      .append("\n");
+    sb.append("    facetHits: ").append(toIndentedString(facetHits)).append("\n");
     sb.append("}");
     return sb.toString();
   }

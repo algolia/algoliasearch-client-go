@@ -62,8 +62,7 @@ public class PredictionsFunnelStage {
     }
     PredictionsFunnelStage predictionsFunnelStage = (PredictionsFunnelStage) o;
     return (
-      Objects.equals(this.value, predictionsFunnelStage.value) &&
-      Objects.equals(this.lastUpdatedAt, predictionsFunnelStage.lastUpdatedAt)
+      Objects.equals(this.value, predictionsFunnelStage.value) && Objects.equals(this.lastUpdatedAt, predictionsFunnelStage.lastUpdatedAt)
     );
   }
 
@@ -77,10 +76,7 @@ public class PredictionsFunnelStage {
     StringBuilder sb = new StringBuilder();
     sb.append("class PredictionsFunnelStage {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb
-      .append("    lastUpdatedAt: ")
-      .append(toIndentedString(lastUpdatedAt))
-      .append("\n");
+    sb.append("    lastUpdatedAt: ").append(toIndentedString(lastUpdatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -42,8 +42,7 @@ public enum ScopeType {
   public static class Adapter extends TypeAdapter<ScopeType> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final ScopeType enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final ScopeType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

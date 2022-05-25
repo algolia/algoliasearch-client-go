@@ -12,45 +12,29 @@ import java.io.IOException;
 @JsonAdapter(RecommendationsRequest.Adapter.class)
 public abstract class RecommendationsRequest implements CompoundType {
 
-  public static RecommendationsRequest ofRecommendationRequest(
-    RecommendationRequest inside
-  ) {
+  public static RecommendationsRequest ofRecommendationRequest(RecommendationRequest inside) {
     return new RecommendationsRequestRecommendationRequest(inside);
   }
 
-  public static RecommendationsRequest ofTrendingRequest(
-    TrendingRequest inside
-  ) {
+  public static RecommendationsRequest ofTrendingRequest(TrendingRequest inside) {
     return new RecommendationsRequestTrendingRequest(inside);
   }
 
   public static class Adapter extends TypeAdapter<RecommendationsRequest> {
 
     @Override
-    public void write(final JsonWriter out, final RecommendationsRequest oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final RecommendationsRequest oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
-    public RecommendationsRequest read(final JsonReader jsonReader)
-      throws IOException {
-      RecommendationRequest recommendationrequest = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<RecommendationRequest>() {}.getType()
-      );
+    public RecommendationsRequest read(final JsonReader jsonReader) throws IOException {
+      RecommendationRequest recommendationrequest = JSON.tryDeserialize(jsonReader, new TypeToken<RecommendationRequest>() {}.getType());
       if (recommendationrequest != null) {
-        return RecommendationsRequest.ofRecommendationRequest(
-          recommendationrequest
-        );
+        return RecommendationsRequest.ofRecommendationRequest(recommendationrequest);
       }
-      TrendingRequest trendingrequest = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<TrendingRequest>() {}.getType()
-      );
+      TrendingRequest trendingrequest = JSON.tryDeserialize(jsonReader, new TypeToken<TrendingRequest>() {}.getType());
       if (trendingrequest != null) {
         return RecommendationsRequest.ofTrendingRequest(trendingrequest);
       }
@@ -60,14 +44,11 @@ public abstract class RecommendationsRequest implements CompoundType {
 }
 
 @JsonAdapter(RecommendationsRequest.Adapter.class)
-class RecommendationsRequestRecommendationRequest
-  extends RecommendationsRequest {
+class RecommendationsRequestRecommendationRequest extends RecommendationsRequest {
 
   private final RecommendationRequest insideValue;
 
-  RecommendationsRequestRecommendationRequest(
-    RecommendationRequest insideValue
-  ) {
+  RecommendationsRequestRecommendationRequest(RecommendationRequest insideValue) {
     this.insideValue = insideValue;
   }
 

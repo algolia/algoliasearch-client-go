@@ -50,8 +50,7 @@ public enum Action {
   public static class Adapter extends TypeAdapter<Action> {
 
     @Override
-    public void write(final JsonWriter jsonWriter, final Action enumeration)
-      throws IOException {
+    public void write(final JsonWriter jsonWriter, final Action enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 

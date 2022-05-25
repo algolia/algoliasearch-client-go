@@ -270,9 +270,7 @@ public class BaseSearchParams {
     return maxValuesPerFacet;
   }
 
-  public BaseSearchParams setFacetingAfterDistinct(
-    Boolean facetingAfterDistinct
-  ) {
+  public BaseSearchParams setFacetingAfterDistinct(Boolean facetingAfterDistinct) {
     this.facetingAfterDistinct = facetingAfterDistinct;
     return this;
   }
@@ -423,16 +421,12 @@ public class BaseSearchParams {
     return minimumAroundRadius;
   }
 
-  public BaseSearchParams setInsideBoundingBox(
-    List<BigDecimal> insideBoundingBox
-  ) {
+  public BaseSearchParams setInsideBoundingBox(List<BigDecimal> insideBoundingBox) {
     this.insideBoundingBox = insideBoundingBox;
     return this;
   }
 
-  public BaseSearchParams addInsideBoundingBox(
-    BigDecimal insideBoundingBoxItem
-  ) {
+  public BaseSearchParams addInsideBoundingBox(BigDecimal insideBoundingBoxItem) {
     if (this.insideBoundingBox == null) {
       this.insideBoundingBox = new ArrayList<>();
     }
@@ -523,9 +517,7 @@ public class BaseSearchParams {
     return ruleContexts;
   }
 
-  public BaseSearchParams setPersonalizationImpact(
-    Integer personalizationImpact
-  ) {
+  public BaseSearchParams setPersonalizationImpact(Integer personalizationImpact) {
     this.personalizationImpact = personalizationImpact;
     return this;
   }
@@ -623,9 +615,7 @@ public class BaseSearchParams {
     return analyticsTags;
   }
 
-  public BaseSearchParams setPercentileComputation(
-    Boolean percentileComputation
-  ) {
+  public BaseSearchParams setPercentileComputation(Boolean percentileComputation) {
     this.percentileComputation = percentileComputation;
     return this;
   }
@@ -670,9 +660,7 @@ public class BaseSearchParams {
     return enableReRanking;
   }
 
-  public BaseSearchParams setReRankingApplyFilter(
-    ReRankingApplyFilter reRankingApplyFilter
-  ) {
+  public BaseSearchParams setReRankingApplyFilter(ReRankingApplyFilter reRankingApplyFilter) {
     this.reRankingApplyFilter = reRankingApplyFilter;
     return this;
   }
@@ -704,66 +692,33 @@ public class BaseSearchParams {
       Objects.equals(this.optionalFilters, baseSearchParams.optionalFilters) &&
       Objects.equals(this.numericFilters, baseSearchParams.numericFilters) &&
       Objects.equals(this.tagFilters, baseSearchParams.tagFilters) &&
-      Objects.equals(
-        this.sumOrFiltersScores,
-        baseSearchParams.sumOrFiltersScores
-      ) &&
+      Objects.equals(this.sumOrFiltersScores, baseSearchParams.sumOrFiltersScores) &&
       Objects.equals(this.facets, baseSearchParams.facets) &&
-      Objects.equals(
-        this.maxValuesPerFacet,
-        baseSearchParams.maxValuesPerFacet
-      ) &&
-      Objects.equals(
-        this.facetingAfterDistinct,
-        baseSearchParams.facetingAfterDistinct
-      ) &&
-      Objects.equals(
-        this.sortFacetValuesBy,
-        baseSearchParams.sortFacetValuesBy
-      ) &&
+      Objects.equals(this.maxValuesPerFacet, baseSearchParams.maxValuesPerFacet) &&
+      Objects.equals(this.facetingAfterDistinct, baseSearchParams.facetingAfterDistinct) &&
+      Objects.equals(this.sortFacetValuesBy, baseSearchParams.sortFacetValuesBy) &&
       Objects.equals(this.page, baseSearchParams.page) &&
       Objects.equals(this.offset, baseSearchParams.offset) &&
       Objects.equals(this.length, baseSearchParams.length) &&
       Objects.equals(this.aroundLatLng, baseSearchParams.aroundLatLng) &&
-      Objects.equals(
-        this.aroundLatLngViaIP,
-        baseSearchParams.aroundLatLngViaIP
-      ) &&
+      Objects.equals(this.aroundLatLngViaIP, baseSearchParams.aroundLatLngViaIP) &&
       Objects.equals(this.aroundRadius, baseSearchParams.aroundRadius) &&
       Objects.equals(this.aroundPrecision, baseSearchParams.aroundPrecision) &&
-      Objects.equals(
-        this.minimumAroundRadius,
-        baseSearchParams.minimumAroundRadius
-      ) &&
-      Objects.equals(
-        this.insideBoundingBox,
-        baseSearchParams.insideBoundingBox
-      ) &&
+      Objects.equals(this.minimumAroundRadius, baseSearchParams.minimumAroundRadius) &&
+      Objects.equals(this.insideBoundingBox, baseSearchParams.insideBoundingBox) &&
       Objects.equals(this.insidePolygon, baseSearchParams.insidePolygon) &&
-      Objects.equals(
-        this.naturalLanguages,
-        baseSearchParams.naturalLanguages
-      ) &&
+      Objects.equals(this.naturalLanguages, baseSearchParams.naturalLanguages) &&
       Objects.equals(this.ruleContexts, baseSearchParams.ruleContexts) &&
-      Objects.equals(
-        this.personalizationImpact,
-        baseSearchParams.personalizationImpact
-      ) &&
+      Objects.equals(this.personalizationImpact, baseSearchParams.personalizationImpact) &&
       Objects.equals(this.userToken, baseSearchParams.userToken) &&
       Objects.equals(this.getRankingInfo, baseSearchParams.getRankingInfo) &&
       Objects.equals(this.clickAnalytics, baseSearchParams.clickAnalytics) &&
       Objects.equals(this.analytics, baseSearchParams.analytics) &&
       Objects.equals(this.analyticsTags, baseSearchParams.analyticsTags) &&
-      Objects.equals(
-        this.percentileComputation,
-        baseSearchParams.percentileComputation
-      ) &&
+      Objects.equals(this.percentileComputation, baseSearchParams.percentileComputation) &&
       Objects.equals(this.enableABTest, baseSearchParams.enableABTest) &&
       Objects.equals(this.enableReRanking, baseSearchParams.enableReRanking) &&
-      Objects.equals(
-        this.reRankingApplyFilter,
-        baseSearchParams.reRankingApplyFilter
-      )
+      Objects.equals(this.reRankingApplyFilter, baseSearchParams.reRankingApplyFilter)
     );
   }
 
@@ -812,123 +767,39 @@ public class BaseSearchParams {
     StringBuilder sb = new StringBuilder();
     sb.append("class BaseSearchParams {\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb
-      .append("    similarQuery: ")
-      .append(toIndentedString(similarQuery))
-      .append("\n");
+    sb.append("    similarQuery: ").append(toIndentedString(similarQuery)).append("\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
-    sb
-      .append("    facetFilters: ")
-      .append(toIndentedString(facetFilters))
-      .append("\n");
-    sb
-      .append("    optionalFilters: ")
-      .append(toIndentedString(optionalFilters))
-      .append("\n");
-    sb
-      .append("    numericFilters: ")
-      .append(toIndentedString(numericFilters))
-      .append("\n");
-    sb
-      .append("    tagFilters: ")
-      .append(toIndentedString(tagFilters))
-      .append("\n");
-    sb
-      .append("    sumOrFiltersScores: ")
-      .append(toIndentedString(sumOrFiltersScores))
-      .append("\n");
+    sb.append("    facetFilters: ").append(toIndentedString(facetFilters)).append("\n");
+    sb.append("    optionalFilters: ").append(toIndentedString(optionalFilters)).append("\n");
+    sb.append("    numericFilters: ").append(toIndentedString(numericFilters)).append("\n");
+    sb.append("    tagFilters: ").append(toIndentedString(tagFilters)).append("\n");
+    sb.append("    sumOrFiltersScores: ").append(toIndentedString(sumOrFiltersScores)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
-    sb
-      .append("    maxValuesPerFacet: ")
-      .append(toIndentedString(maxValuesPerFacet))
-      .append("\n");
-    sb
-      .append("    facetingAfterDistinct: ")
-      .append(toIndentedString(facetingAfterDistinct))
-      .append("\n");
-    sb
-      .append("    sortFacetValuesBy: ")
-      .append(toIndentedString(sortFacetValuesBy))
-      .append("\n");
+    sb.append("    maxValuesPerFacet: ").append(toIndentedString(maxValuesPerFacet)).append("\n");
+    sb.append("    facetingAfterDistinct: ").append(toIndentedString(facetingAfterDistinct)).append("\n");
+    sb.append("    sortFacetValuesBy: ").append(toIndentedString(sortFacetValuesBy)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    length: ").append(toIndentedString(length)).append("\n");
-    sb
-      .append("    aroundLatLng: ")
-      .append(toIndentedString(aroundLatLng))
-      .append("\n");
-    sb
-      .append("    aroundLatLngViaIP: ")
-      .append(toIndentedString(aroundLatLngViaIP))
-      .append("\n");
-    sb
-      .append("    aroundRadius: ")
-      .append(toIndentedString(aroundRadius))
-      .append("\n");
-    sb
-      .append("    aroundPrecision: ")
-      .append(toIndentedString(aroundPrecision))
-      .append("\n");
-    sb
-      .append("    minimumAroundRadius: ")
-      .append(toIndentedString(minimumAroundRadius))
-      .append("\n");
-    sb
-      .append("    insideBoundingBox: ")
-      .append(toIndentedString(insideBoundingBox))
-      .append("\n");
-    sb
-      .append("    insidePolygon: ")
-      .append(toIndentedString(insidePolygon))
-      .append("\n");
-    sb
-      .append("    naturalLanguages: ")
-      .append(toIndentedString(naturalLanguages))
-      .append("\n");
-    sb
-      .append("    ruleContexts: ")
-      .append(toIndentedString(ruleContexts))
-      .append("\n");
-    sb
-      .append("    personalizationImpact: ")
-      .append(toIndentedString(personalizationImpact))
-      .append("\n");
-    sb
-      .append("    userToken: ")
-      .append(toIndentedString(userToken))
-      .append("\n");
-    sb
-      .append("    getRankingInfo: ")
-      .append(toIndentedString(getRankingInfo))
-      .append("\n");
-    sb
-      .append("    clickAnalytics: ")
-      .append(toIndentedString(clickAnalytics))
-      .append("\n");
-    sb
-      .append("    analytics: ")
-      .append(toIndentedString(analytics))
-      .append("\n");
-    sb
-      .append("    analyticsTags: ")
-      .append(toIndentedString(analyticsTags))
-      .append("\n");
-    sb
-      .append("    percentileComputation: ")
-      .append(toIndentedString(percentileComputation))
-      .append("\n");
-    sb
-      .append("    enableABTest: ")
-      .append(toIndentedString(enableABTest))
-      .append("\n");
-    sb
-      .append("    enableReRanking: ")
-      .append(toIndentedString(enableReRanking))
-      .append("\n");
-    sb
-      .append("    reRankingApplyFilter: ")
-      .append(toIndentedString(reRankingApplyFilter))
-      .append("\n");
+    sb.append("    aroundLatLng: ").append(toIndentedString(aroundLatLng)).append("\n");
+    sb.append("    aroundLatLngViaIP: ").append(toIndentedString(aroundLatLngViaIP)).append("\n");
+    sb.append("    aroundRadius: ").append(toIndentedString(aroundRadius)).append("\n");
+    sb.append("    aroundPrecision: ").append(toIndentedString(aroundPrecision)).append("\n");
+    sb.append("    minimumAroundRadius: ").append(toIndentedString(minimumAroundRadius)).append("\n");
+    sb.append("    insideBoundingBox: ").append(toIndentedString(insideBoundingBox)).append("\n");
+    sb.append("    insidePolygon: ").append(toIndentedString(insidePolygon)).append("\n");
+    sb.append("    naturalLanguages: ").append(toIndentedString(naturalLanguages)).append("\n");
+    sb.append("    ruleContexts: ").append(toIndentedString(ruleContexts)).append("\n");
+    sb.append("    personalizationImpact: ").append(toIndentedString(personalizationImpact)).append("\n");
+    sb.append("    userToken: ").append(toIndentedString(userToken)).append("\n");
+    sb.append("    getRankingInfo: ").append(toIndentedString(getRankingInfo)).append("\n");
+    sb.append("    clickAnalytics: ").append(toIndentedString(clickAnalytics)).append("\n");
+    sb.append("    analytics: ").append(toIndentedString(analytics)).append("\n");
+    sb.append("    analyticsTags: ").append(toIndentedString(analyticsTags)).append("\n");
+    sb.append("    percentileComputation: ").append(toIndentedString(percentileComputation)).append("\n");
+    sb.append("    enableABTest: ").append(toIndentedString(enableABTest)).append("\n");
+    sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
+    sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
     sb.append("}");
     return sb.toString();
   }

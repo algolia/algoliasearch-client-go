@@ -13,9 +13,7 @@ import java.util.List;
 @JsonAdapter(ReRankingApplyFilter.Adapter.class)
 public abstract class ReRankingApplyFilter implements CompoundType {
 
-  public static ReRankingApplyFilter ofListListString(
-    List<List<String>> inside
-  ) {
+  public static ReRankingApplyFilter ofListListString(List<List<String>> inside) {
     return new ReRankingApplyFilterListListString(inside);
   }
 
@@ -26,28 +24,18 @@ public abstract class ReRankingApplyFilter implements CompoundType {
   public static class Adapter extends TypeAdapter<ReRankingApplyFilter> {
 
     @Override
-    public void write(final JsonWriter out, final ReRankingApplyFilter oneOf)
-      throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON
-        .getGson()
-        .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+    public void write(final JsonWriter out, final ReRankingApplyFilter oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
       runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
 
     @Override
-    public ReRankingApplyFilter read(final JsonReader jsonReader)
-      throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<List<List<String>>>() {}.getType()
-      );
+    public ReRankingApplyFilter read(final JsonReader jsonReader) throws IOException {
+      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
       if (listliststring != null) {
         return ReRankingApplyFilter.ofListListString(listliststring);
       }
-      List<String> liststring = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<List<String>>() {}.getType()
-      );
+      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
       if (liststring != null) {
         return ReRankingApplyFilter.ofListString(liststring);
       }
