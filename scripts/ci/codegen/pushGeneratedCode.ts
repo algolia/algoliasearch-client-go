@@ -6,6 +6,10 @@ import { getNbGitDiff } from '../utils';
 import text from './text';
 
 const PR_NUMBER = parseInt(process.env.PR_NUMBER || '0', 10);
+const IS_RELEASE_COMMIT =
+  process.env.HEAD_COMMIT_MESSAGE?.startsWith(
+    text.commitPrepareReleaseMessage
+  ) || false;
 
 async function isUpToDate(baseBranch: string): Promise<boolean> {
   await run('git fetch origin');
@@ -60,16 +64,26 @@ export async function pushGeneratedCode(): Promise<void> {
     return;
   }
 
-  const commitMessage = await run(`git show -s ${baseBranch} --format="${
-    text.commitStartMessage
-  } %H. ${isMainBranch ? '[skip ci]' : ''}
+  const skipCi = isMainBranch ? '[skip ci]' : '';
+  let message = await run(
+    `git show -s ${baseBranch} --format="${text.commitStartMessage} %H. ${skipCi}"`
+  );
+  const authors = await run(
+    `git show -s ${baseBranch} --format="
 
 Co-authored-by: %an <%ae>
-%(trailers:key=Co-authored-by)"`);
+%(trailers:key=Co-authored-by)"`
+  );
+
+  if (IS_RELEASE_COMMIT && isMainBranch) {
+    message = text.commitReleaseMessage;
+  }
+
+  message += authors;
 
   console.log(`Pushing code to generated branch: '${branchToPush}'`);
-  await run(`git add .`);
-  await run(`git commit -m "${commitMessage}"`);
+  await run('git add .');
+  await run(`git commit -m "${message}"`);
   await run(`git push origin ${branchToPush}`);
 
   if (PR_NUMBER) {

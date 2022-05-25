@@ -7,9 +7,10 @@ describe('process release', () => {
     const versions = getVersionsToRelease(`
     ## Version Changes
     
-    - [x] javascript: 1.0.0 -> \`minor\` (e.g. 1.1.0)
-    - [x] php: 2.0.0 -> \`patch\` (e.g. 2.0.1)
-    - [ ] java: 3.0.0 -> \`patch\` (e.g. 3.0.1)
+    - javascript: 1.0.0 -> **\`minor\` _(e.g. 1.1.0)_**
+    - ~java: 3.0.0 -> **\`patch\` _(e.g. 3.0.1)_**~
+      - No \`feat\` or \`fix\` commit, thus unchecked by default.
+    - php: 2.0.0 -> **\`patch\` _(e.g. 2.0.1)_**
     `);
 
     expect(Object.keys(versions)).toEqual(['javascript', 'php']);

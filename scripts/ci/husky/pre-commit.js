@@ -64,7 +64,7 @@ async function preCommit() {
     }
 
     console.log(
-      chalk.bgYellow('[INFO]'),
+      chalk.black.bgYellow('[INFO]'),
       `Generated file found, unstaging: ${stagedFile}`
     );
 

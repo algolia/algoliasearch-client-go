@@ -6,7 +6,6 @@
     "createMatrix": "ts-node ci/githubActions/createMatrix.ts",
     "createReleaseIssue": "ts-node release/create-release-issue.ts",
     "pre-commit": "./ci/husky/pre-commit.js",
-    "processRelease": "ts-node release/process-release.ts",
     "pushGeneratedCode": "ts-node ci/codegen/pushGeneratedCode.ts",
     "renovateWeeklyPR": "ts-node ci/githubActions/renovateWeeklyPR.ts",
     "setRunVariables": "ts-node ci/githubActions/setRunVariables.ts",

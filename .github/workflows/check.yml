@@ -325,9 +325,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
           PR_NUMBER: ${{ github.event.number }}
+          HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
       - name: Spread generation to each repository
         if: ${{ steps.pushGeneratedCode.exitcode == 0 && github.ref == 'refs/heads/main' }}
         run: yarn workspace scripts spreadGeneration
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
+          HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}

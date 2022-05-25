@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import execa from 'execa';
 import { copy } from 'fs-extra';
 
 import {
@@ -10,12 +11,21 @@ import {
   REPO_URL,
   ensureGitHubToken,
 } from '../../common';
-import { getLanguageFolder } from '../../config';
-import { cloneRepository, configureGitHubAuthor } from '../../release/common';
+import { getLanguageFolder, getPackageVersionDefault } from '../../config';
+import {
+  cloneRepository,
+  configureGitHubAuthor,
+  RELEASED_TAG,
+} from '../../release/common';
 import type { Language } from '../../types';
 import { getNbGitDiff } from '../utils';
 
 import text from './text';
+
+const IS_RELEASE_COMMIT =
+  process.env.HEAD_COMMIT_MESSAGE?.startsWith(
+    text.commitPrepareReleaseMessage
+  ) || false;
 
 export function decideWhereToSpread(commitMessage: string): Language[] {
   if (commitMessage.startsWith('chore: release')) {
@@ -77,6 +87,21 @@ async function spreadGeneration(): Promise<void> {
   const commitMessage = cleanUpCommitMessage(lastCommitMessage);
   const langs = decideWhereToSpread(lastCommitMessage);
 
+  // At this point, we know the release will happen on every clients
+  // So we want to set the released tag at the monorepo level too.
+  if (IS_RELEASE_COMMIT) {
+    // remove old `released` tag
+    await run(
+      `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
+    );
+    await run(`git tag -d ${RELEASED_TAG}`);
+    await run(`git push --delete origin ${RELEASED_TAG}`);
+
+    // create new `released` tag
+    await run(`git tag released`);
+    await run(`git push --tags`);
+  }
+
   for (const lang of langs) {
     const { tempGitDir } = await cloneRepository({
       lang,
@@ -100,14 +125,24 @@ async function spreadGeneration(): Promise<void> {
       continue;
     }
 
+    const version = getPackageVersionDefault(lang);
+    const message = IS_RELEASE_COMMIT
+      ? `chore: release ${version}`
+      : commitMessage;
+
     await configureGitHubAuthor(tempGitDir);
     await run(`git add .`, { cwd: tempGitDir });
     await gitCommit({
-      message: commitMessage,
+      message,
       coAuthors: [author, ...coAuthors],
       cwd: tempGitDir,
     });
-    await run(`git push`, { cwd: tempGitDir });
+    await execa('git', ['tag', version], {
+      cwd: tempGitDir,
+    });
+    await run(IS_RELEASE_COMMIT ? 'git push --follow-tags' : 'git push', {
+      cwd: tempGitDir,
+    });
     console.log(`✅ Spread the generation to ${lang} repository.`);
   }
 }

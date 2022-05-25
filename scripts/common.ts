@@ -23,6 +23,7 @@ export const MAIN_BRANCH = releaseConfig.mainBranch;
 export const OWNER = releaseConfig.owner;
 export const REPO = releaseConfig.repo;
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
+export const TODAY = new Date().toISOString().split('T')[0];
 
 export const CI = Boolean(process.env.CI);
 export const DOCKER = Boolean(process.env.DOCKER);

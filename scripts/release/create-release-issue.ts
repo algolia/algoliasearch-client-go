@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import semver from 'semver';
 
 import generationCommitText from '../ci/codegen/text';
+import { getNbGitDiff } from '../ci/utils';
 import {
   LANGUAGES,
   ROOT_ENV_PATH,
@@ -13,10 +14,12 @@ import {
   REPO,
   getOctokit,
   ensureGitHubToken,
+  TODAY,
 } from '../common';
 import { getPackageVersionDefault } from '../config';
 
 import { RELEASED_TAG } from './common';
+import { processRelease } from './process-release';
 import TEXT from './text';
 import type {
   Versions,
@@ -24,6 +27,7 @@ import type {
   PassedCommit,
   Commit,
   Scope,
+  Changelog,
 } from './types';
 
 dotenv.config({ path: ROOT_ENV_PATH });
@@ -49,13 +53,15 @@ export function getVersionChangesText(versions: Versions): string {
     }
 
     const next = semver.inc(current, releaseType!);
-    const checked = skipRelease ? ' ' : 'x';
-    return [
-      `- [${checked}] ${lang}: ${current} -> \`${releaseType}\` _(e.g. ${next})_`,
-      skipRelease && TEXT.descriptionForSkippedLang,
-    ]
-      .filter(Boolean)
-      .join('\n');
+
+    if (skipRelease) {
+      return [
+        `- ~${lang}: ${current} -> **\`${releaseType}\` _(e.g. ${next})_**~`,
+        TEXT.descriptionForSkippedLang,
+      ].join('\n');
+    }
+
+    return `- ${lang}: ${current} -> **\`${releaseType}\` _(e.g. ${next})_**`;
   }).join('\n');
 }
 
@@ -99,13 +105,18 @@ export function parseCommit(commit: string): Commit {
   let message = commit.slice(LENGTH_SHA1 + 1);
   let type = message.slice(0, message.indexOf(':'));
   const matchResult = type.match(/(.+)\((.+)\)/);
-  if (!matchResult) {
-    if (commit.startsWith(generationCommitText.commitStartMessage)) {
-      return {
-        error: 'generation-commit',
-      };
-    }
 
+  if (
+    message
+      .toLocaleLowerCase()
+      .startsWith(generationCommitText.commitStartMessage)
+  ) {
+    return {
+      error: 'generation-commit',
+    };
+  }
+
+  if (!matchResult) {
     return {
       error: 'missing-language-scope',
     };
@@ -196,33 +207,15 @@ export function decideReleaseStrategy({
 }
 /* eslint-enable no-param-reassign */
 
-async function createReleaseIssue(): Promise<void> {
-  ensureGitHubToken();
-
-  if ((await run('git rev-parse --abbrev-ref HEAD')) !== MAIN_BRANCH) {
-    throw new Error(
-      `You can run this script only from \`${MAIN_BRANCH}\` branch.`
-    );
-  }
-
-  await run(`git rev-parse --verify refs/tags/${RELEASED_TAG}`, {
-    errorMessage: '`released` tag is missing in this repository.',
-  });
-
-  console.log('Pulling from origin...');
-  await run('git fetch origin');
-  await run('git pull');
-
-  const commitsWithUnknownLanguageScope: string[] = [];
-  const commitsWithoutLanguageScope: string[] = [];
-
-  // Remove the local tag, and fetch it from the remote.
-  // We move the `released` tag as we release, so we need to make it up-to-date.
-  await run(`git tag -d ${RELEASED_TAG}`);
-  await run(
-    `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
-  );
-
+/**
+ * Returns commits separated in categories used to compute the next release version.
+ *
+ * Gracefully exits if there is none.
+ */
+async function getCommits(): Promise<{
+  validCommits: PassedCommit[];
+  skippedCommits: string;
+}> {
   // Reading commits since last release
   const latestCommits = (
     await run(`git log --oneline --abbrev=8 ${RELEASED_TAG}..${MAIN_BRANCH}`)
@@ -230,14 +223,8 @@ async function createReleaseIssue(): Promise<void> {
     .split('\n')
     .filter(Boolean);
 
-  if (latestCommits.length === 0) {
-    console.log(
-      chalk.bgYellow('[INFO]'),
-      `Skipping release because no commit has been added since \`releated\` tag.`
-    );
-    // eslint-disable-next-line no-process-exit
-    process.exit(0);
-  }
+  const commitsWithoutLanguageScope: string[] = [];
+  const commitsWithUnknownLanguageScope: string[] = [];
 
   const validCommits = latestCommits
     .map((commitMessage) => {
@@ -265,76 +252,119 @@ async function createReleaseIssue(): Promise<void> {
     })
     .filter(Boolean) as PassedCommit[];
 
+  if (validCommits.length === 0) {
+    console.log(
+      chalk.black.bgYellow('[INFO]'),
+      `Skipping release because no valid commit has been added since \`released\` tag.`
+    );
+    // eslint-disable-next-line no-process-exit
+    process.exit(0);
+  }
+
+  return {
+    validCommits,
+    skippedCommits: getSkippedCommitsText({
+      commitsWithoutLanguageScope,
+      commitsWithUnknownLanguageScope,
+    }),
+  };
+}
+
+async function createReleaseIssue(): Promise<void> {
+  ensureGitHubToken();
+
+  if (!process.env.LOCAL_TEST_DEV) {
+    if ((await run('git rev-parse --abbrev-ref HEAD')) !== MAIN_BRANCH) {
+      throw new Error(
+        `You can run this script only from \`${MAIN_BRANCH}\` branch.`
+      );
+    }
+
+    if (
+      (await getNbGitDiff({
+        head: null,
+      })) !== 0
+    ) {
+      throw new Error(
+        'Working directory is not clean. Commit all the changes first.'
+      );
+    }
+  }
+
+  await run(`git rev-parse --verify refs/tags/${RELEASED_TAG}`, {
+    errorMessage: '`released` tag is missing in this repository.',
+  });
+
+  console.log('Pulling from origin...');
+  await run('git fetch origin');
+  await run('git pull');
+
+  // Remove the local tag, and fetch it from the remote.
+  // We move the `released` tag as we release, so we need to make it up-to-date.
+  await run(`git tag -d ${RELEASED_TAG}`);
+  await run(
+    `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
+  );
+
+  console.log('Search for commits since last release...');
+  const { validCommits, skippedCommits } = await getCommits();
+
   const versions = decideReleaseStrategy({
     versions: readVersions(),
     commits: validCommits,
   });
-
   const versionChanges = getVersionChangesText(versions);
 
-  const skippedCommits = getSkippedCommitsText({
-    commitsWithoutLanguageScope,
-    commitsWithUnknownLanguageScope,
-  });
+  console.log('Creating changelogs for all languages...');
+  const changelog: Changelog = LANGUAGES.reduce((newChangelog, lang) => {
+    if (versions[lang].noCommit) {
+      return newChangelog;
+    }
 
-  const changelogs = LANGUAGES.filter(
-    (lang) => !versions[lang].noCommit && versions[lang].current
-  )
-    .flatMap((lang) => {
-      if (versions[lang].noCommit) {
-        return [];
-      }
+    return {
+      ...newChangelog,
+      [lang]: validCommits
+        .filter(
+          (commit) =>
+            commit.scope === lang || COMMON_SCOPES.includes(commit.scope)
+        )
+        .map((commit) => `- ${commit.raw}`)
+        .join('\n'),
+    };
+  }, {} as Changelog);
 
-      return [
-        `### ${lang}`,
-        ...validCommits
-          .filter(
-            (commit) =>
-              commit.scope === lang || COMMON_SCOPES.includes(commit.scope)
-          )
-          .map((commit) => `- ${commit.raw}`),
-      ];
-    })
-    .join('\n');
+  const headBranch = `chore/prepare-release-${TODAY}`;
 
-  const body = [
-    TEXT.header,
-    TEXT.versionChangeHeader,
-    versionChanges,
-    TEXT.descriptionVersionChanges,
-    TEXT.indenpendentVersioning,
-    TEXT.changelogHeader,
-    TEXT.changelogDescription,
-    changelogs,
-    TEXT.skippedCommitsHeader,
-    skippedCommits,
-    TEXT.approvalHeader,
-    TEXT.approval,
-  ].join('\n\n');
+  console.log('Updating config files...');
+  await processRelease(versionChanges, changelog, headBranch);
 
+  console.log('Creating pull request...');
   const octokit = getOctokit();
 
-  octokit.rest.issues
-    .create({
+  try {
+    const {
+      data: { number, html_url: url },
+    } = await octokit.rest.pulls.create({
       owner: OWNER,
       repo: REPO,
-      title: `chore: release ${new Date().toISOString().split('T')[0]}`,
-      body,
-    })
-    .then((result) => {
-      const {
-        data: { number, html_url: url },
-      } = result;
-
-      console.log('');
-      console.log(`Release issue #${number} is ready for review.`);
-      console.log(`  > ${url}`);
-    })
-    .catch((error) => {
-      console.log('Unable to create the release issue');
-
-      throw new Error(error);
+      title: `chore: prepare release ${TODAY}`,
+      body: [
+        TEXT.header,
+        TEXT.summary,
+        TEXT.versionChangeHeader,
+        versionChanges,
+        TEXT.skippedCommitsHeader,
+        skippedCommits,
+      ].join('\n\n'),
+      base: 'main',
+      head: headBranch,
     });
+
+    console.log(`Release PR #${number} is ready for review.`);
+    console.log(`  > ${url}`);
+  } catch (e) {
+    throw new Error(`Unable to create the release PR: ${e}`);
+  }
 }
 
 // JS version of `if __name__ == '__main__'`

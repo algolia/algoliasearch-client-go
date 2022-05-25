@@ -43,10 +43,9 @@ export type VersionsToRelease = {
   };
 };
 
-export type BeforeClientGenerationCommand = (params: {
-  releaseType: ReleaseType;
-  dir: string;
-}) => Promise<void>;
+export type Changelog = {
+  [lang in Language]?: string;
+};
 
 export type BeforeClientCommitCommand = (params: {
   dir: string;
