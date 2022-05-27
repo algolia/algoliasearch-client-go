@@ -141,6 +141,13 @@ async function spreadGeneration(): Promise<void> {
     const version = getPackageVersionDefault(lang);
     const commitMessage = cleanUpCommitMessage(lastCommitMessage, version);
 
+    // We want to ensure we have an up to date `yarn.lock` in the JS client repository
+    if (lang === 'javascript') {
+      await run('YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install', {
+        cwd: tempGitDir,
+      });
+    }
+
     await configureGitHubAuthor(tempGitDir);
     await run(`git add .`, { cwd: tempGitDir });
     await gitCommit({
