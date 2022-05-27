@@ -8,7 +8,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-search",
           "buildFile": "client-search",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-search"
         }
       },
@@ -18,7 +18,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/algoliasearch-lite",
           "buildFile": "algoliasearch-lite",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/algoliasearch-lite"
         }
       },
@@ -28,7 +28,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/recommend",
           "buildFile": "recommend",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/recommend"
         }
       },
@@ -37,7 +37,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-personalization",
           "buildFile": "client-personalization",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-personalization",
           "hasRegionalHost": true
         }
@@ -47,7 +47,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-analytics",
           "buildFile": "client-analytics",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-analytics",
           "hasRegionalHost": true
         }
@@ -57,7 +57,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-insights",
           "buildFile": "client-insights",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-insights",
           "hasRegionalHost": true
         }
@@ -67,7 +67,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-abtesting",
           "buildFile": "client-abtesting",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-abtesting",
           "hasRegionalHost": true
         }
@@ -77,7 +77,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-query-suggestions",
           "buildFile": "client-query-suggestions",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-query-suggestions",
           "hasRegionalHost": true
         }
@@ -87,7 +87,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-sources",
           "buildFile": "client-sources",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-sources",
           "hasRegionalHost": true
         }
@@ -98,7 +98,7 @@
         "additionalProperties": {
           "npmName": "@experimental-api-clients-automation/client-predict",
           "buildFile": "client-predict",
-          "packageVersion": "0.3.0",
+          "packageVersion": "0.4.0",
           "packageName": "@experimental-api-clients-automation/client-predict",
           "hasRegionalHost": true
         }
