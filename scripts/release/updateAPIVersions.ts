@@ -6,6 +6,7 @@ import semver from 'semver';
 
 import clientsConfig from '../../config/clients.config.json';
 import openapiConfig from '../../config/openapitools.json';
+import generationCommitText from '../ci/codegen/text';
 import {
   ROOT_ENV_PATH,
   toAbsolutePath,
@@ -231,7 +232,7 @@ export async function updateAPIVersions(
   }
 
   console.log(`Pushing updated changes to ${headBranch}`);
-  const commitMessage = headBranch.replace('chore/', 'chore: ');
+  const commitMessage = generationCommitText.commitPrepareReleaseMessage;
   await run(`git add clients config`, { verbose: true });
   if (process.env.LOCAL_TEST_DEV) {
     await run(`CI=true git commit -m "${commitMessage} [skip ci]"`, {

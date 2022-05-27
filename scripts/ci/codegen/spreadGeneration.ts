@@ -88,6 +88,8 @@ async function spreadGeneration(): Promise<void> {
   // At this point, we know the release will happen on at least one client
   // So we want to set the released tag at the monorepo level too.
   if (IS_RELEASE_COMMIT) {
+    console.log('Processing release commit');
+
     // remove old `released` tag
     await run(
       `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`

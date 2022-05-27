@@ -75,6 +75,7 @@ Co-authored-by: %an <%ae>
   );
 
   if (IS_RELEASE_COMMIT && isMainBranch) {
+    console.log('Processing release commit');
     message = text.commitReleaseMessage;
   }
 

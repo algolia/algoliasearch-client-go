@@ -355,7 +355,7 @@ async function createReleasePR(): Promise<void> {
   } = await octokit.pulls.create({
     owner: OWNER,
     repo: REPO,
-    title: `chore: prepare release ${TODAY}`,
+    title: generationCommitText.commitPrepareReleaseMessage,
     body: [
       TEXT.header,
       TEXT.summary,

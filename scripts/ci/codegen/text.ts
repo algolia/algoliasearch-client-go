@@ -2,7 +2,7 @@ import { MAIN_BRANCH, REPO_URL, TODAY } from '../../common';
 
 export default {
   commitStartMessage: 'chore: generated code for commit',
-  commitPrepareReleaseMessage: 'chore: prepare-release-',
+  commitPrepareReleaseMessage: `chore: prepare release ${TODAY}`,
   commitReleaseMessage: `chore: release ${TODAY}`,
   notification: {
     header: '### 🔨 The codegen job will run at the end of the CI.',
