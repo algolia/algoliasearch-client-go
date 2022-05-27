@@ -42,4 +42,3 @@
 - c1ac7bea feat(specs): add `personalizaton` spec and client (#27)
 - ef603fbf feat(specs): add `recommend` spec and client (#19)
 - 47f71b96 feat(specs): add `settings` spec (#17)
-
