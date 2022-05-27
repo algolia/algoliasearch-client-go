@@ -32,6 +32,13 @@ jobs:
       - name: Upload Artifacts
         run: ./gradlew clean publish --no-parallel --stacktrace
 
+      - name: Check snapshot
+        id: snapshot
+        run: |
+          if [[ $(cat ./gradle.properties | grep 'VERSION_NAME=.*-SNAPSHOT') ]]; then
+            echo "::set-output name=IS_SNAPSHOT::true"
+          fi
+
       - name: Release Artifacts
-        if: ! cat ./gradle.properties | grep 'VERSION_NAME=.*-SNAPSHOT'
+        if: ${{ steps.snapshot.IS_SNAPHOT != 'true' }}
         run: ./gradlew closeAndReleaseRepository

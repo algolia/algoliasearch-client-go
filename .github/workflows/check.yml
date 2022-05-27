@@ -230,7 +230,7 @@ jobs:
         run: yarn cli cts run ${{ matrix.client.language }}
 
       - name: Zip artifact before storing
-        run: zip -r -y clients-${{ matrix.client.language }}.zip ${{ matrix.client.path }} ${{ matrix.client.testsToStore }} -x "**/node_modules/**" "**/node_modules/.**" "clients/algoliasearch-client-javascript/.yarn/**"
+        run: zip -r -y clients-${{ matrix.client.language }}.zip ${{ matrix.client.path }} ${{ matrix.client.testsToStore }} -x "**/node_modules**" "clients/algoliasearch-client-javascript/.yarn**" "**/.github**"
 
       - name: Store ${{ matrix.client.language }} clients
         uses: actions/upload-artifact@v3
@@ -286,7 +286,7 @@ jobs:
         run: yarn cli build clients javascript algoliasearch
 
       - name: Zip artifact before storing
-        run: zip -r -y client-javascript-algoliasearch.zip clients/algoliasearch-client-javascript/packages/algoliasearch/ -x "**/node_modules/**" "**/node_modules/.**" "clients/algoliasearch-client-javascript/.yarn/**"
+        run: zip -r -y client-javascript-algoliasearch.zip clients/algoliasearch-client-javascript/packages/algoliasearch/ -x "**/node_modules**" "clients/algoliasearch-client-javascript/.yarn**" "**/.github**"
 
       - name: Store JavaScript 'algoliasearch' client
         uses: actions/upload-artifact@v3
