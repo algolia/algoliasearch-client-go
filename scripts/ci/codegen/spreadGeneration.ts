@@ -23,8 +23,8 @@ import { getNbGitDiff } from '../utils';
 import text from './text';
 
 export function decideWhereToSpread(commitMessage: string): Language[] {
-  if (commitMessage.startsWith('chore: release')) {
-    return [];
+  if (commitMessage.startsWith(text.commitPrepareReleaseMessage)) {
+    return LANGUAGES;
   }
 
   const result = commitMessage.match(/(.+)\((.+)\):/);
@@ -37,7 +37,14 @@ export function decideWhereToSpread(commitMessage: string): Language[] {
   return LANGUAGES.includes(scope) ? [scope] : LANGUAGES;
 }
 
-export function cleanUpCommitMessage(commitMessage: string): string {
+export function cleanUpCommitMessage(
+  commitMessage: string,
+  version: string
+): string {
+  if (commitMessage.startsWith(text.commitPrepareReleaseMessage)) {
+    return `chore: release ${version}`;
+  }
+
   const isCodeGenCommit = commitMessage.startsWith(text.commitStartMessage);
 
   if (isCodeGenCommit) {
@@ -68,6 +75,7 @@ export function cleanUpCommitMessage(commitMessage: string): string {
 async function spreadGeneration(): Promise<void> {
   const githubToken = ensureGitHubToken();
 
+  console.log('Starting spread generation script...');
   const lastCommitMessage = await run('git log -1 --format="%s"');
   const author = (
     await run('git log -1 --format="Co-authored-by: %an <%ae>"')
@@ -82,22 +90,25 @@ async function spreadGeneration(): Promise<void> {
   const IS_RELEASE_COMMIT = lastCommitMessage.startsWith(
     text.commitPrepareReleaseMessage
   );
-  const commitMessage = cleanUpCommitMessage(lastCommitMessage);
   const langs = decideWhereToSpread(lastCommitMessage);
+  console.log(
+    'Spreading code to the following repositories:',
+    langs.join(' | ')
+  );
 
   // At this point, we know the release will happen on at least one client
   // So we want to set the released tag at the monorepo level too.
   if (IS_RELEASE_COMMIT) {
-    console.log('Processing release commit');
-
-    // remove old `released` tag
+    console.log(
+      'Processing release commit, removing old `released` tag on the monorepo'
+    );
     await run(
       `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
     );
     await run(`git tag -d ${RELEASED_TAG}`);
     await run(`git push --delete origin ${RELEASED_TAG}`);
 
-    // create new `released` tag
+    console.log('Creating new `released` tag for latest commit');
     await run(`git tag released`);
     await run(`git push --tags`);
   }
@@ -123,17 +134,17 @@ async function spreadGeneration(): Promise<void> {
         `❎ Skipping ${lang} repository, because there is no change.`
       );
       continue;
+    } else {
+      console.log(`✅ Spreading code to the ${lang} repository.`);
     }
 
     const version = getPackageVersionDefault(lang);
-    const message = IS_RELEASE_COMMIT
-      ? `chore: release ${version}`
-      : commitMessage;
+    const commitMessage = cleanUpCommitMessage(lastCommitMessage, version);
 
     await configureGitHubAuthor(tempGitDir);
     await run(`git add .`, { cwd: tempGitDir });
     await gitCommit({
-      message,
+      message: commitMessage,
       coAuthors: [author, ...coAuthors],
       cwd: tempGitDir,
     });
@@ -143,7 +154,9 @@ async function spreadGeneration(): Promise<void> {
     await run(IS_RELEASE_COMMIT ? 'git push --follow-tags' : 'git push', {
       cwd: tempGitDir,
     });
-    console.log(`✅ Spread the generation to ${lang} repository.`);
+    console.log(
+      `✅ Code generation successfully pushed to ${lang} repository.`
+    );
   }
 }
 
