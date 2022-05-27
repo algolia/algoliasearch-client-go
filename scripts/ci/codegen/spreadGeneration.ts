@@ -22,11 +22,6 @@ import { getNbGitDiff } from '../utils';
 
 import text from './text';
 
-const IS_RELEASE_COMMIT =
-  process.env.HEAD_COMMIT_MESSAGE?.startsWith(
-    text.commitPrepareReleaseMessage
-  ) || false;
-
 export function decideWhereToSpread(commitMessage: string): Language[] {
   if (commitMessage.startsWith('chore: release')) {
     return [];
@@ -84,10 +79,13 @@ async function spreadGeneration(): Promise<void> {
     .map((coAuthor) => coAuthor.trim())
     .filter(Boolean);
 
+  const IS_RELEASE_COMMIT = lastCommitMessage.startsWith(
+    text.commitPrepareReleaseMessage
+  );
   const commitMessage = cleanUpCommitMessage(lastCommitMessage);
   const langs = decideWhereToSpread(lastCommitMessage);
 
-  // At this point, we know the release will happen on every clients
+  // At this point, we know the release will happen on at least one client
   // So we want to set the released tag at the monorepo level too.
   if (IS_RELEASE_COMMIT) {
     // remove old `released` tag
