@@ -23,7 +23,7 @@ import { getNbGitDiff } from '../utils';
 import text from './text';
 
 export function decideWhereToSpread(commitMessage: string): Language[] {
-  if (commitMessage.startsWith(text.commitPrepareReleaseMessage)) {
+  if (commitMessage.startsWith(text.commitReleaseMessage)) {
     return LANGUAGES;
   }
 
@@ -41,7 +41,7 @@ export function cleanUpCommitMessage(
   commitMessage: string,
   version: string
 ): string {
-  if (commitMessage.startsWith(text.commitPrepareReleaseMessage)) {
+  if (commitMessage.startsWith(text.commitReleaseMessage)) {
     return `chore: release ${version}`;
   }
 
@@ -88,7 +88,7 @@ async function spreadGeneration(): Promise<void> {
     .filter(Boolean);
 
   const IS_RELEASE_COMMIT = lastCommitMessage.startsWith(
-    text.commitPrepareReleaseMessage
+    text.commitReleaseMessage
   );
   const langs = decideWhereToSpread(lastCommitMessage);
   console.log(

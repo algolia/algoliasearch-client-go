@@ -32,8 +32,8 @@ public class ApiClient {
   public ApiClient(String appId, String apiKey, Requester requester, String clientName, AlgoliaAgent.Segment[] segments) {
     this.contentType = "application/json";
 
-    AlgoliaAgent ua = new AlgoliaAgent("0.1.0");
-    ua.addSegment(new AlgoliaAgent.Segment(clientName, "0.1.0"));
+    AlgoliaAgent ua = new AlgoliaAgent("0.0.1");
+    ua.addSegment(new AlgoliaAgent.Segment(clientName, "0.0.1"));
     if (segments != null) {
       for (AlgoliaAgent.Segment segment : segments) {
         ua.addSegment(segment);

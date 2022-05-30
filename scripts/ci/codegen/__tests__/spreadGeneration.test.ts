@@ -5,9 +5,9 @@ import text from '../text';
 describe('spread generation', () => {
   describe('decideWhereToSpread', () => {
     it('spreads to all languages if it is a release commit', () => {
-      expect(decideWhereToSpread('chore: release 2022-05-27')).toEqual(
-        LANGUAGES
-      );
+      expect(
+        decideWhereToSpread(`${text.commitReleaseMessage} [skip ci]`)
+      ).toEqual(LANGUAGES);
     });
 
     it('spreads to all languages if scope is missing', () => {
@@ -38,9 +38,9 @@ describe('spread generation', () => {
   });
 
   describe('cleanUpCommitMessage', () => {
-    it('returns a release commit message ', () => {
+    it('returns a release commit message with the version', () => {
       expect(
-        cleanUpCommitMessage(text.commitPrepareReleaseMessage, '1.0.0')
+        cleanUpCommitMessage(`${text.commitReleaseMessage} [skip ci]`, '1.0.0')
       ).toEqual('chore: release 1.0.0');
     });
 
