@@ -8,26 +8,26 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 
 function getSpecFiles() {
-  const ROOT_DIR = path.resolve(process.cwd(), '..');
-  const bundledSpecsPath = path.resolve(ROOT_DIR, 'specs/bundled');
-  const specFiles = [];
+  const bundledSpecsPath = path.resolve(process.cwd(), 'specs');
+  const specs = [];
 
   fs.readdirSync(bundledSpecsPath).forEach((file) => {
     if (file.endsWith('.doc.yml')) {
       const fileName = file.replace('.doc.yml', '');
 
-      specFiles.push({
+      specs.push({
         fileName,
         path: `${bundledSpecsPath}/${file}`,
+        route: `/specs/${fileName}`,
       });
     }
   });
 
-  if (specFiles.length === 0) {
+  if (specs.length === 0) {
     throw new Error('Unable to find spec files');
   }
 
-  return specFiles;
+  return specs;
 }
 
 function getSpecsForPlugin() {
@@ -35,7 +35,7 @@ function getSpecsForPlugin() {
     return {
       id: specFile.fileName,
       spec: specFile.path,
-      route: `/specs/${specFile.fileName}`,
+      route: specFile.route,
     };
   });
 }
@@ -45,7 +45,7 @@ function getSpecsForNavBar() {
     /** @type {import('@docusaurus/theme-common').NavbarItem} */
     return {
       label: specFile.fileName,
-      href: `/specs/${specFile.fileName}`,
+      href: specFile.route,
       className: 'header-restapi',
     };
   });
@@ -66,23 +66,6 @@ function getSpecsForNavBar() {
 
     presets: [
       [
-        'redocusaurus',
-        {
-          specs: getSpecsForPlugin(),
-          theme: {
-            options: { disableSearch: true },
-            primaryColor: '#5468ff',
-            theme: {
-              typography: { fontSize: '14px', lineHeight: '1.2em' },
-              spacing: {
-                unit: 5,
-                sectionHorizontal: 30,
-              },
-            },
-          },
-        },
-      ],
-      [
         '@docusaurus/preset-classic',
         /** @type {import('@docusaurus/preset-classic').Options} */
         ({
@@ -99,6 +82,29 @@ function getSpecsForNavBar() {
             customCss: require.resolve('./src/css/custom.css'),
           },
         }),
+      ],
+      [
+        'docusaurus-preset-shiki-twoslash',
+        {
+          themes: ['min-light', 'nord'],
+        },
+      ],
+      [
+        'redocusaurus',
+        {
+          specs: getSpecsForPlugin(),
+          theme: {
+            options: { disableSearch: true },
+            primaryColor: '#5468ff',
+            theme: {
+              typography: { fontSize: '14px', lineHeight: '1.2em' },
+              spacing: {
+                unit: 5,
+                sectionHorizontal: 30,
+              },
+            },
+          },
+        },
       ],
     ],
 
@@ -178,7 +184,6 @@ function getSpecsForNavBar() {
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
-          additionalLanguages: ['java', 'php'],
         },
       }),
   }

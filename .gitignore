@@ -29,4 +29,3 @@ clients/algoliasearch-client-javascript/packages/*/.openapi-generator-ignore
 tests/output/*/.openapi-generator-ignore
 
 generators/bin
-*.doc.yml

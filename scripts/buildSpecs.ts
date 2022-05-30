@@ -94,9 +94,14 @@ async function transformBundle({
   );
 
   if (withDoc) {
-    const pathToDoc = bundledPath.replace('.yml', '.doc.yml');
+    const docFolderPath = toAbsolutePath('website/specs');
+    if (!(await exists(docFolderPath))) {
+      fsp.mkdir(docFolderPath);
+    }
+
+    const pathToSpecDoc = `${docFolderPath}/${clientName}.doc.yml`;
     await fsp.writeFile(
-      pathToDoc,
+      pathToSpecDoc,
       yaml.dump(bundledDocSpec, {
         noRefs: true,
       })
@@ -199,14 +204,10 @@ async function buildSpec(
 
   if (useCache) {
     spinner.text = `checking cache for '${specBase}'`;
-    const generatedFiles = [`bundled/${spec}.yml`];
-    if (!isLite && BUNDLE_WITH_DOC) {
-      generatedFiles.push(`bundled/${spec}.doc.yml`);
-    }
 
     const { cacheExists, hash: newCache } = await checkForCache({
       folder: toAbsolutePath('specs/'),
-      generatedFiles,
+      generatedFiles: [`bundled/${spec}.yml`],
       filesToCache: [specBase, 'common'],
       cacheFile,
     });

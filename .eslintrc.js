@@ -1,27 +1,31 @@
+// eslint-disable-next-line import/no-commonjs
 module.exports = {
-  ignorePatterns: ['.eslintrc.js', '**/node_modules', '**/build', '**/dist', '**/target', '**/.yarn', 'specs/bundled/*.doc.yml'],
+  ignorePatterns: [
+    '**/node_modules',
+    '**/build',
+    '**/dist',
+    '**/target',
+    '**/.yarn',
+    'website/specs',
+  ],
 
   overrides: [
     {
       // yml linter
       files: ['*.yml'],
 
-      extends: [
-        'plugin:yml/standard',
-      ],
+      extends: ['plugin:yml/standard'],
 
       parser: 'yaml-eslint-parser',
-      plugins: ["automation-custom"],
+      plugins: ['automation-custom'],
       rules: {
         'yml/plain-scalar': [
           2,
-          "always"
-          , {
+          'always',
+          {
             // ignore path from ref, that must be quoted
-            ignorePatterns: [
-              '[./#a-zA-Z0-9_]+'
-            ]
-          }
+            ignorePatterns: ['[./#a-zA-Z0-9_]+'],
+          },
         ],
         'yml/quotes': [
           2,
@@ -40,26 +44,26 @@ module.exports = {
         ],
         'yml/require-string-key': 2,
       },
-      overrides: [{
-        files: ['specs/**/*.yml'],
-        rules: {
-          "automation-custom/end-with-dot": "error",
-          "automation-custom/single-quote-ref": "error",
+      overrides: [
+        {
+          files: ['specs/**/*.yml'],
+          rules: {
+            'automation-custom/end-with-dot': 'error',
+            'automation-custom/single-quote-ref': 'error',
+          },
+          overrides: [
+            {
+              files: ['!specs/bundled/*.yml'],
+              rules: {
+                'automation-custom/out-of-line-enum': 'error',
+                'automation-custom/out-of-line-one-of': 'error',
+                'automation-custom/out-of-line-all-of': 'error',
+                'automation-custom/out-of-line-any-of': 'error',
+              },
+            },
+          ],
         },
-        overrides: [
-          {
-            files: ['!specs/bundled/*.yml'],
-            rules: {
-              "automation-custom/out-of-line-enum": "error",
-              "automation-custom/out-of-line-one-of": "error",
-              "automation-custom/out-of-line-all-of": "error",
-              "automation-custom/out-of-line-any-of": "error",
-
-            }
-          }
-        ]
-      }
-      ]
+      ],
     },
     {
       // es linter
@@ -125,7 +129,7 @@ module.exports = {
     {
       files: ['*.json'],
 
-      plugins: ['json-format']
-    }
+      plugins: ['json-format'],
+    },
   ],
 };

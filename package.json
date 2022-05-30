@@ -8,7 +8,6 @@
     "playground/javascript/browser/",
     "scripts/",
     "tests/output/javascript",
-    "website/",
     "eslint"
   ],
   "scripts": {
@@ -29,8 +28,9 @@
     "scripts:test": "yarn workspace scripts test",
     "specs:fix": "eslint --ext=yml specs/$0 --fix",
     "specs:lint": "eslint --ext=yml specs/$0",
-    "website": "BUNDLE_WITH_DOC=true DOCKER=true yarn cli build specs all && yarn workspace website start --host 0.0.0.0",
-    "website:build": "yarn workspace website build"
+    "website": "yarn website:build-specs && cd website && yarn start",
+    "website:build": "bash scripts/website/build.sh",
+    "website:build-specs": "BUNDLE_WITH_DOC=true DOCKER=true yarn cli build specs all -s"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.5.1",
