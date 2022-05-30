@@ -1,0 +1,2 @@
+{{#isArray}}{{#value.0}}<{{#oneOfModel}}{{parentClassName}}{{/oneOfModel}}{{^oneOfModel}}{{objectName}}{{/oneOfModel}}{{> requests/generateGenerics}}>{{/value.0}}{{/isArray}}
+{{#isFreeFormObject}}{{^isSimpleObject}}<String, {{#value.0}}{{#isAnyType}}Object{{/isAnyType}}{{^isAnyType}}{{#oneOfModel}}{{parentClassName}}{{/oneOfModel}}{{^oneOfModel}}{{objectName}}{{/oneOfModel}}{{> requests/generateGenerics}}{{/isAnyType}}{{/value.0}}>{{/isSimpleObject}}{{/isFreeFormObject}}

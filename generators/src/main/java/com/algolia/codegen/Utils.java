@@ -40,30 +40,33 @@ public class Utils {
 
   /** Returns the client name for the given language */
   public static String createClientName(String client, String language) {
-    String[] clientParts = client.split("-");
-    String clientName = "";
-    if (language.equals("javascript")) {
-      // do not capitalize the first part
-      clientName = clientParts[0].toLowerCase();
-      for (int i = 1; i < clientParts.length; i++) {
-        clientName += capitalize(clientParts[i]);
-      }
-    } else {
-      for (int i = 0; i < clientParts.length; i++) {
-        clientName += capitalize(clientParts[i]);
-      }
+    return language.equals("javascript") ? toCamelCase(client) : toPascalCase(client);
+  }
+
+  // test-input -> testInput
+  public static String toCamelCase(String kebabStr) {
+    String[] parts = kebabStr.split("-");
+    String camel = "";
+    camel = parts[0].toLowerCase();
+    for (int i = 1; i < parts.length; i++) {
+      camel += capitalize(parts[i]);
     }
-
-    return clientName;
+    return camel;
   }
 
-  public static String getClientNameKebabCase(Map<String, Object> data) {
-    String client = (String) ((Map<String, Object>) data.get("operations")).get("pathPrefix");
-    return client.replaceAll("(.+?)([A-Z]|[0-9])", "$1-$2").toLowerCase(Locale.ROOT);
+  // test-input -> TestInput
+  public static String toPascalCase(String kebabStr) {
+    String[] parts = kebabStr.split("-");
+    String pascal = "";
+    for (int i = 0; i < parts.length; i++) {
+      pascal += capitalize(parts[i]);
+    }
+    return pascal;
   }
 
-  public static String getClientNameCamelCase(Map<String, Object> data) {
-    return (String) ((Map<String, Object>) data.get("operations")).get("pathPrefix");
+  // testInput -> test-input
+  public static String toKebabCase(String camelStr) {
+    return camelStr.replaceAll("(.+?)([A-Z]|[0-9])", "$1-$2").toLowerCase(Locale.ROOT);
   }
 
   /** Inject server info into the client to generate the right URL */

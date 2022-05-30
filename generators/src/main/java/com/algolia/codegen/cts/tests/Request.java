@@ -1,4 +1,4 @@
-package com.algolia.codegen.cts;
+package com.algolia.codegen.cts.tests;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

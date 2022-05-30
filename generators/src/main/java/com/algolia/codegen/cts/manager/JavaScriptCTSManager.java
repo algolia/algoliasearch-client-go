@@ -7,7 +7,15 @@ import java.util.*;
 import java.util.Map.Entry;
 import org.openapitools.codegen.SupportingFile;
 
-public class JavaScriptCtsManager implements CtsManager {
+public class JavaScriptCTSManager implements CTSManager {
+
+  private final String client;
+  private final JsonNode openApiToolsConfig;
+
+  public JavaScriptCTSManager(String client) {
+    this.client = client;
+    this.openApiToolsConfig = Utils.readJsonFile("config/openapitools.json").get("generator-cli").get("generators");
+  }
 
   @Override
   public void addSupportingFiles(List<SupportingFile> supportingFiles) {
@@ -18,14 +26,13 @@ public class JavaScriptCtsManager implements CtsManager {
   public void addDataToBundle(Map<String, Object> bundle) throws GeneratorException {
     bundle.put("packageDependencies", this.getPackageDependencies());
     bundle.put("utilsPackageVersion", Utils.getClientConfigField("javascript", "utilsPackageVersion"));
+    bundle.put("import", openApiToolsConfig.get("javascript-" + client).get("additionalProperties").get("packageName").asText());
   }
 
   private List<Map<String, String>> getPackageDependencies() {
     List<Map<String, String>> result = new ArrayList<>();
 
-    JsonNode openApiToolsConfig = Utils.readJsonFile("config/openapitools.json");
-    for (Entry<String, JsonNode> field : (Iterable<Entry<String, JsonNode>>) () ->
-      openApiToolsConfig.get("generator-cli").get("generators").fields()) {
+    for (Entry<String, JsonNode> field : (Iterable<Entry<String, JsonNode>>) () -> openApiToolsConfig.fields()) {
       if (!field.getKey().startsWith("javascript-")) {
         continue;
       }

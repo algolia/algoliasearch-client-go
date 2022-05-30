@@ -20,10 +20,12 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
   @Override
   public void processOpts() {
     // generator specific options
+    String client = (String) additionalProperties.get("client");
     setDateLibrary("java8");
     setLibrary("okhttp-gson");
     setSourceFolder("algoliasearch-core/src/main/java");
     setGroupId("com.algolia");
+    setModelPackage("com.algolia.model." + Utils.toCamelCase(client));
     additionalProperties.put("invokerPackage", "com.algolia");
     setApiPackage("com.algolia.api");
     setApiNameSuffix(Utils.API_SUFFIX);
@@ -58,11 +60,11 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
   public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
     Map<String, Object> results = super.postProcessOperationsWithModels(objs, allModels);
 
-    String kebabClient = Utils.getClientNameKebabCase(results);
-    additionalProperties.put("isSearchClient", kebabClient.equals("search"));
+    String client = (String) additionalProperties.get("client");
+    additionalProperties.put("isSearchClient", client.equals("search"));
 
     try {
-      Utils.generateServer(kebabClient, additionalProperties);
+      Utils.generateServer(client, additionalProperties);
 
       additionalProperties.put("packageVersion", Utils.getClientConfigField("java", "packageVersion"));
     } catch (GeneratorException e) {

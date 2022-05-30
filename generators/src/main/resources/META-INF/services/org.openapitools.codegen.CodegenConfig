@@ -1,4 +1,4 @@
 com.algolia.codegen.AlgoliaJavaGenerator
 com.algolia.codegen.AlgoliaJavaScriptGenerator
 com.algolia.codegen.AlgoliaPhpGenerator
-com.algolia.codegen.cts.AlgoliaCtsGenerator
+com.algolia.codegen.cts.AlgoliaCTSGenerator

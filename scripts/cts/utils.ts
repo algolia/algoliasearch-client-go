@@ -93,15 +93,11 @@ export function getOutputPath({
 
 export async function loadTemplates({
   language,
-  testPath,
 }: {
   language: string;
-  testPath: string;
 }): Promise<Record<string, string>> {
   const templates: Record<string, string> = {};
-  const templatePath = toAbsolutePath(
-    `tests/CTS/${testPath}/templates/${language}`
-  );
+  const templatePath = toAbsolutePath(`templates/${language}/tests/client`);
 
   if (!(await exists(templatePath))) {
     return {};

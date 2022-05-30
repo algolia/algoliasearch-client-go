@@ -15,7 +15,7 @@ async function ctsGenerate(gen: Generator, verbose: boolean): Promise<void> {
   ).start();
   await run(
     `yarn openapi-generator-cli --custom-generator=generators/build/libs/algolia-java-openapi-generator-1.0.0.jar generate \
-     -g algolia-cts -i specs/bundled/${gen.client}.yml --additional-properties="language=${gen.language},client=${gen.client},packageName=${gen.additionalProperties.packageName}"`,
+     -g algolia-cts -i specs/bundled/${gen.client}.yml --additional-properties="language=${gen.language},client=${gen.client}"`,
     { verbose }
   );
   spinner.succeed();

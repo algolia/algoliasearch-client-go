@@ -44,7 +44,7 @@ async function updateVersionForJavascript(
   Object.values(GENERATORS)
     .filter((gen) => gen.language === 'javascript')
     .forEach((gen) => {
-      const additionalProperties = gen.additionalProperties;
+      const additionalProperties = gen.additionalProperties!;
       const newVersion = semver.inc(
         additionalProperties.packageVersion,
         jsVersion.releaseType

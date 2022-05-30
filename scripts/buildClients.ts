@@ -9,15 +9,17 @@ const multiBuildLanguage = new Set(['javascript']);
  * Build only a specific client for one language, used by javascript for example.
  */
 async function buildPerClient(
-  { language, key, additionalProperties: { packageName } }: Generator,
+  { language, key, additionalProperties }: Generator,
   verbose: boolean
 ): Promise<void> {
   const spinner = createSpinner(`building ${key}`, verbose).start();
   switch (language) {
     case 'javascript':
-      await run(`yarn workspace ${packageName} clean`, { verbose });
+      await run(`yarn workspace ${additionalProperties?.packageName} clean`, {
+        verbose,
+      });
       await run(
-        `SKIP_UTILS=true yarn workspace algoliasearch-client-javascript build ${packageName}`,
+        `SKIP_UTILS=true yarn workspace algoliasearch-client-javascript build ${additionalProperties?.packageName}`,
         { verbose }
       );
       break;

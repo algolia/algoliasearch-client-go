@@ -96,8 +96,8 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
             'queryParameters' => [
               {{#requestOptionsWithDataType.queryParameters.value.0}}
                 '{{{key}}}' => 
-                {{#isArray}}[{{#value}}{{> requestOptionsParams}}{{^-last}},{{/-last}}{{/value}}]{{/isArray}}
-                {{^isArray}}{{{#value}}}{{> requestOptionsParams}}{{{/value}}}{{/isArray}},
+                {{#isArray}}[{{#value}}{{> requests/requestOptionsParams}}{{^-last}},{{/-last}}{{/value}}]{{/isArray}}
+                {{^isArray}}{{{#value}}}{{> requests/requestOptionsParams}}{{{/value}}}{{/isArray}},
               {{/requestOptionsWithDataType.queryParameters.value.0}}
             ],
             'headers' => [
@@ -108,7 +108,7 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
           ];
         {{/hasRequestOptions}}
         $client->{{^hasParameters}}{{{method}}}();{{/hasParameters}}{{#hasParameters}}{{{method}}}(
-        {{#parametersWithDataType}}{{> generateParams}}{{/parametersWithDataType}}
+        {{#parametersWithDataType}}{{> requests/generateParams}}{{/parametersWithDataType}}
         {{#hasRequestOptions}}$requestOptions{{/hasRequestOptions}}
         );{{/hasParameters}}
 

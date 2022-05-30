@@ -17,17 +17,17 @@
   {{{objectName}}} {{{key}}}{{suffix}} = {{{objectName}}}.fromValue("{{{value}}}");
 {{/isEnum}}
 {{#isArray}}
-  List{{> generateGenerics}} {{{key}}}{{suffix}} = new ArrayList<>(); { {{#value}}{{> generateParams}}{{parent}}{{parentSuffix}}.add({{> maybeConvertOneOf}});{{/value}} }
+  List{{> requests/generateGenerics}} {{{key}}}{{suffix}} = new ArrayList<>(); { {{#value}}{{> requests/generateParams}}{{parent}}{{parentSuffix}}.add({{> requests/maybeConvertOneOf}});{{/value}} }
 {{/isArray}}
 {{#isObject}}
   {{{objectName}}} {{{key}}}{{suffix}} = new {{{objectName}}}();
   {
-    {{#value}}{{> generateParams}}{{parent}}{{parentSuffix}}.set{{#lambda.titlecase}}{{{key}}}{{/lambda.titlecase}}({{> maybeConvertOneOf}});{{/value}}
+    {{#value}}{{> requests/generateParams}}{{parent}}{{parentSuffix}}.set{{#lambda.titlecase}}{{{key}}}{{/lambda.titlecase}}({{> requests/maybeConvertOneOf}});{{/value}}
   }
 {{/isObject}}
 {{#isFreeFormObject}}
-  Map{{> forceMapGenerics}} {{{key}}}{{suffix}} = new HashMap<>();
+  Map{{> requests/forceMapGenerics}} {{{key}}}{{suffix}} = new HashMap<>();
   {
-    {{#value}}{{> generateParams}}{{parent}}{{parentSuffix}}.put("{{{key}}}", {{> maybeConvertOneOf}});{{/value}}
+    {{#value}}{{> requests/generateParams}}{{parent}}{{parentSuffix}}.put("{{{key}}}", {{> requests/maybeConvertOneOf}});{{/value}}
   }
 {{/isFreeFormObject}}

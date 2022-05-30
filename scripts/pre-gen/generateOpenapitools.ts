@@ -19,7 +19,13 @@ export async function generateOpenapitools(
   generators: Generator[]
 ): Promise<void> {
   const result = {};
-  for (const { key, client, language, ...rest } of generators) {
+  for (const {
+    key,
+    client,
+    language,
+    additionalProperties,
+    ...rest
+  } of generators) {
     result[key] = {
       config: '#{cwd}/openapitools.json',
       gitHost: 'algolia',
@@ -31,6 +37,10 @@ export async function generateOpenapitools(
         : rest.generatorName,
       ...rest,
       output: `#{cwd}/${rest.output}`,
+      additionalProperties: {
+        client,
+        ...additionalProperties,
+      },
     };
   }
   await writeFile(

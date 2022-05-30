@@ -19,8 +19,10 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
   @Override
   public void processOpts() {
     // generator specific options
+    String client = (String) additionalProperties.get("client");
     setApiNameSuffix(Utils.API_SUFFIX);
     setParameterNamingConvention("camelCase");
+    additionalProperties.put("modelPackage", "Model\\" + Utils.toPascalCase(client));
     additionalProperties.put("invokerPackage", "Algolia\\AlgoliaSearch");
 
     super.processOpts();
@@ -50,7 +52,7 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
   public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
     Map<String, Object> results = super.postProcessOperationsWithModels(objs, allModels);
 
-    String client = Utils.getClientNameKebabCase(results);
+    String client = (String) additionalProperties.get("client");
 
     setDefaultGeneratorOptions(client);
     try {

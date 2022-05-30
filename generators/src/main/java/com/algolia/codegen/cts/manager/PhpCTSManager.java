@@ -4,7 +4,7 @@ import com.algolia.codegen.exceptions.GeneratorException;
 import java.util.*;
 import org.openapitools.codegen.SupportingFile;
 
-public class PhpCtsManager implements CtsManager {
+public class PhpCTSManager implements CTSManager {
 
   @Override
   public void addSupportingFiles(List<SupportingFile> supportingFiles) {}

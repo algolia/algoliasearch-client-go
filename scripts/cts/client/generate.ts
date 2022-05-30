@@ -58,11 +58,7 @@ async function loadTests(client: string): Promise<TestsBlock[]> {
 }
 
 export async function generateClientTests(
-  {
-    language,
-    client,
-    additionalProperties: { hasRegionalHost, packageName },
-  }: Generator,
+  { language, client, additionalProperties }: Generator,
   verbose: boolean
 ): Promise<void> {
   let spinner = createSpinner(
@@ -85,7 +81,6 @@ export async function generateClientTests(
 
   const { suite: template, ...partialTemplates } = await loadTemplates({
     language,
-    testPath,
   });
 
   if (!template) {
@@ -97,10 +92,10 @@ export async function generateClientTests(
   const code = Mustache.render(
     template,
     {
-      import: packageName,
+      import: additionalProperties?.packageName,
       client: `${createClientName(client, language)}Client`,
       blocks: modifyForMustache(testsBlocks),
-      hasRegionalHost: hasRegionalHost ? true : undefined,
+      hasRegionalHost: additionalProperties?.hasRegionalHost ? true : undefined,
       defaultRegion: client === 'predict' ? 'ew' : 'us',
     },
     partialTemplates

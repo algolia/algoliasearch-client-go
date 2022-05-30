@@ -18,11 +18,11 @@
   {{{value}}},
 {{/isBoolean}}
 {{#isArray}}
-  [{{#value}}{{> generateParams}}{{/value}}],
+  [{{#value}}{{> requests/generateParams}}{{/value}}],
 {{/isArray}}
 {{#isObject}}
-  [{{#value}}{{> generateParams}}{{/value}}],
+  [{{#value}}{{> requests/generateParams}}{{/value}}],
 {{/isObject}}
 {{#isFreeFormObject}}
-  [{{#value}}{{> generateParams}}{{/value}}],
+  [{{#value}}{{> requests/generateParams}}{{/value}}],
 {{/isFreeFormObject}}

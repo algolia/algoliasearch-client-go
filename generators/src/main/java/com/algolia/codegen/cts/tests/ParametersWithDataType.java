@@ -1,4 +1,4 @@
-package com.algolia.codegen.cts;
+package com.algolia.codegen.cts.tests;
 
 import com.algolia.codegen.Utils;
 import com.algolia.codegen.exceptions.*;
