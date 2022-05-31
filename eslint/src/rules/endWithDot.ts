@@ -46,7 +46,8 @@ export const endWithDot: Rule.RuleModule = {
         // trim the whitespaces at the end before adding the dot. This assume the indent is 2
         let toTrim = value.value.length - value.value.trimEnd().length;
         if (isBLockScalar(value)) {
-          toTrim += node.key!.loc.start.column + 2;
+          // -1 for block scalar, don't know why
+          toTrim -= 1;
         }
         context.report({
           node: node as any,

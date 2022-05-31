@@ -147,7 +147,7 @@ class ByteArrayAdapter extends TypeAdapter<byte[]> {
 class RetainFieldMapFactory implements TypeAdapterFactory {
 
   FieldNamingPolicy fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
-  ConstructorConstructor constructorConstructor = new ConstructorConstructor(Collections.<Type, InstanceCreator<?>>emptyMap());
+  ConstructorConstructor constructorConstructor = new ConstructorConstructor(Collections.<Type, InstanceCreator<?>>emptyMap(), true);
   MapTypeAdapterFactory defaultMapFactory = new MapTypeAdapterFactory(constructorConstructor, false);
   ReflectiveFilterMapFieldFactory defaultObjectFactory = new ReflectiveFilterMapFieldFactory(
     constructorConstructor,

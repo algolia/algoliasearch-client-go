@@ -25,6 +25,7 @@ module.exports = {
 
     // JavaScript
     '!clients/algoliasearch-client-javascript/*',
+    '!clients/algoliasearch-client-javascript/.*',
     '!clients/algoliasearch-client-javascript/.github/**',
     '!clients/algoliasearch-client-javascript/.yarn/**',
     '!clients/algoliasearch-client-javascript/scripts/**',
