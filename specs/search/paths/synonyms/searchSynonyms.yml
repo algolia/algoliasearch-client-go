@@ -3,6 +3,7 @@ post:
     - Synonyms
   operationId: searchSynonyms
   x-use-read-transporter: true
+  x-cacheable: true
   summary: Search synonyms.
   description: Search or browse all synonyms, optionally filtering them by type.
   parameters:

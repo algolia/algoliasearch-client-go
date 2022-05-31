@@ -3,6 +3,7 @@ post:
     - Search
   operationId: search
   x-use-read-transporter: true
+  x-cacheable: true
   summary: Search multiple indices.
   description: Perform a search operation targeting one or many indices.
   requestBody:

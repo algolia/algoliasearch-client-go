@@ -3,6 +3,7 @@ post:
     - Dictionaries
   operationId: searchDictionaryEntries
   x-use-read-transporter: true
+  x-cacheable: true
   description: Search the dictionary entries.
   summary: Search a dictionary entries.
   parameters:

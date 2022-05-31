@@ -3,6 +3,7 @@ post:
     - recommendations
   operationId: getRecommendations
   x-use-read-transporter: true
+  x-cacheable: true
   summary: Get results.
   description: Returns recommendations or trending results, for a specific model and `objectID`.
   requestBody:

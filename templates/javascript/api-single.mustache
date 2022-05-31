@@ -221,6 +221,9 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
         {{#vendorExtensions.x-use-read-transporter}}
         useReadTransporter: true,
         {{/vendorExtensions.x-use-read-transporter}}
+        {{#vendorExtensions.x-cacheable}}
+        cacheable: true,
+        {{/vendorExtensions.x-cacheable}}
       };
 
       return transporter.request(request, {

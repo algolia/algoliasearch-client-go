@@ -3,6 +3,7 @@ post:
     - Clusters
   operationId: searchUserIds
   x-use-read-transporter: true
+  x-cacheable: true
   summary: Search userID.
   description: >
     Search for userIDs.
