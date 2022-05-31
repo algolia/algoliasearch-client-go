@@ -2148,6 +2148,7 @@ paths:
         - search
       operationId: searchSingleIndex
       x-use-read-transporter: true
+      x-cacheable: true
       summary: Search in a single index.
       description: Perform a search operation targeting one specific index.
       parameters:
@@ -2179,6 +2180,7 @@ paths:
         - search
       operationId: search
       x-use-read-transporter: true
+      x-cacheable: true
       summary: Search multiple indices.
       description: Perform a search operation targeting one or many indices.
       requestBody:
@@ -2229,6 +2231,7 @@ paths:
         - search
       operationId: searchForFacetValues
       x-use-read-transporter: true
+      x-cacheable: true
       summary: Search for values of a given facet.
       description: >-
         Search for values of a given facet, optionally restricting the returned
@@ -2717,6 +2720,7 @@ paths:
         - search
       operationId: getObjects
       x-use-read-transporter: true
+      x-cacheable: true
       summary: Retrieve one or more objects.
       description: >-
         Retrieve one or more objects, potentially from different indices, in a
@@ -2982,6 +2986,7 @@ paths:
         - search
       operationId: searchSynonyms
       x-use-read-transporter: true
+      x-cacheable: true
       summary: Search synonyms.
       description: Search or browse all synonyms, optionally filtering them by type.
       parameters:
@@ -3316,6 +3321,7 @@ paths:
         - search
       operationId: searchRules
       x-use-read-transporter: true
+      x-cacheable: true
       summary: Search for rules.
       description: Search for rules matching various criteria.
       parameters:
@@ -3454,6 +3460,7 @@ paths:
         - search
       operationId: searchDictionaryEntries
       x-use-read-transporter: true
+      x-cacheable: true
       description: Search the dictionary entries.
       summary: Search a dictionary entries.
       parameters:
@@ -3864,6 +3871,7 @@ paths:
         - search
       operationId: searchUserIds
       x-use-read-transporter: true
+      x-cacheable: true
       summary: Search userID.
       description: >
         Search for userIDs.
