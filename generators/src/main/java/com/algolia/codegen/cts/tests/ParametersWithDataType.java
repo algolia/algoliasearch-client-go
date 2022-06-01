@@ -26,59 +26,20 @@ public class ParametersWithDataType {
     this.language = language;
   }
 
-  public Map<String, Object> buildJSONForRequest(String operationId, Request req, CodegenOperation ope, int testIndex)
+  public void enhanceParameters(Map<String, Object> parameters, Map<String, Object> bundle, CodegenOperation operation)
     throws CTSException, JsonMappingException, JsonProcessingException {
-    Map<String, Object> test = new HashMap<>();
-    test.put("method", operationId);
-    test.put("testName", req.testName == null ? operationId : req.testName);
-    test.put("testIndex", testIndex);
-    test.put("request", req.request);
-    test.put("hasParameters", req.parameters.size() != 0);
-
-    if (req.requestOptions != null) {
-      test.put("hasRequestOptions", true);
-      test.put("requestOptions", Json.mapper().writeValueAsString(req.requestOptions));
-      Map<String, Object> requestOptions = new HashMap<>();
-
-      if (req.requestOptions.queryParameters != null) {
-        CodegenParameter objSpec = new CodegenParameter();
-        objSpec.dataType = inferDataType(req.requestOptions.queryParameters, objSpec, null);
-        requestOptions.put("queryParameters", traverseParams("queryParameters", req.requestOptions.queryParameters, objSpec, "", 0));
-      }
-
-      if (req.requestOptions.headers != null) {
-        List<Map<String, String>> headers = new ArrayList<Map<String, String>>();
-
-        for (Entry<String, String> entry : req.requestOptions.headers.entrySet()) {
-          Map<String, String> parameter = new HashMap<>();
-
-          parameter.put("key", entry.getKey());
-          parameter.put("value", entry.getValue());
-
-          headers.add(parameter);
-        }
-
-        requestOptions.put("headers", headers);
-      }
-
-      test.put("requestOptionsWithDataType", requestOptions);
+    if (parameters == null || parameters.size() == 0) {
+      return;
     }
-
-    if (req.parameters.size() == 0) {
-      return test;
-    }
-    // Give the stringified version to mustache
-    test.put("parameters", Json.mapper().writeValueAsString(req.parameters));
+    // Give the stringified version to mustache, for js
+    bundle.put("parameters", Json.mapper().writeValueAsString(parameters));
 
     List<Object> parametersWithDataType = new ArrayList<>();
 
-    // special case if there is only bodyParam which is not an array
-    if (ope.allParams.size() == 1 && ope.bodyParams.size() == 1 && !ope.bodyParam.isArray) {
-      parametersWithDataType.add(traverseParams(ope.bodyParam.paramName, req.parameters, ope.bodyParam, "", 0));
-    } else {
-      for (Entry<String, Object> param : req.parameters.entrySet()) {
-        CodegenParameter specParam = null;
-        for (CodegenParameter sp : ope.allParams) {
+    for (Entry<String, Object> param : parameters.entrySet()) {
+      CodegenParameter specParam = null;
+      if (operation != null) {
+        for (CodegenParameter sp : operation.allParams) {
           if (sp.paramName.equals(param.getKey())) {
             specParam = sp;
             break;
@@ -87,12 +48,29 @@ public class ParametersWithDataType {
         if (specParam == null) {
           throw new CTSException("Parameter " + param.getKey() + " not found in the root parameter");
         }
-        parametersWithDataType.add(traverseParams(param.getKey(), param.getValue(), specParam, "", 0));
       }
+      parametersWithDataType.add(traverseParams(param.getKey(), param.getValue(), specParam, "", 0));
     }
 
-    test.put("parametersWithDataType", parametersWithDataType);
-    return test;
+    bundle.put("parametersWithDataType", parametersWithDataType);
+  }
+
+  public void enhanceRootParameters(
+    Map<String, Object> parameters,
+    String paramName,
+    IJsonSchemaValidationProperties spec,
+    Map<String, Object> bundle
+  ) throws CTSException, JsonMappingException, JsonProcessingException {
+    if (parameters == null || parameters.size() == 0) {
+      return;
+    }
+    // Give the stringified version to mustache, for js
+    bundle.put("parameters", Json.mapper().writeValueAsString(parameters));
+
+    List<Object> parametersWithDataType = new ArrayList<>();
+    parametersWithDataType.add(traverseParams(paramName, parameters, spec, "", 0));
+
+    bundle.put("parametersWithDataType", parametersWithDataType);
   }
 
   private Map<String, Object> traverseParams(
@@ -102,6 +80,9 @@ public class ParametersWithDataType {
     String parent,
     int suffix
   ) throws CTSException {
+    if (spec == null) {
+      return traverseParams(paramName, param, parent, suffix);
+    }
     String baseType = getTypeName(spec);
     if (baseType == null) {
       throw new CTSException("Cannot determine type of " + paramName + " (value: " + param + ")");
@@ -145,12 +126,40 @@ public class ParametersWithDataType {
       handleModel(paramName, param, testOutput, spec, baseType, parent, suffix);
     } else if (baseType.equals("Object")) {
       // not var, no item, pure free form
-      handleObject(paramName, param, testOutput, spec, suffix);
+      handleObject(paramName, param, testOutput, suffix);
     } else if (spec.getIsMap()) {
       // free key but only one type
       handleMap(paramName, param, testOutput, spec, suffix);
     } else {
       handlePrimitive(param, testOutput, spec);
+    }
+    return testOutput;
+  }
+
+  /** Same method but with inference only */
+  private Map<String, Object> traverseParams(String paramName, Object param, String parent, int suffix) throws CTSException {
+    String finalParamName = paramName;
+    if (language.equals("java") && paramName.startsWith("_")) {
+      finalParamName = paramName.substring(1);
+    }
+    Boolean isFirstLevel = suffix == 0;
+
+    Map<String, Object> testOutput = createDefaultOutput();
+    testOutput.put("key", finalParamName);
+    testOutput.put("parentSuffix", suffix - 1);
+    testOutput.put("isFirstLevel", isFirstLevel);
+    testOutput.put("hasGeneratedKey", finalParamName.matches("(.*)_[0-9]$"));
+    testOutput.put("suffix", suffix);
+    testOutput.put("parent", parent);
+    // cannot determine objectName with inference
+    // testOutput.put("objectName", Utils.capitalize(baseType));
+
+    if (param instanceof List) {
+      handleArray(paramName, param, testOutput, null, suffix);
+    } else if (param instanceof Map) {
+      handleObject(paramName, param, testOutput, suffix);
+    } else {
+      handlePrimitive(param, testOutput, null);
     }
     return testOutput;
   }
@@ -187,7 +196,7 @@ public class ParametersWithDataType {
 
     List<Object> values = new ArrayList<>();
     for (int i = 0; i < items.size(); i++) {
-      values.add(traverseParams(paramName + "_" + i, items.get(i), spec.getItems(), paramName, suffix + 1));
+      values.add(traverseParams(paramName + "_" + i, items.get(i), spec == null ? null : spec.getItems(), paramName, suffix + 1));
     }
 
     testOutput.put("isArray", true);
@@ -281,21 +290,7 @@ public class ParametersWithDataType {
     testOutput.put("value", values);
   }
 
-  private void handleObject(
-    String paramName,
-    Object param,
-    Map<String, Object> testOutput,
-    IJsonSchemaValidationProperties spec,
-    int suffix
-  ) throws CTSException {
-    if (spec.getHasVars()) {
-      throw new CTSException("Spec has vars.");
-    }
-
-    if (spec.getItems() != null) {
-      throw new CTSException("Spec has items.");
-    }
-
+  private void handleObject(String paramName, Object param, Map<String, Object> testOutput, int suffix) throws CTSException {
     Map<String, Object> vars = (Map<String, Object>) param;
 
     List<Object> values = new ArrayList<>();
@@ -305,7 +300,7 @@ public class ParametersWithDataType {
       values.add(traverseParams(entry.getKey(), entry.getValue(), objSpec, paramName, suffix + 1));
     }
     // sometimes it's really just an object
-    if (testOutput.get("objectName").equals("Object")) {
+    if (testOutput.getOrDefault("objectName", "").equals("Object")) {
       testOutput.put("isSimpleObject", true);
     }
 
@@ -348,7 +343,7 @@ public class ParametersWithDataType {
   }
 
   private void handlePrimitive(Object param, Map<String, Object> testOutput, IJsonSchemaValidationProperties spec) throws CTSException {
-    if (isPrimitiveType(spec)) {
+    if (spec != null && isPrimitiveType(spec)) {
       transferPrimitiveData(spec, testOutput);
     } else {
       inferDataType(param, null, testOutput);

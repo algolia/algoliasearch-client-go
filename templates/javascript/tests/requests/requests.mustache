@@ -8,11 +8,14 @@ const apiKey = process.env.ALGOLIA_SEARCH_KEY || 'test_api_key';
 
 const client = {{client}}(appId, apiKey, {{#hasRegionalHost}}'{{{defaultRegion}}}', {{/hasRegionalHost}}{ requester: echoRequester() });
 
-{{#blocks}}
+{{#blocksRequests}}
 describe('{{operationId}}', () => {
   {{#tests}}
   test('{{testName}}', async () => {
-    {{#hasRequestOptions}}const requestOptions: RequestOptions = {{{requestOptions}}}{{/hasRequestOptions}}
+    {{#hasRequestOptions}}const requestOptions: RequestOptions = {
+      {{#requestOptions.queryParameters.parameters}}queryParameters: {{{.}}},{{/requestOptions.queryParameters.parameters}}
+      {{#requestOptions.headers.parameters}}headers: {{{.}}}{{/requestOptions.headers.parameters}}
+    };{{/hasRequestOptions}}
 
     const req = (await client.{{method}}({{#hasParameters}}{{{parameters}}}{{/hasParameters}}{{#hasRequestOptions}}, requestOptions{{/hasRequestOptions}})) as unknown as EchoResponse;
 
@@ -30,4 +33,4 @@ describe('{{operationId}}', () => {
   {{/tests}}
 })
 
-{{/blocks}}
+{{/blocksRequests}}

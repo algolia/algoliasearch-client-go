@@ -33,7 +33,7 @@ class {{client}}Tests {
         client = new {{client}}("appId", "apiKey", requester);
     }
 
-    {{#blocks}}
+    {{#blocksRequests}}
     {{#tests}}
     @Test
     @DisplayName("{{testName}}")
@@ -42,19 +42,12 @@ class {{client}}Tests {
 
         {{#hasRequestOptions}}
           RequestOptions requestOptions = new RequestOptions();
-          {{#requestOptionsWithDataType.queryParameters.value.0}}
-            {{#isArray}}
-              List<Object> requestOptionsQueryParameters = new ArrayList<>(); 
-              {{#value}}requestOptionsQueryParameters.add({{> requests/requestOptionsParams}});{{/value}}
-              requestOptions.addExtraQueryParameters("{{{key}}}", requestOptionsQueryParameters);
-            {{/isArray}}
-            {{^isArray}}
-              requestOptions.addExtraQueryParameters("{{{key}}}", {{{#value}}}{{> requests/requestOptionsParams}}{{{/value}}});
-            {{/isArray}}
-          {{/requestOptionsWithDataType.queryParameters.value.0}}
-          {{#requestOptionsWithDataType.headers}}
+          {{#requestOptions.queryParameters.parametersWithDataType}}
+            requestOptions.addExtraQueryParameters("{{{key}}}", {{> requests/requestOptionsParams}});
+          {{/requestOptions.queryParameters.parametersWithDataType}}
+          {{#requestOptions.headers.parametersWithDataType}}
             requestOptions.addExtraHeader("{{{key}}}", "{{{value}}}");
-          {{/requestOptionsWithDataType.headers}}
+          {{/requestOptions.headers.parametersWithDataType}}
         {{/hasRequestOptions}}
 
         assertDoesNotThrow(() -> {
@@ -91,5 +84,5 @@ class {{client}}Tests {
         {{/request.headers}}
     }
     {{/tests}}
-    {{/blocks}}
+    {{/blocksRequests}}
 }

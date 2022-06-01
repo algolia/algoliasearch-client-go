@@ -13,3 +13,6 @@
 {{#isBoolean}}
   {{{value}}}
 {{/isBoolean}}
+{{#isArray}}
+  [{{#value}}{{> requests/requestOptionsParams}}{{^-last}},{{/-last}}{{/value}}]
+{{/isArray}}
