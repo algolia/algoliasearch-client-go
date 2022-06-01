@@ -215,6 +215,8 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
       const request: Request = {
         method: '{{httpMethod}}',
         path: requestPath,
+        queryParameters,
+        headers,
         {{#bodyParam}}
         data: {{paramName}},
         {{/bodyParam}}
@@ -226,10 +228,7 @@ export function create{{capitalizedApiName}}(options: CreateClientOptions{{#hasR
         {{/vendorExtensions.x-cacheable}}
       };
 
-      return transporter.request(request, {
-        queryParameters,
-        headers,
-      }, requestOptions);
+      return transporter.request(request, requestOptions);
     },
 
     {{/operation}}
