@@ -813,7 +813,9 @@ describe('post', () => {
   });
 
   test('requestOptions queryParameters accepts integers', async () => {
-    const requestOptions: RequestOptions = { queryParameters: { myParam: 2 } };
+    const requestOptions: RequestOptions = {
+      queryParameters: { myParam: 2 },
+    };
 
     const req = (await client.post(
       {

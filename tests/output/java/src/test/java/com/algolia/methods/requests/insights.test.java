@@ -459,10 +459,7 @@ class InsightsClientTests {
     }
 
     RequestOptions requestOptions = new RequestOptions();
-    List<Object> requestOptionsQueryParameters = new ArrayList<>();
-    requestOptionsQueryParameters.add("c");
-    requestOptionsQueryParameters.add("d");
-    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
+    requestOptions.addExtraQueryParameters("myParam", Arrays.asList("c", "d"));
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -504,11 +501,7 @@ class InsightsClientTests {
     }
 
     RequestOptions requestOptions = new RequestOptions();
-    List<Object> requestOptionsQueryParameters = new ArrayList<>();
-    requestOptionsQueryParameters.add(true);
-    requestOptionsQueryParameters.add(true);
-    requestOptionsQueryParameters.add(false);
-    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
+    requestOptions.addExtraQueryParameters("myParam", Arrays.asList(true, true, false));
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
@@ -550,10 +543,7 @@ class InsightsClientTests {
     }
 
     RequestOptions requestOptions = new RequestOptions();
-    List<Object> requestOptionsQueryParameters = new ArrayList<>();
-    requestOptionsQueryParameters.add(1);
-    requestOptionsQueryParameters.add(2);
-    requestOptions.addExtraQueryParameters("myParam", requestOptionsQueryParameters);
+    requestOptions.addExtraQueryParameters("myParam", Arrays.asList(1, 2));
 
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
