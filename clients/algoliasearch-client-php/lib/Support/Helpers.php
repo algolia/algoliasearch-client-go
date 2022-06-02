@@ -129,7 +129,9 @@ final class Helpers
             }
 
             $retry++;
-            usleep(call_user_func_array($timeoutCalculation, [$timeout, $retry]));
+            usleep(
+                call_user_func_array($timeoutCalculation, [$timeout, $retry])
+            );
         }
 
         throw new ExceededRetriesException(
