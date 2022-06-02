@@ -43,7 +43,7 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
     if (client.equals("search") || client.equals("recommend")) {
       additionalProperties.put("useCache", true);
     }
-
+    additionalProperties.put("isSearchClient", client.equals("search"));
     additionalProperties.put("configClassname", Utils.createClientName(client, "php") + "Config");
   }
 

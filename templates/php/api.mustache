@@ -5,10 +5,12 @@ namespace {{apiPackage}};
 use {{invokerPackage}}\Algolia;
 use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration\{{configClassname}};
+use {{invokerPackage}}\Exceptions\ExceededRetriesException;
 use {{invokerPackage}}\ObjectSerializer;
 use {{invokerPackage}}\RetryStrategy\ApiWrapper;
 use {{invokerPackage}}\RetryStrategy\ApiWrapperInterface;
 use {{invokerPackage}}\RetryStrategy\ClusterHosts;
+use {{invokerPackage}}\Support\Helpers;
 
 /**
  * {{classname}} Class Doc Comment
@@ -129,7 +131,7 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
      *
 {{/description}}
 {{#allParams}}
-     * @param {{#isString}}string{{/isString}}{{#isInteger}}int{{/isInteger}}{{#isBoolean}}bool{{/isBoolean}}{{^isString}}{{^isInteger}}{{^isBoolean}}array{{/isBoolean}}{{/isInteger}}{{/isString}} ${{paramName}}{{#description}} {{.}}{{/description}}{{^description}} {{paramName}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
+     * @param {{#isString}}string{{/isString}}{{#isLong}}int{{/isLong}}{{#isInteger}}int{{/isInteger}}{{#isBoolean}}bool{{/isBoolean}}{{^isString}}{{^isLong}}{{^isInteger}}{{^isBoolean}}array{{/isBoolean}}{{/isInteger}}{{/isLong}}{{/isString}} ${{paramName}}{{#description}} {{.}}{{/description}}{{^description}} {{paramName}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
 {{#isModel}}
     {{#vars}}
      * - ${{paramName}}{{> arrayParam}}
@@ -264,6 +266,41 @@ use {{invokerPackage}}\RetryStrategy\ClusterHosts;
     }
 
     {{/operation}}
+
+    {{#isSearchClient}}
+    /**
+     * Wait for a task to complete with `indexName` and `taskID`.
+     *
+     * @param string $indexName Index name
+     * @param int $taskId Task Id
+     * @param array $requestOptions the requestOptions to send along with the query, they will be merged with the transporter requestOptions
+     * @param int|null $maxRetries Maximum number of retries
+     * @param int|null $timeout Timeout
+     *
+     * @throws ExceededRetriesException
+     *
+     * @return void
+     */
+    public function waitForTask($indexName, $taskId, $requestOptions = [], $maxRetries = null, $timeout = null)
+    {
+        if ($timeout === null) {
+            $timeout = $this->config->getWaitTaskTimeBeforeRetry();
+        }
+
+        if ($maxRetries === null) {
+            $maxRetries = $this->config->getDefaultMaxRetries();
+        }
+
+        Helpers::retryUntil(
+            $this,
+            'getTask',
+            [$indexName, $taskId, $requestOptions],
+            function($res) {return 'published' === $res['status'];},
+            $maxRetries,
+            $timeout
+        );
+    }
+    {{/isSearchClient}}
 
     private function sendRequest($method, $resourcePath, $headers, $queryParameters, $httpBody, $requestOptions, $useReadTransporter = false)
     {
