@@ -98,6 +98,27 @@ describe('parameters', () => {
     ).rejects.toThrow('`region` is missing.');
   });
 
+  test('throws when incorrect region is given', async () => {
+    let $client;
+
+    let actual;
+    await expect(
+      new Promise((resolve, reject) => {
+        $client = sourcesClient('my-app-id', 'my-api-key', 'not_a_region', {
+          requester: echoRequester(),
+        });
+
+        actual = $client;
+
+        if (actual instanceof Promise) {
+          actual.then(resolve).catch(reject);
+        } else {
+          resolve();
+        }
+      })
+    ).rejects.toThrow('`region` must be one of the following: de, us');
+  });
+
   test('does not throw when region is given', async () => {
     let $client;
 
