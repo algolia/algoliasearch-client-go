@@ -17,6 +17,23 @@
     ]
   },
   {
+    "testName": "throws when incorrect region is given",
+    "autoCreateClient": false,
+    "steps": [
+      {
+        "type": "createClient",
+        "parameters": {
+          "appId": "my-app-id",
+          "apiKey": "my-api-key",
+          "region": "not_a_region"
+        },
+        "expected": {
+          "error": "`region` must be one of the following: ue, ew"
+        }
+      }
+    ]
+  },
+  {
     "testName": "does not throw when region is given",
     "autoCreateClient": false,
     "steps": [

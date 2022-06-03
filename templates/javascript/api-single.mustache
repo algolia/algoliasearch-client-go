@@ -34,7 +34,8 @@ export const apiClientVersion = '{{packageVersion}}';
 {{/description}}
 
 {{#hasRegionalHost}}
-export type Region = {{#allowedRegions}}'{{.}}'{{^-last}}|{{/-last}}{{/allowedRegions}};
+export const REGIONS = [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}] as const;
+export type Region = typeof REGIONS[number];
 {{/hasRegionalHost}}
 
 {{^hasRegionalHost}}
