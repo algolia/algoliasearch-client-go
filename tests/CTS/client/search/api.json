@@ -6,15 +6,13 @@
         "type": "method",
         "object": "$client",
         "path": "search",
-        "parameters": [
-          {
-            "requests": [
-              {
-                "indexName": "my-index"
-              }
-            ]
-          }
-        ],
+        "parameters": {
+          "requests": [
+            {
+              "indexName": "my-index"
+            }
+          ]
+        },
         "expected": {
           "match": {
             "objectContaining": {
@@ -32,17 +30,15 @@
         "type": "method",
         "object": "$client",
         "path": "search",
-        "parameters": [
-          {
-            "requests": [
-              {
-                "indexName": "my-index"
-              }
-            ]
-          }
-        ],
+        "parameters": {
+          "requests": [
+            {
+              "indexName": "my-index"
+            }
+          ]
+        },
         "expected": {
-          "testSubject": "actual.algoliaAgent",
+          "testSubject": "userAgent",
           "match": {
             "regexp": "/Algolia%20for%20(.+)%20\\(\\d+\\.\\d+\\.\\d+\\)/"
           }
@@ -57,15 +53,13 @@
         "type": "method",
         "object": "$client",
         "path": "search",
-        "parameters": [
-          {
-            "requests": [
-              {
-                "indexName": "my-index"
-              }
-            ]
-          }
-        ],
+        "parameters": {
+          "requests": [
+            {
+              "indexName": "my-index"
+            }
+          ]
+        },
         "expected": {
           "match": {
             "objectContaining": {

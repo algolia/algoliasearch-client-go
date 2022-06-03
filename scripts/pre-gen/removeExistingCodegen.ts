@@ -1,8 +1,7 @@
 import path from 'path';
 
-import { run, toAbsolutePath } from '../common';
+import { createClientName, run, toAbsolutePath } from '../common';
 import { getLanguageApiFolder, getLanguageModelFolder } from '../config';
-import { createClientName } from '../cts/utils';
 import type { Generator } from '../types';
 
 /**

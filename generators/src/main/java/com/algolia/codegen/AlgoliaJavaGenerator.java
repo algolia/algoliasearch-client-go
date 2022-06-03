@@ -25,7 +25,7 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
     setLibrary("okhttp-gson");
     setSourceFolder("algoliasearch-core/src/main/java");
     setGroupId("com.algolia");
-    setModelPackage("com.algolia.model." + Utils.toCamelCase(client));
+    setModelPackage("com.algolia.model." + Utils.camelize(client));
     additionalProperties.put("invokerPackage", "com.algolia");
     setApiPackage("com.algolia.api");
     setApiNameSuffix(Utils.API_SUFFIX);

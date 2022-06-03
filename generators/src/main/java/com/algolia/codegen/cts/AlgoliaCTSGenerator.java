@@ -48,6 +48,7 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
     ctsManager.addSupportingFiles(supportingFiles);
 
     testsGenerators.add(new TestsRequest(language, client));
+    testsGenerators.add(new TestsClient(language, client));
 
     for (TestsGenerator testGen : testsGenerators) {
       testGen.addSupportingFiles(supportingFiles, outputFolder, extension);
@@ -97,7 +98,19 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
       ctsManager.addDataToBundle(bundle);
 
       for (TestsGenerator testGen : testsGenerators) {
-        testGen.run(models, operations, bundle);
+        try {
+          testGen.run(models, operations, bundle);
+        } catch (CTSException e) {
+          if (e.isSkipable()) {
+            System.out.println(e.getMessage());
+            continue;
+          }
+          e.printStackTrace();
+          System.exit(1);
+        } catch (Exception e) {
+          e.printStackTrace();
+          System.exit(1);
+        }
       }
 
       return bundle;

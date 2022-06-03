@@ -27,6 +27,15 @@ public class Utils {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
+  public static String camelize(String kebabStr) {
+    String[] parts = kebabStr.split("-");
+    String camel = parts[0].toLowerCase();
+    for (int i = 1; i < parts.length; i++) {
+      camel += capitalize(parts[i]);
+    }
+    return camel;
+  }
+
   /**
    * Will add the boolean `vendorExtensions.x-is-custom-request` to operations if they should not
    * escape '/' in the path variable
@@ -40,28 +49,7 @@ public class Utils {
 
   /** Returns the client name for the given language */
   public static String createClientName(String client, String language) {
-    return language.equals("javascript") ? toCamelCase(client) : toPascalCase(client);
-  }
-
-  // test-input -> testInput
-  public static String toCamelCase(String kebabStr) {
-    String[] parts = kebabStr.split("-");
-    String camel = "";
-    camel = parts[0].toLowerCase();
-    for (int i = 1; i < parts.length; i++) {
-      camel += capitalize(parts[i]);
-    }
-    return camel;
-  }
-
-  // test-input -> TestInput
-  public static String toPascalCase(String kebabStr) {
-    String[] parts = kebabStr.split("-");
-    String pascal = "";
-    for (int i = 0; i < parts.length; i++) {
-      pascal += capitalize(parts[i]);
-    }
-    return pascal;
+    return language.equals("javascript") ? camelize(client) : capitalize(camelize(client));
   }
 
   // testInput -> test-input

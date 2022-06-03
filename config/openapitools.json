@@ -34,8 +34,7 @@
         "additionalProperties": {
           "packageName": "@experimental-api-clients-automation/client-personalization",
           "buildFile": "client-personalization",
-          "packageVersion": "0.3.0",
-          "hasRegionalHost": true
+          "packageVersion": "0.3.0"
         }
       },
       "javascript-analytics": {
@@ -43,8 +42,7 @@
         "additionalProperties": {
           "packageName": "@experimental-api-clients-automation/client-analytics",
           "buildFile": "client-analytics",
-          "packageVersion": "0.3.0",
-          "hasRegionalHost": true
+          "packageVersion": "0.3.0"
         }
       },
       "javascript-insights": {
@@ -52,8 +50,7 @@
         "additionalProperties": {
           "packageName": "@experimental-api-clients-automation/client-insights",
           "buildFile": "client-insights",
-          "packageVersion": "0.3.0",
-          "hasRegionalHost": true
+          "packageVersion": "0.3.0"
         }
       },
       "javascript-abtesting": {
@@ -61,8 +58,7 @@
         "additionalProperties": {
           "packageName": "@experimental-api-clients-automation/client-abtesting",
           "buildFile": "client-abtesting",
-          "packageVersion": "0.3.0",
-          "hasRegionalHost": true
+          "packageVersion": "0.3.0"
         }
       },
       "javascript-query-suggestions": {
@@ -70,8 +66,7 @@
         "additionalProperties": {
           "packageName": "@experimental-api-clients-automation/client-query-suggestions",
           "buildFile": "client-query-suggestions",
-          "packageVersion": "0.3.0",
-          "hasRegionalHost": true
+          "packageVersion": "0.3.0"
         }
       },
       "javascript-sources": {
@@ -79,18 +74,15 @@
         "additionalProperties": {
           "packageName": "@experimental-api-clients-automation/client-sources",
           "buildFile": "client-sources",
-          "packageVersion": "0.3.0",
-          "hasRegionalHost": true
+          "packageVersion": "0.3.0"
         }
       },
       "javascript-predict": {
-        "templateDir": "#{cwd}/templates/javascript/",
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-predict",
         "additionalProperties": {
           "packageName": "@experimental-api-clients-automation/client-predict",
           "buildFile": "client-predict",
-          "packageVersion": "0.3.0",
-          "hasRegionalHost": true
+          "packageVersion": "0.3.0"
         }
       },
       "java-search": {
@@ -100,34 +92,19 @@
         "output": "#{cwd}/clients/algoliasearch-client-java-2"
       },
       "java-personalization": {
-        "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-java-2"
       },
       "java-analytics": {
-        "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-java-2"
       },
       "java-insights": {
-        "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-java-2"
       },
       "java-abtesting": {
-        "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-java-2"
       },
       "java-query-suggestions": {
-        "output": "#{cwd}/clients/algoliasearch-client-java-2",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-java-2"
       },
       "java-predict": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2"
@@ -139,28 +116,16 @@
         "output": "#{cwd}/clients/algoliasearch-client-php"
       },
       "php-personalization": {
-        "output": "#{cwd}/clients/algoliasearch-client-php",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-php"
       },
       "php-analytics": {
-        "output": "#{cwd}/clients/algoliasearch-client-php",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-php"
       },
       "php-insights": {
-        "output": "#{cwd}/clients/algoliasearch-client-php",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-php"
       },
       "php-abtesting": {
-        "output": "#{cwd}/clients/algoliasearch-client-php",
-        "additionalProperties": {
-          "hasRegionalHost": true
-        }
+        "output": "#{cwd}/clients/algoliasearch-client-php"
       },
       "php-query-suggestions": {
         "output": "#{cwd}/clients/algoliasearch-client-php"

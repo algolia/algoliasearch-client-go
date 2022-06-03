@@ -6,11 +6,9 @@
         "type": "method",
         "object": "$client",
         "path": "getRecommendations",
-        "parameters": [
-          {
-            "requests": []
-          }
-        ],
+        "parameters": {
+          "requests": []
+        },
         "expected": {
           "match": {
             "objectContaining": {
@@ -28,13 +26,11 @@
         "type": "method",
         "object": "$client",
         "path": "getRecommendations",
-        "parameters": [
-          {
-            "requests": []
-          }
-        ],
+        "parameters": {
+          "requests": []
+        },
         "expected": {
-          "testSubject": "actual.algoliaAgent",
+          "testSubject": "userAgent",
           "match": {
             "regexp": "/Algolia%20for%20(.+)%20\\(\\d+\\.\\d+\\.\\d+\\)/"
           }
@@ -49,11 +45,9 @@
         "type": "method",
         "object": "$client",
         "path": "getRecommendations",
-        "parameters": [
-          {
-            "requests": []
-          }
-        ],
+        "parameters": {
+          "requests": []
+        },
         "expected": {
           "match": {
             "objectContaining": {

@@ -1,7 +1,6 @@
+{{#testUserAgent}}
+  result{{stepIndex}}.algoliaAgent
+{{/testUserAgent}}
 {{#testSubject}}
-  {{{testSubject}}}
-{{/testSubject}}
-
-{{^testSubject}}
-  actual
+  {{{.}}}
 {{/testSubject}}

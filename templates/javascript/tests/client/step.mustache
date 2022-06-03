@@ -1,12 +1,9 @@
 {{#isCreateClient}}
-    $client = {{> createClient}}
-    actual = $client;
+  {{> client/createClient}}
 {{/isCreateClient}}
-
 {{#isVariable}}
-    actual = {{> variable}}
+  const result{{stepIndex}} = {{> client/variable}}
 {{/isVariable}}
-
 {{#isMethod}}
-    actual = {{> method}}
+  const result{{stepIndex}} = await {{> client/method}}
 {{/isMethod}}

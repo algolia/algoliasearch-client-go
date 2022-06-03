@@ -27,6 +27,10 @@ public class TestsRequest implements TestsGenerator {
       clientName = "search";
     }
 
+    if (!available()) {
+      throw new CTSException("Templates not found for requests test", true);
+    }
+
     File dir = new File("tests/CTS/methods/requests/" + clientName);
     File commonTestDir = new File("tests/CTS/methods/requests/common");
     if (!dir.exists()) {
@@ -45,7 +49,16 @@ public class TestsRequest implements TestsGenerator {
   }
 
   @Override
+  public boolean available() {
+    File templates = new File("templates/" + language + "/tests/requests/requests.mustache");
+    return templates.exists();
+  }
+
+  @Override
   public void addSupportingFiles(List<SupportingFile> supportingFiles, String outputFolder, String extension) {
+    if (!available()) {
+      return;
+    }
     String clientName = language.equals("php") ? Utils.createClientName(client, language) : client;
     supportingFiles.add(new SupportingFile("requests/requests.mustache", outputFolder + "/methods/requests", clientName + extension));
   }
@@ -79,13 +92,13 @@ public class TestsRequest implements TestsGenerator {
           Map<String, Object> requestOptions = new HashMap<>();
           if (req.requestOptions.queryParameters != null) {
             Map<String, Object> queryParameters = new HashMap<>();
-            paramsType.enhanceParameters(req.requestOptions.queryParameters, queryParameters, null);
+            paramsType.enhanceParameters(req.requestOptions.queryParameters, queryParameters);
             requestOptions.put("queryParameters", queryParameters);
           }
           if (req.requestOptions.headers != null) {
             Map<String, Object> headers = new HashMap<>();
             // convert the headers to an acceptable type
-            paramsType.enhanceParameters(new HashMap<String, Object>(req.requestOptions.headers), headers, null);
+            paramsType.enhanceParameters(new HashMap<String, Object>(req.requestOptions.headers), headers);
             requestOptions.put("headers", headers);
           }
           test.put("requestOptions", requestOptions);
@@ -94,7 +107,7 @@ public class TestsRequest implements TestsGenerator {
         CodegenOperation ope = entry.getValue();
         // special case if there is only bodyParam which is not an array
         if (ope.allParams.size() == 1 && ope.bodyParams.size() == 1 && !ope.bodyParam.isArray) {
-          paramsType.enhanceRootParameters(req.parameters, ope.bodyParam.paramName, ope.bodyParam, test);
+          paramsType.enhanceParameters(req.parameters, test, ope.bodyParam, ope.bodyParam.paramName);
         } else {
           paramsType.enhanceParameters(req.parameters, test, ope);
         }

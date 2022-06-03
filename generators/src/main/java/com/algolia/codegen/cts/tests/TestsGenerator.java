@@ -7,6 +7,8 @@ import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.SupportingFile;
 
 public interface TestsGenerator {
+  public boolean available();
+
   public void addSupportingFiles(List<SupportingFile> supportingFiles, String outputFolder, String extension);
 
   public void run(Map<String, CodegenModel> models, Map<String, CodegenOperation> operations, Map<String, Object> bundle) throws Exception;

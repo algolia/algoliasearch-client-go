@@ -28,49 +28,77 @@ public class ParametersWithDataType {
 
   public void enhanceParameters(Map<String, Object> parameters, Map<String, Object> bundle, CodegenOperation operation)
     throws CTSException, JsonMappingException, JsonProcessingException {
-    if (parameters == null || parameters.size() == 0) {
-      return;
-    }
-    // Give the stringified version to mustache, for js
-    bundle.put("parameters", Json.mapper().writeValueAsString(parameters));
-
-    List<Object> parametersWithDataType = new ArrayList<>();
-
-    for (Entry<String, Object> param : parameters.entrySet()) {
-      CodegenParameter specParam = null;
-      if (operation != null) {
-        for (CodegenParameter sp : operation.allParams) {
-          if (sp.paramName.equals(param.getKey())) {
-            specParam = sp;
-            break;
-          }
-        }
-        if (specParam == null) {
-          throw new CTSException("Parameter " + param.getKey() + " not found in the root parameter");
-        }
-      }
-      parametersWithDataType.add(traverseParams(param.getKey(), param.getValue(), specParam, "", 0));
-    }
-
-    bundle.put("parametersWithDataType", parametersWithDataType);
+    this.enhanceParameters(parameters, bundle, operation, null, null);
   }
 
-  public void enhanceRootParameters(
+  public void enhanceParameters(
     Map<String, Object> parameters,
-    String paramName,
+    Map<String, Object> bundle,
     IJsonSchemaValidationProperties spec,
-    Map<String, Object> bundle
+    String paramName
   ) throws CTSException, JsonMappingException, JsonProcessingException {
-    if (parameters == null || parameters.size() == 0) {
+    this.enhanceParameters(parameters, bundle, null, spec, paramName);
+  }
+
+  public void enhanceParameters(Map<String, Object> parameters, Map<String, Object> bundle)
+    throws CTSException, JsonMappingException, JsonProcessingException {
+    this.enhanceParameters(parameters, bundle, null, null, null);
+  }
+
+  /**
+   * @param parameters The object to traverse and annotate with type
+   * @param bundle The output object
+   * @param operation (optional) The model in which to look for spec
+   * @param spec (optional) (mutually exclusive with operation) If the parameter is a root param,
+   *     the spec must be provided, alongside it's paramName
+   * @param paramName (optional) (required if spec) the parameter name
+   */
+  private void enhanceParameters(
+    Map<String, Object> parameters,
+    Map<String, Object> bundle,
+    CodegenOperation operation,
+    IJsonSchemaValidationProperties spec,
+    String paramName
+  ) throws CTSException, JsonMappingException, JsonProcessingException {
+    if (parameters == null) {
       return;
     }
+    if (parameters.size() == 0) {
+      bundle.put("parameters", "{}");
+      return;
+    }
+    List<Map<String, Object>> parametersWithDataType = new ArrayList<>();
+    Map<String, Object> parametersWithDataTypeMap = new HashMap<>();
+
+    if (paramName == null) {
+      for (Entry<String, Object> param : parameters.entrySet()) {
+        CodegenParameter specParam = null;
+        if (operation != null) {
+          for (CodegenParameter sp : operation.allParams) {
+            if (sp.paramName.equals(param.getKey())) {
+              specParam = sp;
+              break;
+            }
+          }
+          if (specParam == null) {
+            throw new CTSException("Parameter " + param.getKey() + " not found in the root parameter");
+          }
+        }
+        Map<String, Object> paramWithType = traverseParams(param.getKey(), param.getValue(), specParam, "", 0);
+        parametersWithDataType.add(paramWithType);
+        parametersWithDataTypeMap.put((String) paramWithType.get("key"), paramWithType);
+      }
+    } else {
+      Map<String, Object> paramWithType = traverseParams(paramName, parameters, spec, "", 0);
+      parametersWithDataType.add(paramWithType);
+      parametersWithDataTypeMap.put((String) paramWithType.get("key"), paramWithType);
+    }
+
     // Give the stringified version to mustache, for js
     bundle.put("parameters", Json.mapper().writeValueAsString(parameters));
-
-    List<Object> parametersWithDataType = new ArrayList<>();
-    parametersWithDataType.add(traverseParams(paramName, parameters, spec, "", 0));
-
     bundle.put("parametersWithDataType", parametersWithDataType);
+    // Also provide a map version for those who know which keys to look for
+    bundle.put("parametersWithDataTypeMap", parametersWithDataTypeMap);
   }
 
   private Map<String, Object> traverseParams(

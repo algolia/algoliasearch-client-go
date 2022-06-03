@@ -44,9 +44,7 @@
         "type": "method",
         "object": "$client",
         "path": "addApiKey",
-        "parameters": [
-          {}
-        ],
+        "parameters": {},
         "expected": {
           "error": "Parameter `apiKey.acl` is required when calling `addApiKey`."
         }
@@ -60,12 +58,10 @@
         "type": "method",
         "object": "$client",
         "path": "addOrUpdateObject",
-        "parameters": [
-          {
-            "objectID": "my-object-id",
-            "body": {}
-          }
-        ],
+        "parameters": {
+          "objectID": "my-object-id",
+          "body": {}
+        },
         "expected": {
           "error": "Parameter `indexName` is required when calling `addOrUpdateObject`."
         }
@@ -74,12 +70,10 @@
         "type": "method",
         "object": "$client",
         "path": "addOrUpdateObject",
-        "parameters": [
-          {
-            "indexName": "my-index-name",
-            "body": {}
-          }
-        ],
+        "parameters": {
+          "indexName": "my-index-name",
+          "body": {}
+        },
         "expected": {
           "error": "Parameter `objectID` is required when calling `addOrUpdateObject`."
         }
@@ -88,12 +82,10 @@
         "type": "method",
         "object": "$client",
         "path": "addOrUpdateObject",
-        "parameters": [
-          {
-            "indexName": "my-index-name",
-            "objectID": "my-object-id"
-          }
-        ],
+        "parameters": {
+          "indexName": "my-index-name",
+          "objectID": "my-object-id"
+        },
         "expected": {
           "error": "Parameter `body` is required when calling `addOrUpdateObject`."
         }

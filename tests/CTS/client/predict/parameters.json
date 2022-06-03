@@ -44,9 +44,7 @@
           "apiKey": "my-api-key",
           "region": "ew"
         },
-        "expected": {
-          "error": false
-        }
+        "expected": {}
       }
     ]
   }

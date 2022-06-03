@@ -284,3 +284,31 @@ export function wait(waitTime: number): Promise<void> {
     setTimeout(resolve, waitTime);
   });
 }
+
+export function createClientName(client: string, language: string): string {
+  return language === 'javascript'
+    ? camelize(client)
+    : capitalize(camelize(client));
+}
+
+/**
+ * Splits a string for a given `delimiter` (defaults to `-`) and capitalize each
+ * parts except the first letter.
+ *
+ * `search-client` -> `searchClient`.
+ */
+export function camelize(str: string, delimiter: string = '-'): string {
+  return str
+    .split(delimiter)
+    .map((part, i) => (i === 0 ? part : capitalize(part)))
+    .join('');
+}
+
+/**
+ * Sets the first letter of the given string in capital.
+ *
+ * `searchClient` -> `SearchClient`.
+ */
+export function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

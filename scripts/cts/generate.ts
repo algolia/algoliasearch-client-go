@@ -5,12 +5,9 @@ import { createSpinner } from '../oraLog';
 import { generateOpenapitools } from '../pre-gen';
 import type { Generator } from '../types';
 
-import { generateClientTests } from './client/generate';
-
 async function ctsGenerate(gen: Generator, verbose: boolean): Promise<void> {
-  createSpinner(`generating CTS for ${gen.key}`, verbose).start().info();
   const spinner = createSpinner(
-    { text: 'generating requests tests', indent: 4 },
+    `generating CTS for ${gen.key}`,
     verbose
   ).start();
   await run(
@@ -19,12 +16,6 @@ async function ctsGenerate(gen: Generator, verbose: boolean): Promise<void> {
     { verbose }
   );
   spinner.succeed();
-  switch (gen.language) {
-    case 'javascript':
-      await generateClientTests(gen, verbose);
-      break;
-    default:
-  }
 }
 
 export async function ctsGenerateMany(

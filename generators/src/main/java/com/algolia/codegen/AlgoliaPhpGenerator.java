@@ -22,7 +22,7 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
     String client = (String) additionalProperties.get("client");
     setApiNameSuffix(Utils.API_SUFFIX);
     setParameterNamingConvention("camelCase");
-    additionalProperties.put("modelPackage", "Model\\" + Utils.toPascalCase(client));
+    additionalProperties.put("modelPackage", "Model\\" + Utils.createClientName(client, "php"));
     additionalProperties.put("invokerPackage", "Algolia\\AlgoliaSearch");
 
     super.processOpts();
