@@ -1,64 +1,50 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
+import type { SearchClient } from '@experimental-api-clients-automation/client-search';
 import { searchClient } from '@experimental-api-clients-automation/client-search';
 import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
 
-function createClient() {
+function createClient(): SearchClient {
   return searchClient(appId, apiKey, { requester: echoRequester() });
 }
 
 describe('api', () => {
   test('calls api with correct host', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
+    const result0 = await $client.search({
+      requests: [{ indexName: 'my-index' }],
+    });
 
-    actual = $client.search({ requests: [{ indexName: 'my-index' }] });
-
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual).toEqual(
+    expect(result0).toEqual(
       expect.objectContaining({ host: 'test-app-id-dsn.algolia.net' })
     );
   });
 
   test('calls api with correct user agent', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
+    const result0 = await $client.search({
+      requests: [{ indexName: 'my-index' }],
+    });
 
-    actual = $client.search({ requests: [{ indexName: 'my-index' }] });
-
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual.algoliaAgent).toMatch(
+    expect(result0.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
 
   test('calls api with correct timeouts', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
+    const result0 = await $client.search({
+      requests: [{ indexName: 'my-index' }],
+    });
 
-    actual = $client.search({ requests: [{ indexName: 'my-index' }] });
-
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual).toEqual(
+    expect(result0).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 5 })
     );
   });
@@ -66,137 +52,94 @@ describe('api', () => {
 
 describe('parameters', () => {
   test('client throws with invalid parameters', async () => {
-    let $client;
+    try {
+      const $client = searchClient('', '', { requester: echoRequester() });
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = searchClient('', '', { requester: echoRequester() });
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch('`appId` is missing.');
+    }
+    try {
+      const $client = searchClient('', 'my-api-key', {
+        requester: echoRequester(),
+      });
 
-        actual = $client;
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch('`appId` is missing.');
+    }
+    try {
+      const $client = searchClient('my-app-id', '', {
+        requester: echoRequester(),
+      });
 
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`appId` is missing.');
-
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = searchClient('', 'my-api-key', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`appId` is missing.');
-
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = searchClient('my-app-id', '', { requester: echoRequester() });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`apiKey` is missing.');
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch('`apiKey` is missing.');
+    }
   });
 
   test('`addApiKey` throws with invalid parameters', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        actual = $client.addApiKey();
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow(
-      'Parameter `apiKey` is required when calling `addApiKey`.'
-    );
+    try {
+      const result0 = await $client.addApiKey();
 
-    await expect(
-      new Promise((resolve, reject) => {
-        actual = $client.addApiKey({});
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow(
-      'Parameter `apiKey.acl` is required when calling `addApiKey`.'
-    );
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        'Parameter `apiKey` is required when calling `addApiKey`.'
+      );
+    }
+    try {
+      const result1 = await $client.addApiKey({});
+
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        'Parameter `apiKey.acl` is required when calling `addApiKey`.'
+      );
+    }
   });
 
   test('`addOrUpdateObject` throws with invalid parameters', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        actual = $client.addOrUpdateObject({
-          objectID: 'my-object-id',
-          body: {},
-        });
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow(
-      'Parameter `indexName` is required when calling `addOrUpdateObject`.'
-    );
+    try {
+      const result0 = await $client.addOrUpdateObject({
+        objectID: 'my-object-id',
+        body: {},
+      });
 
-    await expect(
-      new Promise((resolve, reject) => {
-        actual = $client.addOrUpdateObject({
-          indexName: 'my-index-name',
-          body: {},
-        });
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow(
-      'Parameter `objectID` is required when calling `addOrUpdateObject`.'
-    );
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        'Parameter `indexName` is required when calling `addOrUpdateObject`.'
+      );
+    }
+    try {
+      const result1 = await $client.addOrUpdateObject({
+        indexName: 'my-index-name',
+        body: {},
+      });
 
-    await expect(
-      new Promise((resolve, reject) => {
-        actual = $client.addOrUpdateObject({
-          indexName: 'my-index-name',
-          objectID: 'my-object-id',
-        });
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow(
-      'Parameter `body` is required when calling `addOrUpdateObject`.'
-    );
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        'Parameter `objectID` is required when calling `addOrUpdateObject`.'
+      );
+    }
+    try {
+      const result2 = await $client.addOrUpdateObject({
+        indexName: 'my-index-name',
+        objectID: 'my-object-id',
+      });
+
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        'Parameter `body` is required when calling `addOrUpdateObject`.'
+      );
+    }
   });
 });

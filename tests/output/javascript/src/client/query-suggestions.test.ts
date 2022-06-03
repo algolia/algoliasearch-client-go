@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
+import type { QuerySuggestionsClient } from '@experimental-api-clients-automation/client-query-suggestions';
 import { querySuggestionsClient } from '@experimental-api-clients-automation/client-query-suggestions';
 import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
 
-function createClient() {
+function createClient(): QuerySuggestionsClient {
   return querySuggestionsClient(appId, apiKey, 'us', {
     requester: echoRequester(),
   });
@@ -15,35 +16,21 @@ function createClient() {
 
 describe('api', () => {
   test('calls api with correct user agent', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
+    const result0 = await $client.createConfig({});
 
-    actual = $client.createConfig({});
-
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual.algoliaAgent).toMatch(
+    expect(result0.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
 
   test('calls api with correct timeouts', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
+    const result0 = await $client.createConfig({});
 
-    actual = $client.createConfig({});
-
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual).toEqual(
+    expect(result0).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 30 })
     );
   });
@@ -51,69 +38,37 @@ describe('api', () => {
 
 describe('parameters', () => {
   test('throws when region is not given', async () => {
-    let $client;
+    try {
+      const $client = querySuggestionsClient('my-app-id', 'my-api-key', '', {
+        requester: echoRequester(),
+      });
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = querySuggestionsClient('my-app-id', 'my-api-key', '', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`region` is missing.');
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch('`region` is missing.');
+    }
   });
 
   test('throws when incorrect region is given', async () => {
-    let $client;
+    try {
+      const $client = querySuggestionsClient(
+        'my-app-id',
+        'my-api-key',
+        'not_a_region',
+        { requester: echoRequester() }
+      );
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = querySuggestionsClient(
-          'my-app-id',
-          'my-api-key',
-          'not_a_region',
-          { requester: echoRequester() }
-        );
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`region` must be one of the following: eu, us');
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        '`region` must be one of the following: eu, us'
+      );
+    }
   });
 
   test('does not throw when region is given', async () => {
-    let $client;
-
-    let actual;
-
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = querySuggestionsClient('my-app-id', 'my-api-key', 'us', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).resolves.not.toThrow();
+    const $client = querySuggestionsClient('my-app-id', 'my-api-key', 'us', {
+      requester: echoRequester(),
+    });
   });
 });

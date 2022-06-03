@@ -1,76 +1,56 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
+import type { SourcesClient } from '@experimental-api-clients-automation/client-sources';
 import { sourcesClient } from '@experimental-api-clients-automation/client-sources';
 import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
 
-function createClient() {
+function createClient(): SourcesClient {
   return sourcesClient(appId, apiKey, 'us', { requester: echoRequester() });
 }
 
 describe('api', () => {
   test('calls api with correct host', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
-
-    actual = $client.postIngestUrl({
+    const result0 = await $client.postIngestUrl({
       type: 'csv',
       input: { url: 'https://example.com/file.csv' },
       target: { type: 'search', indexName: 'pageviews', operation: 'replace' },
     });
 
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual).toEqual(
+    expect(result0).toEqual(
       expect.objectContaining({ host: 'data.us.algolia.com' })
     );
   });
 
   test('calls api with correct user agent', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
-
-    actual = $client.postIngestUrl({
+    const result0 = await $client.postIngestUrl({
       type: 'csv',
       input: { url: 'https://example.com/file.csv' },
       target: { type: 'search', indexName: 'pageviews', operation: 'replace' },
     });
 
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual.algoliaAgent).toMatch(
+    expect(result0.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
 
   test('calls api with correct timeouts', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
-
-    actual = $client.postIngestUrl({
+    const result0 = await $client.postIngestUrl({
       type: 'csv',
       input: { url: 'https://example.com/file.csv' },
       target: { type: 'search', indexName: 'pageviews', operation: 'replace' },
     });
 
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual).toEqual(
+    expect(result0).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 30 })
     );
   });
@@ -78,66 +58,34 @@ describe('api', () => {
 
 describe('parameters', () => {
   test('throws when region is not given', async () => {
-    let $client;
+    try {
+      const $client = sourcesClient('my-app-id', 'my-api-key', '', {
+        requester: echoRequester(),
+      });
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = sourcesClient('my-app-id', 'my-api-key', '', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`region` is missing.');
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch('`region` is missing.');
+    }
   });
 
   test('throws when incorrect region is given', async () => {
-    let $client;
+    try {
+      const $client = sourcesClient('my-app-id', 'my-api-key', 'not_a_region', {
+        requester: echoRequester(),
+      });
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = sourcesClient('my-app-id', 'my-api-key', 'not_a_region', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`region` must be one of the following: de, us');
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        '`region` must be one of the following: de, us'
+      );
+    }
   });
 
   test('does not throw when region is given', async () => {
-    let $client;
-
-    let actual;
-
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = sourcesClient('my-app-id', 'my-api-key', 'us', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).resolves.not.toThrow();
+    const $client = sourcesClient('my-app-id', 'my-api-key', 'us', {
+      requester: echoRequester(),
+    });
   });
 });

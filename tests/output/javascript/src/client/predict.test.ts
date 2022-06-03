@@ -1,53 +1,40 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
+import type { PredictClient } from '@experimental-api-clients-automation/client-predict';
 import { predictClient } from '@experimental-api-clients-automation/client-predict';
 import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
 
-function createClient() {
+function createClient(): PredictClient {
   return predictClient(appId, apiKey, 'ew', { requester: echoRequester() });
 }
 
 describe('api', () => {
   test('calls api with correct user agent', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
-
-    actual = $client.fetchUserProfile({
+    const result0 = await $client.fetchUserProfile({
       userID: 'user1',
       params: { modelsToRetrieve: ['funnel_stage'] },
     });
 
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual.algoliaAgent).toMatch(
+    expect(result0.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
 
   test('calls api with correct timeouts', async () => {
-    let $client;
-    $client = createClient();
+    const $client = createClient();
 
-    let actual;
-
-    actual = $client.fetchUserProfile({
+    const result0 = await $client.fetchUserProfile({
       userID: 'user1',
       params: { modelsToRetrieve: ['funnel_stage'] },
     });
 
-    if (actual instanceof Promise) {
-      actual = await actual;
-    }
-
-    expect(actual).toEqual(
+    expect(result0).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 30 })
     );
   });
@@ -55,66 +42,34 @@ describe('api', () => {
 
 describe('parameters', () => {
   test('throws when region is not given', async () => {
-    let $client;
+    try {
+      const $client = predictClient('my-app-id', 'my-api-key', '', {
+        requester: echoRequester(),
+      });
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = predictClient('my-app-id', 'my-api-key', '', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`region` is missing.');
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch('`region` is missing.');
+    }
   });
 
   test('throws when incorrect region is given', async () => {
-    let $client;
+    try {
+      const $client = predictClient('my-app-id', 'my-api-key', 'not_a_region', {
+        requester: echoRequester(),
+      });
 
-    let actual;
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = predictClient('my-app-id', 'my-api-key', 'not_a_region', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).rejects.toThrow('`region` must be one of the following: ue, ew');
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect(e.message).toMatch(
+        '`region` must be one of the following: ue, ew'
+      );
+    }
   });
 
   test('does not throw when region is given', async () => {
-    let $client;
-
-    let actual;
-
-    await expect(
-      new Promise((resolve, reject) => {
-        $client = predictClient('my-app-id', 'my-api-key', 'ew', {
-          requester: echoRequester(),
-        });
-
-        actual = $client;
-
-        if (actual instanceof Promise) {
-          actual.then(resolve).catch(reject);
-        } else {
-          resolve();
-        }
-      })
-    ).resolves.not.toThrow();
+    const $client = predictClient('my-app-id', 'my-api-key', 'ew', {
+      requester: echoRequester(),
+    });
   });
 });
