@@ -4864,16 +4864,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-plugin-redoc@npm:1.0.3":
-  version: 1.0.3
-  resolution: "docusaurus-plugin-redoc@npm:1.0.3"
+"docusaurus-plugin-redoc@npm:1.1.2":
+  version: 1.1.2
+  resolution: "docusaurus-plugin-redoc@npm:1.1.2"
   dependencies:
     "@docusaurus/types": ^2.0.0-beta.20
     "@docusaurus/utils": ^2.0.0-beta.20
     "@redocly/openapi-core": 1.0.0-beta.97
     joi: ^17.5.0
     redoc: 2.0.0-rc.69
-  checksum: 0d8ab3b6db64c26dbf6533eb594e6e17dcad4e9da0a0732dd1b3fc84dbf22143f9952a4b5e41e647e02aaa00bc5f4497ab4ff66afa02ad0b833e4de34e40ca49
+  checksum: 9681c77b03424b17a577aa632baaae8f4533ee1ef920881366cae6ecf9952ed0ca90a45ba6ac362b05216e01be30a29f039837554413b28275766273d1a77dd9
   languageName: node
   linkType: hard
 
@@ -4888,9 +4888,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-theme-redoc@npm:1.1.0":
-  version: 1.1.0
-  resolution: "docusaurus-theme-redoc@npm:1.1.0"
+"docusaurus-theme-redoc@npm:1.1.2":
+  version: 1.1.2
+  resolution: "docusaurus-theme-redoc@npm:1.1.2"
   dependencies:
     "@docusaurus/theme-common": ^2.0.0-beta.20
     "@docusaurus/types": ^2.0.0-beta.20
@@ -4900,7 +4900,7 @@ __metadata:
     mobx: ^6.5.0
     redoc: 2.0.0-rc.69
     styled-components: ^5.3.5
-  checksum: 22ba0f5a77b02d9d62422c60aae40e0bcc97b74cb4304a4ddd60ebdde4468a89e19d680ae760687cb177082b15a9a67c0748eef2d95647134a28fb7c3e4bfa54
+  checksum: 1fedbf6cfa6b40747959a3a7c3a7dac99018b08f5cf8c8a9137c122e47b7b7d1c0f2c024aaa14130a14a3dd47ba54d412caf9fcf37f67903627a3abb561737ce
   languageName: node
   linkType: hard
 
@@ -9494,14 +9494,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redocusaurus@npm:1.1.0":
-  version: 1.1.0
-  resolution: "redocusaurus@npm:1.1.0"
+"redocusaurus@npm:1.1.2":
+  version: 1.1.2
+  resolution: "redocusaurus@npm:1.1.2"
   dependencies:
     "@docusaurus/types": ^2.0.0-beta.20
-    docusaurus-plugin-redoc: 1.0.3
-    docusaurus-theme-redoc: 1.1.0
-  checksum: df1f65679ce55bb7e5592ff2e40533c171d55baad5857dcd9793720618170eacd6738fa2a866a68c3df4352cc6c4006eb9ac00c90eafde1f7b0a1187cbc6d19e
+    docusaurus-plugin-redoc: 1.1.2
+    docusaurus-theme-redoc: 1.1.2
+  checksum: cda56cb836c42476e68d47afc945a57a991666793857b0ac7c66420e68b42a48207bc89ad2f67572c0f15af68ebfb5b8e5928a583bbeceb4f075210cba831ed0
   languageName: node
   linkType: hard
 
@@ -11606,7 +11606,7 @@ __metadata:
     prism-react-renderer: ^1.3.3
     react: 18.1.0
     react-dom: 18.1.0
-    redocusaurus: 1.1.0
+    redocusaurus: 1.1.2
   languageName: unknown
   linkType: soft
 
