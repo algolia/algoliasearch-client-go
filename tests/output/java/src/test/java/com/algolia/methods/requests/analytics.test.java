@@ -7,6 +7,7 @@ import com.algolia.EchoRequester;
 import com.algolia.EchoResponse;
 import com.algolia.api.AnalyticsClient;
 import com.algolia.model.analytics.*;
+import com.algolia.utils.ClientOptions;
 import com.algolia.utils.JSON;
 import com.algolia.utils.RequestOptions;
 import com.google.gson.reflect.TypeToken;
@@ -19,7 +20,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class AnalyticsClientTests {
+class AnalyticsClientRequestsTests {
 
   private AnalyticsClient client;
   private EchoRequester requester;
@@ -27,7 +28,7 @@ class AnalyticsClientTests {
   @BeforeAll
   void init() {
     requester = new EchoRequester();
-    client = new AnalyticsClient("appId", "apiKey", requester);
+    client = new AnalyticsClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
   }
 
   @Test

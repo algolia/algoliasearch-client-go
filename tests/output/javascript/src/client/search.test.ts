@@ -16,11 +16,11 @@ describe('api', () => {
   test('calls api with correct host', async () => {
     const $client = createClient();
 
-    const result0 = await $client.search({
+    const result = await $client.search({
       requests: [{ indexName: 'my-index' }],
     });
 
-    expect(result0).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ host: 'test-app-id-dsn.algolia.net' })
     );
   });
@@ -28,11 +28,11 @@ describe('api', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result0 = await $client.search({
+    const result = await $client.search({
       requests: [{ indexName: 'my-index' }],
     });
 
-    expect(result0.algoliaAgent).toMatch(
+    expect(result.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
@@ -40,11 +40,11 @@ describe('api', () => {
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result0 = await $client.search({
+    const result = await $client.search({
       requests: [{ indexName: 'my-index' }],
     });
 
-    expect(result0).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 5 })
     );
   });
@@ -83,7 +83,7 @@ describe('parameters', () => {
     const $client = createClient();
 
     try {
-      const result0 = await $client.addApiKey();
+      const result = await $client.addApiKey();
 
       throw new Error('test is expected to throw error');
     } catch (e) {
@@ -92,7 +92,7 @@ describe('parameters', () => {
       );
     }
     try {
-      const result1 = await $client.addApiKey({});
+      const result = await $client.addApiKey({});
 
       throw new Error('test is expected to throw error');
     } catch (e) {
@@ -106,7 +106,7 @@ describe('parameters', () => {
     const $client = createClient();
 
     try {
-      const result0 = await $client.addOrUpdateObject({
+      const result = await $client.addOrUpdateObject({
         objectID: 'my-object-id',
         body: {},
       });
@@ -118,7 +118,7 @@ describe('parameters', () => {
       );
     }
     try {
-      const result1 = await $client.addOrUpdateObject({
+      const result = await $client.addOrUpdateObject({
         indexName: 'my-index-name',
         body: {},
       });
@@ -130,7 +130,7 @@ describe('parameters', () => {
       );
     }
     try {
-      const result2 = await $client.addOrUpdateObject({
+      const result = await $client.addOrUpdateObject({
         indexName: 'my-index-name',
         objectID: 'my-object-id',
       });

@@ -14,13 +14,13 @@ describe('api', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result0 = await $client.addABTests({
+    const result = await $client.addABTests({
       name: 'test',
       variant: [{ index: 'my-test-index', trafficPercentage: 90 }],
       endAt: '2022-02-01T13:37:01Z',
     });
 
-    expect(result0.algoliaAgent).toMatch(
+    expect(result.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
@@ -28,13 +28,13 @@ describe('api', () => {
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result0 = await $client.addABTests({
+    const result = await $client.addABTests({
       name: 'test',
       variant: [{ index: 'my-test-index', trafficPercentage: 90 }],
       endAt: '2022-02-01T13:37:01Z',
     });
 
-    expect(result0).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 30 })
     );
   });
@@ -46,9 +46,9 @@ describe('parameters', () => {
       requester: echoRequester(),
     });
 
-    const result1 = await $client.getABTest({ id: 'test' });
+    const result = await $client.getABTest({ id: 'test' });
 
-    expect(result1).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ host: 'analytics.algolia.com' })
     );
   });

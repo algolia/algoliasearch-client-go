@@ -4,7 +4,6 @@ import com.algolia.ApiClient;
 import com.algolia.exceptions.*;
 import com.algolia.model.search.*;
 import com.algolia.utils.*;
-import com.algolia.utils.RequestOptions;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
 import com.google.gson.reflect.TypeToken;
@@ -25,19 +24,16 @@ import okhttp3.Call;
 public class SearchClient extends ApiClient {
 
   public SearchClient(String appId, String apiKey) {
-    this(appId, apiKey, new HttpRequester(getDefaultHosts(appId)), null);
+    this(appId, apiKey, null);
   }
 
-  public SearchClient(String appId, String apiKey, AlgoliaAgent.Segment[] algoliaAgentSegments) {
-    this(appId, apiKey, new HttpRequester(getDefaultHosts(appId)), algoliaAgentSegments);
-  }
-
-  public SearchClient(String appId, String apiKey, Requester requester) {
-    this(appId, apiKey, requester, null);
-  }
-
-  public SearchClient(String appId, String apiKey, Requester requester, AlgoliaAgent.Segment[] algoliaAgentSegments) {
-    super(appId, apiKey, requester, "Search", algoliaAgentSegments);
+  public SearchClient(String appId, String apiKey, ClientOptions options) {
+    super(appId, apiKey, "Search", options);
+    if (options.getHosts() == null) {
+      this.setHosts(getDefaultHosts(appId));
+    } else {
+      this.setHosts(options.getHosts());
+    }
   }
 
   private static List<StatefulHost> getDefaultHosts(String appId) {

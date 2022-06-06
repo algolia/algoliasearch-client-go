@@ -2,11 +2,11 @@ package com.algolia;
 
 import com.algolia.exceptions.*;
 import com.algolia.utils.*;
+import com.algolia.utils.retry.StatefulHost;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.*;
@@ -15,27 +15,25 @@ import java.util.concurrent.CompletableFuture;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
 
-public class ApiClient {
+public abstract class ApiClient {
 
   private boolean debugging = false;
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
 
   private String contentType;
 
-  private DateFormat dateFormat;
-
   private Requester requester;
 
   /*
    * Constructor for ApiClient with custom Requester
    */
-  public ApiClient(String appId, String apiKey, Requester requester, String clientName, AlgoliaAgent.Segment[] segments) {
+  public ApiClient(String appId, String apiKey, String clientName, ClientOptions options) {
     this.contentType = "application/json";
 
     AlgoliaAgent ua = new AlgoliaAgent("0.0.1");
     ua.addSegment(new AlgoliaAgent.Segment(clientName, "0.0.1"));
-    if (segments != null) {
-      for (AlgoliaAgent.Segment segment : segments) {
+    if (options.getAlgoliaAgentSegments() != null) {
+      for (AlgoliaAgent.Segment segment : options.getAlgoliaAgentSegments()) {
         ua.addSegment(segment);
       }
     }
@@ -46,11 +44,10 @@ public class ApiClient {
     defaultHeaderMap.put("Accept", this.contentType);
     defaultHeaderMap.put("Content-Type", this.contentType);
 
-    this.requester = requester;
-  }
-
-  public DateFormat getDateFormat() {
-    return dateFormat;
+    this.requester = options.getRequester();
+    if (this.requester == null) {
+      this.requester = new HttpRequester();
+    }
   }
 
   /**
@@ -156,6 +153,11 @@ public class ApiClient {
    */
   public ApiClient setWriteTimeout(int writeTimeout) {
     requester.setWriteTimeout(writeTimeout);
+    return this;
+  }
+
+  public ApiClient setHosts(List<StatefulHost> hosts) {
+    this.requester.setHosts(hosts);
     return this;
   }
 

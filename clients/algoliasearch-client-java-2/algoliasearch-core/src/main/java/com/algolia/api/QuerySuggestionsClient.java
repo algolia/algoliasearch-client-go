@@ -4,7 +4,6 @@ import com.algolia.ApiClient;
 import com.algolia.exceptions.*;
 import com.algolia.model.querySuggestions.*;
 import com.algolia.utils.*;
-import com.algolia.utils.RequestOptions;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
 import com.google.gson.reflect.TypeToken;
@@ -20,19 +19,16 @@ import okhttp3.Call;
 public class QuerySuggestionsClient extends ApiClient {
 
   public QuerySuggestionsClient(String appId, String apiKey, String region) {
-    this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), null);
+    this(appId, apiKey, region, null);
   }
 
-  public QuerySuggestionsClient(String appId, String apiKey, String region, AlgoliaAgent.Segment[] algoliaAgentSegments) {
-    this(appId, apiKey, new HttpRequester(getDefaultHosts(region)), algoliaAgentSegments);
-  }
-
-  public QuerySuggestionsClient(String appId, String apiKey, Requester requester) {
-    this(appId, apiKey, requester, null);
-  }
-
-  public QuerySuggestionsClient(String appId, String apiKey, Requester requester, AlgoliaAgent.Segment[] algoliaAgentSegments) {
-    super(appId, apiKey, requester, "QuerySuggestions", algoliaAgentSegments);
+  public QuerySuggestionsClient(String appId, String apiKey, String region, ClientOptions options) {
+    super(appId, apiKey, "QuerySuggestions", options);
+    if (options.getHosts() == null) {
+      this.setHosts(getDefaultHosts(region));
+    } else {
+      this.setHosts(options.getHosts());
+    }
   }
 
   private static List<StatefulHost> getDefaultHosts(String region) {

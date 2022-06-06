@@ -16,12 +16,12 @@ describe('api', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result0 = await $client.fetchUserProfile({
+    const result = await $client.fetchUserProfile({
       userID: 'user1',
       params: { modelsToRetrieve: ['funnel_stage'] },
     });
 
-    expect(result0.algoliaAgent).toMatch(
+    expect(result.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
@@ -29,12 +29,12 @@ describe('api', () => {
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result0 = await $client.fetchUserProfile({
+    const result = await $client.fetchUserProfile({
       userID: 'user1',
       params: { modelsToRetrieve: ['funnel_stage'] },
     });
 
-    expect(result0).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 30 })
     );
   });

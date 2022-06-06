@@ -16,11 +16,9 @@ describe('api', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result0 = await $client.getAverageClickPosition({
-      index: 'my-index',
-    });
+    const result = await $client.getAverageClickPosition({ index: 'my-index' });
 
-    expect(result0.algoliaAgent).toMatch(
+    expect(result.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
@@ -28,11 +26,9 @@ describe('api', () => {
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result0 = await $client.getAverageClickPosition({
-      index: 'my-index',
-    });
+    const result = await $client.getAverageClickPosition({ index: 'my-index' });
 
-    expect(result0).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 5 })
     );
   });
@@ -44,11 +40,9 @@ describe('parameters', () => {
       requester: echoRequester(),
     });
 
-    const result1 = await $client.getAverageClickPosition({
-      index: 'my-index',
-    });
+    const result = await $client.getAverageClickPosition({ index: 'my-index' });
 
-    expect(result1).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ host: 'analytics.algolia.com' })
     );
   });
@@ -57,7 +51,7 @@ describe('parameters', () => {
     const $client = createClient();
 
     try {
-      const result0 = await $client.getClickPositions({});
+      const result = await $client.getClickPositions({});
 
       throw new Error('test is expected to throw error');
     } catch (e) {

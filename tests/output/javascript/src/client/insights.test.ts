@@ -14,9 +14,9 @@ describe('api', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result0 = await $client.pushEvents({ events: [] });
+    const result = await $client.pushEvents({ events: [] });
 
-    expect(result0.algoliaAgent).toMatch(
+    expect(result.algoliaAgent).toMatch(
       /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
     );
   });
@@ -24,9 +24,9 @@ describe('api', () => {
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result0 = await $client.pushEvents({ events: [] });
+    const result = await $client.pushEvents({ events: [] });
 
-    expect(result0).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2, responseTimeout: 30 })
     );
   });
@@ -38,9 +38,9 @@ describe('parameters', () => {
       requester: echoRequester(),
     });
 
-    const result1 = await $client.pushEvents({ events: [] });
+    const result = await $client.pushEvents({ events: [] });
 
-    expect(result1).toEqual(
+    expect(result).toEqual(
       expect.objectContaining({ host: 'insights.algolia.io' })
     );
   });
