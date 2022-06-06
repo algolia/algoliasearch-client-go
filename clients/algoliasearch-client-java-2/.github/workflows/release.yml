@@ -40,5 +40,5 @@ jobs:
           fi
 
       - name: Release Artifacts
-        if: ${{ steps.snapshot.IS_SNAPHOT != 'true' }}
+        if: ${{ steps.snapshot.outputs.IS_SNAPHOT != 'true' }}
         run: ./gradlew closeAndReleaseRepository
