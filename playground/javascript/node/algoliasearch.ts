@@ -2,7 +2,7 @@ import { algoliasearch } from '@experimental-api-clients-automation/algoliasearc
 import { ApiError } from '@experimental-api-clients-automation/client-common';
 import dotenv from 'dotenv';
 
-import type { SearchResponse } from '@experimental-api-clients-automation/client-search';
+import type { SearchResponses } from '@experimental-api-clients-automation/client-search';
 
 dotenv.config({ path: '../../.env' });
 
@@ -31,9 +31,14 @@ client.addAlgoliaAgent('algoliasearch node playground', '0.0.1');
 
 async function testAlgoliasearch() {
   try {
-    const res: SearchResponse = await client.search({
-      indexName: searchIndex,
-      searchParams: { query: searchQuery },
+    const res: SearchResponses = await client.search({
+      requests: [
+        {
+          indexName: searchIndex,
+          query: searchQuery,
+          hitsPerPage: 50,
+        },
+      ],
     });
 
     console.log(`[OK search]`, res);

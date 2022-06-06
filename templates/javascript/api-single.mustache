@@ -23,16 +23,19 @@ import type {
 import { {{classname}} } from '{{filename}}';
 {{/imports}}
 
-export * from '../model';
+{{#operations}}
+import type {
+{{#operation}}
+{{#vendorExtensions.x-create-wrapping-object}}
+{{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
+{{/vendorExtensions.x-create-wrapping-object}}
+{{/operation}}
+} from '../model/clientMethodProps';
+{{/operations}}
+
 export const apiClientVersion = '{{packageVersion}}';
 
 {{#operations}}
-{{#description}}
-/**
-* {{&description}}
-*/
-{{/description}}
-
 {{#hasRegionalHost}}
 export const REGIONS = [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}] as const;
 export type Region = typeof REGIONS[number];
@@ -243,21 +246,5 @@ export function create{{capitalizedApiName}}({
 }
 
 export type {{capitalizedApiName}} = ReturnType<typeof create{{capitalizedApiName}}>;
-
-{{#operation}}
-{{#vendorExtensions.x-create-wrapping-object}}
-export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
-  {{#allParams}}
-    {{#description}}
-    /**
-    * {{{description}}}
-    */
-    {{/description}}
-    {{paramName}}{{^required}}?{{/required}}: {{{dataType}}};
-  {{/allParams}}
-}
-{{/vendorExtensions.x-create-wrapping-object}}
-
-{{/operation}}
 
 {{/operations}}

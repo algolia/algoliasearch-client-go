@@ -33,6 +33,7 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     // clear all supported files to avoid unwanted ones
     supportingFiles.clear();
 
+    supportingFiles.add(new SupportingFile("clientMethodProps.mustache", "model", "clientMethodProps.ts"));
     supportingFiles.add(new SupportingFile("modelBarrel.mustache", "model", "index.ts"));
     supportingFiles.add(new SupportingFile("browser.mustache", "builds", "browser.ts"));
     supportingFiles.add(new SupportingFile("node.mustache", "builds", "node.ts"));

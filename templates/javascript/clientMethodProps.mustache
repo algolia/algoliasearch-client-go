@@ -1,0 +1,27 @@
+{{#apiInfo.apis.0}}
+
+{{#imports}}
+import { {{classname}} } from '{{filename}}';
+{{/imports}}
+
+{{#operations}}
+{{#operation}}
+{{#vendorExtensions.x-create-wrapping-object}}
+/**
+ * Properties for the `{{nickname}}` method.
+ */
+export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
+  {{#allParams}}
+    {{#description}}
+    /**
+    * {{{description}}}
+    */
+    {{/description}}
+    {{paramName}}{{^required}}?{{/required}}: {{{dataType}}};
+  {{/allParams}}
+}
+{{/vendorExtensions.x-create-wrapping-object}}
+
+{{/operation}}
+{{/operations}}
+{{/apiInfo.apis.0}}

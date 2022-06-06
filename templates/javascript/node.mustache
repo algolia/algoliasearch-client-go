@@ -9,7 +9,12 @@ import type { {{capitalizedApiName}} } from '../src/{{apiName}}';
 import { Region, REGIONS } from '../src/{{apiName}}';
 {{/hasRegionalHost}}
 
-export * from '../src/{{apiName}}';
+{{! We don't use `export *` to prevent exposing the factory, to avoid confusion for the user }}
+export { 
+  apiClientVersion,
+  {{capitalizedApiName}},
+} from '../src/{{apiName}}';
+export * from '../model';
 
 export function {{apiName}}(
   appId: string,
@@ -24,16 +29,15 @@ export function {{apiName}}(
     throw new Error("`apiKey` is missing.");
   }
 
-  {{#hasRegionalHost}}
-  {{^fallbackToAliasHost}}
+  {{#hasRegionalHost}}{{^fallbackToAliasHost}}
   if (!region) {
     throw new Error("`region` is missing.");
   }
+
   if (typeof region !== 'string' || !REGIONS.includes(region)) {
     throw new Error(`\`region\` must be one of the following: ${REGIONS.join(', ')}`);
   }
-  {{/fallbackToAliasHost}}
-  {{/hasRegionalHost}}
+  {{/fallbackToAliasHost}}{{/hasRegionalHost}}
 
   return create{{capitalizedApiName}}({
     appId,
