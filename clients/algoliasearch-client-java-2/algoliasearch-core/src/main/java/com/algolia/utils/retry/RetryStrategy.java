@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,10 +19,10 @@ import okhttp3.Response;
 
 public class RetryStrategy {
 
-  private final List<StatefulHost> hosts;
+  private List<StatefulHost> hosts;
 
-  public RetryStrategy(List<StatefulHost> hosts) {
-    this.hosts = hosts;
+  public RetryStrategy() {
+    this.hosts = new ArrayList<>();
   }
 
   public Interceptor getRetryInterceptor() {
@@ -123,5 +124,9 @@ public class RetryStrategy {
         reset(host);
       }
     }
+  }
+
+  public void setHosts(List<StatefulHost> hosts) {
+    this.hosts = hosts;
   }
 }

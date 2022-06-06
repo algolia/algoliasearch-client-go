@@ -1,26 +1,16 @@
 package com.algolia.playground;
 
-import com.algolia.exceptions.AlgoliaApiException;
-import com.algolia.exceptions.AlgoliaRetryException;
-import com.algolia.exceptions.AlgoliaRuntimeException;
-import com.algolia.model.insights.*;
 import com.algolia.api.InsightsClient;
-import com.algolia.utils.AlgoliaAgent;
+import com.algolia.exceptions.*;
+import com.algolia.model.insights.*;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Insights {
+
   public static void main(String[] args) {
     Dotenv dotenv = Dotenv.configure().directory("../").load();
 
-    InsightsClient client = new InsightsClient(
-      dotenv.get("ALGOLIA_APPLICATION_ID"),
-      dotenv.get("ALGOLIA_SEARCH_KEY"),
-      new AlgoliaAgent.Segment[] {
-        new AlgoliaAgent.Segment("test", "8.0.0"),
-        new AlgoliaAgent.Segment("JVM", "11.0.14"),
-        new AlgoliaAgent.Segment("no version"),
-      }
-    );
+    InsightsClient client = new InsightsClient(dotenv.get("ALGOLIA_APPLICATION_ID"), dotenv.get("ALGOLIA_SEARCH_KEY"));
 
     String indexName = dotenv.get("SEARCH_INDEX");
     InsightEvents params = new InsightEvents();

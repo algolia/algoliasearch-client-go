@@ -1,7 +1,9 @@
 package com.algolia.utils;
 
 import com.algolia.exceptions.AlgoliaRuntimeException;
+import com.algolia.utils.retry.StatefulHost;
 import java.lang.reflect.Type;
+import java.util.List;
 import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -62,4 +64,6 @@ public interface Requester {
    * @param writeTimeout connection timeout in milliseconds
    */
   public void setWriteTimeout(int writeTimeout);
+
+  public void setHosts(List<StatefulHost> hosts);
 }

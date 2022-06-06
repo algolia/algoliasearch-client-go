@@ -26,23 +26,9 @@ public class ParametersWithDataType {
     this.language = language;
   }
 
-  public void enhanceParameters(Map<String, Object> parameters, Map<String, Object> bundle, CodegenOperation operation)
-    throws CTSException, JsonMappingException, JsonProcessingException {
-    this.enhanceParameters(parameters, bundle, operation, null, null);
-  }
-
-  public void enhanceParameters(
-    Map<String, Object> parameters,
-    Map<String, Object> bundle,
-    IJsonSchemaValidationProperties spec,
-    String paramName
-  ) throws CTSException, JsonMappingException, JsonProcessingException {
-    this.enhanceParameters(parameters, bundle, null, spec, paramName);
-  }
-
   public void enhanceParameters(Map<String, Object> parameters, Map<String, Object> bundle)
     throws CTSException, JsonMappingException, JsonProcessingException {
-    this.enhanceParameters(parameters, bundle, null, null, null);
+    this.enhanceParameters(parameters, bundle, null);
   }
 
   /**
@@ -53,13 +39,8 @@ public class ParametersWithDataType {
    *     the spec must be provided, alongside it's paramName
    * @param paramName (optional) (required if spec) the parameter name
    */
-  private void enhanceParameters(
-    Map<String, Object> parameters,
-    Map<String, Object> bundle,
-    CodegenOperation operation,
-    IJsonSchemaValidationProperties spec,
-    String paramName
-  ) throws CTSException, JsonMappingException, JsonProcessingException {
+  public void enhanceParameters(Map<String, Object> parameters, Map<String, Object> bundle, CodegenOperation operation)
+    throws CTSException, JsonMappingException, JsonProcessingException {
     if (parameters == null) {
       return;
     }
@@ -69,6 +50,14 @@ public class ParametersWithDataType {
     }
     List<Map<String, Object>> parametersWithDataType = new ArrayList<>();
     Map<String, Object> parametersWithDataTypeMap = new HashMap<>();
+
+    IJsonSchemaValidationProperties spec = null;
+    String paramName = null;
+    // special case if there is only bodyParam which is not an array
+    if (operation != null && operation.allParams.size() == 1 && operation.bodyParams.size() == 1 && !operation.bodyParam.isArray) {
+      spec = operation.bodyParam;
+      paramName = operation.bodyParam.paramName;
+    }
 
     if (paramName == null) {
       for (Entry<String, Object> param : parameters.entrySet()) {

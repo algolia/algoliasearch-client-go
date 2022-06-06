@@ -21,8 +21,8 @@ public class HttpRequester implements Requester {
   private HttpLoggingInterceptor loggingInterceptor;
   private boolean debugging;
 
-  public HttpRequester(List<StatefulHost> hosts) {
-    this.retryStrategy = new RetryStrategy(hosts);
+  public HttpRequester() {
+    this.retryStrategy = new RetryStrategy();
 
     OkHttpClient.Builder builder = new OkHttpClient.Builder();
     builder.addInterceptor(retryStrategy.getRetryInterceptor());
@@ -31,10 +31,12 @@ public class HttpRequester implements Requester {
     httpClient = builder.build();
   }
 
+  @Override
   public Call newCall(Request request) {
     return httpClient.newCall(request);
   }
 
+  @Override
   public <T> T handleResponse(Response response, Type returnType) throws AlgoliaRuntimeException {
     if (response.isSuccessful()) {
       if (returnType == null || response.code() == 204) {
@@ -95,6 +97,7 @@ public class HttpRequester implements Requester {
     return JSON.deserialize(respBody, returnType);
   }
 
+  @Override
   public void setDebugging(boolean debugging) {
     if (debugging != this.debugging) {
       if (debugging) {
@@ -111,14 +114,17 @@ public class HttpRequester implements Requester {
     this.debugging = debugging;
   }
 
+  @Override
   public int getConnectTimeout() {
     return httpClient.connectTimeoutMillis();
   }
 
+  @Override
   public void setConnectTimeout(int connectionTimeout) {
     httpClient = httpClient.newBuilder().connectTimeout(connectionTimeout, TimeUnit.MILLISECONDS).build();
   }
 
+  @Override
   public int getReadTimeout() {
     return httpClient.readTimeoutMillis();
   }
@@ -127,11 +133,18 @@ public class HttpRequester implements Requester {
     httpClient = httpClient.newBuilder().readTimeout(readTimeout, TimeUnit.MILLISECONDS).build();
   }
 
+  @Override
   public int getWriteTimeout() {
     return httpClient.writeTimeoutMillis();
   }
 
+  @Override
   public void setWriteTimeout(int writeTimeout) {
     httpClient = httpClient.newBuilder().writeTimeout(writeTimeout, TimeUnit.MILLISECONDS).build();
+  }
+
+  @Override
+  public void setHosts(List<StatefulHost> hosts) {
+    this.retryStrategy.setHosts(hosts);
   }
 }

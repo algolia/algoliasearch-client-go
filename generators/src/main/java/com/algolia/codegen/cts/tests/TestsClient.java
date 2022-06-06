@@ -65,28 +65,35 @@ public class TestsClient implements TestsGenerator {
     for (Map.Entry<String, ClientTestData[]> blockEntry : cts.entrySet()) {
       Map<String, Object> testObj = new HashMap<>();
       List<Object> tests = new ArrayList<>();
+      int testIndex = 0;
       for (ClientTestData test : blockEntry.getValue()) {
         Map<String, Object> testOut = new HashMap<>();
         List<Object> steps = new ArrayList<>();
         testOut.put("testName", test.testName);
+        testOut.put("testIndex", testIndex++);
         testOut.put("autoCreateClient", test.autoCreateClient);
-        int stepIndex = 0;
         for (Step step : test.steps) {
           Map<String, Object> stepOut = new HashMap<>();
+          CodegenOperation ope = null;
           if (step.type.equals("createClient")) {
             stepOut.put("isCreateClient", true);
           } else if (step.type.equals("variable")) {
             stepOut.put("isVariable", true);
           } else if (step.type.equals("method")) {
+            ope = operations.get(step.path);
+            if (ope == null) {
+              throw new CTSException("Cannot find operation for method: " + step.path);
+            }
+            stepOut.put("returnType", ope.returnType);
             stepOut.put("isMethod", true);
           }
 
           stepOut.put("object", step.object);
           stepOut.put("path", step.path);
-          paramsType.enhanceParameters(step.parameters, stepOut);
+          paramsType.enhanceParameters(step.parameters, stepOut, ope);
 
           if (step.expected.testSubject == null) {
-            stepOut.put("testSubject", "result" + stepIndex);
+            stepOut.put("testSubject", "result");
           } else {
             switch (step.expected.testSubject) {
               case "userAgent":
@@ -109,7 +116,6 @@ public class TestsClient implements TestsGenerator {
             }
             stepOut.put("match", match);
           }
-          stepOut.put("stepIndex", stepIndex++);
           steps.add(stepOut);
         }
         testOut.put("steps", steps);

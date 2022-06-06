@@ -2,8 +2,8 @@
   {{> client/createClient}}
 {{/isCreateClient}}
 {{#isVariable}}
-  const result{{stepIndex}} = {{> client/variable}}
+  const result = {{> client/variable}}
 {{/isVariable}}
 {{#isMethod}}
-  const result{{stepIndex}} = await {{> client/method}}
+  const result = await {{> client/method}}
 {{/isMethod}}

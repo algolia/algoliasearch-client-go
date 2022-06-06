@@ -105,12 +105,7 @@ public class TestsRequest implements TestsGenerator {
         }
 
         CodegenOperation ope = entry.getValue();
-        // special case if there is only bodyParam which is not an array
-        if (ope.allParams.size() == 1 && ope.bodyParams.size() == 1 && !ope.bodyParam.isArray) {
-          paramsType.enhanceParameters(req.parameters, test, ope.bodyParam, ope.bodyParam.paramName);
-        } else {
-          paramsType.enhanceParameters(req.parameters, test, ope);
-        }
+        paramsType.enhanceParameters(req.parameters, test, ope);
         tests.add(test);
       }
       Map<String, Object> testObj = new HashMap<>();

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import com.google.gson.reflect.TypeToken;
 
 import com.algolia.utils.JSON;
+import com.algolia.utils.ClientOptions;
 import com.algolia.utils.RequestOptions;
 import com.algolia.model.{{import}}.*;
 import com.algolia.api.{{client}};
@@ -23,22 +24,22 @@ import com.algolia.EchoRequester;
 import com.algolia.EchoResponse;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class {{client}}Tests {
+class {{client}}RequestsTests {
     private {{client}} client;
     private EchoRequester requester;
 
     @BeforeAll
     void init() {
         requester = new EchoRequester();
-        client = new {{client}}("appId", "apiKey", requester);
+        client = new {{client}}("appId", "apiKey", {{#hasRegionalHost}}"{{defaultRegion}}", {{/hasRegionalHost}}ClientOptions.build().setRequester(requester));
     }
 
     {{#blocksRequests}}
     {{#tests}}
     @Test
-    @DisplayName("{{testName}}")
+    @DisplayName("{{{testName}}}")
     void {{method}}Test{{testIndex}}() {
-        {{#parametersWithDataType}}{{> requests/generateParams}}{{/parametersWithDataType}}
+        {{#parametersWithDataType}}{{> generateParams}}{{/parametersWithDataType}}
 
         {{#hasRequestOptions}}
           RequestOptions requestOptions = new RequestOptions();
@@ -51,7 +52,7 @@ class {{client}}Tests {
         {{/hasRequestOptions}}
 
         assertDoesNotThrow(() -> {
-            client.{{method}}({{#parametersWithDataType}}{{> requests/maybeConvertOneOf}}{{^-last}},{{/-last}}{{/parametersWithDataType}}{{#hasRequestOptions}}, requestOptions{{/hasRequestOptions}});
+            client.{{method}}({{#parametersWithDataType}}{{> maybeConvertOneOf}}{{^-last}},{{/-last}}{{/parametersWithDataType}}{{#hasRequestOptions}}, requestOptions{{/hasRequestOptions}});
         });
         EchoResponse req = requester.getLastEchoResponse();
 

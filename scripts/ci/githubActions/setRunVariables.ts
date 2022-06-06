@@ -12,6 +12,7 @@ const CLIENTS_COMMON_FILES = [
   'config/openapitools.json',
   'config/clients.config.json',
   'generators/src/main/java/com/algolia/codegen/Utils.java',
+  'generators/src/main/java/com/algolia/codegen/cts',
 ];
 
 /**

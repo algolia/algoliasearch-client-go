@@ -1,13 +1,11 @@
 package com.algolia.playground;
 
 import com.algolia.api.SearchClient;
-import com.algolia.exceptions.AlgoliaApiException;
-import com.algolia.exceptions.AlgoliaRetryException;
-import com.algolia.exceptions.AlgoliaRuntimeException;
+import com.algolia.exceptions.*;
 import com.algolia.model.search.*;
 import com.algolia.utils.AlgoliaAgent;
+import com.algolia.utils.ClientOptions;
 import io.github.cdimascio.dotenv.Dotenv;
-import java.lang.InterruptedException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -20,11 +18,14 @@ public class Search {
     SearchClient client = new SearchClient(
       dotenv.get("ALGOLIA_APPLICATION_ID"),
       dotenv.get("ALGOLIA_SEARCH_KEY"),
-      new AlgoliaAgent.Segment[] {
-        new AlgoliaAgent.Segment("test", "8.0.0"),
-        new AlgoliaAgent.Segment("JVM", "11.0.14"),
-        new AlgoliaAgent.Segment("no version"),
-      }
+      ClientOptions.build()
+        .setAlgoliaAgentSegments(
+          new AlgoliaAgent.Segment[] {
+            new AlgoliaAgent.Segment("test", "8.0.0"),
+            new AlgoliaAgent.Segment("JVM", "11.0.14"),
+            new AlgoliaAgent.Segment("no version"),
+          }
+        )
     );
 
     String indexName = dotenv.get("SEARCH_INDEX");
@@ -32,16 +33,14 @@ public class Search {
 
     try {
       SearchMethodParams searchMethodParams = new SearchMethodParams();
-      List<SearchQueries> requests = new ArrayList<>();
-      SearchQueries request = new SearchQueries();
+      List<SearchQuery> requests = new ArrayList<>();
+      SearchForHits request = new SearchForHits();
       request.setIndexName(indexName);
       request.setQuery(query);
-      requests.add(request);
+      requests.add(SearchQuery.ofSearchForHits(request));
       searchMethodParams.setRequests(requests);
 
-      CompletableFuture<SearchResponses> result = client.searchAsync(
-        searchMethodParams
-      );
+      CompletableFuture<SearchResponses> result = client.searchAsync(searchMethodParams);
 
       SearchResponses sr = result.get();
       System.out.println(sr);
