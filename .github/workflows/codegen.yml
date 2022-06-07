@@ -23,7 +23,7 @@ jobs:
       - name: Add notification comment
         run: yarn workspace scripts upsertGenerationComment notification
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
+          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
           HEAD_BRANCH: ${{ github.head_ref }}
 
@@ -45,7 +45,7 @@ jobs:
       - name: Add cleanup comment
         run: yarn workspace scripts upsertGenerationComment cleanup
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
+          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
 
       - name: Clean previously generated branch

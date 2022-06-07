@@ -311,7 +311,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.TOKEN_GENERATE_BOT }}
+          token: ${{ secrets.ALGOLIA_BOT_TOKEN }}
 
       - name: Download all artifacts
         if: ${{ needs.setup.outputs.RUN_CODEGEN == 'true' }}
@@ -331,11 +331,11 @@ jobs:
         id: pushGeneratedCode
         run: yarn workspace scripts pushGeneratedCode
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
+          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
 
       - name: Spread generation to each repository
         if: ${{ steps.pushGeneratedCode.exitcode == 0 && github.ref == 'refs/heads/main' }}
         run: yarn workspace scripts spreadGeneration
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GENERATE_BOT }}
+          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
