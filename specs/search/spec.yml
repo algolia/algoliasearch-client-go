@@ -129,7 +129,7 @@ paths:
   /1/indexes/{indexName}/synonyms/{objectID}:
     $ref: 'paths/synonyms/synonym.yml'
   /1/indexes/{indexName}/synonyms/batch:
-    $ref: 'paths/synonyms/batchSynonyms.yml'
+    $ref: 'paths/synonyms/saveSynonyms.yml'
   /1/indexes/{indexName}/synonyms/clear:
     $ref: 'paths/synonyms/clearAllSynonyms.yml'
   /1/indexes/{indexName}/synonyms/search:
@@ -151,7 +151,7 @@ paths:
   /1/indexes/{indexName}/rules/{objectID}:
     $ref: 'paths/rules/rule.yml'
   /1/indexes/{indexName}/rules/batch:
-    $ref: 'paths/rules/batchRules.yml'
+    $ref: 'paths/rules/saveRules.yml'
   /1/indexes/{indexName}/rules/clear:
     $ref: 'paths/rules/clearRules.yml'
   /1/indexes/{indexName}/rules/search:

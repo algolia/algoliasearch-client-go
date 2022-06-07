@@ -1,9 +1,9 @@
 post:
   tags:
     - Rules
-  operationId: batchRules
-  summary: Batch Rules.
-  description: Create or update a batch of Rules.
+  operationId: saveRules
+  summary: Save a batch of rules.
+  description: Create/update multiple rules objects at once.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
     - $ref: '../../../common/parameters.yml#/ForwardToReplicas'
