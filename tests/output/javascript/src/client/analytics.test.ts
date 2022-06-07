@@ -29,7 +29,7 @@ describe('api', () => {
     const result = await $client.getAverageClickPosition({ index: 'my-index' });
 
     expect(result).toEqual(
-      expect.objectContaining({ connectTimeout: 2, responseTimeout: 5 })
+      expect.objectContaining({ connectTimeout: 2000, responseTimeout: 5000 })
     );
   });
 });
