@@ -1,4 +1,5 @@
 import type { InitClientOptions } from '@experimental-api-clients-automation/client-common';
+import { DEFAULT_CONNECT_TIMEOUT_BROWSER, DEFAULT_READ_TIMEOUT_BROWSER, DEFAULT_WRITE_TIMEOUT_BROWSER } from '@experimental-api-clients-automation/client-common';
 import { createMemoryCache, createFallbackableCache, createBrowserLocalStorageCache } from '@experimental-api-clients-automation/client-common';
 import { createXhrRequester } from '@experimental-api-clients-automation/requester-browser-xhr';
 
@@ -43,9 +44,9 @@ export function {{apiName}}(
     appId,
     apiKey,{{#hasRegionalHost}}region,{{/hasRegionalHost}}
     timeouts: {
-      connect: 1,
-      read: 2,
-      write: 30,
+      connect: DEFAULT_CONNECT_TIMEOUT_BROWSER,
+      read: DEFAULT_READ_TIMEOUT_BROWSER,
+      write: DEFAULT_WRITE_TIMEOUT_BROWSER,
     },
     requester: createXhrRequester(),
     algoliaAgents: [{ segment: 'Browser' }],
