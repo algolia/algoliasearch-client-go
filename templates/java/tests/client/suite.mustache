@@ -1,0 +1,64 @@
+package com.algolia.client;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import com.algolia.EchoRequester;
+import com.algolia.EchoResponse;
+import com.algolia.api.{{client}};
+import com.algolia.model.{{import}}.*;
+import com.algolia.utils.ClientOptions;
+import java.util.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class {{client}}ClientTests {
+  private EchoRequester requester = new EchoRequester();
+
+  {{client}} createClient() {
+      return new {{client}}("appId", "apiKey", {{#hasRegionalHost}}"{{defaultRegion}}", {{/hasRegionalHost}}ClientOptions.build().setRequester(requester));
+  }
+
+  {{#blocksClient}}
+  {{#tests}}
+  @Test
+  @DisplayName("{{{testName}}}")
+  void {{testType}}Test{{testIndex}}() {
+    {{#autoCreateClient}}
+      {{client}} $client = createClient();
+    {{/autoCreateClient}}
+
+    {{#steps}}
+      {{#isError}}
+       {
+          Exception exception = assertThrows(Exception.class, () -> {
+            {{> client/step}}
+          });
+          assertEquals("{{{expectedError}}}", exception.getMessage());
+        }
+      {{/isError}}
+      {{^isError}}
+        {{> client/step}}
+        {{#match}}
+          {{#testUserAgent}} {
+            String regexp = "{{#lambda.escapeSlash}}{{{match}}}{{/lambda.escapeSlash}}";
+            assertTrue(result.headers.get("user-agent").matches(regexp), "Expected " + result.headers.get("user-agent") + " to match the following regex: " + regexp);
+          }{{/testUserAgent}}
+          {{#testTimeouts}}
+            assertEquals({{{match.parametersWithDataTypeMap.connectTimeout.value}}}, requester.getConnectTimeout());
+            {{#match.parametersWithDataTypeMap.readTimeout}}assertEquals({{{.value}}}, requester.getReadTimeout());{{/match.parametersWithDataTypeMap.readTimeout}}
+            {{#match.parametersWithDataTypeMap.writeTimeout}}assertEquals({{{.value}}}, requester.getWriteTimeout());{{/match.parametersWithDataTypeMap.writeTimeout}}
+          {{/testTimeouts}}
+          {{#testHost}}
+            assertEquals("{{{match}}}", requester.getHosts().get(0).getHost());
+          {{/testHost}}        
+        {{/match}}
+      {{/isError}}
+    {{/steps}}
+  }
+  {{/tests}}
+  {{/blocksClient}}
+}

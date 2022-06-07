@@ -13,37 +13,38 @@ function createClient(): {{#lambda.titlecase}}{{client}}{{/lambda.titlecase}} {
 
 {{#blocksClient}}
 describe('{{testType}}', () => {
-    {{#tests}}
-    test('{{{testName}}}', async () => {
-        {{#autoCreateClient}}
-            const $client = createClient();
-        {{/autoCreateClient}}
+  {{#tests}}
+  test('{{{testName}}}', async () => {
+    {{#autoCreateClient}}
+      const $client = createClient();
+    {{/autoCreateClient}}
 
-        {{#steps}}
-            {{#isError}}
-              try {
-                {{> client/step}}
-                throw new Error('test is expected to throw error');
-              } catch(e) {
-                expect(e.message).toMatch("{{{expectedError}}}");
-              }
-            {{/isError}}
-            {{^isError}} 
-                 {{> client/step}}
-                {{#match}}
-                  {{#objectContaining}}
-                    expect({{> client/testSubject}}).toEqual(expect.objectContaining({{{objectContaining.parameters}}}));
-                  {{/objectContaining}}
+    {{#steps}}
+      {{#isError}}
+        try {
+          {{> client/step}}
+          throw new Error('test is expected to throw error');
+        } catch(e) {
+          expect(e.message).toMatch("{{{expectedError}}}");
+        }
+      {{/isError}}
+      {{^isError}} 
+        {{> client/step}}
 
-                  {{#regexp}}
-                    expect({{> client/testSubject}}).toMatch({{{regexp}}});
-                  {{/regexp}}
-                {{/match}}
-            {{/isError}}
-        {{/steps}}
-    });
+        {{#testUserAgent}}
+          expect(decodeURI(result.algoliaAgent)).toMatch(/{{{match}}}/);
+        {{/testUserAgent}}
+        {{#testTimeouts}}
+          expect(result).toEqual(expect.objectContaining({{{match.parameters}}}));
+        {{/testTimeouts}}
+        {{#testHost}}
+          expect(result.host).toEqual("{{{match}}}");
+        {{/testHost}}
+      {{/isError}}
+    {{/steps}}
+  });
 
-    {{/tests}}
+  {{/tests}}
 })
 
 {{/blocksClient}}

@@ -31,6 +31,8 @@ import java.util.concurrent.CompletableFuture;
 {{#operations}}
 public class {{classname}} extends ApiClient {
     {{#hasRegionalHost}}
+    private static final String[] allowedRegions = { {{#allowedRegions}}"{{.}}"{{^-last}},{{/-last}}{{/allowedRegions}} };
+
     {{#fallbackToAliasHost}}
     public {{classname}}(String appId, String apiKey) {
         this(appId, apiKey, null, null);
@@ -51,6 +53,9 @@ public class {{classname}} extends ApiClient {
       } else {
         this.setHosts(options.getHosts());
       }
+      this.setConnectTimeout(2000);
+      this.setReadTimeout(5000);
+      this.setWriteTimeout(30000);
     }
     
     {{/hasRegionalHost}}
@@ -66,6 +71,9 @@ public class {{classname}} extends ApiClient {
       } else {
         this.setHosts(options.getHosts());
       }
+      this.setConnectTimeout(2000);
+      this.setReadTimeout(5000);
+      this.setWriteTimeout(30000);
     }
     {{/hasRegionalHost}}
 
@@ -87,8 +95,35 @@ public class {{classname}} extends ApiClient {
     {{/hasRegionalHost}}
 
     {{#hasRegionalHost}}
-    private static List<StatefulHost> getDefaultHosts(String region) {
+    private static List<StatefulHost> getDefaultHosts(String region) throws AlgoliaRuntimeException {
       List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+      {{^fallbackToAliasHost}}
+      boolean found = false;
+      if (region == null) {
+        throw new AlgoliaRuntimeException("`region` is missing");
+      }
+      for (String allowed : allowedRegions) {
+        if (allowed.equals(region)) {
+          found = true;
+          break;
+        }
+      }
+      {{/fallbackToAliasHost}}
+      {{#fallbackToAliasHost}}
+      boolean found = region == null;
+      if (region != null) {
+        for (String allowed : allowedRegions) {
+          if (allowed.equals(region)) {
+            found = true;
+            break;
+          }
+        }
+      }
+      {{/fallbackToAliasHost}}
+      if (!found) {
+        throw new AlgoliaRuntimeException("`region` must be one of the following: {{#allowedRegions}}{{.}}{{^-last}}, {{/-last}}{{/allowedRegions}}");
+      }
 
       String url = {{#fallbackToAliasHost}}region == null ? "{{{hostWithFallback}}}" : {{/fallbackToAliasHost}} "{{{host}}}".replace("{region}", region);
 
@@ -159,7 +194,7 @@ public class {{classname}} extends ApiClient {
   public CompletableFuture<{{{returnType}}}> {{operationId}}Async({{#allParams}}{{{dataType}}} {{paramName}}, {{/allParams}}RequestOptions requestOptions) throws AlgoliaRuntimeException {
     {{#allParams}}{{#required}}
     if ({{paramName}} == null) {
-        throw new AlgoliaRuntimeException("Missing the required parameter '{{paramName}}' when calling {{operationId}}(Async)");
+        throw new AlgoliaRuntimeException("Parameter `{{paramName}}` is required when calling `{{operationId}}`.");
     }
     {{/required}}{{/allParams}}
 

@@ -71,7 +71,8 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
   protected Builder<String, Lambda> addMustacheLambdas() {
     Builder<String, Lambda> lambdas = super.addMustacheLambdas();
 
-    lambdas.put("escapequotes", new EscapeQuotesLambda());
+    lambdas.put("escapeQuotes", new EscapeQuotesLambda());
+    lambdas.put("escapeSlash", new EscapeSlashLambda());
     return lambdas;
   }
 

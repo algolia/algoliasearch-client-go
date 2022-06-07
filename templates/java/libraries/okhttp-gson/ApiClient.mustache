@@ -34,6 +34,13 @@ public abstract class ApiClient {
      * Constructor for ApiClient with custom Requester
      */
     public ApiClient(String appId, String apiKey, String clientName, ClientOptions options) {
+      if (appId == null || appId.length() == 0) {
+        throw new AlgoliaRuntimeException("`appId` is missing.");
+      }
+      if (apiKey == null || apiKey.length() == 0) {
+        throw new AlgoliaRuntimeException("`apiKey` is missing.");
+      }
+
       this.contentType = "application/json";
 
       AlgoliaAgent ua = new AlgoliaAgent("{{packageVersion}}");
@@ -53,7 +60,7 @@ public abstract class ApiClient {
       this.requester = options.getRequester();
       if(this.requester == null) {
         this.requester = new HttpRequester();
-      }   
+      }
     }
 
     /**

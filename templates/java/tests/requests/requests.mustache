@@ -61,12 +61,12 @@ class {{client}}RequestsTests {
 
         {{#request.body}}
         assertDoesNotThrow(() -> {
-            JSONAssert.assertEquals("{{#lambda.escapequotes}}{{{request.body}}}{{/lambda.escapequotes}}", req.body, JSONCompareMode.STRICT_ORDER);
+            JSONAssert.assertEquals("{{#lambda.escapeQuotes}}{{{request.body}}}{{/lambda.escapeQuotes}}", req.body, JSONCompareMode.STRICT_ORDER);
         });
         {{/request.body}}
 
         {{#request.queryParameters}}
-        Map<String, String> expectedQuery = JSON.deserialize("{{#lambda.escapequotes}}{{{request.queryParameters}}}{{/lambda.escapequotes}}", new TypeToken<HashMap<String, String>>() {}.getType());
+        Map<String, String> expectedQuery = JSON.deserialize("{{#lambda.escapeQuotes}}{{{request.queryParameters}}}{{/lambda.escapeQuotes}}", new TypeToken<HashMap<String, String>>() {}.getType());
         Map<String, Object> actualQuery = req.queryParameters;
 
         assertEquals(expectedQuery.size(), actualQuery.size());
@@ -76,7 +76,7 @@ class {{client}}RequestsTests {
         {{/request.queryParameters}}
 
         {{#request.headers}}
-        Map<String, String> expectedHeaders = JSON.deserialize("{{#lambda.escapequotes}}{{{request.headers}}}{{/lambda.escapequotes}}", new TypeToken<HashMap<String, String>>() {}.getType());
+        Map<String, String> expectedHeaders = JSON.deserialize("{{#lambda.escapeQuotes}}{{{request.headers}}}{{/lambda.escapeQuotes}}", new TypeToken<HashMap<String, String>>() {}.getType());
         Map<String, String> actualHeaders = req.headers;
 
         for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {

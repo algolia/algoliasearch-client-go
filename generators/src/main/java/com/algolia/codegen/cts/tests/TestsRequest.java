@@ -2,50 +2,26 @@ package com.algolia.codegen.cts.tests;
 
 import com.algolia.codegen.Utils;
 import com.algolia.codegen.exceptions.CTSException;
-import io.swagger.v3.core.util.Json;
 import java.io.File;
 import java.util.*;
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.SupportingFile;
 
-public class TestsRequest implements TestsGenerator {
-
-  private final String language, client;
+public class TestsRequest extends TestsGenerator {
 
   public TestsRequest(String language, String client) {
-    this.language = language;
-    this.client = client;
+    super(language, client);
   }
 
-  private Map<String, Request[]> loadCTS() throws Exception {
-    Map<String, Request[]> cts = new TreeMap<>();
+  protected Map<String, Request[]> loadRequestCTS() throws Exception {
     String clientName = client;
     // This special case allow us to read the `search` CTS to generated the tests for the
     // `algoliasearch-lite` client, which is only available in JavaScript
     if (language.equals("javascript") && client.equals("algoliasearch-lite")) {
       clientName = "search";
     }
-
-    if (!available()) {
-      throw new CTSException("Templates not found for requests test", true);
-    }
-
-    File dir = new File("tests/CTS/methods/requests/" + clientName);
-    File commonTestDir = new File("tests/CTS/methods/requests/common");
-    if (!dir.exists()) {
-      throw new CTSException("CTS not found at " + dir.getAbsolutePath(), true);
-    }
-    if (!commonTestDir.exists()) {
-      throw new CTSException("CTS not found at " + commonTestDir.getAbsolutePath(), true);
-    }
-    for (File f : dir.listFiles()) {
-      cts.put(f.getName().replace(".json", ""), Json.mapper().readValue(f, Request[].class));
-    }
-    for (File f : commonTestDir.listFiles()) {
-      cts.put(f.getName().replace(".json", ""), Json.mapper().readValue(f, Request[].class));
-    }
-    return cts;
+    return super.loadCTS("methods/requests", clientName, Request[].class);
   }
 
   @Override
@@ -65,7 +41,7 @@ public class TestsRequest implements TestsGenerator {
 
   @Override
   public void run(Map<String, CodegenModel> models, Map<String, CodegenOperation> operations, Map<String, Object> bundle) throws Exception {
-    Map<String, Request[]> cts = loadCTS();
+    Map<String, Request[]> cts = loadRequestCTS();
 
     List<Object> blocks = new ArrayList<>();
     ParametersWithDataType paramsType = new ParametersWithDataType(models, language);

@@ -1,60 +1,26 @@
 [
   {
-    "testName": "calls api with correct host",
+    "testName": "calls api with correct read host",
+    "autoCreateClient": false,
     "steps": [
+      {
+        "type": "createClient",
+        "parameters": {
+          "appId": "test-app-id",
+          "apiKey": "test-api-key"
+        },
+        "expected": {}
+      },
       {
         "type": "method",
         "object": "$client",
-        "path": "getRecommendations",
+        "path": "get",
         "parameters": {
-          "requests": []
+          "path": "/test"
         },
         "expected": {
-          "match": {
-            "objectContaining": {
-              "host": "test-app-id-dsn.algolia.net"
-            }
-          }
-        }
-      }
-    ]
-  },
-  {
-    "testName": "calls api with correct user agent",
-    "steps": [
-      {
-        "type": "method",
-        "object": "$client",
-        "path": "getRecommendations",
-        "parameters": {
-          "requests": []
-        },
-        "expected": {
-          "testSubject": "userAgent",
-          "match": {
-            "regexp": "/Algolia%20for%20(.+)%20\\(\\d+\\.\\d+\\.\\d+\\)/"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "testName": "calls api with correct timeouts",
-    "steps": [
-      {
-        "type": "method",
-        "object": "$client",
-        "path": "getRecommendations",
-        "parameters": {
-          "requests": []
-        },
-        "expected": {
-          "match": {
-            "objectContaining": {
-              "connectTimeout": 2000,
-              "responseTimeout": 5000
-            }
-          }
+          "type": "host",
+          "match": "test-app-id-dsn.algolia.net"
         }
       }
     ]

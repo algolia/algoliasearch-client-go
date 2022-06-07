@@ -115,13 +115,13 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
                 "path" => "{{{request.path}}}",
                 "method" => "{{{request.method}}}",
                 {{#request.body}}
-                "body" => json_decode("{{#lambda.escapequotes}}{{{request.body}}}{{/lambda.escapequotes}}"),
+                "body" => json_decode("{{#lambda.escapeQuotes}}{{{request.body}}}{{/lambda.escapeQuotes}}"),
                 {{/request.body}}
                 {{#request.queryParameters}}
-                "queryParameters" => json_decode("{{#lambda.escapequotes}}{{{request.queryParameters}}}{{/lambda.escapequotes}}", true),
+                "queryParameters" => json_decode("{{#lambda.escapeQuotes}}{{{request.queryParameters}}}{{/lambda.escapeQuotes}}", true),
                 {{/request.queryParameters}}
                 {{#request.headers}}
-                "headers" => json_decode("{{#lambda.escapequotes}}{{{request.headers}}}{{/lambda.escapequotes}}", true),
+                "headers" => json_decode("{{#lambda.escapeQuotes}}{{{request.headers}}}{{/lambda.escapeQuotes}}", true),
                 {{/request.headers}}
             ],
         ]);

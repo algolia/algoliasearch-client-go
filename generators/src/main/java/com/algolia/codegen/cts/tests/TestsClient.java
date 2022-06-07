@@ -2,7 +2,6 @@ package com.algolia.codegen.cts.tests;
 
 import com.algolia.codegen.Utils;
 import com.algolia.codegen.exceptions.CTSException;
-import io.swagger.v3.core.util.Json;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,29 +11,10 @@ import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.SupportingFile;
 
-public class TestsClient implements TestsGenerator {
-
-  private final String language, client;
+public class TestsClient extends TestsGenerator {
 
   public TestsClient(String language, String client) {
-    this.language = language;
-    this.client = client;
-  }
-
-  private Map<String, ClientTestData[]> loadCTS() throws Exception {
-    if (!available()) {
-      throw new CTSException("Templates not found for client test", true);
-    }
-
-    File dir = new File("tests/CTS/client/" + client);
-    if (!dir.exists()) {
-      throw new CTSException("CTS not found at " + dir.getAbsolutePath(), true);
-    }
-    Map<String, ClientTestData[]> cts = new HashMap<>();
-    for (File f : dir.listFiles()) {
-      cts.put(f.getName().replace(".json", ""), Json.mapper().readValue(f, ClientTestData[].class));
-    }
-    return cts;
+    super(language, client);
   }
 
   @Override
@@ -58,7 +38,7 @@ public class TestsClient implements TestsGenerator {
   }
 
   public void run(Map<String, CodegenModel> models, Map<String, CodegenOperation> operations, Map<String, Object> bundle) throws Exception {
-    Map<String, ClientTestData[]> cts = loadCTS();
+    Map<String, ClientTestData[]> cts = loadCTS("client", client, ClientTestData[].class);
     ParametersWithDataType paramsType = new ParametersWithDataType(models, language);
 
     List<Object> blocks = new ArrayList<>();
@@ -92,29 +72,33 @@ public class TestsClient implements TestsGenerator {
           stepOut.put("path", step.path);
           paramsType.enhanceParameters(step.parameters, stepOut, ope);
 
-          if (step.expected.testSubject == null) {
-            stepOut.put("testSubject", "result");
-          } else {
-            switch (step.expected.testSubject) {
+          if (step.expected.type != null) {
+            switch (step.expected.type) {
               case "userAgent":
                 stepOut.put("testUserAgent", true);
                 break;
+              case "host":
+                stepOut.put("testHost", true);
+                break;
+              case "timeouts":
+                stepOut.put("testTimeouts", true);
+                break;
               default:
-                stepOut.put("testSubject", step.expected.testSubject);
+                stepOut.put("testResult", true);
+                break;
             }
           }
           if (step.expected.error != null) {
             stepOut.put("isError", true);
             stepOut.put("expectedError", step.expected.error);
           } else if (step.expected.match != null) {
-            Map<String, Object> match = new HashMap<>();
-            match.put("regexp", step.expected.match.regexp);
-            if (step.expected.match.objectContaining != null) {
-              Map<String, Object> objectContaining = new HashMap<>();
-              paramsType.enhanceParameters(step.expected.match.objectContaining, objectContaining);
-              match.put("objectContaining", objectContaining);
+            if (step.expected.match instanceof Map) {
+              Map<String, Object> match = new HashMap<>();
+              paramsType.enhanceParameters((Map<String, Object>) step.expected.match, match);
+              stepOut.put("match", match);
+            } else {
+              stepOut.put("match", step.expected.match);
             }
-            stepOut.put("match", match);
           }
           steps.add(stepOut);
         }

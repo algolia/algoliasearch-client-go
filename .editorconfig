@@ -6,3 +6,6 @@ indent_size = 2
 
 [*.{mustache,ts,yml}]
 charset = utf-8
+
+[*.mustache]
+insert_final_newline = false

@@ -21,13 +21,7 @@ class Step {
 
 class Expected {
 
+  public String type;
   public Object error;
-  public Match match;
-  public String testSubject;
-}
-
-class Match {
-
-  public String regexp;
-  public Map<String, Object> objectContaining;
+  public Object match;
 }

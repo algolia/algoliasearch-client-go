@@ -19,11 +19,8 @@
           "events": []
         },
         "expected": {
-          "match": {
-            "objectContaining": {
-              "host": "insights.algolia.io"
-            }
-          }
+          "type": "host",
+          "match": "insights.algolia.io"
         }
       }
     ]

@@ -5,80 +5,13 @@
       {
         "type": "method",
         "object": "$client",
-        "path": "postIngestUrl",
+        "path": "post",
         "parameters": {
-          "type": "csv",
-          "input": {
-            "url": "https://example.com/file.csv"
-          },
-          "target": {
-            "type": "search",
-            "indexName": "pageviews",
-            "operation": "replace"
-          }
+          "path": "/test"
         },
         "expected": {
-          "match": {
-            "objectContaining": {
-              "host": "data.us.algolia.com"
-            }
-          }
-        }
-      }
-    ]
-  },
-  {
-    "testName": "calls api with correct user agent",
-    "steps": [
-      {
-        "type": "method",
-        "object": "$client",
-        "path": "postIngestUrl",
-        "parameters": {
-          "type": "csv",
-          "input": {
-            "url": "https://example.com/file.csv"
-          },
-          "target": {
-            "type": "search",
-            "indexName": "pageviews",
-            "operation": "replace"
-          }
-        },
-        "expected": {
-          "testSubject": "userAgent",
-          "match": {
-            "regexp": "/Algolia%20for%20(.+)%20\\(\\d+\\.\\d+\\.\\d+\\)/"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "testName": "calls api with correct timeouts",
-    "steps": [
-      {
-        "type": "method",
-        "object": "$client",
-        "path": "postIngestUrl",
-        "parameters": {
-          "type": "csv",
-          "input": {
-            "url": "https://example.com/file.csv"
-          },
-          "target": {
-            "type": "search",
-            "indexName": "pageviews",
-            "operation": "replace"
-          }
-        },
-        "expected": {
-          "match": {
-            "objectContaining": {
-              "connectTimeout": 2000,
-              "responseTimeout": 30000
-            }
-          }
+          "type": "host",
+          "match": "data.us.algolia.com"
         }
       }
     ]

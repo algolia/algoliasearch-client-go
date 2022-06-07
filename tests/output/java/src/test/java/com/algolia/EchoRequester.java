@@ -78,6 +78,10 @@ public class EchoRequester implements Requester {
     this.writeTimeout = writeTimeout;
   }
 
+  public List<StatefulHost> getHosts() {
+    return this.hosts;
+  }
+
   @Override
   public void setHosts(List<StatefulHost> hosts) {
     this.hosts = hosts;

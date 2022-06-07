@@ -16,14 +16,11 @@
         "object": "$client",
         "path": "getABTest",
         "parameters": {
-          "id": "test"
+          "id": 123
         },
         "expected": {
-          "match": {
-            "objectContaining": {
-              "host": "analytics.algolia.com"
-            }
-          }
+          "type": "host",
+          "match": "analytics.algolia.com"
         }
       }
     ]

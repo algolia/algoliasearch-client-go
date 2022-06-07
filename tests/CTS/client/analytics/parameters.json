@@ -19,11 +19,8 @@
           "index": "my-index"
         },
         "expected": {
-          "match": {
-            "objectContaining": {
-              "host": "analytics.algolia.com"
-            }
-          }
+          "type": "host",
+          "match": "analytics.algolia.com"
         }
       }
     ]
@@ -35,7 +32,9 @@
         "type": "method",
         "object": "$client",
         "path": "getClickPositions",
-        "parameters": {},
+        "parameters": {
+          "index": null
+        },
         "expected": {
           "error": "Parameter `index` is required when calling `getClickPositions`."
         }
