@@ -3267,9 +3267,9 @@ paths:
     post:
       tags:
         - search
-      operationId: batchRules
-      summary: Batch Rules.
-      description: Create or update a batch of Rules.
+      operationId: saveRules
+      summary: Save a batch of rules.
+      description: Create/update multiple rules objects at once.
       parameters:
         - $ref: '#/components/parameters/IndexName'
         - $ref: '#/components/parameters/ForwardToReplicas'

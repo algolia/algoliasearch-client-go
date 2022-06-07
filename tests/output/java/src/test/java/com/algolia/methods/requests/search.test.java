@@ -392,100 +392,6 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("batchRules")
-  void batchRulesTest0() {
-    String indexName0 = "indexName";
-    List<Rule> rule0 = new ArrayList<>();
-    {
-      Rule rule_01 = new Rule();
-      {
-        String objectID2 = "a-rule-id";
-        rule_01.setObjectID(objectID2);
-        List<Condition> conditions2 = new ArrayList<>();
-        {
-          Condition conditions_03 = new Condition();
-          {
-            String pattern4 = "smartphone";
-            conditions_03.setPattern(pattern4);
-            Anchoring anchoring4 = Anchoring.fromValue("contains");
-            conditions_03.setAnchoring(anchoring4);
-          }
-          conditions2.add(conditions_03);
-        }
-        rule_01.setConditions(conditions2);
-        Consequence consequence2 = new Consequence();
-        {
-          ConsequenceParams params3 = new ConsequenceParams();
-          {
-            String filters4 = "category:smartphone";
-            params3.setFilters(filters4);
-          }
-          consequence2.setParams(params3);
-        }
-        rule_01.setConsequence(consequence2);
-      }
-      rule0.add(rule_01);
-      Rule rule_11 = new Rule();
-      {
-        String objectID2 = "a-second-rule-id";
-        rule_11.setObjectID(objectID2);
-        List<Condition> conditions2 = new ArrayList<>();
-        {
-          Condition conditions_03 = new Condition();
-          {
-            String pattern4 = "apple";
-            conditions_03.setPattern(pattern4);
-            Anchoring anchoring4 = Anchoring.fromValue("contains");
-            conditions_03.setAnchoring(anchoring4);
-          }
-          conditions2.add(conditions_03);
-        }
-        rule_11.setConditions(conditions2);
-        Consequence consequence2 = new Consequence();
-        {
-          ConsequenceParams params3 = new ConsequenceParams();
-          {
-            String filters4 = "brand:apple";
-            params3.setFilters(filters4);
-          }
-          consequence2.setParams(params3);
-        }
-        rule_11.setConsequence(consequence2);
-      }
-      rule0.add(rule_11);
-    }
-    boolean forwardToReplicas0 = true;
-    boolean clearExistingRules0 = true;
-
-    assertDoesNotThrow(() -> {
-      client.batchRules(indexName0, rule0, forwardToReplicas0, clearExistingRules0);
-    });
-    EchoResponse req = requester.getLastEchoResponse();
-
-    assertEquals(req.path, "/1/indexes/indexName/rules/batch");
-    assertEquals(req.method, "POST");
-
-    assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
-    });
-
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
-
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
-    }
-  }
-
-  @Test
   @DisplayName("get browse results with minimal parameters")
   void browseTest0() {
     String indexName0 = "indexName";
@@ -1869,6 +1775,100 @@ class SearchClientRequestsTests {
 
     Map<String, String> expectedQuery = JSON.deserialize(
       "{\"forwardToReplicas\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("saveRules")
+  void saveRulesTest0() {
+    String indexName0 = "indexName";
+    List<Rule> rule0 = new ArrayList<>();
+    {
+      Rule rule_01 = new Rule();
+      {
+        String objectID2 = "a-rule-id";
+        rule_01.setObjectID(objectID2);
+        List<Condition> conditions2 = new ArrayList<>();
+        {
+          Condition conditions_03 = new Condition();
+          {
+            String pattern4 = "smartphone";
+            conditions_03.setPattern(pattern4);
+            Anchoring anchoring4 = Anchoring.fromValue("contains");
+            conditions_03.setAnchoring(anchoring4);
+          }
+          conditions2.add(conditions_03);
+        }
+        rule_01.setConditions(conditions2);
+        Consequence consequence2 = new Consequence();
+        {
+          ConsequenceParams params3 = new ConsequenceParams();
+          {
+            String filters4 = "category:smartphone";
+            params3.setFilters(filters4);
+          }
+          consequence2.setParams(params3);
+        }
+        rule_01.setConsequence(consequence2);
+      }
+      rule0.add(rule_01);
+      Rule rule_11 = new Rule();
+      {
+        String objectID2 = "a-second-rule-id";
+        rule_11.setObjectID(objectID2);
+        List<Condition> conditions2 = new ArrayList<>();
+        {
+          Condition conditions_03 = new Condition();
+          {
+            String pattern4 = "apple";
+            conditions_03.setPattern(pattern4);
+            Anchoring anchoring4 = Anchoring.fromValue("contains");
+            conditions_03.setAnchoring(anchoring4);
+          }
+          conditions2.add(conditions_03);
+        }
+        rule_11.setConditions(conditions2);
+        Consequence consequence2 = new Consequence();
+        {
+          ConsequenceParams params3 = new ConsequenceParams();
+          {
+            String filters4 = "brand:apple";
+            params3.setFilters(filters4);
+          }
+          consequence2.setParams(params3);
+        }
+        rule_11.setConsequence(consequence2);
+      }
+      rule0.add(rule_11);
+    }
+    boolean forwardToReplicas0 = true;
+    boolean clearExistingRules0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.saveRules(indexName0, rule0, forwardToReplicas0, clearExistingRules0);
+    });
+    EchoResponse req = requester.getLastEchoResponse();
+
+    assertEquals(req.path, "/1/indexes/indexName/rules/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
       new TypeToken<HashMap<String, String>>() {}.getType()
     );
     Map<String, Object> actualQuery = req.queryParameters;

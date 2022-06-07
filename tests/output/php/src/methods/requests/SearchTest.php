@@ -333,53 +333,6 @@ class SearchTest extends TestCase implements HttpClientInterface
     }
 
     /**
-     * Test case for BatchRules
-     * batchRules
-     */
-    public function testBatchRules0()
-    {
-        $client = $this->getClient();
-        $client->batchRules(
-            'indexName',
-            [
-                [
-                    'objectID' => 'a-rule-id',
-                    'conditions' => [
-                        ['pattern' => 'smartphone', 'anchoring' => 'contains'],
-                    ],
-                    'consequence' => [
-                        'params' => ['filters' => 'category:smartphone'],
-                    ],
-                ],
-
-                [
-                    'objectID' => 'a-second-rule-id',
-                    'conditions' => [
-                        ['pattern' => 'apple', 'anchoring' => 'contains'],
-                    ],
-                    'consequence' => ['params' => ['filters' => 'brand:apple']],
-                ],
-            ],
-            true,
-            true
-        );
-
-        $this->assertRequests([
-            [
-                'path' => '/1/indexes/indexName/rules/batch',
-                'method' => 'POST',
-                'body' => json_decode(
-                    "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]"
-                ),
-                'queryParameters' => json_decode(
-                    "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
-                    true
-                ),
-            ],
-        ]);
-    }
-
-    /**
      * Test case for Browse
      * get browse results with minimal parameters
      */
@@ -1625,6 +1578,53 @@ class SearchTest extends TestCase implements HttpClientInterface
                 ),
                 'queryParameters' => json_decode(
                     "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SaveRules
+     * saveRules
+     */
+    public function testSaveRules0()
+    {
+        $client = $this->getClient();
+        $client->saveRules(
+            'indexName',
+            [
+                [
+                    'objectID' => 'a-rule-id',
+                    'conditions' => [
+                        ['pattern' => 'smartphone', 'anchoring' => 'contains'],
+                    ],
+                    'consequence' => [
+                        'params' => ['filters' => 'category:smartphone'],
+                    ],
+                ],
+
+                [
+                    'objectID' => 'a-second-rule-id',
+                    'conditions' => [
+                        ['pattern' => 'apple', 'anchoring' => 'contains'],
+                    ],
+                    'consequence' => ['params' => ['filters' => 'brand:apple']],
+                ],
+            ],
+            true,
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/indexName/rules/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]"
+                ),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
                     true
                 ),
             ],

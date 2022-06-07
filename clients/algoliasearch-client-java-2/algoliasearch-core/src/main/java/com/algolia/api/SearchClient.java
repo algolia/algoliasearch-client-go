@@ -505,113 +505,6 @@ public class SearchClient extends ApiClient {
   }
 
   /**
-   * Create or update a batch of Rules.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
-   *     false, existing Rules are kept. (optional)
-   * @param requestOptions The requestOptions to send along with the query, they will be merged with
-   *     the transporter requestOptions.
-   * @return UpdatedAtResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
-   */
-  public UpdatedAtResponse batchRules(
-    String indexName,
-    List<Rule> rule,
-    Boolean forwardToReplicas,
-    Boolean clearExistingRules,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(batchRulesAsync(indexName, rule, forwardToReplicas, clearExistingRules, requestOptions));
-  }
-
-  public UpdatedAtResponse batchRules(String indexName, List<Rule> rule, Boolean forwardToReplicas, Boolean clearExistingRules)
-    throws AlgoliaRuntimeException {
-    return this.batchRules(indexName, rule, forwardToReplicas, clearExistingRules, null);
-  }
-
-  public UpdatedAtResponse batchRules(String indexName, List<Rule> rule, RequestOptions requestOptions) throws AlgoliaRuntimeException {
-    return this.batchRules(indexName, rule, null, null, requestOptions);
-  }
-
-  public UpdatedAtResponse batchRules(String indexName, List<Rule> rule) throws AlgoliaRuntimeException {
-    return this.batchRules(indexName, rule, null, null, null);
-  }
-
-  /**
-   * (asynchronously) Create or update a batch of Rules.
-   *
-   * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
-   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
-   *     indexName. (optional)
-   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
-   *     false, existing Rules are kept. (optional)
-   * @param requestOptions The requestOptions to send along with the query, they will be merged with
-   *     the transporter requestOptions.
-   * @return The awaitable future
-   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
-   *     body object
-   */
-  public CompletableFuture<UpdatedAtResponse> batchRulesAsync(
-    String indexName,
-    List<Rule> rule,
-    Boolean forwardToReplicas,
-    Boolean clearExistingRules,
-    RequestOptions requestOptions
-  ) throws AlgoliaRuntimeException {
-    if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling batchRules(Async)");
-    }
-
-    if (rule == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'rule' when calling batchRules(Async)");
-    }
-
-    Object bodyObj = rule;
-
-    // create path and map variables
-    String requestPath = "/1/indexes/{indexName}/rules/batch".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
-
-    Map<String, Object> queryParameters = new HashMap<String, Object>();
-    Map<String, String> headers = new HashMap<String, String>();
-
-    if (forwardToReplicas != null) {
-      queryParameters.put("forwardToReplicas", parameterToString(forwardToReplicas));
-    }
-
-    if (clearExistingRules != null) {
-      queryParameters.put("clearExistingRules", parameterToString(clearExistingRules));
-    }
-
-    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
-  }
-
-  public CompletableFuture<UpdatedAtResponse> batchRulesAsync(
-    String indexName,
-    List<Rule> rule,
-    Boolean forwardToReplicas,
-    Boolean clearExistingRules
-  ) throws AlgoliaRuntimeException {
-    return this.batchRulesAsync(indexName, rule, forwardToReplicas, clearExistingRules, null);
-  }
-
-  public CompletableFuture<UpdatedAtResponse> batchRulesAsync(String indexName, List<Rule> rule, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
-    return this.batchRulesAsync(indexName, rule, null, null, requestOptions);
-  }
-
-  public CompletableFuture<UpdatedAtResponse> batchRulesAsync(String indexName, List<Rule> rule) throws AlgoliaRuntimeException {
-    return this.batchRulesAsync(indexName, rule, null, null, null);
-  }
-
-  /**
    * This method allows you to retrieve all index content. It can retrieve up to 1,000 records per
    * call and supports full text search and filters. For performance reasons, some features are not
    * supported, including `distinct`, sorting by `typos`, `words` or `geo distance`. When there is
@@ -3317,6 +3210,113 @@ public class SearchClient extends ApiClient {
 
   public CompletableFuture<UpdatedRuleResponse> saveRuleAsync(String indexName, String objectID, Rule rule) throws AlgoliaRuntimeException {
     return this.saveRuleAsync(indexName, objectID, rule, null, null);
+  }
+
+  /**
+   * Create/update multiple rules objects at once.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param rule (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
+   *     false, existing Rules are kept. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return UpdatedAtResponse
+   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
+   *     deserialize the response body
+   */
+  public UpdatedAtResponse saveRules(
+    String indexName,
+    List<Rule> rule,
+    Boolean forwardToReplicas,
+    Boolean clearExistingRules,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(saveRulesAsync(indexName, rule, forwardToReplicas, clearExistingRules, requestOptions));
+  }
+
+  public UpdatedAtResponse saveRules(String indexName, List<Rule> rule, Boolean forwardToReplicas, Boolean clearExistingRules)
+    throws AlgoliaRuntimeException {
+    return this.saveRules(indexName, rule, forwardToReplicas, clearExistingRules, null);
+  }
+
+  public UpdatedAtResponse saveRules(String indexName, List<Rule> rule, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.saveRules(indexName, rule, null, null, requestOptions);
+  }
+
+  public UpdatedAtResponse saveRules(String indexName, List<Rule> rule) throws AlgoliaRuntimeException {
+    return this.saveRules(indexName, rule, null, null, null);
+  }
+
+  /**
+   * (asynchronously) Create/update multiple rules objects at once.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param rule (required)
+   * @param forwardToReplicas When true, changes are also propagated to replicas of the given
+   *     indexName. (optional)
+   * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
+   *     false, existing Rules are kept. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return The awaitable future
+   * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request
+   *     body object
+   */
+  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(
+    String indexName,
+    List<Rule> rule,
+    Boolean forwardToReplicas,
+    Boolean clearExistingRules,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (indexName == null) {
+      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling saveRules(Async)");
+    }
+
+    if (rule == null) {
+      throw new AlgoliaRuntimeException("Missing the required parameter 'rule' when calling saveRules(Async)");
+    }
+
+    Object bodyObj = rule;
+
+    // create path and map variables
+    String requestPath = "/1/indexes/{indexName}/rules/batch".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    if (forwardToReplicas != null) {
+      queryParameters.put("forwardToReplicas", parameterToString(forwardToReplicas));
+    }
+
+    if (clearExistingRules != null) {
+      queryParameters.put("clearExistingRules", parameterToString(clearExistingRules));
+    }
+
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
+    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
+    return this.executeAsync(call, returnType);
+  }
+
+  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(
+    String indexName,
+    List<Rule> rule,
+    Boolean forwardToReplicas,
+    Boolean clearExistingRules
+  ) throws AlgoliaRuntimeException {
+    return this.saveRulesAsync(indexName, rule, forwardToReplicas, clearExistingRules, null);
+  }
+
+  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(String indexName, List<Rule> rule, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.saveRulesAsync(indexName, rule, null, null, requestOptions);
+  }
+
+  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(String indexName, List<Rule> rule) throws AlgoliaRuntimeException {
+    return this.saveRulesAsync(indexName, rule, null, null, null);
   }
 
   /**

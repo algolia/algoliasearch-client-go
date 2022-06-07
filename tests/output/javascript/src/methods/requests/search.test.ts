@@ -211,47 +211,6 @@ describe('batchDictionaryEntries', () => {
   });
 });
 
-describe('batchRules', () => {
-  test('batchRules', async () => {
-    const req = (await client.batchRules({
-      indexName: 'indexName',
-      rule: [
-        {
-          objectID: 'a-rule-id',
-          conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
-          consequence: { params: { filters: 'category:smartphone' } },
-        },
-        {
-          objectID: 'a-second-rule-id',
-          conditions: [{ pattern: 'apple', anchoring: 'contains' }],
-          consequence: { params: { filters: 'brand:apple' } },
-        },
-      ],
-      forwardToReplicas: true,
-      clearExistingRules: true,
-    })) as unknown as EchoResponse;
-
-    expect(req.path).toEqual('/1/indexes/indexName/rules/batch');
-    expect(req.method).toEqual('POST');
-    expect(req.data).toEqual([
-      {
-        objectID: 'a-rule-id',
-        conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
-        consequence: { params: { filters: 'category:smartphone' } },
-      },
-      {
-        objectID: 'a-second-rule-id',
-        conditions: [{ pattern: 'apple', anchoring: 'contains' }],
-        consequence: { params: { filters: 'brand:apple' } },
-      },
-    ]);
-    expect(req.searchParams).toStrictEqual({
-      forwardToReplicas: 'true',
-      clearExistingRules: 'true',
-    });
-  });
-});
-
 describe('browse', () => {
   test('get browse results with minimal parameters', async () => {
     const req = (await client.browse({
@@ -1122,6 +1081,47 @@ describe('saveRule', () => {
       consequence: { params: { filters: 'brand:apple' } },
     });
     expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+});
+
+describe('saveRules', () => {
+  test('saveRules', async () => {
+    const req = (await client.saveRules({
+      indexName: 'indexName',
+      rule: [
+        {
+          objectID: 'a-rule-id',
+          conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
+          consequence: { params: { filters: 'category:smartphone' } },
+        },
+        {
+          objectID: 'a-second-rule-id',
+          conditions: [{ pattern: 'apple', anchoring: 'contains' }],
+          consequence: { params: { filters: 'brand:apple' } },
+        },
+      ],
+      forwardToReplicas: true,
+      clearExistingRules: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/indexName/rules/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual([
+      {
+        objectID: 'a-rule-id',
+        conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
+        consequence: { params: { filters: 'category:smartphone' } },
+      },
+      {
+        objectID: 'a-second-rule-id',
+        conditions: [{ pattern: 'apple', anchoring: 'contains' }],
+        consequence: { params: { filters: 'brand:apple' } },
+      },
+    ]);
+    expect(req.searchParams).toStrictEqual({
+      forwardToReplicas: 'true',
+      clearExistingRules: 'true',
+    });
   });
 });
 
