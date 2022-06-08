@@ -89,25 +89,31 @@ segment: `; <Description> ([version])`
 
 > The version is optional for segments.
 
-The resulting User Agent is the concatenation of `base`, `client`, and all the `segments`.
+The resulting User Agent is the concatenation of `base`, then `client` and all the `segments` in any order.
 
 For example, if we have:
 
-```
-base: `Algolia for Java (5.0.0)`
-client: `; Search (5.0.0)`
-segment: `; JVM (11.0.14); experimental`
-```
+ - base: `Algolia for Java (4.0.0)`
+ - client: `; Search (4.0.0)`
+ - segment: 
+    - `; JVM (11.0.14)`
+    - `; experimental`
+    - `; test (8.0.0-beta)`
 
-Then the resulting User Agent is :
+Then the resulting User Agent is (the order is arbitrary):
 
 ```
-Algolia for Java (5.0.0); Search (5.0.0); JVM (11.0.14); experimental
+Algolia for Java (4.0.0); JVM (11.0.14); Search (4.0.0); experimental ; test (8.0.0-beta)
 ```
 
 You can take a look at the Java implementation [here](https://github.com/algolia/api-clients-automation/pull/347).
 
-The function must be named `addAlgoliaAgent` because of JavaScript exception that doesn't allow custom `User-Agent` in the header, and must use `x-algolia-agent`.
+The `User-Agent` MUST match the following regular expression:
+```regex
+^Algolia for <LANGUAGE> \\(\\d+\\.\\d+\\.\\d+(-.*)?\\)(; [a-zA-Z. ]+ (\\(\\d+\\.\\d+\\.\\d+(-.*)?\\))?)*(; <CLIENT> (\\(\\d+\\.\\d+\\.\\d+(-.*)?\\)))(; [a-zA-Z. ]+ (\\(\\d+\\.\\d+\\.\\d+(-.*)?\\))?)*$
+```
+
+The function MUST be named `addAlgoliaAgent` because of JavaScript exception that doesn't allow custom `User-Agent` in the header, and must use `x-algolia-agent` for JavaScript.
 
 ### Dependencies
 

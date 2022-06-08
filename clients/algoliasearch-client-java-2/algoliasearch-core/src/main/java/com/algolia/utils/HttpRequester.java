@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -146,5 +147,9 @@ public class HttpRequester implements Requester {
   @Override
   public void setHosts(List<StatefulHost> hosts) {
     this.retryStrategy.setHosts(hosts);
+  }
+
+  public void addInterceptor(Interceptor interceptor) {
+    httpClient = httpClient.newBuilder().addInterceptor(interceptor).build();
   }
 }

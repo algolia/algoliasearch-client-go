@@ -4,19 +4,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.algolia.EchoRequester;
+import com.algolia.utils.HttpRequester;
+import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
 import com.algolia.api.{{client}};
 import com.algolia.model.{{import}}.*;
 import com.algolia.utils.ClientOptions;
 import java.util.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class {{client}}ClientTests {
-  private EchoRequester requester = new EchoRequester();
+  private HttpRequester requester;
+  private EchoInterceptor echo;
+
+  @BeforeAll
+  void init() {
+    requester = new HttpRequester();
+    echo = new EchoInterceptor();
+    requester.addInterceptor(echo.getEchoInterceptor());
+  }
 
   {{client}} createClient() {
       return new {{client}}("appId", "apiKey", {{#hasRegionalHost}}"{{defaultRegion}}", {{/hasRegionalHost}}ClientOptions.build().setRequester(requester));
@@ -48,12 +58,11 @@ class {{client}}ClientTests {
             assertTrue(result.headers.get("user-agent").matches(regexp), "Expected " + result.headers.get("user-agent") + " to match the following regex: " + regexp);
           }{{/testUserAgent}}
           {{#testTimeouts}}
-            assertEquals({{{match.parametersWithDataTypeMap.connectTimeout.value}}}, requester.getConnectTimeout());
-            {{#match.parametersWithDataTypeMap.readTimeout}}assertEquals({{{.value}}}, requester.getReadTimeout());{{/match.parametersWithDataTypeMap.readTimeout}}
-            {{#match.parametersWithDataTypeMap.writeTimeout}}assertEquals({{{.value}}}, requester.getWriteTimeout());{{/match.parametersWithDataTypeMap.writeTimeout}}
+            assertEquals({{{match.parametersWithDataTypeMap.connectTimeout.value}}}, result.connectTimeout);
+            assertEquals({{{match.parametersWithDataTypeMap.responseTimeout.value}}}, result.responseTimeout);
           {{/testTimeouts}}
           {{#testHost}}
-            assertEquals("{{{match}}}", requester.getHosts().get(0).getHost());
+            assertEquals("{{{match}}}", result.host);
           {{/testHost}}        
         {{/match}}
       {{/isError}}
