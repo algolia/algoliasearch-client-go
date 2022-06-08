@@ -18,6 +18,8 @@ import okhttp3.Call;
 
 public class AbtestingClient extends ApiClient {
 
+  private static final String[] allowedRegions = { "de", "us" };
+
   public AbtestingClient(String appId, String apiKey) {
     this(appId, apiKey, null, null);
   }
@@ -37,10 +39,26 @@ public class AbtestingClient extends ApiClient {
     } else {
       this.setHosts(options.getHosts());
     }
+    this.setConnectTimeout(2000);
+    this.setReadTimeout(5000);
+    this.setWriteTimeout(30000);
   }
 
-  private static List<StatefulHost> getDefaultHosts(String region) {
+  private static List<StatefulHost> getDefaultHosts(String region) throws AlgoliaRuntimeException {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    boolean found = region == null;
+    if (region != null) {
+      for (String allowed : allowedRegions) {
+        if (allowed.equals(region)) {
+          found = true;
+          break;
+        }
+      }
+    }
+    if (!found) {
+      throw new AlgoliaRuntimeException("`region` must be one of the following: de, us");
+    }
 
     String url = region == null ? "analytics.algolia.com" : "analytics.{region}.algolia.com".replace("{region}", region);
 
@@ -83,7 +101,7 @@ public class AbtestingClient extends ApiClient {
   public CompletableFuture<ABTestResponse> addABTestsAsync(AddABTestsRequest addABTestsRequest, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (addABTestsRequest == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'addABTestsRequest' when calling addABTests(Async)");
+      throw new AlgoliaRuntimeException("Parameter `addABTestsRequest` is required when calling `addABTests`.");
     }
 
     Object bodyObj = addABTestsRequest;
@@ -146,7 +164,7 @@ public class AbtestingClient extends ApiClient {
   public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `del`.");
     }
 
     Object bodyObj = null;
@@ -210,7 +228,7 @@ public class AbtestingClient extends ApiClient {
    */
   public CompletableFuture<ABTestResponse> deleteABTestAsync(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (id == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'id' when calling deleteABTest(Async)");
+      throw new AlgoliaRuntimeException("Parameter `id` is required when calling `deleteABTest`.");
     }
 
     Object bodyObj = null;
@@ -273,7 +291,7 @@ public class AbtestingClient extends ApiClient {
   public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `get`.");
     }
 
     Object bodyObj = null;
@@ -337,7 +355,7 @@ public class AbtestingClient extends ApiClient {
    */
   public CompletableFuture<ABTest> getABTestAsync(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (id == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'id' when calling getABTest(Async)");
+      throw new AlgoliaRuntimeException("Parameter `id` is required when calling `getABTest`.");
     }
 
     Object bodyObj = null;
@@ -482,7 +500,7 @@ public class AbtestingClient extends ApiClient {
   public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
     Object bodyObj = body;
@@ -562,7 +580,7 @@ public class AbtestingClient extends ApiClient {
   public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
     Object bodyObj = body;
@@ -630,7 +648,7 @@ public class AbtestingClient extends ApiClient {
    */
   public CompletableFuture<ABTestResponse> stopABTestAsync(Integer id, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (id == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'id' when calling stopABTest(Async)");
+      throw new AlgoliaRuntimeException("Parameter `id` is required when calling `stopABTest`.");
     }
 
     Object bodyObj = null;

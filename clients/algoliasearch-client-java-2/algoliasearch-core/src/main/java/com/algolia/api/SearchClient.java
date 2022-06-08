@@ -34,6 +34,9 @@ public class SearchClient extends ApiClient {
     } else {
       this.setHosts(options.getHosts());
     }
+    this.setConnectTimeout(2000);
+    this.setReadTimeout(5000);
+    this.setWriteTimeout(30000);
   }
 
   private static List<StatefulHost> getDefaultHosts(String appId) {
@@ -81,7 +84,7 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<AddApiKeyResponse> addApiKeyAsync(ApiKey apiKey, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (apiKey == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'apiKey' when calling addApiKey(Async)");
+      throw new AlgoliaRuntimeException("Parameter `apiKey` is required when calling `addApiKey`.");
     }
 
     Object bodyObj = apiKey;
@@ -143,15 +146,15 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling addOrUpdateObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `addOrUpdateObject`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling addOrUpdateObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `addOrUpdateObject`.");
     }
 
     if (body == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'body' when calling addOrUpdateObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `body` is required when calling `addOrUpdateObject`.");
     }
 
     Object bodyObj = body;
@@ -205,7 +208,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<CreatedAtResponse> appendSourceAsync(Source source, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (source == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'source' when calling appendSource(Async)");
+      throw new AlgoliaRuntimeException("Parameter `source` is required when calling `appendSource`.");
     }
 
     Object bodyObj = source;
@@ -268,11 +271,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (xAlgoliaUserID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'xAlgoliaUserID' when calling assignUserId(Async)");
+      throw new AlgoliaRuntimeException("Parameter `xAlgoliaUserID` is required when calling `assignUserId`.");
     }
 
     if (assignUserIdParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'assignUserIdParams' when calling assignUserId(Async)");
+      throw new AlgoliaRuntimeException("Parameter `assignUserIdParams` is required when calling `assignUserId`.");
     }
 
     Object bodyObj = assignUserIdParams;
@@ -331,11 +334,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<BatchResponse> batchAsync(String indexName, BatchWriteParams batchWriteParams, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling batch(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `batch`.");
     }
 
     if (batchWriteParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'batchWriteParams' when calling batch(Async)");
+      throw new AlgoliaRuntimeException("Parameter `batchWriteParams` is required when calling `batch`.");
     }
 
     Object bodyObj = batchWriteParams;
@@ -400,13 +403,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (xAlgoliaUserID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'xAlgoliaUserID' when calling batchAssignUserIds(Async)");
+      throw new AlgoliaRuntimeException("Parameter `xAlgoliaUserID` is required when calling `batchAssignUserIds`.");
     }
 
     if (batchAssignUserIdsParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'batchAssignUserIdsParams' when calling" + " batchAssignUserIds(Async)"
-      );
+      throw new AlgoliaRuntimeException("Parameter `batchAssignUserIdsParams` is required when calling `batchAssignUserIds`.");
     }
 
     Object bodyObj = batchAssignUserIdsParams;
@@ -474,13 +475,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (dictionaryName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'dictionaryName' when calling" + " batchDictionaryEntries(Async)");
+      throw new AlgoliaRuntimeException("Parameter `dictionaryName` is required when calling `batchDictionaryEntries`.");
     }
 
     if (batchDictionaryEntriesParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'batchDictionaryEntriesParams' when calling" + " batchDictionaryEntries(Async)"
-      );
+      throw new AlgoliaRuntimeException("Parameter `batchDictionaryEntriesParams` is required when calling" + " `batchDictionaryEntries`.");
     }
 
     Object bodyObj = batchDictionaryEntriesParams;
@@ -557,7 +556,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<BrowseResponse> browseAsync(String indexName, BrowseRequest browseRequest, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling browse(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `browse`.");
     }
 
     Object bodyObj = browseRequest;
@@ -632,7 +631,7 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling clearAllSynonyms(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `clearAllSynonyms`.");
     }
 
     Object bodyObj = null;
@@ -698,7 +697,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtResponse> clearObjectsAsync(String indexName, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling clearObjects(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `clearObjects`.");
     }
 
     Object bodyObj = null;
@@ -762,7 +761,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtResponse> clearRulesAsync(String indexName, Boolean forwardToReplicas, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling clearRules(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `clearRules`.");
     }
 
     Object bodyObj = null;
@@ -838,7 +837,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `del`.");
     }
 
     Object bodyObj = null;
@@ -903,7 +902,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<DeleteApiKeyResponse> deleteApiKeyAsync(String key, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (key == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'key' when calling deleteApiKey(Async)");
+      throw new AlgoliaRuntimeException("Parameter `key` is required when calling `deleteApiKey`.");
     }
 
     Object bodyObj = null;
@@ -961,11 +960,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<DeletedAtResponse> deleteByAsync(String indexName, SearchParams searchParams, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling deleteBy(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `deleteBy`.");
     }
 
     if (searchParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'searchParams' when calling deleteBy(Async)");
+      throw new AlgoliaRuntimeException("Parameter `searchParams` is required when calling `deleteBy`.");
     }
 
     Object bodyObj = searchParams;
@@ -1016,7 +1015,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<DeletedAtResponse> deleteIndexAsync(String indexName, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling deleteIndex(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `deleteIndex`.");
     }
 
     Object bodyObj = null;
@@ -1069,11 +1068,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<DeletedAtResponse> deleteObjectAsync(String indexName, String objectID, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling deleteObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `deleteObject`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling deleteObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `deleteObject`.");
     }
 
     Object bodyObj = null;
@@ -1145,11 +1144,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling deleteRule(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `deleteRule`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling deleteRule(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `deleteRule`.");
     }
 
     Object bodyObj = null;
@@ -1216,7 +1215,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<DeleteSourceResponse> deleteSourceAsync(String source, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (source == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'source' when calling deleteSource(Async)");
+      throw new AlgoliaRuntimeException("Parameter `source` is required when calling `deleteSource`.");
     }
 
     Object bodyObj = null;
@@ -1286,11 +1285,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling deleteSynonym(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `deleteSynonym`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling deleteSynonym(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `deleteSynonym`.");
     }
 
     Object bodyObj = null;
@@ -1369,7 +1368,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `get`.");
     }
 
     Object bodyObj = null;
@@ -1433,7 +1432,7 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<Key> getApiKeyAsync(String key, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (key == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'key' when calling getApiKey(Async)");
+      throw new AlgoliaRuntimeException("Parameter `key` is required when calling `getApiKey`.");
     }
 
     Object bodyObj = null;
@@ -1696,11 +1695,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling getObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `getObject`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling getObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `getObject`.");
     }
 
     Object bodyObj = null;
@@ -1768,7 +1767,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<GetObjectsResponse> getObjectsAsync(GetObjectsParams getObjectsParams, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (getObjectsParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'getObjectsParams' when calling getObjects(Async)");
+      throw new AlgoliaRuntimeException("Parameter `getObjectsParams` is required when calling `getObjects`.");
     }
 
     Object bodyObj = getObjectsParams;
@@ -1821,11 +1820,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<Rule> getRuleAsync(String indexName, String objectID, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling getRule(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `getRule`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling getRule(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `getRule`.");
     }
 
     Object bodyObj = null;
@@ -1877,7 +1876,7 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<IndexSettings> getSettingsAsync(String indexName, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling getSettings(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `getSettings`.");
     }
 
     Object bodyObj = null;
@@ -1974,11 +1973,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<SynonymHit> getSynonymAsync(String indexName, String objectID, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling getSynonym(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `getSynonym`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling getSynonym(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `getSynonym`.");
     }
 
     Object bodyObj = null;
@@ -2033,11 +2032,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<GetTaskResponse> getTaskAsync(String indexName, Long taskID, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling getTask(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `getTask`.");
     }
 
     if (taskID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'taskID' when calling getTask(Async)");
+      throw new AlgoliaRuntimeException("Parameter `taskID` is required when calling `getTask`.");
     }
 
     Object bodyObj = null;
@@ -2145,7 +2144,7 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<UserId> getUserIdAsync(String userID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (userID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'userID' when calling getUserId(Async)");
+      throw new AlgoliaRuntimeException("Parameter `userID` is required when calling `getUserId`.");
     }
 
     Object bodyObj = null;
@@ -2517,7 +2516,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<MultipleBatchResponse> multipleBatchAsync(BatchParams batchParams, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (batchParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'batchParams' when calling multipleBatch(Async)");
+      throw new AlgoliaRuntimeException("Parameter `batchParams` is required when calling `multipleBatch`.");
     }
 
     Object bodyObj = batchParams;
@@ -2574,11 +2573,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling operationIndex(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `operationIndex`.");
     }
 
     if (operationIndexParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'operationIndexParams' when calling" + " operationIndex(Async)");
+      throw new AlgoliaRuntimeException("Parameter `operationIndexParams` is required when calling `operationIndex`.");
     }
 
     Object bodyObj = operationIndexParams;
@@ -2679,17 +2678,15 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling partialUpdateObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `partialUpdateObject`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling partialUpdateObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `partialUpdateObject`.");
     }
 
     if (attributeOrBuiltInOperation == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'attributeOrBuiltInOperation' when calling" + " partialUpdateObject(Async)"
-      );
+      throw new AlgoliaRuntimeException("Parameter `attributeOrBuiltInOperation` is required when calling" + " `partialUpdateObject`.");
     }
 
     Object bodyObj = attributeOrBuiltInOperation;
@@ -2783,7 +2780,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
     Object bodyObj = body;
@@ -2863,7 +2860,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
     Object bodyObj = body;
@@ -2930,7 +2927,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<RemoveUserIdResponse> removeUserIdAsync(String userID, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (userID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'userID' when calling removeUserId(Async)");
+      throw new AlgoliaRuntimeException("Parameter `userID` is required when calling `removeUserId`.");
     }
 
     Object bodyObj = null;
@@ -2981,7 +2978,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<ReplaceSourceResponse> replaceSourcesAsync(List<Source> source, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (source == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'source' when calling replaceSources(Async)");
+      throw new AlgoliaRuntimeException("Parameter `source` is required when calling `replaceSources`.");
     }
 
     Object bodyObj = source;
@@ -3031,7 +3028,7 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<AddApiKeyResponse> restoreApiKeyAsync(String key, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (key == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'key' when calling restoreApiKey(Async)");
+      throw new AlgoliaRuntimeException("Parameter `key` is required when calling `restoreApiKey`.");
     }
 
     Object bodyObj = null;
@@ -3084,11 +3081,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<SaveObjectResponse> saveObjectAsync(String indexName, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling saveObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `saveObject`.");
     }
 
     if (body == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'body' when calling saveObject(Async)");
+      throw new AlgoliaRuntimeException("Parameter `body` is required when calling `saveObject`.");
     }
 
     Object bodyObj = body;
@@ -3168,15 +3165,15 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling saveRule(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `saveRule`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling saveRule(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `saveRule`.");
     }
 
     if (rule == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'rule' when calling saveRule(Async)");
+      throw new AlgoliaRuntimeException("Parameter `rule` is required when calling `saveRule`.");
     }
 
     Object bodyObj = rule;
@@ -3273,11 +3270,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling saveRules(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `saveRules`.");
     }
 
     if (rule == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'rule' when calling saveRules(Async)");
+      throw new AlgoliaRuntimeException("Parameter `rule` is required when calling `saveRules`.");
     }
 
     Object bodyObj = rule;
@@ -3380,15 +3377,15 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling saveSynonym(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `saveSynonym`.");
     }
 
     if (objectID == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'objectID' when calling saveSynonym(Async)");
+      throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `saveSynonym`.");
     }
 
     if (synonymHit == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'synonymHit' when calling saveSynonym(Async)");
+      throw new AlgoliaRuntimeException("Parameter `synonymHit` is required when calling `saveSynonym`.");
     }
 
     Object bodyObj = synonymHit;
@@ -3501,11 +3498,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling saveSynonyms(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `saveSynonyms`.");
     }
 
     if (synonymHit == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'synonymHit' when calling saveSynonyms(Async)");
+      throw new AlgoliaRuntimeException("Parameter `synonymHit` is required when calling `saveSynonyms`.");
     }
 
     Object bodyObj = synonymHit;
@@ -3582,7 +3579,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<SearchResponses> searchAsync(SearchMethodParams searchMethodParams, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (searchMethodParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'searchMethodParams' when calling search(Async)");
+      throw new AlgoliaRuntimeException("Parameter `searchMethodParams` is required when calling `search`.");
     }
 
     Object bodyObj = searchMethodParams;
@@ -3645,12 +3642,12 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (dictionaryName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'dictionaryName' when calling" + " searchDictionaryEntries(Async)");
+      throw new AlgoliaRuntimeException("Parameter `dictionaryName` is required when calling `searchDictionaryEntries`.");
     }
 
     if (searchDictionaryEntriesParams == null) {
       throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'searchDictionaryEntriesParams' when calling" + " searchDictionaryEntries(Async)"
+        "Parameter `searchDictionaryEntriesParams` is required when calling" + " `searchDictionaryEntries`."
       );
     }
 
@@ -3734,11 +3731,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling searchForFacetValues(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchForFacetValues`.");
     }
 
     if (facetName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'facetName' when calling searchForFacetValues(Async)");
+      throw new AlgoliaRuntimeException("Parameter `facetName` is required when calling `searchForFacetValues`.");
     }
 
     Object bodyObj = searchForFacetValuesRequest;
@@ -3814,11 +3811,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling searchRules(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchRules`.");
     }
 
     if (searchRulesParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'searchRulesParams' when calling searchRules(Async)");
+      throw new AlgoliaRuntimeException("Parameter `searchRulesParams` is required when calling `searchRules`.");
     }
 
     Object bodyObj = searchRulesParams;
@@ -3876,11 +3873,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling searchSingleIndex(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchSingleIndex`.");
     }
 
     if (searchParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'searchParams' when calling searchSingleIndex(Async)");
+      throw new AlgoliaRuntimeException("Parameter `searchParams` is required when calling `searchSingleIndex`.");
     }
 
     Object bodyObj = searchParams;
@@ -3966,7 +3963,7 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling searchSynonyms(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchSynonyms`.");
     }
 
     Object bodyObj = null;
@@ -4063,7 +4060,7 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (searchUserIdsParams == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'searchUserIdsParams' when calling searchUserIds(Async)");
+      throw new AlgoliaRuntimeException("Parameter `searchUserIdsParams` is required when calling `searchUserIds`.");
     }
 
     Object bodyObj = searchUserIdsParams;
@@ -4118,9 +4115,7 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (dictionarySettingsParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'dictionarySettingsParams' when calling" + " setDictionarySettings(Async)"
-      );
+      throw new AlgoliaRuntimeException("Parameter `dictionarySettingsParams` is required when calling `setDictionarySettings`.");
     }
 
     Object bodyObj = dictionarySettingsParams;
@@ -4200,11 +4195,11 @@ public class SearchClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexName' when calling setSettings(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `setSettings`.");
     }
 
     if (indexSettings == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'indexSettings' when calling setSettings(Async)");
+      throw new AlgoliaRuntimeException("Parameter `indexSettings` is required when calling `setSettings`.");
     }
 
     Object bodyObj = indexSettings;
@@ -4275,11 +4270,11 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdateApiKeyResponse> updateApiKeyAsync(String key, ApiKey apiKey, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (key == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'key' when calling updateApiKey(Async)");
+      throw new AlgoliaRuntimeException("Parameter `key` is required when calling `updateApiKey`.");
     }
 
     if (apiKey == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'apiKey' when calling updateApiKey(Async)");
+      throw new AlgoliaRuntimeException("Parameter `apiKey` is required when calling `updateApiKey`.");
     }
 
     Object bodyObj = apiKey;

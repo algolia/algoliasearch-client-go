@@ -10,21 +10,21 @@ function createClient(): InsightsClient {
   return insightsClient(appId, apiKey, 'us', { requester: echoRequester() });
 }
 
-describe('api', () => {
+describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.pushEvents({ events: [] });
+    const result = await $client.post({ path: '/test' });
 
-    expect(result.algoliaAgent).toMatch(
-      /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
+    expect(decodeURI(result.algoliaAgent)).toMatch(
+      /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; Insights (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
     );
   });
 
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.pushEvents({ events: [] });
+    const result = await $client.post({ path: '/test' });
 
     expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })
@@ -40,8 +40,6 @@ describe('parameters', () => {
 
     const result = await $client.pushEvents({ events: [] });
 
-    expect(result).toEqual(
-      expect.objectContaining({ host: 'insights.algolia.io' })
-    );
+    expect(result.host).toEqual('insights.algolia.io');
   });
 });

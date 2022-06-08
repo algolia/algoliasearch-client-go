@@ -16,39 +16,27 @@ describe('api', () => {
   test('calls api with correct host', async () => {
     const $client = createClient();
 
-    const result = await $client.postIngestUrl({
-      type: 'csv',
-      input: { url: 'https://example.com/file.csv' },
-      target: { type: 'search', indexName: 'pageviews', operation: 'replace' },
-    });
+    const result = await $client.post({ path: '/test' });
 
-    expect(result).toEqual(
-      expect.objectContaining({ host: 'data.us.algolia.com' })
-    );
+    expect(result.host).toEqual('data.us.algolia.com');
   });
+});
 
+describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.postIngestUrl({
-      type: 'csv',
-      input: { url: 'https://example.com/file.csv' },
-      target: { type: 'search', indexName: 'pageviews', operation: 'replace' },
-    });
+    const result = await $client.post({ path: '/test' });
 
-    expect(result.algoliaAgent).toMatch(
-      /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
+    expect(decodeURI(result.algoliaAgent)).toMatch(
+      /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; Sources (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
     );
   });
 
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.postIngestUrl({
-      type: 'csv',
-      input: { url: 'https://example.com/file.csv' },
-      target: { type: 'search', indexName: 'pageviews', operation: 'replace' },
-    });
+    const result = await $client.post({ path: '/test' });
 
     expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })

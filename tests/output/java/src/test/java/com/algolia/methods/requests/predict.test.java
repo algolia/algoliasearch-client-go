@@ -3,11 +3,12 @@ package com.algolia.methods.requests;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.algolia.EchoRequester;
+import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
 import com.algolia.api.PredictClient;
 import com.algolia.model.predict.*;
 import com.algolia.utils.ClientOptions;
+import com.algolia.utils.HttpRequester;
 import com.algolia.utils.JSON;
 import com.algolia.utils.RequestOptions;
 import com.google.gson.reflect.TypeToken;
@@ -23,11 +24,13 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 class PredictClientRequestsTests {
 
   private PredictClient client;
-  private EchoRequester requester;
+  private EchoInterceptor echo;
 
   @BeforeAll
   void init() {
-    requester = new EchoRequester();
+    HttpRequester requester = new HttpRequester();
+    echo = new EchoInterceptor();
+    requester.addInterceptor(echo.getEchoInterceptor());
     client = new PredictClient("appId", "apiKey", "ew", ClientOptions.build().setRequester(requester));
   }
 
@@ -39,7 +42,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
@@ -58,7 +61,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
@@ -96,7 +99,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.fetchUserProfile(userID0, Params.ofModelsToRetrieve(params0));
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/users/user1/fetch");
     assertEquals(req.method, "POST");
@@ -129,7 +132,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.fetchUserProfile(userID0, Params.ofTypesToRetrieve(params0));
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/users/user1/fetch");
     assertEquals(req.method, "POST");
@@ -168,7 +171,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.fetchUserProfile(userID0, Params.ofAllParams(params0));
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/users/user1/fetch");
     assertEquals(req.method, "POST");
@@ -190,7 +193,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
@@ -209,7 +212,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
@@ -234,7 +237,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
@@ -258,7 +261,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
@@ -300,7 +303,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -342,7 +345,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -384,7 +387,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -436,7 +439,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -488,7 +491,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -530,7 +533,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -572,7 +575,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -614,7 +617,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -656,7 +659,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -685,7 +688,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
@@ -709,7 +712,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");

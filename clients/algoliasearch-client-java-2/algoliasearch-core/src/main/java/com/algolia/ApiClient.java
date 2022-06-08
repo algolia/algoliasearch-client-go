@@ -28,10 +28,17 @@ public abstract class ApiClient {
    * Constructor for ApiClient with custom Requester
    */
   public ApiClient(String appId, String apiKey, String clientName, ClientOptions options) {
+    if (appId == null || appId.length() == 0) {
+      throw new AlgoliaRuntimeException("`appId` is missing.");
+    }
+    if (apiKey == null || apiKey.length() == 0) {
+      throw new AlgoliaRuntimeException("`apiKey` is missing.");
+    }
+
     this.contentType = "application/json";
 
-    AlgoliaAgent ua = new AlgoliaAgent("0.0.1");
-    ua.addSegment(new AlgoliaAgent.Segment(clientName, "0.0.1"));
+    AlgoliaAgent ua = new AlgoliaAgent("4.0.0-SNAPSHOT");
+    ua.addSegment(new AlgoliaAgent.Segment(clientName, "4.0.0-SNAPSHOT"));
     if (options.getAlgoliaAgentSegments() != null) {
       for (AlgoliaAgent.Segment segment : options.getAlgoliaAgentSegments()) {
         ua.addSegment(segment);

@@ -3,11 +3,12 @@ package com.algolia.methods.requests;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.algolia.EchoRequester;
+import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
 import com.algolia.api.QuerySuggestionsClient;
 import com.algolia.model.querySuggestions.*;
 import com.algolia.utils.ClientOptions;
+import com.algolia.utils.HttpRequester;
 import com.algolia.utils.JSON;
 import com.algolia.utils.RequestOptions;
 import com.google.gson.reflect.TypeToken;
@@ -23,11 +24,13 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 class QuerySuggestionsClientRequestsTests {
 
   private QuerySuggestionsClient client;
-  private EchoRequester requester;
+  private EchoInterceptor echo;
 
   @BeforeAll
   void init() {
-    requester = new EchoRequester();
+    HttpRequester requester = new HttpRequester();
+    echo = new EchoInterceptor();
+    requester.addInterceptor(echo.getEchoInterceptor());
     client = new QuerySuggestionsClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
   }
 
@@ -93,7 +96,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.createConfig(querySuggestionsIndexWithIndexParam0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/configs");
     assertEquals(req.method, "POST");
@@ -115,7 +118,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
@@ -134,7 +137,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
@@ -159,7 +162,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteConfig(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/configs/theIndexName");
     assertEquals(req.method, "DELETE");
@@ -173,7 +176,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
@@ -192,7 +195,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
@@ -215,7 +218,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getAllConfigs();
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/configs");
     assertEquals(req.method, "GET");
@@ -229,7 +232,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getConfig(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/configs/theIndexName");
     assertEquals(req.method, "GET");
@@ -243,7 +246,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getConfigStatus(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/configs/theIndexName/status");
     assertEquals(req.method, "GET");
@@ -257,7 +260,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getLogFile(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/logs/theIndexName");
     assertEquals(req.method, "GET");
@@ -271,7 +274,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
@@ -295,7 +298,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
@@ -337,7 +340,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -379,7 +382,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -421,7 +424,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -473,7 +476,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -525,7 +528,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -567,7 +570,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -609,7 +612,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -651,7 +654,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -693,7 +696,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -722,7 +725,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
@@ -746,7 +749,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
@@ -828,7 +831,7 @@ class QuerySuggestionsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.updateConfig(indexName0, querySuggestionsIndexParam0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/configs/theIndexName");
     assertEquals(req.method, "PUT");

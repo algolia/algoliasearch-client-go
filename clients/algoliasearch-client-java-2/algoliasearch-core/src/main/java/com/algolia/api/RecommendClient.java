@@ -33,6 +33,9 @@ public class RecommendClient extends ApiClient {
     } else {
       this.setHosts(options.getHosts());
     }
+    this.setConnectTimeout(2000);
+    this.setReadTimeout(5000);
+    this.setWriteTimeout(30000);
   }
 
   private static List<StatefulHost> getDefaultHosts(String appId) {
@@ -93,7 +96,7 @@ public class RecommendClient extends ApiClient {
   public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `del`.");
     }
 
     Object bodyObj = null;
@@ -170,7 +173,7 @@ public class RecommendClient extends ApiClient {
   public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `get`.");
     }
 
     Object bodyObj = null;
@@ -239,9 +242,7 @@ public class RecommendClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (getRecommendationsParams == null) {
-      throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'getRecommendationsParams' when calling" + " getRecommendations(Async)"
-      );
+      throw new AlgoliaRuntimeException("Parameter `getRecommendationsParams` is required when calling `getRecommendations`.");
     }
 
     Object bodyObj = getRecommendationsParams;
@@ -308,7 +309,7 @@ public class RecommendClient extends ApiClient {
   public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
     Object bodyObj = body;
@@ -388,7 +389,7 @@ public class RecommendClient extends ApiClient {
   public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
     Object bodyObj = body;

@@ -12,24 +12,24 @@ function createClient(): AnalyticsClient {
   return analyticsClient(appId, apiKey, 'us', { requester: echoRequester() });
 }
 
-describe('api', () => {
+describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.getAverageClickPosition({ index: 'my-index' });
+    const result = await $client.post({ path: '/test' });
 
-    expect(result.algoliaAgent).toMatch(
-      /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
+    expect(decodeURI(result.algoliaAgent)).toMatch(
+      /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; Analytics (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
     );
   });
 
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.getAverageClickPosition({ index: 'my-index' });
+    const result = await $client.post({ path: '/test' });
 
     expect(result).toEqual(
-      expect.objectContaining({ connectTimeout: 2000, responseTimeout: 5000 })
+      expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })
     );
   });
 });
@@ -42,9 +42,7 @@ describe('parameters', () => {
 
     const result = await $client.getAverageClickPosition({ index: 'my-index' });
 
-    expect(result).toEqual(
-      expect.objectContaining({ host: 'analytics.algolia.com' })
-    );
+    expect(result.host).toEqual('analytics.algolia.com');
   });
 
   test('getAverageClickPosition throws without index', async () => {

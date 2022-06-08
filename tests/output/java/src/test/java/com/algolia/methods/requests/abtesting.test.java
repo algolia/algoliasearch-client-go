@@ -3,11 +3,12 @@ package com.algolia.methods.requests;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.algolia.EchoRequester;
+import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
 import com.algolia.api.AbtestingClient;
 import com.algolia.model.abtesting.*;
 import com.algolia.utils.ClientOptions;
+import com.algolia.utils.HttpRequester;
 import com.algolia.utils.JSON;
 import com.algolia.utils.RequestOptions;
 import com.google.gson.reflect.TypeToken;
@@ -23,11 +24,13 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 class AbtestingClientRequestsTests {
 
   private AbtestingClient client;
-  private EchoRequester requester;
+  private EchoInterceptor echo;
 
   @BeforeAll
   void init() {
-    requester = new EchoRequester();
+    HttpRequester requester = new HttpRequester();
+    echo = new EchoInterceptor();
+    requester.addInterceptor(echo.getEchoInterceptor());
     client = new AbtestingClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
   }
 
@@ -65,7 +68,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.addABTests(addABTestsRequest0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/abtests");
     assertEquals(req.method, "POST");
@@ -87,7 +90,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
@@ -106,7 +109,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
@@ -131,7 +134,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteABTest(id0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/abtests/42");
     assertEquals(req.method, "DELETE");
@@ -145,7 +148,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
@@ -164,7 +167,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
@@ -189,7 +192,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getABTest(id0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/abtests/42");
     assertEquals(req.method, "GET");
@@ -204,7 +207,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.listABTests(offset0, limit0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/abtests");
     assertEquals(req.method, "GET");
@@ -229,7 +232,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
@@ -253,7 +256,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
@@ -295,7 +298,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -337,7 +340,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -379,7 +382,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -431,7 +434,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -483,7 +486,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -525,7 +528,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -567,7 +570,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -609,7 +612,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -651,7 +654,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -680,7 +683,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
@@ -704,7 +707,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
@@ -733,7 +736,7 @@ class AbtestingClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.stopABTest(id0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/abtests/42/stop");
     assertEquals(req.method, "POST");

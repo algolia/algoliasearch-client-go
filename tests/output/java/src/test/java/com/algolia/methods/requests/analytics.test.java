@@ -3,11 +3,12 @@ package com.algolia.methods.requests;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.algolia.EchoRequester;
+import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
 import com.algolia.api.AnalyticsClient;
 import com.algolia.model.analytics.*;
 import com.algolia.utils.ClientOptions;
+import com.algolia.utils.HttpRequester;
 import com.algolia.utils.JSON;
 import com.algolia.utils.RequestOptions;
 import com.google.gson.reflect.TypeToken;
@@ -23,11 +24,13 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 class AnalyticsClientRequestsTests {
 
   private AnalyticsClient client;
-  private EchoRequester requester;
+  private EchoInterceptor echo;
 
   @BeforeAll
   void init() {
-    requester = new EchoRequester();
+    HttpRequester requester = new HttpRequester();
+    echo = new EchoInterceptor();
+    requester.addInterceptor(echo.getEchoInterceptor());
     client = new AnalyticsClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
   }
 
@@ -39,7 +42,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
@@ -58,7 +61,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
@@ -83,7 +86,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
@@ -102,7 +105,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
@@ -127,7 +130,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getAverageClickPosition(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/clicks/averageClickPosition");
     assertEquals(req.method, "GET");
@@ -152,7 +155,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getAverageClickPosition(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/clicks/averageClickPosition");
     assertEquals(req.method, "GET");
@@ -177,7 +180,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getClickPositions(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/clicks/positions");
     assertEquals(req.method, "GET");
@@ -202,7 +205,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getClickPositions(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/clicks/positions");
     assertEquals(req.method, "GET");
@@ -227,7 +230,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getClickThroughRate(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/clicks/clickThroughRate");
     assertEquals(req.method, "GET");
@@ -252,7 +255,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getClickThroughRate(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/clicks/clickThroughRate");
     assertEquals(req.method, "GET");
@@ -277,7 +280,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getConversationRate(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/conversions/conversionRate");
     assertEquals(req.method, "GET");
@@ -302,7 +305,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getConversationRate(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/conversions/conversionRate");
     assertEquals(req.method, "GET");
@@ -327,7 +330,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getNoClickRate(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noClickRate");
     assertEquals(req.method, "GET");
@@ -352,7 +355,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getNoClickRate(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noClickRate");
     assertEquals(req.method, "GET");
@@ -377,7 +380,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getNoResultsRate(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noResultRate");
     assertEquals(req.method, "GET");
@@ -402,7 +405,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getNoResultsRate(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noResultRate");
     assertEquals(req.method, "GET");
@@ -427,7 +430,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSearchesCount(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/count");
     assertEquals(req.method, "GET");
@@ -452,7 +455,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSearchesCount(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/count");
     assertEquals(req.method, "GET");
@@ -477,7 +480,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSearchesNoClicks(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noClicks");
     assertEquals(req.method, "GET");
@@ -504,7 +507,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSearchesNoClicks(index0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noClicks");
     assertEquals(req.method, "GET");
@@ -529,7 +532,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSearchesNoResults(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noResults");
     assertEquals(req.method, "GET");
@@ -556,7 +559,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSearchesNoResults(index0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches/noResults");
     assertEquals(req.method, "GET");
@@ -581,7 +584,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getStatus(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/status");
     assertEquals(req.method, "GET");
@@ -603,7 +606,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopCountries(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/countries");
     assertEquals(req.method, "GET");
@@ -630,7 +633,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopCountries(index0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/countries");
     assertEquals(req.method, "GET");
@@ -655,7 +658,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFilterAttributes(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters");
     assertEquals(req.method, "GET");
@@ -683,7 +686,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFilterAttributes(index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters");
     assertEquals(req.method, "GET");
@@ -709,7 +712,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFilterForAttribute(attribute0, index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters/myAttribute");
     assertEquals(req.method, "GET");
@@ -732,7 +735,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFilterForAttribute(attribute0, index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters/myAttribute1%2CmyAttribute2");
     assertEquals(req.method, "GET");
@@ -761,7 +764,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFilterForAttribute(attribute0, index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters/myAttribute");
     assertEquals(req.method, "GET");
@@ -793,7 +796,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFilterForAttribute(attribute0, index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters/myAttribute1%2CmyAttribute2");
     assertEquals(req.method, "GET");
@@ -818,7 +821,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFiltersNoResults(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters/noResults");
     assertEquals(req.method, "GET");
@@ -846,7 +849,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopFiltersNoResults(index0, search0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/filters/noResults");
     assertEquals(req.method, "GET");
@@ -871,7 +874,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopHits(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/hits");
     assertEquals(req.method, "GET");
@@ -900,7 +903,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopHits(index0, search0, clickAnalytics0, startDate0, endDate0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/hits");
     assertEquals(req.method, "GET");
@@ -925,7 +928,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopSearches(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches");
     assertEquals(req.method, "GET");
@@ -955,7 +958,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopSearches(index0, clickAnalytics0, startDate0, endDate0, orderBy0, direction0, limit0, offset0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/searches");
     assertEquals(req.method, "GET");
@@ -980,7 +983,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getUsersCount(index0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/users/count");
     assertEquals(req.method, "GET");
@@ -1005,7 +1008,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getUsersCount(index0, startDate0, endDate0, tags0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/2/users/count");
     assertEquals(req.method, "GET");
@@ -1030,7 +1033,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
@@ -1054,7 +1057,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
@@ -1096,7 +1099,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1138,7 +1141,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1180,7 +1183,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1232,7 +1235,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1284,7 +1287,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1326,7 +1329,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1368,7 +1371,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1410,7 +1413,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1452,7 +1455,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1481,7 +1484,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
@@ -1505,7 +1508,7 @@ class AnalyticsClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");

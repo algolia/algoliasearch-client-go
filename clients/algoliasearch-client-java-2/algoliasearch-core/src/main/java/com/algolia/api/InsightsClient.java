@@ -18,6 +18,8 @@ import okhttp3.Call;
 
 public class InsightsClient extends ApiClient {
 
+  private static final String[] allowedRegions = { "de", "us" };
+
   public InsightsClient(String appId, String apiKey) {
     this(appId, apiKey, null, null);
   }
@@ -37,10 +39,26 @@ public class InsightsClient extends ApiClient {
     } else {
       this.setHosts(options.getHosts());
     }
+    this.setConnectTimeout(2000);
+    this.setReadTimeout(5000);
+    this.setWriteTimeout(30000);
   }
 
-  private static List<StatefulHost> getDefaultHosts(String region) {
+  private static List<StatefulHost> getDefaultHosts(String region) throws AlgoliaRuntimeException {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    boolean found = region == null;
+    if (region != null) {
+      for (String allowed : allowedRegions) {
+        if (allowed.equals(region)) {
+          found = true;
+          break;
+        }
+      }
+    }
+    if (!found) {
+      throw new AlgoliaRuntimeException("`region` must be one of the following: de, us");
+    }
 
     String url = region == null ? "insights.algolia.io" : "insights.{region}.algolia.io".replace("{region}", region);
 
@@ -91,7 +109,7 @@ public class InsightsClient extends ApiClient {
   public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `del`.");
     }
 
     Object bodyObj = null;
@@ -168,7 +186,7 @@ public class InsightsClient extends ApiClient {
   public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `get`.");
     }
 
     Object bodyObj = null;
@@ -248,7 +266,7 @@ public class InsightsClient extends ApiClient {
   public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
     Object bodyObj = body;
@@ -329,7 +347,7 @@ public class InsightsClient extends ApiClient {
   public CompletableFuture<PushEventsResponse> pushEventsAsync(InsightEvents insightEvents, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (insightEvents == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'insightEvents' when calling pushEvents(Async)");
+      throw new AlgoliaRuntimeException("Parameter `insightEvents` is required when calling `pushEvents`.");
     }
 
     Object bodyObj = insightEvents;
@@ -395,7 +413,7 @@ public class InsightsClient extends ApiClient {
   public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
     Object bodyObj = body;

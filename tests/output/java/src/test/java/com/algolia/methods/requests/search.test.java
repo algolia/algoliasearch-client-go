@@ -3,11 +3,12 @@ package com.algolia.methods.requests;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.algolia.EchoRequester;
+import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
 import com.algolia.api.SearchClient;
 import com.algolia.model.search.*;
 import com.algolia.utils.ClientOptions;
+import com.algolia.utils.HttpRequester;
 import com.algolia.utils.JSON;
 import com.algolia.utils.RequestOptions;
 import com.google.gson.reflect.TypeToken;
@@ -23,11 +24,13 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 class SearchClientRequestsTests {
 
   private SearchClient client;
-  private EchoRequester requester;
+  private EchoInterceptor echo;
 
   @BeforeAll
   void init() {
-    requester = new EchoRequester();
+    HttpRequester requester = new HttpRequester();
+    echo = new EchoInterceptor();
+    requester.addInterceptor(echo.getEchoInterceptor());
     client = new SearchClient("appId", "apiKey", ClientOptions.build().setRequester(requester));
   }
 
@@ -57,7 +60,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.addApiKey(apiKey0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/keys");
     assertEquals(req.method, "POST");
@@ -86,7 +89,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.addOrUpdateObject(indexName0, objectID0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/uniqueID");
     assertEquals(req.method, "PUT");
@@ -110,7 +113,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.appendSource(source0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/security/sources/append");
     assertEquals(req.method, "POST");
@@ -133,7 +136,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.assignUserId(xAlgoliaUserID0, assignUserIdParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping");
     assertEquals(req.method, "POST");
@@ -180,7 +183,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.batch(indexName0, batchWriteParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
@@ -215,7 +218,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.batchAssignUserIds(xAlgoliaUserID0, batchAssignUserIdsParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping/batch");
     assertEquals(req.method, "POST");
@@ -278,7 +281,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.batchDictionaryEntries(dictionaryName0, batchDictionaryEntriesParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/compounds/batch");
     assertEquals(req.method, "POST");
@@ -377,7 +380,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.batchDictionaryEntries(dictionaryName0, batchDictionaryEntriesParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/compounds/batch");
     assertEquals(req.method, "POST");
@@ -399,7 +402,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.browse(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/browse");
     assertEquals(req.method, "POST");
@@ -420,7 +423,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.browse(indexName0, browseRequest0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/browse");
     assertEquals(req.method, "POST");
@@ -438,7 +441,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.clearAllSynonyms(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/clear");
     assertEquals(req.method, "POST");
@@ -452,7 +455,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.clearObjects(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/clear");
     assertEquals(req.method, "POST");
@@ -466,7 +469,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.clearRules(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/rules/clear");
     assertEquals(req.method, "POST");
@@ -480,7 +483,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
@@ -499,7 +502,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.del(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
@@ -524,7 +527,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteApiKey(key0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/keys/myTestApiKey");
     assertEquals(req.method, "DELETE");
@@ -543,7 +546,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteBy(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/deleteByQuery");
     assertEquals(req.method, "POST");
@@ -561,7 +564,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteIndex(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName");
     assertEquals(req.method, "DELETE");
@@ -576,7 +579,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteObject(indexName0, objectID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/uniqueID");
     assertEquals(req.method, "DELETE");
@@ -591,7 +594,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteRule(indexName0, objectID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/rules/id1");
     assertEquals(req.method, "DELETE");
@@ -605,7 +608,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteSource(source0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/security/sources/theSource");
     assertEquals(req.method, "DELETE");
@@ -620,7 +623,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.deleteSynonym(indexName0, objectID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
     assertEquals(req.method, "DELETE");
@@ -634,7 +637,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
@@ -653,7 +656,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.get(path0, parameters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
@@ -678,7 +681,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getApiKey(key0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/keys/myTestApiKey");
     assertEquals(req.method, "GET");
@@ -690,7 +693,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getDictionaryLanguages();
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/*/languages");
     assertEquals(req.method, "GET");
@@ -702,7 +705,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getDictionarySettings();
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/*/settings");
     assertEquals(req.method, "GET");
@@ -719,7 +722,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getLogs(offset0, length0, indexName0, type0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/logs");
     assertEquals(req.method, "GET");
@@ -752,7 +755,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getObject(indexName0, objectID0, attributesToRetrieve0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/uniqueID");
     assertEquals(req.method, "GET");
@@ -799,7 +802,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getObjects(getObjectsParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/objects");
     assertEquals(req.method, "POST");
@@ -822,7 +825,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getRule(indexName0, objectID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/rules/id1");
     assertEquals(req.method, "GET");
@@ -836,7 +839,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSettings(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "GET");
@@ -848,7 +851,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSources();
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/security/sources");
     assertEquals(req.method, "GET");
@@ -863,7 +866,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getSynonym(indexName0, objectID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
     assertEquals(req.method, "GET");
@@ -878,7 +881,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTask(indexName0, taskID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/task/123");
     assertEquals(req.method, "GET");
@@ -890,7 +893,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getTopUserIds();
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping/top");
     assertEquals(req.method, "GET");
@@ -904,7 +907,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.getUserId(userID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping/uniqueID");
     assertEquals(req.method, "GET");
@@ -918,7 +921,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.hasPendingMappings(getClusters0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping/pending");
     assertEquals(req.method, "GET");
@@ -941,7 +944,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.listApiKeys();
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/keys");
     assertEquals(req.method, "GET");
@@ -953,7 +956,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.listClusters();
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters");
     assertEquals(req.method, "GET");
@@ -967,7 +970,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.listIndices(page0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes");
     assertEquals(req.method, "GET");
@@ -990,7 +993,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.listUserIds(page0, hitsPerPage0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping");
     assertEquals(req.method, "GET");
@@ -1035,7 +1038,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.multipleBatch(batchParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/batch");
     assertEquals(req.method, "POST");
@@ -1072,7 +1075,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.operationIndex(indexName0, operationIndexParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/operation");
     assertEquals(req.method, "POST");
@@ -1113,7 +1116,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.partialUpdateObject(indexName0, objectID0, attributeOrBuiltInOperation0, createIfNotExists0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/uniqueID/partial");
     assertEquals(req.method, "POST");
@@ -1146,7 +1149,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
@@ -1170,7 +1173,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
@@ -1212,7 +1215,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1254,7 +1257,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1296,7 +1299,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1348,7 +1351,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1400,7 +1403,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1442,7 +1445,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1484,7 +1487,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1526,7 +1529,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1568,7 +1571,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.post(path0, parameters0, body0, requestOptions);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
@@ -1597,7 +1600,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
@@ -1621,7 +1624,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.put(path0, parameters0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
@@ -1650,7 +1653,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.removeUserId(userID0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping/uniqueID");
     assertEquals(req.method, "DELETE");
@@ -1674,7 +1677,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.replaceSources(source0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/security/sources");
     assertEquals(req.method, "PUT");
@@ -1692,7 +1695,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.restoreApiKey(key0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/keys/myApiKey/restore");
     assertEquals(req.method, "POST");
@@ -1713,7 +1716,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.saveObject(indexName0, body0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName");
     assertEquals(req.method, "POST");
@@ -1760,7 +1763,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.saveRule(indexName0, objectID0, rule0, forwardToReplicas0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/rules/id1");
     assertEquals(req.method, "PUT");
@@ -1854,7 +1857,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.saveRules(indexName0, rule0, forwardToReplicas0, clearExistingRules0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/rules/batch");
     assertEquals(req.method, "POST");
@@ -1906,7 +1909,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.saveSynonym(indexName0, objectID0, synonymHit0, forwardToReplicas0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
     assertEquals(req.method, "PUT");
@@ -1982,7 +1985,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.saveSynonyms(indexName0, synonymHit0, forwardToReplicas0, replaceExistingSynonyms0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/batch");
     assertEquals(req.method, "POST");
@@ -2027,7 +2030,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.search(searchMethodParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
@@ -2063,7 +2066,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.search(searchMethodParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
@@ -2103,7 +2106,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.search(searchMethodParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
@@ -2149,7 +2152,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.search(searchMethodParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
@@ -2203,7 +2206,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.search(searchMethodParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
@@ -2261,7 +2264,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.search(searchMethodParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
@@ -2288,7 +2291,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchDictionaryEntries(dictionaryName0, searchDictionaryEntriesParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/compounds/search");
     assertEquals(req.method, "POST");
@@ -2317,7 +2320,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchDictionaryEntries(dictionaryName0, searchDictionaryEntriesParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/compounds/search");
     assertEquals(req.method, "POST");
@@ -2340,7 +2343,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchForFacetValues(indexName0, facetName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/facets/facetName/query");
     assertEquals(req.method, "POST");
@@ -2364,7 +2367,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchForFacetValues(indexName0, facetName0, searchForFacetValuesRequest0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/facets/facetName/query");
     assertEquals(req.method, "POST");
@@ -2391,7 +2394,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchRules(indexName0, searchRulesParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/rules/search");
     assertEquals(req.method, "POST");
@@ -2414,7 +2417,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchSingleIndex(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/query");
     assertEquals(req.method, "POST");
@@ -2443,7 +2446,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchSingleIndex(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/query");
     assertEquals(req.method, "POST");
@@ -2461,7 +2464,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchSynonyms(indexName0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/search");
     assertEquals(req.method, "POST");
@@ -2485,7 +2488,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.searchUserIds(searchUserIdsParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/clusters/mapping/search");
     assertEquals(req.method, "POST");
@@ -2523,7 +2526,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.setDictionarySettings(dictionarySettingsParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/*/settings");
     assertEquals(req.method, "PUT");
@@ -2573,7 +2576,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.setDictionarySettings(dictionarySettingsParams0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/dictionaries/*/settings");
     assertEquals(req.method, "PUT");
@@ -2601,7 +2604,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
@@ -2647,7 +2650,7 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       client.updateApiKey(key0, apiKey0);
     });
-    EchoResponse req = requester.getLastEchoResponse();
+    EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/keys/myApiKey");
     assertEquals(req.method, "PUT");

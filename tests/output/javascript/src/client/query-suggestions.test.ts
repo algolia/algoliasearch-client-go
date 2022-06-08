@@ -14,21 +14,21 @@ function createClient(): QuerySuggestionsClient {
   });
 }
 
-describe('api', () => {
+describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.createConfig({});
+    const result = await $client.post({ path: '/test' });
 
-    expect(result.algoliaAgent).toMatch(
-      /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
+    expect(decodeURI(result.algoliaAgent)).toMatch(
+      /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; QuerySuggestions (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
     );
   });
 
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.createConfig({});
+    const result = await $client.post({ path: '/test' });
 
     expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })
@@ -37,18 +37,6 @@ describe('api', () => {
 });
 
 describe('parameters', () => {
-  test('throws when region is not given', async () => {
-    try {
-      const $client = querySuggestionsClient('my-app-id', 'my-api-key', '', {
-        requester: echoRequester(),
-      });
-
-      throw new Error('test is expected to throw error');
-    } catch (e) {
-      expect(e.message).toMatch('`region` is missing.');
-    }
-  });
-
   test('throws when incorrect region is given', async () => {
     try {
       const $client = querySuggestionsClient(

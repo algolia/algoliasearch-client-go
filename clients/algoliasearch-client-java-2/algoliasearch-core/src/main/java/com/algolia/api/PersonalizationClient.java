@@ -18,6 +18,8 @@ import okhttp3.Call;
 
 public class PersonalizationClient extends ApiClient {
 
+  private static final String[] allowedRegions = { "eu", "us" };
+
   public PersonalizationClient(String appId, String apiKey, String region) {
     this(appId, apiKey, region, null);
   }
@@ -29,10 +31,27 @@ public class PersonalizationClient extends ApiClient {
     } else {
       this.setHosts(options.getHosts());
     }
+    this.setConnectTimeout(2000);
+    this.setReadTimeout(5000);
+    this.setWriteTimeout(30000);
   }
 
-  private static List<StatefulHost> getDefaultHosts(String region) {
+  private static List<StatefulHost> getDefaultHosts(String region) throws AlgoliaRuntimeException {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    boolean found = false;
+    if (region == null) {
+      throw new AlgoliaRuntimeException("`region` is missing");
+    }
+    for (String allowed : allowedRegions) {
+      if (allowed.equals(region)) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      throw new AlgoliaRuntimeException("`region` must be one of the following: eu, us");
+    }
 
     String url = "personalization.{region}.algolia.com".replace("{region}", region);
 
@@ -83,7 +102,7 @@ public class PersonalizationClient extends ApiClient {
   public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `del`.");
     }
 
     Object bodyObj = null;
@@ -158,7 +177,7 @@ public class PersonalizationClient extends ApiClient {
   public CompletableFuture<DeleteUserProfileResponse> deleteUserProfileAsync(String userToken, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (userToken == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'userToken' when calling deleteUserProfile(Async)");
+      throw new AlgoliaRuntimeException("Parameter `userToken` is required when calling `deleteUserProfile`.");
     }
 
     Object bodyObj = null;
@@ -221,7 +240,7 @@ public class PersonalizationClient extends ApiClient {
   public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `get`.");
     }
 
     Object bodyObj = null;
@@ -343,7 +362,7 @@ public class PersonalizationClient extends ApiClient {
   public CompletableFuture<GetUserTokenResponse> getUserTokenProfileAsync(String userToken, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (userToken == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'userToken' when calling getUserTokenProfile(Async)");
+      throw new AlgoliaRuntimeException("Parameter `userToken` is required when calling `getUserTokenProfile`.");
     }
 
     Object bodyObj = null;
@@ -409,7 +428,7 @@ public class PersonalizationClient extends ApiClient {
   public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
     Object bodyObj = body;
@@ -489,7 +508,7 @@ public class PersonalizationClient extends ApiClient {
   public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
     Object bodyObj = body;
@@ -563,7 +582,7 @@ public class PersonalizationClient extends ApiClient {
   ) throws AlgoliaRuntimeException {
     if (personalizationStrategyParams == null) {
       throw new AlgoliaRuntimeException(
-        "Missing the required parameter 'personalizationStrategyParams' when calling" + " setPersonalizationStrategy(Async)"
+        "Parameter `personalizationStrategyParams` is required when calling" + " `setPersonalizationStrategy`."
       );
     }
 

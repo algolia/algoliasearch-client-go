@@ -18,6 +18,8 @@ import okhttp3.Call;
 
 public class AnalyticsClient extends ApiClient {
 
+  private static final String[] allowedRegions = { "de", "us" };
+
   public AnalyticsClient(String appId, String apiKey) {
     this(appId, apiKey, null, null);
   }
@@ -37,10 +39,26 @@ public class AnalyticsClient extends ApiClient {
     } else {
       this.setHosts(options.getHosts());
     }
+    this.setConnectTimeout(2000);
+    this.setReadTimeout(5000);
+    this.setWriteTimeout(30000);
   }
 
-  private static List<StatefulHost> getDefaultHosts(String region) {
+  private static List<StatefulHost> getDefaultHosts(String region) throws AlgoliaRuntimeException {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
+
+    boolean found = region == null;
+    if (region != null) {
+      for (String allowed : allowedRegions) {
+        if (allowed.equals(region)) {
+          found = true;
+          break;
+        }
+      }
+    }
+    if (!found) {
+      throw new AlgoliaRuntimeException("`region` must be one of the following: de, us");
+    }
 
     String url = region == null ? "analytics.algolia.com" : "analytics.{region}.algolia.com".replace("{region}", region);
 
@@ -91,7 +109,7 @@ public class AnalyticsClient extends ApiClient {
   public CompletableFuture<Object> delAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling del(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `del`.");
     }
 
     Object bodyObj = null;
@@ -168,7 +186,7 @@ public class AnalyticsClient extends ApiClient {
   public CompletableFuture<Object> getAsync(String path, Map<String, Object> parameters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling get(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `get`.");
     }
 
     Object bodyObj = null;
@@ -270,7 +288,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getAverageClickPosition(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getAverageClickPosition`.");
     }
 
     Object bodyObj = null;
@@ -390,7 +408,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getClickPositions(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getClickPositions`.");
     }
 
     Object bodyObj = null;
@@ -505,7 +523,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getClickThroughRate(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getClickThroughRate`.");
     }
 
     Object bodyObj = null;
@@ -624,7 +642,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getConversationRate(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getConversationRate`.");
     }
 
     Object bodyObj = null;
@@ -737,7 +755,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getNoClickRate(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getNoClickRate`.");
     }
 
     Object bodyObj = null;
@@ -852,7 +870,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getNoResultsRate(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getNoResultsRate`.");
     }
 
     Object bodyObj = null;
@@ -965,7 +983,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getSearchesCount(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getSearchesCount`.");
     }
 
     Object bodyObj = null;
@@ -1096,7 +1114,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getSearchesNoClicks(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getSearchesNoClicks`.");
     }
 
     Object bodyObj = null;
@@ -1240,7 +1258,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getSearchesNoResults(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getSearchesNoResults`.");
     }
 
     Object bodyObj = null;
@@ -1333,7 +1351,7 @@ public class AnalyticsClient extends ApiClient {
    */
   public CompletableFuture<GetStatusResponse> getStatusAsync(String index, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getStatus(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getStatus`.");
     }
 
     Object bodyObj = null;
@@ -1440,7 +1458,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopCountries(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getTopCountries`.");
     }
 
     Object bodyObj = null;
@@ -1588,7 +1606,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopFilterAttributes(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getTopFilterAttributes`.");
     }
 
     Object bodyObj = null;
@@ -1750,11 +1768,11 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (attribute == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'attribute' when calling" + " getTopFilterForAttribute(Async)");
+      throw new AlgoliaRuntimeException("Parameter `attribute` is required when calling `getTopFilterForAttribute`.");
     }
 
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopFilterForAttribute(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getTopFilterForAttribute`.");
     }
 
     Object bodyObj = null;
@@ -1912,7 +1930,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopFiltersNoResults(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getTopFiltersNoResults`.");
     }
 
     Object bodyObj = null;
@@ -2072,7 +2090,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopHits(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getTopHits`.");
     }
 
     Object bodyObj = null;
@@ -2245,7 +2263,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getTopSearches(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getTopSearches`.");
     }
 
     Object bodyObj = null;
@@ -2381,7 +2399,7 @@ public class AnalyticsClient extends ApiClient {
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (index == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'index' when calling getUsersCount(Async)");
+      throw new AlgoliaRuntimeException("Parameter `index` is required when calling `getUsersCount`.");
     }
 
     Object bodyObj = null;
@@ -2473,7 +2491,7 @@ public class AnalyticsClient extends ApiClient {
   public CompletableFuture<Object> postAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling post(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
     Object bodyObj = body;
@@ -2553,7 +2571,7 @@ public class AnalyticsClient extends ApiClient {
   public CompletableFuture<Object> putAsync(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (path == null) {
-      throw new AlgoliaRuntimeException("Missing the required parameter 'path' when calling put(Async)");
+      throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
     Object bodyObj = body;

@@ -10,29 +10,21 @@ function createClient(): AbtestingClient {
   return abtestingClient(appId, apiKey, 'us', { requester: echoRequester() });
 }
 
-describe('api', () => {
+describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.addABTests({
-      name: 'test',
-      variant: [{ index: 'my-test-index', trafficPercentage: 90 }],
-      endAt: '2022-02-01T13:37:01Z',
-    });
+    const result = await $client.post({ path: '/test' });
 
-    expect(result.algoliaAgent).toMatch(
-      /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
+    expect(decodeURI(result.algoliaAgent)).toMatch(
+      /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; Abtesting (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
     );
   });
 
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.addABTests({
-      name: 'test',
-      variant: [{ index: 'my-test-index', trafficPercentage: 90 }],
-      endAt: '2022-02-01T13:37:01Z',
-    });
+    const result = await $client.post({ path: '/test' });
 
     expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })
@@ -46,10 +38,8 @@ describe('parameters', () => {
       requester: echoRequester(),
     });
 
-    const result = await $client.getABTest({ id: 'test' });
+    const result = await $client.getABTest({ id: 123 });
 
-    expect(result).toEqual(
-      expect.objectContaining({ host: 'analytics.algolia.com' })
-    );
+    expect(result.host).toEqual('analytics.algolia.com');
   });
 });

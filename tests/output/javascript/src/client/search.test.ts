@@ -13,39 +13,35 @@ function createClient(): SearchClient {
 }
 
 describe('api', () => {
-  test('calls api with correct host', async () => {
-    const $client = createClient();
-
-    const result = await $client.search({
-      requests: [{ indexName: 'my-index' }],
+  test('calls api with correct read host', async () => {
+    const $client = searchClient('test-app-id', 'test-api-key', {
+      requester: echoRequester(),
     });
 
-    expect(result).toEqual(
-      expect.objectContaining({ host: 'test-app-id-dsn.algolia.net' })
-    );
-  });
+    const result = await $client.get({ path: '/test' });
 
+    expect(result.host).toEqual('test-app-id-dsn.algolia.net');
+  });
+});
+
+describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.search({
-      requests: [{ indexName: 'my-index' }],
-    });
+    const result = await $client.post({ path: '/test' });
 
-    expect(result.algoliaAgent).toMatch(
-      /Algolia%20for%20(.+)%20\(\d+\.\d+\.\d+\)/
+    expect(decodeURI(result.algoliaAgent)).toMatch(
+      /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; Search (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
     );
   });
 
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.search({
-      requests: [{ indexName: 'my-index' }],
-    });
+    const result = await $client.post({ path: '/test' });
 
     expect(result).toEqual(
-      expect.objectContaining({ connectTimeout: 2000, responseTimeout: 5000 })
+      expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })
     );
   });
 });
@@ -83,21 +79,12 @@ describe('parameters', () => {
     const $client = createClient();
 
     try {
-      const result = await $client.addApiKey();
+      const result = await $client.addApiKey(null);
 
       throw new Error('test is expected to throw error');
     } catch (e) {
       expect(e.message).toMatch(
         'Parameter `apiKey` is required when calling `addApiKey`.'
-      );
-    }
-    try {
-      const result = await $client.addApiKey({});
-
-      throw new Error('test is expected to throw error');
-    } catch (e) {
-      expect(e.message).toMatch(
-        'Parameter `apiKey.acl` is required when calling `addApiKey`.'
       );
     }
   });
