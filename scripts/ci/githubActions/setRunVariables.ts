@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { CLIENTS_JS_UTILS } from '../../common';
 import { getLanguageFolder } from '../../config';
 
 import { isBaseChanged } from './utils';
@@ -53,11 +54,9 @@ export const DEPENDENCIES = {
   JS_COMMON_TESTS_CHANGED: [
     `${JS_CLIENT_FOLDER}/packages/client-common/src/__tests__`,
   ],
-  JAVASCRIPT_UTILS_CHANGED: [
-    `${JS_CLIENT_FOLDER}/packages/client-common`,
-    `${JS_CLIENT_FOLDER}/packages/requester-browser-xhr`,
-    `${JS_CLIENT_FOLDER}/packages/requester-node-http`,
-  ],
+  JAVASCRIPT_UTILS_CHANGED: CLIENTS_JS_UTILS.map(
+    (clientName) => `${JS_CLIENT_FOLDER}/packages/${clientName}`
+  ),
   JAVASCRIPT_CLIENT_CHANGED: [
     ...CLIENTS_COMMON_FILES,
     JS_CLIENT_FOLDER,

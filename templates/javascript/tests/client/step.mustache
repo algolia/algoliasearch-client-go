@@ -5,5 +5,5 @@
   const result = {{> client/variable}}
 {{/isVariable}}
 {{#isMethod}}
-  const result = await {{> client/method}}
+  const result = await ({{> client/method}}) as unknown as EchoResponse;
 {{/isMethod}}

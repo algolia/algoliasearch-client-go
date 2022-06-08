@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable require-await */
+/* eslint-disable @typescript-eslint/no-unused-vars, require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
 import { {{client}}, {{#lambda.titlecase}}{{client}}{{/lambda.titlecase}} } from '{{{import}}}';
 import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
+import type { EchoResponse } from '@experimental-api-clients-automation/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
@@ -25,7 +25,7 @@ describe('{{testType}}', () => {
           {{> client/step}}
           throw new Error('test is expected to throw error');
         } catch(e) {
-          expect(e.message).toMatch("{{{expectedError}}}");
+          expect((e as Error).message).toMatch("{{{expectedError}}}");
         }
       {{/isError}}
       {{^isError}} 
