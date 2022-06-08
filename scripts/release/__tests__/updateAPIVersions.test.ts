@@ -1,19 +1,26 @@
-import { getVersionChangesText } from '../createReleasePR';
-import TEXT from '../text';
 import { getVersionsToRelease } from '../updateAPIVersions';
 
 describe('updateAPIversions', () => {
   it('gets versions to release', () => {
-    const versions = getVersionsToRelease(`
-    ## Version Changes
-    
-    - javascript: 1.0.0 -> **\`minor\` _(e.g. 1.1.0)_**
-    - ~java: 3.0.0 -> **\`patch\` _(e.g. 3.0.1)_**~
-      - No \`feat\` or \`fix\` commit, thus unchecked by default.
-    - php: 2.0.0 -> **\`patch\` _(e.g. 2.0.1)_**
-    `);
+    const versions = getVersionsToRelease({
+      javascript: {
+        current: '1.0.0',
+        releaseType: 'minor',
+      },
+      php: {
+        current: '2.0.0',
+        releaseType: 'patch',
+      },
+      java: {
+        current: '3.0.0',
+        releaseType: null,
+        noCommit: true,
+        skipRelease: true,
+      },
+    });
 
     expect(Object.keys(versions)).toEqual(['javascript', 'php']);
+    expect(versions.java).toBeUndefined();
     expect(versions.javascript?.current).toEqual('1.0.0');
     expect(versions.javascript?.releaseType).toEqual('minor');
     expect(versions.php?.current).toEqual('2.0.0');
@@ -21,27 +28,21 @@ describe('updateAPIversions', () => {
   });
 
   it('correctly reads clients version and their next release type', () => {
-    // This test is a glue between createReleasePR and updateAPIVersions.
-    const issueBody = [
-      TEXT.versionChangeHeader,
-      getVersionChangesText({
-        javascript: {
-          current: '0.0.1',
-          releaseType: 'patch',
-        },
-        php: {
-          current: '0.0.1',
-          releaseType: 'minor',
-        },
-        java: {
-          current: '0.0.1',
-          releaseType: 'patch',
-          skipRelease: true,
-        },
-      }),
-    ].join('\n');
-
-    const versions = getVersionsToRelease(issueBody);
+    const versions = getVersionsToRelease({
+      javascript: {
+        current: '0.0.1',
+        releaseType: 'patch',
+      },
+      php: {
+        current: '0.0.1',
+        releaseType: 'minor',
+      },
+      java: {
+        current: '0.0.1',
+        releaseType: 'patch',
+        skipRelease: true,
+      },
+    });
     expect(versions).toEqual({
       javascript: expect.objectContaining({
         current: '0.0.1',

@@ -387,7 +387,7 @@ async function createReleasePR(): Promise<void> {
   const headBranch = `chore/prepare-release-${TODAY}`;
 
   console.log('Updating config files...');
-  await updateAPIVersions(versionChanges, changelog, headBranch);
+  await updateAPIVersions(versions, changelog, headBranch);
 
   console.log('Creating pull request...');
   const octokit = getOctokit();
