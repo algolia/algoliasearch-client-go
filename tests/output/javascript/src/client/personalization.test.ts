@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable require-await */
+/* eslint-disable @typescript-eslint/no-unused-vars, require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
 import type { PersonalizationClient } from '@experimental-api-clients-automation/client-personalization';
 import { personalizationClient } from '@experimental-api-clients-automation/client-personalization';
 import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
+import type { EchoResponse } from '@experimental-api-clients-automation/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
@@ -18,7 +18,9 @@ describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.post({ path: '/test' });
+    const result = (await $client.post({
+      path: '/test',
+    })) as unknown as EchoResponse;
 
     expect(decodeURI(result.algoliaAgent)).toMatch(
       /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; Personalization (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
@@ -28,7 +30,9 @@ describe('commonApi', () => {
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.post({ path: '/test' });
+    const result = (await $client.post({
+      path: '/test',
+    })) as unknown as EchoResponse;
 
     expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })
@@ -48,7 +52,7 @@ describe('parameters', () => {
 
       throw new Error('test is expected to throw error');
     } catch (e) {
-      expect(e.message).toMatch(
+      expect((e as Error).message).toMatch(
         '`region` must be one of the following: eu, us'
       );
     }

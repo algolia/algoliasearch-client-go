@@ -2,6 +2,7 @@
 import type { AbtestingClient } from '@experimental-api-clients-automation/client-abtesting';
 import { abtestingClient } from '@experimental-api-clients-automation/client-abtesting';
 import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
+import type { EchoResponse } from '@experimental-api-clients-automation/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
@@ -14,7 +15,9 @@ describe('commonApi', () => {
   test('calls api with correct user agent', async () => {
     const $client = createClient();
 
-    const result = await $client.post({ path: '/test' });
+    const result = (await $client.post({
+      path: '/test',
+    })) as unknown as EchoResponse;
 
     expect(decodeURI(result.algoliaAgent)).toMatch(
       /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*(; Abtesting (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+\.\d+\.\d+(-.*)?\))?)*$/
@@ -24,7 +27,9 @@ describe('commonApi', () => {
   test('calls api with correct timeouts', async () => {
     const $client = createClient();
 
-    const result = await $client.post({ path: '/test' });
+    const result = (await $client.post({
+      path: '/test',
+    })) as unknown as EchoResponse;
 
     expect(result).toEqual(
       expect.objectContaining({ connectTimeout: 2000, responseTimeout: 30000 })
@@ -38,7 +43,9 @@ describe('parameters', () => {
       requester: echoRequester(),
     });
 
-    const result = await $client.getABTest({ id: 123 });
+    const result = (await $client.getABTest({
+      id: 123,
+    })) as unknown as EchoResponse;
 
     expect(result.host).toEqual('analytics.algolia.com');
   });
