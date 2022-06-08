@@ -25,7 +25,7 @@ public class PersonalizationClient extends ApiClient {
   }
 
   public PersonalizationClient(String appId, String apiKey, String region, ClientOptions options) {
-    super(appId, apiKey, "Personalization", options);
+    super(appId, apiKey, "Personalization", "4.0.0-SNAPSHOT", options);
     if (options.getHosts() == null) {
       this.setHosts(getDefaultHosts(region));
     } else {

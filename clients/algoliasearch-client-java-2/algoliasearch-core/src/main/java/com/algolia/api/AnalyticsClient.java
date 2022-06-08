@@ -33,7 +33,7 @@ public class AnalyticsClient extends ApiClient {
   }
 
   public AnalyticsClient(String appId, String apiKey, String region, ClientOptions options) {
-    super(appId, apiKey, "Analytics", options);
+    super(appId, apiKey, "Analytics", "4.0.0-SNAPSHOT", options);
     if (options.getHosts() == null) {
       this.setHosts(getDefaultHosts(region));
     } else {
