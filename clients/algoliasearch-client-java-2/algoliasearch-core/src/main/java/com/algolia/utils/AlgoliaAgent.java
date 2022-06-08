@@ -25,6 +25,10 @@ public class AlgoliaAgent {
     return finalValue;
   }
 
+  public boolean removeSegment(Segment seg) {
+    return segments.remove(seg.toString());
+  }
+
   @Override
   public String toString() {
     return finalValue;

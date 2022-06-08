@@ -19,15 +19,13 @@ public abstract class ApiClient {
 
   private boolean debugging = false;
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
+  private AlgoliaAgent algoliaAgent;
 
   private String contentType;
 
   private Requester requester;
 
-  /*
-   * Constructor for ApiClient with custom Requester
-   */
-  public ApiClient(String appId, String apiKey, String clientName, ClientOptions options) {
+  public ApiClient(String appId, String apiKey, String clientName, String version, ClientOptions options) {
     if (appId == null || appId.length() == 0) {
       throw new AlgoliaRuntimeException("`appId` is missing.");
     }
@@ -37,19 +35,19 @@ public abstract class ApiClient {
 
     this.contentType = "application/json";
 
-    AlgoliaAgent ua = new AlgoliaAgent("4.0.0-SNAPSHOT");
-    ua.addSegment(new AlgoliaAgent.Segment(clientName, "4.0.0-SNAPSHOT"));
+    this.algoliaAgent = new AlgoliaAgent(version);
+    this.algoliaAgent.addSegment(new AlgoliaAgent.Segment(clientName, version));
     if (options.getAlgoliaAgentSegments() != null) {
       for (AlgoliaAgent.Segment segment : options.getAlgoliaAgentSegments()) {
-        ua.addSegment(segment);
+        this.algoliaAgent.addSegment(segment);
       }
     }
-    setAlgoliaAgent(ua.toString());
+    refreshUserAgent();
 
-    defaultHeaderMap.put("X-Algolia-Application-Id", appId);
-    defaultHeaderMap.put("X-Algolia-API-Key", apiKey);
-    defaultHeaderMap.put("Accept", this.contentType);
-    defaultHeaderMap.put("Content-Type", this.contentType);
+    addDefaultHeader("X-Algolia-Application-Id", appId);
+    addDefaultHeader("X-Algolia-API-Key", apiKey);
+    addDefaultHeader("Accept", this.contentType);
+    addDefaultHeader("Content-Type", this.contentType);
 
     this.requester = options.getRequester();
     if (this.requester == null) {
@@ -57,14 +55,31 @@ public abstract class ApiClient {
     }
   }
 
+  private void refreshUserAgent() {
+    addDefaultHeader("User-Agent", this.algoliaAgent.toString());
+  }
+
   /**
-   * Set the User-Agent header's value (by adding to the default header map).
+   * Add a custom user agent segment
    *
-   * @param algoliaAgent HTTP request's user agent
+   * @param segment Algolia Agent Segment
    * @return ApiClient
    */
-  public ApiClient setAlgoliaAgent(String algoliaAgent) {
-    addDefaultHeader("User-Agent", algoliaAgent);
+  public ApiClient addAlgoliaAgent(AlgoliaAgent.Segment segment) {
+    algoliaAgent.addSegment(segment);
+    refreshUserAgent();
+    return this;
+  }
+
+  /**
+   * Remove a user agent segment
+   *
+   * @param segment Algolia Agent Segment
+   * @return ApiClient
+   */
+  public ApiClient removeAlgoliaAgent(AlgoliaAgent.Segment segment) {
+    algoliaAgent.removeSegment(segment);
+    refreshUserAgent();
     return this;
   }
 
