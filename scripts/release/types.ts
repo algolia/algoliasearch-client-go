@@ -5,7 +5,7 @@ import type { Language } from '../types';
 export type Version = {
   current: string;
   releaseType: ReleaseType | null;
-  next?: string;
+  next: string | null;
   skipRelease?: boolean;
   noCommit?: boolean;
 };
@@ -14,8 +14,8 @@ export type Versions = {
   [lang: string]: Version;
 };
 
-export type VersionsWithoutReleaseType = {
-  [lang: string]: Omit<Version, 'releaseType'>;
+export type VersionsBeforeBump = {
+  [lang: string]: Omit<Version, 'next' | 'releaseType'>;
 };
 
 export type Scope = Language | 'specs';
@@ -38,7 +38,9 @@ export type Commit =
   | { error: 'unknown-language-scope' };
 
 export type VersionsToRelease = {
-  [lang in Language]?: Pick<Version, 'current' | 'next'> & {
+  [lang in Language]?: {
+    current: string;
+    next: string;
     releaseType: ReleaseType;
   };
 };

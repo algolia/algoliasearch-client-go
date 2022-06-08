@@ -21,7 +21,6 @@ import {
   getClientsConfigField,
   getGitHubUrl,
   getLanguageFolder,
-  getPackageVersionDefault,
 } from '../config';
 import type { Language } from '../types';
 
@@ -31,16 +30,13 @@ dotenv.config({ path: ROOT_ENV_PATH });
 
 /**
  * Bump each client version of the JavaScript client in openapitools.json.
+ *
+ * We don't use the pre-computed `next` version for JavaScript, because the packages have independent versioning.
  */
 async function updateVersionForJavascript(
-  versionsToRelease: VersionsToRelease
+  jsVersion: NonNullable<VersionsToRelease['javascript']>
 ): Promise<void> {
-  if (!versionsToRelease.javascript) {
-    return;
-  }
-
   // Sets the new version of the JavaScript client
-  const jsVersion = versionsToRelease.javascript;
   Object.values(GENERATORS)
     .filter((gen) => gen.language === 'javascript')
     .forEach((gen) => {
@@ -58,7 +54,7 @@ async function updateVersionForJavascript(
     });
 
   await fsp.writeFile(
-    toAbsolutePath('config/openapitools.json'),
+    toAbsolutePath('config/openapitools.json').concat('\n'),
     JSON.stringify(openapiConfig, null, 2)
   );
 
@@ -81,14 +77,16 @@ async function updateVersionForJavascript(
   clientsConfig.javascript.utilsPackageVersion = nextUtilsPackageVersion;
   await fsp.writeFile(
     toAbsolutePath('config/clients.config.json'),
-    JSON.stringify(clientsConfig, null, 2)
+    JSON.stringify(clientsConfig, null, 2).concat('\n')
   );
 }
 
 async function updateConfigFiles(
   versionsToRelease: VersionsToRelease
 ): Promise<void> {
-  await updateVersionForJavascript(versionsToRelease);
+  if (versionsToRelease.javascript) {
+    await updateVersionForJavascript(versionsToRelease.javascript);
+  }
 
   // update the other versions in clients.config.json
   LANGUAGES.forEach((lang) => {
@@ -96,23 +94,12 @@ async function updateConfigFiles(
       return;
     }
 
-    const releaseType = versionsToRelease[lang]!.releaseType;
-    const nextVersion = versionsToRelease[lang]!.next;
-
-    if (!nextVersion) {
-      throw new Error(
-        `Failed to bump version ${getPackageVersionDefault(
-          lang
-        )} by ${releaseType}.`
-      );
-    }
-
-    clientsConfig[lang].packageVersion = nextVersion;
+    clientsConfig[lang].packageVersion = versionsToRelease[lang]!.next;
   });
 
   await fsp.writeFile(
     toAbsolutePath('config/clients.config.json'),
-    JSON.stringify(clientsConfig, null, 2)
+    JSON.stringify(clientsConfig, null, 2).concat('\n')
   );
 }
 
@@ -146,8 +133,8 @@ export function getVersionsToRelease(versions: Versions): VersionsToRelease {
   const versionsToRelease: VersionsToRelease = {};
 
   Object.entries(versions).forEach(
-    ([lang, { noCommit, current, skipRelease, releaseType }]) => {
-      if (noCommit || skipRelease || !current) {
+    ([lang, { noCommit, current, skipRelease, releaseType, next }]) => {
+      if (noCommit || skipRelease || !current || !next) {
         return;
       }
 
@@ -163,6 +150,7 @@ export function getVersionsToRelease(versions: Versions): VersionsToRelease {
       versionsToRelease[lang] = {
         current,
         releaseType,
+        next,
       };
     }
   );
@@ -221,7 +209,7 @@ export async function updateAPIVersions(
       lang: lang as Language,
       changelog,
       current,
-      next: next!,
+      next,
     });
   }
 

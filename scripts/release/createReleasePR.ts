@@ -22,7 +22,7 @@ import { RELEASED_TAG } from './common';
 import TEXT from './text';
 import type {
   Versions,
-  VersionsWithoutReleaseType,
+  VersionsBeforeBump,
   PassedCommit,
   Commit,
   Scope,
@@ -34,7 +34,7 @@ dotenv.config({ path: ROOT_ENV_PATH });
 
 const COMMON_SCOPES = ['specs'];
 
-export function readVersions(): VersionsWithoutReleaseType {
+export function readVersions(): VersionsBeforeBump {
   return Object.fromEntries(
     LANGUAGES.map((lang) => [lang, { current: getPackageVersionDefault(lang) }])
   );
@@ -177,6 +177,10 @@ export function getNextVersion(
     );
   }
 
+  console.log(
+    `Next version is '${nextVersion}', release type: '${releaseType}'`
+  );
+
   return nextVersion;
 }
 
@@ -185,7 +189,7 @@ export function decideReleaseStrategy({
   versions,
   commits,
 }: {
-  versions: VersionsWithoutReleaseType;
+  versions: VersionsBeforeBump;
   commits: PassedCommit[];
 }): Versions {
   return Object.entries(versions).reduce(

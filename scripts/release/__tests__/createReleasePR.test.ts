@@ -115,6 +115,7 @@ describe('createReleasePR', () => {
             current: '0.0.1',
             releaseType: null,
             noCommit: true,
+            next: null,
           },
 
           java: {

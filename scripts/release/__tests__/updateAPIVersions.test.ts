@@ -1,3 +1,4 @@
+import { getNextVersion } from '../createReleasePR';
 import { getVersionsToRelease } from '../updateAPIVersions';
 
 describe('updateAPIversions', () => {
@@ -6,16 +7,19 @@ describe('updateAPIversions', () => {
       javascript: {
         current: '1.0.0',
         releaseType: 'minor',
+        next: getNextVersion('1.0.0', 'minor'),
       },
       php: {
         current: '2.0.0',
         releaseType: 'patch',
+        next: getNextVersion('2.0.0', 'patch'),
       },
       java: {
         current: '3.0.0',
         releaseType: null,
         noCommit: true,
         skipRelease: true,
+        next: null,
       },
     });
 
@@ -32,15 +36,18 @@ describe('updateAPIversions', () => {
       javascript: {
         current: '0.0.1',
         releaseType: 'patch',
+        next: getNextVersion('0.0.1', 'patch'),
       },
       php: {
         current: '0.0.1',
         releaseType: 'minor',
+        next: getNextVersion('0.0.1', 'minor'),
       },
       java: {
         current: '0.0.1',
         releaseType: 'patch',
         skipRelease: true,
+        next: null,
       },
     });
     expect(versions).toEqual({
