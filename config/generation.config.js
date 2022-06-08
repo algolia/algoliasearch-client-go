@@ -5,27 +5,20 @@ module.exports = {
     'specs/bundled/*.yml',
 
     'clients/**',
-    'clients/**/.*', // hidden files are not ignored by default
     '!clients/README.md',
     '!clients/**/.openapi-generator-ignore',
 
     // Java
-    '!clients/algoliasearch-client-java-2/*.gradle',
-    '!clients/algoliasearch-client-java-2/gradlew',
-    '!clients/algoliasearch-client-java-2/.gitignore',
-    '!clients/algoliasearch-client-java-2/gradle/wrapper/**',
-    '!clients/algoliasearch-client-java-2/algoliasearch-core/build.gradle',
-    '!clients/algoliasearch-client-java-2/algoliasearch-core/gradle.properties',
-    '!clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/exceptions/**',
-    '!clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/utils/**',
+    '!clients/algoliasearch-client-java-2/**',
+    'clients/algoliasearch-client-java-2/gradle.properties',
+    'clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/ApiClient.java',
+    'clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/api/**',
+    'clients/algoliasearch-client-java-2/algoliasearch-core/src/main/java/com/algolia/model/**',
 
     'tests/output/java/build.gradle',
-    'tests/output/java/src/test/java/com/algolia/methods/**', // this could be added automatically by the script, but with overhead
-    'tests/output/java/src/test/java/com/algolia/client/**',
 
     // JavaScript
     '!clients/algoliasearch-client-javascript/*',
-    '!clients/algoliasearch-client-javascript/.*',
     '!clients/algoliasearch-client-javascript/.github/**',
     '!clients/algoliasearch-client-javascript/.yarn/**',
     '!clients/algoliasearch-client-javascript/scripts/**',
@@ -34,12 +27,9 @@ module.exports = {
     '!clients/algoliasearch-client-javascript/packages/client-common/**',
 
     'tests/output/javascript/package.json',
-    'tests/output/javascript/src/methods/**',
-    'tests/output/javascript/src/client/**',
 
     // PHP
     '!clients/algoliasearch-client-php/*',
-    '!clients/algoliasearch-client-php/.*',
     '!clients/algoliasearch-client-php/lib/*',
     '!clients/algoliasearch-client-php/lib/Cache/**',
     '!clients/algoliasearch-client-php/lib/Exceptions/**',
@@ -50,8 +40,5 @@ module.exports = {
     '!clients/algoliasearch-client-php/lib/Support/**',
     '!clients/algoliasearch-client-php/lib/Configuration/**',
     'clients/algoliasearch-client-php/lib/Configuration/Configuration.php',
-
-    'tests/output/php/src/methods/**',
-    'tests/output/php/src/client/**',
   ],
 };
