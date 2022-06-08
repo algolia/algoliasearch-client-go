@@ -5,6 +5,7 @@ import type { Language } from '../types';
 export type Version = {
   current: string;
   releaseType: ReleaseType | null;
+  next?: string;
   skipRelease?: boolean;
   noCommit?: boolean;
 };

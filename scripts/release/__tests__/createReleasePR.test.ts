@@ -5,6 +5,7 @@ import {
   getSkippedCommitsText,
   decideReleaseStrategy,
   readVersions,
+  getNextVersion,
 } from '../createReleasePR';
 
 describe('createReleasePR', () => {
@@ -79,16 +80,19 @@ describe('createReleasePR', () => {
           javascript: {
             current: '0.0.1',
             releaseType: 'patch',
+            next: getNextVersion('0.0.1', 'patch'),
           },
 
           php: {
             current: '0.0.1',
             releaseType: 'patch',
+            next: getNextVersion('0.0.1', 'patch'),
           },
 
           java: {
             current: '0.0.1',
             releaseType: 'patch',
+            next: getNextVersion('0.0.1', 'patch'),
           },
         })
       ).toMatchInlineSnapshot(`
@@ -104,6 +108,7 @@ describe('createReleasePR', () => {
           javascript: {
             current: '0.0.1',
             releaseType: 'patch',
+            next: getNextVersion('0.0.1', 'patch'),
           },
 
           php: {
@@ -115,6 +120,7 @@ describe('createReleasePR', () => {
           java: {
             current: '0.0.1',
             releaseType: 'patch',
+            next: getNextVersion('0.0.1', 'patch'),
           },
         })
       ).toMatchInlineSnapshot(`
@@ -130,22 +136,25 @@ describe('createReleasePR', () => {
           javascript: {
             current: '0.0.1',
             releaseType: 'patch',
+            next: getNextVersion('0.0.1', 'patch'),
           },
 
           php: {
             current: '0.0.1',
             releaseType: 'minor',
+            next: getNextVersion('0.0.1', 'minor'),
           },
 
           java: {
             current: '0.0.1',
-            releaseType: 'patch',
+            releaseType: null,
             skipRelease: true,
+            next: getNextVersion('0.0.1', null),
           },
         })
       ).toMatchInlineSnapshot(`
               "- javascript: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**
-              - ~java: 0.0.1 -> **\`patch\` _(e.g. 0.0.2)_**~
+              - ~java: 0.0.1 -> **\`null\` _(e.g. 0.0.1)_**~
                 - No \`feat\` or \`fix\` commit, thus unchecked by default.
               - php: 0.0.1 -> **\`minor\` _(e.g. 0.1.0)_**"
           `);
@@ -178,6 +187,7 @@ describe('createReleasePR', () => {
       });
 
       expect(versions.javascript.releaseType).toEqual('major');
+      expect(versions.javascript.next).toEqual('1.0.0');
     });
 
     it('bumps minor version for feat', () => {
@@ -205,6 +215,7 @@ describe('createReleasePR', () => {
       });
 
       expect(versions.php.releaseType).toEqual('minor');
+      expect(versions.php.next).toEqual('0.1.0');
     });
 
     it('bumps patch version for fix', () => {
@@ -232,6 +243,7 @@ describe('createReleasePR', () => {
       });
 
       expect(versions.java.releaseType).toEqual('patch');
+      expect(versions.java.next).toEqual('0.0.2');
     });
 
     it('marks noCommit for languages without any commit', () => {
@@ -261,6 +273,8 @@ describe('createReleasePR', () => {
       expect(versions.javascript.noCommit).toEqual(true);
       expect(versions.php.noCommit).toEqual(true);
       expect(versions.java.noCommit).toBeUndefined();
+      expect(versions.java.releaseType).toEqual('patch');
+      expect(versions.java.next).toEqual('0.0.2');
     });
 
     it('releases every languages if a `specs` commit is present', () => {
@@ -289,10 +303,13 @@ describe('createReleasePR', () => {
 
       expect(versions.javascript.noCommit).toBeUndefined();
       expect(versions.javascript.releaseType).toEqual('patch');
+      expect(versions.javascript.next).toEqual('0.0.2');
       expect(versions.php.noCommit).toBeUndefined();
       expect(versions.php.releaseType).toEqual('patch');
+      expect(versions.php.next).toEqual('0.0.2');
       expect(versions.java.noCommit).toBeUndefined();
       expect(versions.java.releaseType).toEqual('patch');
+      expect(versions.java.next).toEqual('0.0.2');
     });
 
     it('bumps for `specs` feat with only language `fix` commits', () => {
@@ -328,10 +345,13 @@ describe('createReleasePR', () => {
 
       expect(versions.javascript.noCommit).toBeUndefined();
       expect(versions.javascript.releaseType).toEqual('minor');
+      expect(versions.javascript.next).toEqual('0.1.0');
       expect(versions.php.noCommit).toBeUndefined();
       expect(versions.php.releaseType).toEqual('minor');
+      expect(versions.php.next).toEqual('0.1.0');
       expect(versions.java.noCommit).toBeUndefined();
       expect(versions.java.releaseType).toEqual('minor');
+      expect(versions.java.next).toEqual('0.1.0');
     });
 
     it('marks skipRelease for patch upgrade without fix commit', () => {
@@ -360,6 +380,76 @@ describe('createReleasePR', () => {
       expect(versions.javascript.skipRelease).toEqual(true);
       expect(versions.java.skipRelease).toBeUndefined();
       expect(versions.php.skipRelease).toBeUndefined();
+    });
+
+    it('consider prerelease version and correctly bumps them', () => {
+      const versions = decideReleaseStrategy({
+        versions: {
+          javascript: {
+            current: '0.0.1-alpha',
+          },
+          java: {
+            current: '0.0.1-beta',
+          },
+          php: {
+            current: '0.0.1-algolia',
+          },
+        },
+        commits: [
+          {
+            hash: 'b2501882',
+            type: 'feat',
+            scope: 'specs',
+            message: 'add some descriptions',
+            raw: 'b2501882 feat(specs): add some descriptions',
+          },
+        ],
+      });
+
+      expect(versions.javascript.noCommit).toBeUndefined();
+      expect(versions.javascript.releaseType).toEqual('prerelease');
+      expect(versions.javascript.next).toEqual('0.0.1-alpha.0');
+      expect(versions.php.noCommit).toBeUndefined();
+      expect(versions.php.releaseType).toEqual('prerelease');
+      expect(versions.php.next).toEqual('0.0.1-algolia.0');
+      expect(versions.java.noCommit).toBeUndefined();
+      expect(versions.java.releaseType).toEqual('prerelease');
+      expect(versions.java.next).toEqual('0.0.1-beta.0');
+    });
+
+    it('bumps SNAPSHOT versions correctly', () => {
+      const versions = decideReleaseStrategy({
+        versions: {
+          javascript: {
+            current: '0.0.1-alpha',
+          },
+          java: {
+            current: '0.0.1-SNAPSHOT',
+          },
+          php: {
+            current: '0.0.1-beta',
+          },
+        },
+        commits: [
+          {
+            hash: 'b2501882',
+            type: 'feat',
+            scope: 'specs',
+            message: 'add some descriptions',
+            raw: 'b2501882 feat(specs): add some descriptions',
+          },
+        ],
+      });
+
+      expect(versions.javascript.noCommit).toBeUndefined();
+      expect(versions.javascript.releaseType).toEqual('prerelease');
+      expect(versions.javascript.next).toEqual('0.0.1-alpha.0');
+      expect(versions.php.noCommit).toBeUndefined();
+      expect(versions.php.releaseType).toEqual('prerelease');
+      expect(versions.php.next).toEqual('0.0.1-beta.0');
+      expect(versions.java.noCommit).toBeUndefined();
+      expect(versions.java.releaseType).toEqual('minor');
+      expect(versions.java.next).toEqual('0.1.0-SNAPSHOT');
     });
   });
 
