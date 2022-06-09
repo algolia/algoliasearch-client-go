@@ -20,6 +20,11 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     steps:
+      - name: debugging - dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -225,6 +230,10 @@ jobs:
 
       - name: Generate CTS
         run: yarn cli cts generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
+
+      - name: Update `yarn.lock` for JavaScript release
+        if: ${{ matrix.client.language == 'javascript' && startsWith(github.head_ref, 'chore/prepare-release-') }}
+        run: YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
       - name: Run CTS
         run: yarn cli cts run ${{ matrix.client.language }}
