@@ -32,7 +32,7 @@ import { updateAPIVersions } from './updateAPIVersions';
 
 dotenv.config({ path: ROOT_ENV_PATH });
 
-const COMMON_SCOPES = ['specs'];
+export const COMMON_SCOPES = ['specs', 'clients'];
 
 export function readVersions(): VersionsBeforeBump {
   return Object.fromEntries(
@@ -142,7 +142,7 @@ export function parseCommit(commit: string): Commit {
   return {
     hash,
     type, // `fix` | `feat` | `chore` | ...
-    scope, // `specs` | `javascript` | `php` | `java` | ...
+    scope, // `clients` | `specs` | `javascript` | `php` | `java` | ...
     message,
     raw: commit,
   };

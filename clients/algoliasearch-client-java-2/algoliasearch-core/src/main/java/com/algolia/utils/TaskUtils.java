@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public class TaskUtils {
 
-  public static final int DEFAULT_MAX_TRIAL = 50;
+  public static final int DEFAULT_MAX_RETRIES = 50;
   public static final IntUnaryOperator DEFAULT_TIMEOUT = (int retries) -> {
     return Math.min(retries * 200, 5000);
   };
@@ -17,11 +17,11 @@ public class TaskUtils {
   public static <TResponse> void retryUntil(
     Supplier<CompletableFuture<TResponse>> func,
     Predicate<TResponse> validate,
-    int maxTrial,
+    int maxRetries,
     IntUnaryOperator timeout
   ) throws AlgoliaRuntimeException {
     int retryCount = 0;
-    while (retryCount < maxTrial) {
+    while (retryCount < maxRetries) {
       try {
         TResponse resp = func.get().get();
         if (validate.test(resp)) {
@@ -40,6 +40,6 @@ public class TaskUtils {
 
       retryCount++;
     }
-    throw new AlgoliaRetriesExceededException("The maximum number of trials exceeded. (" + (retryCount + 1) + "/" + maxTrial + ")");
+    throw new AlgoliaRetriesExceededException("The maximum number of retries exceeded. (" + (retryCount + 1) + "/" + maxRetries + ")");
   }
 }

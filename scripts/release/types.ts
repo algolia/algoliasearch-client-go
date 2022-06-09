@@ -18,13 +18,13 @@ export type VersionsBeforeBump = {
   [lang: string]: Omit<Version, 'next' | 'releaseType'>;
 };
 
-export type Scope = Language | 'specs';
+export type Scope = Language | 'clients' | 'specs';
 
 export type PassedCommit = {
   hash: string;
   type: string;
   /**
-   * A commit can be scoped to a language, or the specs, which impacts all clients.
+   * A commit can be scoped to a language. When scoped to `clients` or `specs`, it impacts all clients.
    */
   scope: Scope;
   message: string;

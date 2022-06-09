@@ -313,6 +313,41 @@ describe('createReleasePR', () => {
       expect(versions.java.next).toEqual('0.0.2');
     });
 
+    it('releases every languages if a `clients` commit is present', () => {
+      const versions = decideReleaseStrategy({
+        versions: {
+          javascript: {
+            current: '0.0.1',
+          },
+          java: {
+            current: '0.0.1',
+          },
+          php: {
+            current: '0.0.1',
+          },
+        },
+        commits: [
+          {
+            hash: 'b2501882',
+            type: 'fix',
+            scope: 'clients',
+            message: 'fix some utils',
+            raw: 'b2501882 fix(clients): fix some utils',
+          },
+        ],
+      });
+
+      expect(versions.javascript.noCommit).toBeUndefined();
+      expect(versions.javascript.releaseType).toEqual('patch');
+      expect(versions.javascript.next).toEqual('0.0.2');
+      expect(versions.php.noCommit).toBeUndefined();
+      expect(versions.php.releaseType).toEqual('patch');
+      expect(versions.php.next).toEqual('0.0.2');
+      expect(versions.java.noCommit).toBeUndefined();
+      expect(versions.java.releaseType).toEqual('patch');
+      expect(versions.java.next).toEqual('0.0.2');
+    });
+
     it('bumps for `specs` feat with only language `fix` commits', () => {
       const versions = decideReleaseStrategy({
         versions: {

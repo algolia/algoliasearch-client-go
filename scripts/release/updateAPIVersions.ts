@@ -54,8 +54,8 @@ async function updateVersionForJavascript(
     });
 
   await fsp.writeFile(
-    toAbsolutePath('config/openapitools.json').concat('\n'),
-    JSON.stringify(openapiConfig, null, 2)
+    toAbsolutePath('config/openapitools.json'),
+    JSON.stringify(openapiConfig, null, 2).concat('\n')
   );
 
   // Sets the new version of the utils package
