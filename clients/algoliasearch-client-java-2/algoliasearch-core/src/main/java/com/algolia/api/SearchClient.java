@@ -4294,7 +4294,7 @@ public class SearchClient extends ApiClient {
     return this.updateApiKeyAsync(key, apiKey, null);
   }
 
-  public void waitForTask(String indexName, Long taskID, RequestOptions requestOptions, int maxTrial, IntUnaryOperator timeout) {
+  public void waitForTask(String indexName, Long taskID, RequestOptions requestOptions, int maxRetries, IntUnaryOperator timeout) {
     TaskUtils.retryUntil(
       () -> {
         return this.getTaskAsync(indexName, taskID, requestOptions);
@@ -4302,20 +4302,20 @@ public class SearchClient extends ApiClient {
       (GetTaskResponse task) -> {
         return task.getStatus() == TaskStatus.PUBLISHED;
       },
-      maxTrial,
+      maxRetries,
       timeout
     );
   }
 
   public void waitForTask(String indexName, Long taskID, RequestOptions requestOptions) {
-    this.waitForTask(indexName, taskID, requestOptions, TaskUtils.DEFAULT_MAX_TRIAL, TaskUtils.DEFAULT_TIMEOUT);
+    this.waitForTask(indexName, taskID, requestOptions, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT);
   }
 
-  public void waitForTask(String indexName, Long taskID, int maxTrial, IntUnaryOperator timeout) {
-    this.waitForTask(indexName, taskID, null, maxTrial, timeout);
+  public void waitForTask(String indexName, Long taskID, int maxRetries, IntUnaryOperator timeout) {
+    this.waitForTask(indexName, taskID, null, maxRetries, timeout);
   }
 
   public void waitForTask(String indexName, Long taskID) {
-    this.waitForTask(indexName, taskID, null, TaskUtils.DEFAULT_MAX_TRIAL, TaskUtils.DEFAULT_TIMEOUT);
+    this.waitForTask(indexName, taskID, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT);
   }
 }
