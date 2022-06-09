@@ -5,18 +5,18 @@
     "test": "jest"
   },
   "dependencies": {
-    "@experimental-api-clients-automation/algoliasearch-lite": "0.3.0",
-    "@experimental-api-clients-automation/client-abtesting": "0.3.0",
-    "@experimental-api-clients-automation/client-analytics": "0.3.0",
-    "@experimental-api-clients-automation/client-common": "0.3.0",
-    "@experimental-api-clients-automation/client-insights": "0.3.0",
-    "@experimental-api-clients-automation/client-personalization": "0.3.0",
-    "@experimental-api-clients-automation/client-predict": "0.3.0",
-    "@experimental-api-clients-automation/client-query-suggestions": "0.3.0",
-    "@experimental-api-clients-automation/client-search": "0.3.0",
-    "@experimental-api-clients-automation/client-sources": "0.3.0",
-    "@experimental-api-clients-automation/recommend": "0.3.0",
-    "@experimental-api-clients-automation/requester-node-http": "0.3.0"
+    "@experimental-api-clients-automation/algoliasearch-lite": "0.4.0",
+    "@experimental-api-clients-automation/client-abtesting": "0.4.0",
+    "@experimental-api-clients-automation/client-analytics": "0.4.0",
+    "@experimental-api-clients-automation/client-common": "0.4.0",
+    "@experimental-api-clients-automation/client-insights": "0.4.0",
+    "@experimental-api-clients-automation/client-personalization": "0.4.0",
+    "@experimental-api-clients-automation/client-predict": "0.4.0",
+    "@experimental-api-clients-automation/client-query-suggestions": "0.4.0",
+    "@experimental-api-clients-automation/client-search": "0.4.0",
+    "@experimental-api-clients-automation/client-sources": "0.4.0",
+    "@experimental-api-clients-automation/recommend": "0.4.0",
+    "@experimental-api-clients-automation/requester-node-http": "0.4.0"
   },
   "devDependencies": {
     "@types/jest": "27.5.2",

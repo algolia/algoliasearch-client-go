@@ -27,7 +27,7 @@ public class RecommendClient extends ApiClient {
   }
 
   public RecommendClient(String appId, String apiKey, ClientOptions options) {
-    super(appId, apiKey, "Recommend", "4.0.0-SNAPSHOT", options);
+    super(appId, apiKey, "Recommend", "4.1.0-SNAPSHOT", options);
     if (options.getHosts() == null) {
       this.setHosts(getDefaultHosts(appId));
     } else {
