@@ -1439,7 +1439,7 @@ __metadata:
     "@experimental-api-clients-automation/client-search": 0.3.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.3.0
     "@experimental-api-clients-automation/requester-node-http": 0.3.0
-    "@types/node": 16.11.38
+    "@types/node": 16.11.26
     typescript: 4.6.3
   languageName: unknown
   linkType: soft
@@ -4444,6 +4444,13 @@ __metadata:
   version: 17.0.40
   resolution: "@types/node@npm:17.0.40"
   checksum: e3b2fe876672fbe4be84ce17773944eb2f5eaba50e2c6c0536bdf6d4972ed6488581580581f154183fdc8f2d56fa42a42e3d6e83b9b71ee25adea16a84765e92
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:16.11.26":
+  version: 16.11.26
+  resolution: "@types/node@npm:16.11.26"
+  checksum: 57757caaba3f0d95de82198cb276a1002c49b710108c932a1d02d7c91ff2fa57cfe2dd19fde60853b6dd90b0964b3cf35557981d2628e20aed6a909057aedfe6
   languageName: node
   linkType: hard
 
