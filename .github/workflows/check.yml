@@ -232,7 +232,7 @@ jobs:
         run: yarn cli cts generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
       - name: Update `yarn.lock` for JavaScript release
-        if: ${{ matrix.client.language == 'javascript' && startsWith(github.head_ref, 'chore/prepare-release-') }}
+        if: ${{ matrix.client.language == 'javascript' && (startsWith(github.head_ref, 'chore/prepare-release-') || github.ref == 'refs/heads/main') }}
         run: YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
       - name: Run CTS
