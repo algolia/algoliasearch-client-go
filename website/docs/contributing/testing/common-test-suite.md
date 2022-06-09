@@ -35,7 +35,7 @@ The test generation script requires a JSON file name from the `operationId` (e.g
       },
       "facets": ["*"]
     },
-    // Extra options sent with your method
+    // Additional options sent with your method
     "requestOptions": {
       // Merged with transporter query parameters
       "queryParameters": {

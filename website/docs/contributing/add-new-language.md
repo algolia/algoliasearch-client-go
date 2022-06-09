@@ -140,7 +140,7 @@ You can take a look at the implementation over all clients, [in this pull reques
 
 Every methods of every clients provide a parameter that does not exist in the REST API, called `requestOptions`.
 
-This parameter **must** be the last parameter of a method, and allow a user to override/merge extra `query parameters` or `headers` with the transporter ones.
+This parameter **must** be the last parameter of a method, and allow a user to override/merge additional `query parameters` or `headers` with the transporter ones.
 
 ### Requesters
 

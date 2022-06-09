@@ -51,7 +51,23 @@ const sidebars = {
       type: 'category',
       label: 'Getting Started',
       collapsed: false,
-      items: ['clients/installation', 'clients/migration-guide'],
+      items: [
+        'clients/installation',
+        {
+          type: 'category',
+          label: 'Migration guide',
+          collapsed: false,
+          link: {
+            type: 'doc',
+            id: 'clients/migration-guides/index',
+          },
+          items: [
+            'clients/migration-guides/javascript',
+            'clients/migration-guides/java',
+            'clients/migration-guides/php',
+          ],
+        },
+      ],
     },
     {
       type: 'category',
@@ -61,6 +77,10 @@ const sidebars = {
         'clients/guides/send-data-to-algolia',
         'clients/guides/filtering-your-search',
         'clients/guides/retrieving-facets',
+        'clients/guides/customized-client-usage',
+        'clients/guides/wait-for-a-task-to-finish',
+        'clients/guides/copy-or-move-index',
+        'clients/guides/copy-index-to-another-application',
       ],
     },
   ],

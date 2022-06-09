@@ -71,6 +71,17 @@ code .token.keyword {
   font-style: normal !important;
 }
 
+/* prevent full size code blocks in tables */
+table td .code-container {
+  width: 600px;
+}
+
+/* we only update the header of the table */
+table tbody tr td h3,
+table tbody tr td h2 {
+  margin-top: 16px;
+}
+
 /* Redoc fix */
 .redocusaurus .menu-content label.-depth0 {
   padding-top: 5px;

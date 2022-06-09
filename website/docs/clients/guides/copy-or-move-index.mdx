@@ -1,0 +1,114 @@
+---
+title: Copy or move an index
+---
+
+:::caution
+
+This method is made to be used within **the same Algolia application**, for cross application operations, [read our dedicated guide](/docs/clients/guides/copy-index-to-another-application).
+
+:::
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Copy an index
+
+When you copy an index, it doesn’t copy the associated analytics data. The new index starts fresh. Be careful when using the `operationIndex` method with the `copy` parameter to overwrite an existing index, as it associates the existing analytics data of the overwritten index with the new one.
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', }
+  ]
+}>
+<TabItem value="javascript">
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const { taskID } = await client.operationIndex({
+  indexName: '<SOURCE_INDEX_NAME>',
+  operationIndexParams: {
+    destination: '<DESTINATION_INDEX_NAME>',
+    operation: 'copy',
+  },
+});
+
+// Poll the task status until it's done
+await client.waitForTask({ indexName: '<DESTINATION_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+</Tabs>
+
+## Rename/move an index
+
+Changing the name of an index doesn’t change the name of the index’s analytics. The new name references new analytics; the old and new analytics aren’t merged. If you want to preserve an index’s analytics history, you need to keep using the old name.
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', }
+  ]
+}>
+<TabItem value="javascript">
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const { taskID } = await client.operationIndex({
+  indexName: '<SOURCE_INDEX_NAME>',
+  operationIndexParams: {
+    destination: '<DESTINATION_INDEX_NAME>',
+    operation: 'move',
+  },
+});
+
+// Poll the task status until it's done
+await client.waitForTask({ indexName: '<DESTINATION_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+</Tabs>
+
+## Scope your operation
+
+When the scope is absent from the request, the index will be fully copied, but you can also decide to specify the scope of what you'd like to copy.
+
+The available scopes are: `rules`, `settings`, `synonyms`. You can provide one or many.
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', }
+  ]
+}>
+<TabItem value="javascript">
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const { taskID } = await client.operationIndex({
+  indexName: '<SOURCE_INDEX_NAME>',
+  operationIndexParams: {
+    destination: '<DESTINATION_INDEX_NAME>',
+    operation: 'move',
+    scope: ['rules'],
+  },
+});
+
+// Poll the task status until it's done
+await client.waitForTask({ indexName: '<DESTINATION_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+</Tabs>

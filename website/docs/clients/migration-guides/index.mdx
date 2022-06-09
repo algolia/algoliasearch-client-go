@@ -1,0 +1,181 @@
+---
+title: Migration guide
+---
+
+:::warning
+
+The amount of changes in this new version is significant. If you were using a version older than v4, please also read [this migration guide](https://www.algolia.com/doc/api-client/getting-started/upgrade-guides/javascript/).
+
+**You should thoroughly test your application before deploying to production.**
+
+:::
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+This document lists every known breaking change, not all of them may affect your application.
+
+## Common breaking changes
+
+> The changes below are effective on all of the API clients.
+
+<table width="100%"><tbody><tr><td width="400px" valign="top">
+
+### `initIndex`
+
+<hr />
+
+Methods previously available at the `initIndex` level are now available at the `root` level of the API client.
+
+The `indexName` parameter is now **required** when calling those methods.
+
+</td><td width="600px">
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', },
+    { label: 'PHP', value: 'php', }
+  ]
+}>
+<TabItem value="javascript">
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const searchResults2 = await client.search({
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      attributesToRetrieve: ['firstname', 'lastname'],
+      hitsPerPage: 50,
+    },
+  ],
+});
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+$client = Algolia\AlgoliaSearch\Api\SearchClient::create(
+    '<YOUR_APP_ID>',
+    '<YOUR_API_KEY>'
+);
+
+$client->search([
+    'requests' => [
+        [
+            'indexName' => '<YOUR_INDEX_NAME>',
+            'query' => '<YOUR_QUERY>',
+            'attributesToRetrieve' => ['firstname', 'lastname'],
+            'hitsPerPage': 50,
+        ],
+    ],
+]);
+```
+
+</TabItem>
+</Tabs>
+
+</td></tr></tbody></table>
+
+<table width="100%"><tbody><tr><td width="400px" valign="top">
+
+### `wait`
+
+<hr />
+
+The chainable `wait` method that was available on a few methods has been replaced with an helper called `waitForTask`.
+
+You can now optionally configure how the wait logic behaves by passing the `taskID` returned when calling the Algolia API.
+
+[Read the dedicated guide](/docs/clients/guides/wait-for-a-task-to-finish)
+
+</td><td width="600px">
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', }
+  ]
+}>
+<TabItem value="javascript">
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const { taskID } = await client.saveObject({
+  indexName: '<YOUR_INDEX_NAME>',
+  body: {
+    title: 'My Algolia Object',
+  },
+});
+
+// Poll the task status with defaults values
+await client.waitForTask({ indexName: '<YOUR_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+</Tabs>
+
+</td></tr></tbody></table>
+
+<table width="100%"><tbody><tr><td width="400px" valign="top">
+
+### `moveIndex`/`copyIndex`
+
+<hr />
+
+The `operationIndex` allows you to either `copy` or `move` a `source` index to a `destination` index **within the same Algolia application**.
+
+You can also decide what `scope` of the `source` index should be copied, [read more on our dedicated guide](/docs/clients/guides/copy-or-move-index).
+
+</td><td width="600px">
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', }
+  ]
+}>
+<TabItem value="javascript">
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const { taskID } = await client.operationIndex({
+  indexName: '<SOURCE_INDEX_NAME>',
+  operationIndexParams: {
+    destination: '<DESTINATION_INDEX_NAME>',
+    // Enum for either `copy` or `move`
+    operation: 'copy', // 'move'
+  },
+});
+
+// Poll the task status until it's done
+await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+</Tabs>
+
+</td></tr></tbody></table>
+
+## Client's specific breaking changes
+
+You can find specific client breaking changes in their own section:
+
+- [JavaScript migration guide](/docs/clients/migration-guides/javascript)
+- [PHP migration guide](/docs/clients/migration-guides/php)
+- [Java migration guide](/docs/clients/migration-guides/java)

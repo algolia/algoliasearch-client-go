@@ -1,0 +1,50 @@
+---
+title: Wait for a task to finish
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+> The `waitForTask` method is only available in the `search` client context.
+
+Some operations related to the Algolia index are not always instantaneous. Doing such operations with our API clients will provide a `taskID` in the response body, so you can later know what is the status of your operation.
+
+We provide a `waitForTask` helper method for you to easily wait for a specific task status.
+
+<Tabs
+  groupId="language"
+  defaultValue="javascript"
+  values={[
+    { label: 'JavaScript', value: 'javascript', }
+  ]
+}>
+<TabItem value="javascript">
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const { taskID } = await client.saveObject({
+  indexName: '<YOUR_INDEX_NAME>',
+  body: {
+    title: 'My Algolia Object',
+  },
+});
+
+// Poll the task status with defaults values
+await client.waitForTask({ indexName: '<YOUR_INDEX_NAME>', taskID });
+
+// Poll the task status with your options
+await client.waitForTask({
+  indexName: '<YOUR_INDEX_NAME>',
+  taskID,
+  // Number of maximum retries to do
+  maxRetries: 100,
+  // The time to wait between tries
+  timeout: (retryCount: number): number => Math.min(retryCount * 200, 5000),
+});
+```
+
+</TabItem>
+</Tabs>

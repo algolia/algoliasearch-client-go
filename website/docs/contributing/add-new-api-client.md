@@ -36,9 +36,9 @@ Properties that are common to the client, for properties common to all clients, 
 
 Path definition of the paths defined in the [spec file](#specyml-file).
 
-### Send extra options to the template
+### Send additional options to the template
 
-You might want to send extra information to the generators that have no link with your REST API. To do so, you can add parameters starting with `x-` at the root level of your spec, which will be available in the mustache template under the `vendorExtensions` object.
+You might want to send additional information to the generators that have no link with your REST API. To do so, you can add parameters starting with `x-` at the root level of your spec, which will be available in the mustache template under the `vendorExtensions` object.
 
 [Example in the `search.yml` spec](https://github.com/algolia/api-clients-automation/blob/main/specs/search/paths/search/search.yml#L5) and how it is used [in a mustache file](https://github.com/algolia/api-clients-automation/blob/bf4271246f9282d3c11dd46918e74cb86d9c96dc/templates/java/libraries/okhttp-gson/api.mustache#L196).
 
