@@ -1,4 +1,5 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:js-app",
     "algolia"
@@ -7,7 +8,8 @@
     "npm",
     "nvm",
     "gradle",
-    "composer"
+    "composer",
+    "regex"
   ],
   "baseBranches": [
     "chore/renovateBaseBranch"
@@ -22,20 +24,75 @@
   ],
   "regexManagers": [
     {
+      "description": "Update openapitools-cli version in the config file",
       "fileMatch": [
-        "config/openapitools.json"
+        "openapitools.json"
       ],
       "matchStrings": [
-        "\"version\": \"(?<currentValue>.*?)\","
+        "\\s\"version\": \"(?<currentValue>.*?)\",\\s"
       ],
-      "depNameTemplate": "com.openapitools:openapi-generator-cli",
+      "depNameTemplate": "org.openapitools:openapi-generator-cli",
       "datasourceTemplate": "maven"
+    },
+    {
+      "description": "Update package.json mustache devDeps",
+      "fileMatch": [
+        "package.mustache"
+      ],
+      "matchStrings": [
+        "\\s\"@types/node\": \"(?<currentValue>.*?)\",\\s"
+      ],
+      "depNameTemplate": "@types/node",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "description": "Update package.json mustache devDeps",
+      "fileMatch": [
+        "package.mustache"
+      ],
+      "matchStrings": [
+        "\\s\"typescript\": \"(?<currentValue>.*?)\",\\s"
+      ],
+      "depNameTemplate": "typescript",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "description": "Update package.json mustache devDeps",
+      "fileMatch": [
+        "package.mustache"
+      ],
+      "matchStrings": [
+        "\\s\"jest\": \"(?<currentValue>.*?)\",\\s"
+      ],
+      "depNameTemplate": "jest",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "description": "Update package.json mustache devDeps",
+      "fileMatch": [
+        "package.mustache"
+      ],
+      "matchStrings": [
+        "\\s\"ts-jest\": \"(?<currentValue>.*?)\",\\s"
+      ],
+      "depNameTemplate": "ts-jest",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "description": "Update package.json mustache devDeps",
+      "fileMatch": [
+        "package.mustache"
+      ],
+      "matchStrings": [
+        "\\s\"ts-node\": \"(?<currentValue>.*?)\",\\s"
+      ],
+      "depNameTemplate": "ts-node",
+      "datasourceTemplate": "npm"
     }
   ],
   "ignorePaths": [
-    "**/client-abtesting/**",
-    "**/algoliasearch/**",
     "**/algoliasearch-lite/**",
+    "**/client-abtesting/**",
     "**/client-analytics/**",
     "**/client-insights/**",
     "**/client-personalization/**",
