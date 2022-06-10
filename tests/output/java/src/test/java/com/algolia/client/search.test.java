@@ -47,6 +47,19 @@ class SearchClientClientTests {
   }
 
   @Test
+  @DisplayName("calls api with correct write host")
+  void apiTest1() {
+    SearchClient $client = new SearchClient("test-app-id", "test-api-key", ClientOptions.build().setRequester(requester));
+
+    String path0 = "/test";
+
+    $client.post(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    assertEquals("test-app-id.algolia.net", result.host);
+  }
+
+  @Test
   @DisplayName("calls api with correct user agent")
   void commonApiTest0() {
     SearchClient $client = createClient();
@@ -69,8 +82,22 @@ class SearchClientClientTests {
   }
 
   @Test
-  @DisplayName("calls api with correct timeouts")
+  @DisplayName("calls api with default read timeouts")
   void commonApiTest1() {
+    SearchClient $client = createClient();
+
+    String path0 = "/test";
+
+    $client.get(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    assertEquals(2000, result.connectTimeout);
+    assertEquals(5000, result.responseTimeout);
+  }
+
+  @Test
+  @DisplayName("calls api with default write timeouts")
+  void commonApiTest2() {
     SearchClient $client = createClient();
 
     String path0 = "/test";

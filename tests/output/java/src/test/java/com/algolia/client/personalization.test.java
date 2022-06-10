@@ -57,8 +57,22 @@ class PersonalizationClientClientTests {
   }
 
   @Test
-  @DisplayName("calls api with correct timeouts")
+  @DisplayName("calls api with default read timeouts")
   void commonApiTest1() {
+    PersonalizationClient $client = createClient();
+
+    String path0 = "/test";
+
+    $client.get(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    assertEquals(2000, result.connectTimeout);
+    assertEquals(5000, result.responseTimeout);
+  }
+
+  @Test
+  @DisplayName("calls api with default write timeouts")
+  void commonApiTest2() {
     PersonalizationClient $client = createClient();
 
     String path0 = "/test";

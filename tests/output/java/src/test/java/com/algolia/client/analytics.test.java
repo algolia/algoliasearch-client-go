@@ -57,8 +57,22 @@ class AnalyticsClientClientTests {
   }
 
   @Test
-  @DisplayName("calls api with correct timeouts")
+  @DisplayName("calls api with default read timeouts")
   void commonApiTest1() {
+    AnalyticsClient $client = createClient();
+
+    String path0 = "/test";
+
+    $client.get(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    assertEquals(2000, result.connectTimeout);
+    assertEquals(5000, result.responseTimeout);
+  }
+
+  @Test
+  @DisplayName("calls api with default write timeouts")
+  void commonApiTest2() {
     AnalyticsClient $client = createClient();
 
     String path0 = "/test";
@@ -84,8 +98,40 @@ class AnalyticsClientClientTests {
   }
 
   @Test
-  @DisplayName("getAverageClickPosition throws without index")
+  @DisplayName("uses the correct region")
   void parametersTest1() {
+    AnalyticsClient $client = new AnalyticsClient("my-app-id", "my-api-key", "de", ClientOptions.build().setRequester(requester));
+
+    String path0 = "/test";
+
+    $client.post(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    assertEquals("analytics.de.algolia.com", result.host);
+  }
+
+  @Test
+  @DisplayName("throws when incorrect region is given")
+  void parametersTest2() {
+    {
+      Exception exception = assertThrows(
+        Exception.class,
+        () -> {
+          AnalyticsClient $client = new AnalyticsClient(
+            "my-app-id",
+            "my-api-key",
+            "not_a_region",
+            ClientOptions.build().setRequester(requester)
+          );
+        }
+      );
+      assertEquals("`region` must be one of the following: de, us", exception.getMessage());
+    }
+  }
+
+  @Test
+  @DisplayName("getAverageClickPosition throws without index")
+  void parametersTest3() {
     AnalyticsClient $client = createClient();
 
     {

@@ -1,6 +1,7 @@
 package com.algolia.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.algolia.EchoInterceptor;
@@ -56,8 +57,22 @@ class InsightsClientClientTests {
   }
 
   @Test
-  @DisplayName("calls api with correct timeouts")
+  @DisplayName("calls api with default read timeouts")
   void commonApiTest1() {
+    InsightsClient $client = createClient();
+
+    String path0 = "/test";
+
+    $client.get(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    assertEquals(2000, result.connectTimeout);
+    assertEquals(5000, result.responseTimeout);
+  }
+
+  @Test
+  @DisplayName("calls api with default write timeouts")
+  void commonApiTest2() {
     InsightsClient $client = createClient();
 
     String path0 = "/test";
@@ -85,5 +100,37 @@ class InsightsClientClientTests {
     EchoResponse result = echo.getLastResponse();
 
     assertEquals("insights.algolia.io", result.host);
+  }
+
+  @Test
+  @DisplayName("uses the correct region")
+  void parametersTest1() {
+    InsightsClient $client = new InsightsClient("my-app-id", "my-api-key", "us", ClientOptions.build().setRequester(requester));
+
+    String path0 = "/test";
+
+    $client.del(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    assertEquals("insights.us.algolia.io", result.host);
+  }
+
+  @Test
+  @DisplayName("throws when incorrect region is given")
+  void parametersTest2() {
+    {
+      Exception exception = assertThrows(
+        Exception.class,
+        () -> {
+          InsightsClient $client = new InsightsClient(
+            "my-app-id",
+            "my-api-key",
+            "not_a_region",
+            ClientOptions.build().setRequester(requester)
+          );
+        }
+      );
+      assertEquals("`region` must be one of the following: de, us", exception.getMessage());
+    }
   }
 }

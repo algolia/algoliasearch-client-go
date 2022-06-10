@@ -24,6 +24,18 @@ describe('api', () => {
 
     expect(result.host).toEqual('test-app-id-dsn.algolia.net');
   });
+
+  test('calls api with correct write host', async () => {
+    const $client = searchClient('test-app-id', 'test-api-key', {
+      requester: echoRequester(),
+    });
+
+    const result = (await $client.post({
+      path: '/test',
+    })) as unknown as EchoResponse;
+
+    expect(result.host).toEqual('test-app-id.algolia.net');
+  });
 });
 
 describe('commonApi', () => {
@@ -39,7 +51,19 @@ describe('commonApi', () => {
     );
   });
 
-  test('calls api with correct timeouts', async () => {
+  test('calls api with default read timeouts', async () => {
+    const $client = createClient();
+
+    const result = (await $client.get({
+      path: '/test',
+    })) as unknown as EchoResponse;
+
+    expect(result).toEqual(
+      expect.objectContaining({ connectTimeout: 2000, responseTimeout: 5000 })
+    );
+  });
+
+  test('calls api with default write timeouts', async () => {
     const $client = createClient();
 
     const result = (await $client.post({
