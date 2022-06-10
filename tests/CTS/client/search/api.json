@@ -24,5 +24,31 @@
         }
       }
     ]
+  },
+  {
+    "testName": "calls api with correct write host",
+    "autoCreateClient": false,
+    "steps": [
+      {
+        "type": "createClient",
+        "parameters": {
+          "appId": "test-app-id",
+          "apiKey": "test-api-key"
+        },
+        "expected": {}
+      },
+      {
+        "type": "method",
+        "object": "$client",
+        "path": "post",
+        "parameters": {
+          "path": "/test"
+        },
+        "expected": {
+          "type": "host",
+          "match": "test-app-id.algolia.net"
+        }
+      }
+    ]
   }
 ]

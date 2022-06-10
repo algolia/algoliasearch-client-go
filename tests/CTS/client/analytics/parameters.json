@@ -26,6 +26,50 @@
     ]
   },
   {
+    "testName": "uses the correct region",
+    "autoCreateClient": false,
+    "steps": [
+      {
+        "type": "createClient",
+        "parameters": {
+          "appId": "my-app-id",
+          "apiKey": "my-api-key",
+          "region": "de"
+        },
+        "expected": {}
+      },
+      {
+        "type": "method",
+        "object": "$client",
+        "path": "post",
+        "parameters": {
+          "path": "/test"
+        },
+        "expected": {
+          "type": "host",
+          "match": "analytics.de.algolia.com"
+        }
+      }
+    ]
+  },
+  {
+    "testName": "throws when incorrect region is given",
+    "autoCreateClient": false,
+    "steps": [
+      {
+        "type": "createClient",
+        "parameters": {
+          "appId": "my-app-id",
+          "apiKey": "my-api-key",
+          "region": "not_a_region"
+        },
+        "expected": {
+          "error": "`region` must be one of the following: de, us"
+        }
+      }
+    ]
+  },
+  {
     "testName": "getAverageClickPosition throws without index",
     "steps": [
       {

@@ -30,15 +30,17 @@ export function {{apiName}}(
     throw new Error("`apiKey` is missing.");
   }
 
-  {{#hasRegionalHost}}{{^fallbackToAliasHost}}
+  {{#hasRegionalHost}}
+  {{^fallbackToAliasHost}}
   if (!region) {
     throw new Error("`region` is missing.");
   }
-
-  if (typeof region !== 'string' || !REGIONS.includes(region)) {
+  {{/fallbackToAliasHost}}
+  
+  if (region && (typeof region !== 'string' || !REGIONS.includes(region))) {
     throw new Error(`\`region\` must be one of the following: ${REGIONS.join(', ')}`);
   }
-  {{/fallbackToAliasHost}}{{/hasRegionalHost}}
+  {{/hasRegionalHost}}
 
   return create{{capitalizedApiName}}({
     appId,
