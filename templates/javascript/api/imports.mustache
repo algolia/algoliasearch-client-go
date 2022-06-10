@@ -1,0 +1,36 @@
+import {
+  createAuth,
+  createTransporter,
+  getAlgoliaAgent,
+  shuffle,
+  {{#isSearchClient}}
+  createRetryablePromise,
+  {{/isSearchClient}}
+} from '@experimental-api-clients-automation/client-common';
+import type {
+  CreateClientOptions,
+  Headers,
+  Host,
+  Request,
+  RequestOptions,
+  QueryParameters,
+  {{#isSearchClient}}
+  CreateRetryablePromiseOptions,
+  {{/isSearchClient}}
+} from '@experimental-api-clients-automation/client-common';
+
+{{#imports}}
+import { {{classname}} } from '{{filename}}';
+{{/imports}}
+
+{{#operations}}
+import type {
+  {{#operation}}
+    {{#vendorExtensions}}
+      {{#x-create-wrapping-object}}
+        {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
+      {{/x-create-wrapping-object}}
+    {{/vendorExtensions}}
+  {{/operation}}
+} from '../model/clientMethodProps';
+{{/operations}}

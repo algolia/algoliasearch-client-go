@@ -1,90 +1,9 @@
-import {
-  createAuth,
-  createTransporter,
-  getAlgoliaAgent,
-  shuffle,
-  {{#isSearchClient}}
-  createRetryablePromise,
-  {{/isSearchClient}}
-} from '@experimental-api-clients-automation/client-common';
-import type {
-  CreateClientOptions,
-  Headers,
-  Host,
-  Request,
-  RequestOptions,
-  QueryParameters,
-  {{#isSearchClient}}
-  CreateRetryablePromiseOptions,
-  {{/isSearchClient}}
-} from '@experimental-api-clients-automation/client-common';
-
-{{#imports}}
-import { {{classname}} } from '{{filename}}';
-{{/imports}}
-
-{{#operations}}
-import type {
-{{#operation}}
-{{#vendorExtensions.x-create-wrapping-object}}
-{{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
-{{/vendorExtensions.x-create-wrapping-object}}
-{{/operation}}
-} from '../model/clientMethodProps';
-{{/operations}}
+{{> api/imports}}
 
 export const apiClientVersion = '{{packageVersion}}';
 
 {{#operations}}
-{{#hasRegionalHost}}
-export const REGIONS = [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}] as const;
-export type Region = typeof REGIONS[number];
-{{/hasRegionalHost}}
-
-{{^hasRegionalHost}}
-function getDefaultHosts(appId: string): Host[] {
-  return (
-    [
-      {
-        url: `${appId}-dsn.algolia.net`,
-        accept: 'read',
-        protocol: 'https',
-      },
-      {
-        url: `${appId}.algolia.net`,
-        accept: 'write',
-        protocol: 'https',
-      },
-    ] as Host[]
-  ).concat(
-    shuffle([
-      {
-        url: `${appId}-1.algolianet.com`,
-        accept: 'readWrite',
-        protocol: 'https',
-      },
-      {
-        url: `${appId}-2.algolianet.com`,
-        accept: 'readWrite',
-        protocol: 'https',
-      },
-      {
-        url: `${appId}-3.algolianet.com`,
-        accept: 'readWrite',
-        protocol: 'https',
-      },
-    ])
-  );
-}
-{{/hasRegionalHost}}
-
-{{#hasRegionalHost}}
-function getDefaultHosts(region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region): Host[] {
-  const url = {{#fallbackToAliasHost}}!region ? '{{{hostWithFallback}}}' : {{/fallbackToAliasHost}} '{{{host}}}'.replace('{region}', region);
-
-  return [{ url, accept: 'readWrite', protocol: 'https' }];
-}
-{{/hasRegionalHost}}
+{{> api/hosts}}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function create{{capitalizedApiName}}({
@@ -147,45 +66,8 @@ export function create{{capitalizedApiName}}({
     },
     {{/isSearchClient}}
     {{#operation}}
-    /**
-    {{#notes}}
-    * {{&notes}}
-    {{/notes}}
-    {{#summary}}
-    * @summary {{&summary}}
-    {{/summary}}
-    {{#vendorExtensions}}
-      {{#x-create-wrapping-object}}
-      * @param {{nickname}} - The {{nickname}} object.
-      {{#allParams}}
-      * @param {{nickname}}.{{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
-      {{/allParams}}
-      {{/x-create-wrapping-object}}
-      {{#x-is-single-body-param}}
-        {{#bodyParams}}
-          * @param {{paramName}} - {{^description}}The {{paramName}} object.{{/description}}{{#description}}{{{description}}}{{/description}}
-        {{/bodyParams}}
-      {{/x-is-single-body-param}}
-    {{/vendorExtensions}}
-    * @param requestOptions - The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
-    */
-    {{nickname}}(
-      {{#vendorExtensions}}
-        {{#x-create-wrapping-object}}
-          {
-            {{#allParams}}
-              {{paramName}},
-            {{/allParams}}
-          }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
-        {{/x-create-wrapping-object}}
-        {{#x-is-single-body-param}}
-          {{#bodyParams}}
-            {{paramName}}: {{{dataType}}},
-          {{/bodyParams}}
-        {{/x-is-single-body-param}}
-      {{/vendorExtensions}}
-      requestOptions?: RequestOptions
-        ) : Promise<{{{returnType}}}> {
+    {{> api/operation/jsdoc}}
+    {{nickname}}( {{> api/operation/parameters}} ) : Promise<{{{returnType}}}> {
       {{#allParams}}
       {{#required}}
       if ({{#isBoolean}}{{paramName}} === null || {{paramName}} === undefined{{/isBoolean}}{{^isBoolean}}!{{paramName}}{{/isBoolean}}) {
@@ -203,9 +85,16 @@ export function create{{capitalizedApiName}}({
       {{/required}}
       {{/allParams}}
 
-      const requestPath = '{{{path}}}'{{#vendorExtensions}}{{#pathParams}}.replace(
-      {{=<% %>=}}'{<%baseName%>}'<%={{ }}=%>,{{#x-is-custom-request}}{{paramName}}{{/x-is-custom-request}}{{^x-is-custom-request}}encodeURIComponent({{paramName}}){{/x-is-custom-request}}
-      ){{/pathParams}}{{/vendorExtensions}};
+      {{#vendorExtensions}}
+      const requestPath = '{{{path}}}'{{#pathParams}}.replace({{=<% %>=}}'{<%baseName%>}'<%={{ }}=%>,
+        {{#x-is-custom-request}}
+          {{paramName}}
+        {{/x-is-custom-request}}
+        {{^x-is-custom-request}}
+          encodeURIComponent({{paramName}})
+        {{/x-is-custom-request}}
+      ){{/pathParams}};
+      {{/vendorExtensions}}
       const headers: Headers = {};
       const queryParameters: QueryParameters = {{#vendorExtensions.x-is-custom-request}}parameters || {{/vendorExtensions.x-is-custom-request}}{};
 
@@ -230,12 +119,14 @@ export function create{{capitalizedApiName}}({
         {{#bodyParam}}
         data: {{paramName}},
         {{/bodyParam}}
-        {{#vendorExtensions.x-use-read-transporter}}
-        useReadTransporter: true,
-        {{/vendorExtensions.x-use-read-transporter}}
-        {{#vendorExtensions.x-cacheable}}
-        cacheable: true,
-        {{/vendorExtensions.x-cacheable}}
+        {{#vendorExtensions}}
+          {{#x-use-read-transporter}}
+            useReadTransporter: true,
+          {{/x-use-read-transporter}}
+          {{#x-cacheable}}
+            cacheable: true,
+          {{/x-cacheable}}
+        {{/vendorExtensions}}
       };
 
       return transporter.request(request, requestOptions);

@@ -1,46 +1,13 @@
-import type { InitClientOptions } from '@experimental-api-clients-automation/client-common';
-import { DEFAULT_CONNECT_TIMEOUT_NODE, DEFAULT_READ_TIMEOUT_NODE, DEFAULT_WRITE_TIMEOUT_NODE } from '@experimental-api-clients-automation/client-common';
-import { createMemoryCache, createNullCache } from '@experimental-api-clients-automation/client-common';
 import { createHttpRequester } from '@experimental-api-clients-automation/requester-node-http';
-
-import { create{{capitalizedApiName}} } from '../src/{{apiName}}';
-import type { {{capitalizedApiName}} } from '../src/{{apiName}}';
-
-{{#hasRegionalHost}}
-import { Region, REGIONS } from '../src/{{apiName}}';
-{{/hasRegionalHost}}
-
-{{! We don't use `export *` to prevent exposing the factory, to avoid confusion for the user }}
-export { 
-  apiClientVersion,
-  {{capitalizedApiName}},
-} from '../src/{{apiName}}';
-export * from '../model';
+import { DEFAULT_CONNECT_TIMEOUT_NODE, DEFAULT_READ_TIMEOUT_NODE, DEFAULT_WRITE_TIMEOUT_NODE } from '@experimental-api-clients-automation/client-common';
+{{> api/builds/imports}}
 
 export function {{apiName}}(
   appId: string,
   apiKey: string,{{#hasRegionalHost}}region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region,{{/hasRegionalHost}}
   options?: InitClientOptions
 ): {{capitalizedApiName}} {
-  if (!appId || typeof appId !== 'string') {
-    throw new Error("`appId` is missing.");
-  }
-
-  if (!apiKey || typeof apiKey !== 'string') {
-    throw new Error("`apiKey` is missing.");
-  }
-
-  {{#hasRegionalHost}}
-  {{^fallbackToAliasHost}}
-  if (!region) {
-    throw new Error("`region` is missing.");
-  }
-  {{/fallbackToAliasHost}}
-  
-  if (region && (typeof region !== 'string' || !REGIONS.includes(region))) {
-    throw new Error(`\`region\` must be one of the following: ${REGIONS.join(', ')}`);
-  }
-  {{/hasRegionalHost}}
+  {{> api/builds/checkParameters}}
 
   return create{{capitalizedApiName}}({
     appId,

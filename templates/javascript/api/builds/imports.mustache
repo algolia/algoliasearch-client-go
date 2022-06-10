@@ -1,0 +1,16 @@
+import type { InitClientOptions } from '@experimental-api-clients-automation/client-common';
+import { createMemoryCache, createFallbackableCache, createBrowserLocalStorageCache, createNullCache } from '@experimental-api-clients-automation/client-common';
+
+import { create{{capitalizedApiName}}, apiClientVersion } from '../src/{{apiName}}';
+import type { {{capitalizedApiName}} } from '../src/{{apiName}}';
+
+{{#hasRegionalHost}}
+import { Region, REGIONS } from '../src/{{apiName}}';
+{{/hasRegionalHost}}
+
+{{! We don't use `export *` to prevent exposing the factory, to avoid confusion for the user }}
+export {
+  apiClientVersion,
+  {{capitalizedApiName}},
+} from '../src/{{apiName}}';
+export * from '../model';

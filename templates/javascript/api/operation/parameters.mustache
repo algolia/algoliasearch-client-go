@@ -1,0 +1,15 @@
+{{#vendorExtensions}}
+  {{#x-create-wrapping-object}}
+    {
+      {{#allParams}}
+        {{paramName}},
+      {{/allParams}}
+    }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
+  {{/x-create-wrapping-object}}
+  {{#x-is-single-body-param}}
+    {{#bodyParams}}
+      {{paramName}}: {{{dataType}}},
+    {{/bodyParams}}
+  {{/x-is-single-body-param}}
+{{/vendorExtensions}}
+requestOptions?: RequestOptions
