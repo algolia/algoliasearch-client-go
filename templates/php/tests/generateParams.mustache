@@ -1,4 +1,7 @@
 {{^isFirstLevel}}{{^hasGeneratedKey}}"{{{key}}}" => {{/hasGeneratedKey}}{{/isFirstLevel}}
+{{#isNull}}
+  null,
+{{/isNull}}
 {{#isString}}
   "{{{value}}}",
 {{/isString}}
@@ -18,11 +21,11 @@
   {{{value}}},
 {{/isBoolean}}
 {{#isArray}}
-  [{{#value}}{{> requests/generateParams}}{{/value}}],
+  [{{#value}}{{> generateParams}}{{/value}}],
 {{/isArray}}
 {{#isObject}}
-  [{{#value}}{{> requests/generateParams}}{{/value}}],
+  [{{#value}}{{> generateParams}}{{/value}}],
 {{/isObject}}
 {{#isFreeFormObject}}
-  [{{#value}}{{> requests/generateParams}}{{/value}}],
+  [{{#value}}{{> generateParams}}{{/value}}],
 {{/isFreeFormObject}}

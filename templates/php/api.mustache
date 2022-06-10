@@ -50,10 +50,18 @@ use {{invokerPackage}}\Support\Helpers;
      */
     public static function create($appId = null, $apiKey = null, $region = null)
     {
-        $allowedRegions = [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}];
+        $allowedRegions = self::getAllowedRegions();
         $config = {{configClassname}}::create($appId, $apiKey, $region, $allowedRegions);
 
         return static::createWithConfig($config);
+    }
+
+    /**
+     * Returns the allowed regions for the config
+     */
+    public static function getAllowedRegions()
+    {
+        return [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}];
     }
     {{/hasRegionalHost}}
 
@@ -79,6 +87,24 @@ use {{invokerPackage}}\Support\Helpers;
     {
         $config = clone $config;
 
+        $apiWrapper = new ApiWrapper(
+            Algolia::getHttpClient(),
+            $config,
+            self::getClusterHosts($config)
+        );
+
+        return new static($apiWrapper, $config);
+    }
+
+    /**
+     * Gets the cluster hosts depending on the config
+     *
+     * @param {{configClassname}} $config
+     *
+     * @return ClusterHosts
+     */
+    public static function getClusterHosts({{configClassname}} $config)
+    {
         {{#useCache}}
         $cacheKey = sprintf('%s-clusterHosts-%s', __CLASS__, $config->getAppId());
 
@@ -98,18 +124,14 @@ use {{invokerPackage}}\Support\Helpers;
             // If a list of hosts was passed, we ignore the cache
             $clusterHosts = ClusterHosts::create($hosts);
         } else {
-            $url = str_replace('{region}', $config->getRegion(), '{{{host}}}');
+            $url = $config->getRegion() !== null && $config->getRegion() !== '' ?
+                str_replace('{region}', $config->getRegion(), '{{{host}}}') :
+                '{{{hostWithFallback}}}';
             $clusterHosts = ClusterHosts::create($url);
         }
         {{/useCache}}
 
-        $apiWrapper = new ApiWrapper(
-            Algolia::getHttpClient(),
-            $config,
-            $clusterHosts
-        );
-
-        return new static($apiWrapper, $config);
+        return $clusterHosts;
     }
 
     /**
@@ -158,9 +180,9 @@ use {{invokerPackage}}\Support\Helpers;
         {{#allParams}}
         {{#required}}
         // verify the required parameter '{{paramName}}' is set
-        if (${{paramName}} === null || (is_array(${{paramName}}) && count(${{paramName}}) === 0)) {
+        if (${{paramName}} === null) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter ${{paramName}} when calling {{operationId}}'
+                'Parameter `{{paramName}}` is required when calling `{{operationId}}`.'
             );
         }
         {{/required}}

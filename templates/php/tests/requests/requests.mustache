@@ -106,7 +106,7 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
           ];
         {{/hasRequestOptions}}
         $client->{{^hasParameters}}{{{method}}}();{{/hasParameters}}{{#hasParameters}}{{{method}}}(
-        {{#parametersWithDataType}}{{> requests/generateParams}}{{/parametersWithDataType}}
+        {{#parametersWithDataType}}{{> generateParams}}{{/parametersWithDataType}}
         {{#hasRequestOptions}}$requestOptions{{/hasRequestOptions}}
         );{{/hasParameters}}
 
