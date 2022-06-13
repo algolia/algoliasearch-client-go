@@ -20,6 +20,12 @@
         "required_provider"
       ],
       "rangeStrategy": "bump"
+    },
+    {
+      "matchPackagePatterns": [
+        "openapi-generator"
+      ],
+      "groupName": "openapi-generator"
     }
   ],
   "regexManagers": [
