@@ -45,12 +45,6 @@ export const COMMON_DEPENDENCIES = {
  */
 export const DEPENDENCIES = {
   ...COMMON_DEPENDENCIES,
-  JS_ALGOLIASEARCH_CHANGED: [
-    `${JS_CLIENT_FOLDER}/packages/algoliasearch`,
-    `${JS_CLIENT_FOLDER}/packages/client-search`,
-    `${JS_CLIENT_FOLDER}/packages/client-analytics`,
-    `${JS_CLIENT_FOLDER}/packages/client-personalization`,
-  ],
   JS_COMMON_TESTS_CHANGED: [
     `${JS_CLIENT_FOLDER}/packages/client-common/src/__tests__`,
   ],

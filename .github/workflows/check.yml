@@ -66,7 +66,6 @@ jobs:
       RUN_GEN_JAVA: ${{ steps.setup.outputs.RUN_GEN_JAVA }}
       RUN_GEN_PHP: ${{ steps.setup.outputs.RUN_GEN_PHP }}
 
-      RUN_JS_ALGOLIASEARCH: ${{ steps.setup.outputs.RUN_JS_ALGOLIASEARCH }}
       RUN_JS_UTILS: ${{ steps.setup.outputs.RUN_JS_UTILS }}
       RUN_JS_TESTS: ${{ steps.setup.outputs.RUN_JS_TESTS }}
 
@@ -225,6 +224,10 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language != 'php' }}
         run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
+      - name: Build JavaScript 'algoliasearch' client
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
+        run: yarn cli build clients javascript algoliasearch
+
       - name: Clean CTS output before generate
         run: rm -rf ${{ matrix.client.testsToDelete }} || true
 
@@ -248,69 +251,12 @@ jobs:
           name: clients-${{matrix.client.language }}
           path: clients-${{matrix.client.language }}.zip
 
-  client_javascript_algoliasearch:
-    timeout-minutes: 10
-    runs-on: ubuntu-20.04
-    needs:
-      - setup
-      - client_gen
-    if: |
-      always() &&
-      needs.setup.outputs.RUN_JS_ALGOLIASEARCH == 'true' &&
-      !contains(needs.*.result, 'cancelled') &&
-      !contains(needs.*.result, 'failure')
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache 'algoliasearch' client folder
-        id: cache
-        uses: actions/cache@v3
-        with:
-          key: |
-            algoliasearch-${{ hashFiles(
-              'clients/algoliasearch-client-javascript/packages/algoliasearch/**',
-              'yarn.lock'
-            )}}
-          path: clients/algoliasearch-client-javascript/packages/algoliasearch/
-
-      - name: Download JavaScript clients artifact
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/download-artifact@v3
-        with:
-          name: clients-javascript
-
-      - name: Unzip JavaScript clients artifact
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        shell: bash
-        run: unzip -q -o clients-javascript.zip && rm clients-javascript.zip
-
-      - name: Setup
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: ./.github/actions/setup
-        with:
-          type: minimal
-
-      - name: Build 'algoliasearch' client
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli build clients javascript algoliasearch
-
-      - name: Zip artifact before storing
-        run: zip -r -y client-javascript-algoliasearch.zip clients/algoliasearch-client-javascript/packages/algoliasearch/ -x "**/node_modules**" "clients/algoliasearch-client-javascript/.yarn**" "**/.github**"
-
-      - name: Store JavaScript 'algoliasearch' client
-        uses: actions/upload-artifact@v3
-        with:
-          if-no-files-found: error
-          name: client-javascript-algoliasearch
-          path: client-javascript-algoliasearch.zip
-
   codegen:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     needs:
       - setup
       - client_gen
-      - client_javascript_algoliasearch
     if: |
       always() &&
       !contains(needs.*.result, 'cancelled') &&

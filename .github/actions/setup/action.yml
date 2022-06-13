@@ -100,11 +100,6 @@ runs:
       id: js-utils
       shell: bash
       run: |
-        if ${{ steps.gen-matrix.outputs.RUN_GEN_JAVASCRIPT || steps.diff.outputs.JS_ALGOLIASEARCH_CHANGED > 0 }}; then
-          echo "Running algoliasearch: true"
-          echo "::set-output name=RUN_JS_ALGOLIASEARCH::true"
-        fi
-
         if ${{ steps.gen-matrix.outputs.RUN_GEN_JAVASCRIPT || steps.diff.outputs.JAVASCRIPT_UTILS_CHANGED > 0 }}; then
           echo "Running JavaScript utils: true"
           echo "::set-output name=RUN_JS_UTILS::true"
@@ -136,9 +131,6 @@ outputs:
     description: Indicates if we plan to run the job for this language
     value: ${{ steps.gen-matrix.outputs.RUN_GEN_PHP }}
 
-  RUN_JS_ALGOLIASEARCH:
-    description: Determine if the `client-javascript-algoliasearch` job should run
-    value: ${{ steps.js-utils.outputs.RUN_JS_ALGOLIASEARCH }}
   RUN_JS_UTILS:
     description: Whether to build JS client common folders when RUN_JS is false
     value: ${{ steps.js-utils.outputs.RUN_JS_UTILS }}
