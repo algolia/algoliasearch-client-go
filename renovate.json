@@ -29,7 +29,7 @@
         "openapitools.json"
       ],
       "matchStrings": [
-        "\\s\"version\": \"(?<currentValue>.*?)\",\\s"
+        "\\s\"version\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "depNameTemplate": "org.openapitools:openapi-generator-cli",
       "datasourceTemplate": "maven"
@@ -40,7 +40,7 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"@types/node\": \"(?<currentValue>.*?)\",\\s"
+        "\\s\"@types/node\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "depNameTemplate": "@types/node",
       "datasourceTemplate": "npm"
@@ -51,7 +51,7 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"typescript\": \"(?<currentValue>.*?)\",\\s"
+        "\\s\"typescript\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "depNameTemplate": "typescript",
       "datasourceTemplate": "npm"
@@ -62,7 +62,7 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"jest\": \"(?<currentValue>.*?)\",\\s"
+        "\\s\"jest\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "depNameTemplate": "jest",
       "datasourceTemplate": "npm"
@@ -73,7 +73,7 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"ts-jest\": \"(?<currentValue>.*?)\",\\s"
+        "\\s\"ts-jest\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "depNameTemplate": "ts-jest",
       "datasourceTemplate": "npm"
@@ -84,7 +84,7 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"ts-node\": \"(?<currentValue>.*?)\",\\s"
+        "\\s\"ts-node\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "depNameTemplate": "ts-node",
       "datasourceTemplate": "npm"
