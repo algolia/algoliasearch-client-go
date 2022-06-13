@@ -2,7 +2,7 @@
 title: Wait for a task to finish
 ---
 
-import Tabs from '@theme/Tabs';
+import { TabsLanguage } from '../../../src/components/TabsLanguage';
 import TabItem from '@theme/TabItem';
 
 > The `waitForTask` method is only available in the `search` client context.
@@ -11,13 +11,7 @@ Some operations related to the Algolia index are not always instantaneous. Doing
 
 We provide a `waitForTask` helper method for you to easily wait for a specific task status.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -47,4 +41,33 @@ await client.waitForTask({
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+Map<String, Object> body = new HashMap<>();
+body.put("title", "My Algolia Object");
+SaveObjectResponse response = client.saveObject(
+  "<YOUR_INDEX_NAME>",
+  body
+);
+
+// Poll the task status with defaults values
+await client.waitForTask("<YOUR_INDEX_NAME>", response.getTaskID());
+
+// Poll the task status with your options
+client.waitForTask(
+  "<YOUR_INDEX_NAME>",
+  response.getTaskID(),
+  // Number of maximum retries to do
+  100,
+  // The time to wait between tries
+  retryCount -> {
+    return Math.min(retryCount * 200, 5000);
+  }
+);
+```
+
+</TabItem>
+</TabsLanguage>

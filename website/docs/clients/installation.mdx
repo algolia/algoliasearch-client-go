@@ -8,18 +8,10 @@ The amount of changes in this new version is significant. **If you are upgrading
 
 :::
 
-import Tabs from '@theme/Tabs';
+import { TabsLanguage } from '../../src/components/TabsLanguage';
 import TabItem from '@theme/TabItem';
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'PHP', value: 'php', },
-    { label: 'Java', value: 'java' }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 To get started, you first need to install `algoliasearch` (or any other available API client package). You can find the full list of available packages [here](https://www.npmjs.com/org/experimental-api-clients-automation).
@@ -98,21 +90,13 @@ dependencies {
 ```
 
 </TabItem>
-</Tabs>
+</TabsLanguage>
 
 ## Using the client
 
 You can now import the Algolia API client in your project and play with it.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript' },
-    { label: 'PHP', value: 'php' },
-    { label: 'Java', value: 'java' }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -208,7 +192,7 @@ try {
 ```
 
 </TabItem>
-</Tabs>
+</TabsLanguage>
 
 ## Advanced use cases
 

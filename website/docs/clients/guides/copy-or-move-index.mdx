@@ -8,20 +8,14 @@ This method is made to be used within **the same Algolia application**, for cros
 
 :::
 
-import Tabs from '@theme/Tabs';
+import { TabsLanguage } from '../../../src/components/TabsLanguage';
 import TabItem from '@theme/TabItem';
 
 ## Copy an index
 
 When you copy an index, it doesn’t copy the associated analytics data. The new index starts fresh. Be careful when using the `operationIndex` method with the `copy` parameter to overwrite an existing index, as it associates the existing analytics data of the overwritten index with the new one.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -38,23 +32,34 @@ const { taskID } = await client.operationIndex({
 });
 
 // Poll the task status until it's done
-await client.waitForTask({ indexName: '<DESTINATION_INDEX_NAME>', taskID });
+await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+UpdatedAtResponse response = client.operationIndex(
+  "<SOURCE_INDEX_NAME>",
+  new OperationIndexParams()
+    .setDestination("<DESTINATION_INDEX_NAME>")
+    .setOperation(OperationType.COPY)
+);
+
+// Poll the task status until it's done
+client.waitForTask("<SOURCE_INDEX_NAME>", response.getTaskID());
+```
+
+</TabItem>
+</TabsLanguage>
 
 ## Rename/move an index
 
 Changing the name of an index doesn’t change the name of the index’s analytics. The new name references new analytics; the old and new analytics aren’t merged. If you want to preserve an index’s analytics history, you need to keep using the old name.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -71,11 +76,28 @@ const { taskID } = await client.operationIndex({
 });
 
 // Poll the task status until it's done
-await client.waitForTask({ indexName: '<DESTINATION_INDEX_NAME>', taskID });
+await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+UpdatedAtResponse response = client.operationIndex(
+  "<SOURCE_INDEX_NAME>",
+  new OperationIndexParams()
+    .setDestination("<DESTINATION_INDEX_NAME>")
+    .setOperation(OperationType.MOVE)
+);
+
+// Poll the task status until it's done
+client.waitForTask("<SOURCE_INDEX_NAME>", response.getTaskID());
+```
+
+</TabItem>
+</TabsLanguage>
 
 ## Scope your operation
 
@@ -83,13 +105,7 @@ When the scope is absent from the request, the index will be fully copied, but y
 
 The available scopes are: `rules`, `settings`, `synonyms`. You can provide one or many.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -107,8 +123,26 @@ const { taskID } = await client.operationIndex({
 });
 
 // Poll the task status until it's done
-await client.waitForTask({ indexName: '<DESTINATION_INDEX_NAME>', taskID });
+await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+UpdatedAtResponse response = client.operationIndex(
+  "<SOURCE_INDEX_NAME>",
+  new OperationIndexParams()
+    .setDestination("<DESTINATION_INDEX_NAME>")
+    .setOperation(OperationType.MOVE)
+    .addScope(ScopeType.RULES)
+);
+
+// Poll the task status until it's done
+client.waitForTask("<SOURCE_INDEX_NAME>", response.getTaskID());
+```
+
+</TabItem>
+</TabsLanguage>

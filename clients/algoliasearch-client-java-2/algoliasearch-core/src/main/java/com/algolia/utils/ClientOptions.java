@@ -1,15 +1,18 @@
 package com.algolia.utils;
 
 import com.algolia.utils.retry.StatefulHost;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientOptions {
 
   private Requester requester;
-  private AlgoliaAgent.Segment[] algoliaAgentSegments;
+  private List<AlgoliaAgent.Segment> algoliaAgentSegments;
   private List<StatefulHost> hosts;
 
-  private ClientOptions() {}
+  private ClientOptions() {
+    algoliaAgentSegments = new ArrayList<>();
+  }
 
   public static ClientOptions build() {
     return new ClientOptions();
@@ -24,12 +27,22 @@ public class ClientOptions {
     return this;
   }
 
-  public AlgoliaAgent.Segment[] getAlgoliaAgentSegments() {
+  public List<AlgoliaAgent.Segment> getAlgoliaAgentSegments() {
     return this.algoliaAgentSegments;
   }
 
-  public ClientOptions setAlgoliaAgentSegments(AlgoliaAgent.Segment[] algoliaAgentSegments) {
+  public ClientOptions setAlgoliaAgentSegments(List<AlgoliaAgent.Segment> algoliaAgentSegments) {
     this.algoliaAgentSegments = algoliaAgentSegments;
+    return this;
+  }
+
+  public ClientOptions addAlgoliaAgentSegment(AlgoliaAgent.Segment algoliaAgentSegment) {
+    this.algoliaAgentSegments.add(algoliaAgentSegment);
+    return this;
+  }
+
+  public ClientOptions addAlgoliaAgentSegment(String value, String version) {
+    this.algoliaAgentSegments.add(new AlgoliaAgent.Segment(value, version));
     return this;
   }
 

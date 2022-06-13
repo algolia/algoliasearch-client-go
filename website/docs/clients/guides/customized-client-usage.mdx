@@ -2,7 +2,7 @@
 title: Customized client usage
 ---
 
-import Tabs from '@theme/Tabs';
+import { TabsLanguage } from '../../../src/components/TabsLanguage';
 import TabItem from '@theme/TabItem';
 
 You might want to customize how the API client works, by providing additional information to your request, adding user-agents or use your own HTTP requester.
@@ -13,13 +13,7 @@ The `requestOptions` parameter allows you to merge additional information with t
 
 **Note: `requestOptions` overrides the default parameters that were previously set in the method and client.**
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -47,20 +41,37 @@ await client.search(
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+import com.algolia.utils.RequestOptions;
+
+client.search(
+  new SearchMethodParams()
+    .addRequests(SearchQuery.ofSearchForHits(
+      new SearchForHits()
+        .setIndexName("<YOUR_INDEX_NAME>")
+        .setQuery("<YOUR_QUERY>")
+        .setHitsPerPage(50)
+    )
+  ),
+  new RequestOptions()
+    // This header is added to the request
+    .addExtraHeader("additional-header", "hello")
+    // As we re-define `hitsPerPage`, it will override the value defined in the method's parameters.
+    .addExtraQueryParameters("hitsPerPage", 100)
+);
+```
+
+</TabItem>
+</TabsLanguage>
 
 ## Provide your own user-agent
 
 The API clients offers a method for you to append data to the current user-agent.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'Java', value: 'java', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 > In the JavaScript client, user-agent are sent in the header via the `x-algolia-agent` property.
@@ -70,7 +81,7 @@ import { searchClient } from '@experimental-api-clients-automation/client-search
 
 const client = searchClient('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 
-// This will append `my user agent (optional version)` to the current value of `x-algolia-agent` for every requests
+// This will append `; my user agent (optional version)` to the current value of `x-algolia-agent` for every requests
 client.addAlgoliaAgent('my user agent', 'optional version');
 ```
 
@@ -79,35 +90,28 @@ client.addAlgoliaAgent('my user agent', 'optional version');
 <TabItem value="java">
 
 ```java
-import com.algolia.utils.AlgoliaAgent;
+import com.algolia.utils.ClientOptions;
 import com.algolia.api.SearchClient;
 
-// This will append `my user agent (optional version)` to the current value of `x-algolia-agent` for every requests
-SearchClient client = new SearchClient("<YOUR_APP_ID>", "<YOUR_API_KEY>",
-  new AlgoliaAgent.Segment[] {
-    new AlgoliaAgent.Segment("my user agent", "optional version")
-  }
+// This will append `; my user agent (optional version)` to the current value of `x-algolia-agent` for every requests
+SearchClient client = new SearchClient(
+  "<YOUR_APP_ID>", 
+  "<YOUR_API_KEY>",
+  ClientOptions.build().addAlgoliaAgentSegments("my user agent", "optional version")
 );
 ```
 
 </TabItem>
-</Tabs>
+</TabsLanguage>
 
 ## Use your own HTTP requester
 
 You can override the default requester behavior by providing your requester logic at the initialization of the client.
 
-> Our clients provide an `echoRequester`, that will return the full payload of the request.
-
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'Java', value: 'java', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
+
+> The JavaScript client provides an `echoRequester`, that will return the full payload of the request.
 
 ```js
 import { searchClient } from '@experimental-api-clients-automation/client-search';
@@ -123,14 +127,17 @@ const client = searchClient('<YOUR_APP_ID>', '<YOUR_API_KEY>', {
 
 <TabItem value="java">
 
+> Create your own requester by creating a class that implements `com.algolia.utils.Requester`, and use it by passing it to the client constructor.
+
 ```java
-import com.algolia.utils.echo.EchoRequester;
 import com.algolia.api.SearchClient;
 
-SearchClient client = new SearchClient("<YOUR_APP_ID>", "<YOUR_API_KEY>",
-  new EchoRequester()
+SearchClient client = new SearchClient(
+  "<YOUR_APP_ID>", 
+  "<YOUR_API_KEY>",
+  ClientOptions.build().setRequester(new MyOwnRequester())
 );
 ```
 
 </TabItem>
-</Tabs>
+</TabsLanguage>

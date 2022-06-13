@@ -10,7 +10,7 @@ The amount of changes in this new version is significant. If you were using a ve
 
 :::
 
-import Tabs from '@theme/Tabs';
+import { TabsLanguage } from '../../../src/components/TabsLanguage';
 import TabItem from '@theme/TabItem';
 
 This document lists every known breaking change, not all of them may affect your application.
@@ -31,14 +31,7 @@ The `indexName` parameter is now **required** when calling those methods.
 
 </td><td width="600px">
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'PHP', value: 'php', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -80,7 +73,32 @@ $client->search([
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+SearchClient client = new SearchClient(
+  "<YOUR_APP_ID>", 
+  "<YOUR_API_KEY>"
+);
+
+client.search(
+  new SearchMethodParams()
+    .addRequests(SearchQuery.ofSearchForHits(
+      new SearchForHits()
+        .setIndexName("<YOUR_INDEX_NAME>")
+        .setQuery("<YOUR_QUERY>")
+        .addAttributesToRetrieve("firstname")
+        .addAttributesToRetrieve("lastname")
+        .setHitsPerPage(50)
+    )
+  )
+);
+```
+
+</TabItem>
+</TabsLanguage>
 
 </td></tr></tbody></table>
 
@@ -98,13 +116,7 @@ You can now optionally configure how the wait logic behaves by passing the `task
 
 </td><td width="600px">
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -124,7 +136,24 @@ await client.waitForTask({ indexName: '<YOUR_INDEX_NAME>', taskID });
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+Map<String, Object> body = new HashMap<>();
+body.put("title", "My Algolia Object");
+SaveObjectResponse response = client.saveObject(
+  "<YOUR_INDEX_NAME>",
+  body
+);
+
+// Poll the task status with defaults values
+client.waitForTask("<YOUR_INDEX_NAME>", response.getTaskID());
+```
+
+</TabItem>
+</TabsLanguage>
 
 </td></tr></tbody></table>
 
@@ -140,13 +169,7 @@ You can also decide what `scope` of the `source` index should be copied, [read m
 
 </td><td width="600px">
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -168,7 +191,24 @@ await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+UpdatedAtResponse response = client.operationIndex(
+  "<SOURCE_INDEX_NAME>",
+  new OperationIndexParams()
+    .setDestination("<DESTINATION_INDEX_NAME>")
+    .setOperation(OperationType.COPY) // or MOVE
+);
+
+// Poll the task status until it's done
+client.waitForTask("<SOURCE_INDEX_NAME>", response.getTaskID());
+```
+
+</TabItem>
+</TabsLanguage>
 
 </td></tr></tbody></table>
 

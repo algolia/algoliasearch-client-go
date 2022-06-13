@@ -2,7 +2,7 @@
 title: Send data to Algolia
 ---
 
-import Tabs from '@theme/Tabs';
+import { TabsLanguage } from '../../../src/components/TabsLanguage';
 import TabItem from '@theme/TabItem';
 
 Algolia doesn’t search directly into your own data source. For data to be searchable, you need to send it to Algolia’s servers.
@@ -17,14 +17,7 @@ To push data to Algolia, you need an Application ID and a valid API key with the
 
 > [Make sure to also read the Installation page](/docs/clients/installation).
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'PHP', value: 'php', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -49,20 +42,22 @@ $client = Algolia\AlgoliaSearch\Api\SearchClient::create(
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
 
-## Fetching your data
+```java
+import com.algolia.api.SearchClient;
+
+SearchClient client = new SearchClient("<YOUR_APP_ID>", "<YOUR_API_KEY>");
+```
+
+</TabItem>
+</TabsLanguage>
+
+## Sending your data
 
 Before sending anything to Algolia, you need to retrieve your data. You can do this in several ways, in our case we will pick it from the source code directly.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'PHP', value: 'php', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -95,4 +90,19 @@ foreach ($records as $record) {
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+List<Map<String, Object>> records = Arrays.asList(Collections.singletonMap("name", "Tom Cruise"), Collections.singletonMap("name", "Scarlett Johansson"));
+
+for (Map<String, Object> record : records) {
+  client.saveObject(
+    "<YOUR_INDEX_NAME>",
+    // Accepts a free form `Map<String, Object>`.
+    record
+  );
+}
+```
+
+</TabItem>
+</TabsLanguage>

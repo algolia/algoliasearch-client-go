@@ -19,19 +19,24 @@ public class Search {
       dotenv.get("ALGOLIA_APPLICATION_ID"),
       dotenv.get("ALGOLIA_SEARCH_KEY"),
       ClientOptions.build()
-        .setAlgoliaAgentSegments(
-          new AlgoliaAgent.Segment[] {
-            new AlgoliaAgent.Segment("test", "8.0.0"),
-            new AlgoliaAgent.Segment("JVM", "11.0.14"),
-            new AlgoliaAgent.Segment("no version"),
-          }
-        )
+        .addAlgoliaAgentSegment("test", "8.0.0")
+        .addAlgoliaAgentSegment("JVM", "11.0.14")
+        .addAlgoliaAgentSegment("no version")
     );
 
     String indexName = dotenv.get("SEARCH_INDEX");
     String query = dotenv.get("SEARCH_QUERY");
 
     try {
+      List<Map<String, Object>> records = Arrays.asList(Collections.singletonMap("name", "Tom Cruise"), Collections.singletonMap("name", "Scarlett Johansson"));
+
+      for (Map<String, Object> record : records) {
+        client.saveObject(
+          indexName,
+          record
+        );
+      }
+
       SearchMethodParams searchMethodParams = new SearchMethodParams();
       List<SearchQuery> requests = new ArrayList<>();
       SearchForHits request = new SearchForHits();

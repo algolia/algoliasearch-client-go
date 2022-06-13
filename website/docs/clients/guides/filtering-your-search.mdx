@@ -2,7 +2,7 @@
 title: Filtering your search
 ---
 
-import Tabs from '@theme/Tabs';
+import { TabsLanguage } from '../../../src/components/TabsLanguage';
 import TabItem from '@theme/TabItem';
 
 Filtering is primarily used in the context of front-end search. We call this faceting, where filters are displayed on the search UI as clickable items, allowing users to select one or more filters. This enables a more refined, drilled-down search experience.
@@ -13,14 +13,7 @@ Filtering is primarily used in the context of front-end search. We call this fac
 
 Initially, filter attributes must be defined as facets, using the `attributesForFaceting` parameter. This can be done using the `setSettings` method.
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'PHP', value: 'php', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -47,7 +40,22 @@ $client->setSettings(
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+client.setSettings(
+  "<YOUR_INDEX_NAME>",
+  new IndexSettings()
+    .addAttributesForFaceting("actor")
+    .addAttributesForFaceting("filterOnly(category)")
+    .addAttributesForFaceting("searchable(publisher)")
+);
+```
+
+</TabItem>
+</TabsLanguage>
 
 ### 2. Filter by Attributes (at query time)
 
@@ -55,14 +63,7 @@ The actual filtering of records is performed at query time, not at indexing time
 
 #### Filtering by string using the `filters` field
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'PHP', value: 'php', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -139,18 +140,54 @@ $client->search([
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+// Only "Scarlett Johansson" actor
+client.search(
+  new SearchMethodParams()
+    .addRequests(SearchQuery.ofSearchForFacets(
+      new SearchForFacets()
+        .setIndexName("<YOUR_INDEX_NAME>")
+        .setQuery("<YOUR_QUERY>")
+        .setFilters("actor:Scarlett Johansson")
+    )
+  )
+);
+
+// Only "Tom Cruise" or "Scarlett Johansson" actor
+client.search(
+  new SearchMethodParams()
+    .addRequests(SearchQuery.ofSearchForFacets(
+      new SearchForFacets()
+        .setIndexName("<YOUR_INDEX_NAME>")
+        .setQuery("<YOUR_QUERY>")
+        .setFilters("actor:Tom Cruise OR actor:Scarlett Johansson")
+    )
+  )
+);
+
+// Everything but "Nicolas Cage" actor
+client.search(
+  new SearchMethodParams()
+    .addRequests(SearchQuery.ofSearchForFacets(
+      new SearchForFacets()
+        .setIndexName("<YOUR_INDEX_NAME>")
+        .setQuery("<YOUR_QUERY>")
+        .setFilters("NOT actor:Nicolas Cage")
+    )
+  )
+);
+```
+
+</TabItem>
+</TabsLanguage>
 
 #### Filtering by string using the `facetFilters` field
 
-<Tabs
-  groupId="language"
-  defaultValue="javascript"
-  values={[
-    { label: 'JavaScript', value: 'javascript', },
-    { label: 'PHP', value: 'php', }
-  ]
-}>
+<TabsLanguage>
 <TabItem value="javascript">
 
 ```js
@@ -205,4 +242,36 @@ $client->search([
 ```
 
 </TabItem>
-</Tabs>
+<TabItem value="java">
+
+```java
+import com.algolia.model.search.*;
+
+// Only "Scarlett Johansson" actor
+client.search(
+  new SearchMethodParams()
+    .addRequests(SearchQuery.ofSearchForFacets(
+      new SearchForFacets()
+        .setIndexName("<YOUR_INDEX_NAME>")
+        .setQuery("<YOUR_QUERY>")
+        .addFacetFilters("actor:Scarlett Johansson")
+    )
+  )
+);
+
+// Only "Tom Cruise" or "Scarlett Johansson" actor
+client.search(
+  new SearchMethodParams()
+    .addRequests(SearchQuery.ofSearchForFacets(
+      new SearchForFacets()
+        .setIndexName("<YOUR_INDEX_NAME>")
+        .setQuery("<YOUR_QUERY>")
+        .addFacetFilters("actor:Tom Cruise")
+        .addFacetFilters("actor:Scarlett Johansson")
+    )
+  )
+);
+```
+
+</TabItem>
+</TabsLanguage>
