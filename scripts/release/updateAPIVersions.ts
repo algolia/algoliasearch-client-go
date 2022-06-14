@@ -16,6 +16,7 @@ import {
   LANGUAGES,
   MAIN_BRANCH,
   gitBranchExists,
+  CLIENTS_JS_UTILS,
 } from '../common';
 import {
   getClientsConfigField,
@@ -24,40 +25,19 @@ import {
 } from '../config';
 import type { Language } from '../types';
 
+import { readJsonFile, writeJsonFile } from './common';
 import type { Changelog, Versions, VersionsToRelease } from './types';
 
 dotenv.config({ path: ROOT_ENV_PATH });
 
 /**
- * Bump each client version of the JavaScript client in openapitools.json.
+ * Bump each client version of the JavaScript client in workspace places and config files.
  *
  * We don't use the pre-computed `next` version for JavaScript, because the packages have independent versioning.
  */
 async function updateVersionForJavascript(
   jsVersion: NonNullable<VersionsToRelease['javascript']>
 ): Promise<void> {
-  // Sets the new version of the JavaScript client
-  Object.values(GENERATORS)
-    .filter((gen) => gen.language === 'javascript')
-    .forEach((gen) => {
-      const additionalProperties = gen.additionalProperties!;
-      const newVersion = semver.inc(
-        additionalProperties.packageVersion,
-        jsVersion.releaseType
-      );
-      if (!newVersion) {
-        throw new Error(
-          `Failed to bump version ${additionalProperties.packageVersion} by ${jsVersion.releaseType}.`
-        );
-      }
-      additionalProperties.packageVersion = newVersion;
-    });
-
-  await fsp.writeFile(
-    toAbsolutePath('config/openapitools.json'),
-    JSON.stringify(openapiConfig, null, 2).concat('\n')
-  );
-
   // Sets the new version of the utils package
   const utilsPackageVersion = getClientsConfigField(
     'javascript',
@@ -75,9 +55,89 @@ async function updateVersionForJavascript(
   }
 
   clientsConfig.javascript.utilsPackageVersion = nextUtilsPackageVersion;
-  await fsp.writeFile(
+
+  // update local playground deps
+  const nodePgPackageFile = await readJsonFile(
+    toAbsolutePath('playground/javascript/node/package.json')
+  );
+  const browserPgPackageFile = await readJsonFile(
+    toAbsolutePath('playground/javascript/browser/package.json')
+  );
+
+  if (!nodePgPackageFile || !browserPgPackageFile) {
+    throw new Error('Failed to read playground package files');
+  }
+
+  // Sets the new version of the JavaScript client
+  Object.values(GENERATORS)
+    .filter((gen) => gen.language === 'javascript')
+    .forEach((gen) => {
+      const additionalProperties = gen.additionalProperties!;
+      const newVersion = semver.inc(
+        additionalProperties.packageVersion,
+        jsVersion.releaseType
+      );
+
+      if (!newVersion) {
+        throw new Error(
+          `Failed to bump version ${additionalProperties.packageVersion} by ${jsVersion.releaseType}.`
+        );
+      }
+
+      additionalProperties.packageVersion = newVersion;
+
+      if (!additionalProperties.packageName) {
+        throw new Error(
+          `Package name is missing for JavaScript - ${gen.client}.`
+        );
+      }
+
+      if (nodePgPackageFile.dependencies[additionalProperties.packageName]) {
+        nodePgPackageFile.dependencies[additionalProperties.packageName] =
+          newVersion;
+      }
+
+      if (browserPgPackageFile.dependencies[additionalProperties.packageName]) {
+        browserPgPackageFile.dependencies[additionalProperties.packageName] =
+          newVersion;
+      }
+    });
+
+  CLIENTS_JS_UTILS.forEach((util) => {
+    const utilPackageName = `${clientsConfig.javascript.npmNamespace}/${util}`;
+
+    if (nodePgPackageFile.dependencies[utilPackageName]) {
+      nodePgPackageFile.dependencies[utilPackageName] = nextUtilsPackageVersion;
+    }
+
+    if (browserPgPackageFile.dependencies[utilPackageName]) {
+      browserPgPackageFile.dependencies[utilPackageName] =
+        nextUtilsPackageVersion;
+    }
+  });
+
+  // update `openapitools.json` config file
+  await writeJsonFile(
+    toAbsolutePath('config/openapitools.json'),
+    openapiConfig
+  );
+
+  // update `package.json` node playground file
+  await writeJsonFile(
+    toAbsolutePath('playground/javascript/node/package.json'),
+    nodePgPackageFile
+  );
+
+  // update `package.json` browser playground file
+  await writeJsonFile(
+    toAbsolutePath('playground/javascript/browser/package.json'),
+    browserPgPackageFile
+  );
+
+  // update `clients.config.json` file for the utils version
+  await writeJsonFile(
     toAbsolutePath('config/clients.config.json'),
-    JSON.stringify(clientsConfig, null, 2).concat('\n')
+    clientsConfig
   );
 }
 
@@ -97,9 +157,9 @@ async function updateConfigFiles(
     clientsConfig[lang].packageVersion = versionsToRelease[lang]!.next;
   });
 
-  await fsp.writeFile(
+  await writeJsonFile(
     toAbsolutePath('config/clients.config.json'),
-    JSON.stringify(clientsConfig, null, 2).concat('\n')
+    clientsConfig
   );
 }
 

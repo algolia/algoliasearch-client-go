@@ -6,10 +6,10 @@
   },
   "dependencies": {
     {{#packageDependencies}}
-    "{{{packageName}}}": "{{packageVersion}}",
+    "{{{npmNamespace}}}/{{{packageName}}}": "{{packageVersion}}",
     {{/packageDependencies}}
-    "@experimental-api-clients-automation/client-common": "{{utilsPackageVersion}}",
-    "@experimental-api-clients-automation/requester-node-http": "{{utilsPackageVersion}}"
+    "{{{npmNamespace}}}/client-common": "{{utilsPackageVersion}}",
+    "{{{npmNamespace}}}/requester-node-http": "{{utilsPackageVersion}}"
   },
   "devDependencies": {
     "@types/jest": "28.1.1",

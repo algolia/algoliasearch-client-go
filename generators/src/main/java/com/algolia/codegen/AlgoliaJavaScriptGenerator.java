@@ -71,6 +71,7 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     try {
       Utils.generateServer((String) additionalProperties.get("client"), additionalProperties);
       additionalProperties.put("utilsPackageVersion", Utils.getClientConfigField("javascript", "utilsPackageVersion"));
+      additionalProperties.put("npmNamespace", Utils.getClientConfigField("javascript", "npmNamespace"));
     } catch (GeneratorException e) {
       e.printStackTrace();
       System.exit(1);

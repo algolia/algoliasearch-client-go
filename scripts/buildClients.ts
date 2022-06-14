@@ -1,5 +1,5 @@
 import { CI, run } from './common';
-import { getLanguageFolder } from './config';
+import { getClientsConfigField, getLanguageFolder } from './config';
 import { createSpinner } from './oraLog';
 import type { Generator } from './types';
 
@@ -13,13 +13,18 @@ async function buildPerClient(
   verbose: boolean
 ): Promise<void> {
   const spinner = createSpinner(`building ${key}`, verbose).start();
+  const npmNamespace = getClientsConfigField(language, 'npmNamespace');
+
   switch (language) {
     case 'javascript':
-      await run(`yarn workspace ${additionalProperties?.packageName} clean`, {
-        verbose,
-      });
       await run(
-        `SKIP_UTILS=true yarn workspace algoliasearch-client-javascript build ${additionalProperties?.packageName}`,
+        `yarn workspace ${npmNamespace}/${additionalProperties.packageName} clean`,
+        {
+          verbose,
+        }
+      );
+      await run(
+        `SKIP_UTILS=true yarn workspace algoliasearch-client-javascript build ${npmNamespace}/${additionalProperties.packageName}`,
         { verbose }
       );
       break;

@@ -23,12 +23,11 @@ export type Generator = Record<string, any> & {
   language: Language;
   client: string;
   key: string;
-  additionalProperties?: AdditionalProperties;
+  additionalProperties: AdditionalProperties;
 };
 
 export type AdditionalProperties = Partial<{
   packageName: string;
-  hasRegionalHost: boolean;
 }> &
   Record<string, any>;
 

@@ -1,15 +1,15 @@
 {
-  "name": "{{packageName}}",
+  "name": "{{{npmNamespace}}}/{{packageName}}",
   "version": "{{packageVersion}}",
   "description": "JavaScript client for {{packageName}}",
   "repository": "{{gitUserId}}/{{gitRepoId}}",
   "license": "MIT",
   "author": "Algolia",
   "main": "index.js",
-  "jsdelivr": "dist/{{buildFile}}.umd.browser.js",
-  "unpkg": "dist/{{buildFile}}.umd.browser.js",
-  "module": "dist/{{buildFile}}.esm.node.js",
-  "browser": "dist/{{buildFile}}.cjs.browser.js",
+  "jsdelivr": "dist/{{packageName}}.umd.browser.js",
+  "unpkg": "dist/{{packageName}}.umd.browser.js",
+  "module": "dist/{{packageName}}.esm.node.js",
+  "browser": "dist/{{packageName}}.cjs.browser.js",
   "types": "index.d.ts",
   "files": [
     "dist",
@@ -21,9 +21,9 @@
     "clean": "rm -rf ./dist"
   },
   "dependencies": {
-    "@experimental-api-clients-automation/client-common": "{{utilsPackageVersion}}",
-    "@experimental-api-clients-automation/requester-browser-xhr": "{{utilsPackageVersion}}",
-    "@experimental-api-clients-automation/requester-node-http": "{{utilsPackageVersion}}"
+    "{{{npmNamespace}}}/client-common": "{{utilsPackageVersion}}",
+    "{{{npmNamespace}}}/requester-browser-xhr": "{{utilsPackageVersion}}",
+    "{{{npmNamespace}}}/requester-node-http": "{{utilsPackageVersion}}"
   },
   "devDependencies": {
     "@types/node": "16.11.39",

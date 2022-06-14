@@ -35,14 +35,13 @@ export const ROOT_DIR = path.resolve(process.cwd(), '..');
 export const ROOT_ENV_PATH = path.resolve(ROOT_DIR, '.env');
 
 export const GENERATORS: Record<string, Generator> = {
-  // Default `algoliasearch` package as it's built similarly to generated clients
+  // Default `algoliasearch` package as it's an aggregation of generated clients
   'javascript-algoliasearch': {
     language: 'javascript',
     client: 'algoliasearch',
     key: 'javascript-algoliasearch',
     additionalProperties: {
-      buildFile: 'algoliasearch',
-      packageName: '@experimental-api-clients-automation/algoliasearch',
+      packageName: 'algoliasearch',
       packageVersion: getPackageVersionDefault('javascript'),
     },
   },
@@ -50,12 +49,23 @@ export const GENERATORS: Record<string, Generator> = {
 
 // Build `GENERATORS` from the openapitools file
 Object.entries(openapiConfig['generator-cli'].generators).forEach(
-  ([key, gen]) => {
+  ([key, { output, ...gen }]) => {
+    const language = key.slice(0, key.indexOf('-')) as Language;
+
     GENERATORS[key] = {
+      additionalProperties: {},
       ...gen,
-      output: gen.output.replace('#{cwd}/', ''),
-      ...splitGeneratorKey(key),
+      output: output.replace('#{cwd}/', ''),
+      client: key.slice(key.indexOf('-') + 1),
+      language,
+      key,
     };
+
+    if (language === 'javascript') {
+      GENERATORS[key].additionalProperties.packageName = output.substring(
+        output.lastIndexOf('/') + 1
+      );
+    }
   }
 );
 
@@ -76,17 +86,6 @@ export const CLIENTS_JS = [
 export const CLIENTS = CLIENTS_JS.filter(
   (client) => client !== 'algoliasearch'
 );
-
-/**
- * Takes a generator key in the form 'language-client' and returns the Generator object.
- */
-export function splitGeneratorKey(
-  generatorKey: string
-): Pick<Generator, 'client' | 'key' | 'language'> {
-  const language = generatorKey.slice(0, generatorKey.indexOf('-')) as Language;
-  const client = generatorKey.slice(generatorKey.indexOf('-') + 1);
-  return { language, client, key: generatorKey };
-}
 
 export function createGeneratorKey({
   language,

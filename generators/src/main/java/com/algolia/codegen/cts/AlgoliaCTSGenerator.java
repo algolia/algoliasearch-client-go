@@ -96,6 +96,11 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
       bundle.put("hasRegionalHost", hasRegionalHost);
       bundle.put("defaultRegion", client.equals("predict") ? "ew" : "us");
       bundle.put("lambda", lambda);
+
+      if (language.equals("javascript")) {
+        bundle.put("npmNamespace", Utils.getClientConfigField(language, "npmNamespace"));
+      }
+
       ctsManager.addDataToBundle(bundle);
 
       for (TestsGenerator testGen : testsGenerators) {

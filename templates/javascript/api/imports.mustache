@@ -6,7 +6,7 @@ import {
   {{#isSearchClient}}
   createRetryablePromise,
   {{/isSearchClient}}
-} from '@experimental-api-clients-automation/client-common';
+} from '{{{npmNamespace}}}/client-common';
 import type {
   CreateClientOptions,
   Headers,
@@ -17,7 +17,7 @@ import type {
   {{#isSearchClient}}
   CreateRetryablePromiseOptions,
   {{/isSearchClient}}
-} from '@experimental-api-clients-automation/client-common';
+} from '{{{npmNamespace}}}/client-common';
 
 {{#imports}}
 import { {{classname}} } from '{{filename}}';

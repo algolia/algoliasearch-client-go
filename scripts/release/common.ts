@@ -1,3 +1,4 @@
+import fsp from 'fs/promises';
 import path from 'path';
 
 import config from '../../config/release.config.json';
@@ -44,4 +45,32 @@ export async function cloneRepository({
   return {
     tempGitDir,
   };
+}
+
+/**
+ * Reads a JSON file and returns its parsed data.
+ *
+ * @param ppath - The absolute path to the file.
+ */
+export async function readJsonFile(
+  ppath: string
+): Promise<Record<string, any>> {
+  return JSON.parse(
+    await fsp.readFile(ppath, {
+      encoding: 'utf-8',
+    })
+  );
+}
+
+/**
+ * Writes `data` in a file at the given `ppath`, appends a newline at the end of the file.
+ *
+ * @param ppath - The absolute path to the file.
+ * @param data - The data to store.
+ */
+export async function writeJsonFile(
+  ppath: string,
+  data: Record<string, any>
+): Promise<void> {
+  await fsp.writeFile(ppath, JSON.stringify(data, null, 2).concat('\n'));
 }

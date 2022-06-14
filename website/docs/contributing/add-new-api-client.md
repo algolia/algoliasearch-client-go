@@ -66,7 +66,6 @@ Below are the options you need to **make sure to define for your client**, other
 | Option                |         File          |        Language         | Description                                                                                                          |
 | --------------------- | :-------------------: | :---------------------: | -------------------------------------------------------------------------------------------------------------------- |
 | `output`              |  `openapitools.json`  |           All           | The output path of the client.                                                                                       |
-| `packageName`         |  `openapitools.json`  |       JavaScript        | Name of the API package, used in [CTS](/docs/contributing/testing/common-test-suite).                                |
 | `packageVersion`      |  `openapitools.json`  |       JavaScript        | The version you'd like to publish the first iteration of the generated client. It will be automatically incremented. |
 | `utilsPackageVersion` | `clients.config.json` |       JavaScript        | The version of the utils package. Every utils package should have synchronized version.                              |
 | `packageVersion`      | `clients.config.json` | All (except JavaScript) | The version you'd like to publish the first iteration of the generated client. It will be automatically incremented. |
