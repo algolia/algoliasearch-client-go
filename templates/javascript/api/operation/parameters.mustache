@@ -8,7 +8,7 @@
   {{/x-create-wrapping-object}}
   {{#x-is-single-body-param}}
     {{#bodyParams}}
-      {{paramName}}: {{{dataType}}},
+      {{paramName}}: {{{dataType}}} {{#x-legacy-signature}} | LegacySearchMethodProps{{/x-legacy-signature}},
     {{/bodyParams}}
   {{/x-is-single-body-param}}
 {{/vendorExtensions}}

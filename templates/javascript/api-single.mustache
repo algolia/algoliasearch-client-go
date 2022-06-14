@@ -68,6 +68,10 @@ export function create{{capitalizedApiName}}({
     {{#operation}}
     {{> api/operation/jsdoc}}
     {{nickname}}( {{> api/operation/parameters}} ) : Promise<{{{returnType}}}> {
+      {{#vendorExtensions.x-legacy-signature}}
+        {{> api/operation/legacySearchCompatible/implementation}}
+      {{/vendorExtensions.x-legacy-signature}}
+
       {{#allParams}}
       {{#required}}
       if ({{#isBoolean}}{{paramName}} === null || {{paramName}} === undefined{{/isBoolean}}{{^isBoolean}}!{{paramName}}{{/isBoolean}}) {

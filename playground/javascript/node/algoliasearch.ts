@@ -42,6 +42,18 @@ async function testAlgoliasearch() {
     });
 
     console.log(`[OK search]`, res);
+
+    const resWithLegacySignature: SearchResponses = await client.search([
+      {
+        indexName: searchIndex,
+        params: {
+          query: searchQuery,
+          hitsPerPage: 50,
+        },
+      },
+    ]);
+
+    console.log(`[OK legacy search]`, resWithLegacySignature);
   } catch (e) {
     if (e instanceof ApiError) {
       return console.log(`[${e.status}] ${e.message}`, e.stackTrace);

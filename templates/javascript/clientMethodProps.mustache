@@ -4,9 +4,14 @@
 import { {{classname}} } from '{{filename}}';
 {{/imports}}
 
+{{! Imports for the legacy search method signature }}
+{{#operations}}{{#operation}}{{#vendorExtensions.x-legacy-signature}}{{> api/operation/legacySearchCompatible/imports}}{{/vendorExtensions.x-legacy-signature}}{{/operation}}{{/operations}}
+
 {{#operations}}
 {{#operation}}
-{{#vendorExtensions.x-create-wrapping-object}}
+
+{{#vendorExtensions}}
+{{#x-create-wrapping-object}}
 /**
  * Properties for the `{{nickname}}` method.
  */
@@ -20,7 +25,11 @@ export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
     {{paramName}}{{^required}}?{{/required}}: {{{dataType}}};
   {{/allParams}}
 }
-{{/vendorExtensions.x-create-wrapping-object}}
+{{/x-create-wrapping-object}}
+
+{{#x-legacy-signature}}{{> api/operation/legacySearchCompatible/model}}{{/x-legacy-signature}}
+
+{{/vendorExtensions}}
 
 {{/operation}}
 {{/operations}}
