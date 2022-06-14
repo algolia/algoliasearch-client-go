@@ -43,12 +43,6 @@ runs:
         node-version-file: .nvmrc
         cache: yarn
 
-    - name: Cache node modules
-      uses: actions/cache@v3
-      with:
-        path: node_modules
-        key: node-modules-${{ env.CACHE_VERSION }}-${{ hashFiles('yarn.lock') }}
-
     - name: Get yarn cache directory path
       shell: bash
       id: yarn-cache-dir
@@ -60,10 +54,17 @@ runs:
         path: ${{ steps.yarn-cache-dir.outputs.dir || '.yarn/cache' }}
         key: yarn-cache-${{ env.CACHE_VERSION }}-${{ hashFiles('yarn.lock') }}
 
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-${{ env.CACHE_VERSION }}-${{ hashFiles('yarn.lock') }}
+
     - name: Install JavaScript dependencies
       shell: bash
       run: YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
+    # PHP deps
     - name: Run composer update
       if: inputs.type != 'minimal'
       shell: bash

@@ -15,6 +15,7 @@ const CLIENTS_COMMON_FILES = [
   'generators/src/main/java/com/algolia/codegen/Utils.java',
   'generators/src/main/java/com/algolia/codegen/cts',
   'tests/CTS',
+  ':!**node_modules',
 ];
 
 /**
