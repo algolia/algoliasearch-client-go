@@ -1,10 +1,10 @@
 <?php
 
-require '../../../clients/algoliasearch-client-php/vendor/autoload.php';
+$env = require_once('../loadEnv.php');
 
 use Algolia\AlgoliaSearch\Api\AbtestingClient;
 
-$client = AbtestingClient::create(getenv('ALGOLIA_APPLICATION_ID'), getenv('ALGOLIA_ANALYTICS_KEY'));
+$client = AbtestingClient::create($env['ALGOLIA_APPLICATION_ID'], $env['ALGOLIA_ANALYTICS_KEY']);
 
 $abTest = [
     'name' => 'testing',

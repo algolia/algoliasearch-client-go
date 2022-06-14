@@ -1,12 +1,12 @@
 <?php
 
-require '../../../clients/algoliasearch-client-php/vendor/autoload.php';
+$env = require_once('../loadEnv.php');
 
 use Algolia\AlgoliaSearch\Api\RecommendClient;
 
-$client = RecommendClient::create(getenv('ALGOLIA_APPLICATION_ID'), getenv('ALGOLIA_ADMIN_KEY'));
-$indexName = getenv('SEARCH_INDEX');
-$query = getenv('SEARCH_QUERY');
+$client = RecommendClient::create($env['ALGOLIA_APPLICATION_ID'], $env['ALGOLIA_ADMIN_KEY']);
+$indexName = $env['SEARCH_INDEX'];
+$query = $env['SEARCH_QUERY'];
 
 var_dump($client->getRecommendations(
     [

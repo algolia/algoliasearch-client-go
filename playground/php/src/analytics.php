@@ -1,11 +1,11 @@
 <?php
 
-require '../../../clients/algoliasearch-client-php/vendor/autoload.php';
+$env = require_once('../loadEnv.php');
 
 use Algolia\AlgoliaSearch\Api\AnalyticsClient;
 
-$client = AnalyticsClient::create(getenv('ALGOLIA_APPLICATION_ID'), getenv('ALGOLIA_ANALYTICS_KEY'));
-$indexName = getenv('ANALYTICS_INDEX');
+$client = AnalyticsClient::create($env['ALGOLIA_APPLICATION_ID'], $env['ALGOLIA_ANALYTICS_KEY']);
+$indexName = $env['ANALYTICS_INDEX'];
 
 var_dump(
     $client->getTopFilterForAttribute(
