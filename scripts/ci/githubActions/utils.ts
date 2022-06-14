@@ -24,12 +24,16 @@ const commonCacheKey = (async function (): Promise<string> {
     folders: { include: ['config'] },
     files: { include: ['openapitools.json', 'clients.config.json'] },
   });
+  const depsHash = await hashElement(toAbsolutePath('.'), {
+    encoding: 'hex',
+    files: { include: ['yarn.lock'] },
+  });
 
-  return `${ghHash.hash}-${scriptsHash.hash}-${configHash.hash}`;
+  return `${ghHash.hash}-${scriptsHash.hash}-${configHash.hash}-${depsHash}`;
 })();
 
 /**
- * Compute a cache key based on the changes in the `paths` array of dependenciy.
+ * Compute a cache key based on the changes in the `paths` array of dependency.
  *
  * The `paths` parameter is an array of string, that needs to be treated as dependencies.
  */

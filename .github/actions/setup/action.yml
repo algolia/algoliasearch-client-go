@@ -134,9 +134,6 @@ outputs:
   RUN_JS_UTILS:
     description: Whether to build JS client common folders when RUN_JS is false
     value: ${{ steps.js-utils.outputs.RUN_JS_UTILS }}
-  RUN_JS_TESTS:
-    description: Determine if the `client_javascript_tests` job should run
-    value: ${{ steps.diff.outputs.JS_COMMON_TESTS_CHANGED > 0 }}
 
   RUN_CODEGEN:
     description: Determine if the `codegen` job should run

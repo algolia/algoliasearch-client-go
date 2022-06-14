@@ -45,9 +45,6 @@ export const COMMON_DEPENDENCIES = {
  */
 export const DEPENDENCIES = {
   ...COMMON_DEPENDENCIES,
-  JS_COMMON_TESTS_CHANGED: [
-    `${JS_CLIENT_FOLDER}/packages/client-common/src/__tests__`,
-  ],
   JAVASCRIPT_UTILS_CHANGED: CLIENTS_JS_UTILS.map(
     (clientName) => `${JS_CLIENT_FOLDER}/packages/${clientName}`
   ),

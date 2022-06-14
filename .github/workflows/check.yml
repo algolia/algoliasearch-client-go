@@ -67,7 +67,6 @@ jobs:
       RUN_GEN_PHP: ${{ steps.setup.outputs.RUN_GEN_PHP }}
 
       RUN_JS_UTILS: ${{ steps.setup.outputs.RUN_JS_UTILS }}
-      RUN_JS_TESTS: ${{ steps.setup.outputs.RUN_JS_TESTS }}
 
       RUN_CODEGEN: ${{ steps.setup.outputs.RUN_CODEGEN }}
 
@@ -162,10 +161,7 @@ jobs:
         run: yarn workspace algoliasearch-client-javascript build ${{ matrix.client }}
 
       - name: Run tests for 'client-common'
-        if: ${{
-          steps.cache.outputs.cache-hit != 'true' &&
-          needs.setup.outputs.RUN_JS_TESTS == 'true' &&
-          matrix.client == 'client-common' }}
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client == 'client-common' }}
         run: yarn workspace @experimental-api-clients-automation/client-common test
 
       - name: Store '${{ matrix.client }}' JavaScript utils package
