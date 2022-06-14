@@ -1396,22 +1396,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cspotcode/source-map-consumer@npm:0.8.0":
-  version: 0.8.0
-  resolution: "@cspotcode/source-map-consumer@npm:0.8.0"
-  checksum: c0c16ca3d2f58898f1bd74c4f41a189dbcc202e642e60e489cbcc2e52419c4e89bdead02c886a12fb13ea37798ede9e562b2321df997ebc210ae9bd881561b4e
-  languageName: node
-  linkType: hard
-
-"@cspotcode/source-map-support@npm:0.7.0":
-  version: 0.7.0
-  resolution: "@cspotcode/source-map-support@npm:0.7.0"
-  dependencies:
-    "@cspotcode/source-map-consumer": 0.8.0
-  checksum: 9faddda7757cd778b5fd6812137b2cc265810043680d6399acc20441668fafcdc874053be9dccd0d9110087287bfad27eb3bf342f72bceca9aa9059f5d0c4be8
-  languageName: node
-  linkType: hard
-
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -1456,8 +1440,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1497,8 +1481,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1520,8 +1504,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1562,8 +1546,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1585,8 +1569,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1608,8 +1592,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1631,8 +1615,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1654,8 +1638,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1677,8 +1661,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1700,8 +1684,8 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.4.0
     "@experimental-api-clients-automation/requester-browser-xhr": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/node": 16.11.38
-    typescript: 4.6.3
+    "@types/node": 16.11.39
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -4566,16 +4550,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:27.5.2":
-  version: 27.5.2
-  resolution: "@types/jest@npm:27.5.2"
-  dependencies:
-    jest-matcher-utils: ^27.0.0
-    pretty-format: ^27.0.0
-  checksum: 7e11c6826aa429ad990dc262e4e4b54aa36573287fddf15773e4137f07d11d3105f0dd9f1baff73252160a057df23f5529bb83b1bf83cd3f45f9460a5ca5c22e
-  languageName: node
-  linkType: hard
-
 "@types/jest@npm:28.1.1":
   version: 28.1.1
   resolution: "@types/jest@npm:28.1.1"
@@ -4652,13 +4626,6 @@ __metadata:
   version: 17.0.42
   resolution: "@types/node@npm:17.0.42"
   checksum: a200cd87e4f12d4d5682a893ad6e1140720c6c074a2cd075f254b3b8306d6174f5a3630e5d2347efb5e9b80d420404b5fafc8fe3c7d4c81998cd914c50b19f75
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:16.11.38":
-  version: 16.11.38
-  resolution: "@types/node@npm:16.11.38"
-  checksum: 471df020162098602fd77014c458e84f01f7faff3cddcc2b7739312a8b4f103bc0fab3dfc03641233d9f627c47fd82dfabc9b86413ef680e193c36b9aed322e6
   languageName: node
   linkType: hard
 
@@ -9176,12 +9143,12 @@ __metadata:
     "@experimental-api-clients-automation/client-sources": 0.4.0
     "@experimental-api-clients-automation/recommend": 0.4.0
     "@experimental-api-clients-automation/requester-node-http": 0.4.0
-    "@types/jest": 27.5.2
-    "@types/node": 16.11.38
+    "@types/jest": 28.1.1
+    "@types/node": 16.11.39
     jest: 28.1.1
     ts-jest: 28.0.4
-    ts-node: 10.7.0
-    typescript: 4.6.3
+    ts-node: 10.8.1
+    typescript: 4.7.3
   languageName: unknown
   linkType: soft
 
@@ -13569,44 +13536,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.7.0":
-  version: 10.7.0
-  resolution: "ts-node@npm:10.7.0"
-  dependencies:
-    "@cspotcode/source-map-support": 0.7.0
-    "@tsconfig/node10": ^1.0.7
-    "@tsconfig/node12": ^1.0.7
-    "@tsconfig/node14": ^1.0.0
-    "@tsconfig/node16": ^1.0.2
-    acorn: ^8.4.1
-    acorn-walk: ^8.1.1
-    arg: ^4.1.0
-    create-require: ^1.1.0
-    diff: ^4.0.1
-    make-error: ^1.1.1
-    v8-compile-cache-lib: ^3.0.0
-    yn: 3.1.1
-  peerDependencies:
-    "@swc/core": ">=1.2.50"
-    "@swc/wasm": ">=1.2.50"
-    "@types/node": "*"
-    typescript: ">=2.7"
-  peerDependenciesMeta:
-    "@swc/core":
-      optional: true
-    "@swc/wasm":
-      optional: true
-  bin:
-    ts-node: dist/bin.js
-    ts-node-cwd: dist/bin-cwd.js
-    ts-node-esm: dist/bin-esm.js
-    ts-node-script: dist/bin-script.js
-    ts-node-transpile-only: dist/bin-transpile.js
-    ts-script: dist/bin-script-deprecated.js
-  checksum: 2a379e43f7478d0b79e1e63af91fe222d83857727957df4bd3bdf3c0a884de5097b12feb9bbf530074526b8874c0338b0e6328cf334f3a5e2c49c71e837273f7
-  languageName: node
-  linkType: hard
-
 "ts-node@npm:10.8.1":
   version: 10.8.1
   resolution: "ts-node@npm:10.8.1"
@@ -13795,16 +13724,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.6.3":
-  version: 4.6.3
-  resolution: "typescript@npm:4.6.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 255bb26c8cb846ca689dd1c3a56587af4f69055907aa2c154796ea28ee0dea871535b1c78f85a6212c77f2657843a269c3a742d09d81495b97b914bf7920415b
-  languageName: node
-  linkType: hard
-
 "typescript@npm:4.7.3":
   version: 4.7.3
   resolution: "typescript@npm:4.7.3"
@@ -13812,16 +13731,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: fd13a1ce53790a36bb8350e1f5e5e384b5f6cb9b0635114a6d01d49cb99916abdcfbc13c7521cdae2f2d3f6d8bc4a8ae7625edf645a04ee940588cd5e7597b2f
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@4.6.3#~builtin<compat/typescript>":
-  version: 4.6.3
-  resolution: "typescript@patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=7ad353"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 6bf45caf847062420592e711bc9c28bf5f9a9a7fa8245343b81493e4ededae33f1774009d1234d911422d1646a2c839f44e1a23ecb111b40a60ac2ea4c1482a8
   languageName: node
   linkType: hard
 
@@ -13974,7 +13883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"v8-compile-cache-lib@npm:^3.0.0, v8-compile-cache-lib@npm:^3.0.1":
+"v8-compile-cache-lib@npm:^3.0.1":
   version: 3.0.1
   resolution: "v8-compile-cache-lib@npm:3.0.1"
   checksum: 78089ad549e21bcdbfca10c08850022b22024cdcc2da9b168bcf5a73a6ed7bf01a9cebb9eac28e03cd23a684d81e0502797e88f3ccd27a32aeab1cfc44c39da0
