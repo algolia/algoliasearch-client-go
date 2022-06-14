@@ -62,7 +62,11 @@ runs:
     - name: Unzip clients-javascript artifact
       if: ${{ inputs.javascript == 'true' && inputs.type == 'all' }}
       shell: bash
-      run: unzip -q -o clients-javascript.zip && rm clients-javascript.zip
+      run: |
+        rm -rf clients/algoliasearch-client-javascript
+        rm -rf tests/output/javascript/src/client || true
+        rm -rf tests/output/javascript/src/methods || true
+        unzip -q -o clients-javascript.zip && rm clients-javascript.zip
 
     # PHP
     - name: Download clients-php artifact
@@ -74,7 +78,11 @@ runs:
     - name: Unzip clients-php artifact
       if: ${{ inputs.php == 'true' && inputs.type == 'all' }}
       shell: bash
-      run: unzip -q -o clients-php.zip && rm clients-php.zip
+      run: |
+        rm -rf clients/algoliasearch-client-php
+        rm -rf tests/output/php/src/client || true
+        rm -rf tests/output/php/src/methods || true
+        unzip -q -o clients-php.zip && rm clients-php.zip
 
     # Java
     - name: Download clients-java artifact
@@ -86,4 +94,8 @@ runs:
     - name: Unzip clients-java artifact
       if: ${{ inputs.java == 'true' && inputs.type == 'all' }}
       shell: bash
-      run: unzip -q -o clients-java.zip && rm clients-java.zip
+      run: |
+        rm -rf clients/algoliasearch-client-java-2
+        rm -rf tests/output/java/src/test/java/com/algolia/client || true
+        rm -rf tests/output/java/src/test/java/com/algolia/methods || true
+        unzip -q -o clients-java.zip && rm clients-java.zip

@@ -242,7 +242,9 @@ jobs:
         run: yarn cli cts run ${{ matrix.client.language }}
 
       - name: Zip artifact before storing
-        run: zip -r -y clients-${{ matrix.client.language }}.zip ${{ matrix.client.path }} ${{ matrix.client.testsToStore }} -x "**/node_modules**" "clients/algoliasearch-client-javascript/.yarn**" "**/.github**"
+        run:
+          zip -r -y clients-${{ matrix.client.language }}.zip ${{ matrix.client.path }} ${{ matrix.client.testsToStore }} -x \
+          "**/node_modules**" "clients/algoliasearch-client-javascript/.yarn**" "**/.github**" "**/build/**" "**/dist/**" "**/.gradle/**" "**/bin/**" "**/vendor/**"
 
       - name: Store ${{ matrix.client.language }} clients
         uses: actions/upload-artifact@v3

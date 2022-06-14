@@ -38,9 +38,7 @@ async function preCommit() {
     }
   }
 
-  const stagedFiles = (
-    await run('git diff --name-only --cached --diff-filter=d')
-  ).split('\n');
+  const stagedFiles = (await run('git diff --name-only --cached')).split('\n');
 
   const toUnstage = micromatch.match(stagedFiles, getPatterns());
 
