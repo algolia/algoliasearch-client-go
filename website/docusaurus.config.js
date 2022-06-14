@@ -4,9 +4,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-
 function getSpecFiles() {
   const bundledSpecsPath = path.resolve(process.cwd(), 'specs');
   const specs = [];
@@ -180,10 +177,6 @@ function getSpecsForNavBar() {
             },
           ],
           copyright: `Copyright © ${new Date().getFullYear()} Algolia | Built with Docusaurus.`,
-        },
-        prism: {
-          theme: lightCodeTheme,
-          darkTheme: darkCodeTheme,
         },
       }),
   }

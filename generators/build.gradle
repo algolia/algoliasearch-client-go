@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.openapitools:openapi-generator:5.4.0'
-    compileOnly 'org.yaml:snakeyaml:1.19'
+    compileOnly 'org.yaml:snakeyaml:1.30'
 }
 
 tasks.withType(JavaCompile) {
