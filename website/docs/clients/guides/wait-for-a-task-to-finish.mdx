@@ -57,7 +57,7 @@ SaveObjectResponse response = client.saveObject(
 await client.waitForTask("<YOUR_INDEX_NAME>", response.getTaskID());
 
 // Poll the task status with your options
-client.waitForTask(
+await client.waitForTask(
   "<YOUR_INDEX_NAME>",
   response.getTaskID(),
   // Number of maximum retries to do

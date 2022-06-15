@@ -79,7 +79,7 @@ $client->search([
 import com.algolia.model.search.*;
 
 SearchClient client = new SearchClient(
-  "<YOUR_APP_ID>", 
+  "<YOUR_APP_ID>",
   "<YOUR_API_KEY>"
 );
 
@@ -112,7 +112,7 @@ The chainable `wait` method that was available on a few methods has been replace
 
 You can now optionally configure how the wait logic behaves by passing the `taskID` returned when calling the Algolia API.
 
-[Read the dedicated guide](/docs/clients/guides/wait-for-a-task-to-finish)
+[Read more in our dedicated guide](/docs/clients/guides/wait-for-a-task-to-finish)
 
 </td><td width="600px">
 
@@ -165,7 +165,7 @@ client.waitForTask("<YOUR_INDEX_NAME>", response.getTaskID());
 
 The `operationIndex` allows you to either `copy` or `move` a `source` index to a `destination` index **within the same Algolia application**.
 
-You can also decide what `scope` of the `source` index should be copied, [read more on our dedicated guide](/docs/clients/guides/copy-or-move-index).
+You can also decide what `scope` of the `source` index should be copied, [read more in our dedicated guide](/docs/clients/guides/copy-or-move-index).
 
 </td><td width="600px">
 
@@ -205,6 +205,104 @@ UpdatedAtResponse response = client.operationIndex(
 
 // Poll the task status until it's done
 client.waitForTask("<SOURCE_INDEX_NAME>", response.getTaskID());
+```
+
+</TabItem>
+</TabsLanguage>
+
+</td></tr></tbody></table>
+
+<table width="100%"><tbody><tr><td width="400px" valign="top">
+
+### `saveObjects`
+
+<hr />
+
+The `saveObjects` method has been removed, you can leverage the already existing `batch` method instead.
+
+[Read more in our dedicated guide](/docs/clients/guides/send-data-to-algolia) or [the API reference](/specs/search/#tag/Records/operation/batch).
+
+</td><td width="600px">
+
+<TabsLanguage>
+<TabItem value="javascript">
+
+```js
+// The records retrieved by any of your data sources
+const recordsFromDataSource = [
+  { name: 'Tom Cruise' },
+  { name: 'Scarlett Johansson' },
+];
+
+// Here we construct the request to be sent to Algolia with the `batch` method
+const requests: BatchOperation[] = recordsFromDataSource.map((record) => {
+  return {
+    // `batch` allows you to do many Algolia operations, but here we want to index our record.
+    action: 'addObject',
+    body: record,
+  };
+});
+
+await client.batch({
+  indexName: '<YOUR_INDEX_NAME>',
+  batchWriteParams: {
+    requests,
+  },
+});
+```
+
+</TabItem>
+<TabItem value="php">
+
+```java
+// The records retrieved by any of your data sources
+$records = [
+    ['name' => 'Tom Cruise'],
+    ['name' => 'Scarlett Johansson']
+];
+
+// Here we construct the request to be sent to Algolia with the `batch` method
+$requests = [];
+
+foreach ($records as $record) {
+    $requests += [
+      'action' => 'addObject',
+      'body' => $record
+    ];
+}
+
+$client->batch(
+    '<YOUR_INDEX_NAME>',
+    [ 'requests' => $requests ]
+);
+```
+
+</TabItem>
+<TabItem value="java">
+
+```java
+// The records retrieved by any of your data sources
+Map<String, Object> record1 = new HashMap<>();
+record1.put("name", "Tom Cruise");
+Map<String, Object> record2 = new HashMap<>();
+record2.put("name", "Scarlett Johansson");
+List<Map<String, Object>> records = Arrays.asList(record1, record2);
+
+// Here we construct the request to be sent to Algolia with the `batch` method
+BatchWriteParams batchParams = new BatchWriteParams();
+List<BatchOperation> requests = new ArrayList<>();
+
+for (Map<String, Object> record : records) {
+  requests.add(new BatchOperation()
+    .setAction(Action.ADD_OBJECT)
+    // Accepts a free form `Map<String, Object>`.
+    .setBody(record)
+  );
+}
+
+batchParams.setRequests(requests);
+
+client.batch("<YOUR_INDEX_NAME>", batchParams);
 ```
 
 </TabItem>

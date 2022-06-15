@@ -7,15 +7,15 @@ import TabItem from '@theme/TabItem';
 
 Algolia doesn’t search directly into your own data source. For data to be searchable, you need to send it to Algolia’s servers.
 
-This happens right after retrieving your data from your data source and reformatting it. Once your data is ready, you can push it to Algolia using the `saveObjects` method.
+This happens right after retrieving your data from your data source and reformatting it. Once your data is ready, you can push it to Algolia using the `batch` method.
 
 ## Required credentials
 
-To push data to Algolia, you need an Application ID and a valid API key with the right access level. You can find them and create new ones [in the API keys page](https://www.algolia.com/account/api-keys/all?applicationId=QPBQ67WNIG).
+To push data to Algolia, you need an Application ID and a valid API key with the right access level. You can find them and create new ones [in the API keys page](https://www.algolia.com/account/api-keys/all).
 
 ## Setting up the API client
 
-> [Make sure to also read the Installation page](/docs/clients/installation).
+> [Make sure to also read the `installation` page](/docs/clients/installation).
 
 <TabsLanguage>
 <TabItem value="javascript">
@@ -61,47 +61,92 @@ Before sending anything to Algolia, you need to retrieve your data. You can do t
 <TabItem value="javascript">
 
 ```js
-const records = [{ name: 'Tom Cruise' }, { name: 'Scarlett Johansson' }];
+// The records retrieved by any of your data sources
+const recordsFromDataSource = [
+  { name: 'Tom Cruise' },
+  { name: 'Scarlett Johansson' },
+];
 
-for (const record of records) {
-  client.saveObject({
-    indexName: '<YOUR_INDEX_NAME>',
-    // Accepts a free form `Record<string, any>` object.
+// Here we construct the request to be sent to Algolia with the `batch` method
+const requests: BatchOperation[] = recordsFromDataSource.map((record) => {
+  return {
+    // `batch` allows you to do many Algolia operations, but here we want to index our record.
+    action: 'addObject',
     body: record,
-  });
-}
+  };
+});
+
+const { taskID } = await client.batch({
+  indexName: '<YOUR_INDEX_NAME>',
+  batchWriteParams: {
+    requests,
+  },
+});
+
+// Wait for indexing to be finished
+await client.waitForTask({ indexName: '<YOUR_INDEX_NAME>', taskID });
+
+console.log('Ready to search!');
 ```
 
 </TabItem>
 <TabItem value="php">
 
 ```php
+// The records retrieved by any of your data sources
 $records = [
-  ['name' => 'Tom Cruise'],
-  ['name' => 'Scarlett Johansson']
+    ['name' => 'Tom Cruise'],
+    ['name' => 'Scarlett Johansson']
 ];
 
+// Here we construct the request to be sent to Algolia with the `batch` method
+$requests = [];
+
 foreach ($records as $record) {
-  $client->saveObject(
-    '<YOUR_INDEX_NAME>',
-    $record
-  );
+    $requests += [
+      'action' => 'addObject',
+      'body' => $record
+    ];
 }
+
+$response = $client->batch(
+    '<YOUR_INDEX_NAME>',
+    [ 'requests' => $requests ]
+);
+
+// Wait for indexing to be finished
+$client->waitForTask(<YOUR_INDEX_NAME>, $response['taskID']);
 ```
 
 </TabItem>
 <TabItem value="java">
 
 ```java
-List<Map<String, Object>> records = Arrays.asList(Collections.singletonMap("name", "Tom Cruise"), Collections.singletonMap("name", "Scarlett Johansson"));
+// The records retrieved by any of your data sources
+Map<String, Object> record1 = new HashMap<>();
+record1.put("name", "Tom Cruise");
+Map<String, Object> record2 = new HashMap<>();
+record2.put("name", "Scarlett Johansson");
+List<Map<String, Object>> records = Arrays.asList(record1, record2);
+
+// Here we construct the request to be sent to Algolia with the `batch` method
+BatchWriteParams batchParams = new BatchWriteParams();
+List<BatchOperation> requests = new ArrayList<>();
 
 for (Map<String, Object> record : records) {
-  client.saveObject(
-    "<YOUR_INDEX_NAME>",
+  requests.add(new BatchOperation()
+    .setAction(Action.ADD_OBJECT)
     // Accepts a free form `Map<String, Object>`.
-    record
+    .setBody(record)
   );
 }
+
+batchParams.setRequests(requests);
+
+BatchResponse response = client.batch("<YOUR_INDEX_NAME>", batchParams);
+
+// Wait for indexing to be finished
+await client.waitForTask("<YOUR_INDEX_NAME>", response.getTaskID());
 ```
 
 </TabItem>
