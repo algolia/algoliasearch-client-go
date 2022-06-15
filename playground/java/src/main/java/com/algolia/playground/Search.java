@@ -3,12 +3,20 @@ package com.algolia.playground;
 import com.algolia.api.SearchClient;
 import com.algolia.exceptions.*;
 import com.algolia.model.search.*;
-import com.algolia.utils.AlgoliaAgent;
 import com.algolia.utils.ClientOptions;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+class Actor {
+
+  String name;
+
+  Actor(String name) {
+    this.name = name;
+  }
+}
 
 public class Search {
 
@@ -17,8 +25,9 @@ public class Search {
 
     SearchClient client = new SearchClient(
       dotenv.get("ALGOLIA_APPLICATION_ID"),
-      dotenv.get("ALGOLIA_SEARCH_KEY"),
-      ClientOptions.build()
+      dotenv.get("ALGOLIA_ADMIN_KEY"),
+      ClientOptions
+        .build()
         .addAlgoliaAgentSegment("test", "8.0.0")
         .addAlgoliaAgentSegment("JVM", "11.0.14")
         .addAlgoliaAgentSegment("no version")
@@ -28,14 +37,17 @@ public class Search {
     String query = dotenv.get("SEARCH_QUERY");
 
     try {
-      List<Map<String, Object>> records = Arrays.asList(Collections.singletonMap("name", "Tom Cruise"), Collections.singletonMap("name", "Scarlett Johansson"));
+      List<Actor> records = Arrays.asList(new Actor("Tom Cruise"), new Actor("Scarlett Johansson"));
 
-      for (Map<String, Object> record : records) {
-        client.saveObject(
-          indexName,
-          record
-        );
+      List<BatchOperation> batch = new ArrayList<>();
+
+      for (Actor record : records) {
+        batch.add(new BatchOperation().setAction(Action.ADD_OBJECT).setBody(record));
       }
+
+      BatchResponse response = client.batch(indexName, new BatchWriteParams().setRequests(batch));
+
+      client.waitForTask(indexName, response.getTaskID());
 
       SearchMethodParams searchMethodParams = new SearchMethodParams();
       List<SearchQuery> requests = new ArrayList<>();

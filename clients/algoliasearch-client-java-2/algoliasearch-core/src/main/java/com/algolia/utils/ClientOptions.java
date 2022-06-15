@@ -46,6 +46,11 @@ public class ClientOptions {
     return this;
   }
 
+  public ClientOptions addAlgoliaAgentSegment(String value) {
+    this.algoliaAgentSegments.add(new AlgoliaAgent.Segment(value));
+    return this;
+  }
+
   public List<StatefulHost> getHosts() {
     return this.hosts;
   }

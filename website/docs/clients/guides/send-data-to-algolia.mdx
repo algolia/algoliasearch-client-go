@@ -122,31 +122,35 @@ $client->waitForTask(<YOUR_INDEX_NAME>, $response['taskID']);
 <TabItem value="java">
 
 ```java
+class Actor {
+  String name;
+
+  Actor(String name) {
+    this.name = name;
+  }
+}
+
 // The records retrieved by any of your data sources
-Map<String, Object> record1 = new HashMap<>();
-record1.put("name", "Tom Cruise");
-Map<String, Object> record2 = new HashMap<>();
-record2.put("name", "Scarlett Johansson");
-List<Map<String, Object>> records = Arrays.asList(record1, record2);
+List<Actor> records = Arrays.asList(
+  new Actor("Tom Cruise"),
+  new Actor("Scarlett Johansson")
+);
 
 // Here we construct the request to be sent to Algolia with the `batch` method
-BatchWriteParams batchParams = new BatchWriteParams();
 List<BatchOperation> requests = new ArrayList<>();
 
-for (Map<String, Object> record : records) {
+for (Actor record : records) {
   requests.add(new BatchOperation()
     .setAction(Action.ADD_OBJECT)
-    // Accepts a free form `Map<String, Object>`.
+    // Accepts any serializable class.
     .setBody(record)
   );
 }
 
-batchParams.setRequests(requests);
-
-BatchResponse response = client.batch("<YOUR_INDEX_NAME>", batchParams);
+BatchResponse response = client.batch("<YOUR_INDEX_NAME>", new BatchWriteParams().setRequests(batch));
 
 // Wait for indexing to be finished
-await client.waitForTask("<YOUR_INDEX_NAME>", response.getTaskID());
+client.waitForTask("<YOUR_INDEX_NAME>", response.getTaskID());
 ```
 
 </TabItem>
