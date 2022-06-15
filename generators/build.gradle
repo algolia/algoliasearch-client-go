@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.openapitools:openapi-generator:5.4.0'
+    compileOnly 'org.openapitools:openapi-generator:6.0.0'
     compileOnly 'org.yaml:snakeyaml:1.30'
 }
 

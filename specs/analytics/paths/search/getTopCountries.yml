@@ -28,6 +28,7 @@ get:
                 description: A list of countries with their count.
                 items:
                   type: object
+                  title: topCountry
                   additionalProperties: false
                   required:
                     - country

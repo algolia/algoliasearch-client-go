@@ -48,6 +48,7 @@ post:
                 type: array
                 description: List of user object matching the query.
                 items:
+                  title: userHit
                   type: object
                   properties:
                     userID:
@@ -62,6 +63,7 @@ post:
                       type: string
                       description: userID of the requested user. Same as userID.
                     _highlightResult:
+                      title: userHighlightResult
                       type: object
                       properties:
                         userID:

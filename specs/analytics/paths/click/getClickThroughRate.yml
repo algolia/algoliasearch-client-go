@@ -35,6 +35,7 @@ get:
                 description: A list of click-through rate events with their date.
                 items:
                   type: object
+                  title: clickThroughRateEvent
                   additionalProperties: false
                   required:
                     - rate

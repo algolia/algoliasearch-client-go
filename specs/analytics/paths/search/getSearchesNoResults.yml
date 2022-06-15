@@ -28,6 +28,7 @@ get:
                 description: A list of searches with no results and their count.
                 items:
                   type: object
+                  title: searchNoResultEvent
                   additionalProperties: false
                   required:
                     - search

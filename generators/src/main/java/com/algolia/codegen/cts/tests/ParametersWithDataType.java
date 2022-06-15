@@ -372,7 +372,7 @@ public class ParametersWithDataType {
       transferPrimitiveData(spec, testOutput);
     } else {
       inferDataType(param, null, testOutput);
-      if (spec instanceof CodegenParameter && ((CodegenParameter) spec).isAnyType) {
+      if (isAnyType(spec)) {
         testOutput.put("isAnyType", true);
       }
     }
@@ -393,6 +393,19 @@ public class ParametersWithDataType {
       return ((CodegenResponse) param).dataType;
     }
     return null;
+  }
+
+  private boolean isAnyType(IJsonSchemaValidationProperties param) {
+    if (param instanceof CodegenParameter) {
+      return ((CodegenParameter) param).isAnyType;
+    }
+    if (param instanceof CodegenProperty) {
+      return ((CodegenProperty) param).isAnyType;
+    }
+    if (param instanceof CodegenResponse) {
+      return ((CodegenResponse) param).isAnyType;
+    }
+    return false;
   }
 
   private boolean isEnum(IJsonSchemaValidationProperties param) {

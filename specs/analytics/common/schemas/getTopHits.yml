@@ -9,6 +9,7 @@ topHitsResponse:
       description: A list of top hits with their count.
       items:
         type: object
+        title: topHit
         additionalProperties: false
         required:
           - hit
@@ -30,6 +31,7 @@ topHitsResponseWithAnalytics:
       description: A list of top hits with their count and analytics.
       items:
         type: object
+        title: topHitWithAnalytics
         additionalProperties: false
         required:
           - hit

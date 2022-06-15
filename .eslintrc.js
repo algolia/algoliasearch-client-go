@@ -101,8 +101,9 @@ module.exports = {
         'no-continue': 0,
         '@typescript-eslint/prefer-enum-initializers': 0,
 
-        '@typescript-eslint/no-unused-vars': 2,
         'unused-imports/no-unused-imports-ts': 2,
+        '@typescript-eslint/no-unused-vars': 2,
+        '@typescript-eslint/consistent-indexed-object-style': 2,
         '@typescript-eslint/member-ordering': [
           'error',
           {

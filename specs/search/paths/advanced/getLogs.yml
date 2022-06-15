@@ -44,6 +44,7 @@ get:
               logs:
                 type: array
                 items:
+                  title: log
                   type: object
                   properties:
                     timestamp:
@@ -93,6 +94,7 @@ get:
                       description: Array of all performed queries for the given request.
                       items:
                         type: object
+                        title: logQuery
                         properties:
                           index_name:
                             type: string

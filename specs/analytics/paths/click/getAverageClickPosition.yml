@@ -32,6 +32,7 @@ get:
                 description: A list of average click position with their date.
                 items:
                   type: object
+                  title: averageClickEvent
                   additionalProperties: false
                   required:
                     - average

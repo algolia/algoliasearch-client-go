@@ -70,6 +70,7 @@ consequence:
       type: array
       description: Objects to hide from hits. Each object must contain an objectID field. By default, you can hide up to 50 items per rule.
       items:
+        title: consequenceHide
         type: object
         description: Unique identifier of the object to hide.
         additionalProperties: false

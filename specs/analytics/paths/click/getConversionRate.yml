@@ -35,6 +35,7 @@ get:
                 description: A list of conversion events with their date.
                 items:
                   type: object
+                  title: conversionRateEvent
                   additionalProperties: false
                   required:
                     - rate

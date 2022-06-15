@@ -9,6 +9,7 @@ topSearchesResponse:
       description: A list of top searches with their count.
       items:
         type: object
+        title: topSearch
         additionalProperties: false
         required:
           - search
@@ -33,6 +34,7 @@ topSearchesResponseWithAnalytics:
       description: A list of top searches with their count and analytics.
       items:
         type: object
+        title: topSearchWithAnalytics
         additionalProperties: false
         required:
           - search

@@ -28,6 +28,7 @@ get:
                 description: A list of searches with no clicks and their count.
                 items:
                   type: object
+                  title: searchNoClickEvent
                   additionalProperties: false
                   required:
                     - search

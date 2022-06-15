@@ -65,6 +65,7 @@ baseSearchResponse:
       type: boolean
       description: Indicate if the typo-tolerance search was exhaustive or approximate (only included when typo-tolerance is enabled).
     facets:
+      title: facets
       type: object
       additionalProperties:
         type: object
@@ -76,10 +77,12 @@ baseSearchResponse:
           food: 1
           tech: 42
     facets_stats:
+      title: facetsStats
       type: object
       description: Statistics for numerical facets.
       additionalProperties:
         type: object
+        title: facetStats
         properties:
           min:
             type: integer

@@ -2,14 +2,13 @@ package com.algolia.codegen;
 
 import com.algolia.codegen.exceptions.*;
 import io.swagger.v3.oas.models.Operation;
-import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.servers.Server;
 import java.util.List;
-import java.util.Map;
 import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.languages.TypeScriptNodeClientCodegen;
+import org.openapitools.codegen.model.ModelMap;
+import org.openapitools.codegen.model.OperationsMap;
 
 public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
 
@@ -30,6 +29,9 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     setSupportsES6(true);
     setModelPropertyNaming("original");
     setApiPackage("src");
+
+    languageSpecificPrimitives.add("Record");
+    instantiationTypes.put("map", "Record");
     // clear all supported files to avoid unwanted ones
     supportingFiles.clear();
 
@@ -64,8 +66,8 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
 
   /** Provides an opportunity to inspect and modify operation data before the code is generated. */
   @Override
-  public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
-    Map<String, Object> results = super.postProcessOperationsWithModels(objs, allModels);
+  public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
+    OperationsMap results = super.postProcessOperationsWithModels(objs, allModels);
 
     setDefaultGeneratorOptions();
     try {
@@ -77,7 +79,7 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
       System.exit(1);
     }
 
-    List<CodegenOperation> operations = ((Map<String, List<CodegenOperation>>) results.get("operations")).get("operation");
+    List<CodegenOperation> operations = results.getOperations().getOperation();
 
     // We read operations and detect if we should wrap parameters under an object.
     // We only wrap if there is a mix between body parameters and other parameters.
@@ -138,22 +140,5 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
   @Override
   public String apiFilename(String templateName, String tag) {
     return super.apiFilename(templateName, toApiFilename(CLIENT));
-  }
-
-  @Override
-  protected String getParameterDataType(Parameter parameter, Schema p) {
-    String type = super.getParameterDataType(parameter, p);
-    // openapi generator is wrong, 'object' is not a fit all object, we need 'any'
-    // we use replace because there might be more to this type, like '| undefined'
-    return type.replace("{ [key: string]: object; }", "Record<string, any>");
-  }
-
-  @Override
-  public String toInstantiationType(Schema schema) {
-    String type = super.toInstantiationType(schema);
-
-    // Same as the `getParameterDataType` but for the models, the generator
-    // consider `object` as a fit all which is wrong in TypeScript
-    return type.replace("null<String, object>", "Record<string, any>");
   }
 }

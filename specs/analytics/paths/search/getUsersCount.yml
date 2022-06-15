@@ -29,6 +29,7 @@ get:
                 description: A list of users count with their date.
                 items:
                   type: object
+                  title: userWithDate
                   additionalProperties: false
                   required:
                     - date
