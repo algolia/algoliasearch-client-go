@@ -195,9 +195,63 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Batch
-     * batch
+     * allows batch method with `addObject` action
      */
     public function testBatch0()
+    {
+        $client = $this->getClient();
+        $client->batch(
+            'theIndexName',
+            [
+                'requests' => [
+                    ['action' => 'addObject', 'body' => ['key' => 'value']],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"}}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Batch
+     * allows batch method with `clear` action
+     */
+    public function testBatch1()
+    {
+        $client = $this->getClient();
+        $client->batch(
+            'theIndexName',
+            [
+                'requests' => [
+                    ['action' => 'clear', 'body' => ['key' => 'value']],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"action\":\"clear\",\"body\":{\"key\":\"value\"}}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Batch
+     * allows batch method with `delete` action
+     */
+    public function testBatch2()
     {
         $client = $this->getClient();
         $client->batch(
@@ -215,6 +269,120 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'method' => 'POST',
                 'body' => json_decode(
                     "{\"requests\":[{\"action\":\"delete\",\"body\":{\"key\":\"value\"}}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Batch
+     * allows batch method with `deleteObject` action
+     */
+    public function testBatch3()
+    {
+        $client = $this->getClient();
+        $client->batch(
+            'theIndexName',
+            [
+                'requests' => [
+                    ['action' => 'deleteObject', 'body' => ['key' => 'value']],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"action\":\"deleteObject\",\"body\":{\"key\":\"value\"}}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Batch
+     * allows batch method with `partialUpdateObject` action
+     */
+    public function testBatch4()
+    {
+        $client = $this->getClient();
+        $client->batch(
+            'theIndexName',
+            [
+                'requests' => [
+                    [
+                        'action' => 'partialUpdateObject',
+                        'body' => ['key' => 'value'],
+                    ],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"action\":\"partialUpdateObject\",\"body\":{\"key\":\"value\"}}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Batch
+     * allows batch method with `partialUpdateObjectNoCreate` action
+     */
+    public function testBatch5()
+    {
+        $client = $this->getClient();
+        $client->batch(
+            'theIndexName',
+            [
+                'requests' => [
+                    [
+                        'action' => 'partialUpdateObjectNoCreate',
+                        'body' => ['key' => 'value'],
+                    ],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"action\":\"partialUpdateObjectNoCreate\",\"body\":{\"key\":\"value\"}}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Batch
+     * allows batch method with `updateObject` action
+     */
+    public function testBatch6()
+    {
+        $client = $this->getClient();
+        $client->batch(
+            'theIndexName',
+            [
+                'requests' => [
+                    ['action' => 'updateObject', 'body' => ['key' => 'value']],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"action\":\"updateObject\",\"body\":{\"key\":\"value\"}}]}"
                 ),
             ],
         ]);

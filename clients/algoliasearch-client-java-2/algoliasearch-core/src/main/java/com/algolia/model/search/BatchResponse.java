@@ -12,7 +12,7 @@ public class BatchResponse {
   private Long taskID;
 
   @SerializedName("objectIDs")
-  private List<String> objectIDs = null;
+  private List<String> objectIDs = new ArrayList<>();
 
   public BatchResponse setTaskID(Long taskID) {
     this.taskID = taskID;
@@ -24,7 +24,7 @@ public class BatchResponse {
    *
    * @return taskID
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Long getTaskID() {
     return taskID;
   }
@@ -35,9 +35,6 @@ public class BatchResponse {
   }
 
   public BatchResponse addObjectIDs(String objectIDsItem) {
-    if (this.objectIDs == null) {
-      this.objectIDs = new ArrayList<>();
-    }
     this.objectIDs.add(objectIDsItem);
     return this;
   }
@@ -47,7 +44,7 @@ public class BatchResponse {
    *
    * @return objectIDs
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<String> getObjectIDs() {
     return objectIDs;
   }

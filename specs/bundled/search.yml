@@ -2653,6 +2653,9 @@ paths:
                     $ref: '#/components/schemas/taskID'
                   objectIDs:
                     $ref: '#/components/schemas/objectIDs'
+                required:
+                  - taskID
+                  - objectIDs
         '400':
           $ref: '#/components/responses/BadRequest'
         '402':

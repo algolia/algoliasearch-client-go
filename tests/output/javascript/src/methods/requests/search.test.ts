@@ -83,7 +83,39 @@ describe('assignUserId', () => {
 });
 
 describe('batch', () => {
-  test('batch', async () => {
+  test('allows batch method with &#x60;addObject&#x60; action', async () => {
+    const req = (await client.batch({
+      indexName: 'theIndexName',
+      batchWriteParams: {
+        requests: [{ action: 'addObject', body: { key: 'value' } }],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [{ action: 'addObject', body: { key: 'value' } }],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('allows batch method with &#x60;clear&#x60; action', async () => {
+    const req = (await client.batch({
+      indexName: 'theIndexName',
+      batchWriteParams: {
+        requests: [{ action: 'clear', body: { key: 'value' } }],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [{ action: 'clear', body: { key: 'value' } }],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('allows batch method with &#x60;delete&#x60; action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -95,6 +127,74 @@ describe('batch', () => {
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({
       requests: [{ action: 'delete', body: { key: 'value' } }],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('allows batch method with &#x60;deleteObject&#x60; action', async () => {
+    const req = (await client.batch({
+      indexName: 'theIndexName',
+      batchWriteParams: {
+        requests: [{ action: 'deleteObject', body: { key: 'value' } }],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [{ action: 'deleteObject', body: { key: 'value' } }],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('allows batch method with &#x60;partialUpdateObject&#x60; action', async () => {
+    const req = (await client.batch({
+      indexName: 'theIndexName',
+      batchWriteParams: {
+        requests: [{ action: 'partialUpdateObject', body: { key: 'value' } }],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [{ action: 'partialUpdateObject', body: { key: 'value' } }],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('allows batch method with &#x60;partialUpdateObjectNoCreate&#x60; action', async () => {
+    const req = (await client.batch({
+      indexName: 'theIndexName',
+      batchWriteParams: {
+        requests: [
+          { action: 'partialUpdateObjectNoCreate', body: { key: 'value' } },
+        ],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        { action: 'partialUpdateObjectNoCreate', body: { key: 'value' } },
+      ],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('allows batch method with &#x60;updateObject&#x60; action', async () => {
+    const req = (await client.batch({
+      indexName: 'theIndexName',
+      batchWriteParams: {
+        requests: [{ action: 'updateObject', body: { key: 'value' } }],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [{ action: 'updateObject', body: { key: 'value' } }],
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });

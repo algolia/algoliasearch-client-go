@@ -157,8 +157,90 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("batch")
+  @DisplayName("allows batch method with `addObject` action")
   void batchTest0() {
+    String indexName0 = "theIndexName";
+    BatchWriteParams batchWriteParams0 = new BatchWriteParams();
+    {
+      List<BatchOperation> requests1 = new ArrayList<>();
+      {
+        BatchOperation requests_02 = new BatchOperation();
+        {
+          Action action3 = Action.fromValue("addObject");
+          requests_02.setAction(action3);
+          Map<String, String> body3 = new HashMap<>();
+          {
+            String key4 = "value";
+            body3.put("key", key4);
+          }
+          requests_02.setBody(body3);
+        }
+        requests1.add(requests_02);
+      }
+      batchWriteParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.batch(indexName0, batchWriteParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"}}]}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("allows batch method with `clear` action")
+  void batchTest1() {
+    String indexName0 = "theIndexName";
+    BatchWriteParams batchWriteParams0 = new BatchWriteParams();
+    {
+      List<BatchOperation> requests1 = new ArrayList<>();
+      {
+        BatchOperation requests_02 = new BatchOperation();
+        {
+          Action action3 = Action.fromValue("clear");
+          requests_02.setAction(action3);
+          Map<String, String> body3 = new HashMap<>();
+          {
+            String key4 = "value";
+            body3.put("key", key4);
+          }
+          requests_02.setBody(body3);
+        }
+        requests1.add(requests_02);
+      }
+      batchWriteParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.batch(indexName0, batchWriteParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"action\":\"clear\",\"body\":{\"key\":\"value\"}}]}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("allows batch method with `delete` action")
+  void batchTest2() {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
@@ -191,6 +273,170 @@ class SearchClientRequestsTests {
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"delete\",\"body\":{\"key\":\"value\"}}]}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("allows batch method with `deleteObject` action")
+  void batchTest3() {
+    String indexName0 = "theIndexName";
+    BatchWriteParams batchWriteParams0 = new BatchWriteParams();
+    {
+      List<BatchOperation> requests1 = new ArrayList<>();
+      {
+        BatchOperation requests_02 = new BatchOperation();
+        {
+          Action action3 = Action.fromValue("deleteObject");
+          requests_02.setAction(action3);
+          Map<String, String> body3 = new HashMap<>();
+          {
+            String key4 = "value";
+            body3.put("key", key4);
+          }
+          requests_02.setBody(body3);
+        }
+        requests1.add(requests_02);
+      }
+      batchWriteParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.batch(indexName0, batchWriteParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"action\":\"deleteObject\",\"body\":{\"key\":\"value\"}}]}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("allows batch method with `partialUpdateObject` action")
+  void batchTest4() {
+    String indexName0 = "theIndexName";
+    BatchWriteParams batchWriteParams0 = new BatchWriteParams();
+    {
+      List<BatchOperation> requests1 = new ArrayList<>();
+      {
+        BatchOperation requests_02 = new BatchOperation();
+        {
+          Action action3 = Action.fromValue("partialUpdateObject");
+          requests_02.setAction(action3);
+          Map<String, String> body3 = new HashMap<>();
+          {
+            String key4 = "value";
+            body3.put("key", key4);
+          }
+          requests_02.setBody(body3);
+        }
+        requests1.add(requests_02);
+      }
+      batchWriteParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.batch(indexName0, batchWriteParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"action\":\"partialUpdateObject\",\"body\":{\"key\":\"value\"}}]}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("allows batch method with `partialUpdateObjectNoCreate` action")
+  void batchTest5() {
+    String indexName0 = "theIndexName";
+    BatchWriteParams batchWriteParams0 = new BatchWriteParams();
+    {
+      List<BatchOperation> requests1 = new ArrayList<>();
+      {
+        BatchOperation requests_02 = new BatchOperation();
+        {
+          Action action3 = Action.fromValue("partialUpdateObjectNoCreate");
+          requests_02.setAction(action3);
+          Map<String, String> body3 = new HashMap<>();
+          {
+            String key4 = "value";
+            body3.put("key", key4);
+          }
+          requests_02.setBody(body3);
+        }
+        requests1.add(requests_02);
+      }
+      batchWriteParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.batch(indexName0, batchWriteParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"action\":\"partialUpdateObjectNoCreate\",\"body\":{\"key\":\"value\"}}]}",
+        req.body,
+        JSONCompareMode.STRICT_ORDER
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("allows batch method with `updateObject` action")
+  void batchTest6() {
+    String indexName0 = "theIndexName";
+    BatchWriteParams batchWriteParams0 = new BatchWriteParams();
+    {
+      List<BatchOperation> requests1 = new ArrayList<>();
+      {
+        BatchOperation requests_02 = new BatchOperation();
+        {
+          Action action3 = Action.fromValue("updateObject");
+          requests_02.setAction(action3);
+          Map<String, String> body3 = new HashMap<>();
+          {
+            String key4 = "value";
+            body3.put("key", key4);
+          }
+          requests_02.setBody(body3);
+        }
+        requests1.add(requests_02);
+      }
+      batchWriteParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.batch(indexName0, batchWriteParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"action\":\"updateObject\",\"body\":{\"key\":\"value\"}}]}",
         req.body,
         JSONCompareMode.STRICT_ORDER
       );
