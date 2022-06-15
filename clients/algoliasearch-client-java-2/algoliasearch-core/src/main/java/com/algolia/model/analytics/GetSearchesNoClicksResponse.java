@@ -9,14 +9,14 @@ import java.util.Objects;
 public class GetSearchesNoClicksResponse {
 
   @SerializedName("searches")
-  private List<GetSearchesNoClicksResponseSearches> searches = new ArrayList<>();
+  private List<SearchNoClickEvent> searches = new ArrayList<>();
 
-  public GetSearchesNoClicksResponse setSearches(List<GetSearchesNoClicksResponseSearches> searches) {
+  public GetSearchesNoClicksResponse setSearches(List<SearchNoClickEvent> searches) {
     this.searches = searches;
     return this;
   }
 
-  public GetSearchesNoClicksResponse addSearches(GetSearchesNoClicksResponseSearches searchesItem) {
+  public GetSearchesNoClicksResponse addSearches(SearchNoClickEvent searchesItem) {
     this.searches.add(searchesItem);
     return this;
   }
@@ -27,7 +27,7 @@ public class GetSearchesNoClicksResponse {
    * @return searches
    */
   @javax.annotation.Nonnull
-  public List<GetSearchesNoClicksResponseSearches> getSearches() {
+  public List<SearchNoClickEvent> getSearches() {
     return searches;
   }
 

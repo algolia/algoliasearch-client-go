@@ -33,7 +33,7 @@ public class BaseSearchResponse {
   private Map<String, Map<String, String>> facets = null;
 
   @SerializedName("facets_stats")
-  private Map<String, BaseSearchResponseFacetsStats> facetsStats = null;
+  private Map<String, FacetsStats> facetsStats = null;
 
   @SerializedName("hitsPerPage")
   private Integer hitsPerPage = 20;
@@ -212,12 +212,12 @@ public class BaseSearchResponse {
     return facets;
   }
 
-  public BaseSearchResponse setFacetsStats(Map<String, BaseSearchResponseFacetsStats> facetsStats) {
+  public BaseSearchResponse setFacetsStats(Map<String, FacetsStats> facetsStats) {
     this.facetsStats = facetsStats;
     return this;
   }
 
-  public BaseSearchResponse putFacetsStats(String key, BaseSearchResponseFacetsStats facetsStatsItem) {
+  public BaseSearchResponse putFacetsStats(String key, FacetsStats facetsStatsItem) {
     if (this.facetsStats == null) {
       this.facetsStats = new HashMap<>();
     }
@@ -231,7 +231,7 @@ public class BaseSearchResponse {
    * @return facetsStats
    */
   @javax.annotation.Nullable
-  public Map<String, BaseSearchResponseFacetsStats> getFacetsStats() {
+  public Map<String, FacetsStats> getFacetsStats() {
     return facetsStats;
   }
 

@@ -9,14 +9,14 @@ import java.util.Objects;
 public class TopHitsResponseWithAnalytics {
 
   @SerializedName("hits")
-  private List<TopHitsResponseWithAnalyticsHits> hits = new ArrayList<>();
+  private List<TopHitWithAnalytics> hits = new ArrayList<>();
 
-  public TopHitsResponseWithAnalytics setHits(List<TopHitsResponseWithAnalyticsHits> hits) {
+  public TopHitsResponseWithAnalytics setHits(List<TopHitWithAnalytics> hits) {
     this.hits = hits;
     return this;
   }
 
-  public TopHitsResponseWithAnalytics addHits(TopHitsResponseWithAnalyticsHits hitsItem) {
+  public TopHitsResponseWithAnalytics addHits(TopHitWithAnalytics hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }
@@ -27,7 +27,7 @@ public class TopHitsResponseWithAnalytics {
    * @return hits
    */
   @javax.annotation.Nonnull
-  public List<TopHitsResponseWithAnalyticsHits> getHits() {
+  public List<TopHitWithAnalytics> getHits() {
     return hits;
   }
 

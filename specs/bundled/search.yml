@@ -767,6 +767,7 @@ components:
             Indicate if the typo-tolerance search was exhaustive or approximate
             (only included when typo-tolerance is enabled).
         facets:
+          title: facets
           type: object
           additionalProperties:
             type: object
@@ -778,10 +779,12 @@ components:
               food: 1
               tech: 42
         facets_stats:
+          title: facetsStats
           type: object
           description: Statistics for numerical facets.
           additionalProperties:
             type: object
+            title: facetStats
             properties:
               min:
                 type: integer
@@ -1529,6 +1532,7 @@ components:
             Objects to hide from hits. Each object must contain an objectID
             field. By default, you can hide up to 50 items per rule.
           items:
+            title: consequenceHide
             type: object
             description: Unique identifier of the object to hide.
             additionalProperties: false
@@ -2277,6 +2281,7 @@ paths:
                     type: array
                     items:
                       type: object
+                      title: facetHits
                       additionalProperties: false
                       required:
                         - value
@@ -3927,6 +3932,7 @@ paths:
                     type: array
                     description: List of user object matching the query.
                     items:
+                      title: userHit
                       type: object
                       properties:
                         userID:
@@ -3941,6 +3947,7 @@ paths:
                           type: string
                           description: userID of the requested user. Same as userID.
                         _highlightResult:
+                          title: userHighlightResult
                           type: object
                           properties:
                             userID:
@@ -4187,6 +4194,7 @@ paths:
                   logs:
                     type: array
                     items:
+                      title: log
                       type: object
                       properties:
                         timestamp:
@@ -4240,6 +4248,7 @@ paths:
                             request.
                           items:
                             type: object
+                            title: logQuery
                             properties:
                               index_name:
                                 type: string

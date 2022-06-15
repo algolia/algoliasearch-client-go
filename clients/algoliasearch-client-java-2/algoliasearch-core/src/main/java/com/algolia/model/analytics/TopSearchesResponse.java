@@ -9,14 +9,14 @@ import java.util.Objects;
 public class TopSearchesResponse {
 
   @SerializedName("searches")
-  private List<GetSearchesNoResultsResponseSearches> searches = new ArrayList<>();
+  private List<TopSearch> searches = new ArrayList<>();
 
-  public TopSearchesResponse setSearches(List<GetSearchesNoResultsResponseSearches> searches) {
+  public TopSearchesResponse setSearches(List<TopSearch> searches) {
     this.searches = searches;
     return this;
   }
 
-  public TopSearchesResponse addSearches(GetSearchesNoResultsResponseSearches searchesItem) {
+  public TopSearchesResponse addSearches(TopSearch searchesItem) {
     this.searches.add(searchesItem);
     return this;
   }
@@ -27,7 +27,7 @@ public class TopSearchesResponse {
    * @return searches
    */
   @javax.annotation.Nonnull
-  public List<GetSearchesNoResultsResponseSearches> getSearches() {
+  public List<TopSearch> getSearches() {
     return searches;
   }
 

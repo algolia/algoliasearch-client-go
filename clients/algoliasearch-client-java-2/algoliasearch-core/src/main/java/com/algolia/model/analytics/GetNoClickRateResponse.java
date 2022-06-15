@@ -18,7 +18,7 @@ public class GetNoClickRateResponse {
   private Integer noClickCount;
 
   @SerializedName("dates")
-  private List<GetNoClickRateResponseDates> dates = new ArrayList<>();
+  private List<NoClickRateEvent> dates = new ArrayList<>();
 
   public GetNoClickRateResponse setRate(Double rate) {
     this.rate = rate;
@@ -65,12 +65,12 @@ public class GetNoClickRateResponse {
     return noClickCount;
   }
 
-  public GetNoClickRateResponse setDates(List<GetNoClickRateResponseDates> dates) {
+  public GetNoClickRateResponse setDates(List<NoClickRateEvent> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetNoClickRateResponse addDates(GetNoClickRateResponseDates datesItem) {
+  public GetNoClickRateResponse addDates(NoClickRateEvent datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -81,7 +81,7 @@ public class GetNoClickRateResponse {
    * @return dates
    */
   @javax.annotation.Nonnull
-  public List<GetNoClickRateResponseDates> getDates() {
+  public List<NoClickRateEvent> getDates() {
     return dates;
   }
 

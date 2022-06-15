@@ -9,14 +9,14 @@ import java.util.Objects;
 public class GetTopCountriesResponse {
 
   @SerializedName("countries")
-  private List<GetTopCountriesResponseCountries> countries = new ArrayList<>();
+  private List<TopCountry> countries = new ArrayList<>();
 
-  public GetTopCountriesResponse setCountries(List<GetTopCountriesResponseCountries> countries) {
+  public GetTopCountriesResponse setCountries(List<TopCountry> countries) {
     this.countries = countries;
     return this;
   }
 
-  public GetTopCountriesResponse addCountries(GetTopCountriesResponseCountries countriesItem) {
+  public GetTopCountriesResponse addCountries(TopCountry countriesItem) {
     this.countries.add(countriesItem);
     return this;
   }
@@ -27,7 +27,7 @@ public class GetTopCountriesResponse {
    * @return countries
    */
   @javax.annotation.Nonnull
-  public List<GetTopCountriesResponseCountries> getCountries() {
+  public List<TopCountry> getCountries() {
     return countries;
   }
 

@@ -15,7 +15,7 @@ public class GetAverageClickPositionResponse {
   private Integer clickCount;
 
   @SerializedName("dates")
-  private List<GetAverageClickPositionResponseDates> dates = new ArrayList<>();
+  private List<AverageClickEvent> dates = new ArrayList<>();
 
   public GetAverageClickPositionResponse setAverage(Double average) {
     this.average = average;
@@ -47,12 +47,12 @@ public class GetAverageClickPositionResponse {
     return clickCount;
   }
 
-  public GetAverageClickPositionResponse setDates(List<GetAverageClickPositionResponseDates> dates) {
+  public GetAverageClickPositionResponse setDates(List<AverageClickEvent> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetAverageClickPositionResponse addDates(GetAverageClickPositionResponseDates datesItem) {
+  public GetAverageClickPositionResponse addDates(AverageClickEvent datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -63,7 +63,7 @@ public class GetAverageClickPositionResponse {
    * @return dates
    */
   @javax.annotation.Nonnull
-  public List<GetAverageClickPositionResponseDates> getDates() {
+  public List<AverageClickEvent> getDates() {
     return dates;
   }
 

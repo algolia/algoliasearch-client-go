@@ -18,7 +18,7 @@ public class GetNoResultsRateResponse {
   private Integer noResultCount;
 
   @SerializedName("dates")
-  private List<GetNoResultsRateResponseDates> dates = new ArrayList<>();
+  private List<NoResultsRateEvent> dates = new ArrayList<>();
 
   public GetNoResultsRateResponse setRate(Double rate) {
     this.rate = rate;
@@ -65,12 +65,12 @@ public class GetNoResultsRateResponse {
     return noResultCount;
   }
 
-  public GetNoResultsRateResponse setDates(List<GetNoResultsRateResponseDates> dates) {
+  public GetNoResultsRateResponse setDates(List<NoResultsRateEvent> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetNoResultsRateResponse addDates(GetNoResultsRateResponseDates datesItem) {
+  public GetNoResultsRateResponse addDates(NoResultsRateEvent datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -81,7 +81,7 @@ public class GetNoResultsRateResponse {
    * @return dates
    */
   @javax.annotation.Nonnull
-  public List<GetNoResultsRateResponseDates> getDates() {
+  public List<NoResultsRateEvent> getDates() {
     return dates;
   }
 

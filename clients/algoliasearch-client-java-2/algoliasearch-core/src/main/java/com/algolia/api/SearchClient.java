@@ -1738,7 +1738,7 @@ public class SearchClient extends ApiClient {
   /**
    * Retrieve one or more objects, potentially from different indices, in a single API call.
    *
-   * @param getObjectsParams (required)
+   * @param getObjectsParams The Algolia object. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return GetObjectsResponse
@@ -1757,7 +1757,7 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Retrieve one or more objects, potentially from different indices, in a single
    * API call.
    *
-   * @param getObjectsParams (required)
+   * @param getObjectsParams The Algolia object. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return The awaitable future
@@ -3551,7 +3551,7 @@ public class SearchClient extends ApiClient {
   /**
    * Perform a search operation targeting one or many indices.
    *
-   * @param searchMethodParams (required)
+   * @param searchMethodParams The `search` requests and strategy. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return SearchResponses
@@ -3569,7 +3569,7 @@ public class SearchClient extends ApiClient {
   /**
    * (asynchronously) Perform a search operation targeting one or many indices.
    *
-   * @param searchMethodParams (required)
+   * @param searchMethodParams The `search` requests and strategy. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return The awaitable future

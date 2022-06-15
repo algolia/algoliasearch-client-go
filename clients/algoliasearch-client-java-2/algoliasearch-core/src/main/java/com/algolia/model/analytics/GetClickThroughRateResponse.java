@@ -18,7 +18,7 @@ public class GetClickThroughRateResponse {
   private Integer trackedSearchCount;
 
   @SerializedName("dates")
-  private List<GetClickThroughRateResponseDates> dates = new ArrayList<>();
+  private List<ClickThroughRateEvent> dates = new ArrayList<>();
 
   public GetClickThroughRateResponse setRate(Double rate) {
     this.rate = rate;
@@ -65,12 +65,12 @@ public class GetClickThroughRateResponse {
     return trackedSearchCount;
   }
 
-  public GetClickThroughRateResponse setDates(List<GetClickThroughRateResponseDates> dates) {
+  public GetClickThroughRateResponse setDates(List<ClickThroughRateEvent> dates) {
     this.dates = dates;
     return this;
   }
 
-  public GetClickThroughRateResponse addDates(GetClickThroughRateResponseDates datesItem) {
+  public GetClickThroughRateResponse addDates(ClickThroughRateEvent datesItem) {
     this.dates.add(datesItem);
     return this;
   }
@@ -81,7 +81,7 @@ public class GetClickThroughRateResponse {
    * @return dates
    */
   @javax.annotation.Nonnull
-  public List<GetClickThroughRateResponseDates> getDates() {
+  public List<ClickThroughRateEvent> getDates() {
     return dates;
   }
 

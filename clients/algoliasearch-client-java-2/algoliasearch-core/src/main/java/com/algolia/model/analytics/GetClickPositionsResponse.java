@@ -9,14 +9,14 @@ import java.util.Objects;
 public class GetClickPositionsResponse {
 
   @SerializedName("positions")
-  private List<GetClickPositionsResponsePositions> positions = new ArrayList<>();
+  private List<ClickPosition> positions = new ArrayList<>();
 
-  public GetClickPositionsResponse setPositions(List<GetClickPositionsResponsePositions> positions) {
+  public GetClickPositionsResponse setPositions(List<ClickPosition> positions) {
     this.positions = positions;
     return this;
   }
 
-  public GetClickPositionsResponse addPositions(GetClickPositionsResponsePositions positionsItem) {
+  public GetClickPositionsResponse addPositions(ClickPosition positionsItem) {
     this.positions.add(positionsItem);
     return this;
   }
@@ -27,7 +27,7 @@ public class GetClickPositionsResponse {
    * @return positions
    */
   @javax.annotation.Nonnull
-  public List<GetClickPositionsResponsePositions> getPositions() {
+  public List<ClickPosition> getPositions() {
     return positions;
   }
 

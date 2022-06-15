@@ -9,7 +9,7 @@ import java.util.Objects;
 public class SearchUserIdsResponse {
 
   @SerializedName("hits")
-  private List<SearchUserIdsResponseHits> hits = new ArrayList<>();
+  private List<UserHit> hits = new ArrayList<>();
 
   @SerializedName("nbHits")
   private Integer nbHits;
@@ -23,12 +23,12 @@ public class SearchUserIdsResponse {
   @SerializedName("updatedAt")
   private String updatedAt;
 
-  public SearchUserIdsResponse setHits(List<SearchUserIdsResponseHits> hits) {
+  public SearchUserIdsResponse setHits(List<UserHit> hits) {
     this.hits = hits;
     return this;
   }
 
-  public SearchUserIdsResponse addHits(SearchUserIdsResponseHits hitsItem) {
+  public SearchUserIdsResponse addHits(UserHit hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }
@@ -39,7 +39,7 @@ public class SearchUserIdsResponse {
    * @return hits
    */
   @javax.annotation.Nonnull
-  public List<SearchUserIdsResponseHits> getHits() {
+  public List<UserHit> getHits() {
     return hits;
   }
 
