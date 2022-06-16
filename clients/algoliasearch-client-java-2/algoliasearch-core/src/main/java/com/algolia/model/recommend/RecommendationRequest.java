@@ -19,7 +19,7 @@ public class RecommendationRequest {
   private Integer threshold;
 
   @SerializedName("maxRecommendations")
-  private Integer maxRecommendations = 0;
+  private Integer maxRecommendations;
 
   @SerializedName("queryParameters")
   private SearchParamsObject queryParameters;

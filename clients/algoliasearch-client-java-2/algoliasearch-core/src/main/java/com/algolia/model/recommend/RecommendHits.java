@@ -9,7 +9,7 @@ import java.util.Objects;
 public class RecommendHits {
 
   @SerializedName("hits")
-  private List<RecommendHit> hits = null;
+  private List<RecommendHit> hits;
 
   public RecommendHits setHits(List<RecommendHit> hits) {
     this.hits = hits;

@@ -12,13 +12,13 @@ import java.util.Objects;
 public class StandardEntries {
 
   @SerializedName("plurals")
-  private Map<String, Boolean> plurals = null;
+  private Map<String, Boolean> plurals;
 
   @SerializedName("stopwords")
-  private Map<String, Boolean> stopwords = null;
+  private Map<String, Boolean> stopwords;
 
   @SerializedName("compounds")
-  private Map<String, Boolean> compounds = null;
+  private Map<String, Boolean> compounds;
 
   public StandardEntries setPlurals(Map<String, Boolean> plurals) {
     this.plurals = plurals;

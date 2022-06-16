@@ -1,7 +1,6 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +8,7 @@ import java.util.Objects;
 public class GetSearchesNoClicksResponse {
 
   @SerializedName("searches")
-  private List<SearchNoClickEvent> searches = new ArrayList<>();
+  private List<SearchNoClickEvent> searches;
 
   public GetSearchesNoClicksResponse setSearches(List<SearchNoClickEvent> searches) {
     this.searches = searches;

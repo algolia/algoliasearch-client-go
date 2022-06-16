@@ -19,13 +19,13 @@ public class DictionaryEntry extends HashMap<String, Object> {
   private String word;
 
   @SerializedName("words")
-  private List<String> words = null;
+  private List<String> words;
 
   @SerializedName("decomposition")
-  private List<String> decomposition = null;
+  private List<String> decomposition;
 
   @SerializedName("state")
-  private DictionaryEntryState state = DictionaryEntryState.ENABLED;
+  private DictionaryEntryState state;
 
   public DictionaryEntry setObjectID(String objectID) {
     this.objectID = objectID;

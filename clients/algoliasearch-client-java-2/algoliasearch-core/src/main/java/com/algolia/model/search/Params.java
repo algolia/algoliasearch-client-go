@@ -12,10 +12,10 @@ public class Params {
   private String query;
 
   @SerializedName("automaticFacetFilters")
-  private List<AutomaticFacetFilter> automaticFacetFilters = null;
+  private List<AutomaticFacetFilter> automaticFacetFilters;
 
   @SerializedName("automaticOptionalFacetFilters")
-  private List<AutomaticFacetFilter> automaticOptionalFacetFilters = null;
+  private List<AutomaticFacetFilter> automaticOptionalFacetFilters;
 
   public Params setQuery(String query) {
     this.query = query;

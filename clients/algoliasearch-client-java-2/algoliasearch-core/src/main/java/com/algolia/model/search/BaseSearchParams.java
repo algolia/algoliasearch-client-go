@@ -10,13 +10,13 @@ import java.util.Objects;
 public class BaseSearchParams {
 
   @SerializedName("query")
-  private String query = "";
+  private String query;
 
   @SerializedName("similarQuery")
-  private String similarQuery = "";
+  private String similarQuery;
 
   @SerializedName("filters")
-  private String filters = "";
+  private String filters;
 
   @SerializedName("facetFilters")
   private FacetFilters facetFilters;
@@ -31,22 +31,22 @@ public class BaseSearchParams {
   private TagFilters tagFilters;
 
   @SerializedName("sumOrFiltersScores")
-  private Boolean sumOrFiltersScores = false;
+  private Boolean sumOrFiltersScores;
 
   @SerializedName("facets")
-  private List<String> facets = null;
+  private List<String> facets;
 
   @SerializedName("maxValuesPerFacet")
-  private Integer maxValuesPerFacet = 100;
+  private Integer maxValuesPerFacet;
 
   @SerializedName("facetingAfterDistinct")
-  private Boolean facetingAfterDistinct = false;
+  private Boolean facetingAfterDistinct;
 
   @SerializedName("sortFacetValuesBy")
-  private String sortFacetValuesBy = "count";
+  private String sortFacetValuesBy;
 
   @SerializedName("page")
-  private Integer page = 0;
+  private Integer page;
 
   @SerializedName("offset")
   private Integer offset;
@@ -55,58 +55,58 @@ public class BaseSearchParams {
   private Integer length;
 
   @SerializedName("aroundLatLng")
-  private String aroundLatLng = "";
+  private String aroundLatLng;
 
   @SerializedName("aroundLatLngViaIP")
-  private Boolean aroundLatLngViaIP = false;
+  private Boolean aroundLatLngViaIP;
 
   @SerializedName("aroundRadius")
   private AroundRadius aroundRadius;
 
   @SerializedName("aroundPrecision")
-  private Integer aroundPrecision = 10;
+  private Integer aroundPrecision;
 
   @SerializedName("minimumAroundRadius")
   private Integer minimumAroundRadius;
 
   @SerializedName("insideBoundingBox")
-  private List<BigDecimal> insideBoundingBox = null;
+  private List<BigDecimal> insideBoundingBox;
 
   @SerializedName("insidePolygon")
-  private List<BigDecimal> insidePolygon = null;
+  private List<BigDecimal> insidePolygon;
 
   @SerializedName("naturalLanguages")
-  private List<String> naturalLanguages = null;
+  private List<String> naturalLanguages;
 
   @SerializedName("ruleContexts")
-  private List<String> ruleContexts = null;
+  private List<String> ruleContexts;
 
   @SerializedName("personalizationImpact")
-  private Integer personalizationImpact = 100;
+  private Integer personalizationImpact;
 
   @SerializedName("userToken")
   private String userToken;
 
   @SerializedName("getRankingInfo")
-  private Boolean getRankingInfo = false;
+  private Boolean getRankingInfo;
 
   @SerializedName("clickAnalytics")
-  private Boolean clickAnalytics = false;
+  private Boolean clickAnalytics;
 
   @SerializedName("analytics")
-  private Boolean analytics = true;
+  private Boolean analytics;
 
   @SerializedName("analyticsTags")
-  private List<String> analyticsTags = null;
+  private List<String> analyticsTags;
 
   @SerializedName("percentileComputation")
-  private Boolean percentileComputation = true;
+  private Boolean percentileComputation;
 
   @SerializedName("enableABTest")
-  private Boolean enableABTest = true;
+  private Boolean enableABTest;
 
   @SerializedName("enableReRanking")
-  private Boolean enableReRanking = true;
+  private Boolean enableReRanking;
 
   @SerializedName("reRankingApplyFilter")
   private ReRankingApplyFilter reRankingApplyFilter;

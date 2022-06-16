@@ -1,7 +1,6 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +9,7 @@ import java.util.Objects;
 public class SearchSynonymsResponse extends HashMap<String, Object> {
 
   @SerializedName("hits")
-  private List<SynonymHit> hits = new ArrayList<>();
+  private List<SynonymHit> hits;
 
   @SerializedName("nbHits")
   private Integer nbHits;

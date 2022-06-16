@@ -9,7 +9,7 @@ import java.util.Objects;
 public class GetObjectsResponse {
 
   @SerializedName("results")
-  private List<Object> results = null;
+  private List<Object> results;
 
   public GetObjectsResponse setResults(List<Object> results) {
     this.results = results;

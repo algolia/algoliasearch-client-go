@@ -15,7 +15,7 @@ public class SynonymHit {
   private SynonymType type;
 
   @SerializedName("synonyms")
-  private List<String> synonyms = null;
+  private List<String> synonyms;
 
   @SerializedName("input")
   private String input;
@@ -24,13 +24,13 @@ public class SynonymHit {
   private String word;
 
   @SerializedName("corrections")
-  private List<String> corrections = null;
+  private List<String> corrections;
 
   @SerializedName("placeholder")
   private String placeholder;
 
   @SerializedName("replacements")
-  private List<String> replacements = null;
+  private List<String> replacements;
 
   @SerializedName("_highlightResult")
   private SynonymHitHighlightResult highlightResult;

@@ -1,7 +1,6 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -10,7 +9,7 @@ import java.util.Objects;
 public class GetTopUserIdsResponse {
 
   @SerializedName("topUsers")
-  private List<Map<String, List<UserId>>> topUsers = new ArrayList<>();
+  private List<Map<String, List<UserId>>> topUsers;
 
   public GetTopUserIdsResponse setTopUsers(List<Map<String, List<UserId>>> topUsers) {
     this.topUsers = topUsers;

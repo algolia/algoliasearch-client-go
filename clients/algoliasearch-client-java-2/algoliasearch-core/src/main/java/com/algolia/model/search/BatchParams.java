@@ -9,7 +9,7 @@ import java.util.Objects;
 public class BatchParams {
 
   @SerializedName("requests")
-  private List<MultipleBatchOperation> requests = null;
+  private List<MultipleBatchOperation> requests;
 
   public BatchParams setRequests(List<MultipleBatchOperation> requests) {
     this.requests = requests;

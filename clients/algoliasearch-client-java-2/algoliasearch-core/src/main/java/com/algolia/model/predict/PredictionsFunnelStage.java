@@ -9,7 +9,7 @@ import java.util.Objects;
 public class PredictionsFunnelStage {
 
   @SerializedName("value")
-  private List<FunnelStage> value = null;
+  private List<FunnelStage> value;
 
   @SerializedName("lastUpdatedAt")
   private String lastUpdatedAt;

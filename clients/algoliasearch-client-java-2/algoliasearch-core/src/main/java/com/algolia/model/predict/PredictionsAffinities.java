@@ -9,7 +9,7 @@ import java.util.Objects;
 public class PredictionsAffinities {
 
   @SerializedName("value")
-  private List<Affinities> value = null;
+  private List<Affinities> value;
 
   @SerializedName("lastUpdatedAt")
   private String lastUpdatedAt;

@@ -12,7 +12,7 @@ public class SynonymHitHighlightResult {
   private HighlightResult type;
 
   @SerializedName("synonyms")
-  private List<HighlightResult> synonyms = null;
+  private List<HighlightResult> synonyms;
 
   public SynonymHitHighlightResult setType(HighlightResult type) {
     this.type = type;

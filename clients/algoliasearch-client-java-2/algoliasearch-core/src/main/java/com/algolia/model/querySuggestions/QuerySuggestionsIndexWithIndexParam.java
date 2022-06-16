@@ -9,13 +9,13 @@ import java.util.Objects;
 public class QuerySuggestionsIndexWithIndexParam {
 
   @SerializedName("sourceIndices")
-  private List<SourceIndex> sourceIndices = new ArrayList<>();
+  private List<SourceIndex> sourceIndices;
 
   @SerializedName("languages")
-  private List<String> languages = null;
+  private List<String> languages;
 
   @SerializedName("exclude")
-  private List<String> exclude = null;
+  private List<String> exclude;
 
   @SerializedName("indexName")
   private String indexName;

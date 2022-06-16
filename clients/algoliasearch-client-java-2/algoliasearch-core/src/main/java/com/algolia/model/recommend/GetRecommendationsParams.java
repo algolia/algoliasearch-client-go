@@ -1,7 +1,6 @@
 package com.algolia.model.recommend;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +8,7 @@ import java.util.Objects;
 public class GetRecommendationsParams {
 
   @SerializedName("requests")
-  private List<RecommendationsRequest> requests = new ArrayList<>();
+  private List<RecommendationsRequest> requests;
 
   public GetRecommendationsParams setRequests(List<RecommendationsRequest> requests) {
     this.requests = requests;

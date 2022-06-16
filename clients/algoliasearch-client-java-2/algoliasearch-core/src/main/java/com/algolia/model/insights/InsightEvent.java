@@ -27,13 +27,13 @@ public class InsightEvent {
   private String queryID;
 
   @SerializedName("objectIDs")
-  private List<String> objectIDs = null;
+  private List<String> objectIDs;
 
   @SerializedName("filters")
-  private List<String> filters = null;
+  private List<String> filters;
 
   @SerializedName("positions")
-  private List<Integer> positions = null;
+  private List<Integer> positions;
 
   public InsightEvent setEventType(EventType eventType) {
     this.eventType = eventType;

@@ -1,7 +1,6 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +8,7 @@ import java.util.Objects;
 public class TopSearchesResponseWithAnalytics {
 
   @SerializedName("searches")
-  private List<TopSearchWithAnalytics> searches = new ArrayList<>();
+  private List<TopSearchWithAnalytics> searches;
 
   public TopSearchesResponseWithAnalytics setSearches(List<TopSearchWithAnalytics> searches) {
     this.searches = searches;

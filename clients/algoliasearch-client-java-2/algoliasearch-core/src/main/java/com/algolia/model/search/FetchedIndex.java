@@ -39,7 +39,7 @@ public class FetchedIndex {
   private String primary;
 
   @SerializedName("replicas")
-  private List<String> replicas = null;
+  private List<String> replicas;
 
   public FetchedIndex setName(String name) {
     this.name = name;

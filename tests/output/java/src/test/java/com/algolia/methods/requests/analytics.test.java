@@ -1063,7 +1063,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1105,7 +1105,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1147,7 +1147,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1189,7 +1189,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1241,7 +1241,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1293,7 +1293,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1335,7 +1335,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1377,7 +1377,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1419,7 +1419,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1461,7 +1461,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1514,7 +1514,7 @@ class AnalyticsClientRequestsTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(

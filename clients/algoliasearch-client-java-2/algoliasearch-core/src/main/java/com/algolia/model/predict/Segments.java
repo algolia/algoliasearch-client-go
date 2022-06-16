@@ -9,10 +9,10 @@ import java.util.Objects;
 public class Segments {
 
   @SerializedName("computed")
-  private List<String> computed = null;
+  private List<String> computed;
 
   @SerializedName("custom")
-  private List<String> custom = null;
+  private List<String> custom;
 
   public Segments setComputed(List<String> computed) {
     this.computed = computed;

@@ -1,7 +1,6 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,10 +8,10 @@ import java.util.Objects;
 public class BatchDictionaryEntriesParams {
 
   @SerializedName("clearExistingDictionaryEntries")
-  private Boolean clearExistingDictionaryEntries = false;
+  private Boolean clearExistingDictionaryEntries;
 
   @SerializedName("requests")
-  private List<BatchDictionaryEntriesRequest> requests = new ArrayList<>();
+  private List<BatchDictionaryEntriesRequest> requests;
 
   public BatchDictionaryEntriesParams setClearExistingDictionaryEntries(Boolean clearExistingDictionaryEntries) {
     this.clearExistingDictionaryEntries = clearExistingDictionaryEntries;

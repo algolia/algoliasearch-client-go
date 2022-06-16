@@ -105,11 +105,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"modelsToRetrieve\":[\"funnel_stage\",\"order_value\",\"affinities\"]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"modelsToRetrieve\":[\"funnel_stage\",\"order_value\",\"affinities\"]}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -138,7 +134,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"typesToRetrieve\":[\"properties\",\"segments\"]}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"typesToRetrieve\":[\"properties\",\"segments\"]}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -180,7 +176,7 @@ class PredictClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"modelsToRetrieve\":[\"funnel_stage\",\"order_value\",\"affinities\"],\"typesToRetrieve\":[\"properties\",\"segments\"]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -267,7 +263,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -309,7 +305,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -351,7 +347,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -393,7 +389,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -445,7 +441,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -497,7 +493,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -539,7 +535,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -581,7 +577,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -623,7 +619,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -665,7 +661,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -718,7 +714,7 @@ class PredictClientRequestsTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(

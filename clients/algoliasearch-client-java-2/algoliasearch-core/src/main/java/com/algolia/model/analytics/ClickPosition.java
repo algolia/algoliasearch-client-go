@@ -1,7 +1,6 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +8,7 @@ import java.util.Objects;
 public class ClickPosition {
 
   @SerializedName("position")
-  private List<Integer> position = new ArrayList<>();
+  private List<Integer> position;
 
   @SerializedName("clickCount")
   private Integer clickCount;

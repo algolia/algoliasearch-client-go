@@ -9,40 +9,40 @@ import java.util.Objects;
 public class BaseIndexSettings {
 
   @SerializedName("replicas")
-  private List<String> replicas = null;
+  private List<String> replicas;
 
   @SerializedName("paginationLimitedTo")
-  private Integer paginationLimitedTo = 1000;
+  private Integer paginationLimitedTo;
 
   @SerializedName("disableTypoToleranceOnWords")
-  private List<String> disableTypoToleranceOnWords = null;
+  private List<String> disableTypoToleranceOnWords;
 
   @SerializedName("attributesToTransliterate")
-  private List<String> attributesToTransliterate = null;
+  private List<String> attributesToTransliterate;
 
   @SerializedName("camelCaseAttributes")
-  private List<String> camelCaseAttributes = null;
+  private List<String> camelCaseAttributes;
 
   @SerializedName("decompoundedAttributes")
-  private Object decompoundedAttributes = new Object();
+  private Object decompoundedAttributes;
 
   @SerializedName("indexLanguages")
-  private List<String> indexLanguages = null;
+  private List<String> indexLanguages;
 
   @SerializedName("filterPromotes")
-  private Boolean filterPromotes = false;
+  private Boolean filterPromotes;
 
   @SerializedName("disablePrefixOnAttributes")
-  private List<String> disablePrefixOnAttributes = null;
+  private List<String> disablePrefixOnAttributes;
 
   @SerializedName("allowCompressionOfIntegerArray")
-  private Boolean allowCompressionOfIntegerArray = false;
+  private Boolean allowCompressionOfIntegerArray;
 
   @SerializedName("numericAttributesForFiltering")
-  private List<String> numericAttributesForFiltering = null;
+  private List<String> numericAttributesForFiltering;
 
   @SerializedName("userData")
-  private Object userData = new Object();
+  private Object userData;
 
   public BaseIndexSettings setReplicas(List<String> replicas) {
     this.replicas = replicas;

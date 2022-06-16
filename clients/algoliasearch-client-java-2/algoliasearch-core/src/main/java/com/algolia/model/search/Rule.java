@@ -12,7 +12,7 @@ public class Rule {
   private String objectID;
 
   @SerializedName("conditions")
-  private List<Condition> conditions = null;
+  private List<Condition> conditions;
 
   @SerializedName("consequence")
   private Consequence consequence;
@@ -21,10 +21,10 @@ public class Rule {
   private String description;
 
   @SerializedName("enabled")
-  private Boolean enabled = true;
+  private Boolean enabled;
 
   @SerializedName("validity")
-  private List<TimeRange> validity = null;
+  private List<TimeRange> validity;
 
   public Rule setObjectID(String objectID) {
     this.objectID = objectID;

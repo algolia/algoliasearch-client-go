@@ -9,7 +9,7 @@ import java.util.Objects;
 public class GetObjectsParams {
 
   @SerializedName("requests")
-  private List<MultipleGetObjectsParams> requests = null;
+  private List<MultipleGetObjectsParams> requests;
 
   public GetObjectsParams setRequests(List<MultipleGetObjectsParams> requests) {
     this.requests = requests;

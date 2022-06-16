@@ -12,13 +12,13 @@ public class Consequence {
   private ConsequenceParams params;
 
   @SerializedName("promote")
-  private List<Promote> promote = null;
+  private List<Promote> promote;
 
   @SerializedName("filterPromotes")
-  private Boolean filterPromotes = false;
+  private Boolean filterPromotes;
 
   @SerializedName("hide")
-  private List<ConsequenceHide> hide = null;
+  private List<ConsequenceHide> hide;
 
   @SerializedName("userData")
   private Object userData;

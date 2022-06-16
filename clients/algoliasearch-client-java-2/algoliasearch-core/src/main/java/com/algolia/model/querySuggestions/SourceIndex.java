@@ -12,10 +12,10 @@ public class SourceIndex {
   private String indexName;
 
   @SerializedName("analyticsTags")
-  private List<String> analyticsTags = null;
+  private List<String> analyticsTags;
 
   @SerializedName("facets")
-  private List<Object> facets = null;
+  private List<Object> facets;
 
   @SerializedName("minHits")
   private Integer minHits;
@@ -24,10 +24,10 @@ public class SourceIndex {
   private Integer minLetters;
 
   @SerializedName("generate")
-  private List<List<String>> generate = null;
+  private List<List<String>> generate;
 
   @SerializedName("external")
-  private List<SourceIndexExternal> external = null;
+  private List<SourceIndexExternal> external;
 
   public SourceIndex setIndexName(String indexName) {
     this.indexName = indexName;

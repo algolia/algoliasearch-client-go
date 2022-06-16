@@ -12,7 +12,7 @@ public class Promote {
   private String objectID;
 
   @SerializedName("objectIDs")
-  private List<String> objectIDs = null;
+  private List<String> objectIDs;
 
   @SerializedName("position")
   private Integer position;

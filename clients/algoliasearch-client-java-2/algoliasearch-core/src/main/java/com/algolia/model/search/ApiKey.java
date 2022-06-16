@@ -9,28 +9,28 @@ import java.util.Objects;
 public class ApiKey {
 
   @SerializedName("acl")
-  private List<Acl> acl = new ArrayList<>();
+  private List<Acl> acl;
 
   @SerializedName("description")
-  private String description = "";
+  private String description;
 
   @SerializedName("indexes")
-  private List<String> indexes = null;
+  private List<String> indexes;
 
   @SerializedName("maxHitsPerQuery")
-  private Integer maxHitsPerQuery = 0;
+  private Integer maxHitsPerQuery;
 
   @SerializedName("maxQueriesPerIPPerHour")
-  private Integer maxQueriesPerIPPerHour = 0;
+  private Integer maxQueriesPerIPPerHour;
 
   @SerializedName("queryParameters")
-  private String queryParameters = "";
+  private String queryParameters;
 
   @SerializedName("referers")
-  private List<String> referers = null;
+  private List<String> referers;
 
   @SerializedName("validity")
-  private Integer validity = 0;
+  private Integer validity;
 
   public ApiKey setAcl(List<Acl> acl) {
     this.acl = acl;

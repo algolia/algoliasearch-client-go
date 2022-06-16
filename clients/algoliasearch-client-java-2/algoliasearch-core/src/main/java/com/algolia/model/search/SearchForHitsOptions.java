@@ -10,7 +10,7 @@ public class SearchForHitsOptions {
   private String indexName;
 
   @SerializedName("type")
-  private SearchTypeDefault type = SearchTypeDefault.DEFAULT;
+  private SearchTypeDefault type;
 
   public SearchForHitsOptions setIndexName(String indexName) {
     this.indexName = indexName;

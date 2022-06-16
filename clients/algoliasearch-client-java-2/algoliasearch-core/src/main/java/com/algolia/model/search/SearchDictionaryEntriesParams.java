@@ -7,13 +7,13 @@ import java.util.Objects;
 public class SearchDictionaryEntriesParams {
 
   @SerializedName("query")
-  private String query = "";
+  private String query;
 
   @SerializedName("page")
-  private Integer page = 0;
+  private Integer page;
 
   @SerializedName("hitsPerPage")
-  private Integer hitsPerPage = 20;
+  private Integer hitsPerPage;
 
   @SerializedName("language")
   private String language;

@@ -13,7 +13,7 @@ public class Condition {
   private Anchoring anchoring;
 
   @SerializedName("alternatives")
-  private Boolean alternatives = false;
+  private Boolean alternatives;
 
   @SerializedName("context")
   private String context;

@@ -1,7 +1,6 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,16 +8,16 @@ import java.util.Objects;
 public class SearchUserIdsResponse {
 
   @SerializedName("hits")
-  private List<UserHit> hits = new ArrayList<>();
+  private List<UserHit> hits;
 
   @SerializedName("nbHits")
   private Integer nbHits;
 
   @SerializedName("page")
-  private Integer page = 0;
+  private Integer page;
 
   @SerializedName("hitsPerPage")
-  private Integer hitsPerPage = 20;
+  private Integer hitsPerPage;
 
   @SerializedName("updatedAt")
   private String updatedAt;

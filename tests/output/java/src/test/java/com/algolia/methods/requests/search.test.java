@@ -70,7 +70,7 @@ class SearchClientRequestsTests {
         "{\"acl\":[\"search\",\"addObject\"],\"description\":\"my new api" +
         " key\",\"validity\":300,\"maxQueriesPerIPPerHour\":100,\"maxHitsPerQuery\":20}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -95,7 +95,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"key\":\"value\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"key\":\"value\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -119,7 +119,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"source\":\"theSource\",\"description\":\"theDescription\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"source\":\"theSource\",\"description\":\"theDescription\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -142,7 +142,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"cluster\":\"theCluster\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"cluster\":\"theCluster\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedHeaders = JSON.deserialize(
@@ -189,11 +189,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"}}]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"}}]}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -230,11 +226,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"requests\":[{\"action\":\"clear\",\"body\":{\"key\":\"value\"}}]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"requests\":[{\"action\":\"clear\",\"body\":{\"key\":\"value\"}}]}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -271,11 +263,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"requests\":[{\"action\":\"delete\",\"body\":{\"key\":\"value\"}}]}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"requests\":[{\"action\":\"delete\",\"body\":{\"key\":\"value\"}}]}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -315,7 +303,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"deleteObject\",\"body\":{\"key\":\"value\"}}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -356,7 +344,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"partialUpdateObject\",\"body\":{\"key\":\"value\"}}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -397,7 +385,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"partialUpdateObjectNoCreate\",\"body\":{\"key\":\"value\"}}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -438,7 +426,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"updateObject\",\"body\":{\"key\":\"value\"}}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -470,7 +458,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedHeaders = JSON.deserialize(
@@ -536,7 +524,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\"}},{\"action\":\"deleteEntry\",\"body\":{\"objectID\":\"2\",\"language\":\"fr\"}}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -635,7 +623,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"clearExistingDictionaryEntries\":false,\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\",\"word\":\"fancy\",\"words\":[\"believe\",\"algolia\"],\"decomposition\":[\"trust\",\"algolia\"],\"state\":\"enabled\"}},{\"action\":\"deleteEntry\",\"body\":{\"objectID\":\"2\",\"language\":\"fr\",\"word\":\"humility\",\"words\":[\"candor\",\"algolia\"],\"decomposition\":[\"grit\",\"algolia\"],\"state\":\"enabled\"}}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -675,7 +663,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -798,7 +786,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"query\":\"testQuery\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"query\":\"testQuery\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -1057,7 +1045,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"attributesToRetrieve\":[\"attr1\",\"attr2\"],\"objectID\":\"uniqueID\",\"indexName\":\"theIndexName\"}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -1293,7 +1281,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"},\"indexName\":\"theIndexName\"}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -1330,7 +1318,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"operation\":\"copy\",\"destination\":\"dest\",\"scope\":[\"rules\",\"settings\"]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -1371,7 +1359,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "[{\"id1\":\"test\",\"id2\":{\"_operation\":\"AddUnique\",\"value\":\"test2\"}}]",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
 
@@ -1425,7 +1413,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1467,7 +1455,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1509,7 +1497,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1551,7 +1539,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1603,7 +1591,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1655,7 +1643,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1697,7 +1685,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1739,7 +1727,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1781,7 +1769,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1823,7 +1811,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1876,7 +1864,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -1929,7 +1917,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("[{\"source\":\"theSource\",\"description\":\"theDescription\"}]", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("[{\"source\":\"theSource\",\"description\":\"theDescription\"}]", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -1968,7 +1956,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"objectID\":\"id\",\"test\":\"val\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"objectID\":\"id\",\"test\":\"val\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -2018,7 +2006,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
 
@@ -2112,7 +2100,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
 
@@ -2164,7 +2152,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id1\",\"type\":\"synonym\",\"synonyms\":[\"car\",\"vehicule\",\"auto\"]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
 
@@ -2240,7 +2228,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "[{\"objectID\":\"id1\",\"type\":\"synonym\",\"synonyms\":[\"car\",\"vehicule\",\"auto\"]},{\"objectID\":\"id2\",\"type\":\"onewaysynonym\",\"input\":\"iphone\",\"synonyms\":[\"ephone\",\"aphone\",\"yphone\"]}]",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
 
@@ -2282,7 +2270,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"requests\":[{\"indexName\":\"theIndexName\"}]}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"requests\":[{\"indexName\":\"theIndexName\"}]}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -2321,7 +2309,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\"}],\"strategy\":\"stopIfEnoughMatches\"}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2361,7 +2349,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}]}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2407,7 +2395,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50}],\"strategy\":\"stopIfEnoughMatches\"}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2461,7 +2449,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\"},{\"indexName\":\"theIndexName2\",\"type\":\"facet\",\"facet\":\"theFacet\"},{\"indexName\":\"theIndexName\",\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2519,7 +2507,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50},{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2543,7 +2531,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"query\":\"foo\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"query\":\"foo\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -2572,11 +2560,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals(
-        "{\"query\":\"foo\",\"page\":4,\"hitsPerPage\":2,\"language\":\"fr\"}",
-        req.body,
-        JSONCompareMode.STRICT_ORDER
-      );
+      JSONAssert.assertEquals("{\"query\":\"foo\",\"page\":4,\"hitsPerPage\":2,\"language\":\"fr\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -2622,7 +2606,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"params\":\"query=foo&facetFilters=['bar']\",\"facetQuery\":\"foo\",\"maxFacetHits\":42}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2646,7 +2630,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"query\":\"something\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"query\":\"something\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -2669,7 +2653,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"query\":\"myQuery\"}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"query\":\"myQuery\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -2698,7 +2682,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}", req.body, JSONCompareMode.STRICT);
     });
   }
 
@@ -2743,7 +2727,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"query\":\"test\",\"clusterName\":\"theClusterName\",\"page\":5,\"hitsPerPage\":10}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2781,7 +2765,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"disableStandardEntries\":{\"plurals\":{\"fr\":false,\"en\":false,\"ru\":true}}}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2831,7 +2815,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"disableStandardEntries\":{\"plurals\":{\"fr\":false,\"en\":false,\"ru\":true},\"stopwords\":{\"fr\":false},\"compounds\":{\"ru\":true}}}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }
@@ -2856,7 +2840,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "PUT");
 
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"paginationLimitedTo\":10}", req.body, JSONCompareMode.STRICT_ORDER);
+      JSONAssert.assertEquals("{\"paginationLimitedTo\":10}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(
@@ -2905,7 +2889,7 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"acl\":[\"search\",\"addObject\"],\"validity\":300,\"maxQueriesPerIPPerHour\":100,\"maxHitsPerQuery\":20}",
         req.body,
-        JSONCompareMode.STRICT_ORDER
+        JSONCompareMode.STRICT
       );
     });
   }

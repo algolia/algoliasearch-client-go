@@ -30,13 +30,13 @@ public class BaseSearchResponse {
   private Boolean exhaustiveTypo;
 
   @SerializedName("facets")
-  private Map<String, Map<String, String>> facets = null;
+  private Map<String, Map<String, String>> facets;
 
   @SerializedName("facets_stats")
-  private Map<String, FacetsStats> facetsStats = null;
+  private Map<String, FacetsStats> facetsStats;
 
   @SerializedName("hitsPerPage")
-  private Integer hitsPerPage = 20;
+  private Integer hitsPerPage;
 
   @SerializedName("index")
   private String index;
@@ -57,7 +57,7 @@ public class BaseSearchResponse {
   private Integer nbSortedHits;
 
   @SerializedName("page")
-  private Integer page = 0;
+  private Integer page;
 
   @SerializedName("params")
   private String params;
@@ -69,7 +69,7 @@ public class BaseSearchResponse {
   private Integer processingTimeMS;
 
   @SerializedName("query")
-  private String query = "";
+  private String query;
 
   @SerializedName("queryAfterRemoval")
   private String queryAfterRemoval;
@@ -78,7 +78,7 @@ public class BaseSearchResponse {
   private String serverUsed;
 
   @SerializedName("userData")
-  private Object userData = new Object();
+  private Object userData;
 
   public BaseSearchResponse setAbTestID(Integer abTestID) {
     this.abTestID = abTestID;

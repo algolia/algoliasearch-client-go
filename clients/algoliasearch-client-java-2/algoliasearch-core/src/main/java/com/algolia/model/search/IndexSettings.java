@@ -9,172 +9,172 @@ import java.util.Objects;
 public class IndexSettings {
 
   @SerializedName("replicas")
-  private List<String> replicas = null;
+  private List<String> replicas;
 
   @SerializedName("paginationLimitedTo")
-  private Integer paginationLimitedTo = 1000;
+  private Integer paginationLimitedTo;
 
   @SerializedName("disableTypoToleranceOnWords")
-  private List<String> disableTypoToleranceOnWords = null;
+  private List<String> disableTypoToleranceOnWords;
 
   @SerializedName("attributesToTransliterate")
-  private List<String> attributesToTransliterate = null;
+  private List<String> attributesToTransliterate;
 
   @SerializedName("camelCaseAttributes")
-  private List<String> camelCaseAttributes = null;
+  private List<String> camelCaseAttributes;
 
   @SerializedName("decompoundedAttributes")
-  private Object decompoundedAttributes = new Object();
+  private Object decompoundedAttributes;
 
   @SerializedName("indexLanguages")
-  private List<String> indexLanguages = null;
+  private List<String> indexLanguages;
 
   @SerializedName("filterPromotes")
-  private Boolean filterPromotes = false;
+  private Boolean filterPromotes;
 
   @SerializedName("disablePrefixOnAttributes")
-  private List<String> disablePrefixOnAttributes = null;
+  private List<String> disablePrefixOnAttributes;
 
   @SerializedName("allowCompressionOfIntegerArray")
-  private Boolean allowCompressionOfIntegerArray = false;
+  private Boolean allowCompressionOfIntegerArray;
 
   @SerializedName("numericAttributesForFiltering")
-  private List<String> numericAttributesForFiltering = null;
+  private List<String> numericAttributesForFiltering;
 
   @SerializedName("userData")
-  private Object userData = new Object();
+  private Object userData;
 
   @SerializedName("searchableAttributes")
-  private List<String> searchableAttributes = null;
+  private List<String> searchableAttributes;
 
   @SerializedName("attributesForFaceting")
-  private List<String> attributesForFaceting = null;
+  private List<String> attributesForFaceting;
 
   @SerializedName("unretrievableAttributes")
-  private List<String> unretrievableAttributes = null;
+  private List<String> unretrievableAttributes;
 
   @SerializedName("attributesToRetrieve")
-  private List<String> attributesToRetrieve = null;
+  private List<String> attributesToRetrieve;
 
   @SerializedName("restrictSearchableAttributes")
-  private List<String> restrictSearchableAttributes = null;
+  private List<String> restrictSearchableAttributes;
 
   @SerializedName("ranking")
-  private List<String> ranking = null;
+  private List<String> ranking;
 
   @SerializedName("customRanking")
-  private List<String> customRanking = null;
+  private List<String> customRanking;
 
   @SerializedName("relevancyStrictness")
-  private Integer relevancyStrictness = 100;
+  private Integer relevancyStrictness;
 
   @SerializedName("attributesToHighlight")
-  private List<String> attributesToHighlight = null;
+  private List<String> attributesToHighlight;
 
   @SerializedName("attributesToSnippet")
-  private List<String> attributesToSnippet = null;
+  private List<String> attributesToSnippet;
 
   @SerializedName("highlightPreTag")
-  private String highlightPreTag = "<em>";
+  private String highlightPreTag;
 
   @SerializedName("highlightPostTag")
-  private String highlightPostTag = "</em>";
+  private String highlightPostTag;
 
   @SerializedName("snippetEllipsisText")
-  private String snippetEllipsisText = "…";
+  private String snippetEllipsisText;
 
   @SerializedName("restrictHighlightAndSnippetArrays")
-  private Boolean restrictHighlightAndSnippetArrays = false;
+  private Boolean restrictHighlightAndSnippetArrays;
 
   @SerializedName("hitsPerPage")
-  private Integer hitsPerPage = 20;
+  private Integer hitsPerPage;
 
   @SerializedName("minWordSizefor1Typo")
-  private Integer minWordSizefor1Typo = 4;
+  private Integer minWordSizefor1Typo;
 
   @SerializedName("minWordSizefor2Typos")
-  private Integer minWordSizefor2Typos = 8;
+  private Integer minWordSizefor2Typos;
 
   @SerializedName("typoTolerance")
-  private TypoTolerance typoTolerance = TypoTolerance.TRUE;
+  private TypoTolerance typoTolerance;
 
   @SerializedName("allowTyposOnNumericTokens")
-  private Boolean allowTyposOnNumericTokens = true;
+  private Boolean allowTyposOnNumericTokens;
 
   @SerializedName("disableTypoToleranceOnAttributes")
-  private List<String> disableTypoToleranceOnAttributes = null;
+  private List<String> disableTypoToleranceOnAttributes;
 
   @SerializedName("separatorsToIndex")
-  private String separatorsToIndex = "";
+  private String separatorsToIndex;
 
   @SerializedName("ignorePlurals")
-  private String ignorePlurals = "false";
+  private String ignorePlurals;
 
   @SerializedName("removeStopWords")
-  private String removeStopWords = "false";
+  private String removeStopWords;
 
   @SerializedName("keepDiacriticsOnCharacters")
-  private String keepDiacriticsOnCharacters = "";
+  private String keepDiacriticsOnCharacters;
 
   @SerializedName("queryLanguages")
-  private List<String> queryLanguages = null;
+  private List<String> queryLanguages;
 
   @SerializedName("decompoundQuery")
-  private Boolean decompoundQuery = true;
+  private Boolean decompoundQuery;
 
   @SerializedName("enableRules")
-  private Boolean enableRules = true;
+  private Boolean enableRules;
 
   @SerializedName("enablePersonalization")
-  private Boolean enablePersonalization = false;
+  private Boolean enablePersonalization;
 
   @SerializedName("queryType")
-  private QueryType queryType = QueryType.PREFIX_LAST;
+  private QueryType queryType;
 
   @SerializedName("removeWordsIfNoResults")
-  private RemoveWordsIfNoResults removeWordsIfNoResults = RemoveWordsIfNoResults.NONE;
+  private RemoveWordsIfNoResults removeWordsIfNoResults;
 
   @SerializedName("advancedSyntax")
-  private Boolean advancedSyntax = false;
+  private Boolean advancedSyntax;
 
   @SerializedName("optionalWords")
-  private List<String> optionalWords = null;
+  private List<String> optionalWords;
 
   @SerializedName("disableExactOnAttributes")
-  private List<String> disableExactOnAttributes = null;
+  private List<String> disableExactOnAttributes;
 
   @SerializedName("exactOnSingleWordQuery")
-  private ExactOnSingleWordQuery exactOnSingleWordQuery = ExactOnSingleWordQuery.ATTRIBUTE;
+  private ExactOnSingleWordQuery exactOnSingleWordQuery;
 
   @SerializedName("alternativesAsExact")
-  private List<AlternativesAsExact> alternativesAsExact = null;
+  private List<AlternativesAsExact> alternativesAsExact;
 
   @SerializedName("advancedSyntaxFeatures")
-  private List<AdvancedSyntaxFeatures> advancedSyntaxFeatures = null;
+  private List<AdvancedSyntaxFeatures> advancedSyntaxFeatures;
 
   @SerializedName("distinct")
-  private Integer distinct = 0;
+  private Integer distinct;
 
   @SerializedName("synonyms")
-  private Boolean synonyms = true;
+  private Boolean synonyms;
 
   @SerializedName("replaceSynonymsInHighlight")
-  private Boolean replaceSynonymsInHighlight = false;
+  private Boolean replaceSynonymsInHighlight;
 
   @SerializedName("minProximity")
-  private Integer minProximity = 1;
+  private Integer minProximity;
 
   @SerializedName("responseFields")
-  private List<String> responseFields = null;
+  private List<String> responseFields;
 
   @SerializedName("maxFacetHits")
-  private Integer maxFacetHits = 10;
+  private Integer maxFacetHits;
 
   @SerializedName("attributeCriteriaComputedByMinProximity")
-  private Boolean attributeCriteriaComputedByMinProximity = false;
+  private Boolean attributeCriteriaComputedByMinProximity;
 
   @SerializedName("renderingContent")
-  private Object renderingContent = new Object();
+  private Object renderingContent;
 
   public IndexSettings setReplicas(List<String> replicas) {
     this.replicas = replicas;

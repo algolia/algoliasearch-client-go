@@ -15,7 +15,7 @@ public class OperationIndexParams {
   private String destination;
 
   @SerializedName("scope")
-  private List<ScopeType> scope = null;
+  private List<ScopeType> scope;
 
   public OperationIndexParams setOperation(OperationType operation) {
     this.operation = operation;

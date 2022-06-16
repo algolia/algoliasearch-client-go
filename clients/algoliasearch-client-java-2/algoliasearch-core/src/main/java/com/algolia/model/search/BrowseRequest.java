@@ -7,7 +7,7 @@ import java.util.Objects;
 public class BrowseRequest {
 
   @SerializedName("params")
-  private String params = "";
+  private String params;
 
   @SerializedName("cursor")
   private String cursor;

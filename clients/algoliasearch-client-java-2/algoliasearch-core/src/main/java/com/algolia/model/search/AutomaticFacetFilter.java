@@ -10,10 +10,10 @@ public class AutomaticFacetFilter {
   private String facet;
 
   @SerializedName("score")
-  private Integer score = 1;
+  private Integer score;
 
   @SerializedName("disjunctive")
-  private Boolean disjunctive = false;
+  private Boolean disjunctive;
 
   public AutomaticFacetFilter setFacet(String facet) {
     this.facet = facet;

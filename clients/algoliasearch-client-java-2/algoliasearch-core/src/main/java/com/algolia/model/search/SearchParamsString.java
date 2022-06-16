@@ -7,7 +7,7 @@ import java.util.Objects;
 public class SearchParamsString {
 
   @SerializedName("params")
-  private String params = "";
+  private String params;
 
   public SearchParamsString setParams(String params) {
     this.params = params;

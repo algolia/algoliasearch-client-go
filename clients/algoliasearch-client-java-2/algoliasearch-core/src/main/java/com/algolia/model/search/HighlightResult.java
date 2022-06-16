@@ -15,7 +15,7 @@ public class HighlightResult {
   private MatchLevel matchLevel;
 
   @SerializedName("matchedWords")
-  private List<String> matchedWords = null;
+  private List<String> matchedWords;
 
   @SerializedName("fullyHighlighted")
   private Boolean fullyHighlighted;

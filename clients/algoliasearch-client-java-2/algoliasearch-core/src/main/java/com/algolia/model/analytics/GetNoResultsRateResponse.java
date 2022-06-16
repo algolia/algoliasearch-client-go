@@ -1,7 +1,6 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +17,7 @@ public class GetNoResultsRateResponse {
   private Integer noResultCount;
 
   @SerializedName("dates")
-  private List<NoResultsRateEvent> dates = new ArrayList<>();
+  private List<NoResultsRateEvent> dates;
 
   public GetNoResultsRateResponse setRate(Double rate) {
     this.rate = rate;

@@ -9,7 +9,7 @@ import java.util.Objects;
 public class SearchRulesParams {
 
   @SerializedName("query")
-  private String query = "";
+  private String query;
 
   @SerializedName("anchoring")
   private Anchoring anchoring;
@@ -18,16 +18,16 @@ public class SearchRulesParams {
   private String context;
 
   @SerializedName("page")
-  private Integer page = 0;
+  private Integer page;
 
   @SerializedName("hitsPerPage")
-  private Integer hitsPerPage = 20;
+  private Integer hitsPerPage;
 
   @SerializedName("enabled")
   private Boolean enabled;
 
   @SerializedName("requestOptions")
-  private List<Object> requestOptions = null;
+  private List<Object> requestOptions;
 
   public SearchRulesParams setQuery(String query) {
     this.query = query;

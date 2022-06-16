@@ -9,7 +9,7 @@ import java.util.Objects;
 public class ListIndicesResponse {
 
   @SerializedName("items")
-  private List<FetchedIndex> items = null;
+  private List<FetchedIndex> items;
 
   @SerializedName("nbPages")
   private Integer nbPages;

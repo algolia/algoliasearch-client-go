@@ -13,13 +13,13 @@ public class SearchForFacetsOptions {
   private String indexName;
 
   @SerializedName("facetQuery")
-  private String facetQuery = "";
+  private String facetQuery;
 
   @SerializedName("maxFacetHits")
-  private Integer maxFacetHits = 10;
+  private Integer maxFacetHits;
 
   @SerializedName("type")
-  private SearchTypeFacet type = SearchTypeFacet.FACET;
+  private SearchTypeFacet type;
 
   public SearchForFacetsOptions setFacet(String facet) {
     this.facet = facet;

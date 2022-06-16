@@ -9,7 +9,7 @@ import java.util.Objects;
 public class SearchHits {
 
   @SerializedName("hits")
-  private List<Hit> hits = null;
+  private List<Hit> hits;
 
   public SearchHits setHits(List<Hit> hits) {
     this.hits = hits;

@@ -7,13 +7,13 @@ import java.util.Objects;
 public class SearchForFacetValuesRequest {
 
   @SerializedName("params")
-  private String params = "";
+  private String params;
 
   @SerializedName("facetQuery")
-  private String facetQuery = "";
+  private String facetQuery;
 
   @SerializedName("maxFacetHits")
-  private Integer maxFacetHits = 10;
+  private Integer maxFacetHits;
 
   public SearchForFacetValuesRequest setParams(String params) {
     this.params = params;

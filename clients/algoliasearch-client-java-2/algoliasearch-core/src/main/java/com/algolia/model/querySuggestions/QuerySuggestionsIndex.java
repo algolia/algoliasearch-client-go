@@ -1,7 +1,6 @@
 package com.algolia.model.querySuggestions;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,13 +11,13 @@ public class QuerySuggestionsIndex {
   private String indexName;
 
   @SerializedName("sourceIndices")
-  private List<SourceIndexWithReplicas> sourceIndices = new ArrayList<>();
+  private List<SourceIndexWithReplicas> sourceIndices;
 
   @SerializedName("languages")
-  private List<String> languages = new ArrayList<>();
+  private List<String> languages;
 
   @SerializedName("exclude")
-  private List<String> exclude = new ArrayList<>();
+  private List<String> exclude;
 
   public QuerySuggestionsIndex setIndexName(String indexName) {
     this.indexName = indexName;

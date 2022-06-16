@@ -9,7 +9,7 @@ import java.util.Objects;
 public class MultipleGetObjectsParams {
 
   @SerializedName("attributesToRetrieve")
-  private List<String> attributesToRetrieve = null;
+  private List<String> attributesToRetrieve;
 
   @SerializedName("objectID")
   private String objectID;

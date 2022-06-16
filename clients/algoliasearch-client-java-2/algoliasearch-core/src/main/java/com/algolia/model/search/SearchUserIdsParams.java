@@ -13,10 +13,10 @@ public class SearchUserIdsParams {
   private String clusterName;
 
   @SerializedName("page")
-  private Integer page = 0;
+  private Integer page;
 
   @SerializedName("hitsPerPage")
-  private Integer hitsPerPage = 20;
+  private Integer hitsPerPage;
 
   public SearchUserIdsParams setQuery(String query) {
     this.query = query;

@@ -51,7 +51,7 @@ public class Log {
   private String queryNbHits;
 
   @SerializedName("inner_queries")
-  private List<LogQuery> innerQueries = null;
+  private List<LogQuery> innerQueries;
 
   public Log setTimestamp(String timestamp) {
     this.timestamp = timestamp;

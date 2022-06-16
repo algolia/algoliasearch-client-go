@@ -12,7 +12,7 @@ public class MultipleBatchResponse {
   private Object taskID;
 
   @SerializedName("objectIDs")
-  private List<String> objectIDs = null;
+  private List<String> objectIDs;
 
   public MultipleBatchResponse setTaskID(Object taskID) {
     this.taskID = taskID;

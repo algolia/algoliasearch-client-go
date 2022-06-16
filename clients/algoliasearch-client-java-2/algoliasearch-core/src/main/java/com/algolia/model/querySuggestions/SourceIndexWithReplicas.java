@@ -1,7 +1,6 @@
 package com.algolia.model.querySuggestions;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,10 +14,10 @@ public class SourceIndexWithReplicas {
   private String indexName;
 
   @SerializedName("analyticsTags")
-  private List<String> analyticsTags = new ArrayList<>();
+  private List<String> analyticsTags;
 
   @SerializedName("facets")
-  private List<Object> facets = new ArrayList<>();
+  private List<Object> facets;
 
   @SerializedName("minHits")
   private Integer minHits;
@@ -27,10 +26,10 @@ public class SourceIndexWithReplicas {
   private Integer minLetters;
 
   @SerializedName("generate")
-  private List<List<String>> generate = new ArrayList<>();
+  private List<List<String>> generate;
 
   @SerializedName("external")
-  private List<SourceIndexExternal> external = new ArrayList<>();
+  private List<SourceIndexExternal> external;
 
   public SourceIndexWithReplicas setReplicas(Boolean replicas) {
     this.replicas = replicas;
