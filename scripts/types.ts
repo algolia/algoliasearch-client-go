@@ -62,12 +62,13 @@ export type Spec = {
  */
 type Server = {
   url: string;
-  variables?: {
-    [k: string]: {
+  variables?: Record<
+    string,
+    {
       enum?: string[];
       default: string;
-    };
-  };
+    }
+  >;
 };
 
 /**

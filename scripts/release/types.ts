@@ -10,13 +10,12 @@ export type Version = {
   noCommit?: boolean;
 };
 
-export type Versions = {
-  [lang: string]: Version;
-};
+export type Versions = Record<string, Version>;
 
-export type VersionsBeforeBump = {
-  [lang: string]: Omit<Version, 'next' | 'releaseType'>;
-};
+export type VersionsBeforeBump = Record<
+  string,
+  Omit<Version, 'next' | 'releaseType'>
+>;
 
 export type Scope = Language | 'clients' | 'specs';
 
