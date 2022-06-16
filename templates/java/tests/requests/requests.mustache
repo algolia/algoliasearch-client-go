@@ -64,7 +64,7 @@ class {{client}}RequestsTests {
 
         {{#request.body}}
         assertDoesNotThrow(() -> {
-            JSONAssert.assertEquals("{{#lambda.escapeQuotes}}{{{request.body}}}{{/lambda.escapeQuotes}}", req.body, JSONCompareMode.STRICT_ORDER);
+            JSONAssert.assertEquals("{{#lambda.escapeQuotes}}{{{request.body}}}{{/lambda.escapeQuotes}}", req.body, JSONCompareMode.STRICT);
         });
         {{/request.body}}
 

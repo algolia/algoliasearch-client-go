@@ -24,10 +24,10 @@ public class {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
   @SerializedName("{{baseName}}")
   {{/gson}}
   {{#isContainer}}
-  private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}}{{^required}} = null{{/required}};
+  private {{{datatypeWithEnum}}} {{name}};
   {{/isContainer}}
   {{^isContainer}}
-  {{#isDiscriminator}}protected{{/isDiscriminator}}{{^isDiscriminator}}private{{/isDiscriminator}} {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{.}}}{{/defaultValue}};
+  {{#isDiscriminator}}protected{{/isDiscriminator}}{{^isDiscriminator}}private{{/isDiscriminator}} {{{datatypeWithEnum}}} {{name}};
   {{/isContainer}}
 
   {{/vars}}
