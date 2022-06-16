@@ -27,7 +27,7 @@ export const COMMON_DEPENDENCIES = {
     '.github/workflows',
     '.github/.cache_version',
   ],
-  SCRIPTS_CHANGED: ['scripts', 'eslint', 'yarn.lock'],
+  SCRIPTS_CHANGED: ['scripts', 'eslint', 'yarn.lock', '.eslintrc.js'],
   COMMON_SPECS_CHANGED: ['specs/common'],
 };
 

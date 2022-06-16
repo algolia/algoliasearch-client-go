@@ -41,15 +41,17 @@ async function preCommit() {
   const stagedFiles = (await run('git diff --name-only --cached')).split('\n');
 
   const toUnstage = micromatch.match(stagedFiles, getPatterns());
+  if (toUnstage.length === 0) {
+    return;
+  }
 
-  for (const file of toUnstage) {
+  toUnstage.forEach((file) =>
     console.log(
       chalk.black.bgYellow('[INFO]'),
       `Generated file found, unstaging: ${file}`
-    );
-
-    await run(`git restore --staged ${file}`);
-  }
+    )
+  );
+  await run(`git restore --staged ${toUnstage.join(' ')}`);
 }
 
 if (require.main === module && !process.env.CI) {
