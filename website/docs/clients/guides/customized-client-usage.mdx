@@ -7,6 +7,35 @@ import TabItem from '@theme/TabItem';
 
 You might want to customize how the API client works, by providing additional information to your request, adding user-agents or use your own HTTP requester.
 
+## Setting a logger
+
+You can set a custom logger on the client to enable more or less debug output depending on your need.
+
+<TabsLanguage>
+<TabItem value="java">
+
+```java
+import com.algolia.api.SearchClient;
+import com.algolia.utils.LogLevel;
+
+SearchClient client = new SearchClient("<YOUR_INDEX_NAME>", "<YOUR_API_KEY>");
+
+// No logs.
+client.setLogLevel(LogLevel.NONE);
+
+// Logs request and response lines.
+client.setLogLevel(LogLevel.BASIC);
+
+// Logs request and response lines and their respective headers.
+client.setLogLevel(LogLevel.HEADERS);
+
+// Logs request and response lines and their respective headers and bodies (if present).
+client.setLogLevel(LogLevel.BODY);
+```
+
+</TabItem>
+</TabsLanguage>
+
 ## Send additional information in your request with `requestOptions`
 
 The `requestOptions` parameter allows you to merge additional information with the client transporter, such as `headers` or `query parameters`.

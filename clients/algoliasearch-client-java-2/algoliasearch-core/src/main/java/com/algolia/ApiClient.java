@@ -105,13 +105,11 @@ public abstract class ApiClient {
   }
 
   /**
-   * Enable/disable debugging for this API client.
-   *
-   * @param debugging To enable (true) or disable (false) debugging
+   * Set the log level of the requester
    * @return ApiClient
    */
-  public ApiClient setDebugging(boolean debugging) {
-    requester.setDebugging(debugging);
+  public ApiClient setLogLevel(LogLevel level) {
+    requester.setLogLevel(level);
     return this;
   }
 

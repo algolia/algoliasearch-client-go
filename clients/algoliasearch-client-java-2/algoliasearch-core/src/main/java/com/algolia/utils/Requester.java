@@ -16,9 +16,9 @@ public interface Requester {
   /**
    * Enable/disable debugging for this API client.
    *
-   * @param debugging To enable (true) or disable (false) debugging
+   * @param level LogLevel the level of log to output
    */
-  public void setDebugging(boolean debugging);
+  public void setLogLevel(LogLevel level);
 
   /**
    * Get connection timeout (in milliseconds).

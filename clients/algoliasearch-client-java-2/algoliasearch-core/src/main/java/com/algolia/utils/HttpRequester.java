@@ -13,20 +13,24 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class HttpRequester implements Requester {
 
   private RetryStrategy retryStrategy;
   private OkHttpClient httpClient;
   private HttpLoggingInterceptor loggingInterceptor;
-  private boolean debugging;
+  private LogLevel level;
 
   public HttpRequester() {
     this.retryStrategy = new RetryStrategy();
 
     OkHttpClient.Builder builder = new OkHttpClient.Builder();
     builder.addInterceptor(retryStrategy.getRetryInterceptor());
+
+    this.loggingInterceptor = new HttpLoggingInterceptor();
+    loggingInterceptor.setLevel(LogLevel.NONE.value());
+    builder.addInterceptor(this.loggingInterceptor);
+    
     builder.retryOnConnectionFailure(false);
 
     httpClient = builder.build();
@@ -99,20 +103,11 @@ public class HttpRequester implements Requester {
   }
 
   @Override
-  public void setDebugging(boolean debugging) {
-    if (debugging != this.debugging) {
-      if (debugging) {
-        loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(Level.BODY);
-        httpClient = httpClient.newBuilder().addInterceptor(loggingInterceptor).build();
-      } else {
-        final OkHttpClient.Builder builder = httpClient.newBuilder();
-        builder.interceptors().remove(loggingInterceptor);
-        httpClient = builder.build();
-        loggingInterceptor = null;
-      }
+  public void setLogLevel(LogLevel level) {
+    if (level != this.level) {
+      this.loggingInterceptor.setLevel(level.value());
     }
-    this.debugging = debugging;
+    this.level = level;
   }
 
   @Override

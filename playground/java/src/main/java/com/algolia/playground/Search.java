@@ -3,7 +3,7 @@ package com.algolia.playground;
 import com.algolia.api.SearchClient;
 import com.algolia.exceptions.*;
 import com.algolia.model.search.*;
-import com.algolia.utils.ClientOptions;
+import com.algolia.utils.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -33,6 +33,8 @@ public class Search {
         .addAlgoliaAgentSegment("no version")
     );
 
+    client.setLogLevel(LogLevel.NONE);
+
     String indexName = dotenv.get("SEARCH_INDEX");
     String query = dotenv.get("SEARCH_QUERY");
 
@@ -48,6 +50,8 @@ public class Search {
       BatchResponse response = client.batch(indexName, new BatchWriteParams().setRequests(batch));
 
       client.waitForTask(indexName, response.getTaskID());
+
+      client.setLogLevel(LogLevel.BASIC);
 
       SearchMethodParams searchMethodParams = new SearchMethodParams();
       List<SearchQuery> requests = new ArrayList<>();
