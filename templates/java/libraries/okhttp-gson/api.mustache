@@ -134,8 +134,8 @@ public class {{classname}} extends ApiClient {
 
     {{#operation}}
     /**
-     * {{&notes}}{{#allParams}}
-     * @param {{paramName}} {{&description}}{{#required}} (required){{/required}}{{^required}} (optional{{^isContainer}}{{#defaultValue}}, default to {{.}}{{/defaultValue}}{{/isContainer}}){{/required}}{{/allParams}}{{#returnType}}
+     * {{{notes}}}{{#allParams}}
+     * @param {{paramName}} {{{description}}}{{#required}} (required){{/required}}{{^required}} (optional{{^isContainer}}{{#defaultValue}}, default to {{.}}{{/defaultValue}}{{/isContainer}}){{/required}}{{/allParams}}{{#returnType}}
      * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
      * @return {{.}}{{/returnType}}
      * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -143,8 +143,8 @@ public class {{classname}} extends ApiClient {
      * @deprecated
      {{/isDeprecated}}
         {{#externalDocs}}
-     * {{&description}}
-     * @see <a href="{{url}}">{{&summary}} Documentation</a>
+     * {{{description}}}
+     * @see <a href="{{url}}">{{{summary}}} Documentation</a>
         {{/externalDocs}}
      */
     {{#isDeprecated}}
@@ -155,12 +155,23 @@ public class {{classname}} extends ApiClient {
     }
 
   {{! This case only sets `requestOptions` as optional }}
+  /**
+    * {{{notes}}}{{#allParams}}
+    * @param {{paramName}} {{{description}}}{{#required}} (required){{/required}}{{^required}} (optional{{^isContainer}}{{#defaultValue}}, default to {{.}}{{/defaultValue}}{{/isContainer}}){{/required}}{{/allParams}}{{#returnType}}
+    * @return {{.}}{{/returnType}}
+    {{> api_javadoc}}
   public {{#returnType}}{{{.}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#allParams}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/allParams}}) throws AlgoliaRuntimeException {
     {{#returnType}}return {{/returnType}}this.{{operationId}}({{#allParams}}{{paramName}}, {{/allParams}}null);
   }
 
   {{! This case sets `requiredParams` + `requestOptions` }}
   {{#optionalParams.0}}
+  /**
+    * {{{notes}}}{{#requiredParams}}
+    * @param {{paramName}} {{{description}}} (required){{/requiredParams}}{{#returnType}}
+    * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
+    * @return {{.}}{{/returnType}}
+   {{> api_javadoc}}
   public {{#returnType}}{{{.}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#requiredParams}}{{{dataType}}} {{paramName}}, {{/requiredParams}}RequestOptions requestOptions) throws AlgoliaRuntimeException {
     {{#returnType}}return {{/returnType}}this.{{operationId}}({{#requiredParams}}{{paramName}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#requiredParams.0}},{{/requiredParams.0}}{{#optionalParams}}null{{^-last}},{{/-last}}{{/optionalParams}}, requestOptions);
   }
@@ -168,6 +179,11 @@ public class {{classname}} extends ApiClient {
 
   {{! This case only sets `requiredParams` }}
   {{#optionalParams.0}}
+  /**
+    * {{{notes}}}{{#requiredParams}}
+    * @param {{paramName}} {{{description}}} (required){{/requiredParams}}{{#returnType}}
+    * @return {{.}}{{/returnType}}
+   {{> api_javadoc}}
   public {{#returnType}}{{{.}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#requiredParams}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/requiredParams}}) throws AlgoliaRuntimeException {
     {{#returnType}}return {{/returnType}}this.{{operationId}}({{#requiredParams}}{{paramName}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#requiredParams.0}},{{/requiredParams.0}}{{#optionalParams}}null{{^-last}},{{/-last}}{{/optionalParams}}, null);
   }
@@ -178,19 +194,8 @@ public class {{classname}} extends ApiClient {
   * {{notes}}{{#allParams}}
   * @param {{paramName}} {{{description}}}{{#required}} (required){{/required}}{{^required}} (optional{{^isContainer}}{{#defaultValue}}, default to {{.}}{{/defaultValue}}{{/isContainer}}){{/required}}{{/allParams}}
   * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
-  * @return The awaitable future
-  * @throws AlgoliaRuntimeException If fail to process the API call, e.g. serializing the request body object
-  {{#isDeprecated}}
-  * @deprecated
-  {{/isDeprecated}}
-  {{#externalDocs}}
-  * {{&description}}
-  * @see <a href="{{url}}">{{&summary}} Documentation</a>
-  {{/externalDocs}}
-  */
-  {{#isDeprecated}}
-  @Deprecated
-  {{/isDeprecated}}
+  * @return CompletableFuture<{{{returnType}}}> The awaitable future
+  {{> api_javadoc}}
   public CompletableFuture<{{{returnType}}}> {{operationId}}Async({{#allParams}}{{{dataType}}} {{paramName}}, {{/allParams}}RequestOptions requestOptions) throws AlgoliaRuntimeException {
     {{#allParams}}{{#required}}
     if ({{paramName}} == null) {
@@ -234,12 +239,25 @@ public class {{classname}} extends ApiClient {
   }
 
   {{! This case only sets `requestOptions` as optional }}
+  /**
+  * (asynchronously)
+  * {{notes}}{{#allParams}}
+  * @param {{paramName}} {{{description}}}{{#required}} (required){{/required}}{{^required}} (optional{{^isContainer}}{{#defaultValue}}, default to {{.}}{{/defaultValue}}{{/isContainer}}){{/required}}{{/allParams}}
+  * @return CompletableFuture<{{{returnType}}}> The awaitable future
+  {{> api_javadoc}}
   public CompletableFuture<{{{returnType}}}> {{operationId}}Async({{#allParams}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/allParams}}) throws AlgoliaRuntimeException {
     {{#returnType}}return {{/returnType}}this.{{operationId}}Async({{#allParams}}{{paramName}}, {{/allParams}}null);
   }
 
   {{! This case sets `requiredParams` + `requestOptions` }}
   {{#optionalParams.0}}
+  /**
+  * (asynchronously)
+  * {{notes}}{{#requiredParams}}
+  * @param {{paramName}} {{{description}}} (required){{/requiredParams}}
+  * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions.
+  * @return CompletableFuture<{{{returnType}}}> The awaitable future
+  {{> api_javadoc}}
   public CompletableFuture<{{{returnType}}}> {{operationId}}Async({{#requiredParams}}{{{dataType}}} {{paramName}}, {{/requiredParams}}RequestOptions requestOptions) throws AlgoliaRuntimeException {
     {{#returnType}}return {{/returnType}}this.{{operationId}}Async({{#requiredParams}}{{paramName}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#requiredParams.0}},{{/requiredParams.0}}{{#optionalParams}}null{{^-last}},{{/-last}}{{/optionalParams}}, requestOptions);
   }
@@ -247,6 +265,12 @@ public class {{classname}} extends ApiClient {
 
   {{! This case only sets `requiredParams` }}
   {{#optionalParams.0}}
+  /**
+  * (asynchronously)
+  * {{notes}}{{#requiredParams}}
+  * @param {{paramName}} {{{description}}} (required){{/requiredParams}}
+  * @return CompletableFuture<{{{returnType}}}> The awaitable future
+  {{> api_javadoc}}
   public CompletableFuture<{{{returnType}}}> {{operationId}}Async({{#requiredParams}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/requiredParams}}) throws AlgoliaRuntimeException {
     {{#returnType}}return {{/returnType}}this.{{operationId}}Async({{#requiredParams}}{{paramName}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#requiredParams.0}},{{/requiredParams.0}}{{#optionalParams}}null{{^-last}},{{/-last}}{{/optionalParams}}, null);
   }

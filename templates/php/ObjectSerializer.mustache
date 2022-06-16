@@ -58,7 +58,7 @@ class ObjectSerializer
                 foreach ($data::openAPITypes() as $property => $openAPIType) {
                     $getter = $data::getters()[$property];
                     $value = $data->$getter();
-                    if ($value !== null && !in_array($openAPIType, [{{&primitives}}], true)) {
+                    if ($value !== null && !in_array($openAPIType, [{{{primitives}}}], true)) {
                         $callable = [$openAPIType, 'getAllowableEnumValues'];
                         if (is_callable($callable)) {
                             /** array $callable */
@@ -305,7 +305,7 @@ class ObjectSerializer
         }
 
         /** @psalm-suppress ParadoxicalCondition */
-        if (in_array($class, [{{&primitives}}], true)) {
+        if (in_array($class, [{{{primitives}}}], true)) {
             settype($data, $class);
             return $data;
         }
