@@ -30,7 +30,7 @@ public class HttpRequester implements Requester {
     this.loggingInterceptor = new HttpLoggingInterceptor();
     loggingInterceptor.setLevel(LogLevel.NONE.value());
     builder.addInterceptor(this.loggingInterceptor);
-    
+
     builder.retryOnConnectionFailure(false);
 
     httpClient = builder.build();

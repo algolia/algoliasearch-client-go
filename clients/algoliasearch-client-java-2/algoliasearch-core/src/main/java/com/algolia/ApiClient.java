@@ -106,6 +106,7 @@ public abstract class ApiClient {
 
   /**
    * Set the log level of the requester
+   *
    * @return ApiClient
    */
   public ApiClient setLogLevel(LogLevel level) {
