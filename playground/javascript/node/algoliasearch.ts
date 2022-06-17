@@ -2,7 +2,7 @@ import { algoliasearch } from '@experimental-api-clients-automation/algoliasearc
 import { ApiError } from '@experimental-api-clients-automation/client-common';
 import dotenv from 'dotenv';
 
-import type { SearchResponses } from '@experimental-api-clients-automation/client-search';
+import type { SearchResponses } from '@experimental-api-clients-automation/algoliasearch';
 
 dotenv.config({ path: '../../.env' });
 
