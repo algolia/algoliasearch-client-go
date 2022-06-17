@@ -41,6 +41,41 @@ await client.waitForTask({
 ```
 
 </TabItem>
+<TabItem value="php">
+
+```php
+$client = SearchClient::create(
+    '<YOUR_APP_ID>',
+    '<YOUR_APP_ID>'
+);
+
+$response = $client->saveObject(
+    '<YOUR_INDEX_NAME>',
+    ['title' => "My Algolia Object"],
+    $requestOptions
+);
+
+// Poll the task status with defaults values
+$client->waitForTask('<YOUR_INDEX_NAME>', $response['taskID']);
+
+// Poll the task status with your options
+Algolia\AlgoliaSearch\Support\Helpers::retryUntil(
+    $client,
+    'getTask',
+    ['<YOUR_INDEX_NAME>', $response['taskID'], $requestOptions],
+    function ($res) {
+        return 'published' === $res['status'];
+    },
+    100, // Number of maximum retries to do
+    5000, // Default timeout
+    // Calculation of the time to wait between tries
+    function ($timeout, $retryCount) {
+        return min($retryCount * 200, $timeout) * 1000;
+    }
+);
+```
+
+</TabItem>
 <TabItem value="java">
 
 ```java

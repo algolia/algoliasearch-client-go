@@ -19,7 +19,7 @@ final class AlgoliaAgent
         return self::$value[$clientName];
     }
 
-    public static function addCustomAlgoliaAgent(
+    public static function addAlgoliaAgent(
         $clientName,
         $segment,
         $version

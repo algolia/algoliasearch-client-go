@@ -26,13 +26,34 @@ const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 const { taskID } = await client.operationIndex({
   indexName: '<SOURCE_INDEX_NAME>',
   operationIndexParams: {
-    destination: '<DESTINATION_INDEX_NAME>',
     operation: 'copy',
+    destination: '<DESTINATION_INDEX_NAME>',
   },
 });
 
 // Poll the task status until it's done
 await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+$client = SearchClient::create(
+    '<YOUR_APP_ID>',
+    '<YOUR_APP_ID>'
+);
+
+$response = $client->operationIndex(
+    '<SOURCE_INDEX_NAME>',
+     [
+        'operation' => 'copy',
+        'destination' => '<DESTINATION_INDEX_NAME>',
+     ]
+);
+
+// Poll the task status with defaults values
+$client->waitForTask('<SOURCE_INDEX_NAME>', $response['taskID']);
 ```
 
 </TabItem>
@@ -44,8 +65,8 @@ import com.algolia.model.search.*;
 UpdatedAtResponse response = client.operationIndex(
   "<SOURCE_INDEX_NAME>",
   new OperationIndexParams()
-    .setDestination("<DESTINATION_INDEX_NAME>")
     .setOperation(OperationType.COPY)
+    .setDestination("<DESTINATION_INDEX_NAME>")
 );
 
 // Poll the task status until it's done
@@ -70,13 +91,34 @@ const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 const { taskID } = await client.operationIndex({
   indexName: '<SOURCE_INDEX_NAME>',
   operationIndexParams: {
-    destination: '<DESTINATION_INDEX_NAME>',
     operation: 'move',
+    destination: '<DESTINATION_INDEX_NAME>',
   },
 });
 
 // Poll the task status until it's done
 await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+$client = SearchClient::create(
+    '<YOUR_APP_ID>',
+    '<YOUR_APP_ID>'
+);
+
+$response = $client->operationIndex(
+    '<SOURCE_INDEX_NAME>',
+    [
+        'operation' => 'move',
+        'destination' => '<DESTINATION_INDEX_NAME>',
+    ]
+);
+
+// Poll the task status with defaults values
+$client->waitForTask('<SOURCE_INDEX_NAME>', $response['taskID']);
 ```
 
 </TabItem>
@@ -88,8 +130,8 @@ import com.algolia.model.search.*;
 UpdatedAtResponse response = client.operationIndex(
   "<SOURCE_INDEX_NAME>",
   new OperationIndexParams()
-    .setDestination("<DESTINATION_INDEX_NAME>")
     .setOperation(OperationType.MOVE)
+    .setDestination("<DESTINATION_INDEX_NAME>")
 );
 
 // Poll the task status until it's done
@@ -116,14 +158,36 @@ const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 const { taskID } = await client.operationIndex({
   indexName: '<SOURCE_INDEX_NAME>',
   operationIndexParams: {
-    destination: '<DESTINATION_INDEX_NAME>',
     operation: 'move',
+    destination: '<DESTINATION_INDEX_NAME>',
     scope: ['rules'],
   },
 });
 
 // Poll the task status until it's done
 await client.waitForTask({ indexName: '<SOURCE_INDEX_NAME>', taskID });
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+$client = SearchClient::create(
+    '<YOUR_APP_ID>',
+    '<YOUR_APP_ID>'
+);
+
+$response = $client->operationIndex(
+    '<SOURCE_INDEX_NAME>',
+    [
+        'operation' => 'move',
+        'destination' => '<DESTINATION_INDEX_NAME>',
+        'scope' => ['rules'],
+    ]
+);
+
+// Poll the task status with defaults values
+$client->waitForTask('<SOURCE_INDEX_NAME>', $response['taskID']);
 ```
 
 </TabItem>
@@ -135,8 +199,8 @@ import com.algolia.model.search.*;
 UpdatedAtResponse response = client.operationIndex(
   "<SOURCE_INDEX_NAME>",
   new OperationIndexParams()
-    .setDestination("<DESTINATION_INDEX_NAME>")
     .setOperation(OperationType.MOVE)
+    .setDestination("<DESTINATION_INDEX_NAME>")
     .addScope(ScopeType.RULES)
 );
 

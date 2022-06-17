@@ -70,6 +70,29 @@ await client.search(
 ```
 
 </TabItem>
+<TabItem value="php">
+
+```php
+$client->search(
+    [
+        'requests' => [
+            [
+                'indexName' => '<YOUR_INDEX_NAME>',
+                'query' => '<YOUR_QUERY>',
+                'hitsPerPage' => 50,
+            ],
+        ]
+    ],
+    [
+        // This header is added to the request
+        'headers' => ['additional-header' => 'hello'],
+        // As we re-define `hitsPerPage`, it will override the value defined in the method's parameters.
+        'queryParameters' => ['hitsPerPage' => 100],
+    ]
+);
+```
+
+</TabItem>
 <TabItem value="java">
 
 ```java
@@ -115,7 +138,23 @@ client.addAlgoliaAgent('my user agent', 'optional version');
 ```
 
 </TabItem>
+<TabItem value="php">
 
+```php
+$client = SearchClient::create(
+    '<YOUR_APP_ID>',
+    '<YOUR_APP_ID>'
+);
+
+// This will append `; my user agent (optional version)` to the current value of `User-Agent` for every requests
+Algolia\AlgoliaSearch\Support\AlgoliaAgent::addAlgoliaAgent(
+    $client->getClientConfig()->getClientName(),
+    "my user agent",
+    "optional version"
+);
+```
+
+</TabItem>
 <TabItem value="java">
 
 ```java
@@ -153,7 +192,31 @@ const client = searchClient('<YOUR_APP_ID>', '<YOUR_API_KEY>', {
 ```
 
 </TabItem>
+<TabItem value="php">
 
+> In PHP, the requests are handled by the HTTP Client (by default GuzzleHttpClient)
+
+```php
+use Algolia\AlgoliaSearch\Api\SearchClient;
+use Algolia\AlgoliaSearch\Configuration\SearchConfig;
+use Algolia\AlgoliaSearch\Http\HttpClientInterface;
+use Algolia\AlgoliaSearch\RetryStrategy\ApiWrapper;
+use Algolia\AlgoliaSearch\RetryStrategy\ClusterHosts;
+
+// Create a config and a clusterhosts objects with your credentials
+$config = SearchConfig::create('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+$clusterHosts = ClusterHosts::createFromAppId('<YOUR_APP_ID>');
+
+// Instanciate a MyHttpClient object implementing HttpClientInterface (replacing GuzzleHttpClient)
+$myHttpClient = new MyHttpClient(...);
+// Now create you custom Api wrapper
+$apiWrapper = new ApiWrapper($myHttpClient, $config, $clusterHosts);
+
+// Instanciate your client using the constructor
+$client = new SearchClient($apiWrapper, $config);
+```
+
+</TabItem>
 <TabItem value="java">
 
 > Create your own requester by creating a class that implements `com.algolia.utils.Requester`, and use it by passing it to the client constructor.
