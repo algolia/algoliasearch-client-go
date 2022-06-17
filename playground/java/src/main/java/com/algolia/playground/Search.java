@@ -26,8 +26,7 @@ public class Search {
     SearchClient client = new SearchClient(
       dotenv.get("ALGOLIA_APPLICATION_ID"),
       dotenv.get("ALGOLIA_ADMIN_KEY"),
-      ClientOptions
-        .build()
+      new ClientOptions()
         .addAlgoliaAgentSegment("test", "8.0.0")
         .addAlgoliaAgentSegment("JVM", "11.0.14")
         .addAlgoliaAgentSegment("no version")

@@ -34,7 +34,7 @@ class {{client}}RequestsTests {
         HttpRequester requester = new HttpRequester();
         echo = new EchoInterceptor();
         requester.addInterceptor(echo.getEchoInterceptor());
-        client = new {{client}}("appId", "apiKey", {{#hasRegionalHost}}"{{defaultRegion}}", {{/hasRegionalHost}}ClientOptions.build().setRequester(requester));
+        client = new {{client}}("appId", "apiKey", {{#hasRegionalHost}}"{{defaultRegion}}", {{/hasRegionalHost}}new ClientOptions().setRequester(requester));
     }
 
     {{#blocksRequests}}

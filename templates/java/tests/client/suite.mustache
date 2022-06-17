@@ -29,7 +29,7 @@ class {{client}}ClientTests {
   }
 
   {{client}} createClient() {
-      return new {{client}}("appId", "apiKey", {{#hasRegionalHost}}"{{defaultRegion}}", {{/hasRegionalHost}}ClientOptions.build().setRequester(requester));
+      return new {{client}}("appId", "apiKey", {{#hasRegionalHost}}"{{defaultRegion}}", {{/hasRegionalHost}}new ClientOptions().setRequester(requester));
   }
 
   {{#blocksClient}}

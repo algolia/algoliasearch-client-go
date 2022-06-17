@@ -10,12 +10,8 @@ public class ClientOptions {
   private List<AlgoliaAgent.Segment> algoliaAgentSegments;
   private List<StatefulHost> hosts;
 
-  private ClientOptions() {
+  public ClientOptions() {
     algoliaAgentSegments = new ArrayList<>();
-  }
-
-  public static ClientOptions build() {
-    return new ClientOptions();
   }
 
   public Requester getRequester() {

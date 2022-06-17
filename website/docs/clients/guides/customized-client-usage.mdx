@@ -126,7 +126,7 @@ import com.algolia.api.SearchClient;
 SearchClient client = new SearchClient(
   "<YOUR_APP_ID>", 
   "<YOUR_API_KEY>",
-  ClientOptions.build().addAlgoliaAgentSegments("my user agent", "optional version")
+  new ClientOptions().addAlgoliaAgentSegments("my user agent", "optional version")
 );
 ```
 
@@ -164,7 +164,7 @@ import com.algolia.api.SearchClient;
 SearchClient client = new SearchClient(
   "<YOUR_APP_ID>", 
   "<YOUR_API_KEY>",
-  ClientOptions.build().setRequester(new MyOwnRequester())
+  new ClientOptions().setRequester(new MyOwnRequester())
 );
 ```
 

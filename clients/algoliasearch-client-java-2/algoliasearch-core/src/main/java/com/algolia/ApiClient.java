@@ -37,7 +37,7 @@ public abstract class ApiClient {
 
     this.algoliaAgent = new AlgoliaAgent(version);
     this.algoliaAgent.addSegment(new AlgoliaAgent.Segment(clientName, version));
-    if (options.getAlgoliaAgentSegments() != null) {
+    if (options != null && options.getAlgoliaAgentSegments() != null) {
       for (AlgoliaAgent.Segment segment : options.getAlgoliaAgentSegments()) {
         this.algoliaAgent.addSegment(segment);
       }
@@ -49,8 +49,9 @@ public abstract class ApiClient {
     addDefaultHeader("Accept", this.contentType);
     addDefaultHeader("Content-Type", this.contentType);
 
-    this.requester = options.getRequester();
-    if (this.requester == null) {
+    if (options != null && options.getRequester() != null) {
+      this.requester = options.getRequester();
+    } else {
       this.requester = new HttpRequester();
     }
   }
