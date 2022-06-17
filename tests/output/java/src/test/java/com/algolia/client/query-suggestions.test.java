@@ -30,7 +30,7 @@ class QuerySuggestionsClientClientTests {
   }
 
   QuerySuggestionsClient createClient() {
-    return new QuerySuggestionsClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    return new QuerySuggestionsClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test
@@ -95,7 +95,7 @@ class QuerySuggestionsClientClientTests {
             "my-app-id",
             "my-api-key",
             "not_a_region",
-            ClientOptions.build().setRequester(requester)
+            new ClientOptions().setRequester(requester)
           );
         }
       );
@@ -110,7 +110,7 @@ class QuerySuggestionsClientClientTests {
       "my-app-id",
       "my-api-key",
       "us",
-      ClientOptions.build().setRequester(requester)
+      new ClientOptions().setRequester(requester)
     );
   }
 }

@@ -30,7 +30,7 @@ class PersonalizationClientClientTests {
   }
 
   PersonalizationClient createClient() {
-    return new PersonalizationClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    return new PersonalizationClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test
@@ -95,7 +95,7 @@ class PersonalizationClientClientTests {
             "my-app-id",
             "my-api-key",
             "not_a_region",
-            ClientOptions.build().setRequester(requester)
+            new ClientOptions().setRequester(requester)
           );
         }
       );
@@ -106,11 +106,6 @@ class PersonalizationClientClientTests {
   @Test
   @DisplayName("does not throw when region is given")
   void parametersTest1() {
-    PersonalizationClient $client = new PersonalizationClient(
-      "my-app-id",
-      "my-api-key",
-      "us",
-      ClientOptions.build().setRequester(requester)
-    );
+    PersonalizationClient $client = new PersonalizationClient("my-app-id", "my-api-key", "us", new ClientOptions().setRequester(requester));
   }
 }

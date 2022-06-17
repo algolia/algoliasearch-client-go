@@ -30,13 +30,13 @@ class SearchClientClientTests {
   }
 
   SearchClient createClient() {
-    return new SearchClient("appId", "apiKey", ClientOptions.build().setRequester(requester));
+    return new SearchClient("appId", "apiKey", new ClientOptions().setRequester(requester));
   }
 
   @Test
   @DisplayName("calls api with correct read host")
   void apiTest0() {
-    SearchClient $client = new SearchClient("test-app-id", "test-api-key", ClientOptions.build().setRequester(requester));
+    SearchClient $client = new SearchClient("test-app-id", "test-api-key", new ClientOptions().setRequester(requester));
 
     String path0 = "/test";
 
@@ -49,7 +49,7 @@ class SearchClientClientTests {
   @Test
   @DisplayName("calls api with correct write host")
   void apiTest1() {
-    SearchClient $client = new SearchClient("test-app-id", "test-api-key", ClientOptions.build().setRequester(requester));
+    SearchClient $client = new SearchClient("test-app-id", "test-api-key", new ClientOptions().setRequester(requester));
 
     String path0 = "/test";
 
@@ -117,7 +117,7 @@ class SearchClientClientTests {
       Exception exception = assertThrows(
         Exception.class,
         () -> {
-          SearchClient $client = new SearchClient("", "", ClientOptions.build().setRequester(requester));
+          SearchClient $client = new SearchClient("", "", new ClientOptions().setRequester(requester));
         }
       );
       assertEquals("`appId` is missing.", exception.getMessage());
@@ -126,7 +126,7 @@ class SearchClientClientTests {
       Exception exception = assertThrows(
         Exception.class,
         () -> {
-          SearchClient $client = new SearchClient("", "my-api-key", ClientOptions.build().setRequester(requester));
+          SearchClient $client = new SearchClient("", "my-api-key", new ClientOptions().setRequester(requester));
         }
       );
       assertEquals("`appId` is missing.", exception.getMessage());
@@ -135,7 +135,7 @@ class SearchClientClientTests {
       Exception exception = assertThrows(
         Exception.class,
         () -> {
-          SearchClient $client = new SearchClient("my-app-id", "", ClientOptions.build().setRequester(requester));
+          SearchClient $client = new SearchClient("my-app-id", "", new ClientOptions().setRequester(requester));
         }
       );
       assertEquals("`apiKey` is missing.", exception.getMessage());

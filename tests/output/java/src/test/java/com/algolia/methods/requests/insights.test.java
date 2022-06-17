@@ -31,7 +31,7 @@ class InsightsClientRequestsTests {
     HttpRequester requester = new HttpRequester();
     echo = new EchoInterceptor();
     requester.addInterceptor(echo.getEchoInterceptor());
-    client = new InsightsClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    client = new InsightsClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test

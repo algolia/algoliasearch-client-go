@@ -31,7 +31,7 @@ class SearchClientRequestsTests {
     HttpRequester requester = new HttpRequester();
     echo = new EchoInterceptor();
     requester.addInterceptor(echo.getEchoInterceptor());
-    client = new SearchClient("appId", "apiKey", ClientOptions.build().setRequester(requester));
+    client = new SearchClient("appId", "apiKey", new ClientOptions().setRequester(requester));
   }
 
   @Test

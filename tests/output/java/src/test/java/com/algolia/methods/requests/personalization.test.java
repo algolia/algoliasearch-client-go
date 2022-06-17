@@ -31,7 +31,7 @@ class PersonalizationClientRequestsTests {
     HttpRequester requester = new HttpRequester();
     echo = new EchoInterceptor();
     requester.addInterceptor(echo.getEchoInterceptor());
-    client = new PersonalizationClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    client = new PersonalizationClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test

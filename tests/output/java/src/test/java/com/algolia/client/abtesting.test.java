@@ -30,7 +30,7 @@ class AbtestingClientClientTests {
   }
 
   AbtestingClient createClient() {
-    return new AbtestingClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    return new AbtestingClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test
@@ -87,7 +87,7 @@ class AbtestingClientClientTests {
   @Test
   @DisplayName("fallbacks to the alias when region is not given")
   void parametersTest0() {
-    AbtestingClient $client = new AbtestingClient("my-app-id", "my-api-key", ClientOptions.build().setRequester(requester));
+    AbtestingClient $client = new AbtestingClient("my-app-id", "my-api-key", new ClientOptions().setRequester(requester));
 
     int id0 = 123;
 
@@ -100,7 +100,7 @@ class AbtestingClientClientTests {
   @Test
   @DisplayName("uses the correct region")
   void parametersTest1() {
-    AbtestingClient $client = new AbtestingClient("my-app-id", "my-api-key", "us", ClientOptions.build().setRequester(requester));
+    AbtestingClient $client = new AbtestingClient("my-app-id", "my-api-key", "us", new ClientOptions().setRequester(requester));
 
     int id0 = 123;
 
@@ -121,7 +121,7 @@ class AbtestingClientClientTests {
             "my-app-id",
             "my-api-key",
             "not_a_region",
-            ClientOptions.build().setRequester(requester)
+            new ClientOptions().setRequester(requester)
           );
         }
       );

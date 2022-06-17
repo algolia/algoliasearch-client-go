@@ -30,7 +30,7 @@ class PredictClientClientTests {
   }
 
   PredictClient createClient() {
-    return new PredictClient("appId", "apiKey", "ew", ClientOptions.build().setRequester(requester));
+    return new PredictClient("appId", "apiKey", "ew", new ClientOptions().setRequester(requester));
   }
 
   @Test
@@ -91,12 +91,7 @@ class PredictClientClientTests {
       Exception exception = assertThrows(
         Exception.class,
         () -> {
-          PredictClient $client = new PredictClient(
-            "my-app-id",
-            "my-api-key",
-            "not_a_region",
-            ClientOptions.build().setRequester(requester)
-          );
+          PredictClient $client = new PredictClient("my-app-id", "my-api-key", "not_a_region", new ClientOptions().setRequester(requester));
         }
       );
       assertEquals("`region` must be one of the following: ue, ew", exception.getMessage());
@@ -106,6 +101,6 @@ class PredictClientClientTests {
   @Test
   @DisplayName("does not throw when region is given")
   void parametersTest1() {
-    PredictClient $client = new PredictClient("my-app-id", "my-api-key", "ew", ClientOptions.build().setRequester(requester));
+    PredictClient $client = new PredictClient("my-app-id", "my-api-key", "ew", new ClientOptions().setRequester(requester));
   }
 }

@@ -30,7 +30,7 @@ class InsightsClientClientTests {
   }
 
   InsightsClient createClient() {
-    return new InsightsClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    return new InsightsClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test
@@ -87,7 +87,7 @@ class InsightsClientClientTests {
   @Test
   @DisplayName("fallbacks to the alias when region is not given")
   void parametersTest0() {
-    InsightsClient $client = new InsightsClient("my-app-id", "my-api-key", ClientOptions.build().setRequester(requester));
+    InsightsClient $client = new InsightsClient("my-app-id", "my-api-key", new ClientOptions().setRequester(requester));
 
     InsightEvents insightEvents0 = new InsightEvents();
     {
@@ -105,7 +105,7 @@ class InsightsClientClientTests {
   @Test
   @DisplayName("uses the correct region")
   void parametersTest1() {
-    InsightsClient $client = new InsightsClient("my-app-id", "my-api-key", "us", ClientOptions.build().setRequester(requester));
+    InsightsClient $client = new InsightsClient("my-app-id", "my-api-key", "us", new ClientOptions().setRequester(requester));
 
     String path0 = "/test";
 
@@ -126,7 +126,7 @@ class InsightsClientClientTests {
             "my-app-id",
             "my-api-key",
             "not_a_region",
-            ClientOptions.build().setRequester(requester)
+            new ClientOptions().setRequester(requester)
           );
         }
       );

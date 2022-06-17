@@ -31,7 +31,7 @@ class RecommendClientRequestsTests {
     HttpRequester requester = new HttpRequester();
     echo = new EchoInterceptor();
     requester.addInterceptor(echo.getEchoInterceptor());
-    client = new RecommendClient("appId", "apiKey", ClientOptions.build().setRequester(requester));
+    client = new RecommendClient("appId", "apiKey", new ClientOptions().setRequester(requester));
   }
 
   @Test

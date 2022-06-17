@@ -30,7 +30,7 @@ class AnalyticsClientClientTests {
   }
 
   AnalyticsClient createClient() {
-    return new AnalyticsClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    return new AnalyticsClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test
@@ -87,7 +87,7 @@ class AnalyticsClientClientTests {
   @Test
   @DisplayName("fallbacks to the alias when region is not given")
   void parametersTest0() {
-    AnalyticsClient $client = new AnalyticsClient("my-app-id", "my-api-key", ClientOptions.build().setRequester(requester));
+    AnalyticsClient $client = new AnalyticsClient("my-app-id", "my-api-key", new ClientOptions().setRequester(requester));
 
     String index0 = "my-index";
 
@@ -100,7 +100,7 @@ class AnalyticsClientClientTests {
   @Test
   @DisplayName("uses the correct region")
   void parametersTest1() {
-    AnalyticsClient $client = new AnalyticsClient("my-app-id", "my-api-key", "de", ClientOptions.build().setRequester(requester));
+    AnalyticsClient $client = new AnalyticsClient("my-app-id", "my-api-key", "de", new ClientOptions().setRequester(requester));
 
     String path0 = "/test";
 
@@ -121,7 +121,7 @@ class AnalyticsClientClientTests {
             "my-app-id",
             "my-api-key",
             "not_a_region",
-            ClientOptions.build().setRequester(requester)
+            new ClientOptions().setRequester(requester)
           );
         }
       );

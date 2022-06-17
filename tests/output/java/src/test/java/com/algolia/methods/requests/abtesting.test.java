@@ -31,7 +31,7 @@ class AbtestingClientRequestsTests {
     HttpRequester requester = new HttpRequester();
     echo = new EchoInterceptor();
     requester.addInterceptor(echo.getEchoInterceptor());
-    client = new AbtestingClient("appId", "apiKey", "us", ClientOptions.build().setRequester(requester));
+    client = new AbtestingClient("appId", "apiKey", "us", new ClientOptions().setRequester(requester));
   }
 
   @Test

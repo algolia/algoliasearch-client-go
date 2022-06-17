@@ -31,7 +31,7 @@ class PredictClientRequestsTests {
     HttpRequester requester = new HttpRequester();
     echo = new EchoInterceptor();
     requester.addInterceptor(echo.getEchoInterceptor());
-    client = new PredictClient("appId", "apiKey", "ew", ClientOptions.build().setRequester(requester));
+    client = new PredictClient("appId", "apiKey", "ew", new ClientOptions().setRequester(requester));
   }
 
   @Test

@@ -29,13 +29,13 @@ class RecommendClientClientTests {
   }
 
   RecommendClient createClient() {
-    return new RecommendClient("appId", "apiKey", ClientOptions.build().setRequester(requester));
+    return new RecommendClient("appId", "apiKey", new ClientOptions().setRequester(requester));
   }
 
   @Test
   @DisplayName("calls api with correct read host")
   void apiTest0() {
-    RecommendClient $client = new RecommendClient("test-app-id", "test-api-key", ClientOptions.build().setRequester(requester));
+    RecommendClient $client = new RecommendClient("test-app-id", "test-api-key", new ClientOptions().setRequester(requester));
 
     String path0 = "/test";
 
@@ -48,7 +48,7 @@ class RecommendClientClientTests {
   @Test
   @DisplayName("calls api with correct write host")
   void apiTest1() {
-    RecommendClient $client = new RecommendClient("test-app-id", "test-api-key", ClientOptions.build().setRequester(requester));
+    RecommendClient $client = new RecommendClient("test-app-id", "test-api-key", new ClientOptions().setRequester(requester));
 
     String path0 = "/test";
 
