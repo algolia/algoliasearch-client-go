@@ -34,7 +34,7 @@ commands:
 jobs:
   format:
     docker:
-      - image: circleci/golang:1.14
+      - image: cimg/go:1.14
     steps:
       - checkout
       - restore_cache:
@@ -47,7 +47,7 @@ jobs:
           command: make lint
   test-1-13:
     docker:
-      - image: circleci/golang:1.13
+      - image: cimg/go:1.13
     steps:
       - checkout
       - restore_cache:
@@ -61,7 +61,7 @@ jobs:
             - "~/go/pkg"
   test-1-14:
     docker:
-      - image: circleci/golang:1.14
+      - image: cimg/go:1.14
     steps:
       - checkout
       - restore_cache:
@@ -75,7 +75,7 @@ jobs:
             - "~/go/pkg"
   test-1-15:
     docker:
-      - image: circleci/golang:1.15
+      - image: cimg/go:1.15
     steps:
       - checkout
       - restore_cache:
@@ -89,7 +89,7 @@ jobs:
             - "~/go/pkg"
   test-1-16:
     docker:
-      - image: circleci/golang:1.16
+      - image: cimg/go:1.16
     steps:
       - checkout
       - restore_cache:
@@ -103,7 +103,7 @@ jobs:
             - "~/go/pkg"
   test-1-17:
     docker:
-      - image: circleci/golang:1.17
+      - image: cimg/go:1.17
     steps:
       - checkout
       - restore_cache:
