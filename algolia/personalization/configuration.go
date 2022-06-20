@@ -1,4 +1,4 @@
-package recommendation
+package personalization
 
 import (
 	"time"
@@ -7,7 +7,6 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
-// Deprecated: use personalization.Configuration instead
 type Configuration struct {
 	AppID          string
 	APIKey         string

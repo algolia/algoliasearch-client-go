@@ -1,4 +1,4 @@
-package recommendation
+package suggestions
 
 import (
 	"time"
@@ -7,7 +7,8 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
-// Deprecated: use personalization.Configuration instead
+// Configuration contains all the different parameters one can change to
+// instantiate a new client for the Analytics API.
 type Configuration struct {
 	AppID          string
 	APIKey         string

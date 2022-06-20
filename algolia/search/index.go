@@ -71,6 +71,11 @@ func (i *Index) GetAppID() string {
 	return i.appID
 }
 
+// GetName returns the current index name.
+func (i *Index) GetName() string {
+	return i.name
+}
+
 // ClearObjects deletes all the records of the index.
 func (i *Index) ClearObjects(opts ...interface{}) (res UpdateTaskRes, err error) {
 	path := i.path("/clear")
@@ -101,10 +106,11 @@ func (i *Index) GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes,
 // with false.
 func (i *Index) Exists() (bool, error) {
 	_, err := i.GetSettings()
-	_, ok := errs.IsAlgoliaErr(err)
-	if !ok && err != nil {
-		return false, err
+	if err == nil {
+		return true, nil
 	}
-	_, ok = errs.IsAlgoliaErrWithCode(err, http.StatusNotFound)
-	return !ok, nil
+	if _, ok := errs.IsAlgoliaErrWithCode(err, http.StatusNotFound); ok {
+		return false, nil
+	}
+	return false, err
 }

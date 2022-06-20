@@ -34,6 +34,7 @@ var options = []Option{
 	// Ranking
 	{"ranking", Settings, []string{"typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"}, ""},
 	{"customRanking", Settings, []string{}, ""},
+	{"relevancyStrictness", Settings | Search, 100, ""},
 	{"replicas", Settings, []string{}, "slaves"},
 	{"primary", Settings, "", ""},
 
@@ -120,7 +121,7 @@ var options = []Option{
 	{"personalizationImpact", Search, 100, ""},
 	{"userToken", Search, "", ""},
 	{"enableReRanking", Search | Settings, true, ""},
-	{"reRankingApplyFilter", Search | Settings, "", ""},
+	{"reRankingApplyFilter", Search | Settings, nil, ""},
 
 	// Performance
 	{"numericAttributesForFiltering", Settings, []string{}, "numericAttributesToIndex"},

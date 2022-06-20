@@ -1,4 +1,4 @@
-package recommendation
+package personalization
 
 import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
@@ -7,15 +7,13 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
-// Deprecated: use personalization.Client instead
-// Client provides methods to interact with the Algolia Recommendation API.
+// Client provides methods to interact with the Algolia Personalization API.
 type Client struct {
 	transport *transport.Transport
 }
 
-// Deprecated: use personalization.NewClient() instead
 // NewClient instantiates a new client able to interact with the Algolia
-// Recommendation API.
+// Personalization API.
 func NewClient(appID, apiKey string, region region.Region) *Client {
 	return NewClientWithConfig(
 		Configuration{
@@ -26,9 +24,8 @@ func NewClient(appID, apiKey string, region region.Region) *Client {
 	)
 }
 
-// Deprecated: use personalization.NewClientWithConfig() instead
 // NewClientWithConfig instantiates a new client able to interact with the
-// Recommendation API.
+// Personalization API.
 func NewClientWithConfig(config Configuration) *Client {
 	var hosts []*transport.StatefulHost
 

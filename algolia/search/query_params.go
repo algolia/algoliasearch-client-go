@@ -11,6 +11,7 @@ import (
 type QueryParams struct {
 	AttributesToRetrieve                    *opt.AttributesToRetrieveOption                    `json:"attributesToRetrieve,omitempty"`
 	RestrictSearchableAttributes            *opt.RestrictSearchableAttributesOption            `json:"restrictSearchableAttributes,omitempty"`
+	RelevancyStrictness                     *opt.RelevancyStrictnessOption                     `json:"relevancyStrictness,omitempty"`
 	Filters                                 *opt.FiltersOption                                 `json:"filters,omitempty"`
 	FacetFilters                            *opt.FacetFiltersOption                            `json:"facetFilters,omitempty"`
 	OptionalFilters                         *opt.OptionalFiltersOption                         `json:"optionalFilters,omitempty"`
@@ -84,6 +85,7 @@ func newQueryParams(opts ...interface{}) QueryParams {
 	return QueryParams{
 		AttributesToRetrieve:                    iopt.ExtractAttributesToRetrieve(opts...),
 		RestrictSearchableAttributes:            iopt.ExtractRestrictSearchableAttributes(opts...),
+		RelevancyStrictness:                     iopt.ExtractRelevancyStrictness(opts...),
 		Filters:                                 iopt.ExtractFilters(opts...),
 		FacetFilters:                            iopt.ExtractFacetFilters(opts...),
 		OptionalFilters:                         iopt.ExtractOptionalFilters(opts...),
@@ -167,6 +169,9 @@ func (p *QueryParams) Equal(p2 *QueryParams) bool {
 		return false
 	}
 	if !p.RestrictSearchableAttributes.Equal(p2.RestrictSearchableAttributes) {
+		return false
+	}
+	if !p.RelevancyStrictness.Equal(p2.RelevancyStrictness) {
 		return false
 	}
 	if !p.Filters.Equal(p2.Filters) {

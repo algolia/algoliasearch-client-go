@@ -1,34 +1,34 @@
-package recommendation
+package suggestions
 
 import (
+	"fmt"
+
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/compression"
-	"github.com/algolia/algoliasearch-client-go/v3/algolia/region"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/search"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
-// Deprecated: use personalization.Client instead
-// Client provides methods to interact with the Algolia Recommendation API.
+// Client provides methods to interact with the Algolia Query Suggestions API.
 type Client struct {
-	transport *transport.Transport
+	appID        string
+	searchClient *search.Client
+	transport    *transport.Transport
 }
 
-// Deprecated: use personalization.NewClient() instead
 // NewClient instantiates a new client able to interact with the Algolia
-// Recommendation API.
-func NewClient(appID, apiKey string, region region.Region) *Client {
+// Query Suggestions API.
+func NewClient(appID, apiKey string) *Client {
 	return NewClientWithConfig(
 		Configuration{
 			AppID:  appID,
 			APIKey: apiKey,
-			Region: region,
 		},
 	)
 }
 
-// Deprecated: use personalization.NewClientWithConfig() instead
 // NewClientWithConfig instantiates a new client able to interact with the
-// Recommendation API.
+// Algolia Query Suggestions API.
 func NewClientWithConfig(config Configuration) *Client {
 	var hosts []*transport.StatefulHost
 
@@ -40,7 +40,19 @@ func NewClientWithConfig(config Configuration) *Client {
 		}
 	}
 
+	searchConfig := search.Configuration{
+		AppID:          config.AppID,
+		APIKey:         config.APIKey,
+		Requester:      config.Requester,
+		ReadTimeout:    config.ReadTimeout,
+		WriteTimeout:   config.WriteTimeout,
+		Headers:        config.Headers,
+		ExtraUserAgent: config.ExtraUserAgent,
+	}
+
 	return &Client{
+		appID:        config.AppID,
+		searchClient: search.NewClientWithConfig(searchConfig),
 		transport: transport.New(
 			hosts,
 			config.Requester,
@@ -53,4 +65,8 @@ func NewClientWithConfig(config Configuration) *Client {
 			compression.None,
 		),
 	}
+}
+
+func (c *Client) path(format string, a ...interface{}) string { //nolint:unparam
+	return "/1" + fmt.Sprintf(format, a...)
 }

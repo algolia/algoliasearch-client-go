@@ -19,6 +19,7 @@ type Settings struct {
 	AttributesToRetrieve                    *opt.AttributesToRetrieveOption                    `json:"attributesToRetrieve,omitempty"`
 	Ranking                                 *opt.RankingOption                                 `json:"ranking,omitempty"`
 	CustomRanking                           *opt.CustomRankingOption                           `json:"customRanking,omitempty"`
+	RelevancyStrictness                     *opt.RelevancyStrictnessOption                     `json:"relevancyStrictness,omitempty"`
 	Replicas                                *opt.ReplicasOption                                `json:"replicas,omitempty"`
 	Primary                                 *opt.PrimaryOption                                 `json:"primary,omitempty"`
 	MaxValuesPerFacet                       *opt.MaxValuesPerFacetOption                       `json:"maxValuesPerFacet,omitempty"`
@@ -72,6 +73,8 @@ type Settings struct {
 	Advanced                                *opt.AdvancedOption                                `json:"advanced,omitempty"`
 	AttributeCriteriaComputedByMinProximity *opt.AttributeCriteriaComputedByMinProximityOption `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	UserData                                *opt.UserDataOption                                `json:"userData,omitempty"`
+	RenderingContent                        *RenderingContent                                  `json:"renderingContent,omitempty"`
+	Extensions                              *Extensions                                        `json:"extensions,omitempty"`
 	CustomSettings                          map[string]interface{}                             `json:"-"`
 }
 
@@ -119,6 +122,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 		"attributesToRetrieve",
 		"ranking",
 		"customRanking",
+		"relevancyStrictness",
 		"replicas",
 		"slaves",
 		"primary",
@@ -226,6 +230,10 @@ func (s Settings) Equal(s2 Settings) bool {
 	}
 	if !opt.CustomRankingEqual(s.CustomRanking, s2.CustomRanking) {
 		debug.Printf("Settings.CustomRanking are not equal: %#v != %#v\n", s.CustomRanking, s2.CustomRanking)
+		return false
+	}
+	if !opt.RelevancyStrictnessEqual(s.RelevancyStrictness, s2.RelevancyStrictness) {
+		debug.Printf("Settings.RelevancyStrictness are not equal: %#v != %#v\n", s.RelevancyStrictness, s2.RelevancyStrictness)
 		return false
 	}
 	if !opt.ReplicasEqual(s.Replicas, s2.Replicas) {
@@ -451,6 +459,7 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tAttributesToRetrieve: %v,\n", stringifyReturnValues(s.AttributesToRetrieve.Get()))
 	settingsStr += fmt.Sprintf("\tRanking: %v,\n", stringifyReturnValues(s.Ranking.Get()))
 	settingsStr += fmt.Sprintf("\tCustomRanking: %v,\n", stringifyReturnValues(s.CustomRanking.Get()))
+	settingsStr += fmt.Sprintf("\tRelevancyStrictness: %v,\n", stringifyReturnValues(s.RelevancyStrictness.Get()))
 	settingsStr += fmt.Sprintf("\tReplicas: %v,\n", stringifyReturnValues(s.Replicas.Get()))
 	settingsStr += fmt.Sprintf("\tPrimary: %v,\n", stringifyReturnValues(s.Primary.Get()))
 	settingsStr += fmt.Sprintf("\tMaxValuesPerFacet: %v,\n", stringifyReturnValues(s.MaxValuesPerFacet.Get()))
@@ -504,6 +513,8 @@ func (s Settings) String() string {
 	settingsStr += fmt.Sprintf("\tAdvanced: %v,\n", stringifyReturnValues(s.Advanced.Get()))
 	settingsStr += fmt.Sprintf("\tAttributeCriteriaComputedByMinProximity: %v,\n", stringifyReturnValues(s.AttributeCriteriaComputedByMinProximity.Get()))
 	settingsStr += fmt.Sprintf("\tUserData: %v,\n", stringifyReturnValues(s.UserData.Get()))
+
+	settingsStr += fmt.Sprintf("\tRenderingContent: %+v\n", s.RenderingContent)
 
 	settingsStr += "\tCustomSettings{\n"
 	for k, v := range s.CustomSettings {
