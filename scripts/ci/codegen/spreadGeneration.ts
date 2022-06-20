@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import execa from 'execa';
 import { copy } from 'fs-extra';
 
 import {
@@ -109,8 +108,8 @@ async function spreadGeneration(): Promise<void> {
     await run(`git push --delete origin ${RELEASED_TAG}`);
 
     console.log('Creating new `released` tag for latest commit');
-    await run(`git tag released`);
-    await run(`git push --tags`);
+    await run('git tag released');
+    await run('git push --tags');
   }
 
   for (const lang of langs) {
@@ -149,18 +148,25 @@ async function spreadGeneration(): Promise<void> {
     const commitMessage = cleanUpCommitMessage(lastCommitMessage, version);
 
     await configureGitHubAuthor(tempGitDir);
+
     await run('git add .', { cwd: tempGitDir });
     await gitCommit({
       message: commitMessage,
       coAuthors: [author, ...coAuthors],
       cwd: tempGitDir,
     });
-    await execa('git', ['tag', version], {
-      cwd: tempGitDir,
-    });
-    await run(IS_RELEASE_COMMIT ? 'git push --follow-tags' : 'git push', {
-      cwd: tempGitDir,
-    });
+    await run('git push', { cwd: tempGitDir });
+
+    // In case of a release commit, we also want to update tags on the clients repositories
+    if (IS_RELEASE_COMMIT) {
+      console.log(
+        `Processing release commit, creating new release tag ('${version}') for '${lang}' repository.`
+      );
+
+      await run(`git tag ${version} HEAD`, { cwd: tempGitDir });
+      await run('git push --tags', { cwd: tempGitDir });
+    }
+
     console.log(
       `✅ Code generation successfully pushed to ${lang} repository.`
     );
