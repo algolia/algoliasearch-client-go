@@ -83,7 +83,7 @@ describe('assignUserId', () => {
 });
 
 describe('batch', () => {
-  test('allows batch method with &#x60;addObject&#x60; action', async () => {
+  test('allows batch method with `addObject` action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -99,7 +99,7 @@ describe('batch', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('allows batch method with &#x60;clear&#x60; action', async () => {
+  test('allows batch method with `clear` action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -115,7 +115,7 @@ describe('batch', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('allows batch method with &#x60;delete&#x60; action', async () => {
+  test('allows batch method with `delete` action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -131,7 +131,7 @@ describe('batch', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('allows batch method with &#x60;deleteObject&#x60; action', async () => {
+  test('allows batch method with `deleteObject` action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -147,7 +147,7 @@ describe('batch', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('allows batch method with &#x60;partialUpdateObject&#x60; action', async () => {
+  test('allows batch method with `partialUpdateObject` action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -163,7 +163,7 @@ describe('batch', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('allows batch method with &#x60;partialUpdateObjectNoCreate&#x60; action', async () => {
+  test('allows batch method with `partialUpdateObjectNoCreate` action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -183,7 +183,7 @@ describe('batch', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('allows batch method with &#x60;updateObject&#x60; action', async () => {
+  test('allows batch method with `updateObject` action', async () => {
     const req = (await client.batch({
       indexName: 'theIndexName',
       batchWriteParams: {
@@ -1810,7 +1810,7 @@ describe('setDictionarySettings', () => {
 });
 
 describe('setSettings', () => {
-  test('setSettings', async () => {
+  test('setSettings with minimal parameters', async () => {
     const req = (await client.setSettings({
       indexName: 'theIndexName',
       indexSettings: { paginationLimitedTo: 10 },
@@ -1820,6 +1820,32 @@ describe('setSettings', () => {
     expect(req.path).toEqual('/1/indexes/theIndexName/settings');
     expect(req.method).toEqual('PUT');
     expect(req.data).toEqual({ paginationLimitedTo: 10 });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow boolean `typoTolerance`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { typoTolerance: true },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ typoTolerance: true });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow enum `typoTolerance`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { typoTolerance: 'min' },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ typoTolerance: 'min' });
     expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
   });
 });

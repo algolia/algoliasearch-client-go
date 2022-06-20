@@ -2703,8 +2703,8 @@ class SearchClientRequestsTests {
           requests_02.setMinWordSizefor1Typo(minWordSizefor1Typo3);
           int minWordSizefor2Typos3 = 0;
           requests_02.setMinWordSizefor2Typos(minWordSizefor2Typos3);
-          TypoTolerance typoTolerance3 = TypoTolerance.fromValue("min");
-          requests_02.setTypoTolerance(typoTolerance3);
+          TypoToleranceEnum typoTolerance3 = TypoToleranceEnum.fromValue("min");
+          requests_02.setTypoTolerance(TypoTolerance.ofTypoToleranceEnum(typoTolerance3));
           boolean allowTyposOnNumericTokens3 = true;
           requests_02.setAllowTyposOnNumericTokens(allowTyposOnNumericTokens3);
           List<String> disableTypoToleranceOnAttributes3 = new ArrayList<>();
@@ -3119,7 +3119,7 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("setSettings")
+  @DisplayName("setSettings with minimal parameters")
   void setSettingsTest0() {
     String indexName0 = "theIndexName";
     IndexSettings indexSettings0 = new IndexSettings();
@@ -3139,6 +3139,76 @@ class SearchClientRequestsTests {
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"paginationLimitedTo\":10}", req.body, JSONCompareMode.STRICT);
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"forwardToReplicas\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow boolean `typoTolerance`")
+  void setSettingsTest1() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      boolean typoTolerance1 = true;
+      indexSettings0.setTypoTolerance(TypoTolerance.ofBoolean(typoTolerance1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"typoTolerance\":true}", req.body, JSONCompareMode.STRICT);
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"forwardToReplicas\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow enum `typoTolerance`")
+  void setSettingsTest2() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      TypoToleranceEnum typoTolerance1 = TypoToleranceEnum.fromValue("min");
+      indexSettings0.setTypoTolerance(TypoTolerance.ofTypoToleranceEnum(typoTolerance1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"typoTolerance\":\"min\"}", req.body, JSONCompareMode.STRICT);
     });
 
     Map<String, String> expectedQuery = JSON.deserialize(

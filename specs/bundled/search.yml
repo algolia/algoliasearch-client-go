@@ -383,15 +383,17 @@ components:
       type: integer
       description: Set the number of hits per page.
       default: 20
-    typoTolerance:
+    typoToleranceEnum:
       type: string
       enum:
-        - true
-        - false
         - min
         - strict
+    typoTolerance:
       description: Controls whether typo tolerance is enabled and how it is applied.
-      default: true
+      oneOf:
+        - type: boolean
+          default: true
+        - $ref: '#/components/schemas/typoToleranceEnum'
     ignorePlurals:
       description: >
         Treats singular, plurals, and other forms of declensions as matching

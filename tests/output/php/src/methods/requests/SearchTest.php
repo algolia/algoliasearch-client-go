@@ -2414,7 +2414,7 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for SetSettings
-     * setSettings
+     * setSettings with minimal parameters
      */
     public function testSetSettings0()
     {
@@ -2430,6 +2430,58 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/theIndexName/settings',
                 'method' => 'PUT',
                 'body' => json_decode("{\"paginationLimitedTo\":10}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow boolean `typoTolerance`
+     */
+    public function testSetSettings1()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['typoTolerance' => true],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"typoTolerance\":true}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow enum `typoTolerance`
+     */
+    public function testSetSettings2()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['typoTolerance' => 'min'],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"typoTolerance\":\"min\"}"),
                 'queryParameters' => json_decode(
                     "{\"forwardToReplicas\":\"true\"}",
                     true
