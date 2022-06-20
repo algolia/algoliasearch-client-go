@@ -1,5 +1,6 @@
 [
   {
+    "testName": "setSettings with minimal parameters",
     "parameters": {
       "indexName": "theIndexName",
       "indexSettings": {
@@ -12,6 +13,46 @@
       "method": "PUT",
       "body": {
         "paginationLimitedTo": 10
+      },
+      "queryParameters": {
+        "forwardToReplicas": "true"
+      }
+    }
+  },
+  {
+    "testName": "setSettings allow boolean `typoTolerance`",
+    "parameters": {
+      "indexName": "theIndexName",
+      "indexSettings": {
+        "typoTolerance": true
+      },
+      "forwardToReplicas": true
+    },
+    "request": {
+      "path": "/1/indexes/theIndexName/settings",
+      "method": "PUT",
+      "body": {
+        "typoTolerance": true
+      },
+      "queryParameters": {
+        "forwardToReplicas": "true"
+      }
+    }
+  },
+  {
+    "testName": "setSettings allow enum `typoTolerance`",
+    "parameters": {
+      "indexName": "theIndexName",
+      "indexSettings": {
+        "typoTolerance": "min"
+      },
+      "forwardToReplicas": true
+    },
+    "request": {
+      "path": "/1/indexes/theIndexName/settings",
+      "method": "PUT",
+      "body": {
+        "typoTolerance": "min"
       },
       "queryParameters": {
         "forwardToReplicas": "true"

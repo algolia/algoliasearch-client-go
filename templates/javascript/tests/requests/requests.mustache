@@ -11,7 +11,7 @@ const client = {{client}}(appId, apiKey, {{#hasRegionalHost}}'{{{defaultRegion}}
 {{#blocksRequests}}
 describe('{{operationId}}', () => {
   {{#tests}}
-  test('{{testName}}', async () => {
+  test('{{{testName}}}', async () => {
     {{#hasRequestOptions}}const requestOptions: RequestOptions = {
       {{#requestOptions.queryParameters.parameters}}queryParameters: {{{.}}},{{/requestOptions.queryParameters.parameters}}
       {{#requestOptions.headers.parameters}}headers: {{{.}}}{{/requestOptions.headers.parameters}}

@@ -288,12 +288,6 @@ userData:
   description: Lets you store custom data in your indices.
   default: {}
 
-typoTolerance:
-  type: string
-  enum: [true, false, min, strict]
-  description: Controls whether typo tolerance is enabled and how it is applied.
-  default: true
-
 queryType:
   type: string
   enum: [prefixLast, prefixAll, prefixNone]
@@ -319,6 +313,17 @@ alternativesAsExact:
 advancedSyntaxFeatures:
   type: string
   enum: [exactPhrase, excludeWords]
+
+typoTolerance:
+  description: Controls whether typo tolerance is enabled and how it is applied.
+  oneOf:
+    - type: boolean
+      default: true
+    - $ref: '#/typoToleranceEnum'
+
+typoToleranceEnum:
+  type: string
+  enum: [min, strict]
 
 ignorePlurals:
   description: >
