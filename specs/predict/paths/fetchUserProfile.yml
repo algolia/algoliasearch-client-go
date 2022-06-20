@@ -43,6 +43,7 @@ post:
                               type: string
                             probability:
                               type: number
+                              format: double
                               minimum: 0
                               maximum: 1
                       lastUpdatedAt:
@@ -53,6 +54,7 @@ post:
                     properties:
                       value:
                         type: number
+                        format: double
                         minimum: 0
                       lastUpdatedAt:
                         type: string
@@ -72,6 +74,7 @@ post:
                               type: string
                             probability:
                               type: number
+                              format: double
                               minimum: 0
                               maximum: 1
                       lastUpdatedAt:

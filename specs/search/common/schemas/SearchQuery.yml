@@ -22,9 +22,7 @@ searchForFacetsOptions:
     indexName:
       $ref: '../../../common/parameters.yml#/indexName'
     facetQuery:
-      type: string
-      description: Text to search inside the facet's values.
-      default: ''
+      $ref: '#/facetQuery'
     maxFacetHits:
       $ref: '../../../common/schemas/IndexSettings.yml#/maxFacetHits'
     type:
@@ -33,6 +31,11 @@ searchForFacetsOptions:
     - indexName
     - type
     - facet
+
+facetQuery:
+  type: string
+  description: Text to search inside the facet's values.
+  default: ''
 
 searchForHitsOptions:
   # We provide this option because TypeScript can't distinguish union with optional keys
