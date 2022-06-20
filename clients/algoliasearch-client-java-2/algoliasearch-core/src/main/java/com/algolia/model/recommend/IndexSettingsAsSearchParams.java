@@ -8,9 +8,6 @@ import java.util.Objects;
 /** IndexSettingsAsSearchParams */
 public class IndexSettingsAsSearchParams {
 
-  @SerializedName("searchableAttributes")
-  private List<String> searchableAttributes;
-
   @SerializedName("attributesForFaceting")
   private List<String> attributesForFaceting;
 
@@ -68,14 +65,11 @@ public class IndexSettingsAsSearchParams {
   @SerializedName("disableTypoToleranceOnAttributes")
   private List<String> disableTypoToleranceOnAttributes;
 
-  @SerializedName("separatorsToIndex")
-  private String separatorsToIndex;
-
   @SerializedName("ignorePlurals")
-  private String ignorePlurals;
+  private IgnorePlurals ignorePlurals;
 
   @SerializedName("removeStopWords")
-  private String removeStopWords;
+  private RemoveStopWords removeStopWords;
 
   @SerializedName("keepDiacriticsOnCharacters")
   private String keepDiacriticsOnCharacters;
@@ -139,29 +133,6 @@ public class IndexSettingsAsSearchParams {
 
   @SerializedName("renderingContent")
   private Object renderingContent;
-
-  public IndexSettingsAsSearchParams setSearchableAttributes(List<String> searchableAttributes) {
-    this.searchableAttributes = searchableAttributes;
-    return this;
-  }
-
-  public IndexSettingsAsSearchParams addSearchableAttributes(String searchableAttributesItem) {
-    if (this.searchableAttributes == null) {
-      this.searchableAttributes = new ArrayList<>();
-    }
-    this.searchableAttributes.add(searchableAttributesItem);
-    return this;
-  }
-
-  /**
-   * The complete list of attributes used for searching.
-   *
-   * @return searchableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getSearchableAttributes() {
-    return searchableAttributes;
-  }
 
   public IndexSettingsAsSearchParams setAttributesForFaceting(List<String> attributesForFaceting) {
     this.attributesForFaceting = attributesForFaceting;
@@ -523,48 +494,33 @@ public class IndexSettingsAsSearchParams {
     return disableTypoToleranceOnAttributes;
   }
 
-  public IndexSettingsAsSearchParams setSeparatorsToIndex(String separatorsToIndex) {
-    this.separatorsToIndex = separatorsToIndex;
-    return this;
-  }
-
-  /**
-   * Control which separators are indexed.
-   *
-   * @return separatorsToIndex
-   */
-  @javax.annotation.Nullable
-  public String getSeparatorsToIndex() {
-    return separatorsToIndex;
-  }
-
-  public IndexSettingsAsSearchParams setIgnorePlurals(String ignorePlurals) {
+  public IndexSettingsAsSearchParams setIgnorePlurals(IgnorePlurals ignorePlurals) {
     this.ignorePlurals = ignorePlurals;
     return this;
   }
 
   /**
-   * Treats singular, plurals, and other forms of declensions as matching terms.
+   * Get ignorePlurals
    *
    * @return ignorePlurals
    */
   @javax.annotation.Nullable
-  public String getIgnorePlurals() {
+  public IgnorePlurals getIgnorePlurals() {
     return ignorePlurals;
   }
 
-  public IndexSettingsAsSearchParams setRemoveStopWords(String removeStopWords) {
+  public IndexSettingsAsSearchParams setRemoveStopWords(RemoveStopWords removeStopWords) {
     this.removeStopWords = removeStopWords;
     return this;
   }
 
   /**
-   * Removes stop (common) words from the query before executing it.
+   * Get removeStopWords
    *
    * @return removeStopWords
    */
   @javax.annotation.Nullable
-  public String getRemoveStopWords() {
+  public RemoveStopWords getRemoveStopWords() {
     return removeStopWords;
   }
 
@@ -948,7 +904,6 @@ public class IndexSettingsAsSearchParams {
     }
     IndexSettingsAsSearchParams indexSettingsAsSearchParams = (IndexSettingsAsSearchParams) o;
     return (
-      Objects.equals(this.searchableAttributes, indexSettingsAsSearchParams.searchableAttributes) &&
       Objects.equals(this.attributesForFaceting, indexSettingsAsSearchParams.attributesForFaceting) &&
       Objects.equals(this.unretrievableAttributes, indexSettingsAsSearchParams.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, indexSettingsAsSearchParams.attributesToRetrieve) &&
@@ -968,7 +923,6 @@ public class IndexSettingsAsSearchParams {
       Objects.equals(this.typoTolerance, indexSettingsAsSearchParams.typoTolerance) &&
       Objects.equals(this.allowTyposOnNumericTokens, indexSettingsAsSearchParams.allowTyposOnNumericTokens) &&
       Objects.equals(this.disableTypoToleranceOnAttributes, indexSettingsAsSearchParams.disableTypoToleranceOnAttributes) &&
-      Objects.equals(this.separatorsToIndex, indexSettingsAsSearchParams.separatorsToIndex) &&
       Objects.equals(this.ignorePlurals, indexSettingsAsSearchParams.ignorePlurals) &&
       Objects.equals(this.removeStopWords, indexSettingsAsSearchParams.removeStopWords) &&
       Objects.equals(this.keepDiacriticsOnCharacters, indexSettingsAsSearchParams.keepDiacriticsOnCharacters) &&
@@ -998,7 +952,6 @@ public class IndexSettingsAsSearchParams {
   @Override
   public int hashCode() {
     return Objects.hash(
-      searchableAttributes,
       attributesForFaceting,
       unretrievableAttributes,
       attributesToRetrieve,
@@ -1018,7 +971,6 @@ public class IndexSettingsAsSearchParams {
       typoTolerance,
       allowTyposOnNumericTokens,
       disableTypoToleranceOnAttributes,
-      separatorsToIndex,
       ignorePlurals,
       removeStopWords,
       keepDiacriticsOnCharacters,
@@ -1049,7 +1001,6 @@ public class IndexSettingsAsSearchParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class IndexSettingsAsSearchParams {\n");
-    sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
     sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
@@ -1069,7 +1020,6 @@ public class IndexSettingsAsSearchParams {
     sb.append("    typoTolerance: ").append(toIndentedString(typoTolerance)).append("\n");
     sb.append("    allowTyposOnNumericTokens: ").append(toIndentedString(allowTyposOnNumericTokens)).append("\n");
     sb.append("    disableTypoToleranceOnAttributes: ").append(toIndentedString(disableTypoToleranceOnAttributes)).append("\n");
-    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
     sb.append("    ignorePlurals: ").append(toIndentedString(ignorePlurals)).append("\n");
     sb.append("    removeStopWords: ").append(toIndentedString(removeStopWords)).append("\n");
     sb.append("    keepDiacriticsOnCharacters: ").append(toIndentedString(keepDiacriticsOnCharacters)).append("\n");

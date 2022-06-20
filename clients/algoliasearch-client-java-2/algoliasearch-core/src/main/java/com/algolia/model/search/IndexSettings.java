@@ -29,9 +29,6 @@ public class IndexSettings {
   @SerializedName("indexLanguages")
   private List<String> indexLanguages;
 
-  @SerializedName("filterPromotes")
-  private Boolean filterPromotes;
-
   @SerializedName("disablePrefixOnAttributes")
   private List<String> disablePrefixOnAttributes;
 
@@ -41,11 +38,14 @@ public class IndexSettings {
   @SerializedName("numericAttributesForFiltering")
   private List<String> numericAttributesForFiltering;
 
-  @SerializedName("userData")
-  private Object userData;
+  @SerializedName("separatorsToIndex")
+  private String separatorsToIndex;
 
   @SerializedName("searchableAttributes")
   private List<String> searchableAttributes;
+
+  @SerializedName("userData")
+  private Object userData;
 
   @SerializedName("attributesForFaceting")
   private List<String> attributesForFaceting;
@@ -104,14 +104,11 @@ public class IndexSettings {
   @SerializedName("disableTypoToleranceOnAttributes")
   private List<String> disableTypoToleranceOnAttributes;
 
-  @SerializedName("separatorsToIndex")
-  private String separatorsToIndex;
-
   @SerializedName("ignorePlurals")
-  private String ignorePlurals;
+  private IgnorePlurals ignorePlurals;
 
   @SerializedName("removeStopWords")
-  private String removeStopWords;
+  private RemoveStopWords removeStopWords;
 
   @SerializedName("keepDiacriticsOnCharacters")
   private String keepDiacriticsOnCharacters;
@@ -323,22 +320,6 @@ public class IndexSettings {
     return indexLanguages;
   }
 
-  public IndexSettings setFilterPromotes(Boolean filterPromotes) {
-    this.filterPromotes = filterPromotes;
-    return this;
-  }
-
-  /**
-   * Whether promoted results should match the filters of the current search, except for geographic
-   * filters.
-   *
-   * @return filterPromotes
-   */
-  @javax.annotation.Nullable
-  public Boolean getFilterPromotes() {
-    return filterPromotes;
-  }
-
   public IndexSettings setDisablePrefixOnAttributes(List<String> disablePrefixOnAttributes) {
     this.disablePrefixOnAttributes = disablePrefixOnAttributes;
     return this;
@@ -400,19 +381,19 @@ public class IndexSettings {
     return numericAttributesForFiltering;
   }
 
-  public IndexSettings setUserData(Object userData) {
-    this.userData = userData;
+  public IndexSettings setSeparatorsToIndex(String separatorsToIndex) {
+    this.separatorsToIndex = separatorsToIndex;
     return this;
   }
 
   /**
-   * Lets you store custom data in your indices.
+   * Control which separators are indexed.
    *
-   * @return userData
+   * @return separatorsToIndex
    */
   @javax.annotation.Nullable
-  public Object getUserData() {
-    return userData;
+  public String getSeparatorsToIndex() {
+    return separatorsToIndex;
   }
 
   public IndexSettings setSearchableAttributes(List<String> searchableAttributes) {
@@ -436,6 +417,21 @@ public class IndexSettings {
   @javax.annotation.Nullable
   public List<String> getSearchableAttributes() {
     return searchableAttributes;
+  }
+
+  public IndexSettings setUserData(Object userData) {
+    this.userData = userData;
+    return this;
+  }
+
+  /**
+   * Lets you store custom data in your indices.
+   *
+   * @return userData
+   */
+  @javax.annotation.Nullable
+  public Object getUserData() {
+    return userData;
   }
 
   public IndexSettings setAttributesForFaceting(List<String> attributesForFaceting) {
@@ -798,48 +794,33 @@ public class IndexSettings {
     return disableTypoToleranceOnAttributes;
   }
 
-  public IndexSettings setSeparatorsToIndex(String separatorsToIndex) {
-    this.separatorsToIndex = separatorsToIndex;
-    return this;
-  }
-
-  /**
-   * Control which separators are indexed.
-   *
-   * @return separatorsToIndex
-   */
-  @javax.annotation.Nullable
-  public String getSeparatorsToIndex() {
-    return separatorsToIndex;
-  }
-
-  public IndexSettings setIgnorePlurals(String ignorePlurals) {
+  public IndexSettings setIgnorePlurals(IgnorePlurals ignorePlurals) {
     this.ignorePlurals = ignorePlurals;
     return this;
   }
 
   /**
-   * Treats singular, plurals, and other forms of declensions as matching terms.
+   * Get ignorePlurals
    *
    * @return ignorePlurals
    */
   @javax.annotation.Nullable
-  public String getIgnorePlurals() {
+  public IgnorePlurals getIgnorePlurals() {
     return ignorePlurals;
   }
 
-  public IndexSettings setRemoveStopWords(String removeStopWords) {
+  public IndexSettings setRemoveStopWords(RemoveStopWords removeStopWords) {
     this.removeStopWords = removeStopWords;
     return this;
   }
 
   /**
-   * Removes stop (common) words from the query before executing it.
+   * Get removeStopWords
    *
    * @return removeStopWords
    */
   @javax.annotation.Nullable
-  public String getRemoveStopWords() {
+  public RemoveStopWords getRemoveStopWords() {
     return removeStopWords;
   }
 
@@ -1230,12 +1211,12 @@ public class IndexSettings {
       Objects.equals(this.camelCaseAttributes, indexSettings.camelCaseAttributes) &&
       Objects.equals(this.decompoundedAttributes, indexSettings.decompoundedAttributes) &&
       Objects.equals(this.indexLanguages, indexSettings.indexLanguages) &&
-      Objects.equals(this.filterPromotes, indexSettings.filterPromotes) &&
       Objects.equals(this.disablePrefixOnAttributes, indexSettings.disablePrefixOnAttributes) &&
       Objects.equals(this.allowCompressionOfIntegerArray, indexSettings.allowCompressionOfIntegerArray) &&
       Objects.equals(this.numericAttributesForFiltering, indexSettings.numericAttributesForFiltering) &&
-      Objects.equals(this.userData, indexSettings.userData) &&
+      Objects.equals(this.separatorsToIndex, indexSettings.separatorsToIndex) &&
       Objects.equals(this.searchableAttributes, indexSettings.searchableAttributes) &&
+      Objects.equals(this.userData, indexSettings.userData) &&
       Objects.equals(this.attributesForFaceting, indexSettings.attributesForFaceting) &&
       Objects.equals(this.unretrievableAttributes, indexSettings.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, indexSettings.attributesToRetrieve) &&
@@ -1255,7 +1236,6 @@ public class IndexSettings {
       Objects.equals(this.typoTolerance, indexSettings.typoTolerance) &&
       Objects.equals(this.allowTyposOnNumericTokens, indexSettings.allowTyposOnNumericTokens) &&
       Objects.equals(this.disableTypoToleranceOnAttributes, indexSettings.disableTypoToleranceOnAttributes) &&
-      Objects.equals(this.separatorsToIndex, indexSettings.separatorsToIndex) &&
       Objects.equals(this.ignorePlurals, indexSettings.ignorePlurals) &&
       Objects.equals(this.removeStopWords, indexSettings.removeStopWords) &&
       Objects.equals(this.keepDiacriticsOnCharacters, indexSettings.keepDiacriticsOnCharacters) &&
@@ -1292,12 +1272,12 @@ public class IndexSettings {
       camelCaseAttributes,
       decompoundedAttributes,
       indexLanguages,
-      filterPromotes,
       disablePrefixOnAttributes,
       allowCompressionOfIntegerArray,
       numericAttributesForFiltering,
-      userData,
+      separatorsToIndex,
       searchableAttributes,
+      userData,
       attributesForFaceting,
       unretrievableAttributes,
       attributesToRetrieve,
@@ -1317,7 +1297,6 @@ public class IndexSettings {
       typoTolerance,
       allowTyposOnNumericTokens,
       disableTypoToleranceOnAttributes,
-      separatorsToIndex,
       ignorePlurals,
       removeStopWords,
       keepDiacriticsOnCharacters,
@@ -1355,12 +1334,12 @@ public class IndexSettings {
     sb.append("    camelCaseAttributes: ").append(toIndentedString(camelCaseAttributes)).append("\n");
     sb.append("    decompoundedAttributes: ").append(toIndentedString(decompoundedAttributes)).append("\n");
     sb.append("    indexLanguages: ").append(toIndentedString(indexLanguages)).append("\n");
-    sb.append("    filterPromotes: ").append(toIndentedString(filterPromotes)).append("\n");
     sb.append("    disablePrefixOnAttributes: ").append(toIndentedString(disablePrefixOnAttributes)).append("\n");
     sb.append("    allowCompressionOfIntegerArray: ").append(toIndentedString(allowCompressionOfIntegerArray)).append("\n");
     sb.append("    numericAttributesForFiltering: ").append(toIndentedString(numericAttributesForFiltering)).append("\n");
-    sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
     sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
+    sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
     sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
@@ -1380,7 +1359,6 @@ public class IndexSettings {
     sb.append("    typoTolerance: ").append(toIndentedString(typoTolerance)).append("\n");
     sb.append("    allowTyposOnNumericTokens: ").append(toIndentedString(allowTyposOnNumericTokens)).append("\n");
     sb.append("    disableTypoToleranceOnAttributes: ").append(toIndentedString(disableTypoToleranceOnAttributes)).append("\n");
-    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
     sb.append("    ignorePlurals: ").append(toIndentedString(ignorePlurals)).append("\n");
     sb.append("    removeStopWords: ").append(toIndentedString(removeStopWords)).append("\n");
     sb.append("    keepDiacriticsOnCharacters: ").append(toIndentedString(keepDiacriticsOnCharacters)).append("\n");

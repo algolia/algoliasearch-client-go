@@ -2513,6 +2513,304 @@ class SearchClientRequestsTests {
   }
 
   @Test
+  @DisplayName("search with all search parameters")
+  void searchTest6() {
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
+    {
+      List<SearchQuery> requests1 = new ArrayList<>();
+      {
+        SearchForHits requests_02 = new SearchForHits();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+          String query3 = "";
+          requests_02.setQuery(query3);
+          String similarQuery3 = "";
+          requests_02.setSimilarQuery(similarQuery3);
+          String filters3 = "";
+          requests_02.setFilters(filters3);
+          List<String> facetFilters3 = new ArrayList<>();
+          {
+            String facetFilters_04 = "";
+            facetFilters3.add(facetFilters_04);
+          }
+          requests_02.setFacetFilters(FacetFilters.ofListString(facetFilters3));
+          List<String> optionalFilters3 = new ArrayList<>();
+          {
+            String optionalFilters_04 = "";
+            optionalFilters3.add(optionalFilters_04);
+          }
+          requests_02.setOptionalFilters(OptionalFilters.ofListString(optionalFilters3));
+          List<String> numericFilters3 = new ArrayList<>();
+          {
+            String numericFilters_04 = "";
+            numericFilters3.add(numericFilters_04);
+          }
+          requests_02.setNumericFilters(NumericFilters.ofListString(numericFilters3));
+          List<String> tagFilters3 = new ArrayList<>();
+          {
+            String tagFilters_04 = "";
+            tagFilters3.add(tagFilters_04);
+          }
+          requests_02.setTagFilters(TagFilters.ofListString(tagFilters3));
+          boolean sumOrFiltersScores3 = true;
+          requests_02.setSumOrFiltersScores(sumOrFiltersScores3);
+          List<String> facets3 = new ArrayList<>();
+          {
+            String facets_04 = "";
+            facets3.add(facets_04);
+          }
+          requests_02.setFacets(facets3);
+          int maxValuesPerFacet3 = 0;
+          requests_02.setMaxValuesPerFacet(maxValuesPerFacet3);
+          boolean facetingAfterDistinct3 = true;
+          requests_02.setFacetingAfterDistinct(facetingAfterDistinct3);
+          String sortFacetValuesBy3 = "";
+          requests_02.setSortFacetValuesBy(sortFacetValuesBy3);
+          int page3 = 0;
+          requests_02.setPage(page3);
+          int offset3 = 0;
+          requests_02.setOffset(offset3);
+          int length3 = 0;
+          requests_02.setLength(length3);
+          String aroundLatLng3 = "";
+          requests_02.setAroundLatLng(aroundLatLng3);
+          boolean aroundLatLngViaIP3 = true;
+          requests_02.setAroundLatLngViaIP(aroundLatLngViaIP3);
+          AroundRadiusAll aroundRadius3 = AroundRadiusAll.fromValue("all");
+          requests_02.setAroundRadius(AroundRadius.ofAroundRadiusAll(aroundRadius3));
+          int aroundPrecision3 = 0;
+          requests_02.setAroundPrecision(aroundPrecision3);
+          int minimumAroundRadius3 = 0;
+          requests_02.setMinimumAroundRadius(minimumAroundRadius3);
+          List<Double> insideBoundingBox3 = new ArrayList<>();
+          {
+            double insideBoundingBox_04 = 47.3165;
+            insideBoundingBox3.add(insideBoundingBox_04);
+            double insideBoundingBox_14 = 4.9665;
+            insideBoundingBox3.add(insideBoundingBox_14);
+          }
+          requests_02.setInsideBoundingBox(insideBoundingBox3);
+          List<Double> insidePolygon3 = new ArrayList<>();
+          {
+            double insidePolygon_04 = 47.3165;
+            insidePolygon3.add(insidePolygon_04);
+            double insidePolygon_14 = 4.9665;
+            insidePolygon3.add(insidePolygon_14);
+          }
+          requests_02.setInsidePolygon(insidePolygon3);
+          List<String> naturalLanguages3 = new ArrayList<>();
+          {
+            String naturalLanguages_04 = "";
+            naturalLanguages3.add(naturalLanguages_04);
+          }
+          requests_02.setNaturalLanguages(naturalLanguages3);
+          List<String> ruleContexts3 = new ArrayList<>();
+          {
+            String ruleContexts_04 = "";
+            ruleContexts3.add(ruleContexts_04);
+          }
+          requests_02.setRuleContexts(ruleContexts3);
+          int personalizationImpact3 = 0;
+          requests_02.setPersonalizationImpact(personalizationImpact3);
+          String userToken3 = "";
+          requests_02.setUserToken(userToken3);
+          boolean getRankingInfo3 = true;
+          requests_02.setGetRankingInfo(getRankingInfo3);
+          boolean clickAnalytics3 = true;
+          requests_02.setClickAnalytics(clickAnalytics3);
+          boolean analytics3 = true;
+          requests_02.setAnalytics(analytics3);
+          List<String> analyticsTags3 = new ArrayList<>();
+          {
+            String analyticsTags_04 = "";
+            analyticsTags3.add(analyticsTags_04);
+          }
+          requests_02.setAnalyticsTags(analyticsTags3);
+          boolean percentileComputation3 = true;
+          requests_02.setPercentileComputation(percentileComputation3);
+          boolean enableABTest3 = true;
+          requests_02.setEnableABTest(enableABTest3);
+          boolean enableReRanking3 = true;
+          requests_02.setEnableReRanking(enableReRanking3);
+          List<String> reRankingApplyFilter3 = new ArrayList<>();
+          {
+            String reRankingApplyFilter_04 = "";
+            reRankingApplyFilter3.add(reRankingApplyFilter_04);
+          }
+          requests_02.setReRankingApplyFilter(ReRankingApplyFilter.ofListString(reRankingApplyFilter3));
+          List<String> attributesForFaceting3 = new ArrayList<>();
+          {
+            String attributesForFaceting_04 = "";
+            attributesForFaceting3.add(attributesForFaceting_04);
+          }
+          requests_02.setAttributesForFaceting(attributesForFaceting3);
+          List<String> unretrievableAttributes3 = new ArrayList<>();
+          {
+            String unretrievableAttributes_04 = "";
+            unretrievableAttributes3.add(unretrievableAttributes_04);
+          }
+          requests_02.setUnretrievableAttributes(unretrievableAttributes3);
+          List<String> attributesToRetrieve3 = new ArrayList<>();
+          {
+            String attributesToRetrieve_04 = "";
+            attributesToRetrieve3.add(attributesToRetrieve_04);
+          }
+          requests_02.setAttributesToRetrieve(attributesToRetrieve3);
+          List<String> restrictSearchableAttributes3 = new ArrayList<>();
+          {
+            String restrictSearchableAttributes_04 = "";
+            restrictSearchableAttributes3.add(restrictSearchableAttributes_04);
+          }
+          requests_02.setRestrictSearchableAttributes(restrictSearchableAttributes3);
+          List<String> ranking3 = new ArrayList<>();
+          {
+            String ranking_04 = "";
+            ranking3.add(ranking_04);
+          }
+          requests_02.setRanking(ranking3);
+          List<String> customRanking3 = new ArrayList<>();
+          {
+            String customRanking_04 = "";
+            customRanking3.add(customRanking_04);
+          }
+          requests_02.setCustomRanking(customRanking3);
+          int relevancyStrictness3 = 0;
+          requests_02.setRelevancyStrictness(relevancyStrictness3);
+          List<String> attributesToHighlight3 = new ArrayList<>();
+          {
+            String attributesToHighlight_04 = "";
+            attributesToHighlight3.add(attributesToHighlight_04);
+          }
+          requests_02.setAttributesToHighlight(attributesToHighlight3);
+          List<String> attributesToSnippet3 = new ArrayList<>();
+          {
+            String attributesToSnippet_04 = "";
+            attributesToSnippet3.add(attributesToSnippet_04);
+          }
+          requests_02.setAttributesToSnippet(attributesToSnippet3);
+          String highlightPreTag3 = "";
+          requests_02.setHighlightPreTag(highlightPreTag3);
+          String highlightPostTag3 = "";
+          requests_02.setHighlightPostTag(highlightPostTag3);
+          String snippetEllipsisText3 = "";
+          requests_02.setSnippetEllipsisText(snippetEllipsisText3);
+          boolean restrictHighlightAndSnippetArrays3 = true;
+          requests_02.setRestrictHighlightAndSnippetArrays(restrictHighlightAndSnippetArrays3);
+          int hitsPerPage3 = 0;
+          requests_02.setHitsPerPage(hitsPerPage3);
+          int minWordSizefor1Typo3 = 0;
+          requests_02.setMinWordSizefor1Typo(minWordSizefor1Typo3);
+          int minWordSizefor2Typos3 = 0;
+          requests_02.setMinWordSizefor2Typos(minWordSizefor2Typos3);
+          TypoTolerance typoTolerance3 = TypoTolerance.fromValue("min");
+          requests_02.setTypoTolerance(typoTolerance3);
+          boolean allowTyposOnNumericTokens3 = true;
+          requests_02.setAllowTyposOnNumericTokens(allowTyposOnNumericTokens3);
+          List<String> disableTypoToleranceOnAttributes3 = new ArrayList<>();
+          {
+            String disableTypoToleranceOnAttributes_04 = "";
+            disableTypoToleranceOnAttributes3.add(disableTypoToleranceOnAttributes_04);
+          }
+          requests_02.setDisableTypoToleranceOnAttributes(disableTypoToleranceOnAttributes3);
+          boolean ignorePlurals3 = false;
+          requests_02.setIgnorePlurals(IgnorePlurals.ofBoolean(ignorePlurals3));
+          boolean removeStopWords3 = true;
+          requests_02.setRemoveStopWords(RemoveStopWords.ofBoolean(removeStopWords3));
+          String keepDiacriticsOnCharacters3 = "";
+          requests_02.setKeepDiacriticsOnCharacters(keepDiacriticsOnCharacters3);
+          List<String> queryLanguages3 = new ArrayList<>();
+          {
+            String queryLanguages_04 = "";
+            queryLanguages3.add(queryLanguages_04);
+          }
+          requests_02.setQueryLanguages(queryLanguages3);
+          boolean decompoundQuery3 = true;
+          requests_02.setDecompoundQuery(decompoundQuery3);
+          boolean enableRules3 = true;
+          requests_02.setEnableRules(enableRules3);
+          boolean enablePersonalization3 = true;
+          requests_02.setEnablePersonalization(enablePersonalization3);
+          QueryType queryType3 = QueryType.fromValue("prefixAll");
+          requests_02.setQueryType(queryType3);
+          RemoveWordsIfNoResults removeWordsIfNoResults3 = RemoveWordsIfNoResults.fromValue("allOptional");
+          requests_02.setRemoveWordsIfNoResults(removeWordsIfNoResults3);
+          boolean advancedSyntax3 = true;
+          requests_02.setAdvancedSyntax(advancedSyntax3);
+          List<String> optionalWords3 = new ArrayList<>();
+          {
+            String optionalWords_04 = "";
+            optionalWords3.add(optionalWords_04);
+          }
+          requests_02.setOptionalWords(optionalWords3);
+          List<String> disableExactOnAttributes3 = new ArrayList<>();
+          {
+            String disableExactOnAttributes_04 = "";
+            disableExactOnAttributes3.add(disableExactOnAttributes_04);
+          }
+          requests_02.setDisableExactOnAttributes(disableExactOnAttributes3);
+          ExactOnSingleWordQuery exactOnSingleWordQuery3 = ExactOnSingleWordQuery.fromValue("attribute");
+          requests_02.setExactOnSingleWordQuery(exactOnSingleWordQuery3);
+          List<AlternativesAsExact> alternativesAsExact3 = new ArrayList<>();
+          {
+            AlternativesAsExact alternativesAsExact_04 = AlternativesAsExact.fromValue("multiWordsSynonym");
+            alternativesAsExact3.add(alternativesAsExact_04);
+          }
+          requests_02.setAlternativesAsExact(alternativesAsExact3);
+          List<AdvancedSyntaxFeatures> advancedSyntaxFeatures3 = new ArrayList<>();
+          {
+            AdvancedSyntaxFeatures advancedSyntaxFeatures_04 = AdvancedSyntaxFeatures.fromValue("exactPhrase");
+            advancedSyntaxFeatures3.add(advancedSyntaxFeatures_04);
+          }
+          requests_02.setAdvancedSyntaxFeatures(advancedSyntaxFeatures3);
+          int distinct3 = 0;
+          requests_02.setDistinct(distinct3);
+          boolean synonyms3 = true;
+          requests_02.setSynonyms(synonyms3);
+          boolean replaceSynonymsInHighlight3 = true;
+          requests_02.setReplaceSynonymsInHighlight(replaceSynonymsInHighlight3);
+          int minProximity3 = 0;
+          requests_02.setMinProximity(minProximity3);
+          List<String> responseFields3 = new ArrayList<>();
+          {
+            String responseFields_04 = "";
+            responseFields3.add(responseFields_04);
+          }
+          requests_02.setResponseFields(responseFields3);
+          boolean attributeCriteriaComputedByMinProximity3 = true;
+          requests_02.setAttributeCriteriaComputedByMinProximity(attributeCriteriaComputedByMinProximity3);
+          Map<String, String> renderingContent3 = new HashMap<>();
+          {
+            String string4 = "any";
+            renderingContent3.put("string", string4);
+          }
+          requests_02.setRenderingContent(renderingContent3);
+          SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
+          requests_02.setType(type3);
+        }
+        requests1.add(SearchQuery.ofSearchForHits(requests_02));
+      }
+      searchMethodParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.search(searchMethodParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"\",\"similarQuery\":\"\",\"filters\":\"\",\"facetFilters\":[\"\"],\"optionalFilters\":[\"\"],\"numericFilters\":[\"\"],\"tagFilters\":[\"\"],\"sumOrFiltersScores\":true,\"facets\":[\"\"],\"maxValuesPerFacet\":0,\"facetingAfterDistinct\":true,\"sortFacetValuesBy\":\"\",\"page\":0,\"offset\":0,\"length\":0,\"aroundLatLng\":\"\",\"aroundLatLngViaIP\":true,\"aroundRadius\":\"all\",\"aroundPrecision\":0,\"minimumAroundRadius\":0,\"insideBoundingBox\":[47.3165,4.9665],\"insidePolygon\":[47.3165,4.9665],\"naturalLanguages\":[\"\"],\"ruleContexts\":[\"\"],\"personalizationImpact\":0,\"userToken\":\"\",\"getRankingInfo\":true,\"clickAnalytics\":true,\"analytics\":true,\"analyticsTags\":[\"\"],\"percentileComputation\":true,\"enableABTest\":true,\"enableReRanking\":true,\"reRankingApplyFilter\":[\"\"],\"attributesForFaceting\":[\"\"],\"unretrievableAttributes\":[\"\"],\"attributesToRetrieve\":[\"\"],\"restrictSearchableAttributes\":[\"\"],\"ranking\":[\"\"],\"customRanking\":[\"\"],\"relevancyStrictness\":0,\"attributesToHighlight\":[\"\"],\"attributesToSnippet\":[\"\"],\"highlightPreTag\":\"\",\"highlightPostTag\":\"\",\"snippetEllipsisText\":\"\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":0,\"minWordSizefor1Typo\":0,\"minWordSizefor2Typos\":0,\"typoTolerance\":\"min\",\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"\"],\"ignorePlurals\":false,\"removeStopWords\":true,\"keepDiacriticsOnCharacters\":\"\",\"queryLanguages\":[\"\"],\"decompoundQuery\":true,\"enableRules\":true,\"enablePersonalization\":true,\"queryType\":\"prefixAll\",\"removeWordsIfNoResults\":\"allOptional\",\"advancedSyntax\":true,\"optionalWords\":[\"\"],\"disableExactOnAttributes\":[\"\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"multiWordsSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":0,\"synonyms\":true,\"replaceSynonymsInHighlight\":true,\"minProximity\":0,\"responseFields\":[\"\"],\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"string\":\"any\"},\"type\":\"default\"}]}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
   @DisplayName("get searchDictionaryEntries results with minimal parameters")
   void searchDictionaryEntriesTest0() {
     DictionaryType dictionaryName0 = DictionaryType.fromValue("compounds");

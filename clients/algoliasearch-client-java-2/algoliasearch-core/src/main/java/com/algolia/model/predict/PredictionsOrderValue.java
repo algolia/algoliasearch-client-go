@@ -1,19 +1,18 @@
 package com.algolia.model.predict;
 
 import com.google.gson.annotations.SerializedName;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /** Prediction for the **order_value** model. */
 public class PredictionsOrderValue {
 
   @SerializedName("value")
-  private BigDecimal value;
+  private Double value;
 
   @SerializedName("lastUpdatedAt")
   private String lastUpdatedAt;
 
-  public PredictionsOrderValue setValue(BigDecimal value) {
+  public PredictionsOrderValue setValue(Double value) {
     this.value = value;
     return this;
   }
@@ -24,7 +23,7 @@ public class PredictionsOrderValue {
    * @return value
    */
   @javax.annotation.Nullable
-  public BigDecimal getValue() {
+  public Double getValue() {
     return value;
   }
 

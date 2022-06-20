@@ -197,11 +197,13 @@ components:
           type: array
           items:
             type: number
+            format: double
           description: Search inside a rectangular area (in geo coordinates).
         insidePolygon:
           type: array
           items:
             type: number
+            format: double
           description: Search inside a polygon (in geo coordinates).
         naturalLanguages:
           type: array
@@ -278,6 +280,46 @@ components:
         - strict
       description: Controls whether typo tolerance is enabled and how it is applied.
       default: true
+    ignorePlurals:
+      description: >
+        Treats singular, plurals, and other forms of declensions as matching
+        terms.
+
+        ignorePlurals is used in conjunction with the queryLanguages setting.
+
+        list: language ISO codes for which ignoring plurals should be enabled.
+        This list will override any values that you may have set in
+        queryLanguages. true: enables the ignore plurals functionality, where
+        singulars and plurals are considered equivalent (foot = feet). The
+        languages supported here are either every language (this is the default,
+        see list of languages below), or those set by queryLanguages. false:
+        disables ignore plurals, where singulars and plurals are not considered
+        the same for matching purposes (foot will not find feet).
+      oneOf:
+        - type: array
+          items:
+            type: string
+        - type: boolean
+          default: false
+    removeStopWords:
+      description: >
+        Removes stop (common) words from the query before executing it.
+
+        removeStopWords is used in conjunction with the queryLanguages setting.
+
+        list: language ISO codes for which ignoring plurals should be enabled.
+        This list will override any values that you may have set in
+        queryLanguages. true: enables the stop word functionality, ensuring that
+        stop words are removed from consideration in a search. The languages
+        supported here are either every language, or those set by
+        queryLanguages. false: disables stop word functionality, allowing stop
+        words to be taken into account in a search.
+      oneOf:
+        - type: array
+          items:
+            type: string
+        - type: boolean
+          default: false
     queryType:
       type: string
       enum:
@@ -330,12 +372,6 @@ components:
       type: object
       additionalProperties: false
       properties:
-        searchableAttributes:
-          type: array
-          items:
-            type: string
-          description: The complete list of attributes used for searching.
-          default: []
         attributesForFaceting:
           type: array
           items:
@@ -454,20 +490,10 @@ components:
             type: string
           description: List of attributes on which you want to disable typo tolerance.
           default: []
-        separatorsToIndex:
-          type: string
-          description: Control which separators are indexed.
-          default: ''
         ignorePlurals:
-          type: string
-          description: >-
-            Treats singular, plurals, and other forms of declensions as matching
-            terms.
-          default: false
+          $ref: '#/components/schemas/ignorePlurals'
         removeStopWords:
-          type: string
-          description: Removes stop (common) words from the query before executing it.
-          default: false
+          $ref: '#/components/schemas/removeStopWords'
         keepDiacriticsOnCharacters:
           type: string
           description: >-

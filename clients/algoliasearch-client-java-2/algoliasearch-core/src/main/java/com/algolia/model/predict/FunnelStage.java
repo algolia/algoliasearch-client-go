@@ -1,7 +1,6 @@
 package com.algolia.model.predict;
 
 import com.google.gson.annotations.SerializedName;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /** FunnelStage */
@@ -11,7 +10,7 @@ public class FunnelStage {
   private String name;
 
   @SerializedName("probability")
-  private BigDecimal probability;
+  private Double probability;
 
   public FunnelStage setName(String name) {
     this.name = name;
@@ -28,7 +27,7 @@ public class FunnelStage {
     return name;
   }
 
-  public FunnelStage setProbability(BigDecimal probability) {
+  public FunnelStage setProbability(Double probability) {
     this.probability = probability;
     return this;
   }
@@ -39,7 +38,7 @@ public class FunnelStage {
    * @return probability
    */
   @javax.annotation.Nullable
-  public BigDecimal getProbability() {
+  public Double getProbability() {
     return probability;
   }
 

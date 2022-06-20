@@ -29,9 +29,6 @@ public class BaseIndexSettings {
   @SerializedName("indexLanguages")
   private List<String> indexLanguages;
 
-  @SerializedName("filterPromotes")
-  private Boolean filterPromotes;
-
   @SerializedName("disablePrefixOnAttributes")
   private List<String> disablePrefixOnAttributes;
 
@@ -40,6 +37,12 @@ public class BaseIndexSettings {
 
   @SerializedName("numericAttributesForFiltering")
   private List<String> numericAttributesForFiltering;
+
+  @SerializedName("separatorsToIndex")
+  private String separatorsToIndex;
+
+  @SerializedName("searchableAttributes")
+  private List<String> searchableAttributes;
 
   @SerializedName("userData")
   private Object userData;
@@ -191,22 +194,6 @@ public class BaseIndexSettings {
     return indexLanguages;
   }
 
-  public BaseIndexSettings setFilterPromotes(Boolean filterPromotes) {
-    this.filterPromotes = filterPromotes;
-    return this;
-  }
-
-  /**
-   * Whether promoted results should match the filters of the current search, except for geographic
-   * filters.
-   *
-   * @return filterPromotes
-   */
-  @javax.annotation.Nullable
-  public Boolean getFilterPromotes() {
-    return filterPromotes;
-  }
-
   public BaseIndexSettings setDisablePrefixOnAttributes(List<String> disablePrefixOnAttributes) {
     this.disablePrefixOnAttributes = disablePrefixOnAttributes;
     return this;
@@ -268,6 +255,44 @@ public class BaseIndexSettings {
     return numericAttributesForFiltering;
   }
 
+  public BaseIndexSettings setSeparatorsToIndex(String separatorsToIndex) {
+    this.separatorsToIndex = separatorsToIndex;
+    return this;
+  }
+
+  /**
+   * Control which separators are indexed.
+   *
+   * @return separatorsToIndex
+   */
+  @javax.annotation.Nullable
+  public String getSeparatorsToIndex() {
+    return separatorsToIndex;
+  }
+
+  public BaseIndexSettings setSearchableAttributes(List<String> searchableAttributes) {
+    this.searchableAttributes = searchableAttributes;
+    return this;
+  }
+
+  public BaseIndexSettings addSearchableAttributes(String searchableAttributesItem) {
+    if (this.searchableAttributes == null) {
+      this.searchableAttributes = new ArrayList<>();
+    }
+    this.searchableAttributes.add(searchableAttributesItem);
+    return this;
+  }
+
+  /**
+   * The complete list of attributes used for searching.
+   *
+   * @return searchableAttributes
+   */
+  @javax.annotation.Nullable
+  public List<String> getSearchableAttributes() {
+    return searchableAttributes;
+  }
+
   public BaseIndexSettings setUserData(Object userData) {
     this.userData = userData;
     return this;
@@ -300,10 +325,11 @@ public class BaseIndexSettings {
       Objects.equals(this.camelCaseAttributes, baseIndexSettings.camelCaseAttributes) &&
       Objects.equals(this.decompoundedAttributes, baseIndexSettings.decompoundedAttributes) &&
       Objects.equals(this.indexLanguages, baseIndexSettings.indexLanguages) &&
-      Objects.equals(this.filterPromotes, baseIndexSettings.filterPromotes) &&
       Objects.equals(this.disablePrefixOnAttributes, baseIndexSettings.disablePrefixOnAttributes) &&
       Objects.equals(this.allowCompressionOfIntegerArray, baseIndexSettings.allowCompressionOfIntegerArray) &&
       Objects.equals(this.numericAttributesForFiltering, baseIndexSettings.numericAttributesForFiltering) &&
+      Objects.equals(this.separatorsToIndex, baseIndexSettings.separatorsToIndex) &&
+      Objects.equals(this.searchableAttributes, baseIndexSettings.searchableAttributes) &&
       Objects.equals(this.userData, baseIndexSettings.userData)
     );
   }
@@ -318,10 +344,11 @@ public class BaseIndexSettings {
       camelCaseAttributes,
       decompoundedAttributes,
       indexLanguages,
-      filterPromotes,
       disablePrefixOnAttributes,
       allowCompressionOfIntegerArray,
       numericAttributesForFiltering,
+      separatorsToIndex,
+      searchableAttributes,
       userData
     );
   }
@@ -337,10 +364,11 @@ public class BaseIndexSettings {
     sb.append("    camelCaseAttributes: ").append(toIndentedString(camelCaseAttributes)).append("\n");
     sb.append("    decompoundedAttributes: ").append(toIndentedString(decompoundedAttributes)).append("\n");
     sb.append("    indexLanguages: ").append(toIndentedString(indexLanguages)).append("\n");
-    sb.append("    filterPromotes: ").append(toIndentedString(filterPromotes)).append("\n");
     sb.append("    disablePrefixOnAttributes: ").append(toIndentedString(disablePrefixOnAttributes)).append("\n");
     sb.append("    allowCompressionOfIntegerArray: ").append(toIndentedString(allowCompressionOfIntegerArray)).append("\n");
     sb.append("    numericAttributesForFiltering: ").append(toIndentedString(numericAttributesForFiltering)).append("\n");
+    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
+    sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
     sb.append("}");
     return sb.toString();

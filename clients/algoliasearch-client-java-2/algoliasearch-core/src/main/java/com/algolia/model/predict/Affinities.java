@@ -1,7 +1,6 @@
 package com.algolia.model.predict;
 
 import com.google.gson.annotations.SerializedName;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /** Affinities */
@@ -14,7 +13,7 @@ public class Affinities {
   private String value;
 
   @SerializedName("probability")
-  private BigDecimal probability;
+  private Double probability;
 
   public Affinities setName(String name) {
     this.name = name;
@@ -46,7 +45,7 @@ public class Affinities {
     return value;
   }
 
-  public Affinities setProbability(BigDecimal probability) {
+  public Affinities setProbability(Double probability) {
     this.probability = probability;
     return this;
   }
@@ -57,7 +56,7 @@ public class Affinities {
    * @return probability
    */
   @javax.annotation.Nullable
-  public BigDecimal getProbability() {
+  public Double getProbability() {
     return probability;
   }
 

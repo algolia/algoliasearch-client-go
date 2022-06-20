@@ -1,7 +1,6 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -73,10 +72,10 @@ public class SearchForFacets {
   private Integer minimumAroundRadius;
 
   @SerializedName("insideBoundingBox")
-  private List<BigDecimal> insideBoundingBox;
+  private List<Double> insideBoundingBox;
 
   @SerializedName("insidePolygon")
-  private List<BigDecimal> insidePolygon;
+  private List<Double> insidePolygon;
 
   @SerializedName("naturalLanguages")
   private List<String> naturalLanguages;
@@ -113,9 +112,6 @@ public class SearchForFacets {
 
   @SerializedName("reRankingApplyFilter")
   private ReRankingApplyFilter reRankingApplyFilter;
-
-  @SerializedName("searchableAttributes")
-  private List<String> searchableAttributes;
 
   @SerializedName("attributesForFaceting")
   private List<String> attributesForFaceting;
@@ -174,14 +170,11 @@ public class SearchForFacets {
   @SerializedName("disableTypoToleranceOnAttributes")
   private List<String> disableTypoToleranceOnAttributes;
 
-  @SerializedName("separatorsToIndex")
-  private String separatorsToIndex;
-
   @SerializedName("ignorePlurals")
-  private String ignorePlurals;
+  private IgnorePlurals ignorePlurals;
 
   @SerializedName("removeStopWords")
-  private String removeStopWords;
+  private RemoveStopWords removeStopWords;
 
   @SerializedName("keepDiacriticsOnCharacters")
   private String keepDiacriticsOnCharacters;
@@ -583,12 +576,12 @@ public class SearchForFacets {
     return minimumAroundRadius;
   }
 
-  public SearchForFacets setInsideBoundingBox(List<BigDecimal> insideBoundingBox) {
+  public SearchForFacets setInsideBoundingBox(List<Double> insideBoundingBox) {
     this.insideBoundingBox = insideBoundingBox;
     return this;
   }
 
-  public SearchForFacets addInsideBoundingBox(BigDecimal insideBoundingBoxItem) {
+  public SearchForFacets addInsideBoundingBox(Double insideBoundingBoxItem) {
     if (this.insideBoundingBox == null) {
       this.insideBoundingBox = new ArrayList<>();
     }
@@ -602,16 +595,16 @@ public class SearchForFacets {
    * @return insideBoundingBox
    */
   @javax.annotation.Nullable
-  public List<BigDecimal> getInsideBoundingBox() {
+  public List<Double> getInsideBoundingBox() {
     return insideBoundingBox;
   }
 
-  public SearchForFacets setInsidePolygon(List<BigDecimal> insidePolygon) {
+  public SearchForFacets setInsidePolygon(List<Double> insidePolygon) {
     this.insidePolygon = insidePolygon;
     return this;
   }
 
-  public SearchForFacets addInsidePolygon(BigDecimal insidePolygonItem) {
+  public SearchForFacets addInsidePolygon(Double insidePolygonItem) {
     if (this.insidePolygon == null) {
       this.insidePolygon = new ArrayList<>();
     }
@@ -625,7 +618,7 @@ public class SearchForFacets {
    * @return insidePolygon
    */
   @javax.annotation.Nullable
-  public List<BigDecimal> getInsidePolygon() {
+  public List<Double> getInsidePolygon() {
     return insidePolygon;
   }
 
@@ -835,29 +828,6 @@ public class SearchForFacets {
   @javax.annotation.Nullable
   public ReRankingApplyFilter getReRankingApplyFilter() {
     return reRankingApplyFilter;
-  }
-
-  public SearchForFacets setSearchableAttributes(List<String> searchableAttributes) {
-    this.searchableAttributes = searchableAttributes;
-    return this;
-  }
-
-  public SearchForFacets addSearchableAttributes(String searchableAttributesItem) {
-    if (this.searchableAttributes == null) {
-      this.searchableAttributes = new ArrayList<>();
-    }
-    this.searchableAttributes.add(searchableAttributesItem);
-    return this;
-  }
-
-  /**
-   * The complete list of attributes used for searching.
-   *
-   * @return searchableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getSearchableAttributes() {
-    return searchableAttributes;
   }
 
   public SearchForFacets setAttributesForFaceting(List<String> attributesForFaceting) {
@@ -1220,48 +1190,33 @@ public class SearchForFacets {
     return disableTypoToleranceOnAttributes;
   }
 
-  public SearchForFacets setSeparatorsToIndex(String separatorsToIndex) {
-    this.separatorsToIndex = separatorsToIndex;
-    return this;
-  }
-
-  /**
-   * Control which separators are indexed.
-   *
-   * @return separatorsToIndex
-   */
-  @javax.annotation.Nullable
-  public String getSeparatorsToIndex() {
-    return separatorsToIndex;
-  }
-
-  public SearchForFacets setIgnorePlurals(String ignorePlurals) {
+  public SearchForFacets setIgnorePlurals(IgnorePlurals ignorePlurals) {
     this.ignorePlurals = ignorePlurals;
     return this;
   }
 
   /**
-   * Treats singular, plurals, and other forms of declensions as matching terms.
+   * Get ignorePlurals
    *
    * @return ignorePlurals
    */
   @javax.annotation.Nullable
-  public String getIgnorePlurals() {
+  public IgnorePlurals getIgnorePlurals() {
     return ignorePlurals;
   }
 
-  public SearchForFacets setRemoveStopWords(String removeStopWords) {
+  public SearchForFacets setRemoveStopWords(RemoveStopWords removeStopWords) {
     this.removeStopWords = removeStopWords;
     return this;
   }
 
   /**
-   * Removes stop (common) words from the query before executing it.
+   * Get removeStopWords
    *
    * @return removeStopWords
    */
   @javax.annotation.Nullable
-  public String getRemoveStopWords() {
+  public RemoveStopWords getRemoveStopWords() {
     return removeStopWords;
   }
 
@@ -1740,7 +1695,6 @@ public class SearchForFacets {
       Objects.equals(this.enableABTest, searchForFacets.enableABTest) &&
       Objects.equals(this.enableReRanking, searchForFacets.enableReRanking) &&
       Objects.equals(this.reRankingApplyFilter, searchForFacets.reRankingApplyFilter) &&
-      Objects.equals(this.searchableAttributes, searchForFacets.searchableAttributes) &&
       Objects.equals(this.attributesForFaceting, searchForFacets.attributesForFaceting) &&
       Objects.equals(this.unretrievableAttributes, searchForFacets.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, searchForFacets.attributesToRetrieve) &&
@@ -1760,7 +1714,6 @@ public class SearchForFacets {
       Objects.equals(this.typoTolerance, searchForFacets.typoTolerance) &&
       Objects.equals(this.allowTyposOnNumericTokens, searchForFacets.allowTyposOnNumericTokens) &&
       Objects.equals(this.disableTypoToleranceOnAttributes, searchForFacets.disableTypoToleranceOnAttributes) &&
-      Objects.equals(this.separatorsToIndex, searchForFacets.separatorsToIndex) &&
       Objects.equals(this.ignorePlurals, searchForFacets.ignorePlurals) &&
       Objects.equals(this.removeStopWords, searchForFacets.removeStopWords) &&
       Objects.equals(this.keepDiacriticsOnCharacters, searchForFacets.keepDiacriticsOnCharacters) &&
@@ -1829,7 +1782,6 @@ public class SearchForFacets {
       enableABTest,
       enableReRanking,
       reRankingApplyFilter,
-      searchableAttributes,
       attributesForFaceting,
       unretrievableAttributes,
       attributesToRetrieve,
@@ -1849,7 +1801,6 @@ public class SearchForFacets {
       typoTolerance,
       allowTyposOnNumericTokens,
       disableTypoToleranceOnAttributes,
-      separatorsToIndex,
       ignorePlurals,
       removeStopWords,
       keepDiacriticsOnCharacters,
@@ -1919,7 +1870,6 @@ public class SearchForFacets {
     sb.append("    enableABTest: ").append(toIndentedString(enableABTest)).append("\n");
     sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
     sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
-    sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
     sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
@@ -1939,7 +1889,6 @@ public class SearchForFacets {
     sb.append("    typoTolerance: ").append(toIndentedString(typoTolerance)).append("\n");
     sb.append("    allowTyposOnNumericTokens: ").append(toIndentedString(allowTyposOnNumericTokens)).append("\n");
     sb.append("    disableTypoToleranceOnAttributes: ").append(toIndentedString(disableTypoToleranceOnAttributes)).append("\n");
-    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
     sb.append("    ignorePlurals: ").append(toIndentedString(ignorePlurals)).append("\n");
     sb.append("    removeStopWords: ").append(toIndentedString(removeStopWords)).append("\n");
     sb.append("    keepDiacriticsOnCharacters: ").append(toIndentedString(keepDiacriticsOnCharacters)).append("\n");

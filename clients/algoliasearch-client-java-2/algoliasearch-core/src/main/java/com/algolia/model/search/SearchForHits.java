@@ -1,7 +1,6 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -73,10 +72,10 @@ public class SearchForHits {
   private Integer minimumAroundRadius;
 
   @SerializedName("insideBoundingBox")
-  private List<BigDecimal> insideBoundingBox;
+  private List<Double> insideBoundingBox;
 
   @SerializedName("insidePolygon")
-  private List<BigDecimal> insidePolygon;
+  private List<Double> insidePolygon;
 
   @SerializedName("naturalLanguages")
   private List<String> naturalLanguages;
@@ -113,9 +112,6 @@ public class SearchForHits {
 
   @SerializedName("reRankingApplyFilter")
   private ReRankingApplyFilter reRankingApplyFilter;
-
-  @SerializedName("searchableAttributes")
-  private List<String> searchableAttributes;
 
   @SerializedName("attributesForFaceting")
   private List<String> attributesForFaceting;
@@ -174,14 +170,11 @@ public class SearchForHits {
   @SerializedName("disableTypoToleranceOnAttributes")
   private List<String> disableTypoToleranceOnAttributes;
 
-  @SerializedName("separatorsToIndex")
-  private String separatorsToIndex;
-
   @SerializedName("ignorePlurals")
-  private String ignorePlurals;
+  private IgnorePlurals ignorePlurals;
 
   @SerializedName("removeStopWords")
-  private String removeStopWords;
+  private RemoveStopWords removeStopWords;
 
   @SerializedName("keepDiacriticsOnCharacters")
   private String keepDiacriticsOnCharacters;
@@ -577,12 +570,12 @@ public class SearchForHits {
     return minimumAroundRadius;
   }
 
-  public SearchForHits setInsideBoundingBox(List<BigDecimal> insideBoundingBox) {
+  public SearchForHits setInsideBoundingBox(List<Double> insideBoundingBox) {
     this.insideBoundingBox = insideBoundingBox;
     return this;
   }
 
-  public SearchForHits addInsideBoundingBox(BigDecimal insideBoundingBoxItem) {
+  public SearchForHits addInsideBoundingBox(Double insideBoundingBoxItem) {
     if (this.insideBoundingBox == null) {
       this.insideBoundingBox = new ArrayList<>();
     }
@@ -596,16 +589,16 @@ public class SearchForHits {
    * @return insideBoundingBox
    */
   @javax.annotation.Nullable
-  public List<BigDecimal> getInsideBoundingBox() {
+  public List<Double> getInsideBoundingBox() {
     return insideBoundingBox;
   }
 
-  public SearchForHits setInsidePolygon(List<BigDecimal> insidePolygon) {
+  public SearchForHits setInsidePolygon(List<Double> insidePolygon) {
     this.insidePolygon = insidePolygon;
     return this;
   }
 
-  public SearchForHits addInsidePolygon(BigDecimal insidePolygonItem) {
+  public SearchForHits addInsidePolygon(Double insidePolygonItem) {
     if (this.insidePolygon == null) {
       this.insidePolygon = new ArrayList<>();
     }
@@ -619,7 +612,7 @@ public class SearchForHits {
    * @return insidePolygon
    */
   @javax.annotation.Nullable
-  public List<BigDecimal> getInsidePolygon() {
+  public List<Double> getInsidePolygon() {
     return insidePolygon;
   }
 
@@ -829,29 +822,6 @@ public class SearchForHits {
   @javax.annotation.Nullable
   public ReRankingApplyFilter getReRankingApplyFilter() {
     return reRankingApplyFilter;
-  }
-
-  public SearchForHits setSearchableAttributes(List<String> searchableAttributes) {
-    this.searchableAttributes = searchableAttributes;
-    return this;
-  }
-
-  public SearchForHits addSearchableAttributes(String searchableAttributesItem) {
-    if (this.searchableAttributes == null) {
-      this.searchableAttributes = new ArrayList<>();
-    }
-    this.searchableAttributes.add(searchableAttributesItem);
-    return this;
-  }
-
-  /**
-   * The complete list of attributes used for searching.
-   *
-   * @return searchableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getSearchableAttributes() {
-    return searchableAttributes;
   }
 
   public SearchForHits setAttributesForFaceting(List<String> attributesForFaceting) {
@@ -1214,48 +1184,33 @@ public class SearchForHits {
     return disableTypoToleranceOnAttributes;
   }
 
-  public SearchForHits setSeparatorsToIndex(String separatorsToIndex) {
-    this.separatorsToIndex = separatorsToIndex;
-    return this;
-  }
-
-  /**
-   * Control which separators are indexed.
-   *
-   * @return separatorsToIndex
-   */
-  @javax.annotation.Nullable
-  public String getSeparatorsToIndex() {
-    return separatorsToIndex;
-  }
-
-  public SearchForHits setIgnorePlurals(String ignorePlurals) {
+  public SearchForHits setIgnorePlurals(IgnorePlurals ignorePlurals) {
     this.ignorePlurals = ignorePlurals;
     return this;
   }
 
   /**
-   * Treats singular, plurals, and other forms of declensions as matching terms.
+   * Get ignorePlurals
    *
    * @return ignorePlurals
    */
   @javax.annotation.Nullable
-  public String getIgnorePlurals() {
+  public IgnorePlurals getIgnorePlurals() {
     return ignorePlurals;
   }
 
-  public SearchForHits setRemoveStopWords(String removeStopWords) {
+  public SearchForHits setRemoveStopWords(RemoveStopWords removeStopWords) {
     this.removeStopWords = removeStopWords;
     return this;
   }
 
   /**
-   * Removes stop (common) words from the query before executing it.
+   * Get removeStopWords
    *
    * @return removeStopWords
    */
   @javax.annotation.Nullable
-  public String getRemoveStopWords() {
+  public RemoveStopWords getRemoveStopWords() {
     return removeStopWords;
   }
 
@@ -1704,7 +1659,6 @@ public class SearchForHits {
       Objects.equals(this.enableABTest, searchForHits.enableABTest) &&
       Objects.equals(this.enableReRanking, searchForHits.enableReRanking) &&
       Objects.equals(this.reRankingApplyFilter, searchForHits.reRankingApplyFilter) &&
-      Objects.equals(this.searchableAttributes, searchForHits.searchableAttributes) &&
       Objects.equals(this.attributesForFaceting, searchForHits.attributesForFaceting) &&
       Objects.equals(this.unretrievableAttributes, searchForHits.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, searchForHits.attributesToRetrieve) &&
@@ -1724,7 +1678,6 @@ public class SearchForHits {
       Objects.equals(this.typoTolerance, searchForHits.typoTolerance) &&
       Objects.equals(this.allowTyposOnNumericTokens, searchForHits.allowTyposOnNumericTokens) &&
       Objects.equals(this.disableTypoToleranceOnAttributes, searchForHits.disableTypoToleranceOnAttributes) &&
-      Objects.equals(this.separatorsToIndex, searchForHits.separatorsToIndex) &&
       Objects.equals(this.ignorePlurals, searchForHits.ignorePlurals) &&
       Objects.equals(this.removeStopWords, searchForHits.removeStopWords) &&
       Objects.equals(this.keepDiacriticsOnCharacters, searchForHits.keepDiacriticsOnCharacters) &&
@@ -1791,7 +1744,6 @@ public class SearchForHits {
       enableABTest,
       enableReRanking,
       reRankingApplyFilter,
-      searchableAttributes,
       attributesForFaceting,
       unretrievableAttributes,
       attributesToRetrieve,
@@ -1811,7 +1763,6 @@ public class SearchForHits {
       typoTolerance,
       allowTyposOnNumericTokens,
       disableTypoToleranceOnAttributes,
-      separatorsToIndex,
       ignorePlurals,
       removeStopWords,
       keepDiacriticsOnCharacters,
@@ -1879,7 +1830,6 @@ public class SearchForHits {
     sb.append("    enableABTest: ").append(toIndentedString(enableABTest)).append("\n");
     sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
     sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
-    sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
     sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
@@ -1899,7 +1849,6 @@ public class SearchForHits {
     sb.append("    typoTolerance: ").append(toIndentedString(typoTolerance)).append("\n");
     sb.append("    allowTyposOnNumericTokens: ").append(toIndentedString(allowTyposOnNumericTokens)).append("\n");
     sb.append("    disableTypoToleranceOnAttributes: ").append(toIndentedString(disableTypoToleranceOnAttributes)).append("\n");
-    sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
     sb.append("    ignorePlurals: ").append(toIndentedString(ignorePlurals)).append("\n");
     sb.append("    removeStopWords: ").append(toIndentedString(removeStopWords)).append("\n");
     sb.append("    keepDiacriticsOnCharacters: ").append(toIndentedString(keepDiacriticsOnCharacters)).append("\n");

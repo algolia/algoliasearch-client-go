@@ -1,7 +1,6 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -70,10 +69,10 @@ public class BaseSearchParams {
   private Integer minimumAroundRadius;
 
   @SerializedName("insideBoundingBox")
-  private List<BigDecimal> insideBoundingBox;
+  private List<Double> insideBoundingBox;
 
   @SerializedName("insidePolygon")
-  private List<BigDecimal> insidePolygon;
+  private List<Double> insidePolygon;
 
   @SerializedName("naturalLanguages")
   private List<String> naturalLanguages;
@@ -421,12 +420,12 @@ public class BaseSearchParams {
     return minimumAroundRadius;
   }
 
-  public BaseSearchParams setInsideBoundingBox(List<BigDecimal> insideBoundingBox) {
+  public BaseSearchParams setInsideBoundingBox(List<Double> insideBoundingBox) {
     this.insideBoundingBox = insideBoundingBox;
     return this;
   }
 
-  public BaseSearchParams addInsideBoundingBox(BigDecimal insideBoundingBoxItem) {
+  public BaseSearchParams addInsideBoundingBox(Double insideBoundingBoxItem) {
     if (this.insideBoundingBox == null) {
       this.insideBoundingBox = new ArrayList<>();
     }
@@ -440,16 +439,16 @@ public class BaseSearchParams {
    * @return insideBoundingBox
    */
   @javax.annotation.Nullable
-  public List<BigDecimal> getInsideBoundingBox() {
+  public List<Double> getInsideBoundingBox() {
     return insideBoundingBox;
   }
 
-  public BaseSearchParams setInsidePolygon(List<BigDecimal> insidePolygon) {
+  public BaseSearchParams setInsidePolygon(List<Double> insidePolygon) {
     this.insidePolygon = insidePolygon;
     return this;
   }
 
-  public BaseSearchParams addInsidePolygon(BigDecimal insidePolygonItem) {
+  public BaseSearchParams addInsidePolygon(Double insidePolygonItem) {
     if (this.insidePolygon == null) {
       this.insidePolygon = new ArrayList<>();
     }
@@ -463,7 +462,7 @@ public class BaseSearchParams {
    * @return insidePolygon
    */
   @javax.annotation.Nullable
-  public List<BigDecimal> getInsidePolygon() {
+  public List<Double> getInsidePolygon() {
     return insidePolygon;
   }
 

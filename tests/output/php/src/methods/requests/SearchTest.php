@@ -2057,6 +2057,108 @@ class SearchTest extends TestCase implements HttpClientInterface
     }
 
     /**
+     * Test case for Search
+     * search with all search parameters
+     */
+    public function testSearch6()
+    {
+        $client = $this->getClient();
+        $client->search([
+            'requests' => [
+                [
+                    'indexName' => 'theIndexName',
+                    'query' => '',
+                    'similarQuery' => '',
+                    'filters' => '',
+                    'facetFilters' => [''],
+                    'optionalFilters' => [''],
+                    'numericFilters' => [''],
+                    'tagFilters' => [''],
+                    'sumOrFiltersScores' => true,
+                    'facets' => [''],
+                    'maxValuesPerFacet' => 0,
+                    'facetingAfterDistinct' => true,
+                    'sortFacetValuesBy' => '',
+                    'page' => 0,
+                    'offset' => 0,
+                    'length' => 0,
+                    'aroundLatLng' => '',
+                    'aroundLatLngViaIP' => true,
+                    'aroundRadius' => 'all',
+                    'aroundPrecision' => 0,
+                    'minimumAroundRadius' => 0,
+                    'insideBoundingBox' => [47.3165, 4.9665],
+                    'insidePolygon' => [47.3165, 4.9665],
+                    'naturalLanguages' => [''],
+                    'ruleContexts' => [''],
+                    'personalizationImpact' => 0,
+                    'userToken' => '',
+                    'getRankingInfo' => true,
+                    'clickAnalytics' => true,
+                    'analytics' => true,
+                    'analyticsTags' => [''],
+                    'percentileComputation' => true,
+                    'enableABTest' => true,
+                    'enableReRanking' => true,
+                    'reRankingApplyFilter' => [''],
+                    'attributesForFaceting' => [''],
+                    'unretrievableAttributes' => [''],
+                    'attributesToRetrieve' => [''],
+                    'restrictSearchableAttributes' => [''],
+                    'ranking' => [''],
+                    'customRanking' => [''],
+                    'relevancyStrictness' => 0,
+                    'attributesToHighlight' => [''],
+                    'attributesToSnippet' => [''],
+                    'highlightPreTag' => '',
+                    'highlightPostTag' => '',
+                    'snippetEllipsisText' => '',
+                    'restrictHighlightAndSnippetArrays' => true,
+                    'hitsPerPage' => 0,
+                    'minWordSizefor1Typo' => 0,
+                    'minWordSizefor2Typos' => 0,
+                    'typoTolerance' => 'min',
+                    'allowTyposOnNumericTokens' => true,
+                    'disableTypoToleranceOnAttributes' => [''],
+                    'ignorePlurals' => false,
+                    'removeStopWords' => true,
+                    'keepDiacriticsOnCharacters' => '',
+                    'queryLanguages' => [''],
+                    'decompoundQuery' => true,
+                    'enableRules' => true,
+                    'enablePersonalization' => true,
+                    'queryType' => 'prefixAll',
+                    'removeWordsIfNoResults' => 'allOptional',
+                    'advancedSyntax' => true,
+                    'optionalWords' => [''],
+                    'disableExactOnAttributes' => [''],
+                    'exactOnSingleWordQuery' => 'attribute',
+                    'alternativesAsExact' => ['multiWordsSynonym'],
+                    'advancedSyntaxFeatures' => ['exactPhrase'],
+                    'distinct' => 0,
+                    'synonyms' => true,
+                    'replaceSynonymsInHighlight' => true,
+                    'minProximity' => 0,
+                    'responseFields' => [''],
+                    'attributeCriteriaComputedByMinProximity' => true,
+                    'renderingContent' => ['string' => 'any'],
+                    'type' => 'default',
+                ],
+            ],
+        ]);
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/*/queries',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"\",\"similarQuery\":\"\",\"filters\":\"\",\"facetFilters\":[\"\"],\"optionalFilters\":[\"\"],\"numericFilters\":[\"\"],\"tagFilters\":[\"\"],\"sumOrFiltersScores\":true,\"facets\":[\"\"],\"maxValuesPerFacet\":0,\"facetingAfterDistinct\":true,\"sortFacetValuesBy\":\"\",\"page\":0,\"offset\":0,\"length\":0,\"aroundLatLng\":\"\",\"aroundLatLngViaIP\":true,\"aroundRadius\":\"all\",\"aroundPrecision\":0,\"minimumAroundRadius\":0,\"insideBoundingBox\":[47.3165,4.9665],\"insidePolygon\":[47.3165,4.9665],\"naturalLanguages\":[\"\"],\"ruleContexts\":[\"\"],\"personalizationImpact\":0,\"userToken\":\"\",\"getRankingInfo\":true,\"clickAnalytics\":true,\"analytics\":true,\"analyticsTags\":[\"\"],\"percentileComputation\":true,\"enableABTest\":true,\"enableReRanking\":true,\"reRankingApplyFilter\":[\"\"],\"attributesForFaceting\":[\"\"],\"unretrievableAttributes\":[\"\"],\"attributesToRetrieve\":[\"\"],\"restrictSearchableAttributes\":[\"\"],\"ranking\":[\"\"],\"customRanking\":[\"\"],\"relevancyStrictness\":0,\"attributesToHighlight\":[\"\"],\"attributesToSnippet\":[\"\"],\"highlightPreTag\":\"\",\"highlightPostTag\":\"\",\"snippetEllipsisText\":\"\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":0,\"minWordSizefor1Typo\":0,\"minWordSizefor2Typos\":0,\"typoTolerance\":\"min\",\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"\"],\"ignorePlurals\":false,\"removeStopWords\":true,\"keepDiacriticsOnCharacters\":\"\",\"queryLanguages\":[\"\"],\"decompoundQuery\":true,\"enableRules\":true,\"enablePersonalization\":true,\"queryType\":\"prefixAll\",\"removeWordsIfNoResults\":\"allOptional\",\"advancedSyntax\":true,\"optionalWords\":[\"\"],\"disableExactOnAttributes\":[\"\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"multiWordsSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":0,\"synonyms\":true,\"replaceSynonymsInHighlight\":true,\"minProximity\":0,\"responseFields\":[\"\"],\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"string\":\"any\"},\"type\":\"default\"}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
      * Test case for SearchDictionaryEntries
      * get searchDictionaryEntries results with minimal parameters
      */
