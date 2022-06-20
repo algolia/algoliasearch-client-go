@@ -72,7 +72,7 @@ async function updateVersionForJavascript(
   Object.values(GENERATORS)
     .filter((gen) => gen.language === 'javascript')
     .forEach((gen) => {
-      const additionalProperties = gen.additionalProperties!;
+      const additionalProperties = gen.additionalProperties;
       const newVersion = semver.inc(
         additionalProperties.packageVersion,
         jsVersion.releaseType
@@ -101,6 +101,10 @@ async function updateVersionForJavascript(
         browserPgPackageFile.dependencies[additionalProperties.packageName] =
           newVersion;
       }
+
+      // We don't want this field to be in the final file, it only exists
+      // in the scripts.
+      additionalProperties.packageName = undefined;
     });
 
   CLIENTS_JS_UTILS.forEach((util) => {
@@ -275,7 +279,7 @@ export async function updateAPIVersions(
 
   console.log(`Pushing updated changes to ${headBranch}`);
   const commitMessage = generationCommitText.commitPrepareReleaseMessage;
-  await run(`git add clients config`, { verbose: true });
+  await run('git add .', { verbose: true });
   if (process.env.LOCAL_TEST_DEV) {
     await run(`CI=true git commit -m "${commitMessage} [skip ci]"`, {
       verbose: true,
