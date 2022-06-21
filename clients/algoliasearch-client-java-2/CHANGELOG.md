@@ -1,3 +1,13 @@
+## [4.2.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.1.0-SNAPSHOT...4.2.0-SNAPSHOT)
+
+- 61343d52 fix(specs): correct type for `typoTolerance` (#722)
+- c917710b fix(specs): types and parameters (#708)
+- 762836b1 fix(java): catch null exception for ClientOptions APIC-537 (#703)
+- 90e531a1 fix(java): add javadoc to all methods APIC-538 (#704)
+- 14190d7b feat(java): enable custom level debug APIC-535 (#705)
+- 95b5ae77 feat(java): remove default and strict test (#701)
+- 38c0ddc0 fix(java): use batch and class in playground and doc (#696)
+
 ## [4.1.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.1.0-SNAPSHOT)
 
 - baaf7674 fix(clients): rename `maxTrial` to `maxRetries` (#659)

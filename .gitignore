@@ -27,5 +27,7 @@ dist
 
 clients/algoliasearch-client-javascript/packages/*/.openapi-generator-ignore
 tests/output/*/.openapi-generator-ignore
+**.php-cs-fixer.cache
 
 generators/bin
+
