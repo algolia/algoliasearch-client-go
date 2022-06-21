@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'com.algolia:algoliasearch-client-java:4.1.0-SNAPSHOT'
+    testImplementation 'com.algolia:algoliasearch-client-java:4.2.0-SNAPSHOT'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
     testImplementation 'com.google.code.gson:gson:2.9.0'
