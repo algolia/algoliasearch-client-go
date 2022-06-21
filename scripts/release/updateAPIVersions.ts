@@ -56,51 +56,50 @@ async function updateVersionForJavascript(
 
   clientsConfig.javascript.utilsPackageVersion = nextUtilsPackageVersion;
 
-  // update local playground deps
-  const nodePgPackageFile = await readJsonFile(
-    toAbsolutePath('playground/javascript/node/package.json')
-  );
-  const browserPgPackageFile = await readJsonFile(
-    toAbsolutePath('playground/javascript/browser/package.json')
-  );
-
-  if (!nodePgPackageFile || !browserPgPackageFile) {
-    throw new Error('Failed to read playground package files');
-  }
+  // update local `package.json` files
+  const pkgFiles = {
+    node: await readJsonFile(
+      toAbsolutePath('playground/javascript/node/package.json')
+    ),
+    browser: await readJsonFile(
+      toAbsolutePath('playground/javascript/browser/package.json')
+    ),
+    cts: await readJsonFile(
+      toAbsolutePath('tests/output/javascript/package.json')
+    ),
+  };
 
   // Sets the new version of the JavaScript client
   Object.values(GENERATORS)
     .filter((gen) => gen.language === 'javascript')
     .forEach((gen) => {
-      const additionalProperties = gen.additionalProperties;
+      const { additionalProperties } = gen;
       const newVersion = semver.inc(
         additionalProperties.packageVersion,
         jsVersion.releaseType
       );
+      const packageName = `${clientsConfig.javascript.npmNamespace}/${additionalProperties.packageName}`;
 
       if (!newVersion) {
         throw new Error(
-          `Failed to bump version ${additionalProperties.packageVersion} by ${jsVersion.releaseType}.`
+          `Failed to bump '${packageName}' by '${jsVersion.releaseType}'.`
         );
       }
 
       additionalProperties.packageVersion = newVersion;
 
-      if (!additionalProperties.packageName) {
+      if (!packageName) {
         throw new Error(
-          `Package name is missing for JavaScript - ${gen.client}.`
+          `Package name is missing for JavaScript - ${packageName}.`
         );
       }
 
-      if (nodePgPackageFile.dependencies[additionalProperties.packageName]) {
-        nodePgPackageFile.dependencies[additionalProperties.packageName] =
-          newVersion;
-      }
-
-      if (browserPgPackageFile.dependencies[additionalProperties.packageName]) {
-        browserPgPackageFile.dependencies[additionalProperties.packageName] =
-          newVersion;
-      }
+      Object.values(pkgFiles).forEach((pkgFile) => {
+        if (pkgFile.dependencies[packageName]) {
+          // eslint-disable-next-line no-param-reassign
+          pkgFile.dependencies[packageName] = newVersion;
+        }
+      });
 
       // We don't want this field to be in the final file, it only exists
       // in the scripts.
@@ -110,14 +109,12 @@ async function updateVersionForJavascript(
   CLIENTS_JS_UTILS.forEach((util) => {
     const utilPackageName = `${clientsConfig.javascript.npmNamespace}/${util}`;
 
-    if (nodePgPackageFile.dependencies[utilPackageName]) {
-      nodePgPackageFile.dependencies[utilPackageName] = nextUtilsPackageVersion;
-    }
-
-    if (browserPgPackageFile.dependencies[utilPackageName]) {
-      browserPgPackageFile.dependencies[utilPackageName] =
-        nextUtilsPackageVersion;
-    }
+    Object.values(pkgFiles).forEach((pkgFile) => {
+      if (pkgFile.dependencies[utilPackageName]) {
+        // eslint-disable-next-line no-param-reassign
+        pkgFile.dependencies[utilPackageName] = nextUtilsPackageVersion;
+      }
+    });
   });
 
   // update `openapitools.json` config file
@@ -129,13 +126,19 @@ async function updateVersionForJavascript(
   // update `package.json` node playground file
   await writeJsonFile(
     toAbsolutePath('playground/javascript/node/package.json'),
-    nodePgPackageFile
+    pkgFiles.node
   );
 
   // update `package.json` browser playground file
   await writeJsonFile(
     toAbsolutePath('playground/javascript/browser/package.json'),
-    browserPgPackageFile
+    pkgFiles.browser
+  );
+
+  // update `package.json` node cts file
+  await writeJsonFile(
+    toAbsolutePath('tests/output/javascript/package.json'),
+    pkgFiles.cts
   );
 
   // update `clients.config.json` file for the utils version

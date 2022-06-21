@@ -361,7 +361,7 @@ async function createReleasePR(): Promise<void> {
     `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
   );
 
-  console.log('Search for commits since last release...');
+  console.log('Searching for commits since last release...');
   const { validCommits, skippedCommits } = await getCommits();
 
   const versions = decideReleaseStrategy({
