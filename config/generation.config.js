@@ -37,7 +37,5 @@ module.exports = {
     '!clients/algoliasearch-client-php/lib/RequestOptions/**',
     '!clients/algoliasearch-client-php/lib/RetryStrategy/**',
     '!clients/algoliasearch-client-php/lib/Support/**',
-    '!clients/algoliasearch-client-php/lib/Configuration/**',
-    'clients/algoliasearch-client-php/lib/Configuration/Configuration.php',
   ],
 };
