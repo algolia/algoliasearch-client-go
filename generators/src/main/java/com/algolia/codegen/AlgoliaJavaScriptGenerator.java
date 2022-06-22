@@ -44,8 +44,12 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     supportingFiles.add(new SupportingFile("index.mustache", "", "index.js"));
     supportingFiles.add(new SupportingFile("index.d.mustache", "", "index.d.ts"));
 
-    supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
-    supportingFiles.add(new SupportingFile("tsconfig.mustache", "", "tsconfig.json"));
+    // the `lite` package is a subfolder of `algoliasearch`, which does not require
+    // those package-related files, as they are present at an higher level.
+    if (!CLIENT.equals("lite")) {
+      supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
+      supportingFiles.add(new SupportingFile("tsconfig.mustache", "", "tsconfig.json"));
+    }
   }
 
   @Override
@@ -62,6 +66,7 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     additionalProperties.put("algoliaAgent", Utils.capitalize(CLIENT));
     additionalProperties.put("gitRepoId", "algoliasearch-client-javascript");
     additionalProperties.put("isSearchClient", CLIENT.equals("search"));
+    additionalProperties.put("isLiteClient", CLIENT.equals("lite"));
   }
 
   /** Provides an opportunity to inspect and modify operation data before the code is generated. */

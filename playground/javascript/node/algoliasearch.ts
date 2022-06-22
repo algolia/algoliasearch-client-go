@@ -1,4 +1,5 @@
 import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+import { liteClient } from '@experimental-api-clients-automation/algoliasearch/lite';
 import { ApiError } from '@experimental-api-clients-automation/client-common';
 import dotenv from 'dotenv';
 
@@ -26,6 +27,7 @@ const personalizationApiKey =
 
 // Init client with appId and apiKey
 const client = algoliasearch(appId, apiKey);
+const clientLite = liteClient(appId, apiKey);
 
 client.addAlgoliaAgent('algoliasearch node playground', '0.0.1');
 
@@ -41,7 +43,18 @@ async function testAlgoliasearch() {
       ],
     });
 
+    const resLite: SearchResponses = await clientLite.search({
+      requests: [
+        {
+          indexName: searchIndex,
+          query: searchQuery,
+          hitsPerPage: 50,
+        },
+      ],
+    });
+
     console.log(`[OK search]`, res);
+    console.log(`[OK search LITE]`, resLite);
 
     const resWithLegacySignature: SearchResponses = await client.search([
       {
@@ -53,7 +66,20 @@ async function testAlgoliasearch() {
       },
     ]);
 
+    const resWithLegacySignatureLite: SearchResponses = await clientLite.search(
+      [
+        {
+          indexName: searchIndex,
+          params: {
+            query: searchQuery,
+            hitsPerPage: 50,
+          },
+        },
+      ]
+    );
+
     console.log(`[OK legacy search]`, resWithLegacySignature);
+    console.log(`[OK legacy search LITE ]`, resWithLegacySignatureLite);
   } catch (e) {
     if (e instanceof ApiError) {
       return console.log(`[${e.status}] ${e.message}`, e.stackTrace);

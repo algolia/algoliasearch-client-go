@@ -9,8 +9,8 @@
           "packageVersion": "0.5.1"
         }
       },
-      "javascript-algoliasearch-lite": {
-        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/algoliasearch-lite",
+      "javascript-lite": {
+        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/algoliasearch/lite",
         "reservedWordsMappings": "queryParameters=queryParameters,requestOptions=requestOptions",
         "additionalProperties": {
           "packageVersion": "0.5.1"

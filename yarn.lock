@@ -1410,17 +1410,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@experimental-api-clients-automation/algoliasearch-lite@0.5.1, @experimental-api-clients-automation/algoliasearch-lite@workspace:clients/algoliasearch-client-javascript/packages/algoliasearch-lite":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/algoliasearch-lite@workspace:clients/algoliasearch-client-javascript/packages/algoliasearch-lite"
+"@experimental-api-clients-automation/algoliasearch-lite@npm:0.5.1":
+  version: 0.5.1
+  resolution: "@experimental-api-clients-automation/algoliasearch-lite@npm:0.5.1"
   dependencies:
     "@experimental-api-clients-automation/client-common": 0.5.1
     "@experimental-api-clients-automation/requester-browser-xhr": 0.5.1
     "@experimental-api-clients-automation/requester-node-http": 0.5.1
-    "@types/node": 16.11.41
-    typescript: 4.7.4
-  languageName: unknown
-  linkType: soft
+  checksum: 8cf4a5a9fe5c005b87ff3dc4e2ebd90fa58f93aace838add05c151297261c58f2610a3a20391e909f26264e8e0702bd9a5b42e2a03a8043b42c2aa63854b85d5
+  languageName: node
+  linkType: hard
 
 "@experimental-api-clients-automation/algoliasearch@0.5.1, @experimental-api-clients-automation/algoliasearch@workspace:clients/algoliasearch-client-javascript/packages/algoliasearch":
   version: 0.0.0-use.local
@@ -8663,6 +8662,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "javascript-browser-playground@workspace:playground/javascript/browser"
   dependencies:
+    "@experimental-api-clients-automation/algoliasearch": 0.5.1
     "@experimental-api-clients-automation/client-common": 0.5.1
     "@experimental-api-clients-automation/client-search": 0.5.1
     "@experimental-api-clients-automation/requester-browser-xhr": 0.5.1

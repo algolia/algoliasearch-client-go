@@ -22,6 +22,10 @@ type BaseMatrix = {
    * The list of clients to run in the CI.
    */
   toRun: string;
+  /**
+   * The list of clients to build in the CI, defaults to `toRun`.
+   */
+  toBuild: string;
 };
 
 export type ClientMatrix = BaseMatrix & {
@@ -39,7 +43,7 @@ export type ClientMatrix = BaseMatrix & {
   testsToStore: string;
 };
 
-export type SpecMatrix = BaseMatrix & {
+export type SpecMatrix = Omit<BaseMatrix, 'toBuild'> & {
   /**
    * The path of the bundled spec file.
    */

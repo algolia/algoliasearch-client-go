@@ -28,8 +28,14 @@ public class JavaScriptCTSManager implements CTSManager {
     bundle.put("utilsPackageVersion", Utils.getClientConfigField("javascript", "utilsPackageVersion"));
 
     String output = this.openApiToolsConfig.get("javascript-" + client).get("output").asText();
-    String packageName = Utils.getClientConfigField("javascript", "npmNamespace") + "/" + output.substring(output.lastIndexOf('/') + 1);
-    bundle.put("import", packageName);
+    String clientName = output.substring(output.lastIndexOf('/') + 1);
+    String npmNamespace = Utils.getClientConfigField("javascript", "npmNamespace");
+
+    if (clientName.equals("lite")) {
+      bundle.put("import", npmNamespace + "/" + "algoliasearch/lite");
+    } else {
+      bundle.put("import", npmNamespace + "/" + clientName);
+    }
   }
 
   private List<Map<String, String>> getPackageDependencies() {
@@ -46,7 +52,11 @@ public class JavaScriptCTSManager implements CTSManager {
       String packageName = output.substring(output.lastIndexOf('/') + 1);
 
       Map<String, String> newEntry = new HashMap<>();
-      newEntry.put("packageName", packageName);
+      if (packageName.equals("lite")) {
+        newEntry.put("packageName", "algoliasearch");
+      } else {
+        newEntry.put("packageName", packageName);
+      }
       newEntry.put("packageVersion", packageVersion);
       result.add(newEntry);
     }

@@ -194,7 +194,7 @@ async function buildSpec(
   verbose: boolean,
   useCache: boolean
 ): Promise<void> {
-  const isLite = spec === 'algoliasearch-lite';
+  const isLite = spec === 'lite';
   // In case of lite we use a the `search` spec as a base because only its bundled form exists.
   const specBase = isLite ? 'search' : spec;
   const cacheFile = toAbsolutePath(`specs/dist/${spec}.cache`);

@@ -97,7 +97,6 @@
     }
   ],
   "ignorePaths": [
-    "**/algoliasearch-lite/**",
     "**/client-abtesting/**",
     "**/client-analytics/**",
     "**/client-insights/**",

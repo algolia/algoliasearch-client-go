@@ -22,11 +22,10 @@ pom.xml
 dist
 .cache
 
-.openapi-generator
+**.openapi-generator
 /openapitools.json
+**/.openapi-generator-ignore
 
-clients/algoliasearch-client-javascript/packages/*/.openapi-generator-ignore
-tests/output/*/.openapi-generator-ignore
 **.php-cs-fixer.cache
 
 generators/bin

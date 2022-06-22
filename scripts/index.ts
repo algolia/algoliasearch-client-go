@@ -7,12 +7,12 @@ import { buildSpecs } from './buildSpecs';
 import {
   CI,
   CLIENTS,
-  CLIENTS_JS,
   CLIENTS_JS_UTILS,
   createGeneratorKey,
   DOCKER,
   GENERATORS,
   LANGUAGES,
+  SPECS,
 } from './common';
 import { ctsGenerateMany } from './cts/generate';
 import { runCts } from './cts/runCts';
@@ -111,7 +111,7 @@ program
     )
   )
   .addArgument(
-    new Argument('[client...]', 'The client').choices(['all'].concat(CLIENTS))
+    new Argument('[client...]', 'The client').choices(['all'].concat(SPECS))
   )
   .option('-v, --verbose', 'make the generation verbose')
   .option('-i, --interactive', 'open prompt to query parameters')
@@ -124,7 +124,10 @@ program
       language = await promptLanguage(language, interactive);
       client = await promptClient(client, interactive);
 
-      await generate(generatorList({ language, client }), Boolean(verbose));
+      await generate(
+        generatorList({ language, client, clientList: SPECS }),
+        Boolean(verbose)
+      );
     }
   );
 
@@ -140,7 +143,7 @@ buildCommand
   )
   .addArgument(
     new Argument('[client...]', 'The client').choices(
-      ['all'].concat([...CLIENTS_JS_UTILS, ...CLIENTS_JS])
+      ['all'].concat([...CLIENTS_JS_UTILS, ...CLIENTS])
     )
   )
   .option('-v, --verbose', 'make the compilation verbose')
@@ -153,8 +156,7 @@ buildCommand
     ) => {
       language = await promptLanguage(language, interactive);
 
-      const clientList =
-        language === 'javascript' || language === 'all' ? CLIENTS_JS : CLIENTS;
+      const clientList = CLIENTS;
       client = await promptClient(client, interactive, clientList);
 
       await buildClients(
@@ -168,7 +170,7 @@ buildCommand
   .command('specs')
   .description('Build a specified spec')
   .addArgument(
-    new Argument('[client...]', 'The client').choices(['all'].concat(CLIENTS))
+    new Argument('[client...]', 'The client').choices(['all'].concat(SPECS))
   )
   .option('-v, --verbose', 'make the verification verbose')
   .option('-i, --interactive', 'open prompt to query parameters')
@@ -185,7 +187,7 @@ buildCommand
 
       let clientsTodo = client;
       if (client[0] === 'all') {
-        clientsTodo = CLIENTS;
+        clientsTodo = SPECS;
       }
       // ignore cache when building from cli
       await buildSpecs(clientsTodo, outputFormat, Boolean(verbose), !skipCache);

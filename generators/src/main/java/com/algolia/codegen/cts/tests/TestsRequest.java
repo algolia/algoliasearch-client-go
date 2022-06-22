@@ -17,8 +17,8 @@ public class TestsRequest extends TestsGenerator {
   protected Map<String, Request[]> loadRequestCTS() throws Exception {
     String clientName = client;
     // This special case allow us to read the `search` CTS to generated the tests for the
-    // `algoliasearch-lite` client, which is only available in JavaScript
-    if (language.equals("javascript") && client.equals("algoliasearch-lite")) {
+    // `lite` client, which is only available in JavaScript
+    if (language.equals("javascript") && client.equals("lite")) {
       clientName = "search";
     }
     return super.loadCTS("methods/requests", clientName, Request[].class);

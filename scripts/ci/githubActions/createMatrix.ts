@@ -32,6 +32,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
 
   for (const { language, client, output } of Object.values(GENERATORS)) {
     // `algoliasearch` is an aggregation of generated clients.
+    // `lite` is a subfolder of `algoliasearch`
     if (client === 'algoliasearch') {
       continue;
     }
@@ -50,7 +51,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       {} as Record<string, string[]>
     );
 
-    const bundledSpec = client === 'algoliasearch-lite' ? 'search' : client;
+    const bundledSpec = client === 'lite' ? 'search' : client;
     const specChanges = await getNbGitDiff({
       branch: baseBranch,
       path: `specs/${bundledSpec}`,
@@ -87,10 +88,12 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
     const testsOutputBase = `${testsBasePath}/${getTestOutputFolder(language)}`;
     const testsToDelete = `${testsOutputBase}/client ${testsOutputBase}/methods`;
     let testsToStore = testsToDelete;
+    let toBuild = matrix[language].toRun;
 
     switch (language) {
       case 'javascript':
         testsToStore = `${testsToDelete} ${testsBasePath}/package.json`;
+        toBuild = toBuild.filter((client) => client !== 'lite');
         break;
       case 'java':
         testsToStore = `${testsToDelete} ${testsBasePath}/build.gradle`;
@@ -103,6 +106,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       language,
       path: matrix[language].path,
       toRun: matrix[language].toRun.join(' '),
+      toBuild: toBuild.join(' '),
       cacheKey: await computeCacheKey(`clients-${language}`, [
         ...matrix[language].cacheToCompute,
         'specs/common',
@@ -133,8 +137,13 @@ async function getSpecMatrix(): Promise<void> {
   };
 
   for (const client of CLIENTS) {
-    // The `algoliasearch-lite` spec is created by the `search` spec
-    const bundledSpecName = client === 'algoliasearch-lite' ? 'search' : client;
+    // `algoliasearch` is an aggregation of client
+    if (client === 'algoliasearch') {
+      continue;
+    }
+
+    // The `lite` spec is created by the `search` spec
+    const bundledSpecName = client === 'lite' ? 'search' : client;
 
     matrix.toRun.push(client);
     matrix.cacheToCompute.push(`specs/${bundledSpecName}`);

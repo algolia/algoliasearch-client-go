@@ -218,7 +218,7 @@ jobs:
 
       - name: Build clients
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language != 'php' }}
-        run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toRun }}
+        run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toBuild }}
 
       - name: Build JavaScript 'algoliasearch' client
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}

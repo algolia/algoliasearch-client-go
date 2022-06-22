@@ -2,12 +2,11 @@
 title: JavaScript
 ---
 
-| Previous             | Latest                                 | Description                                                                                                                                                                                                               |
-| -------------------- | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `@algolia`           | `@experimental-api-clients-automation` | **During the beta phase**, the clients are available under the NPM `@experimental-api-clients-automation` namespace, you can find a full list [here](https://www.npmjs.com/org/experimental-api-clients-automation).      |
-| `algoliasearch/lite` | `algoliasearch-lite`                   | The lite version of the client now have [its own package](https://www.npmjs.com/package/@experimental-api-clients-automation/algoliasearch-lite).                                                                         |
-| `search`             | `searchClient`                         | Exported clients are suffixed by `Client`.                                                                                                                                                                                |
-| `destroy`            | **removed**                            | This method has not been implemented in the new clients, if you feel the need for it, [please open an issue](https://github.com/algolia/api-clients-automation/issues/new?assignees=&labels=&template=Feature_request.md) |
+| Previous   | Latest                                 | Description                                                                                                                                                                                                               |
+| ---------- | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `@algolia` | `@experimental-api-clients-automation` | **During the beta phase**, the clients are available under the NPM `@experimental-api-clients-automation` namespace, you can find a full list [here](https://www.npmjs.com/org/experimental-api-clients-automation).      |
+| `search`   | `searchClient`                         | Exported clients are suffixed by `Client`.                                                                                                                                                                                |
+| `destroy`  | **removed**                            | This method has not been implemented in the new clients, if you feel the need for it, [please open an issue](https://github.com/algolia/api-clients-automation/issues/new?assignees=&labels=&template=Feature_request.md) |
 
 ### Usage
 
@@ -30,16 +29,6 @@ npm uninstall algoliasearch
 ```
 
 You can continue this guide on [our installation page](/docs/clients/installation).
-
-### Importing algoliasearch using ES Modules
-
-```diff
-- import algoliasearch from 'algoliasearch/lite';
-+ import { algoliasearchLiteClient } from '@experimental-api-clients-automation/algoliasearch-lite';
-
-- import algoliasearch from 'algoliasearch';
-+ import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
-```
 
 ### Methods targeting an `indexName`
 

@@ -79,13 +79,12 @@ export const CLIENTS_JS_UTILS = [
   'requester-node-http',
 ];
 
-export const CLIENTS_JS = [
+export const CLIENTS = [
   ...new Set(Object.values(GENERATORS).map((gen) => gen.client)),
 ];
 
-export const CLIENTS = CLIENTS_JS.filter(
-  (client) => client !== 'algoliasearch'
-);
+// `algoliasearch` is an aggregated JavaScript client
+export const SPECS = CLIENTS.filter((client) => client !== 'algoliasearch');
 
 export function createGeneratorKey({
   language,
