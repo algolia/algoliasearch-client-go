@@ -56,11 +56,13 @@ export async function generate(
 
     // Prevents the CI/CLI to throw when a new JS client is generated
     // by linking it if it's not the case
+    // The `lite` client is ignored because it does not contain root-level package informations, as it's a subfolder of `algoliasearch`
     if (
       gen.language === 'javascript' &&
+      gen.client !== 'lite' &&
       !availableWorkspaces.includes(gen.output)
     ) {
-      spinner.text = `First time generating ${gen.client}, linking to workspaces`;
+      spinner.text = `First time generating '${gen.client}', linking to workspaces`;
 
       await run('YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn', { verbose });
     }

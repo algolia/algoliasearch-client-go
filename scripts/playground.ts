@@ -1,11 +1,11 @@
+import type { AllLanguage } from './cli/utils';
 import { createClientName, run } from './common';
-import type { Language } from './types';
 
 export async function playground({
   language,
   client,
 }: {
-  language: Language | 'all';
+  language: AllLanguage;
   client: string;
 }): Promise<void> {
   const verbose = true;

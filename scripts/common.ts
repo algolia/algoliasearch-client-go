@@ -73,28 +73,15 @@ export const LANGUAGES = [
   ...new Set(Object.values(GENERATORS).map((gen) => gen.language)),
 ];
 
+export const CLIENTS = [
+  ...new Set(Object.values(GENERATORS).map((gen) => gen.client)),
+];
+
 export const CLIENTS_JS_UTILS = [
   'client-common',
   'requester-browser-xhr',
   'requester-node-http',
 ];
-
-export const CLIENTS = [
-  ...new Set(Object.values(GENERATORS).map((gen) => gen.client)),
-];
-
-// `algoliasearch` is an aggregated JavaScript client
-export const SPECS = CLIENTS.filter((client) => client !== 'algoliasearch');
-
-export function createGeneratorKey({
-  language,
-  client,
-}: {
-  language: Language | 'all';
-  client: string;
-}): string {
-  return `${language}-${client}`;
-}
 
 export async function run(
   command: string,

@@ -61,11 +61,11 @@ async function buildAllClients(
 
 export async function buildClients(
   generators: Generator[],
-  verbose: boolean
+  { verbose, skipUtils }: { verbose: boolean; skipUtils: boolean }
 ): Promise<void> {
   const langs = [...new Set(generators.map((gen) => gen.language))];
 
-  if (!CI && langs.includes('javascript')) {
+  if (!CI && !skipUtils && langs.includes('javascript')) {
     const spinner = createSpinner(
       "building 'JavaScript' utils",
       verbose

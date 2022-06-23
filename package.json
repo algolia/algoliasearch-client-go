@@ -13,7 +13,7 @@
   "scripts": {
     "build:eslint": "yarn workspace eslint-plugin-automation-custom build && yarn install",
     "clean": "rm -rf **/dist **/build **/node_modules **/.gradle **/vendor || true",
-    "cli": "yarn workspace scripts ts-node --transpile-only ./index.ts",
+    "cli": "yarn workspace scripts ts-node --transpile-only ./cli/index.ts",
     "docker": "docker exec -it dev yarn cli $*",
     "docker:build": "./scripts/docker/build.sh",
     "docker:clean": "docker stop dev; docker rm -f dev; docker image rm -f api-clients-automation",
