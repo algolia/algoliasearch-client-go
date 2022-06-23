@@ -1,3 +1,7 @@
+## [4.2.1-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.0-SNAPSHOT...4.2.1-SNAPSHOT)
+
+- 1756059a fix(java): use body as error message APIC-541 (#734)
+
 ## [4.2.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.1.0-SNAPSHOT...4.2.0-SNAPSHOT)
 
 - 61343d52 fix(specs): correct type for `typoTolerance` (#722)

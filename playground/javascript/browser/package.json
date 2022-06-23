@@ -6,10 +6,10 @@
     "start": "parcel index.html"
   },
   "dependencies": {
-    "@experimental-api-clients-automation/algoliasearch": "0.6.0",
-    "@experimental-api-clients-automation/client-common": "0.6.0",
-    "@experimental-api-clients-automation/client-search": "0.6.0",
-    "@experimental-api-clients-automation/requester-browser-xhr": "0.6.0"
+    "@experimental-api-clients-automation/algoliasearch": "0.6.1",
+    "@experimental-api-clients-automation/client-common": "0.6.1",
+    "@experimental-api-clients-automation/client-search": "0.6.1",
+    "@experimental-api-clients-automation/requester-browser-xhr": "0.6.1"
   },
   "devDependencies": {
     "parcel": "2.6.1",
