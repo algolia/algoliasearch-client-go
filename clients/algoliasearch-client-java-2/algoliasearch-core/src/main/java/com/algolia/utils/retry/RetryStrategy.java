@@ -58,8 +58,11 @@ public class RetryStrategy {
               response.close();
               continue;
             }
-            // unkown state, fail
-            throw new AlgoliaApiException(response.message(), response.code());
+            String message = response.message();
+            if (response.body() != null) {
+              message = response.body().string();
+            }
+            throw new AlgoliaApiException(message, response.code());
           } catch (AlgoliaApiException e) {
             throw e;
           } catch (SocketTimeoutException e) {
