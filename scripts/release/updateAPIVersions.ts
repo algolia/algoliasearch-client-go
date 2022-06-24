@@ -16,6 +16,7 @@ import {
   LANGUAGES,
   MAIN_BRANCH,
   gitBranchExists,
+  CI,
 } from '../common';
 import {
   getClientsConfigField,
@@ -206,10 +207,13 @@ export async function updateAPIVersions(
       After that, we generate clients with new versions. And then, we copy all of them over to JS repository.
       */
     if (lang === 'javascript') {
-      await run(`yarn release:bump ${releaseType}`, {
-        verbose: true,
-        cwd: getLanguageFolder(lang),
-      });
+      const cwd = getLanguageFolder(lang);
+
+      if (CI) {
+        await run('yarn install', { verbose: true, cwd });
+      }
+
+      await run(`yarn release:bump ${releaseType}`, { verbose: true, cwd });
     }
 
     await updateChangelog({
