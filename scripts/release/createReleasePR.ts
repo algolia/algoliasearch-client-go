@@ -15,10 +15,11 @@ import {
   getOctokit,
   ensureGitHubToken,
   TODAY,
+  CI,
 } from '../common';
 import { getPackageVersionDefault } from '../config';
 
-import { RELEASED_TAG } from './common';
+import { configureGitHubAuthor, RELEASED_TAG } from './common';
 import TEXT from './text';
 import type {
   Versions,
@@ -344,6 +345,10 @@ async function createReleasePR(): Promise<void> {
         'Working directory is not clean. Commit all the changes first.'
       );
     }
+  }
+
+  if (CI) {
+    await configureGitHubAuthor();
   }
 
   await run(`git rev-parse --verify refs/tags/${RELEASED_TAG}`, {
