@@ -5,17 +5,17 @@ import type { Language } from '../../types';
 import { getNbGitDiff } from '../utils';
 
 import { DEPENDENCIES, COMMON_DEPENDENCIES } from './setRunVariables';
-import type { ClientMatrix, CreateMatrix, Matrix, SpecMatrix } from './types';
+import type {
+  ClientMatrix,
+  CreateMatrix,
+  Matrix,
+  SpecMatrix,
+  ToRunMatrix,
+} from './types';
 import { computeCacheKey, isBaseChanged } from './utils';
 
 // This empty matrix is required by the CI, otherwise it throws
 const EMPTY_MATRIX = { client: ['no-run'] };
-
-type ToRunMatrix = {
-  path: string;
-  toRun: string[];
-  cacheToCompute: string[];
-};
 
 async function getClientMatrix(baseBranch: string): Promise<void> {
   const matrix = LANGUAGES.reduce(
@@ -84,19 +84,20 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       continue;
     }
 
-    const testsBasePath = `./tests/output/${language}`;
-    const testsOutputBase = `${testsBasePath}/${getTestOutputFolder(language)}`;
+    const testsRootFolder = `tests/output/${language}`;
+    const testsOutputBase = `${testsRootFolder}/${getTestOutputFolder(
+      language
+    )}`;
     const testsToDelete = `${testsOutputBase}/client ${testsOutputBase}/methods`;
     let testsToStore = testsToDelete;
     let toBuild = matrix[language].toRun;
 
     switch (language) {
       case 'javascript':
-        testsToStore = `${testsToDelete} ${testsBasePath}/package.json`;
         toBuild = toBuild.filter((client) => client !== 'lite');
         break;
       case 'java':
-        testsToStore = `${testsToDelete} ${testsBasePath}/build.gradle`;
+        testsToStore = `${testsToDelete} ${testsRootFolder}/build.gradle`;
         break;
       default:
         break;
@@ -113,6 +114,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
         `templates/${language}`,
         `generators/src`,
       ]),
+      testsRootFolder,
       testsToDelete,
       testsToStore,
     });
@@ -149,18 +151,13 @@ async function getSpecMatrix(): Promise<void> {
     matrix.cacheToCompute.push(`specs/${bundledSpecName}`);
   }
 
-  const ciMatrix: Matrix<SpecMatrix> = {
-    client: [
-      {
-        path: matrix.path,
-        bundledPath: 'specs/bundled',
-        toRun: matrix.toRun.join(' '),
-        cacheKey: await computeCacheKey('specs', [
-          ...matrix.cacheToCompute,
-          'specs/common',
-        ]),
-      },
-    ],
+  const ciMatrix: SpecMatrix = {
+    bundledPath: matrix.path,
+    toRun: matrix.toRun.join(' '),
+    cacheKey: await computeCacheKey('specs', [
+      ...matrix.cacheToCompute,
+      'specs/common',
+    ]),
   };
 
   console.log(`::set-output name=MATRIX::${JSON.stringify(ciMatrix)}`);

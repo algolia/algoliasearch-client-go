@@ -3,11 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "workspaces": [
-    "clients/algoliasearch-client-javascript/",
+    "scripts/",
     "playground/javascript/node/",
     "playground/javascript/browser/",
-    "scripts/",
-    "tests/output/javascript",
     "eslint"
   ],
   "scripts": {

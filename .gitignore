@@ -6,9 +6,9 @@ node_modules
 
 yarn-error.log
 
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
+**/.yarn/*
+!**/.yarn/releases
+!**/.yarn/plugins
 
 .vscode/
 .idea/

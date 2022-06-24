@@ -9,6 +9,9 @@ inputs:
   workflow_name:
     description: Name of the workflow that is executing this action.
     required: false
+  language:
+    description: the language for which to install deps
+    required: false
 
 runs:
   using: composite
@@ -52,7 +55,8 @@ runs:
       uses: actions/cache@v3
       with:
         path: ${{ steps.yarn-cache-dir.outputs.dir || '.yarn/cache' }}
-        key: yarn-cache-${{ env.CACHE_VERSION }}-${{ hashFiles('yarn.lock') }}
+        # let yarn handle the cache hash
+        key: yarn-cache-${{ env.CACHE_VERSION }}
 
     - name: Cache node modules
       uses: actions/cache@v3
@@ -62,11 +66,38 @@ runs:
 
     - name: Install JavaScript dependencies
       shell: bash
-      run: YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
+      run: yarn install
+
+    # JavaScript client deps
+    - name: Get yarn js-client cache directory path
+      if: ${{ inputs.language == 'javascript' }}
+      shell: bash
+      id: yarn-cache-dir-client
+      run: echo "::set-output name=dir::$(cd clients/algoliasearch-client-javascript && yarn config get cacheFolder)"
+
+    - name: Restore Yarn js-client
+      if: ${{ inputs.language == 'javascript' }}
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.yarn-cache-dir-client.outputs.dir || 'clients/algoliasearch-client-javascript/.yarn/cache' }}
+        # let yarn handle the cache hash
+        key: yarn-cache-client-${{ env.CACHE_VERSION }}
+
+    - name: Cache js-client node modules
+      if: ${{ inputs.language == 'javascript' }}
+      uses: actions/cache@v3
+      with:
+        path: clients/algoliasearch-client-javascript/node_modules
+        key: node-modules-client-${{ env.CACHE_VERSION }}-${{ hashFiles('clients/algoliasearch-client-javascript/yarn.lock') }}
+
+    - name: Install JavaScript client dependencies
+      if: ${{ inputs.language == 'javascript' }}
+      shell: bash
+      run: cd clients/algoliasearch-client-javascript && yarn install
 
     # PHP deps
     - name: Run composer update
-      if: inputs.type != 'minimal'
+      if: ${{ inputs.language == 'php' }}
       shell: bash
       run: |
         composer update --working-dir=clients/algoliasearch-client-php

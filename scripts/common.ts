@@ -85,8 +85,9 @@ export const CLIENTS_JS_UTILS = [
 
 export async function run(
   command: string,
-  { errorMessage, verbose, cwd = ROOT_DIR }: RunOptions = {}
+  { errorMessage, verbose, cwd }: RunOptions = {}
 ): Promise<string> {
+  const realCwd = path.resolve(ROOT_DIR, cwd ?? '.');
   try {
     if (verbose) {
       return (
@@ -97,14 +98,14 @@ export async function run(
             stdin: 'inherit',
             all: true,
             shell: 'bash',
-            cwd,
+            cwd: realCwd,
           })
         ).all ?? ''
       );
     }
     return (
-      (await execa.command(command, { shell: 'bash', all: true, cwd })).all ??
-      ''
+      (await execa.command(command, { shell: 'bash', all: true, cwd: realCwd }))
+        .all ?? ''
     );
   } catch (err) {
     if (errorMessage) {

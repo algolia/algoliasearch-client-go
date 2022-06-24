@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     needs: setup
-    strategy:
+    env:
       matrix: ${{ fromJSON(needs.setup.outputs.SPECS_MATRIX) }}
     steps:
       - uses: actions/checkout@v2
@@ -105,8 +105,8 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          key: ${{ matrix.client.cacheKey }}
-          path: ${{ matrix.client.bundledPath }}
+          key: ${{ matrix.cacheKey }}
+          path: ${{ matrix.bundledPath }}
 
       - name: Setup
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
@@ -116,14 +116,14 @@ jobs:
 
       - name: Building specs
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn cli build specs ${{ matrix.client.toRun }}
+        run: yarn cli build specs ${{ matrix.toRun }}
 
       - name: Store bundled specs
         uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
           name: specs
-          path: ${{ matrix.client.bundledPath }}
+          path: ${{ matrix.bundledPath }}
 
   client_javascript_utils:
     timeout-minutes: 10
@@ -155,14 +155,15 @@ jobs:
         uses: ./.github/actions/setup
         with:
           type: minimal
+          language: javascript
 
       - name: Build '${{ matrix.client }}' client
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: yarn workspace algoliasearch-client-javascript build ${{ matrix.client }}
+        run: cd clients/algoliasearch-client-javascript && yarn build ${{ matrix.client }}
 
       - name: Run tests for 'client-common'
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client == 'client-common' }}
-        run: yarn workspace @experimental-api-clients-automation/client-common test
+        run: cd clients/algoliasearch-client-javascript && yarn workspace @experimental-api-clients-automation/client-common test
 
       - name: Store '${{ matrix.client }}' JavaScript utils package
         uses: actions/upload-artifact@v3
@@ -211,10 +212,16 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
+        with:
+          language: ${{ matrix.client.language }}
 
       - name: Generate clients
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: yarn cli generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
+
+      - name: Update `yarn.lock` for JavaScript
+        if: ${{ matrix.client.language == 'javascript' }}
+        run: cd ${{ matrix.client.path }} && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
       - name: Build clients
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language != 'php' }}
@@ -226,7 +233,7 @@ jobs:
 
       - name: Run JavaScript 'algoliasearch' client tests
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
-        run: yarn workspace @experimental-api-clients-automation/algoliasearch test
+        run: cd ${{ matrix.client.path }} && yarn workspace @experimental-api-clients-automation/algoliasearch test
 
       - name: Clean CTS output before generate
         run: rm -rf ${{ matrix.client.testsToDelete }} || true
@@ -234,9 +241,27 @@ jobs:
       - name: Generate CTS
         run: yarn cli cts generate ${{ matrix.client.language }} ${{ matrix.client.toRun }}
 
-      - name: Update `yarn.lock` for JavaScript release
-        if: ${{ matrix.client.language == 'javascript' && (startsWith(github.head_ref, 'chore/prepare-release-') || github.ref == 'refs/heads/main') }}
-        run: YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
+        # JavaScript test deps (needs to be cached because they are huge and inefficient)
+      - name: Get yarn js test cache directory path
+        if: ${{ matrix.client.language == 'javascript' }}
+        shell: bash
+        id: yarn-cache-dir-tests
+        run: echo "::set-output name=dir::$(cd ${{ matrix.client.testsRootFolder }} && yarn config get cacheFolder)"
+
+      - name: Restore Yarn js tests
+        if: ${{ matrix.client.language == 'javascript' }}
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-tests.outputs.dir || format('{0}/.yarn/cache', matrix.client.testsRootFolder) }}
+          # let yarn handle the cache hash
+          key: yarn-cache-tests-${{ env.CACHE_VERSION }}
+
+      - name: Cache js tests node modules
+        if: ${{ matrix.client.language == 'javascript' }}
+        uses: actions/cache@v3
+        with:
+          path: ${{ matrix.client.testsRootFolder }}/node_modules
+          key: node-modules-tests-${{ env.CACHE_VERSION }}-${{ hashFiles(format('{0}/.yarn.lock', matrix.client.testsRootFolder)) }}
 
       - name: Run CTS
         run: yarn cli cts run ${{ matrix.client.language }}

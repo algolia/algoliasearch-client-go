@@ -53,7 +53,6 @@ describe('micromatch', () => {
         'tests/output/java/build.gradle',
         'tests/output/java/src/test/java/com/algolia/client/test.java',
 
-        'tests/output/javascript/package.json',
         'tests/output/javascript/src/client/test.ts',
 
         'tests/output/php/src/methods/requests/test.php',

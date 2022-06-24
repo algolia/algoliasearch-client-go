@@ -54,7 +54,7 @@ async function preCommit() {
   await run(`git restore --staged ${toUnstage.join(' ')}`);
 }
 
-if (require.main === module && !process.env.CI) {
+if (require.main === module && process.env.CI !== 'true') {
   preCommit();
 }
 

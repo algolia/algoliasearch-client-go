@@ -16,7 +16,6 @@ import {
   LANGUAGES,
   MAIN_BRANCH,
   gitBranchExists,
-  CLIENTS_JS_UTILS,
 } from '../common';
 import {
   getClientsConfigField,
@@ -25,7 +24,7 @@ import {
 } from '../config';
 import type { Language } from '../types';
 
-import { readJsonFile, writeJsonFile } from './common';
+import { writeJsonFile } from './common';
 import type { Changelog, Versions, VersionsToRelease } from './types';
 
 dotenv.config({ path: ROOT_ENV_PATH });
@@ -56,19 +55,6 @@ async function updateVersionForJavascript(
 
   clientsConfig.javascript.utilsPackageVersion = nextUtilsPackageVersion;
 
-  // update local `package.json` files
-  const pkgFiles = {
-    node: await readJsonFile(
-      toAbsolutePath('playground/javascript/node/package.json')
-    ),
-    browser: await readJsonFile(
-      toAbsolutePath('playground/javascript/browser/package.json')
-    ),
-    cts: await readJsonFile(
-      toAbsolutePath('tests/output/javascript/package.json')
-    ),
-  };
-
   // Sets the new version of the JavaScript client
   Object.values(GENERATORS)
     .filter((gen) => gen.language === 'javascript')
@@ -87,58 +73,14 @@ async function updateVersionForJavascript(
       }
 
       additionalProperties.packageVersion = newVersion;
-
-      if (!packageName) {
-        throw new Error(
-          `Package name is missing for JavaScript - ${packageName}.`
-        );
-      }
-
-      Object.values(pkgFiles).forEach((pkgFile) => {
-        if (pkgFile.dependencies[packageName]) {
-          // eslint-disable-next-line no-param-reassign
-          pkgFile.dependencies[packageName] = newVersion;
-        }
-      });
-
-      // We don't want this field to be in the final file, it only exists
-      // in the scripts.
+      // We don't want this field to be in the final file, it only exists in the scripts.
       additionalProperties.packageName = undefined;
     });
-
-  CLIENTS_JS_UTILS.forEach((util) => {
-    const utilPackageName = `${clientsConfig.javascript.npmNamespace}/${util}`;
-
-    Object.values(pkgFiles).forEach((pkgFile) => {
-      if (pkgFile.dependencies[utilPackageName]) {
-        // eslint-disable-next-line no-param-reassign
-        pkgFile.dependencies[utilPackageName] = nextUtilsPackageVersion;
-      }
-    });
-  });
 
   // update `openapitools.json` config file
   await writeJsonFile(
     toAbsolutePath('config/openapitools.json'),
     openapiConfig
-  );
-
-  // update `package.json` node playground file
-  await writeJsonFile(
-    toAbsolutePath('playground/javascript/node/package.json'),
-    pkgFiles.node
-  );
-
-  // update `package.json` browser playground file
-  await writeJsonFile(
-    toAbsolutePath('playground/javascript/browser/package.json'),
-    pkgFiles.browser
-  );
-
-  // update `package.json` node cts file
-  await writeJsonFile(
-    toAbsolutePath('tests/output/javascript/package.json'),
-    pkgFiles.cts
   );
 
   // update `clients.config.json` file for the utils version
@@ -264,12 +206,10 @@ export async function updateAPIVersions(
       After that, we generate clients with new versions. And then, we copy all of them over to JS repository.
       */
     if (lang === 'javascript') {
-      await run(
-        `yarn workspace algoliasearch-client-javascript release:bump ${releaseType}`,
-        {
-          verbose: true,
-        }
-      );
+      await run(`yarn release:bump ${releaseType}`, {
+        verbose: true,
+        cwd: getLanguageFolder(lang),
+      });
     }
 
     await updateChangelog({
@@ -284,11 +224,11 @@ export async function updateAPIVersions(
   const commitMessage = generationCommitText.commitPrepareReleaseMessage;
   await run('git add .', { verbose: true });
   if (process.env.LOCAL_TEST_DEV) {
-    await run(`CI=true git commit -m "${commitMessage} [skip ci]"`, {
+    await run(`git commit -m "${commitMessage} [skip ci]"`, {
       verbose: true,
     });
   } else {
-    await run(`CI=true git commit -m "${commitMessage}"`, { verbose: true });
+    await run(`CI=false git commit -m "${commitMessage}"`, { verbose: true });
   }
 
   await run(`git push origin ${headBranch}`, { verbose: true });

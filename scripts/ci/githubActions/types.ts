@@ -34,6 +34,10 @@ export type ClientMatrix = BaseMatrix & {
    */
   language: string;
   /**
+   * The root of the test folder.
+   */
+  testsRootFolder: string;
+  /**
    * The test output path to delete before running the CTS generation.
    */
   testsToDelete: string;
@@ -43,7 +47,7 @@ export type ClientMatrix = BaseMatrix & {
   testsToStore: string;
 };
 
-export type SpecMatrix = Omit<BaseMatrix, 'toBuild'> & {
+export type SpecMatrix = Pick<BaseMatrix, 'cacheKey' | 'toRun'> & {
   /**
    * The path of the bundled spec file.
    */
@@ -52,4 +56,10 @@ export type SpecMatrix = Omit<BaseMatrix, 'toBuild'> & {
 
 export type Matrix<TMatrix> = {
   client: TMatrix[];
+};
+
+export type ToRunMatrix = {
+  path: string;
+  toRun: string[];
+  cacheToCompute: string[];
 };
