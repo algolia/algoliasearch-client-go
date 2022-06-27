@@ -25,13 +25,17 @@ type Prompt = {
   interactive: boolean;
 };
 
-export function getClientChoices(job: Job, language?: LangArg): string[] {
-  const withoutAlgoliaSearch = PROMPT_CLIENTS.filter(
+export function getClientChoices(
+  job: Job,
+  language?: LangArg,
+  clientList = PROMPT_CLIENTS
+): string[] {
+  const withoutAlgoliaSearch = clientList.filter(
     (client) => client !== 'algoliasearch'
   );
 
   if (!language) {
-    return job === 'specs' ? withoutAlgoliaSearch : PROMPT_CLIENTS;
+    return job === 'specs' ? withoutAlgoliaSearch : clientList;
   }
 
   const isJavaScript = language === ALL || language === 'javascript';
@@ -41,7 +45,7 @@ export function getClientChoices(job: Job, language?: LangArg): string[] {
     case 'build':
       // Only `JavaScript` provide a lite client, others can build anything but it.
       if (isJavaScript) {
-        return PROMPT_CLIENTS.filter((client) => client !== 'lite');
+        return clientList.filter((client) => client !== 'lite');
       }
 
       return withoutAlgoliaSearch.filter((client) => client !== 'lite');
@@ -56,7 +60,7 @@ export function getClientChoices(job: Job, language?: LangArg): string[] {
 
       return withoutAlgoliaSearch.filter((client) => client !== 'lite');
     default:
-      return PROMPT_CLIENTS;
+      return clientList;
   }
 }
 
@@ -107,7 +111,7 @@ export async function prompt({
     decision.language = langArg;
   }
 
-  decision.clientList = getClientChoices(job, decision.language);
+  decision.clientList = getClientChoices(job, decision.language, CLIENTS);
 
   if (!clientArg || !clientArg.length) {
     if (interactive) {
@@ -117,7 +121,7 @@ export async function prompt({
           name: 'client',
           message: 'Select a client',
           default: ALL,
-          choices: decision.clientList,
+          choices: getClientChoices(job, decision.language),
         },
       ]);
 
@@ -125,7 +129,7 @@ export async function prompt({
     }
   } else {
     clientArg.forEach((client) => {
-      if (!decision.clientList.includes(client)) {
+      if (!PROMPT_CLIENTS.includes(client)) {
         throw new Error(
           `The '${clientArg}' client can't run with the given job: '${job}'.\n\nAllowed choices are: ${decision.clientList.join(
             ', '

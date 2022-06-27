@@ -1,0 +1,53 @@
+---
+title: Wait for an API key to be valid
+---
+
+import { TabsLanguage } from '../../../src/components/TabsLanguage';
+import TabItem from '@theme/TabItem';
+
+> The `waitForApiKey` method is only available in the `search` client context.
+
+Adding, updating or deleting API keys is not always instantaneous, which is why you might want to ensure the job has been processed before jumping to an other task.
+
+We provide a `waitForApiKey` helper method for you to easily wait for a specific `operation` made on a `key`.
+
+<TabsLanguage>
+<TabItem value="javascript">
+
+> An `operation` can either be `add` | `update` | `delete`
+
+```js
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+
+const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const { key } = await client.addApiKey({
+  acl: ['analytics', 'browse', 'editSettings'],
+});
+
+// Poll the task status with defaults values
+await client.waitForApiKey({ operation: 'add', key });
+
+// The fields to update on your API key
+const updatesToPerform: ApiKey = {
+  acl: ['analytics', 'search'],
+  indexes: ['products'],
+};
+
+// Call for update
+await client.updateApiKey({
+  key,
+  apiKey: updatesToPerform,
+});
+
+// Wait for update to be done
+await client.waitForApiKey({
+  operation: 'update',
+  key,
+  // We provide the updated fields to check if the changes have been applied
+  apiKey: updatesToPerform,
+});
+```
+
+</TabItem>
+</TabsLanguage>

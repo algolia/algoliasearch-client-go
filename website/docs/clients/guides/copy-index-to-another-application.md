@@ -1,5 +1,5 @@
 ---
-title: Copy or move an index
+title: Copy an index to another application
 ---
 
 :::caution

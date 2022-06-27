@@ -79,6 +79,7 @@ const sidebars = {
         'clients/guides/retrieving-facets',
         'clients/guides/customized-client-usage',
         'clients/guides/wait-for-a-task-to-finish',
+        'clients/guides/wait-for-api-key-to-be-valid',
         'clients/guides/copy-or-move-index',
         'clients/guides/copy-index-to-another-application',
       ],

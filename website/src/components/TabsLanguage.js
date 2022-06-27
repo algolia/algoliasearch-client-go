@@ -9,7 +9,7 @@ export const languagesTabValues = [
 
 export function TabsLanguage(props) {
   return (
-    <Tabs groupId="language" defaultValue="java" values={props.values}>
+    <Tabs groupId="language" defaultValue="javascript" values={props.values}>
       {props.children}
     </Tabs>
   );

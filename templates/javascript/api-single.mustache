@@ -18,7 +18,7 @@ export function create{{capitalizedApiName}}({
     hosts: getDefaultHosts({{^hasRegionalHost}}appIdOption{{/hasRegionalHost}}{{#hasRegionalHost}}regionOption{{/hasRegionalHost}}),
     ...options,
     algoliaAgent: getAlgoliaAgent({
-      algoliaAgents: algoliaAgents,
+      algoliaAgents,
       client: '{{{algoliaAgent}}}',
       version: apiClientVersion,
     }),
@@ -40,30 +40,7 @@ export function create{{capitalizedApiName}}({
   return {
     addAlgoliaAgent,
     {{#isSearchClient}}
-    /**
-     * Wait for a task to complete with `indexName` and `taskID`.
-     *
-     * @summary Wait for a task to complete.
-     * @param waitForTaskProps - The waitForTaskProps object.
-     * @param waitForTaskProps.indexName - The index in which to perform the request.
-     * @param waitForTaskProps.taskID - The unique identifier of the task to wait for.
-     */
-    waitForTask({
-      indexName,
-      taskID,
-      ...createRetryablePromiseOptions,
-    }: {
-      indexName: string;
-      taskID: number;
-    } & Omit<CreateRetryablePromiseOptions<GetTaskResponse>, 'func' | 'validate'>): Promise<void> {
-      return new Promise<void>((resolve, reject) => {
-        createRetryablePromise<GetTaskResponse>({
-          ...createRetryablePromiseOptions,
-          func: () => this.getTask({ indexName, taskID }),
-          validate: (response) => response.status === 'published',
-        }).then(() => resolve()).catch(reject);
-      });
-    },
+    {{> api/helpers}}
     {{/isSearchClient}}
     {{#operation}}
     {{> api/operation/jsdoc}}
