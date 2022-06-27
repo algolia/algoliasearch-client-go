@@ -370,6 +370,60 @@ components:
         is 100.
       maximum: 100
       default: 10
+    order:
+      description: Pinned order of facet lists.
+      type: array
+      items:
+        type: string
+    facets:
+      description: The ordering of facets (widgets).
+      type: object
+      additionalProperties: false
+      properties:
+        order:
+          $ref: '#/components/schemas/order'
+    sortRemainingBy:
+      description: |
+        How to display the remaining items.
+          - `count`: facet count (descending).
+          - `alpha`: alphabetical (ascending).
+          - `hidden`: show only pinned values.
+      type: string
+      enum:
+        - count
+        - alpha
+        - hidden
+    value:
+      type: object
+      additionalProperties: false
+      properties:
+        order:
+          $ref: '#/components/schemas/order'
+        sortRemainingBy:
+          $ref: '#/components/schemas/sortRemainingBy'
+    values:
+      description: The ordering of facet values, within an individual list.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/value'
+    facetOrdering:
+      description: Defining how facets should be ordered.
+      type: object
+      additionalProperties: false
+      properties:
+        facets:
+          $ref: '#/components/schemas/facets'
+        values:
+          $ref: '#/components/schemas/values'
+    renderingContent:
+      description: >-
+        Content defining how the search interface should be rendered. Can be set
+        via the settings for a default value and can be overridden via rules.
+      type: object
+      additionalProperties: false
+      properties:
+        facetOrdering:
+          $ref: '#/components/schemas/facetOrdering'
     indexSettingsAsSearchParams:
       type: object
       additionalProperties: false
@@ -611,12 +665,7 @@ components:
             the attribute ranking stage.
           default: false
         renderingContent:
-          type: object
-          description: >-
-            Content defining how the search interface should be rendered. Can be
-            set via the settings for a default value and can be overridden via
-            rules.
-          default: {}
+          $ref: '#/components/schemas/renderingContent'
     searchParamsObject:
       allOf:
         - $ref: '#/components/schemas/baseSearchParams'

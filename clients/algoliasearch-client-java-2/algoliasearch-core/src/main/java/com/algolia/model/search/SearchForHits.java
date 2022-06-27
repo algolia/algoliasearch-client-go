@@ -237,7 +237,7 @@ public class SearchForHits {
   private Boolean attributeCriteriaComputedByMinProximity;
 
   @SerializedName("renderingContent")
-  private Object renderingContent;
+  private RenderingContent renderingContent;
 
   @SerializedName("indexName")
   private String indexName;
@@ -1568,19 +1568,18 @@ public class SearchForHits {
     return attributeCriteriaComputedByMinProximity;
   }
 
-  public SearchForHits setRenderingContent(Object renderingContent) {
+  public SearchForHits setRenderingContent(RenderingContent renderingContent) {
     this.renderingContent = renderingContent;
     return this;
   }
 
   /**
-   * Content defining how the search interface should be rendered. Can be set via the settings for a
-   * default value and can be overridden via rules.
+   * Get renderingContent
    *
    * @return renderingContent
    */
   @javax.annotation.Nullable
-  public Object getRenderingContent() {
+  public RenderingContent getRenderingContent() {
     return renderingContent;
   }
 

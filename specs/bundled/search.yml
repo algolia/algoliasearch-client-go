@@ -482,6 +482,60 @@ components:
         is 100.
       maximum: 100
       default: 10
+    order:
+      description: Pinned order of facet lists.
+      type: array
+      items:
+        type: string
+    facets:
+      description: The ordering of facets (widgets).
+      type: object
+      additionalProperties: false
+      properties:
+        order:
+          $ref: '#/components/schemas/order'
+    sortRemainingBy:
+      description: |
+        How to display the remaining items.
+          - `count`: facet count (descending).
+          - `alpha`: alphabetical (ascending).
+          - `hidden`: show only pinned values.
+      type: string
+      enum:
+        - count
+        - alpha
+        - hidden
+    value:
+      type: object
+      additionalProperties: false
+      properties:
+        order:
+          $ref: '#/components/schemas/order'
+        sortRemainingBy:
+          $ref: '#/components/schemas/sortRemainingBy'
+    values:
+      description: The ordering of facet values, within an individual list.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/value'
+    facetOrdering:
+      description: Defining how facets should be ordered.
+      type: object
+      additionalProperties: false
+      properties:
+        facets:
+          $ref: '#/components/schemas/facets'
+        values:
+          $ref: '#/components/schemas/values'
+    renderingContent:
+      description: >-
+        Content defining how the search interface should be rendered. Can be set
+        via the settings for a default value and can be overridden via rules.
+      type: object
+      additionalProperties: false
+      properties:
+        facetOrdering:
+          $ref: '#/components/schemas/facetOrdering'
     indexSettingsAsSearchParams:
       type: object
       additionalProperties: false
@@ -723,12 +777,7 @@ components:
             the attribute ranking stage.
           default: false
         renderingContent:
-          type: object
-          description: >-
-            Content defining how the search interface should be rendered. Can be
-            set via the settings for a default value and can be overridden via
-            rules.
-          default: {}
+          $ref: '#/components/schemas/renderingContent'
     searchParamsObject:
       allOf:
         - $ref: '#/components/schemas/baseSearchParams'
@@ -1468,6 +1517,48 @@ components:
         context:
           type: string
           description: 'Rule context format: [A-Za-z0-9_-]+).'
+    editType:
+      description: Type of edit.
+      type: string
+      enum:
+        - remove
+        - replace
+    edit:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/editType'
+        delete:
+          description: Text or patterns to remove from the query string.
+          type: string
+        insert:
+          description: >-
+            Text that should be inserted in place of the removed text inside the
+            query string.
+          type: string
+    consequenceQuery:
+      type: object
+      additionalProperties: false
+      properties:
+        remove:
+          description: Words to remove.
+          type: array
+          items:
+            type: string
+        edits:
+          description: Edits to apply.
+          type: array
+          items:
+            $ref: '#/components/schemas/edit'
+    schemas_query:
+      description: >-
+        When providing a string, it replaces the entire query string. When
+        providing an object, it describes incremental edits to be made to the
+        query string (but you can't do both).
+      oneOf:
+        - $ref: '#/components/schemas/consequenceQuery'
+        - type: string
     automaticFacetFilter:
       type: object
       description: Automatic facet Filter.
@@ -1490,29 +1581,30 @@ components:
           description: Whether the filter is disjunctive (true) or conjunctive (false).
       required:
         - facet
+    automaticFacetFilters:
+      description: >-
+        Names of facets to which automatic filtering must be applied; they must
+        match the facet name of a facet value placeholder in the query pattern.
+      oneOf:
+        - type: array
+          items:
+            $ref: '#/components/schemas/automaticFacetFilter'
+        - type: array
+          items:
+            type: string
     params:
       type: object
       description: Additional search parameters. Any valid search parameter is allowed.
       additionalProperties: false
       properties:
         query:
-          type: string
-          description: Query string.
+          $ref: '#/components/schemas/schemas_query'
         automaticFacetFilters:
-          type: array
-          description: >-
-            Names of facets to which automatic filtering must be applied; they
-            must match the facet name of a facet value placeholder in the query
-            pattern.
-          items:
-            $ref: '#/components/schemas/automaticFacetFilter'
+          $ref: '#/components/schemas/automaticFacetFilters'
         automaticOptionalFacetFilters:
-          type: object
-          description: >-
-            Same syntax as automaticFacetFilters, but the engine treats the
-            filters as optional.
-          items:
-            $ref: '#/components/schemas/automaticFacetFilter'
+          $ref: '#/components/schemas/automaticFacetFilters'
+        renderingContent:
+          $ref: '#/components/schemas/renderingContent'
     consequenceParams:
       allOf:
         - $ref: '#/components/schemas/params'

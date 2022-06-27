@@ -237,7 +237,7 @@ public class SearchForFacets {
   private Boolean attributeCriteriaComputedByMinProximity;
 
   @SerializedName("renderingContent")
-  private Object renderingContent;
+  private RenderingContent renderingContent;
 
   @SerializedName("facet")
   private String facet;
@@ -1574,19 +1574,18 @@ public class SearchForFacets {
     return attributeCriteriaComputedByMinProximity;
   }
 
-  public SearchForFacets setRenderingContent(Object renderingContent) {
+  public SearchForFacets setRenderingContent(RenderingContent renderingContent) {
     this.renderingContent = renderingContent;
     return this;
   }
 
   /**
-   * Content defining how the search interface should be rendered. Can be set via the settings for a
-   * default value and can be overridden via rules.
+   * Get renderingContent
    *
    * @return renderingContent
    */
   @javax.annotation.Nullable
-  public Object getRenderingContent() {
+  public RenderingContent getRenderingContent() {
     return renderingContent;
   }
 

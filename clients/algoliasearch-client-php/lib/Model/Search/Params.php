@@ -21,9 +21,10 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
      * @var string[]
      */
     protected static $modelTypes = [
-        'query' => 'string',
-        'automaticFacetFilters' => '\Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilter[]',
-        'automaticOptionalFacetFilters' => '\Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilter[]',
+        'query' => '\Algolia\AlgoliaSearch\Model\Search\SchemasQuery',
+        'automaticFacetFilters' => '\Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilters',
+        'automaticOptionalFacetFilters' => '\Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilters',
+        'renderingContent' => '\Algolia\AlgoliaSearch\Model\Search\RenderingContent',
     ];
 
     /**
@@ -35,6 +36,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
         'query' => null,
         'automaticFacetFilters' => null,
         'automaticOptionalFacetFilters' => null,
+        'renderingContent' => null,
     ];
 
     /**
@@ -66,6 +68,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
         'query' => 'setQuery',
         'automaticFacetFilters' => 'setAutomaticFacetFilters',
         'automaticOptionalFacetFilters' => 'setAutomaticOptionalFacetFilters',
+        'renderingContent' => 'setRenderingContent',
     ];
 
     /**
@@ -77,6 +80,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
         'query' => 'getQuery',
         'automaticFacetFilters' => 'getAutomaticFacetFilters',
         'automaticOptionalFacetFilters' => 'getAutomaticOptionalFacetFilters',
+        'renderingContent' => 'getRenderingContent',
     ];
 
     /**
@@ -124,6 +128,9 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
             $this->container['automaticOptionalFacetFilters'] =
                 $data['automaticOptionalFacetFilters'];
         }
+        if (isset($data['renderingContent'])) {
+            $this->container['renderingContent'] = $data['renderingContent'];
+        }
     }
 
     /**
@@ -152,7 +159,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
     /**
      * Gets query
      *
-     * @return string|null
+     * @return \Algolia\AlgoliaSearch\Model\Search\SchemasQuery|null
      */
     public function getQuery()
     {
@@ -162,7 +169,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
     /**
      * Sets query
      *
-     * @param string|null $query query string
+     * @param \Algolia\AlgoliaSearch\Model\Search\SchemasQuery|null $query query
      *
      * @return self
      */
@@ -176,7 +183,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
     /**
      * Gets automaticFacetFilters
      *
-     * @return \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilter[]|null
+     * @return \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilters|null
      */
     public function getAutomaticFacetFilters()
     {
@@ -186,7 +193,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
     /**
      * Sets automaticFacetFilters
      *
-     * @param \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilter[]|null $automaticFacetFilters names of facets to which automatic filtering must be applied; they must match the facet name of a facet value placeholder in the query pattern
+     * @param \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilters|null $automaticFacetFilters automaticFacetFilters
      *
      * @return self
      */
@@ -200,7 +207,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
     /**
      * Gets automaticOptionalFacetFilters
      *
-     * @return \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilter[]|null
+     * @return \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilters|null
      */
     public function getAutomaticOptionalFacetFilters()
     {
@@ -210,7 +217,7 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
     /**
      * Sets automaticOptionalFacetFilters
      *
-     * @param \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilter[]|null $automaticOptionalFacetFilters same syntax as automaticFacetFilters, but the engine treats the filters as optional
+     * @param \Algolia\AlgoliaSearch\Model\Search\AutomaticFacetFilters|null $automaticOptionalFacetFilters automaticOptionalFacetFilters
      *
      * @return self
      */
@@ -220,6 +227,30 @@ class Params extends \Algolia\AlgoliaSearch\Model\AbstractModel implements
         $this->container[
             'automaticOptionalFacetFilters'
         ] = $automaticOptionalFacetFilters;
+
+        return $this;
+    }
+
+    /**
+     * Gets renderingContent
+     *
+     * @return \Algolia\AlgoliaSearch\Model\Search\RenderingContent|null
+     */
+    public function getRenderingContent()
+    {
+        return $this->container['renderingContent'] ?? null;
+    }
+
+    /**
+     * Sets renderingContent
+     *
+     * @param \Algolia\AlgoliaSearch\Model\Search\RenderingContent|null $renderingContent renderingContent
+     *
+     * @return self
+     */
+    public function setRenderingContent($renderingContent)
+    {
+        $this->container['renderingContent'] = $renderingContent;
 
         return $this;
     }

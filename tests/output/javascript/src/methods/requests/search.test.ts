@@ -1530,7 +1530,12 @@ describe('search', () => {
           minProximity: 0,
           responseFields: [''],
           attributeCriteriaComputedByMinProximity: true,
-          renderingContent: { string: 'any' },
+          renderingContent: {
+            facetOrdering: {
+              facets: { order: ['a', 'b'] },
+              values: { a: { order: ['b'], sortRemainingBy: 'count' } },
+            },
+          },
           type: 'default',
         },
       ],
@@ -1616,7 +1621,12 @@ describe('search', () => {
           minProximity: 0,
           responseFields: [''],
           attributeCriteriaComputedByMinProximity: true,
-          renderingContent: { string: 'any' },
+          renderingContent: {
+            facetOrdering: {
+              facets: { order: ['a', 'b'] },
+              values: { a: { order: ['b'], sortRemainingBy: 'count' } },
+            },
+          },
           type: 'default',
         },
       ],

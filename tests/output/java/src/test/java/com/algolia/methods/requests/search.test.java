@@ -2779,10 +2779,40 @@ class SearchClientRequestsTests {
           requests_02.setResponseFields(responseFields3);
           boolean attributeCriteriaComputedByMinProximity3 = true;
           requests_02.setAttributeCriteriaComputedByMinProximity(attributeCriteriaComputedByMinProximity3);
-          Map<String, String> renderingContent3 = new HashMap<>();
+          RenderingContent renderingContent3 = new RenderingContent();
           {
-            String string4 = "any";
-            renderingContent3.put("string", string4);
+            FacetOrdering facetOrdering4 = new FacetOrdering();
+            {
+              Facets facets5 = new Facets();
+              {
+                List<String> order6 = new ArrayList<>();
+                {
+                  String order_07 = "a";
+                  order6.add(order_07);
+                  String order_17 = "b";
+                  order6.add(order_17);
+                }
+                facets5.setOrder(order6);
+              }
+              facetOrdering4.setFacets(facets5);
+              Map<String, Value> values5 = new HashMap<>();
+              {
+                Value a6 = new Value();
+                {
+                  List<String> order7 = new ArrayList<>();
+                  {
+                    String order_08 = "b";
+                    order7.add(order_08);
+                  }
+                  a6.setOrder(order7);
+                  SortRemainingBy sortRemainingBy7 = SortRemainingBy.fromValue("count");
+                  a6.setSortRemainingBy(sortRemainingBy7);
+                }
+                values5.put("a", a6);
+              }
+              facetOrdering4.setValues(values5);
+            }
+            renderingContent3.setFacetOrdering(facetOrdering4);
           }
           requests_02.setRenderingContent(renderingContent3);
           SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
@@ -2803,7 +2833,7 @@ class SearchClientRequestsTests {
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"\",\"similarQuery\":\"\",\"filters\":\"\",\"facetFilters\":[\"\"],\"optionalFilters\":[\"\"],\"numericFilters\":[\"\"],\"tagFilters\":[\"\"],\"sumOrFiltersScores\":true,\"facets\":[\"\"],\"maxValuesPerFacet\":0,\"facetingAfterDistinct\":true,\"sortFacetValuesBy\":\"\",\"page\":0,\"offset\":0,\"length\":0,\"aroundLatLng\":\"\",\"aroundLatLngViaIP\":true,\"aroundRadius\":\"all\",\"aroundPrecision\":0,\"minimumAroundRadius\":0,\"insideBoundingBox\":[47.3165,4.9665],\"insidePolygon\":[47.3165,4.9665],\"naturalLanguages\":[\"\"],\"ruleContexts\":[\"\"],\"personalizationImpact\":0,\"userToken\":\"\",\"getRankingInfo\":true,\"clickAnalytics\":true,\"analytics\":true,\"analyticsTags\":[\"\"],\"percentileComputation\":true,\"enableABTest\":true,\"enableReRanking\":true,\"reRankingApplyFilter\":[\"\"],\"attributesForFaceting\":[\"\"],\"unretrievableAttributes\":[\"\"],\"attributesToRetrieve\":[\"\"],\"restrictSearchableAttributes\":[\"\"],\"ranking\":[\"\"],\"customRanking\":[\"\"],\"relevancyStrictness\":0,\"attributesToHighlight\":[\"\"],\"attributesToSnippet\":[\"\"],\"highlightPreTag\":\"\",\"highlightPostTag\":\"\",\"snippetEllipsisText\":\"\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":0,\"minWordSizefor1Typo\":0,\"minWordSizefor2Typos\":0,\"typoTolerance\":\"min\",\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"\"],\"ignorePlurals\":false,\"removeStopWords\":true,\"keepDiacriticsOnCharacters\":\"\",\"queryLanguages\":[\"\"],\"decompoundQuery\":true,\"enableRules\":true,\"enablePersonalization\":true,\"queryType\":\"prefixAll\",\"removeWordsIfNoResults\":\"allOptional\",\"advancedSyntax\":true,\"optionalWords\":[\"\"],\"disableExactOnAttributes\":[\"\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"multiWordsSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":0,\"synonyms\":true,\"replaceSynonymsInHighlight\":true,\"minProximity\":0,\"responseFields\":[\"\"],\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"string\":\"any\"},\"type\":\"default\"}]}",
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"\",\"similarQuery\":\"\",\"filters\":\"\",\"facetFilters\":[\"\"],\"optionalFilters\":[\"\"],\"numericFilters\":[\"\"],\"tagFilters\":[\"\"],\"sumOrFiltersScores\":true,\"facets\":[\"\"],\"maxValuesPerFacet\":0,\"facetingAfterDistinct\":true,\"sortFacetValuesBy\":\"\",\"page\":0,\"offset\":0,\"length\":0,\"aroundLatLng\":\"\",\"aroundLatLngViaIP\":true,\"aroundRadius\":\"all\",\"aroundPrecision\":0,\"minimumAroundRadius\":0,\"insideBoundingBox\":[47.3165,4.9665],\"insidePolygon\":[47.3165,4.9665],\"naturalLanguages\":[\"\"],\"ruleContexts\":[\"\"],\"personalizationImpact\":0,\"userToken\":\"\",\"getRankingInfo\":true,\"clickAnalytics\":true,\"analytics\":true,\"analyticsTags\":[\"\"],\"percentileComputation\":true,\"enableABTest\":true,\"enableReRanking\":true,\"reRankingApplyFilter\":[\"\"],\"attributesForFaceting\":[\"\"],\"unretrievableAttributes\":[\"\"],\"attributesToRetrieve\":[\"\"],\"restrictSearchableAttributes\":[\"\"],\"ranking\":[\"\"],\"customRanking\":[\"\"],\"relevancyStrictness\":0,\"attributesToHighlight\":[\"\"],\"attributesToSnippet\":[\"\"],\"highlightPreTag\":\"\",\"highlightPostTag\":\"\",\"snippetEllipsisText\":\"\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":0,\"minWordSizefor1Typo\":0,\"minWordSizefor2Typos\":0,\"typoTolerance\":\"min\",\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"\"],\"ignorePlurals\":false,\"removeStopWords\":true,\"keepDiacriticsOnCharacters\":\"\",\"queryLanguages\":[\"\"],\"decompoundQuery\":true,\"enableRules\":true,\"enablePersonalization\":true,\"queryType\":\"prefixAll\",\"removeWordsIfNoResults\":\"allOptional\",\"advancedSyntax\":true,\"optionalWords\":[\"\"],\"disableExactOnAttributes\":[\"\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"multiWordsSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":0,\"synonyms\":true,\"replaceSynonymsInHighlight\":true,\"minProximity\":0,\"responseFields\":[\"\"],\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"facetOrdering\":{\"facets\":{\"order\":[\"a\",\"b\"]},\"values\":{\"a\":{\"order\":[\"b\"],\"sortRemainingBy\":\"count\"}}}},\"type\":\"default\"}]}",
         req.body,
         JSONCompareMode.STRICT
       );

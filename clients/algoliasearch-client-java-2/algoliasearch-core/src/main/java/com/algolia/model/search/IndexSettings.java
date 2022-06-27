@@ -171,7 +171,7 @@ public class IndexSettings {
   private Boolean attributeCriteriaComputedByMinProximity;
 
   @SerializedName("renderingContent")
-  private Object renderingContent;
+  private RenderingContent renderingContent;
 
   public IndexSettings setReplicas(List<String> replicas) {
     this.replicas = replicas;
@@ -1178,19 +1178,18 @@ public class IndexSettings {
     return attributeCriteriaComputedByMinProximity;
   }
 
-  public IndexSettings setRenderingContent(Object renderingContent) {
+  public IndexSettings setRenderingContent(RenderingContent renderingContent) {
     this.renderingContent = renderingContent;
     return this;
   }
 
   /**
-   * Content defining how the search interface should be rendered. Can be set via the settings for a
-   * default value and can be overridden via rules.
+   * Get renderingContent
    *
    * @return renderingContent
    */
   @javax.annotation.Nullable
-  public Object getRenderingContent() {
+  public RenderingContent getRenderingContent() {
     return renderingContent;
   }
 

@@ -1,82 +1,81 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /** Additional search parameters. Any valid search parameter is allowed. */
 public class Params {
 
   @SerializedName("query")
-  private String query;
+  private SchemasQuery query;
 
   @SerializedName("automaticFacetFilters")
-  private List<AutomaticFacetFilter> automaticFacetFilters;
+  private AutomaticFacetFilters automaticFacetFilters;
 
   @SerializedName("automaticOptionalFacetFilters")
-  private List<AutomaticFacetFilter> automaticOptionalFacetFilters;
+  private AutomaticFacetFilters automaticOptionalFacetFilters;
 
-  public Params setQuery(String query) {
+  @SerializedName("renderingContent")
+  private RenderingContent renderingContent;
+
+  public Params setQuery(SchemasQuery query) {
     this.query = query;
     return this;
   }
 
   /**
-   * Query string.
+   * Get query
    *
    * @return query
    */
   @javax.annotation.Nullable
-  public String getQuery() {
+  public SchemasQuery getQuery() {
     return query;
   }
 
-  public Params setAutomaticFacetFilters(List<AutomaticFacetFilter> automaticFacetFilters) {
+  public Params setAutomaticFacetFilters(AutomaticFacetFilters automaticFacetFilters) {
     this.automaticFacetFilters = automaticFacetFilters;
     return this;
   }
 
-  public Params addAutomaticFacetFilters(AutomaticFacetFilter automaticFacetFiltersItem) {
-    if (this.automaticFacetFilters == null) {
-      this.automaticFacetFilters = new ArrayList<>();
-    }
-    this.automaticFacetFilters.add(automaticFacetFiltersItem);
-    return this;
-  }
-
   /**
-   * Names of facets to which automatic filtering must be applied; they must match the facet name of
-   * a facet value placeholder in the query pattern.
+   * Get automaticFacetFilters
    *
    * @return automaticFacetFilters
    */
   @javax.annotation.Nullable
-  public List<AutomaticFacetFilter> getAutomaticFacetFilters() {
+  public AutomaticFacetFilters getAutomaticFacetFilters() {
     return automaticFacetFilters;
   }
 
-  public Params setAutomaticOptionalFacetFilters(List<AutomaticFacetFilter> automaticOptionalFacetFilters) {
+  public Params setAutomaticOptionalFacetFilters(AutomaticFacetFilters automaticOptionalFacetFilters) {
     this.automaticOptionalFacetFilters = automaticOptionalFacetFilters;
     return this;
   }
 
-  public Params addAutomaticOptionalFacetFilters(AutomaticFacetFilter automaticOptionalFacetFiltersItem) {
-    if (this.automaticOptionalFacetFilters == null) {
-      this.automaticOptionalFacetFilters = new ArrayList<>();
-    }
-    this.automaticOptionalFacetFilters.add(automaticOptionalFacetFiltersItem);
-    return this;
-  }
-
   /**
-   * Same syntax as automaticFacetFilters, but the engine treats the filters as optional.
+   * Get automaticOptionalFacetFilters
    *
    * @return automaticOptionalFacetFilters
    */
   @javax.annotation.Nullable
-  public List<AutomaticFacetFilter> getAutomaticOptionalFacetFilters() {
+  public AutomaticFacetFilters getAutomaticOptionalFacetFilters() {
     return automaticOptionalFacetFilters;
+  }
+
+  public Params setRenderingContent(RenderingContent renderingContent) {
+    this.renderingContent = renderingContent;
+    return this;
+  }
+
+  /**
+   * Get renderingContent
+   *
+   * @return renderingContent
+   */
+  @javax.annotation.Nullable
+  public RenderingContent getRenderingContent() {
+    return renderingContent;
   }
 
   @Override
@@ -91,13 +90,14 @@ public class Params {
     return (
       Objects.equals(this.query, params.query) &&
       Objects.equals(this.automaticFacetFilters, params.automaticFacetFilters) &&
-      Objects.equals(this.automaticOptionalFacetFilters, params.automaticOptionalFacetFilters)
+      Objects.equals(this.automaticOptionalFacetFilters, params.automaticOptionalFacetFilters) &&
+      Objects.equals(this.renderingContent, params.renderingContent)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(query, automaticFacetFilters, automaticOptionalFacetFilters);
+    return Objects.hash(query, automaticFacetFilters, automaticOptionalFacetFilters, renderingContent);
   }
 
   @Override
@@ -107,6 +107,7 @@ public class Params {
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    automaticFacetFilters: ").append(toIndentedString(automaticFacetFilters)).append("\n");
     sb.append("    automaticOptionalFacetFilters: ").append(toIndentedString(automaticOptionalFacetFilters)).append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("}");
     return sb.toString();
   }
