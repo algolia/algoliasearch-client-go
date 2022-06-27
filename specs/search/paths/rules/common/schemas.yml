@@ -114,18 +114,66 @@ params:
   additionalProperties: false
   properties:
     query:
-      type: string
-      description: Query string.
+      $ref: '#/query'
     automaticFacetFilters:
-      type: array
-      description: Names of facets to which automatic filtering must be applied; they must match the facet name of a facet value placeholder in the query pattern.
-      items:
-        $ref: '#/automaticFacetFilter'
+      $ref: '#/automaticFacetFilters'
     automaticOptionalFacetFilters:
-      type: object
-      description: Same syntax as automaticFacetFilters, but the engine treats the filters as optional.
+      $ref: '#/automaticOptionalFacetFilters'
+    renderingContent:
+      $ref: '../../../../common/schemas/IndexSettings.yml#/renderingContent'
+
+query:
+  description: When providing a string, it replaces the entire query string. When providing an object, it describes incremental edits to be made to the query string (but you can't do both).
+  oneOf:
+    - $ref: '#/consequenceQuery'
+    - type: string
+
+consequenceQuery:
+  type: object
+  additionalProperties: false
+  properties:
+    remove:
+      description: Words to remove.
+      type: array
+      items:
+        type: string
+    edits:
+      description: Edits to apply.
+      type: array
+      items:
+        $ref: '#/edit'
+
+edit:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/editType'
+    delete:
+      description: Text or patterns to remove from the query string.
+      type: string
+    insert:
+      description: Text that should be inserted in place of the removed text inside the query string.
+      type: string
+
+editType:
+  description: Type of edit.
+  type: string
+  enum: [remove, replace]
+
+automaticFacetFilters:
+  description: Names of facets to which automatic filtering must be applied; they must match the facet name of a facet value placeholder in the query pattern.
+  oneOf:
+    - type: array
       items:
         $ref: '#/automaticFacetFilter'
+    - type: array
+      items:
+        type: string
+
+automaticOptionalFacetFilters:
+  description: Same syntax as automaticFacetFilters, but the engine treats the filters as optional.
+  $ref: '#/automaticFacetFilters'
 
 automaticFacetFilter:
   type: object

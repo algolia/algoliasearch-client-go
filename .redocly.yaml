@@ -1,4 +1,4 @@
-apiDefinitions:
+apis:
   abtesting: specs/abtesting/spec.yml
   analytics: specs/analytics/spec.yml
   insights: specs/insights/spec.yml

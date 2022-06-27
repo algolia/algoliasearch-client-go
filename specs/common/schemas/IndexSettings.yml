@@ -268,9 +268,7 @@ indexSettingsAsSearchParams:
       description: When attribute is ranked above proximity in your ranking formula, proximity is used to select which searchable attribute is matched in the attribute ranking stage.
       default: false
     renderingContent:
-      type: object
-      description: Content defining how the search interface should be rendered. Can be set via the settings for a default value and can be overridden via rules.
-      default: {}
+      $ref: '#/renderingContent'
 
 maxFacetHits:
   type: integer
@@ -356,3 +354,59 @@ removeStopWords:
         type: string
     - type: boolean
       default: false
+
+renderingContent:
+  description: Content defining how the search interface should be rendered. Can be set via the settings for a default value and can be overridden via rules.
+  type: object
+  additionalProperties: false
+  properties:
+    facetOrdering:
+      $ref: '#/facetOrdering'
+
+facetOrdering:
+  description: Defining how facets should be ordered.
+  type: object
+  additionalProperties: false
+  properties:
+    facets:
+      $ref: '#/facets'
+    values:
+      $ref: '#/values'
+
+facets:
+  description: The ordering of facets (widgets).
+  type: object
+  additionalProperties: false
+  properties:
+    order:
+      $ref: '#/order'
+
+values:
+  description: The ordering of facet values, within an individual list.
+  type: object
+  additionalProperties:
+    $ref: '#/value'
+
+value:
+  type: object
+  additionalProperties: false
+  properties:
+    order:
+      $ref: '#/order'
+    sortRemainingBy:
+      $ref: '#/sortRemainingBy'
+
+order:
+  description: Pinned order of facet lists.
+  type: array
+  items:
+    type: string
+
+sortRemainingBy:
+  description: >
+    How to display the remaining items.
+      - `count`: facet count (descending).
+      - `alpha`: alphabetical (ascending).
+      - `hidden`: show only pinned values.
+  type: string
+  enum: [count, alpha, hidden]

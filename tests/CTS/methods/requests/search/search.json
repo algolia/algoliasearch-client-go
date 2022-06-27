@@ -328,7 +328,22 @@
           ],
           "attributeCriteriaComputedByMinProximity": true,
           "renderingContent": {
-            "string": "any"
+            "facetOrdering": {
+              "facets": {
+                "order": [
+                  "a",
+                  "b"
+                ]
+              },
+              "values": {
+                "a": {
+                  "order": [
+                    "b"
+                  ],
+                  "sortRemainingBy": "count"
+                }
+              }
+            }
           },
           "type": "default"
         }
@@ -470,7 +485,22 @@
             ],
             "attributeCriteriaComputedByMinProximity": true,
             "renderingContent": {
-              "string": "any"
+              "facetOrdering": {
+                "facets": {
+                  "order": [
+                    "a",
+                    "b"
+                  ]
+                },
+                "values": {
+                  "a": {
+                    "order": [
+                      "b"
+                    ],
+                    "sortRemainingBy": "count"
+                  }
+                }
+              }
             },
             "type": "default"
           }
