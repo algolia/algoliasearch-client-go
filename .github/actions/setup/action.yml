@@ -93,7 +93,7 @@ runs:
     - name: Install JavaScript client dependencies
       if: ${{ inputs.language == 'javascript' }}
       shell: bash
-      run: cd clients/algoliasearch-client-javascript && yarn install
+      run: cd clients/algoliasearch-client-javascript && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
     # PHP deps
     - name: Run composer update
