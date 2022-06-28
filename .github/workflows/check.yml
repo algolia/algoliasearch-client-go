@@ -225,6 +225,10 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language != 'php' }}
         run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toBuild }}
 
+      - name: Test JavaScript bundle size
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
+        run: cd ${{ matrix.client.path }} && yarn test:size
+
       - name: Run JavaScript 'algoliasearch' client tests
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
         run: cd ${{ matrix.client.path }} && yarn workspace @experimental-api-clients-automation/algoliasearch test
