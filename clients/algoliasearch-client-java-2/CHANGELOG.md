@@ -1,3 +1,7 @@
+## [4.2.2-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.1-SNAPSHOT...4.2.2-SNAPSHOT)
+
+- 7a858225 fix(specs): correct type for `renderingContent` and `consequenceParams` (#759)
+
 ## [4.2.1-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.0-SNAPSHOT...4.2.1-SNAPSHOT)
 
 - 1756059a fix(java): use body as error message APIC-541 (#734)
