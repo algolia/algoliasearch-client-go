@@ -1,0 +1,105 @@
+{
+  "name": "{{{npmNamespace}}}/{{packageName}}",
+  "version": "{{packageVersion}}",
+  "repository": "{{gitUserId}}/{{gitRepoId}}",
+  "license": "MIT",
+  "author": "Algolia",
+  {{^isAlgoliasearchClient}}
+  "description": "JavaScript client for {{packageName}}",
+  "main": "index.js",
+  "jsdelivr": "dist/{{packageName}}.umd.js",
+  "unpkg": "dist/{{packageName}}.umd.js",
+  "module": "dist/{{packageName}}.esm.node.js",
+  "browser": "dist/{{packageName}}.umd.js",
+  "files": [
+    "dist",
+    "model",
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dist"
+  },
+  "dependencies": {
+    "{{{npmNamespace}}}/client-common": "{{utilsPackageVersion}}",
+    "{{{npmNamespace}}}/requester-browser-xhr": "{{utilsPackageVersion}}",
+    "{{{npmNamespace}}}/requester-node-http": "{{utilsPackageVersion}}"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.41",
+    "typescript": "4.7.4"
+  },
+  {{/isAlgoliasearchClient}}
+  {{#isAlgoliasearchClient}}
+  "description": "A fully-featured and blazing-fast JavaScript API client to interact with Algolia API.",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "node": {
+        "import": "./dist/algoliasearch.esm.node.js",
+        "module": "./dist/algoliasearch.esm.node.js",
+        "require": "./dist/algoliasearch.cjs.js",
+        "default": "./dist/algoliasearch.cjs.js"
+      },
+      "browser": {
+        "umd": "./dist/algoliasearch.umd.js",
+        "module": "./dist/algoliasearch.esm.browser.js",
+        "import": "./dist/algoliasearch.esm.browser.js",
+        "default": "./dist/algoliasearch.umd.js"
+      }
+    },
+    "./lite": {
+      "types": "./lite.d.ts",
+      "node": {
+        "import": "./dist/lite/lite.esm.node.js",
+        "module": "./dist/lite/lite.esm.node.js",
+        "require": "./dist/lite/lite.cjs.js",
+        "default": "./dist/lite/lite.cjs.js"
+      },
+      "browser": {
+        "umd": "./dist/lite/lite.umd.js",
+        "module": "./dist/lite/lite.esm.browser.js",
+        "import": "./dist/lite/lite.esm.browser.js",
+        "default": "./dist/lite/lite.umd.js"
+      }
+    }
+  },
+  "jsdelivr": "./dist/algoliasearch.umd.js",
+  "unpkg": "./dist/algoliasearch.umd.js",
+  "browser": {
+    "./index.js": "./dist/algoliasearch.umd.js",
+    "./lite.js": "./dist/lite/lite.umd.js"
+  },
+  "files": [
+    "dist",
+    "builds",
+    "index.js",
+    "index.d.ts",
+    "lite",
+    "lite.js",
+    "lite.d.ts"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@experimental-api-clients-automation/client-analytics": "{{analyticsVersion}}",
+    "@experimental-api-clients-automation/client-personalization": "{{personalizationVersion}}",
+    "@experimental-api-clients-automation/client-search": "{{searchVersion}}",
+    "@experimental-api-clients-automation/client-common": "{{utilsPackageVersion}}",
+    "@experimental-api-clients-automation/requester-browser-xhr": "{{utilsPackageVersion}}",
+    "@experimental-api-clients-automation/requester-node-http": "{{utilsPackageVersion}}"
+  },
+  "devDependencies": {
+    "@types/jest": "28.1.3",
+    "@types/node": "16.11.41",
+    "jest": "28.1.1",
+    "typescript": "4.7.4"
+  },
+  {{/isAlgoliasearchClient}}
+  "types": "index.d.ts",
+  "engines": {
+    "node": ">= 14.0.0"
+  }
+}

@@ -92,9 +92,16 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
       Map<String, Object> bundle = objs;
       bundle.clear();
 
+      // This only exists for the `javascript-algoliasearch` combo, because the `lite` client is
+      // nested inside `algoliasearch`.
+      String importClientName = client;
+      if (language.equals("javascript") && client.equals("algoliasearch")) {
+        importClientName = "lite";
+      }
+
       // We can put whatever we want in the bundle, and it will be accessible in the template
-      bundle.put("client", Utils.createClientName(client, language) + "Client");
-      bundle.put("clientPrefix", Utils.createClientName(client, language));
+      bundle.put("client", Utils.createClientName(importClientName, language) + "Client");
+      bundle.put("clientPrefix", Utils.createClientName(importClientName, language));
       bundle.put("hasRegionalHost", hasRegionalHost);
       bundle.put("defaultRegion", client.equals("predict") ? "ew" : "us");
       bundle.put("lambda", lambda);

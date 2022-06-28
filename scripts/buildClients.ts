@@ -66,6 +66,13 @@ export async function buildClients(
 ): Promise<void> {
   const langs = [...new Set(generators.map((gen) => gen.language))];
 
+  if (langs.includes('javascript')) {
+    await run('yarn install', {
+      verbose,
+      cwd: getLanguageFolder('javascript'),
+    });
+  }
+
   if (!CI && !skipUtils && langs.includes('javascript')) {
     const spinner = createSpinner(
       "building 'JavaScript' utils",

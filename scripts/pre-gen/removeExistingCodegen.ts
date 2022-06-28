@@ -17,6 +17,7 @@ export async function removeExistingCodegen(
 
   let clientModel = '';
   let clientApi = '';
+
   switch (language) {
     case 'java':
       clientModel = client;
@@ -25,6 +26,26 @@ export async function removeExistingCodegen(
     case 'php':
       clientModel = clientName;
       clientApi = `${clientName}*.php`;
+      break;
+    case 'javascript':
+      // We want to also delete the nested `lite` client or folders that only exists in JS
+      if (clientName === 'algoliasearch') {
+        await run(
+          `rm -rf ${toAbsolutePath(path.resolve('..', output, 'lite'))}`,
+          {
+            verbose,
+          }
+        );
+      }
+
+      // Delete `builds` folder
+      await run(
+        `rm -rf ${toAbsolutePath(path.resolve('..', output, 'builds'))}`,
+        {
+          verbose,
+        }
+      );
+
       break;
     default:
       break;

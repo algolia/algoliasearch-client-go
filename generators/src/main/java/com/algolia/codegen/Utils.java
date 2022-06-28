@@ -20,6 +20,7 @@ public class Utils {
   public static final Set<String> CUSTOM_METHOD = Sets.newHashSet("del", "get", "post", "put");
 
   private static JsonNode cacheConfig;
+  private static JsonNode cacheOpenApiToolsConfig;
 
   private Utils() {}
 
@@ -131,6 +132,28 @@ public class Utils {
       cacheConfig = readJsonFile("config/clients.config.json");
     }
     JsonNode value = cacheConfig.get(language);
+    for (String field : fields) {
+      value = value.get(field);
+    }
+    if (!value.isTextual()) {
+      throw new ConfigException(fields[fields.length - 1] + " is not a string");
+    }
+    return value.asText();
+  }
+
+  /** Get the `field` value in the `config/openapitools.json` file for the given language */
+  public static String getOpenApiToolsField(String language, String client, String... fields) throws ConfigException {
+    if (fields.length == 0) {
+      throw new ConfigException("getOpenApiToolsField requires at least one field");
+    }
+    if (cacheOpenApiToolsConfig == null) {
+      cacheOpenApiToolsConfig = readJsonFile("config/openapitools.json");
+    }
+    JsonNode value = cacheOpenApiToolsConfig
+      .get("generator-cli")
+      .get("generators")
+      .get(language + "-" + client)
+      .get("additionalProperties");
     for (String field : fields) {
       value = value.get(field);
     }

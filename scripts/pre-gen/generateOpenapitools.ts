@@ -26,12 +26,17 @@ export async function generateOpenapitools(
     additionalProperties,
     ...rest
   } of generators) {
+    const templateDir =
+      language === 'javascript'
+        ? `#{cwd}/templates/${language}/clients`
+        : `#{cwd}/templates/${language}/`;
+
     result[key] = {
       config: '#{cwd}/openapitools.json',
       gitHost: 'algolia',
       gitUserId: 'algolia',
       glob: `specs/bundled/${client}.yml`,
-      templateDir: `#{cwd}/templates/${language}/`,
+      templateDir,
       generatorName: AVAILABLE_CUSTOM_GEN.includes(`algolia-${language}`)
         ? `algolia-${language}`
         : rest.generatorName,

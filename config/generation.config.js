@@ -21,10 +21,8 @@ module.exports = {
     '!clients/algoliasearch-client-javascript/.github/**',
     '!clients/algoliasearch-client-javascript/.yarn/**',
     '!clients/algoliasearch-client-javascript/scripts/**',
-    '!clients/algoliasearch-client-javascript/packages/algoliasearch/**',
     '!clients/algoliasearch-client-javascript/packages/requester-*/**',
     '!clients/algoliasearch-client-javascript/packages/client-common/**',
-    'clients/algoliasearch-client-javascript/packages/algoliasearch/lite/**',
 
     // PHP
     '!clients/algoliasearch-client-php/*',

@@ -1,9 +1,9 @@
-{{> api/imports}}
+{{> client/api/imports}}
 
 export const apiClientVersion = '{{packageVersion}}';
 
 {{#operations}}
-{{> api/hosts}}
+{{> client/api/hosts}}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function create{{capitalizedApiName}}({
@@ -40,13 +40,13 @@ export function create{{capitalizedApiName}}({
   return {
     addAlgoliaAgent,
     {{#isSearchClient}}
-    {{> api/helpers}}
+    {{> client/api/helpers}}
     {{/isSearchClient}}
     {{#operation}}
-    {{> api/operation/jsdoc}}
-    {{nickname}}( {{> api/operation/parameters}} ) : Promise<{{{returnType}}}> {
+    {{> client/api/operation/jsdoc}}
+    {{nickname}}( {{> client/api/operation/parameters}} ) : Promise<{{{returnType}}}> {
       {{#vendorExtensions.x-legacy-signature}}
-        {{> api/operation/legacySearchCompatible/implementation}}
+        {{> client/api/operation/legacySearchCompatible/implementation}}
       {{/vendorExtensions.x-legacy-signature}}
 
       {{#allParams}}

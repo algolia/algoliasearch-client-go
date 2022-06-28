@@ -1,13 +1,13 @@
 import { createHttpRequester } from '{{{npmNamespace}}}/requester-node-http';
 import { DEFAULT_CONNECT_TIMEOUT_NODE, DEFAULT_READ_TIMEOUT_NODE, DEFAULT_WRITE_TIMEOUT_NODE } from '{{{npmNamespace}}}/client-common';
-{{> api/builds/imports}}
+{{> client/builds/imports}}
 
 export function {{apiName}}(
   appId: string,
   apiKey: string,{{#hasRegionalHost}}region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region,{{/hasRegionalHost}}
   options?: InitClientOptions
 ): {{capitalizedApiName}} {
-  {{> api/builds/checkParameters}}
+  {{> client/builds/checkParameters}}
 
   return create{{capitalizedApiName}}({
     appId,

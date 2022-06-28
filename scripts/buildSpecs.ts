@@ -194,9 +194,9 @@ async function buildSpec(
   verbose: boolean,
   useCache: boolean
 ): Promise<void> {
-  const isLite = spec === 'lite';
+  const isAlgoliasearch = spec === 'algoliasearch';
   // In case of lite we use a the `search` spec as a base because only its bundled form exists.
-  const specBase = isLite ? 'search' : spec;
+  const specBase = isAlgoliasearch ? 'search' : spec;
   const cacheFile = toAbsolutePath(`specs/dist/${spec}.cache`);
   let hash = '';
 
@@ -233,7 +233,7 @@ async function buildSpec(
   );
 
   // Add the correct tags to be able to generate the proper client
-  if (!isLite) {
+  if (!isAlgoliasearch) {
     await transformBundle({
       bundledPath: toAbsolutePath(bundledPath),
       clientName: spec,

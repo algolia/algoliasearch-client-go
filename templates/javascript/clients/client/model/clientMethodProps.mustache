@@ -5,7 +5,7 @@ import { {{classname}} } from '{{filename}}';
 {{/imports}}
 
 {{! Imports for the legacy search method signature }}
-{{#operations}}{{#operation}}{{#vendorExtensions.x-legacy-signature}}{{> api/operation/legacySearchCompatible/imports}}{{/vendorExtensions.x-legacy-signature}}{{/operation}}{{/operations}}
+{{#operations}}{{#operation}}{{#vendorExtensions.x-legacy-signature}}{{> client/api/operation/legacySearchCompatible/imports}}{{/vendorExtensions.x-legacy-signature}}{{/operation}}{{/operations}}
 
 {{! Imports for the helpers method of the search client }}
 {{#isSearchClient}}import type { CreateRetryablePromiseOptions } from '@experimental-api-clients-automation/client-common';{{/isSearchClient}}
@@ -30,7 +30,7 @@ export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
 }
 {{/x-create-wrapping-object}}
 
-{{#x-legacy-signature}}{{> api/operation/legacySearchCompatible/model}}{{/x-legacy-signature}}
+{{#x-legacy-signature}}{{> client/api/operation/legacySearchCompatible/model}}{{/x-legacy-signature}}
 
 {{/vendorExtensions}}
 

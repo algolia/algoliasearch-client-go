@@ -1,0 +1,39 @@
+function initAnalytics(
+  analyticsAppId: string,
+  analyticsApiKey: string,
+  region?: AnalyticsRegion,
+  analyticsOptions?: { requester?: Requester; hosts?: Host[] }
+): AnalyticsClient {
+  return createAnalyticsClient({
+    appId: analyticsAppId,
+    apiKey: analyticsApiKey,
+    region,
+    ...analyticsOptions,
+    ...commonOptions,
+  });
+}
+
+function initPersonalization(
+  personalizationAppId: string,
+  personalizationApiKey: string,
+  region: PersonalizationRegion,
+  personalizationOptions?: { requester?: Requester; hosts?: Host[] }
+): PersonalizationClient {
+  if (!region) {
+    throw new Error('`region` is missing.');
+  }
+
+  return createPersonalizationClient({
+    appId: personalizationAppId,
+    apiKey: personalizationApiKey,
+    region,
+    ...personalizationOptions,
+    ...commonOptions,
+  });
+}
+
+return {
+  ...createSearchClient({ appId, apiKey, ...commonOptions }),
+  initAnalytics,
+  initPersonalization,
+};

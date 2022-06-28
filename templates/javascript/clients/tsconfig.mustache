@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    {{#isAlgoliasearchClient}}
+    "types": ["node", "jest"],
+    {{/isAlgoliasearchClient}}
+    "outDir": "dist"
+  },
+  {{#isAlgoliasearchClient}}
+  "include": ["builds", "lite"],
+  "exclude": ["dist", "node_modules", "__tests__"]
+  {{/isAlgoliasearchClient}}
+  {{^isAlgoliasearchClient}}
+  "include": ["{{apiPackage}}", "model", "builds"],
+  "exclude": ["dist", "node_modules"]
+  {{/isAlgoliasearchClient}}
+}

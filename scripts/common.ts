@@ -9,7 +9,6 @@ import { remove } from 'fs-extra';
 import openapiConfig from '../config/openapitools.json';
 import releaseConfig from '../config/release.config.json';
 
-import { getPackageVersionDefault } from './config';
 import { createSpinner } from './oraLog';
 import type {
   CheckForCache,
@@ -34,40 +33,31 @@ export const ROOT_DIR = path.resolve(process.cwd(), '..');
 
 export const ROOT_ENV_PATH = path.resolve(ROOT_DIR, '.env');
 
-export const GENERATORS: Record<string, Generator> = {
-  // Default `algoliasearch` package as it's an aggregation of generated clients
-  'javascript-algoliasearch': {
-    language: 'javascript',
-    client: 'algoliasearch',
-    key: 'javascript-algoliasearch',
-    additionalProperties: {
-      packageName: 'algoliasearch',
-      packageVersion: getPackageVersionDefault('javascript'),
-    },
-  },
-};
-
 // Build `GENERATORS` from the openapitools file
-Object.entries(openapiConfig['generator-cli'].generators).forEach(
-  ([key, { output, ...gen }]) => {
-    const language = key.slice(0, key.indexOf('-')) as Language;
+export const GENERATORS = Object.entries(
+  openapiConfig['generator-cli'].generators
+).reduce((current, [key, { output, ...gen }]) => {
+  const language = key.slice(0, key.indexOf('-')) as Language;
 
-    GENERATORS[key] = {
-      additionalProperties: {},
-      ...gen,
-      output: output.replace('#{cwd}/', ''),
-      client: key.slice(key.indexOf('-') + 1),
-      language,
-      key,
-    };
+  // eslint-disable-next-line no-param-reassign
+  current[key] = {
+    additionalProperties: {},
+    ...gen,
+    output: output.replace('#{cwd}/', ''),
+    client: key.slice(key.indexOf('-') + 1),
+    language,
+    key,
+  };
 
-    if (language === 'javascript') {
-      GENERATORS[key].additionalProperties.packageName = output.substring(
-        output.lastIndexOf('/') + 1
-      );
-    }
+  if (language === 'javascript') {
+    // eslint-disable-next-line no-param-reassign
+    current[key].additionalProperties.packageName = output.substring(
+      output.lastIndexOf('/') + 1
+    );
   }
-);
+
+  return current;
+}, {} as Record<string, Generator>);
 
 export const LANGUAGES = [
   ...new Set(Object.values(GENERATORS).map((gen) => gen.language)),

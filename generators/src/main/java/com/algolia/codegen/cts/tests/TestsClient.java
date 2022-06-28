@@ -20,7 +20,7 @@ public class TestsClient extends TestsGenerator {
   @Override
   public boolean available() {
     // no `lite` client test for now
-    if (language.equals("javascript") && client.equals("lite")) {
+    if (language.equals("javascript") && client.equals("algoliasearch")) {
       return false;
     }
 

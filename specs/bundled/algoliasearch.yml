@@ -2193,11 +2193,11 @@ paths:
         '404':
           $ref: '#/components/responses/IndexNotFound'
       tags:
-        - lite
+        - algoliasearch
   /1/indexes/*/queries:
     post:
       tags:
-        - lite
+        - algoliasearch
       operationId: search
       x-use-read-transporter: true
       x-cacheable: true

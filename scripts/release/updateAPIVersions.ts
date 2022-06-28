@@ -197,7 +197,7 @@ export async function updateAPIVersions(
     /*
       About bumping versions of JS clients:
       
-      There are generated clients in JS repo, and non-generated clients like `algoliasearch`, `client-common`, etc.
+      There are generated clients in JS repo, and non-generated clients like `client-common`, `requester-*`
       Now that the versions of generated clients are updated in `openapitools.json`,
       the generation output will have correct new versions.
       

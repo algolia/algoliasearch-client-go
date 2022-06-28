@@ -2,15 +2,15 @@
   "generator-cli": {
     "version": "6.0.0",
     "generators": {
-      "javascript-search": {
-        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-search",
+      "javascript-algoliasearch": {
+        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/algoliasearch",
         "reservedWordsMappings": "queryParameters=queryParameters,requestOptions=requestOptions,delete=delete",
         "additionalProperties": {
           "packageVersion": "0.6.1"
         }
       },
-      "javascript-lite": {
-        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/algoliasearch/lite",
+      "javascript-search": {
+        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-search",
         "reservedWordsMappings": "queryParameters=queryParameters,requestOptions=requestOptions,delete=delete",
         "additionalProperties": {
           "packageVersion": "0.6.1"

@@ -9,7 +9,7 @@ import { formatter } from '../formatter';
 import { generate } from '../generate';
 import { playground } from '../playground';
 
-import type { Job, LangArg } from './utils';
+import type { LangArg } from './utils';
 import {
   ALL,
   getClientChoices,
@@ -30,8 +30,9 @@ const args = {
   language: new Argument('[language]', 'The language').choices(
     PROMPT_LANGUAGES
   ),
-  clients: (job: Job): Argument =>
-    new Argument('[client...]', 'The client').choices(getClientChoices(job)),
+  clients: new Argument('[client...]', 'The client').choices(
+    getClientChoices('all')
+  ),
   client: new Argument('[client]', 'The client').choices(PROMPT_CLIENTS),
 };
 
@@ -64,7 +65,7 @@ program
   .command('generate')
   .description('Generate a specified client')
   .addArgument(args.language)
-  .addArgument(args.clients('generate'))
+  .addArgument(args.clients)
   .option(flags.verbose.flag, flags.verbose.description)
   .option(flags.interactive.flag, flags.interactive.description)
   .action(
@@ -72,7 +73,6 @@ program
       const { language, client, clientList } = await prompt({
         langArg,
         clientArg,
-        job: 'generate',
         interactive,
       });
 
@@ -89,7 +89,7 @@ buildCommand
   .command('clients')
   .description('Build a specified client')
   .addArgument(args.language)
-  .addArgument(args.clients('build'))
+  .addArgument(args.clients)
   .option(flags.verbose.flag, flags.verbose.description)
   .option(flags.interactive.flag, flags.interactive.description)
   .option(flags.skipUtils.flag, flags.skipUtils.description)
@@ -102,7 +102,6 @@ buildCommand
       const { language, client, clientList } = await prompt({
         langArg,
         clientArg,
-        job: 'build',
         interactive,
       });
 
@@ -116,7 +115,7 @@ buildCommand
 buildCommand
   .command('specs')
   .description('Build a specified spec')
-  .addArgument(args.clients('specs'))
+  .addArgument(args.clients)
   .option(flags.verbose.flag, flags.verbose.description)
   .option(flags.interactive.flag, flags.interactive.description)
   .option(flags.skipCache.flag, flags.skipCache.description)
@@ -129,7 +128,6 @@ buildCommand
       const { client, clientList } = await prompt({
         langArg: ALL,
         clientArg,
-        job: 'specs',
         interactive,
       });
 
@@ -151,7 +149,7 @@ ctsCommand
   .command('generate')
   .description('Generate the CTS tests')
   .addArgument(args.language)
-  .addArgument(args.clients('generate'))
+  .addArgument(args.clients)
   .option(flags.verbose.flag, flags.verbose.description)
   .option(flags.interactive.flag, flags.interactive.description)
   .action(
@@ -159,7 +157,6 @@ ctsCommand
       const { language, client, clientList } = await prompt({
         langArg,
         clientArg,
-        job: 'generate',
         interactive,
       });
 
@@ -180,7 +177,6 @@ ctsCommand
     const { language } = await prompt({
       langArg,
       clientArg: [ALL],
-      job: 'generate',
       interactive,
     });
 
@@ -197,7 +193,6 @@ program
     const { language, client } = await prompt({
       langArg,
       clientArg: [cliClient],
-      job: 'build',
       interactive,
     });
 

@@ -27,7 +27,7 @@ public class JavaScriptCTSManager implements CTSManager {
     String clientName = output.substring(output.lastIndexOf('/') + 1);
     String npmNamespace = Utils.getClientConfigField("javascript", "npmNamespace");
 
-    if (clientName.equals("lite")) {
+    if (clientName.equals("algoliasearch")) {
       bundle.put("import", npmNamespace + "/" + "algoliasearch/lite");
     } else {
       bundle.put("import", npmNamespace + "/" + clientName);

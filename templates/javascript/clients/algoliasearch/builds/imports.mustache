@@ -1,0 +1,26 @@
+import type {
+  AnalyticsClient,
+  Region as AnalyticsRegion,
+} from '{{{npmNamespace}}}/client-analytics/src/analyticsClient';
+import { createAnalyticsClient } from '{{{npmNamespace}}}/client-analytics/src/analyticsClient';
+import type {
+  PersonalizationClient,
+  Region as PersonalizationRegion,
+} from '{{{npmNamespace}}}/client-personalization/src/personalizationClient';
+import { createPersonalizationClient } from '{{{npmNamespace}}}/client-personalization/src/personalizationClient';
+import {
+  createSearchClient,
+  apiClientVersion as searchClientVersion,
+} from '{{{npmNamespace}}}/client-search/src/searchClient';
+import type {
+  CreateClientOptions,
+  Host,
+  Requester,
+} from '{{{npmNamespace}}}/client-common';
+
+export * from './models';
+
+export const apiClientVersion = searchClientVersion;
+
+export type Algoliasearch = ReturnType<typeof algoliasearch>;
+

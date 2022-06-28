@@ -22,10 +22,6 @@ type BaseMatrix = {
    * The list of clients to run in the CI.
    */
   toRun: string;
-  /**
-   * The list of clients to build in the CI, defaults to `toRun`.
-   */
-  toBuild: string;
 };
 
 export type ClientMatrix = BaseMatrix & {
