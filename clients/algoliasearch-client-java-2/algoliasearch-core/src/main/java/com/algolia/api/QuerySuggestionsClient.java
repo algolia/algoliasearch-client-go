@@ -25,7 +25,7 @@ public class QuerySuggestionsClient extends ApiClient {
   }
 
   public QuerySuggestionsClient(String appId, String apiKey, String region, ClientOptions options) {
-    super(appId, apiKey, "QuerySuggestions", "4.2.1-SNAPSHOT", options);
+    super(appId, apiKey, "QuerySuggestions", "4.2.2-SNAPSHOT", options);
     if (options != null && options.getHosts() != null) {
       this.setHosts(options.getHosts());
     } else {
