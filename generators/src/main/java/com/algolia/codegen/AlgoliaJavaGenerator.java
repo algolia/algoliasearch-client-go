@@ -83,17 +83,19 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
       if (!model.oneOf.isEmpty()) {
         List<HashMap<String, String>> oneOfList = new ArrayList();
 
-        for (String iterateModel : model.oneOf) {
+        for (String oneOf : model.oneOf) {
           HashMap<String, String> oneOfModel = new HashMap();
 
-          oneOfModel.put("type", iterateModel);
-          oneOfModel.put("name", iterateModel.replace("<", "").replace(">", ""));
+          oneOfModel.put("type", oneOf);
+          oneOfModel.put("name", oneOf.replace("<", "Of").replace(">", ""));
 
           oneOfList.add(oneOfModel);
         }
 
         model.vendorExtensions.put("x-is-one-of-interface", true);
-        model.vendorExtensions.put("x-is-one-of-list", oneOfList);
+        model.vendorExtensions.put("x-one-of-list", oneOfList);
+
+        model.vendorExtensions.put("x-one-of-explicit-name", Utils.shouldUseExplicitOneOfName(model.oneOf));
       }
     }
 

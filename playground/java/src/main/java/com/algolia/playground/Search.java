@@ -54,10 +54,7 @@ public class Search {
 
       SearchMethodParams searchMethodParams = new SearchMethodParams();
       List<SearchQuery> requests = new ArrayList<>();
-      SearchForHits request = new SearchForHits();
-      request.setIndexName(indexName);
-      request.setQuery(query);
-      requests.add(SearchQuery.ofSearchForHits(request));
+      requests.add(SearchQuery.of(new SearchForHits().setIndexName(indexName).setQuery(query)));
       searchMethodParams.setRequests(requests);
 
       CompletableFuture<SearchResponses> result = client.searchAsync(searchMethodParams);

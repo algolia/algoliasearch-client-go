@@ -101,7 +101,7 @@ import com.algolia.utils.RequestOptions;
 
 client.search(
   new SearchMethodParams()
-    .addRequests(SearchQuery.ofSearchForHits(
+    .addRequests(SearchQuery.of(
       new SearchForHits()
         .setIndexName("<YOUR_INDEX_NAME>")
         .setQuery("<YOUR_QUERY>")

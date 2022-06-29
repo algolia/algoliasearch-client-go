@@ -148,7 +148,7 @@ import com.algolia.model.search.*;
 // Only "Scarlett Johansson" actor
 client.search(
   new SearchMethodParams()
-    .addRequests(SearchQuery.ofSearchForFacets(
+    .addRequests(SearchQuery.of(
       new SearchForFacets()
         .setIndexName("<YOUR_INDEX_NAME>")
         .setQuery("<YOUR_QUERY>")
@@ -160,7 +160,7 @@ client.search(
 // Only "Tom Cruise" or "Scarlett Johansson" actor
 client.search(
   new SearchMethodParams()
-    .addRequests(SearchQuery.ofSearchForFacets(
+    .addRequests(SearchQuery.of(
       new SearchForFacets()
         .setIndexName("<YOUR_INDEX_NAME>")
         .setQuery("<YOUR_QUERY>")
@@ -172,7 +172,7 @@ client.search(
 // Everything but "Nicolas Cage" actor
 client.search(
   new SearchMethodParams()
-    .addRequests(SearchQuery.ofSearchForFacets(
+    .addRequests(SearchQuery.of(
       new SearchForFacets()
         .setIndexName("<YOUR_INDEX_NAME>")
         .setQuery("<YOUR_QUERY>")
@@ -250,7 +250,7 @@ import com.algolia.model.search.*;
 // Only "Scarlett Johansson" actor
 client.search(
   new SearchMethodParams()
-    .addRequests(SearchQuery.ofSearchForFacets(
+    .addRequests(SearchQuery.of(
       new SearchForFacets()
         .setIndexName("<YOUR_INDEX_NAME>")
         .setQuery("<YOUR_QUERY>")
@@ -262,7 +262,7 @@ client.search(
 // Only "Tom Cruise" or "Scarlett Johansson" actor
 client.search(
   new SearchMethodParams()
-    .addRequests(SearchQuery.ofSearchForFacets(
+    .addRequests(SearchQuery.of(
       new SearchForFacets()
         .setIndexName("<YOUR_INDEX_NAME>")
         .setQuery("<YOUR_QUERY>")

@@ -144,7 +144,7 @@ jobs:
           key: |
             ${{ matrix.client }}-${{ hashFiles(
               format('clients/algoliasearch-client-javascript/packages/{0}/**', matrix.client),
-              'yarn.lock'
+              'clients/algoliasearch-client-javascript/yarn.lock'
             )}}
           path: clients/algoliasearch-client-javascript/packages/${{ matrix.client }}
 
@@ -259,7 +259,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ matrix.client.testsRootFolder }}/node_modules
-          key: node-modules-tests-${{ env.CACHE_VERSION }}-${{ hashFiles(format('{0}/.yarn.lock', matrix.client.testsRootFolder)) }}
+          key: node-modules-tests-${{ env.CACHE_VERSION }}-${{ hashFiles(format('{0}/yarn.lock', matrix.client.testsRootFolder)) }}
 
       - name: Run CTS
         run: yarn cli cts run ${{ matrix.client.language }}

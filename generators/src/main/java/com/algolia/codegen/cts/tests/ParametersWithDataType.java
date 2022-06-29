@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import io.swagger.util.Json;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import org.openapitools.codegen.CodegenComposedSchemas;
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
@@ -272,24 +273,27 @@ public class ParametersWithDataType {
       testOutput.clear();
       testOutput.putAll(traverseParams(paramName, param, match, parent, suffix));
 
-      HashMap<String, String> oneOfModel = new HashMap<>();
-      String typeName = getTypeName(match).replace("<", "").replace(">", "");
-
-      oneOfModel.put("parentClassName", Utils.capitalize(baseType));
-
-      if (typeName.equals("List")) {
-        CodegenProperty items = match.getItems();
-
-        if (items == null) {
-          throw new CTSException("Unhandled case for empty oneOf List items.");
-        }
-
-        typeName += getTypeName(items);
+      HashMap<String, Object> oneOfModel = new HashMap<>();
+      IJsonSchemaValidationProperties current = match;
+      String typeName = getTypeName(current);
+      while (current.getItems() != null) {
+        current = current.getItems();
+        typeName += "Of" + getTypeName(current);
       }
 
-      oneOfModel.put("type", typeName);
-      testOutput.put("oneOfModel", oneOfModel);
+      boolean useExplicitName = false;
+      CodegenComposedSchemas composedSchemas = model.getComposedSchemas();
+      if (composedSchemas != null && composedSchemas.getOneOf() != null && composedSchemas.getOneOf().size() > 0) {
+        useExplicitName =
+          Utils.shouldUseExplicitOneOfName(composedSchemas.getOneOf().stream().map(x -> getTypeName(x)).collect(Collectors.toList()));
+      } else {
+        useExplicitName = Utils.shouldUseExplicitOneOfName(model.oneOf);
+      }
 
+      oneOfModel.put("parentClassName", Utils.capitalize(baseType));
+      oneOfModel.put("type", typeName);
+      oneOfModel.put("x-one-of-explicit-name", useExplicitName);
+      testOutput.put("oneOfModel", oneOfModel);
       return;
     }
 
