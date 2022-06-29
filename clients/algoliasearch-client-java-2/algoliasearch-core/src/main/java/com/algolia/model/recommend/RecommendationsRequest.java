@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(RecommendationsRequest.Adapter.class)
+/** RecommendationsRequest */
 public abstract class RecommendationsRequest implements CompoundType {
 
-  public static RecommendationsRequest ofRecommendationRequest(RecommendationRequest inside) {
+  public static RecommendationsRequest of(RecommendationRequest inside) {
     return new RecommendationsRequestRecommendationRequest(inside);
   }
 
-  public static RecommendationsRequest ofTrendingRequest(TrendingRequest inside) {
+  public static RecommendationsRequest of(TrendingRequest inside) {
     return new RecommendationsRequestTrendingRequest(inside);
   }
 
@@ -32,11 +33,11 @@ public abstract class RecommendationsRequest implements CompoundType {
     public RecommendationsRequest read(final JsonReader jsonReader) throws IOException {
       RecommendationRequest recommendationrequest = JSON.tryDeserialize(jsonReader, new TypeToken<RecommendationRequest>() {}.getType());
       if (recommendationrequest != null) {
-        return RecommendationsRequest.ofRecommendationRequest(recommendationrequest);
+        return RecommendationsRequest.of(recommendationrequest);
       }
       TrendingRequest trendingrequest = JSON.tryDeserialize(jsonReader, new TypeToken<TrendingRequest>() {}.getType());
       if (trendingrequest != null) {
-        return RecommendationsRequest.ofTrendingRequest(trendingrequest);
+        return RecommendationsRequest.of(trendingrequest);
       }
       return null;
     }

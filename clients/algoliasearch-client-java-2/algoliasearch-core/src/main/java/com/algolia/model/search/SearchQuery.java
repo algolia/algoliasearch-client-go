@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(SearchQuery.Adapter.class)
+/** SearchQuery */
 public abstract class SearchQuery implements CompoundType {
 
-  public static SearchQuery ofSearchForFacets(SearchForFacets inside) {
+  public static SearchQuery of(SearchForFacets inside) {
     return new SearchQuerySearchForFacets(inside);
   }
 
-  public static SearchQuery ofSearchForHits(SearchForHits inside) {
+  public static SearchQuery of(SearchForHits inside) {
     return new SearchQuerySearchForHits(inside);
   }
 
@@ -32,11 +33,11 @@ public abstract class SearchQuery implements CompoundType {
     public SearchQuery read(final JsonReader jsonReader) throws IOException {
       SearchForFacets searchforfacets = JSON.tryDeserialize(jsonReader, new TypeToken<SearchForFacets>() {}.getType());
       if (searchforfacets != null) {
-        return SearchQuery.ofSearchForFacets(searchforfacets);
+        return SearchQuery.of(searchforfacets);
       }
       SearchForHits searchforhits = JSON.tryDeserialize(jsonReader, new TypeToken<SearchForHits>() {}.getType());
       if (searchforhits != null) {
-        return SearchQuery.ofSearchForHits(searchforhits);
+        return SearchQuery.of(searchforhits);
       }
       return null;
     }

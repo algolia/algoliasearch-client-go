@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(GetTopHitsResponse.Adapter.class)
+/** GetTopHitsResponse */
 public abstract class GetTopHitsResponse implements CompoundType {
 
-  public static GetTopHitsResponse ofTopHitsResponse(TopHitsResponse inside) {
+  public static GetTopHitsResponse of(TopHitsResponse inside) {
     return new GetTopHitsResponseTopHitsResponse(inside);
   }
 
-  public static GetTopHitsResponse ofTopHitsResponseWithAnalytics(TopHitsResponseWithAnalytics inside) {
+  public static GetTopHitsResponse of(TopHitsResponseWithAnalytics inside) {
     return new GetTopHitsResponseTopHitsResponseWithAnalytics(inside);
   }
 
@@ -32,14 +33,14 @@ public abstract class GetTopHitsResponse implements CompoundType {
     public GetTopHitsResponse read(final JsonReader jsonReader) throws IOException {
       TopHitsResponse tophitsresponse = JSON.tryDeserialize(jsonReader, new TypeToken<TopHitsResponse>() {}.getType());
       if (tophitsresponse != null) {
-        return GetTopHitsResponse.ofTopHitsResponse(tophitsresponse);
+        return GetTopHitsResponse.of(tophitsresponse);
       }
       TopHitsResponseWithAnalytics tophitsresponsewithanalytics = JSON.tryDeserialize(
         jsonReader,
         new TypeToken<TopHitsResponseWithAnalytics>() {}.getType()
       );
       if (tophitsresponsewithanalytics != null) {
-        return GetTopHitsResponse.ofTopHitsResponseWithAnalytics(tophitsresponsewithanalytics);
+        return GetTopHitsResponse.of(tophitsresponsewithanalytics);
       }
       return null;
     }

@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(TypoTolerance.Adapter.class)
+/** Controls whether typo tolerance is enabled and how it is applied. */
 public abstract class TypoTolerance implements CompoundType {
 
-  public static TypoTolerance ofBoolean(Boolean inside) {
+  public static TypoTolerance of(Boolean inside) {
     return new TypoToleranceBoolean(inside);
   }
 
-  public static TypoTolerance ofTypoToleranceEnum(TypoToleranceEnum inside) {
+  public static TypoTolerance of(TypoToleranceEnum inside) {
     return new TypoToleranceTypoToleranceEnum(inside);
   }
 
@@ -32,11 +33,11 @@ public abstract class TypoTolerance implements CompoundType {
     public TypoTolerance read(final JsonReader jsonReader) throws IOException {
       Boolean _boolean = JSON.tryDeserialize(jsonReader, new TypeToken<Boolean>() {}.getType());
       if (_boolean != null) {
-        return TypoTolerance.ofBoolean(_boolean);
+        return TypoTolerance.of(_boolean);
       }
       TypoToleranceEnum typotoleranceenum = JSON.tryDeserialize(jsonReader, new TypeToken<TypoToleranceEnum>() {}.getType());
       if (typotoleranceenum != null) {
-        return TypoTolerance.ofTypoToleranceEnum(typotoleranceenum);
+        return TypoTolerance.of(typotoleranceenum);
       }
       return null;
     }

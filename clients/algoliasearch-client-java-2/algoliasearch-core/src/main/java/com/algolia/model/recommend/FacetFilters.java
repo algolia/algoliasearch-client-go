@@ -11,14 +11,15 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonAdapter(FacetFilters.Adapter.class)
+/** Filter hits by facet value. */
 public abstract class FacetFilters implements CompoundType {
 
-  public static FacetFilters ofListListString(List<List<String>> inside) {
-    return new FacetFiltersListListString(inside);
+  public static FacetFilters ofListOfListOfString(List<List<String>> inside) {
+    return new FacetFiltersListOfListOfString(inside);
   }
 
-  public static FacetFilters ofListString(List<String> inside) {
-    return new FacetFiltersListString(inside);
+  public static FacetFilters ofListOfString(List<String> inside) {
+    return new FacetFiltersListOfString(inside);
   }
 
   public static class Adapter extends TypeAdapter<FacetFilters> {
@@ -31,13 +32,13 @@ public abstract class FacetFilters implements CompoundType {
 
     @Override
     public FacetFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listliststring != null) {
-        return FacetFilters.ofListListString(listliststring);
+      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
+      if (listoflistofstring != null) {
+        return FacetFilters.ofListOfListOfString(listoflistofstring);
       }
-      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (liststring != null) {
-        return FacetFilters.ofListString(liststring);
+      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
+      if (listofstring != null) {
+        return FacetFilters.ofListOfString(listofstring);
       }
       return null;
     }
@@ -45,11 +46,11 @@ public abstract class FacetFilters implements CompoundType {
 }
 
 @JsonAdapter(FacetFilters.Adapter.class)
-class FacetFiltersListListString extends FacetFilters {
+class FacetFiltersListOfListOfString extends FacetFilters {
 
   private final List<List<String>> insideValue;
 
-  FacetFiltersListListString(List<List<String>> insideValue) {
+  FacetFiltersListOfListOfString(List<List<String>> insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -60,11 +61,11 @@ class FacetFiltersListListString extends FacetFilters {
 }
 
 @JsonAdapter(FacetFilters.Adapter.class)
-class FacetFiltersListString extends FacetFilters {
+class FacetFiltersListOfString extends FacetFilters {
 
   private final List<String> insideValue;
 
-  FacetFiltersListString(List<String> insideValue) {
+  FacetFiltersListOfString(List<String> insideValue) {
     this.insideValue = insideValue;
   }
 

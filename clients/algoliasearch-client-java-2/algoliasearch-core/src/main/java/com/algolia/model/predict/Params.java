@@ -10,17 +10,18 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(Params.Adapter.class)
+/** Params */
 public abstract class Params implements CompoundType {
 
-  public static Params ofAllParams(AllParams inside) {
+  public static Params of(AllParams inside) {
     return new ParamsAllParams(inside);
   }
 
-  public static Params ofModelsToRetrieve(ModelsToRetrieve inside) {
+  public static Params of(ModelsToRetrieve inside) {
     return new ParamsModelsToRetrieve(inside);
   }
 
-  public static Params ofTypesToRetrieve(TypesToRetrieve inside) {
+  public static Params of(TypesToRetrieve inside) {
     return new ParamsTypesToRetrieve(inside);
   }
 
@@ -36,15 +37,15 @@ public abstract class Params implements CompoundType {
     public Params read(final JsonReader jsonReader) throws IOException {
       AllParams allparams = JSON.tryDeserialize(jsonReader, new TypeToken<AllParams>() {}.getType());
       if (allparams != null) {
-        return Params.ofAllParams(allparams);
+        return Params.of(allparams);
       }
       ModelsToRetrieve modelstoretrieve = JSON.tryDeserialize(jsonReader, new TypeToken<ModelsToRetrieve>() {}.getType());
       if (modelstoretrieve != null) {
-        return Params.ofModelsToRetrieve(modelstoretrieve);
+        return Params.of(modelstoretrieve);
       }
       TypesToRetrieve typestoretrieve = JSON.tryDeserialize(jsonReader, new TypeToken<TypesToRetrieve>() {}.getType());
       if (typestoretrieve != null) {
-        return Params.ofTypesToRetrieve(typestoretrieve);
+        return Params.of(typestoretrieve);
       }
       return null;
     }

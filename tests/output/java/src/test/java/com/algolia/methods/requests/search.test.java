@@ -778,7 +778,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.deleteBy(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
+      client.deleteBy(indexName0, SearchParams.of(searchParams0));
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -1333,7 +1333,7 @@ class SearchClientRequestsTests {
       Map<String, AttributeOrBuiltInOperation> attributeOrBuiltInOperation_01 = new HashMap<>();
       {
         String id12 = "test";
-        attributeOrBuiltInOperation_01.put("id1", AttributeOrBuiltInOperation.ofString(id12));
+        attributeOrBuiltInOperation_01.put("id1", AttributeOrBuiltInOperation.of(id12));
         BuiltInOperation id22 = new BuiltInOperation();
         {
           BuiltInOperationType operation3 = BuiltInOperationType.fromValue("AddUnique");
@@ -1341,7 +1341,7 @@ class SearchClientRequestsTests {
           String value3 = "test2";
           id22.setValue(value3);
         }
-        attributeOrBuiltInOperation_01.put("id2", AttributeOrBuiltInOperation.ofBuiltInOperation(id22));
+        attributeOrBuiltInOperation_01.put("id2", AttributeOrBuiltInOperation.of(id22));
       }
       attributeOrBuiltInOperation0.add(attributeOrBuiltInOperation_01);
     }
@@ -2256,7 +2256,7 @@ class SearchClientRequestsTests {
           String indexName3 = "theIndexName";
           requests_02.setIndexName(indexName3);
         }
-        requests1.add(SearchQuery.ofSearchForHits(requests_02));
+        requests1.add(SearchQuery.of(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
     }
@@ -2290,7 +2290,7 @@ class SearchClientRequestsTests {
           String facet3 = "theFacet";
           requests_02.setFacet(facet3);
         }
-        requests1.add(SearchQuery.ofSearchForFacets(requests_02));
+        requests1.add(SearchQuery.of(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
       SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
@@ -2332,7 +2332,7 @@ class SearchClientRequestsTests {
           SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
           requests_02.setType(type3);
         }
-        requests1.add(SearchQuery.ofSearchForHits(requests_02));
+        requests1.add(SearchQuery.of(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
     }
@@ -2376,7 +2376,7 @@ class SearchClientRequestsTests {
           int maxFacetHits3 = 50;
           requests_02.setMaxFacetHits(maxFacetHits3);
         }
-        requests1.add(SearchQuery.ofSearchForFacets(requests_02));
+        requests1.add(SearchQuery.of(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
       SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
@@ -2412,7 +2412,7 @@ class SearchClientRequestsTests {
           String indexName3 = "theIndexName";
           requests_02.setIndexName(indexName3);
         }
-        requests1.add(SearchQuery.ofSearchForHits(requests_02));
+        requests1.add(SearchQuery.of(requests_02));
         SearchForFacets requests_12 = new SearchForFacets();
         {
           String indexName3 = "theIndexName2";
@@ -2422,7 +2422,7 @@ class SearchClientRequestsTests {
           String facet3 = "theFacet";
           requests_12.setFacet(facet3);
         }
-        requests1.add(SearchQuery.ofSearchForFacets(requests_12));
+        requests1.add(SearchQuery.of(requests_12));
         SearchForHits requests_22 = new SearchForHits();
         {
           String indexName3 = "theIndexName";
@@ -2430,7 +2430,7 @@ class SearchClientRequestsTests {
           SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
           requests_22.setType(type3);
         }
-        requests1.add(SearchQuery.ofSearchForHits(requests_22));
+        requests1.add(SearchQuery.of(requests_22));
       }
       searchMethodParams0.setRequests(requests1);
       SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
@@ -2476,7 +2476,7 @@ class SearchClientRequestsTests {
           int maxFacetHits3 = 50;
           requests_02.setMaxFacetHits(maxFacetHits3);
         }
-        requests1.add(SearchQuery.ofSearchForFacets(requests_02));
+        requests1.add(SearchQuery.of(requests_02));
         SearchForHits requests_12 = new SearchForHits();
         {
           String indexName3 = "theIndexName";
@@ -2488,7 +2488,7 @@ class SearchClientRequestsTests {
           SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
           requests_12.setType(type3);
         }
-        requests1.add(SearchQuery.ofSearchForHits(requests_12));
+        requests1.add(SearchQuery.of(requests_12));
       }
       searchMethodParams0.setRequests(requests1);
       SearchStrategy strategy1 = SearchStrategy.fromValue("stopIfEnoughMatches");
@@ -2534,25 +2534,25 @@ class SearchClientRequestsTests {
             String facetFilters_04 = "";
             facetFilters3.add(facetFilters_04);
           }
-          requests_02.setFacetFilters(FacetFilters.ofListString(facetFilters3));
+          requests_02.setFacetFilters(FacetFilters.ofListOfString(facetFilters3));
           List<String> optionalFilters3 = new ArrayList<>();
           {
             String optionalFilters_04 = "";
             optionalFilters3.add(optionalFilters_04);
           }
-          requests_02.setOptionalFilters(OptionalFilters.ofListString(optionalFilters3));
+          requests_02.setOptionalFilters(OptionalFilters.ofListOfString(optionalFilters3));
           List<String> numericFilters3 = new ArrayList<>();
           {
             String numericFilters_04 = "";
             numericFilters3.add(numericFilters_04);
           }
-          requests_02.setNumericFilters(NumericFilters.ofListString(numericFilters3));
+          requests_02.setNumericFilters(NumericFilters.ofListOfString(numericFilters3));
           List<String> tagFilters3 = new ArrayList<>();
           {
             String tagFilters_04 = "";
             tagFilters3.add(tagFilters_04);
           }
-          requests_02.setTagFilters(TagFilters.ofListString(tagFilters3));
+          requests_02.setTagFilters(TagFilters.ofListOfString(tagFilters3));
           boolean sumOrFiltersScores3 = true;
           requests_02.setSumOrFiltersScores(sumOrFiltersScores3);
           List<String> facets3 = new ArrayList<>();
@@ -2578,7 +2578,7 @@ class SearchClientRequestsTests {
           boolean aroundLatLngViaIP3 = true;
           requests_02.setAroundLatLngViaIP(aroundLatLngViaIP3);
           AroundRadiusAll aroundRadius3 = AroundRadiusAll.fromValue("all");
-          requests_02.setAroundRadius(AroundRadius.ofAroundRadiusAll(aroundRadius3));
+          requests_02.setAroundRadius(AroundRadius.of(aroundRadius3));
           int aroundPrecision3 = 0;
           requests_02.setAroundPrecision(aroundPrecision3);
           int minimumAroundRadius3 = 0;
@@ -2638,7 +2638,7 @@ class SearchClientRequestsTests {
             String reRankingApplyFilter_04 = "";
             reRankingApplyFilter3.add(reRankingApplyFilter_04);
           }
-          requests_02.setReRankingApplyFilter(ReRankingApplyFilter.ofListString(reRankingApplyFilter3));
+          requests_02.setReRankingApplyFilter(ReRankingApplyFilter.ofListOfString(reRankingApplyFilter3));
           List<String> attributesForFaceting3 = new ArrayList<>();
           {
             String attributesForFaceting_04 = "";
@@ -2704,7 +2704,7 @@ class SearchClientRequestsTests {
           int minWordSizefor2Typos3 = 0;
           requests_02.setMinWordSizefor2Typos(minWordSizefor2Typos3);
           TypoToleranceEnum typoTolerance3 = TypoToleranceEnum.fromValue("min");
-          requests_02.setTypoTolerance(TypoTolerance.ofTypoToleranceEnum(typoTolerance3));
+          requests_02.setTypoTolerance(TypoTolerance.of(typoTolerance3));
           boolean allowTyposOnNumericTokens3 = true;
           requests_02.setAllowTyposOnNumericTokens(allowTyposOnNumericTokens3);
           List<String> disableTypoToleranceOnAttributes3 = new ArrayList<>();
@@ -2714,9 +2714,9 @@ class SearchClientRequestsTests {
           }
           requests_02.setDisableTypoToleranceOnAttributes(disableTypoToleranceOnAttributes3);
           boolean ignorePlurals3 = false;
-          requests_02.setIgnorePlurals(IgnorePlurals.ofBoolean(ignorePlurals3));
+          requests_02.setIgnorePlurals(IgnorePlurals.of(ignorePlurals3));
           boolean removeStopWords3 = true;
-          requests_02.setRemoveStopWords(RemoveStopWords.ofBoolean(removeStopWords3));
+          requests_02.setRemoveStopWords(RemoveStopWords.of(removeStopWords3));
           String keepDiacriticsOnCharacters3 = "";
           requests_02.setKeepDiacriticsOnCharacters(keepDiacriticsOnCharacters3);
           List<String> queryLanguages3 = new ArrayList<>();
@@ -2818,7 +2818,7 @@ class SearchClientRequestsTests {
           SearchTypeDefault type3 = SearchTypeDefault.fromValue("default");
           requests_02.setType(type3);
         }
-        requests1.add(SearchQuery.ofSearchForHits(requests_02));
+        requests1.add(SearchQuery.of(requests_02));
       }
       searchMethodParams0.setRequests(requests1);
     }
@@ -2973,7 +2973,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchSingleIndex(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
+      client.searchSingleIndex(indexName0, SearchParams.of(searchParams0));
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2998,11 +2998,11 @@ class SearchClientRequestsTests {
         String facetFilters_02 = "tags:algolia";
         facetFilters1.add(facetFilters_02);
       }
-      searchParams0.setFacetFilters(FacetFilters.ofListString(facetFilters1));
+      searchParams0.setFacetFilters(FacetFilters.ofListOfString(facetFilters1));
     }
 
     assertDoesNotThrow(() -> {
-      client.searchSingleIndex(indexName0, SearchParams.ofSearchParamsObject(searchParams0));
+      client.searchSingleIndex(indexName0, SearchParams.of(searchParams0));
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -3190,7 +3190,7 @@ class SearchClientRequestsTests {
     IndexSettings indexSettings0 = new IndexSettings();
     {
       boolean typoTolerance1 = true;
-      indexSettings0.setTypoTolerance(TypoTolerance.ofBoolean(typoTolerance1));
+      indexSettings0.setTypoTolerance(TypoTolerance.of(typoTolerance1));
     }
     boolean forwardToReplicas0 = true;
 
@@ -3225,7 +3225,7 @@ class SearchClientRequestsTests {
     IndexSettings indexSettings0 = new IndexSettings();
     {
       TypoToleranceEnum typoTolerance1 = TypoToleranceEnum.fromValue("min");
-      indexSettings0.setTypoTolerance(TypoTolerance.ofTypoToleranceEnum(typoTolerance1));
+      indexSettings0.setTypoTolerance(TypoTolerance.of(typoTolerance1));
     }
     boolean forwardToReplicas0 = true;
 

@@ -97,7 +97,7 @@ class PredictClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.fetchUserProfile(userID0, Params.ofModelsToRetrieve(params0));
+      client.fetchUserProfile(userID0, Params.of(params0));
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -126,7 +126,7 @@ class PredictClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.fetchUserProfile(userID0, Params.ofTypesToRetrieve(params0));
+      client.fetchUserProfile(userID0, Params.of(params0));
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -165,7 +165,7 @@ class PredictClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.fetchUserProfile(userID0, Params.ofAllParams(params0));
+      client.fetchUserProfile(userID0, Params.of(params0));
     });
     EchoResponse req = echo.getLastResponse();
 

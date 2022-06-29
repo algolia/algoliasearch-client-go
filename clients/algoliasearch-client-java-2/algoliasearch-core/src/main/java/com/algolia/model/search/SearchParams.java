@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(SearchParams.Adapter.class)
+/** SearchParams */
 public abstract class SearchParams implements CompoundType {
 
-  public static SearchParams ofSearchParamsObject(SearchParamsObject inside) {
+  public static SearchParams of(SearchParamsObject inside) {
     return new SearchParamsSearchParamsObject(inside);
   }
 
-  public static SearchParams ofSearchParamsString(SearchParamsString inside) {
+  public static SearchParams of(SearchParamsString inside) {
     return new SearchParamsSearchParamsString(inside);
   }
 
@@ -32,11 +33,11 @@ public abstract class SearchParams implements CompoundType {
     public SearchParams read(final JsonReader jsonReader) throws IOException {
       SearchParamsObject searchparamsobject = JSON.tryDeserialize(jsonReader, new TypeToken<SearchParamsObject>() {}.getType());
       if (searchparamsobject != null) {
-        return SearchParams.ofSearchParamsObject(searchparamsobject);
+        return SearchParams.of(searchparamsobject);
       }
       SearchParamsString searchparamsstring = JSON.tryDeserialize(jsonReader, new TypeToken<SearchParamsString>() {}.getType());
       if (searchparamsstring != null) {
-        return SearchParams.ofSearchParamsString(searchparamsstring);
+        return SearchParams.of(searchparamsstring);
       }
       return null;
     }

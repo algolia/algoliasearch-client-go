@@ -11,14 +11,18 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonAdapter(AutomaticFacetFilters.Adapter.class)
+/**
+ * Names of facets to which automatic filtering must be applied; they must match the facet name of a
+ * facet value placeholder in the query pattern.
+ */
 public abstract class AutomaticFacetFilters implements CompoundType {
 
-  public static AutomaticFacetFilters ofListAutomaticFacetFilter(List<AutomaticFacetFilter> inside) {
-    return new AutomaticFacetFiltersListAutomaticFacetFilter(inside);
+  public static AutomaticFacetFilters ofListOfAutomaticFacetFilter(List<AutomaticFacetFilter> inside) {
+    return new AutomaticFacetFiltersListOfAutomaticFacetFilter(inside);
   }
 
-  public static AutomaticFacetFilters ofListString(List<String> inside) {
-    return new AutomaticFacetFiltersListString(inside);
+  public static AutomaticFacetFilters ofListOfString(List<String> inside) {
+    return new AutomaticFacetFiltersListOfString(inside);
   }
 
   public static class Adapter extends TypeAdapter<AutomaticFacetFilters> {
@@ -31,16 +35,16 @@ public abstract class AutomaticFacetFilters implements CompoundType {
 
     @Override
     public AutomaticFacetFilters read(final JsonReader jsonReader) throws IOException {
-      List<AutomaticFacetFilter> listautomaticfacetfilter = JSON.tryDeserialize(
+      List<AutomaticFacetFilter> listofautomaticfacetfilter = JSON.tryDeserialize(
         jsonReader,
         new TypeToken<List<AutomaticFacetFilter>>() {}.getType()
       );
-      if (listautomaticfacetfilter != null) {
-        return AutomaticFacetFilters.ofListAutomaticFacetFilter(listautomaticfacetfilter);
+      if (listofautomaticfacetfilter != null) {
+        return AutomaticFacetFilters.ofListOfAutomaticFacetFilter(listofautomaticfacetfilter);
       }
-      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (liststring != null) {
-        return AutomaticFacetFilters.ofListString(liststring);
+      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
+      if (listofstring != null) {
+        return AutomaticFacetFilters.ofListOfString(listofstring);
       }
       return null;
     }
@@ -48,11 +52,11 @@ public abstract class AutomaticFacetFilters implements CompoundType {
 }
 
 @JsonAdapter(AutomaticFacetFilters.Adapter.class)
-class AutomaticFacetFiltersListAutomaticFacetFilter extends AutomaticFacetFilters {
+class AutomaticFacetFiltersListOfAutomaticFacetFilter extends AutomaticFacetFilters {
 
   private final List<AutomaticFacetFilter> insideValue;
 
-  AutomaticFacetFiltersListAutomaticFacetFilter(List<AutomaticFacetFilter> insideValue) {
+  AutomaticFacetFiltersListOfAutomaticFacetFilter(List<AutomaticFacetFilter> insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -63,11 +67,11 @@ class AutomaticFacetFiltersListAutomaticFacetFilter extends AutomaticFacetFilter
 }
 
 @JsonAdapter(AutomaticFacetFilters.Adapter.class)
-class AutomaticFacetFiltersListString extends AutomaticFacetFilters {
+class AutomaticFacetFiltersListOfString extends AutomaticFacetFilters {
 
   private final List<String> insideValue;
 
-  AutomaticFacetFiltersListString(List<String> insideValue) {
+  AutomaticFacetFiltersListOfString(List<String> insideValue) {
     this.insideValue = insideValue;
   }
 

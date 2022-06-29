@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(GetTopSearchesResponse.Adapter.class)
+/** GetTopSearchesResponse */
 public abstract class GetTopSearchesResponse implements CompoundType {
 
-  public static GetTopSearchesResponse ofTopSearchesResponse(TopSearchesResponse inside) {
+  public static GetTopSearchesResponse of(TopSearchesResponse inside) {
     return new GetTopSearchesResponseTopSearchesResponse(inside);
   }
 
-  public static GetTopSearchesResponse ofTopSearchesResponseWithAnalytics(TopSearchesResponseWithAnalytics inside) {
+  public static GetTopSearchesResponse of(TopSearchesResponseWithAnalytics inside) {
     return new GetTopSearchesResponseTopSearchesResponseWithAnalytics(inside);
   }
 
@@ -32,14 +33,14 @@ public abstract class GetTopSearchesResponse implements CompoundType {
     public GetTopSearchesResponse read(final JsonReader jsonReader) throws IOException {
       TopSearchesResponse topsearchesresponse = JSON.tryDeserialize(jsonReader, new TypeToken<TopSearchesResponse>() {}.getType());
       if (topsearchesresponse != null) {
-        return GetTopSearchesResponse.ofTopSearchesResponse(topsearchesresponse);
+        return GetTopSearchesResponse.of(topsearchesresponse);
       }
       TopSearchesResponseWithAnalytics topsearchesresponsewithanalytics = JSON.tryDeserialize(
         jsonReader,
         new TypeToken<TopSearchesResponseWithAnalytics>() {}.getType()
       );
       if (topsearchesresponsewithanalytics != null) {
-        return GetTopSearchesResponse.ofTopSearchesResponseWithAnalytics(topsearchesresponsewithanalytics);
+        return GetTopSearchesResponse.of(topsearchesresponsewithanalytics);
       }
       return null;
     }

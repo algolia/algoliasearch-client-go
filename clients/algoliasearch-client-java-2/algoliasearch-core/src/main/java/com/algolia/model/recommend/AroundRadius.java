@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(AroundRadius.Adapter.class)
+/** Define the maximum radius for a geo search (in meters). */
 public abstract class AroundRadius implements CompoundType {
 
-  public static AroundRadius ofAroundRadiusAll(AroundRadiusAll inside) {
+  public static AroundRadius of(AroundRadiusAll inside) {
     return new AroundRadiusAroundRadiusAll(inside);
   }
 
-  public static AroundRadius ofInteger(Integer inside) {
+  public static AroundRadius of(Integer inside) {
     return new AroundRadiusInteger(inside);
   }
 
@@ -32,11 +33,11 @@ public abstract class AroundRadius implements CompoundType {
     public AroundRadius read(final JsonReader jsonReader) throws IOException {
       AroundRadiusAll aroundradiusall = JSON.tryDeserialize(jsonReader, new TypeToken<AroundRadiusAll>() {}.getType());
       if (aroundradiusall != null) {
-        return AroundRadius.ofAroundRadiusAll(aroundradiusall);
+        return AroundRadius.of(aroundradiusall);
       }
       Integer integer = JSON.tryDeserialize(jsonReader, new TypeToken<Integer>() {}.getType());
       if (integer != null) {
-        return AroundRadius.ofInteger(integer);
+        return AroundRadius.of(integer);
       }
       return null;
     }

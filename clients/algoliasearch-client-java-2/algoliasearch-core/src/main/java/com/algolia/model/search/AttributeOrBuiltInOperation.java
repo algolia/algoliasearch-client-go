@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(AttributeOrBuiltInOperation.Adapter.class)
+/** AttributeOrBuiltInOperation */
 public abstract class AttributeOrBuiltInOperation implements CompoundType {
 
-  public static AttributeOrBuiltInOperation ofBuiltInOperation(BuiltInOperation inside) {
+  public static AttributeOrBuiltInOperation of(BuiltInOperation inside) {
     return new AttributeOrBuiltInOperationBuiltInOperation(inside);
   }
 
-  public static AttributeOrBuiltInOperation ofString(String inside) {
+  public static AttributeOrBuiltInOperation of(String inside) {
     return new AttributeOrBuiltInOperationString(inside);
   }
 
@@ -32,11 +33,11 @@ public abstract class AttributeOrBuiltInOperation implements CompoundType {
     public AttributeOrBuiltInOperation read(final JsonReader jsonReader) throws IOException {
       BuiltInOperation builtinoperation = JSON.tryDeserialize(jsonReader, new TypeToken<BuiltInOperation>() {}.getType());
       if (builtinoperation != null) {
-        return AttributeOrBuiltInOperation.ofBuiltInOperation(builtinoperation);
+        return AttributeOrBuiltInOperation.of(builtinoperation);
       }
       String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
       if (string != null) {
-        return AttributeOrBuiltInOperation.ofString(string);
+        return AttributeOrBuiltInOperation.of(string);
       }
       return null;
     }

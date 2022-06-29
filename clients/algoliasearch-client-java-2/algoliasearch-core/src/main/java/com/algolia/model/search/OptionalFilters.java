@@ -11,14 +11,18 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonAdapter(OptionalFilters.Adapter.class)
+/**
+ * Create filters for ranking purposes, where records that match the filter are ranked higher, or
+ * lower in the case of a negative optional filter.
+ */
 public abstract class OptionalFilters implements CompoundType {
 
-  public static OptionalFilters ofListListString(List<List<String>> inside) {
-    return new OptionalFiltersListListString(inside);
+  public static OptionalFilters ofListOfListOfString(List<List<String>> inside) {
+    return new OptionalFiltersListOfListOfString(inside);
   }
 
-  public static OptionalFilters ofListString(List<String> inside) {
-    return new OptionalFiltersListString(inside);
+  public static OptionalFilters ofListOfString(List<String> inside) {
+    return new OptionalFiltersListOfString(inside);
   }
 
   public static class Adapter extends TypeAdapter<OptionalFilters> {
@@ -31,13 +35,13 @@ public abstract class OptionalFilters implements CompoundType {
 
     @Override
     public OptionalFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listliststring != null) {
-        return OptionalFilters.ofListListString(listliststring);
+      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
+      if (listoflistofstring != null) {
+        return OptionalFilters.ofListOfListOfString(listoflistofstring);
       }
-      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (liststring != null) {
-        return OptionalFilters.ofListString(liststring);
+      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
+      if (listofstring != null) {
+        return OptionalFilters.ofListOfString(listofstring);
       }
       return null;
     }
@@ -45,11 +49,11 @@ public abstract class OptionalFilters implements CompoundType {
 }
 
 @JsonAdapter(OptionalFilters.Adapter.class)
-class OptionalFiltersListListString extends OptionalFilters {
+class OptionalFiltersListOfListOfString extends OptionalFilters {
 
   private final List<List<String>> insideValue;
 
-  OptionalFiltersListListString(List<List<String>> insideValue) {
+  OptionalFiltersListOfListOfString(List<List<String>> insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -60,11 +64,11 @@ class OptionalFiltersListListString extends OptionalFilters {
 }
 
 @JsonAdapter(OptionalFilters.Adapter.class)
-class OptionalFiltersListString extends OptionalFilters {
+class OptionalFiltersListOfString extends OptionalFilters {
 
   private final List<String> insideValue;
 
-  OptionalFiltersListString(List<String> insideValue) {
+  OptionalFiltersListOfString(List<String> insideValue) {
     this.insideValue = insideValue;
   }
 

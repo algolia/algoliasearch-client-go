@@ -11,14 +11,15 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonAdapter(NumericFilters.Adapter.class)
+/** Filter on numeric attributes. */
 public abstract class NumericFilters implements CompoundType {
 
-  public static NumericFilters ofListListString(List<List<String>> inside) {
-    return new NumericFiltersListListString(inside);
+  public static NumericFilters ofListOfListOfString(List<List<String>> inside) {
+    return new NumericFiltersListOfListOfString(inside);
   }
 
-  public static NumericFilters ofListString(List<String> inside) {
-    return new NumericFiltersListString(inside);
+  public static NumericFilters ofListOfString(List<String> inside) {
+    return new NumericFiltersListOfString(inside);
   }
 
   public static class Adapter extends TypeAdapter<NumericFilters> {
@@ -31,13 +32,13 @@ public abstract class NumericFilters implements CompoundType {
 
     @Override
     public NumericFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listliststring != null) {
-        return NumericFilters.ofListListString(listliststring);
+      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
+      if (listoflistofstring != null) {
+        return NumericFilters.ofListOfListOfString(listoflistofstring);
       }
-      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (liststring != null) {
-        return NumericFilters.ofListString(liststring);
+      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
+      if (listofstring != null) {
+        return NumericFilters.ofListOfString(listofstring);
       }
       return null;
     }
@@ -45,11 +46,11 @@ public abstract class NumericFilters implements CompoundType {
 }
 
 @JsonAdapter(NumericFilters.Adapter.class)
-class NumericFiltersListListString extends NumericFilters {
+class NumericFiltersListOfListOfString extends NumericFilters {
 
   private final List<List<String>> insideValue;
 
-  NumericFiltersListListString(List<List<String>> insideValue) {
+  NumericFiltersListOfListOfString(List<List<String>> insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -60,11 +61,11 @@ class NumericFiltersListListString extends NumericFilters {
 }
 
 @JsonAdapter(NumericFilters.Adapter.class)
-class NumericFiltersListString extends NumericFilters {
+class NumericFiltersListOfString extends NumericFilters {
 
   private final List<String> insideValue;
 
-  NumericFiltersListString(List<String> insideValue) {
+  NumericFiltersListOfString(List<String> insideValue) {
     this.insideValue = insideValue;
   }
 

@@ -10,13 +10,17 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(SchemasQuery.Adapter.class)
+/**
+ * When providing a string, it replaces the entire query string. When providing an object, it
+ * describes incremental edits to be made to the query string (but you can't do both).
+ */
 public abstract class SchemasQuery implements CompoundType {
 
-  public static SchemasQuery ofConsequenceQuery(ConsequenceQuery inside) {
+  public static SchemasQuery of(ConsequenceQuery inside) {
     return new SchemasQueryConsequenceQuery(inside);
   }
 
-  public static SchemasQuery ofString(String inside) {
+  public static SchemasQuery of(String inside) {
     return new SchemasQueryString(inside);
   }
 
@@ -32,11 +36,11 @@ public abstract class SchemasQuery implements CompoundType {
     public SchemasQuery read(final JsonReader jsonReader) throws IOException {
       ConsequenceQuery consequencequery = JSON.tryDeserialize(jsonReader, new TypeToken<ConsequenceQuery>() {}.getType());
       if (consequencequery != null) {
-        return SchemasQuery.ofConsequenceQuery(consequencequery);
+        return SchemasQuery.of(consequencequery);
       }
       String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
       if (string != null) {
-        return SchemasQuery.ofString(string);
+        return SchemasQuery.of(string);
       }
       return null;
     }

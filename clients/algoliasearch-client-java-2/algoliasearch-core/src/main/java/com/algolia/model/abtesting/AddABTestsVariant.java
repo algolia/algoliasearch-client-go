@@ -10,13 +10,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 @JsonAdapter(AddABTestsVariant.Adapter.class)
+/** AddABTestsVariant */
 public abstract class AddABTestsVariant implements CompoundType {
 
-  public static AddABTestsVariant ofAbTestsVariant(AbTestsVariant inside) {
+  public static AddABTestsVariant of(AbTestsVariant inside) {
     return new AddABTestsVariantAbTestsVariant(inside);
   }
 
-  public static AddABTestsVariant ofAbTestsVariantSearchParams(AbTestsVariantSearchParams inside) {
+  public static AddABTestsVariant of(AbTestsVariantSearchParams inside) {
     return new AddABTestsVariantAbTestsVariantSearchParams(inside);
   }
 
@@ -32,14 +33,14 @@ public abstract class AddABTestsVariant implements CompoundType {
     public AddABTestsVariant read(final JsonReader jsonReader) throws IOException {
       AbTestsVariant abtestsvariant = JSON.tryDeserialize(jsonReader, new TypeToken<AbTestsVariant>() {}.getType());
       if (abtestsvariant != null) {
-        return AddABTestsVariant.ofAbTestsVariant(abtestsvariant);
+        return AddABTestsVariant.of(abtestsvariant);
       }
       AbTestsVariantSearchParams abtestsvariantsearchparams = JSON.tryDeserialize(
         jsonReader,
         new TypeToken<AbTestsVariantSearchParams>() {}.getType()
       );
       if (abtestsvariantsearchparams != null) {
-        return AddABTestsVariant.ofAbTestsVariantSearchParams(abtestsvariantsearchparams);
+        return AddABTestsVariant.of(abtestsvariantsearchparams);
       }
       return null;
     }

@@ -11,14 +11,18 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonAdapter(ReRankingApplyFilter.Adapter.class)
+/**
+ * When Dynamic Re-Ranking is enabled, only records that match these filters will be impacted by
+ * Dynamic Re-Ranking.
+ */
 public abstract class ReRankingApplyFilter implements CompoundType {
 
-  public static ReRankingApplyFilter ofListListString(List<List<String>> inside) {
-    return new ReRankingApplyFilterListListString(inside);
+  public static ReRankingApplyFilter ofListOfListOfString(List<List<String>> inside) {
+    return new ReRankingApplyFilterListOfListOfString(inside);
   }
 
-  public static ReRankingApplyFilter ofListString(List<String> inside) {
-    return new ReRankingApplyFilterListString(inside);
+  public static ReRankingApplyFilter ofListOfString(List<String> inside) {
+    return new ReRankingApplyFilterListOfString(inside);
   }
 
   public static class Adapter extends TypeAdapter<ReRankingApplyFilter> {
@@ -31,13 +35,13 @@ public abstract class ReRankingApplyFilter implements CompoundType {
 
     @Override
     public ReRankingApplyFilter read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listliststring != null) {
-        return ReRankingApplyFilter.ofListListString(listliststring);
+      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
+      if (listoflistofstring != null) {
+        return ReRankingApplyFilter.ofListOfListOfString(listoflistofstring);
       }
-      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (liststring != null) {
-        return ReRankingApplyFilter.ofListString(liststring);
+      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
+      if (listofstring != null) {
+        return ReRankingApplyFilter.ofListOfString(listofstring);
       }
       return null;
     }
@@ -45,11 +49,11 @@ public abstract class ReRankingApplyFilter implements CompoundType {
 }
 
 @JsonAdapter(ReRankingApplyFilter.Adapter.class)
-class ReRankingApplyFilterListListString extends ReRankingApplyFilter {
+class ReRankingApplyFilterListOfListOfString extends ReRankingApplyFilter {
 
   private final List<List<String>> insideValue;
 
-  ReRankingApplyFilterListListString(List<List<String>> insideValue) {
+  ReRankingApplyFilterListOfListOfString(List<List<String>> insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -60,11 +64,11 @@ class ReRankingApplyFilterListListString extends ReRankingApplyFilter {
 }
 
 @JsonAdapter(ReRankingApplyFilter.Adapter.class)
-class ReRankingApplyFilterListString extends ReRankingApplyFilter {
+class ReRankingApplyFilterListOfString extends ReRankingApplyFilter {
 
   private final List<String> insideValue;
 
-  ReRankingApplyFilterListString(List<String> insideValue) {
+  ReRankingApplyFilterListOfString(List<String> insideValue) {
     this.insideValue = insideValue;
   }
 

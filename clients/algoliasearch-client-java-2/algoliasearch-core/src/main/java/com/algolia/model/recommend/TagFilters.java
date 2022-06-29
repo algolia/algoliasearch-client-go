@@ -11,14 +11,15 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonAdapter(TagFilters.Adapter.class)
+/** Filter hits by tags. */
 public abstract class TagFilters implements CompoundType {
 
-  public static TagFilters ofListListString(List<List<String>> inside) {
-    return new TagFiltersListListString(inside);
+  public static TagFilters ofListOfListOfString(List<List<String>> inside) {
+    return new TagFiltersListOfListOfString(inside);
   }
 
-  public static TagFilters ofListString(List<String> inside) {
-    return new TagFiltersListString(inside);
+  public static TagFilters ofListOfString(List<String> inside) {
+    return new TagFiltersListOfString(inside);
   }
 
   public static class Adapter extends TypeAdapter<TagFilters> {
@@ -31,13 +32,13 @@ public abstract class TagFilters implements CompoundType {
 
     @Override
     public TagFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listliststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listliststring != null) {
-        return TagFilters.ofListListString(listliststring);
+      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
+      if (listoflistofstring != null) {
+        return TagFilters.ofListOfListOfString(listoflistofstring);
       }
-      List<String> liststring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (liststring != null) {
-        return TagFilters.ofListString(liststring);
+      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
+      if (listofstring != null) {
+        return TagFilters.ofListOfString(listofstring);
       }
       return null;
     }
@@ -45,11 +46,11 @@ public abstract class TagFilters implements CompoundType {
 }
 
 @JsonAdapter(TagFilters.Adapter.class)
-class TagFiltersListListString extends TagFilters {
+class TagFiltersListOfListOfString extends TagFilters {
 
   private final List<List<String>> insideValue;
 
-  TagFiltersListListString(List<List<String>> insideValue) {
+  TagFiltersListOfListOfString(List<List<String>> insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -60,11 +61,11 @@ class TagFiltersListListString extends TagFilters {
 }
 
 @JsonAdapter(TagFilters.Adapter.class)
-class TagFiltersListString extends TagFilters {
+class TagFiltersListOfString extends TagFilters {
 
   private final List<String> insideValue;
 
-  TagFiltersListString(List<String> insideValue) {
+  TagFiltersListOfString(List<String> insideValue) {
     this.insideValue = insideValue;
   }
 
