@@ -28,9 +28,15 @@ async function testSearch() {
     });
 
     console.log(`[OK]`, res);
-  } catch (e) {
+  } catch (e: any) {
+    // Instance of
     if (e instanceof ApiError) {
       return console.log(`[${e.status}] ${e.message}`, e.stackTrace);
+    }
+
+    // Other way
+    if (e.name === 'RetryError') {
+      return console.log(`[${e.name}] ${e.message}`, e.stackTrace);
     }
 
     console.log('[ERROR]', e);

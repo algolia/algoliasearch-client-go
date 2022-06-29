@@ -57,6 +57,17 @@
         "package.mustache"
       ],
       "matchStrings": [
+        "\\s\"@types/jest\": \"(?<currentValue>.*?)\",?\\s"
+      ],
+      "depNameTemplate": "@types/jest",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "description": "Update package.json mustache devDeps",
+      "fileMatch": [
+        "package.mustache"
+      ],
+      "matchStrings": [
         "\\s\"typescript\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "depNameTemplate": "typescript",
