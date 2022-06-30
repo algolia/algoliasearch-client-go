@@ -14,6 +14,8 @@ baseIndexSettings:
         type: string
       description: Creates replicas, exact copies of an index.
       default: []
+      x-categories: 
+        - Ranking
     paginationLimitedTo:
       type: integer
       description: Set the maximum number of hits accessible via pagination.
@@ -24,53 +26,73 @@ baseIndexSettings:
         type: string
       description: A list of words for which you want to turn off typo tolerance.
       default: []
+      x-categories: 
+        - Typos
     attributesToTransliterate:
       type: array
       items:
         type: string
       description: Specify on which attributes to apply transliteration.
+      x-categories: 
+        - Languages
     camelCaseAttributes:
       type: array
       items:
         type: string
       description: List of attributes on which to do a decomposition of camel case words.
       default: []
+      x-categories: 
+        - Languages
     decompoundedAttributes:
       type: object
       description: Specify on which attributes in your index Algolia should apply word segmentation, also known as decompounding.
       default: {}
+      x-categories: 
+        - Languages
     indexLanguages:
       type: array
       items:
         type: string
       description: Sets the languages at the index level for language-specific processing such as tokenization and normalization.
       default: []
+      x-categories: 
+        - Languages
     disablePrefixOnAttributes:
       type: array
       items:
         type: string
       description: List of attributes on which you want to disable prefix matching.
       default: []
+      x-categories: 
+        - Query strategy
     allowCompressionOfIntegerArray:
       type: boolean
       description: Enables compression of large integer arrays.
       default: false
+      x-categories: 
+        - Performance
     numericAttributesForFiltering:
       type: array
       items:
         type: string
       description: List of numeric attributes that can be used as numerical filters.
       default: []
+      x-categories: 
+        - Performance
     separatorsToIndex:
       type: string
       description: Control which separators are indexed.
       default: ''
+      x-categories: 
+        - Typos
     searchableAttributes:
       type: array
       items:
         type: string
       description: The complete list of attributes used for searching.
       default: []
+      x-categories: 
+        - Attributes
     userData:
       $ref: '#/userData'
 
@@ -84,24 +106,32 @@ indexSettingsAsSearchParams:
         type: string
       description: The complete list of attributes that will be used for faceting.
       default: []
+      x-categories: 
+        - Faceting
     unretrievableAttributes:
       type: array
       items:
         type: string
       description: List of attributes that can't be retrieved at query time.
       default: []
+      x-categories: 
+        - Attributes
     attributesToRetrieve:
       type: array
       items:
         type: string
       description: This parameter controls which attributes to retrieve and which not to retrieve.
       default: ['*']
+      x-categories: 
+        - Attributes
     restrictSearchableAttributes:
       type: array
       items:
         type: string
       description: Restricts a given query to look in only a subset of your searchable attributes.
       default: []
+      x-categories: 
+        - Attributes
     ranking:
       type: array
       items:
@@ -116,65 +146,91 @@ indexSettingsAsSearchParams:
         - attribute
         - exact
         - custom
+      x-categories: 
+        - Ranking
     customRanking:
       type: array
       items:
         type: string
       description: Specifies the custom ranking criterion.
       default: []
+      x-categories: 
+        - Ranking
     relevancyStrictness:
       type: integer
       description: Controls the relevancy threshold below which less relevant results aren't included in the results.
       default: 100
+      x-categories: 
+        - Ranking
     attributesToHighlight:
       type: array
       items:
         type: string
       description: List of attributes to highlight.
+      x-categories: 
+        - Highlighting and Snippeting
     attributesToSnippet:
       type: array
       items:
         type: string
       description: List of attributes to snippet, with an optional maximum number of words to snippet.
       default: []
+      x-categories: 
+        - Highlighting and Snippeting
     highlightPreTag:
       type: string
       description: The HTML string to insert before the highlighted parts in all highlight and snippet results.
       default: <em>
+      x-categories: 
+        - Highlighting and Snippeting
     highlightPostTag:
       type: string
       description: The HTML string to insert after the highlighted parts in all highlight and snippet results.
       default: </em>
+      x-categories: 
+        - Highlighting and Snippeting
     snippetEllipsisText:
       type: string
       description: String used as an ellipsis indicator when a snippet is truncated.
       default: …
+      x-categories: 
+        - Highlighting and Snippeting
     restrictHighlightAndSnippetArrays:
       type: boolean
       description: Restrict highlighting and snippeting to items that matched the query.
       default: false
+      x-categories:
+        - Highlighting and Snippeting
     hitsPerPage:
       $ref: '#/hitsPerPage'
     minWordSizefor1Typo:
       type: integer
       description: Minimum number of characters a word in the query string must contain to accept matches with 1 typo.
       default: 4
+      x-categories: 
+        - Typos
     minWordSizefor2Typos:
       type: integer
       description: Minimum number of characters a word in the query string must contain to accept matches with 2 typos.
       default: 8
+      x-categories: 
+        - Typos
     typoTolerance:
       $ref: '#/typoTolerance'
     allowTyposOnNumericTokens:
       type: boolean
       description: Whether to allow typos on numbers ("numeric tokens") in the query string.
       default: true
+      x-categories: 
+        - Typos
     disableTypoToleranceOnAttributes:
       type: array
       items:
         type: string
       description: List of attributes on which you want to disable typo tolerance.
       default: []
+      x-categories: 
+        - Typos
     ignorePlurals:
       $ref: '#/ignorePlurals'
     removeStopWords:
@@ -183,24 +239,34 @@ indexSettingsAsSearchParams:
       type: string
       description: List of characters that the engine shouldn't automatically normalize.
       default: ''
+      x-categories: 
+        - Languages
     queryLanguages:
       type: array
       items:
         type: string
       description: Sets the languages to be used by language-specific settings and functionalities such as ignorePlurals, removeStopWords, and CJK word-detection.
       default: []
+      x-categories: 
+        - Languages
     decompoundQuery:
       type: boolean
       description: Splits compound words into their composing atoms in the query.
       default: true
+      x-categories: 
+        - Languages
     enableRules:
       type: boolean
       description: Whether Rules should be globally enabled.
       default: true
+      x-categories: 
+        - Rules
     enablePersonalization:
       type: boolean
       description: Enable the Personalization feature.
       default: false
+      x-categories: 
+        - Personalization
     queryType:
       $ref: '#/queryType'
     removeWordsIfNoResults:
@@ -209,18 +275,24 @@ indexSettingsAsSearchParams:
       type: boolean
       description: Enables the advanced query syntax.
       default: false
+      x-categories: 
+        - Query strategy
     optionalWords:
       type: array
       items:
         type: string
       description: A list of words that should be considered as optional when found in the query.
       default: []
+      x-categories:
+        - Query strategy
     disableExactOnAttributes:
       type: array
       items:
         type: string
       description: List of attributes on which you want to disable the exact ranking criterion.
       default: []
+      x-categories:
+        - Query strategy
     exactOnSingleWordQuery:
       $ref: '#/exactOnSingleWordQuery'
     alternativesAsExact:
@@ -229,44 +301,60 @@ indexSettingsAsSearchParams:
         $ref: '#/alternativesAsExact'
       description: List of alternatives that should be considered an exact match by the exact ranking criterion.
       default: [ignorePlurals, singleWordSynonym]
+      x-categories: 
+        - Query strategy
     advancedSyntaxFeatures:
       type: array
       items:
         $ref: '#/advancedSyntaxFeatures'
       description: Allows you to specify which advanced syntax features are active when ‘advancedSyntax' is enabled.
       default: [exactPhrase, excludeWords]
+      x-categories: 
+        - Query strategy
     distinct:
       type: integer
       minimum: 0
       maximum: 4
       description: Enables de-duplication or grouping of results.
       default: 0
+      x-categories: 
+        - Advanced
     synonyms:
       type: boolean
       description: Whether to take into account an index's synonyms for a particular search.
       default: true
+      x-categories: 
+        - Advanced
     replaceSynonymsInHighlight:
       type: boolean
       description: Whether to highlight and snippet the original word that matches the synonym or the synonym itself.
       default: false
+      x-categories: 
+        - Highlighting and Snippeting
     minProximity:
       type: integer
       minimum: 1
       maximum: 7
       description: Precision of the proximity ranking criterion.
       default: 1
+      x-categories: 
+        - Advanced
     responseFields:
       type: array
       items:
         type: string
       description: Choose which fields to return in the API response. This parameters applies to search and browse queries.
       default: []
+      x-categories: 
+        - Advanced
     maxFacetHits:
       $ref: '#/maxFacetHits'
     attributeCriteriaComputedByMinProximity:
       type: boolean
       description: When attribute is ranked above proximity in your ranking formula, proximity is used to select which searchable attribute is matched in the attribute ranking stage.
       default: false
+      x-categories: 
+        - Advanced
     renderingContent:
       $ref: '#/renderingContent'
 
@@ -275,42 +363,58 @@ maxFacetHits:
   description: Maximum number of facet hits to return during a search for facet values. For performance reasons, the maximum allowed number of returned values is 100.
   maximum: 100
   default: 10
+  x-categories: 
+    - Advanced
 
 hitsPerPage:
   type: integer
   description: Set the number of hits per page.
   default: 20
+  x-categories: 
+    - Pagination
 
 userData:
   type: object
   description: Lets you store custom data in your indices.
   default: {}
+  x-categories: 
+    - Advanced
 
 queryType:
   type: string
   enum: [prefixLast, prefixAll, prefixNone]
   description: Controls if and how query words are interpreted as prefixes.
   default: prefixLast
+  x-categories: 
+    - Query strategy
 
 removeWordsIfNoResults:
   type: string
   enum: [none, lastWords, firstWords, allOptional]
   description: Selects a strategy to remove words from the query when it doesn't match any hits.
   default: none
+  x-categories: 
+    - Query strategy
 
 exactOnSingleWordQuery:
   type: string
   enum: [attribute, none, word]
   description: Controls how the exact ranking criterion is computed when the query contains only one word.
   default: attribute
+  x-categories: 
+    - Query strategy
 
 alternativesAsExact:
   type: string
   enum: [ignorePlurals, singleWordSynonym, multiWordsSynonym]
+  x-categories: 
+    - Query strategy
 
 advancedSyntaxFeatures:
   type: string
   enum: [exactPhrase, excludeWords]
+  x-categories: 
+    - Query strategy
 
 typoTolerance:
   description: Controls whether typo tolerance is enabled and how it is applied.
@@ -318,6 +422,8 @@ typoTolerance:
     - type: boolean
       default: true
     - $ref: '#/typoToleranceEnum'
+  x-categories: 
+    - Typos
 
 typoToleranceEnum:
   type: string
@@ -338,6 +444,8 @@ ignorePlurals:
         type: string
     - type: boolean
       default: false
+  x-categories: 
+    - Languages
 
 removeStopWords:
   description: >
@@ -354,6 +462,8 @@ removeStopWords:
         type: string
     - type: boolean
       default: false
+  x-categories: 
+    - Languages
 
 renderingContent:
   description: Content defining how the search interface should be rendered. Can be set via the settings for a default value and can be overridden via rules.
@@ -362,6 +472,8 @@ renderingContent:
   properties:
     facetOrdering:
       $ref: '#/facetOrdering'
+  x-categories: 
+    - Advanced
 
 facetOrdering:
   description: Defining how facets should be ordered.
