@@ -1,4 +1,4 @@
-## [4.2.3-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.2-SNAPSHOT...4.2.3-SNAPSHOT)
+## [4.2.4-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.2-SNAPSHOT...4.2.4-SNAPSHOT)
 
 - ce95833f fix(java): rename one of methods for better dx APIC-539 (#763)
 

@@ -148,6 +148,10 @@ jobs:
             )}}
           path: clients/algoliasearch-client-javascript/packages/${{ matrix.client }}
 
+      - name: Remove generated clients
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: cd clients/algoliasearch-client-javascript/packages && ls | grep -v -E "(client-common|requester-*)" | xargs rm -rf
+
       - name: Setup
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: ./.github/actions/setup
@@ -207,6 +211,14 @@ jobs:
         uses: ./.github/actions/restore-artifacts
         with:
           type: js_utils
+
+      - name: Remove generated clients
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
+        run: |
+          cd ${{ matrix.client.path }}/packages
+          ls | grep -v -E "(client-common|requester-*|algoliasearch)" | xargs rm -rf
+          cd algoliasearch
+          ls | grep -v -E "(__tests__|jest.config.ts)" | xargs rm -rf
 
       - name: Setup
         uses: ./.github/actions/setup

@@ -23,6 +23,7 @@ module.exports = {
     '!clients/algoliasearch-client-javascript/scripts/**',
     '!clients/algoliasearch-client-javascript/packages/requester-*/**',
     '!clients/algoliasearch-client-javascript/packages/client-common/**',
+    '!clients/algoliasearch-client-javascript/packages/algoliasearch/__tests__/**',
     '!clients/algoliasearch-client-javascript/packages/algoliasearch/jest.config.ts',
 
     // PHP
