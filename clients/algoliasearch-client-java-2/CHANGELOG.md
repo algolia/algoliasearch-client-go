@@ -1,3 +1,7 @@
+## [4.2.3-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.2-SNAPSHOT...4.2.3-SNAPSHOT)
+
+- ce95833f fix(java): rename one of methods for better dx APIC-539 (#763)
+
 ## [4.2.2-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.1-SNAPSHOT...4.2.2-SNAPSHOT)
 
 - 7a858225 fix(specs): correct type for `renderingContent` and `consequenceParams` (#759)
