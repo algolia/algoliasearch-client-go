@@ -28,7 +28,7 @@ public class SearchClient extends ApiClient {
   }
 
   public SearchClient(String appId, String apiKey, ClientOptions options) {
-    super(appId, apiKey, "Search", "4.2.2-SNAPSHOT", options);
+    super(appId, apiKey, "Search", "4.2.3-SNAPSHOT", options);
     if (options != null && options.getHosts() != null) {
       this.setHosts(options.getHosts());
     } else {
