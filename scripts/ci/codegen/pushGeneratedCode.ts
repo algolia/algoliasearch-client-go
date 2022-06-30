@@ -3,7 +3,7 @@ import { ensureGitHubToken, MAIN_BRANCH, run } from '../../common';
 import { configureGitHubAuthor } from '../../release/common';
 import { getNbGitDiff } from '../utils';
 
-import text from './text';
+import text, { commitStartPrepareRelease } from './text';
 
 const PR_NUMBER = parseInt(process.env.PR_NUMBER || '0', 10);
 
@@ -25,7 +25,7 @@ export async function pushGeneratedCode(): Promise<void> {
   const baseBranch = await run('git branch --show-current');
   const isMainBranch = baseBranch === MAIN_BRANCH;
   const IS_RELEASE_COMMIT = (await run('git log -1 --format="%s"')).startsWith(
-    text.commitPrepareReleaseMessage
+    commitStartPrepareRelease
   );
   console.log(`Checking codegen status on '${baseBranch}'.`);
 

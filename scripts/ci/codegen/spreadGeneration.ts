@@ -19,10 +19,10 @@ import {
 import type { Language } from '../../types';
 import { getNbGitDiff } from '../utils';
 
-import text from './text';
+import text, { commitStartRelease } from './text';
 
 export function decideWhereToSpread(commitMessage: string): Language[] {
-  if (commitMessage.startsWith(text.commitReleaseMessage)) {
+  if (commitMessage.startsWith(commitStartRelease)) {
     return LANGUAGES;
   }
 
@@ -40,7 +40,7 @@ export function cleanUpCommitMessage(
   commitMessage: string,
   version: string
 ): string {
-  if (commitMessage.startsWith(text.commitReleaseMessage)) {
+  if (commitMessage.startsWith(commitStartRelease)) {
     return `chore: release ${version}`;
   }
 
@@ -86,9 +86,7 @@ async function spreadGeneration(): Promise<void> {
     .map((coAuthor) => coAuthor.trim())
     .filter(Boolean);
 
-  const IS_RELEASE_COMMIT = lastCommitMessage.startsWith(
-    text.commitReleaseMessage
-  );
+  const IS_RELEASE_COMMIT = lastCommitMessage.startsWith(commitStartRelease);
   const langs = decideWhereToSpread(lastCommitMessage);
   console.log(
     'Spreading code to the following repositories:',

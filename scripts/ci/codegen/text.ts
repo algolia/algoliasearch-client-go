@@ -1,9 +1,12 @@
 import { MAIN_BRANCH, REPO_URL, TODAY } from '../../common';
 
+export const commitStartPrepareRelease = 'chore: prepare release';
+export const commitStartRelease = 'chore: release';
+
 export default {
   commitStartMessage: 'chore: generated code for commit',
-  commitPrepareReleaseMessage: `chore: prepare release ${TODAY}`,
-  commitReleaseMessage: `chore: release ${TODAY}`,
+  commitPrepareReleaseMessage: `${commitStartPrepareRelease} ${TODAY}`,
+  commitReleaseMessage: `${commitStartRelease} ${TODAY}`,
   notification: {
     header: '### 🔨 The codegen job will run at the end of the CI.',
     body: (): string =>
