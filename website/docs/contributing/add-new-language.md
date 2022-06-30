@@ -144,7 +144,8 @@ This parameter **must** be the last parameter of a method, and allow a user to o
 
 ### Requesters
 
-> TODO: informations
+The requester needs to be configurable and capable to be overwriten to use a user defined requester.
+The default requester must be the classic HTTP requester, and it's possible to provide other alternatives like an [Echo Requester](https://github.com/algolia/api-clients-automation/blob/main/clients/algoliasearch-client-javascript/packages/client-common/src/createEchoRequester.ts) that just send the request back.
 
 ### Logger
 
