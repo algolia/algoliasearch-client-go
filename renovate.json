@@ -46,68 +46,12 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"@types/node\": \"(?<currentValue>.*?)\",?\\s"
-      ],
-      "depNameTemplate": "@types/node",
-      "datasourceTemplate": "npm"
-    },
-    {
-      "description": "Update package.json mustache devDeps",
-      "fileMatch": [
-        "package.mustache"
-      ],
-      "matchStrings": [
-        "\\s\"@types/jest\": \"(?<currentValue>.*?)\",?\\s"
-      ],
-      "depNameTemplate": "@types/jest",
-      "datasourceTemplate": "npm"
-    },
-    {
-      "description": "Update package.json mustache devDeps",
-      "fileMatch": [
-        "package.mustache"
-      ],
-      "matchStrings": [
-        "\\s\"typescript\": \"(?<currentValue>.*?)\",?\\s"
-      ],
-      "depNameTemplate": "typescript",
-      "datasourceTemplate": "npm"
-    },
-    {
-      "description": "Update package.json mustache devDeps",
-      "fileMatch": [
-        "package.mustache"
-      ],
-      "matchStrings": [
-        "\\s\"jest\": \"(?<currentValue>.*?)\",?\\s"
-      ],
-      "depNameTemplate": "jest",
-      "datasourceTemplate": "npm"
-    },
-    {
-      "description": "Update package.json mustache devDeps",
-      "fileMatch": [
-        "package.mustache"
-      ],
-      "matchStrings": [
-        "\\s\"ts-jest\": \"(?<currentValue>.*?)\",?\\s"
-      ],
-      "depNameTemplate": "ts-jest",
-      "datasourceTemplate": "npm"
-    },
-    {
-      "description": "Update package.json mustache devDeps",
-      "fileMatch": [
-        "package.mustache"
-      ],
-      "matchStrings": [
-        "\\s\"ts-node\": \"(?<currentValue>.*?)\",?\\s"
-      ],
-      "depNameTemplate": "ts-node",
-      "datasourceTemplate": "npm"
+        "\\s\"(?<depName>.*?)\": \"(?<currentValue>.*?)\",?\\s"
+      ]
     }
   ],
   "ignorePaths": [
+    "**/algoliasearch/**",
     "**/client-abtesting/**",
     "**/client-analytics/**",
     "**/client-insights/**",
@@ -120,6 +64,6 @@
     "clients/algoliasearch-client-php/composer.json",
     "tests/output/**"
   ],
-  "prHourlyLimit": 10,
+  "prHourlyLimit": 20,
   "prConcurrentLimit": 50
 }
