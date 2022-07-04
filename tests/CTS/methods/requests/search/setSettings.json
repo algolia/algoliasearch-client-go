@@ -58,5 +58,361 @@
         "forwardToReplicas": "true"
       }
     }
+  },
+  {
+    "testName": "setSettings allow boolean `ignorePlurals`",
+    "parameters": {
+      "indexName": "theIndexName",
+      "indexSettings": {
+        "ignorePlurals": true
+      },
+      "forwardToReplicas": true
+    },
+    "request": {
+      "path": "/1/indexes/theIndexName/settings",
+      "method": "PUT",
+      "body": {
+        "ignorePlurals": true
+      },
+      "queryParameters": {
+        "forwardToReplicas": "true"
+      }
+    }
+  },
+  {
+    "testName": "setSettings allow list of string `ignorePlurals`",
+    "parameters": {
+      "indexName": "theIndexName",
+      "indexSettings": {
+        "ignorePlurals": [
+          "algolia"
+        ]
+      },
+      "forwardToReplicas": true
+    },
+    "request": {
+      "path": "/1/indexes/theIndexName/settings",
+      "method": "PUT",
+      "body": {
+        "ignorePlurals": [
+          "algolia"
+        ]
+      },
+      "queryParameters": {
+        "forwardToReplicas": "true"
+      }
+    }
+  },
+  {
+    "testName": "setSettings allow boolean `removeStopWords`",
+    "parameters": {
+      "indexName": "theIndexName",
+      "indexSettings": {
+        "removeStopWords": true
+      },
+      "forwardToReplicas": true
+    },
+    "request": {
+      "path": "/1/indexes/theIndexName/settings",
+      "method": "PUT",
+      "body": {
+        "removeStopWords": true
+      },
+      "queryParameters": {
+        "forwardToReplicas": "true"
+      }
+    }
+  },
+  {
+    "testName": "setSettings allow list of string `removeStopWords`",
+    "parameters": {
+      "indexName": "theIndexName",
+      "indexSettings": {
+        "removeStopWords": [
+          "algolia"
+        ]
+      },
+      "forwardToReplicas": true
+    },
+    "request": {
+      "path": "/1/indexes/theIndexName/settings",
+      "method": "PUT",
+      "body": {
+        "removeStopWords": [
+          "algolia"
+        ]
+      },
+      "queryParameters": {
+        "forwardToReplicas": "true"
+      }
+    }
+  },
+  {
+    "testName": "setSettings allow all `indexSettings`",
+    "parameters": {
+      "indexName": "theIndexName",
+      "indexSettings": {
+        "replicas": [
+          ""
+        ],
+        "paginationLimitedTo": 0,
+        "disableTypoToleranceOnWords": [
+          "algolia"
+        ],
+        "attributesToTransliterate": [
+          "algolia"
+        ],
+        "camelCaseAttributes": [
+          "algolia"
+        ],
+        "decompoundedAttributes": {
+          "algolia": "aloglia"
+        },
+        "indexLanguages": [
+          "algolia"
+        ],
+        "disablePrefixOnAttributes": [
+          "algolia"
+        ],
+        "allowCompressionOfIntegerArray": true,
+        "numericAttributesForFiltering": [
+          "algolia"
+        ],
+        "separatorsToIndex": "algolia",
+        "searchableAttributes": [
+          "algolia"
+        ],
+        "userData": {
+          "user": "data"
+        },
+        "customNormalization": {
+          "algolia": {
+            "aloglia": "aglolia"
+          }
+        },
+        "attributesForFaceting": [
+          "algolia"
+        ],
+        "unretrievableAttributes": [
+          "algolia"
+        ],
+        "attributesToRetrieve": [
+          "algolia"
+        ],
+        "restrictSearchableAttributes": [
+          "algolia"
+        ],
+        "ranking": [
+          "geo"
+        ],
+        "customRanking": [
+          "algolia"
+        ],
+        "relevancyStrictness": 10,
+        "attributesToHighlight": [
+          "algolia"
+        ],
+        "attributesToSnippet": [
+          "algolia"
+        ],
+        "highlightPreTag": "<span>",
+        "highlightPostTag": "</span>",
+        "snippetEllipsisText": "---",
+        "restrictHighlightAndSnippetArrays": true,
+        "hitsPerPage": 10,
+        "minWordSizefor1Typo": 5,
+        "minWordSizefor2Typos": 11,
+        "typoTolerance": false,
+        "allowTyposOnNumericTokens": true,
+        "disableTypoToleranceOnAttributes": [
+          "algolia"
+        ],
+        "ignorePlurals": false,
+        "removeStopWords": false,
+        "keepDiacriticsOnCharacters": "abc",
+        "queryLanguages": [
+          "algolia"
+        ],
+        "decompoundQuery": false,
+        "enableRules": false,
+        "enablePersonalization": true,
+        "queryType": "prefixLast",
+        "removeWordsIfNoResults": "lastWords",
+        "advancedSyntax": true,
+        "optionalWords": [
+          "algolia"
+        ],
+        "disableExactOnAttributes": [
+          "algolia"
+        ],
+        "exactOnSingleWordQuery": "attribute",
+        "alternativesAsExact": [
+          "singleWordSynonym"
+        ],
+        "advancedSyntaxFeatures": [
+          "exactPhrase"
+        ],
+        "distinct": 3,
+        "synonyms": false,
+        "replaceSynonymsInHighlight": true,
+        "minProximity": 6,
+        "responseFields": [
+          "algolia"
+        ],
+        "maxFacetHits": 50,
+        "attributeCriteriaComputedByMinProximity": true,
+        "renderingContent": {
+          "facetOrdering": {
+            "facets": {
+              "order": [
+                "a",
+                "b"
+              ]
+            },
+            "values": {
+              "a": {
+                "order": [
+                  "b"
+                ],
+                "sortRemainingBy": "count"
+              }
+            }
+          }
+        }
+      }
+    },
+    "request": {
+      "path": "/1/indexes/theIndexName/settings",
+      "method": "PUT",
+      "body": {
+        "replicas": [
+          ""
+        ],
+        "paginationLimitedTo": 0,
+        "disableTypoToleranceOnWords": [
+          "algolia"
+        ],
+        "attributesToTransliterate": [
+          "algolia"
+        ],
+        "camelCaseAttributes": [
+          "algolia"
+        ],
+        "decompoundedAttributes": {
+          "algolia": "aloglia"
+        },
+        "indexLanguages": [
+          "algolia"
+        ],
+        "disablePrefixOnAttributes": [
+          "algolia"
+        ],
+        "allowCompressionOfIntegerArray": true,
+        "numericAttributesForFiltering": [
+          "algolia"
+        ],
+        "separatorsToIndex": "algolia",
+        "searchableAttributes": [
+          "algolia"
+        ],
+        "userData": {
+          "user": "data"
+        },
+        "customNormalization": {
+          "algolia": {
+            "aloglia": "aglolia"
+          }
+        },
+        "attributesForFaceting": [
+          "algolia"
+        ],
+        "unretrievableAttributes": [
+          "algolia"
+        ],
+        "attributesToRetrieve": [
+          "algolia"
+        ],
+        "restrictSearchableAttributes": [
+          "algolia"
+        ],
+        "ranking": [
+          "geo"
+        ],
+        "customRanking": [
+          "algolia"
+        ],
+        "relevancyStrictness": 10,
+        "attributesToHighlight": [
+          "algolia"
+        ],
+        "attributesToSnippet": [
+          "algolia"
+        ],
+        "highlightPreTag": "<span>",
+        "highlightPostTag": "</span>",
+        "snippetEllipsisText": "---",
+        "restrictHighlightAndSnippetArrays": true,
+        "hitsPerPage": 10,
+        "minWordSizefor1Typo": 5,
+        "minWordSizefor2Typos": 11,
+        "typoTolerance": false,
+        "allowTyposOnNumericTokens": true,
+        "disableTypoToleranceOnAttributes": [
+          "algolia"
+        ],
+        "ignorePlurals": false,
+        "removeStopWords": false,
+        "keepDiacriticsOnCharacters": "abc",
+        "queryLanguages": [
+          "algolia"
+        ],
+        "decompoundQuery": false,
+        "enableRules": false,
+        "enablePersonalization": true,
+        "queryType": "prefixLast",
+        "removeWordsIfNoResults": "lastWords",
+        "advancedSyntax": true,
+        "optionalWords": [
+          "algolia"
+        ],
+        "disableExactOnAttributes": [
+          "algolia"
+        ],
+        "exactOnSingleWordQuery": "attribute",
+        "alternativesAsExact": [
+          "singleWordSynonym"
+        ],
+        "advancedSyntaxFeatures": [
+          "exactPhrase"
+        ],
+        "distinct": 3,
+        "synonyms": false,
+        "replaceSynonymsInHighlight": true,
+        "minProximity": 6,
+        "responseFields": [
+          "algolia"
+        ],
+        "maxFacetHits": 50,
+        "attributeCriteriaComputedByMinProximity": true,
+        "renderingContent": {
+          "facetOrdering": {
+            "facets": {
+              "order": [
+                "a",
+                "b"
+              ]
+            },
+            "values": {
+              "a": {
+                "order": [
+                  "b"
+                ],
+                "sortRemainingBy": "count"
+              }
+            }
+          }
+        }
+      }
+    }
   }
 ]

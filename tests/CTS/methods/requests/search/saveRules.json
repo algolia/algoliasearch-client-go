@@ -1,5 +1,6 @@
 [
   {
+    "testName": "saveRules with minimal parameters",
     "parameters": {
       "indexName": "indexName",
       "rule": [
@@ -10,12 +11,7 @@
               "pattern": "smartphone",
               "anchoring": "contains"
             }
-          ],
-          "consequence": {
-            "params": {
-              "filters": "category:smartphone"
-            }
-          }
+          ]
         },
         {
           "objectID": "a-second-rule-id",
@@ -24,16 +20,9 @@
               "pattern": "apple",
               "anchoring": "contains"
             }
-          ],
-          "consequence": {
-            "params": {
-              "filters": "brand:apple"
-            }
-          }
+          ]
         }
-      ],
-      "forwardToReplicas": true,
-      "clearExistingRules": true
+      ]
     },
     "request": {
       "path": "/1/indexes/indexName/rules/batch",
@@ -46,12 +35,7 @@
               "pattern": "smartphone",
               "anchoring": "contains"
             }
-          ],
-          "consequence": {
-            "params": {
-              "filters": "category:smartphone"
-            }
-          }
+          ]
         },
         {
           "objectID": "a-second-rule-id",
@@ -60,12 +44,149 @@
               "pattern": "apple",
               "anchoring": "contains"
             }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "testName": "saveRules with all parameters",
+    "parameters": {
+      "indexName": "indexName",
+      "rule": [
+        {
+          "objectID": "id1",
+          "conditions": [
+            {
+              "pattern": "apple",
+              "anchoring": "contains",
+              "alternatives": false,
+              "context": "search"
+            }
           ],
           "consequence": {
             "params": {
-              "filters": "brand:apple"
+              "filters": "brand:apple",
+              "query": {
+                "remove": [
+                  "algolia"
+                ],
+                "edits": [
+                  {
+                    "type": "remove",
+                    "delete": "abc",
+                    "insert": "cde"
+                  },
+                  {
+                    "type": "replace",
+                    "delete": "abc",
+                    "insert": "cde"
+                  }
+                ]
+              }
+            },
+            "hide": [
+              {
+                "objectID": "321"
+              }
+            ],
+            "filterPromotes": false,
+            "userData": {
+              "algolia": "aloglia"
+            },
+            "promote": [
+              {
+                "objectID": "abc",
+                "position": 3
+              },
+              {
+                "objectIDs": [
+                  "abc",
+                  "def"
+                ],
+                "position": 1
+              }
+            ]
+          },
+          "description": "test",
+          "enabled": true,
+          "validity": [
+            {
+              "from": 1656670273,
+              "until": 1656670277
             }
-          }
+          ]
+        }
+      ],
+      "forwardToReplicas": true,
+      "clearExistingRules": true
+    },
+    "request": {
+      "path": "/1/indexes/indexName/rules/batch",
+      "method": "POST",
+      "body": [
+        {
+          "objectID": "id1",
+          "conditions": [
+            {
+              "pattern": "apple",
+              "anchoring": "contains",
+              "alternatives": false,
+              "context": "search"
+            }
+          ],
+          "consequence": {
+            "params": {
+              "filters": "brand:apple",
+              "query": {
+                "remove": [
+                  "algolia"
+                ],
+                "edits": [
+                  {
+                    "type": "remove",
+                    "delete": "abc",
+                    "insert": "cde"
+                  },
+                  {
+                    "type": "replace",
+                    "delete": "abc",
+                    "insert": "cde"
+                  }
+                ]
+              }
+            },
+            "hide": [
+              {
+                "objectID": "321"
+              }
+            ],
+            "filterPromotes": false,
+            "userData": {
+              "algolia": "aloglia"
+            },
+            "promote": [
+              {
+                "objectID": "abc",
+                "position": 3
+              },
+              {
+                "objectIDs": [
+                  "abc",
+                  "def"
+                ],
+                "position": 1
+              }
+            ]
+          },
+          "description": "test",
+          "enabled": true,
+          "validity": [
+            {
+              "from": 1656670273,
+              "until": 1656670277
+            }
+          ]
         }
       ],
       "queryParameters": {

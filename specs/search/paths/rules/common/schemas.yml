@@ -26,7 +26,6 @@ rule:
         $ref: '#/timeRange'
   required:
     - objectID
-    - consequence
 
 condition:
   type: object
@@ -85,28 +84,48 @@ consequence:
 
 consequenceParams:
   allOf:
-    - $ref: '#/params'
-    - $ref: '../../../../common/schemas/SearchParams.yml#/baseSearchParams'
+    - $ref: '../../../../common/schemas/SearchParams.yml#/baseSearchParamsWithoutQuery'
     - $ref: '../../../../common/schemas/IndexSettings.yml#/indexSettingsAsSearchParams'
+    - $ref: '#/params'
 
 promote:
+  oneOf:
+    - $ref: '#/promoteObjectIDs'
+    - $ref: '#/promoteObjectID'
+
+promoteObjectID:
+  description: Single objectID to promote as hits.
   type: object
-  description: Object to promote as hits.
   additionalProperties: false
   properties:
     objectID:
       type: string
       description: Unique identifier of the object to promote.
+    position:
+      $ref: '#/promotePosition'
+  required:
+    - position
+    - objectID
+
+promoteObjectIDs:
+  description: Multiple objectIDs to promote as hits.
+  type: object
+  additionalProperties: false
+  properties:
     objectIDs:
       type: array
       description: Array of unique identifiers of the objects to promote.
       items:
         type: string
     position:
-      type: integer
-      description: The position to promote the objects to (zero-based). If you pass objectIDs, the objects are placed at this position as a group. For example, if you pass four objectIDs to position 0, the objects take the first four positions.
+      $ref: '#/promotePosition'
   required:
     - position
+    - objectIDs
+
+promotePosition:
+  type: integer
+  description: The position to promote the objects to (zero-based). If you pass objectIDs, the objects are placed at this position as a group. For example, if you pass four objectIDs to position 0, the objects take the first four positions.
 
 params:
   type: object
@@ -114,7 +133,7 @@ params:
   additionalProperties: false
   properties:
     query:
-      $ref: '#/query'
+      $ref: '#/consequenceQuery'
     automaticFacetFilters:
       $ref: '#/automaticFacetFilters'
     automaticOptionalFacetFilters:
@@ -122,13 +141,13 @@ params:
     renderingContent:
       $ref: '../../../../common/schemas/IndexSettings.yml#/renderingContent'
 
-query:
+consequenceQuery:
   description: When providing a string, it replaces the entire query string. When providing an object, it describes incremental edits to be made to the query string (but you can't do both).
   oneOf:
-    - $ref: '#/consequenceQuery'
+    - $ref: '#/consequenceQueryObject'
     - type: string
 
-consequenceQuery:
+consequenceQueryObject:
   type: object
   additionalProperties: false
   properties:

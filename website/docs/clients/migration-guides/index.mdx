@@ -104,6 +104,59 @@ client.search(
 
 <table width="100%"><tbody><tr><td width="400px" valign="top">
 
+### A/B testing client
+
+<hr />
+
+The A/B testing methods were previously available under the `Analytics` client, we've decided to make a client out of it to split concerns.
+
+The `Abtesting` client now hosts all of the `A/B testing` related methods.
+
+</td><td width="600px">
+
+<TabsLanguage>
+<TabItem value="javascript">
+
+```js {2-3}
+import { abtestingClient } from '@experimental-api-clients-automation/client-abtesting';
+
+- const analyticsClient = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>').initAnalytics();
++ const client = abtestingClient('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const searchResults2 = await client.search({
+  requests: [
+    {
+      indexName: '<YOUR_INDEX_NAME>',
+      query: '<YOUR_QUERY>',
+      attributesToRetrieve: ['firstname', 'lastname'],
+      hitsPerPage: 50,
+    },
+  ],
+});
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+// TODO
+```
+
+</TabItem>
+<TabItem value="java">
+
+```java
+// TODO
+
+```
+
+</TabItem>
+</TabsLanguage>
+
+</td></tr></tbody></table>
+
+<table width="100%"><tbody><tr><td width="400px" valign="top">
+
 ### `wait`
 
 <hr />

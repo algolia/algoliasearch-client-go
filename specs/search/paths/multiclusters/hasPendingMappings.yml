@@ -14,12 +14,31 @@ get:
   parameters:
     - in: query
       name: getClusters
-      description: Whether to get clusters or not.
+      description: If the clusters pending mapping state should be on the response.
       schema:
         type: boolean
   responses:
     '200':
-      $ref: '../../../common/responses/CreatedAt.yml'
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: hasPendingMappingsResponse
+            type: object
+            additionalProperties: false
+            properties:
+              pending:
+                description: If there is any clusters with pending mapping state.
+                type: boolean
+              clusters:
+                description: Describe cluster pending (migrating, creating, deleting) mapping state.
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+              - pending
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

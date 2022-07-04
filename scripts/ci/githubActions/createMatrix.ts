@@ -128,12 +128,7 @@ async function getSpecMatrix(): Promise<void> {
   };
 
   for (const client of CLIENTS) {
-    // `algoliasearch` is an aggregation of client
-    if (client === 'algoliasearch') {
-      continue;
-    }
-
-    // The `lite` spec is created by the `search` spec
+    // The `algoliasearch` spec is created by the `search` spec, for the `lite` JavaScript client.
     const bundledSpecName = client === 'algoliasearch' ? 'search' : client;
 
     matrix.toRun.push(client);

@@ -9,22 +9,32 @@ searchParamsObject:
     - $ref: '../../common/schemas/IndexSettings.yml#/indexSettingsAsSearchParams'
 
 baseSearchParams:
+  allOf:
+    - $ref: '#/searchParamsQuery'
+    - $ref: '#/baseSearchParamsWithoutQuery'
+
+searchParamsQuery:
   type: object
   additionalProperties: false
   properties:
     query:
       $ref: '#/query'
+
+baseSearchParamsWithoutQuery:
+  type: object
+  additionalProperties: false
+  properties:
     similarQuery:
       type: string
       description: Overrides the query parameter and performs a more generic search that can be used to find "similar" results.
       default: ''
-      x-categories: 
+      x-categories:
         - Search
     filters:
       type: string
       description: Filter the query with numeric, facet and/or tag filters.
       default: ''
-      x-categories: 
+      x-categories:
         - Filtering
     facetFilters:
       $ref: '#/facetFilters'
@@ -38,7 +48,7 @@ baseSearchParams:
       type: boolean
       description: Determines how to calculate the total score for filtering.
       default: false
-      x-categories: 
+      x-categories:
         - Filtering
     facets:
       type: array
@@ -46,51 +56,51 @@ baseSearchParams:
         type: string
       description: Retrieve facets and their facet values.
       default: []
-      x-categories: 
+      x-categories:
         - Faceting
     maxValuesPerFacet:
       type: integer
       description: Maximum number of facet values to return for each facet during a regular search.
       default: 100
-      x-categories: 
+      x-categories:
         - Faceting
     facetingAfterDistinct:
       type: boolean
       description: Force faceting to be applied after de-duplication (via the Distinct setting).
       default: false
-      x-categories: 
+      x-categories:
         - Faceting
     sortFacetValuesBy:
       type: string
       description: Controls how facet values are fetched.
       default: count
-      x-categories: 
+      x-categories:
         - Faceting
     page:
       $ref: '#/page'
     offset:
       type: integer
       description: Specify the offset of the first hit to return.
-      x-categories: 
+      x-categories:
         - Pagination
     length:
       type: integer
       description: Set the number of hits to retrieve (used only with offset).
       minimum: 1
       maximum: 1000
-      x-categories: 
+      x-categories:
         - Pagination
     aroundLatLng:
       type: string
       description: Search for entries around a central geolocation, enabling a geo search within a circular area.
       default: ''
-      x-categories: 
+      x-categories:
         - Geo-Search
     aroundLatLngViaIP:
       type: boolean
       description: Search for entries around a given location automatically computed from the requester's IP address.
       default: false
-      x-categories: 
+      x-categories:
         - Geo-Search
     aroundRadius:
       $ref: '#/aroundRadius'
@@ -98,13 +108,13 @@ baseSearchParams:
       type: integer
       description: Precision of geo search (in meters), to add grouping by geo location to the ranking formula.
       default: 10
-      x-categories: 
+      x-categories:
         - Geo-Search
     minimumAroundRadius:
       type: integer
       description: Minimum radius (in meters) used for a geo search when aroundRadius is not set.
       minimum: 1
-      x-categories: 
+      x-categories:
         - Geo-Search
     insideBoundingBox:
       type: array
@@ -112,7 +122,7 @@ baseSearchParams:
         type: number
         format: double
       description: Search inside a rectangular area (in geo coordinates).
-      x-categories: 
+      x-categories:
         - Geo-Search
     insidePolygon:
       type: array
@@ -120,7 +130,7 @@ baseSearchParams:
         type: number
         format: double
       description: Search inside a polygon (in geo coordinates).
-      x-categories: 
+      x-categories:
         - Geo-Search
     naturalLanguages:
       type: array
@@ -128,7 +138,7 @@ baseSearchParams:
         type: string
       description: This parameter changes the default values of certain parameters and settings that work best for a natural language query, such as ignorePlurals, removeStopWords, removeWordsIfNoResults, analyticsTags and ruleContexts. These parameters and settings work well together when the query is formatted in natural language instead of keywords, for example when your user performs a voice search.
       default: []
-      x-categories: 
+      x-categories:
         - Languages
     ruleContexts:
       type: array
@@ -136,36 +146,36 @@ baseSearchParams:
         type: string
       description: Enables contextual rules.
       default: []
-      x-categories: 
+      x-categories:
         - Rules
     personalizationImpact:
       type: integer
       description: Define the impact of the Personalization feature.
       default: 100
-      x-categories: 
+      x-categories:
         - Personalization
     userToken:
       type: string
       description: Associates a certain user token with the current search.
-      x-categories: 
+      x-categories:
         - Personalization
     getRankingInfo:
       type: boolean
       description: Retrieve detailed ranking information.
       default: false
-      x-categories: 
+      x-categories:
         - Advanced
     clickAnalytics:
       type: boolean
       description: Enable the Click Analytics feature.
       default: false
-      x-categories: 
+      x-categories:
         - Analytics
     analytics:
       type: boolean
       description: Whether the current query will be taken into account in the Analytics.
       default: true
-      x-categories: 
+      x-categories:
         - Analytics
     analyticsTags:
       type: array
@@ -173,25 +183,25 @@ baseSearchParams:
         type: string
       description: List of tags to apply to the query for analytics purposes.
       default: []
-      x-categories: 
+      x-categories:
         - Analytics
     percentileComputation:
       type: boolean
       description: Whether to include or exclude a query from the processing-time percentile computation.
       default: true
-      x-categories: 
+      x-categories:
         - Advanced
     enableABTest:
       type: boolean
       description: Whether this search should participate in running AB tests.
       default: true
-      x-categories: 
+      x-categories:
         - Advanced
     enableReRanking:
       type: boolean
       description: Whether this search should use AI Re-Ranking.
       default: true
-      x-categories: 
+      x-categories:
         - Advanced
     reRankingApplyFilter:
       $ref: '#/reRankingApplyFilter'
@@ -212,14 +222,14 @@ query:
   type: string
   description: The text to search in the index.
   default: ''
-  x-categories: 
+  x-categories:
     - Search
 
 page:
   type: integer
   description: Specify the page to retrieve.
   default: 0
-  x-categories: 
+  x-categories:
     - Pagination
 
 cursor:
@@ -233,7 +243,7 @@ aroundRadius:
     - type: integer
       minimum: 1
     - $ref: '#/aroundRadiusAll'
-  x-categories: 
+  x-categories:
     - Geo-Search
 
 aroundRadiusAll:
@@ -247,49 +257,53 @@ searchFiltersArrayString:
   items:
     type: string
 
-searchFiltersNestedArrayString:
+mixedSearchFilters:
+  oneOf:
+    - $ref: '#/searchFiltersArrayString'
+    - type: string
+
+listOfSearchFilters:
   type: array
   items:
-    type: array
-    items:
-      type: string
+    $ref: '#/mixedSearchFilters'
 
 facetFilters:
   description: Filter hits by facet value.
   oneOf:
-    - $ref: '#/searchFiltersArrayString'
-    - $ref: '#/searchFiltersNestedArrayString'
-  x-categories: 
+    - $ref: '#/listOfSearchFilters'
+    - type: string
+  x-categories:
     - Filtering
 
 reRankingApplyFilter:
   description: When Dynamic Re-Ranking is enabled, only records that match these filters will be impacted by Dynamic Re-Ranking.
+  nullable: true
   oneOf:
-    - $ref: '#/searchFiltersArrayString'
-    - $ref: '#/searchFiltersNestedArrayString'
-  x-categories: 
-    - Advanced
+    - $ref: '#/listOfSearchFilters'
+    - type: string
+  x-categories:
+    - Filtering
 
 tagFilters:
   description: Filter hits by tags.
   oneOf:
-    - $ref: '#/searchFiltersArrayString'
-    - $ref: '#/searchFiltersNestedArrayString'
-  x-categories: 
+    - $ref: '#/listOfSearchFilters'
+    - type: string
+  x-categories:
     - Filtering
 
 numericFilters:
   description: Filter on numeric attributes.
   oneOf:
-    - $ref: '#/searchFiltersArrayString'
-    - $ref: '#/searchFiltersNestedArrayString'
-  x-categories: 
+    - $ref: '#/listOfSearchFilters'
+    - type: string
+  x-categories:
     - Filtering
 
 optionalFilters:
   description: Create filters for ranking purposes, where records that match the filter are ranked higher, or lower in the case of a negative optional filter.
   oneOf:
-    - $ref: '#/searchFiltersArrayString'
-    - $ref: '#/searchFiltersNestedArrayString'
-  x-categories: 
+    - $ref: '#/listOfSearchFilters'
+    - type: string
+  x-categories:
     - Filtering

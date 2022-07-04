@@ -28,13 +28,10 @@ module.exports = {
 
     // PHP
     '!clients/algoliasearch-client-php/*',
-    '!clients/algoliasearch-client-php/lib/*',
-    '!clients/algoliasearch-client-php/lib/Cache/**',
-    '!clients/algoliasearch-client-php/lib/Exceptions/**',
-    '!clients/algoliasearch-client-php/lib/Http/**',
-    '!clients/algoliasearch-client-php/lib/Log/**',
-    '!clients/algoliasearch-client-php/lib/RequestOptions/**',
-    '!clients/algoliasearch-client-php/lib/RetryStrategy/**',
-    '!clients/algoliasearch-client-php/lib/Support/**',
+    'clients/algoliasearch-client-php/lib/Api/*',
+    'clients/algoliasearch-client-php/lib/Model/**',
+    'clients/algoliasearch-client-php/lib/Configuration/*',
+    'clients/algoliasearch-client-php/lib/ApiException.php',
+    'clients/algoliasearch-client-php/lib/ObjectSerializer.php',
   ],
 };

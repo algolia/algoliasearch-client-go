@@ -194,6 +194,103 @@
     }
   },
   {
+    "testName": "search filters accept all of the possible shapes",
+    "parameters": {
+      "requests": [
+        {
+          "indexName": "theIndexName",
+          "facetFilters": "mySearch:filters",
+          "reRankingApplyFilter": "mySearch:filters",
+          "tagFilters": "mySearch:filters",
+          "numericFilters": "mySearch:filters",
+          "optionalFilters": "mySearch:filters"
+        },
+        {
+          "indexName": "theIndexName",
+          "facetFilters": [
+            "mySearch:filters",
+            [
+              "mySearch:filters"
+            ]
+          ],
+          "reRankingApplyFilter": [
+            "mySearch:filters",
+            [
+              "mySearch:filters"
+            ]
+          ],
+          "tagFilters": [
+            "mySearch:filters",
+            [
+              "mySearch:filters"
+            ]
+          ],
+          "numericFilters": [
+            "mySearch:filters",
+            [
+              "mySearch:filters"
+            ]
+          ],
+          "optionalFilters": [
+            "mySearch:filters",
+            [
+              "mySearch:filters"
+            ]
+          ]
+        }
+      ]
+    },
+    "request": {
+      "path": "/1/indexes/*/queries",
+      "method": "POST",
+      "body": {
+        "requests": [
+          {
+            "indexName": "theIndexName",
+            "facetFilters": "mySearch:filters",
+            "reRankingApplyFilter": "mySearch:filters",
+            "tagFilters": "mySearch:filters",
+            "numericFilters": "mySearch:filters",
+            "optionalFilters": "mySearch:filters"
+          },
+          {
+            "indexName": "theIndexName",
+            "facetFilters": [
+              "mySearch:filters",
+              [
+                "mySearch:filters"
+              ]
+            ],
+            "reRankingApplyFilter": [
+              "mySearch:filters",
+              [
+                "mySearch:filters"
+              ]
+            ],
+            "tagFilters": [
+              "mySearch:filters",
+              [
+                "mySearch:filters"
+              ]
+            ],
+            "numericFilters": [
+              "mySearch:filters",
+              [
+                "mySearch:filters"
+              ]
+            ],
+            "optionalFilters": [
+              "mySearch:filters",
+              [
+                "mySearch:filters"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
     "testName": "search with all search parameters",
     "parameters": {
       "requests": [

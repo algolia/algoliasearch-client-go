@@ -20,6 +20,8 @@ ABTest:
       description: A/B test significance based on conversion data. Should be > 0.95 to be considered significant (no matter which variant is winning).
     endAt:
       $ref: '../parameters.yml#/endAt'
+    updatedAt:
+      $ref: '../parameters.yml#/updatedAt'
     createdAt:
       $ref: '../parameters.yml#/createdAt'
     name:
@@ -34,6 +36,7 @@ ABTest:
     - name
     - createdAt
     - endAt
+    - updatedAt
     - conversionSignificance
     - clickSignificance
     - abTestID

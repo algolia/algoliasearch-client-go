@@ -24,7 +24,6 @@ describe('micromatch', () => {
 
             'clients/algoliasearch-client-php/.gitignore',
             'clients/algoliasearch-client-php/lib/Api/SearchClient.php',
-            'clients/algoliasearch-client-php/lib/Cache/FileCacheDriver.php',
 
             'tests/output/java/build.gradle',
             'tests/output/java/settings.gradle',

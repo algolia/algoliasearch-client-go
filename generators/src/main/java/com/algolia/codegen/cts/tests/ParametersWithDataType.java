@@ -305,7 +305,13 @@ public class ParametersWithDataType {
       }
       if (varSpec == null) {
         throw new CTSException(
-          "Parameter " + entry.getKey() + " not found in " + paramName + ". You might have a type conflict in the spec for " + baseType
+          "Parameter '" +
+          entry.getKey() +
+          "' not found in '" +
+          paramName +
+          "'. You might have a type conflict in the spec for '" +
+          baseType +
+          "'"
         );
       }
 
