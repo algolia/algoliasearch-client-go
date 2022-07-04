@@ -8,9 +8,9 @@ hit:
     objectID:
       $ref: '../../../common/parameters.yml#/objectID'
     _highlightResult:
-      $ref: '#/highlightResult'
+      $ref: '#/highlightResultMap'
     _snippetResult:
-      $ref: '#/snippetResult'
+      $ref: '#/snippetResultMap'
     _rankingInfo:
       $ref: '#/rankingInfo'
     _distinctSeqID:
@@ -20,9 +20,9 @@ hit:
 _distinctSeqID:
   type: integer
 
-highlightResult:
+highlightResultOption:
   type: object
-  description: Highlighted attributes.
+  description: Show highlighted section and words matched on a query.
   additionalProperties: false
   properties:
     value:
@@ -37,15 +37,49 @@ highlightResult:
     fullyHighlighted:
       type: boolean
       description: Whether the entire attribute value is highlighted.
+  required:
+    - value
+    - matchLevel
+    - matchedWords
 
-snippetResult:
+highlightResult:
+  oneOf:
+    - $ref: '#/highlightResultOption'
+    - type: array
+      items:
+        $ref: '#/highlightResultOption'
+
+highlightResultMap:
   type: object
+  description: Show highlighted section and words matched on a query.
+  additionalProperties:
+    $ref: '#/highlightResult'
+
+snippetResultOption:
+  type: object
+  description: Snippeted attributes show parts of the matched attributes. Only returned when attributesToSnippet is non-empty.
   additionalProperties: false
   properties:
     value:
       $ref: '#/highlightedValue'
     matchLevel:
       $ref: '#/matchLevel'
+  required:
+    - value
+    - matchLevel
+
+snippetResult:
+  oneOf:
+    - $ref: '#/snippetResultOption'
+    - type: array
+      items:
+        $ref: '#/snippetResultOption'
+
+snippetResultMap:
+  type: object
+  description: Snippeted attributes show parts of the matched attributes. Only returned when attributesToSnippet is non-empty.
+  additionalProperties:
+    $ref: '#/snippetResult'
 
 rankingInfo:
   type: object

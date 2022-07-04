@@ -23,9 +23,9 @@ recommendHit:
     objectID:
       $ref: '../../../common/parameters.yml#/objectID'
     _highlightResult:
-      $ref: '../../../search/common/schemas/Hit.yml#/highlightResult'
+      $ref: '../../../search/common/schemas/Hit.yml#/highlightResultMap'
     _snippetResult:
-      $ref: '../../../search/common/schemas/Hit.yml#/snippetResult'
+      $ref: '../../../search/common/schemas/Hit.yml#/snippetResultMap'
     _rankingInfo:
       $ref: '../../../search/common/schemas/Hit.yml#/rankingInfo'
     _distinctSeqID:

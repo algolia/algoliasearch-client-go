@@ -67,9 +67,9 @@ post:
                       type: object
                       properties:
                         userID:
-                          $ref: '../../common/schemas/Hit.yml#/highlightResult'
+                          $ref: '../../common/schemas/Hit.yml#/highlightResultMap'
                         clusterName:
-                          $ref: '../../common/schemas/Hit.yml#/highlightResult'
+                          $ref: '../../common/schemas/Hit.yml#/highlightResultMap'
                       required:
                         - userID
                         - clusterName

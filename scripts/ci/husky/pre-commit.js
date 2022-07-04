@@ -25,7 +25,7 @@ function getPatterns() {
   return patterns;
 }
 
-async function preCommit() {
+async function preCommit(log) {
   // when merging, we want to stage all the files
   try {
     await run('git merge HEAD');
@@ -45,17 +45,22 @@ async function preCommit() {
     return;
   }
 
-  toUnstage.forEach((file) =>
-    console.log(
-      chalk.black.bgYellow('[INFO]'),
-      `Generated file found, unstaging: ${file}`
-    )
-  );
+  if (log) {
+    toUnstage.forEach((file) =>
+      console.log(
+        chalk.black.bgYellow('[INFO]'),
+        `Generated file found, unstaging: ${file}`
+      )
+    );
+  }
   await run(`git restore --staged ${toUnstage.join(' ')}`);
 }
 
 if (require.main === module && process.env.CI !== 'true') {
-  preCommit();
+  preCommit(true).then(() => {
+    // Run it twice because of renamed files, the first one delete the renamed one and leaves the deleted file, which is removed by this second pass
+    preCommit(false);
+  });
 }
 
 module.exports = { getPatterns };
