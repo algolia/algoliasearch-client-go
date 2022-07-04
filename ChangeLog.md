@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.26.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.25.0...3.26.0) (2022-07-04)
+
+### Fix
+
+- **analytics**: add UpdatedAt field to ABTestResponse  (#656) ([c451e58](https://github.com/algolia/algoliasearch-client-go/commit/c451e58))
+
+
+
 ## [3.25.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.24.0...v3.25.0) (2022-04-13)
 
 ### Feat
