@@ -1322,9 +1322,9 @@ __metadata:
     "@experimental-api-clients-automation/client-search": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/jest": 28.1.3
-    "@types/node": 16.11.41
-    jest: 28.1.1
+    "@types/jest": 28.1.4
+    "@types/node": 16.11.43
+    jest: 28.1.2
     ts-jest: 28.0.5
     typescript: 4.7.4
   languageName: unknown
@@ -1337,7 +1337,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1349,7 +1349,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1374,7 +1374,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1386,7 +1386,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1398,7 +1398,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1410,7 +1410,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1422,7 +1422,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1434,7 +1434,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1446,7 +1446,7 @@ __metadata:
     "@experimental-api-clients-automation/client-common": 0.7.2
     "@experimental-api-clients-automation/requester-browser-xhr": 0.7.2
     "@experimental-api-clients-automation/requester-node-http": 0.7.2
-    "@types/node": 16.11.41
+    "@types/node": 16.11.43
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -1526,7 +1526,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/core@npm:^28.1.1, @jest/core@npm:^28.1.2":
+"@jest/core@npm:^28.1.2":
   version: 28.1.2
   resolution: "@jest/core@npm:28.1.2"
   dependencies:
@@ -3187,16 +3187,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:28.1.3":
-  version: 28.1.3
-  resolution: "@types/jest@npm:28.1.3"
-  dependencies:
-    jest-matcher-utils: ^28.0.0
-    pretty-format: ^28.0.0
-  checksum: 28141f2d5b3bafd063362de9790cb8f219488d9b0ad47524a84bef1142a4f0d9d35be0c56988d9f922205225cc83c986acd4be424bd8653b38dc27ab672455e2
-  languageName: node
-  linkType: hard
-
 "@types/jest@npm:28.1.4":
   version: 28.1.4
   resolution: "@types/jest@npm:28.1.4"
@@ -3236,13 +3226,6 @@ __metadata:
   version: 18.0.1
   resolution: "@types/node@npm:18.0.1"
   checksum: be14b251c54cc2b4ca78ac6eadf2fe5e831e487f2e17848f21d576295945b538271dcc674d0bba582b3f8d95b84f6826e99b6ba4710c76f165a8bdd4d4f0618e
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:16.11.41":
-  version: 16.11.41
-  resolution: "@types/node@npm:16.11.41"
-  checksum: 808e4d65757bb13cf25e88dfa4e65880efef06652b04baecb051eb90cf090dda9812aa3505b31e963a48041eed7dbe0fc59c44c7c5e117da952ff951bf3a584a
   languageName: node
   linkType: hard
 
@@ -5963,7 +5946,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-cli@npm:^28.1.1, jest-cli@npm:^28.1.2":
+"jest-cli@npm:^28.1.2":
   version: 28.1.2
   resolution: "jest-cli@npm:28.1.2"
   dependencies:
@@ -6370,25 +6353,6 @@ __metadata:
     merge-stream: ^2.0.0
     supports-color: ^8.0.0
   checksum: 28519c43b4007e60a3756d27f1e7884192ee9161b6a9587383a64b6535f820cc4868e351a67775e0feada41465f48ccf323a8db34ae87e15a512ddac5d1424b2
-  languageName: node
-  linkType: hard
-
-"jest@npm:28.1.1":
-  version: 28.1.1
-  resolution: "jest@npm:28.1.1"
-  dependencies:
-    "@jest/core": ^28.1.1
-    "@jest/types": ^28.1.1
-    import-local: ^3.0.2
-    jest-cli: ^28.1.1
-  peerDependencies:
-    node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-  peerDependenciesMeta:
-    node-notifier:
-      optional: true
-  bin:
-    jest: bin/jest.js
-  checksum: 398a143d9ef1a78e2ba516a09b6343cb926bf20e29ad400141dd3bd57e964195b82817a60eb8745ba9006fcd7c028ceda5108e3c426fa4e29877f28d87cf88a3
   languageName: node
   linkType: hard
 
