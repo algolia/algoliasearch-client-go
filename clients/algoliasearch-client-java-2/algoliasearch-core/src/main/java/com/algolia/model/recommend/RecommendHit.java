@@ -2,6 +2,7 @@ package com.algolia.model.recommend;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /** A Recommend hit. */
@@ -11,10 +12,10 @@ public class RecommendHit extends HashMap<String, Object> {
   private String objectID;
 
   @SerializedName("_highlightResult")
-  private HighlightResult highlightResult;
+  private Map<String, HighlightResult> highlightResult;
 
   @SerializedName("_snippetResult")
-  private SnippetResult snippetResult;
+  private Map<String, SnippetResult> snippetResult;
 
   @SerializedName("_rankingInfo")
   private RankingInfo rankingInfo;
@@ -40,33 +41,50 @@ public class RecommendHit extends HashMap<String, Object> {
     return objectID;
   }
 
-  public RecommendHit setHighlightResult(HighlightResult highlightResult) {
+  public RecommendHit setHighlightResult(Map<String, HighlightResult> highlightResult) {
     this.highlightResult = highlightResult;
     return this;
   }
 
-  /**
-   * Get highlightResult
-   *
-   * @return highlightResult
-   */
-  @javax.annotation.Nullable
-  public HighlightResult getHighlightResult() {
-    return highlightResult;
-  }
-
-  public RecommendHit setSnippetResult(SnippetResult snippetResult) {
-    this.snippetResult = snippetResult;
+  public RecommendHit putHighlightResult(String key, HighlightResult highlightResultItem) {
+    if (this.highlightResult == null) {
+      this.highlightResult = new HashMap<>();
+    }
+    this.highlightResult.put(key, highlightResultItem);
     return this;
   }
 
   /**
-   * Get snippetResult
+   * Show highlighted section and words matched on a query.
+   *
+   * @return highlightResult
+   */
+  @javax.annotation.Nullable
+  public Map<String, HighlightResult> getHighlightResult() {
+    return highlightResult;
+  }
+
+  public RecommendHit setSnippetResult(Map<String, SnippetResult> snippetResult) {
+    this.snippetResult = snippetResult;
+    return this;
+  }
+
+  public RecommendHit putSnippetResult(String key, SnippetResult snippetResultItem) {
+    if (this.snippetResult == null) {
+      this.snippetResult = new HashMap<>();
+    }
+    this.snippetResult.put(key, snippetResultItem);
+    return this;
+  }
+
+  /**
+   * Snippeted attributes show parts of the matched attributes. Only returned when
+   * attributesToSnippet is non-empty.
    *
    * @return snippetResult
    */
   @javax.annotation.Nullable
-  public SnippetResult getSnippetResult() {
+  public Map<String, SnippetResult> getSnippetResult() {
     return snippetResult;
   }
 

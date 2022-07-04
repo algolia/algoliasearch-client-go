@@ -2,39 +2,49 @@ package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** Highlighted results. */
 public class SynonymHitHighlightResult {
 
   @SerializedName("type")
-  private HighlightResult type;
+  private Map<String, HighlightResult> type;
 
   @SerializedName("synonyms")
-  private List<HighlightResult> synonyms;
+  private List<Map<String, HighlightResult>> synonyms;
 
-  public SynonymHitHighlightResult setType(HighlightResult type) {
+  public SynonymHitHighlightResult setType(Map<String, HighlightResult> type) {
     this.type = type;
     return this;
   }
 
+  public SynonymHitHighlightResult putType(String key, HighlightResult typeItem) {
+    if (this.type == null) {
+      this.type = new HashMap<>();
+    }
+    this.type.put(key, typeItem);
+    return this;
+  }
+
   /**
-   * Get type
+   * Show highlighted section and words matched on a query.
    *
    * @return type
    */
   @javax.annotation.Nullable
-  public HighlightResult getType() {
+  public Map<String, HighlightResult> getType() {
     return type;
   }
 
-  public SynonymHitHighlightResult setSynonyms(List<HighlightResult> synonyms) {
+  public SynonymHitHighlightResult setSynonyms(List<Map<String, HighlightResult>> synonyms) {
     this.synonyms = synonyms;
     return this;
   }
 
-  public SynonymHitHighlightResult addSynonyms(HighlightResult synonymsItem) {
+  public SynonymHitHighlightResult addSynonyms(Map<String, HighlightResult> synonymsItem) {
     if (this.synonyms == null) {
       this.synonyms = new ArrayList<>();
     }
@@ -48,7 +58,7 @@ public class SynonymHitHighlightResult {
    * @return synonyms
    */
   @javax.annotation.Nullable
-  public List<HighlightResult> getSynonyms() {
+  public List<Map<String, HighlightResult>> getSynonyms() {
     return synonyms;
   }
 

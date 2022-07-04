@@ -1,81 +1,79 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
-import java.util.Objects;
+import com.algolia.utils.CompoundType;
+import com.algolia.utils.JSON;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import java.util.List;
 
+@JsonAdapter(SnippetResult.Adapter.class)
 /** SnippetResult */
-public class SnippetResult {
+public abstract class SnippetResult implements CompoundType {
 
-  @SerializedName("value")
-  private String value;
-
-  @SerializedName("matchLevel")
-  private MatchLevel matchLevel;
-
-  public SnippetResult setValue(String value) {
-    this.value = value;
-    return this;
+  public static SnippetResult of(List<SnippetResultOption> inside) {
+    return new SnippetResultListOfSnippetResultOption(inside);
   }
 
-  /**
-   * Markup text with occurrences highlighted.
-   *
-   * @return value
-   */
-  @javax.annotation.Nullable
-  public String getValue() {
-    return value;
+  public static SnippetResult of(SnippetResultOption inside) {
+    return new SnippetResultSnippetResultOption(inside);
   }
 
-  public SnippetResult setMatchLevel(MatchLevel matchLevel) {
-    this.matchLevel = matchLevel;
-    return this;
-  }
+  public static class Adapter extends TypeAdapter<SnippetResult> {
 
-  /**
-   * Get matchLevel
-   *
-   * @return matchLevel
-   */
-  @javax.annotation.Nullable
-  public MatchLevel getMatchLevel() {
-    return matchLevel;
+    @Override
+    public void write(final JsonWriter out, final SnippetResult oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    }
+
+    @Override
+    public SnippetResult read(final JsonReader jsonReader) throws IOException {
+      List<SnippetResultOption> listofsnippetresultoption = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<SnippetResultOption>>() {}.getType()
+      );
+      if (listofsnippetresultoption != null) {
+        return SnippetResult.of(listofsnippetresultoption);
+      }
+      SnippetResultOption snippetresultoption = JSON.tryDeserialize(jsonReader, new TypeToken<SnippetResultOption>() {}.getType());
+      if (snippetresultoption != null) {
+        return SnippetResult.of(snippetresultoption);
+      }
+      return null;
+    }
+  }
+}
+
+@JsonAdapter(SnippetResult.Adapter.class)
+class SnippetResultListOfSnippetResultOption extends SnippetResult {
+
+  private final List<SnippetResultOption> insideValue;
+
+  SnippetResultListOfSnippetResultOption(List<SnippetResultOption> insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SnippetResult snippetResult = (SnippetResult) o;
-    return Objects.equals(this.value, snippetResult.value) && Objects.equals(this.matchLevel, snippetResult.matchLevel);
+  public List<SnippetResultOption> getInsideValue() {
+    return insideValue;
+  }
+}
+
+@JsonAdapter(SnippetResult.Adapter.class)
+class SnippetResultSnippetResultOption extends SnippetResult {
+
+  private final SnippetResultOption insideValue;
+
+  SnippetResultSnippetResultOption(SnippetResultOption insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(value, matchLevel);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SnippetResult {\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    matchLevel: ").append(toIndentedString(matchLevel)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  public SnippetResultOption getInsideValue() {
+    return insideValue;
   }
 }

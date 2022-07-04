@@ -1057,9 +1057,9 @@ components:
         - none
         - partial
         - full
-    highlightResult:
+    highlightResultOption:
       type: object
-      description: Highlighted attributes.
+      description: Show highlighted section and words matched on a query.
       additionalProperties: false
       properties:
         value:
@@ -1074,14 +1074,48 @@ components:
         fullyHighlighted:
           type: boolean
           description: Whether the entire attribute value is highlighted.
-    snippetResult:
+      required:
+        - value
+        - matchLevel
+        - matchedWords
+    highlightResult:
+      oneOf:
+        - $ref: '#/components/schemas/highlightResultOption'
+        - type: array
+          items:
+            $ref: '#/components/schemas/highlightResultOption'
+    highlightResultMap:
       type: object
+      description: Show highlighted section and words matched on a query.
+      additionalProperties:
+        $ref: '#/components/schemas/highlightResult'
+    snippetResultOption:
+      type: object
+      description: >-
+        Snippeted attributes show parts of the matched attributes. Only returned
+        when attributesToSnippet is non-empty.
       additionalProperties: false
       properties:
         value:
           $ref: '#/components/schemas/highlightedValue'
         matchLevel:
           $ref: '#/components/schemas/matchLevel'
+      required:
+        - value
+        - matchLevel
+    snippetResult:
+      oneOf:
+        - $ref: '#/components/schemas/snippetResultOption'
+        - type: array
+          items:
+            $ref: '#/components/schemas/snippetResultOption'
+    snippetResultMap:
+      type: object
+      description: >-
+        Snippeted attributes show parts of the matched attributes. Only returned
+        when attributesToSnippet is non-empty.
+      additionalProperties:
+        $ref: '#/components/schemas/snippetResult'
     matchedGeoLocation:
       type: object
       properties:
@@ -1180,9 +1214,9 @@ components:
         objectID:
           $ref: '#/components/schemas/objectID'
         _highlightResult:
-          $ref: '#/components/schemas/highlightResult'
+          $ref: '#/components/schemas/highlightResultMap'
         _snippetResult:
-          $ref: '#/components/schemas/snippetResult'
+          $ref: '#/components/schemas/snippetResultMap'
         _rankingInfo:
           $ref: '#/components/schemas/rankingInfo'
         _distinctSeqID:

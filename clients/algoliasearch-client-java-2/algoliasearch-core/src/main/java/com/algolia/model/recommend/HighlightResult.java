@@ -1,134 +1,79 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
+import com.algolia.utils.CompoundType;
+import com.algolia.utils.JSON;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
-/** Highlighted attributes. */
-public class HighlightResult {
+@JsonAdapter(HighlightResult.Adapter.class)
+/** HighlightResult */
+public abstract class HighlightResult implements CompoundType {
 
-  @SerializedName("value")
-  private String value;
-
-  @SerializedName("matchLevel")
-  private MatchLevel matchLevel;
-
-  @SerializedName("matchedWords")
-  private List<String> matchedWords;
-
-  @SerializedName("fullyHighlighted")
-  private Boolean fullyHighlighted;
-
-  public HighlightResult setValue(String value) {
-    this.value = value;
-    return this;
+  public static HighlightResult of(HighlightResultOption inside) {
+    return new HighlightResultHighlightResultOption(inside);
   }
 
-  /**
-   * Markup text with occurrences highlighted.
-   *
-   * @return value
-   */
-  @javax.annotation.Nullable
-  public String getValue() {
-    return value;
+  public static HighlightResult of(List<HighlightResultOption> inside) {
+    return new HighlightResultListOfHighlightResultOption(inside);
   }
 
-  public HighlightResult setMatchLevel(MatchLevel matchLevel) {
-    this.matchLevel = matchLevel;
-    return this;
-  }
+  public static class Adapter extends TypeAdapter<HighlightResult> {
 
-  /**
-   * Get matchLevel
-   *
-   * @return matchLevel
-   */
-  @javax.annotation.Nullable
-  public MatchLevel getMatchLevel() {
-    return matchLevel;
-  }
-
-  public HighlightResult setMatchedWords(List<String> matchedWords) {
-    this.matchedWords = matchedWords;
-    return this;
-  }
-
-  public HighlightResult addMatchedWords(String matchedWordsItem) {
-    if (this.matchedWords == null) {
-      this.matchedWords = new ArrayList<>();
+    @Override
+    public void write(final JsonWriter out, final HighlightResult oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
-    this.matchedWords.add(matchedWordsItem);
-    return this;
-  }
 
-  /**
-   * List of words from the query that matched the object.
-   *
-   * @return matchedWords
-   */
-  @javax.annotation.Nullable
-  public List<String> getMatchedWords() {
-    return matchedWords;
+    @Override
+    public HighlightResult read(final JsonReader jsonReader) throws IOException {
+      HighlightResultOption highlightresultoption = JSON.tryDeserialize(jsonReader, new TypeToken<HighlightResultOption>() {}.getType());
+      if (highlightresultoption != null) {
+        return HighlightResult.of(highlightresultoption);
+      }
+      List<HighlightResultOption> listofhighlightresultoption = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<HighlightResultOption>>() {}.getType()
+      );
+      if (listofhighlightresultoption != null) {
+        return HighlightResult.of(listofhighlightresultoption);
+      }
+      return null;
+    }
   }
+}
 
-  public HighlightResult setFullyHighlighted(Boolean fullyHighlighted) {
-    this.fullyHighlighted = fullyHighlighted;
-    return this;
-  }
+@JsonAdapter(HighlightResult.Adapter.class)
+class HighlightResultHighlightResultOption extends HighlightResult {
 
-  /**
-   * Whether the entire attribute value is highlighted.
-   *
-   * @return fullyHighlighted
-   */
-  @javax.annotation.Nullable
-  public Boolean getFullyHighlighted() {
-    return fullyHighlighted;
+  private final HighlightResultOption insideValue;
+
+  HighlightResultHighlightResultOption(HighlightResultOption insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    HighlightResult highlightResult = (HighlightResult) o;
-    return (
-      Objects.equals(this.value, highlightResult.value) &&
-      Objects.equals(this.matchLevel, highlightResult.matchLevel) &&
-      Objects.equals(this.matchedWords, highlightResult.matchedWords) &&
-      Objects.equals(this.fullyHighlighted, highlightResult.fullyHighlighted)
-    );
+  public HighlightResultOption getInsideValue() {
+    return insideValue;
+  }
+}
+
+@JsonAdapter(HighlightResult.Adapter.class)
+class HighlightResultListOfHighlightResultOption extends HighlightResult {
+
+  private final List<HighlightResultOption> insideValue;
+
+  HighlightResultListOfHighlightResultOption(List<HighlightResultOption> insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(value, matchLevel, matchedWords, fullyHighlighted);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class HighlightResult {\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    matchLevel: ").append(toIndentedString(matchLevel)).append("\n");
-    sb.append("    matchedWords: ").append(toIndentedString(matchedWords)).append("\n");
-    sb.append("    fullyHighlighted: ").append(toIndentedString(fullyHighlighted)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  public List<HighlightResultOption> getInsideValue() {
+    return insideValue;
   }
 }

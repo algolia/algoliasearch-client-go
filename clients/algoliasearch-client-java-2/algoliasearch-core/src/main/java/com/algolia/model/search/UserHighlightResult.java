@@ -1,44 +1,55 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.Map;
 import java.util.Objects;
 
 /** UserHighlightResult */
 public class UserHighlightResult {
 
   @SerializedName("userID")
-  private HighlightResult userID;
+  private Map<String, HighlightResult> userID;
 
   @SerializedName("clusterName")
-  private HighlightResult clusterName;
+  private Map<String, HighlightResult> clusterName;
 
-  public UserHighlightResult setUserID(HighlightResult userID) {
+  public UserHighlightResult setUserID(Map<String, HighlightResult> userID) {
     this.userID = userID;
     return this;
   }
 
-  /**
-   * Get userID
-   *
-   * @return userID
-   */
-  @javax.annotation.Nonnull
-  public HighlightResult getUserID() {
-    return userID;
-  }
-
-  public UserHighlightResult setClusterName(HighlightResult clusterName) {
-    this.clusterName = clusterName;
+  public UserHighlightResult putUserID(String key, HighlightResult userIDItem) {
+    this.userID.put(key, userIDItem);
     return this;
   }
 
   /**
-   * Get clusterName
+   * Show highlighted section and words matched on a query.
+   *
+   * @return userID
+   */
+  @javax.annotation.Nonnull
+  public Map<String, HighlightResult> getUserID() {
+    return userID;
+  }
+
+  public UserHighlightResult setClusterName(Map<String, HighlightResult> clusterName) {
+    this.clusterName = clusterName;
+    return this;
+  }
+
+  public UserHighlightResult putClusterName(String key, HighlightResult clusterNameItem) {
+    this.clusterName.put(key, clusterNameItem);
+    return this;
+  }
+
+  /**
+   * Show highlighted section and words matched on a query.
    *
    * @return clusterName
    */
   @javax.annotation.Nonnull
-  public HighlightResult getClusterName() {
+  public Map<String, HighlightResult> getClusterName() {
     return clusterName;
   }
 
