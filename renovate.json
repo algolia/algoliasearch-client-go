@@ -47,7 +47,8 @@
       ],
       "matchStrings": [
         "\\s\"(?<depName>.*?)\": \"(?<currentValue>.*?)\",?\\s"
-      ]
+      ],
+      "datasourceTemplate": "npm"
     }
   ],
   "ignorePaths": [
