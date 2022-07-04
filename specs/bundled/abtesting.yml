@@ -67,9 +67,12 @@ components:
     endAt:
       type: string
       description: End date for the A/B test expressed as YYYY-MM-DDThh:mm:ssZ.
+    updatedAt:
+      type: string
+      description: Update date for the A/B test expressed as YYYY-MM-DDThh:mm:ssZ.
     createdAt:
       type: string
-      description: End date for the A/B test expressed as YYYY-MM-DDThh:mm:ssZ.
+      description: Creation date for the A/B test expressed as YYYY-MM-DDThh:mm:ssZ.
     name:
       type: string
       description: A/B test name.
@@ -163,6 +166,8 @@ components:
             be considered significant (no matter which variant is winning).
         endAt:
           $ref: '#/components/schemas/endAt'
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
         createdAt:
           $ref: '#/components/schemas/createdAt'
         name:
@@ -177,6 +182,7 @@ components:
         - name
         - createdAt
         - endAt
+        - updatedAt
         - conversionSignificance
         - clickSignificance
         - abTestID

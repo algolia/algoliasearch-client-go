@@ -1161,14 +1161,61 @@ describe('saveObject', () => {
 });
 
 describe('saveRule', () => {
-  test('saveRule', async () => {
+  test('saveRule with minimal parameters', async () => {
     const req = (await client.saveRule({
       indexName: 'indexName',
       objectID: 'id1',
       rule: {
         objectID: 'id1',
         conditions: [{ pattern: 'apple', anchoring: 'contains' }],
-        consequence: { params: { filters: 'brand:apple' } },
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/indexName/rules/id1');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({
+      objectID: 'id1',
+      conditions: [{ pattern: 'apple', anchoring: 'contains' }],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('saveRule with all parameters', async () => {
+    const req = (await client.saveRule({
+      indexName: 'indexName',
+      objectID: 'id1',
+      rule: {
+        objectID: 'id1',
+        conditions: [
+          {
+            pattern: 'apple',
+            anchoring: 'contains',
+            alternatives: false,
+            context: 'search',
+          },
+        ],
+        consequence: {
+          params: {
+            filters: 'brand:apple',
+            query: {
+              remove: ['algolia'],
+              edits: [
+                { type: 'remove', delete: 'abc', insert: 'cde' },
+                { type: 'replace', delete: 'abc', insert: 'cde' },
+              ],
+            },
+          },
+          hide: [{ objectID: '321' }],
+          filterPromotes: false,
+          userData: { algolia: 'aloglia' },
+          promote: [
+            { objectID: 'abc', position: 3 },
+            { objectIDs: ['abc', 'def'], position: 1 },
+          ],
+        },
+        description: 'test',
+        enabled: true,
+        validity: [{ from: 1656670273, until: 1656670277 }],
       },
       forwardToReplicas: true,
     })) as unknown as EchoResponse;
@@ -1177,27 +1224,108 @@ describe('saveRule', () => {
     expect(req.method).toEqual('PUT');
     expect(req.data).toEqual({
       objectID: 'id1',
-      conditions: [{ pattern: 'apple', anchoring: 'contains' }],
-      consequence: { params: { filters: 'brand:apple' } },
+      conditions: [
+        {
+          pattern: 'apple',
+          anchoring: 'contains',
+          alternatives: false,
+          context: 'search',
+        },
+      ],
+      consequence: {
+        params: {
+          filters: 'brand:apple',
+          query: {
+            remove: ['algolia'],
+            edits: [
+              { type: 'remove', delete: 'abc', insert: 'cde' },
+              { type: 'replace', delete: 'abc', insert: 'cde' },
+            ],
+          },
+        },
+        hide: [{ objectID: '321' }],
+        filterPromotes: false,
+        userData: { algolia: 'aloglia' },
+        promote: [
+          { objectID: 'abc', position: 3 },
+          { objectIDs: ['abc', 'def'], position: 1 },
+        ],
+      },
+      description: 'test',
+      enabled: true,
+      validity: [{ from: 1656670273, until: 1656670277 }],
     });
     expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
   });
 });
 
 describe('saveRules', () => {
-  test('saveRules', async () => {
+  test('saveRules with minimal parameters', async () => {
     const req = (await client.saveRules({
       indexName: 'indexName',
       rule: [
         {
           objectID: 'a-rule-id',
           conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
-          consequence: { params: { filters: 'category:smartphone' } },
         },
         {
           objectID: 'a-second-rule-id',
           conditions: [{ pattern: 'apple', anchoring: 'contains' }],
-          consequence: { params: { filters: 'brand:apple' } },
+        },
+      ],
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/indexName/rules/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual([
+      {
+        objectID: 'a-rule-id',
+        conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
+      },
+      {
+        objectID: 'a-second-rule-id',
+        conditions: [{ pattern: 'apple', anchoring: 'contains' }],
+      },
+    ]);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('saveRules with all parameters', async () => {
+    const req = (await client.saveRules({
+      indexName: 'indexName',
+      rule: [
+        {
+          objectID: 'id1',
+          conditions: [
+            {
+              pattern: 'apple',
+              anchoring: 'contains',
+              alternatives: false,
+              context: 'search',
+            },
+          ],
+          consequence: {
+            params: {
+              filters: 'brand:apple',
+              query: {
+                remove: ['algolia'],
+                edits: [
+                  { type: 'remove', delete: 'abc', insert: 'cde' },
+                  { type: 'replace', delete: 'abc', insert: 'cde' },
+                ],
+              },
+            },
+            hide: [{ objectID: '321' }],
+            filterPromotes: false,
+            userData: { algolia: 'aloglia' },
+            promote: [
+              { objectID: 'abc', position: 3 },
+              { objectIDs: ['abc', 'def'], position: 1 },
+            ],
+          },
+          description: 'test',
+          enabled: true,
+          validity: [{ from: 1656670273, until: 1656670277 }],
         },
       ],
       forwardToReplicas: true,
@@ -1208,14 +1336,37 @@ describe('saveRules', () => {
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual([
       {
-        objectID: 'a-rule-id',
-        conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
-        consequence: { params: { filters: 'category:smartphone' } },
-      },
-      {
-        objectID: 'a-second-rule-id',
-        conditions: [{ pattern: 'apple', anchoring: 'contains' }],
-        consequence: { params: { filters: 'brand:apple' } },
+        objectID: 'id1',
+        conditions: [
+          {
+            pattern: 'apple',
+            anchoring: 'contains',
+            alternatives: false,
+            context: 'search',
+          },
+        ],
+        consequence: {
+          params: {
+            filters: 'brand:apple',
+            query: {
+              remove: ['algolia'],
+              edits: [
+                { type: 'remove', delete: 'abc', insert: 'cde' },
+                { type: 'replace', delete: 'abc', insert: 'cde' },
+              ],
+            },
+          },
+          hide: [{ objectID: '321' }],
+          filterPromotes: false,
+          userData: { algolia: 'aloglia' },
+          promote: [
+            { objectID: 'abc', position: 3 },
+            { objectIDs: ['abc', 'def'], position: 1 },
+          ],
+        },
+        description: 'test',
+        enabled: true,
+        validity: [{ from: 1656670273, until: 1656670277 }],
       },
     ]);
     expect(req.searchParams).toStrictEqual({
@@ -1447,6 +1598,53 @@ describe('search', () => {
         },
       ],
       strategy: 'stopIfEnoughMatches',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('search filters accept all of the possible shapes', async () => {
+    const req = (await client.search({
+      requests: [
+        {
+          indexName: 'theIndexName',
+          facetFilters: 'mySearch:filters',
+          reRankingApplyFilter: 'mySearch:filters',
+          tagFilters: 'mySearch:filters',
+          numericFilters: 'mySearch:filters',
+          optionalFilters: 'mySearch:filters',
+        },
+        {
+          indexName: 'theIndexName',
+          facetFilters: ['mySearch:filters', ['mySearch:filters']],
+          reRankingApplyFilter: ['mySearch:filters', ['mySearch:filters']],
+          tagFilters: ['mySearch:filters', ['mySearch:filters']],
+          numericFilters: ['mySearch:filters', ['mySearch:filters']],
+          optionalFilters: ['mySearch:filters', ['mySearch:filters']],
+        },
+      ],
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/*/queries');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        {
+          indexName: 'theIndexName',
+          facetFilters: 'mySearch:filters',
+          reRankingApplyFilter: 'mySearch:filters',
+          tagFilters: 'mySearch:filters',
+          numericFilters: 'mySearch:filters',
+          optionalFilters: 'mySearch:filters',
+        },
+        {
+          indexName: 'theIndexName',
+          facetFilters: ['mySearch:filters', ['mySearch:filters']],
+          reRankingApplyFilter: ['mySearch:filters', ['mySearch:filters']],
+          tagFilters: ['mySearch:filters', ['mySearch:filters']],
+          numericFilters: ['mySearch:filters', ['mySearch:filters']],
+          optionalFilters: ['mySearch:filters', ['mySearch:filters']],
+        },
+      ],
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });
@@ -1857,6 +2055,194 @@ describe('setSettings', () => {
     expect(req.method).toEqual('PUT');
     expect(req.data).toEqual({ typoTolerance: 'min' });
     expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow boolean `ignorePlurals`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { ignorePlurals: true },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ ignorePlurals: true });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow list of string `ignorePlurals`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { ignorePlurals: ['algolia'] },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ ignorePlurals: ['algolia'] });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow boolean `removeStopWords`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { removeStopWords: true },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ removeStopWords: true });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow list of string `removeStopWords`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { removeStopWords: ['algolia'] },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ removeStopWords: ['algolia'] });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow all `indexSettings`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: {
+        replicas: [''],
+        paginationLimitedTo: 0,
+        disableTypoToleranceOnWords: ['algolia'],
+        attributesToTransliterate: ['algolia'],
+        camelCaseAttributes: ['algolia'],
+        decompoundedAttributes: { algolia: 'aloglia' },
+        indexLanguages: ['algolia'],
+        disablePrefixOnAttributes: ['algolia'],
+        allowCompressionOfIntegerArray: true,
+        numericAttributesForFiltering: ['algolia'],
+        separatorsToIndex: 'algolia',
+        searchableAttributes: ['algolia'],
+        userData: { user: 'data' },
+        customNormalization: { algolia: { aloglia: 'aglolia' } },
+        attributesForFaceting: ['algolia'],
+        unretrievableAttributes: ['algolia'],
+        attributesToRetrieve: ['algolia'],
+        restrictSearchableAttributes: ['algolia'],
+        ranking: ['geo'],
+        customRanking: ['algolia'],
+        relevancyStrictness: 10,
+        attributesToHighlight: ['algolia'],
+        attributesToSnippet: ['algolia'],
+        highlightPreTag: '<span>',
+        highlightPostTag: '</span>',
+        snippetEllipsisText: '---',
+        restrictHighlightAndSnippetArrays: true,
+        hitsPerPage: 10,
+        minWordSizefor1Typo: 5,
+        minWordSizefor2Typos: 11,
+        typoTolerance: false,
+        allowTyposOnNumericTokens: true,
+        disableTypoToleranceOnAttributes: ['algolia'],
+        ignorePlurals: false,
+        removeStopWords: false,
+        keepDiacriticsOnCharacters: 'abc',
+        queryLanguages: ['algolia'],
+        decompoundQuery: false,
+        enableRules: false,
+        enablePersonalization: true,
+        queryType: 'prefixLast',
+        removeWordsIfNoResults: 'lastWords',
+        advancedSyntax: true,
+        optionalWords: ['algolia'],
+        disableExactOnAttributes: ['algolia'],
+        exactOnSingleWordQuery: 'attribute',
+        alternativesAsExact: ['singleWordSynonym'],
+        advancedSyntaxFeatures: ['exactPhrase'],
+        distinct: 3,
+        synonyms: false,
+        replaceSynonymsInHighlight: true,
+        minProximity: 6,
+        responseFields: ['algolia'],
+        maxFacetHits: 50,
+        attributeCriteriaComputedByMinProximity: true,
+        renderingContent: {
+          facetOrdering: {
+            facets: { order: ['a', 'b'] },
+            values: { a: { order: ['b'], sortRemainingBy: 'count' } },
+          },
+        },
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({
+      replicas: [''],
+      paginationLimitedTo: 0,
+      disableTypoToleranceOnWords: ['algolia'],
+      attributesToTransliterate: ['algolia'],
+      camelCaseAttributes: ['algolia'],
+      decompoundedAttributes: { algolia: 'aloglia' },
+      indexLanguages: ['algolia'],
+      disablePrefixOnAttributes: ['algolia'],
+      allowCompressionOfIntegerArray: true,
+      numericAttributesForFiltering: ['algolia'],
+      separatorsToIndex: 'algolia',
+      searchableAttributes: ['algolia'],
+      userData: { user: 'data' },
+      customNormalization: { algolia: { aloglia: 'aglolia' } },
+      attributesForFaceting: ['algolia'],
+      unretrievableAttributes: ['algolia'],
+      attributesToRetrieve: ['algolia'],
+      restrictSearchableAttributes: ['algolia'],
+      ranking: ['geo'],
+      customRanking: ['algolia'],
+      relevancyStrictness: 10,
+      attributesToHighlight: ['algolia'],
+      attributesToSnippet: ['algolia'],
+      highlightPreTag: '<span>',
+      highlightPostTag: '</span>',
+      snippetEllipsisText: '---',
+      restrictHighlightAndSnippetArrays: true,
+      hitsPerPage: 10,
+      minWordSizefor1Typo: 5,
+      minWordSizefor2Typos: 11,
+      typoTolerance: false,
+      allowTyposOnNumericTokens: true,
+      disableTypoToleranceOnAttributes: ['algolia'],
+      ignorePlurals: false,
+      removeStopWords: false,
+      keepDiacriticsOnCharacters: 'abc',
+      queryLanguages: ['algolia'],
+      decompoundQuery: false,
+      enableRules: false,
+      enablePersonalization: true,
+      queryType: 'prefixLast',
+      removeWordsIfNoResults: 'lastWords',
+      advancedSyntax: true,
+      optionalWords: ['algolia'],
+      disableExactOnAttributes: ['algolia'],
+      exactOnSingleWordQuery: 'attribute',
+      alternativesAsExact: ['singleWordSynonym'],
+      advancedSyntaxFeatures: ['exactPhrase'],
+      distinct: 3,
+      synonyms: false,
+      replaceSynonymsInHighlight: true,
+      minProximity: 6,
+      responseFields: ['algolia'],
+      maxFacetHits: 50,
+      attributeCriteriaComputedByMinProximity: true,
+      renderingContent: {
+        facetOrdering: {
+          facets: { order: ['a', 'b'] },
+          values: { a: { order: ['b'], sortRemainingBy: 'count' } },
+        },
+      },
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
   });
 });
 

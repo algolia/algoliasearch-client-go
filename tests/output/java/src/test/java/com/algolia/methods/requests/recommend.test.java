@@ -185,24 +185,24 @@ class RecommendClientRequestsTests {
           {
             String query4 = "myQuery";
             queryParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            queryParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            queryParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_02.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
             fallbackParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            fallbackParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            fallbackParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_02.setFallbackParameters(fallbackParameters3);
         }
@@ -291,24 +291,24 @@ class RecommendClientRequestsTests {
           {
             String query4 = "myQuery";
             queryParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            queryParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            queryParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_02.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
             fallbackParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            fallbackParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            fallbackParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_02.setFallbackParameters(fallbackParameters3);
         }
@@ -409,24 +409,24 @@ class RecommendClientRequestsTests {
           {
             String query4 = "myQuery";
             queryParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query1";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            queryParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            queryParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_02.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
             fallbackParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback1";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            fallbackParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            fallbackParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_02.setFallbackParameters(fallbackParameters3);
         }
@@ -447,24 +447,24 @@ class RecommendClientRequestsTests {
           {
             String query4 = "myQuery";
             queryParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "query2";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            queryParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            queryParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_12.setQueryParameters(queryParameters3);
           SearchParamsObject fallbackParameters3 = new SearchParamsObject();
           {
             String query4 = "myQuery";
             fallbackParameters3.setQuery(query4);
-            List<String> facetFilters4 = new ArrayList<>();
+            List<MixedSearchFilters> facetFilters4 = new ArrayList<>();
             {
               String facetFilters_05 = "fallback2";
-              facetFilters4.add(facetFilters_05);
+              facetFilters4.add(MixedSearchFilters.of(facetFilters_05));
             }
-            fallbackParameters3.setFacetFilters(FacetFilters.ofListOfString(facetFilters4));
+            fallbackParameters3.setFacetFilters(FacetFilters.of(facetFilters4));
           }
           requests_12.setFallbackParameters(fallbackParameters3);
         }

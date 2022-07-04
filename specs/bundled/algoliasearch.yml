@@ -166,42 +166,62 @@ components:
       type: string
       description: The text to search in the index.
       default: ''
+      x-categories:
+        - Search
+    searchParamsQuery:
+      type: object
+      additionalProperties: false
+      properties:
+        query:
+          $ref: '#/components/schemas/query'
     searchFiltersArrayString:
       type: array
       items:
         type: string
-    searchFiltersNestedArrayString:
+    mixedSearchFilters:
+      oneOf:
+        - $ref: '#/components/schemas/searchFiltersArrayString'
+        - type: string
+    listOfSearchFilters:
       type: array
       items:
-        type: array
-        items:
-          type: string
+        $ref: '#/components/schemas/mixedSearchFilters'
     facetFilters:
       description: Filter hits by facet value.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
+      x-categories:
+        - Filtering
     optionalFilters:
       description: >-
         Create filters for ranking purposes, where records that match the filter
         are ranked higher, or lower in the case of a negative optional filter.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
+      x-categories:
+        - Filtering
     numericFilters:
       description: Filter on numeric attributes.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
+      x-categories:
+        - Filtering
     tagFilters:
       description: Filter hits by tags.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
+      x-categories:
+        - Filtering
     page:
       type: integer
       description: Specify the page to retrieve.
       default: 0
+      x-categories:
+        - Pagination
     aroundRadiusAll:
       type: string
       enum:
@@ -212,29 +232,36 @@ components:
         - type: integer
           minimum: 1
         - $ref: '#/components/schemas/aroundRadiusAll'
+      x-categories:
+        - Geo-Search
     reRankingApplyFilter:
       description: >-
         When Dynamic Re-Ranking is enabled, only records that match these
         filters will be impacted by Dynamic Re-Ranking.
+      nullable: true
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
-    baseSearchParams:
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
+      x-categories:
+        - Filtering
+    baseSearchParamsWithoutQuery:
       type: object
       additionalProperties: false
       properties:
-        query:
-          $ref: '#/components/schemas/query'
         similarQuery:
           type: string
           description: >-
             Overrides the query parameter and performs a more generic search
             that can be used to find "similar" results.
           default: ''
+          x-categories:
+            - Search
         filters:
           type: string
           description: Filter the query with numeric, facet and/or tag filters.
           default: ''
+          x-categories:
+            - Filtering
         facetFilters:
           $ref: '#/components/schemas/facetFilters'
         optionalFilters:
@@ -247,50 +274,68 @@ components:
           type: boolean
           description: Determines how to calculate the total score for filtering.
           default: false
+          x-categories:
+            - Filtering
         facets:
           type: array
           items:
             type: string
           description: Retrieve facets and their facet values.
           default: []
+          x-categories:
+            - Faceting
         maxValuesPerFacet:
           type: integer
           description: >-
             Maximum number of facet values to return for each facet during a
             regular search.
           default: 100
+          x-categories:
+            - Faceting
         facetingAfterDistinct:
           type: boolean
           description: >-
             Force faceting to be applied after de-duplication (via the Distinct
             setting).
           default: false
+          x-categories:
+            - Faceting
         sortFacetValuesBy:
           type: string
           description: Controls how facet values are fetched.
           default: count
+          x-categories:
+            - Faceting
         page:
           $ref: '#/components/schemas/page'
         offset:
           type: integer
           description: Specify the offset of the first hit to return.
+          x-categories:
+            - Pagination
         length:
           type: integer
           description: Set the number of hits to retrieve (used only with offset).
           minimum: 1
           maximum: 1000
+          x-categories:
+            - Pagination
         aroundLatLng:
           type: string
           description: >-
             Search for entries around a central geolocation, enabling a geo
             search within a circular area.
           default: ''
+          x-categories:
+            - Geo-Search
         aroundLatLngViaIP:
           type: boolean
           description: >-
             Search for entries around a given location automatically computed
             from the requester's IP address.
           default: false
+          x-categories:
+            - Geo-Search
         aroundRadius:
           $ref: '#/components/schemas/aroundRadius'
         aroundPrecision:
@@ -299,24 +344,32 @@ components:
             Precision of geo search (in meters), to add grouping by geo location
             to the ranking formula.
           default: 10
+          x-categories:
+            - Geo-Search
         minimumAroundRadius:
           type: integer
           description: >-
             Minimum radius (in meters) used for a geo search when aroundRadius
             is not set.
           minimum: 1
+          x-categories:
+            - Geo-Search
         insideBoundingBox:
           type: array
           items:
             type: number
             format: double
           description: Search inside a rectangular area (in geo coordinates).
+          x-categories:
+            - Geo-Search
         insidePolygon:
           type: array
           items:
             type: number
             format: double
           description: Search inside a polygon (in geo coordinates).
+          x-categories:
+            - Geo-Search
         naturalLanguages:
           type: array
           items:
@@ -330,59 +383,87 @@ components:
             instead of keywords, for example when your user performs a voice
             search.
           default: []
+          x-categories:
+            - Languages
         ruleContexts:
           type: array
           items:
             type: string
           description: Enables contextual rules.
           default: []
+          x-categories:
+            - Rules
         personalizationImpact:
           type: integer
           description: Define the impact of the Personalization feature.
           default: 100
+          x-categories:
+            - Personalization
         userToken:
           type: string
           description: Associates a certain user token with the current search.
+          x-categories:
+            - Personalization
         getRankingInfo:
           type: boolean
           description: Retrieve detailed ranking information.
           default: false
+          x-categories:
+            - Advanced
         clickAnalytics:
           type: boolean
           description: Enable the Click Analytics feature.
           default: false
+          x-categories:
+            - Analytics
         analytics:
           type: boolean
           description: >-
             Whether the current query will be taken into account in the
             Analytics.
           default: true
+          x-categories:
+            - Analytics
         analyticsTags:
           type: array
           items:
             type: string
           description: List of tags to apply to the query for analytics purposes.
           default: []
+          x-categories:
+            - Analytics
         percentileComputation:
           type: boolean
           description: >-
             Whether to include or exclude a query from the processing-time
             percentile computation.
           default: true
+          x-categories:
+            - Advanced
         enableABTest:
           type: boolean
           description: Whether this search should participate in running AB tests.
           default: true
+          x-categories:
+            - Advanced
         enableReRanking:
           type: boolean
           description: Whether this search should use AI Re-Ranking.
           default: true
+          x-categories:
+            - Advanced
         reRankingApplyFilter:
           $ref: '#/components/schemas/reRankingApplyFilter'
+    baseSearchParams:
+      allOf:
+        - $ref: '#/components/schemas/searchParamsQuery'
+        - $ref: '#/components/schemas/baseSearchParamsWithoutQuery'
     hitsPerPage:
       type: integer
       description: Set the number of hits per page.
       default: 20
+      x-categories:
+        - Pagination
     typoToleranceEnum:
       type: string
       enum:
@@ -394,6 +475,8 @@ components:
         - type: boolean
           default: true
         - $ref: '#/components/schemas/typoToleranceEnum'
+      x-categories:
+        - Typos
     ignorePlurals:
       description: >
         Treats singular, plurals, and other forms of declensions as matching
@@ -415,6 +498,8 @@ components:
             type: string
         - type: boolean
           default: false
+      x-categories:
+        - Languages
     removeStopWords:
       description: >
         Removes stop (common) words from the query before executing it.
@@ -434,6 +519,8 @@ components:
             type: string
         - type: boolean
           default: false
+      x-categories:
+        - Languages
     queryType:
       type: string
       enum:
@@ -442,6 +529,8 @@ components:
         - prefixNone
       description: Controls if and how query words are interpreted as prefixes.
       default: prefixLast
+      x-categories:
+        - Query strategy
     removeWordsIfNoResults:
       type: string
       enum:
@@ -453,6 +542,8 @@ components:
         Selects a strategy to remove words from the query when it doesn't match
         any hits.
       default: none
+      x-categories:
+        - Query strategy
     exactOnSingleWordQuery:
       type: string
       enum:
@@ -463,17 +554,23 @@ components:
         Controls how the exact ranking criterion is computed when the query
         contains only one word.
       default: attribute
+      x-categories:
+        - Query strategy
     alternativesAsExact:
       type: string
       enum:
         - ignorePlurals
         - singleWordSynonym
         - multiWordsSynonym
+      x-categories:
+        - Query strategy
     advancedSyntaxFeatures:
       type: string
       enum:
         - exactPhrase
         - excludeWords
+      x-categories:
+        - Query strategy
     maxFacetHits:
       type: integer
       description: >-
@@ -482,6 +579,8 @@ components:
         is 100.
       maximum: 100
       default: 10
+      x-categories:
+        - Advanced
     order:
       description: Pinned order of facet lists.
       type: array
@@ -536,6 +635,8 @@ components:
       properties:
         facetOrdering:
           $ref: '#/components/schemas/facetOrdering'
+      x-categories:
+        - Advanced
     indexSettingsAsSearchParams:
       type: object
       additionalProperties: false
@@ -546,12 +647,16 @@ components:
             type: string
           description: The complete list of attributes that will be used for faceting.
           default: []
+          x-categories:
+            - Faceting
         unretrievableAttributes:
           type: array
           items:
             type: string
           description: List of attributes that can't be retrieved at query time.
           default: []
+          x-categories:
+            - Attributes
         attributesToRetrieve:
           type: array
           items:
@@ -561,6 +666,8 @@ components:
             to retrieve.
           default:
             - '*'
+          x-categories:
+            - Attributes
         restrictSearchableAttributes:
           type: array
           items:
@@ -569,6 +676,8 @@ components:
             Restricts a given query to look in only a subset of your searchable
             attributes.
           default: []
+          x-categories:
+            - Attributes
         ranking:
           type: array
           items:
@@ -583,23 +692,31 @@ components:
             - attribute
             - exact
             - custom
+          x-categories:
+            - Ranking
         customRanking:
           type: array
           items:
             type: string
           description: Specifies the custom ranking criterion.
           default: []
+          x-categories:
+            - Ranking
         relevancyStrictness:
           type: integer
           description: >-
             Controls the relevancy threshold below which less relevant results
             aren't included in the results.
           default: 100
+          x-categories:
+            - Ranking
         attributesToHighlight:
           type: array
           items:
             type: string
           description: List of attributes to highlight.
+          x-categories:
+            - Highlighting and Snippeting
         attributesToSnippet:
           type: array
           items:
@@ -608,28 +725,38 @@ components:
             List of attributes to snippet, with an optional maximum number of
             words to snippet.
           default: []
+          x-categories:
+            - Highlighting and Snippeting
         highlightPreTag:
           type: string
           description: >-
             The HTML string to insert before the highlighted parts in all
             highlight and snippet results.
           default: <em>
+          x-categories:
+            - Highlighting and Snippeting
         highlightPostTag:
           type: string
           description: >-
             The HTML string to insert after the highlighted parts in all
             highlight and snippet results.
           default: </em>
+          x-categories:
+            - Highlighting and Snippeting
         snippetEllipsisText:
           type: string
           description: String used as an ellipsis indicator when a snippet is truncated.
           default: …
+          x-categories:
+            - Highlighting and Snippeting
         restrictHighlightAndSnippetArrays:
           type: boolean
           description: >-
             Restrict highlighting and snippeting to items that matched the
             query.
           default: false
+          x-categories:
+            - Highlighting and Snippeting
         hitsPerPage:
           $ref: '#/components/schemas/hitsPerPage'
         minWordSizefor1Typo:
@@ -638,12 +765,16 @@ components:
             Minimum number of characters a word in the query string must contain
             to accept matches with 1 typo.
           default: 4
+          x-categories:
+            - Typos
         minWordSizefor2Typos:
           type: integer
           description: >-
             Minimum number of characters a word in the query string must contain
             to accept matches with 2 typos.
           default: 8
+          x-categories:
+            - Typos
         typoTolerance:
           $ref: '#/components/schemas/typoTolerance'
         allowTyposOnNumericTokens:
@@ -652,12 +783,16 @@ components:
             Whether to allow typos on numbers ("numeric tokens") in the query
             string.
           default: true
+          x-categories:
+            - Typos
         disableTypoToleranceOnAttributes:
           type: array
           items:
             type: string
           description: List of attributes on which you want to disable typo tolerance.
           default: []
+          x-categories:
+            - Typos
         ignorePlurals:
           $ref: '#/components/schemas/ignorePlurals'
         removeStopWords:
@@ -668,6 +803,8 @@ components:
             List of characters that the engine shouldn't automatically
             normalize.
           default: ''
+          x-categories:
+            - Languages
         queryLanguages:
           type: array
           items:
@@ -677,18 +814,26 @@ components:
             functionalities such as ignorePlurals, removeStopWords, and CJK
             word-detection.
           default: []
+          x-categories:
+            - Languages
         decompoundQuery:
           type: boolean
           description: Splits compound words into their composing atoms in the query.
           default: true
+          x-categories:
+            - Languages
         enableRules:
           type: boolean
           description: Whether Rules should be globally enabled.
           default: true
+          x-categories:
+            - Rules
         enablePersonalization:
           type: boolean
           description: Enable the Personalization feature.
           default: false
+          x-categories:
+            - Personalization
         queryType:
           $ref: '#/components/schemas/queryType'
         removeWordsIfNoResults:
@@ -697,6 +842,8 @@ components:
           type: boolean
           description: Enables the advanced query syntax.
           default: false
+          x-categories:
+            - Query strategy
         optionalWords:
           type: array
           items:
@@ -705,6 +852,8 @@ components:
             A list of words that should be considered as optional when found in
             the query.
           default: []
+          x-categories:
+            - Query strategy
         disableExactOnAttributes:
           type: array
           items:
@@ -713,6 +862,8 @@ components:
             List of attributes on which you want to disable the exact ranking
             criterion.
           default: []
+          x-categories:
+            - Query strategy
         exactOnSingleWordQuery:
           $ref: '#/components/schemas/exactOnSingleWordQuery'
         alternativesAsExact:
@@ -725,6 +876,8 @@ components:
           default:
             - ignorePlurals
             - singleWordSynonym
+          x-categories:
+            - Query strategy
         advancedSyntaxFeatures:
           type: array
           items:
@@ -735,30 +888,40 @@ components:
           default:
             - exactPhrase
             - excludeWords
+          x-categories:
+            - Query strategy
         distinct:
           type: integer
           minimum: 0
           maximum: 4
           description: Enables de-duplication or grouping of results.
           default: 0
+          x-categories:
+            - Advanced
         synonyms:
           type: boolean
           description: >-
             Whether to take into account an index's synonyms for a particular
             search.
           default: true
+          x-categories:
+            - Advanced
         replaceSynonymsInHighlight:
           type: boolean
           description: >-
             Whether to highlight and snippet the original word that matches the
             synonym or the synonym itself.
           default: false
+          x-categories:
+            - Highlighting and Snippeting
         minProximity:
           type: integer
           minimum: 1
           maximum: 7
           description: Precision of the proximity ranking criterion.
           default: 1
+          x-categories:
+            - Advanced
         responseFields:
           type: array
           items:
@@ -767,6 +930,8 @@ components:
             Choose which fields to return in the API response. This parameters
             applies to search and browse queries.
           default: []
+          x-categories:
+            - Advanced
         maxFacetHits:
           $ref: '#/components/schemas/maxFacetHits'
         attributeCriteriaComputedByMinProximity:
@@ -776,6 +941,8 @@ components:
             proximity is used to select which searchable attribute is matched in
             the attribute ranking stage.
           default: false
+          x-categories:
+            - Advanced
         renderingContent:
           $ref: '#/components/schemas/renderingContent'
     searchParamsObject:
@@ -798,6 +965,8 @@ components:
       type: object
       description: Lets you store custom data in your indices.
       default: {}
+      x-categories:
+        - Advanced
     baseSearchResponse:
       type: object
       additionalProperties: false
@@ -1239,6 +1408,8 @@ components:
             type: string
           description: Creates replicas, exact copies of an index.
           default: []
+          x-categories:
+            - Ranking
         paginationLimitedTo:
           type: integer
           description: Set the maximum number of hits accessible via pagination.
@@ -1249,11 +1420,18 @@ components:
             type: string
           description: A list of words for which you want to turn off typo tolerance.
           default: []
+          x-categories:
+            - Typos
         attributesToTransliterate:
+          description: >-
+            Specify on which attributes in your index Algolia should apply
+            Japanese transliteration to make words indexed in Katakana or Kanji
+            searchable in Hiragana.
           type: array
           items:
             type: string
-          description: Specify on which attributes to apply transliteration.
+          x-categories:
+            - Languages
         camelCaseAttributes:
           type: array
           items:
@@ -1262,12 +1440,16 @@ components:
             List of attributes on which to do a decomposition of camel case
             words.
           default: []
+          x-categories:
+            - Languages
         decompoundedAttributes:
           type: object
           description: >-
             Specify on which attributes in your index Algolia should apply word
             segmentation, also known as decompounding.
           default: {}
+          x-categories:
+            - Languages
         indexLanguages:
           type: array
           items:
@@ -1276,34 +1458,55 @@ components:
             Sets the languages at the index level for language-specific
             processing such as tokenization and normalization.
           default: []
+          x-categories:
+            - Languages
         disablePrefixOnAttributes:
           type: array
           items:
             type: string
           description: List of attributes on which you want to disable prefix matching.
           default: []
+          x-categories:
+            - Query strategy
         allowCompressionOfIntegerArray:
           type: boolean
           description: Enables compression of large integer arrays.
           default: false
+          x-categories:
+            - Performance
         numericAttributesForFiltering:
           type: array
           items:
             type: string
           description: List of numeric attributes that can be used as numerical filters.
           default: []
+          x-categories:
+            - Performance
         separatorsToIndex:
           type: string
           description: Control which separators are indexed.
           default: ''
+          x-categories:
+            - Typos
         searchableAttributes:
           type: array
           items:
             type: string
           description: The complete list of attributes used for searching.
           default: []
+          x-categories:
+            - Attributes
         userData:
           $ref: '#/components/schemas/userData'
+        customNormalization:
+          description: Overrides Algolia's default normalization.
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          x-categories:
+            - Languages
     indexSettings:
       description: The Algolia index settings.
       allOf:
@@ -1537,7 +1740,7 @@ components:
             Text that should be inserted in place of the removed text inside the
             query string.
           type: string
-    consequenceQuery:
+    consequenceQueryObject:
       type: object
       additionalProperties: false
       properties:
@@ -1551,13 +1754,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/edit'
-    schemas_query:
+    consequenceQuery:
       description: >-
         When providing a string, it replaces the entire query string. When
         providing an object, it describes incremental edits to be made to the
         query string (but you can't do both).
       oneOf:
-        - $ref: '#/components/schemas/consequenceQuery'
+        - $ref: '#/components/schemas/consequenceQueryObject'
         - type: string
     automaticFacetFilter:
       type: object
@@ -1598,7 +1801,7 @@ components:
       additionalProperties: false
       properties:
         query:
-          $ref: '#/components/schemas/schemas_query'
+          $ref: '#/components/schemas/consequenceQuery'
         automaticFacetFilters:
           $ref: '#/components/schemas/automaticFacetFilters'
         automaticOptionalFacetFilters:
@@ -1607,31 +1810,48 @@ components:
           $ref: '#/components/schemas/renderingContent'
     consequenceParams:
       allOf:
-        - $ref: '#/components/schemas/params'
-        - $ref: '#/components/schemas/baseSearchParams'
+        - $ref: '#/components/schemas/baseSearchParamsWithoutQuery'
         - $ref: '#/components/schemas/indexSettingsAsSearchParams'
-    promote:
+        - $ref: '#/components/schemas/params'
+    promotePosition:
+      type: integer
+      description: >-
+        The position to promote the objects to (zero-based). If you pass
+        objectIDs, the objects are placed at this position as a group. For
+        example, if you pass four objectIDs to position 0, the objects take the
+        first four positions.
+    promoteObjectIDs:
+      description: Multiple objectIDs to promote as hits.
       type: object
-      description: Object to promote as hits.
       additionalProperties: false
       properties:
-        objectID:
-          type: string
-          description: Unique identifier of the object to promote.
         objectIDs:
           type: array
           description: Array of unique identifiers of the objects to promote.
           items:
             type: string
         position:
-          type: integer
-          description: >-
-            The position to promote the objects to (zero-based). If you pass
-            objectIDs, the objects are placed at this position as a group. For
-            example, if you pass four objectIDs to position 0, the objects take
-            the first four positions.
+          $ref: '#/components/schemas/promotePosition'
       required:
         - position
+        - objectIDs
+    promoteObjectID:
+      description: Single objectID to promote as hits.
+      type: object
+      additionalProperties: false
+      properties:
+        objectID:
+          type: string
+          description: Unique identifier of the object to promote.
+        position:
+          $ref: '#/components/schemas/promotePosition'
+      required:
+        - position
+        - objectID
+    promote:
+      oneOf:
+        - $ref: '#/components/schemas/promoteObjectIDs'
+        - $ref: '#/components/schemas/promoteObjectID'
     consequence:
       type: object
       description: Consequence of the Rule.
@@ -1724,7 +1944,6 @@ components:
             $ref: '#/components/schemas/timeRange'
       required:
         - objectID
-        - consequence
     updatedRuleResponse:
       type: object
       additionalProperties: false

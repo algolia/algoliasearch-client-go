@@ -8,18 +8,6 @@ import java.util.Objects;
 /** ConsequenceParams */
 public class ConsequenceParams {
 
-  @SerializedName("query")
-  private String query;
-
-  @SerializedName("automaticFacetFilters")
-  private AutomaticFacetFilters automaticFacetFilters;
-
-  @SerializedName("automaticOptionalFacetFilters")
-  private AutomaticFacetFilters automaticOptionalFacetFilters;
-
-  @SerializedName("renderingContent")
-  private RenderingContent renderingContent;
-
   @SerializedName("similarQuery")
   private String similarQuery;
 
@@ -242,65 +230,17 @@ public class ConsequenceParams {
   @SerializedName("attributeCriteriaComputedByMinProximity")
   private Boolean attributeCriteriaComputedByMinProximity;
 
-  public ConsequenceParams setQuery(String query) {
-    this.query = query;
-    return this;
-  }
+  @SerializedName("renderingContent")
+  private RenderingContent renderingContent;
 
-  /**
-   * The text to search in the index.
-   *
-   * @return query
-   */
-  @javax.annotation.Nullable
-  public String getQuery() {
-    return query;
-  }
+  @SerializedName("query")
+  private ConsequenceQuery query;
 
-  public ConsequenceParams setAutomaticFacetFilters(AutomaticFacetFilters automaticFacetFilters) {
-    this.automaticFacetFilters = automaticFacetFilters;
-    return this;
-  }
+  @SerializedName("automaticFacetFilters")
+  private AutomaticFacetFilters automaticFacetFilters;
 
-  /**
-   * Get automaticFacetFilters
-   *
-   * @return automaticFacetFilters
-   */
-  @javax.annotation.Nullable
-  public AutomaticFacetFilters getAutomaticFacetFilters() {
-    return automaticFacetFilters;
-  }
-
-  public ConsequenceParams setAutomaticOptionalFacetFilters(AutomaticFacetFilters automaticOptionalFacetFilters) {
-    this.automaticOptionalFacetFilters = automaticOptionalFacetFilters;
-    return this;
-  }
-
-  /**
-   * Get automaticOptionalFacetFilters
-   *
-   * @return automaticOptionalFacetFilters
-   */
-  @javax.annotation.Nullable
-  public AutomaticFacetFilters getAutomaticOptionalFacetFilters() {
-    return automaticOptionalFacetFilters;
-  }
-
-  public ConsequenceParams setRenderingContent(RenderingContent renderingContent) {
-    this.renderingContent = renderingContent;
-    return this;
-  }
-
-  /**
-   * Get renderingContent
-   *
-   * @return renderingContent
-   */
-  @javax.annotation.Nullable
-  public RenderingContent getRenderingContent() {
-    return renderingContent;
-  }
+  @SerializedName("automaticOptionalFacetFilters")
+  private AutomaticFacetFilters automaticOptionalFacetFilters;
 
   public ConsequenceParams setSimilarQuery(String similarQuery) {
     this.similarQuery = similarQuery;
@@ -1595,6 +1535,66 @@ public class ConsequenceParams {
     return attributeCriteriaComputedByMinProximity;
   }
 
+  public ConsequenceParams setRenderingContent(RenderingContent renderingContent) {
+    this.renderingContent = renderingContent;
+    return this;
+  }
+
+  /**
+   * Get renderingContent
+   *
+   * @return renderingContent
+   */
+  @javax.annotation.Nullable
+  public RenderingContent getRenderingContent() {
+    return renderingContent;
+  }
+
+  public ConsequenceParams setQuery(ConsequenceQuery query) {
+    this.query = query;
+    return this;
+  }
+
+  /**
+   * Get query
+   *
+   * @return query
+   */
+  @javax.annotation.Nullable
+  public ConsequenceQuery getQuery() {
+    return query;
+  }
+
+  public ConsequenceParams setAutomaticFacetFilters(AutomaticFacetFilters automaticFacetFilters) {
+    this.automaticFacetFilters = automaticFacetFilters;
+    return this;
+  }
+
+  /**
+   * Get automaticFacetFilters
+   *
+   * @return automaticFacetFilters
+   */
+  @javax.annotation.Nullable
+  public AutomaticFacetFilters getAutomaticFacetFilters() {
+    return automaticFacetFilters;
+  }
+
+  public ConsequenceParams setAutomaticOptionalFacetFilters(AutomaticFacetFilters automaticOptionalFacetFilters) {
+    this.automaticOptionalFacetFilters = automaticOptionalFacetFilters;
+    return this;
+  }
+
+  /**
+   * Get automaticOptionalFacetFilters
+   *
+   * @return automaticOptionalFacetFilters
+   */
+  @javax.annotation.Nullable
+  public AutomaticFacetFilters getAutomaticOptionalFacetFilters() {
+    return automaticOptionalFacetFilters;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -1605,10 +1605,6 @@ public class ConsequenceParams {
     }
     ConsequenceParams consequenceParams = (ConsequenceParams) o;
     return (
-      Objects.equals(this.query, consequenceParams.query) &&
-      Objects.equals(this.automaticFacetFilters, consequenceParams.automaticFacetFilters) &&
-      Objects.equals(this.automaticOptionalFacetFilters, consequenceParams.automaticOptionalFacetFilters) &&
-      Objects.equals(this.renderingContent, consequenceParams.renderingContent) &&
       Objects.equals(this.similarQuery, consequenceParams.similarQuery) &&
       Objects.equals(this.filters, consequenceParams.filters) &&
       Objects.equals(this.facetFilters, consequenceParams.facetFilters) &&
@@ -1682,17 +1678,17 @@ public class ConsequenceParams {
       Objects.equals(this.minProximity, consequenceParams.minProximity) &&
       Objects.equals(this.responseFields, consequenceParams.responseFields) &&
       Objects.equals(this.maxFacetHits, consequenceParams.maxFacetHits) &&
-      Objects.equals(this.attributeCriteriaComputedByMinProximity, consequenceParams.attributeCriteriaComputedByMinProximity)
+      Objects.equals(this.attributeCriteriaComputedByMinProximity, consequenceParams.attributeCriteriaComputedByMinProximity) &&
+      Objects.equals(this.renderingContent, consequenceParams.renderingContent) &&
+      Objects.equals(this.query, consequenceParams.query) &&
+      Objects.equals(this.automaticFacetFilters, consequenceParams.automaticFacetFilters) &&
+      Objects.equals(this.automaticOptionalFacetFilters, consequenceParams.automaticOptionalFacetFilters)
     );
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-      query,
-      automaticFacetFilters,
-      automaticOptionalFacetFilters,
-      renderingContent,
       similarQuery,
       filters,
       facetFilters,
@@ -1766,7 +1762,11 @@ public class ConsequenceParams {
       minProximity,
       responseFields,
       maxFacetHits,
-      attributeCriteriaComputedByMinProximity
+      attributeCriteriaComputedByMinProximity,
+      renderingContent,
+      query,
+      automaticFacetFilters,
+      automaticOptionalFacetFilters
     );
   }
 
@@ -1774,10 +1774,6 @@ public class ConsequenceParams {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConsequenceParams {\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb.append("    automaticFacetFilters: ").append(toIndentedString(automaticFacetFilters)).append("\n");
-    sb.append("    automaticOptionalFacetFilters: ").append(toIndentedString(automaticOptionalFacetFilters)).append("\n");
-    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("    similarQuery: ").append(toIndentedString(similarQuery)).append("\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
     sb.append("    facetFilters: ").append(toIndentedString(facetFilters)).append("\n");
@@ -1855,6 +1851,10 @@ public class ConsequenceParams {
       .append("    attributeCriteriaComputedByMinProximity: ")
       .append(toIndentedString(attributeCriteriaComputedByMinProximity))
       .append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
+    sb.append("    query: ").append(toIndentedString(query)).append("\n");
+    sb.append("    automaticFacetFilters: ").append(toIndentedString(automaticFacetFilters)).append("\n");
+    sb.append("    automaticOptionalFacetFilters: ").append(toIndentedString(automaticOptionalFacetFilters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

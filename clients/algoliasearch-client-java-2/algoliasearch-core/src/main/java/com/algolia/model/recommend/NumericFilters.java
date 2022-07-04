@@ -14,12 +14,12 @@ import java.util.List;
 /** Filter on numeric attributes. */
 public abstract class NumericFilters implements CompoundType {
 
-  public static NumericFilters ofListOfListOfString(List<List<String>> inside) {
-    return new NumericFiltersListOfListOfString(inside);
+  public static NumericFilters of(List<MixedSearchFilters> inside) {
+    return new NumericFiltersListOfMixedSearchFilters(inside);
   }
 
-  public static NumericFilters ofListOfString(List<String> inside) {
-    return new NumericFiltersListOfString(inside);
+  public static NumericFilters of(String inside) {
+    return new NumericFiltersString(inside);
   }
 
   public static class Adapter extends TypeAdapter<NumericFilters> {
@@ -32,13 +32,16 @@ public abstract class NumericFilters implements CompoundType {
 
     @Override
     public NumericFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listoflistofstring != null) {
-        return NumericFilters.ofListOfListOfString(listoflistofstring);
+      List<MixedSearchFilters> listofmixedsearchfilters = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<MixedSearchFilters>>() {}.getType()
+      );
+      if (listofmixedsearchfilters != null) {
+        return NumericFilters.of(listofmixedsearchfilters);
       }
-      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (listofstring != null) {
-        return NumericFilters.ofListOfString(listofstring);
+      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
+      if (string != null) {
+        return NumericFilters.of(string);
       }
       return null;
     }
@@ -46,31 +49,31 @@ public abstract class NumericFilters implements CompoundType {
 }
 
 @JsonAdapter(NumericFilters.Adapter.class)
-class NumericFiltersListOfListOfString extends NumericFilters {
+class NumericFiltersListOfMixedSearchFilters extends NumericFilters {
 
-  private final List<List<String>> insideValue;
+  private final List<MixedSearchFilters> insideValue;
 
-  NumericFiltersListOfListOfString(List<List<String>> insideValue) {
+  NumericFiltersListOfMixedSearchFilters(List<MixedSearchFilters> insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<List<String>> getInsideValue() {
+  public List<MixedSearchFilters> getInsideValue() {
     return insideValue;
   }
 }
 
 @JsonAdapter(NumericFilters.Adapter.class)
-class NumericFiltersListOfString extends NumericFilters {
+class NumericFiltersString extends NumericFilters {
 
-  private final List<String> insideValue;
+  private final String insideValue;
 
-  NumericFiltersListOfString(List<String> insideValue) {
+  NumericFiltersString(String insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<String> getInsideValue() {
+  public String getInsideValue() {
     return insideValue;
   }
 }

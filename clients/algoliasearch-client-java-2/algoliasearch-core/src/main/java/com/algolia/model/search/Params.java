@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Params {
 
   @SerializedName("query")
-  private SchemasQuery query;
+  private ConsequenceQuery query;
 
   @SerializedName("automaticFacetFilters")
   private AutomaticFacetFilters automaticFacetFilters;
@@ -18,7 +18,7 @@ public class Params {
   @SerializedName("renderingContent")
   private RenderingContent renderingContent;
 
-  public Params setQuery(SchemasQuery query) {
+  public Params setQuery(ConsequenceQuery query) {
     this.query = query;
     return this;
   }
@@ -29,7 +29,7 @@ public class Params {
    * @return query
    */
   @javax.annotation.Nullable
-  public SchemasQuery getQuery() {
+  public ConsequenceQuery getQuery() {
     return query;
   }
 

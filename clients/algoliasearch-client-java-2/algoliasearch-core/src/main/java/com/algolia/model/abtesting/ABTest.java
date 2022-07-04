@@ -19,6 +19,9 @@ public class ABTest {
   @SerializedName("endAt")
   private String endAt;
 
+  @SerializedName("updatedAt")
+  private String updatedAt;
+
   @SerializedName("createdAt")
   private String createdAt;
 
@@ -93,13 +96,28 @@ public class ABTest {
     return endAt;
   }
 
+  public ABTest setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+  /**
+   * Update date for the A/B test expressed as YYYY-MM-DDThh:mm:ssZ.
+   *
+   * @return updatedAt
+   */
+  @javax.annotation.Nonnull
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
   public ABTest setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
   /**
-   * End date for the A/B test expressed as YYYY-MM-DDThh:mm:ssZ.
+   * Creation date for the A/B test expressed as YYYY-MM-DDThh:mm:ssZ.
    *
    * @return createdAt
    */
@@ -172,6 +190,7 @@ public class ABTest {
       Objects.equals(this.clickSignificance, abTest.clickSignificance) &&
       Objects.equals(this.conversionSignificance, abTest.conversionSignificance) &&
       Objects.equals(this.endAt, abTest.endAt) &&
+      Objects.equals(this.updatedAt, abTest.updatedAt) &&
       Objects.equals(this.createdAt, abTest.createdAt) &&
       Objects.equals(this.name, abTest.name) &&
       Objects.equals(this.status, abTest.status) &&
@@ -181,7 +200,7 @@ public class ABTest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(abTestID, clickSignificance, conversionSignificance, endAt, createdAt, name, status, variants);
+    return Objects.hash(abTestID, clickSignificance, conversionSignificance, endAt, updatedAt, createdAt, name, status, variants);
   }
 
   @Override
@@ -192,6 +211,7 @@ public class ABTest {
     sb.append("    clickSignificance: ").append(toIndentedString(clickSignificance)).append("\n");
     sb.append("    conversionSignificance: ").append(toIndentedString(conversionSignificance)).append("\n");
     sb.append("    endAt: ").append(toIndentedString(endAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");

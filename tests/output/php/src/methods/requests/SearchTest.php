@@ -1719,7 +1719,7 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for SaveRule
-     * saveRule
+     * saveRule with minimal parameters
      */
     public function testSaveRule0()
     {
@@ -1732,7 +1732,72 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'conditions' => [
                     ['pattern' => 'apple', 'anchoring' => 'contains'],
                 ],
-                'consequence' => ['params' => ['filters' => 'brand:apple']],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/indexName/rules/id1',
+                'method' => 'PUT',
+                'body' => json_decode(
+                    "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SaveRule
+     * saveRule with all parameters
+     */
+    public function testSaveRule1()
+    {
+        $client = $this->getClient();
+        $client->saveRule(
+            'indexName',
+            'id1',
+            [
+                'objectID' => 'id1',
+                'conditions' => [
+                    [
+                        'pattern' => 'apple',
+                        'anchoring' => 'contains',
+                        'alternatives' => false,
+                        'context' => 'search',
+                    ],
+                ],
+                'consequence' => [
+                    'params' => [
+                        'filters' => 'brand:apple',
+                        'query' => [
+                            'remove' => ['algolia'],
+                            'edits' => [
+                                [
+                                    'type' => 'remove',
+                                    'delete' => 'abc',
+                                    'insert' => 'cde',
+                                ],
+
+                                [
+                                    'type' => 'replace',
+                                    'delete' => 'abc',
+                                    'insert' => 'cde',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'hide' => [['objectID' => '321']],
+                    'filterPromotes' => false,
+                    'userData' => ['algolia' => 'aloglia'],
+                    'promote' => [
+                        ['objectID' => 'abc', 'position' => 3],
+
+                        ['objectIDs' => ['abc', 'def'], 'position' => 1],
+                    ],
+                ],
+                'description' => 'test',
+                'enabled' => true,
+                'validity' => [['from' => 1656670273, 'until' => 1656670277]],
             ],
             true
         );
@@ -1742,7 +1807,7 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/indexName/rules/id1',
                 'method' => 'PUT',
                 'body' => json_decode(
-                    "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}"
+                    "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\",\"alternatives\":false,\"context\":\"search\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\",\"query\":{\"remove\":[\"algolia\"],\"edits\":[{\"type\":\"remove\",\"delete\":\"abc\",\"insert\":\"cde\"},{\"type\":\"replace\",\"delete\":\"abc\",\"insert\":\"cde\"}]}},\"hide\":[{\"objectID\":\"321\"}],\"filterPromotes\":false,\"userData\":{\"algolia\":\"aloglia\"},\"promote\":[{\"objectID\":\"abc\",\"position\":3},{\"objectIDs\":[\"abc\",\"def\"],\"position\":1}]},\"description\":\"test\",\"enabled\":true,\"validity\":[{\"from\":1656670273,\"until\":1656670277}]}"
                 ),
                 'queryParameters' => json_decode(
                     "{\"forwardToReplicas\":\"true\"}",
@@ -1754,7 +1819,7 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for SaveRules
-     * saveRules
+     * saveRules with minimal parameters
      */
     public function testSaveRules0()
     {
@@ -1767,9 +1832,6 @@ class SearchTest extends TestCase implements HttpClientInterface
                     'conditions' => [
                         ['pattern' => 'smartphone', 'anchoring' => 'contains'],
                     ],
-                    'consequence' => [
-                        'params' => ['filters' => 'category:smartphone'],
-                    ],
                 ],
 
                 [
@@ -1777,7 +1839,75 @@ class SearchTest extends TestCase implements HttpClientInterface
                     'conditions' => [
                         ['pattern' => 'apple', 'anchoring' => 'contains'],
                     ],
-                    'consequence' => ['params' => ['filters' => 'brand:apple']],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/indexName/rules/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}]},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}]}]"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SaveRules
+     * saveRules with all parameters
+     */
+    public function testSaveRules1()
+    {
+        $client = $this->getClient();
+        $client->saveRules(
+            'indexName',
+            [
+                [
+                    'objectID' => 'id1',
+                    'conditions' => [
+                        [
+                            'pattern' => 'apple',
+                            'anchoring' => 'contains',
+                            'alternatives' => false,
+                            'context' => 'search',
+                        ],
+                    ],
+                    'consequence' => [
+                        'params' => [
+                            'filters' => 'brand:apple',
+                            'query' => [
+                                'remove' => ['algolia'],
+                                'edits' => [
+                                    [
+                                        'type' => 'remove',
+                                        'delete' => 'abc',
+                                        'insert' => 'cde',
+                                    ],
+
+                                    [
+                                        'type' => 'replace',
+                                        'delete' => 'abc',
+                                        'insert' => 'cde',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'hide' => [['objectID' => '321']],
+                        'filterPromotes' => false,
+                        'userData' => ['algolia' => 'aloglia'],
+                        'promote' => [
+                            ['objectID' => 'abc', 'position' => 3],
+
+                            ['objectIDs' => ['abc', 'def'], 'position' => 1],
+                        ],
+                    ],
+                    'description' => 'test',
+                    'enabled' => true,
+                    'validity' => [
+                        ['from' => 1656670273, 'until' => 1656670277],
+                    ],
                 ],
             ],
             true,
@@ -1789,7 +1919,7 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/indexName/rules/batch',
                 'method' => 'POST',
                 'body' => json_decode(
-                    "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]"
+                    "[{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\",\"alternatives\":false,\"context\":\"search\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\",\"query\":{\"remove\":[\"algolia\"],\"edits\":[{\"type\":\"remove\",\"delete\":\"abc\",\"insert\":\"cde\"},{\"type\":\"replace\",\"delete\":\"abc\",\"insert\":\"cde\"}]}},\"hide\":[{\"objectID\":\"321\"}],\"filterPromotes\":false,\"userData\":{\"algolia\":\"aloglia\"},\"promote\":[{\"objectID\":\"abc\",\"position\":3},{\"objectIDs\":[\"abc\",\"def\"],\"position\":1}]},\"description\":\"test\",\"enabled\":true,\"validity\":[{\"from\":1656670273,\"until\":1656670277}]}]"
                 ),
                 'queryParameters' => json_decode(
                     "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
@@ -2058,9 +2188,65 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Search
-     * search with all search parameters
+     * search filters accept all of the possible shapes
      */
     public function testSearch6()
+    {
+        $client = $this->getClient();
+        $client->search([
+            'requests' => [
+                [
+                    'indexName' => 'theIndexName',
+                    'facetFilters' => 'mySearch:filters',
+                    'reRankingApplyFilter' => 'mySearch:filters',
+                    'tagFilters' => 'mySearch:filters',
+                    'numericFilters' => 'mySearch:filters',
+                    'optionalFilters' => 'mySearch:filters',
+                ],
+
+                [
+                    'indexName' => 'theIndexName',
+                    'facetFilters' => [
+                        'mySearch:filters',
+
+                        ['mySearch:filters'],
+                    ],
+                    'reRankingApplyFilter' => [
+                        'mySearch:filters',
+
+                        ['mySearch:filters'],
+                    ],
+                    'tagFilters' => ['mySearch:filters', ['mySearch:filters']],
+                    'numericFilters' => [
+                        'mySearch:filters',
+
+                        ['mySearch:filters'],
+                    ],
+                    'optionalFilters' => [
+                        'mySearch:filters',
+
+                        ['mySearch:filters'],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/*/queries',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"indexName\":\"theIndexName\",\"facetFilters\":\"mySearch:filters\",\"reRankingApplyFilter\":\"mySearch:filters\",\"tagFilters\":\"mySearch:filters\",\"numericFilters\":\"mySearch:filters\",\"optionalFilters\":\"mySearch:filters\"},{\"indexName\":\"theIndexName\",\"facetFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"reRankingApplyFilter\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"tagFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"numericFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"optionalFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]]}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Search
+     * search with all search parameters
+     */
+    public function testSearch7()
     {
         $client = $this->getClient();
         $client->search([
@@ -2495,6 +2681,202 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'queryParameters' => json_decode(
                     "{\"forwardToReplicas\":\"true\"}",
                     true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow boolean `ignorePlurals`
+     */
+    public function testSetSettings3()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['ignorePlurals' => true],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"ignorePlurals\":true}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow list of string `ignorePlurals`
+     */
+    public function testSetSettings4()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['ignorePlurals' => ['algolia']],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"ignorePlurals\":[\"algolia\"]}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow boolean `removeStopWords`
+     */
+    public function testSetSettings5()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['removeStopWords' => true],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"removeStopWords\":true}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow list of string `removeStopWords`
+     */
+    public function testSetSettings6()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['removeStopWords' => ['algolia']],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"removeStopWords\":[\"algolia\"]}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow all `indexSettings`
+     */
+    public function testSetSettings7()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            [
+                'replicas' => [''],
+                'paginationLimitedTo' => 0,
+                'disableTypoToleranceOnWords' => ['algolia'],
+                'attributesToTransliterate' => ['algolia'],
+                'camelCaseAttributes' => ['algolia'],
+                'decompoundedAttributes' => ['algolia' => 'aloglia'],
+                'indexLanguages' => ['algolia'],
+                'disablePrefixOnAttributes' => ['algolia'],
+                'allowCompressionOfIntegerArray' => true,
+                'numericAttributesForFiltering' => ['algolia'],
+                'separatorsToIndex' => 'algolia',
+                'searchableAttributes' => ['algolia'],
+                'userData' => ['user' => 'data'],
+                'customNormalization' => [
+                    'algolia' => ['aloglia' => 'aglolia'],
+                ],
+                'attributesForFaceting' => ['algolia'],
+                'unretrievableAttributes' => ['algolia'],
+                'attributesToRetrieve' => ['algolia'],
+                'restrictSearchableAttributes' => ['algolia'],
+                'ranking' => ['geo'],
+                'customRanking' => ['algolia'],
+                'relevancyStrictness' => 10,
+                'attributesToHighlight' => ['algolia'],
+                'attributesToSnippet' => ['algolia'],
+                'highlightPreTag' => '<span>',
+                'highlightPostTag' => '</span>',
+                'snippetEllipsisText' => '---',
+                'restrictHighlightAndSnippetArrays' => true,
+                'hitsPerPage' => 10,
+                'minWordSizefor1Typo' => 5,
+                'minWordSizefor2Typos' => 11,
+                'typoTolerance' => false,
+                'allowTyposOnNumericTokens' => true,
+                'disableTypoToleranceOnAttributes' => ['algolia'],
+                'ignorePlurals' => false,
+                'removeStopWords' => false,
+                'keepDiacriticsOnCharacters' => 'abc',
+                'queryLanguages' => ['algolia'],
+                'decompoundQuery' => false,
+                'enableRules' => false,
+                'enablePersonalization' => true,
+                'queryType' => 'prefixLast',
+                'removeWordsIfNoResults' => 'lastWords',
+                'advancedSyntax' => true,
+                'optionalWords' => ['algolia'],
+                'disableExactOnAttributes' => ['algolia'],
+                'exactOnSingleWordQuery' => 'attribute',
+                'alternativesAsExact' => ['singleWordSynonym'],
+                'advancedSyntaxFeatures' => ['exactPhrase'],
+                'distinct' => 3,
+                'synonyms' => false,
+                'replaceSynonymsInHighlight' => true,
+                'minProximity' => 6,
+                'responseFields' => ['algolia'],
+                'maxFacetHits' => 50,
+                'attributeCriteriaComputedByMinProximity' => true,
+                'renderingContent' => [
+                    'facetOrdering' => [
+                        'facets' => ['order' => ['a', 'b']],
+                        'values' => [
+                            'a' => [
+                                'order' => ['b'],
+                                'sortRemainingBy' => 'count',
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode(
+                    "{\"replicas\":[\"\"],\"paginationLimitedTo\":0,\"disableTypoToleranceOnWords\":[\"algolia\"],\"attributesToTransliterate\":[\"algolia\"],\"camelCaseAttributes\":[\"algolia\"],\"decompoundedAttributes\":{\"algolia\":\"aloglia\"},\"indexLanguages\":[\"algolia\"],\"disablePrefixOnAttributes\":[\"algolia\"],\"allowCompressionOfIntegerArray\":true,\"numericAttributesForFiltering\":[\"algolia\"],\"separatorsToIndex\":\"algolia\",\"searchableAttributes\":[\"algolia\"],\"userData\":{\"user\":\"data\"},\"customNormalization\":{\"algolia\":{\"aloglia\":\"aglolia\"}},\"attributesForFaceting\":[\"algolia\"],\"unretrievableAttributes\":[\"algolia\"],\"attributesToRetrieve\":[\"algolia\"],\"restrictSearchableAttributes\":[\"algolia\"],\"ranking\":[\"geo\"],\"customRanking\":[\"algolia\"],\"relevancyStrictness\":10,\"attributesToHighlight\":[\"algolia\"],\"attributesToSnippet\":[\"algolia\"],\"highlightPreTag\":\"<span>\",\"highlightPostTag\":\"</span>\",\"snippetEllipsisText\":\"---\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":10,\"minWordSizefor1Typo\":5,\"minWordSizefor2Typos\":11,\"typoTolerance\":false,\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"algolia\"],\"ignorePlurals\":false,\"removeStopWords\":false,\"keepDiacriticsOnCharacters\":\"abc\",\"queryLanguages\":[\"algolia\"],\"decompoundQuery\":false,\"enableRules\":false,\"enablePersonalization\":true,\"queryType\":\"prefixLast\",\"removeWordsIfNoResults\":\"lastWords\",\"advancedSyntax\":true,\"optionalWords\":[\"algolia\"],\"disableExactOnAttributes\":[\"algolia\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"singleWordSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":3,\"synonyms\":false,\"replaceSynonymsInHighlight\":true,\"minProximity\":6,\"responseFields\":[\"algolia\"],\"maxFacetHits\":50,\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"facetOrdering\":{\"facets\":{\"order\":[\"a\",\"b\"]},\"values\":{\"a\":{\"order\":[\"b\"],\"sortRemainingBy\":\"count\"}}}}}"
                 ),
             ],
         ]);

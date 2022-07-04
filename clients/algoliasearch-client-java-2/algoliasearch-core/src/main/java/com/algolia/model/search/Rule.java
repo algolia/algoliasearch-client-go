@@ -75,7 +75,7 @@ public class Rule {
    *
    * @return consequence
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Consequence getConsequence() {
     return consequence;
   }

@@ -1,99 +1,78 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.algolia.utils.CompoundType;
+import com.algolia.utils.JSON;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
-/** ConsequenceQuery */
-public class ConsequenceQuery {
+@JsonAdapter(ConsequenceQuery.Adapter.class)
+/**
+ * When providing a string, it replaces the entire query string. When providing an object, it
+ * describes incremental edits to be made to the query string (but you can't do both).
+ */
+public abstract class ConsequenceQuery implements CompoundType {
 
-  @SerializedName("remove")
-  private List<String> remove;
-
-  @SerializedName("edits")
-  private List<Edit> edits;
-
-  public ConsequenceQuery setRemove(List<String> remove) {
-    this.remove = remove;
-    return this;
+  public static ConsequenceQuery of(ConsequenceQueryObject inside) {
+    return new ConsequenceQueryConsequenceQueryObject(inside);
   }
 
-  public ConsequenceQuery addRemove(String removeItem) {
-    if (this.remove == null) {
-      this.remove = new ArrayList<>();
+  public static ConsequenceQuery of(String inside) {
+    return new ConsequenceQueryString(inside);
+  }
+
+  public static class Adapter extends TypeAdapter<ConsequenceQuery> {
+
+    @Override
+    public void write(final JsonWriter out, final ConsequenceQuery oneOf) throws IOException {
+      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
+      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
     }
-    this.remove.add(removeItem);
-    return this;
-  }
 
-  /**
-   * Words to remove.
-   *
-   * @return remove
-   */
-  @javax.annotation.Nullable
-  public List<String> getRemove() {
-    return remove;
-  }
-
-  public ConsequenceQuery setEdits(List<Edit> edits) {
-    this.edits = edits;
-    return this;
-  }
-
-  public ConsequenceQuery addEdits(Edit editsItem) {
-    if (this.edits == null) {
-      this.edits = new ArrayList<>();
+    @Override
+    public ConsequenceQuery read(final JsonReader jsonReader) throws IOException {
+      ConsequenceQueryObject consequencequeryobject = JSON.tryDeserialize(jsonReader, new TypeToken<ConsequenceQueryObject>() {}.getType());
+      if (consequencequeryobject != null) {
+        return ConsequenceQuery.of(consequencequeryobject);
+      }
+      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
+      if (string != null) {
+        return ConsequenceQuery.of(string);
+      }
+      return null;
     }
-    this.edits.add(editsItem);
-    return this;
   }
+}
 
-  /**
-   * Edits to apply.
-   *
-   * @return edits
-   */
-  @javax.annotation.Nullable
-  public List<Edit> getEdits() {
-    return edits;
+@JsonAdapter(ConsequenceQuery.Adapter.class)
+class ConsequenceQueryConsequenceQueryObject extends ConsequenceQuery {
+
+  private final ConsequenceQueryObject insideValue;
+
+  ConsequenceQueryConsequenceQueryObject(ConsequenceQueryObject insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ConsequenceQuery consequenceQuery = (ConsequenceQuery) o;
-    return Objects.equals(this.remove, consequenceQuery.remove) && Objects.equals(this.edits, consequenceQuery.edits);
+  public ConsequenceQueryObject getInsideValue() {
+    return insideValue;
+  }
+}
+
+@JsonAdapter(ConsequenceQuery.Adapter.class)
+class ConsequenceQueryString extends ConsequenceQuery {
+
+  private final String insideValue;
+
+  ConsequenceQueryString(String insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(remove, edits);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ConsequenceQuery {\n");
-    sb.append("    remove: ").append(toIndentedString(remove)).append("\n");
-    sb.append("    edits: ").append(toIndentedString(edits)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  public String getInsideValue() {
+    return insideValue;
   }
 }

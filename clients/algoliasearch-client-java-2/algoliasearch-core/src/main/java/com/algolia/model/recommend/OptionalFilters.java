@@ -17,12 +17,12 @@ import java.util.List;
  */
 public abstract class OptionalFilters implements CompoundType {
 
-  public static OptionalFilters ofListOfListOfString(List<List<String>> inside) {
-    return new OptionalFiltersListOfListOfString(inside);
+  public static OptionalFilters of(List<MixedSearchFilters> inside) {
+    return new OptionalFiltersListOfMixedSearchFilters(inside);
   }
 
-  public static OptionalFilters ofListOfString(List<String> inside) {
-    return new OptionalFiltersListOfString(inside);
+  public static OptionalFilters of(String inside) {
+    return new OptionalFiltersString(inside);
   }
 
   public static class Adapter extends TypeAdapter<OptionalFilters> {
@@ -35,13 +35,16 @@ public abstract class OptionalFilters implements CompoundType {
 
     @Override
     public OptionalFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listoflistofstring != null) {
-        return OptionalFilters.ofListOfListOfString(listoflistofstring);
+      List<MixedSearchFilters> listofmixedsearchfilters = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<MixedSearchFilters>>() {}.getType()
+      );
+      if (listofmixedsearchfilters != null) {
+        return OptionalFilters.of(listofmixedsearchfilters);
       }
-      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (listofstring != null) {
-        return OptionalFilters.ofListOfString(listofstring);
+      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
+      if (string != null) {
+        return OptionalFilters.of(string);
       }
       return null;
     }
@@ -49,31 +52,31 @@ public abstract class OptionalFilters implements CompoundType {
 }
 
 @JsonAdapter(OptionalFilters.Adapter.class)
-class OptionalFiltersListOfListOfString extends OptionalFilters {
+class OptionalFiltersListOfMixedSearchFilters extends OptionalFilters {
 
-  private final List<List<String>> insideValue;
+  private final List<MixedSearchFilters> insideValue;
 
-  OptionalFiltersListOfListOfString(List<List<String>> insideValue) {
+  OptionalFiltersListOfMixedSearchFilters(List<MixedSearchFilters> insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<List<String>> getInsideValue() {
+  public List<MixedSearchFilters> getInsideValue() {
     return insideValue;
   }
 }
 
 @JsonAdapter(OptionalFilters.Adapter.class)
-class OptionalFiltersListOfString extends OptionalFilters {
+class OptionalFiltersString extends OptionalFilters {
 
-  private final List<String> insideValue;
+  private final String insideValue;
 
-  OptionalFiltersListOfString(List<String> insideValue) {
+  OptionalFiltersString(String insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<String> getInsideValue() {
+  public String getInsideValue() {
     return insideValue;
   }
 }

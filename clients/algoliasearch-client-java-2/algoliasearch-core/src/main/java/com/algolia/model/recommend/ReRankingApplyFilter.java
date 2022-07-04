@@ -17,12 +17,12 @@ import java.util.List;
  */
 public abstract class ReRankingApplyFilter implements CompoundType {
 
-  public static ReRankingApplyFilter ofListOfListOfString(List<List<String>> inside) {
-    return new ReRankingApplyFilterListOfListOfString(inside);
+  public static ReRankingApplyFilter of(List<MixedSearchFilters> inside) {
+    return new ReRankingApplyFilterListOfMixedSearchFilters(inside);
   }
 
-  public static ReRankingApplyFilter ofListOfString(List<String> inside) {
-    return new ReRankingApplyFilterListOfString(inside);
+  public static ReRankingApplyFilter of(String inside) {
+    return new ReRankingApplyFilterString(inside);
   }
 
   public static class Adapter extends TypeAdapter<ReRankingApplyFilter> {
@@ -35,13 +35,16 @@ public abstract class ReRankingApplyFilter implements CompoundType {
 
     @Override
     public ReRankingApplyFilter read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listoflistofstring != null) {
-        return ReRankingApplyFilter.ofListOfListOfString(listoflistofstring);
+      List<MixedSearchFilters> listofmixedsearchfilters = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<MixedSearchFilters>>() {}.getType()
+      );
+      if (listofmixedsearchfilters != null) {
+        return ReRankingApplyFilter.of(listofmixedsearchfilters);
       }
-      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (listofstring != null) {
-        return ReRankingApplyFilter.ofListOfString(listofstring);
+      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
+      if (string != null) {
+        return ReRankingApplyFilter.of(string);
       }
       return null;
     }
@@ -49,31 +52,31 @@ public abstract class ReRankingApplyFilter implements CompoundType {
 }
 
 @JsonAdapter(ReRankingApplyFilter.Adapter.class)
-class ReRankingApplyFilterListOfListOfString extends ReRankingApplyFilter {
+class ReRankingApplyFilterListOfMixedSearchFilters extends ReRankingApplyFilter {
 
-  private final List<List<String>> insideValue;
+  private final List<MixedSearchFilters> insideValue;
 
-  ReRankingApplyFilterListOfListOfString(List<List<String>> insideValue) {
+  ReRankingApplyFilterListOfMixedSearchFilters(List<MixedSearchFilters> insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<List<String>> getInsideValue() {
+  public List<MixedSearchFilters> getInsideValue() {
     return insideValue;
   }
 }
 
 @JsonAdapter(ReRankingApplyFilter.Adapter.class)
-class ReRankingApplyFilterListOfString extends ReRankingApplyFilter {
+class ReRankingApplyFilterString extends ReRankingApplyFilter {
 
-  private final List<String> insideValue;
+  private final String insideValue;
 
-  ReRankingApplyFilterListOfString(List<String> insideValue) {
+  ReRankingApplyFilterString(String insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<String> getInsideValue() {
+  public String getInsideValue() {
     return insideValue;
   }
 }

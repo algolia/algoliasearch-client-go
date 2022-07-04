@@ -399,6 +399,53 @@ describe('search', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
+  test('search filters accept all of the possible shapes', async () => {
+    const req = (await client.search({
+      requests: [
+        {
+          indexName: 'theIndexName',
+          facetFilters: 'mySearch:filters',
+          reRankingApplyFilter: 'mySearch:filters',
+          tagFilters: 'mySearch:filters',
+          numericFilters: 'mySearch:filters',
+          optionalFilters: 'mySearch:filters',
+        },
+        {
+          indexName: 'theIndexName',
+          facetFilters: ['mySearch:filters', ['mySearch:filters']],
+          reRankingApplyFilter: ['mySearch:filters', ['mySearch:filters']],
+          tagFilters: ['mySearch:filters', ['mySearch:filters']],
+          numericFilters: ['mySearch:filters', ['mySearch:filters']],
+          optionalFilters: ['mySearch:filters', ['mySearch:filters']],
+        },
+      ],
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/*/queries');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        {
+          indexName: 'theIndexName',
+          facetFilters: 'mySearch:filters',
+          reRankingApplyFilter: 'mySearch:filters',
+          tagFilters: 'mySearch:filters',
+          numericFilters: 'mySearch:filters',
+          optionalFilters: 'mySearch:filters',
+        },
+        {
+          indexName: 'theIndexName',
+          facetFilters: ['mySearch:filters', ['mySearch:filters']],
+          reRankingApplyFilter: ['mySearch:filters', ['mySearch:filters']],
+          tagFilters: ['mySearch:filters', ['mySearch:filters']],
+          numericFilters: ['mySearch:filters', ['mySearch:filters']],
+          optionalFilters: ['mySearch:filters', ['mySearch:filters']],
+        },
+      ],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
   test('search with all search parameters', async () => {
     const req = (await client.search({
       requests: [

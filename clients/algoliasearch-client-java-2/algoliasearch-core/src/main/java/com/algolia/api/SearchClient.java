@@ -3033,14 +3033,14 @@ public class SearchClient extends ApiClient {
    * A successful response indicates that the operation has been taken into account, and the userIDs
    * are directly usable.
    *
-   * @param getClusters Whether to get clusters or not. (optional)
+   * @param getClusters If the clusters pending mapping state should be on the response. (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CreatedAtResponse
+   * @return HasPendingMappingsResponse
    * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
    *     deserialize the response body
    */
-  public CreatedAtResponse hasPendingMappings(Boolean getClusters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+  public HasPendingMappingsResponse hasPendingMappings(Boolean getClusters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(hasPendingMappingsAsync(getClusters, requestOptions));
   }
 
@@ -3051,11 +3051,11 @@ public class SearchClient extends ApiClient {
    * A successful response indicates that the operation has been taken into account, and the userIDs
    * are directly usable.
    *
-   * @param getClusters Whether to get clusters or not. (optional)
-   * @return CreatedAtResponse
+   * @param getClusters If the clusters pending mapping state should be on the response. (optional)
+   * @return HasPendingMappingsResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CreatedAtResponse hasPendingMappings(Boolean getClusters) throws AlgoliaRuntimeException {
+  public HasPendingMappingsResponse hasPendingMappings(Boolean getClusters) throws AlgoliaRuntimeException {
     return this.hasPendingMappings(getClusters, null);
   }
 
@@ -3068,10 +3068,10 @@ public class SearchClient extends ApiClient {
    *
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CreatedAtResponse
+   * @return HasPendingMappingsResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CreatedAtResponse hasPendingMappings(RequestOptions requestOptions) throws AlgoliaRuntimeException {
+  public HasPendingMappingsResponse hasPendingMappings(RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return this.hasPendingMappings(null, requestOptions);
   }
 
@@ -3082,10 +3082,10 @@ public class SearchClient extends ApiClient {
    * A successful response indicates that the operation has been taken into account, and the userIDs
    * are directly usable.
    *
-   * @return CreatedAtResponse
+   * @return HasPendingMappingsResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CreatedAtResponse hasPendingMappings() throws AlgoliaRuntimeException {
+  public HasPendingMappingsResponse hasPendingMappings() throws AlgoliaRuntimeException {
     return this.hasPendingMappings(null, null);
   }
 
@@ -3096,13 +3096,13 @@ public class SearchClient extends ApiClient {
    * response is 200 OK. A successful response indicates that the operation has been taken into
    * account, and the userIDs are directly usable.
    *
-   * @param getClusters Whether to get clusters or not. (optional)
+   * @param getClusters If the clusters pending mapping state should be on the response. (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CompletableFuture<CreatedAtResponse> The awaitable future
+   * @return CompletableFuture<HasPendingMappingsResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<CreatedAtResponse> hasPendingMappingsAsync(Boolean getClusters, RequestOptions requestOptions)
+  public CompletableFuture<HasPendingMappingsResponse> hasPendingMappingsAsync(Boolean getClusters, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     Object bodyObj = null;
 
@@ -3117,7 +3117,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
+    Type returnType = new TypeToken<HasPendingMappingsResponse>() {}.getType();
     return this.executeAsync(call, returnType);
   }
 
@@ -3128,11 +3128,11 @@ public class SearchClient extends ApiClient {
    * response is 200 OK. A successful response indicates that the operation has been taken into
    * account, and the userIDs are directly usable.
    *
-   * @param getClusters Whether to get clusters or not. (optional)
-   * @return CompletableFuture<CreatedAtResponse> The awaitable future
+   * @param getClusters If the clusters pending mapping state should be on the response. (optional)
+   * @return CompletableFuture<HasPendingMappingsResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<CreatedAtResponse> hasPendingMappingsAsync(Boolean getClusters) throws AlgoliaRuntimeException {
+  public CompletableFuture<HasPendingMappingsResponse> hasPendingMappingsAsync(Boolean getClusters) throws AlgoliaRuntimeException {
     return this.hasPendingMappingsAsync(getClusters, null);
   }
 
@@ -3145,10 +3145,11 @@ public class SearchClient extends ApiClient {
    *
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CompletableFuture<CreatedAtResponse> The awaitable future
+   * @return CompletableFuture<HasPendingMappingsResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<CreatedAtResponse> hasPendingMappingsAsync(RequestOptions requestOptions) throws AlgoliaRuntimeException {
+  public CompletableFuture<HasPendingMappingsResponse> hasPendingMappingsAsync(RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
     return this.hasPendingMappingsAsync(null, requestOptions);
   }
 
@@ -3159,10 +3160,10 @@ public class SearchClient extends ApiClient {
    * response is 200 OK. A successful response indicates that the operation has been taken into
    * account, and the userIDs are directly usable.
    *
-   * @return CompletableFuture<CreatedAtResponse> The awaitable future
+   * @return CompletableFuture<HasPendingMappingsResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<CreatedAtResponse> hasPendingMappingsAsync() throws AlgoliaRuntimeException {
+  public CompletableFuture<HasPendingMappingsResponse> hasPendingMappingsAsync() throws AlgoliaRuntimeException {
     return this.hasPendingMappingsAsync(null, null);
   }
 

@@ -1961,7 +1961,7 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("saveRule")
+  @DisplayName("saveRule with minimal parameters")
   void saveRuleTest0() {
     String indexName0 = "indexName";
     String objectID0 = "id1";
@@ -1981,16 +1981,154 @@ class SearchClientRequestsTests {
         conditions1.add(conditions_02);
       }
       rule0.setConditions(conditions1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.saveRule(indexName0, objectID0, rule0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/indexName/rules/id1");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}]}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("saveRule with all parameters")
+  void saveRuleTest1() {
+    String indexName0 = "indexName";
+    String objectID0 = "id1";
+    Rule rule0 = new Rule();
+    {
+      String objectID1 = "id1";
+      rule0.setObjectID(objectID1);
+      List<Condition> conditions1 = new ArrayList<>();
+      {
+        Condition conditions_02 = new Condition();
+        {
+          String pattern3 = "apple";
+          conditions_02.setPattern(pattern3);
+          Anchoring anchoring3 = Anchoring.fromValue("contains");
+          conditions_02.setAnchoring(anchoring3);
+          boolean alternatives3 = false;
+          conditions_02.setAlternatives(alternatives3);
+          String context3 = "search";
+          conditions_02.setContext(context3);
+        }
+        conditions1.add(conditions_02);
+      }
+      rule0.setConditions(conditions1);
       Consequence consequence1 = new Consequence();
       {
         ConsequenceParams params2 = new ConsequenceParams();
         {
           String filters3 = "brand:apple";
           params2.setFilters(filters3);
+          ConsequenceQueryObject query3 = new ConsequenceQueryObject();
+          {
+            List<String> remove4 = new ArrayList<>();
+            {
+              String remove_05 = "algolia";
+              remove4.add(remove_05);
+            }
+            query3.setRemove(remove4);
+            List<Edit> edits4 = new ArrayList<>();
+            {
+              Edit edits_05 = new Edit();
+              {
+                EditType type6 = EditType.fromValue("remove");
+                edits_05.setType(type6);
+                String delete6 = "abc";
+                edits_05.setDelete(delete6);
+                String insert6 = "cde";
+                edits_05.setInsert(insert6);
+              }
+              edits4.add(edits_05);
+              Edit edits_15 = new Edit();
+              {
+                EditType type6 = EditType.fromValue("replace");
+                edits_15.setType(type6);
+                String delete6 = "abc";
+                edits_15.setDelete(delete6);
+                String insert6 = "cde";
+                edits_15.setInsert(insert6);
+              }
+              edits4.add(edits_15);
+            }
+            query3.setEdits(edits4);
+          }
+          params2.setQuery(ConsequenceQuery.of(query3));
         }
         consequence1.setParams(params2);
+        List<ConsequenceHide> hide2 = new ArrayList<>();
+        {
+          ConsequenceHide hide_03 = new ConsequenceHide();
+          {
+            String objectID4 = "321";
+            hide_03.setObjectID(objectID4);
+          }
+          hide2.add(hide_03);
+        }
+        consequence1.setHide(hide2);
+        boolean filterPromotes2 = false;
+        consequence1.setFilterPromotes(filterPromotes2);
+        Map<String, String> userData2 = new HashMap<>();
+        {
+          String algolia3 = "aloglia";
+          userData2.put("algolia", algolia3);
+        }
+        consequence1.setUserData(userData2);
+        List<Promote> promote2 = new ArrayList<>();
+        {
+          PromoteObjectID promote_03 = new PromoteObjectID();
+          {
+            String objectID4 = "abc";
+            promote_03.setObjectID(objectID4);
+            int position4 = 3;
+            promote_03.setPosition(position4);
+          }
+          promote2.add(Promote.of(promote_03));
+          PromoteObjectIDs promote_13 = new PromoteObjectIDs();
+          {
+            List<String> objectIDs4 = new ArrayList<>();
+            {
+              String objectIDs_05 = "abc";
+              objectIDs4.add(objectIDs_05);
+              String objectIDs_15 = "def";
+              objectIDs4.add(objectIDs_15);
+            }
+            promote_13.setObjectIDs(objectIDs4);
+            int position4 = 1;
+            promote_13.setPosition(position4);
+          }
+          promote2.add(Promote.of(promote_13));
+        }
+        consequence1.setPromote(promote2);
       }
       rule0.setConsequence(consequence1);
+      String description1 = "test";
+      rule0.setDescription(description1);
+      boolean enabled1 = true;
+      rule0.setEnabled(enabled1);
+      List<TimeRange> validity1 = new ArrayList<>();
+      {
+        TimeRange validity_02 = new TimeRange();
+        {
+          int from3 = 1656670273;
+          validity_02.setFrom(from3);
+          int until3 = 1656670277;
+          validity_02.setUntil(until3);
+        }
+        validity1.add(validity_02);
+      }
+      rule0.setValidity(validity1);
     }
     boolean forwardToReplicas0 = true;
 
@@ -2004,7 +2142,7 @@ class SearchClientRequestsTests {
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}",
+        "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\",\"alternatives\":false,\"context\":\"search\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\",\"query\":{\"remove\":[\"algolia\"],\"edits\":[{\"type\":\"remove\",\"delete\":\"abc\",\"insert\":\"cde\"},{\"type\":\"replace\",\"delete\":\"abc\",\"insert\":\"cde\"}]}},\"hide\":[{\"objectID\":\"321\"}],\"filterPromotes\":false,\"userData\":{\"algolia\":\"aloglia\"},\"promote\":[{\"objectID\":\"abc\",\"position\":3},{\"objectIDs\":[\"abc\",\"def\"],\"position\":1}]},\"description\":\"test\",\"enabled\":true,\"validity\":[{\"from\":1656670273,\"until\":1656670277}]}",
         req.body,
         JSONCompareMode.STRICT
       );
@@ -2023,7 +2161,7 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("saveRules")
+  @DisplayName("saveRules with minimal parameters")
   void saveRulesTest0() {
     String indexName0 = "indexName";
     List<Rule> rule0 = new ArrayList<>();
@@ -2044,16 +2182,6 @@ class SearchClientRequestsTests {
           conditions2.add(conditions_03);
         }
         rule_01.setConditions(conditions2);
-        Consequence consequence2 = new Consequence();
-        {
-          ConsequenceParams params3 = new ConsequenceParams();
-          {
-            String filters4 = "category:smartphone";
-            params3.setFilters(filters4);
-          }
-          consequence2.setParams(params3);
-        }
-        rule_01.setConsequence(consequence2);
       }
       rule0.add(rule_01);
       Rule rule_11 = new Rule();
@@ -2072,18 +2200,159 @@ class SearchClientRequestsTests {
           conditions2.add(conditions_03);
         }
         rule_11.setConditions(conditions2);
+      }
+      rule0.add(rule_11);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.saveRules(indexName0, rule0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/indexName/rules/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}]},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}]}]",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("saveRules with all parameters")
+  void saveRulesTest1() {
+    String indexName0 = "indexName";
+    List<Rule> rule0 = new ArrayList<>();
+    {
+      Rule rule_01 = new Rule();
+      {
+        String objectID2 = "id1";
+        rule_01.setObjectID(objectID2);
+        List<Condition> conditions2 = new ArrayList<>();
+        {
+          Condition conditions_03 = new Condition();
+          {
+            String pattern4 = "apple";
+            conditions_03.setPattern(pattern4);
+            Anchoring anchoring4 = Anchoring.fromValue("contains");
+            conditions_03.setAnchoring(anchoring4);
+            boolean alternatives4 = false;
+            conditions_03.setAlternatives(alternatives4);
+            String context4 = "search";
+            conditions_03.setContext(context4);
+          }
+          conditions2.add(conditions_03);
+        }
+        rule_01.setConditions(conditions2);
         Consequence consequence2 = new Consequence();
         {
           ConsequenceParams params3 = new ConsequenceParams();
           {
             String filters4 = "brand:apple";
             params3.setFilters(filters4);
+            ConsequenceQueryObject query4 = new ConsequenceQueryObject();
+            {
+              List<String> remove5 = new ArrayList<>();
+              {
+                String remove_06 = "algolia";
+                remove5.add(remove_06);
+              }
+              query4.setRemove(remove5);
+              List<Edit> edits5 = new ArrayList<>();
+              {
+                Edit edits_06 = new Edit();
+                {
+                  EditType type7 = EditType.fromValue("remove");
+                  edits_06.setType(type7);
+                  String delete7 = "abc";
+                  edits_06.setDelete(delete7);
+                  String insert7 = "cde";
+                  edits_06.setInsert(insert7);
+                }
+                edits5.add(edits_06);
+                Edit edits_16 = new Edit();
+                {
+                  EditType type7 = EditType.fromValue("replace");
+                  edits_16.setType(type7);
+                  String delete7 = "abc";
+                  edits_16.setDelete(delete7);
+                  String insert7 = "cde";
+                  edits_16.setInsert(insert7);
+                }
+                edits5.add(edits_16);
+              }
+              query4.setEdits(edits5);
+            }
+            params3.setQuery(ConsequenceQuery.of(query4));
           }
           consequence2.setParams(params3);
+          List<ConsequenceHide> hide3 = new ArrayList<>();
+          {
+            ConsequenceHide hide_04 = new ConsequenceHide();
+            {
+              String objectID5 = "321";
+              hide_04.setObjectID(objectID5);
+            }
+            hide3.add(hide_04);
+          }
+          consequence2.setHide(hide3);
+          boolean filterPromotes3 = false;
+          consequence2.setFilterPromotes(filterPromotes3);
+          Map<String, String> userData3 = new HashMap<>();
+          {
+            String algolia4 = "aloglia";
+            userData3.put("algolia", algolia4);
+          }
+          consequence2.setUserData(userData3);
+          List<Promote> promote3 = new ArrayList<>();
+          {
+            PromoteObjectID promote_04 = new PromoteObjectID();
+            {
+              String objectID5 = "abc";
+              promote_04.setObjectID(objectID5);
+              int position5 = 3;
+              promote_04.setPosition(position5);
+            }
+            promote3.add(Promote.of(promote_04));
+            PromoteObjectIDs promote_14 = new PromoteObjectIDs();
+            {
+              List<String> objectIDs5 = new ArrayList<>();
+              {
+                String objectIDs_06 = "abc";
+                objectIDs5.add(objectIDs_06);
+                String objectIDs_16 = "def";
+                objectIDs5.add(objectIDs_16);
+              }
+              promote_14.setObjectIDs(objectIDs5);
+              int position5 = 1;
+              promote_14.setPosition(position5);
+            }
+            promote3.add(Promote.of(promote_14));
+          }
+          consequence2.setPromote(promote3);
         }
-        rule_11.setConsequence(consequence2);
+        rule_01.setConsequence(consequence2);
+        String description2 = "test";
+        rule_01.setDescription(description2);
+        boolean enabled2 = true;
+        rule_01.setEnabled(enabled2);
+        List<TimeRange> validity2 = new ArrayList<>();
+        {
+          TimeRange validity_03 = new TimeRange();
+          {
+            int from4 = 1656670273;
+            validity_03.setFrom(from4);
+            int until4 = 1656670277;
+            validity_03.setUntil(until4);
+          }
+          validity2.add(validity_03);
+        }
+        rule_01.setValidity(validity2);
       }
-      rule0.add(rule_11);
+      rule0.add(rule_01);
     }
     boolean forwardToReplicas0 = true;
     boolean clearExistingRules0 = true;
@@ -2098,7 +2367,7 @@ class SearchClientRequestsTests {
 
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"category:smartphone\"}}},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\"}}}]",
+        "[{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\",\"alternatives\":false,\"context\":\"search\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\",\"query\":{\"remove\":[\"algolia\"],\"edits\":[{\"type\":\"remove\",\"delete\":\"abc\",\"insert\":\"cde\"},{\"type\":\"replace\",\"delete\":\"abc\",\"insert\":\"cde\"}]}},\"hide\":[{\"objectID\":\"321\"}],\"filterPromotes\":false,\"userData\":{\"algolia\":\"aloglia\"},\"promote\":[{\"objectID\":\"abc\",\"position\":3},{\"objectIDs\":[\"abc\",\"def\"],\"position\":1}]},\"description\":\"test\",\"enabled\":true,\"validity\":[{\"from\":1656670273,\"until\":1656670277}]}]",
         req.body,
         JSONCompareMode.STRICT
       );
@@ -2513,8 +2782,118 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("search with all search parameters")
+  @DisplayName("search filters accept all of the possible shapes")
   void searchTest6() {
+    SearchMethodParams searchMethodParams0 = new SearchMethodParams();
+    {
+      List<SearchQuery> requests1 = new ArrayList<>();
+      {
+        SearchForHits requests_02 = new SearchForHits();
+        {
+          String indexName3 = "theIndexName";
+          requests_02.setIndexName(indexName3);
+          String facetFilters3 = "mySearch:filters";
+          requests_02.setFacetFilters(FacetFilters.of(facetFilters3));
+          String reRankingApplyFilter3 = "mySearch:filters";
+          requests_02.setReRankingApplyFilter(ReRankingApplyFilter.of(reRankingApplyFilter3));
+          String tagFilters3 = "mySearch:filters";
+          requests_02.setTagFilters(TagFilters.of(tagFilters3));
+          String numericFilters3 = "mySearch:filters";
+          requests_02.setNumericFilters(NumericFilters.of(numericFilters3));
+          String optionalFilters3 = "mySearch:filters";
+          requests_02.setOptionalFilters(OptionalFilters.of(optionalFilters3));
+        }
+        requests1.add(SearchQuery.of(requests_02));
+        SearchForHits requests_12 = new SearchForHits();
+        {
+          String indexName3 = "theIndexName";
+          requests_12.setIndexName(indexName3);
+          List<MixedSearchFilters> facetFilters3 = new ArrayList<>();
+          {
+            String facetFilters_04 = "mySearch:filters";
+            facetFilters3.add(MixedSearchFilters.of(facetFilters_04));
+            List<String> facetFilters_14 = new ArrayList<>();
+            {
+              String facetFilters_1_05 = "mySearch:filters";
+              facetFilters_14.add(facetFilters_1_05);
+            }
+            facetFilters3.add(MixedSearchFilters.of(facetFilters_14));
+          }
+          requests_12.setFacetFilters(FacetFilters.of(facetFilters3));
+          List<MixedSearchFilters> reRankingApplyFilter3 = new ArrayList<>();
+          {
+            String reRankingApplyFilter_04 = "mySearch:filters";
+            reRankingApplyFilter3.add(MixedSearchFilters.of(reRankingApplyFilter_04));
+            List<String> reRankingApplyFilter_14 = new ArrayList<>();
+            {
+              String reRankingApplyFilter_1_05 = "mySearch:filters";
+              reRankingApplyFilter_14.add(reRankingApplyFilter_1_05);
+            }
+            reRankingApplyFilter3.add(MixedSearchFilters.of(reRankingApplyFilter_14));
+          }
+          requests_12.setReRankingApplyFilter(ReRankingApplyFilter.of(reRankingApplyFilter3));
+          List<MixedSearchFilters> tagFilters3 = new ArrayList<>();
+          {
+            String tagFilters_04 = "mySearch:filters";
+            tagFilters3.add(MixedSearchFilters.of(tagFilters_04));
+            List<String> tagFilters_14 = new ArrayList<>();
+            {
+              String tagFilters_1_05 = "mySearch:filters";
+              tagFilters_14.add(tagFilters_1_05);
+            }
+            tagFilters3.add(MixedSearchFilters.of(tagFilters_14));
+          }
+          requests_12.setTagFilters(TagFilters.of(tagFilters3));
+          List<MixedSearchFilters> numericFilters3 = new ArrayList<>();
+          {
+            String numericFilters_04 = "mySearch:filters";
+            numericFilters3.add(MixedSearchFilters.of(numericFilters_04));
+            List<String> numericFilters_14 = new ArrayList<>();
+            {
+              String numericFilters_1_05 = "mySearch:filters";
+              numericFilters_14.add(numericFilters_1_05);
+            }
+            numericFilters3.add(MixedSearchFilters.of(numericFilters_14));
+          }
+          requests_12.setNumericFilters(NumericFilters.of(numericFilters3));
+          List<MixedSearchFilters> optionalFilters3 = new ArrayList<>();
+          {
+            String optionalFilters_04 = "mySearch:filters";
+            optionalFilters3.add(MixedSearchFilters.of(optionalFilters_04));
+            List<String> optionalFilters_14 = new ArrayList<>();
+            {
+              String optionalFilters_1_05 = "mySearch:filters";
+              optionalFilters_14.add(optionalFilters_1_05);
+            }
+            optionalFilters3.add(MixedSearchFilters.of(optionalFilters_14));
+          }
+          requests_12.setOptionalFilters(OptionalFilters.of(optionalFilters3));
+        }
+        requests1.add(SearchQuery.of(requests_12));
+      }
+      searchMethodParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.search(searchMethodParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/*/queries");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"indexName\":\"theIndexName\",\"facetFilters\":\"mySearch:filters\",\"reRankingApplyFilter\":\"mySearch:filters\",\"tagFilters\":\"mySearch:filters\",\"numericFilters\":\"mySearch:filters\",\"optionalFilters\":\"mySearch:filters\"},{\"indexName\":\"theIndexName\",\"facetFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"reRankingApplyFilter\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"tagFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"numericFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"optionalFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]]}]}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("search with all search parameters")
+  void searchTest7() {
     SearchMethodParams searchMethodParams0 = new SearchMethodParams();
     {
       List<SearchQuery> requests1 = new ArrayList<>();
@@ -2529,30 +2908,30 @@ class SearchClientRequestsTests {
           requests_02.setSimilarQuery(similarQuery3);
           String filters3 = "";
           requests_02.setFilters(filters3);
-          List<String> facetFilters3 = new ArrayList<>();
+          List<MixedSearchFilters> facetFilters3 = new ArrayList<>();
           {
             String facetFilters_04 = "";
-            facetFilters3.add(facetFilters_04);
+            facetFilters3.add(MixedSearchFilters.of(facetFilters_04));
           }
-          requests_02.setFacetFilters(FacetFilters.ofListOfString(facetFilters3));
-          List<String> optionalFilters3 = new ArrayList<>();
+          requests_02.setFacetFilters(FacetFilters.of(facetFilters3));
+          List<MixedSearchFilters> optionalFilters3 = new ArrayList<>();
           {
             String optionalFilters_04 = "";
-            optionalFilters3.add(optionalFilters_04);
+            optionalFilters3.add(MixedSearchFilters.of(optionalFilters_04));
           }
-          requests_02.setOptionalFilters(OptionalFilters.ofListOfString(optionalFilters3));
-          List<String> numericFilters3 = new ArrayList<>();
+          requests_02.setOptionalFilters(OptionalFilters.of(optionalFilters3));
+          List<MixedSearchFilters> numericFilters3 = new ArrayList<>();
           {
             String numericFilters_04 = "";
-            numericFilters3.add(numericFilters_04);
+            numericFilters3.add(MixedSearchFilters.of(numericFilters_04));
           }
-          requests_02.setNumericFilters(NumericFilters.ofListOfString(numericFilters3));
-          List<String> tagFilters3 = new ArrayList<>();
+          requests_02.setNumericFilters(NumericFilters.of(numericFilters3));
+          List<MixedSearchFilters> tagFilters3 = new ArrayList<>();
           {
             String tagFilters_04 = "";
-            tagFilters3.add(tagFilters_04);
+            tagFilters3.add(MixedSearchFilters.of(tagFilters_04));
           }
-          requests_02.setTagFilters(TagFilters.ofListOfString(tagFilters3));
+          requests_02.setTagFilters(TagFilters.of(tagFilters3));
           boolean sumOrFiltersScores3 = true;
           requests_02.setSumOrFiltersScores(sumOrFiltersScores3);
           List<String> facets3 = new ArrayList<>();
@@ -2633,12 +3012,12 @@ class SearchClientRequestsTests {
           requests_02.setEnableABTest(enableABTest3);
           boolean enableReRanking3 = true;
           requests_02.setEnableReRanking(enableReRanking3);
-          List<String> reRankingApplyFilter3 = new ArrayList<>();
+          List<MixedSearchFilters> reRankingApplyFilter3 = new ArrayList<>();
           {
             String reRankingApplyFilter_04 = "";
-            reRankingApplyFilter3.add(reRankingApplyFilter_04);
+            reRankingApplyFilter3.add(MixedSearchFilters.of(reRankingApplyFilter_04));
           }
-          requests_02.setReRankingApplyFilter(ReRankingApplyFilter.ofListOfString(reRankingApplyFilter3));
+          requests_02.setReRankingApplyFilter(ReRankingApplyFilter.of(reRankingApplyFilter3));
           List<String> attributesForFaceting3 = new ArrayList<>();
           {
             String attributesForFaceting_04 = "";
@@ -2993,12 +3372,12 @@ class SearchClientRequestsTests {
     {
       String query1 = "myQuery";
       searchParams0.setQuery(query1);
-      List<String> facetFilters1 = new ArrayList<>();
+      List<MixedSearchFilters> facetFilters1 = new ArrayList<>();
       {
         String facetFilters_02 = "tags:algolia";
-        facetFilters1.add(facetFilters_02);
+        facetFilters1.add(MixedSearchFilters.of(facetFilters_02));
       }
-      searchParams0.setFacetFilters(FacetFilters.ofListOfString(facetFilters1));
+      searchParams0.setFacetFilters(FacetFilters.of(facetFilters1));
     }
 
     assertDoesNotThrow(() -> {
@@ -3251,6 +3630,433 @@ class SearchClientRequestsTests {
     for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
       assertEquals(expectedQuery.get(p.getKey()), p.getValue());
     }
+  }
+
+  @Test
+  @DisplayName("setSettings allow boolean `ignorePlurals`")
+  void setSettingsTest3() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      boolean ignorePlurals1 = true;
+      indexSettings0.setIgnorePlurals(IgnorePlurals.of(ignorePlurals1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"ignorePlurals\":true}", req.body, JSONCompareMode.STRICT);
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"forwardToReplicas\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow list of string `ignorePlurals`")
+  void setSettingsTest4() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      List<String> ignorePlurals1 = new ArrayList<>();
+      {
+        String ignorePlurals_02 = "algolia";
+        ignorePlurals1.add(ignorePlurals_02);
+      }
+      indexSettings0.setIgnorePlurals(IgnorePlurals.of(ignorePlurals1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"ignorePlurals\":[\"algolia\"]}", req.body, JSONCompareMode.STRICT);
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"forwardToReplicas\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow boolean `removeStopWords`")
+  void setSettingsTest5() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      boolean removeStopWords1 = true;
+      indexSettings0.setRemoveStopWords(RemoveStopWords.of(removeStopWords1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"removeStopWords\":true}", req.body, JSONCompareMode.STRICT);
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"forwardToReplicas\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow list of string `removeStopWords`")
+  void setSettingsTest6() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      List<String> removeStopWords1 = new ArrayList<>();
+      {
+        String removeStopWords_02 = "algolia";
+        removeStopWords1.add(removeStopWords_02);
+      }
+      indexSettings0.setRemoveStopWords(RemoveStopWords.of(removeStopWords1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"removeStopWords\":[\"algolia\"]}", req.body, JSONCompareMode.STRICT);
+    });
+
+    Map<String, String> expectedQuery = JSON.deserialize(
+      "{\"forwardToReplicas\":\"true\"}",
+      new TypeToken<HashMap<String, String>>() {}.getType()
+    );
+    Map<String, Object> actualQuery = req.queryParameters;
+
+    assertEquals(expectedQuery.size(), actualQuery.size());
+    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow all `indexSettings`")
+  void setSettingsTest7() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      List<String> replicas1 = new ArrayList<>();
+      {
+        String replicas_02 = "";
+        replicas1.add(replicas_02);
+      }
+      indexSettings0.setReplicas(replicas1);
+      int paginationLimitedTo1 = 0;
+      indexSettings0.setPaginationLimitedTo(paginationLimitedTo1);
+      List<String> disableTypoToleranceOnWords1 = new ArrayList<>();
+      {
+        String disableTypoToleranceOnWords_02 = "algolia";
+        disableTypoToleranceOnWords1.add(disableTypoToleranceOnWords_02);
+      }
+      indexSettings0.setDisableTypoToleranceOnWords(disableTypoToleranceOnWords1);
+      List<String> attributesToTransliterate1 = new ArrayList<>();
+      {
+        String attributesToTransliterate_02 = "algolia";
+        attributesToTransliterate1.add(attributesToTransliterate_02);
+      }
+      indexSettings0.setAttributesToTransliterate(attributesToTransliterate1);
+      List<String> camelCaseAttributes1 = new ArrayList<>();
+      {
+        String camelCaseAttributes_02 = "algolia";
+        camelCaseAttributes1.add(camelCaseAttributes_02);
+      }
+      indexSettings0.setCamelCaseAttributes(camelCaseAttributes1);
+      Map<String, String> decompoundedAttributes1 = new HashMap<>();
+      {
+        String algolia2 = "aloglia";
+        decompoundedAttributes1.put("algolia", algolia2);
+      }
+      indexSettings0.setDecompoundedAttributes(decompoundedAttributes1);
+      List<String> indexLanguages1 = new ArrayList<>();
+      {
+        String indexLanguages_02 = "algolia";
+        indexLanguages1.add(indexLanguages_02);
+      }
+      indexSettings0.setIndexLanguages(indexLanguages1);
+      List<String> disablePrefixOnAttributes1 = new ArrayList<>();
+      {
+        String disablePrefixOnAttributes_02 = "algolia";
+        disablePrefixOnAttributes1.add(disablePrefixOnAttributes_02);
+      }
+      indexSettings0.setDisablePrefixOnAttributes(disablePrefixOnAttributes1);
+      boolean allowCompressionOfIntegerArray1 = true;
+      indexSettings0.setAllowCompressionOfIntegerArray(allowCompressionOfIntegerArray1);
+      List<String> numericAttributesForFiltering1 = new ArrayList<>();
+      {
+        String numericAttributesForFiltering_02 = "algolia";
+        numericAttributesForFiltering1.add(numericAttributesForFiltering_02);
+      }
+      indexSettings0.setNumericAttributesForFiltering(numericAttributesForFiltering1);
+      String separatorsToIndex1 = "algolia";
+      indexSettings0.setSeparatorsToIndex(separatorsToIndex1);
+      List<String> searchableAttributes1 = new ArrayList<>();
+      {
+        String searchableAttributes_02 = "algolia";
+        searchableAttributes1.add(searchableAttributes_02);
+      }
+      indexSettings0.setSearchableAttributes(searchableAttributes1);
+      Map<String, String> userData1 = new HashMap<>();
+      {
+        String user2 = "data";
+        userData1.put("user", user2);
+      }
+      indexSettings0.setUserData(userData1);
+      Map<String, Map<String, String>> customNormalization1 = new HashMap<>();
+      {
+        Map<String, String> algolia2 = new HashMap<>();
+        {
+          String aloglia3 = "aglolia";
+          algolia2.put("aloglia", aloglia3);
+        }
+        customNormalization1.put("algolia", algolia2);
+      }
+      indexSettings0.setCustomNormalization(customNormalization1);
+      List<String> attributesForFaceting1 = new ArrayList<>();
+      {
+        String attributesForFaceting_02 = "algolia";
+        attributesForFaceting1.add(attributesForFaceting_02);
+      }
+      indexSettings0.setAttributesForFaceting(attributesForFaceting1);
+      List<String> unretrievableAttributes1 = new ArrayList<>();
+      {
+        String unretrievableAttributes_02 = "algolia";
+        unretrievableAttributes1.add(unretrievableAttributes_02);
+      }
+      indexSettings0.setUnretrievableAttributes(unretrievableAttributes1);
+      List<String> attributesToRetrieve1 = new ArrayList<>();
+      {
+        String attributesToRetrieve_02 = "algolia";
+        attributesToRetrieve1.add(attributesToRetrieve_02);
+      }
+      indexSettings0.setAttributesToRetrieve(attributesToRetrieve1);
+      List<String> restrictSearchableAttributes1 = new ArrayList<>();
+      {
+        String restrictSearchableAttributes_02 = "algolia";
+        restrictSearchableAttributes1.add(restrictSearchableAttributes_02);
+      }
+      indexSettings0.setRestrictSearchableAttributes(restrictSearchableAttributes1);
+      List<String> ranking1 = new ArrayList<>();
+      {
+        String ranking_02 = "geo";
+        ranking1.add(ranking_02);
+      }
+      indexSettings0.setRanking(ranking1);
+      List<String> customRanking1 = new ArrayList<>();
+      {
+        String customRanking_02 = "algolia";
+        customRanking1.add(customRanking_02);
+      }
+      indexSettings0.setCustomRanking(customRanking1);
+      int relevancyStrictness1 = 10;
+      indexSettings0.setRelevancyStrictness(relevancyStrictness1);
+      List<String> attributesToHighlight1 = new ArrayList<>();
+      {
+        String attributesToHighlight_02 = "algolia";
+        attributesToHighlight1.add(attributesToHighlight_02);
+      }
+      indexSettings0.setAttributesToHighlight(attributesToHighlight1);
+      List<String> attributesToSnippet1 = new ArrayList<>();
+      {
+        String attributesToSnippet_02 = "algolia";
+        attributesToSnippet1.add(attributesToSnippet_02);
+      }
+      indexSettings0.setAttributesToSnippet(attributesToSnippet1);
+      String highlightPreTag1 = "<span>";
+      indexSettings0.setHighlightPreTag(highlightPreTag1);
+      String highlightPostTag1 = "</span>";
+      indexSettings0.setHighlightPostTag(highlightPostTag1);
+      String snippetEllipsisText1 = "---";
+      indexSettings0.setSnippetEllipsisText(snippetEllipsisText1);
+      boolean restrictHighlightAndSnippetArrays1 = true;
+      indexSettings0.setRestrictHighlightAndSnippetArrays(restrictHighlightAndSnippetArrays1);
+      int hitsPerPage1 = 10;
+      indexSettings0.setHitsPerPage(hitsPerPage1);
+      int minWordSizefor1Typo1 = 5;
+      indexSettings0.setMinWordSizefor1Typo(minWordSizefor1Typo1);
+      int minWordSizefor2Typos1 = 11;
+      indexSettings0.setMinWordSizefor2Typos(minWordSizefor2Typos1);
+      boolean typoTolerance1 = false;
+      indexSettings0.setTypoTolerance(TypoTolerance.of(typoTolerance1));
+      boolean allowTyposOnNumericTokens1 = true;
+      indexSettings0.setAllowTyposOnNumericTokens(allowTyposOnNumericTokens1);
+      List<String> disableTypoToleranceOnAttributes1 = new ArrayList<>();
+      {
+        String disableTypoToleranceOnAttributes_02 = "algolia";
+        disableTypoToleranceOnAttributes1.add(disableTypoToleranceOnAttributes_02);
+      }
+      indexSettings0.setDisableTypoToleranceOnAttributes(disableTypoToleranceOnAttributes1);
+      boolean ignorePlurals1 = false;
+      indexSettings0.setIgnorePlurals(IgnorePlurals.of(ignorePlurals1));
+      boolean removeStopWords1 = false;
+      indexSettings0.setRemoveStopWords(RemoveStopWords.of(removeStopWords1));
+      String keepDiacriticsOnCharacters1 = "abc";
+      indexSettings0.setKeepDiacriticsOnCharacters(keepDiacriticsOnCharacters1);
+      List<String> queryLanguages1 = new ArrayList<>();
+      {
+        String queryLanguages_02 = "algolia";
+        queryLanguages1.add(queryLanguages_02);
+      }
+      indexSettings0.setQueryLanguages(queryLanguages1);
+      boolean decompoundQuery1 = false;
+      indexSettings0.setDecompoundQuery(decompoundQuery1);
+      boolean enableRules1 = false;
+      indexSettings0.setEnableRules(enableRules1);
+      boolean enablePersonalization1 = true;
+      indexSettings0.setEnablePersonalization(enablePersonalization1);
+      QueryType queryType1 = QueryType.fromValue("prefixLast");
+      indexSettings0.setQueryType(queryType1);
+      RemoveWordsIfNoResults removeWordsIfNoResults1 = RemoveWordsIfNoResults.fromValue("lastWords");
+      indexSettings0.setRemoveWordsIfNoResults(removeWordsIfNoResults1);
+      boolean advancedSyntax1 = true;
+      indexSettings0.setAdvancedSyntax(advancedSyntax1);
+      List<String> optionalWords1 = new ArrayList<>();
+      {
+        String optionalWords_02 = "algolia";
+        optionalWords1.add(optionalWords_02);
+      }
+      indexSettings0.setOptionalWords(optionalWords1);
+      List<String> disableExactOnAttributes1 = new ArrayList<>();
+      {
+        String disableExactOnAttributes_02 = "algolia";
+        disableExactOnAttributes1.add(disableExactOnAttributes_02);
+      }
+      indexSettings0.setDisableExactOnAttributes(disableExactOnAttributes1);
+      ExactOnSingleWordQuery exactOnSingleWordQuery1 = ExactOnSingleWordQuery.fromValue("attribute");
+      indexSettings0.setExactOnSingleWordQuery(exactOnSingleWordQuery1);
+      List<AlternativesAsExact> alternativesAsExact1 = new ArrayList<>();
+      {
+        AlternativesAsExact alternativesAsExact_02 = AlternativesAsExact.fromValue("singleWordSynonym");
+        alternativesAsExact1.add(alternativesAsExact_02);
+      }
+      indexSettings0.setAlternativesAsExact(alternativesAsExact1);
+      List<AdvancedSyntaxFeatures> advancedSyntaxFeatures1 = new ArrayList<>();
+      {
+        AdvancedSyntaxFeatures advancedSyntaxFeatures_02 = AdvancedSyntaxFeatures.fromValue("exactPhrase");
+        advancedSyntaxFeatures1.add(advancedSyntaxFeatures_02);
+      }
+      indexSettings0.setAdvancedSyntaxFeatures(advancedSyntaxFeatures1);
+      int distinct1 = 3;
+      indexSettings0.setDistinct(distinct1);
+      boolean synonyms1 = false;
+      indexSettings0.setSynonyms(synonyms1);
+      boolean replaceSynonymsInHighlight1 = true;
+      indexSettings0.setReplaceSynonymsInHighlight(replaceSynonymsInHighlight1);
+      int minProximity1 = 6;
+      indexSettings0.setMinProximity(minProximity1);
+      List<String> responseFields1 = new ArrayList<>();
+      {
+        String responseFields_02 = "algolia";
+        responseFields1.add(responseFields_02);
+      }
+      indexSettings0.setResponseFields(responseFields1);
+      int maxFacetHits1 = 50;
+      indexSettings0.setMaxFacetHits(maxFacetHits1);
+      boolean attributeCriteriaComputedByMinProximity1 = true;
+      indexSettings0.setAttributeCriteriaComputedByMinProximity(attributeCriteriaComputedByMinProximity1);
+      RenderingContent renderingContent1 = new RenderingContent();
+      {
+        FacetOrdering facetOrdering2 = new FacetOrdering();
+        {
+          Facets facets3 = new Facets();
+          {
+            List<String> order4 = new ArrayList<>();
+            {
+              String order_05 = "a";
+              order4.add(order_05);
+              String order_15 = "b";
+              order4.add(order_15);
+            }
+            facets3.setOrder(order4);
+          }
+          facetOrdering2.setFacets(facets3);
+          Map<String, Value> values3 = new HashMap<>();
+          {
+            Value a4 = new Value();
+            {
+              List<String> order5 = new ArrayList<>();
+              {
+                String order_06 = "b";
+                order5.add(order_06);
+              }
+              a4.setOrder(order5);
+              SortRemainingBy sortRemainingBy5 = SortRemainingBy.fromValue("count");
+              a4.setSortRemainingBy(sortRemainingBy5);
+            }
+            values3.put("a", a4);
+          }
+          facetOrdering2.setValues(values3);
+        }
+        renderingContent1.setFacetOrdering(facetOrdering2);
+      }
+      indexSettings0.setRenderingContent(renderingContent1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"replicas\":[\"\"],\"paginationLimitedTo\":0,\"disableTypoToleranceOnWords\":[\"algolia\"],\"attributesToTransliterate\":[\"algolia\"],\"camelCaseAttributes\":[\"algolia\"],\"decompoundedAttributes\":{\"algolia\":\"aloglia\"},\"indexLanguages\":[\"algolia\"],\"disablePrefixOnAttributes\":[\"algolia\"],\"allowCompressionOfIntegerArray\":true,\"numericAttributesForFiltering\":[\"algolia\"],\"separatorsToIndex\":\"algolia\",\"searchableAttributes\":[\"algolia\"],\"userData\":{\"user\":\"data\"},\"customNormalization\":{\"algolia\":{\"aloglia\":\"aglolia\"}},\"attributesForFaceting\":[\"algolia\"],\"unretrievableAttributes\":[\"algolia\"],\"attributesToRetrieve\":[\"algolia\"],\"restrictSearchableAttributes\":[\"algolia\"],\"ranking\":[\"geo\"],\"customRanking\":[\"algolia\"],\"relevancyStrictness\":10,\"attributesToHighlight\":[\"algolia\"],\"attributesToSnippet\":[\"algolia\"],\"highlightPreTag\":\"<span>\",\"highlightPostTag\":\"</span>\",\"snippetEllipsisText\":\"---\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":10,\"minWordSizefor1Typo\":5,\"minWordSizefor2Typos\":11,\"typoTolerance\":false,\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"algolia\"],\"ignorePlurals\":false,\"removeStopWords\":false,\"keepDiacriticsOnCharacters\":\"abc\",\"queryLanguages\":[\"algolia\"],\"decompoundQuery\":false,\"enableRules\":false,\"enablePersonalization\":true,\"queryType\":\"prefixLast\",\"removeWordsIfNoResults\":\"lastWords\",\"advancedSyntax\":true,\"optionalWords\":[\"algolia\"],\"disableExactOnAttributes\":[\"algolia\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"singleWordSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":3,\"synonyms\":false,\"replaceSynonymsInHighlight\":true,\"minProximity\":6,\"responseFields\":[\"algolia\"],\"maxFacetHits\":50,\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"facetOrdering\":{\"facets\":{\"order\":[\"a\",\"b\"]},\"values\":{\"a\":{\"order\":[\"b\"],\"sortRemainingBy\":\"count\"}}}}}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
   }
 
   @Test

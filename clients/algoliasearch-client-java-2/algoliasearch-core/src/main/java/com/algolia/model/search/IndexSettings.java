@@ -2,7 +2,9 @@ package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** The Algolia index settings. */
@@ -46,6 +48,9 @@ public class IndexSettings {
 
   @SerializedName("userData")
   private Object userData;
+
+  @SerializedName("customNormalization")
+  private Map<String, Map<String, String>> customNormalization;
 
   @SerializedName("attributesForFaceting")
   private List<String> attributesForFaceting;
@@ -248,7 +253,8 @@ public class IndexSettings {
   }
 
   /**
-   * Specify on which attributes to apply transliteration.
+   * Specify on which attributes in your index Algolia should apply Japanese transliteration to make
+   * words indexed in Katakana or Kanji searchable in Hiragana.
    *
    * @return attributesToTransliterate
    */
@@ -432,6 +438,29 @@ public class IndexSettings {
   @javax.annotation.Nullable
   public Object getUserData() {
     return userData;
+  }
+
+  public IndexSettings setCustomNormalization(Map<String, Map<String, String>> customNormalization) {
+    this.customNormalization = customNormalization;
+    return this;
+  }
+
+  public IndexSettings putCustomNormalization(String key, Map<String, String> customNormalizationItem) {
+    if (this.customNormalization == null) {
+      this.customNormalization = new HashMap<>();
+    }
+    this.customNormalization.put(key, customNormalizationItem);
+    return this;
+  }
+
+  /**
+   * Overrides Algolia's default normalization.
+   *
+   * @return customNormalization
+   */
+  @javax.annotation.Nullable
+  public Map<String, Map<String, String>> getCustomNormalization() {
+    return customNormalization;
   }
 
   public IndexSettings setAttributesForFaceting(List<String> attributesForFaceting) {
@@ -1216,6 +1245,7 @@ public class IndexSettings {
       Objects.equals(this.separatorsToIndex, indexSettings.separatorsToIndex) &&
       Objects.equals(this.searchableAttributes, indexSettings.searchableAttributes) &&
       Objects.equals(this.userData, indexSettings.userData) &&
+      Objects.equals(this.customNormalization, indexSettings.customNormalization) &&
       Objects.equals(this.attributesForFaceting, indexSettings.attributesForFaceting) &&
       Objects.equals(this.unretrievableAttributes, indexSettings.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, indexSettings.attributesToRetrieve) &&
@@ -1277,6 +1307,7 @@ public class IndexSettings {
       separatorsToIndex,
       searchableAttributes,
       userData,
+      customNormalization,
       attributesForFaceting,
       unretrievableAttributes,
       attributesToRetrieve,
@@ -1339,6 +1370,7 @@ public class IndexSettings {
     sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
     sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    customNormalization: ").append(toIndentedString(customNormalization)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
     sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");

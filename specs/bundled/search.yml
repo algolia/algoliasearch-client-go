@@ -168,21 +168,29 @@ components:
       default: ''
       x-categories:
         - Search
+    searchParamsQuery:
+      type: object
+      additionalProperties: false
+      properties:
+        query:
+          $ref: '#/components/schemas/query'
     searchFiltersArrayString:
       type: array
       items:
         type: string
-    searchFiltersNestedArrayString:
+    mixedSearchFilters:
+      oneOf:
+        - $ref: '#/components/schemas/searchFiltersArrayString'
+        - type: string
+    listOfSearchFilters:
       type: array
       items:
-        type: array
-        items:
-          type: string
+        $ref: '#/components/schemas/mixedSearchFilters'
     facetFilters:
       description: Filter hits by facet value.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     optionalFilters:
@@ -190,22 +198,22 @@ components:
         Create filters for ranking purposes, where records that match the filter
         are ranked higher, or lower in the case of a negative optional filter.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     numericFilters:
       description: Filter on numeric attributes.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     tagFilters:
       description: Filter hits by tags.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     page:
@@ -230,17 +238,16 @@ components:
       description: >-
         When Dynamic Re-Ranking is enabled, only records that match these
         filters will be impacted by Dynamic Re-Ranking.
+      nullable: true
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
-        - Advanced
-    baseSearchParams:
+        - Filtering
+    baseSearchParamsWithoutQuery:
       type: object
       additionalProperties: false
       properties:
-        query:
-          $ref: '#/components/schemas/query'
         similarQuery:
           type: string
           description: >-
@@ -447,6 +454,10 @@ components:
             - Advanced
         reRankingApplyFilter:
           $ref: '#/components/schemas/reRankingApplyFilter'
+    baseSearchParams:
+      allOf:
+        - $ref: '#/components/schemas/searchParamsQuery'
+        - $ref: '#/components/schemas/baseSearchParamsWithoutQuery'
     hitsPerPage:
       type: integer
       description: Set the number of hits per page.
@@ -1412,10 +1423,13 @@ components:
           x-categories:
             - Typos
         attributesToTransliterate:
+          description: >-
+            Specify on which attributes in your index Algolia should apply
+            Japanese transliteration to make words indexed in Katakana or Kanji
+            searchable in Hiragana.
           type: array
           items:
             type: string
-          description: Specify on which attributes to apply transliteration.
           x-categories:
             - Languages
         camelCaseAttributes:
@@ -1484,6 +1498,15 @@ components:
             - Attributes
         userData:
           $ref: '#/components/schemas/userData'
+        customNormalization:
+          description: Overrides Algolia's default normalization.
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          x-categories:
+            - Languages
     indexSettings:
       description: The Algolia index settings.
       allOf:
@@ -1717,7 +1740,7 @@ components:
             Text that should be inserted in place of the removed text inside the
             query string.
           type: string
-    consequenceQuery:
+    consequenceQueryObject:
       type: object
       additionalProperties: false
       properties:
@@ -1731,13 +1754,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/edit'
-    schemas_query:
+    consequenceQuery:
       description: >-
         When providing a string, it replaces the entire query string. When
         providing an object, it describes incremental edits to be made to the
         query string (but you can't do both).
       oneOf:
-        - $ref: '#/components/schemas/consequenceQuery'
+        - $ref: '#/components/schemas/consequenceQueryObject'
         - type: string
     automaticFacetFilter:
       type: object
@@ -1778,7 +1801,7 @@ components:
       additionalProperties: false
       properties:
         query:
-          $ref: '#/components/schemas/schemas_query'
+          $ref: '#/components/schemas/consequenceQuery'
         automaticFacetFilters:
           $ref: '#/components/schemas/automaticFacetFilters'
         automaticOptionalFacetFilters:
@@ -1787,31 +1810,48 @@ components:
           $ref: '#/components/schemas/renderingContent'
     consequenceParams:
       allOf:
-        - $ref: '#/components/schemas/params'
-        - $ref: '#/components/schemas/baseSearchParams'
+        - $ref: '#/components/schemas/baseSearchParamsWithoutQuery'
         - $ref: '#/components/schemas/indexSettingsAsSearchParams'
-    promote:
+        - $ref: '#/components/schemas/params'
+    promotePosition:
+      type: integer
+      description: >-
+        The position to promote the objects to (zero-based). If you pass
+        objectIDs, the objects are placed at this position as a group. For
+        example, if you pass four objectIDs to position 0, the objects take the
+        first four positions.
+    promoteObjectIDs:
+      description: Multiple objectIDs to promote as hits.
       type: object
-      description: Object to promote as hits.
       additionalProperties: false
       properties:
-        objectID:
-          type: string
-          description: Unique identifier of the object to promote.
         objectIDs:
           type: array
           description: Array of unique identifiers of the objects to promote.
           items:
             type: string
         position:
-          type: integer
-          description: >-
-            The position to promote the objects to (zero-based). If you pass
-            objectIDs, the objects are placed at this position as a group. For
-            example, if you pass four objectIDs to position 0, the objects take
-            the first four positions.
+          $ref: '#/components/schemas/promotePosition'
       required:
         - position
+        - objectIDs
+    promoteObjectID:
+      description: Single objectID to promote as hits.
+      type: object
+      additionalProperties: false
+      properties:
+        objectID:
+          type: string
+          description: Unique identifier of the object to promote.
+        position:
+          $ref: '#/components/schemas/promotePosition'
+      required:
+        - position
+        - objectID
+    promote:
+      oneOf:
+        - $ref: '#/components/schemas/promoteObjectIDs'
+        - $ref: '#/components/schemas/promoteObjectID'
     consequence:
       type: object
       description: Consequence of the Rule.
@@ -1904,7 +1944,6 @@ components:
             $ref: '#/components/schemas/timeRange'
       required:
         - objectID
-        - consequence
     updatedRuleResponse:
       type: object
       additionalProperties: false
@@ -4313,12 +4352,33 @@ paths:
       parameters:
         - in: query
           name: getClusters
-          description: Whether to get clusters or not.
+          description: If the clusters pending mapping state should be on the response.
           schema:
             type: boolean
       responses:
         '200':
-          $ref: '#/components/responses/CreatedAt'
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: hasPendingMappingsResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  pending:
+                    description: If there is any clusters with pending mapping state.
+                    type: boolean
+                  clusters:
+                    description: >-
+                      Describe cluster pending (migrating, creating, deleting)
+                      mapping state.
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                  - pending
         '400':
           $ref: '#/components/responses/BadRequest'
         '402':

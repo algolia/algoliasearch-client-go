@@ -14,12 +14,12 @@ import java.util.List;
 /** Filter hits by facet value. */
 public abstract class FacetFilters implements CompoundType {
 
-  public static FacetFilters ofListOfListOfString(List<List<String>> inside) {
-    return new FacetFiltersListOfListOfString(inside);
+  public static FacetFilters of(List<MixedSearchFilters> inside) {
+    return new FacetFiltersListOfMixedSearchFilters(inside);
   }
 
-  public static FacetFilters ofListOfString(List<String> inside) {
-    return new FacetFiltersListOfString(inside);
+  public static FacetFilters of(String inside) {
+    return new FacetFiltersString(inside);
   }
 
   public static class Adapter extends TypeAdapter<FacetFilters> {
@@ -32,13 +32,16 @@ public abstract class FacetFilters implements CompoundType {
 
     @Override
     public FacetFilters read(final JsonReader jsonReader) throws IOException {
-      List<List<String>> listoflistofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<List<String>>>() {}.getType());
-      if (listoflistofstring != null) {
-        return FacetFilters.ofListOfListOfString(listoflistofstring);
+      List<MixedSearchFilters> listofmixedsearchfilters = JSON.tryDeserialize(
+        jsonReader,
+        new TypeToken<List<MixedSearchFilters>>() {}.getType()
+      );
+      if (listofmixedsearchfilters != null) {
+        return FacetFilters.of(listofmixedsearchfilters);
       }
-      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (listofstring != null) {
-        return FacetFilters.ofListOfString(listofstring);
+      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
+      if (string != null) {
+        return FacetFilters.of(string);
       }
       return null;
     }
@@ -46,31 +49,31 @@ public abstract class FacetFilters implements CompoundType {
 }
 
 @JsonAdapter(FacetFilters.Adapter.class)
-class FacetFiltersListOfListOfString extends FacetFilters {
+class FacetFiltersListOfMixedSearchFilters extends FacetFilters {
 
-  private final List<List<String>> insideValue;
+  private final List<MixedSearchFilters> insideValue;
 
-  FacetFiltersListOfListOfString(List<List<String>> insideValue) {
+  FacetFiltersListOfMixedSearchFilters(List<MixedSearchFilters> insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<List<String>> getInsideValue() {
+  public List<MixedSearchFilters> getInsideValue() {
     return insideValue;
   }
 }
 
 @JsonAdapter(FacetFilters.Adapter.class)
-class FacetFiltersListOfString extends FacetFilters {
+class FacetFiltersString extends FacetFilters {
 
-  private final List<String> insideValue;
+  private final String insideValue;
 
-  FacetFiltersListOfString(List<String> insideValue) {
+  FacetFiltersString(String insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public List<String> getInsideValue() {
+  public String getInsideValue() {
     return insideValue;
   }
 }

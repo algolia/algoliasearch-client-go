@@ -2,7 +2,9 @@ package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** BaseIndexSettings */
@@ -46,6 +48,9 @@ public class BaseIndexSettings {
 
   @SerializedName("userData")
   private Object userData;
+
+  @SerializedName("customNormalization")
+  private Map<String, Map<String, String>> customNormalization;
 
   public BaseIndexSettings setReplicas(List<String> replicas) {
     this.replicas = replicas;
@@ -122,7 +127,8 @@ public class BaseIndexSettings {
   }
 
   /**
-   * Specify on which attributes to apply transliteration.
+   * Specify on which attributes in your index Algolia should apply Japanese transliteration to make
+   * words indexed in Katakana or Kanji searchable in Hiragana.
    *
    * @return attributesToTransliterate
    */
@@ -308,6 +314,29 @@ public class BaseIndexSettings {
     return userData;
   }
 
+  public BaseIndexSettings setCustomNormalization(Map<String, Map<String, String>> customNormalization) {
+    this.customNormalization = customNormalization;
+    return this;
+  }
+
+  public BaseIndexSettings putCustomNormalization(String key, Map<String, String> customNormalizationItem) {
+    if (this.customNormalization == null) {
+      this.customNormalization = new HashMap<>();
+    }
+    this.customNormalization.put(key, customNormalizationItem);
+    return this;
+  }
+
+  /**
+   * Overrides Algolia's default normalization.
+   *
+   * @return customNormalization
+   */
+  @javax.annotation.Nullable
+  public Map<String, Map<String, String>> getCustomNormalization() {
+    return customNormalization;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -330,7 +359,8 @@ public class BaseIndexSettings {
       Objects.equals(this.numericAttributesForFiltering, baseIndexSettings.numericAttributesForFiltering) &&
       Objects.equals(this.separatorsToIndex, baseIndexSettings.separatorsToIndex) &&
       Objects.equals(this.searchableAttributes, baseIndexSettings.searchableAttributes) &&
-      Objects.equals(this.userData, baseIndexSettings.userData)
+      Objects.equals(this.userData, baseIndexSettings.userData) &&
+      Objects.equals(this.customNormalization, baseIndexSettings.customNormalization)
     );
   }
 
@@ -349,7 +379,8 @@ public class BaseIndexSettings {
       numericAttributesForFiltering,
       separatorsToIndex,
       searchableAttributes,
-      userData
+      userData,
+      customNormalization
     );
   }
 
@@ -370,6 +401,7 @@ public class BaseIndexSettings {
     sb.append("    separatorsToIndex: ").append(toIndentedString(separatorsToIndex)).append("\n");
     sb.append("    searchableAttributes: ").append(toIndentedString(searchableAttributes)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    customNormalization: ").append(toIndentedString(customNormalization)).append("\n");
     sb.append("}");
     return sb.toString();
   }

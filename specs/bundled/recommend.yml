@@ -56,21 +56,29 @@ components:
       default: ''
       x-categories:
         - Search
+    searchParamsQuery:
+      type: object
+      additionalProperties: false
+      properties:
+        query:
+          $ref: '#/components/schemas/query'
     searchFiltersArrayString:
       type: array
       items:
         type: string
-    searchFiltersNestedArrayString:
+    mixedSearchFilters:
+      oneOf:
+        - $ref: '#/components/schemas/searchFiltersArrayString'
+        - type: string
+    listOfSearchFilters:
       type: array
       items:
-        type: array
-        items:
-          type: string
+        $ref: '#/components/schemas/mixedSearchFilters'
     facetFilters:
       description: Filter hits by facet value.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     optionalFilters:
@@ -78,22 +86,22 @@ components:
         Create filters for ranking purposes, where records that match the filter
         are ranked higher, or lower in the case of a negative optional filter.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     numericFilters:
       description: Filter on numeric attributes.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     tagFilters:
       description: Filter hits by tags.
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
         - Filtering
     page:
@@ -118,17 +126,16 @@ components:
       description: >-
         When Dynamic Re-Ranking is enabled, only records that match these
         filters will be impacted by Dynamic Re-Ranking.
+      nullable: true
       oneOf:
-        - $ref: '#/components/schemas/searchFiltersArrayString'
-        - $ref: '#/components/schemas/searchFiltersNestedArrayString'
+        - $ref: '#/components/schemas/listOfSearchFilters'
+        - type: string
       x-categories:
-        - Advanced
-    baseSearchParams:
+        - Filtering
+    baseSearchParamsWithoutQuery:
       type: object
       additionalProperties: false
       properties:
-        query:
-          $ref: '#/components/schemas/query'
         similarQuery:
           type: string
           description: >-
@@ -335,6 +342,10 @@ components:
             - Advanced
         reRankingApplyFilter:
           $ref: '#/components/schemas/reRankingApplyFilter'
+    baseSearchParams:
+      allOf:
+        - $ref: '#/components/schemas/searchParamsQuery'
+        - $ref: '#/components/schemas/baseSearchParamsWithoutQuery'
     hitsPerPage:
       type: integer
       description: Set the number of hits per page.
