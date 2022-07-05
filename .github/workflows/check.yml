@@ -213,7 +213,7 @@ jobs:
           type: js_utils
 
       - name: Remove generated clients
-        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' && startsWith(env.head_ref, 'chore/prepare-release-') }}
         run: |
           cd ${{ matrix.client.path }}/packages
           ls | grep -v -E "(client-common|requester-*|algoliasearch)" | xargs rm -rf
