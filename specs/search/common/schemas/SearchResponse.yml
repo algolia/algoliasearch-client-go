@@ -140,6 +140,8 @@ baseSearchResponse:
       description: Actual host name of the server that processed the request.
     userData:
       $ref: '../../../common/schemas/IndexSettings.yml#/userData'
+    renderingContent:
+      $ref: '../../../common/schemas/IndexSettings.yml#/renderingContent'
 
 nbHits:
   type: integer
