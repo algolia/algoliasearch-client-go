@@ -96,7 +96,7 @@ async function transformBundle({
   if (withDoc) {
     const docFolderPath = toAbsolutePath('website/specs');
     if (!(await exists(docFolderPath))) {
-      fsp.mkdir(docFolderPath);
+      fsp.mkdir(docFolderPath, { recursive: true });
     }
 
     const pathToSpecDoc = `${docFolderPath}/${clientName}.doc.yml`;

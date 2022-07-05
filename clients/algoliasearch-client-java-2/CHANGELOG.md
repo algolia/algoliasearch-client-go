@@ -1,3 +1,9 @@
+## [4.3.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.4-SNAPSHOT...4.3.0-SNAPSHOT)
+
+- 23a72c39 fix(specs): correct type for highlightResult and snippetResult (#783)
+- a11e84da fix(specs): fix missing params and types (#772)
+- bc14a8c5 feat(specs): Add tags to the settings and search params (#768)
+
 ## [4.2.4-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.2.2-SNAPSHOT...4.2.4-SNAPSHOT)
 
 - ce95833f fix(java): rename one of methods for better dx APIC-539 (#763)
