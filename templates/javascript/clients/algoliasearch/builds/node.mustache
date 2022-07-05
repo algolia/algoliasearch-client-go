@@ -14,7 +14,7 @@ import { createHttpRequester } from '{{{npmNamespace}}}/requester-node-http';
 export function algoliasearch(
   appId: string,
   apiKey: string,
-  options?: { requester?: Requester; hosts?: Host[] }
+  options?: CommonClientOptions
 ) {
   {{> algoliasearch/builds/checkParameters}}
 

@@ -8,7 +8,7 @@ import { {{classname}} } from '{{filename}}';
 {{#operations}}{{#operation}}{{#vendorExtensions.x-legacy-signature}}{{> client/api/operation/legacySearchCompatible/imports}}{{/vendorExtensions.x-legacy-signature}}{{/operation}}{{/operations}}
 
 {{! Imports for the helpers method of the search client }}
-{{#isSearchClient}}import type { CreateRetryablePromiseOptions } from '@experimental-api-clients-automation/client-common';{{/isSearchClient}}
+{{#isSearchClient}}import type { CreateRetryablePromiseOptions } from '{{{npmNamespace}}}/client-common';{{/isSearchClient}}
 
 {{#operations}}
 {{#operation}}

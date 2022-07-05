@@ -117,21 +117,28 @@ The `Abtesting` client now hosts all of the `A/B testing` related methods.
 <TabsLanguage>
 <TabItem value="javascript">
 
+> Usage with the `algoliasearch` client
+
 ```js {2-3}
-import { abtestingClient } from '@experimental-api-clients-automation/client-abtesting';
+import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
 
 - const analyticsClient = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>').initAnalytics();
-+ const client = abtestingClient('<YOUR_APP_ID>', '<YOUR_API_KEY>');
++ const abtestingClient = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>').initAbtesting();
 
-const searchResults2 = await client.search({
-  requests: [
-    {
-      indexName: '<YOUR_INDEX_NAME>',
-      query: '<YOUR_QUERY>',
-      attributesToRetrieve: ['firstname', 'lastname'],
-      hitsPerPage: 50,
-    },
-  ],
+const abTest = await abtestingClient.getABTest({
+  id: 42,
+});
+```
+
+> Usage with the `client-abtesting` client
+
+```js
+import { abtestingClient } from '@experimental-api-clients-automation/client-abtesting';
+
+const client = abtestingClient('<YOUR_APP_ID>', '<YOUR_API_KEY>');
+
+const abTest = await abtestingClient.getABTest({
+  id: 42,
 });
 ```
 

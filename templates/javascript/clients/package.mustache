@@ -84,12 +84,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "@experimental-api-clients-automation/client-analytics": "{{analyticsVersion}}",
-    "@experimental-api-clients-automation/client-personalization": "{{personalizationVersion}}",
-    "@experimental-api-clients-automation/client-search": "{{searchVersion}}",
-    "@experimental-api-clients-automation/client-common": "{{utilsPackageVersion}}",
-    "@experimental-api-clients-automation/requester-browser-xhr": "{{utilsPackageVersion}}",
-    "@experimental-api-clients-automation/requester-node-http": "{{utilsPackageVersion}}"
+    "{{{npmNamespace}}}/client-analytics": "{{analyticsVersion}}",
+    "{{{npmNamespace}}}/client-abtesting": "{{abtestingVersion}}",
+    "{{{npmNamespace}}}/client-personalization": "{{personalizationVersion}}",
+    "{{{npmNamespace}}}/client-search": "{{searchVersion}}",
+    "{{{npmNamespace}}}/client-common": "{{utilsPackageVersion}}",
+    "{{{npmNamespace}}}/requester-browser-xhr": "{{utilsPackageVersion}}",
+    "{{{npmNamespace}}}/requester-node-http": "{{utilsPackageVersion}}"
   },
   "devDependencies": {
     "@types/jest": "28.1.4",

@@ -117,6 +117,7 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     if (isAlgoliasearchClient) {
       // Files used to create the package.json of the algoliasearch package
       additionalProperties.put("analyticsVersion", Utils.getOpenApiToolsField("javascript", "analytics", "packageVersion"));
+      additionalProperties.put("abtestingVersion", Utils.getOpenApiToolsField("javascript", "abtesting", "packageVersion"));
       additionalProperties.put("personalizationVersion", Utils.getOpenApiToolsField("javascript", "personalization", "packageVersion"));
       additionalProperties.put("searchVersion", Utils.getOpenApiToolsField("javascript", "search", "packageVersion"));
 

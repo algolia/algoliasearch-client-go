@@ -1,34 +1,64 @@
-function initAnalytics(
-  analyticsAppId: string,
-  analyticsApiKey: string,
-  region?: AnalyticsRegion,
-  analyticsOptions?: { requester?: Requester; hosts?: Host[] }
-): AnalyticsClient {
+function initAnalytics(initOptions: CommonInitOptions & InitRegion<AnalyticsRegion> = {}): AnalyticsClient {
+  if (
+    initOptions.region &&
+    (typeof initOptions.region !== 'string' ||
+      !analyticsRegions.includes(initOptions.region))
+  ) {
+    throw new Error(
+      `\`region\` must be one of the following: ${analyticsRegions.join(', ')}`
+    );
+  }
+
   return createAnalyticsClient({
-    appId: analyticsAppId,
-    apiKey: analyticsApiKey,
-    region,
-    ...analyticsOptions,
+    ...initOptions.options,
     ...commonOptions,
+    appId: initOptions.appId ?? appId,
+    apiKey: initOptions.apiKey ?? apiKey,
+    region: initOptions.region,
   });
 }
 
-function initPersonalization(
-  personalizationAppId: string,
-  personalizationApiKey: string,
-  region: PersonalizationRegion,
-  personalizationOptions?: { requester?: Requester; hosts?: Host[] }
-): PersonalizationClient {
-  if (!region) {
+function initAbtesting(initOptions: CommonInitOptions & InitRegion<AbtestingRegion> = {}): AbtestingClient {
+  if (
+    initOptions.region &&
+    (typeof initOptions.region !== 'string' ||
+      !abtestingRegions.includes(initOptions.region))
+  ) {
+    throw new Error(
+      `\`region\` must be one of the following: ${abtestingRegions.join(', ')}`
+    );
+  }
+
+  return createAbtestingClient({
+    ...initOptions.options,
+    ...commonOptions,
+    appId: initOptions.appId ?? appId,
+    apiKey: initOptions.apiKey ?? apiKey,
+    region: initOptions.region,
+  });
+}
+
+function initPersonalization(initOptions: CommonInitOptions & Required<InitRegion<PersonalizationRegion>>): PersonalizationClient {
+  if (!initOptions.region) {
     throw new Error('`region` is missing.');
   }
 
+  if (
+    initOptions.region &&
+    (typeof initOptions.region !== 'string' ||
+      !personalizationRegions.includes(initOptions.region))
+  ) {
+    throw new Error(
+      `\`region\` must be one of the following: ${personalizationRegions.join(', ')}`
+    );
+  }
+
   return createPersonalizationClient({
-    appId: personalizationAppId,
-    apiKey: personalizationApiKey,
-    region,
-    ...personalizationOptions,
+    ...initOptions.options,
     ...commonOptions,
+    appId: initOptions.appId ?? appId,
+    apiKey: initOptions.apiKey ?? apiKey,
+    region: initOptions.region,
   });
 }
 
@@ -36,4 +66,5 @@ return {
   ...createSearchClient({ appId, apiKey, ...commonOptions }),
   initAnalytics,
   initPersonalization,
+  initAbtesting,
 };
