@@ -81,6 +81,9 @@ public class SearchResponse {
   @SerializedName("userData")
   private Object userData;
 
+  @SerializedName("renderingContent")
+  private RenderingContent renderingContent;
+
   @SerializedName("hits")
   private List<Hit> hits;
 
@@ -466,6 +469,21 @@ public class SearchResponse {
     return userData;
   }
 
+  public SearchResponse setRenderingContent(RenderingContent renderingContent) {
+    this.renderingContent = renderingContent;
+    return this;
+  }
+
+  /**
+   * Get renderingContent
+   *
+   * @return renderingContent
+   */
+  @javax.annotation.Nullable
+  public RenderingContent getRenderingContent() {
+    return renderingContent;
+  }
+
   public SearchResponse setHits(List<Hit> hits) {
     this.hits = hits;
     return this;
@@ -520,6 +538,7 @@ public class SearchResponse {
       Objects.equals(this.queryAfterRemoval, searchResponse.queryAfterRemoval) &&
       Objects.equals(this.serverUsed, searchResponse.serverUsed) &&
       Objects.equals(this.userData, searchResponse.userData) &&
+      Objects.equals(this.renderingContent, searchResponse.renderingContent) &&
       Objects.equals(this.hits, searchResponse.hits)
     );
   }
@@ -551,6 +570,7 @@ public class SearchResponse {
       queryAfterRemoval,
       serverUsed,
       userData,
+      renderingContent,
       hits
     );
   }
@@ -583,6 +603,7 @@ public class SearchResponse {
     sb.append("    queryAfterRemoval: ").append(toIndentedString(queryAfterRemoval)).append("\n");
     sb.append("    serverUsed: ").append(toIndentedString(serverUsed)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("    hits: ").append(toIndentedString(hits)).append("\n");
     sb.append("}");
     return sb.toString();

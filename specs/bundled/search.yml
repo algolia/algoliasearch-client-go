@@ -1094,6 +1094,8 @@ components:
           description: Actual host name of the server that processed the request.
         userData:
           $ref: '#/components/schemas/userData'
+        renderingContent:
+          $ref: '#/components/schemas/renderingContent'
     objectID:
       type: string
       description: Unique identifier of the object.

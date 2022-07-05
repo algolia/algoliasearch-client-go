@@ -81,6 +81,9 @@ public class RecommendationsResponse {
   @SerializedName("userData")
   private Object userData;
 
+  @SerializedName("renderingContent")
+  private RenderingContent renderingContent;
+
   @SerializedName("hits")
   private List<RecommendHit> hits;
 
@@ -466,6 +469,21 @@ public class RecommendationsResponse {
     return userData;
   }
 
+  public RecommendationsResponse setRenderingContent(RenderingContent renderingContent) {
+    this.renderingContent = renderingContent;
+    return this;
+  }
+
+  /**
+   * Get renderingContent
+   *
+   * @return renderingContent
+   */
+  @javax.annotation.Nullable
+  public RenderingContent getRenderingContent() {
+    return renderingContent;
+  }
+
   public RecommendationsResponse setHits(List<RecommendHit> hits) {
     this.hits = hits;
     return this;
@@ -520,6 +538,7 @@ public class RecommendationsResponse {
       Objects.equals(this.queryAfterRemoval, recommendationsResponse.queryAfterRemoval) &&
       Objects.equals(this.serverUsed, recommendationsResponse.serverUsed) &&
       Objects.equals(this.userData, recommendationsResponse.userData) &&
+      Objects.equals(this.renderingContent, recommendationsResponse.renderingContent) &&
       Objects.equals(this.hits, recommendationsResponse.hits)
     );
   }
@@ -551,6 +570,7 @@ public class RecommendationsResponse {
       queryAfterRemoval,
       serverUsed,
       userData,
+      renderingContent,
       hits
     );
   }
@@ -583,6 +603,7 @@ public class RecommendationsResponse {
     sb.append("    queryAfterRemoval: ").append(toIndentedString(queryAfterRemoval)).append("\n");
     sb.append("    serverUsed: ").append(toIndentedString(serverUsed)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("    hits: ").append(toIndentedString(hits)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -81,6 +81,9 @@ public class BrowseResponse {
   @SerializedName("userData")
   private Object userData;
 
+  @SerializedName("renderingContent")
+  private RenderingContent renderingContent;
+
   @SerializedName("hits")
   private List<Hit> hits;
 
@@ -469,6 +472,21 @@ public class BrowseResponse {
     return userData;
   }
 
+  public BrowseResponse setRenderingContent(RenderingContent renderingContent) {
+    this.renderingContent = renderingContent;
+    return this;
+  }
+
+  /**
+   * Get renderingContent
+   *
+   * @return renderingContent
+   */
+  @javax.annotation.Nullable
+  public RenderingContent getRenderingContent() {
+    return renderingContent;
+  }
+
   public BrowseResponse setHits(List<Hit> hits) {
     this.hits = hits;
     return this;
@@ -539,6 +557,7 @@ public class BrowseResponse {
       Objects.equals(this.queryAfterRemoval, browseResponse.queryAfterRemoval) &&
       Objects.equals(this.serverUsed, browseResponse.serverUsed) &&
       Objects.equals(this.userData, browseResponse.userData) &&
+      Objects.equals(this.renderingContent, browseResponse.renderingContent) &&
       Objects.equals(this.hits, browseResponse.hits) &&
       Objects.equals(this.cursor, browseResponse.cursor)
     );
@@ -571,6 +590,7 @@ public class BrowseResponse {
       queryAfterRemoval,
       serverUsed,
       userData,
+      renderingContent,
       hits,
       cursor
     );
@@ -604,6 +624,7 @@ public class BrowseResponse {
     sb.append("    queryAfterRemoval: ").append(toIndentedString(queryAfterRemoval)).append("\n");
     sb.append("    serverUsed: ").append(toIndentedString(serverUsed)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("    hits: ").append(toIndentedString(hits)).append("\n");
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");

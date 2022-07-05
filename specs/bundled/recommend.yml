@@ -1046,6 +1046,8 @@ components:
           description: Actual host name of the server that processed the request.
         userData:
           $ref: '#/components/schemas/userData'
+        renderingContent:
+          $ref: '#/components/schemas/renderingContent'
     highlightedValue:
       type: string
       description: Markup text with occurrences highlighted.

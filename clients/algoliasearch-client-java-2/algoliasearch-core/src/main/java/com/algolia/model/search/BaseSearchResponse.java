@@ -80,6 +80,9 @@ public class BaseSearchResponse {
   @SerializedName("userData")
   private Object userData;
 
+  @SerializedName("renderingContent")
+  private RenderingContent renderingContent;
+
   public BaseSearchResponse setAbTestID(Integer abTestID) {
     this.abTestID = abTestID;
     return this;
@@ -462,6 +465,21 @@ public class BaseSearchResponse {
     return userData;
   }
 
+  public BaseSearchResponse setRenderingContent(RenderingContent renderingContent) {
+    this.renderingContent = renderingContent;
+    return this;
+  }
+
+  /**
+   * Get renderingContent
+   *
+   * @return renderingContent
+   */
+  @javax.annotation.Nullable
+  public RenderingContent getRenderingContent() {
+    return renderingContent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -495,7 +513,8 @@ public class BaseSearchResponse {
       Objects.equals(this.query, baseSearchResponse.query) &&
       Objects.equals(this.queryAfterRemoval, baseSearchResponse.queryAfterRemoval) &&
       Objects.equals(this.serverUsed, baseSearchResponse.serverUsed) &&
-      Objects.equals(this.userData, baseSearchResponse.userData)
+      Objects.equals(this.userData, baseSearchResponse.userData) &&
+      Objects.equals(this.renderingContent, baseSearchResponse.renderingContent)
     );
   }
 
@@ -525,7 +544,8 @@ public class BaseSearchResponse {
       query,
       queryAfterRemoval,
       serverUsed,
-      userData
+      userData,
+      renderingContent
     );
   }
 
@@ -557,6 +577,7 @@ public class BaseSearchResponse {
     sb.append("    queryAfterRemoval: ").append(toIndentedString(queryAfterRemoval)).append("\n");
     sb.append("    serverUsed: ").append(toIndentedString(serverUsed)).append("\n");
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    renderingContent: ").append(toIndentedString(renderingContent)).append("\n");
     sb.append("}");
     return sb.toString();
   }
