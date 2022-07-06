@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
-import type { PredictClient } from '@algolia/client-predict';
-import { predictClient } from '@algolia/client-predict';
+import type { PredictClient } from '@algolia/predict';
+import { predictClient } from '@algolia/predict';
 import { echoRequester } from '@algolia/requester-node-http';
 import type { EchoResponse } from '@algolia/requester-node-http';
 

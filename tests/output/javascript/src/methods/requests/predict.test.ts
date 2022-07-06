@@ -1,5 +1,5 @@
 import type { EchoResponse, RequestOptions } from '@algolia/client-common';
-import { predictClient } from '@algolia/client-predict';
+import { predictClient } from '@algolia/predict';
 import { echoRequester } from '@algolia/requester-node-http';
 
 const appId = process.env.ALGOLIA_APPLICATION_ID || 'test_app_id';
