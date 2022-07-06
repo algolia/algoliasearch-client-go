@@ -165,7 +165,7 @@ jobs:
 
       - name: Run tests for 'client-common'
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client == 'client-common' }}
-        run: cd clients/algoliasearch-client-javascript && yarn workspace @experimental-api-clients-automation/client-common test
+        run: cd clients/algoliasearch-client-javascript && yarn workspace @algolia/client-common test
 
       - name: Store '${{ matrix.client }}' JavaScript utils package
         uses: actions/upload-artifact@v3
@@ -243,7 +243,7 @@ jobs:
 
       - name: Run JavaScript 'algoliasearch' client tests
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
-        run: cd ${{ matrix.client.path }} && yarn workspace @experimental-api-clients-automation/algoliasearch test
+        run: cd ${{ matrix.client.path }} && yarn workspace algoliasearch test
 
       - name: Clean CTS output before generate
         run: rm -rf ${{ matrix.client.testsToDelete }} || true

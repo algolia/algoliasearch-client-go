@@ -2,30 +2,19 @@
 title: JavaScript
 ---
 
-| Previous   | Latest                                 | Description                                                                                                                                                                                                               |
-| ---------- | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `@algolia` | `@experimental-api-clients-automation` | **During the beta phase**, the clients are available under the NPM `@experimental-api-clients-automation` namespace, you can find a full list [here](https://www.npmjs.com/org/experimental-api-clients-automation).      |
-| `search`   | `searchClient`                         | Exported clients are suffixed by `Client`.                                                                                                                                                                                |
-| `destroy`  | **removed**                            | This method has not been implemented in the new clients, if you feel the need for it, [please open an issue](https://github.com/algolia/api-clients-automation/issues/new?assignees=&labels=&template=Feature_request.md) |
+| Previous  | Latest         | Description                                                                                                                                                                                                               |
+| --------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `search`  | `searchClient` | Exported clients are suffixed by `Client`.                                                                                                                                                                                |
+| `destroy` | **removed**    | This method has not been implemented in the new clients, if you feel the need for it, [please open an issue](https://github.com/algolia/api-clients-automation/issues/new?assignees=&labels=&template=Feature_request.md) |
 
 ### Usage
 
 To get started, first install the `algoliasearch` client.
 
 ```bash
-yarn add @experimental-api-clients-automation/algoliasearch
+yarn add algoliasearch
 # or
-npm install @experimental-api-clients-automation/algoliasearch
-```
-
-You can now uninstall the previously added client.
-
-> Make sure to update all your imports.
-
-```bash
-yarn remove algoliasearch
-# or
-npm uninstall algoliasearch
+npm install algoliasearch
 ```
 
 You can continue this guide on [our installation page](/docs/clients/installation).
@@ -35,7 +24,7 @@ You can continue this guide on [our installation page](/docs/clients/installatio
 Prior to the `initIndex` removal stated in the [common breaking changes](/docs/clients/migration-guides/#common-breaking-changes), all methods previously available at the `initIndex` level requires the `indexName` to be sent with the query.
 
 ```js
-import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+import { algoliasearch } from 'algoliasearch';
 
 const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 

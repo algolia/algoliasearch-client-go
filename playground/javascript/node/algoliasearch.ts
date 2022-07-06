@@ -1,9 +1,9 @@
-import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
-import { liteClient } from '@experimental-api-clients-automation/algoliasearch/lite';
-import { ApiError } from '@experimental-api-clients-automation/client-common';
+import { algoliasearch } from 'algoliasearch';
+import { liteClient } from 'algoliasearch/lite';
+import { ApiError } from '@algolia/client-common';
 import dotenv from 'dotenv';
 
-import type { SearchResponses } from '@experimental-api-clients-automation/algoliasearch';
+import type { SearchResponses } from 'algoliasearch';
 
 dotenv.config({ path: '../../.env' });
 

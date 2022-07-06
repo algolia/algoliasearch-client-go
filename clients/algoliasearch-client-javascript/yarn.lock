@@ -5,6 +5,39 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@algolia/client-common@5.0.0-alpha.0, @algolia/client-common@workspace:packages/client-common":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-common@workspace:packages/client-common"
+  dependencies:
+    "@types/jest": 28.1.4
+    "@types/node": 16.11.43
+    jest: 28.1.2
+    jest-environment-jsdom: 28.1.2
+    ts-jest: 28.0.5
+    typescript: 4.7.4
+  languageName: unknown
+  linkType: soft
+
+"@algolia/requester-browser-xhr@workspace:packages/requester-browser-xhr":
+  version: 0.0.0-use.local
+  resolution: "@algolia/requester-browser-xhr@workspace:packages/requester-browser-xhr"
+  dependencies:
+    "@algolia/client-common": 5.0.0-alpha.0
+    "@types/node": 16.11.43
+    typescript: 4.7.4
+  languageName: unknown
+  linkType: soft
+
+"@algolia/requester-node-http@workspace:packages/requester-node-http":
+  version: 0.0.0-use.local
+  resolution: "@algolia/requester-node-http@workspace:packages/requester-node-http"
+  dependencies:
+    "@algolia/client-common": 5.0.0-alpha.0
+    "@types/node": 16.11.43
+    typescript: 4.7.4
+  languageName: unknown
+  linkType: soft
+
 "@ampproject/remapping@npm:^2.1.0":
   version: 2.2.0
   resolution: "@ampproject/remapping@npm:2.2.0"
@@ -1355,18 +1388,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@experimental-api-clients-automation/client-common@0.8.0, @experimental-api-clients-automation/client-common@workspace:packages/client-common":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-common@workspace:packages/client-common"
-  dependencies:
-    "@types/jest": 28.1.4
-    "@types/node": 16.11.43
-    jest: 28.1.2
-    jest-environment-jsdom: 28.1.2
-    ts-jest: 28.0.5
-    typescript: 4.7.4
-  languageName: unknown
-  linkType: soft
+"@experimental-api-clients-automation/client-common@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@experimental-api-clients-automation/client-common@npm:0.8.0"
+  checksum: 407fab13629c2345c4771eaf1b404033b8a484ffec893f57f00c5a30ee973e4e288c0e842a122ac9e4c79a49d7b45bedebea55dfc599bedab617c66d52e0d842
+  languageName: node
+  linkType: hard
 
 "@experimental-api-clients-automation/client-insights@workspace:packages/client-insights":
   version: 0.0.0-use.local
@@ -1452,25 +1479,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@experimental-api-clients-automation/requester-browser-xhr@0.8.0, @experimental-api-clients-automation/requester-browser-xhr@workspace:packages/requester-browser-xhr":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/requester-browser-xhr@workspace:packages/requester-browser-xhr"
+"@experimental-api-clients-automation/requester-browser-xhr@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@experimental-api-clients-automation/requester-browser-xhr@npm:0.8.0"
   dependencies:
     "@experimental-api-clients-automation/client-common": 0.8.0
-    "@types/node": 16.11.43
-    typescript: 4.7.4
-  languageName: unknown
-  linkType: soft
+  checksum: 8c241fc4d22d3454dca57c59ac9020b76dfffa1c697a247d8057999db67f2e70f7ca55f597ea56c1cb7cf6d5ecb9fa73d8de35bb75f97dc9d927df26fb7a2b06
+  languageName: node
+  linkType: hard
 
-"@experimental-api-clients-automation/requester-node-http@0.8.0, @experimental-api-clients-automation/requester-node-http@workspace:packages/requester-node-http":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/requester-node-http@workspace:packages/requester-node-http"
+"@experimental-api-clients-automation/requester-node-http@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@experimental-api-clients-automation/requester-node-http@npm:0.8.0"
   dependencies:
     "@experimental-api-clients-automation/client-common": 0.8.0
-    "@types/node": 16.11.43
-    typescript: 4.7.4
-  languageName: unknown
-  linkType: soft
+  checksum: 1917e850b29aab3765a43f4666d4cb2c176538abf8fa6997349431de43bf05bf0f76fa4c80529db9d8fb121aec0573b26e15ebb561a802f9b435bc70c943c729
+  languageName: node
+  linkType: hard
 
 "@gar/promisify@npm:^1.0.1, @gar/promisify@npm:^1.1.3":
   version: 1.1.3

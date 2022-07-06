@@ -15,18 +15,18 @@
     "start:predict": "ts-node predict.ts"
   },
   "dependencies": {
-    "@experimental-api-clients-automation/algoliasearch": "link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch",
-    "@experimental-api-clients-automation/client-abtesting": "link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting",
-    "@experimental-api-clients-automation/client-analytics": "link:../../../clients/algoliasearch-client-javascript/packages/client-analytics",
-    "@experimental-api-clients-automation/client-common": "link:../../../clients/algoliasearch-client-javascript/packages/client-common",
-    "@experimental-api-clients-automation/client-insights": "link:../../../clients/algoliasearch-client-javascript/packages/client-insights",
-    "@experimental-api-clients-automation/client-personalization": "link:../../../clients/algoliasearch-client-javascript/packages/client-personalization",
-    "@experimental-api-clients-automation/client-predict": "link:../../../clients/algoliasearch-client-javascript/packages/client-predict",
-    "@experimental-api-clients-automation/client-query-suggestions": "link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions",
-    "@experimental-api-clients-automation/client-search": "link:../../../clients/algoliasearch-client-javascript/packages/client-search",
-    "@experimental-api-clients-automation/client-sources": "link:../../../clients/algoliasearch-client-javascript/packages/client-sources",
-    "@experimental-api-clients-automation/recommend": "link:../../../clients/algoliasearch-client-javascript/packages/recommend",
-    "@experimental-api-clients-automation/requester-node-http": "link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http"
+    "@algolia/client-abtesting": "link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting",
+    "@algolia/client-analytics": "link:../../../clients/algoliasearch-client-javascript/packages/client-analytics",
+    "@algolia/client-common": "link:../../../clients/algoliasearch-client-javascript/packages/client-common",
+    "@algolia/client-insights": "link:../../../clients/algoliasearch-client-javascript/packages/client-insights",
+    "@algolia/client-personalization": "link:../../../clients/algoliasearch-client-javascript/packages/client-personalization",
+    "@algolia/client-predict": "link:../../../clients/algoliasearch-client-javascript/packages/client-predict",
+    "@algolia/client-query-suggestions": "link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions",
+    "@algolia/client-search": "link:../../../clients/algoliasearch-client-javascript/packages/client-search",
+    "@algolia/client-sources": "link:../../../clients/algoliasearch-client-javascript/packages/client-sources",
+    "@algolia/recommend": "link:../../../clients/algoliasearch-client-javascript/packages/recommend",
+    "@algolia/requester-node-http": "link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http",
+    "algoliasearch": "link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch"
   },
   "devDependencies": {
     "dotenv": "16.0.1",

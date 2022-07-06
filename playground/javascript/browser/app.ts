@@ -1,5 +1,5 @@
-import { searchClient } from '@experimental-api-clients-automation/client-search';
-import { liteClient } from '@experimental-api-clients-automation/algoliasearch/lite';
+import { searchClient } from '@algolia/client-search';
+import { liteClient } from 'algoliasearch/lite';
 
 import './app.css';
 

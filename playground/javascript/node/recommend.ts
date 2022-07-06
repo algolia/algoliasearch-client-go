@@ -1,5 +1,5 @@
-import { recommendClient } from '@experimental-api-clients-automation/recommend';
-import { ApiError } from '@experimental-api-clients-automation/client-common';
+import { recommendClient } from '@algolia/recommend';
+import { ApiError } from '@algolia/client-common';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: '../../.env' });

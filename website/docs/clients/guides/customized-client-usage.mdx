@@ -129,7 +129,7 @@ The API clients offers a method for you to append data to the current user-agent
 > In the JavaScript client, user-agent are sent in the header via the `x-algolia-agent` property.
 
 ```js
-import { searchClient } from '@experimental-api-clients-automation/client-search';
+import { searchClient } from '@algolia/client-search';
 
 const client = searchClient('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 
@@ -163,7 +163,7 @@ import com.algolia.api.SearchClient;
 
 // This will append `; my user agent (optional version)` to the current value of `x-algolia-agent` for every requests
 SearchClient client = new SearchClient(
-  "<YOUR_APP_ID>", 
+  "<YOUR_APP_ID>",
   "<YOUR_API_KEY>",
   new ClientOptions().addAlgoliaAgentSegments("my user agent", "optional version")
 );
@@ -182,8 +182,8 @@ You can override the default requester behavior by providing your requester logi
 > The JavaScript client provides an `echoRequester`, that will return the full payload of the request.
 
 ```js
-import { searchClient } from '@experimental-api-clients-automation/client-search';
-import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
+import { searchClient } from '@algolia/client-search';
+import { echoRequester } from '@algolia/requester-node-http';
 
 const client = searchClient('<YOUR_APP_ID>', '<YOUR_API_KEY>', {
   // The first parameter is the status to return
@@ -225,7 +225,7 @@ $client = new SearchClient($apiWrapper, $config);
 import com.algolia.api.SearchClient;
 
 SearchClient client = new SearchClient(
-  "<YOUR_APP_ID>", 
+  "<YOUR_APP_ID>",
   "<YOUR_API_KEY>",
   new ClientOptions().setRequester(new MyOwnRequester())
 );

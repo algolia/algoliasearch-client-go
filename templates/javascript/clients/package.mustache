@@ -1,10 +1,10 @@
 {
-  "name": "{{{npmNamespace}}}/{{packageName}}",
   "version": "{{packageVersion}}",
   "repository": "{{gitUserId}}/{{gitRepoId}}",
   "license": "MIT",
   "author": "Algolia",
   {{^isAlgoliasearchClient}}
+  "name": "{{{npmNamespace}}}/{{packageName}}",
   "description": "JavaScript client for {{packageName}}",
   "main": "index.js",
   "jsdelivr": "dist/{{packageName}}.umd.js",
@@ -31,6 +31,7 @@
   },
   {{/isAlgoliasearchClient}}
   {{#isAlgoliasearchClient}}
+  "name": "{{packageName}}",
   "description": "A fully-featured and blazing-fast JavaScript API client to interact with Algolia API.",
   "exports": {
     ".": {

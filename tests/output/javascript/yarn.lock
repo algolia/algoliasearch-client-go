@@ -5,6 +5,72 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@algolia/client-abtesting@link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-abtesting@link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-analytics@link:../../../clients/algoliasearch-client-javascript/packages/client-analytics::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-analytics@link:../../../clients/algoliasearch-client-javascript/packages/client-analytics::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-common@link:../../../clients/algoliasearch-client-javascript/packages/client-common::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-common@link:../../../clients/algoliasearch-client-javascript/packages/client-common::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-insights@link:../../../clients/algoliasearch-client-javascript/packages/client-insights::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-insights@link:../../../clients/algoliasearch-client-javascript/packages/client-insights::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-personalization@link:../../../clients/algoliasearch-client-javascript/packages/client-personalization::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-personalization@link:../../../clients/algoliasearch-client-javascript/packages/client-personalization::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-predict@link:../../../clients/algoliasearch-client-javascript/packages/client-predict::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-predict@link:../../../clients/algoliasearch-client-javascript/packages/client-predict::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-query-suggestions@link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-query-suggestions@link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-search@link:../../../clients/algoliasearch-client-javascript/packages/client-search::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-search@link:../../../clients/algoliasearch-client-javascript/packages/client-search::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/client-sources@link:../../../clients/algoliasearch-client-javascript/packages/client-sources::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/client-sources@link:../../../clients/algoliasearch-client-javascript/packages/client-sources::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/recommend@link:../../../clients/algoliasearch-client-javascript/packages/recommend::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/recommend@link:../../../clients/algoliasearch-client-javascript/packages/recommend::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@algolia/requester-node-http@link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@algolia/requester-node-http@link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "@ampproject/remapping@npm:^2.1.0":
   version: 2.2.0
   resolution: "@ampproject/remapping@npm:2.2.0"
@@ -397,78 +463,6 @@ __metadata:
   checksum: 5718f267085ed8edb3e7ef210137241775e607ee18b77d95aa5bd7514f47f5019aa2d82d96b3bf342ef7aa890a346fa1044532ff7cc3009e7d24fce3ce6200fa
   languageName: node
   linkType: hard
-
-"@experimental-api-clients-automation/algoliasearch@link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/algoliasearch@link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-abtesting@link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-abtesting@link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-analytics@link:../../../clients/algoliasearch-client-javascript/packages/client-analytics::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-analytics@link:../../../clients/algoliasearch-client-javascript/packages/client-analytics::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-common@link:../../../clients/algoliasearch-client-javascript/packages/client-common::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-common@link:../../../clients/algoliasearch-client-javascript/packages/client-common::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-insights@link:../../../clients/algoliasearch-client-javascript/packages/client-insights::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-insights@link:../../../clients/algoliasearch-client-javascript/packages/client-insights::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-personalization@link:../../../clients/algoliasearch-client-javascript/packages/client-personalization::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-personalization@link:../../../clients/algoliasearch-client-javascript/packages/client-personalization::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-predict@link:../../../clients/algoliasearch-client-javascript/packages/client-predict::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-predict@link:../../../clients/algoliasearch-client-javascript/packages/client-predict::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-query-suggestions@link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-query-suggestions@link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-search@link:../../../clients/algoliasearch-client-javascript/packages/client-search::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-search@link:../../../clients/algoliasearch-client-javascript/packages/client-search::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/client-sources@link:../../../clients/algoliasearch-client-javascript/packages/client-sources::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/client-sources@link:../../../clients/algoliasearch-client-javascript/packages/client-sources::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/recommend@link:../../../clients/algoliasearch-client-javascript/packages/recommend::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/recommend@link:../../../clients/algoliasearch-client-javascript/packages/recommend::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@experimental-api-clients-automation/requester-node-http@link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http::locator=javascript-tests%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@experimental-api-clients-automation/requester-node-http@link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http::locator=javascript-tests%40workspace%3A."
-  languageName: node
-  linkType: soft
 
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
@@ -1051,6 +1045,12 @@ __metadata:
   checksum: 1101a33f21baa27a2fa8e04b698271e64616b886795fd43c31068c07533c7b3facfcaf4e9e0cab3624bd88f729a592f1c901a1a229c9e490eafce411a8644b79
   languageName: node
   linkType: hard
+
+"algoliasearch@link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch::locator=javascript-tests%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "algoliasearch@link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch::locator=javascript-tests%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "ansi-escapes@npm:^4.2.1":
   version: 4.3.2
@@ -2115,20 +2115,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "javascript-tests@workspace:."
   dependencies:
-    "@experimental-api-clients-automation/algoliasearch": "link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch"
-    "@experimental-api-clients-automation/client-abtesting": "link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting"
-    "@experimental-api-clients-automation/client-analytics": "link:../../../clients/algoliasearch-client-javascript/packages/client-analytics"
-    "@experimental-api-clients-automation/client-common": "link:../../../clients/algoliasearch-client-javascript/packages/client-common"
-    "@experimental-api-clients-automation/client-insights": "link:../../../clients/algoliasearch-client-javascript/packages/client-insights"
-    "@experimental-api-clients-automation/client-personalization": "link:../../../clients/algoliasearch-client-javascript/packages/client-personalization"
-    "@experimental-api-clients-automation/client-predict": "link:../../../clients/algoliasearch-client-javascript/packages/client-predict"
-    "@experimental-api-clients-automation/client-query-suggestions": "link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions"
-    "@experimental-api-clients-automation/client-search": "link:../../../clients/algoliasearch-client-javascript/packages/client-search"
-    "@experimental-api-clients-automation/client-sources": "link:../../../clients/algoliasearch-client-javascript/packages/client-sources"
-    "@experimental-api-clients-automation/recommend": "link:../../../clients/algoliasearch-client-javascript/packages/recommend"
-    "@experimental-api-clients-automation/requester-node-http": "link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http"
+    "@algolia/client-abtesting": "link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting"
+    "@algolia/client-analytics": "link:../../../clients/algoliasearch-client-javascript/packages/client-analytics"
+    "@algolia/client-common": "link:../../../clients/algoliasearch-client-javascript/packages/client-common"
+    "@algolia/client-insights": "link:../../../clients/algoliasearch-client-javascript/packages/client-insights"
+    "@algolia/client-personalization": "link:../../../clients/algoliasearch-client-javascript/packages/client-personalization"
+    "@algolia/client-predict": "link:../../../clients/algoliasearch-client-javascript/packages/client-predict"
+    "@algolia/client-query-suggestions": "link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions"
+    "@algolia/client-search": "link:../../../clients/algoliasearch-client-javascript/packages/client-search"
+    "@algolia/client-sources": "link:../../../clients/algoliasearch-client-javascript/packages/client-sources"
+    "@algolia/recommend": "link:../../../clients/algoliasearch-client-javascript/packages/recommend"
+    "@algolia/requester-node-http": "link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http"
     "@types/jest": 28.1.1
     "@types/node": 16.11.41
+    algoliasearch: "link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch"
     jest: 28.1.1
     ts-jest: 28.0.5
     ts-node: 10.8.1

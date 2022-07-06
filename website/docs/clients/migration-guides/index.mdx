@@ -35,7 +35,7 @@ The `indexName` parameter is now **required** when calling those methods.
 <TabItem value="javascript">
 
 ```js
-import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+import { algoliasearch } from 'algoliasearch';
 
 const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 
@@ -120,7 +120,7 @@ The `Abtesting` client now hosts all of the `A/B testing` related methods.
 > Usage with the `algoliasearch` client
 
 ```js {2-3}
-import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+import { algoliasearch } from 'algoliasearch';
 
 - const analyticsClient = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>').initAnalytics();
 + const abtestingClient = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>').initAbtesting();
@@ -133,7 +133,7 @@ const abTest = await abtestingClient.getABTest({
 > Usage with the `client-abtesting` client
 
 ```js
-import { abtestingClient } from '@experimental-api-clients-automation/client-abtesting';
+import { abtestingClient } from '@algolia/client-abtesting';
 
 const client = abtestingClient('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 
@@ -180,7 +180,7 @@ You can now optionally configure how the wait logic behaves by passing the `task
 <TabItem value="javascript">
 
 ```js
-import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+import { algoliasearch } from 'algoliasearch';
 
 const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 
@@ -251,7 +251,7 @@ You can also decide what `scope` of the `source` index should be copied, [read m
 <TabItem value="javascript">
 
 ```js
-import { algoliasearch } from '@experimental-api-clients-automation/algoliasearch';
+import { algoliasearch } from 'algoliasearch';
 
 const client = algoliasearch('<YOUR_APP_ID>', '<YOUR_API_KEY>');
 
