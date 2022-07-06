@@ -16,6 +16,7 @@ import {
   ensureGitHubToken,
   TODAY,
   CI,
+  gitBranchExists,
 } from '../common';
 import { getPackageVersionDefault } from '../config';
 
@@ -34,6 +35,9 @@ import { updateAPIVersions } from './updateAPIVersions';
 dotenv.config({ path: ROOT_ENV_PATH });
 
 export const COMMON_SCOPES = ['specs', 'clients'];
+
+// Prevent fetching the same user multiple times
+const fetchedUsers: Record<string, string> = {};
 
 export function readVersions(): VersionsBeforeBump {
   return Object.fromEntries(
@@ -108,13 +112,19 @@ export function getSkippedCommitsText({
 </details>`;
 }
 
-export function parseCommit(commit: string): Commit {
-  const LENGTH_SHA1 = 8;
-  const hash = commit.slice(0, LENGTH_SHA1);
-  let message = commit.slice(LENGTH_SHA1 + 1);
-  let type = message.slice(0, message.indexOf(':'));
-  const matchResult = type.match(/(.+)\((.+)\)/);
+export async function parseCommit(commit: string): Promise<Commit> {
+  const [hash, authorEmail, message] = commit.split('|');
+  const commitScope = message.slice(0, message.indexOf(':'));
+  const typeAndScope = commitScope.match(/(.+)\((.+)\)/);
+  const prNumberMatch = message.match(/#(\d+)/);
+  const prNumber = prNumberMatch ? parseInt(prNumberMatch[1], 10) : 0;
+  let commitMessage = message;
 
+  if (prNumber) {
+    commitMessage = message.replace(`(#${prNumber})`, '').trim();
+  }
+
+  // We skip generation commits as they do not appear in changelogs
   if (
     message
       .toLocaleLowerCase()
@@ -124,28 +134,42 @@ export function parseCommit(commit: string): Commit {
       error: 'generation-commit',
     };
   }
-
-  if (!matchResult) {
+  if (!typeAndScope) {
     return {
       error: 'missing-language-scope',
+      message,
     };
   }
-  message = message.slice(message.indexOf(':') + 1).trim();
-  type = matchResult[1];
-  const scope = matchResult[2] as Scope;
-  // A spec commit should be added to every clients, as it mostly imply a client change.
-  const allowedScopes = [...LANGUAGES, ...COMMON_SCOPES];
 
-  if (!allowedScopes.includes(scope)) {
-    return { error: 'unknown-language-scope' };
+  const scope = typeAndScope[2] as Scope;
+  if (![...LANGUAGES, ...COMMON_SCOPES].includes(scope)) {
+    return { error: 'unknown-language-scope', message };
+  }
+
+  // Retrieve the author GitHub username if publicly available
+  if (!fetchedUsers[authorEmail] && prNumber) {
+    const octokit = getOctokit();
+    const { data } = await octokit.pulls.get({
+      owner: OWNER,
+      repo: REPO,
+      pull_number: prNumber,
+    });
+
+    if (data.user) {
+      fetchedUsers[
+        authorEmail
+      ] = `[@${data.user.login}](https://github.com/${data.user.login}/)`;
+    }
   }
 
   return {
     hash,
-    type, // `fix` | `feat` | `chore` | ...
+    type: typeAndScope[1], // `fix` | `feat` | `chore` | ...
     scope, // `clients` | `specs` | `javascript` | `php` | `java` | ...
-    message,
+    message: commitMessage,
+    prNumber,
     raw: commit,
+    author: fetchedUsers[authorEmail],
   };
 }
 
@@ -179,7 +203,7 @@ export function getNextVersion(
   }
 
   console.log(
-    `Next version is '${nextVersion}', release type: '${releaseType}'`
+    `    > Next version is '${nextVersion}', release type: '${releaseType}'`
   );
 
   return nextVersion;
@@ -274,39 +298,34 @@ async function getCommits(): Promise<{
 }> {
   // Reading commits since last release
   const latestCommits = (
-    await run(`git log --oneline --abbrev=8 ${RELEASED_TAG}..${MAIN_BRANCH}`)
+    await run(
+      `git log --pretty=format:"%h|%ae|%s" ${RELEASED_TAG}..${MAIN_BRANCH}`
+    )
   )
     .split('\n')
     .filter(Boolean);
 
   const commitsWithoutLanguageScope: string[] = [];
   const commitsWithUnknownLanguageScope: string[] = [];
+  const validCommits: PassedCommit[] = [];
 
-  const validCommits = latestCommits
-    .map((commitMessage) => {
-      const commit = parseCommit(commitMessage);
+  for (const commitMessage of latestCommits) {
+    const commit = await parseCommit(commitMessage);
 
-      if ('error' in commit) {
-        // We don't do anything in that case, as we don't really care about
-        // those commits
-        if (commit.error === 'generation-commit') {
-          return undefined;
-        }
-
-        if (commit.error === 'missing-language-scope') {
-          commitsWithoutLanguageScope.push(commitMessage);
-          return undefined;
-        }
-
-        if (commit.error === 'unknown-language-scope') {
-          commitsWithUnknownLanguageScope.push(commitMessage);
-          return undefined;
-        }
+    if ('error' in commit) {
+      if (commit.error === 'missing-language-scope') {
+        commitsWithoutLanguageScope.push(commit.message);
       }
 
-      return commit;
-    })
-    .filter(Boolean) as PassedCommit[];
+      if (commit.error === 'unknown-language-scope') {
+        commitsWithUnknownLanguageScope.push(commit.message);
+      }
+
+      continue;
+    }
+
+    validCommits.push(commit);
+  }
 
   if (validCommits.length === 0) {
     console.log(
@@ -326,29 +345,35 @@ async function getCommits(): Promise<{
   };
 }
 
-async function createReleasePR(): Promise<void> {
+/**
+ * Ensure the release environment is correct before triggering.
+ */
+async function prepareGitEnvironment(): Promise<void> {
   ensureGitHubToken();
 
-  if (!process.env.LOCAL_TEST_DEV) {
-    if ((await run('git rev-parse --abbrev-ref HEAD')) !== MAIN_BRANCH) {
-      throw new Error(
-        `You can run this script only from \`${MAIN_BRANCH}\` branch.`
-      );
-    }
-
-    if (
-      (await getNbGitDiff({
-        head: null,
-      })) !== 0
-    ) {
-      throw new Error(
-        'Working directory is not clean. Commit all the changes first.'
-      );
-    }
+  // We allow bypassing those requirements for local tests
+  if (process.env.LOCAL_TEST_DEV) {
+    return;
   }
 
   if (CI) {
     await configureGitHubAuthor();
+  }
+
+  if ((await run('git rev-parse --abbrev-ref HEAD')) !== MAIN_BRANCH) {
+    throw new Error(
+      `You can run this script only from \`${MAIN_BRANCH}\` branch.`
+    );
+  }
+
+  if (
+    (await getNbGitDiff({
+      head: null,
+    })) !== 0
+  ) {
+    throw new Error(
+      'Working directory is not clean. Commit all the changes first.'
+    );
   }
 
   await run(`git rev-parse --verify refs/tags/${RELEASED_TAG}`, {
@@ -365,6 +390,10 @@ async function createReleasePR(): Promise<void> {
   await run(
     `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
   );
+}
+
+async function createReleasePR(): Promise<void> {
+  await prepareGitEnvironment();
 
   console.log('Searching for commits since last release...');
   const { validCommits, skippedCommits } = await getCommits();
@@ -381,29 +410,64 @@ async function createReleasePR(): Promise<void> {
       return newChangelog;
     }
 
+    const changelogCommits: string[] = [];
+    for (const validCommit of validCommits) {
+      if (
+        validCommit.scope !== lang &&
+        !COMMON_SCOPES.includes(validCommit.scope)
+      ) {
+        continue;
+      }
+
+      const changelogCommit = [
+        `[${validCommit.hash}](https://github.com/${OWNER}/${REPO}/commit/${validCommit.hash})`,
+        validCommit.message,
+        validCommit.prNumber
+          ? `([#${validCommit.prNumber}](https://github.com/${OWNER}/${REPO}/pull/${validCommit.prNumber}))`
+          : undefined,
+        validCommit.author ? `by ${validCommit.author}` : undefined,
+      ]
+        .filter(Boolean)
+        .join(' ');
+
+      changelogCommits.push(`- ${changelogCommit}`);
+    }
+
     return {
       ...newChangelog,
-      [lang]: validCommits
-        .filter(
-          (commit) =>
-            commit.scope === lang || COMMON_SCOPES.includes(commit.scope)
-        )
-        .map((commit) => `- ${commit.raw}`)
-        .join('\n'),
+      [lang]: changelogCommits.join('\n'),
     };
   }, {} as Changelog);
 
-  const headBranch = `chore/prepare-release-${TODAY}`;
-
   console.log('Updating config files...');
-  await updateAPIVersions(versions, changelog, headBranch);
+  await updateAPIVersions(versions, changelog);
 
-  console.log('Creating pull request...');
+  const headBranch = `chore/prepare-release-${TODAY}`;
+  console.log(`Switching to branch: ${headBranch}`);
+  if (await gitBranchExists(headBranch)) {
+    await run(`git fetch origin ${headBranch}`);
+    await run(`git push -d origin ${headBranch}`);
+  }
+
+  await run(`git checkout -b ${headBranch}`);
+
+  console.log(`Pushing updated changes to: ${headBranch}`);
+  const commitMessage = generationCommitText.commitPrepareReleaseMessage;
+  await run('git add .', { verbose: true });
+  if (process.env.LOCAL_TEST_DEV) {
+    await run(`git commit -m "${commitMessage} [skip ci]"`, {
+      verbose: true,
+    });
+  } else {
+    await run(`CI=false git commit -m "${commitMessage}"`, { verbose: true });
+  }
+
+  await run(`git push origin ${headBranch}`, { verbose: true });
+  await run(`git checkout ${MAIN_BRANCH}`, { verbose: true });
+
+  console.log('Creating prepare release pull request...');
   const octokit = getOctokit();
-
-  const {
-    data: { number, html_url: url },
-  } = await octokit.pulls.create({
+  const { data } = await octokit.pulls.create({
     owner: OWNER,
     repo: REPO,
     title: generationCommitText.commitPrepareReleaseMessage,
@@ -423,15 +487,14 @@ async function createReleasePR(): Promise<void> {
   await octokit.pulls.requestReviewers({
     owner: OWNER,
     repo: REPO,
-    pull_number: number,
+    pull_number: data.number,
     team_reviewers: ['api-clients-automation'],
   });
 
-  console.log(`Release PR #${number} is ready for review.`);
-  console.log(`  > ${url}`);
+  console.log(`Release PR #${data.number} is ready for review.`);
+  console.log(`  > ${data.url}`);
 }
 
-// JS version of `if __name__ == '__main__'`
 if (require.main === module) {
   createReleasePR();
 }

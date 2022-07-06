@@ -1,4 +1,5 @@
-import generationCommitText from '../../ci/codegen/text';
+import { gitAuthor } from '../../../config/release.config.json';
+import * as common from '../../common';
 import {
   parseCommit,
   getVersionChangesText,
@@ -7,8 +8,44 @@ import {
   readVersions,
   getNextVersion,
 } from '../createReleasePR';
+import type { PassedCommit } from '../types';
+
+const buildTestCommit = (
+  options: Partial<{
+    type: string;
+    scope: string;
+    message: string;
+  }> = {}
+): string => {
+  const { type = 'fix', scope, message = 'fix the thing (#123)' } = options;
+  const baseTestCommit = `b2501882|${gitAuthor.email}`;
+  const typeAndScope = `${type}${scope ? `(${scope})` : ''}`;
+
+  return `${baseTestCommit}|${typeAndScope}: ${message}`;
+};
 
 describe('createReleasePR', () => {
+  beforeAll(() => {
+    // Mock `getOctokit` to bypass the API call and credential requirements
+    jest.spyOn(common, 'getOctokit').mockImplementation((): any => {
+      return {
+        pulls: {
+          get: (): any => ({
+            data: {
+              user: {
+                login: gitAuthor.name,
+              },
+            },
+          }),
+        },
+      };
+    });
+  });
+
+  afterAll(() => {
+    jest.spyOn(common, 'getOctokit').mockRestore();
+  });
+
   it('reads versions of the current language', () => {
     expect(readVersions()).toEqual({
       java: {
@@ -20,52 +57,68 @@ describe('createReleasePR', () => {
   });
 
   describe('parseCommit', () => {
-    it('parses commit', () => {
-      expect(parseCommit(`b2501882 fix(javascript): fix the thing`)).toEqual({
+    it('parses commit', async () => {
+      const testCommit = buildTestCommit({ scope: 'javascript' });
+      expect(await parseCommit(testCommit)).toEqual({
         hash: 'b2501882',
         scope: 'javascript',
-        message: 'fix the thing',
-        raw: 'b2501882 fix(javascript): fix the thing',
+        message: 'fix(javascript): fix the thing',
+        prNumber: 123,
+        raw: testCommit,
         type: 'fix',
+        author: `[@${gitAuthor.name}](https://github.com/${gitAuthor.name}/)`,
       });
     });
 
-    it('considers `specs` as a lang commit', () => {
-      expect(parseCommit(`b2501882 fix(specs): fix the thing`)).toEqual({
+    it('considers `specs` as a lang commit', async () => {
+      const testCommit = buildTestCommit({ scope: 'specs' });
+      expect(await parseCommit(testCommit)).toEqual({
         hash: 'b2501882',
         scope: 'specs',
-        message: 'fix the thing',
-        raw: 'b2501882 fix(specs): fix the thing',
+        message: 'fix(specs): fix the thing',
+        prNumber: 123,
+        raw: testCommit,
         type: 'fix',
+        author: `[@${gitAuthor.name}](https://github.com/${gitAuthor.name}/)`,
       });
     });
 
-    it('returns error when language scope is missing', () => {
-      expect(parseCommit(`b2501882 fix: fix the thing`)).toEqual({
-        error: 'missing-language-scope',
-      });
+    it('returns error when language scope is missing', async () => {
+      expect(await parseCommit(buildTestCommit())).toEqual(
+        expect.objectContaining({
+          error: 'missing-language-scope',
+        })
+      );
     });
 
-    it('returns error when language scope is unknown', () => {
-      expect(parseCommit(`b2501882 fix(basic): fix the thing`)).toEqual({
-        error: 'unknown-language-scope',
-      });
+    it('returns error when language scope is unknown', async () => {
+      expect(await parseCommit(buildTestCommit({ scope: 'unkown' }))).toEqual(
+        expect.objectContaining({
+          error: 'unknown-language-scope',
+        })
+      );
     });
 
-    it('returns error when it is a generated commit', () => {
+    it('returns error when it is a generated commit', async () => {
       expect(
-        parseCommit(
-          `49662518 ${generationCommitText.commitStartMessage} ABCDEF`
+        await parseCommit(
+          buildTestCommit({
+            type: 'chore',
+            message: 'generated code for commit',
+          })
         )
       ).toEqual({
         error: 'generation-commit',
       });
     });
 
-    it('returns error when it is a generated commit, even with other casing', () => {
+    it('returns error when it is a generated commit, even with other casing', async () => {
       expect(
-        parseCommit(
-          `49662518 ${generationCommitText.commitStartMessage.toLocaleUpperCase()} ABCDEF`
+        await parseCommit(
+          buildTestCommit({
+            type: 'chore',
+            message: 'GENERATED CODE FOR COMMIT',
+          })
         )
       ).toEqual({
         error: 'generation-commit',
@@ -163,7 +216,7 @@ describe('createReleasePR', () => {
   });
 
   describe('decideReleaseStrategy', () => {
-    it('bumps major version for BREAKING CHANGE', () => {
+    it('bumps major version for BREAKING CHANGE', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -177,13 +230,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'feat',
-            scope: 'javascript',
-            message: 'update the API (BREAKING CHANGE)',
-            raw: 'b2501882 feat(javascript): update the API (BREAKING CHANGE)',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'feat',
+              scope: 'javascript',
+              message: 'update the API (BREAKING CHANGE)',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -191,7 +244,7 @@ describe('createReleasePR', () => {
       expect(versions.javascript.next).toEqual('1.0.0');
     });
 
-    it('bumps minor version for feat', () => {
+    it('bumps minor version for feat', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -205,13 +258,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'feat',
-            scope: 'php',
-            message: 'update the API',
-            raw: 'b2501882 feat(php): update the API',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'feat',
+              scope: 'php',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -219,7 +272,7 @@ describe('createReleasePR', () => {
       expect(versions.php.next).toEqual('0.1.0');
     });
 
-    it('bumps patch version for fix', () => {
+    it('bumps patch version for fix', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -233,13 +286,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'fix',
-            scope: 'java',
-            message: 'fix some bug',
-            raw: 'b2501882 fix(java): fix some bug',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'fix',
+              scope: 'java',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -247,7 +300,7 @@ describe('createReleasePR', () => {
       expect(versions.java.next).toEqual('0.0.2');
     });
 
-    it('marks noCommit for languages without any commit', () => {
+    it('marks noCommit for languages without any commit', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -261,13 +314,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'fix',
-            scope: 'java',
-            message: 'fix some bug',
-            raw: 'b2501882 fix(java): fix some bug',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'fix',
+              scope: 'java',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -278,7 +331,7 @@ describe('createReleasePR', () => {
       expect(versions.java.next).toEqual('0.0.2');
     });
 
-    it('releases every languages if a `specs` commit is present', () => {
+    it('releases every languages if a `specs` commit is present', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -292,13 +345,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'fix',
-            scope: 'specs',
-            message: 'fix some descriptions',
-            raw: 'b2501882 fix(specs): fix some descriptions',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'fix',
+              scope: 'specs',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -313,7 +366,7 @@ describe('createReleasePR', () => {
       expect(versions.java.next).toEqual('0.0.2');
     });
 
-    it('releases every languages if a `clients` commit is present', () => {
+    it('releases every languages if a `clients` commit is present', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -327,13 +380,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'fix',
-            scope: 'clients',
-            message: 'fix some utils',
-            raw: 'b2501882 fix(clients): fix some utils',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'fix',
+              scope: 'clients',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -348,7 +401,7 @@ describe('createReleasePR', () => {
       expect(versions.java.next).toEqual('0.0.2');
     });
 
-    it('bumps for `specs` feat with only language `fix` commits', () => {
+    it('bumps for `specs` feat with only language `fix` commits', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -362,20 +415,20 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'fix',
-            scope: 'php',
-            message: 'fix some descriptions',
-            raw: 'b2501882 feat(php): fix some descriptions',
-          },
-          {
-            hash: 'b2501882',
-            type: 'feat',
-            scope: 'specs',
-            message: 'add some descriptions',
-            raw: 'b2501882 feat(specs): add some descriptions',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'fix',
+              scope: 'php',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
+          (await parseCommit(
+            buildTestCommit({
+              type: 'feat',
+              scope: 'specs',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -390,7 +443,7 @@ describe('createReleasePR', () => {
       expect(versions.java.next).toEqual('0.1.0');
     });
 
-    it('marks skipRelease for patch upgrade without fix commit', () => {
+    it('marks skipRelease for patch upgrade without fix commit', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -404,13 +457,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'chore',
-            scope: 'javascript',
-            message: 'update devDevpendencies',
-            raw: 'b2501882 chore(javascript): update devDevpendencies',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'chore',
+              scope: 'javascript',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
       expect(versions.javascript.skipRelease).toEqual(true);
@@ -418,7 +471,7 @@ describe('createReleasePR', () => {
       expect(versions.php.skipRelease).toBeUndefined();
     });
 
-    it('consider prerelease version and correctly bumps them', () => {
+    it('consider prerelease version and correctly bumps them', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -432,13 +485,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'feat',
-            scope: 'specs',
-            message: 'add some descriptions',
-            raw: 'b2501882 feat(specs): add some descriptions',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'feat',
+              scope: 'specs',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -453,7 +506,7 @@ describe('createReleasePR', () => {
       expect(versions.java.next).toEqual('0.0.1-beta.0');
     });
 
-    it('bumps SNAPSHOT versions correctly', () => {
+    it('bumps SNAPSHOT versions correctly', async () => {
       const versions = decideReleaseStrategy({
         versions: {
           javascript: {
@@ -467,13 +520,13 @@ describe('createReleasePR', () => {
           },
         },
         commits: [
-          {
-            hash: 'b2501882',
-            type: 'feat',
-            scope: 'specs',
-            message: 'add some descriptions',
-            raw: 'b2501882 feat(specs): add some descriptions',
-          },
+          (await parseCommit(
+            buildTestCommit({
+              type: 'feat',
+              scope: 'specs',
+              message: 'update the API',
+            })
+          )) as PassedCommit,
         ],
       });
 
@@ -536,15 +589,22 @@ describe('createReleasePR', () => {
       `);
     });
 
-    it('limits the size of the commits to 15 if there is too many', () => {
+    it('limits the size of the commits to 15 if there is too many', async () => {
       const fakeCommitsWithoutLanguageScope: string[] = [];
       const fakeCommitsWithUnknownLanguageScope: string[] = [];
 
-      for (let i = 0; i < 100; i++) {
-        fakeCommitsWithoutLanguageScope.push(`abcdefg${i} fix: something`);
-        fakeCommitsWithUnknownLanguageScope.push(
-          `abcdefg${i} fix(pascal): something`
+      for (let i = 0; i < 20; i++) {
+        const withoutCommit = await parseCommit(
+          buildTestCommit({ message: `something ${i}` })
         );
+        const unknownCommit = await parseCommit(
+          buildTestCommit({ message: `something ${i}`, scope: 'unknown' })
+        );
+
+        if ('message' in withoutCommit && 'message' in unknownCommit) {
+          fakeCommitsWithoutLanguageScope.push(withoutCommit.message);
+          fakeCommitsWithUnknownLanguageScope.push(unknownCommit.message);
+        }
       }
 
       expect(
@@ -561,21 +621,21 @@ describe('createReleasePR', () => {
             <i>Commits without language scope:</i>
           </summary>
 
-          - abcdefg0 fix: something
-        - abcdefg1 fix: something
-        - abcdefg2 fix: something
-        - abcdefg3 fix: something
-        - abcdefg4 fix: something
-        - abcdefg5 fix: something
-        - abcdefg6 fix: something
-        - abcdefg7 fix: something
-        - abcdefg8 fix: something
-        - abcdefg9 fix: something
-        - abcdefg10 fix: something
-        - abcdefg11 fix: something
-        - abcdefg12 fix: something
-        - abcdefg13 fix: something
-        - abcdefg14 fix: something
+          - fix: something 0
+        - fix: something 1
+        - fix: something 2
+        - fix: something 3
+        - fix: something 4
+        - fix: something 5
+        - fix: something 6
+        - fix: something 7
+        - fix: something 8
+        - fix: something 9
+        - fix: something 10
+        - fix: something 11
+        - fix: something 12
+        - fix: something 13
+        - fix: something 14
         </details>
 
         <details>
@@ -583,21 +643,21 @@ describe('createReleasePR', () => {
             <i>Commits with unknown language scope:</i>
           </summary>
 
-          - abcdefg0 fix(pascal): something
-        - abcdefg1 fix(pascal): something
-        - abcdefg2 fix(pascal): something
-        - abcdefg3 fix(pascal): something
-        - abcdefg4 fix(pascal): something
-        - abcdefg5 fix(pascal): something
-        - abcdefg6 fix(pascal): something
-        - abcdefg7 fix(pascal): something
-        - abcdefg8 fix(pascal): something
-        - abcdefg9 fix(pascal): something
-        - abcdefg10 fix(pascal): something
-        - abcdefg11 fix(pascal): something
-        - abcdefg12 fix(pascal): something
-        - abcdefg13 fix(pascal): something
-        - abcdefg14 fix(pascal): something
+          - fix(unknown): something 0
+        - fix(unknown): something 1
+        - fix(unknown): something 2
+        - fix(unknown): something 3
+        - fix(unknown): something 4
+        - fix(unknown): something 5
+        - fix(unknown): something 6
+        - fix(unknown): something 7
+        - fix(unknown): something 8
+        - fix(unknown): something 9
+        - fix(unknown): something 10
+        - fix(unknown): something 11
+        - fix(unknown): something 12
+        - fix(unknown): something 13
+        - fix(unknown): something 14
         </details>"
       `);
     });
