@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, require-await */
 // @ts-nocheck Failing tests will have type errors, but we cannot suppress them even with @ts-expect-error because it doesn't work for a block of lines.
-import type { AnalyticsClient } from '@experimental-api-clients-automation/client-analytics';
-import { analyticsClient } from '@experimental-api-clients-automation/client-analytics';
-import { echoRequester } from '@experimental-api-clients-automation/requester-node-http';
-import type { EchoResponse } from '@experimental-api-clients-automation/requester-node-http';
+import type { AnalyticsClient } from '@algolia/client-analytics';
+import { analyticsClient } from '@algolia/client-analytics';
+import { echoRequester } from '@algolia/requester-node-http';
+import type { EchoResponse } from '@algolia/requester-node-http';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
