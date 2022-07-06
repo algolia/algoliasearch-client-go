@@ -8,10 +8,13 @@ async function runCtsOne(language: string, verbose: boolean): Promise<void> {
   ).start();
   switch (language) {
     case 'javascript':
-      await run('yarn install && yarn test', {
-        verbose,
-        cwd: 'tests/output/javascript',
-      });
+      await run(
+        'YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install && yarn test',
+        {
+          verbose,
+          cwd: 'tests/output/javascript',
+        }
+      );
       break;
     case 'java':
       await run('./gradle/gradlew --no-daemon -p tests/output/java test', {

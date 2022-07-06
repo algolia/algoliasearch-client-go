@@ -10,10 +10,10 @@
     "@algolia/client-common": "link:../../../clients/algoliasearch-client-javascript/packages/client-common",
     "@algolia/client-insights": "link:../../../clients/algoliasearch-client-javascript/packages/client-insights",
     "@algolia/client-personalization": "link:../../../clients/algoliasearch-client-javascript/packages/client-personalization",
-    "@algolia/client-predict": "link:../../../clients/algoliasearch-client-javascript/packages/client-predict",
     "@algolia/client-query-suggestions": "link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions",
     "@algolia/client-search": "link:../../../clients/algoliasearch-client-javascript/packages/client-search",
     "@algolia/client-sources": "link:../../../clients/algoliasearch-client-javascript/packages/client-sources",
+    "@algolia/predict": "link:../../../clients/algoliasearch-client-javascript/packages/predict",
     "@algolia/recommend": "link:../../../clients/algoliasearch-client-javascript/packages/recommend",
     "@algolia/requester-node-http": "link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http",
     "algoliasearch": "link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch"

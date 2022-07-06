@@ -57,7 +57,7 @@
     "**/client-analytics/**",
     "**/client-insights/**",
     "**/client-personalization/**",
-    "**/client-predict/**",
+    "**/predict/**",
     "**/client-query-suggestions/**",
     "**/client-search/**",
     "**/client-sources/**",

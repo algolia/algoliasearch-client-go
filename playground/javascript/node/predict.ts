@@ -1,4 +1,4 @@
-import { predictClient } from '@algolia/client-predict';
+import { predictClient } from '@algolia/predict';
 import { ApiError } from '@algolia/client-common';
 import dotenv from 'dotenv';
 

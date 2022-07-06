@@ -60,7 +60,7 @@
         }
       },
       "javascript-predict": {
-        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-predict",
+        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/predict",
         "additionalProperties": {
           "packageVersion": "1.0.0-alpha.0"
         }
