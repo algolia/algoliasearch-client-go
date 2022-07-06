@@ -21,6 +21,6 @@ public class JavaCTSManager implements CTSManager {
   @Override
   public void addDataToBundle(Map<String, Object> bundle) throws GeneratorException {
     bundle.put("packageVersion", Utils.getClientConfigField("java", "packageVersion"));
-    bundle.put("import", Utils.camelize(this.client));
+    bundle.put("import", Utils.camelize(this.client).toLowerCase());
   }
 }

@@ -6,8 +6,8 @@ import { createSpinner } from './oraLog';
 import { generateOpenapitools, removeExistingCodegen } from './pre-gen';
 import type { Generator } from './types';
 
-async function preGen(gen: Generator, verbose?: boolean): Promise<void> {
-  await removeExistingCodegen(gen, verbose);
+async function preGen(gen: Generator): Promise<void> {
+  await removeExistingCodegen(gen);
 }
 
 async function generateClient(
@@ -48,7 +48,7 @@ export async function generate(
 
   for (const gen of generators) {
     const spinner = createSpinner(`pre-gen ${gen.key}`, verbose).start();
-    await preGen(gen, verbose);
+    await preGen(gen);
 
     spinner.text = `generating ${gen.key}`;
     await generateClient(gen, verbose);

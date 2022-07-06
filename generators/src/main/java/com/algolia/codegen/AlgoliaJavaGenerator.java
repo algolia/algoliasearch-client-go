@@ -8,7 +8,6 @@ import java.util.*;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.languages.JavaClientCodegen;
 import org.openapitools.codegen.model.ModelsMap;
-import org.openapitools.codegen.utils.ModelUtils;
 
 @SuppressWarnings("unchecked")
 public class AlgoliaJavaGenerator extends JavaClientCodegen {
@@ -24,7 +23,7 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
     String client = (String) additionalProperties.get("client");
     setSourceFolder("algoliasearch-core/src/main/java");
     setGroupId("com.algolia");
-    setModelPackage("com.algolia.model." + Utils.camelize(client));
+    setModelPackage("com.algolia.model." + Utils.camelize(client).toLowerCase());
     additionalProperties.put("invokerPackage", "com.algolia");
     setApiPackage("com.algolia.api");
     setApiNameSuffix(Utils.API_SUFFIX);
@@ -100,15 +99,6 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
     }
 
     return models;
-  }
-
-  @Override
-  public String toDefaultValue(Schema schema) {
-    // Replace the {} from openapi with new Object()
-    if (ModelUtils.isObjectSchema(schema) && schema.getDefault() != null) {
-      return "new Object()";
-    }
-    return super.toDefaultValue(schema);
   }
 
   @Override

@@ -1,16 +1,18 @@
+import fsp from 'fs/promises';
 import path from 'path';
 
-import { createClientName, run, toAbsolutePath } from '../common';
+import { createClientName, toAbsolutePath } from '../common';
 import { getLanguageApiFolder, getLanguageModelFolder } from '../config';
 import type { Generator } from '../types';
 
 /**
  * Remove `model` folder for the current language and client.
  */
-export async function removeExistingCodegen(
-  { language, client, output }: Generator,
-  verbose?: boolean
-): Promise<void> {
+export async function removeExistingCodegen({
+  language,
+  client,
+  output,
+}: Generator): Promise<void> {
   const baseModelFolder = getLanguageModelFolder(language);
   const baseApiFolder = getLanguageApiFolder(language);
   const clientName = createClientName(client, language);
@@ -20,7 +22,17 @@ export async function removeExistingCodegen(
 
   switch (language) {
     case 'java':
-      clientModel = client;
+      if (client === 'query-suggestions') {
+        // eslint-disable-next-line no-warning-comments
+        // TODO: temporary solution, remove in next PR
+        await fsp.rm(
+          toAbsolutePath(
+            path.resolve('..', output, baseModelFolder, 'querySuggestions')
+          ),
+          { force: true, recursive: true }
+        );
+      }
+      clientModel = client.replace('-', '');
       clientApi = `${clientName}*.java`;
       break;
     case 'php':
@@ -30,44 +42,31 @@ export async function removeExistingCodegen(
     case 'javascript':
       // We want to also delete the nested `lite` client or folders that only exists in JS
       if (clientName === 'algoliasearch') {
-        await run(
-          `rm -rf ${toAbsolutePath(path.resolve('..', output, 'lite'))}`,
-          {
-            verbose,
-          }
-        );
+        await fsp.rm(toAbsolutePath(path.resolve('..', output, 'lite')), {
+          force: true,
+          recursive: true,
+        });
       }
 
       // Delete `builds` folder
-      await run(
-        `rm -rf ${toAbsolutePath(path.resolve('..', output, 'builds'))}`,
-        {
-          verbose,
-        }
-      );
-
+      await fsp.rm(toAbsolutePath(path.resolve('..', output, 'builds')), {
+        force: true,
+        recursive: true,
+      });
       break;
     default:
       break;
   }
 
   // Delete client model folder/file
-  await run(
-    `rm -rf ${toAbsolutePath(
-      path.resolve('..', output, baseModelFolder, clientModel)
-    )}`,
-    {
-      verbose,
-    }
+  await fsp.rm(
+    toAbsolutePath(path.resolve('..', output, baseModelFolder, clientModel)),
+    { force: true, recursive: true }
   );
 
   // Delete client api folder/file
-  await run(
-    `rm -rf ${toAbsolutePath(
-      path.resolve('..', output, baseApiFolder, clientApi)
-    )}`,
-    {
-      verbose,
-    }
+  await fsp.rm(
+    toAbsolutePath(path.resolve('..', output, baseApiFolder, clientApi)),
+    { force: true, recursive: true }
   );
 }

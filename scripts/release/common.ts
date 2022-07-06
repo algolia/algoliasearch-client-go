@@ -37,7 +37,7 @@ export async function cloneRepository({
 
   const gitHubUrl = getGitHubUrl(lang, { token: githubToken });
   const tempGitDir = path.resolve(tempDir, lang);
-  await run(`rm -rf ${tempGitDir}`);
+  await fsp.rm(tempGitDir, { force: true, recursive: true });
   await run(
     `git clone --depth 1 --branch ${targetBranch} ${gitHubUrl} ${tempGitDir}`
   );
