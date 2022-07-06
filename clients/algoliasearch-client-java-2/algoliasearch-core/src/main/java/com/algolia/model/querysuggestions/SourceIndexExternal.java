@@ -1,4 +1,4 @@
-package com.algolia.model.querySuggestions;
+package com.algolia.model.querysuggestions;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.Objects;

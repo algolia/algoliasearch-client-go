@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
 import com.algolia.api.QuerySuggestionsClient;
-import com.algolia.model.querySuggestions.*;
+import com.algolia.model.querysuggestions.*;
 import com.algolia.utils.ClientOptions;
 import com.algolia.utils.HttpRequester;
 import java.util.*;

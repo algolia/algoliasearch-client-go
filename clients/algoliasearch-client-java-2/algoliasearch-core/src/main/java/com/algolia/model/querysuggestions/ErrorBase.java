@@ -1,43 +1,26 @@
-package com.algolia.model.querySuggestions;
+package com.algolia.model.querysuggestions;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.HashMap;
 import java.util.Objects;
 
-/** SuccessResponse */
-public class SuccessResponse {
-
-  @SerializedName("status")
-  private Integer status;
+/** Error. */
+public class ErrorBase extends HashMap<String, Object> {
 
   @SerializedName("message")
   private String message;
 
-  public SuccessResponse setStatus(Integer status) {
-    this.status = status;
-    return this;
-  }
-
-  /**
-   * The status code.
-   *
-   * @return status
-   */
-  @javax.annotation.Nonnull
-  public Integer getStatus() {
-    return status;
-  }
-
-  public SuccessResponse setMessage(String message) {
+  public ErrorBase setMessage(String message) {
     this.message = message;
     return this;
   }
 
   /**
-   * Message of the response.
+   * Get message
    *
    * @return message
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getMessage() {
     return message;
   }
@@ -50,20 +33,20 @@ public class SuccessResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SuccessResponse successResponse = (SuccessResponse) o;
-    return Objects.equals(this.status, successResponse.status) && Objects.equals(this.message, successResponse.message);
+    ErrorBase errorBase = (ErrorBase) o;
+    return Objects.equals(this.message, errorBase.message) && super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, message);
+    return Objects.hash(message, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SuccessResponse {\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("class ErrorBase {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();

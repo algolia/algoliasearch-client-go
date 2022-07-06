@@ -1,4 +1,4 @@
-package com.algolia.model.querySuggestions;
+package com.algolia.model.querysuggestions;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;

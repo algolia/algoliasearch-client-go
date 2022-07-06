@@ -1,14 +1,12 @@
-package com.algolia.model.querySuggestions;
+package com.algolia.model.querysuggestions;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** Source index with replicas used to generate a Query Suggestions index. */
-public class SourceIndexWithReplicas {
-
-  @SerializedName("replicas")
-  private Boolean replicas;
+/** SourceIndex */
+public class SourceIndex {
 
   @SerializedName("indexName")
   private String indexName;
@@ -31,22 +29,7 @@ public class SourceIndexWithReplicas {
   @SerializedName("external")
   private List<SourceIndexExternal> external;
 
-  public SourceIndexWithReplicas setReplicas(Boolean replicas) {
-    this.replicas = replicas;
-    return this;
-  }
-
-  /**
-   * true if the Query Suggestions index is a replicas.
-   *
-   * @return replicas
-   */
-  @javax.annotation.Nonnull
-  public Boolean getReplicas() {
-    return replicas;
-  }
-
-  public SourceIndexWithReplicas setIndexName(String indexName) {
+  public SourceIndex setIndexName(String indexName) {
     this.indexName = indexName;
     return this;
   }
@@ -61,12 +44,15 @@ public class SourceIndexWithReplicas {
     return indexName;
   }
 
-  public SourceIndexWithReplicas setAnalyticsTags(List<String> analyticsTags) {
+  public SourceIndex setAnalyticsTags(List<String> analyticsTags) {
     this.analyticsTags = analyticsTags;
     return this;
   }
 
-  public SourceIndexWithReplicas addAnalyticsTags(String analyticsTagsItem) {
+  public SourceIndex addAnalyticsTags(String analyticsTagsItem) {
+    if (this.analyticsTags == null) {
+      this.analyticsTags = new ArrayList<>();
+    }
     this.analyticsTags.add(analyticsTagsItem);
     return this;
   }
@@ -76,17 +62,20 @@ public class SourceIndexWithReplicas {
    *
    * @return analyticsTags
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getAnalyticsTags() {
     return analyticsTags;
   }
 
-  public SourceIndexWithReplicas setFacets(List<Object> facets) {
+  public SourceIndex setFacets(List<Object> facets) {
     this.facets = facets;
     return this;
   }
 
-  public SourceIndexWithReplicas addFacets(Object facetsItem) {
+  public SourceIndex addFacets(Object facetsItem) {
+    if (this.facets == null) {
+      this.facets = new ArrayList<>();
+    }
     this.facets.add(facetsItem);
     return this;
   }
@@ -96,12 +85,12 @@ public class SourceIndexWithReplicas {
    *
    * @return facets
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<Object> getFacets() {
     return facets;
   }
 
-  public SourceIndexWithReplicas setMinHits(Integer minHits) {
+  public SourceIndex setMinHits(Integer minHits) {
     this.minHits = minHits;
     return this;
   }
@@ -111,12 +100,12 @@ public class SourceIndexWithReplicas {
    *
    * @return minHits
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Integer getMinHits() {
     return minHits;
   }
 
-  public SourceIndexWithReplicas setMinLetters(Integer minLetters) {
+  public SourceIndex setMinLetters(Integer minLetters) {
     this.minLetters = minLetters;
     return this;
   }
@@ -126,17 +115,20 @@ public class SourceIndexWithReplicas {
    *
    * @return minLetters
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Integer getMinLetters() {
     return minLetters;
   }
 
-  public SourceIndexWithReplicas setGenerate(List<List<String>> generate) {
+  public SourceIndex setGenerate(List<List<String>> generate) {
     this.generate = generate;
     return this;
   }
 
-  public SourceIndexWithReplicas addGenerate(List<String> generateItem) {
+  public SourceIndex addGenerate(List<String> generateItem) {
+    if (this.generate == null) {
+      this.generate = new ArrayList<>();
+    }
     this.generate.add(generateItem);
     return this;
   }
@@ -147,17 +139,20 @@ public class SourceIndexWithReplicas {
    *
    * @return generate
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<List<String>> getGenerate() {
     return generate;
   }
 
-  public SourceIndexWithReplicas setExternal(List<SourceIndexExternal> external) {
+  public SourceIndex setExternal(List<SourceIndexExternal> external) {
     this.external = external;
     return this;
   }
 
-  public SourceIndexWithReplicas addExternal(SourceIndexExternal externalItem) {
+  public SourceIndex addExternal(SourceIndexExternal externalItem) {
+    if (this.external == null) {
+      this.external = new ArrayList<>();
+    }
     this.external.add(externalItem);
     return this;
   }
@@ -167,7 +162,7 @@ public class SourceIndexWithReplicas {
    *
    * @return external
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<SourceIndexExternal> getExternal() {
     return external;
   }
@@ -180,29 +175,27 @@ public class SourceIndexWithReplicas {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SourceIndexWithReplicas sourceIndexWithReplicas = (SourceIndexWithReplicas) o;
+    SourceIndex sourceIndex = (SourceIndex) o;
     return (
-      Objects.equals(this.replicas, sourceIndexWithReplicas.replicas) &&
-      Objects.equals(this.indexName, sourceIndexWithReplicas.indexName) &&
-      Objects.equals(this.analyticsTags, sourceIndexWithReplicas.analyticsTags) &&
-      Objects.equals(this.facets, sourceIndexWithReplicas.facets) &&
-      Objects.equals(this.minHits, sourceIndexWithReplicas.minHits) &&
-      Objects.equals(this.minLetters, sourceIndexWithReplicas.minLetters) &&
-      Objects.equals(this.generate, sourceIndexWithReplicas.generate) &&
-      Objects.equals(this.external, sourceIndexWithReplicas.external)
+      Objects.equals(this.indexName, sourceIndex.indexName) &&
+      Objects.equals(this.analyticsTags, sourceIndex.analyticsTags) &&
+      Objects.equals(this.facets, sourceIndex.facets) &&
+      Objects.equals(this.minHits, sourceIndex.minHits) &&
+      Objects.equals(this.minLetters, sourceIndex.minLetters) &&
+      Objects.equals(this.generate, sourceIndex.generate) &&
+      Objects.equals(this.external, sourceIndex.external)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(replicas, indexName, analyticsTags, facets, minHits, minLetters, generate, external);
+    return Objects.hash(indexName, analyticsTags, facets, minHits, minLetters, generate, external);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SourceIndexWithReplicas {\n");
-    sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
+    sb.append("class SourceIndex {\n");
     sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("    analyticsTags: ").append(toIndentedString(analyticsTags)).append("\n");
     sb.append("    facets: ").append(toIndentedString(facets)).append("\n");

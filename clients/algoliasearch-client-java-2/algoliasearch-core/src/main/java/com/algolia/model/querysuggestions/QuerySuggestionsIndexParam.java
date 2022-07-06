@@ -1,17 +1,15 @@
-package com.algolia.model.querySuggestions;
+package com.algolia.model.querysuggestions;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** QuerySuggestionsIndex */
-public class QuerySuggestionsIndex {
-
-  @SerializedName("indexName")
-  private String indexName;
+/** QuerySuggestionsIndexParam */
+public class QuerySuggestionsIndexParam {
 
   @SerializedName("sourceIndices")
-  private List<SourceIndexWithReplicas> sourceIndices;
+  private List<SourceIndex> sourceIndices;
 
   @SerializedName("languages")
   private List<String> languages;
@@ -19,27 +17,12 @@ public class QuerySuggestionsIndex {
   @SerializedName("exclude")
   private List<String> exclude;
 
-  public QuerySuggestionsIndex setIndexName(String indexName) {
-    this.indexName = indexName;
-    return this;
-  }
-
-  /**
-   * Index name to target.
-   *
-   * @return indexName
-   */
-  @javax.annotation.Nonnull
-  public String getIndexName() {
-    return indexName;
-  }
-
-  public QuerySuggestionsIndex setSourceIndices(List<SourceIndexWithReplicas> sourceIndices) {
+  public QuerySuggestionsIndexParam setSourceIndices(List<SourceIndex> sourceIndices) {
     this.sourceIndices = sourceIndices;
     return this;
   }
 
-  public QuerySuggestionsIndex addSourceIndices(SourceIndexWithReplicas sourceIndicesItem) {
+  public QuerySuggestionsIndexParam addSourceIndices(SourceIndex sourceIndicesItem) {
     this.sourceIndices.add(sourceIndicesItem);
     return this;
   }
@@ -50,16 +33,19 @@ public class QuerySuggestionsIndex {
    * @return sourceIndices
    */
   @javax.annotation.Nonnull
-  public List<SourceIndexWithReplicas> getSourceIndices() {
+  public List<SourceIndex> getSourceIndices() {
     return sourceIndices;
   }
 
-  public QuerySuggestionsIndex setLanguages(List<String> languages) {
+  public QuerySuggestionsIndexParam setLanguages(List<String> languages) {
     this.languages = languages;
     return this;
   }
 
-  public QuerySuggestionsIndex addLanguages(String languagesItem) {
+  public QuerySuggestionsIndexParam addLanguages(String languagesItem) {
+    if (this.languages == null) {
+      this.languages = new ArrayList<>();
+    }
     this.languages.add(languagesItem);
     return this;
   }
@@ -72,17 +58,20 @@ public class QuerySuggestionsIndex {
    *
    * @return languages
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getLanguages() {
     return languages;
   }
 
-  public QuerySuggestionsIndex setExclude(List<String> exclude) {
+  public QuerySuggestionsIndexParam setExclude(List<String> exclude) {
     this.exclude = exclude;
     return this;
   }
 
-  public QuerySuggestionsIndex addExclude(String excludeItem) {
+  public QuerySuggestionsIndexParam addExclude(String excludeItem) {
+    if (this.exclude == null) {
+      this.exclude = new ArrayList<>();
+    }
     this.exclude.add(excludeItem);
     return this;
   }
@@ -92,7 +81,7 @@ public class QuerySuggestionsIndex {
    *
    * @return exclude
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getExclude() {
     return exclude;
   }
@@ -105,25 +94,23 @@ public class QuerySuggestionsIndex {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    QuerySuggestionsIndex querySuggestionsIndex = (QuerySuggestionsIndex) o;
+    QuerySuggestionsIndexParam querySuggestionsIndexParam = (QuerySuggestionsIndexParam) o;
     return (
-      Objects.equals(this.indexName, querySuggestionsIndex.indexName) &&
-      Objects.equals(this.sourceIndices, querySuggestionsIndex.sourceIndices) &&
-      Objects.equals(this.languages, querySuggestionsIndex.languages) &&
-      Objects.equals(this.exclude, querySuggestionsIndex.exclude)
+      Objects.equals(this.sourceIndices, querySuggestionsIndexParam.sourceIndices) &&
+      Objects.equals(this.languages, querySuggestionsIndexParam.languages) &&
+      Objects.equals(this.exclude, querySuggestionsIndexParam.exclude)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(indexName, sourceIndices, languages, exclude);
+    return Objects.hash(sourceIndices, languages, exclude);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class QuerySuggestionsIndex {\n");
-    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
+    sb.append("class QuerySuggestionsIndexParam {\n");
     sb.append("    sourceIndices: ").append(toIndentedString(sourceIndices)).append("\n");
     sb.append("    languages: ").append(toIndentedString(languages)).append("\n");
     sb.append("    exclude: ").append(toIndentedString(exclude)).append("\n");

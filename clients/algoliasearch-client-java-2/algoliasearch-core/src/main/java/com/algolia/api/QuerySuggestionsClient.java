@@ -2,7 +2,7 @@ package com.algolia.api;
 
 import com.algolia.ApiClient;
 import com.algolia.exceptions.*;
-import com.algolia.model.querySuggestions.*;
+import com.algolia.model.querysuggestions.*;
 import com.algolia.utils.*;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;

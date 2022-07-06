@@ -1,12 +1,12 @@
-package com.algolia.model.querySuggestions;
+package com.algolia.model.querysuggestions;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** QuerySuggestionsIndexParam */
-public class QuerySuggestionsIndexParam {
+/** QuerySuggestionsIndexWithIndexParam */
+public class QuerySuggestionsIndexWithIndexParam {
 
   @SerializedName("sourceIndices")
   private List<SourceIndex> sourceIndices;
@@ -17,12 +17,15 @@ public class QuerySuggestionsIndexParam {
   @SerializedName("exclude")
   private List<String> exclude;
 
-  public QuerySuggestionsIndexParam setSourceIndices(List<SourceIndex> sourceIndices) {
+  @SerializedName("indexName")
+  private String indexName;
+
+  public QuerySuggestionsIndexWithIndexParam setSourceIndices(List<SourceIndex> sourceIndices) {
     this.sourceIndices = sourceIndices;
     return this;
   }
 
-  public QuerySuggestionsIndexParam addSourceIndices(SourceIndex sourceIndicesItem) {
+  public QuerySuggestionsIndexWithIndexParam addSourceIndices(SourceIndex sourceIndicesItem) {
     this.sourceIndices.add(sourceIndicesItem);
     return this;
   }
@@ -37,12 +40,12 @@ public class QuerySuggestionsIndexParam {
     return sourceIndices;
   }
 
-  public QuerySuggestionsIndexParam setLanguages(List<String> languages) {
+  public QuerySuggestionsIndexWithIndexParam setLanguages(List<String> languages) {
     this.languages = languages;
     return this;
   }
 
-  public QuerySuggestionsIndexParam addLanguages(String languagesItem) {
+  public QuerySuggestionsIndexWithIndexParam addLanguages(String languagesItem) {
     if (this.languages == null) {
       this.languages = new ArrayList<>();
     }
@@ -63,12 +66,12 @@ public class QuerySuggestionsIndexParam {
     return languages;
   }
 
-  public QuerySuggestionsIndexParam setExclude(List<String> exclude) {
+  public QuerySuggestionsIndexWithIndexParam setExclude(List<String> exclude) {
     this.exclude = exclude;
     return this;
   }
 
-  public QuerySuggestionsIndexParam addExclude(String excludeItem) {
+  public QuerySuggestionsIndexWithIndexParam addExclude(String excludeItem) {
     if (this.exclude == null) {
       this.exclude = new ArrayList<>();
     }
@@ -86,6 +89,21 @@ public class QuerySuggestionsIndexParam {
     return exclude;
   }
 
+  public QuerySuggestionsIndexWithIndexParam setIndexName(String indexName) {
+    this.indexName = indexName;
+    return this;
+  }
+
+  /**
+   * Index name to target.
+   *
+   * @return indexName
+   */
+  @javax.annotation.Nonnull
+  public String getIndexName() {
+    return indexName;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -94,26 +112,28 @@ public class QuerySuggestionsIndexParam {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    QuerySuggestionsIndexParam querySuggestionsIndexParam = (QuerySuggestionsIndexParam) o;
+    QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam = (QuerySuggestionsIndexWithIndexParam) o;
     return (
-      Objects.equals(this.sourceIndices, querySuggestionsIndexParam.sourceIndices) &&
-      Objects.equals(this.languages, querySuggestionsIndexParam.languages) &&
-      Objects.equals(this.exclude, querySuggestionsIndexParam.exclude)
+      Objects.equals(this.sourceIndices, querySuggestionsIndexWithIndexParam.sourceIndices) &&
+      Objects.equals(this.languages, querySuggestionsIndexWithIndexParam.languages) &&
+      Objects.equals(this.exclude, querySuggestionsIndexWithIndexParam.exclude) &&
+      Objects.equals(this.indexName, querySuggestionsIndexWithIndexParam.indexName)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sourceIndices, languages, exclude);
+    return Objects.hash(sourceIndices, languages, exclude, indexName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class QuerySuggestionsIndexParam {\n");
+    sb.append("class QuerySuggestionsIndexWithIndexParam {\n");
     sb.append("    sourceIndices: ").append(toIndentedString(sourceIndices)).append("\n");
     sb.append("    languages: ").append(toIndentedString(languages)).append("\n");
     sb.append("    exclude: ").append(toIndentedString(exclude)).append("\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

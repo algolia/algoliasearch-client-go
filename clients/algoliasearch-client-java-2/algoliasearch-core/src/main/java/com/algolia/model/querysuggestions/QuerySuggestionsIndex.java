@@ -1,15 +1,17 @@
-package com.algolia.model.querySuggestions;
+package com.algolia.model.querysuggestions;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** QuerySuggestionsIndexWithIndexParam */
-public class QuerySuggestionsIndexWithIndexParam {
+/** QuerySuggestionsIndex */
+public class QuerySuggestionsIndex {
+
+  @SerializedName("indexName")
+  private String indexName;
 
   @SerializedName("sourceIndices")
-  private List<SourceIndex> sourceIndices;
+  private List<SourceIndexWithReplicas> sourceIndices;
 
   @SerializedName("languages")
   private List<String> languages;
@@ -17,79 +19,7 @@ public class QuerySuggestionsIndexWithIndexParam {
   @SerializedName("exclude")
   private List<String> exclude;
 
-  @SerializedName("indexName")
-  private String indexName;
-
-  public QuerySuggestionsIndexWithIndexParam setSourceIndices(List<SourceIndex> sourceIndices) {
-    this.sourceIndices = sourceIndices;
-    return this;
-  }
-
-  public QuerySuggestionsIndexWithIndexParam addSourceIndices(SourceIndex sourceIndicesItem) {
-    this.sourceIndices.add(sourceIndicesItem);
-    return this;
-  }
-
-  /**
-   * List of source indices used to generate a Query Suggestions index.
-   *
-   * @return sourceIndices
-   */
-  @javax.annotation.Nonnull
-  public List<SourceIndex> getSourceIndices() {
-    return sourceIndices;
-  }
-
-  public QuerySuggestionsIndexWithIndexParam setLanguages(List<String> languages) {
-    this.languages = languages;
-    return this;
-  }
-
-  public QuerySuggestionsIndexWithIndexParam addLanguages(String languagesItem) {
-    if (this.languages == null) {
-      this.languages = new ArrayList<>();
-    }
-    this.languages.add(languagesItem);
-    return this;
-  }
-
-  /**
-   * De-duplicate singular and plural suggestions. For example, let's say your index contains
-   * English content, and that two suggestions “shoe” and “shoes” end up in your Query Suggestions
-   * index. If the English language is configured, only the most popular of those two suggestions
-   * would remain.
-   *
-   * @return languages
-   */
-  @javax.annotation.Nullable
-  public List<String> getLanguages() {
-    return languages;
-  }
-
-  public QuerySuggestionsIndexWithIndexParam setExclude(List<String> exclude) {
-    this.exclude = exclude;
-    return this;
-  }
-
-  public QuerySuggestionsIndexWithIndexParam addExclude(String excludeItem) {
-    if (this.exclude == null) {
-      this.exclude = new ArrayList<>();
-    }
-    this.exclude.add(excludeItem);
-    return this;
-  }
-
-  /**
-   * List of words and patterns to exclude from the Query Suggestions index.
-   *
-   * @return exclude
-   */
-  @javax.annotation.Nullable
-  public List<String> getExclude() {
-    return exclude;
-  }
-
-  public QuerySuggestionsIndexWithIndexParam setIndexName(String indexName) {
+  public QuerySuggestionsIndex setIndexName(String indexName) {
     this.indexName = indexName;
     return this;
   }
@@ -104,6 +34,69 @@ public class QuerySuggestionsIndexWithIndexParam {
     return indexName;
   }
 
+  public QuerySuggestionsIndex setSourceIndices(List<SourceIndexWithReplicas> sourceIndices) {
+    this.sourceIndices = sourceIndices;
+    return this;
+  }
+
+  public QuerySuggestionsIndex addSourceIndices(SourceIndexWithReplicas sourceIndicesItem) {
+    this.sourceIndices.add(sourceIndicesItem);
+    return this;
+  }
+
+  /**
+   * List of source indices used to generate a Query Suggestions index.
+   *
+   * @return sourceIndices
+   */
+  @javax.annotation.Nonnull
+  public List<SourceIndexWithReplicas> getSourceIndices() {
+    return sourceIndices;
+  }
+
+  public QuerySuggestionsIndex setLanguages(List<String> languages) {
+    this.languages = languages;
+    return this;
+  }
+
+  public QuerySuggestionsIndex addLanguages(String languagesItem) {
+    this.languages.add(languagesItem);
+    return this;
+  }
+
+  /**
+   * De-duplicate singular and plural suggestions. For example, let's say your index contains
+   * English content, and that two suggestions “shoe” and “shoes” end up in your Query Suggestions
+   * index. If the English language is configured, only the most popular of those two suggestions
+   * would remain.
+   *
+   * @return languages
+   */
+  @javax.annotation.Nonnull
+  public List<String> getLanguages() {
+    return languages;
+  }
+
+  public QuerySuggestionsIndex setExclude(List<String> exclude) {
+    this.exclude = exclude;
+    return this;
+  }
+
+  public QuerySuggestionsIndex addExclude(String excludeItem) {
+    this.exclude.add(excludeItem);
+    return this;
+  }
+
+  /**
+   * List of words and patterns to exclude from the Query Suggestions index.
+   *
+   * @return exclude
+   */
+  @javax.annotation.Nonnull
+  public List<String> getExclude() {
+    return exclude;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -112,28 +105,28 @@ public class QuerySuggestionsIndexWithIndexParam {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam = (QuerySuggestionsIndexWithIndexParam) o;
+    QuerySuggestionsIndex querySuggestionsIndex = (QuerySuggestionsIndex) o;
     return (
-      Objects.equals(this.sourceIndices, querySuggestionsIndexWithIndexParam.sourceIndices) &&
-      Objects.equals(this.languages, querySuggestionsIndexWithIndexParam.languages) &&
-      Objects.equals(this.exclude, querySuggestionsIndexWithIndexParam.exclude) &&
-      Objects.equals(this.indexName, querySuggestionsIndexWithIndexParam.indexName)
+      Objects.equals(this.indexName, querySuggestionsIndex.indexName) &&
+      Objects.equals(this.sourceIndices, querySuggestionsIndex.sourceIndices) &&
+      Objects.equals(this.languages, querySuggestionsIndex.languages) &&
+      Objects.equals(this.exclude, querySuggestionsIndex.exclude)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sourceIndices, languages, exclude, indexName);
+    return Objects.hash(indexName, sourceIndices, languages, exclude);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class QuerySuggestionsIndexWithIndexParam {\n");
+    sb.append("class QuerySuggestionsIndex {\n");
+    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("    sourceIndices: ").append(toIndentedString(sourceIndices)).append("\n");
     sb.append("    languages: ").append(toIndentedString(languages)).append("\n");
     sb.append("    exclude: ").append(toIndentedString(exclude)).append("\n");
-    sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");
     return sb.toString();
   }
