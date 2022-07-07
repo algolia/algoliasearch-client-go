@@ -35,48 +35,52 @@ public class RetryStrategy {
           (useReadTransporter != null || request.method().equals("GET")) ? CallType.READ : CallType.WRITE
         )
           .iterator();
-        while (hostsIter.hasNext()) {
-          StatefulHost currentHost = hostsIter.next();
+        try {
+          while (hostsIter.hasNext()) {
+            StatefulHost currentHost = hostsIter.next();
 
-          // Building the request URL
-          HttpUrl newUrl = request.url().newBuilder().scheme(currentHost.getScheme()).host(currentHost.getHost()).build();
-          request = request.newBuilder().url(newUrl).build();
+            // Building the request URL
+            HttpUrl newUrl = request.url().newBuilder().scheme(currentHost.getScheme()).host(currentHost.getHost()).build();
+            request = request.newBuilder().url(newUrl).build();
 
-          // Computing timeout with the retry count
-          chain.withConnectTimeout(chain.connectTimeoutMillis() + currentHost.getRetryCount() * 1000, TimeUnit.MILLISECONDS);
+            // Computing timeout with the retry count
+            chain.withConnectTimeout(chain.connectTimeoutMillis() + currentHost.getRetryCount() * 1000, TimeUnit.MILLISECONDS);
 
-          try {
-            Response response = chain.proceed(request);
-            currentHost.setLastUse(Utils.nowUTC());
-            // no timeout
-            if (response.isSuccessful()) {
+            try {
+              Response response = chain.proceed(request);
+              currentHost.setLastUse(Utils.nowUTC());
+              // no timeout
+              if (response.isSuccessful()) {
+                currentHost.setUp(true);
+                return response;
+              }
+              if (isRetryable(response)) {
+                currentHost.setUp(false);
+                response.close();
+                continue;
+              }
+              String message = response.message();
+              if (response.body() != null) {
+                message = response.body().string();
+              }
+              throw new AlgoliaApiException(message, response.code());
+            } catch (AlgoliaApiException e) {
+              throw e;
+            } catch (SocketTimeoutException e) {
+              // timeout
               currentHost.setUp(true);
-              return response;
+              currentHost.setLastUse(Utils.nowUTC());
+              currentHost.incrementRetryCount();
+            } catch (UnknownHostException e) {
+              throw new AlgoliaApiException(e.getMessage(), 404);
+            } catch (Exception e) {
+              throw new AlgoliaApiException(e.getMessage(), 400);
             }
-            if (isRetryable(response)) {
-              currentHost.setUp(false);
-              response.close();
-              continue;
-            }
-            String message = response.message();
-            if (response.body() != null) {
-              message = response.body().string();
-            }
-            throw new AlgoliaApiException(message, response.code());
-          } catch (AlgoliaApiException e) {
-            throw e;
-          } catch (SocketTimeoutException e) {
-            // timeout
-            currentHost.setUp(true);
-            currentHost.setLastUse(Utils.nowUTC());
-            currentHost.incrementRetryCount();
-          } catch (UnknownHostException e) {
-            throw new AlgoliaApiException(e.getMessage(), 404);
-          } catch (Exception e) {
-            throw new AlgoliaApiException(e.getMessage(), 400);
           }
+          throw new AlgoliaRetryException("All hosts are unreachable");
+        } catch (Exception e) {
+          throw new IOException(e);
         }
-        throw new AlgoliaRetryException("All hosts are unreachable");
       }
     };
   }

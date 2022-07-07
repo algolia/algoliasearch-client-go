@@ -254,7 +254,7 @@ public abstract class ApiClient {
       new Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
-          future.completeExceptionally(new AlgoliaRuntimeException(e));
+          future.completeExceptionally(e.getCause());
         }
 
         @Override

@@ -24,7 +24,7 @@ public class {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
   @SerializedName("{{baseName}}")
   {{/gson}}
   {{#isContainer}}
-  private {{{datatypeWithEnum}}} {{name}};
+  private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
   {{/isContainer}}
   {{^isContainer}}
   {{#isDiscriminator}}protected{{/isDiscriminator}}{{^isDiscriminator}}private{{/isDiscriminator}} {{{datatypeWithEnum}}} {{name}};

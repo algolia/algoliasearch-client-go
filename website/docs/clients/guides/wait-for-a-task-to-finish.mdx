@@ -35,7 +35,7 @@ await client.waitForTask({
   taskID,
   // Number of maximum retries to do
   maxRetries: 100,
-  // The time to wait between tries
+  // The time to wait between retries
   timeout: (retryCount: number): number => Math.min(retryCount * 200, 5000),
 });
 ```
@@ -68,7 +68,7 @@ Algolia\AlgoliaSearch\Support\Helpers::retryUntil(
     },
     100, // Number of maximum retries to do
     5000, // Default timeout
-    // Calculation of the time to wait between tries
+    // Calculation of the time to wait between retries
     function ($timeout, $retryCount) {
         return min($retryCount * 200, $timeout) * 1000;
     }
@@ -97,7 +97,7 @@ await client.waitForTask(
   response.getTaskID(),
   // Number of maximum retries to do
   100,
-  // The time to wait between tries
+  // The time to wait between retries
   retryCount -> {
     return Math.min(retryCount * 200, 5000);
   }
