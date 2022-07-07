@@ -1,6 +1,7 @@
 package com.algolia.model.insights;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class InsightEvents {
 
   @SerializedName("events")
-  private List<InsightEvent> events;
+  private List<InsightEvent> events = new ArrayList<>();
 
   public InsightEvents setEvents(List<InsightEvent> events) {
     this.events = events;

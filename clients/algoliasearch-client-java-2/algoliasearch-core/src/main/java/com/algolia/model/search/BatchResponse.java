@@ -1,6 +1,7 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ public class BatchResponse {
   private Long taskID;
 
   @SerializedName("objectIDs")
-  private List<String> objectIDs;
+  private List<String> objectIDs = new ArrayList<>();
 
   public BatchResponse setTaskID(Long taskID) {
     this.taskID = taskID;

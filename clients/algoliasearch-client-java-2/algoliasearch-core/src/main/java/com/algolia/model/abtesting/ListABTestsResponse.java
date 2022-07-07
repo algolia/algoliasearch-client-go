@@ -1,6 +1,7 @@
 package com.algolia.model.abtesting;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class ListABTestsResponse {
 
   @SerializedName("abtests")
-  private List<ABTest> abtests;
+  private List<ABTest> abtests = new ArrayList<>();
 
   @SerializedName("count")
   private Integer count;

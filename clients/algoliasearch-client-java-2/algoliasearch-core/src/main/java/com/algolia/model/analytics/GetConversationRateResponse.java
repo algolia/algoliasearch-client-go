@@ -1,6 +1,7 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class GetConversationRateResponse {
   private Integer conversionCount;
 
   @SerializedName("dates")
-  private List<ConversionRateEvent> dates;
+  private List<ConversionRateEvent> dates = new ArrayList<>();
 
   public GetConversationRateResponse setRate(Double rate) {
     this.rate = rate;

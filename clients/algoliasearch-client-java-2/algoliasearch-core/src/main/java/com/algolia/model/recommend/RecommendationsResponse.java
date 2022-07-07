@@ -1,6 +1,7 @@
 package com.algolia.model.recommend;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class RecommendationsResponse {
   private RenderingContent renderingContent;
 
   @SerializedName("hits")
-  private List<RecommendHit> hits;
+  private List<RecommendHit> hits = new ArrayList<>();
 
   public RecommendationsResponse setAbTestID(Integer abTestID) {
     this.abTestID = abTestID;

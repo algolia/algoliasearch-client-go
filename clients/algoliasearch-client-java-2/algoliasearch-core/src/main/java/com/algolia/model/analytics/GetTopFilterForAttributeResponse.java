@@ -1,6 +1,7 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class GetTopFilterForAttributeResponse {
 
   @SerializedName("values")
-  private List<GetTopFilterForAttribute> values;
+  private List<GetTopFilterForAttribute> values = new ArrayList<>();
 
   public GetTopFilterForAttributeResponse setValues(List<GetTopFilterForAttribute> values) {
     this.values = values;

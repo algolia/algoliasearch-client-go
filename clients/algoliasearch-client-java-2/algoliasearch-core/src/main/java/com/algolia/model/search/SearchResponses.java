@@ -1,6 +1,7 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class SearchResponses {
 
   @SerializedName("results")
-  private List<SearchResponse> results;
+  private List<SearchResponse> results = new ArrayList<>();
 
   public SearchResponses setResults(List<SearchResponse> results) {
     this.results = results;

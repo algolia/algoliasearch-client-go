@@ -1,6 +1,7 @@
 package com.algolia.model.abtesting;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +33,7 @@ public class ABTest {
   private String status;
 
   @SerializedName("variants")
-  private List<Variant> variants;
+  private List<Variant> variants = new ArrayList<>();
 
   public ABTest setAbTestID(Integer abTestID) {
     this.abTestID = abTestID;

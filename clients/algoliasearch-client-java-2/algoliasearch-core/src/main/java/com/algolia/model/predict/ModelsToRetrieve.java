@@ -1,6 +1,7 @@
 package com.algolia.model.predict;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class ModelsToRetrieve {
 
   @SerializedName("modelsToRetrieve")
-  private List<ModelsToRetrieveEnum> modelsToRetrieve;
+  private List<ModelsToRetrieveEnum> modelsToRetrieve = new ArrayList<>();
 
   public ModelsToRetrieve setModelsToRetrieve(List<ModelsToRetrieveEnum> modelsToRetrieve) {
     this.modelsToRetrieve = modelsToRetrieve;

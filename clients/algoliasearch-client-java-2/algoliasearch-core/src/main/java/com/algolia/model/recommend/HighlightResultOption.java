@@ -1,6 +1,7 @@
 package com.algolia.model.recommend;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class HighlightResultOption {
   private MatchLevel matchLevel;
 
   @SerializedName("matchedWords")
-  private List<String> matchedWords;
+  private List<String> matchedWords = new ArrayList<>();
 
   @SerializedName("fullyHighlighted")
   private Boolean fullyHighlighted;

@@ -1,6 +1,7 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class ListApiKeysResponse {
 
   @SerializedName("keys")
-  private List<Key> keys;
+  private List<Key> keys = new ArrayList<>();
 
   public ListApiKeysResponse setKeys(List<Key> keys) {
     this.keys = keys;

@@ -1,6 +1,7 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class SearchMethodParams {
 
   @SerializedName("requests")
-  private List<SearchQuery> requests;
+  private List<SearchQuery> requests = new ArrayList<>();
 
   @SerializedName("strategy")
   private SearchStrategy strategy;

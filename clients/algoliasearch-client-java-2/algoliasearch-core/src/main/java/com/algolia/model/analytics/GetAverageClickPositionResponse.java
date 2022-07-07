@@ -1,6 +1,7 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class GetAverageClickPositionResponse {
   private Integer clickCount;
 
   @SerializedName("dates")
-  private List<AverageClickEvent> dates;
+  private List<AverageClickEvent> dates = new ArrayList<>();
 
   public GetAverageClickPositionResponse setAverage(Double average) {
     this.average = average;

@@ -1,6 +1,7 @@
 package com.algolia.model.search;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class BrowseResponse {
   private RenderingContent renderingContent;
 
   @SerializedName("hits")
-  private List<Hit> hits;
+  private List<Hit> hits = new ArrayList<>();
 
   @SerializedName("cursor")
   private String cursor;

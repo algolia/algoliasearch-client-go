@@ -6171,10 +6171,22 @@ public class SearchClient extends ApiClient {
     return this.updateApiKeyAsync(key, apiKey, null);
   }
 
-  public void waitForTask(String indexName, Long taskID, RequestOptions requestOptions, int maxRetries, IntUnaryOperator timeout) {
+  /**
+   * Helper: Wait for a task to complete with `indexName` and `taskID`.
+   *
+   * @summary Wait for a task to complete.
+   * @param indexName The `indexName` where the operation was performed.
+   * @param taskID The `taskID` returned in the method response.
+   * @param maxRetries The maximum number of retry. 50 by default. (optional)
+   * @param timeout The function to decide how long to wait between retries. min(retries * 200,
+   *     5000) by default. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public void waitForTask(String indexName, Long taskID, int maxRetries, IntUnaryOperator timeout, RequestOptions requestOptions) {
     TaskUtils.retryUntil(
       () -> {
-        return this.getTaskAsync(indexName, taskID, requestOptions);
+        return this.getTask(indexName, taskID, requestOptions);
       },
       (GetTaskResponse task) -> {
         return task.getStatus() == TaskStatus.PUBLISHED;
@@ -6184,15 +6196,224 @@ public class SearchClient extends ApiClient {
     );
   }
 
+  /**
+   * Helper: Wait for a task to complete with `indexName` and `taskID`.
+   *
+   * @summary Wait for a task to complete.
+   * @param indexName The `indexName` where the operation was performed.
+   * @param taskID The `taskID` returned in the method response.
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
   public void waitForTask(String indexName, Long taskID, RequestOptions requestOptions) {
-    this.waitForTask(indexName, taskID, requestOptions, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT);
+    this.waitForTask(indexName, taskID, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, requestOptions);
   }
 
+  /**
+   * Helper: Wait for a task to complete with `indexName` and `taskID`.
+   *
+   * @summary Wait for a task to complete.
+   * @param indexName The `indexName` where the operation was performed.
+   * @param taskID The `taskID` returned in the method response.
+   * @param maxRetries The maximum number of retry. 50 by default. (optional)
+   * @param timeout The function to decide how long to wait between retries. min(retries * 200,
+   *     5000) by default. (optional)
+   */
   public void waitForTask(String indexName, Long taskID, int maxRetries, IntUnaryOperator timeout) {
-    this.waitForTask(indexName, taskID, null, maxRetries, timeout);
+    this.waitForTask(indexName, taskID, maxRetries, timeout, null);
   }
 
+  /**
+   * Helper: Wait for a task to complete with `indexName` and `taskID`.
+   *
+   * @summary Wait for a task to complete.
+   * @param indexName The `indexName` where the operation was performed.
+   * @param taskID The `taskID` returned in the method response.
+   */
   public void waitForTask(String indexName, Long taskID) {
-    this.waitForTask(indexName, taskID, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT);
+    this.waitForTask(indexName, taskID, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`.
+   * @param key The `key` that has been added, deleted or updated.
+   * @param apiKey Necessary to know if an `update` operation has been processed, compare fields of
+   *     the response with it.
+   * @param maxRetries The maximum number of retry. 50 by default. (optional)
+   * @param timeout The function to decide how long to wait between retries. min(retries * 200,
+   *     5000) by default. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public Key waitForApiKey(
+    ApiKeyOperation operation,
+    String key,
+    ApiKey apiKey,
+    int maxRetries,
+    IntUnaryOperator timeout,
+    RequestOptions requestOptions
+  ) {
+    if (operation == ApiKeyOperation.UPDATE) {
+      if (apiKey == null) {
+        throw new AlgoliaRetryException("`apiKey` is required when waiting for an `update` operation.");
+      }
+
+      // when updating an api key, we poll the api until we receive a different key
+      return TaskUtils.retryUntil(
+        () -> {
+          return this.getApiKey(key, requestOptions);
+        },
+        (Key respKey) -> {
+          // we need to convert to an ApiKey object to use the `equals` method
+          ApiKey sameType = new ApiKey()
+            .setAcl(respKey.getAcl())
+            .setDescription(respKey.getDescription())
+            .setIndexes(respKey.getIndexes())
+            .setMaxHitsPerQuery(respKey.getMaxHitsPerQuery())
+            .setMaxQueriesPerIPPerHour(respKey.getMaxQueriesPerIPPerHour())
+            .setQueryParameters(respKey.getQueryParameters())
+            .setReferers(respKey.getReferers())
+            .setValidity(respKey.getValidity());
+
+          return apiKey.equals(sameType);
+        },
+        maxRetries,
+        timeout
+      );
+    }
+
+    // bypass lambda restriction to modify final object
+    final Key[] addedKey = new Key[] { null };
+
+    // check the status of the getApiKey method
+    TaskUtils.retryUntil(
+      () -> {
+        try {
+          addedKey[0] = this.getApiKey(key, requestOptions);
+          // magic number to signify we found the key
+          return -2;
+        } catch (AlgoliaApiException e) {
+          return e.getHttpErrorCode();
+        }
+      },
+      (Integer status) -> {
+        switch (operation) {
+          case ADD:
+            // stop either when the key is created or when we don't receive 404
+            return status == -2 || status != 404;
+          case DELETE:
+            // stop when the key is not found
+            return status == 404;
+          default:
+            // continue
+            return false;
+        }
+      },
+      maxRetries,
+      timeout
+    );
+
+    return addedKey[0];
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`. (ADD or DELETE only)
+   * @param key The `key` that has been added, deleted or updated.
+   * @param maxRetries The maximum number of retry. 50 by default. (optional)
+   * @param timeout The function to decide how long to wait between retries. min(retries * 200,
+   *     5000) by default. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public Key waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout, RequestOptions requestOptions) {
+    return this.waitForApiKey(operation, key, null, maxRetries, timeout, requestOptions);
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`.
+   * @param key The `key` that has been added, deleted or updated.
+   * @param apiKey Necessary to know if an `update` operation has been processed, compare fields of
+   *     the response with it.
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, RequestOptions requestOptions) {
+    return this.waitForApiKey(operation, key, apiKey, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, requestOptions);
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`. (ADD or DELETE only)
+   * @param key The `key` that has been added, deleted or updated.
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public Key waitForApiKey(ApiKeyOperation operation, String key, RequestOptions requestOptions) {
+    return this.waitForApiKey(operation, key, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, requestOptions);
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`.
+   * @param key The `key` that has been added, deleted or updated.
+   * @param apiKey Necessary to know if an `update` operation has been processed, compare fields of
+   *     the response with it.
+   * @param maxRetries The maximum number of retry. 50 by default. (optional)
+   * @param timeout The function to decide how long to wait between retries. min(retries * 200,
+   *     5000) by default. (optional)
+   */
+  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, int maxRetries, IntUnaryOperator timeout) {
+    return this.waitForApiKey(operation, key, apiKey, maxRetries, timeout, null);
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`. (ADD or DELETE only)
+   * @param key The `key` that has been added, deleted or updated.
+   * @param maxRetries The maximum number of retry. 50 by default. (optional)
+   * @param timeout The function to decide how long to wait between retries. min(retries * 200,
+   *     5000) by default. (optional)
+   */
+  public Key waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout) {
+    return this.waitForApiKey(operation, key, null, maxRetries, timeout, null);
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`.
+   * @param key The `key` that has been added, deleted or updated.
+   * @param apiKey Necessary to know if an `update` operation has been processed, compare fields of
+   *     the response with it.
+   */
+  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey) {
+    return this.waitForApiKey(operation, key, apiKey, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
+  }
+
+  /**
+   * Helper: Wait for an API key to be added, updated or deleted based on a given `operation`.
+   *
+   * @summary Wait for an API key task to be processed.
+   * @param operation The `operation` that was done on a `key`. (ADD or DELETE only)
+   * @param key The `key` that has been added, deleted or updated.
+   */
+  public Key waitForApiKey(ApiKeyOperation operation, String key) {
+    return this.waitForApiKey(operation, key, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
   }
 }

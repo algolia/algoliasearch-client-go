@@ -1,6 +1,7 @@
 package com.algolia.model.personalization;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,10 +9,10 @@ import java.util.Objects;
 public class PersonalizationStrategyParams {
 
   @SerializedName("eventScoring")
-  private List<EventScoring> eventScoring;
+  private List<EventScoring> eventScoring = new ArrayList<>();
 
   @SerializedName("facetScoring")
-  private List<FacetScoring> facetScoring;
+  private List<FacetScoring> facetScoring = new ArrayList<>();
 
   @SerializedName("personalizationImpact")
   private Integer personalizationImpact;

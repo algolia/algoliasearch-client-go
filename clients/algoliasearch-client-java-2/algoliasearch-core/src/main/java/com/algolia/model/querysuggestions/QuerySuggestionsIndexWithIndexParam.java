@@ -9,7 +9,7 @@ import java.util.Objects;
 public class QuerySuggestionsIndexWithIndexParam {
 
   @SerializedName("sourceIndices")
-  private List<SourceIndex> sourceIndices;
+  private List<SourceIndex> sourceIndices = new ArrayList<>();
 
   @SerializedName("languages")
   private List<String> languages;

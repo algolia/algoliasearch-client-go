@@ -1,6 +1,7 @@
 package com.algolia.model.analytics;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ public class GetSearchesCountResponse {
   private Integer count;
 
   @SerializedName("dates")
-  private List<SearchEvent> dates;
+  private List<SearchEvent> dates = new ArrayList<>();
 
   public GetSearchesCountResponse setCount(Integer count) {
     this.count = count;

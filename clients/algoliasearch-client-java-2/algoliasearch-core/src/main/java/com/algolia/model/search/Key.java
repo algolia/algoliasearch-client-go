@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Key {
 
   @SerializedName("acl")
-  private List<Acl> acl;
+  private List<Acl> acl = new ArrayList<>();
 
   @SerializedName("description")
   private String description;
