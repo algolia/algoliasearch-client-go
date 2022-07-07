@@ -1,18 +1,18 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Properties for the user profile. */
 public class Properties {
 
-  @SerializedName("raw")
+  @JsonProperty("raw")
   private Object raw;
 
-  @SerializedName("computed")
+  @JsonProperty("computed")
   private Object computed;
 
-  @SerializedName("custom")
+  @JsonProperty("custom")
   private Object custom;
 
   public Properties setRaw(Object raw) {

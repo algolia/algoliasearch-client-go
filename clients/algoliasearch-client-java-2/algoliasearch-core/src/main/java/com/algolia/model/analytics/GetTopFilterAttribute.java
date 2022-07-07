@@ -1,15 +1,15 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** GetTopFilterAttribute */
 public class GetTopFilterAttribute {
 
-  @SerializedName("attribute")
+  @JsonProperty("attribute")
   private String attribute;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
   public GetTopFilterAttribute setAttribute(String attribute) {

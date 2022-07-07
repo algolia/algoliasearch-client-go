@@ -1,21 +1,21 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** OK */
 public class SearchUserIdsParams {
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private String query;
 
-  @SerializedName("clusterName")
+  @JsonProperty("clusterName")
   private String clusterName;
 
-  @SerializedName("page")
+  @JsonProperty("page")
   private Integer page;
 
-  @SerializedName("hitsPerPage")
+  @JsonProperty("hitsPerPage")
   private Integer hitsPerPage;
 
   public SearchUserIdsParams setQuery(String query) {

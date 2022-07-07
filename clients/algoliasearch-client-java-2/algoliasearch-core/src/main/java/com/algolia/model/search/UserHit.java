@@ -1,27 +1,27 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** UserHit */
 public class UserHit {
 
-  @SerializedName("userID")
+  @JsonProperty("userID")
   private String userID;
 
-  @SerializedName("clusterName")
+  @JsonProperty("clusterName")
   private String clusterName;
 
-  @SerializedName("nbRecords")
+  @JsonProperty("nbRecords")
   private Integer nbRecords;
 
-  @SerializedName("dataSize")
+  @JsonProperty("dataSize")
   private Integer dataSize;
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("_highlightResult")
+  @JsonProperty("_highlightResult")
   private UserHighlightResult highlightResult;
 
   public UserHit setUserID(String userID) {

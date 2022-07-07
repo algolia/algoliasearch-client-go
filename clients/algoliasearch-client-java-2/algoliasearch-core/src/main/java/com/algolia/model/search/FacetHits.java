@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** FacetHits */
 public class FacetHits {
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private String value;
 
-  @SerializedName("highlighted")
+  @JsonProperty("highlighted")
   private String highlighted;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
   public FacetHits setValue(String value) {

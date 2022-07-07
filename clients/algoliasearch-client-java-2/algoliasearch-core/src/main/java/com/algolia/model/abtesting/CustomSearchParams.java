@@ -1,12 +1,12 @@
 package com.algolia.model.abtesting;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** CustomSearchParams */
 public class CustomSearchParams {
 
-  @SerializedName("customSearchParameters")
+  @JsonProperty("customSearchParameters")
   private Object customSearchParameters;
 
   public CustomSearchParams setCustomSearchParameters(Object customSearchParameters) {

@@ -1,6 +1,6 @@
 package com.algolia.model.abtesting;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,31 +8,31 @@ import java.util.Objects;
 /** ABTest */
 public class ABTest {
 
-  @SerializedName("abTestID")
+  @JsonProperty("abTestID")
   private Integer abTestID;
 
-  @SerializedName("clickSignificance")
+  @JsonProperty("clickSignificance")
   private Double clickSignificance;
 
-  @SerializedName("conversionSignificance")
+  @JsonProperty("conversionSignificance")
   private Double conversionSignificance;
 
-  @SerializedName("endAt")
+  @JsonProperty("endAt")
   private String endAt;
 
-  @SerializedName("updatedAt")
+  @JsonProperty("updatedAt")
   private String updatedAt;
 
-  @SerializedName("createdAt")
+  @JsonProperty("createdAt")
   private String createdAt;
 
-  @SerializedName("name")
+  @JsonProperty("name")
   private String name;
 
-  @SerializedName("status")
+  @JsonProperty("status")
   private String status;
 
-  @SerializedName("variants")
+  @JsonProperty("variants")
   private List<Variant> variants = new ArrayList<>();
 
   public ABTest setAbTestID(Integer abTestID) {

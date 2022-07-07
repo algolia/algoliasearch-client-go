@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /**
@@ -8,10 +8,10 @@ import java.util.Objects;
  */
 public class BuiltInOperation {
 
-  @SerializedName("_operation")
+  @JsonProperty("_operation")
   private BuiltInOperationType operation;
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private String value;
 
   public BuiltInOperation setOperation(BuiltInOperationType operation) {

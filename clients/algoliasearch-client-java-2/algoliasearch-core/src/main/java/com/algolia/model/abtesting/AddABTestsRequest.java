@@ -1,6 +1,6 @@
 package com.algolia.model.abtesting;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,13 +8,13 @@ import java.util.Objects;
 /** AddABTestsRequest */
 public class AddABTestsRequest {
 
-  @SerializedName("name")
+  @JsonProperty("name")
   private String name;
 
-  @SerializedName("variant")
+  @JsonProperty("variant")
   private List<AddABTestsVariant> variant = new ArrayList<>();
 
-  @SerializedName("endAt")
+  @JsonProperty("endAt")
   private String endAt;
 
   public AddABTestsRequest setName(String name) {

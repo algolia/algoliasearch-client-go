@@ -1,18 +1,18 @@
 package com.algolia.model.personalization;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** GetUserTokenResponse */
 public class GetUserTokenResponse {
 
-  @SerializedName("userToken")
+  @JsonProperty("userToken")
   private String userToken;
 
-  @SerializedName("lastEventAt")
+  @JsonProperty("lastEventAt")
   private String lastEventAt;
 
-  @SerializedName("scores")
+  @JsonProperty("scores")
   private Object scores;
 
   public GetUserTokenResponse setUserToken(String userToken) {

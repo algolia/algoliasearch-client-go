@@ -1,21 +1,21 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** NoClickRateEvent */
 public class NoClickRateEvent {
 
-  @SerializedName("rate")
+  @JsonProperty("rate")
   private Double rate;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
-  @SerializedName("noClickCount")
+  @JsonProperty("noClickCount")
   private Integer noClickCount;
 
-  @SerializedName("date")
+  @JsonProperty("date")
   private String date;
 
   public NoClickRateEvent setRate(Double rate) {

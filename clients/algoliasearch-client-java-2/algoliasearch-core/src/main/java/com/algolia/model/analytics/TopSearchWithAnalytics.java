@@ -1,36 +1,36 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** TopSearchWithAnalytics */
 public class TopSearchWithAnalytics {
 
-  @SerializedName("search")
+  @JsonProperty("search")
   private String search;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
-  @SerializedName("clickThroughRate")
+  @JsonProperty("clickThroughRate")
   private Double clickThroughRate;
 
-  @SerializedName("averageClickPosition")
+  @JsonProperty("averageClickPosition")
   private Integer averageClickPosition;
 
-  @SerializedName("conversionRate")
+  @JsonProperty("conversionRate")
   private Double conversionRate;
 
-  @SerializedName("trackedSearchCount")
+  @JsonProperty("trackedSearchCount")
   private Integer trackedSearchCount;
 
-  @SerializedName("clickCount")
+  @JsonProperty("clickCount")
   private Integer clickCount;
 
-  @SerializedName("conversionCount")
+  @JsonProperty("conversionCount")
   private Integer conversionCount;
 
-  @SerializedName("nbHits")
+  @JsonProperty("nbHits")
   private Integer nbHits;
 
   public TopSearchWithAnalytics setSearch(String search) {

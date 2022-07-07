@@ -1,18 +1,18 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Predictions */
 public class Predictions {
 
-  @SerializedName("funnel_stage")
+  @JsonProperty("funnel_stage")
   private PredictionsFunnelStage funnelStage;
 
-  @SerializedName("order_value")
+  @JsonProperty("order_value")
   private PredictionsOrderValue orderValue;
 
-  @SerializedName("affinities")
+  @JsonProperty("affinities")
   private PredictionsAffinities affinities;
 
   public Predictions setFunnelStage(PredictionsFunnelStage funnelStage) {

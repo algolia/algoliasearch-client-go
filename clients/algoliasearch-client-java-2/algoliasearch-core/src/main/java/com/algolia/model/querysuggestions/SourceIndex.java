@@ -1,6 +1,6 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,25 +8,25 @@ import java.util.Objects;
 /** SourceIndex */
 public class SourceIndex {
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
-  @SerializedName("analyticsTags")
+  @JsonProperty("analyticsTags")
   private List<String> analyticsTags;
 
-  @SerializedName("facets")
+  @JsonProperty("facets")
   private List<Object> facets;
 
-  @SerializedName("minHits")
+  @JsonProperty("minHits")
   private Integer minHits;
 
-  @SerializedName("minLetters")
+  @JsonProperty("minLetters")
   private Integer minLetters;
 
-  @SerializedName("generate")
+  @JsonProperty("generate")
   private List<List<String>> generate;
 
-  @SerializedName("external")
+  @JsonProperty("external")
   private List<SourceIndexExternal> external;
 
   public SourceIndex setIndexName(String indexName) {

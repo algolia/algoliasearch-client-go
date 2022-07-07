@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** DeleteApiKeyResponse */
 public class DeleteApiKeyResponse {
 
-  @SerializedName("deletedAt")
+  @JsonProperty("deletedAt")
   private String deletedAt;
 
   public DeleteApiKeyResponse setDeletedAt(String deletedAt) {

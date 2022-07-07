@@ -1,13 +1,10 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Controls if and how query words are interpreted as prefixes. */
-@JsonAdapter(QueryType.Adapter.class)
 public enum QueryType {
   PREFIX_LAST("prefixLast"),
 
@@ -21,6 +18,7 @@ public enum QueryType {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -30,6 +28,7 @@ public enum QueryType {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static QueryType fromValue(String value) {
     for (QueryType b : QueryType.values()) {
       if (b.value.equals(value)) {
@@ -37,19 +36,5 @@ public enum QueryType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<QueryType> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final QueryType enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public QueryType read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return QueryType.fromValue(value);
-    }
   }
 }

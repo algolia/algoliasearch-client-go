@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** LogQuery */
 public class LogQuery {
 
-  @SerializedName("index_name")
+  @JsonProperty("index_name")
   private String indexName;
 
-  @SerializedName("user_token")
+  @JsonProperty("user_token")
   private String userToken;
 
-  @SerializedName("query_id")
+  @JsonProperty("query_id")
   private String queryId;
 
   public LogQuery setIndexName(String indexName) {

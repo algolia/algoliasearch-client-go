@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Custom entries for a dictionary. */
 public class DictionaryLanguage {
 
-  @SerializedName("nbCustomEntires")
+  @JsonProperty("nbCustomEntires")
   private Integer nbCustomEntires;
 
   public DictionaryLanguage setNbCustomEntires(Integer nbCustomEntires) {

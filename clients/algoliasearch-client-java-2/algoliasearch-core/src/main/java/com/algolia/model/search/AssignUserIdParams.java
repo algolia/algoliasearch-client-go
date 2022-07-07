@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Assign userID parameters. */
 public class AssignUserIdParams {
 
-  @SerializedName("cluster")
+  @JsonProperty("cluster")
   private String cluster;
 
   public AssignUserIdParams setCluster(String cluster) {

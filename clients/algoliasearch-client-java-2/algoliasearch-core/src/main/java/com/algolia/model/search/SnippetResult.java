@@ -1,17 +1,20 @@
 package com.algolia.model.search;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 import java.util.List;
 
-@JsonAdapter(SnippetResult.Adapter.class)
 /** SnippetResult */
+@JsonDeserialize(using = SnippetResult.SnippetResultDeserializer.class)
+@JsonSerialize(using = SnippetResult.SnippetResultSerializer.class)
 public abstract class SnippetResult implements CompoundType {
 
   public static SnippetResult of(List<SnippetResultOption> inside) {
@@ -22,33 +25,117 @@ public abstract class SnippetResult implements CompoundType {
     return new SnippetResultSnippetResultOption(inside);
   }
 
-  public static class Adapter extends TypeAdapter<SnippetResult> {
+  public static class SnippetResultSerializer extends StdSerializer<SnippetResult> {
 
-    @Override
-    public void write(final JsonWriter out, final SnippetResult oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public SnippetResultSerializer(Class<SnippetResult> t) {
+      super(t);
+    }
+
+    public SnippetResultSerializer() {
+      this(null);
     }
 
     @Override
-    public SnippetResult read(final JsonReader jsonReader) throws IOException {
-      List<SnippetResultOption> listofsnippetresultoption = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<List<SnippetResultOption>>() {}.getType()
-      );
-      if (listofsnippetresultoption != null) {
-        return SnippetResult.of(listofsnippetresultoption);
+    public void serialize(SnippetResult value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class SnippetResultDeserializer extends StdDeserializer<SnippetResult> {
+
+    public SnippetResultDeserializer() {
+      this(SnippetResult.class);
+    }
+
+    public SnippetResultDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public SnippetResult deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      SnippetResult deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize List<SnippetResultOption>
+      try {
+        boolean attemptParsing = true;
+        currentType = "List<SnippetResultOption>";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            SnippetResult.of(
+              (List<SnippetResultOption>) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<SnippetResultOption>>() {})
+            );
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              SnippetResult.of(
+                (List<SnippetResultOption>) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<SnippetResultOption>>() {})
+              );
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println(
+          "Failed to deserialize oneOf List<SnippetResultOption> (error: " + e.getMessage() + ") (type: " + currentType + ")"
+        );
       }
-      SnippetResultOption snippetresultoption = JSON.tryDeserialize(jsonReader, new TypeToken<SnippetResultOption>() {}.getType());
-      if (snippetresultoption != null) {
-        return SnippetResult.of(snippetresultoption);
+
+      // deserialize SnippetResultOption
+      try {
+        boolean attemptParsing = true;
+        currentType = "SnippetResultOption";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            SnippetResult.of((SnippetResultOption) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<SnippetResultOption>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              SnippetResult.of((SnippetResultOption) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<SnippetResultOption>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf SnippetResultOption (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(String.format("Failed deserialization for SnippetResult: %d classes match result, expected 1", match));
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public SnippetResult getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "SnippetResult cannot be null");
     }
   }
 }
 
-@JsonAdapter(SnippetResult.Adapter.class)
 class SnippetResultListOfSnippetResultOption extends SnippetResult {
 
   private final List<SnippetResultOption> insideValue;
@@ -63,7 +150,6 @@ class SnippetResultListOfSnippetResultOption extends SnippetResult {
   }
 }
 
-@JsonAdapter(SnippetResult.Adapter.class)
 class SnippetResultSnippetResultOption extends SnippetResult {
 
   private final SnippetResultOption insideValue;

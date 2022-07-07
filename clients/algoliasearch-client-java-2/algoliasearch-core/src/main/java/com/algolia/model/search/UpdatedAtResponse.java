@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** The response with a taskID and an updatedAt timestamp. */
 public class UpdatedAtResponse {
 
-  @SerializedName("taskID")
+  @JsonProperty("taskID")
   private Long taskID;
 
-  @SerializedName("updatedAt")
+  @JsonProperty("updatedAt")
   private String updatedAt;
 
   public UpdatedAtResponse setTaskID(Long taskID) {

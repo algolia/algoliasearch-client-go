@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Disable the builtin Algolia entries for a type of dictionary per language. */
 public class DictionarySettingsParams {
 
-  @SerializedName("disableStandardEntries")
+  @JsonProperty("disableStandardEntries")
   private StandardEntries disableStandardEntries;
 
   public DictionarySettingsParams setDisableStandardEntries(StandardEntries disableStandardEntries) {

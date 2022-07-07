@@ -1,30 +1,30 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** TopHitWithAnalytics */
 public class TopHitWithAnalytics {
 
-  @SerializedName("hit")
+  @JsonProperty("hit")
   private String hit;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
-  @SerializedName("clickThroughRate")
+  @JsonProperty("clickThroughRate")
   private Double clickThroughRate;
 
-  @SerializedName("conversionRate")
+  @JsonProperty("conversionRate")
   private Double conversionRate;
 
-  @SerializedName("trackedSearchCount")
+  @JsonProperty("trackedSearchCount")
   private Integer trackedSearchCount;
 
-  @SerializedName("clickCount")
+  @JsonProperty("clickCount")
   private Integer clickCount;
 
-  @SerializedName("conversionCount")
+  @JsonProperty("conversionCount")
   private Integer conversionCount;
 
   public TopHitWithAnalytics setHit(String hit) {

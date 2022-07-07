@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SearchParamsString */
 public class SearchParamsString {
 
-  @SerializedName("params")
+  @JsonProperty("params")
   private String params;
 
   public SearchParamsString setParams(String params) {

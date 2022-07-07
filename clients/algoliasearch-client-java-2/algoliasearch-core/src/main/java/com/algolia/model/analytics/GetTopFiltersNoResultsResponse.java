@@ -1,6 +1,6 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /** GetTopFiltersNoResultsResponse */
 public class GetTopFiltersNoResultsResponse {
 
-  @SerializedName("values")
+  @JsonProperty("values")
   private List<GetTopFiltersNoResultsValues> values = new ArrayList<>();
 
   public GetTopFiltersNoResultsResponse setValues(List<GetTopFiltersNoResultsValues> values) {

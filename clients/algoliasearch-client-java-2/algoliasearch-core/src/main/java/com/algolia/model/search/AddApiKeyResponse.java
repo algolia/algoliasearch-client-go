@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** AddApiKeyResponse */
 public class AddApiKeyResponse {
 
-  @SerializedName("key")
+  @JsonProperty("key")
   private String key;
 
-  @SerializedName("createdAt")
+  @JsonProperty("createdAt")
   private String createdAt;
 
   public AddApiKeyResponse setKey(String key) {

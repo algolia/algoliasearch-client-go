@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Automatic facet Filter. */
 public class AutomaticFacetFilter {
 
-  @SerializedName("facet")
+  @JsonProperty("facet")
   private String facet;
 
-  @SerializedName("score")
+  @JsonProperty("score")
   private Integer score;
 
-  @SerializedName("disjunctive")
+  @JsonProperty("disjunctive")
   private Boolean disjunctive;
 
   public AutomaticFacetFilter setFacet(String facet) {

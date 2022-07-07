@@ -1,12 +1,12 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** GetStatusResponse */
 public class GetStatusResponse {
 
-  @SerializedName("updatedAt")
+  @JsonProperty("updatedAt")
   private String updatedAt;
 
   public GetStatusResponse setUpdatedAt(String updatedAt) {

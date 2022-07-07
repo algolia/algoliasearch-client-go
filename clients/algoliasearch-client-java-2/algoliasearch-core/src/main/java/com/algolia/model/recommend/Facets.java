@@ -1,6 +1,6 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /** The ordering of facets (widgets). */
 public class Facets {
 
-  @SerializedName("order")
+  @JsonProperty("order")
   private List<String> order;
 
   public Facets setOrder(List<String> order) {

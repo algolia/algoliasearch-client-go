@@ -1,12 +1,12 @@
 package com.algolia.model.personalization;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SetPersonalizationStrategyResponse */
 public class SetPersonalizationStrategyResponse {
 
-  @SerializedName("message")
+  @JsonProperty("message")
   private String message;
 
   public SetPersonalizationStrategyResponse setMessage(String message) {

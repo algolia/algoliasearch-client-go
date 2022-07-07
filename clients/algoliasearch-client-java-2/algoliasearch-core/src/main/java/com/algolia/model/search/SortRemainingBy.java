@@ -1,16 +1,13 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * How to display the remaining items. - `count`: facet count (descending). - `alpha`: alphabetical
  * (ascending). - `hidden`: show only pinned values.
  */
-@JsonAdapter(SortRemainingBy.Adapter.class)
 public enum SortRemainingBy {
   COUNT("count"),
 
@@ -24,6 +21,7 @@ public enum SortRemainingBy {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -33,6 +31,7 @@ public enum SortRemainingBy {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static SortRemainingBy fromValue(String value) {
     for (SortRemainingBy b : SortRemainingBy.values()) {
       if (b.value.equals(value)) {
@@ -40,19 +39,5 @@ public enum SortRemainingBy {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<SortRemainingBy> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final SortRemainingBy enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public SortRemainingBy read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return SortRemainingBy.fromValue(value);
-    }
   }
 }

@@ -2,6 +2,7 @@ package com.algolia.methods.requests;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
@@ -9,9 +10,11 @@ import com.algolia.api.SearchClient;
 import com.algolia.model.search.*;
 import com.algolia.utils.ClientOptions;
 import com.algolia.utils.HttpRequester;
-import com.algolia.utils.JSON;
+import com.algolia.utils.JSONBuilder;
 import com.algolia.utils.RequestOptions;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -25,9 +28,11 @@ class SearchClientRequestsTests {
 
   private SearchClient client;
   private EchoInterceptor echo;
+  private ObjectMapper json;
 
   @BeforeAll
   void init() {
+    json = new JSONBuilder().failOnUnknown(true).build();
     HttpRequester requester = new HttpRequester();
     echo = new EchoInterceptor();
     requester.addInterceptor(echo.getEchoInterceptor());
@@ -145,14 +150,18 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"cluster\":\"theCluster\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedHeaders = JSON.deserialize(
-      "{\"x-algolia-user-id\":\"userID\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, String> actualHeaders = req.headers;
+    try {
+      Map<String, String> expectedHeaders = json.readValue(
+        "{\"x-algolia-user-id\":\"userID\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, String> actualHeaders = req.headers;
 
-    for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
-      assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
+        assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse headers json");
     }
   }
 
@@ -461,14 +470,18 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedHeaders = JSON.deserialize(
-      "{\"x-algolia-user-id\":\"userID\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, String> actualHeaders = req.headers;
+    try {
+      Map<String, String> expectedHeaders = json.readValue(
+        "{\"x-algolia-user-id\":\"userID\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, String> actualHeaders = req.headers;
 
-    for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
-      assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
+        assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse headers json");
     }
   }
 
@@ -629,6 +642,51 @@ class SearchClientRequestsTests {
   }
 
   @Test
+  @DisplayName("get batchDictionaryEntries results additional properties")
+  void batchDictionaryEntriesTest2() {
+    DictionaryType dictionaryName0 = DictionaryType.fromValue("compounds");
+    BatchDictionaryEntriesParams batchDictionaryEntriesParams0 = new BatchDictionaryEntriesParams();
+    {
+      List<BatchDictionaryEntriesRequest> requests1 = new ArrayList<>();
+      {
+        BatchDictionaryEntriesRequest requests_02 = new BatchDictionaryEntriesRequest();
+        {
+          DictionaryAction action3 = DictionaryAction.fromValue("addEntry");
+          requests_02.setAction(action3);
+          DictionaryEntry body3 = new DictionaryEntry();
+          {
+            String objectID4 = "1";
+            body3.setObjectID(objectID4);
+            String language4 = "en";
+            body3.setLanguage(language4);
+            String additional4 = "try me";
+            body3.setAdditionalProperty("additional", additional4);
+          }
+          requests_02.setBody(body3);
+        }
+        requests1.add(requests_02);
+      }
+      batchDictionaryEntriesParams0.setRequests(requests1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.batchDictionaryEntries(dictionaryName0, batchDictionaryEntriesParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/dictionaries/compounds/batch");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\",\"additional\":\"try" + " me\"}}]}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
   @DisplayName("get browse results with minimal parameters")
   void browseTest0() {
     String indexName0 = "indexName";
@@ -741,15 +799,16 @@ class SearchClientRequestsTests {
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -895,15 +954,16 @@ class SearchClientRequestsTests {
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -961,15 +1021,19 @@ class SearchClientRequestsTests {
     assertEquals(req.path, "/1/logs");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"offset\":\"5\",\"length\":\"10\",\"indexName\":\"theIndexName\",\"type\":\"all\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"offset\":\"5\",\"length\":\"10\",\"indexName\":\"theIndexName\",\"type\":\"all\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -994,15 +1058,19 @@ class SearchClientRequestsTests {
     assertEquals(req.path, "/1/indexes/theIndexName/uniqueID");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"attributesToRetrieve\":\"attr1,attr2\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"attributesToRetrieve\":\"attr1,attr2\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1160,15 +1228,16 @@ class SearchClientRequestsTests {
     assertEquals(req.path, "/1/clusters/mapping/pending");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"getClusters\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"getClusters\":\"true\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1209,12 +1278,16 @@ class SearchClientRequestsTests {
     assertEquals(req.path, "/1/indexes");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize("{\"page\":\"8\"}", new TypeToken<HashMap<String, String>>() {}.getType());
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"page\":\"8\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1232,15 +1305,19 @@ class SearchClientRequestsTests {
     assertEquals(req.path, "/1/clusters/mapping");
     assertEquals(req.method, "GET");
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"page\":\"8\",\"hitsPerPage\":\"100\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"page\":\"8\",\"hitsPerPage\":\"100\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1363,15 +1440,19 @@ class SearchClientRequestsTests {
       );
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"createIfNotExists\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"createIfNotExists\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1416,15 +1497,16 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1458,15 +1540,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"myQueryParameter\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"query\":\"myQueryParameter\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1500,15 +1586,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\",\"query2\":\"myQueryParameter\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"query\":\"parameters\",\"query2\":\"myQueryParameter\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1542,25 +1632,30 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
 
-    Map<String, String> expectedHeaders = JSON.deserialize(
-      "{\"x-algolia-api-key\":\"myApiKey\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, String> actualHeaders = req.headers;
+    try {
+      Map<String, String> expectedHeaders = json.readValue(
+        "{\"x-algolia-api-key\":\"myApiKey\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, String> actualHeaders = req.headers;
 
-    for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
-      assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
+        assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse headers json");
     }
   }
 
@@ -1594,25 +1689,30 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
 
-    Map<String, String> expectedHeaders = JSON.deserialize(
-      "{\"x-algolia-api-key\":\"myApiKey\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, String> actualHeaders = req.headers;
+    try {
+      Map<String, String> expectedHeaders = json.readValue(
+        "{\"x-algolia-api-key\":\"myApiKey\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, String> actualHeaders = req.headers;
 
-    for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
-      assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      for (Map.Entry<String, String> p : expectedHeaders.entrySet()) {
+        assertEquals(actualHeaders.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse headers json");
     }
   }
 
@@ -1646,15 +1746,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\",\"isItWorking\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"query\":\"parameters\",\"isItWorking\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1688,15 +1792,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\",\"myParam\":\"2\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"query\":\"parameters\",\"myParam\":\"2\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1730,15 +1838,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\",\"myParam\":\"c,d\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"query\":\"parameters\",\"myParam\":\"c,d\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1772,15 +1884,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\",\"myParam\":\"true,true,false\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"query\":\"parameters\",\"myParam\":\"true,true,false\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1814,15 +1930,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\",\"myParam\":\"1,2\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"query\":\"parameters\",\"myParam\":\"1,2\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -1867,15 +1987,16 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"query\":\"parameters\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -2148,15 +2269,19 @@ class SearchClientRequestsTests {
       );
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -2373,15 +2498,19 @@ class SearchClientRequestsTests {
       );
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\",\"clearExistingRules\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -2425,15 +2554,19 @@ class SearchClientRequestsTests {
       );
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -2501,15 +2634,19 @@ class SearchClientRequestsTests {
       );
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\",\"replaceExistingSynonyms\":\"false\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\",\"replaceExistingSynonyms\":\"false\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -3550,15 +3687,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"paginationLimitedTo\":10}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -3585,15 +3726,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"typoTolerance\":true}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -3620,15 +3765,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"typoTolerance\":\"min\"}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -3655,15 +3804,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"ignorePlurals\":true}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -3694,15 +3847,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"ignorePlurals\":[\"algolia\"]}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -3729,15 +3886,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"removeStopWords\":true}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 
@@ -3768,15 +3929,19 @@ class SearchClientRequestsTests {
       JSONAssert.assertEquals("{\"removeStopWords\":[\"algolia\"]}", req.body, JSONCompareMode.STRICT);
     });
 
-    Map<String, String> expectedQuery = JSON.deserialize(
-      "{\"forwardToReplicas\":\"true\"}",
-      new TypeToken<HashMap<String, String>>() {}.getType()
-    );
-    Map<String, Object> actualQuery = req.queryParameters;
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
 
-    assertEquals(expectedQuery.size(), actualQuery.size());
-    for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
-      assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
     }
   }
 

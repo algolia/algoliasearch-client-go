@@ -1,16 +1,13 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Whether the pattern parameter must match the beginning or the end of the query string, or both,
  * or none.
  */
-@JsonAdapter(Anchoring.Adapter.class)
 public enum Anchoring {
   IS("is"),
 
@@ -26,6 +23,7 @@ public enum Anchoring {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -35,6 +33,7 @@ public enum Anchoring {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static Anchoring fromValue(String value) {
     for (Anchoring b : Anchoring.values()) {
       if (b.value.equals(value)) {
@@ -42,19 +41,5 @@ public enum Anchoring {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<Anchoring> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final Anchoring enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public Anchoring read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return Anchoring.fromValue(value);
-    }
   }
 }

@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,31 +8,31 @@ import java.util.Objects;
 /** Key */
 public class Key {
 
-  @SerializedName("acl")
+  @JsonProperty("acl")
   private List<Acl> acl = new ArrayList<>();
 
-  @SerializedName("description")
+  @JsonProperty("description")
   private String description;
 
-  @SerializedName("indexes")
+  @JsonProperty("indexes")
   private List<String> indexes;
 
-  @SerializedName("maxHitsPerQuery")
+  @JsonProperty("maxHitsPerQuery")
   private Integer maxHitsPerQuery;
 
-  @SerializedName("maxQueriesPerIPPerHour")
+  @JsonProperty("maxQueriesPerIPPerHour")
   private Integer maxQueriesPerIPPerHour;
 
-  @SerializedName("queryParameters")
+  @JsonProperty("queryParameters")
   private String queryParameters;
 
-  @SerializedName("referers")
+  @JsonProperty("referers")
   private List<String> referers;
 
-  @SerializedName("validity")
+  @JsonProperty("validity")
   private Integer validity;
 
-  @SerializedName("createdAt")
+  @JsonProperty("createdAt")
   private String createdAt;
 
   public Key setAcl(List<Acl> acl) {

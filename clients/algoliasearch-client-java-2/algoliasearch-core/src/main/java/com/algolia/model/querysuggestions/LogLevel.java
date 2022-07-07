@@ -1,13 +1,10 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** type of the record, can be one of three values (INFO, SKIP or ERROR). */
-@JsonAdapter(LogLevel.Adapter.class)
 public enum LogLevel {
   I_NF_O("INFO"),
 
@@ -21,6 +18,7 @@ public enum LogLevel {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -30,6 +28,7 @@ public enum LogLevel {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static LogLevel fromValue(String value) {
     for (LogLevel b : LogLevel.values()) {
       if (b.value.equals(value)) {
@@ -37,19 +36,5 @@ public enum LogLevel {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<LogLevel> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final LogLevel enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public LogLevel read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return LogLevel.fromValue(value);
-    }
   }
 }

@@ -1,19 +1,33 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** SearchSynonymsResponse */
-public class SearchSynonymsResponse extends HashMap<String, Object> {
+public class SearchSynonymsResponse {
 
-  @SerializedName("hits")
+  @JsonProperty("hits")
   private List<SynonymHit> hits = new ArrayList<>();
 
-  @SerializedName("nbHits")
+  @JsonProperty("nbHits")
   private Integer nbHits;
+
+  private Map<String, Object> additionalProperties = new HashMap<>();
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
+
+  @JsonAnySetter
+  public SearchSynonymsResponse setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+    return this;
+  }
 
   public SearchSynonymsResponse setHits(List<SynonymHit> hits) {
     this.hits = hits;

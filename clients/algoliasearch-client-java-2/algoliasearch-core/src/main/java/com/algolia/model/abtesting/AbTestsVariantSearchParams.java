@@ -1,21 +1,21 @@
 package com.algolia.model.abtesting;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** AbTestsVariantSearchParams */
 public class AbTestsVariantSearchParams {
 
-  @SerializedName("index")
+  @JsonProperty("index")
   private String index;
 
-  @SerializedName("trafficPercentage")
+  @JsonProperty("trafficPercentage")
   private Integer trafficPercentage;
 
-  @SerializedName("description")
+  @JsonProperty("description")
   private String description;
 
-  @SerializedName("customSearchParameters")
+  @JsonProperty("customSearchParameters")
   private Object customSearchParameters;
 
   public AbTestsVariantSearchParams setIndex(String index) {

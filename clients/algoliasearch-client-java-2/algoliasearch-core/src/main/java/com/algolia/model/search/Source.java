@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** The source. */
 public class Source {
 
-  @SerializedName("source")
+  @JsonProperty("source")
   private String source;
 
-  @SerializedName("description")
+  @JsonProperty("description")
   private String description;
 
   public Source setSource(String source) {

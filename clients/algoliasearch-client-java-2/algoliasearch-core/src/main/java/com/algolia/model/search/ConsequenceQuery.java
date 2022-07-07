@@ -1,19 +1,22 @@
 package com.algolia.model.search;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-@JsonAdapter(ConsequenceQuery.Adapter.class)
 /**
  * When providing a string, it replaces the entire query string. When providing an object, it
  * describes incremental edits to be made to the query string (but you can't do both).
  */
+@JsonDeserialize(using = ConsequenceQuery.ConsequenceQueryDeserializer.class)
+@JsonSerialize(using = ConsequenceQuery.ConsequenceQuerySerializer.class)
 public abstract class ConsequenceQuery implements CompoundType {
 
   public static ConsequenceQuery of(ConsequenceQueryObject inside) {
@@ -24,30 +27,115 @@ public abstract class ConsequenceQuery implements CompoundType {
     return new ConsequenceQueryString(inside);
   }
 
-  public static class Adapter extends TypeAdapter<ConsequenceQuery> {
+  public static class ConsequenceQuerySerializer extends StdSerializer<ConsequenceQuery> {
 
-    @Override
-    public void write(final JsonWriter out, final ConsequenceQuery oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public ConsequenceQuerySerializer(Class<ConsequenceQuery> t) {
+      super(t);
+    }
+
+    public ConsequenceQuerySerializer() {
+      this(null);
     }
 
     @Override
-    public ConsequenceQuery read(final JsonReader jsonReader) throws IOException {
-      ConsequenceQueryObject consequencequeryobject = JSON.tryDeserialize(jsonReader, new TypeToken<ConsequenceQueryObject>() {}.getType());
-      if (consequencequeryobject != null) {
-        return ConsequenceQuery.of(consequencequeryobject);
+    public void serialize(ConsequenceQuery value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class ConsequenceQueryDeserializer extends StdDeserializer<ConsequenceQuery> {
+
+    public ConsequenceQueryDeserializer() {
+      this(ConsequenceQuery.class);
+    }
+
+    public ConsequenceQueryDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public ConsequenceQuery deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      ConsequenceQuery deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize ConsequenceQueryObject
+      try {
+        boolean attemptParsing = true;
+        currentType = "ConsequenceQueryObject";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            ConsequenceQuery.of(
+              (ConsequenceQueryObject) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ConsequenceQueryObject>() {})
+            );
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              ConsequenceQuery.of(
+                (ConsequenceQueryObject) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ConsequenceQueryObject>() {})
+              );
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println(
+          "Failed to deserialize oneOf ConsequenceQueryObject (error: " + e.getMessage() + ") (type: " + currentType + ")"
+        );
       }
-      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
-      if (string != null) {
-        return ConsequenceQuery.of(string);
+
+      // deserialize String
+      try {
+        boolean attemptParsing = true;
+        currentType = "String";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = ConsequenceQuery.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = ConsequenceQuery.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf String (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(String.format("Failed deserialization for ConsequenceQuery: %d classes match result, expected 1", match));
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public ConsequenceQuery getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "ConsequenceQuery cannot be null");
     }
   }
 }
 
-@JsonAdapter(ConsequenceQuery.Adapter.class)
 class ConsequenceQueryConsequenceQueryObject extends ConsequenceQuery {
 
   private final ConsequenceQueryObject insideValue;
@@ -62,7 +150,6 @@ class ConsequenceQueryConsequenceQueryObject extends ConsequenceQuery {
   }
 }
 
-@JsonAdapter(ConsequenceQuery.Adapter.class)
 class ConsequenceQueryString extends ConsequenceQuery {
 
   private final String insideValue;

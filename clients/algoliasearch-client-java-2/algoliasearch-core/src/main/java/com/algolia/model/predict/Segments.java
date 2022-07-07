@@ -1,6 +1,6 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** Segments that the user belongs to. */
 public class Segments {
 
-  @SerializedName("computed")
+  @JsonProperty("computed")
   private List<String> computed;
 
-  @SerializedName("custom")
+  @JsonProperty("custom")
   private List<String> custom;
 
   public Segments setComputed(List<String> computed) {

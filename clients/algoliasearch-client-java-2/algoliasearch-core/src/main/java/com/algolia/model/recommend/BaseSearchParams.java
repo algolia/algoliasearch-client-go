@@ -1,6 +1,6 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,106 +8,106 @@ import java.util.Objects;
 /** BaseSearchParams */
 public class BaseSearchParams {
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private String query;
 
-  @SerializedName("similarQuery")
+  @JsonProperty("similarQuery")
   private String similarQuery;
 
-  @SerializedName("filters")
+  @JsonProperty("filters")
   private String filters;
 
-  @SerializedName("facetFilters")
+  @JsonProperty("facetFilters")
   private FacetFilters facetFilters;
 
-  @SerializedName("optionalFilters")
+  @JsonProperty("optionalFilters")
   private OptionalFilters optionalFilters;
 
-  @SerializedName("numericFilters")
+  @JsonProperty("numericFilters")
   private NumericFilters numericFilters;
 
-  @SerializedName("tagFilters")
+  @JsonProperty("tagFilters")
   private TagFilters tagFilters;
 
-  @SerializedName("sumOrFiltersScores")
+  @JsonProperty("sumOrFiltersScores")
   private Boolean sumOrFiltersScores;
 
-  @SerializedName("facets")
+  @JsonProperty("facets")
   private List<String> facets;
 
-  @SerializedName("maxValuesPerFacet")
+  @JsonProperty("maxValuesPerFacet")
   private Integer maxValuesPerFacet;
 
-  @SerializedName("facetingAfterDistinct")
+  @JsonProperty("facetingAfterDistinct")
   private Boolean facetingAfterDistinct;
 
-  @SerializedName("sortFacetValuesBy")
+  @JsonProperty("sortFacetValuesBy")
   private String sortFacetValuesBy;
 
-  @SerializedName("page")
+  @JsonProperty("page")
   private Integer page;
 
-  @SerializedName("offset")
+  @JsonProperty("offset")
   private Integer offset;
 
-  @SerializedName("length")
+  @JsonProperty("length")
   private Integer length;
 
-  @SerializedName("aroundLatLng")
+  @JsonProperty("aroundLatLng")
   private String aroundLatLng;
 
-  @SerializedName("aroundLatLngViaIP")
+  @JsonProperty("aroundLatLngViaIP")
   private Boolean aroundLatLngViaIP;
 
-  @SerializedName("aroundRadius")
+  @JsonProperty("aroundRadius")
   private AroundRadius aroundRadius;
 
-  @SerializedName("aroundPrecision")
+  @JsonProperty("aroundPrecision")
   private Integer aroundPrecision;
 
-  @SerializedName("minimumAroundRadius")
+  @JsonProperty("minimumAroundRadius")
   private Integer minimumAroundRadius;
 
-  @SerializedName("insideBoundingBox")
+  @JsonProperty("insideBoundingBox")
   private List<Double> insideBoundingBox;
 
-  @SerializedName("insidePolygon")
+  @JsonProperty("insidePolygon")
   private List<Double> insidePolygon;
 
-  @SerializedName("naturalLanguages")
+  @JsonProperty("naturalLanguages")
   private List<String> naturalLanguages;
 
-  @SerializedName("ruleContexts")
+  @JsonProperty("ruleContexts")
   private List<String> ruleContexts;
 
-  @SerializedName("personalizationImpact")
+  @JsonProperty("personalizationImpact")
   private Integer personalizationImpact;
 
-  @SerializedName("userToken")
+  @JsonProperty("userToken")
   private String userToken;
 
-  @SerializedName("getRankingInfo")
+  @JsonProperty("getRankingInfo")
   private Boolean getRankingInfo;
 
-  @SerializedName("clickAnalytics")
+  @JsonProperty("clickAnalytics")
   private Boolean clickAnalytics;
 
-  @SerializedName("analytics")
+  @JsonProperty("analytics")
   private Boolean analytics;
 
-  @SerializedName("analyticsTags")
+  @JsonProperty("analyticsTags")
   private List<String> analyticsTags;
 
-  @SerializedName("percentileComputation")
+  @JsonProperty("percentileComputation")
   private Boolean percentileComputation;
 
-  @SerializedName("enableABTest")
+  @JsonProperty("enableABTest")
   private Boolean enableABTest;
 
-  @SerializedName("enableReRanking")
+  @JsonProperty("enableReRanking")
   private Boolean enableReRanking;
 
-  @SerializedName("reRankingApplyFilter")
+  @JsonProperty("reRankingApplyFilter")
   private ReRankingApplyFilter reRankingApplyFilter;
 
   public BaseSearchParams setQuery(String query) {

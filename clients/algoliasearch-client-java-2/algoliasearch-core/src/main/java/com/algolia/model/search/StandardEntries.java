@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -11,13 +11,13 @@ import java.util.Objects;
  */
 public class StandardEntries {
 
-  @SerializedName("plurals")
+  @JsonProperty("plurals")
   private Map<String, Boolean> plurals;
 
-  @SerializedName("stopwords")
+  @JsonProperty("stopwords")
   private Map<String, Boolean> stopwords;
 
-  @SerializedName("compounds")
+  @JsonProperty("compounds")
   private Map<String, Boolean> compounds;
 
   public StandardEntries setPlurals(Map<String, Boolean> plurals) {

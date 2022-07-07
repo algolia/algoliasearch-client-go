@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SearchForHitsOptions */
 public class SearchForHitsOptions {
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
-  @SerializedName("type")
+  @JsonProperty("type")
   private SearchTypeDefault type;
 
   public SearchForHitsOptions setIndexName(String indexName) {

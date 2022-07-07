@@ -1,13 +1,10 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets acl */
-@JsonAdapter(Acl.Adapter.class)
 public enum Acl {
   ADD_OBJECT("addObject"),
 
@@ -43,6 +40,7 @@ public enum Acl {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -52,6 +50,7 @@ public enum Acl {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static Acl fromValue(String value) {
     for (Acl b : Acl.values()) {
       if (b.value.equals(value)) {
@@ -59,19 +58,5 @@ public enum Acl {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<Acl> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final Acl enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public Acl read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return Acl.fromValue(value);
-    }
   }
 }

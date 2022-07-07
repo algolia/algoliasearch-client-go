@@ -1,15 +1,15 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SuccessResponse */
 public class SuccessResponse {
 
-  @SerializedName("status")
+  @JsonProperty("status")
   private Integer status;
 
-  @SerializedName("message")
+  @JsonProperty("message")
   private String message;
 
   public SuccessResponse setStatus(Integer status) {

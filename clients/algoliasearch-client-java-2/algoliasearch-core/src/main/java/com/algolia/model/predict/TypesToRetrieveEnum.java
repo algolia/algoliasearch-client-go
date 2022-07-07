@@ -1,13 +1,10 @@
 package com.algolia.model.predict;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets typesToRetrieveEnum */
-@JsonAdapter(TypesToRetrieveEnum.Adapter.class)
 public enum TypesToRetrieveEnum {
   PROPERTIES("properties"),
 
@@ -19,6 +16,7 @@ public enum TypesToRetrieveEnum {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -28,6 +26,7 @@ public enum TypesToRetrieveEnum {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static TypesToRetrieveEnum fromValue(String value) {
     for (TypesToRetrieveEnum b : TypesToRetrieveEnum.values()) {
       if (b.value.equals(value)) {
@@ -35,19 +34,5 @@ public enum TypesToRetrieveEnum {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<TypesToRetrieveEnum> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final TypesToRetrieveEnum enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public TypesToRetrieveEnum read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return TypesToRetrieveEnum.fromValue(value);
-    }
   }
 }

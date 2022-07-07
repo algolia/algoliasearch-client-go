@@ -1,6 +1,6 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /** GetTopCountriesResponse */
 public class GetTopCountriesResponse {
 
-  @SerializedName("countries")
+  @JsonProperty("countries")
   private List<TopCountry> countries = new ArrayList<>();
 
   public GetTopCountriesResponse setCountries(List<TopCountry> countries) {

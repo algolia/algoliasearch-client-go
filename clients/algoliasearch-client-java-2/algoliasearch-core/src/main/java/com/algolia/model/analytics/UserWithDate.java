@@ -1,15 +1,15 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** UserWithDate */
 public class UserWithDate {
 
-  @SerializedName("date")
+  @JsonProperty("date")
   private String date;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
   public UserWithDate setDate(String date) {

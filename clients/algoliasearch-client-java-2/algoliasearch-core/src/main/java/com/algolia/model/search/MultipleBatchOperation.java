@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** MultipleBatchOperation */
 public class MultipleBatchOperation {
 
-  @SerializedName("action")
+  @JsonProperty("action")
   private Action action;
 
-  @SerializedName("body")
+  @JsonProperty("body")
   private Object body;
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
   public MultipleBatchOperation setAction(Action action) {

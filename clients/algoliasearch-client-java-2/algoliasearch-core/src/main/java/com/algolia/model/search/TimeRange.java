@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** TimeRange */
 public class TimeRange {
 
-  @SerializedName("from")
+  @JsonProperty("from")
   private Integer from;
 
-  @SerializedName("until")
+  @JsonProperty("until")
   private Integer until;
 
   public TimeRange setFrom(Integer from) {

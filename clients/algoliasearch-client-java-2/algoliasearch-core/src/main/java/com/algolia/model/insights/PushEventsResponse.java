@@ -1,12 +1,12 @@
 package com.algolia.model.insights;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** PushEventsResponse */
 public class PushEventsResponse {
 
-  @SerializedName("message")
+  @JsonProperty("message")
   private String message;
 
   public PushEventsResponse setMessage(String message) {

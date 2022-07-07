@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SaveObjectResponse */
 public class SaveObjectResponse {
 
-  @SerializedName("createdAt")
+  @JsonProperty("createdAt")
   private String createdAt;
 
-  @SerializedName("taskID")
+  @JsonProperty("taskID")
   private Long taskID;
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
   public SaveObjectResponse setCreatedAt(String createdAt) {

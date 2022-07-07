@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Edit */
 public class Edit {
 
-  @SerializedName("type")
+  @JsonProperty("type")
   private EditType type;
 
-  @SerializedName("delete")
+  @JsonProperty("delete")
   private String delete;
 
-  @SerializedName("insert")
+  @JsonProperty("insert")
   private String insert;
 
   public Edit setType(EditType type) {

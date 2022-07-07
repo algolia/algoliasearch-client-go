@@ -1,24 +1,24 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SearchForFacetsOptions */
 public class SearchForFacetsOptions {
 
-  @SerializedName("facet")
+  @JsonProperty("facet")
   private String facet;
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
-  @SerializedName("facetQuery")
+  @JsonProperty("facetQuery")
   private String facetQuery;
 
-  @SerializedName("maxFacetHits")
+  @JsonProperty("maxFacetHits")
   private Integer maxFacetHits;
 
-  @SerializedName("type")
+  @JsonProperty("type")
   private SearchTypeFacet type;
 
   public SearchForFacetsOptions setFacet(String facet) {

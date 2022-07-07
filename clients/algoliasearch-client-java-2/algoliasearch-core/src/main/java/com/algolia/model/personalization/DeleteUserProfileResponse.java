@@ -1,15 +1,15 @@
 package com.algolia.model.personalization;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** DeleteUserProfileResponse */
 public class DeleteUserProfileResponse {
 
-  @SerializedName("userToken")
+  @JsonProperty("userToken")
   private String userToken;
 
-  @SerializedName("deletedUntil")
+  @JsonProperty("deletedUntil")
   private String deletedUntil;
 
   public DeleteUserProfileResponse setUserToken(String userToken) {

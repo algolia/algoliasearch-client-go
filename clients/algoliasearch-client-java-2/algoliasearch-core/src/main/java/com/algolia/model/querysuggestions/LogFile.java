@@ -1,21 +1,21 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** LogFile */
 public class LogFile {
 
-  @SerializedName("timestamp")
+  @JsonProperty("timestamp")
   private String timestamp;
 
-  @SerializedName("level")
+  @JsonProperty("level")
   private LogLevel level;
 
-  @SerializedName("message")
+  @JsonProperty("message")
   private String message;
 
-  @SerializedName("contextLevel")
+  @JsonProperty("contextLevel")
   private Integer contextLevel;
 
   public LogFile setTimestamp(String timestamp) {

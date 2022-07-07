@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,31 +8,31 @@ import java.util.Objects;
 /** Synonym object. */
 public class SynonymHit {
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("type")
+  @JsonProperty("type")
   private SynonymType type;
 
-  @SerializedName("synonyms")
+  @JsonProperty("synonyms")
   private List<String> synonyms;
 
-  @SerializedName("input")
+  @JsonProperty("input")
   private String input;
 
-  @SerializedName("word")
+  @JsonProperty("word")
   private String word;
 
-  @SerializedName("corrections")
+  @JsonProperty("corrections")
   private List<String> corrections;
 
-  @SerializedName("placeholder")
+  @JsonProperty("placeholder")
   private String placeholder;
 
-  @SerializedName("replacements")
+  @JsonProperty("replacements")
   private List<String> replacements;
 
-  @SerializedName("_highlightResult")
+  @JsonProperty("_highlightResult")
   private SynonymHitHighlightResult highlightResult;
 
   public SynonymHit setObjectID(String objectID) {

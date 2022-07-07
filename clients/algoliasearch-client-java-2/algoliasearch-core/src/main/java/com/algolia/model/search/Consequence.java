@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,19 +8,19 @@ import java.util.Objects;
 /** Consequence of the Rule. */
 public class Consequence {
 
-  @SerializedName("params")
+  @JsonProperty("params")
   private ConsequenceParams params;
 
-  @SerializedName("promote")
+  @JsonProperty("promote")
   private List<Promote> promote;
 
-  @SerializedName("filterPromotes")
+  @JsonProperty("filterPromotes")
   private Boolean filterPromotes;
 
-  @SerializedName("hide")
+  @JsonProperty("hide")
   private List<ConsequenceHide> hide;
 
-  @SerializedName("userData")
+  @JsonProperty("userData")
   private Object userData;
 
   public Consequence setParams(ConsequenceParams params) {

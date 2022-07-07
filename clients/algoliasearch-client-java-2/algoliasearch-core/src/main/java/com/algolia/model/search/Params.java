@@ -1,21 +1,21 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Additional search parameters. Any valid search parameter is allowed. */
 public class Params {
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private ConsequenceQuery query;
 
-  @SerializedName("automaticFacetFilters")
+  @JsonProperty("automaticFacetFilters")
   private AutomaticFacetFilters automaticFacetFilters;
 
-  @SerializedName("automaticOptionalFacetFilters")
+  @JsonProperty("automaticOptionalFacetFilters")
   private AutomaticFacetFilters automaticOptionalFacetFilters;
 
-  @SerializedName("renderingContent")
+  @JsonProperty("renderingContent")
   private RenderingContent renderingContent;
 
   public Params setQuery(ConsequenceQuery query) {

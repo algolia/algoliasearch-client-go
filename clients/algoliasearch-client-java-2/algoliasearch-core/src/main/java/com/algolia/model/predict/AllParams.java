@@ -1,6 +1,6 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** AllParams */
 public class AllParams {
 
-  @SerializedName("modelsToRetrieve")
+  @JsonProperty("modelsToRetrieve")
   private List<ModelsToRetrieveEnum> modelsToRetrieve = new ArrayList<>();
 
-  @SerializedName("typesToRetrieve")
+  @JsonProperty("typesToRetrieve")
   private List<TypesToRetrieveEnum> typesToRetrieve = new ArrayList<>();
 
   public AllParams setModelsToRetrieve(List<ModelsToRetrieveEnum> modelsToRetrieve) {

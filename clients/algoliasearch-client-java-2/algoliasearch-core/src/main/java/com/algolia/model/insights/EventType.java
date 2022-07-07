@@ -1,13 +1,10 @@
 package com.algolia.model.insights;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets eventType */
-@JsonAdapter(EventType.Adapter.class)
 public enum EventType {
   CLICK("click"),
 
@@ -21,6 +18,7 @@ public enum EventType {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -30,6 +28,7 @@ public enum EventType {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static EventType fromValue(String value) {
     for (EventType b : EventType.values()) {
       if (b.value.equals(value)) {
@@ -37,19 +36,5 @@ public enum EventType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<EventType> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final EventType enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public EventType read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return EventType.fromValue(value);
-    }
   }
 }

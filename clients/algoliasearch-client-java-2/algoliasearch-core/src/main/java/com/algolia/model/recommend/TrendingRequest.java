@@ -1,33 +1,33 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** TrendingRequest */
 public class TrendingRequest {
 
-  @SerializedName("model")
+  @JsonProperty("model")
   private TrendingModels model;
 
-  @SerializedName("facetName")
+  @JsonProperty("facetName")
   private String facetName;
 
-  @SerializedName("facetValue")
+  @JsonProperty("facetValue")
   private String facetValue;
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
-  @SerializedName("threshold")
+  @JsonProperty("threshold")
   private Integer threshold;
 
-  @SerializedName("maxRecommendations")
+  @JsonProperty("maxRecommendations")
   private Integer maxRecommendations;
 
-  @SerializedName("queryParameters")
+  @JsonProperty("queryParameters")
   private SearchParamsObject queryParameters;
 
-  @SerializedName("fallbackParameters")
+  @JsonProperty("fallbackParameters")
   private SearchParamsObject fallbackParameters;
 
   public TrendingRequest setModel(TrendingModels model) {

@@ -6,8 +6,7 @@ import com.algolia.model.personalization.*;
 import com.algolia.utils.*;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -146,8 +145,7 @@ public class PersonalizationClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -253,8 +251,7 @@ public class PersonalizationClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<DeleteUserProfileResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<DeleteUserProfileResponse>() {});
   }
 
   /**
@@ -360,8 +357,7 @@ public class PersonalizationClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -448,8 +444,7 @@ public class PersonalizationClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<PersonalizationStrategyParams>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<PersonalizationStrategyParams>() {});
   }
 
   /**
@@ -527,8 +522,7 @@ public class PersonalizationClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetUserTokenResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetUserTokenResponse>() {});
   }
 
   /**
@@ -638,8 +632,7 @@ public class PersonalizationClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -773,8 +766,7 @@ public class PersonalizationClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -877,8 +869,7 @@ public class PersonalizationClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<SetPersonalizationStrategyResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SetPersonalizationStrategyResponse>() {});
   }
 
   /**

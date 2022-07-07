@@ -306,6 +306,32 @@ describe('batchDictionaryEntries', () => {
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });
+
+  test('get batchDictionaryEntries results additional properties', async () => {
+    const req = (await client.batchDictionaryEntries({
+      dictionaryName: 'compounds',
+      batchDictionaryEntriesParams: {
+        requests: [
+          {
+            action: 'addEntry',
+            body: { objectID: '1', language: 'en', additional: 'try me' },
+          },
+        ],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/dictionaries/compounds/batch');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      requests: [
+        {
+          action: 'addEntry',
+          body: { objectID: '1', language: 'en', additional: 'try me' },
+        },
+      ],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
 });
 
 describe('browse', () => {

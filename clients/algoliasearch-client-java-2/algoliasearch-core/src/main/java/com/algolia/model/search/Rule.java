@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,22 +8,22 @@ import java.util.Objects;
 /** Rule object. */
 public class Rule {
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("conditions")
+  @JsonProperty("conditions")
   private List<Condition> conditions;
 
-  @SerializedName("consequence")
+  @JsonProperty("consequence")
   private Consequence consequence;
 
-  @SerializedName("description")
+  @JsonProperty("description")
   private String description;
 
-  @SerializedName("enabled")
+  @JsonProperty("enabled")
   private Boolean enabled;
 
-  @SerializedName("validity")
+  @JsonProperty("validity")
   private List<TimeRange> validity;
 
   public Rule setObjectID(String objectID) {

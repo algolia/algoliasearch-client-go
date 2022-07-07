@@ -6,8 +6,7 @@ import com.algolia.model.analytics.*;
 import com.algolia.utils.*;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -153,8 +152,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -283,8 +281,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -454,8 +451,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetAverageClickPositionResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetAverageClickPositionResponse>() {});
   }
 
   /**
@@ -642,8 +638,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetClickPositionsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetClickPositionsResponse>() {});
   }
 
   /**
@@ -831,8 +826,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetClickThroughRateResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetClickThroughRateResponse>() {});
   }
 
   /**
@@ -1021,8 +1015,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetConversationRateResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetConversationRateResponse>() {});
   }
 
   /**
@@ -1205,8 +1198,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetNoClickRateResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetNoClickRateResponse>() {});
   }
 
   /**
@@ -1391,8 +1383,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetNoResultsRateResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetNoResultsRateResponse>() {});
   }
 
   /**
@@ -1572,8 +1563,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetSearchesCountResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetSearchesCountResponse>() {});
   }
 
   /**
@@ -1780,8 +1770,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetSearchesNoClicksResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetSearchesNoClicksResponse>() {});
   }
 
   /**
@@ -1994,8 +1983,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetSearchesNoResultsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetSearchesNoResultsResponse>() {});
   }
 
   /**
@@ -2111,8 +2099,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetStatusResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetStatusResponse>() {});
   }
 
   /**
@@ -2280,8 +2267,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTopCountriesResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTopCountriesResponse>() {});
   }
 
   /**
@@ -2500,8 +2486,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTopFilterAttributesResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTopFilterAttributesResponse>() {});
   }
 
   /**
@@ -2738,8 +2723,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTopFilterForAttributeResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTopFilterForAttributeResponse>() {});
   }
 
   /**
@@ -2971,8 +2955,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTopFiltersNoResultsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTopFiltersNoResultsResponse>() {});
   }
 
   /**
@@ -3206,8 +3189,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTopHitsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTopHitsResponse>() {});
   }
 
   /**
@@ -3460,8 +3442,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTopSearchesResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTopSearchesResponse>() {});
   }
 
   /**
@@ -3649,8 +3630,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetUsersCountResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetUsersCountResponse>() {});
   }
 
   /**
@@ -3791,8 +3771,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -3926,8 +3905,7 @@ public class AnalyticsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**

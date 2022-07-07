@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Personalization */
 public class Personalization {
 
-  @SerializedName("filtersScore")
+  @JsonProperty("filtersScore")
   private Integer filtersScore;
 
-  @SerializedName("rankingScore")
+  @JsonProperty("rankingScore")
   private Integer rankingScore;
 
-  @SerializedName("score")
+  @JsonProperty("score")
   private Integer score;
 
   public Personalization setFiltersScore(Integer filtersScore) {

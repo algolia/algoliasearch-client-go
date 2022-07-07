@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** UpdatedRuleResponse */
 public class UpdatedRuleResponse {
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("updatedAt")
+  @JsonProperty("updatedAt")
   private String updatedAt;
 
-  @SerializedName("taskID")
+  @JsonProperty("taskID")
   private Long taskID;
 
   public UpdatedRuleResponse setObjectID(String objectID) {

@@ -1,16 +1,19 @@
 package com.algolia.model.predict;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-@JsonAdapter(Params.Adapter.class)
 /** Params */
+@JsonDeserialize(using = Params.ParamsDeserializer.class)
+@JsonSerialize(using = Params.ParamsSerializer.class)
 public abstract class Params implements CompoundType {
 
   public static Params of(AllParams inside) {
@@ -25,34 +28,132 @@ public abstract class Params implements CompoundType {
     return new ParamsTypesToRetrieve(inside);
   }
 
-  public static class Adapter extends TypeAdapter<Params> {
+  public static class ParamsSerializer extends StdSerializer<Params> {
 
-    @Override
-    public void write(final JsonWriter out, final Params oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public ParamsSerializer(Class<Params> t) {
+      super(t);
+    }
+
+    public ParamsSerializer() {
+      this(null);
     }
 
     @Override
-    public Params read(final JsonReader jsonReader) throws IOException {
-      AllParams allparams = JSON.tryDeserialize(jsonReader, new TypeToken<AllParams>() {}.getType());
-      if (allparams != null) {
-        return Params.of(allparams);
+    public void serialize(Params value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class ParamsDeserializer extends StdDeserializer<Params> {
+
+    public ParamsDeserializer() {
+      this(Params.class);
+    }
+
+    public ParamsDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public Params deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      Params deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize AllParams
+      try {
+        boolean attemptParsing = true;
+        currentType = "AllParams";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = Params.of((AllParams) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AllParams>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = Params.of((AllParams) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AllParams>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf AllParams (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      ModelsToRetrieve modelstoretrieve = JSON.tryDeserialize(jsonReader, new TypeToken<ModelsToRetrieve>() {}.getType());
-      if (modelstoretrieve != null) {
-        return Params.of(modelstoretrieve);
+
+      // deserialize ModelsToRetrieve
+      try {
+        boolean attemptParsing = true;
+        currentType = "ModelsToRetrieve";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = Params.of((ModelsToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ModelsToRetrieve>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = Params.of((ModelsToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ModelsToRetrieve>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf ModelsToRetrieve (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      TypesToRetrieve typestoretrieve = JSON.tryDeserialize(jsonReader, new TypeToken<TypesToRetrieve>() {}.getType());
-      if (typestoretrieve != null) {
-        return Params.of(typestoretrieve);
+
+      // deserialize TypesToRetrieve
+      try {
+        boolean attemptParsing = true;
+        currentType = "TypesToRetrieve";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = Params.of((TypesToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TypesToRetrieve>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = Params.of((TypesToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TypesToRetrieve>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf TypesToRetrieve (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(String.format("Failed deserialization for Params: %d classes match result, expected 1", match));
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public Params getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "Params cannot be null");
     }
   }
 }
 
-@JsonAdapter(Params.Adapter.class)
 class ParamsAllParams extends Params {
 
   private final AllParams insideValue;
@@ -67,7 +168,6 @@ class ParamsAllParams extends Params {
   }
 }
 
-@JsonAdapter(Params.Adapter.class)
 class ParamsModelsToRetrieve extends Params {
 
   private final ModelsToRetrieve insideValue;
@@ -82,7 +182,6 @@ class ParamsModelsToRetrieve extends Params {
   }
 }
 
-@JsonAdapter(Params.Adapter.class)
 class ParamsTypesToRetrieve extends Params {
 
   private final TypesToRetrieve insideValue;

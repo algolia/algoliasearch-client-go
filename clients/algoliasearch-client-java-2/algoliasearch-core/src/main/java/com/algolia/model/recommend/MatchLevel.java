@@ -1,13 +1,10 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Indicates how well the attribute matched the search query. */
-@JsonAdapter(MatchLevel.Adapter.class)
 public enum MatchLevel {
   NONE("none"),
 
@@ -21,6 +18,7 @@ public enum MatchLevel {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -30,6 +28,7 @@ public enum MatchLevel {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static MatchLevel fromValue(String value) {
     for (MatchLevel b : MatchLevel.values()) {
       if (b.value.equals(value)) {
@@ -37,19 +36,5 @@ public enum MatchLevel {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<MatchLevel> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final MatchLevel enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public MatchLevel read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return MatchLevel.fromValue(value);
-    }
   }
 }

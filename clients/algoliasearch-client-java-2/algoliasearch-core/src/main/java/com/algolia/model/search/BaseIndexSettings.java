@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,46 +10,46 @@ import java.util.Objects;
 /** BaseIndexSettings */
 public class BaseIndexSettings {
 
-  @SerializedName("replicas")
+  @JsonProperty("replicas")
   private List<String> replicas;
 
-  @SerializedName("paginationLimitedTo")
+  @JsonProperty("paginationLimitedTo")
   private Integer paginationLimitedTo;
 
-  @SerializedName("disableTypoToleranceOnWords")
+  @JsonProperty("disableTypoToleranceOnWords")
   private List<String> disableTypoToleranceOnWords;
 
-  @SerializedName("attributesToTransliterate")
+  @JsonProperty("attributesToTransliterate")
   private List<String> attributesToTransliterate;
 
-  @SerializedName("camelCaseAttributes")
+  @JsonProperty("camelCaseAttributes")
   private List<String> camelCaseAttributes;
 
-  @SerializedName("decompoundedAttributes")
+  @JsonProperty("decompoundedAttributes")
   private Object decompoundedAttributes;
 
-  @SerializedName("indexLanguages")
+  @JsonProperty("indexLanguages")
   private List<String> indexLanguages;
 
-  @SerializedName("disablePrefixOnAttributes")
+  @JsonProperty("disablePrefixOnAttributes")
   private List<String> disablePrefixOnAttributes;
 
-  @SerializedName("allowCompressionOfIntegerArray")
+  @JsonProperty("allowCompressionOfIntegerArray")
   private Boolean allowCompressionOfIntegerArray;
 
-  @SerializedName("numericAttributesForFiltering")
+  @JsonProperty("numericAttributesForFiltering")
   private List<String> numericAttributesForFiltering;
 
-  @SerializedName("separatorsToIndex")
+  @JsonProperty("separatorsToIndex")
   private String separatorsToIndex;
 
-  @SerializedName("searchableAttributes")
+  @JsonProperty("searchableAttributes")
   private List<String> searchableAttributes;
 
-  @SerializedName("userData")
+  @JsonProperty("userData")
   private Object userData;
 
-  @SerializedName("customNormalization")
+  @JsonProperty("customNormalization")
   private Map<String, Map<String, String>> customNormalization;
 
   public BaseIndexSettings setReplicas(List<String> replicas) {

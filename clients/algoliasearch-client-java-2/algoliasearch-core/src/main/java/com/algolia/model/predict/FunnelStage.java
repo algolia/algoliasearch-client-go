@@ -1,15 +1,15 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** FunnelStage */
 public class FunnelStage {
 
-  @SerializedName("name")
+  @JsonProperty("name")
   private String name;
 
-  @SerializedName("probability")
+  @JsonProperty("probability")
   private Double probability;
 
   public FunnelStage setName(String name) {

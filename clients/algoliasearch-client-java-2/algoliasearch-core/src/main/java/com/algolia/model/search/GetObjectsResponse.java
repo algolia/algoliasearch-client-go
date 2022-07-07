@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /** GetObjectsResponse */
 public class GetObjectsResponse {
 
-  @SerializedName("results")
+  @JsonProperty("results")
   private List<Object> results;
 
   public GetObjectsResponse setResults(List<Object> results) {

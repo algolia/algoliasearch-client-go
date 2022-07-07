@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Single objectID to promote as hits. */
 public class PromoteObjectID {
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("position")
+  @JsonProperty("position")
   private Integer position;
 
   public PromoteObjectID setObjectID(String objectID) {

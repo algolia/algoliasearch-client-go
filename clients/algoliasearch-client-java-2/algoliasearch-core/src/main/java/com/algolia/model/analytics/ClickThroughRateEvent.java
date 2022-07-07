@@ -1,21 +1,21 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** ClickThroughRateEvent */
 public class ClickThroughRateEvent {
 
-  @SerializedName("rate")
+  @JsonProperty("rate")
   private Double rate;
 
-  @SerializedName("clickCount")
+  @JsonProperty("clickCount")
   private Integer clickCount;
 
-  @SerializedName("trackedSearchCount")
+  @JsonProperty("trackedSearchCount")
   private Integer trackedSearchCount;
 
-  @SerializedName("date")
+  @JsonProperty("date")
   private String date;
 
   public ClickThroughRateEvent setRate(Double rate) {

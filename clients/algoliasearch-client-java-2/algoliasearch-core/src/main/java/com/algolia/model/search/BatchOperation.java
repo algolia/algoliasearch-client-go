@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** BatchOperation */
 public class BatchOperation {
 
-  @SerializedName("action")
+  @JsonProperty("action")
   private Action action;
 
-  @SerializedName("body")
+  @JsonProperty("body")
   private Object body;
 
   public BatchOperation setAction(Action action) {

@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.Objects;
 /** Highlighted results. */
 public class SynonymHitHighlightResult {
 
-  @SerializedName("type")
+  @JsonProperty("type")
   private Map<String, HighlightResult> type;
 
-  @SerializedName("synonyms")
+  @JsonProperty("synonyms")
   private List<Map<String, HighlightResult>> synonyms;
 
   public SynonymHitHighlightResult setType(Map<String, HighlightResult> type) {

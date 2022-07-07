@@ -1,31 +1,45 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** A dictionary entry. */
-public class DictionaryEntry extends HashMap<String, Object> {
+public class DictionaryEntry {
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("language")
+  @JsonProperty("language")
   private String language;
 
-  @SerializedName("word")
+  @JsonProperty("word")
   private String word;
 
-  @SerializedName("words")
+  @JsonProperty("words")
   private List<String> words;
 
-  @SerializedName("decomposition")
+  @JsonProperty("decomposition")
   private List<String> decomposition;
 
-  @SerializedName("state")
+  @JsonProperty("state")
   private DictionaryEntryState state;
+
+  private Map<String, Object> additionalProperties = new HashMap<>();
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
+
+  @JsonAnySetter
+  public DictionaryEntry setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+    return this;
+  }
 
   public DictionaryEntry setObjectID(String objectID) {
     this.objectID = objectID;

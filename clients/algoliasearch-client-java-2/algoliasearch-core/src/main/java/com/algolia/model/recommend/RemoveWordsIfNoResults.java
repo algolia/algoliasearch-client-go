@@ -1,13 +1,10 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Selects a strategy to remove words from the query when it doesn't match any hits. */
-@JsonAdapter(RemoveWordsIfNoResults.Adapter.class)
 public enum RemoveWordsIfNoResults {
   NONE("none"),
 
@@ -23,6 +20,7 @@ public enum RemoveWordsIfNoResults {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -32,6 +30,7 @@ public enum RemoveWordsIfNoResults {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static RemoveWordsIfNoResults fromValue(String value) {
     for (RemoveWordsIfNoResults b : RemoveWordsIfNoResults.values()) {
       if (b.value.equals(value)) {
@@ -39,19 +38,5 @@ public enum RemoveWordsIfNoResults {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<RemoveWordsIfNoResults> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final RemoveWordsIfNoResults enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public RemoveWordsIfNoResults read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return RemoveWordsIfNoResults.fromValue(value);
-    }
   }
 }

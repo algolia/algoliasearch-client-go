@@ -1,15 +1,15 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Prediction for the **order_value** model. */
 public class PredictionsOrderValue {
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private Double value;
 
-  @SerializedName("lastUpdatedAt")
+  @JsonProperty("lastUpdatedAt")
   private String lastUpdatedAt;
 
   public PredictionsOrderValue setValue(Double value) {

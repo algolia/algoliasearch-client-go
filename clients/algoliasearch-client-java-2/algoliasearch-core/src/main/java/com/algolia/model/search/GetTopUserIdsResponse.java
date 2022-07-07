@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Array of userIDs and clusters. */
 public class GetTopUserIdsResponse {
 
-  @SerializedName("topUsers")
+  @JsonProperty("topUsers")
   private List<Map<String, List<UserId>>> topUsers = new ArrayList<>();
 
   public GetTopUserIdsResponse setTopUsers(List<Map<String, List<UserId>>> topUsers) {

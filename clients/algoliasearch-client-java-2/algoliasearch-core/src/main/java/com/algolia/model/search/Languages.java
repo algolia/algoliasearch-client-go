@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** A dictionary language. */
 public class Languages {
 
-  @SerializedName("plurals")
+  @JsonProperty("plurals")
   private DictionaryLanguage plurals;
 
-  @SerializedName("stopwords")
+  @JsonProperty("stopwords")
   private DictionaryLanguage stopwords;
 
-  @SerializedName("compounds")
+  @JsonProperty("compounds")
   private DictionaryLanguage compounds;
 
   public Languages setPlurals(DictionaryLanguage plurals) {

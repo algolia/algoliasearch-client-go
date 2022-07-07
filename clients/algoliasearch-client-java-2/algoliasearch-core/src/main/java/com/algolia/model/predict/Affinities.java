@@ -1,18 +1,18 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Affinities */
 public class Affinities {
 
-  @SerializedName("name")
+  @JsonProperty("name")
   private String name;
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private String value;
 
-  @SerializedName("probability")
+  @JsonProperty("probability")
   private Double probability;
 
   public Affinities setName(String name) {

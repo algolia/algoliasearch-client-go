@@ -1,48 +1,48 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** RankingInfo */
 public class RankingInfo {
 
-  @SerializedName("filters")
+  @JsonProperty("filters")
   private Integer filters;
 
-  @SerializedName("firstMatchedWord")
+  @JsonProperty("firstMatchedWord")
   private Integer firstMatchedWord;
 
-  @SerializedName("geoDistance")
+  @JsonProperty("geoDistance")
   private Integer geoDistance;
 
-  @SerializedName("geoPrecision")
+  @JsonProperty("geoPrecision")
   private Integer geoPrecision;
 
-  @SerializedName("matchedGeoLocation")
+  @JsonProperty("matchedGeoLocation")
   private MatchedGeoLocation matchedGeoLocation;
 
-  @SerializedName("personalization")
+  @JsonProperty("personalization")
   private Personalization personalization;
 
-  @SerializedName("nbExactWords")
+  @JsonProperty("nbExactWords")
   private Integer nbExactWords;
 
-  @SerializedName("nbTypos")
+  @JsonProperty("nbTypos")
   private Integer nbTypos;
 
-  @SerializedName("promoted")
+  @JsonProperty("promoted")
   private Boolean promoted;
 
-  @SerializedName("proximityDistance")
+  @JsonProperty("proximityDistance")
   private Integer proximityDistance;
 
-  @SerializedName("userScore")
+  @JsonProperty("userScore")
   private Integer userScore;
 
-  @SerializedName("words")
+  @JsonProperty("words")
   private Integer words;
 
-  @SerializedName("promotedByReRanking")
+  @JsonProperty("promotedByReRanking")
   private Boolean promotedByReRanking;
 
   public RankingInfo setFilters(Integer filters) {

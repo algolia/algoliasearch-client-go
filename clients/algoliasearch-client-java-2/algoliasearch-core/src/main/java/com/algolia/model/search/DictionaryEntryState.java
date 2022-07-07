@@ -1,13 +1,10 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** The state of the dictionary entry. */
-@JsonAdapter(DictionaryEntryState.Adapter.class)
 public enum DictionaryEntryState {
   ENABLED("enabled"),
 
@@ -19,6 +16,7 @@ public enum DictionaryEntryState {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -28,6 +26,7 @@ public enum DictionaryEntryState {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static DictionaryEntryState fromValue(String value) {
     for (DictionaryEntryState b : DictionaryEntryState.values()) {
       if (b.value.equals(value)) {
@@ -35,19 +34,5 @@ public enum DictionaryEntryState {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<DictionaryEntryState> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final DictionaryEntryState enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public DictionaryEntryState read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return DictionaryEntryState.fromValue(value);
-    }
   }
 }

@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /**
@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class RenderingContent {
 
-  @SerializedName("facetOrdering")
+  @JsonProperty("facetOrdering")
   private FacetOrdering facetOrdering;
 
   public RenderingContent setFacetOrdering(FacetOrdering facetOrdering) {

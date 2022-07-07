@@ -1,13 +1,10 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets typoToleranceEnum */
-@JsonAdapter(TypoToleranceEnum.Adapter.class)
 public enum TypoToleranceEnum {
   MIN("min"),
 
@@ -19,6 +16,7 @@ public enum TypoToleranceEnum {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -28,6 +26,7 @@ public enum TypoToleranceEnum {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static TypoToleranceEnum fromValue(String value) {
     for (TypoToleranceEnum b : TypoToleranceEnum.values()) {
       if (b.value.equals(value)) {
@@ -35,19 +34,5 @@ public enum TypoToleranceEnum {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<TypoToleranceEnum> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final TypoToleranceEnum enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public TypoToleranceEnum read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return TypoToleranceEnum.fromValue(value);
-    }
   }
 }

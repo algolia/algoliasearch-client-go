@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,16 +8,16 @@ import java.util.Objects;
 /** Show highlighted section and words matched on a query. */
 public class HighlightResultOption {
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private String value;
 
-  @SerializedName("matchLevel")
+  @JsonProperty("matchLevel")
   private MatchLevel matchLevel;
 
-  @SerializedName("matchedWords")
+  @JsonProperty("matchedWords")
   private List<String> matchedWords = new ArrayList<>();
 
-  @SerializedName("fullyHighlighted")
+  @JsonProperty("fullyHighlighted")
   private Boolean fullyHighlighted;
 
   public HighlightResultOption setValue(String value) {

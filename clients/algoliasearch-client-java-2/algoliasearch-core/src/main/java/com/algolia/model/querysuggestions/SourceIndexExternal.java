@@ -1,15 +1,15 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SourceIndexExternal */
 public class SourceIndexExternal {
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private String query;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
   public SourceIndexExternal setQuery(String query) {

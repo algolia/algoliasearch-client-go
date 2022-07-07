@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** The response with a taskID and a deletedAt timestamp. */
 public class DeletedAtResponse {
 
-  @SerializedName("taskID")
+  @JsonProperty("taskID")
   private Long taskID;
 
-  @SerializedName("deletedAt")
+  @JsonProperty("deletedAt")
   private String deletedAt;
 
   public DeletedAtResponse setTaskID(Long taskID) {

@@ -1,6 +1,6 @@
 package com.algolia.model.insights;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,31 +8,31 @@ import java.util.Objects;
 /** Insights event. */
 public class InsightEvent {
 
-  @SerializedName("eventType")
+  @JsonProperty("eventType")
   private EventType eventType;
 
-  @SerializedName("eventName")
+  @JsonProperty("eventName")
   private String eventName;
 
-  @SerializedName("index")
+  @JsonProperty("index")
   private String index;
 
-  @SerializedName("userToken")
+  @JsonProperty("userToken")
   private String userToken;
 
-  @SerializedName("timestamp")
+  @JsonProperty("timestamp")
   private Long timestamp;
 
-  @SerializedName("queryID")
+  @JsonProperty("queryID")
   private String queryID;
 
-  @SerializedName("objectIDs")
+  @JsonProperty("objectIDs")
   private List<String> objectIDs;
 
-  @SerializedName("filters")
+  @JsonProperty("filters")
   private List<String> filters;
 
-  @SerializedName("positions")
+  @JsonProperty("positions")
   private List<Integer> positions;
 
   public InsightEvent setEventType(EventType eventType) {

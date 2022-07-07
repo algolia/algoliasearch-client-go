@@ -6,8 +6,7 @@ import com.algolia.model.querysuggestions.*;
 import com.algolia.utils.*;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -117,8 +116,7 @@ public class QuerySuggestionsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<SuccessResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SuccessResponse>() {});
   }
 
   /**
@@ -221,8 +219,7 @@ public class QuerySuggestionsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -319,8 +316,7 @@ public class QuerySuggestionsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<SuccessResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SuccessResponse>() {});
   }
 
   /**
@@ -423,8 +419,7 @@ public class QuerySuggestionsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -510,8 +505,7 @@ public class QuerySuggestionsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<List<QuerySuggestionsIndex>>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<List<QuerySuggestionsIndex>>() {});
   }
 
   /**
@@ -574,8 +568,7 @@ public class QuerySuggestionsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<QuerySuggestionsIndex>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<QuerySuggestionsIndex>() {});
   }
 
   /**
@@ -641,8 +634,7 @@ public class QuerySuggestionsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Status>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Status>() {});
   }
 
   /**
@@ -706,8 +698,7 @@ public class QuerySuggestionsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<List<LogFile>>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<List<LogFile>>() {});
   }
 
   /**
@@ -812,8 +803,7 @@ public class QuerySuggestionsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -947,8 +937,7 @@ public class QuerySuggestionsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -1055,8 +1044,7 @@ public class QuerySuggestionsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<SuccessResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SuccessResponse>() {});
   }
 
   /**

@@ -501,6 +501,40 @@ class SearchTest extends TestCase implements HttpClientInterface
     }
 
     /**
+     * Test case for BatchDictionaryEntries
+     * get batchDictionaryEntries results additional properties
+     */
+    public function testBatchDictionaryEntries2()
+    {
+        $client = $this->getClient();
+        $client->batchDictionaryEntries(
+            'compounds',
+            [
+                'requests' => [
+                    [
+                        'action' => 'addEntry',
+                        'body' => [
+                            'objectID' => '1',
+                            'language' => 'en',
+                            'additional' => 'try me',
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/dictionaries/compounds/batch',
+                'method' => 'POST',
+                'body' => json_decode(
+                    "{\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\",\"additional\":\"try me\"}}]}"
+                ),
+            ],
+        ]);
+    }
+
+    /**
      * Test case for Browse
      * get browse results with minimal parameters
      */

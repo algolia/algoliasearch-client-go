@@ -1,13 +1,10 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Actions to perform. */
-@JsonAdapter(DictionaryAction.Adapter.class)
 public enum DictionaryAction {
   ADD_ENTRY("addEntry"),
 
@@ -19,6 +16,7 @@ public enum DictionaryAction {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -28,6 +26,7 @@ public enum DictionaryAction {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static DictionaryAction fromValue(String value) {
     for (DictionaryAction b : DictionaryAction.values()) {
       if (b.value.equals(value)) {
@@ -35,19 +34,5 @@ public enum DictionaryAction {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<DictionaryAction> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final DictionaryAction enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public DictionaryAction read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return DictionaryAction.fromValue(value);
-    }
   }
 }

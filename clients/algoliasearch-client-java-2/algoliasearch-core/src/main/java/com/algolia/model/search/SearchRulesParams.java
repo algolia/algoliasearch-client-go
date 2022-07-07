@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,25 +8,25 @@ import java.util.Objects;
 /** Parameters for the search. */
 public class SearchRulesParams {
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private String query;
 
-  @SerializedName("anchoring")
+  @JsonProperty("anchoring")
   private Anchoring anchoring;
 
-  @SerializedName("context")
+  @JsonProperty("context")
   private String context;
 
-  @SerializedName("page")
+  @JsonProperty("page")
   private Integer page;
 
-  @SerializedName("hitsPerPage")
+  @JsonProperty("hitsPerPage")
   private Integer hitsPerPage;
 
-  @SerializedName("enabled")
+  @JsonProperty("enabled")
   private Boolean enabled;
 
-  @SerializedName("requestOptions")
+  @JsonProperty("requestOptions")
   private List<Object> requestOptions;
 
   public SearchRulesParams setQuery(String query) {

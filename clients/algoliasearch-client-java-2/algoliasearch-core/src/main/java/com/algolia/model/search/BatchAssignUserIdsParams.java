@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** Assign userID parameters. */
 public class BatchAssignUserIdsParams {
 
-  @SerializedName("cluster")
+  @JsonProperty("cluster")
   private String cluster;
 
-  @SerializedName("users")
+  @JsonProperty("users")
   private List<String> users = new ArrayList<>();
 
   public BatchAssignUserIdsParams setCluster(String cluster) {

@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,172 +10,172 @@ import java.util.Objects;
 /** The Algolia index settings. */
 public class IndexSettings {
 
-  @SerializedName("replicas")
+  @JsonProperty("replicas")
   private List<String> replicas;
 
-  @SerializedName("paginationLimitedTo")
+  @JsonProperty("paginationLimitedTo")
   private Integer paginationLimitedTo;
 
-  @SerializedName("disableTypoToleranceOnWords")
+  @JsonProperty("disableTypoToleranceOnWords")
   private List<String> disableTypoToleranceOnWords;
 
-  @SerializedName("attributesToTransliterate")
+  @JsonProperty("attributesToTransliterate")
   private List<String> attributesToTransliterate;
 
-  @SerializedName("camelCaseAttributes")
+  @JsonProperty("camelCaseAttributes")
   private List<String> camelCaseAttributes;
 
-  @SerializedName("decompoundedAttributes")
+  @JsonProperty("decompoundedAttributes")
   private Object decompoundedAttributes;
 
-  @SerializedName("indexLanguages")
+  @JsonProperty("indexLanguages")
   private List<String> indexLanguages;
 
-  @SerializedName("disablePrefixOnAttributes")
+  @JsonProperty("disablePrefixOnAttributes")
   private List<String> disablePrefixOnAttributes;
 
-  @SerializedName("allowCompressionOfIntegerArray")
+  @JsonProperty("allowCompressionOfIntegerArray")
   private Boolean allowCompressionOfIntegerArray;
 
-  @SerializedName("numericAttributesForFiltering")
+  @JsonProperty("numericAttributesForFiltering")
   private List<String> numericAttributesForFiltering;
 
-  @SerializedName("separatorsToIndex")
+  @JsonProperty("separatorsToIndex")
   private String separatorsToIndex;
 
-  @SerializedName("searchableAttributes")
+  @JsonProperty("searchableAttributes")
   private List<String> searchableAttributes;
 
-  @SerializedName("userData")
+  @JsonProperty("userData")
   private Object userData;
 
-  @SerializedName("customNormalization")
+  @JsonProperty("customNormalization")
   private Map<String, Map<String, String>> customNormalization;
 
-  @SerializedName("attributesForFaceting")
+  @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @SerializedName("unretrievableAttributes")
+  @JsonProperty("unretrievableAttributes")
   private List<String> unretrievableAttributes;
 
-  @SerializedName("attributesToRetrieve")
+  @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
-  @SerializedName("restrictSearchableAttributes")
+  @JsonProperty("restrictSearchableAttributes")
   private List<String> restrictSearchableAttributes;
 
-  @SerializedName("ranking")
+  @JsonProperty("ranking")
   private List<String> ranking;
 
-  @SerializedName("customRanking")
+  @JsonProperty("customRanking")
   private List<String> customRanking;
 
-  @SerializedName("relevancyStrictness")
+  @JsonProperty("relevancyStrictness")
   private Integer relevancyStrictness;
 
-  @SerializedName("attributesToHighlight")
+  @JsonProperty("attributesToHighlight")
   private List<String> attributesToHighlight;
 
-  @SerializedName("attributesToSnippet")
+  @JsonProperty("attributesToSnippet")
   private List<String> attributesToSnippet;
 
-  @SerializedName("highlightPreTag")
+  @JsonProperty("highlightPreTag")
   private String highlightPreTag;
 
-  @SerializedName("highlightPostTag")
+  @JsonProperty("highlightPostTag")
   private String highlightPostTag;
 
-  @SerializedName("snippetEllipsisText")
+  @JsonProperty("snippetEllipsisText")
   private String snippetEllipsisText;
 
-  @SerializedName("restrictHighlightAndSnippetArrays")
+  @JsonProperty("restrictHighlightAndSnippetArrays")
   private Boolean restrictHighlightAndSnippetArrays;
 
-  @SerializedName("hitsPerPage")
+  @JsonProperty("hitsPerPage")
   private Integer hitsPerPage;
 
-  @SerializedName("minWordSizefor1Typo")
+  @JsonProperty("minWordSizefor1Typo")
   private Integer minWordSizefor1Typo;
 
-  @SerializedName("minWordSizefor2Typos")
+  @JsonProperty("minWordSizefor2Typos")
   private Integer minWordSizefor2Typos;
 
-  @SerializedName("typoTolerance")
+  @JsonProperty("typoTolerance")
   private TypoTolerance typoTolerance;
 
-  @SerializedName("allowTyposOnNumericTokens")
+  @JsonProperty("allowTyposOnNumericTokens")
   private Boolean allowTyposOnNumericTokens;
 
-  @SerializedName("disableTypoToleranceOnAttributes")
+  @JsonProperty("disableTypoToleranceOnAttributes")
   private List<String> disableTypoToleranceOnAttributes;
 
-  @SerializedName("ignorePlurals")
+  @JsonProperty("ignorePlurals")
   private IgnorePlurals ignorePlurals;
 
-  @SerializedName("removeStopWords")
+  @JsonProperty("removeStopWords")
   private RemoveStopWords removeStopWords;
 
-  @SerializedName("keepDiacriticsOnCharacters")
+  @JsonProperty("keepDiacriticsOnCharacters")
   private String keepDiacriticsOnCharacters;
 
-  @SerializedName("queryLanguages")
+  @JsonProperty("queryLanguages")
   private List<String> queryLanguages;
 
-  @SerializedName("decompoundQuery")
+  @JsonProperty("decompoundQuery")
   private Boolean decompoundQuery;
 
-  @SerializedName("enableRules")
+  @JsonProperty("enableRules")
   private Boolean enableRules;
 
-  @SerializedName("enablePersonalization")
+  @JsonProperty("enablePersonalization")
   private Boolean enablePersonalization;
 
-  @SerializedName("queryType")
+  @JsonProperty("queryType")
   private QueryType queryType;
 
-  @SerializedName("removeWordsIfNoResults")
+  @JsonProperty("removeWordsIfNoResults")
   private RemoveWordsIfNoResults removeWordsIfNoResults;
 
-  @SerializedName("advancedSyntax")
+  @JsonProperty("advancedSyntax")
   private Boolean advancedSyntax;
 
-  @SerializedName("optionalWords")
+  @JsonProperty("optionalWords")
   private List<String> optionalWords;
 
-  @SerializedName("disableExactOnAttributes")
+  @JsonProperty("disableExactOnAttributes")
   private List<String> disableExactOnAttributes;
 
-  @SerializedName("exactOnSingleWordQuery")
+  @JsonProperty("exactOnSingleWordQuery")
   private ExactOnSingleWordQuery exactOnSingleWordQuery;
 
-  @SerializedName("alternativesAsExact")
+  @JsonProperty("alternativesAsExact")
   private List<AlternativesAsExact> alternativesAsExact;
 
-  @SerializedName("advancedSyntaxFeatures")
+  @JsonProperty("advancedSyntaxFeatures")
   private List<AdvancedSyntaxFeatures> advancedSyntaxFeatures;
 
-  @SerializedName("distinct")
+  @JsonProperty("distinct")
   private Integer distinct;
 
-  @SerializedName("synonyms")
+  @JsonProperty("synonyms")
   private Boolean synonyms;
 
-  @SerializedName("replaceSynonymsInHighlight")
+  @JsonProperty("replaceSynonymsInHighlight")
   private Boolean replaceSynonymsInHighlight;
 
-  @SerializedName("minProximity")
+  @JsonProperty("minProximity")
   private Integer minProximity;
 
-  @SerializedName("responseFields")
+  @JsonProperty("responseFields")
   private List<String> responseFields;
 
-  @SerializedName("maxFacetHits")
+  @JsonProperty("maxFacetHits")
   private Integer maxFacetHits;
 
-  @SerializedName("attributeCriteriaComputedByMinProximity")
+  @JsonProperty("attributeCriteriaComputedByMinProximity")
   private Boolean attributeCriteriaComputedByMinProximity;
 
-  @SerializedName("renderingContent")
+  @JsonProperty("renderingContent")
   private RenderingContent renderingContent;
 
   public IndexSettings setReplicas(List<String> replicas) {

@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,49 +8,49 @@ import java.util.Objects;
 /** Log */
 public class Log {
 
-  @SerializedName("timestamp")
+  @JsonProperty("timestamp")
   private String timestamp;
 
-  @SerializedName("method")
+  @JsonProperty("method")
   private String method;
 
-  @SerializedName("answer_code")
+  @JsonProperty("answer_code")
   private String answerCode;
 
-  @SerializedName("query_body")
+  @JsonProperty("query_body")
   private String queryBody;
 
-  @SerializedName("answer")
+  @JsonProperty("answer")
   private String answer;
 
-  @SerializedName("url")
+  @JsonProperty("url")
   private String url;
 
-  @SerializedName("ip")
+  @JsonProperty("ip")
   private String ip;
 
-  @SerializedName("query_headers")
+  @JsonProperty("query_headers")
   private String queryHeaders;
 
-  @SerializedName("sha1")
+  @JsonProperty("sha1")
   private String sha1;
 
-  @SerializedName("nb_api_calls")
+  @JsonProperty("nb_api_calls")
   private String nbApiCalls;
 
-  @SerializedName("processing_time_ms")
+  @JsonProperty("processing_time_ms")
   private String processingTimeMs;
 
-  @SerializedName("index")
+  @JsonProperty("index")
   private String index;
 
-  @SerializedName("query_params")
+  @JsonProperty("query_params")
   private String queryParams;
 
-  @SerializedName("query_nb_hits")
+  @JsonProperty("query_nb_hits")
   private String queryNbHits;
 
-  @SerializedName("inner_queries")
+  @JsonProperty("inner_queries")
   private List<LogQuery> innerQueries;
 
   public Log setTimestamp(String timestamp) {

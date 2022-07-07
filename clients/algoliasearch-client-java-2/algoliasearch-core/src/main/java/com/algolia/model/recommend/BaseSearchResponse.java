@@ -1,6 +1,6 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,79 +8,79 @@ import java.util.Objects;
 /** BaseSearchResponse */
 public class BaseSearchResponse {
 
-  @SerializedName("abTestID")
+  @JsonProperty("abTestID")
   private Integer abTestID;
 
-  @SerializedName("abTestVariantID")
+  @JsonProperty("abTestVariantID")
   private Integer abTestVariantID;
 
-  @SerializedName("aroundLatLng")
+  @JsonProperty("aroundLatLng")
   private String aroundLatLng;
 
-  @SerializedName("automaticRadius")
+  @JsonProperty("automaticRadius")
   private String automaticRadius;
 
-  @SerializedName("exhaustiveFacetsCount")
+  @JsonProperty("exhaustiveFacetsCount")
   private Boolean exhaustiveFacetsCount;
 
-  @SerializedName("exhaustiveNbHits")
+  @JsonProperty("exhaustiveNbHits")
   private Boolean exhaustiveNbHits;
 
-  @SerializedName("exhaustiveTypo")
+  @JsonProperty("exhaustiveTypo")
   private Boolean exhaustiveTypo;
 
-  @SerializedName("facets")
+  @JsonProperty("facets")
   private Map<String, Map<String, String>> facets;
 
-  @SerializedName("facets_stats")
+  @JsonProperty("facets_stats")
   private Map<String, FacetsStats> facetsStats;
 
-  @SerializedName("hitsPerPage")
+  @JsonProperty("hitsPerPage")
   private Integer hitsPerPage;
 
-  @SerializedName("index")
+  @JsonProperty("index")
   private String index;
 
-  @SerializedName("indexUsed")
+  @JsonProperty("indexUsed")
   private String indexUsed;
 
-  @SerializedName("message")
+  @JsonProperty("message")
   private String message;
 
-  @SerializedName("nbHits")
+  @JsonProperty("nbHits")
   private Integer nbHits;
 
-  @SerializedName("nbPages")
+  @JsonProperty("nbPages")
   private Integer nbPages;
 
-  @SerializedName("nbSortedHits")
+  @JsonProperty("nbSortedHits")
   private Integer nbSortedHits;
 
-  @SerializedName("page")
+  @JsonProperty("page")
   private Integer page;
 
-  @SerializedName("params")
+  @JsonProperty("params")
   private String params;
 
-  @SerializedName("parsedQuery")
+  @JsonProperty("parsedQuery")
   private String parsedQuery;
 
-  @SerializedName("processingTimeMS")
+  @JsonProperty("processingTimeMS")
   private Integer processingTimeMS;
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private String query;
 
-  @SerializedName("queryAfterRemoval")
+  @JsonProperty("queryAfterRemoval")
   private String queryAfterRemoval;
 
-  @SerializedName("serverUsed")
+  @JsonProperty("serverUsed")
   private String serverUsed;
 
-  @SerializedName("userData")
+  @JsonProperty("userData")
   private Object userData;
 
-  @SerializedName("renderingContent")
+  @JsonProperty("renderingContent")
   private RenderingContent renderingContent;
 
   public BaseSearchResponse setAbTestID(Integer abTestID) {

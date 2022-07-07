@@ -6,8 +6,7 @@ import com.algolia.model.search.*;
 import com.algolia.utils.*;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -102,8 +101,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<AddApiKeyResponse>() {});
   }
 
   /**
@@ -190,8 +188,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtWithObjectIdResponse>() {});
   }
 
   /**
@@ -258,8 +255,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<CreatedAtResponse>() {});
   }
 
   /**
@@ -346,8 +342,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<CreatedAtResponse>() {});
   }
 
   /**
@@ -423,8 +418,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<BatchResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<BatchResponse>() {});
   }
 
   /**
@@ -513,8 +507,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<CreatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<CreatedAtResponse>() {});
   }
 
   /**
@@ -599,8 +592,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -721,8 +713,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<BrowseResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<BrowseResponse>() {});
   }
 
   /**
@@ -866,8 +857,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -959,8 +949,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -1059,8 +1048,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -1188,8 +1176,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -1280,8 +1267,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<DeleteApiKeyResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<DeleteApiKeyResponse>() {});
   }
 
   /**
@@ -1358,8 +1344,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<DeletedAtResponse>() {});
   }
 
   /**
@@ -1425,8 +1410,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<DeletedAtResponse>() {});
   }
 
   /**
@@ -1498,8 +1482,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<DeletedAtResponse>() {});
   }
 
   /**
@@ -1613,8 +1596,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -1708,8 +1690,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<DeleteSourceResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<DeleteSourceResponse>() {});
   }
 
   /**
@@ -1822,8 +1803,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<DeletedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<DeletedAtResponse>() {});
   }
 
   /**
@@ -1955,8 +1935,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -2046,8 +2025,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Key>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Key>() {});
   }
 
   /**
@@ -2103,8 +2081,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Map<String, Languages>>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Map<String, Languages>>() {});
   }
 
   /**
@@ -2162,8 +2139,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetDictionarySettingsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetDictionarySettingsResponse>() {});
   }
 
   /**
@@ -2287,8 +2263,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetLogsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetLogsResponse>() {});
   }
 
   /**
@@ -2432,8 +2407,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Map<String, String>>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Map<String, String>>() {});
   }
 
   /**
@@ -2528,8 +2502,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<GetObjectsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetObjectsResponse>() {});
   }
 
   /**
@@ -2602,8 +2575,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Rule>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Rule>() {});
   }
 
   /**
@@ -2666,8 +2638,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<IndexSettings>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<IndexSettings>() {});
   }
 
   /**
@@ -2722,8 +2693,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<List<Source>>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<List<Source>>() {});
   }
 
   /**
@@ -2794,8 +2764,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<SynonymHit>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SynonymHit>() {});
   }
 
   /**
@@ -2868,8 +2837,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTaskResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTaskResponse>() {});
   }
 
   /**
@@ -2934,8 +2902,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<GetTopUserIdsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<GetTopUserIdsResponse>() {});
   }
 
   /**
@@ -3008,8 +2975,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UserId>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UserId>() {});
   }
 
   /**
@@ -3117,8 +3083,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<HasPendingMappingsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<HasPendingMappingsResponse>() {});
   }
 
   /**
@@ -3208,8 +3173,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<ListApiKeysResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<ListApiKeysResponse>() {});
   }
 
   /**
@@ -3266,8 +3230,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<ListClustersResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<ListClustersResponse>() {});
   }
 
   /**
@@ -3358,8 +3321,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<ListIndicesResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<ListIndicesResponse>() {});
   }
 
   /**
@@ -3496,8 +3458,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<ListUserIdsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<ListUserIdsResponse>() {});
   }
 
   /**
@@ -3597,8 +3558,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<MultipleBatchResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<MultipleBatchResponse>() {});
   }
 
   /**
@@ -3673,8 +3633,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -3835,8 +3794,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtWithObjectIdResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtWithObjectIdResponse>() {});
   }
 
   /**
@@ -3996,8 +3954,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -4131,8 +4088,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -4227,8 +4183,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<RemoveUserIdResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<RemoveUserIdResponse>() {});
   }
 
   /**
@@ -4292,8 +4247,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<ReplaceSourceResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<ReplaceSourceResponse>() {});
   }
 
   /**
@@ -4355,8 +4309,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<AddApiKeyResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<AddApiKeyResponse>() {});
   }
 
   /**
@@ -4426,8 +4379,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<SaveObjectResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SaveObjectResponse>() {});
   }
 
   /**
@@ -4558,8 +4510,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedRuleResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedRuleResponse>() {});
   }
 
   /**
@@ -4721,8 +4672,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -4890,8 +4840,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<SaveSynonymResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SaveSynonymResponse>() {});
   }
 
   /**
@@ -5075,8 +5024,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -5183,8 +5131,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<SearchResponses>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SearchResponses>() {});
   }
 
   /**
@@ -5267,8 +5214,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -5392,8 +5338,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<SearchForFacetValuesResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SearchForFacetValuesResponse>() {});
   }
 
   /**
@@ -5507,8 +5452,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<SearchRulesResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SearchRulesResponse>() {});
   }
 
   /**
@@ -5584,8 +5528,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<SearchResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SearchResponse>() {});
   }
 
   /**
@@ -5722,8 +5665,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<SearchSynonymsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SearchSynonymsResponse>() {});
   }
 
   /**
@@ -5844,8 +5786,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    Type returnType = new TypeToken<SearchUserIdsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<SearchUserIdsResponse>() {});
   }
 
   /**
@@ -5918,8 +5859,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -6043,8 +5983,7 @@ public class SearchClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdatedAtResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdatedAtResponse>() {});
   }
 
   /**
@@ -6155,8 +6094,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<UpdateApiKeyResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<UpdateApiKeyResponse>() {});
   }
 
   /**

@@ -1,16 +1,17 @@
 package com.algolia.model.recommend;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 import java.util.List;
 
-@JsonAdapter(IgnorePlurals.Adapter.class)
 /**
  * Treats singular, plurals, and other forms of declensions as matching terms. ignorePlurals is used
  * in conjunction with the queryLanguages setting. list: language ISO codes for which ignoring
@@ -21,6 +22,8 @@ import java.util.List;
  * ignore plurals, where singulars and plurals are not considered the same for matching purposes
  * (foot will not find feet).
  */
+@JsonDeserialize(using = IgnorePlurals.IgnorePluralsDeserializer.class)
+@JsonSerialize(using = IgnorePlurals.IgnorePluralsSerializer.class)
 public abstract class IgnorePlurals implements CompoundType {
 
   public static IgnorePlurals of(Boolean inside) {
@@ -31,30 +34,107 @@ public abstract class IgnorePlurals implements CompoundType {
     return new IgnorePluralsListOfString(inside);
   }
 
-  public static class Adapter extends TypeAdapter<IgnorePlurals> {
+  public static class IgnorePluralsSerializer extends StdSerializer<IgnorePlurals> {
 
-    @Override
-    public void write(final JsonWriter out, final IgnorePlurals oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public IgnorePluralsSerializer(Class<IgnorePlurals> t) {
+      super(t);
+    }
+
+    public IgnorePluralsSerializer() {
+      this(null);
     }
 
     @Override
-    public IgnorePlurals read(final JsonReader jsonReader) throws IOException {
-      Boolean _boolean = JSON.tryDeserialize(jsonReader, new TypeToken<Boolean>() {}.getType());
-      if (_boolean != null) {
-        return IgnorePlurals.of(_boolean);
+    public void serialize(IgnorePlurals value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class IgnorePluralsDeserializer extends StdDeserializer<IgnorePlurals> {
+
+    public IgnorePluralsDeserializer() {
+      this(IgnorePlurals.class);
+    }
+
+    public IgnorePluralsDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public IgnorePlurals deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      IgnorePlurals deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize Boolean
+      try {
+        boolean attemptParsing = true;
+        currentType = "Boolean";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = IgnorePlurals.of((Boolean) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Boolean>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = IgnorePlurals.of((Boolean) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Boolean>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf Boolean (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (listofstring != null) {
-        return IgnorePlurals.of(listofstring);
+
+      // deserialize List<String>
+      try {
+        boolean attemptParsing = true;
+        currentType = "List<String>";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = IgnorePlurals.of((List<String>) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<String>>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = IgnorePlurals.of((List<String>) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<String>>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf List<String> (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(String.format("Failed deserialization for IgnorePlurals: %d classes match result, expected 1", match));
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public IgnorePlurals getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "IgnorePlurals cannot be null");
     }
   }
 }
 
-@JsonAdapter(IgnorePlurals.Adapter.class)
 class IgnorePluralsBoolean extends IgnorePlurals {
 
   private final Boolean insideValue;
@@ -69,7 +149,6 @@ class IgnorePluralsBoolean extends IgnorePlurals {
   }
 }
 
-@JsonAdapter(IgnorePlurals.Adapter.class)
 class IgnorePluralsListOfString extends IgnorePlurals {
 
   private final List<String> insideValue;

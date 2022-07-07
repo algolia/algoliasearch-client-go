@@ -1,6 +1,6 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,13 +8,13 @@ import java.util.Objects;
 /** QuerySuggestionsIndexParam */
 public class QuerySuggestionsIndexParam {
 
-  @SerializedName("sourceIndices")
+  @JsonProperty("sourceIndices")
   private List<SourceIndex> sourceIndices = new ArrayList<>();
 
-  @SerializedName("languages")
+  @JsonProperty("languages")
   private List<String> languages;
 
-  @SerializedName("exclude")
+  @JsonProperty("exclude")
   private List<String> exclude;
 
   public QuerySuggestionsIndexParam setSourceIndices(List<SourceIndex> sourceIndices) {

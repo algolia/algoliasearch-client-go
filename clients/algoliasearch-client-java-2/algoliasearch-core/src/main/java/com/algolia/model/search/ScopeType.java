@@ -1,13 +1,10 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets scopeType */
-@JsonAdapter(ScopeType.Adapter.class)
 public enum ScopeType {
   SETTINGS("settings"),
 
@@ -21,6 +18,7 @@ public enum ScopeType {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -30,6 +28,7 @@ public enum ScopeType {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static ScopeType fromValue(String value) {
     for (ScopeType b : ScopeType.values()) {
       if (b.value.equals(value)) {
@@ -37,19 +36,5 @@ public enum ScopeType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<ScopeType> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final ScopeType enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public ScopeType read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return ScopeType.fromValue(value);
-    }
   }
 }

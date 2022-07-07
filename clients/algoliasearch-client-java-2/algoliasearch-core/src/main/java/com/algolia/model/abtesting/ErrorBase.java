@@ -1,14 +1,28 @@
 package com.algolia.model.abtesting;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /** Error. */
-public class ErrorBase extends HashMap<String, Object> {
+public class ErrorBase {
 
-  @SerializedName("message")
+  @JsonProperty("message")
   private String message;
+
+  private Map<String, Object> additionalProperties = new HashMap<>();
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
+
+  @JsonAnySetter
+  public ErrorBase setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+    return this;
+  }
 
   public ErrorBase setMessage(String message) {
     this.message = message;

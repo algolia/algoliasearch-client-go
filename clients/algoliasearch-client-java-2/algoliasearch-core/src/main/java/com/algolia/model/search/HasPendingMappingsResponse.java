@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +9,10 @@ import java.util.Objects;
 /** HasPendingMappingsResponse */
 public class HasPendingMappingsResponse {
 
-  @SerializedName("pending")
+  @JsonProperty("pending")
   private Boolean pending;
 
-  @SerializedName("clusters")
+  @JsonProperty("clusters")
   private Map<String, List<String>> clusters;
 
   public HasPendingMappingsResponse setPending(Boolean pending) {

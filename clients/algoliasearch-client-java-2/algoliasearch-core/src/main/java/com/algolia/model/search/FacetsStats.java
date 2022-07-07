@@ -1,21 +1,21 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** FacetsStats */
 public class FacetsStats {
 
-  @SerializedName("min")
+  @JsonProperty("min")
   private Integer min;
 
-  @SerializedName("max")
+  @JsonProperty("max")
   private Integer max;
 
-  @SerializedName("avg")
+  @JsonProperty("avg")
   private Integer avg;
 
-  @SerializedName("sum")
+  @JsonProperty("sum")
   private Integer sum;
 
   public FacetsStats setMin(Integer min) {

@@ -1,21 +1,21 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** NoResultsRateEvent */
 public class NoResultsRateEvent {
 
-  @SerializedName("date")
+  @JsonProperty("date")
   private String date;
 
-  @SerializedName("noResultCount")
+  @JsonProperty("noResultCount")
   private Integer noResultCount;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
-  @SerializedName("rate")
+  @JsonProperty("rate")
   private Double rate;
 
   public NoResultsRateEvent setDate(String date) {

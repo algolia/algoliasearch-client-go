@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** UserHighlightResult */
 public class UserHighlightResult {
 
-  @SerializedName("userID")
+  @JsonProperty("userID")
   private Map<String, HighlightResult> userID = new HashMap<>();
 
-  @SerializedName("clusterName")
+  @JsonProperty("clusterName")
   private Map<String, HighlightResult> clusterName = new HashMap<>();
 
   public UserHighlightResult setUserID(Map<String, HighlightResult> userID) {

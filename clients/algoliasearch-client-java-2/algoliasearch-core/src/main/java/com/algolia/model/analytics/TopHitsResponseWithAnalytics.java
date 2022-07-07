@@ -1,6 +1,6 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /** TopHitsResponseWithAnalytics */
 public class TopHitsResponseWithAnalytics {
 
-  @SerializedName("hits")
+  @JsonProperty("hits")
   private List<TopHitWithAnalytics> hits = new ArrayList<>();
 
   public TopHitsResponseWithAnalytics setHits(List<TopHitWithAnalytics> hits) {

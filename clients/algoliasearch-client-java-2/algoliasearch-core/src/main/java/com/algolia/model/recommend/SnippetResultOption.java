@@ -1,6 +1,6 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /**
@@ -9,10 +9,10 @@ import java.util.Objects;
  */
 public class SnippetResultOption {
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private String value;
 
-  @SerializedName("matchLevel")
+  @JsonProperty("matchLevel")
   private MatchLevel matchLevel;
 
   public SnippetResultOption setValue(String value) {

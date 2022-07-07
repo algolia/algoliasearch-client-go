@@ -1,18 +1,18 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Status */
 public class Status {
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
-  @SerializedName("isRunning")
+  @JsonProperty("isRunning")
   private Boolean isRunning;
 
-  @SerializedName("lastBuiltAt")
+  @JsonProperty("lastBuiltAt")
   private String lastBuiltAt;
 
   public Status setIndexName(String indexName) {

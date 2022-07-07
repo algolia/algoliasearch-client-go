@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** GetTaskResponse */
 public class GetTaskResponse {
 
-  @SerializedName("status")
+  @JsonProperty("status")
   private TaskStatus status;
 
   public GetTaskResponse setStatus(TaskStatus status) {

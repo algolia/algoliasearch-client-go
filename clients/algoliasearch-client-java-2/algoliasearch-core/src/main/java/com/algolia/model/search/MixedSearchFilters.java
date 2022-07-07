@@ -1,17 +1,20 @@
 package com.algolia.model.search;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 import java.util.List;
 
-@JsonAdapter(MixedSearchFilters.Adapter.class)
 /** MixedSearchFilters */
+@JsonDeserialize(using = MixedSearchFilters.MixedSearchFiltersDeserializer.class)
+@JsonSerialize(using = MixedSearchFilters.MixedSearchFiltersSerializer.class)
 public abstract class MixedSearchFilters implements CompoundType {
 
   public static MixedSearchFilters of(List<String> inside) {
@@ -22,30 +25,109 @@ public abstract class MixedSearchFilters implements CompoundType {
     return new MixedSearchFiltersString(inside);
   }
 
-  public static class Adapter extends TypeAdapter<MixedSearchFilters> {
+  public static class MixedSearchFiltersSerializer extends StdSerializer<MixedSearchFilters> {
 
-    @Override
-    public void write(final JsonWriter out, final MixedSearchFilters oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public MixedSearchFiltersSerializer(Class<MixedSearchFilters> t) {
+      super(t);
+    }
+
+    public MixedSearchFiltersSerializer() {
+      this(null);
     }
 
     @Override
-    public MixedSearchFilters read(final JsonReader jsonReader) throws IOException {
-      List<String> listofstring = JSON.tryDeserialize(jsonReader, new TypeToken<List<String>>() {}.getType());
-      if (listofstring != null) {
-        return MixedSearchFilters.of(listofstring);
+    public void serialize(MixedSearchFilters value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class MixedSearchFiltersDeserializer extends StdDeserializer<MixedSearchFilters> {
+
+    public MixedSearchFiltersDeserializer() {
+      this(MixedSearchFilters.class);
+    }
+
+    public MixedSearchFiltersDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public MixedSearchFilters deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      MixedSearchFilters deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize List<String>
+      try {
+        boolean attemptParsing = true;
+        currentType = "List<String>";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            MixedSearchFilters.of((List<String>) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<String>>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              MixedSearchFilters.of((List<String>) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<String>>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf List<String> (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      String string = JSON.tryDeserialize(jsonReader, new TypeToken<String>() {}.getType());
-      if (string != null) {
-        return MixedSearchFilters.of(string);
+
+      // deserialize String
+      try {
+        boolean attemptParsing = true;
+        currentType = "String";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = MixedSearchFilters.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = MixedSearchFilters.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf String (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(String.format("Failed deserialization for MixedSearchFilters: %d classes match result, expected 1", match));
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public MixedSearchFilters getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "MixedSearchFilters cannot be null");
     }
   }
 }
 
-@JsonAdapter(MixedSearchFilters.Adapter.class)
 class MixedSearchFiltersListOfString extends MixedSearchFilters {
 
   private final List<String> insideValue;
@@ -60,7 +142,6 @@ class MixedSearchFiltersListOfString extends MixedSearchFilters {
   }
 }
 
-@JsonAdapter(MixedSearchFilters.Adapter.class)
 class MixedSearchFiltersString extends MixedSearchFilters {
 
   private final String insideValue;

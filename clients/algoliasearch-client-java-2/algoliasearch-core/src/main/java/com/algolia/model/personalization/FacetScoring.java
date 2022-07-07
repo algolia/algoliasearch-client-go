@@ -1,15 +1,15 @@
 package com.algolia.model.personalization;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** FacetScoring */
 public class FacetScoring {
 
-  @SerializedName("score")
+  @JsonProperty("score")
   private Integer score;
 
-  @SerializedName("facetName")
+  @JsonProperty("facetName")
   private String facetName;
 
   public FacetScoring setScore(Integer score) {

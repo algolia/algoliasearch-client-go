@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,13 +8,13 @@ import java.util.Objects;
 /** OperationIndexParams */
 public class OperationIndexParams {
 
-  @SerializedName("operation")
+  @JsonProperty("operation")
   private OperationType operation;
 
-  @SerializedName("destination")
+  @JsonProperty("destination")
   private String destination;
 
-  @SerializedName("scope")
+  @JsonProperty("scope")
   private List<ScopeType> scope;
 
   public OperationIndexParams setOperation(OperationType operation) {

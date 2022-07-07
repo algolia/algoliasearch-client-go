@@ -1,27 +1,40 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 /** A single hit. */
-public class Hit extends HashMap<String, Object> {
+public class Hit {
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("_highlightResult")
+  @JsonProperty("_highlightResult")
   private Map<String, HighlightResult> highlightResult;
 
-  @SerializedName("_snippetResult")
+  @JsonProperty("_snippetResult")
   private Map<String, SnippetResult> snippetResult;
 
-  @SerializedName("_rankingInfo")
+  @JsonProperty("_rankingInfo")
   private RankingInfo rankingInfo;
 
-  @SerializedName("_distinctSeqID")
+  @JsonProperty("_distinctSeqID")
   private Integer distinctSeqID;
+
+  private Map<String, Object> additionalProperties = new HashMap<>();
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
+
+  @JsonAnySetter
+  public Hit setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+    return this;
+  }
 
   public Hit setObjectID(String objectID) {
     this.objectID = objectID;

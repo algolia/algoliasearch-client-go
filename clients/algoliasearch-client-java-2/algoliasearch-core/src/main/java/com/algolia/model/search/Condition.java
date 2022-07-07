@@ -1,21 +1,21 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Condition */
 public class Condition {
 
-  @SerializedName("pattern")
+  @JsonProperty("pattern")
   private String pattern;
 
-  @SerializedName("anchoring")
+  @JsonProperty("anchoring")
   private Anchoring anchoring;
 
-  @SerializedName("alternatives")
+  @JsonProperty("alternatives")
   private Boolean alternatives;
 
-  @SerializedName("context")
+  @JsonProperty("context")
   private String context;
 
   public Condition setPattern(String pattern) {

@@ -1,21 +1,21 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** The `searchDictionaryEntries` parameters. */
 public class SearchDictionaryEntriesParams {
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private String query;
 
-  @SerializedName("page")
+  @JsonProperty("page")
   private Integer page;
 
-  @SerializedName("hitsPerPage")
+  @JsonProperty("hitsPerPage")
   private Integer hitsPerPage;
 
-  @SerializedName("language")
+  @JsonProperty("language")
   private String language;
 
   public SearchDictionaryEntriesParams setQuery(String query) {

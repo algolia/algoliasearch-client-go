@@ -1,6 +1,6 @@
 package com.algolia.model.insights;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /** Object containing the events sent. */
 public class InsightEvents {
 
-  @SerializedName("events")
+  @JsonProperty("events")
   private List<InsightEvent> events = new ArrayList<>();
 
   public InsightEvents setEvents(List<InsightEvent> events) {

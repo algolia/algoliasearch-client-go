@@ -1,21 +1,21 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** FetchUserProfileResponse */
 public class FetchUserProfileResponse {
 
-  @SerializedName("user")
+  @JsonProperty("user")
   private String user;
 
-  @SerializedName("predictions")
+  @JsonProperty("predictions")
   private Predictions predictions;
 
-  @SerializedName("properties")
+  @JsonProperty("properties")
   private Properties properties;
 
-  @SerializedName("segments")
+  @JsonProperty("segments")
   private Segments segments;
 
   public FetchUserProfileResponse setUser(String user) {

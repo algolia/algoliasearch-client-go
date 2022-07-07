@@ -1,18 +1,18 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SaveSynonymResponse */
 public class SaveSynonymResponse {
 
-  @SerializedName("taskID")
+  @JsonProperty("taskID")
   private Long taskID;
 
-  @SerializedName("updatedAt")
+  @JsonProperty("updatedAt")
   private String updatedAt;
 
-  @SerializedName("id")
+  @JsonProperty("id")
   private String id;
 
   public SaveSynonymResponse setTaskID(Long taskID) {

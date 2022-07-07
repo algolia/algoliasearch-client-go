@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** BaseBrowseResponse */
 public class BaseBrowseResponse {
 
-  @SerializedName("cursor")
+  @JsonProperty("cursor")
   private String cursor;
 
   public BaseBrowseResponse setCursor(String cursor) {

@@ -1,15 +1,15 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** TopHit */
 public class TopHit {
 
-  @SerializedName("hit")
+  @JsonProperty("hit")
   private String hit;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
   public TopHit setHit(String hit) {

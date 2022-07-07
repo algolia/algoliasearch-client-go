@@ -1,15 +1,15 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** BaseRecommendationRequest */
 public class BaseRecommendationRequest {
 
-  @SerializedName("model")
+  @JsonProperty("model")
   private RecommendationModels model;
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
   public BaseRecommendationRequest setModel(RecommendationModels model) {

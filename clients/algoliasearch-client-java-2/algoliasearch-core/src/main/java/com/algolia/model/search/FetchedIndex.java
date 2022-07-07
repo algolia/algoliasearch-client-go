@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,37 +8,37 @@ import java.util.Objects;
 /** FetchedIndex */
 public class FetchedIndex {
 
-  @SerializedName("name")
+  @JsonProperty("name")
   private String name;
 
-  @SerializedName("createdAt")
+  @JsonProperty("createdAt")
   private String createdAt;
 
-  @SerializedName("updatedAt")
+  @JsonProperty("updatedAt")
   private String updatedAt;
 
-  @SerializedName("entries")
+  @JsonProperty("entries")
   private Integer entries;
 
-  @SerializedName("dataSize")
+  @JsonProperty("dataSize")
   private Integer dataSize;
 
-  @SerializedName("fileSize")
+  @JsonProperty("fileSize")
   private Integer fileSize;
 
-  @SerializedName("lastBuildTimeS")
+  @JsonProperty("lastBuildTimeS")
   private Integer lastBuildTimeS;
 
-  @SerializedName("numberOfPendingTask")
+  @JsonProperty("numberOfPendingTask")
   private Integer numberOfPendingTask;
 
-  @SerializedName("pendingTask")
+  @JsonProperty("pendingTask")
   private Boolean pendingTask;
 
-  @SerializedName("primary")
+  @JsonProperty("primary")
   private String primary;
 
-  @SerializedName("replicas")
+  @JsonProperty("replicas")
   private List<String> replicas;
 
   public FetchedIndex setName(String name) {

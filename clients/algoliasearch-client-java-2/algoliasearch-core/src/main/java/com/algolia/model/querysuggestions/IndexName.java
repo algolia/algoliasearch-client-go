@@ -1,12 +1,12 @@
 package com.algolia.model.querysuggestions;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** IndexName */
 public class IndexName {
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
   public IndexName setIndexName(String indexName) {

@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,232 +8,232 @@ import java.util.Objects;
 /** SearchParamsObject */
 public class SearchParamsObject {
 
-  @SerializedName("query")
+  @JsonProperty("query")
   private String query;
 
-  @SerializedName("similarQuery")
+  @JsonProperty("similarQuery")
   private String similarQuery;
 
-  @SerializedName("filters")
+  @JsonProperty("filters")
   private String filters;
 
-  @SerializedName("facetFilters")
+  @JsonProperty("facetFilters")
   private FacetFilters facetFilters;
 
-  @SerializedName("optionalFilters")
+  @JsonProperty("optionalFilters")
   private OptionalFilters optionalFilters;
 
-  @SerializedName("numericFilters")
+  @JsonProperty("numericFilters")
   private NumericFilters numericFilters;
 
-  @SerializedName("tagFilters")
+  @JsonProperty("tagFilters")
   private TagFilters tagFilters;
 
-  @SerializedName("sumOrFiltersScores")
+  @JsonProperty("sumOrFiltersScores")
   private Boolean sumOrFiltersScores;
 
-  @SerializedName("facets")
+  @JsonProperty("facets")
   private List<String> facets;
 
-  @SerializedName("maxValuesPerFacet")
+  @JsonProperty("maxValuesPerFacet")
   private Integer maxValuesPerFacet;
 
-  @SerializedName("facetingAfterDistinct")
+  @JsonProperty("facetingAfterDistinct")
   private Boolean facetingAfterDistinct;
 
-  @SerializedName("sortFacetValuesBy")
+  @JsonProperty("sortFacetValuesBy")
   private String sortFacetValuesBy;
 
-  @SerializedName("page")
+  @JsonProperty("page")
   private Integer page;
 
-  @SerializedName("offset")
+  @JsonProperty("offset")
   private Integer offset;
 
-  @SerializedName("length")
+  @JsonProperty("length")
   private Integer length;
 
-  @SerializedName("aroundLatLng")
+  @JsonProperty("aroundLatLng")
   private String aroundLatLng;
 
-  @SerializedName("aroundLatLngViaIP")
+  @JsonProperty("aroundLatLngViaIP")
   private Boolean aroundLatLngViaIP;
 
-  @SerializedName("aroundRadius")
+  @JsonProperty("aroundRadius")
   private AroundRadius aroundRadius;
 
-  @SerializedName("aroundPrecision")
+  @JsonProperty("aroundPrecision")
   private Integer aroundPrecision;
 
-  @SerializedName("minimumAroundRadius")
+  @JsonProperty("minimumAroundRadius")
   private Integer minimumAroundRadius;
 
-  @SerializedName("insideBoundingBox")
+  @JsonProperty("insideBoundingBox")
   private List<Double> insideBoundingBox;
 
-  @SerializedName("insidePolygon")
+  @JsonProperty("insidePolygon")
   private List<Double> insidePolygon;
 
-  @SerializedName("naturalLanguages")
+  @JsonProperty("naturalLanguages")
   private List<String> naturalLanguages;
 
-  @SerializedName("ruleContexts")
+  @JsonProperty("ruleContexts")
   private List<String> ruleContexts;
 
-  @SerializedName("personalizationImpact")
+  @JsonProperty("personalizationImpact")
   private Integer personalizationImpact;
 
-  @SerializedName("userToken")
+  @JsonProperty("userToken")
   private String userToken;
 
-  @SerializedName("getRankingInfo")
+  @JsonProperty("getRankingInfo")
   private Boolean getRankingInfo;
 
-  @SerializedName("clickAnalytics")
+  @JsonProperty("clickAnalytics")
   private Boolean clickAnalytics;
 
-  @SerializedName("analytics")
+  @JsonProperty("analytics")
   private Boolean analytics;
 
-  @SerializedName("analyticsTags")
+  @JsonProperty("analyticsTags")
   private List<String> analyticsTags;
 
-  @SerializedName("percentileComputation")
+  @JsonProperty("percentileComputation")
   private Boolean percentileComputation;
 
-  @SerializedName("enableABTest")
+  @JsonProperty("enableABTest")
   private Boolean enableABTest;
 
-  @SerializedName("enableReRanking")
+  @JsonProperty("enableReRanking")
   private Boolean enableReRanking;
 
-  @SerializedName("reRankingApplyFilter")
+  @JsonProperty("reRankingApplyFilter")
   private ReRankingApplyFilter reRankingApplyFilter;
 
-  @SerializedName("attributesForFaceting")
+  @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @SerializedName("unretrievableAttributes")
+  @JsonProperty("unretrievableAttributes")
   private List<String> unretrievableAttributes;
 
-  @SerializedName("attributesToRetrieve")
+  @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
-  @SerializedName("restrictSearchableAttributes")
+  @JsonProperty("restrictSearchableAttributes")
   private List<String> restrictSearchableAttributes;
 
-  @SerializedName("ranking")
+  @JsonProperty("ranking")
   private List<String> ranking;
 
-  @SerializedName("customRanking")
+  @JsonProperty("customRanking")
   private List<String> customRanking;
 
-  @SerializedName("relevancyStrictness")
+  @JsonProperty("relevancyStrictness")
   private Integer relevancyStrictness;
 
-  @SerializedName("attributesToHighlight")
+  @JsonProperty("attributesToHighlight")
   private List<String> attributesToHighlight;
 
-  @SerializedName("attributesToSnippet")
+  @JsonProperty("attributesToSnippet")
   private List<String> attributesToSnippet;
 
-  @SerializedName("highlightPreTag")
+  @JsonProperty("highlightPreTag")
   private String highlightPreTag;
 
-  @SerializedName("highlightPostTag")
+  @JsonProperty("highlightPostTag")
   private String highlightPostTag;
 
-  @SerializedName("snippetEllipsisText")
+  @JsonProperty("snippetEllipsisText")
   private String snippetEllipsisText;
 
-  @SerializedName("restrictHighlightAndSnippetArrays")
+  @JsonProperty("restrictHighlightAndSnippetArrays")
   private Boolean restrictHighlightAndSnippetArrays;
 
-  @SerializedName("hitsPerPage")
+  @JsonProperty("hitsPerPage")
   private Integer hitsPerPage;
 
-  @SerializedName("minWordSizefor1Typo")
+  @JsonProperty("minWordSizefor1Typo")
   private Integer minWordSizefor1Typo;
 
-  @SerializedName("minWordSizefor2Typos")
+  @JsonProperty("minWordSizefor2Typos")
   private Integer minWordSizefor2Typos;
 
-  @SerializedName("typoTolerance")
+  @JsonProperty("typoTolerance")
   private TypoTolerance typoTolerance;
 
-  @SerializedName("allowTyposOnNumericTokens")
+  @JsonProperty("allowTyposOnNumericTokens")
   private Boolean allowTyposOnNumericTokens;
 
-  @SerializedName("disableTypoToleranceOnAttributes")
+  @JsonProperty("disableTypoToleranceOnAttributes")
   private List<String> disableTypoToleranceOnAttributes;
 
-  @SerializedName("ignorePlurals")
+  @JsonProperty("ignorePlurals")
   private IgnorePlurals ignorePlurals;
 
-  @SerializedName("removeStopWords")
+  @JsonProperty("removeStopWords")
   private RemoveStopWords removeStopWords;
 
-  @SerializedName("keepDiacriticsOnCharacters")
+  @JsonProperty("keepDiacriticsOnCharacters")
   private String keepDiacriticsOnCharacters;
 
-  @SerializedName("queryLanguages")
+  @JsonProperty("queryLanguages")
   private List<String> queryLanguages;
 
-  @SerializedName("decompoundQuery")
+  @JsonProperty("decompoundQuery")
   private Boolean decompoundQuery;
 
-  @SerializedName("enableRules")
+  @JsonProperty("enableRules")
   private Boolean enableRules;
 
-  @SerializedName("enablePersonalization")
+  @JsonProperty("enablePersonalization")
   private Boolean enablePersonalization;
 
-  @SerializedName("queryType")
+  @JsonProperty("queryType")
   private QueryType queryType;
 
-  @SerializedName("removeWordsIfNoResults")
+  @JsonProperty("removeWordsIfNoResults")
   private RemoveWordsIfNoResults removeWordsIfNoResults;
 
-  @SerializedName("advancedSyntax")
+  @JsonProperty("advancedSyntax")
   private Boolean advancedSyntax;
 
-  @SerializedName("optionalWords")
+  @JsonProperty("optionalWords")
   private List<String> optionalWords;
 
-  @SerializedName("disableExactOnAttributes")
+  @JsonProperty("disableExactOnAttributes")
   private List<String> disableExactOnAttributes;
 
-  @SerializedName("exactOnSingleWordQuery")
+  @JsonProperty("exactOnSingleWordQuery")
   private ExactOnSingleWordQuery exactOnSingleWordQuery;
 
-  @SerializedName("alternativesAsExact")
+  @JsonProperty("alternativesAsExact")
   private List<AlternativesAsExact> alternativesAsExact;
 
-  @SerializedName("advancedSyntaxFeatures")
+  @JsonProperty("advancedSyntaxFeatures")
   private List<AdvancedSyntaxFeatures> advancedSyntaxFeatures;
 
-  @SerializedName("distinct")
+  @JsonProperty("distinct")
   private Integer distinct;
 
-  @SerializedName("synonyms")
+  @JsonProperty("synonyms")
   private Boolean synonyms;
 
-  @SerializedName("replaceSynonymsInHighlight")
+  @JsonProperty("replaceSynonymsInHighlight")
   private Boolean replaceSynonymsInHighlight;
 
-  @SerializedName("minProximity")
+  @JsonProperty("minProximity")
   private Integer minProximity;
 
-  @SerializedName("responseFields")
+  @JsonProperty("responseFields")
   private List<String> responseFields;
 
-  @SerializedName("maxFacetHits")
+  @JsonProperty("maxFacetHits")
   private Integer maxFacetHits;
 
-  @SerializedName("attributeCriteriaComputedByMinProximity")
+  @JsonProperty("attributeCriteriaComputedByMinProximity")
   private Boolean attributeCriteriaComputedByMinProximity;
 
-  @SerializedName("renderingContent")
+  @JsonProperty("renderingContent")
   private RenderingContent renderingContent;
 
   public SearchParamsObject setQuery(String query) {

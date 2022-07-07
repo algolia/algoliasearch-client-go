@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** ConsequenceQueryObject */
 public class ConsequenceQueryObject {
 
-  @SerializedName("remove")
+  @JsonProperty("remove")
   private List<String> remove;
 
-  @SerializedName("edits")
+  @JsonProperty("edits")
   private List<Edit> edits;
 
   public ConsequenceQueryObject setRemove(List<String> remove) {

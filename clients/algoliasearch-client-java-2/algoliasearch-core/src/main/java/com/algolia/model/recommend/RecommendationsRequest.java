@@ -1,16 +1,19 @@
 package com.algolia.model.recommend;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-@JsonAdapter(RecommendationsRequest.Adapter.class)
 /** RecommendationsRequest */
+@JsonDeserialize(using = RecommendationsRequest.RecommendationsRequestDeserializer.class)
+@JsonSerialize(using = RecommendationsRequest.RecommendationsRequestSerializer.class)
 public abstract class RecommendationsRequest implements CompoundType {
 
   public static RecommendationsRequest of(RecommendationRequest inside) {
@@ -21,30 +24,119 @@ public abstract class RecommendationsRequest implements CompoundType {
     return new RecommendationsRequestTrendingRequest(inside);
   }
 
-  public static class Adapter extends TypeAdapter<RecommendationsRequest> {
+  public static class RecommendationsRequestSerializer extends StdSerializer<RecommendationsRequest> {
 
-    @Override
-    public void write(final JsonWriter out, final RecommendationsRequest oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public RecommendationsRequestSerializer(Class<RecommendationsRequest> t) {
+      super(t);
+    }
+
+    public RecommendationsRequestSerializer() {
+      this(null);
     }
 
     @Override
-    public RecommendationsRequest read(final JsonReader jsonReader) throws IOException {
-      RecommendationRequest recommendationrequest = JSON.tryDeserialize(jsonReader, new TypeToken<RecommendationRequest>() {}.getType());
-      if (recommendationrequest != null) {
-        return RecommendationsRequest.of(recommendationrequest);
+    public void serialize(RecommendationsRequest value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class RecommendationsRequestDeserializer extends StdDeserializer<RecommendationsRequest> {
+
+    public RecommendationsRequestDeserializer() {
+      this(RecommendationsRequest.class);
+    }
+
+    public RecommendationsRequestDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public RecommendationsRequest deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      RecommendationsRequest deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize RecommendationRequest
+      try {
+        boolean attemptParsing = true;
+        currentType = "RecommendationRequest";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            RecommendationsRequest.of(
+              (RecommendationRequest) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<RecommendationRequest>() {})
+            );
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              RecommendationsRequest.of(
+                (RecommendationRequest) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<RecommendationRequest>() {})
+              );
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf RecommendationRequest (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      TrendingRequest trendingrequest = JSON.tryDeserialize(jsonReader, new TypeToken<TrendingRequest>() {}.getType());
-      if (trendingrequest != null) {
-        return RecommendationsRequest.of(trendingrequest);
+
+      // deserialize TrendingRequest
+      try {
+        boolean attemptParsing = true;
+        currentType = "TrendingRequest";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            RecommendationsRequest.of((TrendingRequest) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TrendingRequest>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              RecommendationsRequest.of(
+                (TrendingRequest) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TrendingRequest>() {})
+              );
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf TrendingRequest (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(
+        String.format("Failed deserialization for RecommendationsRequest: %d classes match result, expected" + " 1", match)
+      );
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public RecommendationsRequest getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "RecommendationsRequest cannot be null");
     }
   }
 }
 
-@JsonAdapter(RecommendationsRequest.Adapter.class)
 class RecommendationsRequestRecommendationRequest extends RecommendationsRequest {
 
   private final RecommendationRequest insideValue;
@@ -59,7 +151,6 @@ class RecommendationsRequestRecommendationRequest extends RecommendationsRequest
   }
 }
 
-@JsonAdapter(RecommendationsRequest.Adapter.class)
 class RecommendationsRequestTrendingRequest extends RecommendationsRequest {
 
   private final TrendingRequest insideValue;

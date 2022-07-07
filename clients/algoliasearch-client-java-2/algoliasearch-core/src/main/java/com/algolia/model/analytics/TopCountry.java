@@ -1,15 +1,15 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** TopCountry */
 public class TopCountry {
 
-  @SerializedName("country")
+  @JsonProperty("country")
   private String country;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
   public TopCountry setCountry(String country) {

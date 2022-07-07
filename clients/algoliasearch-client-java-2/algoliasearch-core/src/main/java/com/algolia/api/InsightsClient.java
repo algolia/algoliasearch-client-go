@@ -6,8 +6,7 @@ import com.algolia.model.insights.*;
 import com.algolia.utils.*;
 import com.algolia.utils.retry.CallType;
 import com.algolia.utils.retry.StatefulHost;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -153,8 +152,7 @@ public class InsightsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -283,8 +281,7 @@ public class InsightsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -417,8 +414,7 @@ public class InsightsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**
@@ -533,8 +529,7 @@ public class InsightsClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<PushEventsResponse>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<PushEventsResponse>() {});
   }
 
   /**
@@ -648,8 +643,7 @@ public class InsightsClient extends ApiClient {
     }
 
     Call call = this.buildCall(requestPath, "PUT", queryParameters, bodyObj, headers, requestOptions, false);
-    Type returnType = new TypeToken<Object>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<Object>() {});
   }
 
   /**

@@ -1,18 +1,18 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** MatchedGeoLocation */
 public class MatchedGeoLocation {
 
-  @SerializedName("lat")
+  @JsonProperty("lat")
   private Double lat;
 
-  @SerializedName("lng")
+  @JsonProperty("lng")
   private Double lng;
 
-  @SerializedName("distance")
+  @JsonProperty("distance")
   private Integer distance;
 
   public MatchedGeoLocation setLat(Double lat) {

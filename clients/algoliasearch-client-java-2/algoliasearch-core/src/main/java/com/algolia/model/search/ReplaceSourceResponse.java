@@ -1,12 +1,12 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** ReplaceSourceResponse */
 public class ReplaceSourceResponse {
 
-  @SerializedName("updatedAt")
+  @JsonProperty("updatedAt")
   private String updatedAt;
 
   public ReplaceSourceResponse setUpdatedAt(String updatedAt) {

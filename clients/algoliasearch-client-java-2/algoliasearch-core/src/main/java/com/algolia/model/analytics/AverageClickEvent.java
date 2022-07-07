@@ -1,18 +1,18 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** AverageClickEvent */
 public class AverageClickEvent {
 
-  @SerializedName("average")
+  @JsonProperty("average")
   private Double average;
 
-  @SerializedName("clickCount")
+  @JsonProperty("clickCount")
   private Integer clickCount;
 
-  @SerializedName("date")
+  @JsonProperty("date")
   private String date;
 
   public AverageClickEvent setAverage(Double average) {

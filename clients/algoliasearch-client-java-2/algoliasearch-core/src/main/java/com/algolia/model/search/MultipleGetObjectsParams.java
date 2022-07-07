@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,13 +8,13 @@ import java.util.Objects;
 /** getObjects operation on an index. */
 public class MultipleGetObjectsParams {
 
-  @SerializedName("attributesToRetrieve")
+  @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("indexName")
+  @JsonProperty("indexName")
   private String indexName;
 
   public MultipleGetObjectsParams setAttributesToRetrieve(List<String> attributesToRetrieve) {

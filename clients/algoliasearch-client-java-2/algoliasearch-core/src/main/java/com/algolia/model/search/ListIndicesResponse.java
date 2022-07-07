@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** ListIndicesResponse */
 public class ListIndicesResponse {
 
-  @SerializedName("items")
+  @JsonProperty("items")
   private List<FetchedIndex> items;
 
-  @SerializedName("nbPages")
+  @JsonProperty("nbPages")
   private Integer nbPages;
 
   public ListIndicesResponse setItems(List<FetchedIndex> items) {

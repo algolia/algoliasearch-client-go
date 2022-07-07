@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** BrowseRequest */
 public class BrowseRequest {
 
-  @SerializedName("params")
+  @JsonProperty("params")
   private String params;
 
-  @SerializedName("cursor")
+  @JsonProperty("cursor")
   private String cursor;
 
   public BrowseRequest setParams(String params) {

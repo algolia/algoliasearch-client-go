@@ -1,30 +1,43 @@
 package com.algolia.model.recommend;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 /** A Recommend hit. */
-public class RecommendHit extends HashMap<String, Object> {
+public class RecommendHit {
 
-  @SerializedName("objectID")
+  @JsonProperty("objectID")
   private String objectID;
 
-  @SerializedName("_highlightResult")
+  @JsonProperty("_highlightResult")
   private Map<String, HighlightResult> highlightResult;
 
-  @SerializedName("_snippetResult")
+  @JsonProperty("_snippetResult")
   private Map<String, SnippetResult> snippetResult;
 
-  @SerializedName("_rankingInfo")
+  @JsonProperty("_rankingInfo")
   private RankingInfo rankingInfo;
 
-  @SerializedName("_distinctSeqID")
+  @JsonProperty("_distinctSeqID")
   private Integer distinctSeqID;
 
-  @SerializedName("_score")
+  @JsonProperty("_score")
   private Double score;
+
+  private Map<String, Object> additionalProperties = new HashMap<>();
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
+
+  @JsonAnySetter
+  public RecommendHit setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+    return this;
+  }
 
   public RecommendHit setObjectID(String objectID) {
     this.objectID = objectID;

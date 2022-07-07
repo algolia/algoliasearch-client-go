@@ -1,18 +1,18 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** GetTopFiltersNoResultsValue */
 public class GetTopFiltersNoResultsValue {
 
-  @SerializedName("attribute")
+  @JsonProperty("attribute")
   private String attribute;
 
-  @SerializedName("operator")
+  @JsonProperty("operator")
   private String operator;
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private String value;
 
   public GetTopFiltersNoResultsValue setAttribute(String attribute) {

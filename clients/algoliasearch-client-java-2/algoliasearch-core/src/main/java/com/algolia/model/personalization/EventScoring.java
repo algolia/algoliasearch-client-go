@@ -1,18 +1,18 @@
 package com.algolia.model.personalization;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** EventScoring */
 public class EventScoring {
 
-  @SerializedName("score")
+  @JsonProperty("score")
   private Integer score;
 
-  @SerializedName("eventName")
+  @JsonProperty("eventName")
   private String eventName;
 
-  @SerializedName("eventType")
+  @JsonProperty("eventType")
   private String eventType;
 
   public EventScoring setScore(Integer score) {

@@ -1,13 +1,10 @@
 package com.algolia.model.search;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Controls how the exact ranking criterion is computed when the query contains only one word. */
-@JsonAdapter(ExactOnSingleWordQuery.Adapter.class)
 public enum ExactOnSingleWordQuery {
   ATTRIBUTE("attribute"),
 
@@ -21,6 +18,7 @@ public enum ExactOnSingleWordQuery {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -30,6 +28,7 @@ public enum ExactOnSingleWordQuery {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static ExactOnSingleWordQuery fromValue(String value) {
     for (ExactOnSingleWordQuery b : ExactOnSingleWordQuery.values()) {
       if (b.value.equals(value)) {
@@ -37,19 +36,5 @@ public enum ExactOnSingleWordQuery {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<ExactOnSingleWordQuery> {
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final ExactOnSingleWordQuery enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public ExactOnSingleWordQuery read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return ExactOnSingleWordQuery.fromValue(value);
-    }
   }
 }

@@ -1,16 +1,19 @@
 package com.algolia.model.abtesting;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-@JsonAdapter(AddABTestsVariant.Adapter.class)
 /** AddABTestsVariant */
+@JsonDeserialize(using = AddABTestsVariant.AddABTestsVariantDeserializer.class)
+@JsonSerialize(using = AddABTestsVariant.AddABTestsVariantSerializer.class)
 public abstract class AddABTestsVariant implements CompoundType {
 
   public static AddABTestsVariant of(AbTestsVariant inside) {
@@ -21,33 +24,117 @@ public abstract class AddABTestsVariant implements CompoundType {
     return new AddABTestsVariantAbTestsVariantSearchParams(inside);
   }
 
-  public static class Adapter extends TypeAdapter<AddABTestsVariant> {
+  public static class AddABTestsVariantSerializer extends StdSerializer<AddABTestsVariant> {
 
-    @Override
-    public void write(final JsonWriter out, final AddABTestsVariant oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public AddABTestsVariantSerializer(Class<AddABTestsVariant> t) {
+      super(t);
+    }
+
+    public AddABTestsVariantSerializer() {
+      this(null);
     }
 
     @Override
-    public AddABTestsVariant read(final JsonReader jsonReader) throws IOException {
-      AbTestsVariant abtestsvariant = JSON.tryDeserialize(jsonReader, new TypeToken<AbTestsVariant>() {}.getType());
-      if (abtestsvariant != null) {
-        return AddABTestsVariant.of(abtestsvariant);
+    public void serialize(AddABTestsVariant value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class AddABTestsVariantDeserializer extends StdDeserializer<AddABTestsVariant> {
+
+    public AddABTestsVariantDeserializer() {
+      this(AddABTestsVariant.class);
+    }
+
+    public AddABTestsVariantDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public AddABTestsVariant deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      AddABTestsVariant deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize AbTestsVariant
+      try {
+        boolean attemptParsing = true;
+        currentType = "AbTestsVariant";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            AddABTestsVariant.of((AbTestsVariant) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AbTestsVariant>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              AddABTestsVariant.of((AbTestsVariant) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AbTestsVariant>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf AbTestsVariant (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      AbTestsVariantSearchParams abtestsvariantsearchparams = JSON.tryDeserialize(
-        jsonReader,
-        new TypeToken<AbTestsVariantSearchParams>() {}.getType()
-      );
-      if (abtestsvariantsearchparams != null) {
-        return AddABTestsVariant.of(abtestsvariantsearchparams);
+
+      // deserialize AbTestsVariantSearchParams
+      try {
+        boolean attemptParsing = true;
+        currentType = "AbTestsVariantSearchParams";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            AddABTestsVariant.of(
+              (AbTestsVariantSearchParams) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AbTestsVariantSearchParams>() {})
+            );
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              AddABTestsVariant.of(
+                (AbTestsVariantSearchParams) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AbTestsVariantSearchParams>() {})
+              );
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println(
+          "Failed to deserialize oneOf AbTestsVariantSearchParams (error: " + e.getMessage() + ") (type: " + currentType + ")"
+        );
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(String.format("Failed deserialization for AddABTestsVariant: %d classes match result, expected 1", match));
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public AddABTestsVariant getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "AddABTestsVariant cannot be null");
     }
   }
 }
 
-@JsonAdapter(AddABTestsVariant.Adapter.class)
 class AddABTestsVariantAbTestsVariant extends AddABTestsVariant {
 
   private final AbTestsVariant insideValue;
@@ -62,7 +149,6 @@ class AddABTestsVariantAbTestsVariant extends AddABTestsVariant {
   }
 }
 
-@JsonAdapter(AddABTestsVariant.Adapter.class)
 class AddABTestsVariantAbTestsVariantSearchParams extends AddABTestsVariant {
 
   private final AbTestsVariantSearchParams insideValue;

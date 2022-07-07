@@ -1,18 +1,18 @@
 package com.algolia.model.abtesting;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** ABTestResponse */
 public class ABTestResponse {
 
-  @SerializedName("index")
+  @JsonProperty("index")
   private String index;
 
-  @SerializedName("abTestID")
+  @JsonProperty("abTestID")
   private Integer abTestID;
 
-  @SerializedName("taskID")
+  @JsonProperty("taskID")
   private Long taskID;
 
   public ABTestResponse setIndex(String index) {

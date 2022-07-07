@@ -1,18 +1,18 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** SearchNoClickEvent */
 public class SearchNoClickEvent {
 
-  @SerializedName("search")
+  @JsonProperty("search")
   private String search;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count;
 
-  @SerializedName("withFilterCount")
+  @JsonProperty("withFilterCount")
   private Integer withFilterCount;
 
   public SearchNoClickEvent setSearch(String search) {

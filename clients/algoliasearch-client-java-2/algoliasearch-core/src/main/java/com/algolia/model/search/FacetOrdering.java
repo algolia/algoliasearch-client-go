@@ -1,6 +1,6 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** Defining how facets should be ordered. */
 public class FacetOrdering {
 
-  @SerializedName("facets")
+  @JsonProperty("facets")
   private Facets facets;
 
-  @SerializedName("values")
+  @JsonProperty("values")
   private Map<String, Value> values;
 
   public FacetOrdering setFacets(Facets facets) {

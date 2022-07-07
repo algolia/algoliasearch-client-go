@@ -1,16 +1,19 @@
 package com.algolia.model.search;
 
 import com.algolia.utils.CompoundType;
-import com.algolia.utils.JSON;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-@JsonAdapter(Promote.Adapter.class)
 /** Promote */
+@JsonDeserialize(using = Promote.PromoteDeserializer.class)
+@JsonSerialize(using = Promote.PromoteSerializer.class)
 public abstract class Promote implements CompoundType {
 
   public static Promote of(PromoteObjectID inside) {
@@ -21,30 +24,107 @@ public abstract class Promote implements CompoundType {
     return new PromotePromoteObjectIDs(inside);
   }
 
-  public static class Adapter extends TypeAdapter<Promote> {
+  public static class PromoteSerializer extends StdSerializer<Promote> {
 
-    @Override
-    public void write(final JsonWriter out, final Promote oneOf) throws IOException {
-      TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson().getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-      runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public PromoteSerializer(Class<Promote> t) {
+      super(t);
+    }
+
+    public PromoteSerializer() {
+      this(null);
     }
 
     @Override
-    public Promote read(final JsonReader jsonReader) throws IOException {
-      PromoteObjectID promoteobjectid = JSON.tryDeserialize(jsonReader, new TypeToken<PromoteObjectID>() {}.getType());
-      if (promoteobjectid != null) {
-        return Promote.of(promoteobjectid);
+    public void serialize(Promote value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
+  }
+
+  public static class PromoteDeserializer extends StdDeserializer<Promote> {
+
+    public PromoteDeserializer() {
+      this(Promote.class);
+    }
+
+    public PromoteDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public Promote deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      Promote deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize PromoteObjectID
+      try {
+        boolean attemptParsing = true;
+        currentType = "PromoteObjectID";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = Promote.of((PromoteObjectID) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<PromoteObjectID>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = Promote.of((PromoteObjectID) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<PromoteObjectID>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf PromoteObjectID (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      PromoteObjectIDs promoteobjectids = JSON.tryDeserialize(jsonReader, new TypeToken<PromoteObjectIDs>() {}.getType());
-      if (promoteobjectids != null) {
-        return Promote.of(promoteobjectids);
+
+      // deserialize PromoteObjectIDs
+      try {
+        boolean attemptParsing = true;
+        currentType = "PromoteObjectIDs";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = Promote.of((PromoteObjectIDs) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<PromoteObjectIDs>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              Promote.of((PromoteObjectIDs) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<PromoteObjectIDs>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf PromoteObjectIDs (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
-      return null;
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(String.format("Failed deserialization for Promote: %d classes match result, expected 1", match));
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public Promote getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "Promote cannot be null");
     }
   }
 }
 
-@JsonAdapter(Promote.Adapter.class)
 class PromotePromoteObjectID extends Promote {
 
   private final PromoteObjectID insideValue;
@@ -59,7 +139,6 @@ class PromotePromoteObjectID extends Promote {
   }
 }
 
-@JsonAdapter(Promote.Adapter.class)
 class PromotePromoteObjectIDs extends Promote {
 
   private final PromoteObjectIDs insideValue;

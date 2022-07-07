@@ -1,45 +1,45 @@
 package com.algolia.model.abtesting;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** Variant */
 public class Variant {
 
-  @SerializedName("averageClickPosition")
+  @JsonProperty("averageClickPosition")
   private Integer averageClickPosition;
 
-  @SerializedName("clickCount")
+  @JsonProperty("clickCount")
   private Integer clickCount;
 
-  @SerializedName("clickThroughRate")
+  @JsonProperty("clickThroughRate")
   private Double clickThroughRate;
 
-  @SerializedName("conversionCount")
+  @JsonProperty("conversionCount")
   private Integer conversionCount;
 
-  @SerializedName("conversionRate")
+  @JsonProperty("conversionRate")
   private Double conversionRate;
 
-  @SerializedName("description")
+  @JsonProperty("description")
   private String description;
 
-  @SerializedName("index")
+  @JsonProperty("index")
   private String index;
 
-  @SerializedName("noResultCount")
+  @JsonProperty("noResultCount")
   private Integer noResultCount;
 
-  @SerializedName("searchCount")
+  @JsonProperty("searchCount")
   private Integer searchCount;
 
-  @SerializedName("trackedSearchCount")
+  @JsonProperty("trackedSearchCount")
   private Integer trackedSearchCount;
 
-  @SerializedName("trafficPercentage")
+  @JsonProperty("trafficPercentage")
   private Integer trafficPercentage;
 
-  @SerializedName("userCount")
+  @JsonProperty("userCount")
   private Integer userCount;
 
   public Variant setAverageClickPosition(Integer averageClickPosition) {

@@ -1,21 +1,21 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** A userID. */
 public class UserId {
 
-  @SerializedName("userID")
+  @JsonProperty("userID")
   private String userID;
 
-  @SerializedName("clusterName")
+  @JsonProperty("clusterName")
   private String clusterName;
 
-  @SerializedName("nbRecords")
+  @JsonProperty("nbRecords")
   private Integer nbRecords;
 
-  @SerializedName("dataSize")
+  @JsonProperty("dataSize")
   private Integer dataSize;
 
   public UserId setUserID(String userID) {

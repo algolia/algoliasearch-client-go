@@ -1,15 +1,15 @@
 package com.algolia.model.search;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** BatchDictionaryEntriesRequest */
 public class BatchDictionaryEntriesRequest {
 
-  @SerializedName("action")
+  @JsonProperty("action")
   private DictionaryAction action;
 
-  @SerializedName("body")
+  @JsonProperty("body")
   private DictionaryEntry body;
 
   public BatchDictionaryEntriesRequest setAction(DictionaryAction action) {

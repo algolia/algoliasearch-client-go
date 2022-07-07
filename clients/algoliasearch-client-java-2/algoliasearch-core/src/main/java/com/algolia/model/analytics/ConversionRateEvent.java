@@ -1,21 +1,21 @@
 package com.algolia.model.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 /** ConversionRateEvent */
 public class ConversionRateEvent {
 
-  @SerializedName("rate")
+  @JsonProperty("rate")
   private Double rate;
 
-  @SerializedName("trackedSearchCount")
+  @JsonProperty("trackedSearchCount")
   private Integer trackedSearchCount;
 
-  @SerializedName("conversionCount")
+  @JsonProperty("conversionCount")
   private Integer conversionCount;
 
-  @SerializedName("date")
+  @JsonProperty("date")
   private String date;
 
   public ConversionRateEvent setRate(Double rate) {

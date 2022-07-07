@@ -1,6 +1,6 @@
 package com.algolia.model.predict;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 /** Prediction for the **affinities** model. */
 public class PredictionsAffinities {
 
-  @SerializedName("value")
+  @JsonProperty("value")
   private List<Affinities> value;
 
-  @SerializedName("lastUpdatedAt")
+  @JsonProperty("lastUpdatedAt")
   private String lastUpdatedAt;
 
   public PredictionsAffinities setValue(List<Affinities> value) {
