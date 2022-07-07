@@ -1,20 +1,22 @@
 import com.algolia.utils.CompoundType;
 import com.algolia.utils.JSON;
-
-import com.google.gson.TypeAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 import java.util.List;
 
-@JsonAdapter({{classname}}.Adapter.class)
 /**
  * {{{description}}}{{^description}}{{classname}}{{/description}}{{#isDeprecated}}
  * @deprecated{{/isDeprecated}}
  */{{#isDeprecated}}
 @Deprecated{{/isDeprecated}}
+@JsonDeserialize(using = {{classname}}.{{classname}}Deserializer.class)
+@JsonSerialize(using = {{classname}}.{{classname}}Serializer.class)
 {{>additionalModelTypeAnnotations}}
 public abstract class {{classname}} implements CompoundType {
     {{#vendorExtensions.x-one-of-list}}
@@ -24,32 +26,89 @@ public abstract class {{classname}} implements CompoundType {
 
     {{/vendorExtensions.x-one-of-list}}
 
-    public static class Adapter extends TypeAdapter<{{classname}}> {
-        @Override
-        public void write(
-            final JsonWriter out,
-            final {{classname}} oneOf) throws IOException {
-        TypeAdapter runtimeTypeAdapter = (TypeAdapter) JSON.getGson()
-            .getAdapter(TypeToken.get(oneOf.getInsideValue().getClass()));
-        runtimeTypeAdapter.write(out, oneOf.getInsideValue());
+    public static class {{classname}}Serializer extends StdSerializer<{{classname}}> {
+        public {{classname}}Serializer(Class<{{classname}}> t) {
+            super(t);
+        }
+
+        public {{classname}}Serializer() {
+            this(null);
         }
 
         @Override
-        public {{classname}} read(final JsonReader jsonReader)
-            throws IOException {
-        {{#vendorExtensions.x-one-of-list}}
-        {{{type}}} {{#lambda.lowercase}}{{name}}{{/lambda.lowercase}} = JSON.tryDeserialize(jsonReader, new TypeToken<{{{type}}}>() {}.getType());
-        if({{#lambda.lowercase}}{{name}}{{/lambda.lowercase}} != null) {
-          return {{classname}}.of{{#vendorExtensions.x-one-of-explicit-name}}{{{name}}}{{/vendorExtensions.x-one-of-explicit-name}}({{#lambda.lowercase}}{{name}}{{/lambda.lowercase}});
+        public void serialize({{classname}} value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+            jgen.writeObject(value.getInsideValue());
         }
-        {{/vendorExtensions.x-one-of-list}}
-        return null;
+    }
+
+    public static class {{classname}}Deserializer extends StdDeserializer<{{classname}}> {
+        public {{classname}}Deserializer() {
+            this({{classname}}.class);
+        }
+
+        public {{classname}}Deserializer(Class<?> vc) {
+            super(vc);
+        }
+
+         @Override
+        public {{classname}} deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            JsonNode tree = jp.readValueAsTree();
+            {{{classname}}} deserialized = null;
+           
+            int match = 0;
+            JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+            String currentType = "";
+            {{#vendorExtensions.x-one-of-list}}
+            // deserialize {{{type}}}
+            try {
+                boolean attemptParsing = true;
+                currentType = "{{{type}}}";
+                if (((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+                    ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+                    (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+                    (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+                    (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+                    {{#isNullable}}
+                        | (token == JsonToken.VALUE_NULL)
+                    {{/isNullable}}) {
+                    deserialized = {{{classname}}}.of{{#vendorExtensions.x-one-of-explicit-name}}{{{name}}}{{/vendorExtensions.x-one-of-explicit-name}}(({{{type}}}) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<{{{type}}}>() {}));
+                    match++;
+                } else if (token == JsonToken.START_OBJECT) {
+                  try {
+                    deserialized = {{{classname}}}.of{{#vendorExtensions.x-one-of-explicit-name}}{{{name}}}{{/vendorExtensions.x-one-of-explicit-name}}(({{{type}}}) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<{{{type}}}>() {}));
+                    match++;
+                  } catch(IOException e) {
+                    // do nothing
+                  }
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                System.err.println("Failed to deserialize oneOf {{{type}}} (error: " + e.getMessage() + ") (type: " + currentType + ")");
+            }
+
+            {{/vendorExtensions.x-one-of-list}}
+            if (match == 1) {
+                return deserialized;
+            }
+            throw new IOException(String.format("Failed deserialization for {{classname}}: %d classes match result, expected 1", match));
+        }
+
+        /**
+         * Handle deserialization of the 'null' value.
+         */
+        @Override
+        public {{classname}} getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+        {{#isNullable}}
+            return null;
+        {{/isNullable}}
+        {{^isNullable}}
+            throw new JsonMappingException(ctxt.getParser(), "{{classname}} cannot be null");
+        {{/isNullable}}
         }
     }
 }
 
 {{#vendorExtensions.x-one-of-list}}
-@JsonAdapter({{classname}}.Adapter.class)
 class {{classname}}{{name}} extends {{classname}} {
     private final {{{type}}} insideValue;
 

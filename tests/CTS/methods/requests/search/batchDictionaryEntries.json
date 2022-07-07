@@ -132,5 +132,39 @@
         ]
       }
     }
+  },
+  {
+    "testName": "get batchDictionaryEntries results additional properties",
+    "parameters": {
+      "dictionaryName": "compounds",
+      "batchDictionaryEntriesParams": {
+        "requests": [
+          {
+            "action": "addEntry",
+            "body": {
+              "objectID": "1",
+              "language": "en",
+              "additional": "try me"
+            }
+          }
+        ]
+      }
+    },
+    "request": {
+      "path": "/1/dictionaries/compounds/batch",
+      "method": "POST",
+      "body": {
+        "requests": [
+          {
+            "action": "addEntry",
+            "body": {
+              "objectID": "1",
+              "language": "en",
+              "additional": "try me"
+            }
+          }
+        ]
+      }
+    }
   }
 ]

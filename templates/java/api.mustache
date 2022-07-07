@@ -2,7 +2,7 @@ package {{package}};
 
 import {{invokerPackage}}.ApiClient;
 
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import okhttp3.Call;
 import okhttp3.Request;
@@ -17,7 +17,6 @@ import java.util.function.IntUnaryOperator;
 import java.util.EnumSet;
 import java.util.Random;
 import java.util.Collections;
-import java.lang.reflect.Type;
 {{^fullJavaUtil}}
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,8 +233,7 @@ public class {{classname}} extends ApiClient {
 
     {{/headerParams}}
     Call call = this.buildCall(requestPath, "{{httpMethod}}", queryParameters, bodyObj, headers, requestOptions, {{#vendorExtensions.x-use-read-transporter}}true{{/vendorExtensions.x-use-read-transporter}}{{^vendorExtensions.x-use-read-transporter}}false{{/vendorExtensions.x-use-read-transporter}});
-    Type returnType = new TypeToken<{{{returnType}}}>() {}.getType();
-    return this.executeAsync(call, returnType);
+    return this.executeAsync(call, new TypeReference<{{{returnType}}}>() {});
   }
 
   {{! This case only sets `requestOptions` as optional }}

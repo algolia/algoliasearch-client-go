@@ -3,8 +3,10 @@ package com.algolia.utils;
 import com.algolia.exceptions.*;
 import com.algolia.utils.retry.RetryStrategy;
 import com.algolia.utils.retry.StatefulHost;
+import com.fasterxml.jackson.databind.ObjectMapper; 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
@@ -20,6 +22,7 @@ public class HttpRequester implements Requester {
   private OkHttpClient httpClient;
   private HttpLoggingInterceptor loggingInterceptor;
   private LogLevel level;
+  private ObjectMapper json;
 
   public HttpRequester() {
     this.retryStrategy = new RetryStrategy();
@@ -34,6 +37,8 @@ public class HttpRequester implements Requester {
     builder.retryOnConnectionFailure(false);
 
     httpClient = builder.build();
+
+    this.json = new JSONBuilder().build();
   }
 
   @Override
@@ -42,7 +47,7 @@ public class HttpRequester implements Requester {
   }
 
   @Override
-  public <T> T handleResponse(Response response, Type returnType) throws AlgoliaRuntimeException {
+  public <T> T handleResponse(Response response, TypeReference returnType) throws AlgoliaRuntimeException {
     if (response.isSuccessful()) {
       if (returnType == null || response.code() == 204) {
         // returning null if the returnType is not defined, or the status code is 204 (No Content)
@@ -69,12 +74,12 @@ public class HttpRequester implements Requester {
     }
   }
 
-  private <T> T deserialize(Response response, Type returnType) throws AlgoliaRuntimeException {
+  private <T> T deserialize(Response response, TypeReference returnType) throws AlgoliaRuntimeException {
     if (response == null || returnType == null) {
       return null;
     }
 
-    if ("byte[]".equals(returnType.toString())) {
+    if ("byte[]".equals(returnType.getType().getTypeName())) {
       // Handle binary response (byte array).
       try {
         return (T) response.body().bytes();
@@ -98,8 +103,11 @@ public class HttpRequester implements Requester {
     if (contentType == null) {
       contentType = "application/json";
     }
-
-    return JSON.deserialize(respBody, returnType);
+    try {
+      return (T) json.readValue(respBody, returnType);
+    } catch (JsonProcessingException e) {
+      throw new AlgoliaRuntimeException(e);
+    }
   }
 
   @Override

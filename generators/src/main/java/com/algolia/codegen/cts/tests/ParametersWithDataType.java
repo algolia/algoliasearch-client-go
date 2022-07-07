@@ -199,6 +199,7 @@ public class ParametersWithDataType {
     testOutput.put("isEnum", false);
     testOutput.put("isSimpleObject", false);
     testOutput.put("oneOfModel", false);
+    testOutput.put("isAdditionalProperty", false);
 
     return testOutput;
   }
@@ -304,18 +305,27 @@ public class ParametersWithDataType {
         }
       }
       if (varSpec == null) {
-        throw new CTSException(
-          "Parameter '" +
-          entry.getKey() +
-          "' not found in '" +
-          paramName +
-          "'. You might have a type conflict in the spec for '" +
-          baseType +
-          "'"
-        );
+        if (spec.getAdditionalPropertiesIsAnyType()) {
+          // we hit an additionalProperties, infer it's type
+          CodegenParameter additionalPropertiesSpec = new CodegenParameter();
+          additionalPropertiesSpec.dataType = inferDataType(entry.getValue(), additionalPropertiesSpec, null);
+          Map<String, Object> value = traverseParams(entry.getKey(), entry.getValue(), additionalPropertiesSpec, paramName, suffix + 1);
+          value.put("isAdditionalProperty", true);
+          values.add(value);
+        } else {
+          throw new CTSException(
+            "Parameter '" +
+            entry.getKey() +
+            "' not found in '" +
+            paramName +
+            "'. You might have a type conflict in the spec for '" +
+            baseType +
+            "'"
+          );
+        }
+      } else {
+        values.add(traverseParams(entry.getKey(), entry.getValue(), varSpec, paramName, suffix + 1));
       }
-
-      values.add(traverseParams(entry.getKey(), entry.getValue(), varSpec, paramName, suffix + 1));
     }
     testOutput.put("isObject", true);
     testOutput.put("value", values);

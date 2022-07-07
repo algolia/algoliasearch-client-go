@@ -22,16 +22,6 @@ export async function removeExistingCodegen({
 
   switch (language) {
     case 'java':
-      if (client === 'query-suggestions') {
-        // eslint-disable-next-line no-warning-comments
-        // TODO: temporary solution, remove in next PR
-        await fsp.rm(
-          toAbsolutePath(
-            path.resolve('..', output, baseModelFolder, 'querySuggestions')
-          ),
-          { force: true, recursive: true }
-        );
-      }
       clientModel = client.replace('-', '');
       clientApi = `${clientName}*.java`;
       break;

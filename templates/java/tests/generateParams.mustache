@@ -25,7 +25,7 @@
 {{#isObject}}
   {{{objectName}}} {{{key}}}{{suffix}} = new {{{objectName}}}();
   {
-    {{#value}}{{> generateParams}}{{parent}}{{parentSuffix}}.set{{#lambda.titlecase}}{{{key}}}{{/lambda.titlecase}}({{> maybeConvertOneOf}});{{/value}}
+    {{#value}}{{> generateParams}}{{#isAdditionalProperty}}{{parent}}{{parentSuffix}}.setAdditionalProperty("{{{key}}}", {{> maybeConvertOneOf}});{{/isAdditionalProperty}}{{^isAdditionalProperty}}{{parent}}{{parentSuffix}}.set{{#lambda.titlecase}}{{{key}}}{{/lambda.titlecase}}({{> maybeConvertOneOf}});{{/isAdditionalProperty}}{{/value}}
   }
 {{/isObject}}
 {{#isFreeFormObject}}

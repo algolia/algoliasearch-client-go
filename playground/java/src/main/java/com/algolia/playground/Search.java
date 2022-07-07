@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 
 class Actor {
 
-  String name;
+  public String name;
 
   Actor(String name) {
     this.name = name;
@@ -54,7 +54,7 @@ public class Search {
 
       SearchMethodParams searchMethodParams = new SearchMethodParams();
       List<SearchQuery> requests = new ArrayList<>();
-      requests.add(SearchQuery.of(new SearchForHits().setIndexName(indexName).setQuery(query)));
+      requests.add(SearchQuery.of(new SearchForHits().setIndexName(indexName).setQuery(query).addAttributesToSnippet("title").addAttributesToSnippet("alternative_titles")));
       searchMethodParams.setRequests(requests);
 
       CompletableFuture<SearchResponses> result = client.searchAsync(searchMethodParams);

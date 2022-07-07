@@ -3,9 +3,11 @@ package com.algolia;
 import com.algolia.exceptions.*;
 import com.algolia.utils.*;
 import com.algolia.utils.retry.StatefulHost;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -24,6 +26,7 @@ public abstract class ApiClient {
   private String contentType;
 
   private Requester requester;
+  private ObjectMapper json;
 
   public ApiClient(String appId, String apiKey, String clientName, String version, ClientOptions options) {
     if (appId == null || appId.length() == 0) {
@@ -54,6 +57,8 @@ public abstract class ApiClient {
     } else {
       this.requester = new HttpRequester();
     }
+
+    this.json = new JSONBuilder().build();
   }
 
   private void refreshUserAgent() {
@@ -189,13 +194,13 @@ public abstract class ApiClient {
    * @param param Parameter
    * @return String representation of the parameter
    */
-  public String parameterToString(Object param) {
+  public String parameterToString(Object param) throws UnsupportedOperationException {
     if (param == null) {
       return "";
     } else if (param instanceof Date || param instanceof OffsetDateTime || param instanceof LocalDate) {
-      // Serialize to json string and remove the " enclosing characters
-      String jsonStr = JSON.serialize(param);
-      return jsonStr.substring(1, jsonStr.length() - 1);
+      // note: date comes as string for now, we should never have to serialize one
+      // maybe we could accept them as Date object and in that case use jackson serialization
+      throw new UnsupportedOperationException("Date must come as string (already serialized)");
     } else if (param instanceof Collection) {
       StringJoiner b = new StringJoiner(",");
       for (Object o : (Collection) param) {
@@ -233,7 +238,11 @@ public abstract class ApiClient {
     String content;
 
     if (obj != null) {
-      content = JSON.serialize(obj);
+      try {
+        content = json.writeValueAsString(obj);
+      } catch (JsonProcessingException e) {
+        throw new AlgoliaRuntimeException(e);
+      }
     } else {
       content = null;
     }
@@ -246,9 +255,9 @@ public abstract class ApiClient {
    *
    * @param <T> Type
    * @param returnType Return type
-   * @see #execute(Call, Type)
+   * @see #execute(Call, TypeReference)
    */
-  public <T> CompletableFuture<T> executeAsync(Call call, final Type returnType) {
+  public <T> CompletableFuture<T> executeAsync(Call call, final TypeReference returnType) {
     final CompletableFuture<T> future = new CompletableFuture<>();
     call.enqueue(
       new Callback() {
