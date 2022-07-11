@@ -10,11 +10,9 @@ function initAnalytics(initOptions: CommonInitOptions & InitRegion<AnalyticsRegi
   }
 
   return createAnalyticsClient({
-    ...initOptions.options,
     ...commonOptions,
-    appId: initOptions.appId ?? appId,
-    apiKey: initOptions.apiKey ?? apiKey,
-    region: initOptions.region,
+    ...initOptions.options,
+    ...initOptions,
   });
 }
 
@@ -30,11 +28,9 @@ function initAbtesting(initOptions: CommonInitOptions & InitRegion<AbtestingRegi
   }
 
   return createAbtestingClient({
-    ...initOptions.options,
     ...commonOptions,
-    appId: initOptions.appId ?? appId,
-    apiKey: initOptions.apiKey ?? apiKey,
-    region: initOptions.region,
+    ...initOptions.options,
+    ...initOptions,
   });
 }
 
@@ -54,16 +50,20 @@ function initPersonalization(initOptions: CommonInitOptions & Required<InitRegio
   }
 
   return createPersonalizationClient({
-    ...initOptions.options,
     ...commonOptions,
-    appId: initOptions.appId ?? appId,
-    apiKey: initOptions.apiKey ?? apiKey,
-    region: initOptions.region,
+    ...initOptions.options,
+    ...initOptions,
   });
 }
 
 return {
-  ...createSearchClient({ appId, apiKey, ...commonOptions }),
+  ...createSearchClient(commonOptions),
+  /**
+   * Get the value of the `algoliaAgent`, used by our libraries internally and telemetry system.
+   */
+  get _ua(): string {
+    return this.transporter.algoliaAgent.value;
+  },
   initAnalytics,
   initPersonalization,
   initAbtesting,

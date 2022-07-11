@@ -18,13 +18,15 @@ export function algoliasearch(
 ) {
   {{> algoliasearch/builds/checkParameters}}
 
-  const commonOptions: Omit<CreateClientOptions, 'apiKey' | 'appId'> = {
+  const commonOptions: CreateClientOptions = {
+    apiKey,
+    appId,
     timeouts: {
       connect: DEFAULT_CONNECT_TIMEOUT_NODE,
       read: DEFAULT_READ_TIMEOUT_NODE,
       write: DEFAULT_WRITE_TIMEOUT_NODE,
     },
-    requester: options?.requester ?? createHttpRequester(),
+    requester: createHttpRequester(),
     algoliaAgents: [{ segment: 'Node.js', version: process.versions.node }],
     responsesCache: createNullCache(),
     requestsCache: createNullCache(),
