@@ -55,6 +55,7 @@ func TestShouldNotExposeIntermediateNetworkErrors(t *testing.T) {
 		nil,
 		"",
 		compression.None,
+		false,
 	)
 	var res string
 	err := transporter.Request(&res, http.MethodGet, "", nil, call.Read)
@@ -74,6 +75,7 @@ func TestShouldExposeIntermediateNetworkErrors(t *testing.T) {
 		nil,
 		"",
 		compression.None,
+		false,
 	)
 	opts := []interface{}{opt.ExposeIntermediateNetworkErrors(true)}
 	var res string
@@ -143,6 +145,7 @@ func TestOnNetworkErrorWithNilBody(t *testing.T) {
 		nil,
 		"",
 		compression.None,
+		false,
 	)
 
 	opts := []interface{}{opt.ExposeIntermediateNetworkErrors(true)}

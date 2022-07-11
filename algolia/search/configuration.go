@@ -20,4 +20,5 @@ type Configuration struct {
 	Headers        map[string]string
 	ExtraUserAgent string
 	Compression    compression.Compression
+	DisableSSL     bool
 }

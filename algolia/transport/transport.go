@@ -27,6 +27,7 @@ type Transport struct {
 	requester     Requester
 	retryStrategy *RetryStrategy
 	headers       map[string]string
+	disableSSL    bool
 	compression   compression.Compression
 }
 
@@ -40,6 +41,7 @@ func New(
 	defaultHeaders map[string]string,
 	extraUserAgent string,
 	compression compression.Compression,
+	disableSSL bool,
 ) *Transport {
 	if requester == nil {
 		requester = newDefaultRequester()
@@ -71,6 +73,7 @@ func New(
 		retryStrategy: newRetryStrategy(hosts, readTimeout, writeTimeout),
 		headers:       headers,
 		compression:   compression,
+		disableSSL:    disableSSL,
 	}
 }
 
@@ -83,9 +86,10 @@ func (t *Transport) Request(
 	opts ...interface{},
 ) error {
 	var (
-		ctx       = iopt.ExtractContext(opts...)
-		headers   = t.headers
-		urlParams = make(map[string]string)
+		ctx        = iopt.ExtractContext(opts...)
+		headers    = t.headers
+		disableSSL = t.disableSSL
+		urlParams  = make(map[string]string)
 	)
 
 	if extraHeaders := iopt.ExtractExtraHeaders(opts...); extraHeaders != nil {
@@ -104,7 +108,7 @@ func (t *Transport) Request(
 	var intermediateNetworkErrors []error
 
 	for _, h := range t.retryStrategy.GetTryableHosts(k) {
-		req, err := buildRequest(t.compression, method, h.host, path, body, headers, urlParams)
+		req, err := buildRequest(t.compression, method, disableSSL, h.host, path, body, headers, urlParams)
 		if err != nil {
 			return err
 		}
@@ -260,13 +264,18 @@ func buildRequestWithBody(method, url string, body interface{}, c compression.Co
 func buildRequest(
 	c compression.Compression,
 	method string,
+	disableSSL bool,
 	host string,
 	path string,
 	body interface{},
 	headers map[string]string,
 	urlParams map[string]string,
 ) (req *http.Request, err error) {
-	urlStr := "https://" + host + path
+	scheme := "https://"
+	if disableSSL {
+		scheme = "http://"
+	}
+	urlStr := scheme + host + path
 	isCompressionEnabled := shouldCompress(c, method, body)
 
 	if body == nil {

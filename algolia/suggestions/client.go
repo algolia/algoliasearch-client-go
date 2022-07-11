@@ -63,6 +63,7 @@ func NewClientWithConfig(config Configuration) *Client {
 			config.Headers,
 			config.ExtraUserAgent,
 			compression.None,
+			config.DisableSSL,
 		),
 	}
 }

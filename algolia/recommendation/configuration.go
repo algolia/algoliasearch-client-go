@@ -18,4 +18,5 @@ type Configuration struct {
 	Region         region.Region
 	Headers        map[string]string
 	ExtraUserAgent string
+	DisableSSL     bool
 }
