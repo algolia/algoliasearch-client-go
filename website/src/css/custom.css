@@ -1,3 +1,8 @@
+/* UI library styles */
+@import url(fragments.css);
+/* Font */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 :root {
   --ifm-font-size-base: 16px;
   --ifm-code-font-size: 90%;
@@ -21,27 +26,66 @@ html[data-theme='dark'] {
   --ifm-menu-color-background-active: #21243d;
 }
 
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.1);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
+/* -------- API documentation */
+/* global */
+html[data-theme='light'] #notice > h4,
+html[data-theme='light'] #notice > h3 {
+  color: #36395a;
+}
+
+html[data-theme='dark'] #notice > h4,
+html[data-theme='dark'] #notice > h3 {
+  color: #fff;
+}
+
+/* wip notice */
+html[data-theme='light'] .wip-notice {
+  background-color: #f5f5fa;
+}
+
+html[data-theme='dark'] .wip-notice {
+  background-color: #21243d;
+}
+
+/* home page */
+html[data-theme='light'] .hero-title {
+  color: #36395a;
+}
+
+html[data-theme='dark'] .hero-title {
+  color: #fff;
+}
+
+#hero > div:first-child {
+  max-width: 1000px;
+}
+
+/* code blocks */
+/* override italic keywords in code blocks */
+code .token.keyword {
+  font-style: normal !important;
+}
+/* prevent full size code blocks in tables */
+table td .code-container {
+  width: 600px;
+}
+/* we only update the header of the table */
+table tbody tr td h3,
+table tbody tr td h2 {
+  margin-top: 16px;
 }
 
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-html[data-theme='light'] .shiki.nord {
+html[data-theme='light'] .shiki.dark-plus {
   display: none;
 }
 
-html[data-theme='dark'] .shiki.min-light {
+html[data-theme='dark'] .shiki.light-plus {
   display: none;
 }
-
-/* Font */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 /* -------- Navbar */
 .header-restapi {
@@ -66,23 +110,7 @@ html[data-theme='dark'] .header-github-link:before {
     no-repeat;
 }
 
-/* override italic keywords in code blocks */
-code .token.keyword {
-  font-style: normal !important;
-}
-
-/* prevent full size code blocks in tables */
-table td .code-container {
-  width: 600px;
-}
-
-/* we only update the header of the table */
-table tbody tr td h3,
-table tbody tr td h2 {
-  margin-top: 16px;
-}
-
-/* Redoc fix */
+/* HTTP API: Redoc fix */
 .redocusaurus .menu-content label.-depth0 {
   padding-top: 5px;
   padding-bottom: 10px;
@@ -100,4 +128,10 @@ table tbody tr td h2 {
   height: 15px;
   line-height: 15px;
   width: 38px;
+}
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
 }

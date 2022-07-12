@@ -83,7 +83,7 @@ function getSpecsForNavBar() {
       [
         'docusaurus-preset-shiki-twoslash',
         {
-          themes: ['min-light', 'nord'],
+          themes: ['dark-plus', 'light-plus'],
         },
       ],
       [
@@ -123,17 +123,22 @@ function getSpecsForNavBar() {
               position: 'left',
             },
             {
-              label: 'Contributing',
-              to: 'docs/contributing/introduction',
-              position: 'right',
-            },
-            {
               label: 'HTTP API',
               position: 'left',
               type: 'dropdown',
               items: getSpecsForNavBar(),
             },
             // right
+            {
+              label: 'Contributing',
+              to: 'docs/contributing/introduction',
+              position: 'right',
+            },
+            {
+              label: 'Algolia documentation',
+              href: 'https://www.algolia.com/doc/',
+              position: 'right',
+            },
             {
               href: 'https://github.com/algolia/api-clients-automation',
               position: 'right',
@@ -151,11 +156,6 @@ function getSpecsForNavBar() {
           disableSwitch: false,
           respectPrefersColorScheme: true,
         },
-        // Breaks scrollbar
-        // announcementBar: {
-        //   content:
-        //     '⭐️ If you like our API clients, give them a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/algolia/api-clients-automation">GitHub</a>! ⭐️',
-        // },
         footer: {
           style: 'dark',
           links: [
