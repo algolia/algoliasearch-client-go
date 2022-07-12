@@ -30,6 +30,9 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
 
     super.processOpts();
 
+    // Generation notice, added on every generated files
+    Utils.setGenerationBanner(additionalProperties);
+
     // Prevent all useless file to generate
     apiTestTemplateFiles.clear();
     modelTestTemplateFiles.clear();

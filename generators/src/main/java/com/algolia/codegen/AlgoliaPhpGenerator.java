@@ -31,6 +31,9 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
 
     super.processOpts();
 
+    // Generation notice, added on every generated files
+    Utils.setGenerationBanner(additionalProperties);
+
     // Remove base template as we want to change its path
     supportingFiles.removeIf(file -> file.getTemplateFile().equals("Configuration.mustache"));
 

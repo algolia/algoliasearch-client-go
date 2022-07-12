@@ -179,4 +179,15 @@ public class Utils {
   public static boolean shouldUseExplicitOneOfName(Collection<String> oneOf) {
     return oneOf.stream().filter(type -> type != null && type.startsWith("List")).count() >= 2;
   }
+
+  /**
+   * Sets a `generationBanner` variable on the mustache templates, to display the generation banner
+   * on generated files.
+   */
+  public static void setGenerationBanner(Map<String, Object> additionalProperties) {
+    additionalProperties.put(
+      "generationBanner",
+      "This file is generated, manual changes will be lost - read more on" + " https://github.com/algolia/api-clients-automation."
+    );
+  }
 }

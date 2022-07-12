@@ -32,6 +32,9 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     setModelPropertyNaming("original");
     setApiPackage("src");
 
+    // Generation notice, added on every generated files
+    Utils.setGenerationBanner(additionalProperties);
+
     languageSpecificPrimitives.add("Record");
     instantiationTypes.put("map", "Record");
     // clear all supported files to avoid unwanted ones
