@@ -2,21 +2,15 @@ name: Renovate
 
 on:
   schedule:
-    - cron: '0 14 * * 5'
+    - cron: '0 14 * * 5' # At 14:00 on Friday.
 
 jobs:
   renovate:
-    name: Renovate
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup
-        id: setup
-        uses: ./.github/actions/setup
+      - name: Renovate Automatic Branch
+        uses: bodinsamuel/renovate-automatic-branch@v1
         with:
-          type: minimal
-
-      - run: yarn workspace scripts renovateWeeklyPR
-        env:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          github-token: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          repo-owner: algolia
+          repo-name: api-clients-automation
