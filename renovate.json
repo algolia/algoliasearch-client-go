@@ -49,6 +49,35 @@
         "\\s\"(?<depName>.*?)\": \"(?<currentValue>.*?)\",?\\s"
       ],
       "datasourceTemplate": "npm"
+    },
+    {
+      "description": "Update the java formatter",
+      "fileMatch": [
+        "Dockerfile",
+        ".github/actions/setup/action.yml"
+      ],
+      "matchStrings": [
+        "https://github.com/google/google-java-format/releases/download/v(?<currentValue>.*?)/google-java-format-(?<currentValue>.*?)-all-deps.jar"
+      ],
+      "depNameTemplate": "google/google-java-format",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "description": "Update java packages in mustache files",
+      "fileMatch": "build.mustache",
+      "matchStrings": [
+        "testImplementation '(?<depName>.*):(?<currentValue>\\d.*?)'"
+      ],
+      "datasourceTemplate": "maven"
+    },
+    {
+      "description": "Update yarn version (won't work because we need to download the script but gives an alert at least)",
+      "fileMatch": ".yarnrc.yml",
+      "matchStrings": [
+        "yarnPath: .yarn/releases/yarn-(?<currentValue>.*?).cjs"
+      ],
+      "depNameTemplate": "yarnpkg/berry",
+      "datasourceTemplate": "github-releases"
     }
   ],
   "ignorePaths": [
