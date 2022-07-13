@@ -57,7 +57,8 @@
         ".github/actions/setup/action.yml"
       ],
       "matchStrings": [
-        "google-java-format\/releases\/download\/v(?<currentValue>.*?)\/google-java-format-(?<currentValue>.*?)-all-deps"
+        "google-java-format/releases/download/v(?<currentValue>.*?)/google-java-format-",
+        "google-java-format/releases/download/v(.*?)/google-java-format-(?<currentValue>.*?)-all-deps"
       ],
       "depNameTemplate": "google/google-java-format",
       "datasourceTemplate": "github-releases"
@@ -74,7 +75,7 @@
       "description": "Update yarn version (won't work because we need to download the script but gives an alert at least)",
       "fileMatch": ".yarnrc.yml",
       "matchStrings": [
-        "yarn\/releases\/yarn-(?<currentValue>.*?)"
+        "yarn/releases/yarn-(?<currentValue>.*?)"
       ],
       "depNameTemplate": "yarnpkg/berry",
       "datasourceTemplate": "github-releases"
