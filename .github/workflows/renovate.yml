@@ -3,6 +3,11 @@ name: Renovate
 on:
   schedule:
     - cron: '0 14 * * 5' # At 14:00 on Friday.
+  workflow_dispatch:
+    inputs:
+      fake_input:
+        description: input needed to satisfy the yaml linter
+        required: false
 
 jobs:
   renovate:

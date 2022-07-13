@@ -3,6 +3,11 @@ name: Scheduled Release
 on:
   schedule:
     - cron: '30 6 * * 2'
+  workflow_dispatch:
+    inputs:
+      fake_input:
+        description: input needed to satisfy the yaml linter
+        required: false
 
 jobs:
   release:

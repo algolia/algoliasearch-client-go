@@ -5,3 +5,4 @@ build
 composer.json
 tsconfig.json
 vendor
+renovate.json
