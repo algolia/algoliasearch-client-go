@@ -46,7 +46,7 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"(?<depName>.*?)\": \"(?<currentValue>.*?)\",?\\s"
+        "\\s\"(?<depName>.*?)\": \"(?<currentValue>\\d.*?)\",?\\s"
       ],
       "datasourceTemplate": "npm"
     },
@@ -75,7 +75,7 @@
       "description": "Update yarn version (won't work because we need to download the script but gives an alert at least)",
       "fileMatch": ".yarnrc.yml",
       "matchStrings": [
-        "yarn/releases/yarn-(?<currentValue>.*?)"
+        "yarn/releases/yarn-(?<currentValue>.*?)\\.cjs"
       ],
       "depNameTemplate": "yarnpkg/berry",
       "datasourceTemplate": "github-releases"
