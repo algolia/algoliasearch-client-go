@@ -64,7 +64,7 @@
       ],
       "depNameTemplate": "google/google-java-format",
       "datasourceTemplate": "github-releases",
-      "extractVersion": "^v(?<version>.*)$"
+      "extractVersionTemplate": "^v(?<version>.*)$"
     },
     {
       "description": "Update java packages in mustache files",
