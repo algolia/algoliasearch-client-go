@@ -46,8 +46,10 @@
         "package.mustache"
       ],
       "matchStrings": [
-        "\\s\"(?<depName>.*?)\": \"(?<currentValue>\\d.*?)\",?\\s"
+        "\"devDependencies\":\\s*{[^}]*}",
+        "\\s\"(?<depName>.*?)\": \"(?<currentValue>.*?)\",?\\s"
       ],
+      "matchStringsStrategy": "recursive",
       "datasourceTemplate": "npm"
     },
     {
@@ -61,7 +63,8 @@
         "google-java-format/releases/download/v(.*?)/google-java-format-(?<currentValue>.*?)-all-deps"
       ],
       "depNameTemplate": "google/google-java-format",
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "github-releases",
+      "extractVersion": "^v(?<version>.*)$"
     },
     {
       "description": "Update java packages in mustache files",
