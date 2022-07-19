@@ -24,7 +24,7 @@ import (
 //
 // More details here:
 // https://www.algolia.com/doc/api-reference/api-methods/generate-secured-api-key/?language=python#parameters
-func GenerateSecuredAPIKey(apiKey string, opts ...interface{}) (string, error) {
+func (c *Client) GenerateSecuredAPIKey(apiKey string, opts ...interface{}) (string, error) {
 	h := hmac.New(sha256.New, []byte(apiKey))
 
 	message := transport.URLEncode(newSecuredAPIKeyParams(opts...))
