@@ -1971,7 +1971,7 @@ describe('searchSingleIndex', () => {
 });
 
 describe('searchSynonyms', () => {
-  test('searchSynonyms', async () => {
+  test('searchSynonyms with minimal parameters', async () => {
     const req = (await client.searchSynonyms({
       indexName: 'indexName',
     })) as unknown as EchoResponse;
@@ -1980,6 +1980,25 @@ describe('searchSynonyms', () => {
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual(undefined);
     expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('searchSynonyms with all parameters', async () => {
+    const req = (await client.searchSynonyms({
+      indexName: 'indexName',
+      type: 'altcorrection1',
+      page: 10,
+      hitsPerPage: 10,
+      searchSynonymsParams: { query: 'myQuery' },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/indexName/synonyms/search');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ query: 'myQuery' });
+    expect(req.searchParams).toStrictEqual({
+      type: 'altcorrection1',
+      page: '10',
+      hitsPerPage: '10',
+    });
   });
 });
 

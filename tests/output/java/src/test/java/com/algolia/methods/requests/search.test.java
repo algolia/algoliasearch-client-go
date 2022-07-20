@@ -3531,7 +3531,7 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("searchSynonyms")
+  @DisplayName("searchSynonyms with minimal parameters")
   void searchSynonymsTest0() {
     String indexName0 = "indexName";
 
@@ -3542,6 +3542,47 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/search");
     assertEquals(req.method, "POST");
+  }
+
+  @Test
+  @DisplayName("searchSynonyms with all parameters")
+  void searchSynonymsTest1() {
+    String indexName0 = "indexName";
+    SynonymType type0 = SynonymType.fromValue("altcorrection1");
+    int page0 = 10;
+    int hitsPerPage0 = 10;
+    SearchSynonymsParams searchSynonymsParams0 = new SearchSynonymsParams();
+    {
+      String query1 = "myQuery";
+      searchSynonymsParams0.setQuery(query1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.searchSynonyms(indexName0, type0, page0, hitsPerPage0, searchSynonymsParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/indexName/synonyms/search");
+    assertEquals(req.method, "POST");
+
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"query\":\"myQuery\"}", req.body, JSONCompareMode.STRICT);
+    });
+
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"type\":\"altcorrection1\",\"page\":\"10\",\"hitsPerPage\":\"10\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
+
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
+    }
   }
 
   @Test

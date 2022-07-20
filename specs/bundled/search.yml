@@ -61,13 +61,6 @@ components:
       schema:
         type: boolean
       description: Replace all synonyms of the index with the ones sent with this request.
-    Query:
-      in: query
-      name: query
-      description: Search for specific synonyms matching this string.
-      schema:
-        type: string
-        default: ''
     Type:
       in: query
       name: type
@@ -3379,10 +3372,20 @@ paths:
       description: Search or browse all synonyms, optionally filtering them by type.
       parameters:
         - $ref: '#/components/parameters/IndexName'
-        - $ref: '#/components/parameters/Query'
         - $ref: '#/components/parameters/Type'
         - $ref: '#/components/parameters/PageDefault0'
         - $ref: '#/components/parameters/HitsPerPage'
+      requestBody:
+        description: The body of the the `searchSynonyms` method.
+        content:
+          application/json:
+            schema:
+              title: searchSynonymsParams
+              type: object
+              additionalProperties: false
+              properties:
+                query:
+                  $ref: '#/components/schemas/query'
       responses:
         '200':
           description: OK

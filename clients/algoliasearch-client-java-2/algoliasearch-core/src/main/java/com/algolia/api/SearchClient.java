@@ -5551,12 +5551,12 @@ public class SearchClient extends ApiClient {
    * Search or browse all synonyms, optionally filtering them by type.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param query Search for specific synonyms matching this string. (optional, default to )
    * @param type Only search for specific types of synonyms. (optional)
    * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
    *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
    *     (optional, default to 0)
    * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
+   * @param searchSynonymsParams The body of the the `searchSynonyms` method. (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return SearchSynonymsResponse
@@ -5565,31 +5565,36 @@ public class SearchClient extends ApiClient {
    */
   public SearchSynonymsResponse searchSynonyms(
     String indexName,
-    String query,
     SynonymType type,
     Integer page,
     Integer hitsPerPage,
+    SearchSynonymsParams searchSynonymsParams,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(searchSynonymsAsync(indexName, query, type, page, hitsPerPage, requestOptions));
+    return LaunderThrowable.await(searchSynonymsAsync(indexName, type, page, hitsPerPage, searchSynonymsParams, requestOptions));
   }
 
   /**
    * Search or browse all synonyms, optionally filtering them by type.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param query Search for specific synonyms matching this string. (optional, default to )
    * @param type Only search for specific types of synonyms. (optional)
    * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
    *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
    *     (optional, default to 0)
    * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
+   * @param searchSynonymsParams The body of the the `searchSynonyms` method. (optional)
    * @return SearchSynonymsResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public SearchSynonymsResponse searchSynonyms(String indexName, String query, SynonymType type, Integer page, Integer hitsPerPage)
-    throws AlgoliaRuntimeException {
-    return this.searchSynonyms(indexName, query, type, page, hitsPerPage, null);
+  public SearchSynonymsResponse searchSynonyms(
+    String indexName,
+    SynonymType type,
+    Integer page,
+    Integer hitsPerPage,
+    SearchSynonymsParams searchSynonymsParams
+  ) throws AlgoliaRuntimeException {
+    return this.searchSynonyms(indexName, type, page, hitsPerPage, searchSynonymsParams, null);
   }
 
   /**
@@ -5620,12 +5625,12 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Search or browse all synonyms, optionally filtering them by type.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param query Search for specific synonyms matching this string. (optional, default to )
    * @param type Only search for specific types of synonyms. (optional)
    * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
    *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
    *     (optional, default to 0)
    * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
+   * @param searchSynonymsParams The body of the the `searchSynonyms` method. (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return CompletableFuture<SearchSynonymsResponse> The awaitable future
@@ -5633,27 +5638,23 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<SearchSynonymsResponse> searchSynonymsAsync(
     String indexName,
-    String query,
     SynonymType type,
     Integer page,
     Integer hitsPerPage,
+    SearchSynonymsParams searchSynonymsParams,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
     if (indexName == null) {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchSynonyms`.");
     }
 
-    Object bodyObj = null;
+    Object bodyObj = searchSynonymsParams;
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/synonyms/search".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
 
     Map<String, Object> queryParameters = new HashMap<String, Object>();
     Map<String, String> headers = new HashMap<String, String>();
-
-    if (query != null) {
-      queryParameters.put("query", parameterToString(query));
-    }
 
     if (type != null) {
       queryParameters.put("type", parameterToString(type));
@@ -5675,23 +5676,23 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Search or browse all synonyms, optionally filtering them by type.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param query Search for specific synonyms matching this string. (optional, default to )
    * @param type Only search for specific types of synonyms. (optional)
    * @param page Requested page (zero-based). When specified, will retrieve a specific page; the
    *     page size is implicitly set to 100. When null, will retrieve all indices (no pagination).
    *     (optional, default to 0)
    * @param hitsPerPage Maximum number of objects to retrieve. (optional, default to 100)
+   * @param searchSynonymsParams The body of the the `searchSynonyms` method. (optional)
    * @return CompletableFuture<SearchSynonymsResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public CompletableFuture<SearchSynonymsResponse> searchSynonymsAsync(
     String indexName,
-    String query,
     SynonymType type,
     Integer page,
-    Integer hitsPerPage
+    Integer hitsPerPage,
+    SearchSynonymsParams searchSynonymsParams
   ) throws AlgoliaRuntimeException {
-    return this.searchSynonymsAsync(indexName, query, type, page, hitsPerPage, null);
+    return this.searchSynonymsAsync(indexName, type, page, hitsPerPage, searchSynonymsParams, null);
   }
 
   /**
