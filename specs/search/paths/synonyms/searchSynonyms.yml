@@ -8,10 +8,20 @@ post:
   description: Search or browse all synonyms, optionally filtering them by type.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
-    - $ref: 'common/parameters.yml#/Query'
     - $ref: 'common/parameters.yml#/Type'
     - $ref: '../../../common/parameters.yml#/PageDefault0'
     - $ref: '../../../common/parameters.yml#/HitsPerPage'
+  requestBody:
+    description: The body of the the `searchSynonyms` method.
+    content:
+      application/json:
+        schema:
+          title: searchSynonymsParams
+          type: object
+          additionalProperties: false
+          properties:
+            query:
+              $ref: '../../../common/schemas/SearchParams.yml#/query'
   responses:
     '200':
       description: OK
