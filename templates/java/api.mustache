@@ -204,7 +204,7 @@ public class {{classname}} extends ApiClient {
     }
     {{/required}}{{/allParams}}
 
-    Object bodyObj = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
+    Object bodyObj = {{#bodyParam}}{{paramName}}{{^required}} != null ? {{paramName}} : new Object(){{/required}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
     // create path and map variables
     String requestPath = "{{{path}}}"{{#vendorExtensions}}{{#pathParams}}.replaceAll(

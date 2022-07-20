@@ -66,7 +66,7 @@ public class EchoInterceptor {
       final Request copy = request.newBuilder().build();
       final Buffer buffer = new Buffer();
       if (copy.body() == null) {
-        return "";
+        return null;
       }
       copy.body().writeTo(buffer);
       return buffer.readUtf8();

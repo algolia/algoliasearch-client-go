@@ -106,6 +106,7 @@ When writing your template, here is a list of variables accessible from `mustach
           "testName": "the descriptive name test (default to `method`)",
           "testIndex": "the index of the test to avoid duplicate function name",
           "hasParameters": "true if the method has parameters, useful for `GET` requests",
+          "assertNullBody": "true if the method does not have a body, useful to assert if `GET` and `DELETE` requests are correctly parsed",
           "parameters": {
             // Object of all parameters with their name, to be used for languages that require the parameter name
             "parameterName": "value"
@@ -165,7 +166,7 @@ When writing your template, here is a list of variables accessible from `mustach
               "parametersWithDataType": [],
               // map of enhance parameters
               "parametersWithDataTypeMap": {}
-            },
+            }
           },
           "request": {
             "path": "the expected path of the request",
@@ -190,25 +191,27 @@ When writing your template, here is a list of variables accessible from `mustach
 ```
 
 As well as lambdas to transform strings:
- - `escapeQuotes` - Escapes double quotes characters, replaces `"` with `\"`.
- - `escapeSlash` - Escapes backward slash characters, replaces `\` with `\\`.
- - `lowercase` - Converts all of the characters in this fragment to lower case using the rules of the ROOT locale.
- - `uppercase` - Converts all of the characters in this fragment to upper case using the rules of the ROOT locale.
- - `titlecase` - Converts text in a fragment to title case. For example once upon a time to Once Upon A Time.
- - `camelcase` - Converts text in a fragment to camelCase. For example Input-text to inputText.
- - `indented` - Prepends 4 spaces indention from second line of a fragment on. First line will be indented by Mustache.
- - `indented_8` - Prepends 8 spaces indention from second line of a fragment on. First line will be indented by Mustache.
- - `indented_12` - Prepends 12 spaces indention from second line of a fragment on. First line will be indented by Mustache.
- - `indented_16` - Prepends 16 spaces indention from second line of a fragment on. First line will be indented by Mustache.
+
+- `escapeQuotes` - Escapes double quotes characters, replaces `"` with `\"`.
+- `escapeSlash` - Escapes backward slash characters, replaces `\` with `\\`.
+- `lowercase` - Converts all of the characters in this fragment to lower case using the rules of the ROOT locale.
+- `uppercase` - Converts all of the characters in this fragment to upper case using the rules of the ROOT locale.
+- `titlecase` - Converts text in a fragment to title case. For example once upon a time to Once Upon A Time.
+- `camelcase` - Converts text in a fragment to camelCase. For example Input-text to inputText.
+- `indented` - Prepends 4 spaces indention from second line of a fragment on. First line will be indented by Mustache.
+- `indented_8` - Prepends 8 spaces indention from second line of a fragment on. First line will be indented by Mustache.
+- `indented_12` - Prepends 12 spaces indention from second line of a fragment on. First line will be indented by Mustache.
+- `indented_16` - Prepends 16 spaces indention from second line of a fragment on. First line will be indented by Mustache.
 
 If specific values are needed for a specific languages, or custom generated files, they can be added using a custom CTS manager:
- - [javascript](https://github.com/algolia/api-clients-automation/blob/main/generators/src/main/java/com/algolia/codegen/cts/manager/JavaScriptCTSManager.java)
-   - `npmNamespace`: the npm namespace
-   - `utilsPackageVersion`: the utils version to import
-   - `import`: the name of the package or library to import
- - [java](https://github.com/algolia/api-clients-automation/blob/main/generators/src/main/java/com/algolia/codegen/cts/manager/JavaCTSManager.java)
-   - `packageVersion`: the version of the Java client
-   - `import`: the name of the client package to import from
+
+- [javascript](https://github.com/algolia/api-clients-automation/blob/main/generators/src/main/java/com/algolia/codegen/cts/manager/JavaScriptCTSManager.java)
+  - `npmNamespace`: the npm namespace
+  - `utilsPackageVersion`: the utils version to import
+  - `import`: the name of the package or library to import
+- [java](https://github.com/algolia/api-clients-automation/blob/main/generators/src/main/java/com/algolia/codegen/cts/manager/JavaCTSManager.java)
+  - `packageVersion`: the version of the Java client
+  - `import`: the name of the client package to import from
 
 ### Clients tests
 

@@ -90,7 +90,7 @@ export function create{{capitalizedApiName}}({
       ){{/pathParams}};
       {{/vendorExtensions}}
       const headers: Headers = {};
-      const queryParameters: QueryParameters = {{#vendorExtensions.x-is-custom-request}}parameters || {{/vendorExtensions.x-is-custom-request}}{};
+      const queryParameters: QueryParameters = {{#vendorExtensions.x-is-custom-request}}parameters ? parameters : {{/vendorExtensions.x-is-custom-request}}{};
 
       {{^vendorExtensions.x-is-custom-request}}{{#queryParams}}
       if ({{paramName}} !== undefined) {
@@ -111,7 +111,7 @@ export function create{{capitalizedApiName}}({
         queryParameters,
         headers,
         {{#bodyParam}}
-        data: {{paramName}},
+        data: {{paramName}}{{^required}}? {{paramName}} : {}{{/required}},
         {{/bodyParam}}
         {{#vendorExtensions}}
           {{#x-use-read-transporter}}

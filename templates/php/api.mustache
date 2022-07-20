@@ -181,7 +181,7 @@ use {{invokerPackage}}\Support\Helpers;
         {{#allParams}}
         {{#required}}
         // verify the required parameter '{{paramName}}' is set
-        if (${{paramName}} === null) {
+        if (!isset(${{paramName}})) {
             throw new \InvalidArgumentException(
                 'Parameter `{{paramName}}` is required when calling `{{operationId}}`.'
             );
@@ -230,7 +230,7 @@ use {{invokerPackage}}\Support\Helpers;
         $resourcePath = '{{{path}}}';
         $queryParameters = [];
         $headers = [];
-        $httpBody = [];
+        $httpBody = {{#bodyParam}}{{#required}}${{paramName}}{{/required}}{{^required}} isset(${{paramName}}) ? ${{paramName}} : []{{/required}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
         {{#vendorExtensions}}{{#queryParams}}
 
         {{#isExplode}}
@@ -268,11 +268,6 @@ use {{invokerPackage}}\Support\Helpers;
         }
         {{/pathParams}}{{/vendorExtensions}}
 
-        {{#bodyParams}}
-        if (isset(${{paramName}})) { 
-            $httpBody = ${{paramName}};
-        } 
-        {{/bodyParams}}
         {{#headerParams}}
             $headers['{{baseName}}'] = ${{paramName}};
         {{/headerParams}}
