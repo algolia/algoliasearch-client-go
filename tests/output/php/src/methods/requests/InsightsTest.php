@@ -192,6 +192,7 @@ class InsightsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'POST',
+                'body' => json_decode('{}'),
             ],
         ]);
     }
@@ -592,6 +593,7 @@ class InsightsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'PUT',
+                'body' => json_decode('{}'),
             ],
         ]);
     }

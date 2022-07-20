@@ -547,6 +547,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/browse',
                 'method' => 'POST',
+                'body' => json_decode('{}'),
             ],
         ]);
     }
@@ -1296,6 +1297,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'POST',
+                'body' => json_decode('{}'),
             ],
         ]);
     }
@@ -1644,6 +1646,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'PUT',
+                'body' => json_decode('{}'),
             ],
         ]);
     }
@@ -2453,6 +2456,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/facets/facetName/query',
                 'method' => 'POST',
+                'body' => json_decode('{}'),
             ],
         ]);
     }
@@ -2563,6 +2567,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/synonyms/search',
                 'method' => 'POST',
+                'body' => json_decode('{}'),
             ],
         ]);
     }

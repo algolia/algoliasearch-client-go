@@ -993,6 +993,7 @@ class AnalyticsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'POST',
+                'body' => json_decode('{}'),
             ],
         ]);
     }
@@ -1341,6 +1342,7 @@ class AnalyticsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'PUT',
+                'body' => json_decode('{}'),
             ],
         ]);
     }

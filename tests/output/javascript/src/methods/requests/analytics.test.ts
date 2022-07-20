@@ -680,7 +680,7 @@ describe('post', () => {
 
     expect(req.path).toEqual('/1/test/minimal');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual(undefined);
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
@@ -910,7 +910,7 @@ describe('put', () => {
 
     expect(req.path).toEqual('/1/test/minimal');
     expect(req.method).toEqual('PUT');
-    expect(req.data).toEqual(undefined);
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 

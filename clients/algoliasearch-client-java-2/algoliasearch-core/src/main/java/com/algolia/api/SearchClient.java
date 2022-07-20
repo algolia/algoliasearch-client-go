@@ -707,7 +707,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `browse`.");
     }
 
-    Object bodyObj = browseRequest;
+    Object bodyObj = browseRequest != null ? browseRequest : new Object();
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/browse".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
@@ -3942,7 +3942,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
-    Object bodyObj = body;
+    Object bodyObj = body != null ? body : new Object();
 
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
@@ -4076,7 +4076,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
-    Object bodyObj = body;
+    Object bodyObj = body != null ? body : new Object();
 
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
@@ -5330,7 +5330,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `facetName` is required when calling `searchForFacetValues`.");
     }
 
-    Object bodyObj = searchForFacetValuesRequest;
+    Object bodyObj = searchForFacetValuesRequest != null ? searchForFacetValuesRequest : new Object();
 
     // create path and map variables
     String requestPath =
@@ -5648,7 +5648,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchSynonyms`.");
     }
 
-    Object bodyObj = searchSynonymsParams;
+    Object bodyObj = searchSynonymsParams != null ? searchSynonymsParams : new Object();
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/synonyms/search".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));

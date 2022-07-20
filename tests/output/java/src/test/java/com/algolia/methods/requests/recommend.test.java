@@ -2,6 +2,7 @@ package com.algolia.methods.requests;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.algolia.EchoInterceptor;
@@ -51,6 +52,7 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -70,6 +72,7 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -96,6 +99,7 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -115,6 +119,7 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -159,7 +164,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/recommendations");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"indexName\",\"objectID\":\"objectID\",\"model\":\"related-products\",\"threshold\":42}]}",
@@ -225,7 +229,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/recommendations");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"indexName\",\"objectID\":\"objectID\",\"model\":\"related-products\",\"threshold\":42,\"maxRecommendations\":10,\"queryParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"query\"]},\"fallbackParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"fallback\"]}}]}",
@@ -263,7 +266,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/recommendations");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"indexName\",\"model\":\"trending-items\",\"threshold\":42}]}",
@@ -331,7 +333,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/recommendations");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"indexName\",\"model\":\"trending-items\",\"threshold\":42,\"maxRecommendations\":10,\"facetName\":\"myFacetName\",\"facetValue\":\"myFacetValue\",\"queryParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"query\"]},\"fallbackParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"fallback\"]}}]}",
@@ -383,7 +384,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/recommendations");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"indexName1\",\"objectID\":\"objectID1\",\"model\":\"related-products\",\"threshold\":21},{\"indexName\":\"indexName2\",\"objectID\":\"objectID2\",\"model\":\"related-products\",\"threshold\":21}]}",
@@ -487,7 +487,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/recommendations");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"indexName1\",\"objectID\":\"objectID1\",\"model\":\"related-products\",\"threshold\":21,\"maxRecommendations\":10,\"queryParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"query1\"]},\"fallbackParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"fallback1\"]}},{\"indexName\":\"indexName2\",\"objectID\":\"objectID2\",\"model\":\"related-products\",\"threshold\":21,\"maxRecommendations\":10,\"queryParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"query2\"]},\"fallbackParameters\":{\"query\":\"myQuery\",\"facetFilters\":[\"fallback2\"]}}]}",
@@ -527,7 +526,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/recommendations");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"indexName1\",\"objectID\":\"objectID1\",\"model\":\"bought-together\",\"threshold\":42}]}",
@@ -549,6 +547,9 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -573,7 +574,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -616,7 +616,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -662,7 +661,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -708,7 +706,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -765,7 +762,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -822,7 +818,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -868,7 +863,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -914,7 +908,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -960,7 +953,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1006,7 +998,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1039,6 +1030,9 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -1063,7 +1057,6 @@ class RecommendClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });

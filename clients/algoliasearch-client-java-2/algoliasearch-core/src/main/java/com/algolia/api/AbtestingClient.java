@@ -728,7 +728,7 @@ public class AbtestingClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `path` is required when calling `post`.");
     }
 
-    Object bodyObj = body;
+    Object bodyObj = body != null ? body : new Object();
 
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());
@@ -862,7 +862,7 @@ public class AbtestingClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `path` is required when calling `put`.");
     }
 
-    Object bodyObj = body;
+    Object bodyObj = body != null ? body : new Object();
 
     // create path and map variables
     String requestPath = "/1{path}".replaceAll("\\{path\\}", path.toString());

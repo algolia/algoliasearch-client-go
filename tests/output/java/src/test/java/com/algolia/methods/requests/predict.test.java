@@ -2,6 +2,7 @@ package com.algolia.methods.requests;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.algolia.EchoInterceptor;
@@ -51,6 +52,7 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -70,6 +72,7 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -109,7 +112,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/users/user1/fetch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"modelsToRetrieve\":[\"funnel_stage\",\"order_value\",\"affinities\"]}", req.body, JSONCompareMode.STRICT);
     });
@@ -138,7 +140,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/users/user1/fetch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"typesToRetrieve\":[\"properties\",\"segments\"]}", req.body, JSONCompareMode.STRICT);
     });
@@ -177,7 +178,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/users/user1/fetch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"modelsToRetrieve\":[\"funnel_stage\",\"order_value\",\"affinities\"],\"typesToRetrieve\":[\"properties\",\"segments\"]}",
@@ -199,6 +199,7 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -218,6 +219,7 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -244,6 +246,9 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -268,7 +273,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -311,7 +315,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -357,7 +360,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -403,7 +405,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -460,7 +461,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -517,7 +517,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -563,7 +562,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -609,7 +607,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -655,7 +652,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -701,7 +697,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -734,6 +729,9 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -758,7 +756,6 @@ class PredictClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });

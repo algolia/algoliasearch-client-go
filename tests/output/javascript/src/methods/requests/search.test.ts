@@ -342,7 +342,7 @@ describe('browse', () => {
 
     expect(req.path).toEqual('/1/indexes/indexName/browse');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual(undefined);
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
@@ -880,7 +880,7 @@ describe('post', () => {
 
     expect(req.path).toEqual('/1/test/minimal');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual(undefined);
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
@@ -1110,7 +1110,7 @@ describe('put', () => {
 
     expect(req.path).toEqual('/1/test/minimal');
     expect(req.method).toEqual('PUT');
-    expect(req.data).toEqual(undefined);
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
@@ -1901,7 +1901,7 @@ describe('searchForFacetValues', () => {
 
     expect(req.path).toEqual('/1/indexes/indexName/facets/facetName/query');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual(undefined);
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
@@ -1978,7 +1978,7 @@ describe('searchSynonyms', () => {
 
     expect(req.path).toEqual('/1/indexes/indexName/synonyms/search');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual(undefined);
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 

@@ -2,6 +2,7 @@ package com.algolia.methods.requests;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.algolia.EchoInterceptor;
@@ -105,7 +106,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/configs");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"indexName\":\"theIndexName\",\"sourceIndices\":[{\"indexName\":\"testIndex\",\"facets\":[{\"attributes\":\"test\"}],\"generate\":[[\"facetA\",\"facetB\"],[\"facetC\"]]}],\"languages\":[\"french\"],\"exclude\":[\"test\"]}",
@@ -127,6 +127,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -146,6 +147,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -172,6 +174,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/configs/theIndexName");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -186,6 +189,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -205,6 +209,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -229,6 +234,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/configs");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -243,6 +249,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/configs/theIndexName");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -257,6 +264,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/configs/theIndexName/status");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -271,6 +279,7 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/logs/theIndexName");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -285,6 +294,9 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -309,7 +321,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -352,7 +363,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -398,7 +408,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -444,7 +453,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -501,7 +509,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -558,7 +565,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -604,7 +610,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -650,7 +655,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -696,7 +700,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -742,7 +745,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -775,6 +777,9 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -799,7 +804,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -882,7 +886,6 @@ class QuerySuggestionsClientRequestsTests {
 
     assertEquals(req.path, "/1/configs/theIndexName");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"sourceIndices\":[{\"indexName\":\"testIndex\",\"facets\":[{\"attributes\":\"test\"}],\"generate\":[[\"facetA\",\"facetB\"],[\"facetC\"]]}],\"languages\":[\"french\"],\"exclude\":[\"test\"]}",

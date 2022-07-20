@@ -2,6 +2,7 @@ package com.algolia.methods.requests;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.algolia.EchoInterceptor;
@@ -69,7 +70,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/keys");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"acl\":[\"search\",\"addObject\"],\"description\":\"my new api" +
@@ -98,7 +98,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/uniqueID");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"key\":\"value\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -122,7 +121,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/security/sources/append");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"source\":\"theSource\",\"description\":\"theDescription\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -145,7 +143,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"cluster\":\"theCluster\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -196,7 +193,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"}}]}", req.body, JSONCompareMode.STRICT);
     });
@@ -233,7 +229,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"requests\":[{\"action\":\"clear\",\"body\":{\"key\":\"value\"}}]}", req.body, JSONCompareMode.STRICT);
     });
@@ -270,7 +265,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"requests\":[{\"action\":\"delete\",\"body\":{\"key\":\"value\"}}]}", req.body, JSONCompareMode.STRICT);
     });
@@ -307,7 +301,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"deleteObject\",\"body\":{\"key\":\"value\"}}]}",
@@ -348,7 +341,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"partialUpdateObject\",\"body\":{\"key\":\"value\"}}]}",
@@ -389,7 +381,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"partialUpdateObjectNoCreate\",\"body\":{\"key\":\"value\"}}]}",
@@ -430,7 +421,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"updateObject\",\"body\":{\"key\":\"value\"}}]}",
@@ -465,7 +455,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"cluster\":\"theCluster\",\"users\":[\"user1\",\"user2\"]}", req.body, JSONCompareMode.STRICT);
     });
@@ -532,7 +521,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/compounds/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\"}},{\"action\":\"deleteEntry\",\"body\":{\"objectID\":\"2\",\"language\":\"fr\"}}]}",
@@ -631,7 +619,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/compounds/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"clearExistingDictionaryEntries\":false,\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\",\"word\":\"fancy\",\"words\":[\"believe\",\"algolia\"],\"decomposition\":[\"trust\",\"algolia\"],\"state\":\"enabled\"}},{\"action\":\"deleteEntry\",\"body\":{\"objectID\":\"2\",\"language\":\"fr\",\"word\":\"humility\",\"words\":[\"candor\",\"algolia\"],\"decomposition\":[\"grit\",\"algolia\"],\"state\":\"enabled\"}}]}",
@@ -676,7 +663,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/compounds/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"addEntry\",\"body\":{\"objectID\":\"1\",\"language\":\"en\",\"additional\":\"try" + " me\"}}]}",
@@ -698,6 +684,9 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/browse");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -719,7 +708,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/browse");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -737,6 +725,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/clear");
     assertEquals(req.method, "POST");
+    assertEquals(req.body, "");
   }
 
   @Test
@@ -751,6 +740,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/clear");
     assertEquals(req.method, "POST");
+    assertEquals(req.body, "");
   }
 
   @Test
@@ -765,6 +755,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/clear");
     assertEquals(req.method, "POST");
+    assertEquals(req.body, "");
   }
 
   @Test
@@ -779,6 +770,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -798,6 +790,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -824,6 +817,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/keys/myTestApiKey");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -843,7 +837,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/deleteByQuery");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"query\":\"testQuery\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -861,6 +854,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -876,6 +870,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/uniqueID");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -891,6 +886,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/id1");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -905,6 +901,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/security/sources/theSource");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -920,6 +917,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -934,6 +932,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -953,6 +952,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -979,6 +979,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/keys/myTestApiKey");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -991,6 +992,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/*/languages");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1003,6 +1005,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/*/settings");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1020,6 +1023,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/logs");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue(
@@ -1057,6 +1061,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/uniqueID");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue(
@@ -1108,7 +1113,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/objects");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"attributesToRetrieve\":[\"attr1\",\"attr2\"],\"objectID\":\"uniqueID\",\"indexName\":\"theIndexName\"}]}",
@@ -1131,6 +1135,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/id1");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1145,6 +1150,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1157,6 +1163,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/security/sources");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1172,6 +1179,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1187,6 +1195,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/task/123");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1199,6 +1208,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping/top");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1213,6 +1223,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping/uniqueID");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1227,6 +1238,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping/pending");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"getClusters\":\"true\"}", new TypeReference<HashMap<String, String>>() {});
@@ -1251,6 +1263,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/keys");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1263,6 +1276,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -1277,6 +1291,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"page\":\"8\"}", new TypeReference<HashMap<String, String>>() {});
@@ -1304,6 +1319,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue(
@@ -1353,7 +1369,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"action\":\"addObject\",\"body\":{\"key\":\"value\"},\"indexName\":\"theIndexName\"}]}",
@@ -1390,7 +1405,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/operation");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"operation\":\"copy\",\"destination\":\"dest\",\"scope\":[\"rules\",\"settings\"]}",
@@ -1431,7 +1445,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/uniqueID/partial");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"id1\":\"test\",\"id2\":{\"_operation\":\"AddUnique\",\"value\":\"test2\"}}]",
@@ -1468,6 +1481,9 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -1492,7 +1508,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1535,7 +1550,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1581,7 +1595,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1627,7 +1640,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1684,7 +1696,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1741,7 +1752,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1787,7 +1797,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1833,7 +1842,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1879,7 +1887,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1925,7 +1932,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -1958,6 +1964,9 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -1982,7 +1991,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -2012,6 +2020,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping/uniqueID");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -2036,7 +2045,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/security/sources");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("[{\"source\":\"theSource\",\"description\":\"theDescription\"}]", req.body, JSONCompareMode.STRICT);
     });
@@ -2054,6 +2062,7 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/keys/myApiKey/restore");
     assertEquals(req.method, "POST");
+    assertEquals(req.body, "");
   }
 
   @Test
@@ -2075,7 +2084,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"objectID\":\"id\",\"test\":\"val\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -2111,7 +2119,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/id1");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}]}",
@@ -2260,7 +2267,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/id1");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\",\"alternatives\":false,\"context\":\"search\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\",\"query\":{\"remove\":[\"algolia\"],\"edits\":[{\"type\":\"remove\",\"delete\":\"abc\",\"insert\":\"cde\"},{\"type\":\"replace\",\"delete\":\"abc\",\"insert\":\"cde\"}]}},\"hide\":[{\"objectID\":\"321\"}],\"filterPromotes\":false,\"userData\":{\"algolia\":\"aloglia\"},\"promote\":[{\"objectID\":\"abc\",\"position\":3},{\"objectIDs\":[\"abc\",\"def\"],\"position\":1}]},\"description\":\"test\",\"enabled\":true,\"validity\":[{\"from\":1656670273,\"until\":1656670277}]}",
@@ -2336,7 +2342,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"objectID\":\"a-rule-id\",\"conditions\":[{\"pattern\":\"smartphone\",\"anchoring\":\"contains\"}]},{\"objectID\":\"a-second-rule-id\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\"}]}]",
@@ -2489,7 +2494,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"objectID\":\"id1\",\"conditions\":[{\"pattern\":\"apple\",\"anchoring\":\"contains\",\"alternatives\":false,\"context\":\"search\"}],\"consequence\":{\"params\":{\"filters\":\"brand:apple\",\"query\":{\"remove\":[\"algolia\"],\"edits\":[{\"type\":\"remove\",\"delete\":\"abc\",\"insert\":\"cde\"},{\"type\":\"replace\",\"delete\":\"abc\",\"insert\":\"cde\"}]}},\"hide\":[{\"objectID\":\"321\"}],\"filterPromotes\":false,\"userData\":{\"algolia\":\"aloglia\"},\"promote\":[{\"objectID\":\"abc\",\"position\":3},{\"objectIDs\":[\"abc\",\"def\"],\"position\":1}]},\"description\":\"test\",\"enabled\":true,\"validity\":[{\"from\":1656670273,\"until\":1656670277}]}]",
@@ -2545,7 +2549,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/id1");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"objectID\":\"id1\",\"type\":\"synonym\",\"synonyms\":[\"car\",\"vehicule\",\"auto\"]}",
@@ -2625,7 +2628,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/batch");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "[{\"objectID\":\"id1\",\"type\":\"synonym\",\"synonyms\":[\"car\",\"vehicule\",\"auto\"]},{\"objectID\":\"id2\",\"type\":\"onewaysynonym\",\"input\":\"iphone\",\"synonyms\":[\"ephone\",\"aphone\",\"yphone\"]}]",
@@ -2674,7 +2676,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"requests\":[{\"indexName\":\"theIndexName\"}]}", req.body, JSONCompareMode.STRICT);
     });
@@ -2710,7 +2711,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\"}],\"strategy\":\"stopIfEnoughMatches\"}",
@@ -2750,7 +2750,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}]}",
@@ -2796,7 +2795,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50}],\"strategy\":\"stopIfEnoughMatches\"}",
@@ -2850,7 +2848,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\"},{\"indexName\":\"theIndexName2\",\"type\":\"facet\",\"facet\":\"theFacet\"},{\"indexName\":\"theIndexName\",\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}",
@@ -2908,7 +2905,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"type\":\"facet\",\"facet\":\"theFacet\",\"facetQuery\":\"theFacetQuery\",\"query\":\"theQuery\",\"maxFacetHits\":50},{\"indexName\":\"theIndexName\",\"query\":\"myQuery\",\"hitsPerPage\":50,\"type\":\"default\"}],\"strategy\":\"stopIfEnoughMatches\"}",
@@ -3018,7 +3014,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"facetFilters\":\"mySearch:filters\",\"reRankingApplyFilter\":\"mySearch:filters\",\"tagFilters\":\"mySearch:filters\",\"numericFilters\":\"mySearch:filters\",\"optionalFilters\":\"mySearch:filters\"},{\"indexName\":\"theIndexName\",\"facetFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"reRankingApplyFilter\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"tagFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"numericFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]],\"optionalFilters\":[\"mySearch:filters\",[\"mySearch:filters\"]]}]}",
@@ -3346,7 +3341,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/*/queries");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"requests\":[{\"indexName\":\"theIndexName\",\"query\":\"\",\"similarQuery\":\"\",\"filters\":\"\",\"facetFilters\":[\"\"],\"optionalFilters\":[\"\"],\"numericFilters\":[\"\"],\"tagFilters\":[\"\"],\"sumOrFiltersScores\":true,\"facets\":[\"\"],\"maxValuesPerFacet\":0,\"facetingAfterDistinct\":true,\"sortFacetValuesBy\":\"\",\"page\":0,\"offset\":0,\"length\":0,\"aroundLatLng\":\"\",\"aroundLatLngViaIP\":true,\"aroundRadius\":\"all\",\"aroundPrecision\":0,\"minimumAroundRadius\":0,\"insideBoundingBox\":[47.3165,4.9665],\"insidePolygon\":[47.3165,4.9665],\"naturalLanguages\":[\"\"],\"ruleContexts\":[\"\"],\"personalizationImpact\":0,\"userToken\":\"\",\"getRankingInfo\":true,\"clickAnalytics\":true,\"analytics\":true,\"analyticsTags\":[\"\"],\"percentileComputation\":true,\"enableABTest\":true,\"enableReRanking\":true,\"reRankingApplyFilter\":[\"\"],\"attributesForFaceting\":[\"\"],\"unretrievableAttributes\":[\"\"],\"attributesToRetrieve\":[\"\"],\"restrictSearchableAttributes\":[\"\"],\"ranking\":[\"\"],\"customRanking\":[\"\"],\"relevancyStrictness\":0,\"attributesToHighlight\":[\"\"],\"attributesToSnippet\":[\"\"],\"highlightPreTag\":\"\",\"highlightPostTag\":\"\",\"snippetEllipsisText\":\"\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":0,\"minWordSizefor1Typo\":0,\"minWordSizefor2Typos\":0,\"typoTolerance\":\"min\",\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"\"],\"ignorePlurals\":false,\"removeStopWords\":true,\"keepDiacriticsOnCharacters\":\"\",\"queryLanguages\":[\"\"],\"decompoundQuery\":true,\"enableRules\":true,\"enablePersonalization\":true,\"queryType\":\"prefixAll\",\"removeWordsIfNoResults\":\"allOptional\",\"advancedSyntax\":true,\"optionalWords\":[\"\"],\"disableExactOnAttributes\":[\"\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"multiWordsSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":0,\"synonyms\":true,\"replaceSynonymsInHighlight\":true,\"minProximity\":0,\"responseFields\":[\"\"],\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"facetOrdering\":{\"facets\":{\"order\":[\"a\",\"b\"]},\"values\":{\"a\":{\"order\":[\"b\"],\"sortRemainingBy\":\"count\"}}}},\"type\":\"default\"}]}",
@@ -3373,7 +3367,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/compounds/search");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"query\":\"foo\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -3402,7 +3395,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/compounds/search");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"query\":\"foo\",\"page\":4,\"hitsPerPage\":2,\"language\":\"fr\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -3421,6 +3413,9 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/facets/facetName/query");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -3445,7 +3440,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/facets/facetName/query");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"params\":\"query=foo&facetFilters=['bar']\",\"facetQuery\":\"foo\",\"maxFacetHits\":42}",
@@ -3472,7 +3466,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/rules/search");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"query\":\"something\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -3495,7 +3488,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/query");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"query\":\"myQuery\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -3524,7 +3516,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/query");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}", req.body, JSONCompareMode.STRICT);
     });
@@ -3542,6 +3533,9 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/search");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -3564,7 +3558,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/indexName/synonyms/search");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"query\":\"myQuery\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -3607,7 +3600,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/clusters/mapping/search");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"query\":\"test\",\"clusterName\":\"theClusterName\",\"page\":5,\"hitsPerPage\":10}",
@@ -3645,7 +3637,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/*/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"disableStandardEntries\":{\"plurals\":{\"fr\":false,\"en\":false,\"ru\":true}}}",
@@ -3695,7 +3686,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/dictionaries/*/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"disableStandardEntries\":{\"plurals\":{\"fr\":false,\"en\":false,\"ru\":true},\"stopwords\":{\"fr\":false},\"compounds\":{\"ru\":true}}}",
@@ -3723,7 +3713,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"paginationLimitedTo\":10}", req.body, JSONCompareMode.STRICT);
     });
@@ -3762,7 +3751,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"typoTolerance\":true}", req.body, JSONCompareMode.STRICT);
     });
@@ -3801,7 +3789,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"typoTolerance\":\"min\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -3840,7 +3827,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"ignorePlurals\":true}", req.body, JSONCompareMode.STRICT);
     });
@@ -3883,7 +3869,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"ignorePlurals\":[\"algolia\"]}", req.body, JSONCompareMode.STRICT);
     });
@@ -3922,7 +3907,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"removeStopWords\":true}", req.body, JSONCompareMode.STRICT);
     });
@@ -3965,7 +3949,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"removeStopWords\":[\"algolia\"]}", req.body, JSONCompareMode.STRICT);
     });
@@ -4255,7 +4238,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/indexes/theIndexName/settings");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"replicas\":[\"\"],\"paginationLimitedTo\":0,\"disableTypoToleranceOnWords\":[\"algolia\"],\"attributesToTransliterate\":[\"algolia\"],\"camelCaseAttributes\":[\"algolia\"],\"decompoundedAttributes\":{\"algolia\":\"aloglia\"},\"indexLanguages\":[\"algolia\"],\"disablePrefixOnAttributes\":[\"algolia\"],\"allowCompressionOfIntegerArray\":true,\"numericAttributesForFiltering\":[\"algolia\"],\"separatorsToIndex\":\"algolia\",\"searchableAttributes\":[\"algolia\"],\"userData\":{\"user\":\"data\"},\"customNormalization\":{\"algolia\":{\"aloglia\":\"aglolia\"}},\"attributesForFaceting\":[\"algolia\"],\"unretrievableAttributes\":[\"algolia\"],\"attributesToRetrieve\":[\"algolia\"],\"restrictSearchableAttributes\":[\"algolia\"],\"ranking\":[\"geo\"],\"customRanking\":[\"algolia\"],\"relevancyStrictness\":10,\"attributesToHighlight\":[\"algolia\"],\"attributesToSnippet\":[\"algolia\"],\"highlightPreTag\":\"<span>\",\"highlightPostTag\":\"</span>\",\"snippetEllipsisText\":\"---\",\"restrictHighlightAndSnippetArrays\":true,\"hitsPerPage\":10,\"minWordSizefor1Typo\":5,\"minWordSizefor2Typos\":11,\"typoTolerance\":false,\"allowTyposOnNumericTokens\":true,\"disableTypoToleranceOnAttributes\":[\"algolia\"],\"ignorePlurals\":false,\"removeStopWords\":false,\"keepDiacriticsOnCharacters\":\"abc\",\"queryLanguages\":[\"algolia\"],\"decompoundQuery\":false,\"enableRules\":false,\"enablePersonalization\":true,\"queryType\":\"prefixLast\",\"removeWordsIfNoResults\":\"lastWords\",\"advancedSyntax\":true,\"optionalWords\":[\"algolia\"],\"disableExactOnAttributes\":[\"algolia\"],\"exactOnSingleWordQuery\":\"attribute\",\"alternativesAsExact\":[\"singleWordSynonym\"],\"advancedSyntaxFeatures\":[\"exactPhrase\"],\"distinct\":3,\"synonyms\":false,\"replaceSynonymsInHighlight\":true,\"minProximity\":6,\"responseFields\":[\"algolia\"],\"maxFacetHits\":50,\"attributeCriteriaComputedByMinProximity\":true,\"renderingContent\":{\"facetOrdering\":{\"facets\":{\"order\":[\"a\",\"b\"]},\"values\":{\"a\":{\"order\":[\"b\"],\"sortRemainingBy\":\"count\"}}}}}",
@@ -4294,7 +4276,6 @@ class SearchClientRequestsTests {
 
     assertEquals(req.path, "/1/keys/myApiKey");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"acl\":[\"search\",\"addObject\"],\"validity\":300,\"maxQueriesPerIPPerHour\":100,\"maxHitsPerQuery\":20}",

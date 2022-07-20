@@ -2,6 +2,7 @@ package com.algolia.methods.requests;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.algolia.EchoInterceptor;
@@ -51,6 +52,7 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -70,6 +72,7 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "DELETE");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -96,6 +99,7 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -115,6 +119,7 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "GET");
+    assertNull(req.body);
 
     try {
       Map<String, String> expectedQuery = json.readValue("{\"query\":\"parameters\"}", new TypeReference<HashMap<String, String>>() {});
@@ -141,6 +146,9 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -165,7 +173,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -208,7 +215,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -254,7 +260,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -300,7 +305,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -357,7 +361,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -414,7 +417,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -460,7 +462,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -506,7 +507,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -552,7 +552,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -598,7 +597,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/requestOptions");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"facet\":\"filters\"}", req.body, JSONCompareMode.STRICT);
     });
@@ -715,7 +713,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/events");
     assertEquals(req.method, "POST");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"events\":[{\"eventType\":\"click\",\"eventName\":\"Product" +
@@ -741,6 +738,9 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/minimal");
     assertEquals(req.method, "PUT");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -765,7 +765,6 @@ class InsightsClientRequestsTests {
 
     assertEquals(req.path, "/1/test/all");
     assertEquals(req.method, "PUT");
-
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"body\":\"parameters\"}", req.body, JSONCompareMode.STRICT);
     });
