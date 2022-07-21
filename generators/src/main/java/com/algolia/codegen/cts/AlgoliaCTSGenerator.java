@@ -1,5 +1,6 @@
 package com.algolia.codegen.cts;
 
+import com.algolia.codegen.GenericPropagator;
 import com.algolia.codegen.Utils;
 import com.algolia.codegen.cts.manager.CTSManager;
 import com.algolia.codegen.cts.manager.CTSManagerFactory;
@@ -13,6 +14,7 @@ import java.util.TreeMap;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.model.ModelMap;
 import org.openapitools.codegen.model.ModelsMap;
+import org.openapitools.codegen.model.OperationsMap;
 
 @SuppressWarnings("unchecked")
 public class AlgoliaCTSGenerator extends DefaultCodegen {
@@ -66,6 +68,7 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
         models.put(entry.getKey(), innerModel.get(0).getModel());
       }
     }
+    GenericPropagator.propagateGenericsToModels(mod);
     return mod;
   }
 
@@ -158,6 +161,13 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
     }
 
     return new TreeMap<String, CodegenOperation>(result);
+  }
+
+  @Override
+  public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> models) {
+    OperationsMap operations = super.postProcessOperationsWithModels(objs, models);
+    GenericPropagator.propagateGenericsToOperations(operations, models);
+    return operations;
   }
 
   @Override

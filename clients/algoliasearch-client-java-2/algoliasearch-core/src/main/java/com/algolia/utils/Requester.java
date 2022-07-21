@@ -2,7 +2,7 @@ package com.algolia.utils;
 
 import com.algolia.exceptions.AlgoliaRuntimeException;
 import com.algolia.utils.retry.StatefulHost;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import java.util.List;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -11,7 +11,7 @@ import okhttp3.Response;
 public interface Requester {
   public Call newCall(Request request);
 
-  public <T> T handleResponse(Response response, TypeReference returnType) throws AlgoliaRuntimeException;
+  public <T> T handleResponse(Response response, JavaType returnType) throws AlgoliaRuntimeException;
 
   /**
    * Enable/disable debugging for this API client.

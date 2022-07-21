@@ -33,8 +33,9 @@ public class TestsClient extends TestsGenerator {
     if (!available()) {
       return;
     }
-    String clientName = language.equals("php") ? Utils.createClientName(client, language) : client;
-    supportingFiles.add(new SupportingFile("client/suite.mustache", outputFolder + "/client", clientName + extension));
+    supportingFiles.add(
+      new SupportingFile("client/suite.mustache", outputFolder + "/client", Utils.createClientName(client, language) + extension)
+    );
   }
 
   public void run(Map<String, CodegenModel> models, Map<String, CodegenOperation> operations, Map<String, Object> bundle) throws Exception {

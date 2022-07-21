@@ -9,11 +9,13 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-class Actor {
+class Actor extends Hit {
 
   public String name;
 
-  Actor(String name) {
+  public Actor() {}
+
+  public Actor(String name) {
     this.name = name;
   }
 }
@@ -57,10 +59,11 @@ public class Search {
       requests.add(SearchQuery.of(new SearchForHits().setIndexName(indexName).setQuery(query).addAttributesToSnippet("title").addAttributesToSnippet("alternative_titles")));
       searchMethodParams.setRequests(requests);
 
-      CompletableFuture<SearchResponses> result = client.searchAsync(searchMethodParams);
+      CompletableFuture<SearchResponses<Actor>> result = client.searchAsync(searchMethodParams, Actor.class);
 
-      SearchResponses sr = result.get();
-      System.out.println(sr);
+      SearchResponses<Actor> sr = result.get();
+      Actor a = sr.getResults().get(0).getHits().get(0);
+      System.out.println(a.name);
     } catch (InterruptedException e) {
       System.err.println("InterrupedException" + e.getMessage());
       e.printStackTrace();

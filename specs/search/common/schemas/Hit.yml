@@ -1,6 +1,7 @@
 hit:
   type: object
   description: A single hit.
+  x-is-generic: true
   additionalProperties: true
   required:
     - objectID

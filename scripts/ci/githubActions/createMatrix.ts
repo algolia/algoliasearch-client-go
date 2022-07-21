@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
-import { CLIENTS, GENERATORS, LANGUAGES } from '../../common';
-import { getLanguageFolder, getTestOutputFolder } from '../../config';
+import { CLIENTS, createClientName, GENERATORS, LANGUAGES } from '../../common';
+import {
+  getLanguageFolder,
+  getTestExtension,
+  getTestOutputFolder,
+} from '../../config';
 import type { Language } from '../../types';
 import { getNbGitDiff } from '../utils';
 
@@ -82,7 +86,18 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
     const testsOutputBase = `${testsRootFolder}/${getTestOutputFolder(
       language
     )}`;
-    const testsToDelete = `${testsOutputBase}/client ${testsOutputBase}/methods`;
+    const testsToDelete = matrix[language].toRun
+      .map((client) => {
+        const clientName = createClientName(client, language);
+        const extension = getTestExtension(language);
+        // REMOVE THIS IN NEXT PR !!
+        const oldPath =
+          language === 'php' ? createClientName(client, language) : client;
+        const tmpPath = `${testsOutputBase}/client/${oldPath}${extension} ${testsOutputBase}/methods/requests/${oldPath}${extension}`;
+
+        return `${testsOutputBase}/client/${clientName}${extension} ${testsOutputBase}/methods/requests/${clientName}${extension} ${tmpPath}`;
+      })
+      .join(' ');
     let testsToStore = testsToDelete;
 
     switch (language) {

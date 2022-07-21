@@ -61,7 +61,7 @@ class {{client}}RequestsTests {
         {{/hasRequestOptions}}
 
         assertDoesNotThrow(() -> {
-            client.{{method}}({{#parametersWithDataType}}{{> maybeConvertOneOf}}{{^-last}},{{/-last}}{{/parametersWithDataType}}{{#hasRequestOptions}}, requestOptions{{/hasRequestOptions}});
+            client.{{method}}({{#parametersWithDataType}}{{> maybeConvertOneOf}}{{^-last}},{{/-last}}{{/parametersWithDataType}}{{#isGeneric}}, Object.class{{/isGeneric}}{{#hasRequestOptions}}, requestOptions{{/hasRequestOptions}});
         });
         EchoResponse req = echo.getLastResponse();
 

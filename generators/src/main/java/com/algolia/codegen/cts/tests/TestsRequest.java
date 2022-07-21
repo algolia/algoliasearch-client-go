@@ -35,8 +35,13 @@ public class TestsRequest extends TestsGenerator {
     if (!available()) {
       return;
     }
-    String clientName = language.equals("php") ? Utils.createClientName(client, language) : client;
-    supportingFiles.add(new SupportingFile("requests/requests.mustache", outputFolder + "/methods/requests", clientName + extension));
+    supportingFiles.add(
+      new SupportingFile(
+        "requests/requests.mustache",
+        outputFolder + "/methods/requests",
+        Utils.createClientName(client, language) + extension
+      )
+    );
   }
 
   @Override
@@ -62,6 +67,7 @@ public class TestsRequest extends TestsGenerator {
         test.put("testIndex", i);
 
         CodegenOperation ope = entry.getValue();
+        test.put("isGeneric", (boolean) ope.vendorExtensions.getOrDefault("x-is-generic", false));
 
         // We check on the spec if body parameters should be present in the CTS
         // If so, we change the `null` default to an empty object, so we know if

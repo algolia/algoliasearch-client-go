@@ -4,7 +4,7 @@ import com.algolia.exceptions.*;
 import com.algolia.utils.retry.RetryStrategy;
 import com.algolia.utils.retry.StatefulHost;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
@@ -47,7 +47,7 @@ public class HttpRequester implements Requester {
   }
 
   @Override
-  public <T> T handleResponse(Response response, TypeReference returnType) throws AlgoliaRuntimeException {
+  public <T> T handleResponse(Response response, JavaType returnType) throws AlgoliaRuntimeException {
     if (response.isSuccessful()) {
       if (returnType == null || response.code() == 204) {
         // returning null if the returnType is not defined, or the status code is 204 (No Content)
@@ -74,12 +74,12 @@ public class HttpRequester implements Requester {
     }
   }
 
-  private <T> T deserialize(Response response, TypeReference returnType) throws AlgoliaRuntimeException {
+  private <T> T deserialize(Response response, JavaType returnType) throws AlgoliaRuntimeException {
     if (response == null || returnType == null) {
       return null;
     }
 
-    if ("byte[]".equals(returnType.getType().getTypeName())) {
+    if ("[byte".equals(returnType.getRawClass().getName())) {
       // Handle binary response (byte array).
       try {
         return (T) response.body().bytes();

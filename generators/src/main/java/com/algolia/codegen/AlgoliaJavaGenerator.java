@@ -7,7 +7,9 @@ import io.swagger.v3.oas.models.servers.Server;
 import java.util.*;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.languages.JavaClientCodegen;
+import org.openapitools.codegen.model.ModelMap;
 import org.openapitools.codegen.model.ModelsMap;
+import org.openapitools.codegen.model.OperationsMap;
 
 @SuppressWarnings("unchecked")
 public class AlgoliaJavaGenerator extends JavaClientCodegen {
@@ -68,6 +70,7 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
 
   @Override
   protected void addAdditionPropertiesToCodeGenModel(CodegenModel codegenModel, Schema schema) {
+    // this is needed to preserve additionalProperties: true
     super.addParentContainer(codegenModel, codegenModel.name, schema);
   }
 
@@ -81,7 +84,9 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
     Map<String, ModelsMap> models = super.postProcessAllModels(objs);
 
     for (ModelsMap modelContainer : models.values()) {
+      // modelContainers always have 1 and only 1 model in our specs
       CodegenModel model = modelContainer.getModels().get(0).getModel();
+
       if (!model.oneOf.isEmpty()) {
         List<HashMap<String, String>> oneOfList = new ArrayList();
 
@@ -101,12 +106,21 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
       }
     }
 
+    GenericPropagator.propagateGenericsToModels(models);
+
     return models;
   }
 
   @Override
+  public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> models) {
+    OperationsMap operations = super.postProcessOperationsWithModels(objs, models);
+    GenericPropagator.propagateGenericsToOperations(operations, models);
+    return operations;
+  }
+
+  @Override
   public String toEnumVarName(String value, String datatype) {
-    if ("String".equals(datatype)) {
+    if ("String".equals(datatype) && !value.matches("[A-Z0-9_]+")) {
       // convert camelCase77String to CAMEL_CASE_77_STRING
       return value.replaceAll("-", "_").replaceAll("(.+?)([A-Z]|[0-9])", "$1_$2").toUpperCase(Locale.ROOT);
     }

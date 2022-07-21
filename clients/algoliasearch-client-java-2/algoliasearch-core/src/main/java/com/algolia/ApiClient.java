@@ -5,6 +5,7 @@ import com.algolia.utils.*;
 import com.algolia.utils.retry.StatefulHost;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -26,7 +27,7 @@ public abstract class ApiClient {
   private String contentType;
 
   private Requester requester;
-  private ObjectMapper json;
+  protected ObjectMapper json;
 
   public ApiClient(String appId, String apiKey, String clientName, String version, ClientOptions options) {
     if (appId == null || appId.length() == 0) {
@@ -262,7 +263,7 @@ public abstract class ApiClient {
    * @param returnType Return type
    * @see #execute(Call, TypeReference)
    */
-  public <T> CompletableFuture<T> executeAsync(Call call, final TypeReference returnType) {
+  public <T> CompletableFuture<T> executeAsync(Call call, final JavaType returnType) {
     final CompletableFuture<T> future = new CompletableFuture<>();
     call.enqueue(
       new Callback() {
@@ -285,6 +286,14 @@ public abstract class ApiClient {
       }
     );
     return future;
+  }
+
+  public <T> CompletableFuture<T> executeAsync(Call call, final Class<?> returnType, final Class<?> innerType) {
+    return executeAsync(call, json.getTypeFactory().constructParametricType(returnType, innerType));
+  }
+
+  public <T> CompletableFuture<T> executeAsync(Call call, final TypeReference returnType) {
+    return executeAsync(call, json.getTypeFactory().constructType(returnType));
   }
 
   /**

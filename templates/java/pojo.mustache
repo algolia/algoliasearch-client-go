@@ -4,7 +4,8 @@
  */{{#isDeprecated}}
 @Deprecated{{/isDeprecated}}
 {{>additionalModelTypeAnnotations}}
-public class {{classname}} {
+
+public class {{classname}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} {
 {{#serializableModel}}
   private static final long serialVersionUID = 1L;
 
@@ -22,7 +23,7 @@ public class {{classname}} {
     {{/isEnum}}
   @JsonProperty("{{baseName}}")
   {{#isContainer}}
-  private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
+      private {{> generic_type}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
   {{/isContainer}}
   {{^isContainer}}
   {{#isDiscriminator}}protected{{/isDiscriminator}}{{^isDiscriminator}}private{{/isDiscriminator}} {{{datatypeWithEnum}}} {{name}};
@@ -46,13 +47,12 @@ public {{classname}} setAdditionalProperty(String name, Object value) {
   {{#vars}}
 
   {{^isReadOnly}}
-  public {{classname}} {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+  public {{classname}} {{setter}}({{> generic_type}} {{name}}) {
     this.{{name}} = {{name}};
     return this;
   }
   {{#isArray}}
-
-  public {{classname}} add{{nameInCamelCase}}({{{items.datatypeWithEnum}}} {{name}}Item) {
+  public {{classname}} add{{nameInCamelCase}}({{#vendorExtensions.x-has-child-generic}}{{{complexType}}}<T>{{/vendorExtensions.x-has-child-generic}}{{^vendorExtensions.x-has-child-generic}}{{#items}}{{> generic_type}}{{/items}}{{/vendorExtensions.x-has-child-generic}} {{name}}Item) {
     {{^required}}
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
@@ -63,8 +63,7 @@ public {{classname}} setAdditionalProperty(String name, Object value) {
   }
   {{/isArray}}
   {{#isMap}}
-
-  public {{classname}} put{{nameInCamelCase}}(String key, {{{items.datatypeWithEnum}}} {{name}}Item) {
+  public {{classname}} put{{nameInCamelCase}}(String key, {{#items}}{{> generic_type}}{{/items}} {{name}}Item) {
     {{^required}}
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
@@ -108,7 +107,7 @@ public {{classname}} setAdditionalProperty(String name, Object value) {
 {{^required}}
   @javax.annotation.Nullable
 {{/required}}
-  public {{{datatypeWithEnum}}} {{getter}}() {
+  public {{> generic_type}} {{getter}}() {
     return {{name}};
   }
 
