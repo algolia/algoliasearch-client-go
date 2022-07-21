@@ -70,6 +70,7 @@ export const CLIENTS = [
 export const CLIENTS_JS_UTILS = [
   'client-common',
   'requester-browser-xhr',
+  'requester-fetch',
   'requester-node-http',
 ];
 

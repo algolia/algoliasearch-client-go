@@ -134,6 +134,7 @@ jobs:
           - client-common
           - requester-browser-xhr
           - requester-node-http
+          - requester-fetch
     steps:
       - uses: actions/checkout@v2
 

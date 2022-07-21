@@ -52,6 +52,13 @@ runs:
         name: client-javascript-utils-requester-node-http
         path: clients/algoliasearch-client-javascript/packages/requester-node-http/
 
+    - name: client-javascript-utils-requester-fetch
+      if: ${{ (inputs.javascript == 'true' && inputs.type == 'all') || inputs.type == 'js_utils' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: client-javascript-utils-requester-fetch
+        path: clients/algoliasearch-client-javascript/packages/requester-fetch/
+
     # JavaScript
     - name: Download clients-javascript artifact
       if: ${{ inputs.javascript == 'true' && inputs.type == 'all' }}
