@@ -69,8 +69,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return SuccessResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public SuccessResponse createConfig(
     QuerySuggestionsIndexWithIndexParam querySuggestionsIndexWithIndexParam,
@@ -144,8 +143,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return Object
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public Object del(String path, Map<String, Object> parameters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(delAsync(path, parameters, requestOptions));
@@ -273,8 +271,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return SuccessResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public SuccessResponse deleteConfig(String indexName, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(deleteConfigAsync(indexName, requestOptions));
@@ -344,8 +341,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return Object
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public Object get(String path, Map<String, Object> parameters, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getAsync(path, parameters, requestOptions));
@@ -470,9 +466,8 @@ public class QuerySuggestionsClient extends ApiClient {
    *
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return List&lt;QuerySuggestionsIndex&gt;
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @return List<QuerySuggestionsIndex>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public List<QuerySuggestionsIndex> getAllConfigs(RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getAllConfigsAsync(requestOptions));
@@ -482,7 +477,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * Get all the configurations of Query Suggestions. For each index, you get a block of JSON with a
    * list of its configuration settings.
    *
-   * @return List&lt;QuerySuggestionsIndex&gt;
+   * @return List<QuerySuggestionsIndex>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public List<QuerySuggestionsIndex> getAllConfigs() throws AlgoliaRuntimeException {
@@ -529,8 +524,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return QuerySuggestionsIndex
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public QuerySuggestionsIndex getConfig(String indexName, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getConfigAsync(indexName, requestOptions));
@@ -593,8 +587,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return Status
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public Status getConfigStatus(String indexName, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getConfigStatusAsync(indexName, requestOptions));
@@ -659,9 +652,8 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param indexName The index in which to perform the request. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return List&lt;LogFile&gt;
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @return List<LogFile>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public List<LogFile> getLogFile(String indexName, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getLogFileAsync(indexName, requestOptions));
@@ -671,7 +663,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * Get the log file of the last build of a single Query Suggestion index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @return List&lt;LogFile&gt;
+   * @return List<LogFile>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public List<LogFile> getLogFile(String indexName) throws AlgoliaRuntimeException {
@@ -725,8 +717,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return Object
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public Object post(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
@@ -859,8 +850,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return Object
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public Object put(String path, Map<String, Object> parameters, Object body, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
@@ -991,8 +981,7 @@ public class QuerySuggestionsClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return SuccessResponse
-   * @throws AlgoliaRuntimeException If fail to call the API, e.g. server error or cannot
-   *     deserialize the response body
+   * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public SuccessResponse updateConfig(
     String indexName,

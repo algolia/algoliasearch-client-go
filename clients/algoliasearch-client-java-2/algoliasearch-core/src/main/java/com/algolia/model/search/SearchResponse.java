@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /** SearchResponse */
-public class SearchResponse {
+public class SearchResponse<T> {
 
   @JsonProperty("abTestID")
   private Integer abTestID;
@@ -89,7 +89,7 @@ public class SearchResponse {
   private RenderingContent renderingContent;
 
   @JsonProperty("hits")
-  private List<Hit> hits = new ArrayList<>();
+  private List<T> hits = new ArrayList<>();
 
   public SearchResponse setAbTestID(Integer abTestID) {
     this.abTestID = abTestID;
@@ -488,12 +488,12 @@ public class SearchResponse {
     return renderingContent;
   }
 
-  public SearchResponse setHits(List<Hit> hits) {
+  public SearchResponse setHits(List<T> hits) {
     this.hits = hits;
     return this;
   }
 
-  public SearchResponse addHits(Hit hitsItem) {
+  public SearchResponse addHits(T hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }
@@ -504,7 +504,7 @@ public class SearchResponse {
    * @return hits
    */
   @javax.annotation.Nonnull
-  public List<Hit> getHits() {
+  public List<T> getHits() {
     return hits;
   }
 

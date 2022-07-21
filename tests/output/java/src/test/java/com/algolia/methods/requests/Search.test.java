@@ -678,7 +678,7 @@ class SearchClientRequestsTests {
     String indexName0 = "indexName";
 
     assertDoesNotThrow(() -> {
-      client.browse(indexName0);
+      client.browse(indexName0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -702,7 +702,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.browse(indexName0, browseRequest0);
+      client.browse(indexName0, browseRequest0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2670,7 +2670,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2705,7 +2705,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2744,7 +2744,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2789,7 +2789,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2842,7 +2842,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2899,7 +2899,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -3008,7 +3008,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -3335,7 +3335,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.search(searchMethodParams0);
+      client.search(searchMethodParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -3482,7 +3482,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchSingleIndex(indexName0, SearchParams.of(searchParams0));
+      client.searchSingleIndex(indexName0, SearchParams.of(searchParams0), Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -3510,7 +3510,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.searchSingleIndex(indexName0, SearchParams.of(searchParams0));
+      client.searchSingleIndex(indexName0, SearchParams.of(searchParams0), Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 

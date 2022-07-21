@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Objects;
 
 /** SearchHits */
-public class SearchHits {
+public class SearchHits<T> {
 
   @JsonProperty("hits")
-  private List<Hit> hits;
+  private List<T> hits;
 
-  public SearchHits setHits(List<Hit> hits) {
+  public SearchHits setHits(List<T> hits) {
     this.hits = hits;
     return this;
   }
 
-  public SearchHits addHits(Hit hitsItem) {
+  public SearchHits addHits(T hitsItem) {
     if (this.hits == null) {
       this.hits = new ArrayList<>();
     }
@@ -33,7 +33,7 @@ public class SearchHits {
    * @return hits
    */
   @javax.annotation.Nullable
-  public List<Hit> getHits() {
+  public List<T> getHits() {
     return hits;
   }
 

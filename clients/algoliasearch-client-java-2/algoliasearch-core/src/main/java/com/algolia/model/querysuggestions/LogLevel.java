@@ -9,11 +9,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** type of the record, can be one of three values (INFO, SKIP or ERROR). */
 public enum LogLevel {
-  I_NF_O("INFO"),
+  INFO("INFO"),
 
-  S_KI_P("SKIP"),
+  SKIP("SKIP"),
 
-  E_RR_OR("ERROR");
+  ERROR("ERROR");
 
   private final String value;
 

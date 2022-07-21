@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /** BrowseResponse */
-public class BrowseResponse {
+public class BrowseResponse<T> {
 
   @JsonProperty("abTestID")
   private Integer abTestID;
@@ -89,7 +89,7 @@ public class BrowseResponse {
   private RenderingContent renderingContent;
 
   @JsonProperty("hits")
-  private List<Hit> hits = new ArrayList<>();
+  private List<T> hits = new ArrayList<>();
 
   @JsonProperty("cursor")
   private String cursor;
@@ -491,12 +491,12 @@ public class BrowseResponse {
     return renderingContent;
   }
 
-  public BrowseResponse setHits(List<Hit> hits) {
+  public BrowseResponse setHits(List<T> hits) {
     this.hits = hits;
     return this;
   }
 
-  public BrowseResponse addHits(Hit hitsItem) {
+  public BrowseResponse addHits(T hitsItem) {
     this.hits.add(hitsItem);
     return this;
   }
@@ -507,7 +507,7 @@ public class BrowseResponse {
    * @return hits
    */
   @javax.annotation.Nonnull
-  public List<Hit> getHits() {
+  public List<T> getHits() {
     return hits;
   }
 
