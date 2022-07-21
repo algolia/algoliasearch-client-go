@@ -163,9 +163,9 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: cd clients/algoliasearch-client-javascript && yarn build ${{ matrix.client }}
 
-      - name: Run tests for 'client-common'
-        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client == 'client-common' }}
-        run: cd clients/algoliasearch-client-javascript && yarn workspace @algolia/client-common test
+      - name: Run tests for '${{ matrix.client }}'
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: cd clients/algoliasearch-client-javascript && yarn workspace @algolia/${{ matrix.client }} test
 
       - name: Store '${{ matrix.client }}' JavaScript utils package
         uses: actions/upload-artifact@v3
