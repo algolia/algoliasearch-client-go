@@ -102,6 +102,27 @@ public class GenericPropagator {
     return false;
   }
 
+  private static void setGenericToComposedSchema(Map<String, CodegenModel> models, List<CodegenProperty> composedSchemas) {
+    if (composedSchemas == null) {
+      return;
+    }
+    for (CodegenProperty prop : composedSchemas) {
+      if (hasGeneric(propertyToModel(models, prop))) {
+        setHasChildGeneric(prop);
+      }
+    }
+  }
+
+  private static void propagateToComposedSchema(Map<String, CodegenModel> models, CodegenModel model) {
+    CodegenComposedSchemas composedSchemas = model.getComposedSchemas();
+    if (composedSchemas == null || !hasGeneric(model)) {
+      return;
+    }
+    setGenericToComposedSchema(models, composedSchemas.getOneOf());
+    setGenericToComposedSchema(models, composedSchemas.getAllOf());
+    setGenericToComposedSchema(models, composedSchemas.getAnyOf());
+  }
+
   private static Map<String, CodegenModel> convertToMap(Map<String, ModelsMap> models) {
     Map<String, CodegenModel> modelsMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     for (ModelsMap modelMap : models.values()) {
@@ -137,6 +158,10 @@ public class GenericPropagator {
 
     for (CodegenModel model : models.values()) {
       propagateGenericRecursive(models, model);
+    }
+
+    for (CodegenModel model : models.values()) {
+      propagateToComposedSchema(models, model);
     }
   }
 

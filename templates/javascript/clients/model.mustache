@@ -11,19 +11,27 @@ import { {{classname}} } from '{{filename}}';
 /**
 * {{{description}}}
 */{{/description}}
-export type {{classname}} = {{#oneOf}}{{{.}}} {{^-last}}|{{/-last}} {{/oneOf}}{{#allOf}}{{{.}}} {{^-last}}&{{/-last}} {{/allOf}};
+export type {{classname}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} = {{#composedSchemas.oneOf}}{{{dataType}}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} {{^-last}}|{{/-last}} {{/composedSchemas.oneOf}}
+{{#composedSchemas.allOf}}{{{dataType}}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} {{^-last}}&{{/-last}} {{/composedSchemas.allOf}};
 {{/interfaces.size}}{{^interfaces.size}}
 {{#description}}
 /**
 * {{{description}}}
 */{{/description}}{{^isEnum}}
-export type {{classname}} = {{#parent}} {{{.}}} & {{/parent}} {
+export type {{classname}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} = {{^vendorExtensions.x-is-generic}}{{#parent}}{{{.}}} & {{/parent}}{{/vendorExtensions.x-is-generic}}{{#vendorExtensions.x-is-generic}}T & {{/vendorExtensions.x-is-generic}} {
+{{#vendorExtensions}}
 {{#vars}}{{#description}}
     /**
     * {{{description}}}
     */{{/description}}
-    {{name}}{{^required}}?{{/required}}: {{#isEnum}}{{classname}}{{{nameInCamelCase}}}{{#isArray}}[]{{/isArray}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};{{/vars}}
-} {{#vendorExtensions.x-is-SearchForHitsOptions}} & { facet?: never; maxFacetHits?: never; facetQuery?: never }; {{/vendorExtensions.x-is-SearchForHitsOptions}}
+    {{name}}{{^required}}?{{/required}}: {{#isEnum}}{{classname}}{{{nameInCamelCase}}}{{#isArray}}[]{{/isArray}}{{/isEnum}}
+    {{^isEnum}}{{#x-propagated-generic}}{{{complexType}}}<T>{{#isArray}}[]{{/isArray}}{{/x-propagated-generic}}
+    {{^x-propagated-generic}}
+      {{#x-has-child-generic}}{{{complexType}}}<T>{{#isArray}}[]{{/isArray}}{{/x-has-child-generic}}
+      {{^x-has-child-generic}}{{{dataType}}}{{/x-has-child-generic}}
+    {{/x-propagated-generic}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};{{/vars}}
+} {{#x-is-SearchForHitsOptions}} & { facet?: never; maxFacetHits?: never; facetQuery?: never }; {{/x-is-SearchForHitsOptions}}
+{{/vendorExtensions}}
 {{/isEnum}}
 {{#hasEnums}}{{#vars}}{{#isEnum}}export type {{classname}}{{nameInCamelCase}} = {{#allowableValues}}{{#enumVars}}{{{value}}}{{^-last}}|{{/-last}}{{/enumVars}}{{/allowableValues}}{{/isEnum}}{{/vars}}{{/hasEnums}}
 {{#isEnum}}export type {{classname}} = {{#allowableValues}}{{#enumVars}}{{{value}}}{{^-last}}|{{/-last}}{{/enumVars}}{{/allowableValues}}{{/isEnum}}

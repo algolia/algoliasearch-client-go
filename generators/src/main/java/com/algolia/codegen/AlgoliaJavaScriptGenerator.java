@@ -4,10 +4,12 @@ import com.algolia.codegen.exceptions.*;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.servers.Server;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.languages.TypeScriptNodeClientCodegen;
 import org.openapitools.codegen.model.ModelMap;
+import org.openapitools.codegen.model.ModelsMap;
 import org.openapitools.codegen.model.OperationsMap;
 
 public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
@@ -132,6 +134,13 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     }
   }
 
+  @Override
+  public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
+    Map<String, ModelsMap> models = super.postProcessAllModels(objs);
+    GenericPropagator.propagateGenericsToModels(models);
+    return models;
+  }
+
   /** Provides an opportunity to inspect and modify operation data before the code is generated. */
   @Override
   public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
@@ -175,6 +184,8 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
       // Any other cases here are wrapped
       ope.vendorExtensions.put("x-create-wrapping-object", true);
     }
+
+    GenericPropagator.propagateGenericsToOperations(results, allModels);
 
     return results;
   }

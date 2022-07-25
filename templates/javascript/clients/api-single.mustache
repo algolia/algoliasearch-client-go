@@ -57,7 +57,7 @@ export function create{{capitalizedApiName}}({
     {{/isSearchClient}}
     {{#operation}}
     {{> client/api/operation/jsdoc}}
-    {{nickname}}( {{> client/api/operation/parameters}} ) : Promise<{{{returnType}}}> {
+    {{nickname}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}( {{> client/api/operation/parameters}} ) : Promise<{{{returnType}}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}> {
       {{#vendorExtensions.x-legacy-signature}}
         {{> client/api/operation/legacySearchCompatible/implementation}}
       {{/vendorExtensions.x-legacy-signature}}

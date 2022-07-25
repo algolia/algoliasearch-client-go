@@ -190,4 +190,8 @@ public class Utils {
       "This file is generated, manual changes will be lost - read more on" + " https://github.com/algolia/api-clients-automation."
     );
   }
+
+  public static void prettyPrint(Object o) {
+    Json.prettyPrint(o);
+  }
 }
