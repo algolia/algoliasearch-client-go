@@ -188,9 +188,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/ui-library@npm:5.84.0":
-  version: 5.84.0
-  resolution: "@algolia/ui-library@npm:5.84.0"
+"@algolia/ui-library@npm:5.85.2":
+  version: 5.85.2
+  resolution: "@algolia/ui-library@npm:5.85.2"
   dependencies:
     "@algolia/fragments.js": ^2.0.0-beta.12
     "@emotion/react": ^11.4.1
@@ -199,7 +199,7 @@ __metadata:
   peerDependencies:
     react: 17.0.1
     react-dom: ^17.0.1
-  checksum: 6becf941288d53e65ac302fd829319b3f1f9a31abeeb21ed1e5ce6dc295ca302074dceb4a9702ac5662ed77569043e0bbd010431ce74be8f187393cb5d482308
+  checksum: 39d70c4788b866303224e1dfe4e68037b126fb490c79a128c311bb955357c71a73c8b012ea23b74a0b020895ce48903883d3e672c12b9f20e7782a32b63ed1a6
   languageName: node
   linkType: hard
 
@@ -12150,7 +12150,7 @@ __metadata:
 
 "typescript@patch:typescript@>3#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=7ad353"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -12824,7 +12824,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "website@workspace:."
   dependencies:
-    "@algolia/ui-library": 5.84.0
+    "@algolia/ui-library": 5.85.2
     "@docusaurus/core": 2.0.0-rc.1
     "@docusaurus/preset-classic": 2.0.0-rc.1
     "@docusaurus/types": 2.0.0-rc.1

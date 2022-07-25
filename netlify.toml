@@ -4,4 +4,4 @@
   ignore="bash ./scripts/website/netlify-ignore-build.sh"
 
 [build.environment]
-  YARN_VERSION = "3.2.1"
+  YARN_VERSION = "3.2.2"

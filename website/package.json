@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "@algolia/ui-library": "5.84.0",
+    "@algolia/ui-library": "5.85.2",
     "@docusaurus/core": "2.0.0-rc.1",
     "@docusaurus/preset-classic": "2.0.0-rc.1",
     "@docusaurus/types": "2.0.0-rc.1",
