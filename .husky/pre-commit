@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-./scripts/ci/husky/pre-commit.js
+./scripts/husky/pre-commit.js
+./scripts/husky/format-generators.js

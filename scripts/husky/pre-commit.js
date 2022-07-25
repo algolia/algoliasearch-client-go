@@ -3,18 +3,13 @@
 /* eslint-disable import/no-commonjs */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const chalk = require('chalk');
-const execa = require('execa');
 const micromatch = require('micromatch');
 
-const clientConfig = require('../../../config/clients.config.json');
+const clientConfig = require('../../config/clients.config.json');
 const GENERATED_FILE_PATTERNS =
-  require('../../../config/generation.config').patterns;
+  require('../../config/generation.config').patterns;
 
-const run = async (command, { cwd } = {}) => {
-  return (
-    (await execa.command(command, { shell: 'bash', all: true, cwd })).all ?? ''
-  );
-};
+const { run } = require('./utils');
 
 function getPatterns() {
   const patterns = GENERATED_FILE_PATTERNS;
