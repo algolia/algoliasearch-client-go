@@ -98,15 +98,6 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
         return `${testsOutputBase}/client/${clientName}${extension} ${testsOutputBase}/methods/requests/${clientName}${extension} ${tmpPath}`;
       })
       .join(' ');
-    let testsToStore = testsToDelete;
-
-    switch (language) {
-      case 'java':
-        testsToStore = `${testsToDelete} ${testsRootFolder}/build.gradle`;
-        break;
-      default:
-        break;
-    }
 
     clientMatrix.client.push({
       language,
@@ -120,7 +111,6 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       ]),
       testsRootFolder,
       testsToDelete,
-      testsToStore,
     });
     console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
   }

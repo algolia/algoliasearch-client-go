@@ -37,10 +37,6 @@ export type ClientMatrix = BaseMatrix & {
    * The test output path to delete before running the CTS generation.
    */
   testsToDelete: string;
-  /**
-   * The test output path to store in the artifact.
-   */
-  testsToStore: string;
 };
 
 export type SpecMatrix = Pick<BaseMatrix, 'cacheKey' | 'toRun'> & {
