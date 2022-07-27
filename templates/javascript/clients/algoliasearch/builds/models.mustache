@@ -17,6 +17,11 @@ export * from '{{{npmNamespace}}}/client-personalization/model';
 export * from '{{{npmNamespace}}}/client-analytics/model';
 export * from '{{{npmNamespace}}}/client-abtesting/model';
 
+export { SearchClient } from '{{{npmNamespace}}}/client-search';
+export { PersonalizationClient } from '{{{npmNamespace}}}/client-personalization';
+export { AnalyticsClient } from '{{{npmNamespace}}}/client-analytics';
+export { AbtestingClient } from '{{{npmNamespace}}}/client-abtesting';
+
 export { ErrorBase, PutProps, PostProps, DelProps, GetProps };
 
 export type CommonClientOptions = { requester?: Requester; hosts?: Host[] };
