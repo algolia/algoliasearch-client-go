@@ -2,22 +2,16 @@
   {
     "testName": "search with minimal parameters",
     "parameters": {
-      "indexName": "indexName",
-      "searchParams": {
-        "query": "myQuery"
-      }
+      "indexName": "indexName"
     },
     "request": {
       "path": "/1/indexes/indexName/query",
-      "method": "POST",
-      "body": {
-        "query": "myQuery"
-      }
+      "method": "POST"
     }
   },
   {
     "method": "search",
-    "testName": "search with facetFilters",
+    "testName": "search with searchParams",
     "parameters": {
       "indexName": "indexName",
       "searchParams": {

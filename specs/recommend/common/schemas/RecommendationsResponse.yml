@@ -11,6 +11,8 @@ recommendHits:
       type: array
       items:
         $ref: '#/recommendHit'
+  required:
+    - hits
 
 recommendHit:
   type: object

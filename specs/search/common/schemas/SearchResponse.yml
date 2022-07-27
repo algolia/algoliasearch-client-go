@@ -26,12 +26,13 @@ searchHits:
       type: array
       items:
         $ref: 'Hit.yml#/hit'
+  required:
+    - hits
 
 baseSearchResponse:
   type: object
   additionalProperties: false
   required:
-    - hits
     - nbHits
     - page
     - nbPages
@@ -47,7 +48,7 @@ baseSearchResponse:
       description: If a search encounters an index that is being A/B tested, abTestID reports the ongoing A/B test ID.
     abTestVariantID:
       type: integer
-      description: If a search encounters an index that is being A/B tested, abTestVariantID reports the variant ID of the index used.
+      description: If a search encounters an index that is being A/B tested, abTestVariantID reports the variant ID of the index used (starting at 1).
     aroundLatLng:
       type: string
       description: The computed geo location.
@@ -70,7 +71,7 @@ baseSearchResponse:
       additionalProperties:
         type: object
         additionalProperties:
-          type: string
+          type: integer
       description: A mapping of each facet name to the corresponding facet counts.
       example:
         category:
