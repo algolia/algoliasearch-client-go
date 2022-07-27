@@ -1,3 +1,7 @@
+## [4.4.1-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.4.0-SNAPSHOT...4.4.1-SNAPSHOT)
+
+- [6bdc94f5](https://github.com/algolia/api-clients-automation/commit/6bdc94f5) fix(specs): make `hits` required, `facets` count as an integer, `searchParams` as optional ([#868](https://github.com/algolia/api-clients-automation/pull/868)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.4.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.3.0-SNAPSHOT...4.4.0-SNAPSHOT)
 
 - [d3fb62c8](https://github.com/algolia/api-clients-automation/commit/d3fb62c8) feat(java): generic support for hits ([#829](https://github.com/algolia/api-clients-automation/pull/829)) by [@millotp](https://github.com/millotp/)
