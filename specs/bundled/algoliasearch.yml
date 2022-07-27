@@ -964,7 +964,6 @@ components:
       type: object
       additionalProperties: false
       required:
-        - hits
         - nbHits
         - page
         - nbPages
@@ -984,7 +983,8 @@ components:
           type: integer
           description: >-
             If a search encounters an index that is being A/B tested,
-            abTestVariantID reports the variant ID of the index used.
+            abTestVariantID reports the variant ID of the index used (starting
+            at 1).
         aroundLatLng:
           type: string
           description: The computed geo location.
@@ -1011,7 +1011,7 @@ components:
           additionalProperties:
             type: object
             additionalProperties:
-              type: string
+              type: integer
           description: A mapping of each facet name to the corresponding facet counts.
           example:
             category:
@@ -1275,6 +1275,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/hit'
+      required:
+        - hits
     SearchResponse:
       allOf:
         - $ref: '#/components/schemas/baseSearchResponse'

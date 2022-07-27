@@ -33,7 +33,7 @@ public class BaseSearchResponse {
   private Boolean exhaustiveTypo;
 
   @JsonProperty("facets")
-  private Map<String, Map<String, String>> facets;
+  private Map<String, Map<String, Integer>> facets;
 
   @JsonProperty("facets_stats")
   private Map<String, FacetsStats> facetsStats;
@@ -109,7 +109,7 @@ public class BaseSearchResponse {
 
   /**
    * If a search encounters an index that is being A/B tested, abTestVariantID reports the variant
-   * ID of the index used.
+   * ID of the index used (starting at 1).
    *
    * @return abTestVariantID
    */
@@ -195,12 +195,12 @@ public class BaseSearchResponse {
     return exhaustiveTypo;
   }
 
-  public BaseSearchResponse setFacets(Map<String, Map<String, String>> facets) {
+  public BaseSearchResponse setFacets(Map<String, Map<String, Integer>> facets) {
     this.facets = facets;
     return this;
   }
 
-  public BaseSearchResponse putFacets(String key, Map<String, String> facetsItem) {
+  public BaseSearchResponse putFacets(String key, Map<String, Integer> facetsItem) {
     if (this.facets == null) {
       this.facets = new HashMap<>();
     }
@@ -214,7 +214,7 @@ public class BaseSearchResponse {
    * @return facets
    */
   @javax.annotation.Nullable
-  public Map<String, Map<String, String>> getFacets() {
+  public Map<String, Map<String, Integer>> getFacets() {
     return facets;
   }
 

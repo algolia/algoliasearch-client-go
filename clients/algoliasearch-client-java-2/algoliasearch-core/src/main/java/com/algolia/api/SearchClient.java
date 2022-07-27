@@ -5443,7 +5443,7 @@ public class SearchClient extends ApiClient {
    * Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param searchParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
@@ -5463,7 +5463,7 @@ public class SearchClient extends ApiClient {
    * Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param searchParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @return <T> SearchResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
@@ -5474,10 +5474,37 @@ public class SearchClient extends ApiClient {
   }
 
   /**
+   * Perform a search operation targeting one specific index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return <T> SearchResponse<T>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public <T> SearchResponse<T> searchSingleIndex(String indexName, Class<T> innerType, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.searchSingleIndex(indexName, null, innerType, requestOptions);
+  }
+
+  /**
+   * Perform a search operation targeting one specific index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @return <T> SearchResponse<T>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public <T> SearchResponse<T> searchSingleIndex(String indexName, Class<T> innerType) throws AlgoliaRuntimeException {
+    return this.searchSingleIndex(indexName, null, innerType, null);
+  }
+
+  /**
    * (asynchronously) Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param searchParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
@@ -5494,11 +5521,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchSingleIndex`.");
     }
 
-    if (searchParams == null) {
-      throw new AlgoliaRuntimeException("Parameter `searchParams` is required when calling `searchSingleIndex`.");
-    }
-
-    Object bodyObj = searchParams;
+    Object bodyObj = searchParams != null ? searchParams : new Object();
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/query".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
@@ -5514,7 +5537,7 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param searchParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @return <T> CompletableFuture<SearchResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
@@ -5522,6 +5545,37 @@ public class SearchClient extends ApiClient {
   public <T> CompletableFuture<SearchResponse<T>> searchSingleIndexAsync(String indexName, SearchParams searchParams, Class<T> innerType)
     throws AlgoliaRuntimeException {
     return this.searchSingleIndexAsync(indexName, searchParams, innerType, null);
+  }
+
+  /**
+   * (asynchronously) Perform a search operation targeting one specific index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return <T> CompletableFuture<SearchResponse<T>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public <T> CompletableFuture<SearchResponse<T>> searchSingleIndexAsync(
+    String indexName,
+    Class<T> innerType,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return this.searchSingleIndexAsync(indexName, null, innerType, requestOptions);
+  }
+
+  /**
+   * (asynchronously) Perform a search operation targeting one specific index.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @return <T> CompletableFuture<SearchResponse<T>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public <T> CompletableFuture<SearchResponse<T>> searchSingleIndexAsync(String indexName, Class<T> innerType)
+    throws AlgoliaRuntimeException {
+    return this.searchSingleIndexAsync(indexName, null, innerType, null);
   }
 
   /**

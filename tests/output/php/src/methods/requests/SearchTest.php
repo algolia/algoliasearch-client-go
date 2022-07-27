@@ -2517,23 +2517,20 @@ class SearchTest extends TestCase implements HttpClientInterface
     public function testSearchSingleIndex0()
     {
         $client = $this->getClient();
-        $client->searchSingleIndex(
-            'indexName',
-            ['query' => 'myQuery']
-        );
+        $client->searchSingleIndex('indexName');
 
         $this->assertRequests([
             [
                 'path' => '/1/indexes/indexName/query',
                 'method' => 'POST',
-                'body' => json_decode("{\"query\":\"myQuery\"}"),
+                'body' => json_decode('{}'),
             ],
         ]);
     }
 
     /**
      * Test case for SearchSingleIndex
-     * search with facetFilters
+     * search with searchParams
      */
     public function testSearchSingleIndex1()
     {

@@ -3475,26 +3475,21 @@ class SearchClientRequestsTests {
   @DisplayName("search with minimal parameters")
   void searchSingleIndexTest0() {
     String indexName0 = "indexName";
-    SearchParamsObject searchParams0 = new SearchParamsObject();
-    {
-      String query1 = "myQuery";
-      searchParams0.setQuery(query1);
-    }
 
     assertDoesNotThrow(() -> {
-      client.searchSingleIndex(indexName0, SearchParams.of(searchParams0), Object.class);
+      client.searchSingleIndex(indexName0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/query");
     assertEquals(req.method, "POST");
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"query\":\"myQuery\"}", req.body, JSONCompareMode.STRICT);
+      JSONAssert.assertEquals("{}", req.body, JSONCompareMode.STRICT);
     });
   }
 
   @Test
-  @DisplayName("search with facetFilters")
+  @DisplayName("search with searchParams")
   void searchSingleIndexTest1() {
     String indexName0 = "indexName";
     SearchParamsObject searchParams0 = new SearchParamsObject();

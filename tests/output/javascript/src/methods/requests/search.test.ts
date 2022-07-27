@@ -1945,16 +1945,15 @@ describe('searchSingleIndex', () => {
   test('search with minimal parameters', async () => {
     const req = (await client.searchSingleIndex({
       indexName: 'indexName',
-      searchParams: { query: 'myQuery' },
     })) as unknown as EchoResponse;
 
     expect(req.path).toEqual('/1/indexes/indexName/query');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual({ query: 'myQuery' });
+    expect(req.data).toEqual({});
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('search with facetFilters', async () => {
+  test('search with searchParams', async () => {
     const req = (await client.searchSingleIndex({
       indexName: 'indexName',
       searchParams: { query: 'myQuery', facetFilters: ['tags:algolia'] },

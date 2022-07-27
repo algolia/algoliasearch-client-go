@@ -12,7 +12,7 @@ import java.util.Objects;
 public class SearchHits<T> {
 
   @JsonProperty("hits")
-  private List<T> hits;
+  private List<T> hits = new ArrayList<>();
 
   public SearchHits setHits(List<T> hits) {
     this.hits = hits;
@@ -20,9 +20,6 @@ public class SearchHits<T> {
   }
 
   public SearchHits addHits(T hitsItem) {
-    if (this.hits == null) {
-      this.hits = new ArrayList<>();
-    }
     this.hits.add(hitsItem);
     return this;
   }
@@ -32,7 +29,7 @@ public class SearchHits<T> {
    *
    * @return hits
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<T> getHits() {
     return hits;
   }

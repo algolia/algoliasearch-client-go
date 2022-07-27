@@ -12,7 +12,7 @@ import java.util.Objects;
 public class RecommendHits {
 
   @JsonProperty("hits")
-  private List<RecommendHit> hits;
+  private List<RecommendHit> hits = new ArrayList<>();
 
   public RecommendHits setHits(List<RecommendHit> hits) {
     this.hits = hits;
@@ -20,9 +20,6 @@ public class RecommendHits {
   }
 
   public RecommendHits addHits(RecommendHit hitsItem) {
-    if (this.hits == null) {
-      this.hits = new ArrayList<>();
-    }
     this.hits.add(hitsItem);
     return this;
   }
@@ -32,7 +29,7 @@ public class RecommendHits {
    *
    * @return hits
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<RecommendHit> getHits() {
     return hits;
   }
