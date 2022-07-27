@@ -86,18 +86,27 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
     const testsOutputBase = `${testsRootFolder}/${getTestOutputFolder(
       language
     )}`;
-    const testsToDelete = matrix[language].toRun
+    // We delete all tests because the CTS runs everything present in the folder
+    // but we then re-generate the ones that needs to run
+    const testsToDelete = `${testsOutputBase}/client ${testsOutputBase}/methods/requests`;
+
+    // We only store tests of clients that ran during this job, the rest stay as is
+    let testsToStore = matrix[language].toRun
       .map((client) => {
         const clientName = createClientName(client, language);
         const extension = getTestExtension(language);
-        // REMOVE THIS IN NEXT PR !!
-        const oldPath =
-          language === 'php' ? createClientName(client, language) : client;
-        const tmpPath = `${testsOutputBase}/client/${oldPath}${extension} ${testsOutputBase}/methods/requests/${oldPath}${extension}`;
 
-        return `${testsOutputBase}/client/${clientName}${extension} ${testsOutputBase}/methods/requests/${clientName}${extension} ${tmpPath}`;
+        return `${testsOutputBase}/client/${clientName}${extension} ${testsOutputBase}/methods/requests/${clientName}${extension}`;
       })
       .join(' ');
+
+    switch (language) {
+      case 'java':
+        testsToStore = `${testsToStore} ${testsRootFolder}/build.gradle`;
+        break;
+      default:
+        break;
+    }
 
     clientMatrix.client.push({
       language,
@@ -111,6 +120,7 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       ]),
       testsRootFolder,
       testsToDelete,
+      testsToStore,
     });
     console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
   }
