@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ListIndicesResponse {
 
   @JsonProperty("items")
-  private List<FetchedIndex> items;
+  private List<FetchedIndex> items = new ArrayList<>();
 
   @JsonProperty("nbPages")
   private Integer nbPages;
@@ -23,9 +23,6 @@ public class ListIndicesResponse {
   }
 
   public ListIndicesResponse addItems(FetchedIndex itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<>();
-    }
     this.items.add(itemsItem);
     return this;
   }
@@ -35,7 +32,7 @@ public class ListIndicesResponse {
    *
    * @return items
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<FetchedIndex> getItems() {
     return items;
   }

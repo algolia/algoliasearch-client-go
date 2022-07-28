@@ -6,8 +6,8 @@ package com.algolia.model.search;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
-/** MultipleBatchOperation */
-public class MultipleBatchOperation {
+/** MultipleBatchRequest */
+public class MultipleBatchRequest {
 
   @JsonProperty("action")
   private Action action;
@@ -18,7 +18,7 @@ public class MultipleBatchOperation {
   @JsonProperty("indexName")
   private String indexName;
 
-  public MultipleBatchOperation setAction(Action action) {
+  public MultipleBatchRequest setAction(Action action) {
     this.action = action;
     return this;
   }
@@ -33,7 +33,7 @@ public class MultipleBatchOperation {
     return action;
   }
 
-  public MultipleBatchOperation setBody(Object body) {
+  public MultipleBatchRequest setBody(Object body) {
     this.body = body;
     return this;
   }
@@ -48,7 +48,7 @@ public class MultipleBatchOperation {
     return body;
   }
 
-  public MultipleBatchOperation setIndexName(String indexName) {
+  public MultipleBatchRequest setIndexName(String indexName) {
     this.indexName = indexName;
     return this;
   }
@@ -71,11 +71,11 @@ public class MultipleBatchOperation {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultipleBatchOperation multipleBatchOperation = (MultipleBatchOperation) o;
+    MultipleBatchRequest multipleBatchRequest = (MultipleBatchRequest) o;
     return (
-      Objects.equals(this.action, multipleBatchOperation.action) &&
-      Objects.equals(this.body, multipleBatchOperation.body) &&
-      Objects.equals(this.indexName, multipleBatchOperation.indexName)
+      Objects.equals(this.action, multipleBatchRequest.action) &&
+      Objects.equals(this.body, multipleBatchRequest.body) &&
+      Objects.equals(this.indexName, multipleBatchRequest.indexName)
     );
   }
 
@@ -87,7 +87,7 @@ public class MultipleBatchOperation {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultipleBatchOperation {\n");
+    sb.append("class MultipleBatchRequest {\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
     sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");

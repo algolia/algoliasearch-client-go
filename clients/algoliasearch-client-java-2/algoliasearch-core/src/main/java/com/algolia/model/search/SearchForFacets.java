@@ -219,7 +219,7 @@ public class SearchForFacets {
   private List<AdvancedSyntaxFeatures> advancedSyntaxFeatures;
 
   @JsonProperty("distinct")
-  private Integer distinct;
+  private Distinct distinct;
 
   @JsonProperty("synonyms")
   private Boolean synonyms;
@@ -1460,18 +1460,18 @@ public class SearchForFacets {
     return advancedSyntaxFeatures;
   }
 
-  public SearchForFacets setDistinct(Integer distinct) {
+  public SearchForFacets setDistinct(Distinct distinct) {
     this.distinct = distinct;
     return this;
   }
 
   /**
-   * Enables de-duplication or grouping of results. minimum: 0 maximum: 4
+   * Get distinct
    *
    * @return distinct
    */
   @javax.annotation.Nullable
-  public Integer getDistinct() {
+  public Distinct getDistinct() {
     return distinct;
   }
 

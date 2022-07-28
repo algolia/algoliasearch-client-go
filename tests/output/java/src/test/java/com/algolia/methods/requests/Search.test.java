@@ -168,9 +168,9 @@ class SearchClientRequestsTests {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
-      List<BatchOperation> requests1 = new ArrayList<>();
+      List<BatchRequest> requests1 = new ArrayList<>();
       {
-        BatchOperation requests_02 = new BatchOperation();
+        BatchRequest requests_02 = new BatchRequest();
         {
           Action action3 = Action.fromValue("addObject");
           requests_02.setAction(action3);
@@ -204,9 +204,9 @@ class SearchClientRequestsTests {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
-      List<BatchOperation> requests1 = new ArrayList<>();
+      List<BatchRequest> requests1 = new ArrayList<>();
       {
-        BatchOperation requests_02 = new BatchOperation();
+        BatchRequest requests_02 = new BatchRequest();
         {
           Action action3 = Action.fromValue("clear");
           requests_02.setAction(action3);
@@ -240,9 +240,9 @@ class SearchClientRequestsTests {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
-      List<BatchOperation> requests1 = new ArrayList<>();
+      List<BatchRequest> requests1 = new ArrayList<>();
       {
-        BatchOperation requests_02 = new BatchOperation();
+        BatchRequest requests_02 = new BatchRequest();
         {
           Action action3 = Action.fromValue("delete");
           requests_02.setAction(action3);
@@ -276,9 +276,9 @@ class SearchClientRequestsTests {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
-      List<BatchOperation> requests1 = new ArrayList<>();
+      List<BatchRequest> requests1 = new ArrayList<>();
       {
-        BatchOperation requests_02 = new BatchOperation();
+        BatchRequest requests_02 = new BatchRequest();
         {
           Action action3 = Action.fromValue("deleteObject");
           requests_02.setAction(action3);
@@ -316,9 +316,9 @@ class SearchClientRequestsTests {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
-      List<BatchOperation> requests1 = new ArrayList<>();
+      List<BatchRequest> requests1 = new ArrayList<>();
       {
-        BatchOperation requests_02 = new BatchOperation();
+        BatchRequest requests_02 = new BatchRequest();
         {
           Action action3 = Action.fromValue("partialUpdateObject");
           requests_02.setAction(action3);
@@ -356,9 +356,9 @@ class SearchClientRequestsTests {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
-      List<BatchOperation> requests1 = new ArrayList<>();
+      List<BatchRequest> requests1 = new ArrayList<>();
       {
-        BatchOperation requests_02 = new BatchOperation();
+        BatchRequest requests_02 = new BatchRequest();
         {
           Action action3 = Action.fromValue("partialUpdateObjectNoCreate");
           requests_02.setAction(action3);
@@ -396,9 +396,9 @@ class SearchClientRequestsTests {
     String indexName0 = "theIndexName";
     BatchWriteParams batchWriteParams0 = new BatchWriteParams();
     {
-      List<BatchOperation> requests1 = new ArrayList<>();
+      List<BatchRequest> requests1 = new ArrayList<>();
       {
-        BatchOperation requests_02 = new BatchOperation();
+        BatchRequest requests_02 = new BatchRequest();
         {
           Action action3 = Action.fromValue("updateObject");
           requests_02.setAction(action3);
@@ -1084,9 +1084,9 @@ class SearchClientRequestsTests {
   void getObjectsTest0() {
     GetObjectsParams getObjectsParams0 = new GetObjectsParams();
     {
-      List<MultipleGetObjectsParams> requests1 = new ArrayList<>();
+      List<GetObjectsRequest> requests1 = new ArrayList<>();
       {
-        MultipleGetObjectsParams requests_02 = new MultipleGetObjectsParams();
+        GetObjectsRequest requests_02 = new GetObjectsRequest();
         {
           List<String> attributesToRetrieve3 = new ArrayList<>();
           {
@@ -1107,7 +1107,7 @@ class SearchClientRequestsTests {
     }
 
     assertDoesNotThrow(() -> {
-      client.getObjects(getObjectsParams0);
+      client.getObjects(getObjectsParams0, Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -1342,9 +1342,9 @@ class SearchClientRequestsTests {
   void multipleBatchTest0() {
     BatchParams batchParams0 = new BatchParams();
     {
-      List<MultipleBatchOperation> requests1 = new ArrayList<>();
+      List<MultipleBatchRequest> requests1 = new ArrayList<>();
       {
-        MultipleBatchOperation requests_02 = new MultipleBatchOperation();
+        MultipleBatchRequest requests_02 = new MultipleBatchRequest();
         {
           Action action3 = Action.fromValue("addObject");
           requests_02.setAction(action3);
@@ -3275,7 +3275,7 @@ class SearchClientRequestsTests {
           }
           requests_02.setAdvancedSyntaxFeatures(advancedSyntaxFeatures3);
           int distinct3 = 0;
-          requests_02.setDistinct(distinct3);
+          requests_02.setDistinct(Distinct.of(distinct3));
           boolean synonyms3 = true;
           requests_02.setSynonyms(synonyms3);
           boolean replaceSynonymsInHighlight3 = true;
@@ -3965,8 +3965,84 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("setSettings allow all `indexSettings`")
+  @DisplayName("setSettings allow boolean `distinct`")
   void setSettingsTest7() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      boolean distinct1 = true;
+      indexSettings0.setDistinct(Distinct.of(distinct1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"distinct\":true}", req.body, JSONCompareMode.STRICT);
+    });
+
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
+
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow integers for `distinct`")
+  void setSettingsTest8() {
+    String indexName0 = "theIndexName";
+    IndexSettings indexSettings0 = new IndexSettings();
+    {
+      int distinct1 = 1;
+      indexSettings0.setDistinct(Distinct.of(distinct1));
+    }
+    boolean forwardToReplicas0 = true;
+
+    assertDoesNotThrow(() -> {
+      client.setSettings(indexName0, indexSettings0, forwardToReplicas0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/theIndexName/settings");
+    assertEquals(req.method, "PUT");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"distinct\":1}", req.body, JSONCompareMode.STRICT);
+    });
+
+    try {
+      Map<String, String> expectedQuery = json.readValue(
+        "{\"forwardToReplicas\":\"true\"}",
+        new TypeReference<HashMap<String, String>>() {}
+      );
+      Map<String, Object> actualQuery = req.queryParameters;
+
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
+    }
+  }
+
+  @Test
+  @DisplayName("setSettings allow all `indexSettings`")
+  void setSettingsTest9() {
     String indexName0 = "theIndexName";
     IndexSettings indexSettings0 = new IndexSettings();
     {
@@ -4171,7 +4247,7 @@ class SearchClientRequestsTests {
       }
       indexSettings0.setAdvancedSyntaxFeatures(advancedSyntaxFeatures1);
       int distinct1 = 3;
-      indexSettings0.setDistinct(distinct1);
+      indexSettings0.setDistinct(Distinct.of(distinct1));
       boolean synonyms1 = false;
       indexSettings0.setSynonyms(synonyms1);
       boolean replaceSynonymsInHighlight1 = true;

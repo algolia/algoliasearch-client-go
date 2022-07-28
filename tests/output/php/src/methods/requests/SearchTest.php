@@ -2856,9 +2856,61 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for SetSettings
-     * setSettings allow all `indexSettings`
+     * setSettings allow boolean `distinct`
      */
     public function testSetSettings7()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['distinct' => true],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"distinct\":true}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow integers for `distinct`
+     */
+    public function testSetSettings8()
+    {
+        $client = $this->getClient();
+        $client->setSettings(
+            'theIndexName',
+            ['distinct' => 1],
+            true
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/theIndexName/settings',
+                'method' => 'PUT',
+                'body' => json_decode("{\"distinct\":1}"),
+                'queryParameters' => json_decode(
+                    "{\"forwardToReplicas\":\"true\"}",
+                    true
+                ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for SetSettings
+     * setSettings allow all `indexSettings`
+     */
+    public function testSetSettings9()
     {
         $client = $this->getClient();
         $client->setSettings(

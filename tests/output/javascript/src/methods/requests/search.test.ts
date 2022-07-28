@@ -2150,6 +2150,32 @@ describe('setSettings', () => {
     expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
   });
 
+  test('setSettings allow boolean `distinct`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { distinct: true },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ distinct: true });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
+  test('setSettings allow integers for `distinct`', async () => {
+    const req = (await client.setSettings({
+      indexName: 'theIndexName',
+      indexSettings: { distinct: 1 },
+      forwardToReplicas: true,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/theIndexName/settings');
+    expect(req.method).toEqual('PUT');
+    expect(req.data).toEqual({ distinct: 1 });
+    expect(req.searchParams).toStrictEqual({ forwardToReplicas: 'true' });
+  });
+
   test('setSettings allow all `indexSettings`', async () => {
     const req = (await client.setSettings({
       indexName: 'theIndexName',

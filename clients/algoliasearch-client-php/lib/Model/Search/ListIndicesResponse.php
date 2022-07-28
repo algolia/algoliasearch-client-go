@@ -126,6 +126,13 @@ class ListIndicesResponse extends \Algolia\AlgoliaSearch\Model\AbstractModel imp
     {
         $invalidProperties = [];
 
+        if (
+            !isset($this->container['items']) ||
+            $this->container['items'] === null
+        ) {
+            $invalidProperties[] = "'items' can't be null";
+        }
+
         return $invalidProperties;
     }
 
@@ -143,7 +150,7 @@ class ListIndicesResponse extends \Algolia\AlgoliaSearch\Model\AbstractModel imp
     /**
      * Gets items
      *
-     * @return \Algolia\AlgoliaSearch\Model\Search\FetchedIndex[]|null
+     * @return \Algolia\AlgoliaSearch\Model\Search\FetchedIndex[]
      */
     public function getItems()
     {
@@ -153,7 +160,7 @@ class ListIndicesResponse extends \Algolia\AlgoliaSearch\Model\AbstractModel imp
     /**
      * Sets items
      *
-     * @param \Algolia\AlgoliaSearch\Model\Search\FetchedIndex[]|null $items list of the fetched indices
+     * @param \Algolia\AlgoliaSearch\Model\Search\FetchedIndex[] $items list of the fetched indices
      *
      * @return self
      */

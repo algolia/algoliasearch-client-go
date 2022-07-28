@@ -2448,24 +2448,27 @@ public class SearchClient extends ApiClient {
    * Retrieve one or more objects, potentially from different indices, in a single API call.
    *
    * @param getObjectsParams The Algolia object. (required)
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return GetObjectsResponse
+   * @return <T> GetObjectsResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public GetObjectsResponse getObjects(GetObjectsParams getObjectsParams, RequestOptions requestOptions) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(getObjectsAsync(getObjectsParams, requestOptions));
+  public <T> GetObjectsResponse<T> getObjects(GetObjectsParams getObjectsParams, Class<T> innerType, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getObjectsAsync(getObjectsParams, innerType, requestOptions));
   }
 
   /**
    * Retrieve one or more objects, potentially from different indices, in a single API call.
    *
    * @param getObjectsParams The Algolia object. (required)
-   * @return GetObjectsResponse
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @return <T> GetObjectsResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public GetObjectsResponse getObjects(GetObjectsParams getObjectsParams) throws AlgoliaRuntimeException {
-    return this.getObjects(getObjectsParams, null);
+  public <T> GetObjectsResponse<T> getObjects(GetObjectsParams getObjectsParams, Class<T> innerType) throws AlgoliaRuntimeException {
+    return this.getObjects(getObjectsParams, innerType, null);
   }
 
   /**
@@ -2473,13 +2476,17 @@ public class SearchClient extends ApiClient {
    * API call.
    *
    * @param getObjectsParams The Algolia object. (required)
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CompletableFuture<GetObjectsResponse> The awaitable future
+   * @return <T> CompletableFuture<GetObjectsResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<GetObjectsResponse> getObjectsAsync(GetObjectsParams getObjectsParams, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public <T> CompletableFuture<GetObjectsResponse<T>> getObjectsAsync(
+    GetObjectsParams getObjectsParams,
+    Class<T> innerType,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
     if (getObjectsParams == null) {
       throw new AlgoliaRuntimeException("Parameter `getObjectsParams` is required when calling `getObjects`.");
     }
@@ -2493,7 +2500,7 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, true);
-    return this.executeAsync(call, new TypeReference<GetObjectsResponse>() {});
+    return this.executeAsync(call, GetObjectsResponse.class, innerType);
   }
 
   /**
@@ -2501,11 +2508,13 @@ public class SearchClient extends ApiClient {
    * API call.
    *
    * @param getObjectsParams The Algolia object. (required)
-   * @return CompletableFuture<GetObjectsResponse> The awaitable future
+   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @return <T> CompletableFuture<GetObjectsResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<GetObjectsResponse> getObjectsAsync(GetObjectsParams getObjectsParams) throws AlgoliaRuntimeException {
-    return this.getObjectsAsync(getObjectsParams, null);
+  public <T> CompletableFuture<GetObjectsResponse<T>> getObjectsAsync(GetObjectsParams getObjectsParams, Class<T> innerType)
+    throws AlgoliaRuntimeException {
+    return this.getObjectsAsync(getObjectsParams, innerType, null);
   }
 
   /**

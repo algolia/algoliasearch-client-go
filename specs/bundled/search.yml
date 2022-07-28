@@ -564,6 +564,16 @@ components:
         - excludeWords
       x-categories:
         - Query strategy
+    distinct:
+      description: Enables de-duplication or grouping of results.
+      oneOf:
+        - type: boolean
+        - type: integer
+          minimum: 0
+          maximum: 4
+          default: 0
+      x-categories:
+        - Advanced
     maxFacetHits:
       type: integer
       description: >-
@@ -884,13 +894,7 @@ components:
           x-categories:
             - Query strategy
         distinct:
-          type: integer
-          minimum: 0
-          maximum: 4
-          description: Enables de-duplication or grouping of results.
-          default: 0
-          x-categories:
-            - Advanced
+          $ref: '#/components/schemas/distinct'
         synonyms:
           type: boolean
           description: >-
@@ -1990,6 +1994,11 @@ components:
         - objectID
         - updatedAt
         - taskID
+    rules:
+      type: array
+      description: Rules to add.
+      items:
+        $ref: '#/components/schemas/rule'
     parameters_query:
       type: string
       description: Full text query.
@@ -2253,6 +2262,8 @@ components:
           type: integer
           description: Number of pages.
           example: 100
+      required:
+        - items
   responses:
     BadRequest:
       description: Bad request or request arguments.
@@ -2760,6 +2771,9 @@ paths:
                     $ref: '#/components/schemas/taskID'
                   objectID:
                     $ref: '#/components/schemas/objectID'
+                required:
+                  - taskID
+                  - createdAt
         '400':
           $ref: '#/components/responses/BadRequest'
         '402':
@@ -3002,7 +3016,7 @@ paths:
                 requests:
                   type: array
                   items:
-                    title: batchOperation
+                    title: batchRequest
                     type: object
                     additionalProperties: false
                     properties:
@@ -3060,7 +3074,7 @@ paths:
                 requests:
                   type: array
                   items:
-                    title: multipleBatchOperation
+                    title: multipleBatchRequest
                     type: object
                     additionalProperties: false
                     properties:
@@ -3123,7 +3137,7 @@ paths:
                   type: array
                   items:
                     description: getObjects operation on an index.
-                    title: multipleGetObjectsParams
+                    title: getObjectsRequest
                     type: object
                     additionalProperties: false
                     required:
@@ -3159,6 +3173,9 @@ paths:
                     items:
                       type: object
                       description: Fetched object.
+                      x-is-generic: true
+                required:
+                  - results
         '400':
           $ref: '#/components/responses/BadRequest'
         '402':
@@ -3672,10 +3689,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              description: Rules to add.
-              items:
-                $ref: '#/components/schemas/rule'
+              $ref: '#/components/schemas/rules'
       responses:
         '200':
           $ref: '#/components/responses/UpdatedAt'

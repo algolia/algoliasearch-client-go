@@ -28,7 +28,7 @@ public class SaveObjectResponse {
    *
    * @return createdAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getCreatedAt() {
     return createdAt;
   }
@@ -43,7 +43,7 @@ public class SaveObjectResponse {
    *
    * @return taskID
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Long getTaskID() {
     return taskID;
   }

@@ -9,20 +9,17 @@ import java.util.List;
 import java.util.Objects;
 
 /** GetObjectsResponse */
-public class GetObjectsResponse {
+public class GetObjectsResponse<T> {
 
   @JsonProperty("results")
-  private List<Object> results;
+  private List<T> results = new ArrayList<>();
 
-  public GetObjectsResponse setResults(List<Object> results) {
+  public GetObjectsResponse setResults(List<T> results) {
     this.results = results;
     return this;
   }
 
-  public GetObjectsResponse addResults(Object resultsItem) {
-    if (this.results == null) {
-      this.results = new ArrayList<>();
-    }
+  public GetObjectsResponse addResults(T resultsItem) {
     this.results.add(resultsItem);
     return this;
   }
@@ -32,8 +29,8 @@ public class GetObjectsResponse {
    *
    * @return results
    */
-  @javax.annotation.Nullable
-  public List<Object> getResults() {
+  @javax.annotation.Nonnull
+  public List<T> getResults() {
     return results;
   }
 

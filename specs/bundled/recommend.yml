@@ -459,6 +459,16 @@ components:
         - excludeWords
       x-categories:
         - Query strategy
+    distinct:
+      description: Enables de-duplication or grouping of results.
+      oneOf:
+        - type: boolean
+        - type: integer
+          minimum: 0
+          maximum: 4
+          default: 0
+      x-categories:
+        - Advanced
     maxFacetHits:
       type: integer
       description: >-
@@ -779,13 +789,7 @@ components:
           x-categories:
             - Query strategy
         distinct:
-          type: integer
-          minimum: 0
-          maximum: 4
-          description: Enables de-duplication or grouping of results.
-          default: 0
-          x-categories:
-            - Advanced
+          $ref: '#/components/schemas/distinct'
         synonyms:
           type: boolean
           description: >-

@@ -114,7 +114,7 @@ public class IndexSettingsAsSearchParams {
   private List<AdvancedSyntaxFeatures> advancedSyntaxFeatures;
 
   @JsonProperty("distinct")
-  private Integer distinct;
+  private Distinct distinct;
 
   @JsonProperty("synonyms")
   private Boolean synonyms;
@@ -764,18 +764,18 @@ public class IndexSettingsAsSearchParams {
     return advancedSyntaxFeatures;
   }
 
-  public IndexSettingsAsSearchParams setDistinct(Integer distinct) {
+  public IndexSettingsAsSearchParams setDistinct(Distinct distinct) {
     this.distinct = distinct;
     return this;
   }
 
   /**
-   * Enables de-duplication or grouping of results. minimum: 0 maximum: 4
+   * Get distinct
    *
    * @return distinct
    */
   @javax.annotation.Nullable
-  public Integer getDistinct() {
+  public Distinct getDistinct() {
     return distinct;
   }
 

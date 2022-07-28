@@ -6,8 +6,8 @@ package com.algolia.model.search;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
-/** BatchOperation */
-public class BatchOperation {
+/** BatchRequest */
+public class BatchRequest {
 
   @JsonProperty("action")
   private Action action;
@@ -15,7 +15,7 @@ public class BatchOperation {
   @JsonProperty("body")
   private Object body;
 
-  public BatchOperation setAction(Action action) {
+  public BatchRequest setAction(Action action) {
     this.action = action;
     return this;
   }
@@ -30,7 +30,7 @@ public class BatchOperation {
     return action;
   }
 
-  public BatchOperation setBody(Object body) {
+  public BatchRequest setBody(Object body) {
     this.body = body;
     return this;
   }
@@ -53,8 +53,8 @@ public class BatchOperation {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BatchOperation batchOperation = (BatchOperation) o;
-    return Objects.equals(this.action, batchOperation.action) && Objects.equals(this.body, batchOperation.body);
+    BatchRequest batchRequest = (BatchRequest) o;
+    return Objects.equals(this.action, batchRequest.action) && Objects.equals(this.body, batchRequest.body);
   }
 
   @Override
@@ -65,7 +65,7 @@ public class BatchOperation {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BatchOperation {\n");
+    sb.append("class BatchRequest {\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
     sb.append("}");
