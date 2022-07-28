@@ -7,7 +7,7 @@ import { DEFAULT_CONNECT_TIMEOUT_BROWSER, DEFAULT_READ_TIMEOUT_BROWSER, DEFAULT_
 export function {{apiName}}(
   appId: string,
   apiKey: string,{{#hasRegionalHost}}region{{#fallbackToAliasHost}}?{{/fallbackToAliasHost}}: Region,{{/hasRegionalHost}}
-  options?: InitClientOptions
+  options?: ClientOptions
 ): {{capitalizedApiName}} {
   {{> client/builds/checkParameters}}
 

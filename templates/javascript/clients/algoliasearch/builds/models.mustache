@@ -3,6 +3,7 @@
 import type {
   Host,
   Requester,
+  ClientOptions,
 } from '{{{npmNamespace}}}/client-common';
 import {
   ErrorBase,
@@ -24,9 +25,10 @@ export { AbtestingClient } from '{{{npmNamespace}}}/client-abtesting';
 
 export { ErrorBase, PutProps, PostProps, DelProps, GetProps };
 
-export type CommonClientOptions = { requester?: Requester; hosts?: Host[] };
-
-export type CommonInitOptions = Partial<{
+/**
+ * Options forwarded to the client initialized via the `init` method.
+ */
+export type InitClientOptions = Partial<{
   /**
    * App to target with the initialized client, defaults to the `algoliasearch` appId.
    */
@@ -35,10 +37,10 @@ export type CommonInitOptions = Partial<{
    * API key of the targeted app ID, defaults to the `algoliasearch` apiKey.
    */
   apiKey: string;
-  options: CommonClientOptions;
+  options: ClientOptions;
 }>;
 
-export type InitRegion<TRegion> = Partial<{
+export type InitClientRegion<TRegion> = Partial<{
   /**
    * Available regions of the initialized client.
    */

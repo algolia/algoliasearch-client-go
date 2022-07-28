@@ -1,4 +1,4 @@
-function initAnalytics(initOptions: CommonInitOptions & InitRegion<AnalyticsRegion> = {}): AnalyticsClient {
+function initAnalytics(initOptions: InitClientOptions & InitClientRegion<AnalyticsRegion> = {}): AnalyticsClient {
   if (
     initOptions.region &&
     (typeof initOptions.region !== 'string' ||
@@ -16,7 +16,7 @@ function initAnalytics(initOptions: CommonInitOptions & InitRegion<AnalyticsRegi
   });
 }
 
-function initAbtesting(initOptions: CommonInitOptions & InitRegion<AbtestingRegion> = {}): AbtestingClient {
+function initAbtesting(initOptions: InitClientOptions & InitClientRegion<AbtestingRegion> = {}): AbtestingClient {
   if (
     initOptions.region &&
     (typeof initOptions.region !== 'string' ||
@@ -34,7 +34,7 @@ function initAbtesting(initOptions: CommonInitOptions & InitRegion<AbtestingRegi
   });
 }
 
-function initPersonalization(initOptions: CommonInitOptions & Required<InitRegion<PersonalizationRegion>>): PersonalizationClient {
+function initPersonalization(initOptions: InitClientOptions & Required<InitClientRegion<PersonalizationRegion>>): PersonalizationClient {
   if (!initOptions.region) {
     throw new Error('`region` is missing.');
   }
