@@ -1,3 +1,7 @@
+## [4.4.2-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.4.1-SNAPSHOT...4.4.2-SNAPSHOT)
+
+- [95ba0016](https://github.com/algolia/api-clients-automation/commit/95ba0016) fix(specs): `rules` and `objects` parameters/responses ([#876](https://github.com/algolia/api-clients-automation/pull/876)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.4.1-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.4.0-SNAPSHOT...4.4.1-SNAPSHOT)
 
 - [6bdc94f5](https://github.com/algolia/api-clients-automation/commit/6bdc94f5) fix(specs): make `hits` required, `facets` count as an integer, `searchParams` as optional ([#868](https://github.com/algolia/api-clients-automation/pull/868)) by [@shortcuts](https://github.com/shortcuts/)
