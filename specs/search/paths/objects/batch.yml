@@ -19,7 +19,7 @@ post:
             requests:
               type: array
               items:
-                title: batchOperation
+                title: batchRequest
                 type: object
                 additionalProperties: false
                 properties:

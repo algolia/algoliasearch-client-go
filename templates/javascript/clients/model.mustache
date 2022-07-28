@@ -11,25 +11,20 @@ import { {{classname}} } from '{{filename}}';
 /**
 * {{{description}}}
 */{{/description}}
-export type {{classname}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} = {{#composedSchemas.oneOf}}{{{dataType}}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} {{^-last}}|{{/-last}} {{/composedSchemas.oneOf}}
-{{#composedSchemas.allOf}}{{{dataType}}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} {{^-last}}&{{/-last}} {{/composedSchemas.allOf}};
+export type {{classname}}{{> client/model/types/isGeneric}} = {{#composedSchemas.oneOf}}{{{dataType}}}{{> client/model/types/propagateGeneric}} {{^-last}}|{{/-last}} {{/composedSchemas.oneOf}}{{#composedSchemas.allOf}}{{{dataType}}}{{> client/model/types/propagateGeneric}} {{^-last}}&{{/-last}} {{/composedSchemas.allOf}};
 {{/interfaces.size}}{{^interfaces.size}}
 {{#description}}
 /**
 * {{{description}}}
 */{{/description}}{{^isEnum}}
-export type {{classname}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}{{#vendorExtensions.x-has-child-generic}}<T>{{/vendorExtensions.x-has-child-generic}} = {{^vendorExtensions.x-is-generic}}{{#parent}}{{{.}}} & {{/parent}}{{/vendorExtensions.x-is-generic}}{{#vendorExtensions.x-is-generic}}T & {{/vendorExtensions.x-is-generic}} {
+export type {{classname}}{{> client/model/types/isGeneric}} = {{^vendorExtensions.x-is-generic}}{{#parent}}{{{.}}} & {{/parent}}{{/vendorExtensions.x-is-generic}}{{#vendorExtensions.x-is-generic}}T & {{/vendorExtensions.x-is-generic}} {
 {{#vendorExtensions}}
 {{#vars}}{{#description}}
     /**
     * {{{description}}}
     */{{/description}}
-    {{name}}{{^required}}?{{/required}}: {{#isEnum}}{{classname}}{{{nameInCamelCase}}}{{#isArray}}[]{{/isArray}}{{/isEnum}}
-    {{^isEnum}}{{#x-propagated-generic}}{{{complexType}}}<T>{{#isArray}}[]{{/isArray}}{{/x-propagated-generic}}
-    {{^x-propagated-generic}}
-      {{#x-has-child-generic}}{{{complexType}}}<T>{{#isArray}}[]{{/isArray}}{{/x-has-child-generic}}
-      {{^x-has-child-generic}}{{{dataType}}}{{/x-has-child-generic}}
-    {{/x-propagated-generic}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};{{/vars}}
+    {{name}}{{^required}}?{{/required}}: {{> client/model/types/dataType}} ;
+{{/vars}}
 } {{#x-is-SearchForHitsOptions}} & { facet?: never; maxFacetHits?: never; facetQuery?: never }; {{/x-is-SearchForHitsOptions}}
 {{/vendorExtensions}}
 {{/isEnum}}

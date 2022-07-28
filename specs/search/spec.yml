@@ -115,7 +115,7 @@ paths:
   /1/indexes/*/batch:
     $ref: 'paths/objects/multipleBatch.yml'
   /1/indexes/*/objects:
-    $ref: 'paths/objects/multipleGetObjects.yml'
+    $ref: 'paths/objects/getObjects.yml'
 
   # ##########################
   # ### Settings Endpoints ###

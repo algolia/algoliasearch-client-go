@@ -17,7 +17,7 @@ post:
             requests:
               type: array
               items:
-                title: multipleBatchOperation
+                title: multipleBatchRequest
                 type: object
                 additionalProperties: false
                 properties:

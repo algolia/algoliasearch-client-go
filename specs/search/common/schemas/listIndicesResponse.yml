@@ -11,6 +11,8 @@ listIndicesResponse:
       type: integer
       description: Number of pages.
       example: 100
+  required:
+    - items
 
 fetchedIndex:
   type: object

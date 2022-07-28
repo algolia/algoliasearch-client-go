@@ -21,7 +21,7 @@ post:
               type: array
               items:
                 description: getObjects operation on an index.
-                title: multipleGetObjectsParams
+                title: getObjectsRequest
                 type: object
                 additionalProperties: false
                 required:
@@ -55,6 +55,9 @@ post:
                 items:
                   type: object
                   description: Fetched object.
+                  x-is-generic: true
+            required:
+              - results
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

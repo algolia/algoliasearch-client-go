@@ -13,10 +13,7 @@ post:
     content:
       application/json:
         schema:
-          type: array
-          description: Rules to add.
-          items:
-            $ref: 'common/schemas.yml#/rule'
+          $ref: 'common/schemas.yml#/rules'
   responses:
     '200':
       $ref: '../../../common/responses/UpdatedAt.yml'
