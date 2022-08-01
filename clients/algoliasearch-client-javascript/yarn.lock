@@ -12,7 +12,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -24,7 +24,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -49,7 +49,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -61,7 +61,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -73,7 +73,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -85,7 +85,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -97,7 +97,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -109,7 +109,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -121,7 +121,7 @@ __metadata:
     "@algolia/client-common": 5.0.0-alpha.3
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -3462,13 +3462,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.11.45":
-  version: 16.11.45
-  resolution: "@types/node@npm:16.11.45"
-  checksum: 57d61c951024f66d796e71e4a972faef266007398cd4e93a195822fea2d5deb41d0615f394a99ece89772b145ff057321d138c7e3442455dc7d785ff67cebde3
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:16.11.47":
   version: 16.11.47
   resolution: "@types/node@npm:16.11.47"
@@ -3714,7 +3707,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.3
     "@algolia/requester-node-http": 5.0.0-alpha.3
     "@types/jest": 28.1.6
-    "@types/node": 16.11.45
+    "@types/node": 16.11.47
     jest: 28.1.3
     ts-jest: 28.0.7
     typescript: 4.7.4
