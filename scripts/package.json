@@ -20,7 +20,7 @@
     "@types/js-yaml": "4.0.5",
     "@types/micromatch": "4.0.2",
     "@types/mustache": "4.2.1",
-    "@types/node": "16.11.45",
+    "@types/node": "16.11.47",
     "@types/semver": "7.3.10",
     "chalk": "4.1.2",
     "commander": "9.4.0",
