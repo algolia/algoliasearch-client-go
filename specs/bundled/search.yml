@@ -3734,7 +3734,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/IndexName'
       requestBody:
-        required: true
         content:
           application/json:
             schema:

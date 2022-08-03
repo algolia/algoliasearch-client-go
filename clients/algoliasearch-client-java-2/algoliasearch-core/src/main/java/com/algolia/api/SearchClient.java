@@ -5377,7 +5377,7 @@ public class SearchClient extends ApiClient {
    * Search for rules matching various criteria.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchRulesParams (required)
+   * @param searchRulesParams (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return SearchRulesResponse
@@ -5392,7 +5392,7 @@ public class SearchClient extends ApiClient {
    * Search for rules matching various criteria.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchRulesParams (required)
+   * @param searchRulesParams (optional)
    * @return SearchRulesResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -5401,10 +5401,34 @@ public class SearchClient extends ApiClient {
   }
 
   /**
+   * Search for rules matching various criteria.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return SearchRulesResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public SearchRulesResponse searchRules(String indexName, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.searchRules(indexName, null, requestOptions);
+  }
+
+  /**
+   * Search for rules matching various criteria.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @return SearchRulesResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public SearchRulesResponse searchRules(String indexName) throws AlgoliaRuntimeException {
+    return this.searchRules(indexName, null, null);
+  }
+
+  /**
    * (asynchronously) Search for rules matching various criteria.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchRulesParams (required)
+   * @param searchRulesParams (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return CompletableFuture<SearchRulesResponse> The awaitable future
@@ -5419,11 +5443,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `searchRules`.");
     }
 
-    if (searchRulesParams == null) {
-      throw new AlgoliaRuntimeException("Parameter `searchRulesParams` is required when calling `searchRules`.");
-    }
-
-    Object bodyObj = searchRulesParams;
+    Object bodyObj = searchRulesParams != null ? searchRulesParams : new Object();
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/rules/search".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
@@ -5439,13 +5459,38 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Search for rules matching various criteria.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchRulesParams (required)
+   * @param searchRulesParams (optional)
    * @return CompletableFuture<SearchRulesResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public CompletableFuture<SearchRulesResponse> searchRulesAsync(String indexName, SearchRulesParams searchRulesParams)
     throws AlgoliaRuntimeException {
     return this.searchRulesAsync(indexName, searchRulesParams, null);
+  }
+
+  /**
+   * (asynchronously) Search for rules matching various criteria.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<SearchRulesResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<SearchRulesResponse> searchRulesAsync(String indexName, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return this.searchRulesAsync(indexName, null, requestOptions);
+  }
+
+  /**
+   * (asynchronously) Search for rules matching various criteria.
+   *
+   * @param indexName The index in which to perform the request. (required)
+   * @return CompletableFuture<SearchRulesResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<SearchRulesResponse> searchRulesAsync(String indexName) throws AlgoliaRuntimeException {
+    return this.searchRulesAsync(indexName, null, null);
   }
 
   /**
