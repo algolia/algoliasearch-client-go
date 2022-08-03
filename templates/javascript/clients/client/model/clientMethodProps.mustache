@@ -10,7 +10,7 @@ import { {{classname}} } from '{{filename}}';
 {{#operations}}{{#operation}}{{#vendorExtensions.x-legacy-signature}}{{> client/api/operation/legacySearchCompatible/imports}}{{/vendorExtensions.x-legacy-signature}}{{/operation}}{{/operations}}
 
 {{! Imports for the helpers method of the search client }}
-{{#isSearchClient}}import type { CreateRetryablePromiseOptions } from '{{{npmNamespace}}}/client-common';{{/isSearchClient}}
+{{#isSearchClient}}import type { CreateIterablePromise } from '{{{npmNamespace}}}/client-common';{{/isSearchClient}}
 
 {{#operations}}
 {{#operation}}
@@ -40,10 +40,28 @@ export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props = {
 {{/operations}}
 
 {{#isSearchClient}}
+/**
+ * The `browseObjects`, `browseRules`, `browseSynonyms` options.
+ */
+export type BrowseOptions<T> = Partial<
+  Pick<CreateIterablePromise<T>, 'validate'>
+> &
+  Required<Pick<CreateIterablePromise<T>, 'aggregator'>>;
+
 type WaitForOptions<T> = Omit<
-  CreateRetryablePromiseOptions<T>,
-  'func' | 'validate'
->;
+  CreateIterablePromise<T>,
+  'func' | 'timeout' | 'validate'
+> & {
+  /**
+   * The maximum number of retries. 50 by default.
+   */
+  maxRetries: number;
+
+  /**
+   * The function to decide how long to wait between retries.
+   */
+  timeout: (retryCount: number) => number;
+};
 
 export type WaitForTaskOptions = WaitForOptions<GetTaskResponse> & {
   /**

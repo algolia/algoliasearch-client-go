@@ -415,6 +415,81 @@ client.batch("<YOUR_INDEX_NAME>", new BatchWriteParams().setRequests(batch));
 
 </td></tr></tbody></table>
 
+<table width="100%"><tbody><tr><td width="400px" valign="top">
+
+### `browseObjects`/`browseRules`/`browseSynonyms`
+
+<hr />
+
+The `browseObjects`/`browseRules`/`browseSynonyms` signature have changed to match the general usage of the API clients.
+
+</td><td width="600px">
+
+<TabsLanguage>
+<TabItem value="javascript">
+
+```js
+// browse records
+const records: Record<string, any> = [];
+
+await client.browseObjects({
+  // all base `browse` options are forwarded to the `browse` method
+  indexName: '<YOUR_INDEX_NAME>',
+
+  // the aggregator to execute right after the API call has been resolved
+  aggregator: (response) => records.push(...response.hits),
+});
+
+console.log(records, records.length);
+
+// browse rules
+const rules: Record<string, any> = [];
+
+await client.browseRules({
+  // all base `searchRules` options are forwarded to the `searchRules` method
+  indexName: '<YOUR_INDEX_NAME>',
+
+  // the aggregator to execute right after the API call has been resolved
+  aggregator: (response) => rules.push(...response.hits),
+});
+
+console.log(rules, rules.length);
+
+// browse synonyms
+const synonyms: Record<string, any> = [];
+
+await client.browseSynonyms({
+  // all base `searchSynonyms` options are forwarded to the `searchSynonyms` method
+  indexName: '<YOUR_INDEX_NAME>',
+
+  // the aggregator to execute right after the API call has been resolved
+  aggregator: (response) => synonyms.push(...response.hits),
+});
+
+console.log(synonyms, synonyms.length);
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+// WIP
+
+```
+
+</TabItem>
+<TabItem value="java">
+
+```java
+// WIP
+
+```
+
+</TabItem>
+</TabsLanguage>
+
+</td></tr></tbody></table>
+
 ## Client's specific breaking changes
 
 You can find specific client breaking changes in their own section:

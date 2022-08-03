@@ -37,12 +37,14 @@ export function create{{capitalizedApiName}}({
 
   return {
     transporter,
+
     /**
      * Get the value of the `algoliaAgent`, used by our libraries internally and telemetry system.
      */
     get _ua(): string {
       return transporter.algoliaAgent.value;
     },
+
     /**
      * Adds a `segment` to the `x-algolia-agent` sent with every requests.
      *
@@ -52,6 +54,7 @@ export function create{{capitalizedApiName}}({
     addAlgoliaAgent(segment: string, version?: string): void {
       transporter.algoliaAgent.add({ segment, version });
     },
+
     {{#isSearchClient}}
     {{> client/api/helpers}}
     {{/isSearchClient}}
