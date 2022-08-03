@@ -12,14 +12,14 @@ import java.util.Objects;
 public class ListApiKeysResponse {
 
   @JsonProperty("keys")
-  private List<Key> keys = new ArrayList<>();
+  private List<GetApiKeyResponse> keys = new ArrayList<>();
 
-  public ListApiKeysResponse setKeys(List<Key> keys) {
+  public ListApiKeysResponse setKeys(List<GetApiKeyResponse> keys) {
     this.keys = keys;
     return this;
   }
 
-  public ListApiKeysResponse addKeys(Key keysItem) {
+  public ListApiKeysResponse addKeys(GetApiKeyResponse keysItem) {
     this.keys.add(keysItem);
     return this;
   }
@@ -30,7 +30,7 @@ public class ListApiKeysResponse {
    * @return keys
    */
   @javax.annotation.Nonnull
-  public List<Key> getKeys() {
+  public List<GetApiKeyResponse> getKeys() {
     return keys;
   }
 

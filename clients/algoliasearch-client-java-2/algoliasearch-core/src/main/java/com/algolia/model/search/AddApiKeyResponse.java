@@ -21,7 +21,7 @@ public class AddApiKeyResponse {
   }
 
   /**
-   * Key string.
+   * The API key.
    *
    * @return key
    */

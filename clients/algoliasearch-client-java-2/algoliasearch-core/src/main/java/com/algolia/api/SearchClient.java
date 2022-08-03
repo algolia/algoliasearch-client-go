@@ -1980,10 +1980,10 @@ public class SearchClient extends ApiClient {
    * @param key API Key string. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return Key
+   * @return GetApiKeyResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public Key getApiKey(String key, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+  public GetApiKeyResponse getApiKey(String key, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getApiKeyAsync(key, requestOptions));
   }
 
@@ -1991,10 +1991,10 @@ public class SearchClient extends ApiClient {
    * Get the permissions of an API key.
    *
    * @param key API Key string. (required)
-   * @return Key
+   * @return GetApiKeyResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public Key getApiKey(String key) throws AlgoliaRuntimeException {
+  public GetApiKeyResponse getApiKey(String key) throws AlgoliaRuntimeException {
     return this.getApiKey(key, null);
   }
 
@@ -2004,10 +2004,10 @@ public class SearchClient extends ApiClient {
    * @param key API Key string. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CompletableFuture<Key> The awaitable future
+   * @return CompletableFuture<GetApiKeyResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<Key> getApiKeyAsync(String key, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetApiKeyResponse> getApiKeyAsync(String key, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     if (key == null) {
       throw new AlgoliaRuntimeException("Parameter `key` is required when calling `getApiKey`.");
     }
@@ -2021,17 +2021,17 @@ public class SearchClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    return this.executeAsync(call, new TypeReference<Key>() {});
+    return this.executeAsync(call, new TypeReference<GetApiKeyResponse>() {});
   }
 
   /**
    * (asynchronously) Get the permissions of an API key.
    *
    * @param key API Key string. (required)
-   * @return CompletableFuture<Key> The awaitable future
+   * @return CompletableFuture<GetApiKeyResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<Key> getApiKeyAsync(String key) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetApiKeyResponse> getApiKeyAsync(String key) throws AlgoliaRuntimeException {
     return this.getApiKeyAsync(key, null);
   }
 
@@ -3643,7 +3643,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
@@ -3654,13 +3654,11 @@ public class SearchClient extends ApiClient {
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
+    List<Map<String, AttributeToUpdate>> attributeToUpdate,
     Boolean createIfNotExists,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(
-      partialUpdateObjectAsync(indexName, objectID, attributeOrBuiltInOperation, createIfNotExists, requestOptions)
-    );
+    return LaunderThrowable.await(partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, createIfNotExists, requestOptions));
   }
 
   /**
@@ -3671,7 +3669,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @return UpdatedAtWithObjectIdResponse
@@ -3680,10 +3678,10 @@ public class SearchClient extends ApiClient {
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
+    List<Map<String, AttributeToUpdate>> attributeToUpdate,
     Boolean createIfNotExists
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObject(indexName, objectID, attributeOrBuiltInOperation, createIfNotExists, null);
+    return this.partialUpdateObject(indexName, objectID, attributeToUpdate, createIfNotExists, null);
   }
 
   /**
@@ -3694,7 +3692,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return UpdatedAtWithObjectIdResponse
@@ -3703,10 +3701,10 @@ public class SearchClient extends ApiClient {
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
+    List<Map<String, AttributeToUpdate>> attributeToUpdate,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObject(indexName, objectID, attributeOrBuiltInOperation, null, requestOptions);
+    return this.partialUpdateObject(indexName, objectID, attributeToUpdate, null, requestOptions);
   }
 
   /**
@@ -3717,16 +3715,16 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @return UpdatedAtWithObjectIdResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation
+    List<Map<String, AttributeToUpdate>> attributeToUpdate
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObject(indexName, objectID, attributeOrBuiltInOperation, null, null);
+    return this.partialUpdateObject(indexName, objectID, attributeToUpdate, null, null);
   }
 
   /**
@@ -3737,7 +3735,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
@@ -3748,7 +3746,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
+    List<Map<String, AttributeToUpdate>> attributeToUpdate,
     Boolean createIfNotExists,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
@@ -3760,11 +3758,11 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `partialUpdateObject`.");
     }
 
-    if (attributeOrBuiltInOperation == null) {
-      throw new AlgoliaRuntimeException("Parameter `attributeOrBuiltInOperation` is required when calling" + " `partialUpdateObject`.");
+    if (attributeToUpdate == null) {
+      throw new AlgoliaRuntimeException("Parameter `attributeToUpdate` is required when calling `partialUpdateObject`.");
     }
 
-    Object bodyObj = attributeOrBuiltInOperation;
+    Object bodyObj = attributeToUpdate;
 
     // create path and map variables
     String requestPath =
@@ -3790,7 +3788,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @return CompletableFuture<UpdatedAtWithObjectIdResponse> The awaitable future
@@ -3799,10 +3797,10 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
+    List<Map<String, AttributeToUpdate>> attributeToUpdate,
     Boolean createIfNotExists
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObjectAsync(indexName, objectID, attributeOrBuiltInOperation, createIfNotExists, null);
+    return this.partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, createIfNotExists, null);
   }
 
   /**
@@ -3813,7 +3811,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return CompletableFuture<UpdatedAtWithObjectIdResponse> The awaitable future
@@ -3822,10 +3820,10 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation,
+    List<Map<String, AttributeToUpdate>> attributeToUpdate,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObjectAsync(indexName, objectID, attributeOrBuiltInOperation, null, requestOptions);
+    return this.partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, null, requestOptions);
   }
 
   /**
@@ -3836,16 +3834,16 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeOrBuiltInOperation List of attributes to update. (required)
+   * @param attributeToUpdate List of attributes to update. (required)
    * @return CompletableFuture<UpdatedAtWithObjectIdResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation
+    List<Map<String, AttributeToUpdate>> attributeToUpdate
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObjectAsync(indexName, objectID, attributeOrBuiltInOperation, null, null);
+    return this.partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, null, null);
   }
 
   /**
@@ -6270,7 +6268,7 @@ public class SearchClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(
+  public GetApiKeyResponse waitForApiKey(
     ApiKeyOperation operation,
     String key,
     ApiKey apiKey,
@@ -6288,7 +6286,7 @@ public class SearchClient extends ApiClient {
         () -> {
           return this.getApiKey(key, requestOptions);
         },
-        (Key respKey) -> {
+        (GetApiKeyResponse respKey) -> {
           // we need to convert to an ApiKey object to use the `equals` method
           ApiKey sameType = new ApiKey()
             .setAcl(respKey.getAcl())
@@ -6308,7 +6306,7 @@ public class SearchClient extends ApiClient {
     }
 
     // bypass lambda restriction to modify final object
-    final Key[] addedKey = new Key[] { null };
+    final GetApiKeyResponse[] addedKey = new GetApiKeyResponse[] { null };
 
     // check the status of the getApiKey method
     TaskUtils.retryUntil(
@@ -6353,7 +6351,13 @@ public class SearchClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout, RequestOptions requestOptions) {
+  public GetApiKeyResponse waitForApiKey(
+    ApiKeyOperation operation,
+    String key,
+    int maxRetries,
+    IntUnaryOperator timeout,
+    RequestOptions requestOptions
+  ) {
     return this.waitForApiKey(operation, key, null, maxRetries, timeout, requestOptions);
   }
 
@@ -6368,7 +6372,7 @@ public class SearchClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, RequestOptions requestOptions) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, RequestOptions requestOptions) {
     return this.waitForApiKey(operation, key, apiKey, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, requestOptions);
   }
 
@@ -6381,7 +6385,7 @@ public class SearchClient extends ApiClient {
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, RequestOptions requestOptions) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, RequestOptions requestOptions) {
     return this.waitForApiKey(operation, key, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, requestOptions);
   }
 
@@ -6397,7 +6401,7 @@ public class SearchClient extends ApiClient {
    * @param timeout The function to decide how long to wait between retries. min(retries * 200,
    *     5000) by default. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, int maxRetries, IntUnaryOperator timeout) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, int maxRetries, IntUnaryOperator timeout) {
     return this.waitForApiKey(operation, key, apiKey, maxRetries, timeout, null);
   }
 
@@ -6411,7 +6415,7 @@ public class SearchClient extends ApiClient {
    * @param timeout The function to decide how long to wait between retries. min(retries * 200,
    *     5000) by default. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout) {
     return this.waitForApiKey(operation, key, null, maxRetries, timeout, null);
   }
 
@@ -6424,7 +6428,7 @@ public class SearchClient extends ApiClient {
    * @param apiKey Necessary to know if an `update` operation has been processed, compare fields of
    *     the response with it.
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey) {
     return this.waitForApiKey(operation, key, apiKey, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
   }
 
@@ -6435,7 +6439,7 @@ public class SearchClient extends ApiClient {
    * @param operation The `operation` that was done on a `key`. (ADD or DELETE only)
    * @param key The `key` that has been added, deleted or updated.
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key) {
     return this.waitForApiKey(operation, key, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
   }
 }

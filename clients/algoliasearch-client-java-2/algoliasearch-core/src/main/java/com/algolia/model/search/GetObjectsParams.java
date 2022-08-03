@@ -12,7 +12,7 @@ import java.util.Objects;
 public class GetObjectsParams {
 
   @JsonProperty("requests")
-  private List<GetObjectsRequest> requests;
+  private List<GetObjectsRequest> requests = new ArrayList<>();
 
   public GetObjectsParams setRequests(List<GetObjectsRequest> requests) {
     this.requests = requests;
@@ -20,9 +20,6 @@ public class GetObjectsParams {
   }
 
   public GetObjectsParams addRequests(GetObjectsRequest requestsItem) {
-    if (this.requests == null) {
-      this.requests = new ArrayList<>();
-    }
     this.requests.add(requestsItem);
     return this;
   }
@@ -32,7 +29,7 @@ public class GetObjectsParams {
    *
    * @return requests
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<GetObjectsRequest> getRequests() {
     return requests;
   }

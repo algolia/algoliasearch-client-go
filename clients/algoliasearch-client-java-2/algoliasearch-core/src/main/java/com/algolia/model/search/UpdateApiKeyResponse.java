@@ -21,7 +21,7 @@ public class UpdateApiKeyResponse {
   }
 
   /**
-   * Key string.
+   * The API key.
    *
    * @return key
    */

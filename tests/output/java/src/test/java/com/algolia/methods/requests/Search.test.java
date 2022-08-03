@@ -1419,12 +1419,12 @@ class SearchClientRequestsTests {
   void partialUpdateObjectTest0() {
     String indexName0 = "theIndexName";
     String objectID0 = "uniqueID";
-    List<Map<String, AttributeOrBuiltInOperation>> attributeOrBuiltInOperation0 = new ArrayList<>();
+    List<Map<String, AttributeToUpdate>> attributeToUpdate0 = new ArrayList<>();
     {
-      Map<String, AttributeOrBuiltInOperation> attributeOrBuiltInOperation_01 = new HashMap<>();
+      Map<String, AttributeToUpdate> attributeToUpdate_01 = new HashMap<>();
       {
         String id12 = "test";
-        attributeOrBuiltInOperation_01.put("id1", AttributeOrBuiltInOperation.of(id12));
+        attributeToUpdate_01.put("id1", AttributeToUpdate.of(id12));
         BuiltInOperation id22 = new BuiltInOperation();
         {
           BuiltInOperationType operation3 = BuiltInOperationType.fromValue("AddUnique");
@@ -1432,14 +1432,14 @@ class SearchClientRequestsTests {
           String value3 = "test2";
           id22.setValue(value3);
         }
-        attributeOrBuiltInOperation_01.put("id2", AttributeOrBuiltInOperation.of(id22));
+        attributeToUpdate_01.put("id2", AttributeToUpdate.of(id22));
       }
-      attributeOrBuiltInOperation0.add(attributeOrBuiltInOperation_01);
+      attributeToUpdate0.add(attributeToUpdate_01);
     }
     boolean createIfNotExists0 = true;
 
     assertDoesNotThrow(() -> {
-      client.partialUpdateObject(indexName0, objectID0, attributeOrBuiltInOperation0, createIfNotExists0);
+      client.partialUpdateObject(indexName0, objectID0, attributeToUpdate0, createIfNotExists0);
     });
     EchoResponse req = echo.getLastResponse();
 

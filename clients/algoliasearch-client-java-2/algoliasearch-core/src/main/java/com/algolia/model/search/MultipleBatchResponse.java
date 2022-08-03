@@ -5,20 +5,27 @@ package com.algolia.model.search;
 
 import com.fasterxml.jackson.annotation.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** MultipleBatchResponse */
 public class MultipleBatchResponse {
 
   @JsonProperty("taskID")
-  private Object taskID;
+  private Map<String, Long> taskID = new HashMap<>();
 
   @JsonProperty("objectIDs")
-  private List<String> objectIDs;
+  private List<String> objectIDs = new ArrayList<>();
 
-  public MultipleBatchResponse setTaskID(Object taskID) {
+  public MultipleBatchResponse setTaskID(Map<String, Long> taskID) {
     this.taskID = taskID;
+    return this;
+  }
+
+  public MultipleBatchResponse putTaskID(String key, Long taskIDItem) {
+    this.taskID.put(key, taskIDItem);
     return this;
   }
 
@@ -27,8 +34,8 @@ public class MultipleBatchResponse {
    *
    * @return taskID
    */
-  @javax.annotation.Nullable
-  public Object getTaskID() {
+  @javax.annotation.Nonnull
+  public Map<String, Long> getTaskID() {
     return taskID;
   }
 
@@ -38,9 +45,6 @@ public class MultipleBatchResponse {
   }
 
   public MultipleBatchResponse addObjectIDs(String objectIDsItem) {
-    if (this.objectIDs == null) {
-      this.objectIDs = new ArrayList<>();
-    }
     this.objectIDs.add(objectIDsItem);
     return this;
   }
@@ -50,7 +54,7 @@ public class MultipleBatchResponse {
    *
    * @return objectIDs
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<String> getObjectIDs() {
     return objectIDs;
   }

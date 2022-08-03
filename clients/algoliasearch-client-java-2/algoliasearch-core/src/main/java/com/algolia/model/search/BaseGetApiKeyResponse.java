@@ -6,24 +6,42 @@ package com.algolia.model.search;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
-/** CreatedAtObject */
-public class CreatedAtObject {
+/** BaseGetApiKeyResponse */
+public class BaseGetApiKeyResponse {
+
+  @JsonProperty("value")
+  private String value;
 
   @JsonProperty("createdAt")
-  private String createdAt;
+  private Long createdAt;
 
-  public CreatedAtObject setCreatedAt(String createdAt) {
+  public BaseGetApiKeyResponse setValue(String value) {
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * The API key.
+   *
+   * @return value
+   */
+  @javax.annotation.Nullable
+  public String getValue() {
+    return value;
+  }
+
+  public BaseGetApiKeyResponse setCreatedAt(Long createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
   /**
-   * Date of creation (ISO-8601 format).
+   * Time of the event expressed in milliseconds since the Unix epoch.
    *
    * @return createdAt
    */
   @javax.annotation.Nonnull
-  public String getCreatedAt() {
+  public Long getCreatedAt() {
     return createdAt;
   }
 
@@ -35,19 +53,20 @@ public class CreatedAtObject {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CreatedAtObject createdAtObject = (CreatedAtObject) o;
-    return Objects.equals(this.createdAt, createdAtObject.createdAt);
+    BaseGetApiKeyResponse baseGetApiKeyResponse = (BaseGetApiKeyResponse) o;
+    return Objects.equals(this.value, baseGetApiKeyResponse.value) && Objects.equals(this.createdAt, baseGetApiKeyResponse.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt);
+    return Objects.hash(value, createdAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CreatedAtObject {\n");
+    sb.append("class BaseGetApiKeyResponse {\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class BatchParams {
 
   @JsonProperty("requests")
-  private List<MultipleBatchRequest> requests;
+  private List<MultipleBatchRequest> requests = new ArrayList<>();
 
   public BatchParams setRequests(List<MultipleBatchRequest> requests) {
     this.requests = requests;
@@ -20,9 +20,6 @@ public class BatchParams {
   }
 
   public BatchParams addRequests(MultipleBatchRequest requestsItem) {
-    if (this.requests == null) {
-      this.requests = new ArrayList<>();
-    }
     this.requests.add(requestsItem);
     return this;
   }
@@ -32,7 +29,7 @@ public class BatchParams {
    *
    * @return requests
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<MultipleBatchRequest> getRequests() {
     return requests;
   }

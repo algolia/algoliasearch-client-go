@@ -28,7 +28,7 @@ public class MultipleBatchRequest {
    *
    * @return action
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Action getAction() {
     return action;
   }
@@ -43,7 +43,7 @@ public class MultipleBatchRequest {
    *
    * @return body
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Object getBody() {
     return body;
   }
@@ -58,7 +58,7 @@ public class MultipleBatchRequest {
    *
    * @return indexName
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getIndexName() {
     return indexName;
   }

@@ -8,8 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** Key */
-public class Key {
+/** GetApiKeyResponse */
+public class GetApiKeyResponse {
+
+  @JsonProperty("value")
+  private String value;
+
+  @JsonProperty("createdAt")
+  private Long createdAt;
 
   @JsonProperty("acl")
   private List<Acl> acl = new ArrayList<>();
@@ -35,15 +41,42 @@ public class Key {
   @JsonProperty("validity")
   private Integer validity;
 
-  @JsonProperty("createdAt")
-  private String createdAt;
+  public GetApiKeyResponse setValue(String value) {
+    this.value = value;
+    return this;
+  }
 
-  public Key setAcl(List<Acl> acl) {
+  /**
+   * The API key.
+   *
+   * @return value
+   */
+  @javax.annotation.Nullable
+  public String getValue() {
+    return value;
+  }
+
+  public GetApiKeyResponse setCreatedAt(Long createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  /**
+   * Time of the event expressed in milliseconds since the Unix epoch.
+   *
+   * @return createdAt
+   */
+  @javax.annotation.Nonnull
+  public Long getCreatedAt() {
+    return createdAt;
+  }
+
+  public GetApiKeyResponse setAcl(List<Acl> acl) {
     this.acl = acl;
     return this;
   }
 
-  public Key addAcl(Acl aclItem) {
+  public GetApiKeyResponse addAcl(Acl aclItem) {
     this.acl.add(aclItem);
     return this;
   }
@@ -58,7 +91,7 @@ public class Key {
     return acl;
   }
 
-  public Key setDescription(String description) {
+  public GetApiKeyResponse setDescription(String description) {
     this.description = description;
     return this;
   }
@@ -74,12 +107,12 @@ public class Key {
     return description;
   }
 
-  public Key setIndexes(List<String> indexes) {
+  public GetApiKeyResponse setIndexes(List<String> indexes) {
     this.indexes = indexes;
     return this;
   }
 
-  public Key addIndexes(String indexesItem) {
+  public GetApiKeyResponse addIndexes(String indexesItem) {
     if (this.indexes == null) {
       this.indexes = new ArrayList<>();
     }
@@ -98,7 +131,7 @@ public class Key {
     return indexes;
   }
 
-  public Key setMaxHitsPerQuery(Integer maxHitsPerQuery) {
+  public GetApiKeyResponse setMaxHitsPerQuery(Integer maxHitsPerQuery) {
     this.maxHitsPerQuery = maxHitsPerQuery;
     return this;
   }
@@ -113,7 +146,7 @@ public class Key {
     return maxHitsPerQuery;
   }
 
-  public Key setMaxQueriesPerIPPerHour(Integer maxQueriesPerIPPerHour) {
+  public GetApiKeyResponse setMaxQueriesPerIPPerHour(Integer maxQueriesPerIPPerHour) {
     this.maxQueriesPerIPPerHour = maxQueriesPerIPPerHour;
     return this;
   }
@@ -128,7 +161,7 @@ public class Key {
     return maxQueriesPerIPPerHour;
   }
 
-  public Key setQueryParameters(String queryParameters) {
+  public GetApiKeyResponse setQueryParameters(String queryParameters) {
     this.queryParameters = queryParameters;
     return this;
   }
@@ -144,12 +177,12 @@ public class Key {
     return queryParameters;
   }
 
-  public Key setReferers(List<String> referers) {
+  public GetApiKeyResponse setReferers(List<String> referers) {
     this.referers = referers;
     return this;
   }
 
-  public Key addReferers(String referersItem) {
+  public GetApiKeyResponse addReferers(String referersItem) {
     if (this.referers == null) {
       this.referers = new ArrayList<>();
     }
@@ -167,7 +200,7 @@ public class Key {
     return referers;
   }
 
-  public Key setValidity(Integer validity) {
+  public GetApiKeyResponse setValidity(Integer validity) {
     this.validity = validity;
     return this;
   }
@@ -183,21 +216,6 @@ public class Key {
     return validity;
   }
 
-  public Key setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-  /**
-   * Date of creation (ISO-8601 format).
-   *
-   * @return createdAt
-   */
-  @javax.annotation.Nonnull
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -206,29 +224,43 @@ public class Key {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Key key = (Key) o;
+    GetApiKeyResponse getApiKeyResponse = (GetApiKeyResponse) o;
     return (
-      Objects.equals(this.acl, key.acl) &&
-      Objects.equals(this.description, key.description) &&
-      Objects.equals(this.indexes, key.indexes) &&
-      Objects.equals(this.maxHitsPerQuery, key.maxHitsPerQuery) &&
-      Objects.equals(this.maxQueriesPerIPPerHour, key.maxQueriesPerIPPerHour) &&
-      Objects.equals(this.queryParameters, key.queryParameters) &&
-      Objects.equals(this.referers, key.referers) &&
-      Objects.equals(this.validity, key.validity) &&
-      Objects.equals(this.createdAt, key.createdAt)
+      Objects.equals(this.value, getApiKeyResponse.value) &&
+      Objects.equals(this.createdAt, getApiKeyResponse.createdAt) &&
+      Objects.equals(this.acl, getApiKeyResponse.acl) &&
+      Objects.equals(this.description, getApiKeyResponse.description) &&
+      Objects.equals(this.indexes, getApiKeyResponse.indexes) &&
+      Objects.equals(this.maxHitsPerQuery, getApiKeyResponse.maxHitsPerQuery) &&
+      Objects.equals(this.maxQueriesPerIPPerHour, getApiKeyResponse.maxQueriesPerIPPerHour) &&
+      Objects.equals(this.queryParameters, getApiKeyResponse.queryParameters) &&
+      Objects.equals(this.referers, getApiKeyResponse.referers) &&
+      Objects.equals(this.validity, getApiKeyResponse.validity)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(acl, description, indexes, maxHitsPerQuery, maxQueriesPerIPPerHour, queryParameters, referers, validity, createdAt);
+    return Objects.hash(
+      value,
+      createdAt,
+      acl,
+      description,
+      indexes,
+      maxHitsPerQuery,
+      maxQueriesPerIPPerHour,
+      queryParameters,
+      referers,
+      validity
+    );
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Key {\n");
+    sb.append("class GetApiKeyResponse {\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    acl: ").append(toIndentedString(acl)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    indexes: ").append(toIndentedString(indexes)).append("\n");
@@ -237,7 +269,6 @@ public class Key {
     sb.append("    queryParameters: ").append(toIndentedString(queryParameters)).append("\n");
     sb.append("    referers: ").append(toIndentedString(referers)).append("\n");
     sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

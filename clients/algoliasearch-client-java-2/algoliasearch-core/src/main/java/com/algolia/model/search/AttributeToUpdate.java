@@ -14,50 +14,50 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-/** AttributeOrBuiltInOperation */
-@JsonDeserialize(using = AttributeOrBuiltInOperation.AttributeOrBuiltInOperationDeserializer.class)
-@JsonSerialize(using = AttributeOrBuiltInOperation.AttributeOrBuiltInOperationSerializer.class)
-public abstract class AttributeOrBuiltInOperation implements CompoundType {
+/** AttributeToUpdate */
+@JsonDeserialize(using = AttributeToUpdate.AttributeToUpdateDeserializer.class)
+@JsonSerialize(using = AttributeToUpdate.AttributeToUpdateSerializer.class)
+public abstract class AttributeToUpdate implements CompoundType {
 
-  public static AttributeOrBuiltInOperation of(BuiltInOperation inside) {
-    return new AttributeOrBuiltInOperationBuiltInOperation(inside);
+  public static AttributeToUpdate of(BuiltInOperation inside) {
+    return new AttributeToUpdateBuiltInOperation(inside);
   }
 
-  public static AttributeOrBuiltInOperation of(String inside) {
-    return new AttributeOrBuiltInOperationString(inside);
+  public static AttributeToUpdate of(String inside) {
+    return new AttributeToUpdateString(inside);
   }
 
-  public static class AttributeOrBuiltInOperationSerializer extends StdSerializer<AttributeOrBuiltInOperation> {
+  public static class AttributeToUpdateSerializer extends StdSerializer<AttributeToUpdate> {
 
-    public AttributeOrBuiltInOperationSerializer(Class<AttributeOrBuiltInOperation> t) {
+    public AttributeToUpdateSerializer(Class<AttributeToUpdate> t) {
       super(t);
     }
 
-    public AttributeOrBuiltInOperationSerializer() {
+    public AttributeToUpdateSerializer() {
       this(null);
     }
 
     @Override
-    public void serialize(AttributeOrBuiltInOperation value, JsonGenerator jgen, SerializerProvider provider)
+    public void serialize(AttributeToUpdate value, JsonGenerator jgen, SerializerProvider provider)
       throws IOException, JsonProcessingException {
       jgen.writeObject(value.getInsideValue());
     }
   }
 
-  public static class AttributeOrBuiltInOperationDeserializer extends StdDeserializer<AttributeOrBuiltInOperation> {
+  public static class AttributeToUpdateDeserializer extends StdDeserializer<AttributeToUpdate> {
 
-    public AttributeOrBuiltInOperationDeserializer() {
-      this(AttributeOrBuiltInOperation.class);
+    public AttributeToUpdateDeserializer() {
+      this(AttributeToUpdate.class);
     }
 
-    public AttributeOrBuiltInOperationDeserializer(Class<?> vc) {
+    public AttributeToUpdateDeserializer(Class<?> vc) {
       super(vc);
     }
 
     @Override
-    public AttributeOrBuiltInOperation deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public AttributeToUpdate deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
       JsonNode tree = jp.readValueAsTree();
-      AttributeOrBuiltInOperation deserialized = null;
+      AttributeToUpdate deserialized = null;
 
       int match = 0;
       JsonToken token = tree.traverse(jp.getCodec()).nextToken();
@@ -74,16 +74,12 @@ public abstract class AttributeOrBuiltInOperation implements CompoundType {
           (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
         ) {
           deserialized =
-            AttributeOrBuiltInOperation.of(
-              (BuiltInOperation) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<BuiltInOperation>() {})
-            );
+            AttributeToUpdate.of((BuiltInOperation) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<BuiltInOperation>() {}));
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
             deserialized =
-              AttributeOrBuiltInOperation.of(
-                (BuiltInOperation) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<BuiltInOperation>() {})
-              );
+              AttributeToUpdate.of((BuiltInOperation) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<BuiltInOperation>() {}));
             match++;
           } catch (IOException e) {
             // do nothing
@@ -105,12 +101,11 @@ public abstract class AttributeOrBuiltInOperation implements CompoundType {
           (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
           (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
         ) {
-          deserialized = AttributeOrBuiltInOperation.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
+          deserialized = AttributeToUpdate.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
-            deserialized =
-              AttributeOrBuiltInOperation.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
+            deserialized = AttributeToUpdate.of((String) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<String>() {}));
             match++;
           } catch (IOException e) {
             // do nothing
@@ -124,24 +119,22 @@ public abstract class AttributeOrBuiltInOperation implements CompoundType {
       if (match == 1) {
         return deserialized;
       }
-      throw new IOException(
-        String.format("Failed deserialization for AttributeOrBuiltInOperation: %d classes match result," + " expected 1", match)
-      );
+      throw new IOException(String.format("Failed deserialization for AttributeToUpdate: %d classes match result, expected 1", match));
     }
 
     /** Handle deserialization of the 'null' value. */
     @Override
-    public AttributeOrBuiltInOperation getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-      throw new JsonMappingException(ctxt.getParser(), "AttributeOrBuiltInOperation cannot be null");
+    public AttributeToUpdate getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "AttributeToUpdate cannot be null");
     }
   }
 }
 
-class AttributeOrBuiltInOperationBuiltInOperation extends AttributeOrBuiltInOperation {
+class AttributeToUpdateBuiltInOperation extends AttributeToUpdate {
 
   private final BuiltInOperation insideValue;
 
-  AttributeOrBuiltInOperationBuiltInOperation(BuiltInOperation insideValue) {
+  AttributeToUpdateBuiltInOperation(BuiltInOperation insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -151,11 +144,11 @@ class AttributeOrBuiltInOperationBuiltInOperation extends AttributeOrBuiltInOper
   }
 }
 
-class AttributeOrBuiltInOperationString extends AttributeOrBuiltInOperation {
+class AttributeToUpdateString extends AttributeToUpdate {
 
   private final String insideValue;
 
-  AttributeOrBuiltInOperationString(String insideValue) {
+  AttributeToUpdateString(String insideValue) {
     this.insideValue = insideValue;
   }
 
