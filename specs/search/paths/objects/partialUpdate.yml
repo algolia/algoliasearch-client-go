@@ -29,10 +29,9 @@ post:
           type: array
           items:
             type: object
-            title: attributeToUpdate
             description: Attribute to update.
             additionalProperties:
-              $ref: 'common/schemas.yml#/attributeOrBuiltInOperation'
+              $ref: 'common/schemas.yml#/attributeToUpdate'
   responses:
     '200':
       $ref: '../../../common/responses/UpdatedAtWithObjectId.yml'

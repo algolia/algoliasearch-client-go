@@ -340,7 +340,7 @@ public class {{classname}} extends ApiClient {
    * @param timeout  The function to decide how long to wait between retries. min(retries * 200, 5000) by default. (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(
+  public GetApiKeyResponse waitForApiKey(
     ApiKeyOperation operation,
     String key,
     ApiKey apiKey,
@@ -358,7 +358,7 @@ public class {{classname}} extends ApiClient {
         () -> {
           return this.getApiKey(key, requestOptions);
         },
-        (Key respKey) -> {
+        (GetApiKeyResponse respKey) -> {
           // we need to convert to an ApiKey object to use the `equals` method
           ApiKey sameType = new ApiKey()
             .setAcl(respKey.getAcl())
@@ -378,7 +378,7 @@ public class {{classname}} extends ApiClient {
     }
 
     // bypass lambda restriction to modify final object
-    final Key[] addedKey = new Key[] { null };
+    final GetApiKeyResponse[] addedKey = new GetApiKeyResponse[] { null };
 
     // check the status of the getApiKey method
     TaskUtils.retryUntil(
@@ -421,7 +421,7 @@ public class {{classname}} extends ApiClient {
    * @param timeout  The function to decide how long to wait between retries. min(retries * 200, 5000) by default. (optional)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout, RequestOptions requestOptions) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout, RequestOptions requestOptions) {
     return this.waitForApiKey(operation, key, null, maxRetries, timeout, requestOptions);
   }
 
@@ -434,7 +434,7 @@ public class {{classname}} extends ApiClient {
    * @param apiKey Necessary to know if an `update` operation has been processed, compare fields of the response with it.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, RequestOptions requestOptions) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, RequestOptions requestOptions) {
     return this.waitForApiKey(operation, key, apiKey, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, requestOptions);
   }
 
@@ -446,7 +446,7 @@ public class {{classname}} extends ApiClient {
    * @param key The `key` that has been added, deleted or updated.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with the transporter requestOptions. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, RequestOptions requestOptions) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, RequestOptions requestOptions) {
     return this.waitForApiKey(operation, key, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, requestOptions);
   }
 
@@ -460,7 +460,7 @@ public class {{classname}} extends ApiClient {
    * @param maxRetries The maximum number of retry. 50 by default. (optional)
    * @param timeout  The function to decide how long to wait between retries. min(retries * 200, 5000) by default. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, int maxRetries, IntUnaryOperator timeout) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey, int maxRetries, IntUnaryOperator timeout) {
     return this.waitForApiKey(operation, key, apiKey, maxRetries, timeout, null);
   }
 
@@ -473,7 +473,7 @@ public class {{classname}} extends ApiClient {
    * @param maxRetries The maximum number of retry. 50 by default. (optional)
    * @param timeout  The function to decide how long to wait between retries. min(retries * 200, 5000) by default. (optional)
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, int maxRetries, IntUnaryOperator timeout) {
     return this.waitForApiKey(operation, key, null, maxRetries, timeout, null);
   }
 
@@ -485,7 +485,7 @@ public class {{classname}} extends ApiClient {
    * @param key The `key` that has been added, deleted or updated.
    * @param apiKey Necessary to know if an `update` operation has been processed, compare fields of the response with it.
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key, ApiKey apiKey) {
     return this.waitForApiKey(operation, key, apiKey, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
   }
 
@@ -496,7 +496,7 @@ public class {{classname}} extends ApiClient {
    * @param operation The `operation` that was done on a `key`. (ADD or DELETE only)
    * @param key The `key` that has been added, deleted or updated.
    */
-  public Key waitForApiKey(ApiKeyOperation operation, String key) {
+  public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key) {
     return this.waitForApiKey(operation, key, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
   }
   {{/isSearchClient}}

@@ -20,7 +20,7 @@ get:
                 type: array
                 description: List of api keys.
                 items:
-                  $ref: 'common/schemas.yml#/key'
+                  $ref: 'common/schemas.yml#/getApiKeyResponse'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

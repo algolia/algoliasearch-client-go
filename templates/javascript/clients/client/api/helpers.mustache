@@ -56,9 +56,9 @@ waitForApiKey(
       Math.min(retryCount * 200, 5000),
   }: WaitForApiKeyOptions,
   requestOptions?: RequestOptions
-): Promise<ApiError | Key> {
+): Promise<ApiError | GetApiKeyResponse> {
   let retryCount = 0;
-  const baseIteratorOptions: IterableOptions<ApiError | Key> = {
+  const baseIteratorOptions: IterableOptions<ApiError | GetApiKeyResponse> = {
     aggregator: () => (retryCount += 1),
     error: {
       validate: () => retryCount >= maxRetries,

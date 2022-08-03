@@ -39,6 +39,8 @@ post:
                   indexName:
                     type: string
                     description: name of the index containing the object.
+          required:
+            - requests
   responses:
     '200':
       description: OK

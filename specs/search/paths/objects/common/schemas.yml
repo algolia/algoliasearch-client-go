@@ -40,7 +40,7 @@ builtInOperation:
     - _operation
     - value
 
-attributeOrBuiltInOperation:
+attributeToUpdate:
   oneOf:
     - $ref: '#/attribute'
     - $ref: '#/builtInOperation'

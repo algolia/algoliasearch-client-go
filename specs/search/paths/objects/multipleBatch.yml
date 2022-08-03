@@ -29,6 +29,12 @@ post:
                   indexName:
                     type: string
                     description: Index to target for this operation.
+                required:
+                  - action
+                  - body
+                  - indexName
+          required:
+            - requests
   responses:
     '200':
       description: OK
@@ -42,8 +48,13 @@ post:
               taskID:
                 type: object
                 description: List of tasksIDs per index.
+                additionalProperties:
+                  $ref: '../../../common/responses/common.yml#/taskID'
               objectIDs:
                 $ref: '../../../common/responses/common.yml#/objectIDs'
+            required:
+              - taskID
+              - objectIDs
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':
