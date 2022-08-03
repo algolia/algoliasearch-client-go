@@ -27,7 +27,7 @@ public class PredictClient extends ApiClient {
   }
 
   public PredictClient(String appId, String apiKey, String region, ClientOptions options) {
-    super(appId, apiKey, "Predict", "4.4.2-SNAPSHOT", options);
+    super(appId, apiKey, "Predict", "4.4.3-SNAPSHOT", options);
     if (options != null && options.getHosts() != null) {
       this.setHosts(options.getHosts());
     } else {
