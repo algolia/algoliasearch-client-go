@@ -17,7 +17,9 @@ client.addAlgoliaAgent('Node playground', '0.0.1');
 
 async function testSearch() {
   try {
-    const res = await client.search<{ name: string }>({ requests: [{ indexName: searchIndex, query: searchQuery }] });
+    const res = await client.search<{ name: string }>({
+      requests: [{ indexName: searchIndex, query: searchQuery }],
+    });
 
     console.log(`[OK]`, res.results[0].hits![0].name);
   } catch (e: any) {

@@ -12,9 +12,9 @@ title: JavaScript
 To get started, first install the `algoliasearch` client.
 
 ```bash
-yarn add algoliasearch
+yarn add algoliasearch@alpha
 # or
-npm install algoliasearch
+npm install algoliasearch@alpha
 ```
 
 You can continue this guide on [our installation page](/docs/clients/installation).
