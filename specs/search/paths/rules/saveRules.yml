@@ -4,6 +4,7 @@ post:
   operationId: saveRules
   summary: Save a batch of rules.
   description: Create/update multiple rules objects at once.
+  x-codegen-request-body-name: rules
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
     - $ref: '../../../common/parameters.yml#/ForwardToReplicas'
@@ -13,7 +14,10 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'common/schemas.yml#/rules'
+          type: array
+          description: Rules to add.
+          items:
+            $ref: 'common/schemas.yml#/rule'
   responses:
     '200':
       $ref: '../../../common/responses/UpdatedAt.yml'

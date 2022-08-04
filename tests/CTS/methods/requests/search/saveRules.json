@@ -3,7 +3,7 @@
     "testName": "saveRules with minimal parameters",
     "parameters": {
       "indexName": "indexName",
-      "rule": [
+      "rules": [
         {
           "objectID": "a-rule-id",
           "conditions": [
@@ -53,7 +53,7 @@
     "testName": "saveRules with all parameters",
     "parameters": {
       "indexName": "indexName",
-      "rule": [
+      "rules": [
         {
           "objectID": "id1",
           "conditions": [

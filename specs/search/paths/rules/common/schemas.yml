@@ -1,9 +1,3 @@
-rules:
-  type: array
-  description: Rules to add.
-  items:
-    $ref: '#/rule'
-
 rule:
   type: object
   description: Rule object.

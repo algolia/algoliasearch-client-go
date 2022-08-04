@@ -3,6 +3,7 @@ post:
     - Records
   operationId: partialUpdateObject
   summary: Partially update an object.
+  x-codegen-request-body-name: attributesToUpdate
   description: >
     Update one or more attributes of an existing object.
 
@@ -22,16 +23,14 @@ post:
         default: true
   requestBody:
     required: true
-    description: List of attributes to update.
+    description: Map of attribute(s) to update.
     content:
       application/json:
         schema:
-          type: array
-          items:
-            type: object
-            description: Attribute to update.
-            additionalProperties:
-              $ref: 'common/schemas.yml#/attributeToUpdate'
+          type: object
+          description: Attribute(s) to update.
+          additionalProperties:
+            $ref: 'common/schemas.yml#/attributeToUpdate'
   responses:
     '200':
       $ref: '../../../common/responses/UpdatedAtWithObjectId.yml'
