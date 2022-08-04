@@ -1,3 +1,7 @@
+## [4.4.4-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.4.3-SNAPSHOT...4.4.4-SNAPSHOT)
+
+- [005f9ed3](https://github.com/algolia/api-clients-automation/commit/005f9ed3) fix(specs): wrong body parameter name ([#896](https://github.com/algolia/api-clients-automation/pull/896)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.4.3-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.4.2-SNAPSHOT...4.4.3-SNAPSHOT)
 
 - [193fb73d](https://github.com/algolia/api-clients-automation/commit/193fb73d) fix(specs): `getApiKeyResponse`, `multipleBatch`, `partialUpdateObject` ([#889](https://github.com/algolia/api-clients-automation/pull/889)) by [@shortcuts](https://github.com/shortcuts/)
