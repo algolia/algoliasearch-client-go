@@ -2032,11 +2032,6 @@ components:
         - objectID
         - updatedAt
         - taskID
-    rules:
-      type: array
-      description: Rules to add.
-      items:
-        $ref: '#/components/schemas/rule'
     parameters_query:
       type: string
       description: Full text query.

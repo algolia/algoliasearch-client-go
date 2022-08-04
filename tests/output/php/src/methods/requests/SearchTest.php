@@ -1261,10 +1261,8 @@ class SearchTest extends TestCase implements HttpClientInterface
             'theIndexName',
             'uniqueID',
             [
-                [
-                    'id1' => 'test',
-                    'id2' => ['_operation' => 'AddUnique', 'value' => 'test2'],
-                ],
+                'id1' => 'test',
+                'id2' => ['_operation' => 'AddUnique', 'value' => 'test2'],
             ],
             true
         );
@@ -1274,7 +1272,7 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/theIndexName/uniqueID/partial',
                 'method' => 'POST',
                 'body' => json_decode(
-                    "[{\"id1\":\"test\",\"id2\":{\"_operation\":\"AddUnique\",\"value\":\"test2\"}}]"
+                    "{\"id1\":\"test\",\"id2\":{\"_operation\":\"AddUnique\",\"value\":\"test2\"}}"
                 ),
                 'queryParameters' => json_decode(
                     "{\"createIfNotExists\":\"true\"}",

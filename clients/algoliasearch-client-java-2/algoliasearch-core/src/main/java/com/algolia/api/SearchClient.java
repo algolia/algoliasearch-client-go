@@ -3643,7 +3643,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
@@ -3654,11 +3654,11 @@ public class SearchClient extends ApiClient {
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate,
+    Map<String, AttributeToUpdate> attributesToUpdate,
     Boolean createIfNotExists,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, createIfNotExists, requestOptions));
+    return LaunderThrowable.await(partialUpdateObjectAsync(indexName, objectID, attributesToUpdate, createIfNotExists, requestOptions));
   }
 
   /**
@@ -3669,7 +3669,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @return UpdatedAtWithObjectIdResponse
@@ -3678,10 +3678,10 @@ public class SearchClient extends ApiClient {
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate,
+    Map<String, AttributeToUpdate> attributesToUpdate,
     Boolean createIfNotExists
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObject(indexName, objectID, attributeToUpdate, createIfNotExists, null);
+    return this.partialUpdateObject(indexName, objectID, attributesToUpdate, createIfNotExists, null);
   }
 
   /**
@@ -3692,7 +3692,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return UpdatedAtWithObjectIdResponse
@@ -3701,10 +3701,10 @@ public class SearchClient extends ApiClient {
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate,
+    Map<String, AttributeToUpdate> attributesToUpdate,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObject(indexName, objectID, attributeToUpdate, null, requestOptions);
+    return this.partialUpdateObject(indexName, objectID, attributesToUpdate, null, requestOptions);
   }
 
   /**
@@ -3715,16 +3715,16 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @return UpdatedAtWithObjectIdResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public UpdatedAtWithObjectIdResponse partialUpdateObject(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate
+    Map<String, AttributeToUpdate> attributesToUpdate
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObject(indexName, objectID, attributeToUpdate, null, null);
+    return this.partialUpdateObject(indexName, objectID, attributesToUpdate, null, null);
   }
 
   /**
@@ -3735,7 +3735,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
@@ -3746,7 +3746,7 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate,
+    Map<String, AttributeToUpdate> attributesToUpdate,
     Boolean createIfNotExists,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
@@ -3758,11 +3758,11 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `objectID` is required when calling `partialUpdateObject`.");
     }
 
-    if (attributeToUpdate == null) {
-      throw new AlgoliaRuntimeException("Parameter `attributeToUpdate` is required when calling `partialUpdateObject`.");
+    if (attributesToUpdate == null) {
+      throw new AlgoliaRuntimeException("Parameter `attributesToUpdate` is required when calling `partialUpdateObject`.");
     }
 
-    Object bodyObj = attributeToUpdate;
+    Object bodyObj = attributesToUpdate;
 
     // create path and map variables
     String requestPath =
@@ -3788,7 +3788,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @param createIfNotExists Creates the record if it does not exist yet. (optional, default to
    *     true)
    * @return CompletableFuture<UpdatedAtWithObjectIdResponse> The awaitable future
@@ -3797,10 +3797,10 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate,
+    Map<String, AttributeToUpdate> attributesToUpdate,
     Boolean createIfNotExists
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, createIfNotExists, null);
+    return this.partialUpdateObjectAsync(indexName, objectID, attributesToUpdate, createIfNotExists, null);
   }
 
   /**
@@ -3811,7 +3811,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return CompletableFuture<UpdatedAtWithObjectIdResponse> The awaitable future
@@ -3820,10 +3820,10 @@ public class SearchClient extends ApiClient {
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate,
+    Map<String, AttributeToUpdate> attributesToUpdate,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, null, requestOptions);
+    return this.partialUpdateObjectAsync(indexName, objectID, attributesToUpdate, null, requestOptions);
   }
 
   /**
@@ -3834,16 +3834,16 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param objectID Unique identifier of an object. (required)
-   * @param attributeToUpdate List of attributes to update. (required)
+   * @param attributesToUpdate Map of attribute(s) to update. (required)
    * @return CompletableFuture<UpdatedAtWithObjectIdResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
   public CompletableFuture<UpdatedAtWithObjectIdResponse> partialUpdateObjectAsync(
     String indexName,
     String objectID,
-    List<Map<String, AttributeToUpdate>> attributeToUpdate
+    Map<String, AttributeToUpdate> attributesToUpdate
   ) throws AlgoliaRuntimeException {
-    return this.partialUpdateObjectAsync(indexName, objectID, attributeToUpdate, null, null);
+    return this.partialUpdateObjectAsync(indexName, objectID, attributesToUpdate, null, null);
   }
 
   /**
@@ -4538,7 +4538,7 @@ public class SearchClient extends ApiClient {
    * Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @param forwardToReplicas When true, changes are also propagated to replicas of the given
    *     indexName. (optional)
    * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
@@ -4550,19 +4550,19 @@ public class SearchClient extends ApiClient {
    */
   public UpdatedAtResponse saveRules(
     String indexName,
-    List<Rule> rule,
+    List<Rule> rules,
     Boolean forwardToReplicas,
     Boolean clearExistingRules,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(saveRulesAsync(indexName, rule, forwardToReplicas, clearExistingRules, requestOptions));
+    return LaunderThrowable.await(saveRulesAsync(indexName, rules, forwardToReplicas, clearExistingRules, requestOptions));
   }
 
   /**
    * Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @param forwardToReplicas When true, changes are also propagated to replicas of the given
    *     indexName. (optional)
    * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
@@ -4570,42 +4570,42 @@ public class SearchClient extends ApiClient {
    * @return UpdatedAtResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public UpdatedAtResponse saveRules(String indexName, List<Rule> rule, Boolean forwardToReplicas, Boolean clearExistingRules)
+  public UpdatedAtResponse saveRules(String indexName, List<Rule> rules, Boolean forwardToReplicas, Boolean clearExistingRules)
     throws AlgoliaRuntimeException {
-    return this.saveRules(indexName, rule, forwardToReplicas, clearExistingRules, null);
+    return this.saveRules(indexName, rules, forwardToReplicas, clearExistingRules, null);
   }
 
   /**
    * Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return UpdatedAtResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public UpdatedAtResponse saveRules(String indexName, List<Rule> rule, RequestOptions requestOptions) throws AlgoliaRuntimeException {
-    return this.saveRules(indexName, rule, null, null, requestOptions);
+  public UpdatedAtResponse saveRules(String indexName, List<Rule> rules, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.saveRules(indexName, rules, null, null, requestOptions);
   }
 
   /**
    * Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @return UpdatedAtResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public UpdatedAtResponse saveRules(String indexName, List<Rule> rule) throws AlgoliaRuntimeException {
-    return this.saveRules(indexName, rule, null, null, null);
+  public UpdatedAtResponse saveRules(String indexName, List<Rule> rules) throws AlgoliaRuntimeException {
+    return this.saveRules(indexName, rules, null, null, null);
   }
 
   /**
    * (asynchronously) Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @param forwardToReplicas When true, changes are also propagated to replicas of the given
    *     indexName. (optional)
    * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
@@ -4617,7 +4617,7 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<UpdatedAtResponse> saveRulesAsync(
     String indexName,
-    List<Rule> rule,
+    List<Rule> rules,
     Boolean forwardToReplicas,
     Boolean clearExistingRules,
     RequestOptions requestOptions
@@ -4626,11 +4626,11 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `saveRules`.");
     }
 
-    if (rule == null) {
-      throw new AlgoliaRuntimeException("Parameter `rule` is required when calling `saveRules`.");
+    if (rules == null) {
+      throw new AlgoliaRuntimeException("Parameter `rules` is required when calling `saveRules`.");
     }
 
-    Object bodyObj = rule;
+    Object bodyObj = rules;
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/rules/batch".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
@@ -4654,7 +4654,7 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @param forwardToReplicas When true, changes are also propagated to replicas of the given
    *     indexName. (optional)
    * @param clearExistingRules When true, existing Rules are cleared before adding this batch. When
@@ -4664,38 +4664,38 @@ public class SearchClient extends ApiClient {
    */
   public CompletableFuture<UpdatedAtResponse> saveRulesAsync(
     String indexName,
-    List<Rule> rule,
+    List<Rule> rules,
     Boolean forwardToReplicas,
     Boolean clearExistingRules
   ) throws AlgoliaRuntimeException {
-    return this.saveRulesAsync(indexName, rule, forwardToReplicas, clearExistingRules, null);
+    return this.saveRulesAsync(indexName, rules, forwardToReplicas, clearExistingRules, null);
   }
 
   /**
    * (asynchronously) Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return CompletableFuture<UpdatedAtResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(String indexName, List<Rule> rule, RequestOptions requestOptions)
+  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(String indexName, List<Rule> rules, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
-    return this.saveRulesAsync(indexName, rule, null, null, requestOptions);
+    return this.saveRulesAsync(indexName, rules, null, null, requestOptions);
   }
 
   /**
    * (asynchronously) Create/update multiple rules objects at once.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param rule (required)
+   * @param rules (required)
    * @return CompletableFuture<UpdatedAtResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(String indexName, List<Rule> rule) throws AlgoliaRuntimeException {
-    return this.saveRulesAsync(indexName, rule, null, null, null);
+  public CompletableFuture<UpdatedAtResponse> saveRulesAsync(String indexName, List<Rule> rules) throws AlgoliaRuntimeException {
+    return this.saveRulesAsync(indexName, rules, null, null, null);
   }
 
   /**

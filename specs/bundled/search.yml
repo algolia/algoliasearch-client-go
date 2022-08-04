@@ -2032,11 +2032,6 @@ components:
         - objectID
         - updatedAt
         - taskID
-    rules:
-      type: array
-      description: Rules to add.
-      items:
-        $ref: '#/components/schemas/rule'
     parameters_query:
       type: string
       description: Full text query.
@@ -2987,6 +2982,7 @@ paths:
         - search
       operationId: partialUpdateObject
       summary: Partially update an object.
+      x-codegen-request-body-name: attributesToUpdate
       description: >
         Update one or more attributes of an existing object.
 
@@ -3008,16 +3004,14 @@ paths:
             default: true
       requestBody:
         required: true
-        description: List of attributes to update.
+        description: Map of attribute(s) to update.
         content:
           application/json:
             schema:
-              type: array
-              items:
-                type: object
-                description: Attribute to update.
-                additionalProperties:
-                  $ref: '#/components/schemas/attributeToUpdate'
+              type: object
+              description: Attribute(s) to update.
+              additionalProperties:
+                $ref: '#/components/schemas/attributeToUpdate'
       responses:
         '200':
           $ref: '#/components/responses/UpdatedAtWithObjectId'
@@ -3730,6 +3724,7 @@ paths:
       operationId: saveRules
       summary: Save a batch of rules.
       description: Create/update multiple rules objects at once.
+      x-codegen-request-body-name: rules
       parameters:
         - $ref: '#/components/parameters/IndexName'
         - $ref: '#/components/parameters/ForwardToReplicas'
@@ -3739,7 +3734,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/rules'
+              type: array
+              description: Rules to add.
+              items:
+                $ref: '#/components/schemas/rule'
       responses:
         '200':
           $ref: '#/components/responses/UpdatedAt'

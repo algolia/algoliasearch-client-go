@@ -1419,27 +1419,23 @@ class SearchClientRequestsTests {
   void partialUpdateObjectTest0() {
     String indexName0 = "theIndexName";
     String objectID0 = "uniqueID";
-    List<Map<String, AttributeToUpdate>> attributeToUpdate0 = new ArrayList<>();
+    Map<String, AttributeToUpdate> attributesToUpdate0 = new HashMap<>();
     {
-      Map<String, AttributeToUpdate> attributeToUpdate_01 = new HashMap<>();
+      String id11 = "test";
+      attributesToUpdate0.put("id1", AttributeToUpdate.of(id11));
+      BuiltInOperation id21 = new BuiltInOperation();
       {
-        String id12 = "test";
-        attributeToUpdate_01.put("id1", AttributeToUpdate.of(id12));
-        BuiltInOperation id22 = new BuiltInOperation();
-        {
-          BuiltInOperationType operation3 = BuiltInOperationType.fromValue("AddUnique");
-          id22.setOperation(operation3);
-          String value3 = "test2";
-          id22.setValue(value3);
-        }
-        attributeToUpdate_01.put("id2", AttributeToUpdate.of(id22));
+        BuiltInOperationType operation2 = BuiltInOperationType.fromValue("AddUnique");
+        id21.setOperation(operation2);
+        String value2 = "test2";
+        id21.setValue(value2);
       }
-      attributeToUpdate0.add(attributeToUpdate_01);
+      attributesToUpdate0.put("id2", AttributeToUpdate.of(id21));
     }
     boolean createIfNotExists0 = true;
 
     assertDoesNotThrow(() -> {
-      client.partialUpdateObject(indexName0, objectID0, attributeToUpdate0, createIfNotExists0);
+      client.partialUpdateObject(indexName0, objectID0, attributesToUpdate0, createIfNotExists0);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -1447,7 +1443,7 @@ class SearchClientRequestsTests {
     assertEquals(req.method, "POST");
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
-        "[{\"id1\":\"test\",\"id2\":{\"_operation\":\"AddUnique\",\"value\":\"test2\"}}]",
+        "{\"id1\":\"test\",\"id2\":{\"_operation\":\"AddUnique\",\"value\":\"test2\"}}",
         req.body,
         JSONCompareMode.STRICT
       );
@@ -2295,12 +2291,12 @@ class SearchClientRequestsTests {
   @DisplayName("saveRules with minimal parameters")
   void saveRulesTest0() {
     String indexName0 = "indexName";
-    List<Rule> rule0 = new ArrayList<>();
+    List<Rule> rules0 = new ArrayList<>();
     {
-      Rule rule_01 = new Rule();
+      Rule rules_01 = new Rule();
       {
         String objectID2 = "a-rule-id";
-        rule_01.setObjectID(objectID2);
+        rules_01.setObjectID(objectID2);
         List<Condition> conditions2 = new ArrayList<>();
         {
           Condition conditions_03 = new Condition();
@@ -2312,13 +2308,13 @@ class SearchClientRequestsTests {
           }
           conditions2.add(conditions_03);
         }
-        rule_01.setConditions(conditions2);
+        rules_01.setConditions(conditions2);
       }
-      rule0.add(rule_01);
-      Rule rule_11 = new Rule();
+      rules0.add(rules_01);
+      Rule rules_11 = new Rule();
       {
         String objectID2 = "a-second-rule-id";
-        rule_11.setObjectID(objectID2);
+        rules_11.setObjectID(objectID2);
         List<Condition> conditions2 = new ArrayList<>();
         {
           Condition conditions_03 = new Condition();
@@ -2330,13 +2326,13 @@ class SearchClientRequestsTests {
           }
           conditions2.add(conditions_03);
         }
-        rule_11.setConditions(conditions2);
+        rules_11.setConditions(conditions2);
       }
-      rule0.add(rule_11);
+      rules0.add(rules_11);
     }
 
     assertDoesNotThrow(() -> {
-      client.saveRules(indexName0, rule0);
+      client.saveRules(indexName0, rules0);
     });
     EchoResponse req = echo.getLastResponse();
 
@@ -2355,12 +2351,12 @@ class SearchClientRequestsTests {
   @DisplayName("saveRules with all parameters")
   void saveRulesTest1() {
     String indexName0 = "indexName";
-    List<Rule> rule0 = new ArrayList<>();
+    List<Rule> rules0 = new ArrayList<>();
     {
-      Rule rule_01 = new Rule();
+      Rule rules_01 = new Rule();
       {
         String objectID2 = "id1";
-        rule_01.setObjectID(objectID2);
+        rules_01.setObjectID(objectID2);
         List<Condition> conditions2 = new ArrayList<>();
         {
           Condition conditions_03 = new Condition();
@@ -2376,7 +2372,7 @@ class SearchClientRequestsTests {
           }
           conditions2.add(conditions_03);
         }
-        rule_01.setConditions(conditions2);
+        rules_01.setConditions(conditions2);
         Consequence consequence2 = new Consequence();
         {
           ConsequenceParams params3 = new ConsequenceParams();
@@ -2464,11 +2460,11 @@ class SearchClientRequestsTests {
           }
           consequence2.setPromote(promote3);
         }
-        rule_01.setConsequence(consequence2);
+        rules_01.setConsequence(consequence2);
         String description2 = "test";
-        rule_01.setDescription(description2);
+        rules_01.setDescription(description2);
         boolean enabled2 = true;
-        rule_01.setEnabled(enabled2);
+        rules_01.setEnabled(enabled2);
         List<TimeRange> validity2 = new ArrayList<>();
         {
           TimeRange validity_03 = new TimeRange();
@@ -2480,15 +2476,15 @@ class SearchClientRequestsTests {
           }
           validity2.add(validity_03);
         }
-        rule_01.setValidity(validity2);
+        rules_01.setValidity(validity2);
       }
-      rule0.add(rule_01);
+      rules0.add(rules_01);
     }
     boolean forwardToReplicas0 = true;
     boolean clearExistingRules0 = true;
 
     assertDoesNotThrow(() -> {
-      client.saveRules(indexName0, rule0, forwardToReplicas0, clearExistingRules0);
+      client.saveRules(indexName0, rules0, forwardToReplicas0, clearExistingRules0);
     });
     EchoResponse req = echo.getLastResponse();
 

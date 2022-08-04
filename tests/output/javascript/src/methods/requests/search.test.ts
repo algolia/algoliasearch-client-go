@@ -857,17 +857,19 @@ describe('partialUpdateObject', () => {
     const req = (await client.partialUpdateObject({
       indexName: 'theIndexName',
       objectID: 'uniqueID',
-      attributeToUpdate: [
-        { id1: 'test', id2: { _operation: 'AddUnique', value: 'test2' } },
-      ],
+      attributesToUpdate: {
+        id1: 'test',
+        id2: { _operation: 'AddUnique', value: 'test2' },
+      },
       createIfNotExists: true,
     })) as unknown as EchoResponse;
 
     expect(req.path).toEqual('/1/indexes/theIndexName/uniqueID/partial');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual([
-      { id1: 'test', id2: { _operation: 'AddUnique', value: 'test2' } },
-    ]);
+    expect(req.data).toEqual({
+      id1: 'test',
+      id2: { _operation: 'AddUnique', value: 'test2' },
+    });
     expect(req.searchParams).toStrictEqual({ createIfNotExists: 'true' });
   });
 });
@@ -1286,7 +1288,7 @@ describe('saveRules', () => {
   test('saveRules with minimal parameters', async () => {
     const req = (await client.saveRules({
       indexName: 'indexName',
-      rule: [
+      rules: [
         {
           objectID: 'a-rule-id',
           conditions: [{ pattern: 'smartphone', anchoring: 'contains' }],
@@ -1316,7 +1318,7 @@ describe('saveRules', () => {
   test('saveRules with all parameters', async () => {
     const req = (await client.saveRules({
       indexName: 'indexName',
-      rule: [
+      rules: [
         {
           objectID: 'id1',
           conditions: [
