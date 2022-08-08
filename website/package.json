@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "@algolia/ui-library": "5.85.2",
-    "@docusaurus/core": "2.0.0-rc.1",
-    "@docusaurus/preset-classic": "2.0.0-rc.1",
-    "@docusaurus/types": "2.0.0-rc.1",
+    "@docusaurus/core": "2.0.1",
+    "@docusaurus/preset-classic": "2.0.1",
+    "@docusaurus/types": "2.0.1",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.1.1",
     "docusaurus-preset-shiki-twoslash": "1.1.38",
