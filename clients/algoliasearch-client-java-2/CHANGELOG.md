@@ -1,3 +1,7 @@
+## [4.4.5-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.4.4-SNAPSHOT...4.4.5-SNAPSHOT)
+
+- [07c169f5](https://github.com/algolia/api-clients-automation/commit/07c169f5) fix(specs): browseResponse, IndexSettings and searchResponse ([#900](https://github.com/algolia/api-clients-automation/pull/900)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.4.4-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.4.3-SNAPSHOT...4.4.4-SNAPSHOT)
 
 - [005f9ed3](https://github.com/algolia/api-clients-automation/commit/005f9ed3) fix(specs): wrong body parameter name ([#896](https://github.com/algolia/api-clients-automation/pull/896)) by [@shortcuts](https://github.com/shortcuts/)
