@@ -2,8 +2,6 @@
 title: Support a new language
 ---
 
-# Support a new language
-
 :::info
 
 Make sure to first [setup the repository tooling](/docs/contributing/setup-repository) to ease your journey!
