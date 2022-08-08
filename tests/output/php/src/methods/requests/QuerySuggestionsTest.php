@@ -141,6 +141,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -161,6 +162,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'DELETE',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -182,6 +184,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/configs/theIndexName',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -199,6 +202,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -219,6 +223,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -240,6 +245,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/configs',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -257,6 +263,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/configs/theIndexName',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -274,6 +281,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/configs/theIndexName/status',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -291,6 +299,7 @@ class QuerySuggestionsTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/logs/theIndexName',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }

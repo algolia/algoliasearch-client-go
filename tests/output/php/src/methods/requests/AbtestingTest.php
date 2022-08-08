@@ -138,6 +138,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -158,6 +159,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'DELETE',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -179,6 +181,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/2/abtests/42',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -196,6 +199,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -216,6 +220,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -237,6 +242,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/2/abtests/42',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -257,6 +263,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/2/abtests',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"offset\":\"42\",\"limit\":\"21\"}",
                     true
@@ -671,6 +678,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/2/abtests/42/stop',
                 'method' => 'POST',
+                'body' => json_decode(''),
             ],
         ]);
     }

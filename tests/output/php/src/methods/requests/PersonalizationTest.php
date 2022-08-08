@@ -110,6 +110,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -130,6 +131,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'DELETE',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -151,6 +153,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/profiles/UserToken',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -168,6 +171,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -188,6 +192,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -209,6 +214,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/strategies/personalization',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -226,6 +232,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/profiles/personalization/UserToken',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }

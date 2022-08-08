@@ -110,6 +110,7 @@ class RecommendTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -130,6 +131,7 @@ class RecommendTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'DELETE',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -151,6 +153,7 @@ class RecommendTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -171,6 +174,7 @@ class RecommendTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true

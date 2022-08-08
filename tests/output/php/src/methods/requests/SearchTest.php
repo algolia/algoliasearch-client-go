@@ -588,6 +588,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/synonyms/clear',
                 'method' => 'POST',
+                'body' => json_decode(''),
             ],
         ]);
     }
@@ -605,6 +606,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/theIndexName/clear',
                 'method' => 'POST',
+                'body' => json_decode(''),
             ],
         ]);
     }
@@ -622,6 +624,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/rules/clear',
                 'method' => 'POST',
+                'body' => json_decode(''),
             ],
         ]);
     }
@@ -639,6 +642,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -659,6 +663,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'DELETE',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -680,6 +685,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/keys/myTestApiKey',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -718,6 +724,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/theIndexName',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -738,6 +745,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/theIndexName/uniqueID',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -758,6 +766,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/rules/id1',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -775,6 +784,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/security/sources/theSource',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -795,6 +805,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/synonyms/id1',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -812,6 +823,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/minimal',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -832,6 +844,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/test/all',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"query\":\"parameters\"}",
                     true
@@ -853,6 +866,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/keys/myTestApiKey',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -870,6 +884,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/dictionaries/*/languages',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -887,6 +902,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/dictionaries/*/settings',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -909,6 +925,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/logs',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"offset\":\"5\",\"length\":\"10\",\"indexName\":\"theIndexName\",\"type\":\"all\"}",
                     true
@@ -934,6 +951,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/theIndexName/uniqueID',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"attributesToRetrieve\":\"attr1,attr2\"}",
                     true
@@ -986,6 +1004,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/rules/id1',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1003,6 +1022,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/theIndexName/settings',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1020,6 +1040,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/security/sources',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1040,6 +1061,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/indexName/synonyms/id1',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1060,6 +1082,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes/theIndexName/task/123',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1077,6 +1100,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/clusters/mapping/top',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1094,6 +1118,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/clusters/mapping/uniqueID',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1111,6 +1136,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/clusters/mapping/pending',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"getClusters\":\"true\"}",
                     true
@@ -1132,6 +1158,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/keys',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1149,6 +1176,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/clusters',
                 'method' => 'GET',
+                'body' => null,
             ],
         ]);
     }
@@ -1166,6 +1194,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/indexes',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode("{\"page\":\"8\"}", true),
             ],
         ]);
@@ -1187,6 +1216,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/clusters/mapping',
                 'method' => 'GET',
+                'body' => null,
                 'queryParameters' => json_decode(
                     "{\"page\":\"8\",\"hitsPerPage\":\"100\"}",
                     true
@@ -1688,6 +1718,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/clusters/mapping/uniqueID',
                 'method' => 'DELETE',
+                'body' => null,
             ],
         ]);
     }
@@ -1727,6 +1758,7 @@ class SearchTest extends TestCase implements HttpClientInterface
             [
                 'path' => '/1/keys/myApiKey/restore',
                 'method' => 'POST',
+                'body' => json_decode(''),
             ],
         ]);
     }
