@@ -293,6 +293,7 @@
           "exactPhrase"
         ],
         "distinct": 3,
+        "attributeForDistinct": "test",
         "synonyms": false,
         "replaceSynonymsInHighlight": true,
         "minProximity": 6,
@@ -426,6 +427,7 @@
           "exactPhrase"
         ],
         "distinct": 3,
+        "attributeForDistinct": "test",
         "synonyms": false,
         "replaceSynonymsInHighlight": true,
         "minProximity": 6,

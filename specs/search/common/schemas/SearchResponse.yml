@@ -12,8 +12,6 @@ browseResponse:
 baseBrowseResponse:
   type: object
   additionalProperties: false
-  required:
-    - cursor
   properties:
     cursor:
       $ref: '../../../common/schemas/SearchParams.yml#/cursor'
@@ -39,7 +37,6 @@ baseSearchResponse:
     - hitsPerPage
     - processingTimeMS
     - exhaustiveNbHits
-    - exhaustiveTypo
     - query
     - params
   properties:
