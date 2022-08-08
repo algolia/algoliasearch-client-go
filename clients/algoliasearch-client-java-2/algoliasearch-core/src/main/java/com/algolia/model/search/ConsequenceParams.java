@@ -215,6 +215,9 @@ public class ConsequenceParams {
   @JsonProperty("distinct")
   private Distinct distinct;
 
+  @JsonProperty("attributeForDistinct")
+  private String attributeForDistinct;
+
   @JsonProperty("synonyms")
   private Boolean synonyms;
 
@@ -1436,6 +1439,21 @@ public class ConsequenceParams {
     return distinct;
   }
 
+  public ConsequenceParams setAttributeForDistinct(String attributeForDistinct) {
+    this.attributeForDistinct = attributeForDistinct;
+    return this;
+  }
+
+  /**
+   * Name of the de-duplication attribute to be used with the distinct feature.
+   *
+   * @return attributeForDistinct
+   */
+  @javax.annotation.Nullable
+  public String getAttributeForDistinct() {
+    return attributeForDistinct;
+  }
+
   public ConsequenceParams setSynonyms(Boolean synonyms) {
     this.synonyms = synonyms;
     return this;
@@ -1676,6 +1694,7 @@ public class ConsequenceParams {
       Objects.equals(this.alternativesAsExact, consequenceParams.alternativesAsExact) &&
       Objects.equals(this.advancedSyntaxFeatures, consequenceParams.advancedSyntaxFeatures) &&
       Objects.equals(this.distinct, consequenceParams.distinct) &&
+      Objects.equals(this.attributeForDistinct, consequenceParams.attributeForDistinct) &&
       Objects.equals(this.synonyms, consequenceParams.synonyms) &&
       Objects.equals(this.replaceSynonymsInHighlight, consequenceParams.replaceSynonymsInHighlight) &&
       Objects.equals(this.minProximity, consequenceParams.minProximity) &&
@@ -1760,6 +1779,7 @@ public class ConsequenceParams {
       alternativesAsExact,
       advancedSyntaxFeatures,
       distinct,
+      attributeForDistinct,
       synonyms,
       replaceSynonymsInHighlight,
       minProximity,
@@ -1845,6 +1865,7 @@ public class ConsequenceParams {
     sb.append("    alternativesAsExact: ").append(toIndentedString(alternativesAsExact)).append("\n");
     sb.append("    advancedSyntaxFeatures: ").append(toIndentedString(advancedSyntaxFeatures)).append("\n");
     sb.append("    distinct: ").append(toIndentedString(distinct)).append("\n");
+    sb.append("    attributeForDistinct: ").append(toIndentedString(attributeForDistinct)).append("\n");
     sb.append("    synonyms: ").append(toIndentedString(synonyms)).append("\n");
     sb.append("    replaceSynonymsInHighlight: ").append(toIndentedString(replaceSynonymsInHighlight)).append("\n");
     sb.append("    minProximity: ").append(toIndentedString(minProximity)).append("\n");

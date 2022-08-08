@@ -23,7 +23,7 @@ public class BaseBrowseResponse {
    *
    * @return cursor
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getCursor() {
     return cursor;
   }

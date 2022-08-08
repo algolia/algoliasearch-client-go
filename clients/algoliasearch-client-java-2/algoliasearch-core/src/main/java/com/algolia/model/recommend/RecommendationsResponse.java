@@ -195,7 +195,7 @@ public class RecommendationsResponse {
    *
    * @return exhaustiveTypo
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Boolean getExhaustiveTypo() {
     return exhaustiveTypo;
   }

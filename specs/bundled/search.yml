@@ -895,6 +895,11 @@ components:
             - Query strategy
         distinct:
           $ref: '#/components/schemas/distinct'
+        attributeForDistinct:
+          description: >-
+            Name of the de-duplication attribute to be used with the distinct
+            feature.
+          type: string
         synonyms:
           type: boolean
           description: >-
@@ -974,7 +979,6 @@ components:
         - hitsPerPage
         - processingTimeMS
         - exhaustiveNbHits
-        - exhaustiveTypo
         - query
         - params
       properties:
@@ -1363,8 +1367,6 @@ components:
     baseBrowseResponse:
       type: object
       additionalProperties: false
-      required:
-        - cursor
       properties:
         cursor:
           $ref: '#/components/schemas/cursor'

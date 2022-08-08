@@ -198,7 +198,7 @@ public class BrowseResponse<T> {
    *
    * @return exhaustiveTypo
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Boolean getExhaustiveTypo() {
     return exhaustiveTypo;
   }
@@ -522,7 +522,7 @@ public class BrowseResponse<T> {
    *
    * @return cursor
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getCursor() {
     return cursor;
   }
