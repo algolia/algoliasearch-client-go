@@ -1,4 +1,4 @@
-import { algoliasearch } from 'algoliasearch';
+import { algoliasearch, SearchClient } from 'algoliasearch';
 import { liteClient } from 'algoliasearch/lite';
 import { ApiError } from '@algolia/client-common';
 import dotenv from 'dotenv';

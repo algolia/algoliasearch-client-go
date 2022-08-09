@@ -1,61 +1,42 @@
-import { CI, run } from './common';
+/* eslint-disable no-case-declarations */
+import { run } from './common';
 import { getClientsConfigField, getLanguageFolder } from './config';
 import { createSpinner } from './oraLog';
-import type { Generator } from './types';
-
-const multiBuildLanguage = new Set(['javascript']);
+import type { Generator, Language } from './types';
 
 /**
- * Build only a specific client for one language, used by javascript for example.
+ * Build client for a language at the same time, for those who live in the same folder.
  */
-async function buildPerClient(
-  { language, key, client, additionalProperties }: Generator,
-  verbose: boolean
+async function buildClient(
+  language: Language,
+  gens: Generator[],
+  { verbose }: { verbose: boolean; skipUtils: boolean }
 ): Promise<void> {
-  const spinner = createSpinner(`building ${key}`, verbose).start();
-  const clientWorkspace =
-    client === 'algoliasearch'
-      ? additionalProperties.packageName
-      : `${getClientsConfigField(language, 'npmNamespace')}/${
-          additionalProperties.packageName
-        }`;
-
-  switch (language) {
-    case 'javascript':
-      await run(`yarn workspace ${clientWorkspace} clean`, {
-        verbose,
-        cwd: getLanguageFolder(language),
-      });
-      await run(`SKIP_UTILS=true yarn build ${clientWorkspace}`, {
-        verbose,
-        cwd: getLanguageFolder(language),
-      });
-      break;
-    default:
-  }
-  spinner.succeed();
-}
-
-/**
- * Build all client for a language at the same time, for those who live in the same folder.
- */
-async function buildAllClients(
-  language: string,
-  verbose: boolean
-): Promise<void> {
+  const cwd = getLanguageFolder(language);
   const spinner = createSpinner(`building '${language}'`, verbose).start();
   switch (language) {
     case 'java':
-      await run(
-        `./gradle/gradlew --no-daemon -p ${getLanguageFolder(
-          language
-        )} assemble`,
-        {
-          verbose,
-        }
-      );
+      await run(`./gradle/gradlew --no-daemon -p ${cwd} assemble`, {
+        verbose,
+      });
       break;
     case 'php':
+      break;
+    case 'javascript':
+      const npmNamespace = getClientsConfigField('javascript', 'npmNamespace');
+      const toRun = gens
+        .map(({ additionalProperties: { packageName } }) =>
+          packageName === 'algoliasearch'
+            ? packageName
+            : `${npmNamespace}/${packageName}`
+        )
+        .join(',');
+
+      await run(`yarn build:many '{${toRun}}'`, {
+        verbose: true,
+        cwd,
+      });
+
       break;
     default:
   }
@@ -64,41 +45,21 @@ async function buildAllClients(
 
 export async function buildClients(
   generators: Generator[],
-  { verbose, skipUtils }: { verbose: boolean; skipUtils: boolean }
+  options: { verbose: boolean; skipUtils: boolean }
 ): Promise<void> {
   const langs = [...new Set(generators.map((gen) => gen.language))];
+  const generatorsMap = generators.reduce((map, gen) => {
+    if (!(gen.language in map)) {
+      // eslint-disable-next-line no-param-reassign
+      map[gen.language] = [];
+    }
 
-  if (langs.includes('javascript')) {
-    await run('yarn install', {
-      verbose,
-      cwd: getLanguageFolder('javascript'),
-    });
-  }
+    map[gen.language].push(gen);
 
-  if (!CI && !skipUtils && langs.includes('javascript')) {
-    const spinner = createSpinner(
-      "building 'JavaScript' utils",
-      verbose
-    ).start();
+    return map;
+  }, {} as Record<Language, Generator[]>);
 
-    await run('yarn clean:utils', {
-      verbose,
-      cwd: getLanguageFolder('javascript'),
-    });
-    await run('yarn build:utils', {
-      verbose,
-      cwd: getLanguageFolder('javascript'),
-    });
-
-    spinner.succeed();
-  }
-
-  await Promise.all([
-    ...generators
-      .filter(({ language }) => multiBuildLanguage.has(language))
-      .map((gen) => buildPerClient(gen, verbose)),
-    ...langs
-      .filter((lang) => !multiBuildLanguage.has(lang))
-      .map((lang) => buildAllClients(lang, verbose)),
-  ]);
+  await Promise.all(
+    langs.map((lang) => buildClient(lang, generatorsMap[lang], options))
+  );
 }

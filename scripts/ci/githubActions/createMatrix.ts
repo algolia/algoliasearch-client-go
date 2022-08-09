@@ -1,6 +1,7 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console,no-case-declarations */
 import { CLIENTS, createClientName, GENERATORS, LANGUAGES } from '../../common';
 import {
+  getClientsConfigField,
   getLanguageFolder,
   getTestExtension,
   getTestOutputFolder,
@@ -99,10 +100,36 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
         return `${testsOutputBase}/client/${clientName}${extension} ${testsOutputBase}/methods/requests/${clientName}${extension}`;
       })
       .join(' ');
+    const toRun = matrix[language].toRun.join(' ');
+    let buildCommand = `yarn cli build clients ${language} ${toRun}`;
 
     switch (language) {
       case 'java':
         testsToStore = `${testsToStore} ${testsRootFolder}/build.gradle`;
+        break;
+      /**
+       * The CI runs on a node docker image, therefore it's not needed to run
+       * via the CLI for the JavaScript client.
+       */
+      case 'javascript':
+        const npmNamespace = getClientsConfigField(
+          'javascript',
+          'npmNamespace'
+        );
+        const packages = matrix[language].toRun.map((client) => {
+          const packageName =
+            GENERATORS[`${language}-${client}`].additionalProperties
+              .packageName;
+
+          // `algoliasearch` is not preceded by `@algolia`
+          return client === 'algoliasearch'
+            ? packageName
+            : `${npmNamespace}/${packageName}`;
+        });
+
+        buildCommand = `cd ${
+          matrix[language].path
+        } && yarn build:many '{${packages.join(',')}}'`;
         break;
       default:
         break;
@@ -111,7 +138,8 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
     clientMatrix.client.push({
       language,
       path: matrix[language].path,
-      toRun: matrix[language].toRun.join(' '),
+      toRun,
+      buildCommand,
       cacheKey: await computeCacheKey(`clients-${language}`, [
         ...matrix[language].cacheToCompute,
         'specs/common',

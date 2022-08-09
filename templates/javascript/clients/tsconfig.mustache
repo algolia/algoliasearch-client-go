@@ -7,8 +7,8 @@
     "outDir": "dist"
   },
   {{#isAlgoliasearchClient}}
-  "include": ["builds", "lite"],
-  "exclude": ["dist", "node_modules", "__tests__"]
+  "include": ["*.ts"],
+  "exclude": ["dist", "node_modules", "__tests__", "lite"]
   {{/isAlgoliasearchClient}}
   {{^isAlgoliasearchClient}}
   "include": ["{{apiPackage}}", "model", "builds"],

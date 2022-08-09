@@ -162,18 +162,11 @@ jobs:
 
       - name: Build '${{ matrix.client }}' client
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: cd clients/algoliasearch-client-javascript && yarn build ${{ matrix.client }}
+        run: cd clients/algoliasearch-client-javascript && yarn build:many @algolia/${{ matrix.client }}
 
       - name: Run tests for '${{ matrix.client }}'
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: cd clients/algoliasearch-client-javascript && yarn workspace @algolia/${{ matrix.client }} test
-
-      - name: Store '${{ matrix.client }}' JavaScript utils package
-        uses: actions/upload-artifact@v3
-        with:
-          if-no-files-found: error
-          name: client-javascript-utils-${{ matrix.client }}
-          path: clients/algoliasearch-client-javascript/packages/${{ matrix.client }}
 
   client_gen:
     timeout-minutes: 15
@@ -206,13 +199,6 @@ jobs:
         with:
           type: specs
 
-        # Always download the utils for js, in case they changed we want to include them in the zip
-      - name: Download JavaScript utils artifacts
-        if: ${{ matrix.client.language == 'javascript' }}
-        uses: ./.github/actions/restore-artifacts
-        with:
-          type: js_utils
-
       - name: Remove generated clients
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' && startsWith(env.head_ref, 'chore/prepare-release-') }}
         run: |
@@ -236,7 +222,7 @@ jobs:
 
       - name: Build clients
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language != 'php' }}
-        run: yarn cli build clients ${{ matrix.client.language }} ${{ matrix.client.toRun }}
+        run: ${{ matrix.client.buildCommand }}
 
       - name: Test JavaScript bundle size
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' && startsWith(env.head_ref, 'chore/prepare-release-') }}
