@@ -673,7 +673,7 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("get browse results with minimal parameters")
+  @DisplayName("browse with minimal parameters")
   void browseTest0() {
     String indexName0 = "indexName";
 
@@ -690,26 +690,52 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("get browse results with all parameters")
+  @DisplayName("browse with search parameters")
   void browseTest1() {
     String indexName0 = "indexName";
-    BrowseRequest browseRequest0 = new BrowseRequest();
+    BrowseParamsObject browseParams0 = new BrowseParamsObject();
     {
-      String params1 = "query=foo&facetFilters=['bar']";
-      browseRequest0.setParams(params1);
-      String cursor1 = "cts";
-      browseRequest0.setCursor(cursor1);
+      String query1 = "myQuery";
+      browseParams0.setQuery(query1);
+      List<MixedSearchFilters> facetFilters1 = new ArrayList<>();
+      {
+        String facetFilters_02 = "tags:algolia";
+        facetFilters1.add(MixedSearchFilters.of(facetFilters_02));
+      }
+      browseParams0.setFacetFilters(FacetFilters.of(facetFilters1));
     }
 
     assertDoesNotThrow(() -> {
-      client.browse(indexName0, browseRequest0, Object.class);
+      client.browse(indexName0, BrowseParams.of(browseParams0), Object.class);
     });
     EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/indexName/browse");
     assertEquals(req.method, "POST");
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}", req.body, JSONCompareMode.STRICT);
+      JSONAssert.assertEquals("{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("browse allow a cursor in parameters")
+  void browseTest2() {
+    String indexName0 = "indexName";
+    BrowseParamsObject browseParams0 = new BrowseParamsObject();
+    {
+      String cursor1 = "test";
+      browseParams0.setCursor(cursor1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.browse(indexName0, BrowseParams.of(browseParams0), Object.class);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes/indexName/browse");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"cursor\":\"test\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 

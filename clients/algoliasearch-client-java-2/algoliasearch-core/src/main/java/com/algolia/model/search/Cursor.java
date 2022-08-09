@@ -6,13 +6,13 @@ package com.algolia.model.search;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
-/** BaseBrowseResponse */
-public class BaseBrowseResponse {
+/** Cursor */
+public class Cursor {
 
   @JsonProperty("cursor")
   private String cursor;
 
-  public BaseBrowseResponse setCursor(String cursor) {
+  public Cursor setCursor(String cursor) {
     this.cursor = cursor;
     return this;
   }
@@ -36,8 +36,8 @@ public class BaseBrowseResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BaseBrowseResponse baseBrowseResponse = (BaseBrowseResponse) o;
-    return Objects.equals(this.cursor, baseBrowseResponse.cursor);
+    Cursor cursor = (Cursor) o;
+    return Objects.equals(this.cursor, cursor.cursor);
   }
 
   @Override
@@ -48,7 +48,7 @@ public class BaseBrowseResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BaseBrowseResponse {\n");
+    sb.append("class Cursor {\n");
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");
     return sb.toString();

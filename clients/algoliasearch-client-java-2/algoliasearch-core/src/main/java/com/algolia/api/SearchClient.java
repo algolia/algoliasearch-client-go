@@ -615,16 +615,16 @@ public class SearchClient extends ApiClient {
    * index has been reached, the cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param browseRequest (optional)
+   * @param browseParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> BrowseResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public <T> BrowseResponse<T> browse(String indexName, BrowseRequest browseRequest, Class<T> innerType, RequestOptions requestOptions)
+  public <T> BrowseResponse<T> browse(String indexName, BrowseParams browseParams, Class<T> innerType, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(browseAsync(indexName, browseRequest, innerType, requestOptions));
+    return LaunderThrowable.await(browseAsync(indexName, browseParams, innerType, requestOptions));
   }
 
   /**
@@ -636,13 +636,13 @@ public class SearchClient extends ApiClient {
    * index has been reached, the cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param browseRequest (optional)
+   * @param browseParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @return <T> BrowseResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public <T> BrowseResponse<T> browse(String indexName, BrowseRequest browseRequest, Class<T> innerType) throws AlgoliaRuntimeException {
-    return this.browse(indexName, browseRequest, innerType, null);
+  public <T> BrowseResponse<T> browse(String indexName, BrowseParams browseParams, Class<T> innerType) throws AlgoliaRuntimeException {
+    return this.browse(indexName, browseParams, innerType, null);
   }
 
   /**
@@ -691,7 +691,7 @@ public class SearchClient extends ApiClient {
    * cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param browseRequest (optional)
+   * @param browseParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
@@ -700,7 +700,7 @@ public class SearchClient extends ApiClient {
    */
   public <T> CompletableFuture<BrowseResponse<T>> browseAsync(
     String indexName,
-    BrowseRequest browseRequest,
+    BrowseParams browseParams,
     Class<T> innerType,
     RequestOptions requestOptions
   ) throws AlgoliaRuntimeException {
@@ -708,7 +708,7 @@ public class SearchClient extends ApiClient {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `browse`.");
     }
 
-    Object bodyObj = browseRequest != null ? browseRequest : new Object();
+    Object bodyObj = browseParams != null ? browseParams : new Object();
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/browse".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
@@ -730,14 +730,14 @@ public class SearchClient extends ApiClient {
    * cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param browseRequest (optional)
+   * @param browseParams (optional)
    * @param innerType The class held by the index, could be your custom class or {@link Object}
    * @return <T> CompletableFuture<BrowseResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public <T> CompletableFuture<BrowseResponse<T>> browseAsync(String indexName, BrowseRequest browseRequest, Class<T> innerType)
+  public <T> CompletableFuture<BrowseResponse<T>> browseAsync(String indexName, BrowseParams browseParams, Class<T> innerType)
     throws AlgoliaRuntimeException {
-    return this.browseAsync(indexName, browseRequest, innerType, null);
+    return this.browseAsync(indexName, browseParams, innerType, null);
   }
 
   /**

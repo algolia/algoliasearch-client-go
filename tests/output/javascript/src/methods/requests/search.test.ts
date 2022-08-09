@@ -335,7 +335,7 @@ describe('batchDictionaryEntries', () => {
 });
 
 describe('browse', () => {
-  test('get browse results with minimal parameters', async () => {
+  test('browse with minimal parameters', async () => {
     const req = (await client.browse({
       indexName: 'indexName',
     })) as unknown as EchoResponse;
@@ -346,21 +346,30 @@ describe('browse', () => {
     expect(req.searchParams).toStrictEqual(undefined);
   });
 
-  test('get browse results with all parameters', async () => {
+  test('browse with search parameters', async () => {
     const req = (await client.browse({
       indexName: 'indexName',
-      browseRequest: {
-        params: "query=foo&facetFilters=['bar']",
-        cursor: 'cts',
-      },
+      browseParams: { query: 'myQuery', facetFilters: ['tags:algolia'] },
     })) as unknown as EchoResponse;
 
     expect(req.path).toEqual('/1/indexes/indexName/browse');
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({
-      params: "query=foo&facetFilters=['bar']",
-      cursor: 'cts',
+      query: 'myQuery',
+      facetFilters: ['tags:algolia'],
     });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('browse allow a cursor in parameters', async () => {
+    const req = (await client.browse({
+      indexName: 'indexName',
+      browseParams: { cursor: 'test' },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes/indexName/browse');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ cursor: 'test' });
     expect(req.searchParams).toStrictEqual(undefined);
   });
 });

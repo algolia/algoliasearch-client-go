@@ -536,7 +536,7 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Browse
-     * get browse results with minimal parameters
+     * browse with minimal parameters
      */
     public function testBrowse0()
     {
@@ -554,14 +554,14 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for Browse
-     * get browse results with all parameters
+     * browse with search parameters
      */
     public function testBrowse1()
     {
         $client = $this->getClient();
         $client->browse(
             'indexName',
-            ['params' => "query=foo&facetFilters=['bar']", 'cursor' => 'cts']
+            ['query' => 'myQuery', 'facetFilters' => ['tags:algolia']]
         );
 
         $this->assertRequests([
@@ -569,8 +569,29 @@ class SearchTest extends TestCase implements HttpClientInterface
                 'path' => '/1/indexes/indexName/browse',
                 'method' => 'POST',
                 'body' => json_decode(
-                    "{\"params\":\"query=foo&facetFilters=['bar']\",\"cursor\":\"cts\"}"
+                    "{\"query\":\"myQuery\",\"facetFilters\":[\"tags:algolia\"]}"
                 ),
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for Browse
+     * browse allow a cursor in parameters
+     */
+    public function testBrowse2()
+    {
+        $client = $this->getClient();
+        $client->browse(
+            'indexName',
+            ['cursor' => 'test']
+        );
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes/indexName/browse',
+                'method' => 'POST',
+                'body' => json_decode("{\"cursor\":\"test\"}"),
             ],
         ]);
     }

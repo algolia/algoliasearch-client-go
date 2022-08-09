@@ -1285,7 +1285,7 @@ components:
             $ref: '#/components/schemas/hit'
       required:
         - hits
-    SearchResponse:
+    searchResponse:
       allOf:
         - $ref: '#/components/schemas/baseSearchResponse'
         - $ref: '#/components/schemas/searchHits'
@@ -1359,22 +1359,28 @@ components:
         - none
         - stopIfEnoughMatches
     cursor:
-      type: string
-      description: >-
-        Cursor indicating the location to resume browsing from. Must match the
-        value returned by the previous call.
-      example: jMDY3M2MwM2QwMWUxMmQwYWI0ZTN
-    baseBrowseResponse:
       type: object
       additionalProperties: false
       properties:
         cursor:
-          $ref: '#/components/schemas/cursor'
+          type: string
+          description: >-
+            Cursor indicating the location to resume browsing from. Must match
+            the value returned by the previous call.
+          example: jMDY3M2MwM2QwMWUxMmQwYWI0ZTN
+    browseParamsObject:
+      allOf:
+        - $ref: '#/components/schemas/searchParamsObject'
+        - $ref: '#/components/schemas/cursor'
+    browseParams:
+      oneOf:
+        - $ref: '#/components/schemas/searchParamsString'
+        - $ref: '#/components/schemas/browseParamsObject'
     browseResponse:
       allOf:
         - $ref: '#/components/schemas/baseSearchResponse'
         - $ref: '#/components/schemas/searchHits'
-        - $ref: '#/components/schemas/baseBrowseResponse'
+        - $ref: '#/components/schemas/cursor'
     taskID:
       type: integer
       format: int64
@@ -2532,7 +2538,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/SearchResponse'
+                      $ref: '#/components/schemas/searchResponse'
                 required:
                   - results
         '400':
