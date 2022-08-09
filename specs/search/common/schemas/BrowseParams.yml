@@ -1,0 +1,18 @@
+browseParams:
+  oneOf:
+    - $ref: '../../../common/schemas/SearchParams.yml#/searchParamsString'
+    - $ref: '#/browseParamsObject'
+
+browseParamsObject:
+  allOf:
+    - $ref: '../../../common/schemas/SearchParams.yml#/searchParamsObject'
+    - $ref: '#/cursor'
+
+cursor:
+  type: object
+  additionalProperties: false
+  properties:
+    cursor:
+      type: string
+      description: Cursor indicating the location to resume browsing from. Must match the value returned by the previous call.
+      example: jMDY3M2MwM2QwMWUxMmQwYWI0ZTN

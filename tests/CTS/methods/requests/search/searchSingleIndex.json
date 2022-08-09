@@ -10,7 +10,6 @@
     }
   },
   {
-    "method": "search",
     "testName": "search with searchParams",
     "parameters": {
       "indexName": "indexName",

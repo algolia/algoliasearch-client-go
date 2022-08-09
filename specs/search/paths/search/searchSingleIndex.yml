@@ -19,7 +19,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../common/schemas/SearchResponse.yml#/SearchResponse'
+            $ref: '../../common/schemas/SearchResponse.yml#/searchResponse'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

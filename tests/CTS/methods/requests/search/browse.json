@@ -1,6 +1,6 @@
 [
   {
-    "testName": "get browse results with minimal parameters",
+    "testName": "browse with minimal parameters",
     "parameters": {
       "indexName": "indexName"
     },
@@ -10,20 +10,40 @@
     }
   },
   {
-    "testName": "get browse results with all parameters",
+    "testName": "browse with search parameters",
     "parameters": {
       "indexName": "indexName",
-      "browseRequest": {
-        "params": "query=foo&facetFilters=['bar']",
-        "cursor": "cts"
+      "browseParams": {
+        "query": "myQuery",
+        "facetFilters": [
+          "tags:algolia"
+        ]
       }
     },
     "request": {
       "path": "/1/indexes/indexName/browse",
       "method": "POST",
       "body": {
-        "params": "query=foo&facetFilters=['bar']",
-        "cursor": "cts"
+        "query": "myQuery",
+        "facetFilters": [
+          "tags:algolia"
+        ]
+      }
+    }
+  },
+  {
+    "testName": "browse allow a cursor in parameters",
+    "parameters": {
+      "indexName": "indexName",
+      "browseParams": {
+        "cursor": "test"
+      }
+    },
+    "request": {
+      "path": "/1/indexes/indexName/browse",
+      "method": "POST",
+      "body": {
+        "cursor": "test"
       }
     }
   }

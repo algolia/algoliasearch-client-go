@@ -1,0 +1,5 @@
+browseResponse:
+  allOf:
+    - $ref: './SearchResponse.yml#/baseSearchResponse'
+    - $ref: './SearchResponse.yml#/searchHits'
+    - $ref: './BrowseParams.yml#/cursor'

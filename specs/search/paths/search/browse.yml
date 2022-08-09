@@ -15,21 +15,14 @@ post:
     content:
       application/json:
         schema:
-          title: browseRequest
-          type: object
-          additionalProperties: false
-          properties:
-            params:
-              $ref: '../../../common/schemas/SearchParams.yml#/paramsAsString'
-            cursor:
-              $ref: '../../../common/schemas/SearchParams.yml#/cursor'
+          $ref: '../../common/schemas/BrowseParams.yml#/browseParams'
   responses:
     '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: '../../common/schemas/SearchResponse.yml#/browseResponse'
+            $ref: '../../common/schemas/BrowseResponse.yml#/browseResponse'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':
