@@ -58,6 +58,7 @@ public class AnalyticsClient extends ApiClient {
         }
       }
     }
+
     if (!found) {
       throw new AlgoliaRuntimeException("`region` must be one of the following: de, us");
     }

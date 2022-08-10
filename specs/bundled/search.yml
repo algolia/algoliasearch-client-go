@@ -3059,6 +3059,11 @@ paths:
                         description: >-
                           arguments to the operation (depends on the type of the
                           operation).
+                    required:
+                      - action
+                      - body
+              required:
+                - requests
       responses:
         '200':
           description: OK

@@ -85,8 +85,22 @@ class PredictClientClientTests {
   }
 
   @Test
-  @DisplayName("throws when incorrect region is given")
+  @DisplayName("throws when region is not given")
   void parametersTest0() {
+    {
+      Exception exception = assertThrows(
+        Exception.class,
+        () -> {
+          PredictClient $client = new PredictClient("my-app-id", "my-api-key", "", new ClientOptions().setRequester(requester));
+        }
+      );
+      assertEquals("`region` is required and must be one of the following: ue, ew", exception.getMessage());
+    }
+  }
+
+  @Test
+  @DisplayName("throws when incorrect region is given")
+  void parametersTest1() {
     {
       Exception exception = assertThrows(
         Exception.class,
@@ -94,13 +108,13 @@ class PredictClientClientTests {
           PredictClient $client = new PredictClient("my-app-id", "my-api-key", "not_a_region", new ClientOptions().setRequester(requester));
         }
       );
-      assertEquals("`region` must be one of the following: ue, ew", exception.getMessage());
+      assertEquals("`region` is required and must be one of the following: ue, ew", exception.getMessage());
     }
   }
 
   @Test
   @DisplayName("does not throw when region is given")
-  void parametersTest1() {
+  void parametersTest2() {
     PredictClient $client = new PredictClient("my-app-id", "my-api-key", "ew", new ClientOptions().setRequester(requester));
   }
 }

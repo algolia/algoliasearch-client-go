@@ -29,12 +29,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
      */
     private function createClient($appId, $apiKey, $region = 'us')
     {
-        $config = PersonalizationConfig::create(
-            $appId,
-            $apiKey,
-            $region,
-            PersonalizationClient::getAllowedRegions()
-        );
+        $config = PersonalizationConfig::create($appId, $apiKey, $region);
         $clusterHosts = PersonalizationClient::getClusterHosts($config);
         $api = new ApiWrapper($this, $config, $clusterHosts);
 
@@ -98,9 +93,24 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     }
 
     /**
-     * Test case : throws when incorrect region is given
+     * Test case : throws when region is not given
      */
     public function test0parameters()
+    {
+        try {
+            $client = $this->createClient('my-app-id', 'my-api-key', '');
+        } catch (\Exception $e) {
+            $this->assertEquals(
+                $e->getMessage(),
+                '`region` is required and must be one of the following: eu, us'
+            );
+        }
+    }
+
+    /**
+     * Test case : throws when incorrect region is given
+     */
+    public function test1parameters()
     {
         try {
             $client = $this->createClient(
@@ -111,7 +121,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
         } catch (\Exception $e) {
             $this->assertEquals(
                 $e->getMessage(),
-                '`region` must be one of the following: eu, us'
+                '`region` is required and must be one of the following: eu, us'
             );
         }
     }
@@ -119,7 +129,7 @@ class PersonalizationTest extends TestCase implements HttpClientInterface
     /**
      * Test case : does not throw when region is given
      */
-    public function test1parameters()
+    public function test2parameters()
     {
         $client = $this->createClient('my-app-id', 'my-api-key', 'us');
 

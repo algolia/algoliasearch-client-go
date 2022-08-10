@@ -42,17 +42,17 @@ public class PredictClient extends ApiClient {
     List<StatefulHost> hosts = new ArrayList<StatefulHost>();
 
     boolean found = false;
-    if (region == null) {
-      throw new AlgoliaRuntimeException("`region` is missing");
-    }
-    for (String allowed : allowedRegions) {
-      if (allowed.equals(region)) {
-        found = true;
-        break;
+    if (region != null) {
+      for (String allowed : allowedRegions) {
+        if (allowed.equals(region)) {
+          found = true;
+          break;
+        }
       }
     }
-    if (!found) {
-      throw new AlgoliaRuntimeException("`region` must be one of the following: ue, ew");
+
+    if (region == null || !found) {
+      throw new AlgoliaRuntimeException("`region` is required and must be one of the following: ue, ew");
     }
 
     String url = "predict-api-432xa6wemq-{region}.a.run.app".replace("{region}", region);

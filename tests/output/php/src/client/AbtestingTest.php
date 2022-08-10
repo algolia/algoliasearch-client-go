@@ -29,12 +29,7 @@ class AbtestingTest extends TestCase implements HttpClientInterface
      */
     private function createClient($appId, $apiKey, $region = 'us')
     {
-        $config = AbtestingConfig::create(
-            $appId,
-            $apiKey,
-            $region,
-            AbtestingClient::getAllowedRegions()
-        );
+        $config = AbtestingConfig::create($appId, $apiKey, $region);
         $clusterHosts = AbtestingClient::getClusterHosts($config);
         $api = new ApiWrapper($this, $config, $clusterHosts);
 

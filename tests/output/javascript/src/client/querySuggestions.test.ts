@@ -53,6 +53,20 @@ describe('commonApi', () => {
 });
 
 describe('parameters', () => {
+  test('throws when region is not given', async () => {
+    try {
+      const $client = querySuggestionsClient('my-app-id', 'my-api-key', '', {
+        requester: echoRequester(),
+      });
+
+      throw new Error('test is expected to throw error');
+    } catch (e) {
+      expect((e as Error).message).toMatch(
+        '`region` is required and must be one of the following: eu, us'
+      );
+    }
+  });
+
   test('throws when incorrect region is given', async () => {
     try {
       const $client = querySuggestionsClient(
@@ -65,7 +79,7 @@ describe('parameters', () => {
       throw new Error('test is expected to throw error');
     } catch (e) {
       expect((e as Error).message).toMatch(
-        '`region` must be one of the following: eu, us'
+        '`region` is required and must be one of the following: eu, us'
       );
     }
   });

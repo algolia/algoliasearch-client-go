@@ -29,12 +29,7 @@ class AnalyticsTest extends TestCase implements HttpClientInterface
      */
     private function createClient($appId, $apiKey, $region = 'us')
     {
-        $config = AnalyticsConfig::create(
-            $appId,
-            $apiKey,
-            $region,
-            AnalyticsClient::getAllowedRegions()
-        );
+        $config = AnalyticsConfig::create($appId, $apiKey, $region);
         $clusterHosts = AnalyticsClient::getClusterHosts($config);
         $api = new ApiWrapper($this, $config, $clusterHosts);
 

@@ -25,7 +25,7 @@ public class BatchRequest {
    *
    * @return action
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Action getAction() {
     return action;
   }
@@ -40,7 +40,7 @@ public class BatchRequest {
    *
    * @return body
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Object getBody() {
     return body;
   }

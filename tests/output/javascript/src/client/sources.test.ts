@@ -71,7 +71,9 @@ describe('parameters', () => {
 
       throw new Error('test is expected to throw error');
     } catch (e) {
-      expect((e as Error).message).toMatch('`region` is missing.');
+      expect((e as Error).message).toMatch(
+        '`region` is required and must be one of the following: de, us'
+      );
     }
   });
 
@@ -84,7 +86,7 @@ describe('parameters', () => {
       throw new Error('test is expected to throw error');
     } catch (e) {
       expect((e as Error).message).toMatch(
-        '`region` must be one of the following: de, us'
+        '`region` is required and must be one of the following: de, us'
       );
     }
   });
