@@ -51,18 +51,21 @@ use {{invokerPackage}}\Support\Helpers;
      */
     public static function create($appId = null, $apiKey = null, $region = null)
     {
-        $allowedRegions = self::getAllowedRegions();
-        $config = {{configClassname}}::create($appId, $apiKey, $region, $allowedRegions);
+        $allowedRegions = [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}];
+
+        if (
+            {{^fallbackToAliasHost}}$region === null ||{{/fallbackToAliasHost}}
+            ($region !== null && !in_array($region, $allowedRegions, true))
+        ) {
+            throw new AlgoliaException(
+                '`region` {{^fallbackToAliasHost}}is required and {{/fallbackToAliasHost}}must be one of the following: ' .
+                    implode(', ', $allowedRegions)
+            );
+        }
+
+        $config = {{configClassname}}::create($appId, $apiKey, $region);
 
         return static::createWithConfig($config);
-    }
-
-    /**
-     * Returns the allowed regions for the config
-     */
-    public static function getAllowedRegions()
-    {
-        return [{{#allowedRegions}}'{{.}}'{{^-last}},{{/-last}}{{/allowedRegions}}];
     }
     {{/hasRegionalHost}}
 

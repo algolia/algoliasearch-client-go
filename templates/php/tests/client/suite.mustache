@@ -37,8 +37,7 @@ class {{clientPrefix}}Test extends TestCase implements HttpClientInterface
             $config = {{clientPrefix}}Config::create(
                 $appId, 
                 $apiKey, 
-                $region,
-                {{client}}::getAllowedRegions()
+                $region
             );
             $clusterHosts = {{client}}::getClusterHosts($config);
         {{/hasRegionalHost}}

@@ -99,20 +99,7 @@ public class {{classname}} extends ApiClient {
     private static List<StatefulHost> getDefaultHosts(String region) throws AlgoliaRuntimeException {
       List<StatefulHost> hosts = new ArrayList<StatefulHost>();
 
-      {{^fallbackToAliasHost}}
-      boolean found = false;
-      if (region == null) {
-        throw new AlgoliaRuntimeException("`region` is missing");
-      }
-      for (String allowed : allowedRegions) {
-        if (allowed.equals(region)) {
-          found = true;
-          break;
-        }
-      }
-      {{/fallbackToAliasHost}}
-      {{#fallbackToAliasHost}}
-      boolean found = region == null;
+      boolean found = {{^fallbackToAliasHost}}false{{/fallbackToAliasHost}}{{#fallbackToAliasHost}}region == null{{/fallbackToAliasHost}};
       if (region != null) {
         for (String allowed : allowedRegions) {
           if (allowed.equals(region)) {
@@ -121,9 +108,9 @@ public class {{classname}} extends ApiClient {
           }
         }
       }
-      {{/fallbackToAliasHost}}
-      if (!found) {
-        throw new AlgoliaRuntimeException("`region` must be one of the following: {{#allowedRegions}}{{.}}{{^-last}}, {{/-last}}{{/allowedRegions}}");
+
+      if ({{^fallbackToAliasHost}}region == null || {{/fallbackToAliasHost}}!found){
+        throw new AlgoliaRuntimeException("`region` {{^fallbackToAliasHost}}is required and {{/fallbackToAliasHost}}must be one of the following: {{#allowedRegions}}{{.}}{{^-last}}, {{/-last}}{{/allowedRegions}}");
       }
 
       String url = {{#fallbackToAliasHost}}region == null ? "{{{hostWithFallback}}}" : {{/fallbackToAliasHost}} "{{{host}}}".replace("{region}", region);

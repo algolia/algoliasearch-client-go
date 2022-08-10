@@ -11,7 +11,7 @@
           "region": ""
         },
         "expected": {
-          "error": "`region` is missing."
+          "error": "`region` is required and must be one of the following: de, us"
         }
       }
     ]
@@ -28,7 +28,7 @@
           "region": "not_a_region"
         },
         "expected": {
-          "error": "`region` must be one of the following: de, us"
+          "error": "`region` is required and must be one of the following: de, us"
         }
       }
     ]
