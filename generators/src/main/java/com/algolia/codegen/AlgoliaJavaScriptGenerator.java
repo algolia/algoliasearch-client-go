@@ -121,6 +121,9 @@ public class AlgoliaJavaScriptGenerator extends TypeScriptNodeClientCodegen {
     additionalProperties.put("isSearchClient", CLIENT.equals("search"));
     additionalProperties.put("isAlgoliasearchClient", isAlgoliasearchClient);
 
+    // PRED-523 - tmp addition until the predict client supports user-agent in their API
+    additionalProperties.put("isPredictClient", CLIENT.equals("predict"));
+
     if (isAlgoliasearchClient) {
       // Files used to create the package.json of the algoliasearch package
       additionalProperties.put("analyticsVersion", Utils.getOpenApiToolsField("javascript", "analytics", "packageVersion"));

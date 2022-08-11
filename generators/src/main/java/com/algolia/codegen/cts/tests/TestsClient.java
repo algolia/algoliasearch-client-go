@@ -19,13 +19,22 @@ public class TestsClient extends TestsGenerator {
 
   @Override
   public boolean available() {
-    // no `lite` client test for now
+    // no `algoliasearch` client tests for now, only `lite`.
     if (language.equals("javascript") && client.equals("algoliasearch")) {
       return false;
     }
 
     File templates = new File("templates/" + language + "/tests/client/suite.mustache");
     return templates.exists();
+  }
+
+  public boolean isTestAvailable(String testName) {
+    // PRED-523 - tmp addition until the predict client supports user-agent in their API
+    if (client.equals("predict") && testName.equals("calls api with correct user agent")) {
+      return false;
+    }
+
+    return true;
   }
 
   @Override
@@ -50,6 +59,11 @@ public class TestsClient extends TestsGenerator {
       for (ClientTestData test : blockEntry.getValue()) {
         Map<String, Object> testOut = new HashMap<>();
         List<Object> steps = new ArrayList<>();
+
+        if (!isTestAvailable(test.testName)) {
+          continue;
+        }
+
         testOut.put("testName", test.testName);
         testOut.put("testIndex", testIndex++);
         testOut.put("autoCreateClient", test.autoCreateClient);
