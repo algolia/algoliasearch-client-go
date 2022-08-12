@@ -4,7 +4,7 @@
 
 The Algolia API clients are generated from [OpenAPI specs](https://swagger.io/specification/), leveraging the open-source [openapi-generator](https://openapi-generator.tech/) tool.
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](./LICENSE.md)
 
 <p align="center">
   <strong>
