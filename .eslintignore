@@ -1,7 +1,7 @@
-node_modules
-dist
+**/node_modules
+**/dist
 playground
-build
+**/build
 composer.json
 tsconfig.json
 vendor

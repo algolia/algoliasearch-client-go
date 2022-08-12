@@ -57,6 +57,20 @@ export async function generate(
   }
 
   for (const lang of langs) {
-    await formatter(lang, getLanguageFolder(lang), verbose);
+    let folder = getLanguageFolder(lang);
+
+    // We have scoped output folder for JavaScript which allow us to
+    // avoid linting the whole client, only the part that changed
+    if (lang === 'javascript') {
+      folder = generators.reduce((folders, gen) => {
+        if (gen.language === 'javascript') {
+          return `${folders} ${gen.output}`;
+        }
+
+        return folders;
+      }, '');
+    }
+
+    await formatter(lang, folder, verbose);
   }
 }
