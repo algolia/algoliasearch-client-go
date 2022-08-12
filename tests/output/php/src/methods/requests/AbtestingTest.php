@@ -254,6 +254,24 @@ class AbtestingTest extends TestCase implements HttpClientInterface
     public function testListABTests0()
     {
         $client = $this->getClient();
+        $client->listABTests();
+
+        $this->assertRequests([
+            [
+                'path' => '/2/abtests',
+                'method' => 'GET',
+                'body' => null,
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for ListABTests
+     * listABTests with parameters
+     */
+    public function testListABTests1()
+    {
+        $client = $this->getClient();
         $client->listABTests(
             42,
             21

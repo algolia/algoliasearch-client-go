@@ -110,6 +110,15 @@ describe('getABTest', () => {
 
 describe('listABTests', () => {
   test('listABTests with minimal parameters', async () => {
+    const req = (await client.listABTests()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/2/abtests');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('listABTests with parameters', async () => {
     const req = (await client.listABTests({
       offset: 42,
       limit: 21,

@@ -596,7 +596,16 @@ describe('getDictionarySettings', () => {
 });
 
 describe('getLogs', () => {
-  test('getLogs', async () => {
+  test('getLogs with minimal parameters', async () => {
+    const req = (await client.getLogs()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/logs');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('getLogs with parameters', async () => {
     const req = (await client.getLogs({
       offset: 5,
       length: 10,
@@ -751,7 +760,16 @@ describe('getUserId', () => {
 });
 
 describe('hasPendingMappings', () => {
-  test('hasPendingMappings', async () => {
+  test('hasPendingMappings with minimal parameters', async () => {
+    const req = (await client.hasPendingMappings()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/clusters/mapping/pending');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('hasPendingMappings with parameters', async () => {
     const req = (await client.hasPendingMappings({
       getClusters: true,
     })) as unknown as EchoResponse;
@@ -786,7 +804,16 @@ describe('listClusters', () => {
 });
 
 describe('listIndices', () => {
-  test('listIndices', async () => {
+  test('listIndices with minimal parameters', async () => {
+    const req = (await client.listIndices()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/indexes');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('listIndices with parameters', async () => {
     const req = (await client.listIndices({
       page: 8,
     })) as unknown as EchoResponse;
@@ -799,7 +826,16 @@ describe('listIndices', () => {
 });
 
 describe('listUserIds', () => {
-  test('listUserIds', async () => {
+  test('listUserIds with minimal parameters', async () => {
+    const req = (await client.listUserIds()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/clusters/mapping');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('listUserIds with parameters', async () => {
     const req = (await client.listUserIds({
       page: 8,
       hitsPerPage: 100,

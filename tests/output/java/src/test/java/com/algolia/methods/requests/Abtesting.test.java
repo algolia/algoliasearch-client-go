@@ -214,6 +214,19 @@ class AbtestingClientRequestsTests {
   @Test
   @DisplayName("listABTests with minimal parameters")
   void listABTestsTest0() {
+    assertDoesNotThrow(() -> {
+      client.listABTests();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/2/abtests");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("listABTests with parameters")
+  void listABTestsTest1() {
     int offset0 = 42;
     int limit0 = 21;
 

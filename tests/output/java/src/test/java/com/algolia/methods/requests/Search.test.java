@@ -1035,8 +1035,21 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("getLogs")
+  @DisplayName("getLogs with minimal parameters")
   void getLogsTest0() {
+    assertDoesNotThrow(() -> {
+      client.getLogs();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/logs");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("getLogs with parameters")
+  void getLogsTest1() {
     int offset0 = 5;
     int length0 = 10;
     String indexName0 = "theIndexName";
@@ -1253,8 +1266,21 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("hasPendingMappings")
+  @DisplayName("hasPendingMappings with minimal parameters")
   void hasPendingMappingsTest0() {
+    assertDoesNotThrow(() -> {
+      client.hasPendingMappings();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/clusters/mapping/pending");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("hasPendingMappings with parameters")
+  void hasPendingMappingsTest1() {
     boolean getClusters0 = true;
 
     assertDoesNotThrow(() -> {
@@ -1306,8 +1332,21 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("listIndices")
+  @DisplayName("listIndices with minimal parameters")
   void listIndicesTest0() {
+    assertDoesNotThrow(() -> {
+      client.listIndices();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/indexes");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("listIndices with parameters")
+  void listIndicesTest1() {
     int page0 = 8;
 
     assertDoesNotThrow(() -> {
@@ -1333,8 +1372,21 @@ class SearchClientRequestsTests {
   }
 
   @Test
-  @DisplayName("listUserIds")
+  @DisplayName("listUserIds with minimal parameters")
   void listUserIdsTest0() {
+    assertDoesNotThrow(() -> {
+      client.listUserIds();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/clusters/mapping");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("listUserIds with parameters")
+  void listUserIdsTest1() {
     int page0 = 8;
     int hitsPerPage0 = 100;
 

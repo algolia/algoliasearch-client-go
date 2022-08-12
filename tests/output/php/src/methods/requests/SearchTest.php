@@ -930,9 +930,27 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for GetLogs
-     * getLogs
+     * getLogs with minimal parameters
      */
     public function testGetLogs0()
+    {
+        $client = $this->getClient();
+        $client->getLogs();
+
+        $this->assertRequests([
+            [
+                'path' => '/1/logs',
+                'method' => 'GET',
+                'body' => null,
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for GetLogs
+     * getLogs with parameters
+     */
+    public function testGetLogs1()
     {
         $client = $this->getClient();
         $client->getLogs(
@@ -1146,9 +1164,27 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for HasPendingMappings
-     * hasPendingMappings
+     * hasPendingMappings with minimal parameters
      */
     public function testHasPendingMappings0()
+    {
+        $client = $this->getClient();
+        $client->hasPendingMappings();
+
+        $this->assertRequests([
+            [
+                'path' => '/1/clusters/mapping/pending',
+                'method' => 'GET',
+                'body' => null,
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for HasPendingMappings
+     * hasPendingMappings with parameters
+     */
+    public function testHasPendingMappings1()
     {
         $client = $this->getClient();
         $client->hasPendingMappings(true);
@@ -1204,9 +1240,27 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for ListIndices
-     * listIndices
+     * listIndices with minimal parameters
      */
     public function testListIndices0()
+    {
+        $client = $this->getClient();
+        $client->listIndices();
+
+        $this->assertRequests([
+            [
+                'path' => '/1/indexes',
+                'method' => 'GET',
+                'body' => null,
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for ListIndices
+     * listIndices with parameters
+     */
+    public function testListIndices1()
     {
         $client = $this->getClient();
         $client->listIndices(8);
@@ -1223,9 +1277,27 @@ class SearchTest extends TestCase implements HttpClientInterface
 
     /**
      * Test case for ListUserIds
-     * listUserIds
+     * listUserIds with minimal parameters
      */
     public function testListUserIds0()
+    {
+        $client = $this->getClient();
+        $client->listUserIds();
+
+        $this->assertRequests([
+            [
+                'path' => '/1/clusters/mapping',
+                'method' => 'GET',
+                'body' => null,
+            ],
+        ]);
+    }
+
+    /**
+     * Test case for ListUserIds
+     * listUserIds with parameters
+     */
+    public function testListUserIds1()
     {
         $client = $this->getClient();
         $client->listUserIds(
