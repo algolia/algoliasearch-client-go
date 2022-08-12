@@ -4,7 +4,7 @@
       {{#allParams}}
         {{paramName}},
       {{/allParams}}
-    }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props,
+    }: {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props{{^hasRequiredParams}} = {}{{/hasRequiredParams}},
   {{/x-create-wrapping-object}}
   {{#x-is-single-body-param}}
     {{#bodyParams}}
@@ -12,4 +12,4 @@
     {{/bodyParams}}
   {{/x-is-single-body-param}}
 {{/vendorExtensions}}
-requestOptions?: RequestOptions
+requestOptions{{^hasParams}}?{{/hasParams}}{{#hasParams}}{{#hasRequiredParams}}?{{/hasRequiredParams}}{{/hasParams}}: RequestOptions{{#hasParams}}{{^hasRequiredParams}} | undefined = undefined{{/hasRequiredParams}}{{/hasParams}}

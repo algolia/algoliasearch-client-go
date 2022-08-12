@@ -1,5 +1,14 @@
 [
   {
+    "testName": "getLogs with minimal parameters",
+    "parameters": {},
+    "request": {
+      "path": "/1/logs",
+      "method": "GET"
+    }
+  },
+  {
+    "testName": "getLogs with parameters",
     "parameters": {
       "offset": 5,
       "length": 10,
