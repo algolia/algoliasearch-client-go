@@ -103,7 +103,7 @@ $records = [
 $requests = [];
 
 foreach ($records as $record) {
-    $requests += [
+    $requests[] = [
       'action' => 'addObject',
       'body' => $record
     ];
