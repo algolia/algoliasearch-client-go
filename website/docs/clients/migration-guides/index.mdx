@@ -93,7 +93,8 @@ client.search(
         .addAttributesToRetrieve("lastname")
         .setHitsPerPage(50)
     )
-  )
+  ),
+  MyObject.class
 );
 ```
 
@@ -153,8 +154,11 @@ const abTest = await abtestingClient.getABTest({
 <TabItem value="java">
 
 ```java
-// TODO
+import com.algolia.api.AbtestingClient;
+import com.algolia.model.abtesting.*;
 
+AbtestingClient client = new AbtestingClient("<YOUR_APP_ID>", "<YOUR_API_KEY>");
+ABTest abTest = client.getABTest(42);
 ```
 
 </TabItem>
@@ -381,10 +385,12 @@ $client->batch(
 <TabItem value="java">
 
 ```java
-class Actor {
-  String name;
+import com.algolia.model.search.*;
 
-  Actor(String name) {
+class Actor extends Hit {
+  public String name;
+
+  public Actor(String name) {
     this.name = name;
   }
 }

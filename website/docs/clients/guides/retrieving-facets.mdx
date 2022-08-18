@@ -84,7 +84,8 @@ client.search(
         .addFacets("author")
         .addFacets("genre")
     )
-  )
+  ),
+  MyObject.class
 );
 ```
 
@@ -101,7 +102,8 @@ client.search(
         .setQuery("<YOUR_QUERY>")
         .addFacets("*")
     )
-  )
+  ),
+  MyObject.class
 );
 ```
 

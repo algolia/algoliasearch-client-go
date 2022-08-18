@@ -178,12 +178,14 @@ client.saveObject("<YOUR_INDEX_NAME>", body);
 SearchMethodParams searchMethodParams = new SearchMethodParams();
 SearchQueries requests = new SearchQueries();
 requests.setIndexName("<YOUR_INDEX_NAME>");
+// Typo tolerant search
 requests.setQuery("my aloglia ojbect");
 searchMethodParams.setRequests(requests);
 
 try {
-  SearchResponse result = client.search(
-    searchMethodParams
+  SearchResponse<MyObject> result = client.search(
+    searchMethodParams,
+    MyObject.class
   );
   System.out.println(result);
 } catch (AlgoliaRuntimeException e) {

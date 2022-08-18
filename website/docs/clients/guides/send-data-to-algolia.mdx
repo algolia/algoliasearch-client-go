@@ -122,10 +122,12 @@ $client->waitForTask(<YOUR_INDEX_NAME>, $response['taskID']);
 <TabItem value="java">
 
 ```java
-class Actor {
-  String name;
+import com.algolia.model.search.*;
 
-  Actor(String name) {
+class Actor extends Hit {
+  public String name;
+
+  public Actor(String name) {
     this.name = name;
   }
 }
