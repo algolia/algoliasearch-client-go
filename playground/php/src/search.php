@@ -27,3 +27,30 @@ var_dump(
         ],
     ])
 );
+
+// browse records
+$results = $client->browseObjects($indexName);
+
+$objects = [];
+foreach ($results as $object) {
+    $objects[] = $object;
+}
+var_dump($objects);
+
+// browse synonyms
+$results = $client->browseSynonyms($indexName);
+
+$synonyms = [];
+foreach ($results as $synonym) {
+    $synonyms[] = $synonym;
+}
+var_dump($synonyms);
+
+// browse rules
+$results = $client->browseRules($indexName);
+
+$rules = [];
+foreach ($results as $rule) {
+    $rules[] = $rule;
+}
+var_dump($rules);

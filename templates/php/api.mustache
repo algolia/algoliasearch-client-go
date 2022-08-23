@@ -7,6 +7,9 @@ use {{invokerPackage}}\Algolia;
 use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration\{{configClassname}};
 use {{invokerPackage}}\Exceptions\ExceededRetriesException;
+use {{invokerPackage}}\Iterators\ObjectIterator;
+use {{invokerPackage}}\Iterators\RuleIterator;
+use {{invokerPackage}}\Iterators\SynonymIterator;
 use {{invokerPackage}}\ObjectSerializer;
 use {{invokerPackage}}\RetryStrategy\ApiWrapper;
 use {{invokerPackage}}\RetryStrategy\ApiWrapperInterface;
@@ -362,6 +365,45 @@ use {{invokerPackage}}\Support\Helpers;
             null,
             $requestOptions
         );
+    }
+
+    /**
+     * Helper: Iterate on the `browse` method of the client to allow aggregating objects of an index.
+     *
+     * @param string $indexName Index name
+     * @param array $requestOptions Request options
+     *
+     * @return ObjectIterator
+     */
+    public function browseObjects($indexName, $requestOptions = [])
+    {
+        return new ObjectIterator($indexName, $this, $requestOptions);
+    }
+
+    /**
+     * Helper: Iterate on the `searchRules` method of the client to allow aggregating rules of an index.
+     *
+     * @param string $indexName Index name
+     * @param array $requestOptions Request options
+     *
+     * @return RuleIterator
+     */
+    public function browseRules($indexName, $requestOptions = [])
+    {
+        return new RuleIterator($indexName, $this, $requestOptions);
+    }
+
+    /**
+     * Helper: Iterate on the `searchSynonyms` method of the client to allow aggregating synonyms of an index.
+     *
+     * @param string $indexName Index name
+     * @param array $requestOptions Request options
+     *
+     * @return SynonymIterator
+     */
+    public function browseSynonyms($indexName, $requestOptions = [])
+    {
+        return new SynonymIterator($indexName, $this, $requestOptions);
     }
     {{/isSearchClient}}
 
