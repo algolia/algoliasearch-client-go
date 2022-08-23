@@ -3,14 +3,31 @@
   "repository": "{{gitUserId}}/{{gitRepoId}}",
   "license": "MIT",
   "author": "Algolia",
+  "types": "./index.d.ts",
   {{^isAlgoliasearchClient}}
   "name": "{{{npmNamespace}}}/{{packageName}}",
   "description": "JavaScript client for {{packageName}}",
-  "main": "index.js",
-  "jsdelivr": "dist/{{packageName}}.umd.js",
-  "unpkg": "dist/{{packageName}}.umd.js",
-  "module": "dist/{{packageName}}.esm.node.js",
-  "browser": "dist/{{packageName}}.umd.js",
+  "jsdelivr": "./dist/{{packageName}}.umd.js",
+  "unpkg": "./dist/{{packageName}}.umd.js",
+  "browser": "./dist/{{packageName}}.umd.js",
+  "exports": {
+    ".": {
+      "node": {
+        "import": "./dist/{{packageName}}.esm.node.js",
+        "module": "./dist/{{packageName}}.esm.node.js",
+        "require": "./dist/{{packageName}}.cjs.js",
+        "default": "./dist/{{packageName}}.cjs.js"
+      },
+      "default": {
+        "umd": "./dist/{{packageName}}.umd.js",
+        "module": "./dist/{{packageName}}.esm.browser.js",
+        "import": "./dist/{{packageName}}.esm.browser.js",
+        "default": "./dist/{{packageName}}.umd.js"
+      }
+    },
+    "./src/*": "./src/*.ts",
+    "./model": "./model/index.ts"
+  },
   "files": [
     "dist",
     "model",
@@ -35,6 +52,12 @@
   {{#isAlgoliasearchClient}}
   "name": "{{packageName}}",
   "description": "A fully-featured and blazing-fast JavaScript API client to interact with Algolia API.",
+  "jsdelivr": "./dist/algoliasearch.umd.js",
+  "unpkg": "./dist/algoliasearch.umd.js",
+  "browser": {
+    "./index.js": "./dist/algoliasearch.umd.js",
+    "./lite.js": "./dist/lite/lite.umd.js"
+  },
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -44,7 +67,7 @@
         "require": "./dist/algoliasearch.cjs.js",
         "default": "./dist/algoliasearch.cjs.js"
       },
-      "browser": {
+      "default": {
         "umd": "./dist/algoliasearch.umd.js",
         "module": "./dist/algoliasearch.esm.browser.js",
         "import": "./dist/algoliasearch.esm.browser.js",
@@ -59,19 +82,13 @@
         "require": "./dist/lite/lite.cjs.js",
         "default": "./dist/lite/lite.cjs.js"
       },
-      "browser": {
+      "default": {
         "umd": "./dist/lite/lite.umd.js",
         "module": "./dist/lite/lite.esm.browser.js",
         "import": "./dist/lite/lite.esm.browser.js",
         "default": "./dist/lite/lite.umd.js"
       }
     }
-  },
-  "jsdelivr": "./dist/algoliasearch.umd.js",
-  "unpkg": "./dist/algoliasearch.umd.js",
-  "browser": {
-    "./index.js": "./dist/algoliasearch.umd.js",
-    "./lite.js": "./dist/lite/lite.umd.js"
   },
   "files": [
     "dist",
@@ -105,7 +122,6 @@
     "rollup": "2.78.1"
   },
   {{/isAlgoliasearchClient}}
-  "types": "index.d.ts",
   "engines": {
     "node": ">= 14.0.0"
   }

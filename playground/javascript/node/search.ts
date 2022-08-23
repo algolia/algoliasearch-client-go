@@ -1,4 +1,6 @@
 import { searchClient } from '@algolia/client-search';
+import { apiClientVersion } from '@algolia/client-search/src/searchClient';
+import { SearchQuery } from '@algolia/client-search/model';
 import { ApiError } from '@algolia/client-common';
 import dotenv from 'dotenv';
 
@@ -15,13 +17,18 @@ const client = searchClient(appId, apiKey);
 
 client.addAlgoliaAgent('Node playground', '0.0.1');
 
+const requests: SearchQuery[] = [
+  { indexName: searchIndex, query: searchQuery },
+];
+console.log('verison', apiClientVersion, 'requests', requests);
+
 async function testSearch() {
   try {
     const res = await client.search<{ name: string }>({
-      requests: [{ indexName: searchIndex, query: searchQuery }],
+      requests,
     });
 
-    console.log(`[OK]`, res.results[0].hits![0].name);
+    console.log(`[OK]`, res);
   } catch (e: any) {
     // Instance of
     if (e instanceof ApiError) {
