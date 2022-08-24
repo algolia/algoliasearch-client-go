@@ -36,7 +36,7 @@ yarn docker:build
 
 #### Mount
 
-> Mount docker image on `dev` container
+> Mount docker image on `api-clients-automation` container
 
 ```bash
 yarn docker:mount
@@ -44,7 +44,7 @@ yarn docker:mount
 
 #### Clean
 
-> Stops `dev` container and clean the built image
+> Stops `api-clients-automation` container and clean the built image
 
 ```bash
 yarn docker:clean

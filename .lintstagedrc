@@ -1,5 +1,5 @@
 {
-  "generators/**/*.java": "docker exec -t dev yarn cli format java generators",
+  "generators/**/*.java": "docker exec -t api-clients-automation yarn cli format java generators",
   ".github/**/*.yml": "yarn github-actions:lint --fix",
   "*.json": "yarn fix:json",
   "scripts/**/*.(js|ts)": "yarn scripts:lint --fix"
