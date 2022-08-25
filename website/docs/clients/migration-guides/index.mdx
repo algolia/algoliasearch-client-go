@@ -513,7 +513,37 @@ var_dump($rules);
 <TabItem value="java">
 
 ```java
-// WIP
+// browse records
+Iterable<MyObject> objects = client.browseObjects(
+  "<YOUR_INDEX_NAME>",
+  // all base `browse` options are forwarded to the `browse` method
+  new BrowseParamsObject()
+);
+for (MyObject object : objects) {
+  System.out.println(object.myProperty);
+}
+
+// browse rules
+Iterable<Rule> rules = client.browseRules(
+  "<YOUR_INDEX_NAME>",
+  // all base `searchRules` options are forwarded to the `searchRules` method (optional)
+  new SearchRulesParams()
+);
+for (Rule rule : rules) {
+  System.out.println(rule);
+}
+
+// browse synonyms
+Iterable<SynonymHit> synonyms = client.browseRules(
+  "<YOUR_INDEX_NAME>",
+  // only search for specific types of synonyms. (optional)
+  null,
+  // all base `searchSynonyms` options are forwarded to the `searchSynonyms` method (optional)
+  new SearchSynonymsParams()
+);
+for (SynonymHit synonym : synonyms) {
+  System.out.println(synonym);
+}
 
 ```
 

@@ -96,4 +96,44 @@ $client->waitForApiKey('delete', $key);
 ```
 
 </TabItem>
+<TabItem value="java">
+
+```java
+import com.algolia.api.SearchClient;
+import com.algolia.model.search.*;
+import com.algolia.utils.*;
+
+SearchClient client = new SearchClient("<YOUR_APP_ID>", "<YOUR_API_KEY>");
+
+AddApiKeyResponse keyResponse = client.addApiKey(new ApiKey().addAcl(Acl.ANALYTICS).addAcl(Acl.BROWSE).addAcl(Acl.EDIT_SETTINGS));
+String key = keyResponse.getKey();
+
+// Poll the task status with defaults values
+client.waitForApiKey(ApiKeyOperation.ADD, key);
+
+// The fields to update on your API key
+ApiKey updatesToPerform = new ApiKey()
+  .addAcl(Acl.ANALYTICS)
+  .addAcl(Acl.SEARCH)
+  .addIndexes("products");
+
+// Call for update
+client.updateApiKey(key, updatesToPerform);
+
+// Wait for update to be done
+client.waitForApiKey(
+  ApiKeyOperation.UPDATE,
+  key,
+  // We provide the updated fields to check if the changes have been applied
+  updatesToPerform
+);
+
+// Call for delete
+client.deleteApiKey(key);
+
+// Wait for delete to be done
+client.waitForApiKey(ApiKeyOperation.DELETE, key);
+```
+
+</TabItem>
 </TabsLanguage>
