@@ -538,7 +538,7 @@ describe('createReleasePR', () => {
       expect(versions.php.next).toEqual('0.0.1-beta.0');
       expect(versions.java.noCommit).toBeUndefined();
       expect(versions.java.releaseType).toEqual('minor');
-      expect(versions.java.next).toEqual('0.1.0-SNAPSHOT');
+      expect(versions.java.next).toEqual('0.0.1-SNAPSHOT');
     });
   });
 

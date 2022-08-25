@@ -186,14 +186,11 @@ export function getNextVersion(
 
   let nextVersion: string | null = current;
 
-  // snapshots should not be bumped as prerelease
-  if (!current.endsWith('-SNAPSHOT')) {
-    nextVersion = semver.inc(current, releaseType);
+  // snapshots should not be bumped
+  if (current.endsWith('-SNAPSHOT')) {
+    nextVersion = current;
   } else {
-    nextVersion = `${semver.inc(
-      current.replace('-SNAPSHOT', ''),
-      releaseType
-    )}-SNAPSHOT`;
+    nextVersion = semver.inc(current, releaseType);
   }
 
   if (!nextVersion) {
