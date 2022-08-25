@@ -13,6 +13,18 @@ function createClient(): PredictClient {
 }
 
 describe('commonApi', () => {
+  test('calls api with correct user agent', async () => {
+    const $client = createClient();
+
+    const result = (await $client.post({
+      path: '/test',
+    })) as unknown as EchoResponse;
+
+    expect(decodeURI(result.algoliaAgent)).toMatch(
+      /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+((\.\d+)?\.\d+)?(-.*)?\))?)*(; Predict (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+((\.\d+)?\.\d+)?(-.*)?\))?)*$/
+    );
+  });
+
   test('calls api with default read timeouts', async () => {
     const $client = createClient();
 

@@ -2,6 +2,7 @@ package com.algolia.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.algolia.EchoInterceptor;
 import com.algolia.EchoResponse;
@@ -33,8 +34,31 @@ class PredictClientClientTests {
   }
 
   @Test
-  @DisplayName("calls api with default read timeouts")
+  @DisplayName("calls api with correct user agent")
   void commonApiTest0() {
+    PredictClient $client = createClient();
+
+    String path0 = "/test";
+
+    $client.post(path0);
+    EchoResponse result = echo.getLastResponse();
+
+    {
+      String regexp =
+        "^Algolia for Java \\(\\d+\\.\\d+\\.\\d+(-.*)?\\)(; [a-zA-Z. ]+" +
+        " (\\(\\d+((\\.\\d+)?\\.\\d+)?(-.*)?\\))?)*(; Predict" +
+        " (\\(\\d+\\.\\d+\\.\\d+(-.*)?\\)))(; [a-zA-Z. ]+" +
+        " (\\(\\d+((\\.\\d+)?\\.\\d+)?(-.*)?\\))?)*$";
+      assertTrue(
+        result.headers.get("user-agent").matches(regexp),
+        "Expected " + result.headers.get("user-agent") + " to match the following regex: " + regexp
+      );
+    }
+  }
+
+  @Test
+  @DisplayName("calls api with default read timeouts")
+  void commonApiTest1() {
     PredictClient $client = createClient();
 
     String path0 = "/test";
@@ -48,7 +72,7 @@ class PredictClientClientTests {
 
   @Test
   @DisplayName("calls api with default write timeouts")
-  void commonApiTest1() {
+  void commonApiTest2() {
     PredictClient $client = createClient();
 
     String path0 = "/test";
