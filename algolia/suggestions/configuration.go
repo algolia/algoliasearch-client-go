@@ -8,7 +8,7 @@ import (
 )
 
 // Configuration contains all the different parameters one can change to
-// instantiate a new client for the Analytics API.
+// instantiate a new client for the Query Suggestions API.
 type Configuration struct {
 	AppID          string
 	APIKey         string
