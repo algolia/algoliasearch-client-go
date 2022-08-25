@@ -344,6 +344,27 @@ func (i *Index) browserForObjects(params searchParams, opts ...interface{}) func
 // prevent issues, one may want to pass the opt.Safe(true) option. Note that
 // passing this option will make the method blocking.
 func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (g *wait.Group, err error) {
+
+	safe := iopt.ExtractSafe(opts...).Get()
+
+	indexExists, err := i.Exists()
+	if err != nil {
+		err = fmt.Errorf("cannot check if the index exists: %v", err)
+		return
+	}
+
+	if !indexExists {
+		resSaveObjects, e := i.SaveObjects(objects, opts...)
+		if e != nil {
+			err = fmt.Errorf("cannot save objects to the index: %v", err)
+			return
+		}
+		if safe {
+			resSaveObjects.Wait()
+		}
+		return
+	}
+
 	tmpIndex := i.client.InitIndex(fmt.Sprintf(
 		"%s_tmp_%d",
 		i.name,
@@ -359,7 +380,6 @@ func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (g *
 	}()
 
 	g = wait.NewGroup()
-	safe := iopt.ExtractSafe(opts...).Get()
 	optsWithScopes := opt.InsertOrReplaceOption(opts, opt.Scopes("rules", "settings", "synonyms"))
 
 	resCopyIndex, err := i.client.CopyIndex(i.name, tmpIndex.name, optsWithScopes...)
