@@ -35,9 +35,6 @@ public class SynonymHit {
   @JsonProperty("replacements")
   private List<String> replacements;
 
-  @JsonProperty("_highlightResult")
-  private SynonymHitHighlightResult highlightResult;
-
   public SynonymHit setObjectID(String objectID) {
     this.objectID = objectID;
     return this;
@@ -182,21 +179,6 @@ public class SynonymHit {
     return replacements;
   }
 
-  public SynonymHit setHighlightResult(SynonymHitHighlightResult highlightResult) {
-    this.highlightResult = highlightResult;
-    return this;
-  }
-
-  /**
-   * Get highlightResult
-   *
-   * @return highlightResult
-   */
-  @javax.annotation.Nullable
-  public SynonymHitHighlightResult getHighlightResult() {
-    return highlightResult;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -214,14 +196,13 @@ public class SynonymHit {
       Objects.equals(this.word, synonymHit.word) &&
       Objects.equals(this.corrections, synonymHit.corrections) &&
       Objects.equals(this.placeholder, synonymHit.placeholder) &&
-      Objects.equals(this.replacements, synonymHit.replacements) &&
-      Objects.equals(this.highlightResult, synonymHit.highlightResult)
+      Objects.equals(this.replacements, synonymHit.replacements)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(objectID, type, synonyms, input, word, corrections, placeholder, replacements, highlightResult);
+    return Objects.hash(objectID, type, synonyms, input, word, corrections, placeholder, replacements);
   }
 
   @Override
@@ -236,7 +217,6 @@ public class SynonymHit {
     sb.append("    corrections: ").append(toIndentedString(corrections)).append("\n");
     sb.append("    placeholder: ").append(toIndentedString(placeholder)).append("\n");
     sb.append("    replacements: ").append(toIndentedString(replacements)).append("\n");
-    sb.append("    highlightResult: ").append(toIndentedString(highlightResult)).append("\n");
     sb.append("}");
     return sb.toString();
   }

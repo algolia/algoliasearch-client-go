@@ -616,7 +616,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param browseParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> BrowseResponse<T>
@@ -637,7 +637,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param browseParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> BrowseResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -654,7 +654,7 @@ public class SearchClient extends ApiClient {
    * index has been reached, the cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> BrowseResponse<T>
@@ -673,7 +673,7 @@ public class SearchClient extends ApiClient {
    * index has been reached, the cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> BrowseResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -692,7 +692,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param browseParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> CompletableFuture<BrowseResponse<T>> The awaitable future
@@ -731,7 +731,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param browseParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> CompletableFuture<BrowseResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -750,7 +750,7 @@ public class SearchClient extends ApiClient {
    * cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> CompletableFuture<BrowseResponse<T>> The awaitable future
@@ -771,7 +771,7 @@ public class SearchClient extends ApiClient {
    * cursor field is absent from the response.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> CompletableFuture<BrowseResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -2448,7 +2448,7 @@ public class SearchClient extends ApiClient {
    * Retrieve one or more objects, potentially from different indices, in a single API call.
    *
    * @param getObjectsParams The Algolia object. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> GetObjectsResponse<T>
@@ -2463,7 +2463,7 @@ public class SearchClient extends ApiClient {
    * Retrieve one or more objects, potentially from different indices, in a single API call.
    *
    * @param getObjectsParams The Algolia object. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> GetObjectsResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -2476,7 +2476,7 @@ public class SearchClient extends ApiClient {
    * API call.
    *
    * @param getObjectsParams The Algolia object. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> CompletableFuture<GetObjectsResponse<T>> The awaitable future
@@ -2508,7 +2508,7 @@ public class SearchClient extends ApiClient {
    * API call.
    *
    * @param getObjectsParams The Algolia object. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> CompletableFuture<GetObjectsResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -5059,7 +5059,7 @@ public class SearchClient extends ApiClient {
    * Perform a search operation targeting one or many indices.
    *
    * @param searchMethodParams The `search` requests and strategy. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> SearchResponses<T>
@@ -5074,7 +5074,7 @@ public class SearchClient extends ApiClient {
    * Perform a search operation targeting one or many indices.
    *
    * @param searchMethodParams The `search` requests and strategy. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> SearchResponses<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -5086,7 +5086,7 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Perform a search operation targeting one or many indices.
    *
    * @param searchMethodParams The `search` requests and strategy. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> CompletableFuture<SearchResponses<T>> The awaitable future
@@ -5117,7 +5117,7 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Perform a search operation targeting one or many indices.
    *
    * @param searchMethodParams The `search` requests and strategy. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> CompletableFuture<SearchResponses<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -5496,7 +5496,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> SearchResponse<T>
@@ -5516,7 +5516,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> SearchResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -5529,7 +5529,7 @@ public class SearchClient extends ApiClient {
    * Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> SearchResponse<T>
@@ -5544,7 +5544,7 @@ public class SearchClient extends ApiClient {
    * Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> SearchResponse<T>
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -5557,7 +5557,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> CompletableFuture<SearchResponse<T>> The awaitable future
@@ -5590,7 +5590,7 @@ public class SearchClient extends ApiClient {
    *
    * @param indexName The index in which to perform the request. (required)
    * @param searchParams (optional)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> CompletableFuture<SearchResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -5603,7 +5603,7 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return <T> CompletableFuture<SearchResponse<T>> The awaitable future
@@ -5621,7 +5621,7 @@ public class SearchClient extends ApiClient {
    * (asynchronously) Perform a search operation targeting one specific index.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param innerType The class held by the index, could be your custom class or {@link Object}
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
    * @return <T> CompletableFuture<SearchResponse<T>> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
@@ -6441,5 +6441,143 @@ public class SearchClient extends ApiClient {
    */
   public GetApiKeyResponse waitForApiKey(ApiKeyOperation operation, String key) {
     return this.waitForApiKey(operation, key, null, TaskUtils.DEFAULT_MAX_RETRIES, TaskUtils.DEFAULT_TIMEOUT, null);
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `browse` method.
+   *
+   * @summary Returns an iterator on `browse`.
+   * @param indexName The index in which to perform the request.
+   * @param params The `browse` parameters.
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public <T> Iterable<T> browseObjects(String indexName, BrowseParamsObject params, Class<T> innerType, RequestOptions requestOptions) {
+    final Holder<String> currentCursor = new Holder<>();
+
+    return AlgoliaIterableHelper.createIterable(
+      () -> {
+        BrowseResponse<T> response = this.browse(indexName, BrowseParams.of(params), innerType, requestOptions);
+        params.setCursor(response.getCursor());
+        currentCursor.value = response.getCursor();
+        return response.getHits().iterator();
+      },
+      () -> {
+        return currentCursor.value != null;
+      }
+    );
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `browse` method.
+   *
+   * @summary Returns an iterator on `browse`.
+   * @param indexName The index in which to perform the request.
+   * @param params The `browse` parameters.
+   * @param innerType The class held by the index, could be your custom class or {@link Object}.
+   */
+  public <T> Iterable<T> browseObjects(String indexName, BrowseParamsObject params, Class<T> innerType) {
+    return browseObjects(indexName, params, innerType, null);
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `searchSynonyms` method.
+   *
+   * @summary Returns an iterator on `searchSynonyms`.
+   * @param indexName The index in which to perform the request.
+   * @param type The synonym type. (optional)
+   * @param params The `searchSynonyms` parameters. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public Iterable<SynonymHit> browseSynonyms(
+    String indexName,
+    SynonymType type,
+    SearchSynonymsParams params,
+    RequestOptions requestOptions
+  ) {
+    final Holder<Integer> currentPage = new Holder<>(0);
+    final int hitsPerPage = 1000;
+
+    return AlgoliaIterableHelper.createIterable(
+      () -> {
+        SearchSynonymsResponse response = this.searchSynonyms(indexName, type, currentPage.value, hitsPerPage, params, requestOptions);
+        currentPage.value = response.getNbHits() < hitsPerPage ? null : currentPage.value + 1;
+        return response.getHits().iterator();
+      },
+      () -> {
+        return currentPage.value != null;
+      }
+    );
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `searchSynonyms` method.
+   *
+   * @summary Returns an iterator on `searchSynonyms`.
+   * @param indexName The index in which to perform the request.
+   * @param type The synonym type. (optional)
+   * @param params The `searchSynonyms` parameters .(optional)
+   */
+  public Iterable<SynonymHit> browseSynonyms(String indexName, SynonymType type, SearchSynonymsParams params) {
+    return browseSynonyms(indexName, type, params, null);
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `searchSynonyms` method.
+   *
+   * @summary Returns an iterator on `searchSynonyms`.
+   * @param indexName The index in which to perform the request.
+   */
+  public Iterable<SynonymHit> browseSynonyms(String indexName) {
+    return browseSynonyms(indexName, null, null, null);
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `searchRules` method.
+   *
+   * @summary Returns an iterator on `searchRules`.
+   * @param indexName The index in which to perform the request.
+   * @param params The `searchRules` parameters. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions. (optional)
+   */
+  public Iterable<Rule> browseRules(String indexName, SearchRulesParams params, RequestOptions requestOptions) {
+    final Holder<Integer> currentPage = new Holder<>(0);
+    final int hitsPerPage = 1000;
+    params.setHitsPerPage(hitsPerPage);
+
+    return AlgoliaIterableHelper.createIterable(
+      () -> {
+        SearchRulesResponse response = this.searchRules(indexName, params.setPage(currentPage.value), requestOptions);
+        currentPage.value = response.getNbHits() < hitsPerPage ? null : currentPage.value + 1;
+        return response.getHits().iterator();
+      },
+      () -> {
+        return currentPage.value != null;
+      }
+    );
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `searchRules` method.
+   *
+   * @summary Returns an iterator on `searchRules`.
+   * @param indexName The index in which to perform the request.
+   * @param params The `searchRules` parameters. (optional)
+   */
+  public Iterable<Rule> browseRules(String indexName, SearchRulesParams params) {
+    return browseRules(indexName, params, null);
+  }
+
+  /**
+   * Helper: Returns an iterator on top of the `searchRules` method.
+   *
+   * @summary Returns an iterator on `searchRules`.
+   * @param indexName The index in which to perform the request.
+   */
+  public Iterable<Rule> browseRules(String indexName) {
+    return browseRules(indexName, null, null);
   }
 }

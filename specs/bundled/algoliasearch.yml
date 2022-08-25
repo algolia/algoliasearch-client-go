@@ -1601,17 +1601,6 @@ components:
           items:
             type: string
           description: List of query words that will match the token.
-        _highlightResult:
-          type: object
-          description: Highlighted results.
-          additionalProperties: false
-          properties:
-            type:
-              $ref: '#/components/schemas/highlightResultMap'
-            synonyms:
-              type: array
-              items:
-                $ref: '#/components/schemas/highlightResultMap'
       required:
         - objectID
         - type
