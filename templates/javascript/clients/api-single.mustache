@@ -19,14 +19,11 @@ export function create{{capitalizedApiName}}({
   const transporter = createTransporter({
     hosts: getDefaultHosts({{^hasRegionalHost}}appIdOption{{/hasRegionalHost}}{{#hasRegionalHost}}regionOption{{/hasRegionalHost}}),
     ...options,
-    {{! // PRED-523 - tmp addition until the predict client supports user-agent in their API }}
-    algoliaAgent: 
-      {{#isPredictClient}}
-        {...getAlgoliaAgent({ algoliaAgents, client: '{{{algoliaAgent}}}', version: apiClientVersion }), value: '' },
-      {{/isPredictClient}}
-      {{^isPredictClient}}
-        getAlgoliaAgent({ algoliaAgents, client: '{{{algoliaAgent}}}', version: apiClientVersion }),
-      {{/isPredictClient}}
+    algoliaAgent: getAlgoliaAgent({
+      algoliaAgents,
+      client: '{{{algoliaAgent}}}',
+      version: apiClientVersion,
+    }),
     baseHeaders: {
       'content-type': 'text/plain',
       ...auth.headers(),
