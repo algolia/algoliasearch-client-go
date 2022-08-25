@@ -35,7 +35,7 @@ commands:
 jobs:
   format:
     docker:
-      - image: circleci/golang:1.14
+      - image: cimg/go:1.14
     steps:
       - checkout
       - restore_cache:
@@ -52,7 +52,7 @@ jobs:
         go_version:
           type: string
     docker:
-      - image: circleci/golang:<< parameters.go_version >>
+      - image: cimg/go:<< parameters.go_version >>
     steps:
       - checkout
       - restore_cache:
