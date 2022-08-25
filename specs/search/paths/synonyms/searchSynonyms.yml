@@ -8,7 +8,7 @@ post:
   description: Search or browse all synonyms, optionally filtering them by type.
   parameters:
     - $ref: '../../../common/parameters.yml#/IndexName'
-    - $ref: 'common/parameters.yml#/Type'
+    - $ref: './common/parameters.yml#/Type'
     - $ref: '../../../common/parameters.yml#/PageDefault0'
     - $ref: '../../../common/parameters.yml#/HitsPerPage'
   requestBody:
@@ -28,7 +28,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: 'common/schemas.yml#/searchSynonymsResponse'
+            $ref: './common/schemas.yml#/searchSynonymsResponse'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
     '402':

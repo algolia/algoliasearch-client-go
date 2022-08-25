@@ -64,6 +64,7 @@ public class Search {
       SearchResponses<Actor> sr = result.get();
       Actor a = sr.getResults().get(0).getHits().get(0);
       System.out.println(a.name);
+      
     } catch (InterruptedException e) {
       System.err.println("InterrupedException" + e.getMessage());
       e.printStackTrace();

@@ -39,17 +39,6 @@ synonymHit:
       items:
         type: string
       description: List of query words that will match the token.
-    _highlightResult:
-      type: object
-      description: Highlighted results.
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '../../../common/schemas/Hit.yml#/highlightResultMap'
-        synonyms:
-          type: array
-          items:
-            $ref: '../../../common/schemas/Hit.yml#/highlightResultMap'
   required:
     - objectID
     - type
