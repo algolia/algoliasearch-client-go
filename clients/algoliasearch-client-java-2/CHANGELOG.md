@@ -1,3 +1,10 @@
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
+- [fbe774da](https://github.com/algolia/api-clients-automation/commit/fbe774da) docs(java): document browse and waitForApiKey ([#956](https://github.com/algolia/api-clients-automation/pull/956)) by [@millotp](https://github.com/millotp/)
+- [68ff7ee4](https://github.com/algolia/api-clients-automation/commit/68ff7ee4) feat(java): browse objects/synonyms/rules ([#952](https://github.com/algolia/api-clients-automation/pull/952)) by [@millotp](https://github.com/millotp/)
+- [a54e901f](https://github.com/algolia/api-clients-automation/commit/a54e901f) fix(java): freeze snapshot version to 4.0.0 ([#955](https://github.com/algolia/api-clients-automation/pull/955)) by [@millotp](https://github.com/millotp/)
+- [b7edbea6](https://github.com/algolia/api-clients-automation/commit/b7edbea6) fix(java): more flexible json parser ([#954](https://github.com/algolia/api-clients-automation/pull/954)) by [@millotp](https://github.com/millotp/)
+
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/next)
 
 - [4c1596df](https://github.com/algolia/api-clients-automation/commit/4c1596df) fix(clients): list available regions when region is missing ([#916](https://github.com/algolia/api-clients-automation/pull/916)) by [@shortcuts](https://github.com/shortcuts/)
