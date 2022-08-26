@@ -359,7 +359,10 @@ func (i *Index) ReplaceAllObjects(objects interface{}, opts ...interface{}) (g *
 			return
 		}
 		if safe {
-			resSaveObjects.Wait()
+			if e := resSaveObjects.Wait(); e != nil {
+				err = fmt.Errorf("error while waiting for saving objects to the index: %v", e)
+				return
+			}
 		}
 		return
 	}
