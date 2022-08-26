@@ -1,38 +1,38 @@
 params:
   oneOf:
-    - $ref: '#/modelsToRetrieve'
-    - $ref: '#/typesToRetrieve'
+    - $ref: '#/modelsToRetrieveParam'
+    - $ref: '#/typesToRetrieveParam'
     - $ref: '#/allParams'
 
 allParams:
   allOf:
-    - $ref: '#/modelsToRetrieve'
-    - $ref: '#/typesToRetrieve'
+    - $ref: '#/modelsToRetrieveParam'
+    - $ref: '#/typesToRetrieveParam'
 
-modelsToRetrieve:
+modelsToRetrieveParam:
   type: object
   required:
-    - modelsToRetrieve
+    - modelsToRetrieveParam
   properties:
     modelsToRetrieve:
       type: array
       items:
-        $ref: '#/modelsToRetrieveEnum'
+        $ref: '#/modelsToRetrieve'
 
-typesToRetrieve:
+typesToRetrieveParam:
   type: object
   required:
-    - typesToRetrieve
+    - typesToRetrieveParam
   properties:
     typesToRetrieve:
       type: array
       items:
-        $ref: '#/typesToRetrieveEnum'
+        $ref: '#/typesToRetrieve'
 
-modelsToRetrieveEnum:
+modelsToRetrieve:
   type: string
   enum: [funnel_stage, order_value, affinities]
 
-typesToRetrieveEnum:
+typesToRetrieve:
   type: string
   enum: [properties, segments]

@@ -12,5 +12,8 @@ import { Region, REGIONS } from '../src/{{apiName}}';
 export {
   apiClientVersion,
   {{capitalizedApiName}},
+  {{#hasRegionalHost}}
+  Region,
+  {{/hasRegionalHost}}
 } from '../src/{{apiName}}';
 export * from '../model';
