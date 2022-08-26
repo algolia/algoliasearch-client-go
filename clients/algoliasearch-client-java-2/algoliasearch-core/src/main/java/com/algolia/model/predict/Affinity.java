@@ -6,8 +6,8 @@ package com.algolia.model.predict;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
-/** Affinities */
-public class Affinities {
+/** Affinity */
+public class Affinity {
 
   @JsonProperty("name")
   private String name;
@@ -18,7 +18,7 @@ public class Affinities {
   @JsonProperty("probability")
   private Double probability;
 
-  public Affinities setName(String name) {
+  public Affinity setName(String name) {
     this.name = name;
     return this;
   }
@@ -28,12 +28,12 @@ public class Affinities {
    *
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getName() {
     return name;
   }
 
-  public Affinities setValue(String value) {
+  public Affinity setValue(String value) {
     this.value = value;
     return this;
   }
@@ -43,12 +43,12 @@ public class Affinities {
    *
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getValue() {
     return value;
   }
 
-  public Affinities setProbability(Double probability) {
+  public Affinity setProbability(Double probability) {
     this.probability = probability;
     return this;
   }
@@ -58,7 +58,7 @@ public class Affinities {
    *
    * @return probability
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Double getProbability() {
     return probability;
   }
@@ -71,11 +71,11 @@ public class Affinities {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Affinities affinities = (Affinities) o;
+    Affinity affinity = (Affinity) o;
     return (
-      Objects.equals(this.name, affinities.name) &&
-      Objects.equals(this.value, affinities.value) &&
-      Objects.equals(this.probability, affinities.probability)
+      Objects.equals(this.name, affinity.name) &&
+      Objects.equals(this.value, affinity.value) &&
+      Objects.equals(this.probability, affinity.probability)
     );
   }
 
@@ -87,7 +87,7 @@ public class Affinities {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Affinities {\n");
+    sb.append("class Affinity {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    probability: ").append(toIndentedString(probability)).append("\n");

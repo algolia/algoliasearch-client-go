@@ -49,43 +49,43 @@ components:
         message:
           type: string
           example: Invalid Application-Id or API-Key
-    modelsToRetrieveEnum:
+    modelsToRetrieve:
       type: string
       enum:
         - funnel_stage
         - order_value
         - affinities
-    modelsToRetrieve:
+    modelsToRetrieveParam:
       type: object
       required:
-        - modelsToRetrieve
+        - modelsToRetrieveParam
       properties:
         modelsToRetrieve:
           type: array
           items:
-            $ref: '#/components/schemas/modelsToRetrieveEnum'
-    typesToRetrieveEnum:
+            $ref: '#/components/schemas/modelsToRetrieve'
+    typesToRetrieve:
       type: string
       enum:
         - properties
         - segments
-    typesToRetrieve:
+    typesToRetrieveParam:
       type: object
       required:
-        - typesToRetrieve
+        - typesToRetrieveParam
       properties:
         typesToRetrieve:
           type: array
           items:
-            $ref: '#/components/schemas/typesToRetrieveEnum'
+            $ref: '#/components/schemas/typesToRetrieve'
     allParams:
       allOf:
-        - $ref: '#/components/schemas/modelsToRetrieve'
-        - $ref: '#/components/schemas/typesToRetrieve'
+        - $ref: '#/components/schemas/modelsToRetrieveParam'
+        - $ref: '#/components/schemas/typesToRetrieveParam'
     params:
       oneOf:
-        - $ref: '#/components/schemas/modelsToRetrieve'
-        - $ref: '#/components/schemas/typesToRetrieve'
+        - $ref: '#/components/schemas/modelsToRetrieveParam'
+        - $ref: '#/components/schemas/typesToRetrieveParam'
         - $ref: '#/components/schemas/allParams'
   responses:
     BadRequest:
@@ -126,6 +126,10 @@ servers:
           - ue
           - ew
         default: ew
+        description: |
+          Region where your Predict data is stored and processed:
+            * `ew` - europe-west
+            * `ue` - us-east.
 security:
   - appId: []
     apiKey: []
@@ -298,8 +302,14 @@ paths:
                                   format: double
                                   minimum: 0
                                   maximum: 1
+                              required:
+                                - name
+                                - probability
                           lastUpdatedAt:
                             type: string
+                        required:
+                          - value
+                          - lastUpdatedAt
                       order_value:
                         type: object
                         description: Prediction for the **order_value** model.
@@ -310,6 +320,9 @@ paths:
                             minimum: 0
                           lastUpdatedAt:
                             type: string
+                        required:
+                          - value
+                          - lastUpdatedAt
                       affinities:
                         type: object
                         description: Prediction for the **affinities** model.
@@ -317,7 +330,7 @@ paths:
                           value:
                             type: array
                             items:
-                              title: affinities
+                              title: affinity
                               type: object
                               properties:
                                 name:
@@ -329,8 +342,15 @@ paths:
                                   format: double
                                   minimum: 0
                                   maximum: 1
+                              required:
+                                - name
+                                - value
+                                - probability
                           lastUpdatedAt:
                             type: string
+                        required:
+                          - value
+                          - lastUpdatedAt
                   properties:
                     type: object
                     title: properties

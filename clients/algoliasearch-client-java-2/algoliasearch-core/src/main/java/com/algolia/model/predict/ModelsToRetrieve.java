@@ -4,69 +4,40 @@
 package com.algolia.model.predict;
 
 import com.fasterxml.jackson.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-/** ModelsToRetrieve */
-public class ModelsToRetrieve {
+/** Gets or Sets modelsToRetrieve */
+public enum ModelsToRetrieve {
+  FUNNEL_STAGE("funnel_stage"),
 
-  @JsonProperty("modelsToRetrieve")
-  private List<ModelsToRetrieveEnum> modelsToRetrieve = new ArrayList<>();
+  ORDER_VALUE("order_value"),
 
-  public ModelsToRetrieve setModelsToRetrieve(List<ModelsToRetrieveEnum> modelsToRetrieve) {
-    this.modelsToRetrieve = modelsToRetrieve;
-    return this;
+  AFFINITIES("affinities");
+
+  private final String value;
+
+  ModelsToRetrieve(String value) {
+    this.value = value;
   }
 
-  public ModelsToRetrieve addModelsToRetrieve(ModelsToRetrieveEnum modelsToRetrieveItem) {
-    this.modelsToRetrieve.add(modelsToRetrieveItem);
-    return this;
-  }
-
-  /**
-   * Get modelsToRetrieve
-   *
-   * @return modelsToRetrieve
-   */
-  @javax.annotation.Nonnull
-  public List<ModelsToRetrieveEnum> getModelsToRetrieve() {
-    return modelsToRetrieve;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ModelsToRetrieve modelsToRetrieve = (ModelsToRetrieve) o;
-    return Objects.equals(this.modelsToRetrieve, modelsToRetrieve.modelsToRetrieve);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(modelsToRetrieve);
+  @JsonValue
+  public String getValue() {
+    return value;
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ModelsToRetrieve {\n");
-    sb.append("    modelsToRetrieve: ").append(toIndentedString(modelsToRetrieve)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return String.valueOf(value);
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+  @JsonCreator
+  public static ModelsToRetrieve fromValue(String value) {
+    for (ModelsToRetrieve b : ModelsToRetrieve.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
     }
-    return o.toString().replace("\n", "\n    ");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }

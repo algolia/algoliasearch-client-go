@@ -8,44 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** AllParams */
-public class AllParams {
-
-  @JsonProperty("modelsToRetrieve")
-  private List<ModelsToRetrieve> modelsToRetrieve;
+/** TypesToRetrieveParam */
+public class TypesToRetrieveParam {
 
   @JsonProperty("typesToRetrieve")
   private List<TypesToRetrieve> typesToRetrieve;
 
-  public AllParams setModelsToRetrieve(List<ModelsToRetrieve> modelsToRetrieve) {
-    this.modelsToRetrieve = modelsToRetrieve;
-    return this;
-  }
-
-  public AllParams addModelsToRetrieve(ModelsToRetrieve modelsToRetrieveItem) {
-    if (this.modelsToRetrieve == null) {
-      this.modelsToRetrieve = new ArrayList<>();
-    }
-    this.modelsToRetrieve.add(modelsToRetrieveItem);
-    return this;
-  }
-
-  /**
-   * Get modelsToRetrieve
-   *
-   * @return modelsToRetrieve
-   */
-  @javax.annotation.Nullable
-  public List<ModelsToRetrieve> getModelsToRetrieve() {
-    return modelsToRetrieve;
-  }
-
-  public AllParams setTypesToRetrieve(List<TypesToRetrieve> typesToRetrieve) {
+  public TypesToRetrieveParam setTypesToRetrieve(List<TypesToRetrieve> typesToRetrieve) {
     this.typesToRetrieve = typesToRetrieve;
     return this;
   }
 
-  public AllParams addTypesToRetrieve(TypesToRetrieve typesToRetrieveItem) {
+  public TypesToRetrieveParam addTypesToRetrieve(TypesToRetrieve typesToRetrieveItem) {
     if (this.typesToRetrieve == null) {
       this.typesToRetrieve = new ArrayList<>();
     }
@@ -71,22 +45,19 @@ public class AllParams {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AllParams allParams = (AllParams) o;
-    return (
-      Objects.equals(this.modelsToRetrieve, allParams.modelsToRetrieve) && Objects.equals(this.typesToRetrieve, allParams.typesToRetrieve)
-    );
+    TypesToRetrieveParam typesToRetrieveParam = (TypesToRetrieveParam) o;
+    return Objects.equals(this.typesToRetrieve, typesToRetrieveParam.typesToRetrieve);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(modelsToRetrieve, typesToRetrieve);
+    return Objects.hash(typesToRetrieve);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AllParams {\n");
-    sb.append("    modelsToRetrieve: ").append(toIndentedString(modelsToRetrieve)).append("\n");
+    sb.append("class TypesToRetrieveParam {\n");
     sb.append("    typesToRetrieve: ").append(toIndentedString(typesToRetrieve)).append("\n");
     sb.append("}");
     return sb.toString();

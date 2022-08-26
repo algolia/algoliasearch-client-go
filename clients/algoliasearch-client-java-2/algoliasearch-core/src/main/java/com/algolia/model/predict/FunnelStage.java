@@ -25,7 +25,7 @@ public class FunnelStage {
    *
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getName() {
     return name;
   }
@@ -40,7 +40,7 @@ public class FunnelStage {
    *
    * @return probability
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Double getProbability() {
     return probability;
   }

@@ -91,15 +91,15 @@ class PredictClientRequestsTests {
   @DisplayName("fetchUserProfile with minimal parameters for modelsToRetrieve")
   void fetchUserProfileTest0() {
     String userID0 = "user1";
-    ModelsToRetrieve params0 = new ModelsToRetrieve();
+    ModelsToRetrieveParam params0 = new ModelsToRetrieveParam();
     {
-      List<ModelsToRetrieveEnum> modelsToRetrieve1 = new ArrayList<>();
+      List<ModelsToRetrieve> modelsToRetrieve1 = new ArrayList<>();
       {
-        ModelsToRetrieveEnum modelsToRetrieve_02 = ModelsToRetrieveEnum.fromValue("funnel_stage");
+        ModelsToRetrieve modelsToRetrieve_02 = ModelsToRetrieve.fromValue("funnel_stage");
         modelsToRetrieve1.add(modelsToRetrieve_02);
-        ModelsToRetrieveEnum modelsToRetrieve_12 = ModelsToRetrieveEnum.fromValue("order_value");
+        ModelsToRetrieve modelsToRetrieve_12 = ModelsToRetrieve.fromValue("order_value");
         modelsToRetrieve1.add(modelsToRetrieve_12);
-        ModelsToRetrieveEnum modelsToRetrieve_22 = ModelsToRetrieveEnum.fromValue("affinities");
+        ModelsToRetrieve modelsToRetrieve_22 = ModelsToRetrieve.fromValue("affinities");
         modelsToRetrieve1.add(modelsToRetrieve_22);
       }
       params0.setModelsToRetrieve(modelsToRetrieve1);
@@ -121,13 +121,13 @@ class PredictClientRequestsTests {
   @DisplayName("fetchUserProfile with minimal parameters for typesToRetrieve")
   void fetchUserProfileTest1() {
     String userID0 = "user1";
-    TypesToRetrieve params0 = new TypesToRetrieve();
+    TypesToRetrieveParam params0 = new TypesToRetrieveParam();
     {
-      List<TypesToRetrieveEnum> typesToRetrieve1 = new ArrayList<>();
+      List<TypesToRetrieve> typesToRetrieve1 = new ArrayList<>();
       {
-        TypesToRetrieveEnum typesToRetrieve_02 = TypesToRetrieveEnum.fromValue("properties");
+        TypesToRetrieve typesToRetrieve_02 = TypesToRetrieve.fromValue("properties");
         typesToRetrieve1.add(typesToRetrieve_02);
-        TypesToRetrieveEnum typesToRetrieve_12 = TypesToRetrieveEnum.fromValue("segments");
+        TypesToRetrieve typesToRetrieve_12 = TypesToRetrieve.fromValue("segments");
         typesToRetrieve1.add(typesToRetrieve_12);
       }
       params0.setTypesToRetrieve(typesToRetrieve1);
@@ -151,21 +151,21 @@ class PredictClientRequestsTests {
     String userID0 = "user1";
     AllParams params0 = new AllParams();
     {
-      List<ModelsToRetrieveEnum> modelsToRetrieve1 = new ArrayList<>();
+      List<ModelsToRetrieve> modelsToRetrieve1 = new ArrayList<>();
       {
-        ModelsToRetrieveEnum modelsToRetrieve_02 = ModelsToRetrieveEnum.fromValue("funnel_stage");
+        ModelsToRetrieve modelsToRetrieve_02 = ModelsToRetrieve.fromValue("funnel_stage");
         modelsToRetrieve1.add(modelsToRetrieve_02);
-        ModelsToRetrieveEnum modelsToRetrieve_12 = ModelsToRetrieveEnum.fromValue("order_value");
+        ModelsToRetrieve modelsToRetrieve_12 = ModelsToRetrieve.fromValue("order_value");
         modelsToRetrieve1.add(modelsToRetrieve_12);
-        ModelsToRetrieveEnum modelsToRetrieve_22 = ModelsToRetrieveEnum.fromValue("affinities");
+        ModelsToRetrieve modelsToRetrieve_22 = ModelsToRetrieve.fromValue("affinities");
         modelsToRetrieve1.add(modelsToRetrieve_22);
       }
       params0.setModelsToRetrieve(modelsToRetrieve1);
-      List<TypesToRetrieveEnum> typesToRetrieve1 = new ArrayList<>();
+      List<TypesToRetrieve> typesToRetrieve1 = new ArrayList<>();
       {
-        TypesToRetrieveEnum typesToRetrieve_02 = TypesToRetrieveEnum.fromValue("properties");
+        TypesToRetrieve typesToRetrieve_02 = TypesToRetrieve.fromValue("properties");
         typesToRetrieve1.add(typesToRetrieve_02);
-        TypesToRetrieveEnum typesToRetrieve_12 = TypesToRetrieveEnum.fromValue("segments");
+        TypesToRetrieve typesToRetrieve_12 = TypesToRetrieve.fromValue("segments");
         typesToRetrieve1.add(typesToRetrieve_12);
       }
       params0.setTypesToRetrieve(typesToRetrieve1);

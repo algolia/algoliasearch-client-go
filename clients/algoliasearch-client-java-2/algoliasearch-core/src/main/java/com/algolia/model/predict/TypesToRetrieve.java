@@ -4,69 +4,38 @@
 package com.algolia.model.predict;
 
 import com.fasterxml.jackson.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-/** TypesToRetrieve */
-public class TypesToRetrieve {
+/** Gets or Sets typesToRetrieve */
+public enum TypesToRetrieve {
+  PROPERTIES("properties"),
 
-  @JsonProperty("typesToRetrieve")
-  private List<TypesToRetrieveEnum> typesToRetrieve = new ArrayList<>();
+  SEGMENTS("segments");
 
-  public TypesToRetrieve setTypesToRetrieve(List<TypesToRetrieveEnum> typesToRetrieve) {
-    this.typesToRetrieve = typesToRetrieve;
-    return this;
+  private final String value;
+
+  TypesToRetrieve(String value) {
+    this.value = value;
   }
 
-  public TypesToRetrieve addTypesToRetrieve(TypesToRetrieveEnum typesToRetrieveItem) {
-    this.typesToRetrieve.add(typesToRetrieveItem);
-    return this;
-  }
-
-  /**
-   * Get typesToRetrieve
-   *
-   * @return typesToRetrieve
-   */
-  @javax.annotation.Nonnull
-  public List<TypesToRetrieveEnum> getTypesToRetrieve() {
-    return typesToRetrieve;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TypesToRetrieve typesToRetrieve = (TypesToRetrieve) o;
-    return Objects.equals(this.typesToRetrieve, typesToRetrieve.typesToRetrieve);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(typesToRetrieve);
+  @JsonValue
+  public String getValue() {
+    return value;
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TypesToRetrieve {\n");
-    sb.append("    typesToRetrieve: ").append(toIndentedString(typesToRetrieve)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return String.valueOf(value);
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+  @JsonCreator
+  public static TypesToRetrieve fromValue(String value) {
+    for (TypesToRetrieve b : TypesToRetrieve.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
     }
-    return o.toString().replace("\n", "\n    ");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }

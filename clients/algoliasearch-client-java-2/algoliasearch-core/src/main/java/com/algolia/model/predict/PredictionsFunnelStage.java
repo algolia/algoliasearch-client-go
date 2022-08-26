@@ -12,7 +12,7 @@ import java.util.Objects;
 public class PredictionsFunnelStage {
 
   @JsonProperty("value")
-  private List<FunnelStage> value;
+  private List<FunnelStage> value = new ArrayList<>();
 
   @JsonProperty("lastUpdatedAt")
   private String lastUpdatedAt;
@@ -23,9 +23,6 @@ public class PredictionsFunnelStage {
   }
 
   public PredictionsFunnelStage addValue(FunnelStage valueItem) {
-    if (this.value == null) {
-      this.value = new ArrayList<>();
-    }
     this.value.add(valueItem);
     return this;
   }
@@ -35,7 +32,7 @@ public class PredictionsFunnelStage {
    *
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<FunnelStage> getValue() {
     return value;
   }
@@ -50,7 +47,7 @@ public class PredictionsFunnelStage {
    *
    * @return lastUpdatedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getLastUpdatedAt() {
     return lastUpdatedAt;
   }

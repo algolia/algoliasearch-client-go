@@ -25,7 +25,7 @@ public class PredictionsOrderValue {
    *
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Double getValue() {
     return value;
   }
@@ -40,7 +40,7 @@ public class PredictionsOrderValue {
    *
    * @return lastUpdatedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getLastUpdatedAt() {
     return lastUpdatedAt;
   }

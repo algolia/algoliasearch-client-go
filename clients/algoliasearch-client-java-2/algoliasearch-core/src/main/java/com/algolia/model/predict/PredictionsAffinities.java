@@ -12,20 +12,17 @@ import java.util.Objects;
 public class PredictionsAffinities {
 
   @JsonProperty("value")
-  private List<Affinities> value;
+  private List<Affinity> value = new ArrayList<>();
 
   @JsonProperty("lastUpdatedAt")
   private String lastUpdatedAt;
 
-  public PredictionsAffinities setValue(List<Affinities> value) {
+  public PredictionsAffinities setValue(List<Affinity> value) {
     this.value = value;
     return this;
   }
 
-  public PredictionsAffinities addValue(Affinities valueItem) {
-    if (this.value == null) {
-      this.value = new ArrayList<>();
-    }
+  public PredictionsAffinities addValue(Affinity valueItem) {
     this.value.add(valueItem);
     return this;
   }
@@ -35,8 +32,8 @@ public class PredictionsAffinities {
    *
    * @return value
    */
-  @javax.annotation.Nullable
-  public List<Affinities> getValue() {
+  @javax.annotation.Nonnull
+  public List<Affinity> getValue() {
     return value;
   }
 
@@ -50,7 +47,7 @@ public class PredictionsAffinities {
    *
    * @return lastUpdatedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getLastUpdatedAt() {
     return lastUpdatedAt;
   }

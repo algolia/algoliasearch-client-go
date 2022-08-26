@@ -23,12 +23,12 @@ public abstract class Params implements CompoundType {
     return new ParamsAllParams(inside);
   }
 
-  public static Params of(ModelsToRetrieve inside) {
-    return new ParamsModelsToRetrieve(inside);
+  public static Params of(ModelsToRetrieveParam inside) {
+    return new ParamsModelsToRetrieveParam(inside);
   }
 
-  public static Params of(TypesToRetrieve inside) {
-    return new ParamsTypesToRetrieve(inside);
+  public static Params of(TypesToRetrieveParam inside) {
+    return new ParamsTypesToRetrieveParam(inside);
   }
 
   public static class ParamsSerializer extends StdSerializer<Params> {
@@ -91,10 +91,10 @@ public abstract class Params implements CompoundType {
         System.err.println("Failed to deserialize oneOf AllParams (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
 
-      // deserialize ModelsToRetrieve
+      // deserialize ModelsToRetrieveParam
       try {
         boolean attemptParsing = true;
-        currentType = "ModelsToRetrieve";
+        currentType = "ModelsToRetrieveParam";
         if (
           ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
           ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
@@ -102,11 +102,13 @@ public abstract class Params implements CompoundType {
           (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
           (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
         ) {
-          deserialized = Params.of((ModelsToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ModelsToRetrieve>() {}));
+          deserialized =
+            Params.of((ModelsToRetrieveParam) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ModelsToRetrieveParam>() {}));
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
-            deserialized = Params.of((ModelsToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ModelsToRetrieve>() {}));
+            deserialized =
+              Params.of((ModelsToRetrieveParam) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<ModelsToRetrieveParam>() {}));
             match++;
           } catch (IOException e) {
             // do nothing
@@ -114,13 +116,13 @@ public abstract class Params implements CompoundType {
         }
       } catch (Exception e) {
         // deserialization failed, continue
-        System.err.println("Failed to deserialize oneOf ModelsToRetrieve (error: " + e.getMessage() + ") (type: " + currentType + ")");
+        System.err.println("Failed to deserialize oneOf ModelsToRetrieveParam (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
 
-      // deserialize TypesToRetrieve
+      // deserialize TypesToRetrieveParam
       try {
         boolean attemptParsing = true;
-        currentType = "TypesToRetrieve";
+        currentType = "TypesToRetrieveParam";
         if (
           ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
           ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
@@ -128,11 +130,13 @@ public abstract class Params implements CompoundType {
           (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
           (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
         ) {
-          deserialized = Params.of((TypesToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TypesToRetrieve>() {}));
+          deserialized =
+            Params.of((TypesToRetrieveParam) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TypesToRetrieveParam>() {}));
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
-            deserialized = Params.of((TypesToRetrieve) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TypesToRetrieve>() {}));
+            deserialized =
+              Params.of((TypesToRetrieveParam) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<TypesToRetrieveParam>() {}));
             match++;
           } catch (IOException e) {
             // do nothing
@@ -140,7 +144,7 @@ public abstract class Params implements CompoundType {
         }
       } catch (Exception e) {
         // deserialization failed, continue
-        System.err.println("Failed to deserialize oneOf TypesToRetrieve (error: " + e.getMessage() + ") (type: " + currentType + ")");
+        System.err.println("Failed to deserialize oneOf TypesToRetrieveParam (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
 
       if (match == 1) {
@@ -171,30 +175,30 @@ class ParamsAllParams extends Params {
   }
 }
 
-class ParamsModelsToRetrieve extends Params {
+class ParamsModelsToRetrieveParam extends Params {
 
-  private final ModelsToRetrieve insideValue;
+  private final ModelsToRetrieveParam insideValue;
 
-  ParamsModelsToRetrieve(ModelsToRetrieve insideValue) {
+  ParamsModelsToRetrieveParam(ModelsToRetrieveParam insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public ModelsToRetrieve getInsideValue() {
+  public ModelsToRetrieveParam getInsideValue() {
     return insideValue;
   }
 }
 
-class ParamsTypesToRetrieve extends Params {
+class ParamsTypesToRetrieveParam extends Params {
 
-  private final TypesToRetrieve insideValue;
+  private final TypesToRetrieveParam insideValue;
 
-  ParamsTypesToRetrieve(TypesToRetrieve insideValue) {
+  ParamsTypesToRetrieveParam(TypesToRetrieveParam insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public TypesToRetrieve getInsideValue() {
+  public TypesToRetrieveParam getInsideValue() {
     return insideValue;
   }
 }
