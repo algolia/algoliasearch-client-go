@@ -93,7 +93,7 @@ jobs:
             - "~/go/pkg"
 
 workflows:
-  build:
+  ci:
     jobs:
       - format
 
