@@ -11,8 +11,8 @@ commands:
               curl -s https://algoliasearch-client-keygen.herokuapp.com | sh >> $BASH_ENV
             fi
 
-  test:
-    description: "Run the test for Go << parameters.go_version >>"
+  unit-tests:
+    description: "Run the unit tests for Go << parameters.go_version >>"
     parameters:
       go_version:
         type: string
@@ -23,8 +23,18 @@ commands:
       - run:
           name: Run unit tests for Go << parameters.go_version >>
           command: make unit-tests
+
+  integration-tests:
+    description: "Run the integration tests for Go << parameters.go_version >>"
+    parameters:
+      go_version:
+        type: string
+    steps:
       - run:
-          name: Run tests for Go << parameters.go_version >>
+          name: Generate code for Go << parameters.go_version >>
+          command: go generate ./...
+      - run:
+          name: Run integration tests for Go << parameters.go_version >>
           command: |
             if [ -z "ALGOLIA_ADMIN_KEY_MCM" ]; then
               make integration-tests-community
@@ -47,7 +57,24 @@ jobs:
           name: Check formatting
           command: make lint
 
-  test:
+  unit-tests:
+    parameters:
+        go_version:
+          type: string
+    docker:
+      - image: cimg/go:<< parameters.go_version >>
+    steps:
+      - checkout
+      - restore_cache:
+          key: go-cache-<< parameters.go_version >>
+      - unit-tests:
+          go_version: "<< parameters.go_version >>"
+      - save_cache:
+          key: go-cache-<< parameters.go_version >>
+          paths:
+            - "~/go/pkg"
+
+  integration-tests:
     parameters:
         go_version:
           type: string
@@ -58,7 +85,7 @@ jobs:
       - restore_cache:
           key: go-cache-<< parameters.go_version >>
       - credentials
-      - test:
+      - integration-tests:
           go_version: "<< parameters.go_version >>"
       - save_cache:
           key: go-cache-<< parameters.go_version >>
@@ -69,7 +96,18 @@ workflows:
   build:
     jobs:
       - format
-      - test:
+
+      - unit-tests:
+          matrix:
+              parameters:
+                go_version:
+                    - "1.13"
+                    - "1.14"
+                    - "1.15"
+                    - "1.16"
+                    - "1.17"
+
+      - integration-tests:
           matrix:
               parameters:
                 go_version:
