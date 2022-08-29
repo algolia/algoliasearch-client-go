@@ -83,7 +83,7 @@ export async function prompt({
 
   decision.clientList = getClientChoices(decision.language, CLIENTS);
 
-  if (!clientArg || !clientArg.length) {
+  if (!clientArg?.length) {
     if (interactive) {
       const { client } = await inquirer.prompt<{ client: string }>([
         {

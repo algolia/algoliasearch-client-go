@@ -11,7 +11,7 @@ export function getClientsConfigField(
   const path = Array.isArray(pathToField) ? pathToField : [pathToField];
 
   return path.reduce((current, key) => {
-    if (!current || !current[key]) {
+    if (!current?.[key]) {
       throw new Error(`Unable to find '${pathToField}' for '${language}'`);
     }
 

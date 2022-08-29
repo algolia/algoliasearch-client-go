@@ -75,7 +75,7 @@
       "datasourceTemplate": "maven"
     },
     {
-      "description": "Update yarn version (won't work because we need to download the script but gives an alert at least)",
+      "description": "Update yarn version",
       "fileMatch": ".yarnrc.yml",
       "matchStrings": [
         "yarn/releases/yarn-(?<currentValue>.*?)\\.cjs"
