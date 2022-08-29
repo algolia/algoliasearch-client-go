@@ -108,6 +108,11 @@ workflows:
                     - "1.17"
 
       - integration-tests:
+          filters:
+            branches:
+              # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+              # https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/
+              ignore: /pull\/[0-9]+/
           matrix:
               parameters:
                 go_version:
