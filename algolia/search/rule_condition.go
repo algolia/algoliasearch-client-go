@@ -12,7 +12,7 @@ type RuleCondition struct {
 
 func (c RuleCondition) MarshalJSON() ([]byte, error) {
 	m := make(map[string]interface{})
-	if c.Anchoring != "" || c.Pattern != "" {
+	if c.Anchoring != "" {
 		m["anchoring"] = c.Anchoring
 		m["pattern"] = c.Pattern
 	}
