@@ -44,7 +44,7 @@ func TestRuleCondition_MarshalJSON(t *testing.T) {
 				Alternatives: nil,
 				Filters:      "",
 			},
-			`{"anchoring": "", "pattern": "Pattern"}`,
+			`{}`,
 		},
 		{
 			RuleCondition{
@@ -106,7 +106,11 @@ func TestRuleCondition_MarshalJSON(t *testing.T) {
 
 		// Compare the two RuleConditions
 		require.Equal(t, c.condition.Anchoring, condition.Anchoring)
-		require.Equal(t, c.condition.Pattern, condition.Pattern)
+		if c.condition.Anchoring == "" {
+			require.Equal(t, condition.Pattern, "")
+		} else {
+			require.Equal(t, c.condition.Pattern, condition.Pattern)
+		}
 		require.Equal(t, c.condition.Context, condition.Context)
 		if c.condition.Alternatives == nil {
 			require.Nil(t, condition.Alternatives)
