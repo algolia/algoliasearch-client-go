@@ -32,7 +32,7 @@ describe('commonApi', () => {
       path: '/test',
     })) as unknown as EchoResponse;
 
-    expect(decodeURI(result.algoliaAgent)).toMatch(
+    expect(decodeURIComponent(result.algoliaAgent)).toMatch(
       /^Algolia for JavaScript \(\d+\.\d+\.\d+(-.*)?\)(; [a-zA-Z. ]+ (\(\d+((\.\d+)?\.\d+)?(-.*)?\))?)*(; Sources (\(\d+\.\d+\.\d+(-.*)?\)))(; [a-zA-Z. ]+ (\(\d+((\.\d+)?\.\d+)?(-.*)?\))?)*$/
     );
   });
