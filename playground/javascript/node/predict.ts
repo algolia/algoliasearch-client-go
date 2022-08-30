@@ -7,8 +7,7 @@ dotenv.config({ path: '../../.env' });
 const appId = process.env.ALGOLIA_PREDICT_APP_ID || '**** APP_ID *****';
 const apiKey =
   process.env.ALGOLIA_PREDICT_API_KEY || '**** PREDICT_API_KEY *****';
-
-const userId = 'user1';
+const userId = process.env.ALGOLIA_PREDICT_USER_ID || 'user1';
 
 // Init client with appId and apiKey
 const client = predictClient(appId, apiKey, 'ew');

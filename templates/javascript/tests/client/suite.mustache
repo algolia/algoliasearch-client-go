@@ -32,7 +32,7 @@ describe('{{testType}}', () => {
         {{> client/step}}
 
         {{#testUserAgent}}
-          expect(decodeURI(result.algoliaAgent)).toMatch(/{{{match}}}/);
+          expect(decodeURIComponent(result.algoliaAgent)).toMatch(/{{{match}}}/);
         {{/testUserAgent}}
         {{#testTimeouts}}
           expect(result).toEqual(expect.objectContaining({{{match.parameters}}}));
