@@ -21,6 +21,9 @@ func TestUnmarshalRenderingContent(t *testing.T) {
 				},
 				"color": {
 					"order": ["red", "green"]
+				},
+				"size": {
+					"sortRemainingBy": "alpha"
 				}
 			}
 		}
@@ -29,10 +32,15 @@ func TestUnmarshalRenderingContent(t *testing.T) {
 	err := json.Unmarshal([]byte(payload), &r)
 	require.NoError(t, err)
 	require.Equal(t, r.FacetOrdering.Facets.Order, []string{"brand", "size", "color"})
+
 	require.Equal(t, r.FacetOrdering.Values["brand"].Order, []string{"Apple", "Sony", "Samsung"})
 	require.Equal(t, *r.FacetOrdering.Values["brand"].SortRemainingBy, Alpha)
+
 	require.Equal(t, r.FacetOrdering.Values["color"].Order, []string{"red", "green"})
 	require.Nil(t, r.FacetOrdering.Values["color"].SortRemainingBy)
+
+	require.Nil(t, r.FacetOrdering.Values["size"].Order)
+	require.Equal(t, *r.FacetOrdering.Values["size"].SortRemainingBy, Alpha)
 }
 
 func TestBuildRenderingContent(t *testing.T) {
