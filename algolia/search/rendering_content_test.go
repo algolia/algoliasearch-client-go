@@ -40,7 +40,84 @@ func TestUnmarshalRenderingContent(t *testing.T) {
 	require.Nil(t, r.FacetOrdering.Values["color"].SortRemainingBy)
 
 	require.Nil(t, r.FacetOrdering.Values["size"].Order)
-	require.Equal(t, *r.FacetOrdering.Values["size"].SortRemainingBy, Alpha)
+}
+
+func TestMarshalRenderingContent(t *testing.T) {
+
+	tests := []struct {
+		name     string
+		input    RenderingContent
+		expected string
+	}{
+		{
+			name: "empty values",
+			input: RenderingContent{
+				FacetOrdering: &FacetOrdering{
+					Facets: &FacetsOrder{
+						Order: []string{"brand", "size", "color"},
+					},
+					Values: nil,
+				},
+			},
+			expected: `{
+	"facetOrdering": {
+		"facets": {
+			"order": [
+				"brand",
+				"size",
+				"color"
+			]
+		}
+	}
+}`,
+		},
+		{
+			name: "values with one empty facet value `order`",
+			input: RenderingContent{
+				FacetOrdering: &FacetOrdering{
+					Facets: &FacetsOrder{
+						Order: []string{"brand", "size", "color"},
+					},
+					Values: map[string]FacetValuesOrder{
+						"brand": NewFacetValuesOrder([]string{"Apple", "Sony", "Samsung"}, Alpha),
+						"color": NewFacetValuesOrder(nil, Hidden),
+					},
+				},
+			},
+			expected: `{
+	"facetOrdering": {
+		"facets": {
+			"order": [
+				"brand",
+				"size",
+				"color"
+			]
+		},
+		"values": {
+			"brand": {
+				"order": [
+					"Apple",
+					"Sony",
+					"Samsung"
+				],
+				"sortRemainingBy": "alpha"
+			},
+			"color": {
+				"sortRemainingBy": "hidden"
+			}
+		}
+	}
+}`,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			b, err := json.MarshalIndent(test.input, "", "	")
+			require.NoError(t, err)
+			require.Equal(t, test.expected, string(b))
+		})
+	}
 }
 
 func TestBuildRenderingContent(t *testing.T) {

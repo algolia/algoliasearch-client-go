@@ -12,7 +12,7 @@ type FacetOrdering struct {
 	Facets *FacetsOrder `json:"facets"`
 
 	// The ordering of facet values, within an individual list.
-	Values map[string]FacetValuesOrder `json:"values"`
+	Values map[string]FacetValuesOrder `json:"values,omitempty"`
 }
 
 // Facets ordering rule container
