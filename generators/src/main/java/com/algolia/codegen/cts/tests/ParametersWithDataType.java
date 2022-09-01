@@ -318,7 +318,10 @@ public class ParametersWithDataType {
             entry.getKey() +
             "' not found in '" +
             paramName +
-            "'. You might have a type conflict in the spec for '" +
+            "'. Available properties are: " +
+            spec.getVars().stream().map(v -> v.baseName).collect(Collectors.joining(", ")) +
+            (spec.getAdditionalPropertiesIsAnyType() ? " (and any additional properties)" : "") +
+            ". Or you might have a type conflict in the spec for '" +
             baseType +
             "'"
           );
@@ -545,6 +548,7 @@ public class ParametersWithDataType {
 
         // Somehow this is not yet enough
         if (oneOf != null && !oneOf.isEmpty()) {
+          System.out.println("Choosing the first oneOf by default: " + oneOf.get(0).name + " (this won't stay correct forever)");
           return oneOf.get(0);
         }
       }
