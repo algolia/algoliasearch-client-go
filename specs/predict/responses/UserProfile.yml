@@ -10,7 +10,7 @@ userProfile:
       title: predictions
       properties:
         funnel_stage:
-          $ref: '#/predictionsfunnelStage'
+          $ref: '#/predictionsFunnelStage'
         order_value:
           $ref: '#/predictionsOrderValue'
         affinities:
@@ -57,7 +57,7 @@ error:
   required:
     - error
 
-predictionsfunnelStage:
+predictionsFunnelStage:
   oneOf:
     - $ref: '#/funnelStageSuccess'
     - $ref: '#/error'
