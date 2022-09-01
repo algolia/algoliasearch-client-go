@@ -229,7 +229,7 @@ jobs:
         run: cd ${{ matrix.client.path }} && yarn test:size
 
       - name: Run JavaScript 'algoliasearch' client tests
-        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' }}
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' && contains(matrix.client.toRun,'algoliasearch') }}
         run: cd ${{ matrix.client.path }} && yarn workspace algoliasearch test
 
       - name: Remove previous CTS output
