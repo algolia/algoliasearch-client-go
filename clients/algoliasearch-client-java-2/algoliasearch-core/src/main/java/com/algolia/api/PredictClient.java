@@ -190,6 +190,145 @@ public class PredictClient extends ApiClient {
   }
 
   /**
+   * Delete all data and predictions associated with an authenticated user (userID) or an anonymous
+   * user (cookieID, sessionID).
+   *
+   * @param userID User ID for authenticated users or cookie ID for non-authenticated repeated users
+   *     (visitors). (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return DeleteUserProfileResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public DeleteUserProfileResponse deleteUserProfile(String userID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(deleteUserProfileAsync(userID, requestOptions));
+  }
+
+  /**
+   * Delete all data and predictions associated with an authenticated user (userID) or an anonymous
+   * user (cookieID, sessionID).
+   *
+   * @param userID User ID for authenticated users or cookie ID for non-authenticated repeated users
+   *     (visitors). (required)
+   * @return DeleteUserProfileResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public DeleteUserProfileResponse deleteUserProfile(String userID) throws AlgoliaRuntimeException {
+    return this.deleteUserProfile(userID, null);
+  }
+
+  /**
+   * (asynchronously) Delete all data and predictions associated with an authenticated user (userID)
+   * or an anonymous user (cookieID, sessionID).
+   *
+   * @param userID User ID for authenticated users or cookie ID for non-authenticated repeated users
+   *     (visitors). (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<DeleteUserProfileResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<DeleteUserProfileResponse> deleteUserProfileAsync(String userID, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    if (userID == null) {
+      throw new AlgoliaRuntimeException("Parameter `userID` is required when calling `deleteUserProfile`.");
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/users/{userID}".replaceAll("\\{userID\\}", this.escapeString(userID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<DeleteUserProfileResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Delete all data and predictions associated with an authenticated user (userID)
+   * or an anonymous user (cookieID, sessionID).
+   *
+   * @param userID User ID for authenticated users or cookie ID for non-authenticated repeated users
+   *     (visitors). (required)
+   * @return CompletableFuture<DeleteUserProfileResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<DeleteUserProfileResponse> deleteUserProfileAsync(String userID) throws AlgoliaRuntimeException {
+    return this.deleteUserProfileAsync(userID, null);
+  }
+
+  /**
+   * Get all users with predictions in the provided application.
+   *
+   * @param fetchAllUserProfilesParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return FetchAllUserProfilesResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public FetchAllUserProfilesResponse fetchAllUserProfiles(
+    FetchAllUserProfilesParams fetchAllUserProfilesParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(fetchAllUserProfilesAsync(fetchAllUserProfilesParams, requestOptions));
+  }
+
+  /**
+   * Get all users with predictions in the provided application.
+   *
+   * @param fetchAllUserProfilesParams (required)
+   * @return FetchAllUserProfilesResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public FetchAllUserProfilesResponse fetchAllUserProfiles(FetchAllUserProfilesParams fetchAllUserProfilesParams)
+    throws AlgoliaRuntimeException {
+    return this.fetchAllUserProfiles(fetchAllUserProfilesParams, null);
+  }
+
+  /**
+   * (asynchronously) Get all users with predictions in the provided application.
+   *
+   * @param fetchAllUserProfilesParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<FetchAllUserProfilesResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<FetchAllUserProfilesResponse> fetchAllUserProfilesAsync(
+    FetchAllUserProfilesParams fetchAllUserProfilesParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (fetchAllUserProfilesParams == null) {
+      throw new AlgoliaRuntimeException("Parameter `fetchAllUserProfilesParams` is required when calling" + " `fetchAllUserProfiles`.");
+    }
+
+    Object bodyObj = fetchAllUserProfilesParams;
+
+    // create path and map variables
+    String requestPath = "/1/users";
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<FetchAllUserProfilesResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Get all users with predictions in the provided application.
+   *
+   * @param fetchAllUserProfilesParams (required)
+   * @return CompletableFuture<FetchAllUserProfilesResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<FetchAllUserProfilesResponse> fetchAllUserProfilesAsync(FetchAllUserProfilesParams fetchAllUserProfilesParams)
+    throws AlgoliaRuntimeException {
+    return this.fetchAllUserProfilesAsync(fetchAllUserProfilesParams, null);
+  }
+
+  /**
    * Get predictions, properties (raw, computed or custom) and segments (computed or custom) for a
    * user profile.
    *
@@ -198,11 +337,10 @@ public class PredictClient extends ApiClient {
    * @param params (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return FetchUserProfileResponse
+   * @return UserProfile
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public FetchUserProfileResponse fetchUserProfile(String userID, Params params, RequestOptions requestOptions)
-    throws AlgoliaRuntimeException {
+  public UserProfile fetchUserProfile(String userID, Params params, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(fetchUserProfileAsync(userID, params, requestOptions));
   }
 
@@ -213,10 +351,10 @@ public class PredictClient extends ApiClient {
    * @param userID User ID for authenticated users or cookie ID for non-authenticated repeated users
    *     (visitors). (required)
    * @param params (required)
-   * @return FetchUserProfileResponse
+   * @return UserProfile
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public FetchUserProfileResponse fetchUserProfile(String userID, Params params) throws AlgoliaRuntimeException {
+  public UserProfile fetchUserProfile(String userID, Params params) throws AlgoliaRuntimeException {
     return this.fetchUserProfile(userID, params, null);
   }
 
@@ -229,10 +367,10 @@ public class PredictClient extends ApiClient {
    * @param params (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CompletableFuture<FetchUserProfileResponse> The awaitable future
+   * @return CompletableFuture<UserProfile> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<FetchUserProfileResponse> fetchUserProfileAsync(String userID, Params params, RequestOptions requestOptions)
+  public CompletableFuture<UserProfile> fetchUserProfileAsync(String userID, Params params, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (userID == null) {
       throw new AlgoliaRuntimeException("Parameter `userID` is required when calling `fetchUserProfile`.");
@@ -251,7 +389,7 @@ public class PredictClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
-    return this.executeAsync(call, new TypeReference<FetchUserProfileResponse>() {});
+    return this.executeAsync(call, new TypeReference<UserProfile>() {});
   }
 
   /**
@@ -261,10 +399,10 @@ public class PredictClient extends ApiClient {
    * @param userID User ID for authenticated users or cookie ID for non-authenticated repeated users
    *     (visitors). (required)
    * @param params (required)
-   * @return CompletableFuture<FetchUserProfileResponse> The awaitable future
+   * @return CompletableFuture<UserProfile> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<FetchUserProfileResponse> fetchUserProfileAsync(String userID, Params params) throws AlgoliaRuntimeException {
+  public CompletableFuture<UserProfile> fetchUserProfileAsync(String userID, Params params) throws AlgoliaRuntimeException {
     return this.fetchUserProfileAsync(userID, params, null);
   }
 

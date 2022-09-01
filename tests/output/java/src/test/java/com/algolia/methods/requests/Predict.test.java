@@ -88,6 +88,140 @@ class PredictClientRequestsTests {
   }
 
   @Test
+  @DisplayName("deleteUserProfile")
+  void deleteUserProfileTest0() {
+    String userID0 = "user1";
+
+    assertDoesNotThrow(() -> {
+      client.deleteUserProfile(userID0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/users/user1");
+    assertEquals(req.method, "DELETE");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("fetchAllUserProfiles with minimal parameters for modelsToRetrieve")
+  void fetchAllUserProfilesTest0() {
+    ModelsToRetrieveParam fetchAllUserProfilesParams0 = new ModelsToRetrieveParam();
+    {
+      List<ModelsToRetrieve> modelsToRetrieve1 = new ArrayList<>();
+      {
+        ModelsToRetrieve modelsToRetrieve_02 = ModelsToRetrieve.fromValue("funnel_stage");
+        modelsToRetrieve1.add(modelsToRetrieve_02);
+        ModelsToRetrieve modelsToRetrieve_12 = ModelsToRetrieve.fromValue("order_value");
+        modelsToRetrieve1.add(modelsToRetrieve_12);
+        ModelsToRetrieve modelsToRetrieve_22 = ModelsToRetrieve.fromValue("affinities");
+        modelsToRetrieve1.add(modelsToRetrieve_22);
+      }
+      fetchAllUserProfilesParams0.setModelsToRetrieve(modelsToRetrieve1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.fetchAllUserProfiles(FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"modelsToRetrieve\":[\"funnel_stage\",\"order_value\",\"affinities\"]}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("fetchAllUserProfiles with minimal parameters for typesToRetrieve")
+  void fetchAllUserProfilesTest1() {
+    TypesToRetrieveParam fetchAllUserProfilesParams0 = new TypesToRetrieveParam();
+    {
+      List<TypesToRetrieve> typesToRetrieve1 = new ArrayList<>();
+      {
+        TypesToRetrieve typesToRetrieve_02 = TypesToRetrieve.fromValue("properties");
+        typesToRetrieve1.add(typesToRetrieve_02);
+        TypesToRetrieve typesToRetrieve_12 = TypesToRetrieve.fromValue("segments");
+        typesToRetrieve1.add(typesToRetrieve_12);
+      }
+      fetchAllUserProfilesParams0.setTypesToRetrieve(typesToRetrieve1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.fetchAllUserProfiles(FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"typesToRetrieve\":[\"properties\",\"segments\"]}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("fetchAllUserProfiles with a limit")
+  void fetchAllUserProfilesTest2() {
+    LimitParam fetchAllUserProfilesParams0 = new LimitParam();
+    {
+      int limit1 = 10;
+      fetchAllUserProfilesParams0.setLimit(limit1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.fetchAllUserProfiles(FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"limit\":10}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("fetchAllUserProfiles with a nextPageToken")
+  void fetchAllUserProfilesTest3() {
+    NextPageTokenParam fetchAllUserProfilesParams0 = new NextPageTokenParam();
+    {
+      String nextPageToken1 = "nextPageTokenExample123";
+      fetchAllUserProfilesParams0.setNextPageToken(nextPageToken1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.fetchAllUserProfiles(FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"nextPageToken\":\"nextPageTokenExample123\"}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("fetchAllUserProfiles with a previousPageToken")
+  void fetchAllUserProfilesTest4() {
+    PreviousPageTokenParam fetchAllUserProfilesParams0 = new PreviousPageTokenParam();
+    {
+      String previousPageToken1 = "previousPageTokenExample123";
+      fetchAllUserProfilesParams0.setPreviousPageToken(previousPageToken1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.fetchAllUserProfiles(FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"previousPageToken\":\"previousPageTokenExample123\"}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
   @DisplayName("fetchUserProfile with minimal parameters for modelsToRetrieve")
   void fetchUserProfileTest0() {
     String userID0 = "user1";

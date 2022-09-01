@@ -6,8 +6,8 @@ package com.algolia.model.predict;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
-/** FetchUserProfileResponse */
-public class FetchUserProfileResponse {
+/** UserProfile */
+public class UserProfile {
 
   @JsonProperty("user")
   private String user;
@@ -21,7 +21,7 @@ public class FetchUserProfileResponse {
   @JsonProperty("segments")
   private Segments segments;
 
-  public FetchUserProfileResponse setUser(String user) {
+  public UserProfile setUser(String user) {
     this.user = user;
     return this;
   }
@@ -36,7 +36,7 @@ public class FetchUserProfileResponse {
     return user;
   }
 
-  public FetchUserProfileResponse setPredictions(Predictions predictions) {
+  public UserProfile setPredictions(Predictions predictions) {
     this.predictions = predictions;
     return this;
   }
@@ -51,7 +51,7 @@ public class FetchUserProfileResponse {
     return predictions;
   }
 
-  public FetchUserProfileResponse setProperties(Properties properties) {
+  public UserProfile setProperties(Properties properties) {
     this.properties = properties;
     return this;
   }
@@ -66,7 +66,7 @@ public class FetchUserProfileResponse {
     return properties;
   }
 
-  public FetchUserProfileResponse setSegments(Segments segments) {
+  public UserProfile setSegments(Segments segments) {
     this.segments = segments;
     return this;
   }
@@ -89,12 +89,12 @@ public class FetchUserProfileResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FetchUserProfileResponse fetchUserProfileResponse = (FetchUserProfileResponse) o;
+    UserProfile userProfile = (UserProfile) o;
     return (
-      Objects.equals(this.user, fetchUserProfileResponse.user) &&
-      Objects.equals(this.predictions, fetchUserProfileResponse.predictions) &&
-      Objects.equals(this.properties, fetchUserProfileResponse.properties) &&
-      Objects.equals(this.segments, fetchUserProfileResponse.segments)
+      Objects.equals(this.user, userProfile.user) &&
+      Objects.equals(this.predictions, userProfile.predictions) &&
+      Objects.equals(this.properties, userProfile.properties) &&
+      Objects.equals(this.segments, userProfile.segments)
     );
   }
 
@@ -106,7 +106,7 @@ public class FetchUserProfileResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FetchUserProfileResponse {\n");
+    sb.append("class UserProfile {\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    predictions: ").append(toIndentedString(predictions)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");

@@ -12,10 +12,10 @@ import java.util.Objects;
 public class Segments {
 
   @JsonProperty("computed")
-  private List<String> computed;
+  private List<String> computed = new ArrayList<>();
 
   @JsonProperty("custom")
-  private List<String> custom;
+  private List<String> custom = new ArrayList<>();
 
   public Segments setComputed(List<String> computed) {
     this.computed = computed;
@@ -23,9 +23,6 @@ public class Segments {
   }
 
   public Segments addComputed(String computedItem) {
-    if (this.computed == null) {
-      this.computed = new ArrayList<>();
-    }
     this.computed.add(computedItem);
     return this;
   }
@@ -35,7 +32,7 @@ public class Segments {
    *
    * @return computed
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<String> getComputed() {
     return computed;
   }
@@ -46,9 +43,6 @@ public class Segments {
   }
 
   public Segments addCustom(String customItem) {
-    if (this.custom == null) {
-      this.custom = new ArrayList<>();
-    }
     this.custom.add(customItem);
     return this;
   }
@@ -58,7 +52,7 @@ public class Segments {
    *
    * @return custom
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<String> getCustom() {
     return custom;
   }

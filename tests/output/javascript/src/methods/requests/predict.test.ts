@@ -34,6 +34,80 @@ describe('del', () => {
   });
 });
 
+describe('deleteUserProfile', () => {
+  test('deleteUserProfile', async () => {
+    const req = (await client.deleteUserProfile({
+      userID: 'user1',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/users/user1');
+    expect(req.method).toEqual('DELETE');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('fetchAllUserProfiles', () => {
+  test('fetchAllUserProfiles with minimal parameters for modelsToRetrieve', async () => {
+    const req = (await client.fetchAllUserProfiles({
+      modelsToRetrieve: ['funnel_stage', 'order_value', 'affinities'],
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      modelsToRetrieve: ['funnel_stage', 'order_value', 'affinities'],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('fetchAllUserProfiles with minimal parameters for typesToRetrieve', async () => {
+    const req = (await client.fetchAllUserProfiles({
+      typesToRetrieve: ['properties', 'segments'],
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ typesToRetrieve: ['properties', 'segments'] });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('fetchAllUserProfiles with a limit', async () => {
+    const req = (await client.fetchAllUserProfiles({
+      limit: 10,
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ limit: 10 });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('fetchAllUserProfiles with a nextPageToken', async () => {
+    const req = (await client.fetchAllUserProfiles({
+      nextPageToken: 'nextPageTokenExample123',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ nextPageToken: 'nextPageTokenExample123' });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('fetchAllUserProfiles with a previousPageToken', async () => {
+    const req = (await client.fetchAllUserProfiles({
+      previousPageToken: 'previousPageTokenExample123',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      previousPageToken: 'previousPageTokenExample123',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
 describe('fetchUserProfile', () => {
   test('fetchUserProfile with minimal parameters for modelsToRetrieve', async () => {
     const req = (await client.fetchUserProfile({
