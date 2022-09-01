@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 /** Prediction for the **funnel_stage** model. */
-public class PredictionsFunnelStage {
+public class FunnelStageSuccess {
 
   @JsonProperty("value")
   private List<FunnelStage> value = new ArrayList<>();
@@ -17,12 +17,12 @@ public class PredictionsFunnelStage {
   @JsonProperty("lastUpdatedAt")
   private String lastUpdatedAt;
 
-  public PredictionsFunnelStage setValue(List<FunnelStage> value) {
+  public FunnelStageSuccess setValue(List<FunnelStage> value) {
     this.value = value;
     return this;
   }
 
-  public PredictionsFunnelStage addValue(FunnelStage valueItem) {
+  public FunnelStageSuccess addValue(FunnelStage valueItem) {
     this.value.add(valueItem);
     return this;
   }
@@ -37,7 +37,7 @@ public class PredictionsFunnelStage {
     return value;
   }
 
-  public PredictionsFunnelStage setLastUpdatedAt(String lastUpdatedAt) {
+  public FunnelStageSuccess setLastUpdatedAt(String lastUpdatedAt) {
     this.lastUpdatedAt = lastUpdatedAt;
     return this;
   }
@@ -60,10 +60,8 @@ public class PredictionsFunnelStage {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PredictionsFunnelStage predictionsFunnelStage = (PredictionsFunnelStage) o;
-    return (
-      Objects.equals(this.value, predictionsFunnelStage.value) && Objects.equals(this.lastUpdatedAt, predictionsFunnelStage.lastUpdatedAt)
-    );
+    FunnelStageSuccess funnelStageSuccess = (FunnelStageSuccess) o;
+    return Objects.equals(this.value, funnelStageSuccess.value) && Objects.equals(this.lastUpdatedAt, funnelStageSuccess.lastUpdatedAt);
   }
 
   @Override
@@ -74,7 +72,7 @@ public class PredictionsFunnelStage {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PredictionsFunnelStage {\n");
+    sb.append("class FunnelStageSuccess {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    lastUpdatedAt: ").append(toIndentedString(lastUpdatedAt)).append("\n");
     sb.append("}");

@@ -87,6 +87,92 @@ components:
         - $ref: '#/components/schemas/modelsToRetrieveParam'
         - $ref: '#/components/schemas/typesToRetrieveParam'
         - $ref: '#/components/schemas/allParams'
+    funnelStageSuccess:
+      type: object
+      description: Prediction for the **funnel_stage** model.
+      properties:
+        value:
+          type: array
+          items:
+            title: funnel_stage
+            type: object
+            properties:
+              name:
+                type: string
+              probability:
+                type: number
+                format: double
+                minimum: 0
+                maximum: 1
+            required:
+              - name
+              - probability
+        lastUpdatedAt:
+          type: string
+      required:
+        - value
+        - lastUpdatedAt
+    error:
+      type: object
+      description: The error when the model is not available.
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    predictionsfunnelStage:
+      oneOf:
+        - $ref: '#/components/schemas/funnelStageSuccess'
+        - $ref: '#/components/schemas/error'
+    orderValueSuccess:
+      type: object
+      description: Prediction for the **order_value** model.
+      properties:
+        value:
+          type: number
+          format: double
+          minimum: 0
+        lastUpdatedAt:
+          type: string
+      required:
+        - value
+        - lastUpdatedAt
+    predictionsOrderValue:
+      oneOf:
+        - $ref: '#/components/schemas/orderValueSuccess'
+        - $ref: '#/components/schemas/error'
+    affinitiesSuccess:
+      type: object
+      description: Prediction for the **affinities** model.
+      properties:
+        value:
+          type: array
+          items:
+            title: affinity
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+              probability:
+                type: number
+                format: double
+                minimum: 0
+                maximum: 1
+            required:
+              - name
+              - value
+              - probability
+        lastUpdatedAt:
+          type: string
+      required:
+        - value
+        - lastUpdatedAt
+    predictionsAffinities:
+      oneOf:
+        - $ref: '#/components/schemas/affinitiesSuccess'
+        - $ref: '#/components/schemas/error'
     userProfile:
       type: object
       required:
@@ -99,71 +185,11 @@ components:
           title: predictions
           properties:
             funnel_stage:
-              type: object
-              description: Prediction for the **funnel_stage** model.
-              properties:
-                value:
-                  type: array
-                  items:
-                    title: funnel_stage
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      probability:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 1
-                    required:
-                      - name
-                      - probability
-                lastUpdatedAt:
-                  type: string
-              required:
-                - value
-                - lastUpdatedAt
+              $ref: '#/components/schemas/predictionsfunnelStage'
             order_value:
-              type: object
-              description: Prediction for the **order_value** model.
-              properties:
-                value:
-                  type: number
-                  format: double
-                  minimum: 0
-                lastUpdatedAt:
-                  type: string
-              required:
-                - value
-                - lastUpdatedAt
+              $ref: '#/components/schemas/predictionsOrderValue'
             affinities:
-              type: object
-              description: Prediction for the **affinities** model.
-              properties:
-                value:
-                  type: array
-                  items:
-                    title: affinity
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      value:
-                        type: string
-                      probability:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 1
-                    required:
-                      - name
-                      - value
-                      - probability
-                lastUpdatedAt:
-                  type: string
-              required:
-                - value
-                - lastUpdatedAt
+              $ref: '#/components/schemas/predictionsAffinities'
         properties:
           type: object
           title: properties

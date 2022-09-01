@@ -3,91 +3,163 @@
 
 package com.algolia.model.predict;
 
+import com.algolia.utils.CompoundType;
 import com.fasterxml.jackson.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import java.io.IOException;
 
-/** Prediction for the **affinities** model. */
-public class PredictionsAffinities {
+/** PredictionsAffinities */
+@JsonDeserialize(using = PredictionsAffinities.PredictionsAffinitiesDeserializer.class)
+@JsonSerialize(using = PredictionsAffinities.PredictionsAffinitiesSerializer.class)
+public abstract class PredictionsAffinities implements CompoundType {
 
-  @JsonProperty("value")
-  private List<Affinity> value = new ArrayList<>();
-
-  @JsonProperty("lastUpdatedAt")
-  private String lastUpdatedAt;
-
-  public PredictionsAffinities setValue(List<Affinity> value) {
-    this.value = value;
-    return this;
+  public static PredictionsAffinities of(AffinitiesSuccess inside) {
+    return new PredictionsAffinitiesAffinitiesSuccess(inside);
   }
 
-  public PredictionsAffinities addValue(Affinity valueItem) {
-    this.value.add(valueItem);
-    return this;
+  public static PredictionsAffinities of(Error inside) {
+    return new PredictionsAffinitiesError(inside);
   }
 
-  /**
-   * Get value
-   *
-   * @return value
-   */
-  @javax.annotation.Nonnull
-  public List<Affinity> getValue() {
-    return value;
+  public static class PredictionsAffinitiesSerializer extends StdSerializer<PredictionsAffinities> {
+
+    public PredictionsAffinitiesSerializer(Class<PredictionsAffinities> t) {
+      super(t);
+    }
+
+    public PredictionsAffinitiesSerializer() {
+      this(null);
+    }
+
+    @Override
+    public void serialize(PredictionsAffinities value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+      jgen.writeObject(value.getInsideValue());
+    }
   }
 
-  public PredictionsAffinities setLastUpdatedAt(String lastUpdatedAt) {
-    this.lastUpdatedAt = lastUpdatedAt;
-    return this;
-  }
+  public static class PredictionsAffinitiesDeserializer extends StdDeserializer<PredictionsAffinities> {
 
-  /**
-   * Get lastUpdatedAt
-   *
-   * @return lastUpdatedAt
-   */
-  @javax.annotation.Nonnull
-  public String getLastUpdatedAt() {
-    return lastUpdatedAt;
+    public PredictionsAffinitiesDeserializer() {
+      this(PredictionsAffinities.class);
+    }
+
+    public PredictionsAffinitiesDeserializer(Class<?> vc) {
+      super(vc);
+    }
+
+    @Override
+    public PredictionsAffinities deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+      JsonNode tree = jp.readValueAsTree();
+      PredictionsAffinities deserialized = null;
+
+      int match = 0;
+      JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+      String currentType = "";
+      // deserialize AffinitiesSuccess
+      try {
+        boolean attemptParsing = true;
+        currentType = "AffinitiesSuccess";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            PredictionsAffinities.of(
+              (AffinitiesSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AffinitiesSuccess>() {})
+            );
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              PredictionsAffinities.of(
+                (AffinitiesSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AffinitiesSuccess>() {})
+              );
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf AffinitiesSuccess (error: " + e.getMessage() + ") (type: " + currentType + ")");
+      }
+
+      // deserialize Error
+      try {
+        boolean attemptParsing = true;
+        currentType = "Error";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized = PredictionsAffinities.of((Error) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Error>() {}));
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized = PredictionsAffinities.of((Error) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Error>() {}));
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println("Failed to deserialize oneOf Error (error: " + e.getMessage() + ") (type: " + currentType + ")");
+      }
+
+      if (match == 1) {
+        return deserialized;
+      }
+      throw new IOException(
+        String.format("Failed deserialization for PredictionsAffinities: %d classes match result, expected" + " 1", match)
+      );
+    }
+
+    /** Handle deserialization of the 'null' value. */
+    @Override
+    public PredictionsAffinities getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "PredictionsAffinities cannot be null");
+    }
+  }
+}
+
+class PredictionsAffinitiesAffinitiesSuccess extends PredictionsAffinities {
+
+  private final AffinitiesSuccess insideValue;
+
+  PredictionsAffinitiesAffinitiesSuccess(AffinitiesSuccess insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PredictionsAffinities predictionsAffinities = (PredictionsAffinities) o;
-    return (
-      Objects.equals(this.value, predictionsAffinities.value) && Objects.equals(this.lastUpdatedAt, predictionsAffinities.lastUpdatedAt)
-    );
+  public AffinitiesSuccess getInsideValue() {
+    return insideValue;
+  }
+}
+
+class PredictionsAffinitiesError extends PredictionsAffinities {
+
+  private final Error insideValue;
+
+  PredictionsAffinitiesError(Error insideValue) {
+    this.insideValue = insideValue;
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(value, lastUpdatedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PredictionsAffinities {\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    lastUpdatedAt: ").append(toIndentedString(lastUpdatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  public Error getInsideValue() {
+    return insideValue;
   }
 }
