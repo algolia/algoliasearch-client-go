@@ -14,50 +14,50 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-/** PredictionsfunnelStage */
-@JsonDeserialize(using = PredictionsfunnelStage.PredictionsfunnelStageDeserializer.class)
-@JsonSerialize(using = PredictionsfunnelStage.PredictionsfunnelStageSerializer.class)
-public abstract class PredictionsfunnelStage implements CompoundType {
+/** PredictionsFunnelStage */
+@JsonDeserialize(using = PredictionsFunnelStage.PredictionsFunnelStageDeserializer.class)
+@JsonSerialize(using = PredictionsFunnelStage.PredictionsFunnelStageSerializer.class)
+public abstract class PredictionsFunnelStage implements CompoundType {
 
-  public static PredictionsfunnelStage of(Error inside) {
-    return new PredictionsfunnelStageError(inside);
+  public static PredictionsFunnelStage of(Error inside) {
+    return new PredictionsFunnelStageError(inside);
   }
 
-  public static PredictionsfunnelStage of(FunnelStageSuccess inside) {
-    return new PredictionsfunnelStageFunnelStageSuccess(inside);
+  public static PredictionsFunnelStage of(FunnelStageSuccess inside) {
+    return new PredictionsFunnelStageFunnelStageSuccess(inside);
   }
 
-  public static class PredictionsfunnelStageSerializer extends StdSerializer<PredictionsfunnelStage> {
+  public static class PredictionsFunnelStageSerializer extends StdSerializer<PredictionsFunnelStage> {
 
-    public PredictionsfunnelStageSerializer(Class<PredictionsfunnelStage> t) {
+    public PredictionsFunnelStageSerializer(Class<PredictionsFunnelStage> t) {
       super(t);
     }
 
-    public PredictionsfunnelStageSerializer() {
+    public PredictionsFunnelStageSerializer() {
       this(null);
     }
 
     @Override
-    public void serialize(PredictionsfunnelStage value, JsonGenerator jgen, SerializerProvider provider)
+    public void serialize(PredictionsFunnelStage value, JsonGenerator jgen, SerializerProvider provider)
       throws IOException, JsonProcessingException {
       jgen.writeObject(value.getInsideValue());
     }
   }
 
-  public static class PredictionsfunnelStageDeserializer extends StdDeserializer<PredictionsfunnelStage> {
+  public static class PredictionsFunnelStageDeserializer extends StdDeserializer<PredictionsFunnelStage> {
 
-    public PredictionsfunnelStageDeserializer() {
-      this(PredictionsfunnelStage.class);
+    public PredictionsFunnelStageDeserializer() {
+      this(PredictionsFunnelStage.class);
     }
 
-    public PredictionsfunnelStageDeserializer(Class<?> vc) {
+    public PredictionsFunnelStageDeserializer(Class<?> vc) {
       super(vc);
     }
 
     @Override
-    public PredictionsfunnelStage deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public PredictionsFunnelStage deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
       JsonNode tree = jp.readValueAsTree();
-      PredictionsfunnelStage deserialized = null;
+      PredictionsFunnelStage deserialized = null;
 
       int match = 0;
       JsonToken token = tree.traverse(jp.getCodec()).nextToken();
@@ -73,11 +73,11 @@ public abstract class PredictionsfunnelStage implements CompoundType {
           (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
           (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
         ) {
-          deserialized = PredictionsfunnelStage.of((Error) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Error>() {}));
+          deserialized = PredictionsFunnelStage.of((Error) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Error>() {}));
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
-            deserialized = PredictionsfunnelStage.of((Error) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Error>() {}));
+            deserialized = PredictionsFunnelStage.of((Error) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Error>() {}));
             match++;
           } catch (IOException e) {
             // do nothing
@@ -100,14 +100,14 @@ public abstract class PredictionsfunnelStage implements CompoundType {
           (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
         ) {
           deserialized =
-            PredictionsfunnelStage.of(
+            PredictionsFunnelStage.of(
               (FunnelStageSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<FunnelStageSuccess>() {})
             );
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
             deserialized =
-              PredictionsfunnelStage.of(
+              PredictionsFunnelStage.of(
                 (FunnelStageSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<FunnelStageSuccess>() {})
               );
             match++;
@@ -124,23 +124,23 @@ public abstract class PredictionsfunnelStage implements CompoundType {
         return deserialized;
       }
       throw new IOException(
-        String.format("Failed deserialization for PredictionsfunnelStage: %d classes match result, expected" + " 1", match)
+        String.format("Failed deserialization for PredictionsFunnelStage: %d classes match result, expected" + " 1", match)
       );
     }
 
     /** Handle deserialization of the 'null' value. */
     @Override
-    public PredictionsfunnelStage getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-      throw new JsonMappingException(ctxt.getParser(), "PredictionsfunnelStage cannot be null");
+    public PredictionsFunnelStage getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+      throw new JsonMappingException(ctxt.getParser(), "PredictionsFunnelStage cannot be null");
     }
   }
 }
 
-class PredictionsfunnelStageError extends PredictionsfunnelStage {
+class PredictionsFunnelStageError extends PredictionsFunnelStage {
 
   private final Error insideValue;
 
-  PredictionsfunnelStageError(Error insideValue) {
+  PredictionsFunnelStageError(Error insideValue) {
     this.insideValue = insideValue;
   }
 
@@ -150,11 +150,11 @@ class PredictionsfunnelStageError extends PredictionsfunnelStage {
   }
 }
 
-class PredictionsfunnelStageFunnelStageSuccess extends PredictionsfunnelStage {
+class PredictionsFunnelStageFunnelStageSuccess extends PredictionsFunnelStage {
 
   private final FunnelStageSuccess insideValue;
 
-  PredictionsfunnelStageFunnelStageSuccess(FunnelStageSuccess insideValue) {
+  PredictionsFunnelStageFunnelStageSuccess(FunnelStageSuccess insideValue) {
     this.insideValue = insideValue;
   }
 

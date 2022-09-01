@@ -120,7 +120,7 @@ components:
           type: string
       required:
         - error
-    predictionsfunnelStage:
+    predictionsFunnelStage:
       oneOf:
         - $ref: '#/components/schemas/funnelStageSuccess'
         - $ref: '#/components/schemas/error'
@@ -185,7 +185,7 @@ components:
           title: predictions
           properties:
             funnel_stage:
-              $ref: '#/components/schemas/predictionsfunnelStage'
+              $ref: '#/components/schemas/predictionsFunnelStage'
             order_value:
               $ref: '#/components/schemas/predictionsOrderValue'
             affinities:

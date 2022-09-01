@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Predictions {
 
   @JsonProperty("funnel_stage")
-  private PredictionsfunnelStage funnelStage;
+  private PredictionsFunnelStage funnelStage;
 
   @JsonProperty("order_value")
   private PredictionsOrderValue orderValue;
@@ -18,7 +18,7 @@ public class Predictions {
   @JsonProperty("affinities")
   private PredictionsAffinities affinities;
 
-  public Predictions setFunnelStage(PredictionsfunnelStage funnelStage) {
+  public Predictions setFunnelStage(PredictionsFunnelStage funnelStage) {
     this.funnelStage = funnelStage;
     return this;
   }
@@ -29,7 +29,7 @@ public class Predictions {
    * @return funnelStage
    */
   @javax.annotation.Nullable
-  public PredictionsfunnelStage getFunnelStage() {
+  public PredictionsFunnelStage getFunnelStage() {
     return funnelStage;
   }
 
