@@ -24,7 +24,7 @@ post:
               users:
                 type: array
                 items:
-                  $ref: '../../common/parameters.yml#/userProfile'
+                  $ref: '../../responses/UserProfile.yml#/userProfile'
               previousPageToken:
                 $ref: '../../common/schemas/Params.yml#/previousPageToken'
               nextPageToken:

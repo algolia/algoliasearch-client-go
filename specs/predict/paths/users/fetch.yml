@@ -19,7 +19,7 @@ post:
         application/json:
           schema:
             title: fetchUserProfileResponse
-            $ref: '../../common/parameters.yml#/userProfile'
+            $ref: '../../responses/UserProfile.yml#/userProfile'
     '404':
       $ref: '../../responses/UserNotFound.yml'
     '405':
