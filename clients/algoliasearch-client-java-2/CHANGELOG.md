@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [80724c1f](https://github.com/algolia/api-clients-automation/commit/80724c1f) feat(specs): create new methods ([#974](https://github.com/algolia/api-clients-automation/pull/974)) by [@bengreenbank](https://github.com/bengreenbank/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [fbe774da](https://github.com/algolia/api-clients-automation/commit/fbe774da) docs(java): document browse and waitForApiKey ([#956](https://github.com/algolia/api-clients-automation/pull/956)) by [@millotp](https://github.com/millotp/)
 - [68ff7ee4](https://github.com/algolia/api-clients-automation/commit/68ff7ee4) feat(java): browse objects/synonyms/rules ([#952](https://github.com/algolia/api-clients-automation/pull/952)) by [@millotp](https://github.com/millotp/)
 - [a54e901f](https://github.com/algolia/api-clients-automation/commit/a54e901f) fix(java): freeze snapshot version to 4.0.0 ([#955](https://github.com/algolia/api-clients-automation/pull/955)) by [@millotp](https://github.com/millotp/)
