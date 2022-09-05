@@ -43,7 +43,6 @@ func TestUnmarshalRenderingContent(t *testing.T) {
 }
 
 func TestMarshalRenderingContent(t *testing.T) {
-
 	tests := []struct {
 		name     string
 		input    RenderingContent
