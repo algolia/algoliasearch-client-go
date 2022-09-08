@@ -59,16 +59,16 @@ func TestMarshalRenderingContent(t *testing.T) {
 				},
 			},
 			expected: `{
-	"facetOrdering": {
-		"facets": {
-			"order": [
-				"brand",
-				"size",
-				"color"
-			]
-		}
-	}
-}`,
+				"facetOrdering": {
+					"facets": {
+						"order": [
+							"brand",
+							"size",
+							"color"
+						]
+					}
+				}
+			}`,
 		},
 		{
 			name: "values with one empty facet value `order`",
@@ -84,37 +84,37 @@ func TestMarshalRenderingContent(t *testing.T) {
 				},
 			},
 			expected: `{
-	"facetOrdering": {
-		"facets": {
-			"order": [
-				"brand",
-				"size",
-				"color"
-			]
-		},
-		"values": {
-			"brand": {
-				"order": [
-					"Apple",
-					"Sony",
-					"Samsung"
-				],
-				"sortRemainingBy": "alpha"
-			},
-			"color": {
-				"sortRemainingBy": "hidden"
-			}
-		}
-	}
-}`,
+				"facetOrdering": {
+					"facets": {
+						"order": [
+							"brand",
+							"size",
+							"color"
+						]
+					},
+					"values": {
+						"brand": {
+							"order": [
+								"Apple",
+								"Sony",
+								"Samsung"
+							],
+							"sortRemainingBy": "alpha"
+						},
+						"color": {
+							"sortRemainingBy": "hidden"
+						}
+					}
+				}
+			}`,
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			b, err := json.MarshalIndent(test.input, "", "	")
+			b, err := json.Marshal(test.input)
 			require.NoError(t, err)
-			require.Equal(t, test.expected, string(b))
+			require.JSONEq(t, test.expected, string(b))
 		})
 	}
 }
