@@ -62,8 +62,8 @@ Read the guides and requirements to:
 
 Test the generated clients by running:
 
-- The [`playground`](./playground) (see [documentation](https://api-clients-automation.netlify.app/docs/contributing/testing/playground.md))
-- The [`Common Test Suite`](./tests/) (see [documentation](https://api-clients-automation.netlify.app/docs/contributing/testing/common-test-suite.md)).
+- The [`playground`](./playground) (see [documentation](https://api-clients-automation.netlify.app/docs/contributing/testing/playground))
+- The [`Common Test Suite`](./tests/) (see [documentation](https://api-clients-automation.netlify.app/docs/contributing/testing/common-test-suite)).
 
 For full documentation, visit the **[online documentation](https://api-clients-automation.netlify.app/docs/contributing/introduction)**.
 

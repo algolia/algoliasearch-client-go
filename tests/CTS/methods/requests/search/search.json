@@ -357,9 +357,6 @@
           "attributesForFaceting": [
             ""
           ],
-          "unretrievableAttributes": [
-            ""
-          ],
           "attributesToRetrieve": [
             ""
           ],
@@ -512,9 +509,6 @@
               ""
             ],
             "attributesForFaceting": [
-              ""
-            ],
-            "unretrievableAttributes": [
               ""
             ],
             "attributesToRetrieve": [
