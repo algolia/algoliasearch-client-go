@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [e227d8a6](https://github.com/algolia/api-clients-automation/commit/e227d8a6) fix(specs): remove unretrievableAttributes from searchParams ([#988](https://github.com/algolia/api-clients-automation/pull/988)) by [@loicsay](https://github.com/loicsay/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [80724c1f](https://github.com/algolia/api-clients-automation/commit/80724c1f) feat(specs): create new methods ([#974](https://github.com/algolia/api-clients-automation/pull/974)) by [@bengreenbank](https://github.com/bengreenbank/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
