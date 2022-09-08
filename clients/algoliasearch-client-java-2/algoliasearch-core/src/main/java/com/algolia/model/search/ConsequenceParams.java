@@ -113,9 +113,6 @@ public class ConsequenceParams {
   @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @JsonProperty("unretrievableAttributes")
-  private List<String> unretrievableAttributes;
-
   @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
@@ -818,29 +815,6 @@ public class ConsequenceParams {
   @javax.annotation.Nullable
   public List<String> getAttributesForFaceting() {
     return attributesForFaceting;
-  }
-
-  public ConsequenceParams setUnretrievableAttributes(List<String> unretrievableAttributes) {
-    this.unretrievableAttributes = unretrievableAttributes;
-    return this;
-  }
-
-  public ConsequenceParams addUnretrievableAttributes(String unretrievableAttributesItem) {
-    if (this.unretrievableAttributes == null) {
-      this.unretrievableAttributes = new ArrayList<>();
-    }
-    this.unretrievableAttributes.add(unretrievableAttributesItem);
-    return this;
-  }
-
-  /**
-   * List of attributes that can't be retrieved at query time.
-   *
-   * @return unretrievableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getUnretrievableAttributes() {
-    return unretrievableAttributes;
   }
 
   public ConsequenceParams setAttributesToRetrieve(List<String> attributesToRetrieve) {
@@ -1660,7 +1634,6 @@ public class ConsequenceParams {
       Objects.equals(this.enableReRanking, consequenceParams.enableReRanking) &&
       Objects.equals(this.reRankingApplyFilter, consequenceParams.reRankingApplyFilter) &&
       Objects.equals(this.attributesForFaceting, consequenceParams.attributesForFaceting) &&
-      Objects.equals(this.unretrievableAttributes, consequenceParams.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, consequenceParams.attributesToRetrieve) &&
       Objects.equals(this.restrictSearchableAttributes, consequenceParams.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, consequenceParams.ranking) &&
@@ -1745,7 +1718,6 @@ public class ConsequenceParams {
       enableReRanking,
       reRankingApplyFilter,
       attributesForFaceting,
-      unretrievableAttributes,
       attributesToRetrieve,
       restrictSearchableAttributes,
       ranking,
@@ -1831,7 +1803,6 @@ public class ConsequenceParams {
     sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
     sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
-    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");

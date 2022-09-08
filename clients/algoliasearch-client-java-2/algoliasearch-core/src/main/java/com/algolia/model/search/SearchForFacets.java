@@ -119,9 +119,6 @@ public class SearchForFacets {
   @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @JsonProperty("unretrievableAttributes")
-  private List<String> unretrievableAttributes;
-
   @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
@@ -857,29 +854,6 @@ public class SearchForFacets {
   @javax.annotation.Nullable
   public List<String> getAttributesForFaceting() {
     return attributesForFaceting;
-  }
-
-  public SearchForFacets setUnretrievableAttributes(List<String> unretrievableAttributes) {
-    this.unretrievableAttributes = unretrievableAttributes;
-    return this;
-  }
-
-  public SearchForFacets addUnretrievableAttributes(String unretrievableAttributesItem) {
-    if (this.unretrievableAttributes == null) {
-      this.unretrievableAttributes = new ArrayList<>();
-    }
-    this.unretrievableAttributes.add(unretrievableAttributesItem);
-    return this;
-  }
-
-  /**
-   * List of attributes that can't be retrieved at query time.
-   *
-   * @return unretrievableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getUnretrievableAttributes() {
-    return unretrievableAttributes;
   }
 
   public SearchForFacets setAttributesToRetrieve(List<String> attributesToRetrieve) {
@@ -1716,7 +1690,6 @@ public class SearchForFacets {
       Objects.equals(this.enableReRanking, searchForFacets.enableReRanking) &&
       Objects.equals(this.reRankingApplyFilter, searchForFacets.reRankingApplyFilter) &&
       Objects.equals(this.attributesForFaceting, searchForFacets.attributesForFaceting) &&
-      Objects.equals(this.unretrievableAttributes, searchForFacets.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, searchForFacets.attributesToRetrieve) &&
       Objects.equals(this.restrictSearchableAttributes, searchForFacets.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, searchForFacets.ranking) &&
@@ -1804,7 +1777,6 @@ public class SearchForFacets {
       enableReRanking,
       reRankingApplyFilter,
       attributesForFaceting,
-      unretrievableAttributes,
       attributesToRetrieve,
       restrictSearchableAttributes,
       ranking,
@@ -1893,7 +1865,6 @@ public class SearchForFacets {
     sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
     sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
-    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");

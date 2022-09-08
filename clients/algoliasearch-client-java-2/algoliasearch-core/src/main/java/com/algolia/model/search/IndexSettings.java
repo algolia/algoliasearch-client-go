@@ -19,6 +19,9 @@ public class IndexSettings {
   @JsonProperty("paginationLimitedTo")
   private Integer paginationLimitedTo;
 
+  @JsonProperty("unretrievableAttributes")
+  private List<String> unretrievableAttributes;
+
   @JsonProperty("disableTypoToleranceOnWords")
   private List<String> disableTypoToleranceOnWords;
 
@@ -57,9 +60,6 @@ public class IndexSettings {
 
   @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
-
-  @JsonProperty("unretrievableAttributes")
-  private List<String> unretrievableAttributes;
 
   @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
@@ -220,6 +220,29 @@ public class IndexSettings {
   @javax.annotation.Nullable
   public Integer getPaginationLimitedTo() {
     return paginationLimitedTo;
+  }
+
+  public IndexSettings setUnretrievableAttributes(List<String> unretrievableAttributes) {
+    this.unretrievableAttributes = unretrievableAttributes;
+    return this;
+  }
+
+  public IndexSettings addUnretrievableAttributes(String unretrievableAttributesItem) {
+    if (this.unretrievableAttributes == null) {
+      this.unretrievableAttributes = new ArrayList<>();
+    }
+    this.unretrievableAttributes.add(unretrievableAttributesItem);
+    return this;
+  }
+
+  /**
+   * List of attributes that can't be retrieved at query time.
+   *
+   * @return unretrievableAttributes
+   */
+  @javax.annotation.Nullable
+  public List<String> getUnretrievableAttributes() {
+    return unretrievableAttributes;
   }
 
   public IndexSettings setDisableTypoToleranceOnWords(List<String> disableTypoToleranceOnWords) {
@@ -490,29 +513,6 @@ public class IndexSettings {
   @javax.annotation.Nullable
   public List<String> getAttributesForFaceting() {
     return attributesForFaceting;
-  }
-
-  public IndexSettings setUnretrievableAttributes(List<String> unretrievableAttributes) {
-    this.unretrievableAttributes = unretrievableAttributes;
-    return this;
-  }
-
-  public IndexSettings addUnretrievableAttributes(String unretrievableAttributesItem) {
-    if (this.unretrievableAttributes == null) {
-      this.unretrievableAttributes = new ArrayList<>();
-    }
-    this.unretrievableAttributes.add(unretrievableAttributesItem);
-    return this;
-  }
-
-  /**
-   * List of attributes that can't be retrieved at query time.
-   *
-   * @return unretrievableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getUnretrievableAttributes() {
-    return unretrievableAttributes;
   }
 
   public IndexSettings setAttributesToRetrieve(List<String> attributesToRetrieve) {
@@ -1255,6 +1255,7 @@ public class IndexSettings {
     return (
       Objects.equals(this.replicas, indexSettings.replicas) &&
       Objects.equals(this.paginationLimitedTo, indexSettings.paginationLimitedTo) &&
+      Objects.equals(this.unretrievableAttributes, indexSettings.unretrievableAttributes) &&
       Objects.equals(this.disableTypoToleranceOnWords, indexSettings.disableTypoToleranceOnWords) &&
       Objects.equals(this.attributesToTransliterate, indexSettings.attributesToTransliterate) &&
       Objects.equals(this.camelCaseAttributes, indexSettings.camelCaseAttributes) &&
@@ -1268,7 +1269,6 @@ public class IndexSettings {
       Objects.equals(this.userData, indexSettings.userData) &&
       Objects.equals(this.customNormalization, indexSettings.customNormalization) &&
       Objects.equals(this.attributesForFaceting, indexSettings.attributesForFaceting) &&
-      Objects.equals(this.unretrievableAttributes, indexSettings.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, indexSettings.attributesToRetrieve) &&
       Objects.equals(this.restrictSearchableAttributes, indexSettings.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, indexSettings.ranking) &&
@@ -1318,6 +1318,7 @@ public class IndexSettings {
     return Objects.hash(
       replicas,
       paginationLimitedTo,
+      unretrievableAttributes,
       disableTypoToleranceOnWords,
       attributesToTransliterate,
       camelCaseAttributes,
@@ -1331,7 +1332,6 @@ public class IndexSettings {
       userData,
       customNormalization,
       attributesForFaceting,
-      unretrievableAttributes,
       attributesToRetrieve,
       restrictSearchableAttributes,
       ranking,
@@ -1382,6 +1382,7 @@ public class IndexSettings {
     sb.append("class IndexSettings {\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
     sb.append("    paginationLimitedTo: ").append(toIndentedString(paginationLimitedTo)).append("\n");
+    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    disableTypoToleranceOnWords: ").append(toIndentedString(disableTypoToleranceOnWords)).append("\n");
     sb.append("    attributesToTransliterate: ").append(toIndentedString(attributesToTransliterate)).append("\n");
     sb.append("    camelCaseAttributes: ").append(toIndentedString(camelCaseAttributes)).append("\n");
@@ -1395,7 +1396,6 @@ public class IndexSettings {
     sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
     sb.append("    customNormalization: ").append(toIndentedString(customNormalization)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
-    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");

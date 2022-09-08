@@ -19,6 +19,9 @@ public class BaseIndexSettings {
   @JsonProperty("paginationLimitedTo")
   private Integer paginationLimitedTo;
 
+  @JsonProperty("unretrievableAttributes")
+  private List<String> unretrievableAttributes;
+
   @JsonProperty("disableTypoToleranceOnWords")
   private List<String> disableTypoToleranceOnWords;
 
@@ -91,6 +94,29 @@ public class BaseIndexSettings {
   @javax.annotation.Nullable
   public Integer getPaginationLimitedTo() {
     return paginationLimitedTo;
+  }
+
+  public BaseIndexSettings setUnretrievableAttributes(List<String> unretrievableAttributes) {
+    this.unretrievableAttributes = unretrievableAttributes;
+    return this;
+  }
+
+  public BaseIndexSettings addUnretrievableAttributes(String unretrievableAttributesItem) {
+    if (this.unretrievableAttributes == null) {
+      this.unretrievableAttributes = new ArrayList<>();
+    }
+    this.unretrievableAttributes.add(unretrievableAttributesItem);
+    return this;
+  }
+
+  /**
+   * List of attributes that can't be retrieved at query time.
+   *
+   * @return unretrievableAttributes
+   */
+  @javax.annotation.Nullable
+  public List<String> getUnretrievableAttributes() {
+    return unretrievableAttributes;
   }
 
   public BaseIndexSettings setDisableTypoToleranceOnWords(List<String> disableTypoToleranceOnWords) {
@@ -352,6 +378,7 @@ public class BaseIndexSettings {
     return (
       Objects.equals(this.replicas, baseIndexSettings.replicas) &&
       Objects.equals(this.paginationLimitedTo, baseIndexSettings.paginationLimitedTo) &&
+      Objects.equals(this.unretrievableAttributes, baseIndexSettings.unretrievableAttributes) &&
       Objects.equals(this.disableTypoToleranceOnWords, baseIndexSettings.disableTypoToleranceOnWords) &&
       Objects.equals(this.attributesToTransliterate, baseIndexSettings.attributesToTransliterate) &&
       Objects.equals(this.camelCaseAttributes, baseIndexSettings.camelCaseAttributes) &&
@@ -372,6 +399,7 @@ public class BaseIndexSettings {
     return Objects.hash(
       replicas,
       paginationLimitedTo,
+      unretrievableAttributes,
       disableTypoToleranceOnWords,
       attributesToTransliterate,
       camelCaseAttributes,
@@ -393,6 +421,7 @@ public class BaseIndexSettings {
     sb.append("class BaseIndexSettings {\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
     sb.append("    paginationLimitedTo: ").append(toIndentedString(paginationLimitedTo)).append("\n");
+    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    disableTypoToleranceOnWords: ").append(toIndentedString(disableTypoToleranceOnWords)).append("\n");
     sb.append("    attributesToTransliterate: ").append(toIndentedString(attributesToTransliterate)).append("\n");
     sb.append("    camelCaseAttributes: ").append(toIndentedString(camelCaseAttributes)).append("\n");

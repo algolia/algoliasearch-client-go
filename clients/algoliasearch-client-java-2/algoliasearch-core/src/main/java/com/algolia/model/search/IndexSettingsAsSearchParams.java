@@ -14,9 +14,6 @@ public class IndexSettingsAsSearchParams {
   @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @JsonProperty("unretrievableAttributes")
-  private List<String> unretrievableAttributes;
-
   @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
@@ -161,29 +158,6 @@ public class IndexSettingsAsSearchParams {
   @javax.annotation.Nullable
   public List<String> getAttributesForFaceting() {
     return attributesForFaceting;
-  }
-
-  public IndexSettingsAsSearchParams setUnretrievableAttributes(List<String> unretrievableAttributes) {
-    this.unretrievableAttributes = unretrievableAttributes;
-    return this;
-  }
-
-  public IndexSettingsAsSearchParams addUnretrievableAttributes(String unretrievableAttributesItem) {
-    if (this.unretrievableAttributes == null) {
-      this.unretrievableAttributes = new ArrayList<>();
-    }
-    this.unretrievableAttributes.add(unretrievableAttributesItem);
-    return this;
-  }
-
-  /**
-   * List of attributes that can't be retrieved at query time.
-   *
-   * @return unretrievableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getUnretrievableAttributes() {
-    return unretrievableAttributes;
   }
 
   public IndexSettingsAsSearchParams setAttributesToRetrieve(List<String> attributesToRetrieve) {
@@ -925,7 +899,6 @@ public class IndexSettingsAsSearchParams {
     IndexSettingsAsSearchParams indexSettingsAsSearchParams = (IndexSettingsAsSearchParams) o;
     return (
       Objects.equals(this.attributesForFaceting, indexSettingsAsSearchParams.attributesForFaceting) &&
-      Objects.equals(this.unretrievableAttributes, indexSettingsAsSearchParams.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, indexSettingsAsSearchParams.attributesToRetrieve) &&
       Objects.equals(this.restrictSearchableAttributes, indexSettingsAsSearchParams.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, indexSettingsAsSearchParams.ranking) &&
@@ -974,7 +947,6 @@ public class IndexSettingsAsSearchParams {
   public int hashCode() {
     return Objects.hash(
       attributesForFaceting,
-      unretrievableAttributes,
       attributesToRetrieve,
       restrictSearchableAttributes,
       ranking,
@@ -1024,7 +996,6 @@ public class IndexSettingsAsSearchParams {
     StringBuilder sb = new StringBuilder();
     sb.append("class IndexSettingsAsSearchParams {\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
-    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");

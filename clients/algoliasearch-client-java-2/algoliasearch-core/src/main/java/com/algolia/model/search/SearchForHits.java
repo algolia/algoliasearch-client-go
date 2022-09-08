@@ -119,9 +119,6 @@ public class SearchForHits {
   @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @JsonProperty("unretrievableAttributes")
-  private List<String> unretrievableAttributes;
-
   @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
@@ -851,29 +848,6 @@ public class SearchForHits {
   @javax.annotation.Nullable
   public List<String> getAttributesForFaceting() {
     return attributesForFaceting;
-  }
-
-  public SearchForHits setUnretrievableAttributes(List<String> unretrievableAttributes) {
-    this.unretrievableAttributes = unretrievableAttributes;
-    return this;
-  }
-
-  public SearchForHits addUnretrievableAttributes(String unretrievableAttributesItem) {
-    if (this.unretrievableAttributes == null) {
-      this.unretrievableAttributes = new ArrayList<>();
-    }
-    this.unretrievableAttributes.add(unretrievableAttributesItem);
-    return this;
-  }
-
-  /**
-   * List of attributes that can't be retrieved at query time.
-   *
-   * @return unretrievableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getUnretrievableAttributes() {
-    return unretrievableAttributes;
   }
 
   public SearchForHits setAttributesToRetrieve(List<String> attributesToRetrieve) {
@@ -1680,7 +1654,6 @@ public class SearchForHits {
       Objects.equals(this.enableReRanking, searchForHits.enableReRanking) &&
       Objects.equals(this.reRankingApplyFilter, searchForHits.reRankingApplyFilter) &&
       Objects.equals(this.attributesForFaceting, searchForHits.attributesForFaceting) &&
-      Objects.equals(this.unretrievableAttributes, searchForHits.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, searchForHits.attributesToRetrieve) &&
       Objects.equals(this.restrictSearchableAttributes, searchForHits.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, searchForHits.ranking) &&
@@ -1766,7 +1739,6 @@ public class SearchForHits {
       enableReRanking,
       reRankingApplyFilter,
       attributesForFaceting,
-      unretrievableAttributes,
       attributesToRetrieve,
       restrictSearchableAttributes,
       ranking,
@@ -1853,7 +1825,6 @@ public class SearchForHits {
     sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
     sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
-    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");

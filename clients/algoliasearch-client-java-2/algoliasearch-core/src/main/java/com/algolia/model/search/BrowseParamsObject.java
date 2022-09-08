@@ -116,9 +116,6 @@ public class BrowseParamsObject {
   @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @JsonProperty("unretrievableAttributes")
-  private List<String> unretrievableAttributes;
-
   @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
@@ -830,29 +827,6 @@ public class BrowseParamsObject {
   @javax.annotation.Nullable
   public List<String> getAttributesForFaceting() {
     return attributesForFaceting;
-  }
-
-  public BrowseParamsObject setUnretrievableAttributes(List<String> unretrievableAttributes) {
-    this.unretrievableAttributes = unretrievableAttributes;
-    return this;
-  }
-
-  public BrowseParamsObject addUnretrievableAttributes(String unretrievableAttributesItem) {
-    if (this.unretrievableAttributes == null) {
-      this.unretrievableAttributes = new ArrayList<>();
-    }
-    this.unretrievableAttributes.add(unretrievableAttributesItem);
-    return this;
-  }
-
-  /**
-   * List of attributes that can't be retrieved at query time.
-   *
-   * @return unretrievableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getUnretrievableAttributes() {
-    return unretrievableAttributes;
   }
 
   public BrowseParamsObject setAttributesToRetrieve(List<String> attributesToRetrieve) {
@@ -1644,7 +1618,6 @@ public class BrowseParamsObject {
       Objects.equals(this.enableReRanking, browseParamsObject.enableReRanking) &&
       Objects.equals(this.reRankingApplyFilter, browseParamsObject.reRankingApplyFilter) &&
       Objects.equals(this.attributesForFaceting, browseParamsObject.attributesForFaceting) &&
-      Objects.equals(this.unretrievableAttributes, browseParamsObject.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, browseParamsObject.attributesToRetrieve) &&
       Objects.equals(this.restrictSearchableAttributes, browseParamsObject.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, browseParamsObject.ranking) &&
@@ -1728,7 +1701,6 @@ public class BrowseParamsObject {
       enableReRanking,
       reRankingApplyFilter,
       attributesForFaceting,
-      unretrievableAttributes,
       attributesToRetrieve,
       restrictSearchableAttributes,
       ranking,
@@ -1813,7 +1785,6 @@ public class BrowseParamsObject {
     sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
     sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
-    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");

@@ -652,14 +652,6 @@ components:
           default: []
           x-categories:
             - Faceting
-        unretrievableAttributes:
-          type: array
-          items:
-            type: string
-          description: List of attributes that can't be retrieved at query time.
-          default: []
-          x-categories:
-            - Attributes
         attributesToRetrieve:
           type: array
           items:
@@ -1458,6 +1450,14 @@ components:
           type: integer
           description: Set the maximum number of hits accessible via pagination.
           default: 1000
+        unretrievableAttributes:
+          type: array
+          items:
+            type: string
+          description: List of attributes that can't be retrieved at query time.
+          default: []
+          x-categories:
+            - Attributes
         disableTypoToleranceOnWords:
           type: array
           items:

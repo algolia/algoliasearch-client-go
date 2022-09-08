@@ -116,9 +116,6 @@ public class SearchParamsObject {
   @JsonProperty("attributesForFaceting")
   private List<String> attributesForFaceting;
 
-  @JsonProperty("unretrievableAttributes")
-  private List<String> unretrievableAttributes;
-
   @JsonProperty("attributesToRetrieve")
   private List<String> attributesToRetrieve;
 
@@ -827,29 +824,6 @@ public class SearchParamsObject {
   @javax.annotation.Nullable
   public List<String> getAttributesForFaceting() {
     return attributesForFaceting;
-  }
-
-  public SearchParamsObject setUnretrievableAttributes(List<String> unretrievableAttributes) {
-    this.unretrievableAttributes = unretrievableAttributes;
-    return this;
-  }
-
-  public SearchParamsObject addUnretrievableAttributes(String unretrievableAttributesItem) {
-    if (this.unretrievableAttributes == null) {
-      this.unretrievableAttributes = new ArrayList<>();
-    }
-    this.unretrievableAttributes.add(unretrievableAttributesItem);
-    return this;
-  }
-
-  /**
-   * List of attributes that can't be retrieved at query time.
-   *
-   * @return unretrievableAttributes
-   */
-  @javax.annotation.Nullable
-  public List<String> getUnretrievableAttributes() {
-    return unretrievableAttributes;
   }
 
   public SearchParamsObject setAttributesToRetrieve(List<String> attributesToRetrieve) {
@@ -1625,7 +1599,6 @@ public class SearchParamsObject {
       Objects.equals(this.enableReRanking, searchParamsObject.enableReRanking) &&
       Objects.equals(this.reRankingApplyFilter, searchParamsObject.reRankingApplyFilter) &&
       Objects.equals(this.attributesForFaceting, searchParamsObject.attributesForFaceting) &&
-      Objects.equals(this.unretrievableAttributes, searchParamsObject.unretrievableAttributes) &&
       Objects.equals(this.attributesToRetrieve, searchParamsObject.attributesToRetrieve) &&
       Objects.equals(this.restrictSearchableAttributes, searchParamsObject.restrictSearchableAttributes) &&
       Objects.equals(this.ranking, searchParamsObject.ranking) &&
@@ -1708,7 +1681,6 @@ public class SearchParamsObject {
       enableReRanking,
       reRankingApplyFilter,
       attributesForFaceting,
-      unretrievableAttributes,
       attributesToRetrieve,
       restrictSearchableAttributes,
       ranking,
@@ -1792,7 +1764,6 @@ public class SearchParamsObject {
     sb.append("    enableReRanking: ").append(toIndentedString(enableReRanking)).append("\n");
     sb.append("    reRankingApplyFilter: ").append(toIndentedString(reRankingApplyFilter)).append("\n");
     sb.append("    attributesForFaceting: ").append(toIndentedString(attributesForFaceting)).append("\n");
-    sb.append("    unretrievableAttributes: ").append(toIndentedString(unretrievableAttributes)).append("\n");
     sb.append("    attributesToRetrieve: ").append(toIndentedString(attributesToRetrieve)).append("\n");
     sb.append("    restrictSearchableAttributes: ").append(toIndentedString(restrictSearchableAttributes)).append("\n");
     sb.append("    ranking: ").append(toIndentedString(ranking)).append("\n");
