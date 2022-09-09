@@ -1,5 +1,14 @@
 # ChangeLog
 
+## [3.26.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.0...3.26.1) (2022-08-31)
+
+### Fix
+
+- **indexing**: replaceAllObjects blocked if called for non-existent index (#699) ([29468c2](https://github.com/algolia/algoliasearch-client-go/commit/29468c2))
+- **query rules**: Suppress rule condition pattern marshalling in case of empty anchoring (#689) ([dce3e44](https://github.com/algolia/algoliasearch-client-go/commit/dce3e44))
+
+
+
 ## [3.26.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.25.0...3.26.0) (2022-07-04)
 
 ### Fix
