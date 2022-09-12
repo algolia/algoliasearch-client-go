@@ -30,7 +30,7 @@ class PredictClientClientTests {
   }
 
   PredictClient createClient() {
-    return new PredictClient("appId", "apiKey", "ew", new ClientOptions().setRequester(requester));
+    return new PredictClient("appId", "apiKey", "eu", new ClientOptions().setRequester(requester));
   }
 
   @Test
@@ -94,7 +94,7 @@ class PredictClientClientTests {
           PredictClient $client = new PredictClient("my-app-id", "my-api-key", "", new ClientOptions().setRequester(requester));
         }
       );
-      assertEquals("`region` is required and must be one of the following: ue, ew", exception.getMessage());
+      assertEquals("`region` is required and must be one of the following: eu, us", exception.getMessage());
     }
   }
 
@@ -108,13 +108,13 @@ class PredictClientClientTests {
           PredictClient $client = new PredictClient("my-app-id", "my-api-key", "not_a_region", new ClientOptions().setRequester(requester));
         }
       );
-      assertEquals("`region` is required and must be one of the following: ue, ew", exception.getMessage());
+      assertEquals("`region` is required and must be one of the following: eu, us", exception.getMessage());
     }
   }
 
   @Test
   @DisplayName("does not throw when region is given")
   void parametersTest2() {
-    PredictClient $client = new PredictClient("my-app-id", "my-api-key", "ew", new ClientOptions().setRequester(requester));
+    PredictClient $client = new PredictClient("my-app-id", "my-api-key", "eu", new ClientOptions().setRequester(requester));
   }
 }

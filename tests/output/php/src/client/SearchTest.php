@@ -27,7 +27,7 @@ class SearchTest extends TestCase implements HttpClientInterface
     /**
      * @return SearchClient
      */
-    private function createClient($appId, $apiKey, $region = 'us')
+    private function createClient($appId, $apiKey, $region = '')
     {
         $config = SearchConfig::create($appId, $apiKey);
         $clusterHosts = ClusterHosts::createFromAppId($appId);

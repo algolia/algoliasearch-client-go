@@ -5,7 +5,7 @@ import { echoRequester } from '@algolia/requester-node-http';
 const appId = process.env.ALGOLIA_APPLICATION_ID || 'test_app_id';
 const apiKey = process.env.ALGOLIA_SEARCH_KEY || 'test_api_key';
 
-const client = predictClient(appId, apiKey, 'ew', {
+const client = predictClient(appId, apiKey, 'eu', {
   requester: echoRequester(),
 });
 

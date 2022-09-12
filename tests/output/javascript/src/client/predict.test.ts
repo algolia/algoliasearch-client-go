@@ -9,7 +9,7 @@ const appId = 'test-app-id';
 const apiKey = 'test-api-key';
 
 function createClient(): PredictClient {
-  return predictClient(appId, apiKey, 'ew', { requester: echoRequester() });
+  return predictClient(appId, apiKey, 'eu', { requester: echoRequester() });
 }
 
 describe('commonApi', () => {
@@ -60,7 +60,7 @@ describe('parameters', () => {
       throw new Error('test is expected to throw error');
     } catch (e) {
       expect((e as Error).message).toMatch(
-        '`region` is required and must be one of the following: ue, ew'
+        '`region` is required and must be one of the following: eu, us'
       );
     }
   });
@@ -74,13 +74,13 @@ describe('parameters', () => {
       throw new Error('test is expected to throw error');
     } catch (e) {
       expect((e as Error).message).toMatch(
-        '`region` is required and must be one of the following: ue, ew'
+        '`region` is required and must be one of the following: eu, us'
       );
     }
   });
 
   test('does not throw when region is given', async () => {
-    const $client = predictClient('my-app-id', 'my-api-key', 'ew', {
+    const $client = predictClient('my-app-id', 'my-api-key', 'eu', {
       requester: echoRequester(),
     });
   });

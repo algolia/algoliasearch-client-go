@@ -27,7 +27,7 @@ class RecommendTest extends TestCase implements HttpClientInterface
     /**
      * @return RecommendClient
      */
-    private function createClient($appId, $apiKey, $region = 'us')
+    private function createClient($appId, $apiKey, $region = '')
     {
         $config = RecommendConfig::create($appId, $apiKey);
         $clusterHosts = ClusterHosts::createFromAppId($appId);

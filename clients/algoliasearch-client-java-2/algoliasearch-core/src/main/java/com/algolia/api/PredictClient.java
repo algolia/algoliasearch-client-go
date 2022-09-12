@@ -20,7 +20,7 @@ import okhttp3.Call;
 
 public class PredictClient extends ApiClient {
 
-  private static final String[] allowedRegions = { "ue", "ew" };
+  private static final String[] allowedRegions = { "eu", "us" };
 
   public PredictClient(String appId, String apiKey, String region) {
     this(appId, apiKey, region, null);
@@ -52,10 +52,10 @@ public class PredictClient extends ApiClient {
     }
 
     if (region == null || !found) {
-      throw new AlgoliaRuntimeException("`region` is required and must be one of the following: ue, ew");
+      throw new AlgoliaRuntimeException("`region` is required and must be one of the following: eu, us");
     }
 
-    String url = "predict-api-432xa6wemq-{region}.a.run.app".replace("{region}", region);
+    String url = "predict.{region}.algolia.com".replace("{region}", region);
 
     hosts.add(new StatefulHost(url, "https", EnumSet.of(CallType.READ, CallType.WRITE)));
     return hosts;
