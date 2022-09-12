@@ -194,10 +194,8 @@ export async function updateAPIVersions(
     if (lang === 'javascript') {
       const cwd = getLanguageFolder(lang);
 
-      if (CI) {
-        await run('yarn install', { verbose: true, cwd });
-      }
-
+      // install yarn in case some package were updated
+      await run('yarn install', { verbose: true, cwd });
       await run(`yarn release:bump ${releaseType}`, {
         verbose: CI,
         cwd,
