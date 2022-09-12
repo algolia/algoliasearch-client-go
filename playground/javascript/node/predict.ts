@@ -10,7 +10,7 @@ const apiKey =
 const userId = process.env.ALGOLIA_PREDICT_USER_ID || 'user1';
 
 // Init client with appId and apiKey
-const client = predictClient(appId, apiKey, 'ew');
+const client = predictClient(appId, apiKey, 'eu');
 
 async function testPredict() {
   try {

@@ -11,7 +11,7 @@
           "region": ""
         },
         "expected": {
-          "error": "`region` is required and must be one of the following: ue, ew"
+          "error": "`region` is required and must be one of the following: eu, us"
         }
       }
     ]
@@ -28,7 +28,7 @@
           "region": "not_a_region"
         },
         "expected": {
-          "error": "`region` is required and must be one of the following: ue, ew"
+          "error": "`region` is required and must be one of the following: eu, us"
         }
       }
     ]
@@ -42,7 +42,7 @@
         "parameters": {
           "appId": "my-app-id",
           "apiKey": "my-api-key",
-          "region": "ew"
+          "region": "eu"
         },
         "expected": {}
       }

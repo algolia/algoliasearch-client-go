@@ -88,9 +88,16 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
 
       Object lambda = objs.get("lambda");
       List<CodegenServer> servers = (List<CodegenServer>) objs.get("servers");
-      boolean hasRegionalHost = servers
-        .stream()
-        .anyMatch(server -> server.variables.stream().anyMatch(variable -> variable.name.equals("region")));
+      CodegenServerVariable regionVariable = null;
+      outerLoop:for (CodegenServer server : servers) {
+        for (CodegenServerVariable var : server.variables) {
+          if (var.name.equals("region")) {
+            regionVariable = var;
+            break outerLoop;
+          }
+        }
+      }
+      boolean hasRegionalHost = regionVariable != null;
 
       Map<String, Object> bundle = objs;
       bundle.clear();
@@ -106,7 +113,9 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
       bundle.put("client", Utils.createClientName(importClientName, language) + "Client");
       bundle.put("clientPrefix", Utils.createClientName(importClientName, language));
       bundle.put("hasRegionalHost", hasRegionalHost);
-      bundle.put("defaultRegion", client.equals("predict") ? "ew" : "us");
+      if (hasRegionalHost) {
+        bundle.put("defaultRegion", regionVariable.defaultValue);
+      }
       bundle.put("lambda", lambda);
 
       ctsManager.addDataToBundle(bundle);
