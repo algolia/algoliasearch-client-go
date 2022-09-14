@@ -31,11 +31,7 @@ baseSearchParamsWithoutQuery:
       x-categories:
         - Search
     filters:
-      type: string
-      description: Filter the query with numeric, facet and/or tag filters.
-      default: ''
-      x-categories:
-        - Filtering
+      $ref: '#/filters'
     facetFilters:
       $ref: '#/facetFilters'
     optionalFilters:
@@ -91,17 +87,9 @@ baseSearchParamsWithoutQuery:
       x-categories:
         - Pagination
     aroundLatLng:
-      type: string
-      description: Search for entries around a central geolocation, enabling a geo search within a circular area.
-      default: ''
-      x-categories:
-        - Geo-Search
+      $ref: '#/aroundLatLng'
     aroundLatLngViaIP:
-      type: boolean
-      description: Search for entries around a given location automatically computed from the requester's IP address.
-      default: false
-      x-categories:
-        - Geo-Search
+      $ref: '#/aroundLatLngViaIP'
     aroundRadius:
       $ref: '#/aroundRadius'
     aroundPrecision:
@@ -117,21 +105,9 @@ baseSearchParamsWithoutQuery:
       x-categories:
         - Geo-Search
     insideBoundingBox:
-      type: array
-      items:
-        type: number
-        format: double
-      description: Search inside a rectangular area (in geo coordinates).
-      x-categories:
-        - Geo-Search
+      $ref: '#/insideBoundingBox'
     insidePolygon:
-      type: array
-      items:
-        type: number
-        format: double
-      description: Search inside a polygon (in geo coordinates).
-      x-categories:
-        - Geo-Search
+      $ref: '#/insidePolygon'
     naturalLanguages:
       type: array
       items:
@@ -245,6 +221,38 @@ aroundRadiusAll:
   type: string
   enum: [all]
 
+aroundLatLng:
+  type: string
+  description: Search for entries around a central geolocation, enabling a geo search within a circular area.
+  default: ''
+  x-categories:
+    - Geo-Search
+
+aroundLatLngViaIP:
+  type: boolean
+  description: Search for entries around a given location automatically computed from the requester's IP address.
+  default: false
+  x-categories:
+    - Geo-Search
+
+insideBoundingBox:
+  type: array
+  items:
+    type: number
+    format: double
+  description: Search inside a rectangular area (in geo coordinates).
+  x-categories:
+    - Geo-Search
+
+insidePolygon:
+  type: array
+  items:
+    type: number
+    format: double
+  description: Search inside a polygon (in geo coordinates).
+  x-categories:
+    - Geo-Search
+
 # There is duplicated logic here because we want to keep a correct description
 # and using `$ref` override everything.
 searchFiltersArrayString:
@@ -261,6 +269,13 @@ listOfSearchFilters:
   type: array
   items:
     $ref: '#/mixedSearchFilters'
+
+filters:
+  type: string
+  description: Filter the query with numeric, facet and/or tag filters.
+  default: ''
+  x-categories:
+    - Filtering
 
 facetFilters:
   description: Filter hits by facet value.

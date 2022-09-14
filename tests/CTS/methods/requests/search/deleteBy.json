@@ -2,15 +2,15 @@
   {
     "parameters": {
       "indexName": "theIndexName",
-      "searchParams": {
-        "query": "testQuery"
+      "deleteByParams": {
+        "filters": "brand:brandName"
       }
     },
     "request": {
       "path": "/1/indexes/theIndexName/deleteByQuery",
       "method": "POST",
       "body": {
-        "query": "testQuery"
+        "filters": "brand:brandName"
       }
     }
   }
