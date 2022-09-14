@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [bf539a7e](https://github.com/algolia/api-clients-automation/commit/bf539a7e) feat(specs): predict model endpoints ([#1014](https://github.com/algolia/api-clients-automation/pull/1014)) by [@writeens](https://github.com/writeens/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [d68089e0](https://github.com/algolia/api-clients-automation/commit/d68089e0) feat(specs): update predict client API URL ([#1010](https://github.com/algolia/api-clients-automation/pull/1010)) by [@bengreenbank](https://github.com/bengreenbank/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
