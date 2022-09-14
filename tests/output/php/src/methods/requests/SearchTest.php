@@ -720,14 +720,14 @@ class SearchTest extends TestCase implements HttpClientInterface
         $client = $this->getClient();
         $client->deleteBy(
             'theIndexName',
-            ['query' => 'testQuery']
+            ['filters' => 'brand:brandName']
         );
 
         $this->assertRequests([
             [
                 'path' => '/1/indexes/theIndexName/deleteByQuery',
                 'method' => 'POST',
-                'body' => json_decode("{\"query\":\"testQuery\"}"),
+                'body' => json_decode("{\"filters\":\"brand:brandName\"}"),
             ],
         ]);
     }

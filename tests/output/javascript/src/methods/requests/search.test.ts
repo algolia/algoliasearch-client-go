@@ -455,12 +455,12 @@ describe('deleteBy', () => {
   test('deleteBy', async () => {
     const req = (await client.deleteBy({
       indexName: 'theIndexName',
-      searchParams: { query: 'testQuery' },
+      deleteByParams: { filters: 'brand:brandName' },
     })) as unknown as EchoResponse;
 
     expect(req.path).toEqual('/1/indexes/theIndexName/deleteByQuery');
     expect(req.method).toEqual('POST');
-    expect(req.data).toEqual({ query: 'testQuery' });
+    expect(req.data).toEqual({ filters: 'brand:brandName' });
     expect(req.searchParams).toStrictEqual(undefined);
   });
 });

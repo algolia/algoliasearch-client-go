@@ -850,21 +850,21 @@ class SearchClientRequestsTests {
   @DisplayName("deleteBy")
   void deleteByTest0() {
     String indexName0 = "theIndexName";
-    SearchParamsObject searchParams0 = new SearchParamsObject();
+    DeleteByParams deleteByParams0 = new DeleteByParams();
     {
-      String query1 = "testQuery";
-      searchParams0.setQuery(query1);
+      String filters1 = "brand:brandName";
+      deleteByParams0.setFilters(filters1);
     }
 
     assertDoesNotThrow(() -> {
-      client.deleteBy(indexName0, SearchParams.of(searchParams0));
+      client.deleteBy(indexName0, deleteByParams0);
     });
     EchoResponse req = echo.getLastResponse();
 
     assertEquals(req.path, "/1/indexes/theIndexName/deleteByQuery");
     assertEquals(req.method, "POST");
     assertDoesNotThrow(() -> {
-      JSONAssert.assertEquals("{\"query\":\"testQuery\"}", req.body, JSONCompareMode.STRICT);
+      JSONAssert.assertEquals("{\"filters\":\"brand:brandName\"}", req.body, JSONCompareMode.STRICT);
     });
   }
 

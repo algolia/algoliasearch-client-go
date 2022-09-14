@@ -62,6 +62,12 @@ components:
       properties:
         query:
           $ref: '#/components/schemas/query'
+    filters:
+      type: string
+      description: Filter the query with numeric, facet and/or tag filters.
+      default: ''
+      x-categories:
+        - Filtering
     searchFiltersArrayString:
       type: array
       items:
@@ -110,6 +116,22 @@ components:
       default: 0
       x-categories:
         - Pagination
+    aroundLatLng:
+      type: string
+      description: >-
+        Search for entries around a central geolocation, enabling a geo search
+        within a circular area.
+      default: ''
+      x-categories:
+        - Geo-Search
+    aroundLatLngViaIP:
+      type: boolean
+      description: >-
+        Search for entries around a given location automatically computed from
+        the requester's IP address.
+      default: false
+      x-categories:
+        - Geo-Search
     aroundRadiusAll:
       type: string
       enum:
@@ -120,6 +142,22 @@ components:
         - type: integer
           minimum: 1
         - $ref: '#/components/schemas/aroundRadiusAll'
+      x-categories:
+        - Geo-Search
+    insideBoundingBox:
+      type: array
+      items:
+        type: number
+        format: double
+      description: Search inside a rectangular area (in geo coordinates).
+      x-categories:
+        - Geo-Search
+    insidePolygon:
+      type: array
+      items:
+        type: number
+        format: double
+      description: Search inside a polygon (in geo coordinates).
       x-categories:
         - Geo-Search
     reRankingApplyFilter:
@@ -145,11 +183,7 @@ components:
           x-categories:
             - Search
         filters:
-          type: string
-          description: Filter the query with numeric, facet and/or tag filters.
-          default: ''
-          x-categories:
-            - Filtering
+          $ref: '#/components/schemas/filters'
         facetFilters:
           $ref: '#/components/schemas/facetFilters'
         optionalFilters:
@@ -209,21 +243,9 @@ components:
           x-categories:
             - Pagination
         aroundLatLng:
-          type: string
-          description: >-
-            Search for entries around a central geolocation, enabling a geo
-            search within a circular area.
-          default: ''
-          x-categories:
-            - Geo-Search
+          $ref: '#/components/schemas/aroundLatLng'
         aroundLatLngViaIP:
-          type: boolean
-          description: >-
-            Search for entries around a given location automatically computed
-            from the requester's IP address.
-          default: false
-          x-categories:
-            - Geo-Search
+          $ref: '#/components/schemas/aroundLatLngViaIP'
         aroundRadius:
           $ref: '#/components/schemas/aroundRadius'
         aroundPrecision:
@@ -243,21 +265,9 @@ components:
           x-categories:
             - Geo-Search
         insideBoundingBox:
-          type: array
-          items:
-            type: number
-            format: double
-          description: Search inside a rectangular area (in geo coordinates).
-          x-categories:
-            - Geo-Search
+          $ref: '#/components/schemas/insideBoundingBox'
         insidePolygon:
-          type: array
-          items:
-            type: number
-            format: double
-          description: Search inside a polygon (in geo coordinates).
-          x-categories:
-            - Geo-Search
+          $ref: '#/components/schemas/insidePolygon'
         naturalLanguages:
           type: array
           items:

@@ -1291,15 +1291,15 @@ public class SearchClient extends ApiClient {
    * empty filters or a query.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param deleteByParams (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return DeletedAtResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public DeletedAtResponse deleteBy(String indexName, SearchParams searchParams, RequestOptions requestOptions)
+  public DeletedAtResponse deleteBy(String indexName, DeleteByParams deleteByParams, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
-    return LaunderThrowable.await(deleteByAsync(indexName, searchParams, requestOptions));
+    return LaunderThrowable.await(deleteByAsync(indexName, deleteByParams, requestOptions));
   }
 
   /**
@@ -1308,12 +1308,12 @@ public class SearchClient extends ApiClient {
    * empty filters or a query.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param deleteByParams (required)
    * @return DeletedAtResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public DeletedAtResponse deleteBy(String indexName, SearchParams searchParams) throws AlgoliaRuntimeException {
-    return this.deleteBy(indexName, searchParams, null);
+  public DeletedAtResponse deleteBy(String indexName, DeleteByParams deleteByParams) throws AlgoliaRuntimeException {
+    return this.deleteBy(indexName, deleteByParams, null);
   }
 
   /**
@@ -1322,23 +1322,23 @@ public class SearchClient extends ApiClient {
    * queries). It doesn&#39;t accept empty filters or a query.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param deleteByParams (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
    * @return CompletableFuture<DeletedAtResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<DeletedAtResponse> deleteByAsync(String indexName, SearchParams searchParams, RequestOptions requestOptions)
+  public CompletableFuture<DeletedAtResponse> deleteByAsync(String indexName, DeleteByParams deleteByParams, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (indexName == null) {
       throw new AlgoliaRuntimeException("Parameter `indexName` is required when calling `deleteBy`.");
     }
 
-    if (searchParams == null) {
-      throw new AlgoliaRuntimeException("Parameter `searchParams` is required when calling `deleteBy`.");
+    if (deleteByParams == null) {
+      throw new AlgoliaRuntimeException("Parameter `deleteByParams` is required when calling `deleteBy`.");
     }
 
-    Object bodyObj = searchParams;
+    Object bodyObj = deleteByParams;
 
     // create path and map variables
     String requestPath = "/1/indexes/{indexName}/deleteByQuery".replaceAll("\\{indexName\\}", this.escapeString(indexName.toString()));
@@ -1356,12 +1356,13 @@ public class SearchClient extends ApiClient {
    * queries). It doesn&#39;t accept empty filters or a query.
    *
    * @param indexName The index in which to perform the request. (required)
-   * @param searchParams (required)
+   * @param deleteByParams (required)
    * @return CompletableFuture<DeletedAtResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<DeletedAtResponse> deleteByAsync(String indexName, SearchParams searchParams) throws AlgoliaRuntimeException {
-    return this.deleteByAsync(indexName, searchParams, null);
+  public CompletableFuture<DeletedAtResponse> deleteByAsync(String indexName, DeleteByParams deleteByParams)
+    throws AlgoliaRuntimeException {
+    return this.deleteByAsync(indexName, deleteByParams, null);
   }
 
   /**
