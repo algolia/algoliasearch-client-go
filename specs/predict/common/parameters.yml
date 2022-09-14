@@ -5,3 +5,11 @@ userID:
   schema:
     type: string
   description: User ID for authenticated users or cookie ID for non-authenticated repeated users (visitors).
+
+modelID:
+  name: modelID
+  in: path
+  required: true
+  schema:
+    type: string
+  description: The ID of the model to retrieve.

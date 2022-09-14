@@ -1,0 +1,40 @@
+[
+  {
+    "testName": "update a model instance",
+    "parameters": {
+      "modelID": "model1",
+      "updateModelParams": {
+        "name": "Shopping stage for EU users",
+        "affinities": [
+          "brand",
+          "color",
+          "category_level0",
+          "category_level1"
+        ],
+        "contentAttributes": [
+          "title",
+          "description"
+        ],
+        "status": "inactive"
+      }
+    },
+    "request": {
+      "path": "/1/predict/models/model1",
+      "method": "POST",
+      "body": {
+        "name": "Shopping stage for EU users",
+        "affinities": [
+          "brand",
+          "color",
+          "category_level0",
+          "category_level1"
+        ],
+        "contentAttributes": [
+          "title",
+          "description"
+        ],
+        "status": "inactive"
+      }
+    }
+  }
+]

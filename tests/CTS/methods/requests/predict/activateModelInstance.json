@@ -1,0 +1,31 @@
+[
+  {
+    "testName": "activate a model instance",
+    "parameters": {
+      "type": "funnel_stage",
+      "name": "Shopping stage for EU users",
+      "sourceID": "0200030-129930",
+      "index": "Products Production",
+      "affinities": [],
+      "contentAttributes": [
+        "title",
+        "description"
+      ]
+    },
+    "request": {
+      "path": "/1/predict/models",
+      "method": "POST",
+      "body": {
+        "type": "funnel_stage",
+        "name": "Shopping stage for EU users",
+        "sourceID": "0200030-129930",
+        "index": "Products Production",
+        "affinities": [],
+        "contentAttributes": [
+          "title",
+          "description"
+        ]
+      }
+    }
+  }
+]

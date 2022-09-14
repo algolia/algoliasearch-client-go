@@ -1,0 +1,10 @@
+[
+  {
+    "testName": "get a list of model instances",
+    "parameters": {},
+    "request": {
+      "path": "/1/predict/models",
+      "method": "GET"
+    }
+  }
+]
