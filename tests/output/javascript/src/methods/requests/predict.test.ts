@@ -9,6 +9,31 @@ const client = predictClient(appId, apiKey, 'eu', {
   requester: echoRequester(),
 });
 
+describe('activateModelInstance', () => {
+  test('activate a model instance', async () => {
+    const req = (await client.activateModelInstance({
+      type: 'funnel_stage',
+      name: 'Shopping stage for EU users',
+      sourceID: '0200030-129930',
+      index: 'Products Production',
+      affinities: [],
+      contentAttributes: ['title', 'description'],
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/predict/models');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      type: 'funnel_stage',
+      name: 'Shopping stage for EU users',
+      sourceID: '0200030-129930',
+      index: 'Products Production',
+      affinities: [],
+      contentAttributes: ['title', 'description'],
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
 describe('del', () => {
   test('allow del method for a custom path with minimal parameters', async () => {
     const req = (await client.del({
@@ -31,6 +56,19 @@ describe('del', () => {
     expect(req.method).toEqual('DELETE');
     expect(req.data).toEqual(undefined);
     expect(req.searchParams).toStrictEqual({ query: 'parameters' });
+  });
+});
+
+describe('deleteModelInstance', () => {
+  test('delete a model instance', async () => {
+    const req = (await client.deleteModelInstance({
+      modelID: 'model1',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/predict/models/model1');
+    expect(req.method).toEqual('DELETE');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
   });
 });
 
@@ -178,6 +216,55 @@ describe('get', () => {
     expect(req.method).toEqual('GET');
     expect(req.data).toEqual(undefined);
     expect(req.searchParams).toStrictEqual({ query: 'parameters' });
+  });
+});
+
+describe('getAvailableModelTypes', () => {
+  test('get available model types', async () => {
+    const req =
+      (await client.getAvailableModelTypes()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/predict/modeltypes');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('getModelInstanceConfig', () => {
+  test('get configurations for a model instance', async () => {
+    const req = (await client.getModelInstanceConfig({
+      modelID: 'model1',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/predict/models/model1');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('getModelInstances', () => {
+  test('get a list of model instances', async () => {
+    const req = (await client.getModelInstances()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/predict/models');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('getModelMetrics', () => {
+  test('get metrics for a model instance', async () => {
+    const req = (await client.getModelMetrics({
+      modelID: 'model1',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/predict/models/model1/metrics');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
   });
 });
 
@@ -434,5 +521,29 @@ describe('put', () => {
     expect(req.method).toEqual('PUT');
     expect(req.data).toEqual({ body: 'parameters' });
     expect(req.searchParams).toStrictEqual({ query: 'parameters' });
+  });
+});
+
+describe('updateModelInstance', () => {
+  test('update a model instance', async () => {
+    const req = (await client.updateModelInstance({
+      modelID: 'model1',
+      updateModelParams: {
+        name: 'Shopping stage for EU users',
+        affinities: ['brand', 'color', 'category_level0', 'category_level1'],
+        contentAttributes: ['title', 'description'],
+        status: 'inactive',
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/predict/models/model1');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      name: 'Shopping stage for EU users',
+      affinities: ['brand', 'color', 'category_level0', 'category_level1'],
+      contentAttributes: ['title', 'description'],
+      status: 'inactive',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
   });
 });

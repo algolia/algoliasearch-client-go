@@ -62,6 +62,82 @@ public class PredictClient extends ApiClient {
   }
 
   /**
+   * Activate an existing model template. This action triggers the training and inference pipelines
+   * for the selected model. The model is added with `status=pending`. If a model with the exact
+   * same source & index already exists, the API endpoint returns an error.
+   *
+   * @param activateModelParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return ActivateModelInstanceResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public ActivateModelInstanceResponse activateModelInstance(ActivateModelParams activateModelParams, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(activateModelInstanceAsync(activateModelParams, requestOptions));
+  }
+
+  /**
+   * Activate an existing model template. This action triggers the training and inference pipelines
+   * for the selected model. The model is added with `status=pending`. If a model with the exact
+   * same source & index already exists, the API endpoint returns an error.
+   *
+   * @param activateModelParams (required)
+   * @return ActivateModelInstanceResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public ActivateModelInstanceResponse activateModelInstance(ActivateModelParams activateModelParams) throws AlgoliaRuntimeException {
+    return this.activateModelInstance(activateModelParams, null);
+  }
+
+  /**
+   * (asynchronously) Activate an existing model template. This action triggers the training and
+   * inference pipelines for the selected model. The model is added with
+   * &#x60;status&#x3D;pending&#x60;. If a model with the exact same source &amp; index already
+   * exists, the API endpoint returns an error.
+   *
+   * @param activateModelParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<ActivateModelInstanceResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<ActivateModelInstanceResponse> activateModelInstanceAsync(
+    ActivateModelParams activateModelParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (activateModelParams == null) {
+      throw new AlgoliaRuntimeException("Parameter `activateModelParams` is required when calling `activateModelInstance`.");
+    }
+
+    Object bodyObj = activateModelParams;
+
+    // create path and map variables
+    String requestPath = "/1/predict/models";
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<ActivateModelInstanceResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Activate an existing model template. This action triggers the training and
+   * inference pipelines for the selected model. The model is added with
+   * &#x60;status&#x3D;pending&#x60;. If a model with the exact same source &amp; index already
+   * exists, the API endpoint returns an error.
+   *
+   * @param activateModelParams (required)
+   * @return CompletableFuture<ActivateModelInstanceResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<ActivateModelInstanceResponse> activateModelInstanceAsync(ActivateModelParams activateModelParams)
+    throws AlgoliaRuntimeException {
+    return this.activateModelInstanceAsync(activateModelParams, null);
+  }
+
+  /**
    * This method allow you to send requests to the Algolia REST API.
    *
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
@@ -187,6 +263,68 @@ public class PredictClient extends ApiClient {
    */
   public CompletableFuture<Object> delAsync(String path) throws AlgoliaRuntimeException {
     return this.delAsync(path, null, null);
+  }
+
+  /**
+   * Delete the model’s configuration, pipelines and generated predictions.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return DeleteModelInstanceResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public DeleteModelInstanceResponse deleteModelInstance(String modelID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(deleteModelInstanceAsync(modelID, requestOptions));
+  }
+
+  /**
+   * Delete the model’s configuration, pipelines and generated predictions.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @return DeleteModelInstanceResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public DeleteModelInstanceResponse deleteModelInstance(String modelID) throws AlgoliaRuntimeException {
+    return this.deleteModelInstance(modelID, null);
+  }
+
+  /**
+   * (asynchronously) Delete the model’s configuration, pipelines and generated predictions.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<DeleteModelInstanceResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<DeleteModelInstanceResponse> deleteModelInstanceAsync(String modelID, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    if (modelID == null) {
+      throw new AlgoliaRuntimeException("Parameter `modelID` is required when calling `deleteModelInstance`.");
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/predict/models/{modelID}".replaceAll("\\{modelID\\}", this.escapeString(modelID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<DeleteModelInstanceResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Delete the model’s configuration, pipelines and generated predictions.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @return CompletableFuture<DeleteModelInstanceResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<DeleteModelInstanceResponse> deleteModelInstanceAsync(String modelID) throws AlgoliaRuntimeException {
+    return this.deleteModelInstanceAsync(modelID, null);
   }
 
   /**
@@ -535,6 +673,241 @@ public class PredictClient extends ApiClient {
   }
 
   /**
+   * Get a list of all available model types. Each model type can be activated more than once, by
+   * selecting a different data source.
+   *
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return List<GetAvailableModelTypesResponseInner>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<GetAvailableModelTypesResponseInner> getAvailableModelTypes(RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getAvailableModelTypesAsync(requestOptions));
+  }
+
+  /**
+   * Get a list of all available model types. Each model type can be activated more than once, by
+   * selecting a different data source.
+   *
+   * @return List<GetAvailableModelTypesResponseInner>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<GetAvailableModelTypesResponseInner> getAvailableModelTypes() throws AlgoliaRuntimeException {
+    return this.getAvailableModelTypes(null);
+  }
+
+  /**
+   * (asynchronously) Get a list of all available model types. Each model type can be activated more
+   * than once, by selecting a different data source.
+   *
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<List<GetAvailableModelTypesResponseInner>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<GetAvailableModelTypesResponseInner>> getAvailableModelTypesAsync(RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/predict/modeltypes";
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<List<GetAvailableModelTypesResponseInner>>() {});
+  }
+
+  /**
+   * (asynchronously) Get a list of all available model types. Each model type can be activated more
+   * than once, by selecting a different data source.
+   *
+   * @return CompletableFuture<List<GetAvailableModelTypesResponseInner>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<GetAvailableModelTypesResponseInner>> getAvailableModelTypesAsync() throws AlgoliaRuntimeException {
+    return this.getAvailableModelTypesAsync(null);
+  }
+
+  /**
+   * Get the configuration for a model that was activated.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return ModelInstance
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public ModelInstance getModelInstanceConfig(String modelID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getModelInstanceConfigAsync(modelID, requestOptions));
+  }
+
+  /**
+   * Get the configuration for a model that was activated.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @return ModelInstance
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public ModelInstance getModelInstanceConfig(String modelID) throws AlgoliaRuntimeException {
+    return this.getModelInstanceConfig(modelID, null);
+  }
+
+  /**
+   * (asynchronously) Get the configuration for a model that was activated.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<ModelInstance> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<ModelInstance> getModelInstanceConfigAsync(String modelID, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    if (modelID == null) {
+      throw new AlgoliaRuntimeException("Parameter `modelID` is required when calling `getModelInstanceConfig`.");
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/predict/models/{modelID}".replaceAll("\\{modelID\\}", this.escapeString(modelID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<ModelInstance>() {});
+  }
+
+  /**
+   * (asynchronously) Get the configuration for a model that was activated.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @return CompletableFuture<ModelInstance> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<ModelInstance> getModelInstanceConfigAsync(String modelID) throws AlgoliaRuntimeException {
+    return this.getModelInstanceConfigAsync(modelID, null);
+  }
+
+  /**
+   * Get a list of all model instances.
+   *
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return List<ModelInstance>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<ModelInstance> getModelInstances(RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getModelInstancesAsync(requestOptions));
+  }
+
+  /**
+   * Get a list of all model instances.
+   *
+   * @return List<ModelInstance>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<ModelInstance> getModelInstances() throws AlgoliaRuntimeException {
+    return this.getModelInstances(null);
+  }
+
+  /**
+   * (asynchronously) Get a list of all model instances.
+   *
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<List<ModelInstance>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<ModelInstance>> getModelInstancesAsync(RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/predict/models";
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<List<ModelInstance>>() {});
+  }
+
+  /**
+   * (asynchronously) Get a list of all model instances.
+   *
+   * @return CompletableFuture<List<ModelInstance>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<ModelInstance>> getModelInstancesAsync() throws AlgoliaRuntimeException {
+    return this.getModelInstancesAsync(null);
+  }
+
+  /**
+   * Get the model instance’ training metrics.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return List<ModelMetrics>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<ModelMetrics> getModelMetrics(String modelID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getModelMetricsAsync(modelID, requestOptions));
+  }
+
+  /**
+   * Get the model instance’ training metrics.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @return List<ModelMetrics>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<ModelMetrics> getModelMetrics(String modelID) throws AlgoliaRuntimeException {
+    return this.getModelMetrics(modelID, null);
+  }
+
+  /**
+   * (asynchronously) Get the model instance’ training metrics.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<List<ModelMetrics>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<ModelMetrics>> getModelMetricsAsync(String modelID, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    if (modelID == null) {
+      throw new AlgoliaRuntimeException("Parameter `modelID` is required when calling `getModelMetrics`.");
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/predict/models/{modelID}/metrics".replaceAll("\\{modelID\\}", this.escapeString(modelID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<List<ModelMetrics>>() {});
+  }
+
+  /**
+   * (asynchronously) Get the model instance’ training metrics.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @return CompletableFuture<List<ModelMetrics>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<ModelMetrics>> getModelMetricsAsync(String modelID) throws AlgoliaRuntimeException {
+    return this.getModelMetricsAsync(modelID, null);
+  }
+
+  /**
    * This method allow you to send requests to the Algolia REST API.
    *
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
@@ -798,5 +1171,84 @@ public class PredictClient extends ApiClient {
    */
   public CompletableFuture<Object> putAsync(String path) throws AlgoliaRuntimeException {
     return this.putAsync(path, null, null, null);
+  }
+
+  /**
+   * Update a model’s configuration.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param updateModelParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return UpdateModelInstanceResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public UpdateModelInstanceResponse updateModelInstance(
+    String modelID,
+    UpdateModelParams updateModelParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(updateModelInstanceAsync(modelID, updateModelParams, requestOptions));
+  }
+
+  /**
+   * Update a model’s configuration.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param updateModelParams (required)
+   * @return UpdateModelInstanceResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public UpdateModelInstanceResponse updateModelInstance(String modelID, UpdateModelParams updateModelParams)
+    throws AlgoliaRuntimeException {
+    return this.updateModelInstance(modelID, updateModelParams, null);
+  }
+
+  /**
+   * (asynchronously) Update a model’s configuration.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param updateModelParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<UpdateModelInstanceResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<UpdateModelInstanceResponse> updateModelInstanceAsync(
+    String modelID,
+    UpdateModelParams updateModelParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (modelID == null) {
+      throw new AlgoliaRuntimeException("Parameter `modelID` is required when calling `updateModelInstance`.");
+    }
+
+    if (updateModelParams == null) {
+      throw new AlgoliaRuntimeException("Parameter `updateModelParams` is required when calling `updateModelInstance`.");
+    }
+
+    Object bodyObj = updateModelParams;
+
+    // create path and map variables
+    String requestPath = "/1/predict/models/{modelID}".replaceAll("\\{modelID\\}", this.escapeString(modelID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<UpdateModelInstanceResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Update a model’s configuration.
+   *
+   * @param modelID The ID of the model to retrieve. (required)
+   * @param updateModelParams (required)
+   * @return CompletableFuture<UpdateModelInstanceResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<UpdateModelInstanceResponse> updateModelInstanceAsync(String modelID, UpdateModelParams updateModelParams)
+    throws AlgoliaRuntimeException {
+    return this.updateModelInstanceAsync(modelID, updateModelParams, null);
   }
 }

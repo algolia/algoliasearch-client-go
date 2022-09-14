@@ -40,6 +40,13 @@ components:
       description: >-
         User ID for authenticated users or cookie ID for non-authenticated
         repeated users (visitors).
+    modelID:
+      name: modelID
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the model to retrieve.
   schemas:
     ErrorBase:
       description: Error.
@@ -262,6 +269,174 @@ components:
         - $ref: '#/components/schemas/nextPageTokenParam'
         - $ref: '#/components/schemas/previousPageTokenParam'
         - $ref: '#/components/schemas/limitParam'
+    compatibleSources:
+      type: string
+      enum:
+        - bigquery
+    getModelInstanceConfigStatus:
+      type: string
+      enum:
+        - pending
+        - active
+        - invalid
+        - error
+        - inactive
+      description: >
+        `pending` - model has just been created and the pipelines are being set
+        up for the first train & inference. \
+
+        `active` - model is running and generating prediction. \
+
+        `invalid` - model has failed training (ex. can’t retrieve data from
+        source). An additional error field will be set for this status. \
+
+        `inactive` - model has been deactivated from the dashboard. Pipelines
+        still exist but they are not currently running.
+    modelInstance:
+      type: object
+      additionalProperties: false
+      properties:
+        modelID:
+          type: string
+          description: ID of the model.
+        name:
+          type: string
+          description: Name of model instance.
+        type:
+          type: string
+          description: Type of the model.
+        sourceID:
+          type: string
+        index:
+          type: string
+        affinities:
+          type: array
+          items:
+            type: string
+            description: Affinities within this model instance.
+        contentAttributes:
+          type: array
+          items:
+            type: string
+        lastTrained:
+          type: string
+          description: The date and time this model instance was last trained.
+        lastInference:
+          type: string
+          description: The date and time this model instance generated its last inference.
+        error:
+          type: string
+        status:
+          type: string
+          $ref: '#/components/schemas/getModelInstanceConfigStatus'
+      required:
+        - modelID
+        - name
+        - type
+        - sourceID
+        - index
+        - affinities
+        - contentAttributes
+        - lastTrained
+        - lastInference
+        - status
+    name:
+      type: string
+      description: The model’s instance name.
+    affinities:
+      type: string
+      description: >-
+        List of items attributes that will be used as affinities. This param is
+        required if `type=affinities`.
+    contentAttributes:
+      type: string
+      description: >-
+        List of items attributes that will be used for embeddings, for ex.
+        titles or descriptions.
+    status:
+      type: string
+      enum:
+        - active
+        - inactive
+      description: >
+        `active` - model is running and generating predictions. The active value
+        is allowed only if the current status of the model is `inactive`. \
+
+        `inactive` - model training and inference have been paused. The inactive
+        value is allowed only if the current status of the model is `active`.
+    updateModelParams:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/name'
+        affinities:
+          type: array
+          items:
+            $ref: '#/components/schemas/affinities'
+        contentAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/contentAttributes'
+        status:
+          $ref: '#/components/schemas/status'
+      required:
+        - modelID
+        - sourceID
+        - index
+    updatedAt:
+      type: string
+      description: Date of last update (ISO-8601 format).
+    sourceID:
+      type: string
+      description: The data source ID, as returned by the (external) sources API.
+    index:
+      type: string
+      description: The index name.
+    activateModelParams:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/modelsToRetrieve'
+        name:
+          $ref: '#/components/schemas/name'
+        sourceID:
+          $ref: '#/components/schemas/sourceID'
+        index:
+          $ref: '#/components/schemas/index'
+        affinities:
+          type: array
+          items:
+            $ref: '#/components/schemas/affinities'
+        contentAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/contentAttributes'
+      required:
+        - type
+        - name
+        - sourceID
+        - index
+    modelMetrics:
+      type: object
+      additionalProperties: false
+      properties:
+        precision:
+          type: number
+          format: double
+        recall:
+          type: number
+          format: double
+        mrr:
+          type: number
+          format: double
+        coverage:
+          type: number
+          format: double
+        f1_score:
+          type: number
+          format: double
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
   responses:
     BadRequest:
       description: Bad request or request arguments.
@@ -327,6 +502,9 @@ security:
   - appId: []
     apiKey: []
 tags:
+  - name: models
+    x-displayName: Models
+    description: Manage models.
   - name: profiles
     x-displayName: Profiles
     description: Manage users' profiles.
@@ -334,6 +512,7 @@ x-tagGroups:
   - name: General
     tags:
       - profiles
+      - models
 paths:
   /1{path}:
     get:
@@ -562,6 +741,254 @@ paths:
                 $ref: '#/components/schemas/ErrorBase'
         '401':
           $ref: '#/components/responses/InvalidCredentials'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /1/predict/modeltypes:
+    get:
+      tags:
+        - predict
+      operationId: getAvailableModelTypes
+      summary: Get a list of available model types.
+      description: >-
+        Get a list of all available model types. Each model type can be
+        activated more than once, by selecting a different data source.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: getAvailableModelTypesResponse
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the model.
+                    type:
+                      type: string
+                      description: Description of the model.
+                    compatibleSources:
+                      type: array
+                      items:
+                        type: string
+                        $ref: '#/components/schemas/compatibleSources'
+                    dataRequirements:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        minUsers:
+                          type: integer
+                          description: Minimum number of users required for this model.
+                        minDays:
+                          type: integer
+                          description: Minimum number of days model needs to run.
+                      required:
+                        - minUsers
+                        - minDays
+                  required:
+                    - name
+                    - type
+                    - compatibleSources
+                    - dataRequirements
+        '401':
+          $ref: '#/components/responses/InvalidCredentials'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /1/predict/models/{modelID}:
+    get:
+      tags:
+        - predict
+      operationId: getModelInstanceConfig
+      summary: Get a model’s instance configuration.
+      description: Get the configuration for a model that was activated.
+      parameters:
+        - $ref: '#/components/parameters/modelID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: getModelInstanceConfigResponse
+                $ref: '#/components/schemas/modelInstance'
+        '401':
+          $ref: '#/components/responses/InvalidCredentials'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+        - predict
+      operationId: updateModelInstance
+      summary: Update a model instance.
+      description: Update a model’s configuration.
+      parameters:
+        - $ref: '#/components/parameters/modelID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateModelParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: updateModelInstanceResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  modelID:
+                    type: string
+                    description: The ID of the model.
+                  updatedAt:
+                    $ref: '#/components/schemas/updatedAt'
+                required:
+                  - modelID
+                  - updatedAt
+        '401':
+          $ref: '#/components/responses/InvalidCredentials'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+        - predict
+      operationId: deleteModelInstance
+      summary: Delete a model instance.
+      description: Delete the model’s configuration, pipelines and generated predictions.
+      parameters:
+        - $ref: '#/components/parameters/modelID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: deleteModelInstanceResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  modelID:
+                    type: string
+                    description: The ID of the model.
+                  deletedUntil:
+                    type: string
+                    description: >-
+                      The date until which you can safely consider the data as
+                      being deleted.
+                required:
+                  - modelID
+                  - deletedUntil
+        '401':
+          $ref: '#/components/responses/InvalidCredentials'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /1/predict/models:
+    get:
+      tags:
+        - predict
+      operationId: getModelInstances
+      summary: Get model instances.
+      description: Get a list of all model instances.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: getModelInstancesResponse
+                type: array
+                items:
+                  $ref: '#/components/schemas/modelInstance'
+        '401':
+          $ref: '#/components/responses/InvalidCredentials'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+        - predict
+      operationId: activateModelInstance
+      summary: Activate a model instance.
+      description: >
+        Activate an existing model template. This action triggers the training
+        and inference pipelines for the selected model.  The model is added with
+        `status=pending`. If a model with the exact same source & index already
+        exists, the API endpoint returns an error.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/activateModelParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: activateModelInstanceResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  modelID:
+                    type: string
+                    description: The ID of the model.
+                  updatedAt:
+                    $ref: '#/components/schemas/updatedAt'
+                required:
+                  - modelID
+                  - updatedAt
+        '401':
+          $ref: '#/components/responses/InvalidCredentials'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /1/predict/models/{modelID}/metrics:
+    get:
+      tags:
+        - predict
+      operationId: getModelMetrics
+      summary: Get a model’s instance metrics.
+      description: Get the model instance’ training metrics.
+      parameters:
+        - $ref: '#/components/parameters/modelID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: getModelMetricsResponse
+                type: array
+                items:
+                  $ref: '#/components/schemas/modelMetrics'
+        '401':
+          $ref: '#/components/responses/InvalidCredentials'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
         '500':

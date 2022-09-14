@@ -41,6 +41,50 @@ class PredictClientRequestsTests {
   }
 
   @Test
+  @DisplayName("activate a model instance")
+  void activateModelInstanceTest0() {
+    ActivateModelParams activateModelParams0 = new ActivateModelParams();
+    {
+      ModelsToRetrieve type1 = ModelsToRetrieve.fromValue("funnel_stage");
+      activateModelParams0.setType(type1);
+      String name1 = "Shopping stage for EU users";
+      activateModelParams0.setName(name1);
+      String sourceID1 = "0200030-129930";
+      activateModelParams0.setSourceID(sourceID1);
+      String index1 = "Products Production";
+      activateModelParams0.setIndex(index1);
+      List affinities1 = new ArrayList<>();
+      {}
+      activateModelParams0.setAffinities(affinities1);
+      List<String> contentAttributes1 = new ArrayList<>();
+      {
+        String contentAttributes_02 = "title";
+        contentAttributes1.add(contentAttributes_02);
+        String contentAttributes_12 = "description";
+        contentAttributes1.add(contentAttributes_12);
+      }
+      activateModelParams0.setContentAttributes(contentAttributes1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.activateModelInstance(activateModelParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/predict/models");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"type\":\"funnel_stage\",\"name\":\"Shopping stage for EU" +
+        " users\",\"sourceID\":\"0200030-129930\",\"index\":\"Products" +
+        " Production\",\"affinities\":[],\"contentAttributes\":[\"title\",\"description\"]}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
   @DisplayName("allow del method for a custom path with minimal parameters")
   void delTest0() {
     String path0 = "/test/minimal";
@@ -85,6 +129,21 @@ class PredictClientRequestsTests {
     } catch (JsonProcessingException e) {
       fail("failed to parse queryParameters json");
     }
+  }
+
+  @Test
+  @DisplayName("delete a model instance")
+  void deleteModelInstanceTest0() {
+    String modelID0 = "model1";
+
+    assertDoesNotThrow(() -> {
+      client.deleteModelInstance(modelID0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/predict/models/model1");
+    assertEquals(req.method, "DELETE");
+    assertNull(req.body);
   }
 
   @Test
@@ -366,6 +425,62 @@ class PredictClientRequestsTests {
     } catch (JsonProcessingException e) {
       fail("failed to parse queryParameters json");
     }
+  }
+
+  @Test
+  @DisplayName("get available model types")
+  void getAvailableModelTypesTest0() {
+    assertDoesNotThrow(() -> {
+      client.getAvailableModelTypes();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/predict/modeltypes");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("get configurations for a model instance")
+  void getModelInstanceConfigTest0() {
+    String modelID0 = "model1";
+
+    assertDoesNotThrow(() -> {
+      client.getModelInstanceConfig(modelID0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/predict/models/model1");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("get a list of model instances")
+  void getModelInstancesTest0() {
+    assertDoesNotThrow(() -> {
+      client.getModelInstances();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/predict/models");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("get metrics for a model instance")
+  void getModelMetricsTest0() {
+    String modelID0 = "model1";
+
+    assertDoesNotThrow(() -> {
+      client.getModelMetrics(modelID0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/predict/models/model1/metrics");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -905,5 +1020,54 @@ class PredictClientRequestsTests {
     } catch (JsonProcessingException e) {
       fail("failed to parse queryParameters json");
     }
+  }
+
+  @Test
+  @DisplayName("update a model instance")
+  void updateModelInstanceTest0() {
+    String modelID0 = "model1";
+    UpdateModelParams updateModelParams0 = new UpdateModelParams();
+    {
+      String name1 = "Shopping stage for EU users";
+      updateModelParams0.setName(name1);
+      List<String> affinities1 = new ArrayList<>();
+      {
+        String affinities_02 = "brand";
+        affinities1.add(affinities_02);
+        String affinities_12 = "color";
+        affinities1.add(affinities_12);
+        String affinities_22 = "category_level0";
+        affinities1.add(affinities_22);
+        String affinities_32 = "category_level1";
+        affinities1.add(affinities_32);
+      }
+      updateModelParams0.setAffinities(affinities1);
+      List<String> contentAttributes1 = new ArrayList<>();
+      {
+        String contentAttributes_02 = "title";
+        contentAttributes1.add(contentAttributes_02);
+        String contentAttributes_12 = "description";
+        contentAttributes1.add(contentAttributes_12);
+      }
+      updateModelParams0.setContentAttributes(contentAttributes1);
+      Status status1 = Status.fromValue("inactive");
+      updateModelParams0.setStatus(status1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.updateModelInstance(modelID0, updateModelParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/predict/models/model1");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"name\":\"Shopping stage for EU" +
+        " users\",\"affinities\":[\"brand\",\"color\",\"category_level0\",\"category_level1\"],\"contentAttributes\":[\"title\",\"description\"],\"status\":\"inactive\"}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
   }
 }
