@@ -85,6 +85,33 @@ class PredictClientRequestsTests {
   }
 
   @Test
+  @DisplayName("create segment with required params")
+  void createSegmentTest0() {
+    CreateSegmentParams createSegmentParams0 = new CreateSegmentParams();
+    {
+      String name1 = "segment1";
+      createSegmentParams0.setName(name1);
+      String conditions1 = "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9";
+      createSegmentParams0.setConditions(conditions1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.createSegment(createSegmentParams0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"name\":\"segment1\",\"conditions\":\"predictions.order_value.value > 100 AND" + " predictions.funnel_stage.score < 0.9\"}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
   @DisplayName("allow del method for a custom path with minimal parameters")
   void delTest0() {
     String path0 = "/test/minimal";
@@ -147,6 +174,21 @@ class PredictClientRequestsTests {
   }
 
   @Test
+  @DisplayName("delete a segments configuration")
+  void deleteSegmentTest0() {
+    String segmentID0 = "segment1";
+
+    assertDoesNotThrow(() -> {
+      client.deleteSegment(segmentID0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segment1");
+    assertEquals(req.method, "DELETE");
+    assertNull(req.body);
+  }
+
+  @Test
   @DisplayName("deleteUserProfile")
   void deleteUserProfileTest0() {
     String userID0 = "user1";
@@ -159,6 +201,73 @@ class PredictClientRequestsTests {
     assertEquals(req.path, "/1/users/user1");
     assertEquals(req.method, "DELETE");
     assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("fetchAllSegments with no segmentType")
+  void fetchAllSegmentsTest0() {
+    assertDoesNotThrow(() -> {
+      client.fetchAllSegments();
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("fetchAllSegments with segmentType custom")
+  void fetchAllSegmentsTest1() {
+    SegmentType type0 = SegmentType.fromValue("custom");
+
+    assertDoesNotThrow(() -> {
+      client.fetchAllSegments(type0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"type\":\"custom\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
+
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
+    }
+  }
+
+  @Test
+  @DisplayName("fetchAllSegments with segmentType computed")
+  void fetchAllSegmentsTest2() {
+    SegmentType type0 = SegmentType.fromValue("computed");
+
+    assertDoesNotThrow(() -> {
+      client.fetchAllSegments(type0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
+
+    try {
+      Map<String, String> expectedQuery = json.readValue("{\"type\":\"computed\"}", new TypeReference<HashMap<String, String>>() {});
+      Map<String, Object> actualQuery = req.queryParameters;
+
+      assertEquals(expectedQuery.size(), actualQuery.size());
+      for (Map.Entry<String, Object> p : actualQuery.entrySet()) {
+        assertEquals(expectedQuery.get(p.getKey()), p.getValue());
+      }
+    } catch (JsonProcessingException e) {
+      fail("failed to parse queryParameters json");
+    }
   }
 
   @Test
@@ -278,6 +387,21 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals("{\"previousPageToken\":\"previousPageTokenExample123\"}", req.body, JSONCompareMode.STRICT);
     });
+  }
+
+  @Test
+  @DisplayName("fetchSegment with user ID")
+  void fetchSegmentTest0() {
+    String segmentID0 = "segment1";
+
+    assertDoesNotThrow(() -> {
+      client.fetchSegment(segmentID0);
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segment1");
+    assertEquals(req.method, "GET");
+    assertNull(req.body);
   }
 
   @Test
@@ -481,6 +605,124 @@ class PredictClientRequestsTests {
     assertEquals(req.path, "/1/predict/models/model1/metrics");
     assertEquals(req.method, "GET");
     assertNull(req.body);
+  }
+
+  @Test
+  @DisplayName("getSegmentUsers with minimal parameters for modelsToRetrieve")
+  void getSegmentUsersTest0() {
+    String segmentID0 = "segmentID1";
+    ModelsToRetrieveParam fetchAllUserProfilesParams0 = new ModelsToRetrieveParam();
+    {
+      List<ModelsToRetrieve> modelsToRetrieve1 = new ArrayList<>();
+      {
+        ModelsToRetrieve modelsToRetrieve_02 = ModelsToRetrieve.fromValue("funnel_stage");
+        modelsToRetrieve1.add(modelsToRetrieve_02);
+      }
+      fetchAllUserProfilesParams0.setModelsToRetrieve(modelsToRetrieve1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.getSegmentUsers(segmentID0, FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segmentID1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"modelsToRetrieve\":[\"funnel_stage\"]}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("getSegmentUsers with minimal parameters for typesToRetrieve")
+  void getSegmentUsersTest1() {
+    String segmentID0 = "segmentID1";
+    TypesToRetrieveParam fetchAllUserProfilesParams0 = new TypesToRetrieveParam();
+    {
+      List<TypesToRetrieve> typesToRetrieve1 = new ArrayList<>();
+      {
+        TypesToRetrieve typesToRetrieve_02 = TypesToRetrieve.fromValue("properties");
+        typesToRetrieve1.add(typesToRetrieve_02);
+      }
+      fetchAllUserProfilesParams0.setTypesToRetrieve(typesToRetrieve1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.getSegmentUsers(segmentID0, FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segmentID1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"typesToRetrieve\":[\"properties\"]}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("getSegmentUsers with a limit")
+  void getSegmentUsersTest2() {
+    String segmentID0 = "segmentID1";
+    LimitParam fetchAllUserProfilesParams0 = new LimitParam();
+    {
+      int limit1 = 10;
+      fetchAllUserProfilesParams0.setLimit(limit1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.getSegmentUsers(segmentID0, FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segmentID1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"limit\":10}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("getSegmentUsers with a nextPageToken")
+  void getSegmentUsersTest3() {
+    String segmentID0 = "segmentID1";
+    NextPageTokenParam fetchAllUserProfilesParams0 = new NextPageTokenParam();
+    {
+      String nextPageToken1 = "nextPageTokenExample123";
+      fetchAllUserProfilesParams0.setNextPageToken(nextPageToken1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.getSegmentUsers(segmentID0, FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segmentID1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"nextPageToken\":\"nextPageTokenExample123\"}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("getSegmentUsers with a previousPageToken")
+  void getSegmentUsersTest4() {
+    String segmentID0 = "segmentID1";
+    PreviousPageTokenParam fetchAllUserProfilesParams0 = new PreviousPageTokenParam();
+    {
+      String previousPageToken1 = "previousPageTokenExample123";
+      fetchAllUserProfilesParams0.setPreviousPageToken(previousPageToken1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.getSegmentUsers(segmentID0, FetchAllUserProfilesParams.of(fetchAllUserProfilesParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segmentID1/users");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"previousPageToken\":\"previousPageTokenExample123\"}", req.body, JSONCompareMode.STRICT);
+    });
   }
 
   @Test
@@ -1065,6 +1307,83 @@ class PredictClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"name\":\"Shopping stage for EU" +
         " users\",\"affinities\":[\"brand\",\"color\",\"category_level0\",\"category_level1\"],\"contentAttributes\":[\"title\",\"description\"],\"status\":\"inactive\"}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("updateSegment with name")
+  void updateSegmentTest0() {
+    String segmentID0 = "segment1";
+    SegmentNameParam updateSegmentParams0 = new SegmentNameParam();
+    {
+      String name1 = "example segment name";
+      updateSegmentParams0.setName(name1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.updateSegment(segmentID0, UpdateSegmentParams.of(updateSegmentParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segment1");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals("{\"name\":\"example segment name\"}", req.body, JSONCompareMode.STRICT);
+    });
+  }
+
+  @Test
+  @DisplayName("updateSegment with conditions")
+  void updateSegmentTest1() {
+    String segmentID0 = "segment1";
+    SegmentConditionsParam updateSegmentParams0 = new SegmentConditionsParam();
+    {
+      String conditions1 = "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9";
+      updateSegmentParams0.setConditions(conditions1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.updateSegment(segmentID0, UpdateSegmentParams.of(updateSegmentParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segment1");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"conditions\":\"predictions.order_value.value > 100 AND" + " predictions.funnel_stage.score < 0.9\"}",
+        req.body,
+        JSONCompareMode.STRICT
+      );
+    });
+  }
+
+  @Test
+  @DisplayName("updateSegment with name and conditions")
+  void updateSegmentTest2() {
+    String segmentID0 = "segment1";
+    AllUpdateSegmentParams updateSegmentParams0 = new AllUpdateSegmentParams();
+    {
+      String name1 = "example segment name";
+      updateSegmentParams0.setName(name1);
+      String conditions1 = "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9";
+      updateSegmentParams0.setConditions(conditions1);
+    }
+
+    assertDoesNotThrow(() -> {
+      client.updateSegment(segmentID0, UpdateSegmentParams.of(updateSegmentParams0));
+    });
+    EchoResponse req = echo.getLastResponse();
+
+    assertEquals(req.path, "/1/segments/segment1");
+    assertEquals(req.method, "POST");
+    assertDoesNotThrow(() -> {
+      JSONAssert.assertEquals(
+        "{\"name\":\"example segment name\",\"conditions\":\"predictions.order_value.value >" +
+        " 100 AND predictions.funnel_stage.score < 0.9\"}",
         req.body,
         JSONCompareMode.STRICT
       );

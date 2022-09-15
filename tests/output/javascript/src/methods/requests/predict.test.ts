@@ -34,6 +34,25 @@ describe('activateModelInstance', () => {
   });
 });
 
+describe('createSegment', () => {
+  test('create segment with required params', async () => {
+    const req = (await client.createSegment({
+      name: 'segment1',
+      conditions:
+        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      name: 'segment1',
+      conditions:
+        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
 describe('del', () => {
   test('allow del method for a custom path with minimal parameters', async () => {
     const req = (await client.del({
@@ -72,6 +91,19 @@ describe('deleteModelInstance', () => {
   });
 });
 
+describe('deleteSegment', () => {
+  test('delete a segments configuration', async () => {
+    const req = (await client.deleteSegment({
+      segmentID: 'segment1',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segment1');
+    expect(req.method).toEqual('DELETE');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
 describe('deleteUserProfile', () => {
   test('deleteUserProfile', async () => {
     const req = (await client.deleteUserProfile({
@@ -82,6 +114,39 @@ describe('deleteUserProfile', () => {
     expect(req.method).toEqual('DELETE');
     expect(req.data).toEqual(undefined);
     expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('fetchAllSegments', () => {
+  test('fetchAllSegments with no segmentType', async () => {
+    const req = (await client.fetchAllSegments()) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('fetchAllSegments with segmentType custom', async () => {
+    const req = (await client.fetchAllSegments({
+      type: 'custom',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual({ type: 'custom' });
+  });
+
+  test('fetchAllSegments with segmentType computed', async () => {
+    const req = (await client.fetchAllSegments({
+      type: 'computed',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual({ type: 'computed' });
   });
 });
 
@@ -142,6 +207,19 @@ describe('fetchAllUserProfiles', () => {
     expect(req.data).toEqual({
       previousPageToken: 'previousPageTokenExample123',
     });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('fetchSegment', () => {
+  test('fetchSegment with user ID', async () => {
+    const req = (await client.fetchSegment({
+      segmentID: 'segment1',
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segment1');
+    expect(req.method).toEqual('GET');
+    expect(req.data).toEqual(undefined);
     expect(req.searchParams).toStrictEqual(undefined);
   });
 });
@@ -264,6 +342,72 @@ describe('getModelMetrics', () => {
     expect(req.path).toEqual('/1/predict/models/model1/metrics');
     expect(req.method).toEqual('GET');
     expect(req.data).toEqual(undefined);
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('getSegmentUsers', () => {
+  test('getSegmentUsers with minimal parameters for modelsToRetrieve', async () => {
+    const req = (await client.getSegmentUsers({
+      segmentID: 'segmentID1',
+      fetchAllUserProfilesParams: { modelsToRetrieve: ['funnel_stage'] },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segmentID1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ modelsToRetrieve: ['funnel_stage'] });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('getSegmentUsers with minimal parameters for typesToRetrieve', async () => {
+    const req = (await client.getSegmentUsers({
+      segmentID: 'segmentID1',
+      fetchAllUserProfilesParams: { typesToRetrieve: ['properties'] },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segmentID1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ typesToRetrieve: ['properties'] });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('getSegmentUsers with a limit', async () => {
+    const req = (await client.getSegmentUsers({
+      segmentID: 'segmentID1',
+      fetchAllUserProfilesParams: { limit: 10 },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segmentID1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ limit: 10 });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('getSegmentUsers with a nextPageToken', async () => {
+    const req = (await client.getSegmentUsers({
+      segmentID: 'segmentID1',
+      fetchAllUserProfilesParams: { nextPageToken: 'nextPageTokenExample123' },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segmentID1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ nextPageToken: 'nextPageTokenExample123' });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('getSegmentUsers with a previousPageToken', async () => {
+    const req = (await client.getSegmentUsers({
+      segmentID: 'segmentID1',
+      fetchAllUserProfilesParams: {
+        previousPageToken: 'previousPageTokenExample123',
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segmentID1/users');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      previousPageToken: 'previousPageTokenExample123',
+    });
     expect(req.searchParams).toStrictEqual(undefined);
   });
 });
@@ -543,6 +687,58 @@ describe('updateModelInstance', () => {
       affinities: ['brand', 'color', 'category_level0', 'category_level1'],
       contentAttributes: ['title', 'description'],
       status: 'inactive',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+});
+
+describe('updateSegment', () => {
+  test('updateSegment with name', async () => {
+    const req = (await client.updateSegment({
+      segmentID: 'segment1',
+      updateSegmentParams: { name: 'example segment name' },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segment1');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({ name: 'example segment name' });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('updateSegment with conditions', async () => {
+    const req = (await client.updateSegment({
+      segmentID: 'segment1',
+      updateSegmentParams: {
+        conditions:
+          'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segment1');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      conditions:
+        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('updateSegment with name and conditions', async () => {
+    const req = (await client.updateSegment({
+      segmentID: 'segment1',
+      updateSegmentParams: {
+        name: 'example segment name',
+        conditions:
+          'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segment1');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      name: 'example segment name',
+      conditions:
+        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });

@@ -47,6 +47,19 @@ components:
       schema:
         type: string
       description: The ID of the model to retrieve.
+    segmentID:
+      name: segmentID
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the Segment to fetch.
+    type:
+      name: type
+      in: query
+      schema:
+        $ref: '#/components/schemas/segmentType'
+      description: The type of segments to fetch.
   schemas:
     ErrorBase:
       description: Error.
@@ -437,6 +450,139 @@ components:
           format: double
         updatedAt:
           $ref: '#/components/schemas/updatedAt'
+    segmentID:
+      type: string
+      description: The ID of the segment.
+    getSegmentUsersResponse:
+      title: getSegmentUsersResponse
+      type: object
+      required:
+        - segmentID
+        - users
+      properties:
+        segmentID:
+          $ref: '#/components/schemas/segmentID'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/userProfile'
+        previousPageToken:
+          $ref: '#/components/schemas/previousPageToken'
+        nextPageToken:
+          $ref: '#/components/schemas/nextPageToken'
+    segmentStatus:
+      type: string
+      enum:
+        - active
+        - pending
+        - failed
+    segmentType:
+      type: string
+      enum:
+        - computed
+        - custom
+    segment:
+      type: object
+      required:
+        - segmentID
+        - name
+        - conditions
+        - segmentStatus
+        - type
+      properties:
+        segmentID:
+          $ref: '#/components/schemas/segmentID'
+        name:
+          type: string
+        conditions:
+          type: string
+        segmentStatus:
+          $ref: '#/components/schemas/segmentStatus'
+        type:
+          $ref: '#/components/schemas/segmentType'
+        errorMessage:
+          type: string
+    SegmentsParams_name:
+      type: string
+      description: The name or description of the segment.
+    segmentNameParam:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/SegmentsParams_name'
+    conditions:
+      type: string
+      description: >-
+        The filters that define the segment, defined in the same way as filters
+        for Rules.
+    segmentConditionsParam:
+      type: object
+      properties:
+        conditions:
+          $ref: '#/components/schemas/conditions'
+    allUpdateSegmentParams:
+      allOf:
+        - $ref: '#/components/schemas/segmentNameParam'
+        - $ref: '#/components/schemas/segmentConditionsParam'
+    updateSegmentParams:
+      oneOf:
+        - $ref: '#/components/schemas/segmentNameParam'
+        - $ref: '#/components/schemas/segmentConditionsParam'
+        - $ref: '#/components/schemas/allUpdateSegmentParams'
+    Segment_updatedAt:
+      type: string
+      description: The date and time at which the segment was last updated.
+    updateSegmentResponse:
+      title: updateSegmentResponse
+      type: object
+      required:
+        - segmentID
+        - updatedAt
+      properties:
+        segmentID:
+          $ref: '#/components/schemas/segmentID'
+        updatedAt:
+          $ref: '#/components/schemas/Segment_updatedAt'
+    deletedUntil:
+      type: string
+      description: The date and time at which the segment will be re-ingested.
+    deleteSegmentResponse:
+      title: deleteSegmentResponse
+      type: object
+      required:
+        - segmentID
+        - deletedUntil
+      properties:
+        segmentID:
+          $ref: '#/components/schemas/segmentID'
+        deletedUntil:
+          $ref: '#/components/schemas/deletedUntil'
+    fetchAllSegmentsResponse:
+      title: fetchAllSegmentsResponse
+      type: array
+      items:
+        $ref: '#/components/schemas/segment'
+    createSegmentParams:
+      type: object
+      required:
+        - name
+        - conditions
+      properties:
+        name:
+          $ref: '#/components/schemas/SegmentsParams_name'
+        conditions:
+          $ref: '#/components/schemas/conditions'
+    createSegmentResponse:
+      title: createSegmentResponse
+      type: object
+      required:
+        - segmentID
+        - updatedAt
+      properties:
+        segmentID:
+          $ref: '#/components/schemas/segmentID'
+        updatedAt:
+          $ref: '#/components/schemas/Segment_updatedAt'
   responses:
     BadRequest:
       description: Bad request or request arguments.
@@ -486,6 +632,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorBase'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+    StatusUnprocessableEntity:
+      description: Status unprocessable entity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
 servers:
   - url: https://predict.{region}.algolia.com
     variables:
@@ -508,11 +666,15 @@ tags:
   - name: profiles
     x-displayName: Profiles
     description: Manage users' profiles.
+  - name: segments
+    x-displayName: Segments
+    description: Manage segments.
 x-tagGroups:
   - name: General
     tags:
       - profiles
       - models
+      - segments
 paths:
   /1{path}:
     get:
@@ -991,5 +1153,173 @@ paths:
           $ref: '#/components/responses/IndexNotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /1/segments/{segmentID}/users:
+    post:
+      tags:
+        - predict
+      operationId: getSegmentUsers
+      summary: Get segment users.
+      description: Get the profiles of users that belong to a segment.
+      parameters:
+        - $ref: '#/components/parameters/segmentID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fetchAllUserProfilesParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSegmentUsersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /1/segments/{segmentID}:
+    get:
+      tags:
+        - predict
+      operationId: fetchSegment
+      description: Get the segment configuration.
+      summary: Get the segment configuration.
+      parameters:
+        - $ref: '#/components/parameters/segmentID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: fetchSegmentResponse
+                $ref: '#/components/schemas/segment'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/StatusUnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+        - predict
+      operationId: updateSegment
+      description: Update a segment’s configuration.
+      summary: Update segment.
+      parameters:
+        - $ref: '#/components/parameters/segmentID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSegmentParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateSegmentResponse'
+        '400':
+          $ref: '#/components/responses/IndexNotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/StatusUnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+        - predict
+      operationId: deleteSegment
+      summary: Delete a segment's configuration.
+      description: >
+        Delete the segment’s configuration. User intents (predictions) from the
+        segment are not deleted. All segment types (computed or custom) can be
+        deleted.
+
+
+        When the query is successful, the HTTP response is 200 OK and returns
+        the date until which you can safely consider the data as being deleted.
+      parameters:
+        - $ref: '#/components/parameters/segmentID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteSegmentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/StatusUnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /1/segments:
+    get:
+      tags:
+        - predict
+      operationId: fetchAllSegments
+      description: Get the list of segments with their configuration.
+      summary: Get all segments.
+      parameters:
+        - $ref: '#/components/parameters/type'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fetchAllSegmentsResponse'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+        '422':
+          $ref: '#/components/responses/StatusUnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+        - predict
+      operationId: createSegment
+      summary: Create a segment.
+      description: >-
+        Create a new segment. All segments added by this endpoint will have a
+        computed type. The endpoint receives a filters parameter, with a syntax
+        similar to filters for Rules.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSegmentParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createSegmentResponse'
+        '400':
+          $ref: '#/components/responses/IndexNotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/StatusUnprocessableEntity'
         '500':
           $ref: '#/components/responses/InternalError'

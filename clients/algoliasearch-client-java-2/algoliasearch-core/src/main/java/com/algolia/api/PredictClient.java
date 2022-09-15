@@ -138,6 +138,76 @@ public class PredictClient extends ApiClient {
   }
 
   /**
+   * Create a new segment. All segments added by this endpoint will have a computed type. The
+   * endpoint receives a filters parameter, with a syntax similar to filters for Rules.
+   *
+   * @param createSegmentParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CreateSegmentResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CreateSegmentResponse createSegment(CreateSegmentParams createSegmentParams, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(createSegmentAsync(createSegmentParams, requestOptions));
+  }
+
+  /**
+   * Create a new segment. All segments added by this endpoint will have a computed type. The
+   * endpoint receives a filters parameter, with a syntax similar to filters for Rules.
+   *
+   * @param createSegmentParams (required)
+   * @return CreateSegmentResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CreateSegmentResponse createSegment(CreateSegmentParams createSegmentParams) throws AlgoliaRuntimeException {
+    return this.createSegment(createSegmentParams, null);
+  }
+
+  /**
+   * (asynchronously) Create a new segment. All segments added by this endpoint will have a computed
+   * type. The endpoint receives a filters parameter, with a syntax similar to filters for Rules.
+   *
+   * @param createSegmentParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<CreateSegmentResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<CreateSegmentResponse> createSegmentAsync(
+    CreateSegmentParams createSegmentParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (createSegmentParams == null) {
+      throw new AlgoliaRuntimeException("Parameter `createSegmentParams` is required when calling `createSegment`.");
+    }
+
+    Object bodyObj = createSegmentParams;
+
+    // create path and map variables
+    String requestPath = "/1/segments";
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<CreateSegmentResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Create a new segment. All segments added by this endpoint will have a computed
+   * type. The endpoint receives a filters parameter, with a syntax similar to filters for Rules.
+   *
+   * @param createSegmentParams (required)
+   * @return CompletableFuture<CreateSegmentResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<CreateSegmentResponse> createSegmentAsync(CreateSegmentParams createSegmentParams)
+    throws AlgoliaRuntimeException {
+    return this.createSegmentAsync(createSegmentParams, null);
+  }
+
+  /**
    * This method allow you to send requests to the Algolia REST API.
    *
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
@@ -328,6 +398,80 @@ public class PredictClient extends ApiClient {
   }
 
   /**
+   * Delete the segment’s configuration. User intents (predictions) from the segment are not
+   * deleted. All segment types (computed or custom) can be deleted. When the query is successful,
+   * the HTTP response is 200 OK and returns the date until which you can safely consider the data
+   * as being deleted.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return DeleteSegmentResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public DeleteSegmentResponse deleteSegment(String segmentID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(deleteSegmentAsync(segmentID, requestOptions));
+  }
+
+  /**
+   * Delete the segment’s configuration. User intents (predictions) from the segment are not
+   * deleted. All segment types (computed or custom) can be deleted. When the query is successful,
+   * the HTTP response is 200 OK and returns the date until which you can safely consider the data
+   * as being deleted.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @return DeleteSegmentResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public DeleteSegmentResponse deleteSegment(String segmentID) throws AlgoliaRuntimeException {
+    return this.deleteSegment(segmentID, null);
+  }
+
+  /**
+   * (asynchronously) Delete the segment’s configuration. User intents (predictions) from the
+   * segment are not deleted. All segment types (computed or custom) can be deleted. When the query
+   * is successful, the HTTP response is 200 OK and returns the date until which you can safely
+   * consider the data as being deleted.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<DeleteSegmentResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<DeleteSegmentResponse> deleteSegmentAsync(String segmentID, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    if (segmentID == null) {
+      throw new AlgoliaRuntimeException("Parameter `segmentID` is required when calling `deleteSegment`.");
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/segments/{segmentID}".replaceAll("\\{segmentID\\}", this.escapeString(segmentID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "DELETE", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<DeleteSegmentResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Delete the segment’s configuration. User intents (predictions) from the
+   * segment are not deleted. All segment types (computed or custom) can be deleted. When the query
+   * is successful, the HTTP response is 200 OK and returns the date until which you can safely
+   * consider the data as being deleted.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @return CompletableFuture<DeleteSegmentResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<DeleteSegmentResponse> deleteSegmentAsync(String segmentID) throws AlgoliaRuntimeException {
+    return this.deleteSegmentAsync(segmentID, null);
+  }
+
+  /**
    * Delete all data and predictions associated with an authenticated user (userID) or an anonymous
    * user (cookieID, sessionID).
    *
@@ -398,6 +542,112 @@ public class PredictClient extends ApiClient {
   }
 
   /**
+   * Get the list of segments with their configuration.
+   *
+   * @param type The type of segments to fetch. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return List<Segment>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<Segment> fetchAllSegments(SegmentType type, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(fetchAllSegmentsAsync(type, requestOptions));
+  }
+
+  /**
+   * Get the list of segments with their configuration.
+   *
+   * @param type The type of segments to fetch. (optional)
+   * @return List<Segment>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<Segment> fetchAllSegments(SegmentType type) throws AlgoliaRuntimeException {
+    return this.fetchAllSegments(type, null);
+  }
+
+  /**
+   * Get the list of segments with their configuration.
+   *
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return List<Segment>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<Segment> fetchAllSegments(RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.fetchAllSegments(null, requestOptions);
+  }
+
+  /**
+   * Get the list of segments with their configuration.
+   *
+   * @return List<Segment>
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public List<Segment> fetchAllSegments() throws AlgoliaRuntimeException {
+    return this.fetchAllSegments(null, null);
+  }
+
+  /**
+   * (asynchronously) Get the list of segments with their configuration.
+   *
+   * @param type The type of segments to fetch. (optional)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<List<Segment>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<Segment>> fetchAllSegmentsAsync(SegmentType type, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/segments";
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    if (type != null) {
+      queryParameters.put("type", parameterToString(type));
+    }
+
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<List<Segment>>() {});
+  }
+
+  /**
+   * (asynchronously) Get the list of segments with their configuration.
+   *
+   * @param type The type of segments to fetch. (optional)
+   * @return CompletableFuture<List<Segment>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<Segment>> fetchAllSegmentsAsync(SegmentType type) throws AlgoliaRuntimeException {
+    return this.fetchAllSegmentsAsync(type, null);
+  }
+
+  /**
+   * (asynchronously) Get the list of segments with their configuration.
+   *
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<List<Segment>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<Segment>> fetchAllSegmentsAsync(RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return this.fetchAllSegmentsAsync(null, requestOptions);
+  }
+
+  /**
+   * (asynchronously) Get the list of segments with their configuration.
+   *
+   * @return CompletableFuture<List<Segment>> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<List<Segment>> fetchAllSegmentsAsync() throws AlgoliaRuntimeException {
+    return this.fetchAllSegmentsAsync(null, null);
+  }
+
+  /**
    * Get all users with predictions in the provided application.
    *
    * @param fetchAllUserProfilesParams (required)
@@ -464,6 +714,67 @@ public class PredictClient extends ApiClient {
   public CompletableFuture<FetchAllUserProfilesResponse> fetchAllUserProfilesAsync(FetchAllUserProfilesParams fetchAllUserProfilesParams)
     throws AlgoliaRuntimeException {
     return this.fetchAllUserProfilesAsync(fetchAllUserProfilesParams, null);
+  }
+
+  /**
+   * Get the segment configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return Segment
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public Segment fetchSegment(String segmentID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(fetchSegmentAsync(segmentID, requestOptions));
+  }
+
+  /**
+   * Get the segment configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @return Segment
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public Segment fetchSegment(String segmentID) throws AlgoliaRuntimeException {
+    return this.fetchSegment(segmentID, null);
+  }
+
+  /**
+   * (asynchronously) Get the segment configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<Segment> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<Segment> fetchSegmentAsync(String segmentID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+    if (segmentID == null) {
+      throw new AlgoliaRuntimeException("Parameter `segmentID` is required when calling `fetchSegment`.");
+    }
+
+    Object bodyObj = null;
+
+    // create path and map variables
+    String requestPath = "/1/segments/{segmentID}".replaceAll("\\{segmentID\\}", this.escapeString(segmentID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<Segment>() {});
+  }
+
+  /**
+   * (asynchronously) Get the segment configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @return CompletableFuture<Segment> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<Segment> fetchSegmentAsync(String segmentID) throws AlgoliaRuntimeException {
+    return this.fetchSegmentAsync(segmentID, null);
   }
 
   /**
@@ -908,6 +1219,87 @@ public class PredictClient extends ApiClient {
   }
 
   /**
+   * Get the profiles of users that belong to a segment.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param fetchAllUserProfilesParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return GetSegmentUsersResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public GetSegmentUsersResponse getSegmentUsers(
+    String segmentID,
+    FetchAllUserProfilesParams fetchAllUserProfilesParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(getSegmentUsersAsync(segmentID, fetchAllUserProfilesParams, requestOptions));
+  }
+
+  /**
+   * Get the profiles of users that belong to a segment.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param fetchAllUserProfilesParams (required)
+   * @return GetSegmentUsersResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public GetSegmentUsersResponse getSegmentUsers(String segmentID, FetchAllUserProfilesParams fetchAllUserProfilesParams)
+    throws AlgoliaRuntimeException {
+    return this.getSegmentUsers(segmentID, fetchAllUserProfilesParams, null);
+  }
+
+  /**
+   * (asynchronously) Get the profiles of users that belong to a segment.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param fetchAllUserProfilesParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<GetSegmentUsersResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<GetSegmentUsersResponse> getSegmentUsersAsync(
+    String segmentID,
+    FetchAllUserProfilesParams fetchAllUserProfilesParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (segmentID == null) {
+      throw new AlgoliaRuntimeException("Parameter `segmentID` is required when calling `getSegmentUsers`.");
+    }
+
+    if (fetchAllUserProfilesParams == null) {
+      throw new AlgoliaRuntimeException("Parameter `fetchAllUserProfilesParams` is required when calling `getSegmentUsers`.");
+    }
+
+    Object bodyObj = fetchAllUserProfilesParams;
+
+    // create path and map variables
+    String requestPath = "/1/segments/{segmentID}/users".replaceAll("\\{segmentID\\}", this.escapeString(segmentID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<GetSegmentUsersResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Get the profiles of users that belong to a segment.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param fetchAllUserProfilesParams (required)
+   * @return CompletableFuture<GetSegmentUsersResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<GetSegmentUsersResponse> getSegmentUsersAsync(
+    String segmentID,
+    FetchAllUserProfilesParams fetchAllUserProfilesParams
+  ) throws AlgoliaRuntimeException {
+    return this.getSegmentUsersAsync(segmentID, fetchAllUserProfilesParams, null);
+  }
+
+  /**
    * This method allow you to send requests to the Algolia REST API.
    *
    * @param path The path of the API endpoint to target, anything after the /1 needs to be
@@ -1250,5 +1642,80 @@ public class PredictClient extends ApiClient {
   public CompletableFuture<UpdateModelInstanceResponse> updateModelInstanceAsync(String modelID, UpdateModelParams updateModelParams)
     throws AlgoliaRuntimeException {
     return this.updateModelInstanceAsync(modelID, updateModelParams, null);
+  }
+
+  /**
+   * Update a segment’s configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param updateSegmentParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return UpdateSegmentResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public UpdateSegmentResponse updateSegment(String segmentID, UpdateSegmentParams updateSegmentParams, RequestOptions requestOptions)
+    throws AlgoliaRuntimeException {
+    return LaunderThrowable.await(updateSegmentAsync(segmentID, updateSegmentParams, requestOptions));
+  }
+
+  /**
+   * Update a segment’s configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param updateSegmentParams (required)
+   * @return UpdateSegmentResponse
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public UpdateSegmentResponse updateSegment(String segmentID, UpdateSegmentParams updateSegmentParams) throws AlgoliaRuntimeException {
+    return this.updateSegment(segmentID, updateSegmentParams, null);
+  }
+
+  /**
+   * (asynchronously) Update a segment’s configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param updateSegmentParams (required)
+   * @param requestOptions The requestOptions to send along with the query, they will be merged with
+   *     the transporter requestOptions.
+   * @return CompletableFuture<UpdateSegmentResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<UpdateSegmentResponse> updateSegmentAsync(
+    String segmentID,
+    UpdateSegmentParams updateSegmentParams,
+    RequestOptions requestOptions
+  ) throws AlgoliaRuntimeException {
+    if (segmentID == null) {
+      throw new AlgoliaRuntimeException("Parameter `segmentID` is required when calling `updateSegment`.");
+    }
+
+    if (updateSegmentParams == null) {
+      throw new AlgoliaRuntimeException("Parameter `updateSegmentParams` is required when calling `updateSegment`.");
+    }
+
+    Object bodyObj = updateSegmentParams;
+
+    // create path and map variables
+    String requestPath = "/1/segments/{segmentID}".replaceAll("\\{segmentID\\}", this.escapeString(segmentID.toString()));
+
+    Map<String, Object> queryParameters = new HashMap<String, Object>();
+    Map<String, String> headers = new HashMap<String, String>();
+
+    Call call = this.buildCall(requestPath, "POST", queryParameters, bodyObj, headers, requestOptions, false);
+    return this.executeAsync(call, new TypeReference<UpdateSegmentResponse>() {});
+  }
+
+  /**
+   * (asynchronously) Update a segment’s configuration.
+   *
+   * @param segmentID The ID of the Segment to fetch. (required)
+   * @param updateSegmentParams (required)
+   * @return CompletableFuture<UpdateSegmentResponse> The awaitable future
+   * @throws AlgoliaRuntimeException If it fails to process the API call
+   */
+  public CompletableFuture<UpdateSegmentResponse> updateSegmentAsync(String segmentID, UpdateSegmentParams updateSegmentParams)
+    throws AlgoliaRuntimeException {
+    return this.updateSegmentAsync(segmentID, updateSegmentParams, null);
   }
 }
