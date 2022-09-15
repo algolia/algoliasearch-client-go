@@ -1,0 +1,17 @@
+[
+  {
+    "testName": "create segment with required params",
+    "parameters": {
+      "name": "segment1",
+      "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+    },
+    "request": {
+      "path": "/1/segments",
+      "method": "POST",
+      "body": {
+        "name": "segment1",
+        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+      }
+    }
+  }
+]

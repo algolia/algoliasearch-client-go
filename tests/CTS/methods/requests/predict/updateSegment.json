@@ -1,0 +1,52 @@
+[
+  {
+    "testName": "updateSegment with name",
+    "parameters": {
+      "segmentID": "segment1",
+      "updateSegmentParams": {
+        "name": "example segment name"
+      }
+    },
+    "request": {
+      "path": "/1/segments/segment1",
+      "method": "POST",
+      "body": {
+        "name": "example segment name"
+      }
+    }
+  },
+  {
+    "testName": "updateSegment with conditions",
+    "parameters": {
+      "segmentID": "segment1",
+      "updateSegmentParams": {
+        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+      }
+    },
+    "request": {
+      "path": "/1/segments/segment1",
+      "method": "POST",
+      "body": {
+        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+      }
+    }
+  },
+  {
+    "testName": "updateSegment with name and conditions",
+    "parameters": {
+      "segmentID": "segment1",
+      "updateSegmentParams": {
+        "name": "example segment name",
+        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+      }
+    },
+    "request": {
+      "path": "/1/segments/segment1",
+      "method": "POST",
+      "body": {
+        "name": "example segment name",
+        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+      }
+    }
+  }
+]

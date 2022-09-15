@@ -1,0 +1,41 @@
+createSegmentParams:
+  type: object
+  required:
+    - name
+    - conditions
+  properties:
+    name:
+      $ref: '#/name'
+    conditions:
+      $ref: '#/conditions'
+
+updateSegmentParams:
+  oneOf:
+    - $ref: '#/segmentNameParam'
+    - $ref: '#/segmentConditionsParam'
+    - $ref: '#/allUpdateSegmentParams'
+
+allUpdateSegmentParams:
+  allOf:
+    - $ref: '#/segmentNameParam'
+    - $ref: '#/segmentConditionsParam'
+
+segmentNameParam:
+  type: object
+  properties:
+    name:
+      $ref: '#/name'
+
+segmentConditionsParam:
+  type: object
+  properties:
+    conditions:
+      $ref: '#/conditions'
+
+name:
+  type: string
+  description: The name or description of the segment.
+
+conditions:
+  type: string
+  description: The filters that define the segment, defined in the same way as filters for Rules.

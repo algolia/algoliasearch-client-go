@@ -1,0 +1,110 @@
+updateSegmentResponse:
+  title: updateSegmentResponse
+  type: object
+  required:
+    - segmentID
+    - updatedAt
+  properties:
+    segmentID:
+      $ref: '#/segmentID'
+    updatedAt:
+      $ref: '#/updatedAt'
+
+deleteSegmentResponse:
+  title: deleteSegmentResponse
+  type: object
+  required:
+    - segmentID
+    - deletedUntil
+  properties:
+    segmentID:
+      $ref: '#/segmentID'
+    deletedUntil:
+      $ref: '#/deletedUntil'
+
+getSegmentUsersResponse:
+  title: getSegmentUsersResponse
+  type: object
+  required:
+    - segmentID
+    - users
+  properties:
+    segmentID:
+      $ref: '#/segmentID'
+    users:
+      type: array
+      items:
+        $ref: 'UserProfile.yml#/userProfile'
+    previousPageToken:
+      $ref: '../common/schemas/Params.yml#/previousPageToken'
+    nextPageToken:
+      $ref: '../common/schemas/Params.yml#/nextPageToken'
+
+fetchSegmentResponse:
+  title: fetchSegmentResponse
+  $ref: '#/segment'
+
+fetchAllSegmentsResponse:
+  title: fetchAllSegmentsResponse
+  type: array
+  items:
+    $ref: '#/segment'
+
+createSegmentResponse:
+  title: createSegmentResponse
+  type: object
+  required:
+    - segmentID
+    - updatedAt
+  properties:
+    segmentID:
+      $ref: '#/segmentID'
+    updatedAt:
+      $ref: '#/updatedAt'
+
+segment:
+  type: object
+  required:
+    - segmentID
+    - name
+    - conditions
+    - segmentStatus
+    - type
+  properties:
+    segmentID:
+      $ref: '#/segmentID'
+    name:
+      type: string
+    conditions:
+      type: string
+    segmentStatus:
+      $ref: '#/segmentStatus'
+    type:
+      $ref: '#/segmentType'
+    errorMessage:
+      type: string
+
+segmentStatus:
+  type: string
+  enum:
+    - active
+    - pending
+    - failed
+
+segmentType:
+  type: string
+  enum:
+    - computed
+    - custom
+
+segmentID:
+  type: string
+  description: The ID of the segment.
+
+updatedAt:
+  type: string
+  description: The date and time at which the segment was last updated.
+
+deletedUntil:
+  type: string
+  description: The date and time at which the segment will be re-ingested.
