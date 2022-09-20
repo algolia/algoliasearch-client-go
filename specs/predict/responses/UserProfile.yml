@@ -59,10 +59,10 @@ error:
 
 predictionsFunnelStage:
   oneOf:
-    - $ref: '#/funnelStageSuccess'
+    - $ref: '#/predictionsFunnelStageSuccess'
     - $ref: '#/error'
 
-funnelStageSuccess:
+predictionsFunnelStageSuccess:
   type: object
   description: Prediction for the **funnel_stage** model.
   properties:
@@ -90,10 +90,10 @@ funnelStageSuccess:
 
 predictionsOrderValue:
   oneOf:
-    - $ref: '#/orderValueSuccess'
+    - $ref: '#/predictionsOrderValueSuccess'
     - $ref: '#/error'
 
-orderValueSuccess:
+predictionsOrderValueSuccess:
   type: object
   description: Prediction for the **order_value** model.
   properties:
@@ -109,10 +109,10 @@ orderValueSuccess:
 
 predictionsAffinities:
   oneOf:
-    - $ref: '#/affinitiesSuccess'
+    - $ref: '#/predictionsAffinitiesSuccess'
     - $ref: '#/error'
 
-affinitiesSuccess:
+predictionsAffinitiesSuccess:
   type: object
   description: Prediction for the **affinities** model.
   properties:
