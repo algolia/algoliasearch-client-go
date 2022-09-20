@@ -23,8 +23,8 @@ public abstract class PredictionsFunnelStage implements CompoundType {
     return new PredictionsFunnelStageError(inside);
   }
 
-  public static PredictionsFunnelStage of(FunnelStageSuccess inside) {
-    return new PredictionsFunnelStageFunnelStageSuccess(inside);
+  public static PredictionsFunnelStage of(PredictionsFunnelStageSuccess inside) {
+    return new PredictionsFunnelStagePredictionsFunnelStageSuccess(inside);
   }
 
   public static class PredictionsFunnelStageSerializer extends StdSerializer<PredictionsFunnelStage> {
@@ -88,10 +88,10 @@ public abstract class PredictionsFunnelStage implements CompoundType {
         System.err.println("Failed to deserialize oneOf Error (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
 
-      // deserialize FunnelStageSuccess
+      // deserialize PredictionsFunnelStageSuccess
       try {
         boolean attemptParsing = true;
-        currentType = "FunnelStageSuccess";
+        currentType = "PredictionsFunnelStageSuccess";
         if (
           ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
           ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
@@ -101,14 +101,18 @@ public abstract class PredictionsFunnelStage implements CompoundType {
         ) {
           deserialized =
             PredictionsFunnelStage.of(
-              (FunnelStageSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<FunnelStageSuccess>() {})
+              (PredictionsFunnelStageSuccess) tree
+                .traverse(jp.getCodec())
+                .readValueAs(new TypeReference<PredictionsFunnelStageSuccess>() {})
             );
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
             deserialized =
               PredictionsFunnelStage.of(
-                (FunnelStageSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<FunnelStageSuccess>() {})
+                (PredictionsFunnelStageSuccess) tree
+                  .traverse(jp.getCodec())
+                  .readValueAs(new TypeReference<PredictionsFunnelStageSuccess>() {})
               );
             match++;
           } catch (IOException e) {
@@ -117,7 +121,9 @@ public abstract class PredictionsFunnelStage implements CompoundType {
         }
       } catch (Exception e) {
         // deserialization failed, continue
-        System.err.println("Failed to deserialize oneOf FunnelStageSuccess (error: " + e.getMessage() + ") (type: " + currentType + ")");
+        System.err.println(
+          "Failed to deserialize oneOf PredictionsFunnelStageSuccess (error: " + e.getMessage() + ") (type: " + currentType + ")"
+        );
       }
 
       if (match == 1) {
@@ -150,16 +156,16 @@ class PredictionsFunnelStageError extends PredictionsFunnelStage {
   }
 }
 
-class PredictionsFunnelStageFunnelStageSuccess extends PredictionsFunnelStage {
+class PredictionsFunnelStagePredictionsFunnelStageSuccess extends PredictionsFunnelStage {
 
-  private final FunnelStageSuccess insideValue;
+  private final PredictionsFunnelStageSuccess insideValue;
 
-  PredictionsFunnelStageFunnelStageSuccess(FunnelStageSuccess insideValue) {
+  PredictionsFunnelStagePredictionsFunnelStageSuccess(PredictionsFunnelStageSuccess insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public FunnelStageSuccess getInsideValue() {
+  public PredictionsFunnelStageSuccess getInsideValue() {
     return insideValue;
   }
 }

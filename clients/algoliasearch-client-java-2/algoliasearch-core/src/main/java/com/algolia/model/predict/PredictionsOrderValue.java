@@ -23,8 +23,8 @@ public abstract class PredictionsOrderValue implements CompoundType {
     return new PredictionsOrderValueError(inside);
   }
 
-  public static PredictionsOrderValue of(OrderValueSuccess inside) {
-    return new PredictionsOrderValueOrderValueSuccess(inside);
+  public static PredictionsOrderValue of(PredictionsOrderValueSuccess inside) {
+    return new PredictionsOrderValuePredictionsOrderValueSuccess(inside);
   }
 
   public static class PredictionsOrderValueSerializer extends StdSerializer<PredictionsOrderValue> {
@@ -88,10 +88,10 @@ public abstract class PredictionsOrderValue implements CompoundType {
         System.err.println("Failed to deserialize oneOf Error (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
 
-      // deserialize OrderValueSuccess
+      // deserialize PredictionsOrderValueSuccess
       try {
         boolean attemptParsing = true;
-        currentType = "OrderValueSuccess";
+        currentType = "PredictionsOrderValueSuccess";
         if (
           ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
           ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
@@ -101,14 +101,16 @@ public abstract class PredictionsOrderValue implements CompoundType {
         ) {
           deserialized =
             PredictionsOrderValue.of(
-              (OrderValueSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<OrderValueSuccess>() {})
+              (PredictionsOrderValueSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<PredictionsOrderValueSuccess>() {})
             );
           match++;
         } else if (token == JsonToken.START_OBJECT) {
           try {
             deserialized =
               PredictionsOrderValue.of(
-                (OrderValueSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<OrderValueSuccess>() {})
+                (PredictionsOrderValueSuccess) tree
+                  .traverse(jp.getCodec())
+                  .readValueAs(new TypeReference<PredictionsOrderValueSuccess>() {})
               );
             match++;
           } catch (IOException e) {
@@ -117,7 +119,9 @@ public abstract class PredictionsOrderValue implements CompoundType {
         }
       } catch (Exception e) {
         // deserialization failed, continue
-        System.err.println("Failed to deserialize oneOf OrderValueSuccess (error: " + e.getMessage() + ") (type: " + currentType + ")");
+        System.err.println(
+          "Failed to deserialize oneOf PredictionsOrderValueSuccess (error: " + e.getMessage() + ") (type: " + currentType + ")"
+        );
       }
 
       if (match == 1) {
@@ -150,16 +154,16 @@ class PredictionsOrderValueError extends PredictionsOrderValue {
   }
 }
 
-class PredictionsOrderValueOrderValueSuccess extends PredictionsOrderValue {
+class PredictionsOrderValuePredictionsOrderValueSuccess extends PredictionsOrderValue {
 
-  private final OrderValueSuccess insideValue;
+  private final PredictionsOrderValueSuccess insideValue;
 
-  PredictionsOrderValueOrderValueSuccess(OrderValueSuccess insideValue) {
+  PredictionsOrderValuePredictionsOrderValueSuccess(PredictionsOrderValueSuccess insideValue) {
     this.insideValue = insideValue;
   }
 
   @Override
-  public OrderValueSuccess getInsideValue() {
+  public PredictionsOrderValueSuccess getInsideValue() {
     return insideValue;
   }
 }

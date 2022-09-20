@@ -19,12 +19,12 @@ import java.io.IOException;
 @JsonSerialize(using = PredictionsAffinities.PredictionsAffinitiesSerializer.class)
 public abstract class PredictionsAffinities implements CompoundType {
 
-  public static PredictionsAffinities of(AffinitiesSuccess inside) {
-    return new PredictionsAffinitiesAffinitiesSuccess(inside);
-  }
-
   public static PredictionsAffinities of(Error inside) {
     return new PredictionsAffinitiesError(inside);
+  }
+
+  public static PredictionsAffinities of(PredictionsAffinitiesSuccess inside) {
+    return new PredictionsAffinitiesPredictionsAffinitiesSuccess(inside);
   }
 
   public static class PredictionsAffinitiesSerializer extends StdSerializer<PredictionsAffinities> {
@@ -62,38 +62,6 @@ public abstract class PredictionsAffinities implements CompoundType {
       int match = 0;
       JsonToken token = tree.traverse(jp.getCodec()).nextToken();
       String currentType = "";
-      // deserialize AffinitiesSuccess
-      try {
-        boolean attemptParsing = true;
-        currentType = "AffinitiesSuccess";
-        if (
-          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
-          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
-          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
-          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
-          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
-        ) {
-          deserialized =
-            PredictionsAffinities.of(
-              (AffinitiesSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AffinitiesSuccess>() {})
-            );
-          match++;
-        } else if (token == JsonToken.START_OBJECT) {
-          try {
-            deserialized =
-              PredictionsAffinities.of(
-                (AffinitiesSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<AffinitiesSuccess>() {})
-              );
-            match++;
-          } catch (IOException e) {
-            // do nothing
-          }
-        }
-      } catch (Exception e) {
-        // deserialization failed, continue
-        System.err.println("Failed to deserialize oneOf AffinitiesSuccess (error: " + e.getMessage() + ") (type: " + currentType + ")");
-      }
-
       // deserialize Error
       try {
         boolean attemptParsing = true;
@@ -120,6 +88,42 @@ public abstract class PredictionsAffinities implements CompoundType {
         System.err.println("Failed to deserialize oneOf Error (error: " + e.getMessage() + ") (type: " + currentType + ")");
       }
 
+      // deserialize PredictionsAffinitiesSuccess
+      try {
+        boolean attemptParsing = true;
+        currentType = "PredictionsAffinitiesSuccess";
+        if (
+          ((currentType.equals("Integer") || currentType.equals("Long")) && token == JsonToken.VALUE_NUMBER_INT) |
+          ((currentType.equals("Float") || currentType.equals("Double")) && token == JsonToken.VALUE_NUMBER_FLOAT) |
+          (currentType.equals("Boolean") && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE)) |
+          (currentType.equals("String") && token == JsonToken.VALUE_STRING) |
+          (currentType.startsWith("List<") && token == JsonToken.START_ARRAY)
+        ) {
+          deserialized =
+            PredictionsAffinities.of(
+              (PredictionsAffinitiesSuccess) tree.traverse(jp.getCodec()).readValueAs(new TypeReference<PredictionsAffinitiesSuccess>() {})
+            );
+          match++;
+        } else if (token == JsonToken.START_OBJECT) {
+          try {
+            deserialized =
+              PredictionsAffinities.of(
+                (PredictionsAffinitiesSuccess) tree
+                  .traverse(jp.getCodec())
+                  .readValueAs(new TypeReference<PredictionsAffinitiesSuccess>() {})
+              );
+            match++;
+          } catch (IOException e) {
+            // do nothing
+          }
+        }
+      } catch (Exception e) {
+        // deserialization failed, continue
+        System.err.println(
+          "Failed to deserialize oneOf PredictionsAffinitiesSuccess (error: " + e.getMessage() + ") (type: " + currentType + ")"
+        );
+      }
+
       if (match == 1) {
         return deserialized;
       }
@@ -136,20 +140,6 @@ public abstract class PredictionsAffinities implements CompoundType {
   }
 }
 
-class PredictionsAffinitiesAffinitiesSuccess extends PredictionsAffinities {
-
-  private final AffinitiesSuccess insideValue;
-
-  PredictionsAffinitiesAffinitiesSuccess(AffinitiesSuccess insideValue) {
-    this.insideValue = insideValue;
-  }
-
-  @Override
-  public AffinitiesSuccess getInsideValue() {
-    return insideValue;
-  }
-}
-
 class PredictionsAffinitiesError extends PredictionsAffinities {
 
   private final Error insideValue;
@@ -160,6 +150,20 @@ class PredictionsAffinitiesError extends PredictionsAffinities {
 
   @Override
   public Error getInsideValue() {
+    return insideValue;
+  }
+}
+
+class PredictionsAffinitiesPredictionsAffinitiesSuccess extends PredictionsAffinities {
+
+  private final PredictionsAffinitiesSuccess insideValue;
+
+  PredictionsAffinitiesPredictionsAffinitiesSuccess(PredictionsAffinitiesSuccess insideValue) {
+    this.insideValue = insideValue;
+  }
+
+  @Override
+  public PredictionsAffinitiesSuccess getInsideValue() {
     return insideValue;
   }
 }

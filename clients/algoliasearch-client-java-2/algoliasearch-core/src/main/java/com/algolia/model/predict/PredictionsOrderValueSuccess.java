@@ -4,40 +4,33 @@
 package com.algolia.model.predict;
 
 import com.fasterxml.jackson.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-/** Prediction for the **affinities** model. */
-public class AffinitiesSuccess {
+/** Prediction for the **order_value** model. */
+public class PredictionsOrderValueSuccess {
 
   @JsonProperty("value")
-  private List<Affinity> value = new ArrayList<>();
+  private Double value;
 
   @JsonProperty("lastUpdatedAt")
   private String lastUpdatedAt;
 
-  public AffinitiesSuccess setValue(List<Affinity> value) {
+  public PredictionsOrderValueSuccess setValue(Double value) {
     this.value = value;
     return this;
   }
 
-  public AffinitiesSuccess addValue(Affinity valueItem) {
-    this.value.add(valueItem);
-    return this;
-  }
-
   /**
-   * Get value
+   * Get value minimum: 0
    *
    * @return value
    */
   @javax.annotation.Nonnull
-  public List<Affinity> getValue() {
+  public Double getValue() {
     return value;
   }
 
-  public AffinitiesSuccess setLastUpdatedAt(String lastUpdatedAt) {
+  public PredictionsOrderValueSuccess setLastUpdatedAt(String lastUpdatedAt) {
     this.lastUpdatedAt = lastUpdatedAt;
     return this;
   }
@@ -60,8 +53,11 @@ public class AffinitiesSuccess {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AffinitiesSuccess affinitiesSuccess = (AffinitiesSuccess) o;
-    return Objects.equals(this.value, affinitiesSuccess.value) && Objects.equals(this.lastUpdatedAt, affinitiesSuccess.lastUpdatedAt);
+    PredictionsOrderValueSuccess predictionsOrderValueSuccess = (PredictionsOrderValueSuccess) o;
+    return (
+      Objects.equals(this.value, predictionsOrderValueSuccess.value) &&
+      Objects.equals(this.lastUpdatedAt, predictionsOrderValueSuccess.lastUpdatedAt)
+    );
   }
 
   @Override
@@ -72,7 +68,7 @@ public class AffinitiesSuccess {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AffinitiesSuccess {\n");
+    sb.append("class PredictionsOrderValueSuccess {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    lastUpdatedAt: ").append(toIndentedString(lastUpdatedAt)).append("\n");
     sb.append("}");

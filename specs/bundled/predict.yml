@@ -107,7 +107,7 @@ components:
         - $ref: '#/components/schemas/modelsToRetrieveParam'
         - $ref: '#/components/schemas/typesToRetrieveParam'
         - $ref: '#/components/schemas/allParams'
-    funnelStageSuccess:
+    predictionsFunnelStageSuccess:
       type: object
       description: Prediction for the **funnel_stage** model.
       properties:
@@ -142,9 +142,9 @@ components:
         - error
     predictionsFunnelStage:
       oneOf:
-        - $ref: '#/components/schemas/funnelStageSuccess'
+        - $ref: '#/components/schemas/predictionsFunnelStageSuccess'
         - $ref: '#/components/schemas/error'
-    orderValueSuccess:
+    predictionsOrderValueSuccess:
       type: object
       description: Prediction for the **order_value** model.
       properties:
@@ -159,9 +159,9 @@ components:
         - lastUpdatedAt
     predictionsOrderValue:
       oneOf:
-        - $ref: '#/components/schemas/orderValueSuccess'
+        - $ref: '#/components/schemas/predictionsOrderValueSuccess'
         - $ref: '#/components/schemas/error'
-    affinitiesSuccess:
+    predictionsAffinitiesSuccess:
       type: object
       description: Prediction for the **affinities** model.
       properties:
@@ -191,7 +191,7 @@ components:
         - lastUpdatedAt
     predictionsAffinities:
       oneOf:
-        - $ref: '#/components/schemas/affinitiesSuccess'
+        - $ref: '#/components/schemas/predictionsAffinitiesSuccess'
         - $ref: '#/components/schemas/error'
     userProfile:
       type: object
