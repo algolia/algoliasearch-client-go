@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [b56b2b49](https://github.com/algolia/api-clients-automation/commit/b56b2b49) fix(specs): prefix Predict predictions success types ([#1032](https://github.com/algolia/api-clients-automation/pull/1032)) by [@francoischalifour](https://github.com/francoischalifour/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [07a2e936](https://github.com/algolia/api-clients-automation/commit/07a2e936) feat(specs): predict segments ([#1013](https://github.com/algolia/api-clients-automation/pull/1013)) by [@bengreenbank](https://github.com/bengreenbank/)
 - [362cd6b1](https://github.com/algolia/api-clients-automation/commit/362cd6b1) feat(specs): deleteByParams ([#1016](https://github.com/algolia/api-clients-automation/pull/1016)) by [@clemfromspace](https://github.com/clemfromspace/)
 
