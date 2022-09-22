@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * `pending` - model has just been created and the pipelines are being set up for the first train &
- * inference. \\ `active` - model is running and generating prediction. \\ `invalid` - model has
- * failed training (ex. can’t retrieve data from source). An additional error field will be set for
- * this status. \\ `inactive` - model has been deactivated from the dashboard. Pipelines still exist
- * but they are not currently running.
+ * inference. \\ `active` - model is running and generating predictions. \\ `invalid` - model has
+ * failed training (ex. can’t retrieve data from source). An additional `errorMessage` field will be
+ * set for this status. \\ `inactive` - model has been deactivated from the dashboard. Pipelines
+ * still exist but they are not currently running.
  */
 public enum GetModelInstanceConfigStatus {
   PENDING("pending"),
@@ -20,8 +20,6 @@ public enum GetModelInstanceConfigStatus {
   ACTIVE("active"),
 
   INVALID("invalid"),
-
-  ERROR("error"),
 
   INACTIVE("inactive");
 

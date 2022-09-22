@@ -38,11 +38,11 @@ public class ModelInstance {
   @JsonProperty("lastInference")
   private String lastInference;
 
-  @JsonProperty("error")
-  private String error;
+  @JsonProperty("errorMessage")
+  private String errorMessage;
 
-  @JsonProperty("status")
-  private GetModelInstanceConfigStatus status;
+  @JsonProperty("modelStatus")
+  private GetModelInstanceConfigStatus modelStatus;
 
   public ModelInstance setModelID(String modelID) {
     this.modelID = modelID;
@@ -189,34 +189,34 @@ public class ModelInstance {
     return lastInference;
   }
 
-  public ModelInstance setError(String error) {
-    this.error = error;
+  public ModelInstance setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
     return this;
   }
 
   /**
-   * Get error
+   * Get errorMessage
    *
-   * @return error
+   * @return errorMessage
    */
   @javax.annotation.Nullable
-  public String getError() {
-    return error;
+  public String getErrorMessage() {
+    return errorMessage;
   }
 
-  public ModelInstance setStatus(GetModelInstanceConfigStatus status) {
-    this.status = status;
+  public ModelInstance setModelStatus(GetModelInstanceConfigStatus modelStatus) {
+    this.modelStatus = modelStatus;
     return this;
   }
 
   /**
-   * Get status
+   * Get modelStatus
    *
-   * @return status
+   * @return modelStatus
    */
-  @javax.annotation.Nonnull
-  public GetModelInstanceConfigStatus getStatus() {
-    return status;
+  @javax.annotation.Nullable
+  public GetModelInstanceConfigStatus getModelStatus() {
+    return modelStatus;
   }
 
   @Override
@@ -238,14 +238,26 @@ public class ModelInstance {
       Objects.equals(this.contentAttributes, modelInstance.contentAttributes) &&
       Objects.equals(this.lastTrained, modelInstance.lastTrained) &&
       Objects.equals(this.lastInference, modelInstance.lastInference) &&
-      Objects.equals(this.error, modelInstance.error) &&
-      Objects.equals(this.status, modelInstance.status)
+      Objects.equals(this.errorMessage, modelInstance.errorMessage) &&
+      Objects.equals(this.modelStatus, modelInstance.modelStatus)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(modelID, name, type, sourceID, index, affinities, contentAttributes, lastTrained, lastInference, error, status);
+    return Objects.hash(
+      modelID,
+      name,
+      type,
+      sourceID,
+      index,
+      affinities,
+      contentAttributes,
+      lastTrained,
+      lastInference,
+      errorMessage,
+      modelStatus
+    );
   }
 
   @Override
@@ -261,8 +273,8 @@ public class ModelInstance {
     sb.append("    contentAttributes: ").append(toIndentedString(contentAttributes)).append("\n");
     sb.append("    lastTrained: ").append(toIndentedString(lastTrained)).append("\n");
     sb.append("    lastInference: ").append(toIndentedString(lastInference)).append("\n");
-    sb.append("    error: ").append(toIndentedString(error)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+    sb.append("    modelStatus: ").append(toIndentedString(modelStatus)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -292,16 +292,16 @@ components:
         - pending
         - active
         - invalid
-        - error
         - inactive
       description: >
         `pending` - model has just been created and the pipelines are being set
         up for the first train & inference. \
 
-        `active` - model is running and generating prediction. \
+        `active` - model is running and generating predictions. \
 
         `invalid` - model has failed training (ex. can’t retrieve data from
-        source). An additional error field will be set for this status. \
+        source). An additional `errorMessage` field will be set for this status.
+        \
 
         `inactive` - model has been deactivated from the dashboard. Pipelines
         still exist but they are not currently running.
@@ -337,9 +337,9 @@ components:
         lastInference:
           type: string
           description: The date and time this model instance generated its last inference.
-        error:
+        errorMessage:
           type: string
-        status:
+        modelStatus:
           type: string
           $ref: '#/components/schemas/getModelInstanceConfigStatus'
       required:
