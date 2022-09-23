@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [09a235cd](https://github.com/algolia/api-clients-automation/commit/09a235cd) fix(specs): update model response ([#1034](https://github.com/algolia/api-clients-automation/pull/1034)) by [@writeens](https://github.com/writeens/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [b56b2b49](https://github.com/algolia/api-clients-automation/commit/b56b2b49) fix(specs): prefix Predict predictions success types ([#1032](https://github.com/algolia/api-clients-automation/pull/1032)) by [@francoischalifour](https://github.com/francoischalifour/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
