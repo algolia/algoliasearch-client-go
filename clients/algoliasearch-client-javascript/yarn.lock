@@ -13,7 +13,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -26,7 +26,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -52,7 +52,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -65,7 +65,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -78,7 +78,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -91,7 +91,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -104,7 +104,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -117,7 +117,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -130,7 +130,7 @@ __metadata:
     "@algolia/requester-browser-xhr": 5.0.0-alpha.22
     "@algolia/requester-node-http": 5.0.0-alpha.22
     "@types/node": 16.11.59
-    rollup: 2.79.0
+    rollup: 2.79.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -3756,7 +3756,7 @@ __metadata:
     "@types/jest": 28.1.8
     "@types/node": 16.11.59
     jest: 29.0.3
-    rollup: 2.79.0
+    rollup: 2.79.1
     ts-jest: 28.0.8
     typescript: 4.8.3
   languageName: unknown
@@ -9048,20 +9048,6 @@ __metadata:
   dependencies:
     estree-walker: ^0.6.1
   checksum: 339fdf866d8f4ff6e408fa274c0525412f7edb01dc46b5ccda51f575b7e0d20ad72965773376fb5db95a77a7fcfcab97bf841ec08dbadf5d6b08af02b7a2cf5e
-  languageName: node
-  linkType: hard
-
-"rollup@npm:2.79.0":
-  version: 2.79.0
-  resolution: "rollup@npm:2.79.0"
-  dependencies:
-    fsevents: ~2.3.2
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 166f1ffea1898e157003920065b3a328e7012ea6808860ee8fe5d1ce94804fcce9985c95a3c0f7fe9c611aff0d09a70f073f1d6f715c8faba28e4e40f71ee3bb
   languageName: node
   linkType: hard
 
