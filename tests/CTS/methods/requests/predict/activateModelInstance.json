@@ -6,7 +6,7 @@
       "name": "Shopping stage for EU users",
       "sourceID": "0200030-129930",
       "index": "Products Production",
-      "affinities": [],
+      "modelAttributes": [],
       "contentAttributes": [
         "title",
         "description"
@@ -20,7 +20,7 @@
         "name": "Shopping stage for EU users",
         "sourceID": "0200030-129930",
         "index": "Products Production",
-        "affinities": [],
+        "modelAttributes": [],
         "contentAttributes": [
           "title",
           "description"

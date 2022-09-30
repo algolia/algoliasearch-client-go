@@ -9,10 +9,10 @@ activateModelParams:
       $ref: '#/sourceID'
     index:
       $ref: '#/index'
-    affinities:
+    modelAttributes:
       type: array
       items:
-        $ref: '#/affinities'
+        $ref: '#/modelAttributes'
     contentAttributes:
       type: array
       items:
@@ -28,20 +28,16 @@ updateModelParams:
   properties:
     name:
       $ref: '#/name'
-    affinities:
+    modelAttributes:
       type: array
       items:
-        $ref: '#/affinities'
+        $ref: '#/modelAttributes'
     contentAttributes:
       type: array
       items:
         $ref: '#/contentAttributes'
-    status:
-      $ref: '#/status'
-  required:
-    - modelID
-    - sourceID
-    - index
+    modelStatus:
+      $ref: '#/modelStatus'
 
 type:
   type: string
@@ -60,15 +56,15 @@ index:
   type: string
   description: The index name.
 
-affinities:
+modelAttributes:
   type: string
-  description: List of items attributes that will be used as affinities. This param is required if `type=affinities`.
+  description: List of items attributes that will be used in the model. This param is required if the model `type` needs it (e.g. `affinities`, `funnel_stage`).
 
 contentAttributes:
   type: string
   description: List of items attributes that will be used for embeddings, for ex. titles or descriptions.
 
-status:
+modelStatus:
   type: string
   enum: [active, inactive]
   description: |

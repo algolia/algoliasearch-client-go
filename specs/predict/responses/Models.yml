@@ -15,11 +15,8 @@ modelInstance:
       type: string
     index:
       type: string
-    affinities:
-      type: array
-      items:
-        type: string
-        description: Affinities within this model instance.
+    modelAttributes:
+      $ref: '#/modelAttributes'
     contentAttributes:
       type: array
       items:
@@ -41,11 +38,11 @@ modelInstance:
     - type
     - sourceID
     - index
-    - affinities
+    - modelAttributes
     - contentAttributes
     - lastTrained
     - lastInference
-    - status
+    - modelStatus
 
 getModelInstanceConfigStatus:
   type: string
@@ -77,3 +74,16 @@ modelMetrics:
       format: double
     updatedAt:
       $ref: '../../common/responses/common.yml#/updatedAt'
+
+modelAttributes:
+  type: object
+  additionalProperties: false
+  properties:
+    name:
+      type: string
+    values:
+      type: array
+      items:
+        type: string
+  required:
+    - name

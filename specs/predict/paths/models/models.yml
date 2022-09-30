@@ -28,7 +28,7 @@ post:
   summary: Activate a model instance.
   description: >
     Activate an existing model template. This action triggers the training and inference pipelines for the selected model. 
-    The model is added with `status=pending`.
+    The model is added with `modelStatus=pending`.
     If a model with the exact same source & index already exists, the API endpoint returns an error.
   requestBody:
     required: true

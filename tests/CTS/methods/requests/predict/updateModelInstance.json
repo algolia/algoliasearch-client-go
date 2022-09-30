@@ -5,7 +5,7 @@
       "modelID": "model1",
       "updateModelParams": {
         "name": "Shopping stage for EU users",
-        "affinities": [
+        "modelAttributes": [
           "brand",
           "color",
           "category_level0",
@@ -15,7 +15,7 @@
           "title",
           "description"
         ],
-        "status": "inactive"
+        "modelStatus": "inactive"
       }
     },
     "request": {
@@ -23,7 +23,7 @@
       "method": "POST",
       "body": {
         "name": "Shopping stage for EU users",
-        "affinities": [
+        "modelAttributes": [
           "brand",
           "color",
           "category_level0",
@@ -33,7 +33,7 @@
           "title",
           "description"
         ],
-        "status": "inactive"
+        "modelStatus": "inactive"
       }
     }
   }
