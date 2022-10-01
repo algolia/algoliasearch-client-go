@@ -36,6 +36,7 @@ type ABTestResponse struct {
 	ClickSignificance      float64           `json:"clickSignificance"`
 	ConversionSignificance float64           `json:"conversionSignificance"`
 	CreatedAt              time.Time         `json:"createdAt"`
+	UpdatedAt              time.Time         `json:"updatedAt"`
 	EndAt                  time.Time         `json:"endAt"`
 	Name                   string            `json:"name"`
 	Status                 string            `json:"status"`
@@ -57,5 +58,5 @@ type VariantResponse struct {
 	TrackedSearchCount     int                 `json:"trackedSearchCount"`
 	TrafficPercentage      int                 `json:"trafficPercentage"`
 	UserCount              int                 `json:"userCount"`
-	CustomSearchParameters *search.QueryParams `json:"customSearchParameters"`
+	CustomSearchParameters *search.QueryParams `json:"customSearchParameters,omitempty"`
 }

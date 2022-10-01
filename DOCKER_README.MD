@@ -18,7 +18,7 @@ $ brew install docker-machine
 
 Then install [VirtualBox](https://www.virtualbox.org/) using [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) to get a driver for your Docker machine
 ```
-$ brew cask install virtualbox
+$ brew install --cask virtualbox
 ```
 
 You may need to enter your password and authorize the application through `System Settings` > `Security & Privacy`.
