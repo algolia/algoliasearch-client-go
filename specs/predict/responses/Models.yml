@@ -16,7 +16,9 @@ modelInstance:
     index:
       type: string
     modelAttributes:
-      $ref: '#/modelAttributes'
+      type: array
+      items:
+        $ref: '#/modelAttributes'
     contentAttributes:
       type: array
       items:
