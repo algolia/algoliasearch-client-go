@@ -23,8 +23,8 @@ public class ActivateModelParams {
   @JsonProperty("index")
   private String index;
 
-  @JsonProperty("affinities")
-  private List<String> affinities;
+  @JsonProperty("modelAttributes")
+  private List<String> modelAttributes;
 
   @JsonProperty("contentAttributes")
   private List<String> contentAttributes;
@@ -89,27 +89,27 @@ public class ActivateModelParams {
     return index;
   }
 
-  public ActivateModelParams setAffinities(List<String> affinities) {
-    this.affinities = affinities;
+  public ActivateModelParams setModelAttributes(List<String> modelAttributes) {
+    this.modelAttributes = modelAttributes;
     return this;
   }
 
-  public ActivateModelParams addAffinities(String affinitiesItem) {
-    if (this.affinities == null) {
-      this.affinities = new ArrayList<>();
+  public ActivateModelParams addModelAttributes(String modelAttributesItem) {
+    if (this.modelAttributes == null) {
+      this.modelAttributes = new ArrayList<>();
     }
-    this.affinities.add(affinitiesItem);
+    this.modelAttributes.add(modelAttributesItem);
     return this;
   }
 
   /**
-   * Get affinities
+   * Get modelAttributes
    *
-   * @return affinities
+   * @return modelAttributes
    */
   @javax.annotation.Nullable
-  public List<String> getAffinities() {
-    return affinities;
+  public List<String> getModelAttributes() {
+    return modelAttributes;
   }
 
   public ActivateModelParams setContentAttributes(List<String> contentAttributes) {
@@ -149,14 +149,14 @@ public class ActivateModelParams {
       Objects.equals(this.name, activateModelParams.name) &&
       Objects.equals(this.sourceID, activateModelParams.sourceID) &&
       Objects.equals(this.index, activateModelParams.index) &&
-      Objects.equals(this.affinities, activateModelParams.affinities) &&
+      Objects.equals(this.modelAttributes, activateModelParams.modelAttributes) &&
       Objects.equals(this.contentAttributes, activateModelParams.contentAttributes)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, sourceID, index, affinities, contentAttributes);
+    return Objects.hash(type, name, sourceID, index, modelAttributes, contentAttributes);
   }
 
   @Override
@@ -167,7 +167,7 @@ public class ActivateModelParams {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    sourceID: ").append(toIndentedString(sourceID)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb.append("    affinities: ").append(toIndentedString(affinities)).append("\n");
+    sb.append("    modelAttributes: ").append(toIndentedString(modelAttributes)).append("\n");
     sb.append("    contentAttributes: ").append(toIndentedString(contentAttributes)).append("\n");
     sb.append("}");
     return sb.toString();

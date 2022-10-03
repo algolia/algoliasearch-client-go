@@ -286,6 +286,18 @@ components:
       type: string
       enum:
         - bigquery
+    modelAttributes:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+      required:
+        - name
     getModelInstanceConfigStatus:
       type: string
       enum:
@@ -322,11 +334,8 @@ components:
           type: string
         index:
           type: string
-        affinities:
-          type: array
-          items:
-            type: string
-            description: Affinities within this model instance.
+        modelAttributes:
+          $ref: '#/components/schemas/modelAttributes'
         contentAttributes:
           type: array
           items:
@@ -348,25 +357,26 @@ components:
         - type
         - sourceID
         - index
-        - affinities
+        - modelAttributes
         - contentAttributes
         - lastTrained
         - lastInference
-        - status
+        - modelStatus
     name:
       type: string
       description: The model’s instance name.
-    affinities:
+    modelsParams_modelAttributes:
       type: string
       description: >-
-        List of items attributes that will be used as affinities. This param is
-        required if `type=affinities`.
+        List of items attributes that will be used in the model. This param is
+        required if the model `type` needs it (e.g. `affinities`,
+        `funnel_stage`).
     contentAttributes:
       type: string
       description: >-
         List of items attributes that will be used for embeddings, for ex.
         titles or descriptions.
-    status:
+    modelStatus:
       type: string
       enum:
         - active
@@ -382,20 +392,16 @@ components:
       properties:
         name:
           $ref: '#/components/schemas/name'
-        affinities:
+        modelAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/affinities'
+            $ref: '#/components/schemas/modelsParams_modelAttributes'
         contentAttributes:
           type: array
           items:
             $ref: '#/components/schemas/contentAttributes'
-        status:
-          $ref: '#/components/schemas/status'
-      required:
-        - modelID
-        - sourceID
-        - index
+        modelStatus:
+          $ref: '#/components/schemas/modelStatus'
     updatedAt:
       type: string
       description: Date of last update (ISO-8601 format).
@@ -416,10 +422,10 @@ components:
           $ref: '#/components/schemas/sourceID'
         index:
           $ref: '#/components/schemas/index'
-        affinities:
+        modelAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/affinities'
+            $ref: '#/components/schemas/modelsParams_modelAttributes'
         contentAttributes:
           type: array
           items:
@@ -1096,8 +1102,8 @@ paths:
       description: >
         Activate an existing model template. This action triggers the training
         and inference pipelines for the selected model.  The model is added with
-        `status=pending`. If a model with the exact same source & index already
-        exists, the API endpoint returns an error.
+        `modelStatus=pending`. If a model with the exact same source & index
+        already exists, the API endpoint returns an error.
       requestBody:
         required: true
         content:

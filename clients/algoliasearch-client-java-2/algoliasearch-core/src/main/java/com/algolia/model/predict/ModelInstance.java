@@ -26,8 +26,8 @@ public class ModelInstance {
   @JsonProperty("index")
   private String index;
 
-  @JsonProperty("affinities")
-  private List<String> affinities = new ArrayList<>();
+  @JsonProperty("modelAttributes")
+  private ModelAttributes modelAttributes;
 
   @JsonProperty("contentAttributes")
   private List<String> contentAttributes = new ArrayList<>();
@@ -119,24 +119,19 @@ public class ModelInstance {
     return index;
   }
 
-  public ModelInstance setAffinities(List<String> affinities) {
-    this.affinities = affinities;
-    return this;
-  }
-
-  public ModelInstance addAffinities(String affinitiesItem) {
-    this.affinities.add(affinitiesItem);
+  public ModelInstance setModelAttributes(ModelAttributes modelAttributes) {
+    this.modelAttributes = modelAttributes;
     return this;
   }
 
   /**
-   * Get affinities
+   * Get modelAttributes
    *
-   * @return affinities
+   * @return modelAttributes
    */
   @javax.annotation.Nonnull
-  public List<String> getAffinities() {
-    return affinities;
+  public ModelAttributes getModelAttributes() {
+    return modelAttributes;
   }
 
   public ModelInstance setContentAttributes(List<String> contentAttributes) {
@@ -214,7 +209,7 @@ public class ModelInstance {
    *
    * @return modelStatus
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public GetModelInstanceConfigStatus getModelStatus() {
     return modelStatus;
   }
@@ -234,7 +229,7 @@ public class ModelInstance {
       Objects.equals(this.type, modelInstance.type) &&
       Objects.equals(this.sourceID, modelInstance.sourceID) &&
       Objects.equals(this.index, modelInstance.index) &&
-      Objects.equals(this.affinities, modelInstance.affinities) &&
+      Objects.equals(this.modelAttributes, modelInstance.modelAttributes) &&
       Objects.equals(this.contentAttributes, modelInstance.contentAttributes) &&
       Objects.equals(this.lastTrained, modelInstance.lastTrained) &&
       Objects.equals(this.lastInference, modelInstance.lastInference) &&
@@ -251,7 +246,7 @@ public class ModelInstance {
       type,
       sourceID,
       index,
-      affinities,
+      modelAttributes,
       contentAttributes,
       lastTrained,
       lastInference,
@@ -269,7 +264,7 @@ public class ModelInstance {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    sourceID: ").append(toIndentedString(sourceID)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb.append("    affinities: ").append(toIndentedString(affinities)).append("\n");
+    sb.append("    modelAttributes: ").append(toIndentedString(modelAttributes)).append("\n");
     sb.append("    contentAttributes: ").append(toIndentedString(contentAttributes)).append("\n");
     sb.append("    lastTrained: ").append(toIndentedString(lastTrained)).append("\n");
     sb.append("    lastInference: ").append(toIndentedString(lastInference)).append("\n");

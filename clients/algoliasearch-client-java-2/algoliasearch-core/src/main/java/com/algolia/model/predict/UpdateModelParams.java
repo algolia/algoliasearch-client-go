@@ -14,14 +14,14 @@ public class UpdateModelParams {
   @JsonProperty("name")
   private String name;
 
-  @JsonProperty("affinities")
-  private List<String> affinities;
+  @JsonProperty("modelAttributes")
+  private List<String> modelAttributes;
 
   @JsonProperty("contentAttributes")
   private List<String> contentAttributes;
 
-  @JsonProperty("status")
-  private Status status;
+  @JsonProperty("modelStatus")
+  private ModelStatus modelStatus;
 
   public UpdateModelParams setName(String name) {
     this.name = name;
@@ -38,27 +38,27 @@ public class UpdateModelParams {
     return name;
   }
 
-  public UpdateModelParams setAffinities(List<String> affinities) {
-    this.affinities = affinities;
+  public UpdateModelParams setModelAttributes(List<String> modelAttributes) {
+    this.modelAttributes = modelAttributes;
     return this;
   }
 
-  public UpdateModelParams addAffinities(String affinitiesItem) {
-    if (this.affinities == null) {
-      this.affinities = new ArrayList<>();
+  public UpdateModelParams addModelAttributes(String modelAttributesItem) {
+    if (this.modelAttributes == null) {
+      this.modelAttributes = new ArrayList<>();
     }
-    this.affinities.add(affinitiesItem);
+    this.modelAttributes.add(modelAttributesItem);
     return this;
   }
 
   /**
-   * Get affinities
+   * Get modelAttributes
    *
-   * @return affinities
+   * @return modelAttributes
    */
   @javax.annotation.Nullable
-  public List<String> getAffinities() {
-    return affinities;
+  public List<String> getModelAttributes() {
+    return modelAttributes;
   }
 
   public UpdateModelParams setContentAttributes(List<String> contentAttributes) {
@@ -84,19 +84,19 @@ public class UpdateModelParams {
     return contentAttributes;
   }
 
-  public UpdateModelParams setStatus(Status status) {
-    this.status = status;
+  public UpdateModelParams setModelStatus(ModelStatus modelStatus) {
+    this.modelStatus = modelStatus;
     return this;
   }
 
   /**
-   * Get status
+   * Get modelStatus
    *
-   * @return status
+   * @return modelStatus
    */
   @javax.annotation.Nullable
-  public Status getStatus() {
-    return status;
+  public ModelStatus getModelStatus() {
+    return modelStatus;
   }
 
   @Override
@@ -110,15 +110,15 @@ public class UpdateModelParams {
     UpdateModelParams updateModelParams = (UpdateModelParams) o;
     return (
       Objects.equals(this.name, updateModelParams.name) &&
-      Objects.equals(this.affinities, updateModelParams.affinities) &&
+      Objects.equals(this.modelAttributes, updateModelParams.modelAttributes) &&
       Objects.equals(this.contentAttributes, updateModelParams.contentAttributes) &&
-      Objects.equals(this.status, updateModelParams.status)
+      Objects.equals(this.modelStatus, updateModelParams.modelStatus)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, affinities, contentAttributes, status);
+    return Objects.hash(name, modelAttributes, contentAttributes, modelStatus);
   }
 
   @Override
@@ -126,9 +126,9 @@ public class UpdateModelParams {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateModelParams {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    affinities: ").append(toIndentedString(affinities)).append("\n");
+    sb.append("    modelAttributes: ").append(toIndentedString(modelAttributes)).append("\n");
     sb.append("    contentAttributes: ").append(toIndentedString(contentAttributes)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    modelStatus: ").append(toIndentedString(modelStatus)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -53,9 +53,9 @@ class PredictClientRequestsTests {
       activateModelParams0.setSourceID(sourceID1);
       String index1 = "Products Production";
       activateModelParams0.setIndex(index1);
-      List affinities1 = new ArrayList<>();
+      List modelAttributes1 = new ArrayList<>();
       {}
-      activateModelParams0.setAffinities(affinities1);
+      activateModelParams0.setModelAttributes(modelAttributes1);
       List<String> contentAttributes1 = new ArrayList<>();
       {
         String contentAttributes_02 = "title";
@@ -77,7 +77,7 @@ class PredictClientRequestsTests {
       JSONAssert.assertEquals(
         "{\"type\":\"funnel_stage\",\"name\":\"Shopping stage for EU" +
         " users\",\"sourceID\":\"0200030-129930\",\"index\":\"Products" +
-        " Production\",\"affinities\":[],\"contentAttributes\":[\"title\",\"description\"]}",
+        " Production\",\"modelAttributes\":[],\"contentAttributes\":[\"title\",\"description\"]}",
         req.body,
         JSONCompareMode.STRICT
       );
@@ -1272,18 +1272,18 @@ class PredictClientRequestsTests {
     {
       String name1 = "Shopping stage for EU users";
       updateModelParams0.setName(name1);
-      List<String> affinities1 = new ArrayList<>();
+      List<String> modelAttributes1 = new ArrayList<>();
       {
-        String affinities_02 = "brand";
-        affinities1.add(affinities_02);
-        String affinities_12 = "color";
-        affinities1.add(affinities_12);
-        String affinities_22 = "category_level0";
-        affinities1.add(affinities_22);
-        String affinities_32 = "category_level1";
-        affinities1.add(affinities_32);
+        String modelAttributes_02 = "brand";
+        modelAttributes1.add(modelAttributes_02);
+        String modelAttributes_12 = "color";
+        modelAttributes1.add(modelAttributes_12);
+        String modelAttributes_22 = "category_level0";
+        modelAttributes1.add(modelAttributes_22);
+        String modelAttributes_32 = "category_level1";
+        modelAttributes1.add(modelAttributes_32);
       }
-      updateModelParams0.setAffinities(affinities1);
+      updateModelParams0.setModelAttributes(modelAttributes1);
       List<String> contentAttributes1 = new ArrayList<>();
       {
         String contentAttributes_02 = "title";
@@ -1292,8 +1292,8 @@ class PredictClientRequestsTests {
         contentAttributes1.add(contentAttributes_12);
       }
       updateModelParams0.setContentAttributes(contentAttributes1);
-      Status status1 = Status.fromValue("inactive");
-      updateModelParams0.setStatus(status1);
+      ModelStatus modelStatus1 = ModelStatus.fromValue("inactive");
+      updateModelParams0.setModelStatus(modelStatus1);
     }
 
     assertDoesNotThrow(() -> {
@@ -1306,7 +1306,7 @@ class PredictClientRequestsTests {
     assertDoesNotThrow(() -> {
       JSONAssert.assertEquals(
         "{\"name\":\"Shopping stage for EU" +
-        " users\",\"affinities\":[\"brand\",\"color\",\"category_level0\",\"category_level1\"],\"contentAttributes\":[\"title\",\"description\"],\"status\":\"inactive\"}",
+        " users\",\"modelAttributes\":[\"brand\",\"color\",\"category_level0\",\"category_level1\"],\"contentAttributes\":[\"title\",\"description\"],\"modelStatus\":\"inactive\"}",
         req.body,
         JSONCompareMode.STRICT
       );

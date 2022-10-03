@@ -63,8 +63,8 @@ public class PredictClient extends ApiClient {
 
   /**
    * Activate an existing model template. This action triggers the training and inference pipelines
-   * for the selected model. The model is added with `status=pending`. If a model with the exact
-   * same source & index already exists, the API endpoint returns an error.
+   * for the selected model. The model is added with `modelStatus=pending`. If a model with the
+   * exact same source & index already exists, the API endpoint returns an error.
    *
    * @param activateModelParams (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
@@ -79,8 +79,8 @@ public class PredictClient extends ApiClient {
 
   /**
    * Activate an existing model template. This action triggers the training and inference pipelines
-   * for the selected model. The model is added with `status=pending`. If a model with the exact
-   * same source & index already exists, the API endpoint returns an error.
+   * for the selected model. The model is added with `modelStatus=pending`. If a model with the
+   * exact same source & index already exists, the API endpoint returns an error.
    *
    * @param activateModelParams (required)
    * @return ActivateModelInstanceResponse
@@ -93,7 +93,7 @@ public class PredictClient extends ApiClient {
   /**
    * (asynchronously) Activate an existing model template. This action triggers the training and
    * inference pipelines for the selected model. The model is added with
-   * &#x60;status&#x3D;pending&#x60;. If a model with the exact same source &amp; index already
+   * &#x60;modelStatus&#x3D;pending&#x60;. If a model with the exact same source &amp; index already
    * exists, the API endpoint returns an error.
    *
    * @param activateModelParams (required)
@@ -125,7 +125,7 @@ public class PredictClient extends ApiClient {
   /**
    * (asynchronously) Activate an existing model template. This action triggers the training and
    * inference pipelines for the selected model. The model is added with
-   * &#x60;status&#x3D;pending&#x60;. If a model with the exact same source &amp; index already
+   * &#x60;modelStatus&#x3D;pending&#x60;. If a model with the exact same source &amp; index already
    * exists, the API endpoint returns an error.
    *
    * @param activateModelParams (required)

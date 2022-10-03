@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * current status of the model is `inactive`. \\ `inactive` - model training and inference have been
  * paused. The inactive value is allowed only if the current status of the model is `active`.
  */
-public enum Status {
+public enum ModelStatus {
   ACTIVE("active"),
 
   INACTIVE("inactive");
 
   private final String value;
 
-  Status(String value) {
+  ModelStatus(String value) {
     this.value = value;
   }
 
@@ -34,8 +34,8 @@ public enum Status {
   }
 
   @JsonCreator
-  public static Status fromValue(String value) {
-    for (Status b : Status.values()) {
+  public static ModelStatus fromValue(String value) {
+    for (ModelStatus b : ModelStatus.values()) {
       if (b.value.equals(value)) {
         return b;
       }

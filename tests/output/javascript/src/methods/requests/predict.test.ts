@@ -16,7 +16,7 @@ describe('activateModelInstance', () => {
       name: 'Shopping stage for EU users',
       sourceID: '0200030-129930',
       index: 'Products Production',
-      affinities: [],
+      modelAttributes: [],
       contentAttributes: ['title', 'description'],
     })) as unknown as EchoResponse;
 
@@ -27,7 +27,7 @@ describe('activateModelInstance', () => {
       name: 'Shopping stage for EU users',
       sourceID: '0200030-129930',
       index: 'Products Production',
-      affinities: [],
+      modelAttributes: [],
       contentAttributes: ['title', 'description'],
     });
     expect(req.searchParams).toStrictEqual(undefined);
@@ -674,9 +674,14 @@ describe('updateModelInstance', () => {
       modelID: 'model1',
       updateModelParams: {
         name: 'Shopping stage for EU users',
-        affinities: ['brand', 'color', 'category_level0', 'category_level1'],
+        modelAttributes: [
+          'brand',
+          'color',
+          'category_level0',
+          'category_level1',
+        ],
         contentAttributes: ['title', 'description'],
-        status: 'inactive',
+        modelStatus: 'inactive',
       },
     })) as unknown as EchoResponse;
 
@@ -684,9 +689,9 @@ describe('updateModelInstance', () => {
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({
       name: 'Shopping stage for EU users',
-      affinities: ['brand', 'color', 'category_level0', 'category_level1'],
+      modelAttributes: ['brand', 'color', 'category_level0', 'category_level1'],
       contentAttributes: ['title', 'description'],
-      status: 'inactive',
+      modelStatus: 'inactive',
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });
