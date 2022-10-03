@@ -335,7 +335,9 @@ components:
         index:
           type: string
         modelAttributes:
-          $ref: '#/components/schemas/modelAttributes'
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAttributes'
         contentAttributes:
           type: array
           items:

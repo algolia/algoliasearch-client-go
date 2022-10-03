@@ -27,7 +27,7 @@ public class ModelInstance {
   private String index;
 
   @JsonProperty("modelAttributes")
-  private ModelAttributes modelAttributes;
+  private List<ModelAttributes> modelAttributes = new ArrayList<>();
 
   @JsonProperty("contentAttributes")
   private List<String> contentAttributes = new ArrayList<>();
@@ -119,8 +119,13 @@ public class ModelInstance {
     return index;
   }
 
-  public ModelInstance setModelAttributes(ModelAttributes modelAttributes) {
+  public ModelInstance setModelAttributes(List<ModelAttributes> modelAttributes) {
     this.modelAttributes = modelAttributes;
+    return this;
+  }
+
+  public ModelInstance addModelAttributes(ModelAttributes modelAttributesItem) {
+    this.modelAttributes.add(modelAttributesItem);
     return this;
   }
 
@@ -130,7 +135,7 @@ public class ModelInstance {
    * @return modelAttributes
    */
   @javax.annotation.Nonnull
-  public ModelAttributes getModelAttributes() {
+  public List<ModelAttributes> getModelAttributes() {
     return modelAttributes;
   }
 
