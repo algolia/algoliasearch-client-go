@@ -27,10 +27,10 @@ public class ModelInstance {
   private String index;
 
   @JsonProperty("modelAttributes")
-  private List<ModelAttributes> modelAttributes = new ArrayList<>();
+  private List<ModelAttributes> modelAttributes;
 
   @JsonProperty("contentAttributes")
-  private List<String> contentAttributes = new ArrayList<>();
+  private List<String> contentAttributes;
 
   @JsonProperty("lastTrained")
   private String lastTrained;
@@ -125,6 +125,9 @@ public class ModelInstance {
   }
 
   public ModelInstance addModelAttributes(ModelAttributes modelAttributesItem) {
+    if (this.modelAttributes == null) {
+      this.modelAttributes = new ArrayList<>();
+    }
     this.modelAttributes.add(modelAttributesItem);
     return this;
   }
@@ -134,7 +137,7 @@ public class ModelInstance {
    *
    * @return modelAttributes
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<ModelAttributes> getModelAttributes() {
     return modelAttributes;
   }
@@ -145,6 +148,9 @@ public class ModelInstance {
   }
 
   public ModelInstance addContentAttributes(String contentAttributesItem) {
+    if (this.contentAttributes == null) {
+      this.contentAttributes = new ArrayList<>();
+    }
     this.contentAttributes.add(contentAttributesItem);
     return this;
   }
@@ -154,7 +160,7 @@ public class ModelInstance {
    *
    * @return contentAttributes
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getContentAttributes() {
     return contentAttributes;
   }
