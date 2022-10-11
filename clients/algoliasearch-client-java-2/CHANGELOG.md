@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [8151e945](https://github.com/algolia/api-clients-automation/commit/8151e945) feat(specs): attributes no longer required in model instance response ([#1065](https://github.com/algolia/api-clients-automation/pull/1065)) by [@writeens](https://github.com/writeens/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [0ef2eab9](https://github.com/algolia/api-clients-automation/commit/0ef2eab9) fix(specs): update predict model endpoint modelAttributes type ([#1063](https://github.com/algolia/api-clients-automation/pull/1063)) by [@writeens](https://github.com/writeens/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
