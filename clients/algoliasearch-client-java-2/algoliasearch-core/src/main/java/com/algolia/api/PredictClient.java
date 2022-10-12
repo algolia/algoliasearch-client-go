@@ -1162,10 +1162,10 @@ public class PredictClient extends ApiClient {
    * @param modelID The ID of the model to retrieve. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return List<ModelMetrics>
+   * @return GetModelMetricsResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public List<ModelMetrics> getModelMetrics(String modelID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
+  public GetModelMetricsResponse getModelMetrics(String modelID, RequestOptions requestOptions) throws AlgoliaRuntimeException {
     return LaunderThrowable.await(getModelMetricsAsync(modelID, requestOptions));
   }
 
@@ -1173,10 +1173,10 @@ public class PredictClient extends ApiClient {
    * Get the model instance’ training metrics.
    *
    * @param modelID The ID of the model to retrieve. (required)
-   * @return List<ModelMetrics>
+   * @return GetModelMetricsResponse
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public List<ModelMetrics> getModelMetrics(String modelID) throws AlgoliaRuntimeException {
+  public GetModelMetricsResponse getModelMetrics(String modelID) throws AlgoliaRuntimeException {
     return this.getModelMetrics(modelID, null);
   }
 
@@ -1186,10 +1186,10 @@ public class PredictClient extends ApiClient {
    * @param modelID The ID of the model to retrieve. (required)
    * @param requestOptions The requestOptions to send along with the query, they will be merged with
    *     the transporter requestOptions.
-   * @return CompletableFuture<List<ModelMetrics>> The awaitable future
+   * @return CompletableFuture<GetModelMetricsResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<List<ModelMetrics>> getModelMetricsAsync(String modelID, RequestOptions requestOptions)
+  public CompletableFuture<GetModelMetricsResponse> getModelMetricsAsync(String modelID, RequestOptions requestOptions)
     throws AlgoliaRuntimeException {
     if (modelID == null) {
       throw new AlgoliaRuntimeException("Parameter `modelID` is required when calling `getModelMetrics`.");
@@ -1204,17 +1204,17 @@ public class PredictClient extends ApiClient {
     Map<String, String> headers = new HashMap<String, String>();
 
     Call call = this.buildCall(requestPath, "GET", queryParameters, bodyObj, headers, requestOptions, false);
-    return this.executeAsync(call, new TypeReference<List<ModelMetrics>>() {});
+    return this.executeAsync(call, new TypeReference<GetModelMetricsResponse>() {});
   }
 
   /**
    * (asynchronously) Get the model instance’ training metrics.
    *
    * @param modelID The ID of the model to retrieve. (required)
-   * @return CompletableFuture<List<ModelMetrics>> The awaitable future
+   * @return CompletableFuture<GetModelMetricsResponse> The awaitable future
    * @throws AlgoliaRuntimeException If it fails to process the API call
    */
-  public CompletableFuture<List<ModelMetrics>> getModelMetricsAsync(String modelID) throws AlgoliaRuntimeException {
+  public CompletableFuture<GetModelMetricsResponse> getModelMetricsAsync(String modelID) throws AlgoliaRuntimeException {
     return this.getModelMetricsAsync(modelID, null);
   }
 
