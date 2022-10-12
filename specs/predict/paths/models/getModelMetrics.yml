@@ -13,9 +13,16 @@ get:
         application/json:
           schema:
             title: getModelMetricsResponse
-            type: array
-            items:
-              $ref: '../../responses/Models.yml#/modelMetrics'
+            type: object
+            additionalProperties: false
+            properties:
+              modelID:
+                type: string
+                description: The ID of the model.
+              metrics:
+                type: array
+                items:
+                  $ref: '../../responses/Models.yml#/modelMetrics'
     '401':
       $ref: '../../responses/InvalidCredentials.yml'
     '404':
