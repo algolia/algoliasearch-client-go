@@ -24,7 +24,17 @@ func NewAccount() *Account {
 // which belong to different Algolia applications. To perform the same operation
 // on indices which belong to the same Algolia application, use Client.CopyIndex
 // which is optimized for this use-case.
-func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (*wait.Group, error) {
+func (a *Account) CopyIndex(src, dst *Index, opts ...string) (*wait.Group, error) {
+	// Validate scope option
+	hasScope := len(opts) > 0
+	if hasScope {
+		for _, scope := range opts {
+			if scope != "rules" && scope != "synonyms" && scope != "settings" {
+				return nil, fmt.Errorf("wrong scope: should be 'rules', 'synonyms'or 'settings'")
+			}
+		}
+	}
+
 	if src.GetAppID() == dst.GetAppID() {
 		return nil, errs.ErrSameAppID
 	}
@@ -36,7 +46,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (*wait.Group, 
 	g := wait.NewGroup()
 
 	// Copy synonyms
-	{
+	if !hasScope || SliceContains(opts, "synonyms") {
 		it, err := src.BrowseSynonyms()
 		if err != nil {
 			return nil, fmt.Errorf("cannot browse source index synonyms: %v", err)
@@ -66,7 +76,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (*wait.Group, 
 	}
 
 	// Copy rules
-	{
+	if !hasScope || SliceContains(opts, "rules") {
 		it, err := src.BrowseRules()
 		if err != nil {
 			return nil, fmt.Errorf("cannot browse source index rules: %v", err)
@@ -95,7 +105,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (*wait.Group, 
 	}
 
 	// Copy settings
-	{
+	if !hasScope || SliceContains(opts, "settings") {
 		settings, err := src.GetSettings()
 		if err != nil {
 			return nil, fmt.Errorf("cannot retrieve source index settings: %v", err)
@@ -141,7 +151,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (*wait.Group, 
 		}
 
 		// Send the last batch
-		res, err := dst.SaveObjects(objects, opts)
+		res, err := dst.SaveObjects(objects)
 		if err != nil {
 			return nil, fmt.Errorf("error while saving batch of objects: %v", err)
 		}
