@@ -328,7 +328,7 @@ components:
           type: string
           description: Name of model instance.
         type:
-          type: string
+          $ref: '#/components/schemas/modelsToRetrieve'
           description: Type of the model.
         sourceID:
           type: string
@@ -1160,6 +1160,9 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/modelMetrics'
+                required:
+                  - modelID
+                  - metrics
         '401':
           $ref: '#/components/responses/InvalidCredentials'
         '404':

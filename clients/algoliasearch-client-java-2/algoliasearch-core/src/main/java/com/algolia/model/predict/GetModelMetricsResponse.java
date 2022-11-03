@@ -15,7 +15,7 @@ public class GetModelMetricsResponse {
   private String modelID;
 
   @JsonProperty("metrics")
-  private List<ModelMetrics> metrics;
+  private List<ModelMetrics> metrics = new ArrayList<>();
 
   public GetModelMetricsResponse setModelID(String modelID) {
     this.modelID = modelID;
@@ -27,7 +27,7 @@ public class GetModelMetricsResponse {
    *
    * @return modelID
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getModelID() {
     return modelID;
   }
@@ -38,9 +38,6 @@ public class GetModelMetricsResponse {
   }
 
   public GetModelMetricsResponse addMetrics(ModelMetrics metricsItem) {
-    if (this.metrics == null) {
-      this.metrics = new ArrayList<>();
-    }
     this.metrics.add(metricsItem);
     return this;
   }
@@ -50,7 +47,7 @@ public class GetModelMetricsResponse {
    *
    * @return metrics
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<ModelMetrics> getMetrics() {
     return metrics;
   }

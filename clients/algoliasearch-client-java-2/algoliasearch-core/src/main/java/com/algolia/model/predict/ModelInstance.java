@@ -18,7 +18,7 @@ public class ModelInstance {
   private String name;
 
   @JsonProperty("type")
-  private String type;
+  private ModelsToRetrieve type;
 
   @JsonProperty("sourceID")
   private String sourceID;
@@ -74,18 +74,18 @@ public class ModelInstance {
     return name;
   }
 
-  public ModelInstance setType(String type) {
+  public ModelInstance setType(ModelsToRetrieve type) {
     this.type = type;
     return this;
   }
 
   /**
-   * Type of the model.
+   * Get type
    *
    * @return type
    */
   @javax.annotation.Nonnull
-  public String getType() {
+  public ModelsToRetrieve getType() {
     return type;
   }
 
