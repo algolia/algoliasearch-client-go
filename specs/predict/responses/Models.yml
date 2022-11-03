@@ -9,7 +9,7 @@ modelInstance:
       type: string
       description: Name of model instance.
     type:
-      type: string
+      $ref: '../common/schemas/Params.yml#/modelsToRetrieve'
       description: Type of the model.
     sourceID:
       type: string
