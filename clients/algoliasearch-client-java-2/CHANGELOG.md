@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [fc7f987d](https://github.com/algolia/api-clients-automation/commit/fc7f987d) feat(specs): add appropriate type to model instance type property ([#1077](https://github.com/algolia/api-clients-automation/pull/1077)) by [@writeens](https://github.com/writeens/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [e84584dd](https://github.com/algolia/api-clients-automation/commit/e84584dd) feat(specs): add modelID as part of getModelMetrics response ([#1075](https://github.com/algolia/api-clients-automation/pull/1075)) by [@writeens](https://github.com/writeens/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
