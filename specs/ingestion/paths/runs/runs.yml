@@ -1,0 +1,18 @@
+get:
+  tags:
+    - observability
+  summary: Get a list of runs.
+  description: Get a list of runs.
+  operationId: getRuns
+  parameters:
+    - $ref: '../../common/parameters.yml#/itemsPerPage'
+    - $ref: '../../common/parameters.yml#/page'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/run.yml#/RunListResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'

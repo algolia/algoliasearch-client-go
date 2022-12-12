@@ -1,0 +1,121 @@
+Source:
+  type: object
+  additionalProperties: false
+  properties:
+    sourceID:
+      type: string
+    type:
+      $ref: '#/SourceType'
+    name:
+      type: string
+    input:
+      $ref: '#/SourceInput'
+    authenticationID:
+      type: string
+    createdAt:
+      $ref: './common.yml#/createdAt'
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+  required:
+    - sourceID
+    - type
+    - name
+    - input
+    - authenticationID
+    - createdAt
+
+SourceCreate:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/SourceType'
+    name:
+      type: string
+    input:
+      $ref: '#/SourceInput'
+    authenticationID:
+      type: string
+  required:
+    - type
+    - name
+    - input
+    - authenticationID
+
+SourceCreateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    sourceID:
+      type: string
+    name:
+      type: string
+    createdAt:
+      $ref: './common.yml#/createdAt'
+  required:
+    - sourceID
+    - name
+    - createdAt
+
+SourceUpdate:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/SourceType'
+    name:
+      type: string
+    input:
+      $ref: '#/SourceInput'
+    authenticationID:
+      type: string
+
+SourceUpdateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    sourceID:
+      type: string
+    name:
+      type: string
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+  required:
+    - sourceID
+    - name
+    - updatedAt
+
+SourceType:
+  type: string
+  enum: ['bigcommerce', 'commercetools']
+
+SourceCommercetools:
+  type: object
+  additionalProperties: false
+  properties:
+    stores:
+      type: array
+      items:
+        type: string
+    url:
+      type: string
+    projectKey:
+      type: string
+  required:
+    - stores
+    - url
+    - projectKey
+
+SourceBigCommerce:
+  type: object
+  additionalProperties: false
+  properties:
+    storeHash:
+      type: string
+  required:
+    - store_hash
+
+SourceInput:
+  oneOf:
+    - $ref: '#/SourceCommercetools'
+    - $ref: '#/SourceBigCommerce'

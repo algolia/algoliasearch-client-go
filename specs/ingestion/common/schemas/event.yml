@@ -1,0 +1,33 @@
+Event:
+  type: object
+  additionalProperties: false
+  properties:
+    eventID:
+      type: string
+    runID:
+      type: string
+    parentID:
+      type: string
+    status:
+      $ref: '#/EventStatus'
+    type:
+      $ref: '#/EventType'
+    data:
+      type: object
+      additionalProperties: true
+    publishedAt:
+      $ref: './common.yml#/publishedAt'
+  required:
+    - eventID
+    - runID
+    - status
+    - type
+    - publishedAt
+
+EventStatus:
+  type: string
+  enum: ['created', 'started', 'retried', 'failed', 'succeeded']
+
+EventType:
+  type: string
+  enum: ['fetch', 'record', 'internal']

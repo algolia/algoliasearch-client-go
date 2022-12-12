@@ -1,0 +1,28 @@
+createdAt:
+  type: string
+  description: Date of creation (RFC3339 format).
+
+updatedAt:
+  type: string
+  description: Date of last update (RFC3339 format).
+
+startedAt:
+  type: string
+  description: Date of start (RFC3339 format).
+
+finishedAt:
+  type: string
+  description: Date of finish (RFC3339 format).
+
+publishedAt:
+  type: string
+  description: Date of publish (RFC3339 format).
+
+DeleteResponse:
+  type: object
+  properties:
+    deletedAt:
+      type: string
+      description: Date of deletion (RFC3339 format).
+  required:
+    - deletedAt

@@ -1,0 +1,69 @@
+authenticationID:
+  name: authenticationID
+  in: path
+  description: The authentication uuid.
+  required: true
+  schema:
+    type: string
+    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+destinationID:
+  name: destinationID
+  in: path
+  description: The destination uuid.
+  required: true
+  schema:
+    type: string
+    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+sourceID:
+  name: sourceID
+  in: path
+  description: The source uuid.
+  required: true
+  schema:
+    type: string
+    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+taskID:
+  name: taskID
+  in: path
+  description: The task uuid.
+  required: true
+  schema:
+    type: string
+    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+runID:
+  name: runID
+  in: path
+  description: The run uuid.
+  required: true
+  schema:
+    type: string
+    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+eventID:
+  name: eventID
+  in: path
+  description: The event uuid.
+  required: true
+  schema:
+    type: string
+    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+itemsPerPage:
+  name: itemsPerPage
+  in: query
+  description: The number of items per page to return
+  required: false
+  schema:
+    type: integer
+
+page:
+  name: page
+  in: query
+  description: The page number to fetch, starting at 1
+  required: false
+  schema:
+    type: integer

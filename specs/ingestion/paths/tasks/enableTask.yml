@@ -1,0 +1,17 @@
+post:
+  tags:
+    - tasks
+  summary: Enable a task.
+  description: Enable a task.
+  operationId: enableTask
+  parameters:
+    - $ref: '../../common/parameters.yml#/taskID'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/task.yml#/TaskUpdateResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'

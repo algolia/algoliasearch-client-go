@@ -1,0 +1,31 @@
+get:
+  tags:
+    - observability
+  summary: Get a list of events for a specific run.
+  description: Get a list of events for a specific run.
+  operationId: getEvents
+  parameters:
+    - $ref: '../../../common/parameters.yml#/runID'
+    - $ref: '../../../common/parameters.yml#/itemsPerPage'
+    - $ref: '../../../common/parameters.yml#/page'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: listEventsResponse
+            type: object
+            additionalProperties: false
+            properties:
+              events:
+                type: array
+                items:
+                  $ref: '../../../common/schemas/event.yml#/Event'
+              pagination:
+                $ref: '../../../common/schemas/pagination.yml#/Pagination'
+            required:
+              - events
+              - pagination
+    '400':
+      $ref: '../../../../common/responses/BadRequest.yml'

@@ -1,0 +1,53 @@
+get:
+  tags:
+    - tasks
+  summary: Get a list of tasks.
+  description: Get a list of tasks.
+  operationId: getTasks
+  parameters:
+    - $ref: '../../common/parameters.yml#/itemsPerPage'
+    - $ref: '../../common/parameters.yml#/page'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: listTasksResponse
+            type: object
+            additionalProperties: false
+            properties:
+              tasks:
+                type: array
+                items:
+                  $ref: '../../common/schemas/task.yml#/Task'
+              pagination:
+                $ref: '../../common/schemas/pagination.yml#/Pagination'
+            required:
+              - tasks
+              - pagination
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'
+
+post:
+  tags:
+    - tasks
+  summary: Create a task.
+  description: Create a task.
+  operationId: createTask
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          $ref: '../../common/schemas/task.yml#/TaskCreate'
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/task.yml#/TaskCreateResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'

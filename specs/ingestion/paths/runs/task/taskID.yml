@@ -1,0 +1,19 @@
+get:
+  tags:
+    - observability
+  summary: Get a list of runs associated with a taskID.
+  description: Get a list of runs associated with a taskID.
+  operationId: getRunsByTaskID
+  parameters:
+    - $ref: '../../../common/parameters.yml#/taskID'
+    - $ref: '../../../common/parameters.yml#/itemsPerPage'
+    - $ref: '../../../common/parameters.yml#/page'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../../common/schemas/run.yml#/RunListResponse'
+    '400':
+      $ref: '../../../../common/responses/BadRequest.yml'

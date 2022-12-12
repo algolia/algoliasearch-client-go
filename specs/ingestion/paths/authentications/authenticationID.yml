@@ -1,0 +1,59 @@
+get:
+  tags:
+    - authentications
+  summary: Get a authentication.
+  description: Get a authentication.
+  operationId: getAuthentication
+  parameters:
+    - $ref: '../../common/parameters.yml#/authenticationID'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/authentication.yml#/Authentication'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'
+
+put:
+  tags:
+    - authentications
+  summary: Update a authentication.
+  description: Update a authentication.
+  operationId: updateAuthentication
+  parameters:
+    - $ref: '../../common/parameters.yml#/authenticationID'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../common/schemas/authentication.yml#/AuthenticationUpdate'
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/authentication.yml#/AuthenticationUpdateResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'
+
+delete:
+  tags:
+    - authentications
+  summary: Delete a authentication.
+  description: Soft delete a authentication.
+  operationId: deleteAuthentication
+  parameters:
+    - $ref: '../../common/parameters.yml#/authenticationID'
+  responses:
+    '204':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/common.yml#/DeleteResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'

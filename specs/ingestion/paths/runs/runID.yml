@@ -1,0 +1,17 @@
+get:
+  tags:
+    - observability
+  summary: Get a run.
+  description: Get a run.
+  operationId: getRun
+  parameters:
+    - $ref: '../../common/parameters.yml#/runID'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/run.yml#/Run'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'

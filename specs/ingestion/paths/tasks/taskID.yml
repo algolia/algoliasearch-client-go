@@ -1,0 +1,59 @@
+get:
+  tags:
+    - tasks
+  summary: Get a task.
+  description: Get a task.
+  operationId: getTask
+  parameters:
+    - $ref: '../../common/parameters.yml#/taskID'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/task.yml#/Task'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'
+
+put:
+  tags:
+    - tasks
+  summary: Update a task.
+  description: Update a task.
+  operationId: updateTask
+  parameters:
+    - $ref: '../../common/parameters.yml#/taskID'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../common/schemas/task.yml#/TaskUpdate'
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/task.yml#/TaskUpdateResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'
+
+delete:
+  tags:
+    - tasks
+  summary: Delete a task.
+  description: Soft delete a task.
+  operationId: deleteTask
+  parameters:
+    - $ref: '../../common/parameters.yml#/taskID'
+  responses:
+    '204':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/common.yml#/DeleteResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'

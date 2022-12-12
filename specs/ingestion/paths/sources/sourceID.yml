@@ -1,0 +1,59 @@
+get:
+  tags:
+    - sources
+  summary: Get a source.
+  description: Get a source.
+  operationId: getSource
+  parameters:
+    - $ref: '../../common/parameters.yml#/sourceID'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/source.yml#/Source'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'
+
+post:
+  tags:
+    - sources
+  summary: Update a source.
+  description: Update a source.
+  operationId: updateSource
+  parameters:
+    - $ref: '../../common/parameters.yml#/sourceID'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../common/schemas/source.yml#/SourceUpdate'
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/source.yml#/SourceUpdateResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'
+
+delete:
+  tags:
+    - sources
+  summary: Delete a source.
+  description: Soft delete a source.
+  operationId: deleteSource
+  parameters:
+    - $ref: '../../common/parameters.yml#/sourceID'
+  responses:
+    '204':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../common/schemas/common.yml#/DeleteResponse'
+    '400':
+      $ref: '../../../common/responses/BadRequest.yml'

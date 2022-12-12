@@ -1,0 +1,112 @@
+Task:
+  type: object
+  additionalProperties: false
+  properties:
+    taskID:
+      type: string
+    sourceID:
+      type: string
+    destinationID:
+      type: string
+    trigger:
+      $ref: '#/Trigger'
+    enabled:
+      type: boolean
+      default: true
+    action:
+      $ref: '#/ActionType'
+    # lastCursorValue:
+    #   type: integer
+    #   format: int64
+    lastRun:
+      type: string
+    nextRun:
+      type: string
+    createdAt:
+      $ref: './common.yml#/createdAt'
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+  required:
+    - taskID
+    - sourceID
+    - destinationID
+    - enabled
+    - action
+    - createdAt
+
+TaskCreate:
+  type: object
+  additionalProperties: false
+  properties:
+    sourceID:
+      type: string
+    destinationID:
+      type: string
+    trigger:
+      $ref: '#/Trigger'
+    action:
+      $ref: '#/ActionType'
+    enabled:
+      type: boolean
+    # lastCursorValue:
+    #   type: integer
+    #   format: int64
+  required:
+    - sourceID
+    - destinationID
+    - trigger
+    - action
+
+TaskCreateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    taskID:
+      type: string
+    createdAt:
+      $ref: './common.yml#/createdAt'
+  required:
+    - taskID
+    - createdAt
+
+TaskUpdate:
+  type: object
+  additionalProperties: false
+  properties:
+    destinationID:
+      type: string
+    trigger:
+      $ref: '#/Trigger'
+    enabled:
+      type: boolean
+
+TaskUpdateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    taskID:
+      type: string
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+  required:
+    - taskID
+    - updatedAt
+
+ActionType:
+  type: string
+  enum: ['replace', 'save', 'delete']
+
+Trigger:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/TriggerType'
+    frequency:
+      type: string
+  required:
+    - type
+
+TriggerType:
+  type: string
+  enum: ['on_demand', 'schedule', 'subscription']

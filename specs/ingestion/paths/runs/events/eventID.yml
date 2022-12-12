@@ -1,0 +1,18 @@
+get:
+  tags:
+    - observability
+  summary: Get an event in a specific run.
+  description: Get an event in a specific run.
+  operationId: getEvent
+  parameters:
+    - $ref: '../../../common/parameters.yml#/runID'
+    - $ref: '../../../common/parameters.yml#/eventID'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../../common/schemas/event.yml#/Event'
+    '400':
+      $ref: '../../../../common/responses/BadRequest.yml'

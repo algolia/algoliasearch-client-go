@@ -1,0 +1,163 @@
+Authentication:
+  type: object
+  additionalProperties: false
+  properties:
+    authenticationID:
+      type: string
+    type:
+      $ref: '#/AuthenticationType'
+    name:
+      type: string
+    platform:
+      $ref: '#/PlatformType'
+    input:
+      $ref: '#/AuthInput'
+    createdAt:
+      $ref: './common.yml#/createdAt'
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+  required:
+    - authenticationID
+    - type
+    - name
+    - input
+    - createdAt
+
+AuthenticationCreate:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/AuthenticationType'
+    name:
+      type: string
+    platform:
+      $ref: '#/PlatformType'
+    input:
+      $ref: '#/AuthInput'
+  required:
+    - type
+    - name
+    - input
+
+AuthenticationCreateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    authenticationID:
+      type: string
+    name:
+      type: string
+    createdAt:
+      $ref: './common.yml#/createdAt'
+  required:
+    - authenticationID
+    - name
+    - createdAt
+
+AuthenticationUpdate:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/AuthenticationType'
+    name:
+      type: string
+    platform:
+      $ref: '#/PlatformType'
+    input:
+      $ref: '#/AuthInput'
+
+AuthenticationUpdateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    authenticationID:
+      type: string
+    name:
+      type: string
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+  required:
+    - authenticationID
+    - name
+    - updatedAt
+
+AuthenticationType:
+  type: string
+  enum: ['googleServiceAccount', 'basic', 'apiKey', 'oauth', 'algolia']
+
+PlatformType:
+  type: string
+  enum: ['bigcommerce', 'commercetools']
+
+AuthGoogleServiceAccount:
+  type: object
+  additionalProperties: false
+  properties:
+    clientEmail:
+      type: string
+    privateKey:
+      type: string
+  required:
+    - clientEmail
+    - privateKey
+
+AuthBasic:
+  type: object
+  additionalProperties: false
+  properties:
+    username:
+      type: string
+    password:
+      type: string
+  required:
+    - username
+    - password
+
+AuthAPIKey:
+  type: object
+  additionalProperties: false
+  properties:
+    key:
+      type: string
+  required:
+    - key
+
+AuthOAuth:
+  type: object
+  additionalProperties: false
+  properties:
+    url:
+      type: string
+    client_id:
+      type: string
+    client_secret:
+      type: string
+    scope:
+      type: string
+  required:
+    - url
+    - client_id
+    - client_secret
+    - scope
+
+AuthAlgolia:
+  type: object
+  additionalProperties: false
+  properties:
+    appID:
+      type: string
+    apiKey:
+      type: string
+  required:
+    - appID
+    - apiKey
+
+AuthInput:
+  oneOf:
+    - $ref: '#/AuthGoogleServiceAccount'
+    - $ref: '#/AuthBasic'
+    - $ref: '#/AuthAPIKey'
+    - $ref: '#/AuthOAuth'
+    - $ref: '#/AuthAlgolia'

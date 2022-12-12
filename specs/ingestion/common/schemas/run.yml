@@ -1,0 +1,78 @@
+RunResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    runID:
+      type: string
+    createdAt:
+      $ref: './common.yml#/createdAt'
+  required:
+    - runID
+    - createdAt
+
+RunListResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    runs:
+      type: array
+      items:
+        $ref: '#/Run'
+    pagination:
+      $ref: './pagination.yml#/Pagination'
+  required:
+    - runs
+    - pagination
+
+Run:
+  type: object
+  additionalProperties: false
+  properties:
+    runID:
+      type: string
+    appID:
+      type: string
+    taskID:
+      type: string
+    status:
+      $ref: '#/RunStatus'
+    progress:
+      type: object
+      additionalProperties: false
+      properties:
+        expectedNbOfEvents:
+          type: integer
+        receivedNbOfEvents:
+          type: integer
+    outcome:
+      $ref: '#/RunOutcome'
+    type:
+      $ref: '#/RunType'
+    createdAt:
+      $ref: './common.yml#/createdAt'
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+    startedAt:
+      $ref: './common.yml#/startedAt'
+    finishedAt:
+      $ref: './common.yml#/finishedAt'
+  required:
+    - runID
+    - appID
+    - taskID
+    - status
+    - type
+    - createdAt
+    - updatedAt
+
+RunStatus:
+  type: string
+  enum: ['created', 'started', 'finished']
+
+RunOutcome:
+  type: string
+  enum: ['success', 'failure']
+
+RunType:
+  type: string
+  enum: ['reindex', 'update']

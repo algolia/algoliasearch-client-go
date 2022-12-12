@@ -1,0 +1,113 @@
+Destination:
+  type: object
+  additionalProperties: false
+  properties:
+    destinationID:
+      type: string
+    type:
+      $ref: '#/DestinationType'
+    name:
+      type: string
+    input:
+      $ref: '#/DestinationInput'
+    createdAt:
+      $ref: './common.yml#/createdAt'
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+    authenticationID:
+      type: string
+  required:
+    - destinationID
+    - type
+    - name
+    - input
+    - createdAt
+    - authenticationID
+
+DestinationCreate:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/DestinationType'
+    name:
+      type: string
+    input:
+      $ref: '#/DestinationInput'
+    authenticationID:
+      type: string
+  required:
+    - type
+    - name
+    - input
+    - authenticationID
+
+DestinationCreateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    destinationID:
+      type: string
+    name:
+      type: string
+    createdAt:
+      $ref: './common.yml#/createdAt'
+  required:
+    - destinationID
+    - name
+    - createdAt
+
+DestinationUpdate:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/DestinationType'
+    name:
+      type: string
+    input:
+      $ref: '#/DestinationInput'
+    authenticationID:
+      type: string
+
+DestinationUpdateResponse:
+  type: object
+  additionalProperties: false
+  properties:
+    destinationID:
+      type: string
+    name:
+      type: string
+    updatedAt:
+      $ref: './common.yml#/updatedAt'
+  required:
+    - destinationID
+    - name
+    - updatedAt
+
+DestinationType:
+  type: string
+  enum: ['search', 'insights', 'flow', 'predict']
+
+DestinationIndexPrefix:
+  type: object
+  additionalProperties: false
+  properties:
+    indexPrefix:
+      type: string
+  required:
+    - indexPrefix
+
+DestinationIndexName:
+  type: object
+  additionalProperties: false
+  properties:
+    indexName:
+      type: string
+  required:
+    - indexName
+
+DestinationInput:
+  oneOf:
+    - $ref: '#/DestinationIndexPrefix'
+    - $ref: '#/DestinationIndexName'
