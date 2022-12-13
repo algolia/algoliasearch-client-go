@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start:algoliasearch": "ts-node algoliasearch.ts",
-    "start:abtesting": "ts-node analytics.ts",
+    "start:abtesting": "ts-node abtesting.ts",
     "start:analytics": "ts-node analytics.ts",
     "start:insights": "ts-node insights.ts",
     "start:personalization": "ts-node personalization.ts",

@@ -29,6 +29,10 @@ export async function ctsGenerateMany(
     if (!getTestOutputFolder(gen.language)) {
       continue;
     }
+    // Remove this once we have CTS for ingestion
+    if (gen.key === 'javascript-ingestion') {
+      continue;
+    }
     await ctsGenerate(gen, verbose);
   }
 

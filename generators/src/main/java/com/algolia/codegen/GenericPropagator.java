@@ -169,6 +169,9 @@ public class GenericPropagator {
   public static void propagateGenericsToOperations(OperationsMap operations, List<ModelMap> allModels) {
     Map<String, CodegenModel> models = convertToMap(allModels);
     for (CodegenOperation ope : operations.getOperations().getOperation()) {
+      if (ope.returnType == null) {
+        continue;
+      }
       CodegenModel returnType = models.get(ope.returnType);
       if (returnType != null && hasGeneric(returnType)) {
         ope.vendorExtensions.put("x-is-generic", true);

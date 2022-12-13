@@ -19,11 +19,21 @@ export function create{{capitalizedApiName}}({
   const transporter = createTransporter({
     hosts: getDefaultHosts({{^hasRegionalHost}}appIdOption{{/hasRegionalHost}}{{#hasRegionalHost}}regionOption{{/hasRegionalHost}}),
     ...options,
-    algoliaAgent: getAlgoliaAgent({
-      algoliaAgents,
-      client: '{{{algoliaAgent}}}',
-      version: apiClientVersion,
-    }),
+    algoliaAgent: 
+      {{^useAlgoliaUA}}
+      {...getAlgoliaAgent({
+        algoliaAgents,
+        client: '{{{algoliaAgent}}}',
+        version: apiClientVersion,
+      }), value: ''},
+      {{/useAlgoliaUA}}
+      {{#useAlgoliaUA}}
+      getAlgoliaAgent({
+        algoliaAgents,
+        client: '{{{algoliaAgent}}}',
+        version: apiClientVersion,
+      }),
+      {{/useAlgoliaUA}}
     baseHeaders: {
       'content-type': 'text/plain',
       ...auth.headers(),
@@ -75,7 +85,7 @@ export function create{{capitalizedApiName}}({
     {{/isSearchClient}}
     {{#operation}}
     {{> client/api/operation/jsdoc}}
-    {{nickname}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}( {{> client/api/operation/parameters}} ) : Promise<{{{returnType}}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}> {
+    {{nickname}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}( {{> client/api/operation/parameters}} ) : Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}> {
       {{#vendorExtensions.x-legacy-signature}}
         {{> client/api/operation/legacySearchCompatible/implementation}}
       {{/vendorExtensions.x-legacy-signature}}
