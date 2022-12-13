@@ -1,0 +1,1377 @@
+openapi: 3.0.2
+info:
+  title: Ingestion API
+  description: API powering the Data Ingestion feature of Algolia.
+  version: '1.0'
+components:
+  securitySchemes:
+    appId:
+      type: apiKey
+      in: header
+      name: X-Algolia-Application-Id
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Algolia-API-Key
+  parameters:
+    itemsPerPage:
+      name: itemsPerPage
+      in: query
+      description: The number of items per page to return.
+      required: false
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: The page number to fetch, starting at 1.
+      required: false
+      schema:
+        type: integer
+    authenticationID:
+      name: authenticationID
+      in: path
+      description: The authentication uuid.
+      required: true
+      schema:
+        type: string
+        example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    destinationID:
+      name: destinationID
+      in: path
+      description: The destination uuid.
+      required: true
+      schema:
+        type: string
+        example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    sourceID:
+      name: sourceID
+      in: path
+      description: The source uuid.
+      required: true
+      schema:
+        type: string
+        example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    taskID:
+      name: taskID
+      in: path
+      description: The task uuid.
+      required: true
+      schema:
+        type: string
+        example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    runID:
+      name: runID
+      in: path
+      description: The run uuid.
+      required: true
+      schema:
+        type: string
+        example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    eventID:
+      name: eventID
+      in: path
+      description: The event uuid.
+      required: true
+      schema:
+        type: string
+        example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+  schemas:
+    AuthenticationType:
+      type: string
+      enum:
+        - googleServiceAccount
+        - basic
+        - apiKey
+        - oauth
+        - algolia
+    PlatformType:
+      type: string
+      enum:
+        - bigcommerce
+        - commercetools
+    AuthGoogleServiceAccount:
+      type: object
+      additionalProperties: false
+      properties:
+        clientEmail:
+          type: string
+        privateKey:
+          type: string
+      required:
+        - clientEmail
+        - privateKey
+    AuthBasic:
+      type: object
+      additionalProperties: false
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+    AuthAPIKey:
+      type: object
+      additionalProperties: false
+      properties:
+        key:
+          type: string
+      required:
+        - key
+    AuthOAuth:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        scope:
+          type: string
+      required:
+        - url
+        - client_id
+        - client_secret
+        - scope
+    AuthAlgolia:
+      type: object
+      additionalProperties: false
+      properties:
+        appID:
+          type: string
+        apiKey:
+          type: string
+      required:
+        - appID
+        - apiKey
+    AuthInput:
+      oneOf:
+        - $ref: '#/components/schemas/AuthGoogleServiceAccount'
+        - $ref: '#/components/schemas/AuthBasic'
+        - $ref: '#/components/schemas/AuthAPIKey'
+        - $ref: '#/components/schemas/AuthOAuth'
+        - $ref: '#/components/schemas/AuthAlgolia'
+    createdAt:
+      type: string
+      description: Date of creation (RFC3339 format).
+    updatedAt:
+      type: string
+      description: Date of last update (RFC3339 format).
+    Authentication:
+      type: object
+      additionalProperties: false
+      properties:
+        authenticationID:
+          type: string
+        type:
+          $ref: '#/components/schemas/AuthenticationType'
+        name:
+          type: string
+        platform:
+          $ref: '#/components/schemas/PlatformType'
+        input:
+          $ref: '#/components/schemas/AuthInput'
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+      required:
+        - authenticationID
+        - type
+        - name
+        - input
+        - createdAt
+    Pagination:
+      type: object
+      additionalProperties: false
+      properties:
+        nbPages:
+          type: integer
+        page:
+          type: integer
+        nbItems:
+          type: integer
+        itemsPerPage:
+          type: integer
+      required:
+        - nbPages
+        - page
+        - nbItems
+        - itemsPerPage
+    ErrorBase:
+      description: Error.
+      type: object
+      additionalProperties: true
+      properties:
+        message:
+          type: string
+          example: Invalid Application-Id or API-Key
+    AuthenticationCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/AuthenticationType'
+        name:
+          type: string
+        platform:
+          $ref: '#/components/schemas/PlatformType'
+        input:
+          $ref: '#/components/schemas/AuthInput'
+      required:
+        - type
+        - name
+        - input
+    AuthenticationCreateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        authenticationID:
+          type: string
+        name:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+      required:
+        - authenticationID
+        - name
+        - createdAt
+    AuthenticationUpdate:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/AuthenticationType'
+        name:
+          type: string
+        platform:
+          $ref: '#/components/schemas/PlatformType'
+        input:
+          $ref: '#/components/schemas/AuthInput'
+    AuthenticationUpdateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        authenticationID:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+      required:
+        - authenticationID
+        - name
+        - updatedAt
+    DeleteResponse:
+      type: object
+      properties:
+        deletedAt:
+          type: string
+          description: Date of deletion (RFC3339 format).
+      required:
+        - deletedAt
+    DestinationType:
+      type: string
+      enum:
+        - search
+        - insights
+        - flow
+        - predict
+    DestinationIndexPrefix:
+      type: object
+      additionalProperties: false
+      properties:
+        indexPrefix:
+          type: string
+      required:
+        - indexPrefix
+    DestinationIndexName:
+      type: object
+      additionalProperties: false
+      properties:
+        indexName:
+          type: string
+      required:
+        - indexName
+    DestinationInput:
+      oneOf:
+        - $ref: '#/components/schemas/DestinationIndexPrefix'
+        - $ref: '#/components/schemas/DestinationIndexName'
+    Destination:
+      type: object
+      additionalProperties: false
+      properties:
+        destinationID:
+          type: string
+        type:
+          $ref: '#/components/schemas/DestinationType'
+        name:
+          type: string
+        input:
+          $ref: '#/components/schemas/DestinationInput'
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+        authenticationID:
+          type: string
+      required:
+        - destinationID
+        - type
+        - name
+        - input
+        - createdAt
+        - authenticationID
+    DestinationCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/DestinationType'
+        name:
+          type: string
+        input:
+          $ref: '#/components/schemas/DestinationInput'
+        authenticationID:
+          type: string
+      required:
+        - type
+        - name
+        - input
+        - authenticationID
+    DestinationCreateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        destinationID:
+          type: string
+        name:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+      required:
+        - destinationID
+        - name
+        - createdAt
+    DestinationUpdate:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/DestinationType'
+        name:
+          type: string
+        input:
+          $ref: '#/components/schemas/DestinationInput'
+        authenticationID:
+          type: string
+    DestinationUpdateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        destinationID:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+      required:
+        - destinationID
+        - name
+        - updatedAt
+    SourceType:
+      type: string
+      enum:
+        - bigcommerce
+        - commercetools
+    SourceCommercetools:
+      type: object
+      additionalProperties: false
+      properties:
+        stores:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+        projectKey:
+          type: string
+      required:
+        - stores
+        - url
+        - projectKey
+    SourceBigCommerce:
+      type: object
+      additionalProperties: false
+      properties:
+        storeHash:
+          type: string
+      required:
+        - store_hash
+    SourceInput:
+      oneOf:
+        - $ref: '#/components/schemas/SourceCommercetools'
+        - $ref: '#/components/schemas/SourceBigCommerce'
+    Source:
+      type: object
+      additionalProperties: false
+      properties:
+        sourceID:
+          type: string
+        type:
+          $ref: '#/components/schemas/SourceType'
+        name:
+          type: string
+        input:
+          $ref: '#/components/schemas/SourceInput'
+        authenticationID:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+      required:
+        - sourceID
+        - type
+        - name
+        - input
+        - authenticationID
+        - createdAt
+    SourceCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/SourceType'
+        name:
+          type: string
+        input:
+          $ref: '#/components/schemas/SourceInput'
+        authenticationID:
+          type: string
+      required:
+        - type
+        - name
+        - input
+        - authenticationID
+    SourceCreateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        sourceID:
+          type: string
+        name:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+      required:
+        - sourceID
+        - name
+        - createdAt
+    SourceUpdate:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/SourceType'
+        name:
+          type: string
+        input:
+          $ref: '#/components/schemas/SourceInput'
+        authenticationID:
+          type: string
+    SourceUpdateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        sourceID:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+      required:
+        - sourceID
+        - name
+        - updatedAt
+    TriggerType:
+      type: string
+      enum:
+        - on_demand
+        - schedule
+        - subscription
+    Trigger:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/TriggerType'
+        frequency:
+          type: string
+      required:
+        - type
+    ActionType:
+      type: string
+      enum:
+        - replace
+        - save
+        - delete
+    Task:
+      type: object
+      additionalProperties: false
+      properties:
+        taskID:
+          type: string
+        sourceID:
+          type: string
+        destinationID:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        enabled:
+          type: boolean
+          default: true
+        action:
+          $ref: '#/components/schemas/ActionType'
+        lastRun:
+          type: string
+        nextRun:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+      required:
+        - taskID
+        - sourceID
+        - destinationID
+        - enabled
+        - action
+        - createdAt
+    TaskCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        sourceID:
+          type: string
+        destinationID:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        action:
+          $ref: '#/components/schemas/ActionType'
+        enabled:
+          type: boolean
+      required:
+        - sourceID
+        - destinationID
+        - trigger
+        - action
+    TaskCreateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        taskID:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+      required:
+        - taskID
+        - createdAt
+    TaskUpdate:
+      type: object
+      additionalProperties: false
+      properties:
+        destinationID:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        enabled:
+          type: boolean
+    TaskUpdateResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        taskID:
+          type: string
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+      required:
+        - taskID
+        - updatedAt
+    RunResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        runID:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+      required:
+        - runID
+        - createdAt
+    RunStatus:
+      type: string
+      enum:
+        - created
+        - started
+        - finished
+    RunOutcome:
+      type: string
+      enum:
+        - success
+        - failure
+    RunType:
+      type: string
+      enum:
+        - reindex
+        - update
+    startedAt:
+      type: string
+      description: Date of start (RFC3339 format).
+    finishedAt:
+      type: string
+      description: Date of finish (RFC3339 format).
+    Run:
+      type: object
+      additionalProperties: false
+      properties:
+        runID:
+          type: string
+        appID:
+          type: string
+        taskID:
+          type: string
+        status:
+          $ref: '#/components/schemas/RunStatus'
+        progress:
+          type: object
+          additionalProperties: false
+          properties:
+            expectedNbOfEvents:
+              type: integer
+            receivedNbOfEvents:
+              type: integer
+        outcome:
+          $ref: '#/components/schemas/RunOutcome'
+        type:
+          $ref: '#/components/schemas/RunType'
+        createdAt:
+          $ref: '#/components/schemas/createdAt'
+        updatedAt:
+          $ref: '#/components/schemas/updatedAt'
+        startedAt:
+          $ref: '#/components/schemas/startedAt'
+        finishedAt:
+          $ref: '#/components/schemas/finishedAt'
+      required:
+        - runID
+        - appID
+        - taskID
+        - status
+        - type
+        - createdAt
+        - updatedAt
+    RunListResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Run'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+        - runs
+        - pagination
+    EventStatus:
+      type: string
+      enum:
+        - created
+        - started
+        - retried
+        - failed
+        - succeeded
+    EventType:
+      type: string
+      enum:
+        - fetch
+        - record
+        - internal
+    publishedAt:
+      type: string
+      description: Date of publish (RFC3339 format).
+    Event:
+      type: object
+      additionalProperties: false
+      properties:
+        eventID:
+          type: string
+        runID:
+          type: string
+        parentID:
+          type: string
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        type:
+          $ref: '#/components/schemas/EventType'
+        data:
+          type: object
+          additionalProperties: true
+        publishedAt:
+          $ref: '#/components/schemas/publishedAt'
+      required:
+        - eventID
+        - runID
+        - status
+        - type
+        - publishedAt
+  responses:
+    BadRequest:
+      description: Bad request or request arguments.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+servers:
+  - url: https://data.{region}.algolia.com
+    variables:
+      region:
+        enum:
+          - us
+        default: us
+security:
+  - appId: []
+    apiKey: []
+tags:
+  - name: authentications
+    x-displayName: Authentications
+    description: Authentications describe the way we connect to Algolia, or any platform.
+  - name: destinations
+    x-displayName: Destinations
+    description: >-
+      Destinations refers to an Algolia product (Search, Insight, Recommend,
+      ...).
+  - name: observability
+    x-displayName: Observability
+    description: Observability api tracks each runs and events.
+  - name: sources
+    x-displayName: Sources
+    description: Sources describe the platform informations.
+  - name: tasks
+    x-displayName: Tasks
+    description: >-
+      Tasks refers to all type of Ingestion we can do (Reindex, On demand
+      update, ...).
+paths:
+  /1/authentications:
+    get:
+      tags:
+        - ingestion
+      summary: Get a list of authentications.
+      description: Get a list of authentications.
+      operationId: getAuthentications
+      parameters:
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: listAuthenticationsResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  authentications:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Authentication'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                required:
+                  - authentications
+                  - pagination
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      tags:
+        - ingestion
+      summary: Create a authentication.
+      description: Create a authentication.
+      operationId: createAuthentication
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationCreate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/authentications/{authenticationID}:
+    get:
+      tags:
+        - ingestion
+      summary: Get a authentication.
+      description: Get a authentication.
+      operationId: getAuthentication
+      parameters:
+        - $ref: '#/components/parameters/authenticationID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authentication'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    put:
+      tags:
+        - ingestion
+      summary: Update a authentication.
+      description: Update a authentication.
+      operationId: updateAuthentication
+      parameters:
+        - $ref: '#/components/parameters/authenticationID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationUpdate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    delete:
+      tags:
+        - ingestion
+      summary: Delete a authentication.
+      description: Soft delete a authentication.
+      operationId: deleteAuthentication
+      parameters:
+        - $ref: '#/components/parameters/authenticationID'
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/destinations:
+    get:
+      tags:
+        - ingestion
+      summary: Get a list of destinations.
+      description: Get a list of destinations.
+      operationId: getDestinations
+      parameters:
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: listDestinationsResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  destinations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Destination'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                required:
+                  - destinations
+                  - pagination
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      tags:
+        - ingestion
+      summary: Create a destination.
+      description: Create a destination.
+      operationId: createDestination
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationCreate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DestinationCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/destinations/{destinationID}:
+    get:
+      tags:
+        - ingestion
+      summary: Get a destination.
+      description: Get a destination.
+      operationId: getDestination
+      parameters:
+        - $ref: '#/components/parameters/destinationID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    put:
+      tags:
+        - ingestion
+      summary: Update a destination.
+      description: Update a destination.
+      operationId: updateDestination
+      parameters:
+        - $ref: '#/components/parameters/destinationID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationUpdate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DestinationUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    delete:
+      tags:
+        - ingestion
+      summary: Delete a destination.
+      description: Soft delete a destination.
+      operationId: deleteDestination
+      parameters:
+        - $ref: '#/components/parameters/destinationID'
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/sources:
+    get:
+      tags:
+        - ingestion
+      summary: Get a list of sources.
+      description: Get a list of sources.
+      operationId: getSources
+      parameters:
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: listSourcesResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  sources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Source'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                required:
+                  - sources
+                  - pagination
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      tags:
+        - ingestion
+      summary: Create a source.
+      description: Create a source.
+      operationId: createSource
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceCreate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/sources/{sourceID}:
+    get:
+      tags:
+        - ingestion
+      summary: Get a source.
+      description: Get a source.
+      operationId: getSource
+      parameters:
+        - $ref: '#/components/parameters/sourceID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      tags:
+        - ingestion
+      summary: Update a source.
+      description: Update a source.
+      operationId: updateSource
+      parameters:
+        - $ref: '#/components/parameters/sourceID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceUpdate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    delete:
+      tags:
+        - ingestion
+      summary: Delete a source.
+      description: Soft delete a source.
+      operationId: deleteSource
+      parameters:
+        - $ref: '#/components/parameters/sourceID'
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/tasks:
+    get:
+      tags:
+        - ingestion
+      summary: Get a list of tasks.
+      description: Get a list of tasks.
+      operationId: getTasks
+      parameters:
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: listTasksResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  tasks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                required:
+                  - tasks
+                  - pagination
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      tags:
+        - ingestion
+      summary: Create a task.
+      description: Create a task.
+      operationId: createTask
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/tasks/{taskID}:
+    get:
+      tags:
+        - ingestion
+      summary: Get a task.
+      description: Get a task.
+      operationId: getTask
+      parameters:
+        - $ref: '#/components/parameters/taskID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    put:
+      tags:
+        - ingestion
+      summary: Update a task.
+      description: Update a task.
+      operationId: updateTask
+      parameters:
+        - $ref: '#/components/parameters/taskID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    delete:
+      tags:
+        - ingestion
+      summary: Delete a task.
+      description: Soft delete a task.
+      operationId: deleteTask
+      parameters:
+        - $ref: '#/components/parameters/taskID'
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/tasks/{taskID}/run:
+    post:
+      tags:
+        - ingestion
+      summary: Run a task.
+      description: Run a task.
+      operationId: runTask
+      parameters:
+        - $ref: '#/components/parameters/taskID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/tasks/{taskID}/enable:
+    post:
+      tags:
+        - ingestion
+      summary: Enable a task.
+      description: Enable a task.
+      operationId: enableTask
+      parameters:
+        - $ref: '#/components/parameters/taskID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/tasks/{taskID}/disable:
+    post:
+      tags:
+        - ingestion
+      summary: Disable a task.
+      description: Disable a task.
+      operationId: disableTask
+      parameters:
+        - $ref: '#/components/parameters/taskID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/runs:
+    get:
+      tags:
+        - ingestion
+      summary: Get a list of runs.
+      description: Get a list of runs.
+      operationId: getRuns
+      parameters:
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/runs/{runID}:
+    get:
+      tags:
+        - ingestion
+      summary: Get a run.
+      description: Get a run.
+      operationId: getRun
+      parameters:
+        - $ref: '#/components/parameters/runID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/runs/{runID}/events:
+    get:
+      tags:
+        - ingestion
+      summary: Get a list of events for a specific run.
+      description: Get a list of events for a specific run.
+      operationId: getEvents
+      parameters:
+        - $ref: '#/components/parameters/runID'
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: listEventsResponse
+                type: object
+                additionalProperties: false
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                required:
+                  - events
+                  - pagination
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/runs/{runID}/events/{eventID}:
+    get:
+      tags:
+        - ingestion
+      summary: Get an event in a specific run.
+      description: Get an event in a specific run.
+      operationId: getEvent
+      parameters:
+        - $ref: '#/components/parameters/runID'
+        - $ref: '#/components/parameters/eventID'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/runs/tasks/{taskID}:
+    get:
+      tags:
+        - ingestion
+      summary: Get a list of runs associated with a taskID.
+      description: Get a list of runs associated with a taskID.
+      operationId: getRunsByTaskID
+      parameters:
+        - $ref: '#/components/parameters/taskID'
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
