@@ -55,7 +55,7 @@ eventID:
 itemsPerPage:
   name: itemsPerPage
   in: query
-  description: The number of items per page to return
+  description: The number of items per page to return.
   required: false
   schema:
     type: integer
@@ -63,7 +63,7 @@ itemsPerPage:
 page:
   name: page
   in: query
-  description: The page number to fetch, starting at 1
+  description: The page number to fetch, starting at 1.
   required: false
   schema:
     type: integer
