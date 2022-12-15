@@ -90,10 +90,10 @@
     "**/client-analytics/**",
     "**/client-insights/**",
     "**/client-personalization/**",
-    "**/predict/**",
     "**/client-query-suggestions/**",
     "**/client-search/**",
-    "**/client-sources/**",
+    "**/ingestion/**",
+    "**/predict/**",
     "**/recommend/**",
     "clients/algoliasearch-client-php/composer.json",
     "tests/output/**"

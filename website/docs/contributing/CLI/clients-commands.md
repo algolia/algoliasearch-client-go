@@ -19,7 +19,7 @@ yarn docker generate <language | all> <client... | all>
 ### Available options
 
 | Option      | Command           | Description                                                   |
-| ----------- | :---------------- | :------------------------------------------------------------ |
+|-------------|:------------------|:--------------------------------------------------------------|
 | verbose     | -v, --verbose     | Make the process verbose, display logs from third party tools |
 | interactive | -i, --interactive | Open prompt to query parameters                               |
 
@@ -34,13 +34,13 @@ yarn docker generate
 ### Generate specific client for specific language
 
 ```bash
-yarn docker generate java sources
+yarn docker generate java search
 ```
 
 ### Generate many client for specific language
 
 ```bash
-yarn docker generate php sources recommend search
+yarn docker generate php insights recommend search
 ```
 
 ## Build
@@ -60,5 +60,5 @@ yarn docker build clients javascript recommend
 ### Build many client for specific language
 
 ```bash
-yarn docker build clients php sources recommend search
+yarn docker build clients php insights recommend search
 ```

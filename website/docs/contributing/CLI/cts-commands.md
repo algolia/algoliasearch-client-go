@@ -25,7 +25,7 @@ yarn docker cts generate <language | all> <client... | all>
 ### Available options
 
 | Option      | Command           | Description                                                   |
-| ----------- | :---------------- | :------------------------------------------------------------ |
+|-------------|:------------------|:--------------------------------------------------------------|
 | verbose     | -v, --verbose     | Make the process verbose, display logs from third party tools |
 | interactive | -i, --interactive | Open prompt to query parameters                               |
 
@@ -40,13 +40,13 @@ yarn docker cts generate
 ### Generate CTS for specific client for specific language
 
 ```bash
-yarn docker cts generate java sources
+yarn docker cts generate java search
 ```
 
 ### Generate CTS for many client for specific language
 
 ```bash
-yarn docker cts generate php sources recommend search
+yarn docker cts generate php insights recommend search
 ```
 
 ## Run

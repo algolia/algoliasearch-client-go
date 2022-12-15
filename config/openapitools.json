@@ -53,12 +53,6 @@
           "packageVersion": "5.0.0-alpha.27"
         }
       },
-      "javascript-sources": {
-        "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/client-sources",
-        "additionalProperties": {
-          "packageVersion": "1.0.0-alpha.27"
-        }
-      },
       "javascript-predict": {
         "output": "#{cwd}/clients/algoliasearch-client-javascript/packages/predict",
         "additionalProperties": {
