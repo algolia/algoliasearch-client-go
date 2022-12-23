@@ -2,7 +2,7 @@
   "name": "javascript-tests",
   "version": "1.0.0",
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@algolia/client-abtesting": "link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting",
