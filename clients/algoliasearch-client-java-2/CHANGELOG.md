@@ -1,5 +1,10 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [ec370af5](https://github.com/algolia/api-clients-automation/commit/ec370af5) fix(specs): new CT source input ([#1190](https://github.com/algolia/api-clients-automation/pull/1190)) by [@shortcuts](https://github.com/shortcuts/)
+- [377e091d](https://github.com/algolia/api-clients-automation/commit/377e091d) fix(specs): Algolia Search hostnames ([#1189](https://github.com/algolia/api-clients-automation/pull/1189)) by [@kai687](https://github.com/kai687/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [19552886](https://github.com/algolia/api-clients-automation/commit/19552886) fix(clients): replace sources client with ingestion ([#1178](https://github.com/algolia/api-clients-automation/pull/1178)) by [@millotp](https://github.com/millotp/)
 - [2f456a45](https://github.com/algolia/api-clients-automation/commit/2f456a45) fix(specs): mistakes in the ingestion spec ([#1176](https://github.com/algolia/api-clients-automation/pull/1176)) by [@millotp](https://github.com/millotp/)
 - [1685ed08](https://github.com/algolia/api-clients-automation/commit/1685ed08) feat(specs): create ingestion specs ([#1100](https://github.com/algolia/api-clients-automation/pull/1100)) by [@millotp](https://github.com/millotp/)
