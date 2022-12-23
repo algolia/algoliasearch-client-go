@@ -102,7 +102,7 @@ SourceCommercetools:
       items:
         type: string
         description: >
-          The string must match the following pattern: ^[a-z]{2}(-[A-Z]{2})?$.
+          The string must match the following pattern: ^[a-z]{2}(-[A-Z]{2})?$. For example "fr-FR" or "en".
     url:
       type: string
     projectKey:
