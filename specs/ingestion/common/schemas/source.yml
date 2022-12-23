@@ -93,16 +93,21 @@ SourceCommercetools:
   type: object
   additionalProperties: false
   properties:
-    stores:
+    storeKeys:
       type: array
       items:
         type: string
+    locales:
+      type: array
+      items:
+        type: string
+        description: >
+          The string must match the following pattern: ^[a-z]{2}(-[A-Z]{2})?$.
     url:
       type: string
     projectKey:
       type: string
   required:
-    - stores
     - url
     - projectKey
 
