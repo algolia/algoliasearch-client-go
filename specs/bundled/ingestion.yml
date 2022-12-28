@@ -388,6 +388,7 @@ components:
       enum:
         - bigcommerce
         - commercetools
+        - json
     SourceCommercetools:
       type: object
       additionalProperties: false
@@ -418,10 +419,26 @@ components:
           type: string
       required:
         - store_hash
+    MethodType:
+      type: string
+      enum:
+        - GET
+        - POST
+    SourceJson:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+        method:
+          $ref: '#/components/schemas/MethodType'
+      required:
+        - url
     SourceInput:
       oneOf:
         - $ref: '#/components/schemas/SourceCommercetools'
         - $ref: '#/components/schemas/SourceBigCommerce'
+        - $ref: '#/components/schemas/SourceJson'
     Source:
       type: object
       additionalProperties: false
