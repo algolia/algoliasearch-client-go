@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [dd4fdefd](https://github.com/algolia/api-clients-automation/commit/dd4fdefd) feat(specs): add source json to ingestion client ([#1200](https://github.com/algolia/api-clients-automation/pull/1200)) by [@morganleroi](https://github.com/morganleroi/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [ec370af5](https://github.com/algolia/api-clients-automation/commit/ec370af5) fix(specs): new CT source input ([#1190](https://github.com/algolia/api-clients-automation/pull/1190)) by [@shortcuts](https://github.com/shortcuts/)
 - [377e091d](https://github.com/algolia/api-clients-automation/commit/377e091d) fix(specs): Algolia Search hostnames ([#1189](https://github.com/algolia/api-clients-automation/pull/1189)) by [@kai687](https://github.com/kai687/)
 
