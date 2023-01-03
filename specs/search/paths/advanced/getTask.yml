@@ -13,7 +13,7 @@ get:
       schema:
         type: integer
         format: int64
-        example: '13235'
+        example: 13235
   responses:
     '200':
       description: OK
