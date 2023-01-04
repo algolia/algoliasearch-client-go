@@ -32,8 +32,8 @@ public class FetchedIndex {
   @JsonProperty("lastBuildTimeS")
   private Integer lastBuildTimeS;
 
-  @JsonProperty("numberOfPendingTask")
-  private Integer numberOfPendingTask;
+  @JsonProperty("numberOfPendingTasks")
+  private Integer numberOfPendingTasks;
 
   @JsonProperty("pendingTask")
   private Boolean pendingTask;
@@ -149,19 +149,19 @@ public class FetchedIndex {
     return lastBuildTimeS;
   }
 
-  public FetchedIndex setNumberOfPendingTask(Integer numberOfPendingTask) {
-    this.numberOfPendingTask = numberOfPendingTask;
+  public FetchedIndex setNumberOfPendingTasks(Integer numberOfPendingTasks) {
+    this.numberOfPendingTasks = numberOfPendingTasks;
     return this;
   }
 
   /**
    * Number of pending indexing operations. This value is deprecated and should not be used.
    *
-   * @return numberOfPendingTask
+   * @return numberOfPendingTasks
    */
-  @javax.annotation.Nullable
-  public Integer getNumberOfPendingTask() {
-    return numberOfPendingTask;
+  @javax.annotation.Nonnull
+  public Integer getNumberOfPendingTasks() {
+    return numberOfPendingTasks;
   }
 
   public FetchedIndex setPendingTask(Boolean pendingTask) {
@@ -236,7 +236,7 @@ public class FetchedIndex {
       Objects.equals(this.dataSize, fetchedIndex.dataSize) &&
       Objects.equals(this.fileSize, fetchedIndex.fileSize) &&
       Objects.equals(this.lastBuildTimeS, fetchedIndex.lastBuildTimeS) &&
-      Objects.equals(this.numberOfPendingTask, fetchedIndex.numberOfPendingTask) &&
+      Objects.equals(this.numberOfPendingTasks, fetchedIndex.numberOfPendingTasks) &&
       Objects.equals(this.pendingTask, fetchedIndex.pendingTask) &&
       Objects.equals(this.primary, fetchedIndex.primary) &&
       Objects.equals(this.replicas, fetchedIndex.replicas)
@@ -253,7 +253,7 @@ public class FetchedIndex {
       dataSize,
       fileSize,
       lastBuildTimeS,
-      numberOfPendingTask,
+      numberOfPendingTasks,
       pendingTask,
       primary,
       replicas
@@ -271,7 +271,7 @@ public class FetchedIndex {
     sb.append("    dataSize: ").append(toIndentedString(dataSize)).append("\n");
     sb.append("    fileSize: ").append(toIndentedString(fileSize)).append("\n");
     sb.append("    lastBuildTimeS: ").append(toIndentedString(lastBuildTimeS)).append("\n");
-    sb.append("    numberOfPendingTask: ").append(toIndentedString(numberOfPendingTask)).append("\n");
+    sb.append("    numberOfPendingTasks: ").append(toIndentedString(numberOfPendingTasks)).append("\n");
     sb.append("    pendingTask: ").append(toIndentedString(pendingTask)).append("\n");
     sb.append("    primary: ").append(toIndentedString(primary)).append("\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
