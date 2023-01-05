@@ -104,8 +104,8 @@ func (i *Index) GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes,
 // Exists returns whether an initialized index exists or not, along with a nil
 // error. When encountering a network error, a non-nil error is returned along
 // with false.
-func (i *Index) Exists() (bool, error) {
-	_, err := i.GetSettings()
+func (i *Index) Exists(opts ...interface{}) (bool, error) {
+	_, err := i.GetSettings(opts...)
 	if err == nil {
 		return true, nil
 	}
