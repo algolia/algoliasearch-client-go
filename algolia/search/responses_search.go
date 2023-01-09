@@ -40,7 +40,6 @@ type QueryRes struct {
 	UserData                   []interface{}                     `json:"userData"`
 	ABTestVariantID            int                               `json:"abTestVariantID"`
 	ABTestID                   uint32                            `json:"abTestID"`
-	ABTestIndex                string                            `json:"abTestIndex"`
 	RenderingContent           *RenderingContent                 `json:"renderingContent"`
 }
 
