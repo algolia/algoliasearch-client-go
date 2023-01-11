@@ -22,7 +22,6 @@ Destination:
     - name
     - input
     - createdAt
-    - authenticationID
 
 DestinationCreate:
   type: object

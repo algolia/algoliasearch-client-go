@@ -21,7 +21,6 @@ Source:
     - type
     - name
     - input
-    - authenticationID
     - createdAt
 
 SourceCreate:
