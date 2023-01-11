@@ -533,7 +533,13 @@ components:
       properties:
         type:
           $ref: '#/components/schemas/TriggerType'
-        frequency:
+        cron:
+          type: string
+        lastRun:
+          description: The last time the task ran (`scheduled` or `on-demand`).
+          type: string
+        nextRun:
+          description: The next scheduled run for the task (`scheduled`).
           type: string
       required:
         - type
@@ -560,10 +566,6 @@ components:
           default: true
         action:
           $ref: '#/components/schemas/ActionType'
-        lastRun:
-          type: string
-        nextRun:
-          type: string
         createdAt:
           $ref: '#/components/schemas/createdAt'
         updatedAt:
