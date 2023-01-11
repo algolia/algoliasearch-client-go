@@ -18,10 +18,6 @@ Task:
     # lastCursorValue:
     #   type: integer
     #   format: int64
-    lastRun:
-      type: string
-    nextRun:
-      type: string
     createdAt:
       $ref: './common.yml#/createdAt'
     updatedAt:
@@ -102,7 +98,13 @@ Trigger:
   properties:
     type:
       $ref: '#/TriggerType'
-    frequency:
+    cron:
+      type: string
+    lastRun:
+      description: The last time the task ran (`scheduled` or `on-demand`).
+      type: string
+    nextRun:
+      description: The next scheduled run for the task (`scheduled`).
       type: string
   required:
     - type
