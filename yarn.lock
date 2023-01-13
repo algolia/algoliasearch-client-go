@@ -17,7 +17,7 @@ __metadata:
     babel-eslint: 10.1.0
     eslint: 8.27.0
     eslint-config-algolia: 20.0.0
-    eslint-config-prettier: 8.5.0
+    eslint-config-prettier: 8.6.0
     eslint-plugin-algolia: 2.0.0
     eslint-plugin-automation-custom: 1.0.0
     eslint-plugin-eslint-comments: 3.2.0
@@ -27,7 +27,7 @@ __metadata:
     eslint-plugin-prettier: 4.2.1
     eslint-plugin-unused-imports: 2.0.0
     eslint-plugin-yml: 1.2.0
-    husky: 8.0.2
+    husky: 8.0.3
     json: 11.0.0
     lint-staged: 13.0.4
     mustache: 4.2.0
@@ -3313,10 +3313,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:9.4.0":
-  version: 9.4.0
-  resolution: "commander@npm:9.4.0"
-  checksum: a322de584a6ccd1ea83c24f6a660e52d16ffbe2613fcfbb8d2cc68bc9dec637492456d754fe8bb5b039ad843ed8e04fb0b107e581a75f62cde9e1a0ab1546e09
+"commander@npm:9.5.0":
+  version: 9.5.0
+  resolution: "commander@npm:9.5.0"
+  checksum: c7a3e27aa59e913b54a1bafd366b88650bc41d6651f0cbe258d4ff09d43d6a7394232a4dadd0bf518b3e696fdf595db1028a0d82c785b88bd61f8a440cecfade
   languageName: node
   linkType: hard
 
@@ -3913,14 +3913,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:8.5.0":
-  version: 8.5.0
-  resolution: "eslint-config-prettier@npm:8.5.0"
+"eslint-config-prettier@npm:8.6.0":
+  version: 8.6.0
+  resolution: "eslint-config-prettier@npm:8.6.0"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: 0d0f5c32e7a0ad91249467ce71ca92394ccd343178277d318baf32063b79ea90216f4c81d1065d60f96366fdc60f151d4d68ae7811a58bd37228b84c2083f893
+  checksum: ff0d0dfc839a556355422293428637e8d35693de58dabf8638bf0b6529131a109d0b2ade77521aa6e54573bb842d7d9d322e465dd73dd61c7590fa3834c3fa81
   languageName: node
   linkType: hard
 
@@ -4965,12 +4965,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:8.0.2":
-  version: 8.0.2
-  resolution: "husky@npm:8.0.2"
+"husky@npm:8.0.3":
+  version: 8.0.3
+  resolution: "husky@npm:8.0.3"
   bin:
     husky: lib/bin.js
-  checksum: e101656fcb56163d610488f186448c78b132626aa427094489d886ce9374955a90274912b0f3a34af3326eaa74977883b032e5f701d7aaf4554daa5a7931be43
+  checksum: 837bc7e4413e58c1f2946d38fb050f5d7324c6f16b0fd66411ffce5703b294bd21429e8ba58711cd331951ee86ed529c5be4f76805959ff668a337dbfa82a1b0
   languageName: node
   linkType: hard
 
@@ -7747,7 +7747,7 @@ __metadata:
     "@types/node": 16.11.59
     "@types/semver": 7.3.10
     chalk: 4.1.2
-    commander: 9.4.0
+    commander: 9.5.0
     dotenv: 16.0.2
     eslint: 8.27.0
     execa: 5.1.1
