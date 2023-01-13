@@ -12,7 +12,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../common/schemas/authentication.yml#/Authentication'
+            $ref: '../../common/schemas/authentication.yml#/AuthenticationWithInput'
     '400':
       $ref: '../../../common/responses/BadRequest.yml'
 

@@ -39,7 +39,7 @@ TaskCreate:
     destinationID:
       type: string
     trigger:
-      $ref: '#/Trigger'
+      $ref: '#/TriggerInput'
     action:
       $ref: '#/ActionType'
     enabled:
@@ -72,7 +72,7 @@ TaskUpdate:
     destinationID:
       type: string
     trigger:
-      $ref: '#/Trigger'
+      $ref: '#/TriggerInput'
     enabled:
       type: boolean
 
@@ -91,6 +91,17 @@ TaskUpdateResponse:
 ActionType:
   type: string
   enum: ['replace', 'save', 'delete']
+
+TriggerInput:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      $ref: '#/TriggerType'
+    cron:
+      type: string
+  required:
+    - type
 
 Trigger:
   type: object
