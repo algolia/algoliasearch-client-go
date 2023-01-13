@@ -39,6 +39,7 @@ type QueryRes struct {
 	TimeoutHits                bool                              `json:"timeoutHits"`
 	UserData                   []interface{}                     `json:"userData"`
 	ABTestVariantID            int                               `json:"abTestVariantID"`
+	ABTestID                   uint32                            `json:"abTestID"`
 	RenderingContent           *RenderingContent                 `json:"renderingContent"`
 }
 
