@@ -1,0 +1,45 @@
+enabled:
+  name: enabled
+  in: query
+  description: If the returned task should have its 'enabled' property set to true.
+  required: false
+  schema:
+    type: boolean
+
+action:
+  name: action
+  in: query
+  description: Which action the returned task should have. Can be a list of string separated with commas.
+  required: false
+  style: form
+  explode: false
+  schema:
+    type: array
+    items:
+      $ref: './schemas/task.yml#/ActionType'
+    example: save,replace
+
+destinationID:
+  name: destinationID
+  in: query
+  description: Which destinationID the returned task should have. Can be a list of string separated with commas.
+  required: false
+  style: form
+  explode: false
+  schema:
+    type: array
+    items:
+      type: string
+
+triggerType:
+  name: triggerType
+  in: query
+  description: Which trigger type the returned task should have. Can be a list of string separated with commas.
+  required: false
+  style: form
+  explode: false
+  schema:
+    type: array
+    items:
+      $ref: './schemas/task.yml#/TriggerType'
+    example: on_demand,schedule
