@@ -52,6 +52,54 @@ components:
       schema:
         type: string
         example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    action:
+      name: action
+      in: query
+      description: >-
+        Which action the returned task should have. Can be a list of string
+        separated with commas.
+      required: false
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/ActionType'
+        example: save,replace
+    enabled:
+      name: enabled
+      in: query
+      description: If the returned task should have its 'enabled' property set to true.
+      required: false
+      schema:
+        type: boolean
+    taskParameters_destinationID:
+      name: destinationID
+      in: query
+      description: >-
+        Which destinationID the returned task should have. Can be a list of
+        string separated with commas.
+      required: false
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+    triggerType:
+      name: triggerType
+      in: query
+      description: >-
+        Which trigger type the returned task should have. Can be a list of
+        string separated with commas.
+      required: false
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/TriggerType'
+        example: on_demand,schedule
     taskID:
       name: taskID
       in: path
@@ -527,6 +575,12 @@ components:
         - sourceID
         - name
         - updatedAt
+    ActionType:
+      type: string
+      enum:
+        - replace
+        - save
+        - delete
     TriggerType:
       type: string
       enum:
@@ -549,12 +603,6 @@ components:
           type: string
       required:
         - type
-    ActionType:
-      type: string
-      enum:
-        - replace
-        - save
-        - delete
     Task:
       type: object
       additionalProperties: false
@@ -1153,6 +1201,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/itemsPerPage'
         - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/action'
+        - $ref: '#/components/parameters/enabled'
+        - $ref: '#/components/parameters/taskParameters_destinationID'
+        - $ref: '#/components/parameters/triggerType'
       responses:
         '200':
           description: OK
