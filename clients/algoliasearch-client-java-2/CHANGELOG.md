@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [4b1f1fd3](https://github.com/algolia/api-clients-automation/commit/4b1f1fd3) feat(specs): add query params to task lists endpoint in Ingestion APIC ([#1233](https://github.com/algolia/api-clients-automation/pull/1233)) by [@Fluf22](https://github.com/Fluf22/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [466cc0b3](https://github.com/algolia/api-clients-automation/commit/466cc0b3) fix(specs): remove input from auth list ([#1229](https://github.com/algolia/api-clients-automation/pull/1229)) by [@millotp](https://github.com/millotp/)
 - [28d82603](https://github.com/algolia/api-clients-automation/commit/28d82603) fix(specs): authenticationID is not required in source and destination ([#1203](https://github.com/algolia/api-clients-automation/pull/1203)) by [@morganleroi](https://github.com/morganleroi/)
 - [9acdc96b](https://github.com/algolia/api-clients-automation/commit/9acdc96b) fix(specs): move lastRun and nextRun to task.trigger ([#1228](https://github.com/algolia/api-clients-automation/pull/1228)) by [@millotp](https://github.com/millotp/)
