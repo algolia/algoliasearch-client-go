@@ -1325,7 +1325,7 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
   /1/tasks/{taskID}/enable:
-    post:
+    put:
       tags:
         - ingestion
       summary: Enable a task.
@@ -1343,7 +1343,7 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
   /1/tasks/{taskID}/disable:
-    post:
+    put:
       tags:
         - ingestion
       summary: Disable a task.
