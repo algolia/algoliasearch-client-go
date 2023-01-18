@@ -1,5 +1,14 @@
 # ChangeLog
 
+## [3.26.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.1...3.26.2) (2023-01-18)
+
+### Fix
+
+- **search**: hits in search response are now marshalled as 'hits' (#709) ([f4c0bfd](https://github.com/algolia/algoliasearch-client-go/commit/f4c0bfd))
+
+
+
+
 ## [3.26.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.0...3.26.1) (2022-08-31)
 
 ### Fix
