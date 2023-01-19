@@ -9,7 +9,7 @@ Authentication:
     name:
       type: string
     platform:
-      $ref: '#/PlatformType'
+      $ref: '#/Platform'
     createdAt:
       $ref: './common.yml#/createdAt'
     updatedAt:
@@ -42,7 +42,7 @@ AuthenticationCreate:
     name:
       type: string
     platform:
-      $ref: '#/PlatformType'
+      $ref: '#/Platform'
     input:
       $ref: '#/AuthInput'
   required:
@@ -74,7 +74,7 @@ AuthenticationUpdate:
     name:
       type: string
     platform:
-      $ref: '#/PlatformType'
+      $ref: '#/Platform'
     input:
       $ref: '#/AuthInput'
 
@@ -101,7 +101,7 @@ AuthenticationNone:
   type: string
   enum: ['none']
 
-PlatformType:
+Platform:
   type: string
   enum: ['bigcommerce', 'commercetools']
 
