@@ -1,0 +1,24 @@
+type:
+  name: type
+  in: query
+  description: Which type the returned source should have. Can be a list of string separated with commas.
+  required: false
+  style: form
+  explode: false
+  schema:
+    type: array
+    items:
+      $ref: './schemas/source.yml#/SourceType'
+    example: commercetools,bigcommerce
+
+authenticationID:
+  name: authenticationID
+  in: query
+  description: Which authenticationID the returned source should have. Can be a list of string separated with commas.
+  required: false
+  style: form
+  explode: false
+  schema:
+    type: array
+    items:
+      type: string

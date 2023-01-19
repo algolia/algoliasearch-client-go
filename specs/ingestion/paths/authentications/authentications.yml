@@ -7,6 +7,8 @@ get:
   parameters:
     - $ref: '../../common/parameters.yml#/itemsPerPage'
     - $ref: '../../common/parameters.yml#/page'
+    - $ref: '../../common/authenticationParameters.yml#/type'
+    - $ref: '../../common/authenticationParameters.yml#/platform'
   responses:
     '200':
       description: OK

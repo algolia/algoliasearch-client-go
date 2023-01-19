@@ -97,6 +97,10 @@ AuthenticationType:
   type: string
   enum: ['googleServiceAccount', 'basic', 'apiKey', 'oauth', 'algolia']
 
+AuthenticationNone:
+  type: string
+  enum: ['none']
+
 PlatformType:
   type: string
   enum: ['bigcommerce', 'commercetools']
