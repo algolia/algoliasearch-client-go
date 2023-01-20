@@ -1,7 +1,3 @@
-## [5.0.0-alpha.36](https://github.com/algolia/algoliasearch-client-javascript/compare/5.0.0-alpha.35...5.0.0-alpha.36)
-
-- [700dad66](https://github.com/algolia/api-clients-automation/commit/700dad66) feat(specs): add query param to filter list endpoint results ([#1245](https://github.com/algolia/api-clients-automation/pull/1245)) by [@Fluf22](https://github.com/Fluf22/)
-
 ## [5.0.0-alpha.35](https://github.com/algolia/algoliasearch-client-javascript/compare/5.0.0-alpha.34...5.0.0-alpha.35)
 
 - [699fff2b](https://github.com/algolia/api-clients-automation/commit/699fff2b) fix(specs): fix method for task enable/disable status ([#1242](https://github.com/algolia/api-clients-automation/pull/1242)) by [@Fluf22](https://github.com/Fluf22/)
