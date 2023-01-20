@@ -54,7 +54,7 @@ components:
       schema:
         type: array
         items:
-          $ref: '#/components/schemas/PlatformType'
+          $ref: '#/components/schemas/Platform'
         example: commercetools,bigcommerce
     authenticationID:
       name: authenticationID
@@ -223,7 +223,7 @@ components:
       oneOf:
         - $ref: '#/components/schemas/AuthenticationType'
         - $ref: '#/components/schemas/AuthenticationNone'
-    PlatformType:
+    Platform:
       type: string
       enum:
         - bigcommerce
@@ -245,7 +245,7 @@ components:
         name:
           type: string
         platform:
-          $ref: '#/components/schemas/PlatformType'
+          $ref: '#/components/schemas/Platform'
         createdAt:
           $ref: '#/components/schemas/createdAt'
         updatedAt:
@@ -354,7 +354,7 @@ components:
         name:
           type: string
         platform:
-          $ref: '#/components/schemas/PlatformType'
+          $ref: '#/components/schemas/Platform'
         input:
           $ref: '#/components/schemas/AuthInput'
       required:
@@ -395,7 +395,7 @@ components:
         name:
           type: string
         platform:
-          $ref: '#/components/schemas/PlatformType'
+          $ref: '#/components/schemas/Platform'
         input:
           $ref: '#/components/schemas/AuthInput'
     AuthenticationUpdateResponse:
