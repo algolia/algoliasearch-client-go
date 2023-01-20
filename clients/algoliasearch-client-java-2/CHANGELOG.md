@@ -1,5 +1,10 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [83330afe](https://github.com/algolia/api-clients-automation/commit/83330afe) chore(specs): change PlatformType naming to Platform ([#1246](https://github.com/algolia/api-clients-automation/pull/1246)) by [@Fluf22](https://github.com/Fluf22/)
+- [700dad66](https://github.com/algolia/api-clients-automation/commit/700dad66) feat(specs): add query param to filter list endpoint results ([#1245](https://github.com/algolia/api-clients-automation/pull/1245)) by [@Fluf22](https://github.com/Fluf22/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [699fff2b](https://github.com/algolia/api-clients-automation/commit/699fff2b) fix(specs): fix method for task enable/disable status ([#1242](https://github.com/algolia/api-clients-automation/pull/1242)) by [@Fluf22](https://github.com/Fluf22/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
