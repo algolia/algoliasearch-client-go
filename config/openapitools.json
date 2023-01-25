@@ -86,9 +86,6 @@
       "java-query-suggestions": {
         "output": "#{cwd}/clients/algoliasearch-client-java-2"
       },
-      "java-predict": {
-        "output": "#{cwd}/clients/algoliasearch-client-java-2"
-      },
       "php-search": {
         "output": "#{cwd}/clients/algoliasearch-client-php"
       },
