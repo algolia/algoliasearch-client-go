@@ -9,6 +9,7 @@ get:
     - $ref: '../../common/parameters.yml#/page'
     - $ref: '../../common/taskParameters.yml#/action'
     - $ref: '../../common/taskParameters.yml#/enabled'
+    - $ref: '../../common/taskParameters.yml#/sourceID'
     - $ref: '../../common/taskParameters.yml#/destinationID'
     - $ref: '../../common/taskParameters.yml#/triggerType'
   responses:

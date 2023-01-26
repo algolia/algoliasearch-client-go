@@ -8,8 +8,8 @@ type:
   schema:
     type: array
     items:
-      $ref: '#/authenticationTypeWithNone'
-    example: basic,oauth,none
+      $ref: './schemas/authentication.yml#/AuthenticationType'
+    example: basic,oauth
 
 platform:
   name: platform
@@ -21,10 +21,10 @@ platform:
   schema:
     type: array
     items:
-      $ref: './schemas/authentication.yml#/Platform'
-    example: commercetools,bigcommerce
+      $ref: '#/platformWithNone'
+    example: commercetools,none
 
-authenticationTypeWithNone:
+platformWithNone:
   oneOf:
-    - $ref: './schemas/authentication.yml#/AuthenticationType'
-    - $ref: './schemas/authentication.yml#/AuthenticationNone'
+    - $ref: './schemas/authentication.yml#/Platform'
+    - $ref: './schemas/authentication.yml#/PlatformNone'

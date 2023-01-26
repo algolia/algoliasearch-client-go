@@ -14,7 +14,9 @@ type:
 authenticationID:
   name: authenticationID
   in: query
-  description: Which authenticationID the returned source should have. Can be a list of string separated with commas.
+  description: >-
+    Which authenticationID the returned source should have. Can be a list of string separated with commas.
+    Also supports 'none' as a value to return sources that don't have any authentication.
   required: false
   style: form
   explode: false
@@ -22,3 +24,4 @@ authenticationID:
     type: array
     items:
       type: string
+    example: 10000000-0a75-4000-a000-000000000001,none

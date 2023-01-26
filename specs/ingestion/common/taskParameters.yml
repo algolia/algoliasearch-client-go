@@ -19,6 +19,18 @@ action:
       $ref: './schemas/task.yml#/ActionType'
     example: save,replace
 
+sourceID:
+  name: sourceID
+  in: query
+  description: Which sourceID the returned task should have. Can be a list of string separated with commas.
+  required: false
+  style: form
+  explode: false
+  schema:
+    type: array
+    items:
+      type: string
+
 destinationID:
   name: destinationID
   in: query
