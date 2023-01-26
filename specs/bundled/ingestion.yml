@@ -40,8 +40,8 @@ components:
       schema:
         type: array
         items:
-          $ref: '#/components/schemas/authenticationTypeWithNone'
-        example: basic,oauth,none
+          $ref: '#/components/schemas/AuthenticationType'
+        example: basic,oauth
     platform:
       name: platform
       in: query
@@ -54,8 +54,8 @@ components:
       schema:
         type: array
         items:
-          $ref: '#/components/schemas/Platform'
-        example: commercetools,bigcommerce
+          $ref: '#/components/schemas/platformWithNone'
+        example: commercetools,none
     authenticationID:
       name: authenticationID
       in: path
@@ -118,7 +118,8 @@ components:
       in: query
       description: >-
         Which authenticationID the returned source should have. Can be a list of
-        string separated with commas.
+        string separated with commas. Also supports 'none' as a value to return
+        sources that don't have any authentication.
       required: false
       style: form
       explode: false
@@ -126,6 +127,7 @@ components:
         type: array
         items:
           type: string
+        example: 10000000-0a75-4000-a000-000000000001,none
     sourceID:
       name: sourceID
       in: path
@@ -155,6 +157,19 @@ components:
       required: false
       schema:
         type: boolean
+    taskParameters_sourceID:
+      name: sourceID
+      in: query
+      description: >-
+        Which sourceID the returned task should have. Can be a list of string
+        separated with commas.
+      required: false
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
     taskParameters_destinationID:
       name: destinationID
       in: query
@@ -215,19 +230,19 @@ components:
         - apiKey
         - oauth
         - algolia
-    AuthenticationNone:
-      type: string
-      enum:
-        - none
-    authenticationTypeWithNone:
-      oneOf:
-        - $ref: '#/components/schemas/AuthenticationType'
-        - $ref: '#/components/schemas/AuthenticationNone'
     Platform:
       type: string
       enum:
         - bigcommerce
         - commercetools
+    PlatformNone:
+      type: string
+      enum:
+        - none
+    platformWithNone:
+      oneOf:
+        - $ref: '#/components/schemas/Platform'
+        - $ref: '#/components/schemas/PlatformNone'
     createdAt:
       type: string
       description: Date of creation (RFC3339 format).
@@ -1299,6 +1314,7 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/action'
         - $ref: '#/components/parameters/enabled'
+        - $ref: '#/components/parameters/taskParameters_sourceID'
         - $ref: '#/components/parameters/taskParameters_destinationID'
         - $ref: '#/components/parameters/triggerType'
       responses:
