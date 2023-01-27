@@ -21,6 +21,28 @@ class {{classname}} extends \Algolia\AlgoliaSearch\Model\AbstractModel {{^parent
     ];
 
     /**
+      * Array of attributes where the key is the local name,
+      * and the value is the original name
+      *
+      * @var string[]
+    */
+    protected static $attributeMap = [
+        {{#vars}}'{{name}}' => '{{baseName}}'{{^-last}},
+        {{/-last}}{{/vars}}
+    ];
+
+    /**
+      * Array of attributes where the key is the local name,
+      * and the value is the original name
+      *
+      * @return array
+      */
+    public static function attributeMap()
+    {
+        return {{#parentSchema}}parent::attributeMap() + {{/parentSchema}}self::$attributeMap;
+    }
+
+    /**
      * Array of property to type mappings. Used for (de)serialization
      *
      * @return array

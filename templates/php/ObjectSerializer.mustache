@@ -55,23 +55,23 @@ class ObjectSerializer
         if (is_object($data)) {
             $values = [];
             if ($data instanceof ModelInterface) {
-                $formats = $data::openAPIFormats();
-                foreach ($data::openAPITypes() as $property => $openAPIType) {
+                $formats = $data::modelFormats();
+                foreach ($data::modelTypes() as $property => $modelTypes) {
                     $getter = $data::getters()[$property];
                     $value = $data->$getter();
-                    if ($value !== null && !in_array($openAPIType, [{{{primitives}}}], true)) {
-                        $callable = [$openAPIType, 'getAllowableEnumValues'];
+                    if ($value !== null && !in_array($modelTypes, [{{{primitives}}}], true)) {
+                        $callable = [$modelTypes, 'getAllowableEnumValues'];
                         if (is_callable($callable)) {
                             /** array $callable */
                             $allowedEnumTypes = $callable();
                             if (!in_array($value, $allowedEnumTypes, true)) {
                                 $imploded = implode("', '", $allowedEnumTypes);
-                                throw new \InvalidArgumentException("Invalid value for enum '$openAPIType', must be one of: '$imploded'");
+                                throw new \InvalidArgumentException("Invalid value for enum '$modelTypes', must be one of: '$imploded'");
                             }
                         }
                     }
                     if ($value !== null) {
-                        $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $openAPIType, $formats[$property]);
+                        $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $modelTypes, $formats[$property]);
                     }
                 }
             } else {
@@ -319,18 +319,10 @@ class ObjectSerializer
             return $data;
         } else {
             $data = is_string($data) ? json_decode($data) : $data;
-            // If a discriminator is defined and points to a valid subclass, use it.
-            $discriminator = $class::DISCRIMINATOR;
-            if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '\{{invokerPackage}}\Model\\' . $data->{$discriminator};
-                if (is_subclass_of($subclass, $class)) {
-                    $class = $subclass;
-                }
-            }
 
             /** @var ModelInterface $instance */
             $instance = new $class();
-            foreach ($instance::openAPITypes() as $property => $type) {
+            foreach ($instance::modelTypes() as $property => $type) {
                 $propertySetter = $instance::setters()[$property];
 
                 if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
