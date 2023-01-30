@@ -84,6 +84,17 @@ DestinationUpdateResponse:
     - name
     - updatedAt
 
+DestinationSearch:
+  type: object
+  additionalProperties: false
+  properties:
+    destinationIDs:
+      type: array
+      items:
+        type: string
+  required:
+    - destinationIDs
+
 DestinationType:
   type: string
   enum: ['search', 'insights', 'flow', 'predict']

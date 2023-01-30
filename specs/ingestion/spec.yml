@@ -39,24 +39,32 @@ paths:
   # authentications api
   /1/authentications:
     $ref: 'paths/authentications/authentications.yml'
+  /1/authentications/search:
+    $ref: 'paths/authentications/searchAuthentications.yml'
   /1/authentications/{authenticationID}:
     $ref: 'paths/authentications/authenticationID.yml'
 
   # destinations api
   /1/destinations:
     $ref: 'paths/destinations/destinations.yml'
+  /1/destinations/search:
+    $ref: 'paths/destinations/searchDestinations.yml'
   /1/destinations/{destinationID}:
     $ref: 'paths/destinations/destinationID.yml'
 
   # sources api
   /1/sources:
     $ref: 'paths/sources/sources.yml'
+  /1/sources/search:
+    $ref: 'paths/sources/searchSources.yml'
   /1/sources/{sourceID}:
     $ref: 'paths/sources/sourceID.yml'
 
   # tasks api
   /1/tasks:
     $ref: 'paths/tasks/tasks.yml'
+  /1/tasks/search:
+    $ref: 'paths/tasks/searchTasks.yml'
   /1/tasks/{taskID}:
     $ref: 'paths/tasks/taskID.yml'
   /1/tasks/{taskID}/run:

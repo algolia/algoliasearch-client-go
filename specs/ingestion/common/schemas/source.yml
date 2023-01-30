@@ -84,6 +84,17 @@ SourceUpdateResponse:
     - name
     - updatedAt
 
+SourceSearch:
+  type: object
+  additionalProperties: false
+  properties:
+    sourceIDs:
+      type: array
+      items:
+        type: string
+  required:
+    - sourceIDs
+
 SourceType:
   type: string
   enum: ['bigcommerce', 'commercetools', 'json']

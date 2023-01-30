@@ -93,6 +93,17 @@ AuthenticationUpdateResponse:
     - name
     - updatedAt
 
+AuthenticationSearch:
+  type: object
+  additionalProperties: false
+  properties:
+    authenticationIDs:
+      type: array
+      items:
+        type: string
+  required:
+    - authenticationIDs
+
 AuthenticationType:
   type: string
   enum: ['googleServiceAccount', 'basic', 'apiKey', 'oauth', 'algolia']

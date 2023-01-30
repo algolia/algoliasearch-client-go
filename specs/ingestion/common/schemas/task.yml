@@ -88,6 +88,17 @@ TaskUpdateResponse:
     - taskID
     - updatedAt
 
+TaskSearch:
+  type: object
+  additionalProperties: false
+  properties:
+    taskIDs:
+      type: array
+      items:
+        type: string
+  required:
+    - taskIDs
+
 ActionType:
   type: string
   enum: ['replace', 'save', 'delete']
