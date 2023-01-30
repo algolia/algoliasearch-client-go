@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [46c1e2e9](https://github.com/algolia/api-clients-automation/commit/46c1e2e9) feat(specs): add search endpoint to every item type ([#1274](https://github.com/algolia/api-clients-automation/pull/1274)) by [@Fluf22](https://github.com/Fluf22/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [a60e6790](https://github.com/algolia/api-clients-automation/commit/a60e6790) feat(specs): add sourceID query param to task list endpoint ([#1250](https://github.com/algolia/api-clients-automation/pull/1250)) by [@Fluf22](https://github.com/Fluf22/)
 - [6916fb9b](https://github.com/algolia/api-clients-automation/commit/6916fb9b) feat(java): remove predict client temporarely ([#1262](https://github.com/algolia/api-clients-automation/pull/1262)) by [@millotp](https://github.com/millotp/)
 
