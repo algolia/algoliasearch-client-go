@@ -390,6 +390,16 @@ components:
         - authenticationID
         - name
         - createdAt
+    AuthenticationSearch:
+      type: object
+      additionalProperties: false
+      properties:
+        authenticationIDs:
+          type: array
+          items:
+            type: string
+      required:
+        - authenticationIDs
     AuthenticationWithInput:
       allOf:
         - $ref: '#/components/schemas/Authentication'
@@ -517,6 +527,16 @@ components:
         - destinationID
         - name
         - createdAt
+    DestinationSearch:
+      type: object
+      additionalProperties: false
+      properties:
+        destinationIDs:
+          type: array
+          items:
+            type: string
+      required:
+        - destinationIDs
     DestinationUpdate:
       type: object
       additionalProperties: false
@@ -654,6 +674,16 @@ components:
         - sourceID
         - name
         - createdAt
+    SourceSearch:
+      type: object
+      additionalProperties: false
+      properties:
+        sourceIDs:
+          type: array
+          items:
+            type: string
+      required:
+        - sourceIDs
     SourceUpdate:
       type: object
       additionalProperties: false
@@ -776,6 +806,16 @@ components:
       required:
         - taskID
         - createdAt
+    TaskSearch:
+      type: object
+      additionalProperties: false
+      properties:
+        taskIDs:
+          type: array
+          items:
+            type: string
+      required:
+        - taskIDs
     TaskUpdate:
       type: object
       additionalProperties: false
@@ -1018,6 +1058,31 @@ paths:
                 $ref: '#/components/schemas/AuthenticationCreateResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
+  /1/authentications/search:
+    post:
+      tags:
+        - ingestion
+      summary: Search among authentications.
+      description: Search among authentications with a defined set of parameters.
+      operationId: searchAuthentications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationSearch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: searchAuthenticationsResponse
+                type: array
+                items:
+                  $ref: '#/components/schemas/Authentication'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /1/authentications/{authenticationID}:
     get:
       tags:
@@ -1131,6 +1196,31 @@ paths:
                 $ref: '#/components/schemas/DestinationCreateResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
+  /1/destinations/search:
+    post:
+      tags:
+        - ingestion
+      summary: Search among destinations.
+      description: Search among destinations with a defined set of parameters.
+      operationId: searchDestinations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationSearch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: searchDestinationsResponse
+                type: array
+                items:
+                  $ref: '#/components/schemas/Destination'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /1/destinations/{destinationID}:
     get:
       tags:
@@ -1242,6 +1332,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SourceCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/sources/search:
+    post:
+      tags:
+        - ingestion
+      summary: Search among sources.
+      description: Search among sources with a defined set of parameters.
+      operationId: searchSources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceSearch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: searchSourcesResponse
+                type: array
+                items:
+                  $ref: '#/components/schemas/Source'
         '400':
           $ref: '#/components/responses/BadRequest'
   /1/sources/{sourceID}:
@@ -1358,6 +1473,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TaskCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /1/tasks/search:
+    post:
+      tags:
+        - ingestion
+      summary: Search among tasks.
+      description: Search among tasks with a defined set of parameters.
+      operationId: searchTasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskSearch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: searchTasksResponse
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
         '400':
           $ref: '#/components/responses/BadRequest'
   /1/tasks/{taskID}:
