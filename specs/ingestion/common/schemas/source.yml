@@ -60,12 +60,10 @@ SourceUpdate:
   type: object
   additionalProperties: false
   properties:
-    type:
-      $ref: '#/SourceType'
     name:
       type: string
     input:
-      $ref: '#/SourceInput'
+      $ref: '#/SourceUpdateInput'
     authenticationID:
       type: string
 
@@ -106,6 +104,7 @@ SourceCommercetools:
     storeKeys:
       type: array
       items:
+        description: Unique and immutable key of the referenced Store.
         type: string
     locales:
       type: array
@@ -127,6 +126,7 @@ SourceBigCommerce:
   properties:
     storeHash:
       type: string
+      description: The store hash identifying the store the shopper is signing in to.
   required:
     - store_hash
 
@@ -140,6 +140,7 @@ SourceJson:
   properties:
     url:
       type: string
+      description: The URL of the file.
     method:
       $ref: '#/MethodType'
   required:
@@ -150,3 +151,38 @@ SourceInput:
     - $ref: '#/SourceCommercetools'
     - $ref: '#/SourceBigCommerce'
     - $ref: '#/SourceJson'
+
+SourceUpdateCommercetools:
+  type: object
+  additionalProperties: false
+  properties:
+    storeKeys:
+      type: array
+      description: Unique and immutable key of the referenced Store.
+      items:
+        type: string
+    locales:
+      type: array
+      description: >
+        Array of locales that must match the following pattern: ^[a-z]{2}(-[A-Z]{2})?$. For example ["fr-FR", "en"].
+      items:
+        type: string
+
+SourceUpdateJson:
+  type: object
+  additionalProperties: false
+  properties:
+    url:
+      type: string
+      description: The URL of the file.
+    method:
+      $ref: '#/MethodType'
+  required:
+    - url
+
+
+SourceUpdateInput:
+  oneOf:
+    - $ref: '#/SourceUpdateCommercetools'
+    - $ref: '#/SourceUpdateJson'
+
