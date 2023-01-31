@@ -576,6 +576,7 @@ components:
         storeKeys:
           type: array
           items:
+            description: Unique and immutable key of the referenced Store.
             type: string
         locales:
           type: array
@@ -597,6 +598,7 @@ components:
       properties:
         storeHash:
           type: string
+          description: The store hash identifying the store the shopper is signing in to.
       required:
         - store_hash
     MethodType:
@@ -610,6 +612,7 @@ components:
       properties:
         url:
           type: string
+          description: The URL of the file.
         method:
           $ref: '#/components/schemas/MethodType'
       required:
@@ -684,16 +687,45 @@ components:
             type: string
       required:
         - sourceIDs
+    SourceUpdateCommercetools:
+      type: object
+      additionalProperties: false
+      properties:
+        storeKeys:
+          type: array
+          description: Unique and immutable key of the referenced Store.
+          items:
+            type: string
+        locales:
+          type: array
+          description: >
+            Array of locales that must match the following pattern:
+            ^[a-z]{2}(-[A-Z]{2})?$. For example ["fr-FR", "en"].
+          items:
+            type: string
+    SourceUpdateJson:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+          description: The URL of the file.
+        method:
+          $ref: '#/components/schemas/MethodType'
+      required:
+        - url
+    SourceUpdateInput:
+      oneOf:
+        - $ref: '#/components/schemas/SourceUpdateCommercetools'
+        - $ref: '#/components/schemas/SourceUpdateJson'
     SourceUpdate:
       type: object
       additionalProperties: false
       properties:
-        type:
-          $ref: '#/components/schemas/SourceType'
         name:
           type: string
         input:
-          $ref: '#/components/schemas/SourceInput'
+          $ref: '#/components/schemas/SourceUpdateInput'
         authenticationID:
           type: string
     SourceUpdateResponse:
@@ -1377,7 +1409,7 @@ paths:
                 $ref: '#/components/schemas/Source'
         '400':
           $ref: '#/components/responses/BadRequest'
-    post:
+    put:
       tags:
         - ingestion
       summary: Update a source.
