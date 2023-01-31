@@ -205,6 +205,20 @@ components:
       schema:
         type: string
         example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    runStatus:
+      name: status
+      in: query
+      description: Filter the status of the runs.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/RunStatus'
+    observabilityParameters_taskID:
+      name: taskID
+      in: query
+      description: Filter by taskID.
+      schema:
+        type: string
     runID:
       name: runID
       in: path
@@ -213,6 +227,22 @@ components:
       schema:
         type: string
         example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    eventStatus:
+      name: status
+      in: query
+      description: Filter the status of the events.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/EventStatus'
+    eventType:
+      name: type
+      in: query
+      description: Filter the type of the events.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/EventType'
     eventID:
       name: eventID
       in: path
@@ -885,6 +915,7 @@ components:
       enum:
         - created
         - started
+        - idled
         - finished
     RunOutcome:
       type: string
@@ -968,7 +999,7 @@ components:
       enum:
         - fetch
         - record
-        - internal
+        - log
     publishedAt:
       type: string
       description: Date of publish (RFC3339 format).
@@ -1654,6 +1685,8 @@ paths:
       parameters:
         - $ref: '#/components/parameters/itemsPerPage'
         - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/runStatus'
+        - $ref: '#/components/parameters/observabilityParameters_taskID'
       responses:
         '200':
           description: OK
@@ -1692,6 +1725,8 @@ paths:
         - $ref: '#/components/parameters/runID'
         - $ref: '#/components/parameters/itemsPerPage'
         - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/eventStatus'
+        - $ref: '#/components/parameters/eventType'
       responses:
         '200':
           description: OK
@@ -1706,11 +1741,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Event'
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
                 required:
                   - events
-                  - pagination
         '400':
           $ref: '#/components/responses/BadRequest'
   /1/runs/{runID}/events/{eventID}:
@@ -1730,25 +1762,5 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Event'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-  /1/runs/tasks/{taskID}:
-    get:
-      tags:
-        - ingestion
-      summary: Get a list of runs associated with a taskID.
-      description: Get a list of runs associated with a taskID.
-      operationId: getRunsByTaskID
-      parameters:
-        - $ref: '#/components/parameters/taskID'
-        - $ref: '#/components/parameters/itemsPerPage'
-        - $ref: '#/components/parameters/page'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RunListResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
