@@ -1,56 +1,50 @@
-authenticationID:
+pathAuthenticationID:
   name: authenticationID
   in: path
-  description: The authentication uuid.
   required: true
+  description: The authentication UUID.
   schema:
-    type: string
-    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    $ref: './schemas/common.yml#/authenticationID'
 
-destinationID:
+pathDestinationID:
   name: destinationID
   in: path
-  description: The destination uuid.
   required: true
+  description: The destination UUID.
   schema:
-    type: string
-    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    $ref: './schemas/common.yml#/destinationID'
 
-sourceID:
+pathSourceID:
   name: sourceID
   in: path
-  description: The source uuid.
   required: true
+  description: The source UUID.
   schema:
-    type: string
-    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    $ref: './schemas/common.yml#/sourceID'
 
-taskID:
+pathTaskID:
   name: taskID
   in: path
-  description: The task uuid.
   required: true
+  description: The task UUID.
   schema:
-    type: string
-    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    $ref: './schemas/common.yml#/taskID'
 
-runID:
+pathRunID:
   name: runID
   in: path
-  description: The run uuid.
   required: true
+  description: The run UUID.
   schema:
-    type: string
-    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    $ref: './schemas/common.yml#/runID'
 
-eventID:
+pathEventID:
   name: eventID
   in: path
-  description: The event uuid.
   required: true
+  description: The event UUID.
   schema:
-    type: string
-    example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+    $ref: './schemas/common.yml#/eventID'
 
 itemsPerPage:
   name: itemsPerPage

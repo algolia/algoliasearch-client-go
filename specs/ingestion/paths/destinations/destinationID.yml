@@ -2,10 +2,10 @@ get:
   tags:
     - destinations
   summary: Get a destination.
-  description: Get a destination.
+  description: Get the destination of the given destinationID.
   operationId: getDestination
   parameters:
-    - $ref: '../../common/parameters.yml#/destinationID'
+    - $ref: '../../common/parameters.yml#/pathDestinationID'
   responses:
     '200':
       description: OK
@@ -20,10 +20,10 @@ put:
   tags:
     - destinations
   summary: Update a destination.
-  description: Update a destination.
+  description: Update the destination of the given destinationID.
   operationId: updateDestination
   parameters:
-    - $ref: '../../common/parameters.yml#/destinationID'
+    - $ref: '../../common/parameters.yml#/pathDestinationID'
   requestBody:
     content:
       application/json:
@@ -44,10 +44,10 @@ delete:
   tags:
     - destinations
   summary: Delete a destination.
-  description: Soft delete a destination.
+  description: Soft delete the destination of the given destinationID.
   operationId: deleteDestination
   parameters:
-    - $ref: '../../common/parameters.yml#/destinationID'
+    - $ref: '../../common/parameters.yml#/pathDestinationID'
   responses:
     '204':
       description: OK

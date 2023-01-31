@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   title: Ingestion API
-  description: API powering the Data Ingestion feature of Algolia.
+  description: API powering the Data Ingestion connectors of Algolia.
   version: '1.0'
 components:
   securitySchemes:
@@ -22,21 +22,21 @@ security:
 tags:
   - name: authentications
     x-displayName: Authentications
-    description: Authentications describe the way we connect to Algolia, or any platform.
+    description: An authentication describe the way we connect to Algolia, or any supported connector.
   - name: destinations
     x-displayName: Destinations
-    description: Destinations refers to an Algolia product (Search, Insight, Recommend, ...).
+    description: A destination refers to an Algolia product (Search, Insight, Recommend, ...).
   - name: observability
     x-displayName: Observability
-    description: Observability api tracks each runs and events.
+    description: The observability API associates a run to a task execution.
   - name: sources
     x-displayName: Sources
-    description: Sources describe the platform informations.
+    description: A source describe the platform informations.
   - name: tasks
     x-displayName: Tasks
-    description: Tasks refers to all type of Ingestion we can do (Reindex, On demand update, ...).
+    description: A Task describe how we fetch the data (reindex, on-demand, subscription) from a source and how we index it on the Algolia side.
 paths:
-  # authentications api
+  # authentications API.
   /1/authentications:
     $ref: 'paths/authentications/authentications.yml'
   /1/authentications/search:
@@ -44,7 +44,7 @@ paths:
   /1/authentications/{authenticationID}:
     $ref: 'paths/authentications/authenticationID.yml'
 
-  # destinations api
+  # destinations API.
   /1/destinations:
     $ref: 'paths/destinations/destinations.yml'
   /1/destinations/search:
@@ -52,7 +52,7 @@ paths:
   /1/destinations/{destinationID}:
     $ref: 'paths/destinations/destinationID.yml'
 
-  # sources api
+  # sources API.
   /1/sources:
     $ref: 'paths/sources/sources.yml'
   /1/sources/search:
@@ -60,7 +60,7 @@ paths:
   /1/sources/{sourceID}:
     $ref: 'paths/sources/sourceID.yml'
 
-  # tasks api
+  # tasks API.
   /1/tasks:
     $ref: 'paths/tasks/tasks.yml'
   /1/tasks/search:
@@ -74,7 +74,7 @@ paths:
   /1/tasks/{taskID}/disable:
     $ref: 'paths/tasks/disableTask.yml'
 
-  # observability api
+  # observability API.
   /1/runs:
     $ref: 'paths/runs/runs.yml'
   /1/runs/{runID}:

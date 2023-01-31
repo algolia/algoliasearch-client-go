@@ -2,7 +2,7 @@ get:
   tags:
     - observability
   summary: Get a list of runs.
-  description: Get a list of runs.
+  description: Get a list of runs for the given query parameters, with pagination details.
   operationId: getRuns
   parameters:
     - $ref: '../../common/parameters.yml#/itemsPerPage'

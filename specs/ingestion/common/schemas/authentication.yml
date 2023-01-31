@@ -1,13 +1,14 @@
 Authentication:
   type: object
+  description: An authentication is used to login into a Source or a Destination.
   additionalProperties: false
   properties:
     authenticationID:
-      type: string
+      $ref: './common.yml#/authenticationID'
     type:
       $ref: '#/AuthenticationType'
     name:
-      type: string
+      $ref: './common.yml#/name'
     platform:
       $ref: '#/Platform'
     createdAt:
@@ -26,6 +27,7 @@ AuthenticationWithInput:
     - $ref: '#/Authentication'
     - type: object
       title: authenticationInput
+      description: The authentication input property stores the (encrypted) credentials.
       additionalProperties: false
       properties:
         input:
@@ -35,12 +37,13 @@ AuthenticationWithInput:
 
 AuthenticationCreate:
   type: object
+  description: The payload when creating an authentication.
   additionalProperties: false
   properties:
     type:
       $ref: '#/AuthenticationType'
     name:
-      type: string
+      $ref: './common.yml#/name'
     platform:
       $ref: '#/Platform'
     input:
@@ -52,12 +55,13 @@ AuthenticationCreate:
 
 AuthenticationCreateResponse:
   type: object
+  description: Response from the API when the Authentication is successfully created.
   additionalProperties: false
   properties:
     authenticationID:
-      type: string
+      $ref: './common.yml#/authenticationID'
     name:
-      type: string
+      $ref: './common.yml#/name'
     createdAt:
       $ref: './common.yml#/createdAt'
   required:
@@ -67,12 +71,13 @@ AuthenticationCreateResponse:
 
 AuthenticationUpdate:
   type: object
+  description: Payload to partialy update an Authentication.
   additionalProperties: false
   properties:
     type:
       $ref: '#/AuthenticationType'
     name:
-      type: string
+      $ref: './common.yml#/name'
     platform:
       $ref: '#/Platform'
     input:
@@ -81,11 +86,12 @@ AuthenticationUpdate:
 AuthenticationUpdateResponse:
   type: object
   additionalProperties: false
+  description: Response from the API when the Authentication is successfully updated.
   properties:
     authenticationID:
-      type: string
+      $ref: './common.yml#/authenticationID'
     name:
-      type: string
+      $ref: './common.yml#/name'
     updatedAt:
       $ref: './common.yml#/updatedAt'
   required:
@@ -96,40 +102,44 @@ AuthenticationUpdateResponse:
 AuthenticationSearch:
   type: object
   additionalProperties: false
+  description: Payload to search for multiple authentications, based on the given `authenticationIDs`.
   properties:
     authenticationIDs:
       type: array
       items:
-        type: string
+        $ref: './common.yml#/authenticationID'
   required:
     - authenticationIDs
 
 AuthenticationType:
   type: string
+  description: Type of the Authentication, defines what kind of object is stored in the input.
   enum: ['googleServiceAccount', 'basic', 'apiKey', 'oauth', 'algolia']
 
 Platform:
   type: string
+  description: Describe which platform the Authentication is used for.
   enum: ['bigcommerce', 'commercetools']
-
-PlatformNone:
-  type: string
-  enum: ['none']
 
 AuthGoogleServiceAccount:
   type: object
+  description: Authentication input to connect to a Google service (e.g. BigQuery).
   additionalProperties: false
   properties:
     clientEmail:
       type: string
+      description: Email address of the Service Account.
+      example: service-account-name@project-id.iam.gserviceaccount.com
     privateKey:
       type: string
+      description: Private key of the Service Account.
   required:
     - clientEmail
     - privateKey
 
 AuthBasic:
   type: object
+  description: Authentication input for Basic login with username and password.
   additionalProperties: false
   properties:
     username:
@@ -142,6 +152,7 @@ AuthBasic:
 
 AuthAPIKey:
   type: object
+  description: Authentication input used for token credentials.
   additionalProperties: false
   properties:
     key:
@@ -151,16 +162,18 @@ AuthAPIKey:
 
 AuthOAuth:
   type: object
+  description: Authentication input for OAuth login.
   additionalProperties: false
   properties:
     url:
       type: string
+      description: The OAuth endpoint URL.
     client_id:
       type: string
+      description: The clientID.
     client_secret:
       type: string
-    scope:
-      type: string
+      description: The secret.
   required:
     - url
     - client_id
@@ -172,8 +185,10 @@ AuthAlgolia:
   properties:
     appID:
       type: string
+      description: Algolia Application ID.
     apiKey:
       type: string
+      description: Algolia API Key, with the correct rights to push to an index and change settings.
   required:
     - appID
     - apiKey

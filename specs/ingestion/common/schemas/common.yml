@@ -26,3 +26,37 @@ DeleteResponse:
       description: Date of deletion (RFC3339 format).
   required:
     - deletedAt
+
+authenticationID:
+  type: string
+  description: The authentication UUID.
+  example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+destinationID:
+  type: string
+  description: The destination UUID.
+  example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+sourceID:
+  type: string
+  description: The source UUID.
+  example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+taskID:
+  type: string
+  description: The task UUID.
+  example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+runID:
+  type: string
+  description: The run UUID.
+  example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+eventID:
+  type: string
+  description: The event UUID.
+  example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
+
+name:
+  type: string
+  description: An human readable name describing the object.

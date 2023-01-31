@@ -1,13 +1,14 @@
 Destination:
   type: object
+  description: A destination describe how the data is indexed on the Algolia side.
   additionalProperties: false
   properties:
     destinationID:
-      type: string
+      $ref: './common.yml#/destinationID'
     type:
       $ref: '#/DestinationType'
     name:
-      type: string
+      $ref: './common.yml#/name'
     input:
       $ref: '#/DestinationInput'
     createdAt:
@@ -26,15 +27,16 @@ Destination:
 DestinationCreate:
   type: object
   additionalProperties: false
+  description: The payload when creating a destination.
   properties:
     type:
       $ref: '#/DestinationType'
     name:
-      type: string
+      $ref: './common.yml#/name'
     input:
       $ref: '#/DestinationInput'
     authenticationID:
-      type: string
+      $ref: './common.yml#/authenticationID'
   required:
     - type
     - name
@@ -44,11 +46,12 @@ DestinationCreate:
 DestinationCreateResponse:
   type: object
   additionalProperties: false
+  description: Response from the API when the Destination is successfully created.
   properties:
     destinationID:
-      type: string
+      $ref: './common.yml#/destinationID'
     name:
-      type: string
+      $ref: './common.yml#/name'
     createdAt:
       $ref: './common.yml#/createdAt'
   required:
@@ -59,11 +62,12 @@ DestinationCreateResponse:
 DestinationUpdate:
   type: object
   additionalProperties: false
+  description: Payload to partialy update a Destination.
   properties:
     type:
       $ref: '#/DestinationType'
     name:
-      type: string
+      $ref: './common.yml#/name'
     input:
       $ref: '#/DestinationInput'
     authenticationID:
@@ -72,11 +76,12 @@ DestinationUpdate:
 DestinationUpdateResponse:
   type: object
   additionalProperties: false
+  description: Response from the API when the Destination is successfully updated.
   properties:
     destinationID:
-      type: string
+      $ref: './common.yml#/destinationID'
     name:
-      type: string
+      $ref: './common.yml#/name'
     updatedAt:
       $ref: './common.yml#/updatedAt'
   required:
@@ -87,16 +92,18 @@ DestinationUpdateResponse:
 DestinationSearch:
   type: object
   additionalProperties: false
+  description: Payload to search for multiple destinations, based on the given `destinationIDs`.
   properties:
     destinationIDs:
       type: array
       items:
-        type: string
+        $ref: './common.yml#/destinationID'
   required:
     - destinationIDs
 
 DestinationType:
   type: string
+  description: Type of the Destination, defines in which Algolia product the data will be stored.
   enum: ['search', 'insights', 'flow', 'predict']
 
 DestinationIndexPrefix:
@@ -105,6 +112,7 @@ DestinationIndexPrefix:
   properties:
     indexPrefix:
       type: string
+      description: The prefix of the final index name.
   required:
     - indexPrefix
 
@@ -114,6 +122,7 @@ DestinationIndexName:
   properties:
     indexName:
       type: string
+      description: The index name to store data in.
   required:
     - indexName
 

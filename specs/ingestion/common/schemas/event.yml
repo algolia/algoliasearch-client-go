@@ -1,13 +1,16 @@
 Event:
   type: object
+  description: An event describe a step of the task execution flow..
   additionalProperties: false
   properties:
     eventID:
-      type: string
+      $ref: './common.yml#/eventID'
     runID:
-      type: string
+      $ref: './common.yml#/runID'
     parentID:
       type: string
+      description: The parent event, the cause of this event.
+      example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
     status:
       $ref: '#/EventStatus'
     type:

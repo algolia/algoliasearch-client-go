@@ -2,7 +2,7 @@ get:
   tags:
     - authentications
   summary: Get a list of authentications.
-  description: Get a list of authentications.
+  description: Get a list of authentications for the given query parameters, with pagination details.
   operationId: getAuthentications
   parameters:
     - $ref: '../../common/parameters.yml#/itemsPerPage'

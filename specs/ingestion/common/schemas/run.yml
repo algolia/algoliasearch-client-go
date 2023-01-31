@@ -1,9 +1,10 @@
 RunResponse:
   type: object
   additionalProperties: false
+  description: The response from the run task API, containing an Observability Run ID and the time it was created at.
   properties:
     runID:
-      type: string
+      $ref: './common.yml#/runID'
     createdAt:
       $ref: './common.yml#/createdAt'
   required:
@@ -29,11 +30,11 @@ Run:
   additionalProperties: false
   properties:
     runID:
-      type: string
+      $ref: './common.yml#/runID'
     appID:
       type: string
     taskID:
-      type: string
+      $ref: './common.yml#/taskID'
     status:
       $ref: '#/RunStatus'
     progress:

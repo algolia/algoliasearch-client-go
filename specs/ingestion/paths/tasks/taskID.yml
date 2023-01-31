@@ -2,10 +2,10 @@ get:
   tags:
     - tasks
   summary: Get a task.
-  description: Get a task.
+  description: Get the task of the given taskID.
   operationId: getTask
   parameters:
-    - $ref: '../../common/parameters.yml#/taskID'
+    - $ref: '../../common/parameters.yml#/pathTaskID'
   responses:
     '200':
       description: OK
@@ -20,10 +20,10 @@ put:
   tags:
     - tasks
   summary: Update a task.
-  description: Update a task.
+  description: Update the task of the given taskID.
   operationId: updateTask
   parameters:
-    - $ref: '../../common/parameters.yml#/taskID'
+    - $ref: '../../common/parameters.yml#/pathTaskID'
   requestBody:
     content:
       application/json:
@@ -44,10 +44,10 @@ delete:
   tags:
     - tasks
   summary: Delete a task.
-  description: Soft delete a task.
+  description: Soft delete the task of the given taskID.
   operationId: deleteTask
   parameters:
-    - $ref: '../../common/parameters.yml#/taskID'
+    - $ref: '../../common/parameters.yml#/pathTaskID'
   responses:
     '204':
       description: OK

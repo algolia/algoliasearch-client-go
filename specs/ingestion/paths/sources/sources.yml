@@ -2,7 +2,7 @@ get:
   tags:
     - sources
   summary: Get a list of sources.
-  description: Get a list of sources.
+  description: Get a list of sources for the given query parameters, with pagination details.
   operationId: getSources
   parameters:
     - $ref: '../../common/parameters.yml#/itemsPerPage'

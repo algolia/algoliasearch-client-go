@@ -1,7 +1,7 @@
 type:
   name: type
   in: query
-  description: Which type the returned source should have. Can be a list of string separated with commas.
+  description: The type of the sources to retrieve.
   required: false
   style: form
   explode: false
@@ -14,14 +14,14 @@ type:
 authenticationID:
   name: authenticationID
   in: query
-  description: >-
-    Which authenticationID the returned source should have. Can be a list of string separated with commas.
-    Also supports 'none' as a value to return sources that don't have any authentication.
+  description: >
+    The authenticationIDs of the sources to retrieve.
+    'none' returns sources that doesn't have an authentication.
   required: false
   style: form
   explode: false
   schema:
     type: array
     items:
-      type: string
+      $ref: './schemas/common.yml#/authenticationID'
     example: 10000000-0a75-4000-a000-000000000001,none

@@ -3,7 +3,7 @@ Source:
   additionalProperties: false
   properties:
     sourceID:
-      type: string
+      $ref: './common.yml#/sourceID'
     type:
       $ref: '#/SourceType'
     name:
@@ -11,7 +11,7 @@ Source:
     input:
       $ref: '#/SourceInput'
     authenticationID:
-      type: string
+      $ref: './common.yml#/authenticationID'
     createdAt:
       $ref: './common.yml#/createdAt'
     updatedAt:
@@ -34,7 +34,7 @@ SourceCreate:
     input:
       $ref: '#/SourceInput'
     authenticationID:
-      type: string
+      $ref: './common.yml#/authenticationID'
   required:
     - type
     - name
@@ -46,7 +46,7 @@ SourceCreateResponse:
   additionalProperties: false
   properties:
     sourceID:
-      type: string
+      $ref: './common.yml#/sourceID'
     name:
       type: string
     createdAt:
@@ -65,14 +65,14 @@ SourceUpdate:
     input:
       $ref: '#/SourceUpdateInput'
     authenticationID:
-      type: string
+      $ref: './common.yml#/authenticationID'
 
 SourceUpdateResponse:
   type: object
   additionalProperties: false
   properties:
     sourceID:
-      type: string
+      $ref: './common.yml#/sourceID'
     name:
       type: string
     updatedAt:

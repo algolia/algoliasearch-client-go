@@ -3,16 +3,17 @@ Task:
   additionalProperties: false
   properties:
     taskID:
-      type: string
+      $ref: './common.yml#/taskID'
     sourceID:
-      type: string
+      $ref: './common.yml#/sourceID'
     destinationID:
-      type: string
+      $ref: './common.yml#/destinationID'
     trigger:
-      $ref: '#/Trigger'
+      $ref: '#/TaskTrigger'
     enabled:
       type: boolean
       default: true
+      description: Whether the task is enabled or not.
     action:
       $ref: '#/ActionType'
     # lastCursorValue:
@@ -30,20 +31,27 @@ Task:
     - action
     - createdAt
 
+TaskTrigger:
+  oneOf:
+    - $ref: '#/Trigger'
+    - $ref: '#/ScheduleTrigger'
+
 TaskCreate:
   type: object
   additionalProperties: false
+  description: The payload for a task creation.
   properties:
     sourceID:
-      type: string
+      $ref: './common.yml#/sourceID'
     destinationID:
-      type: string
+      $ref: './common.yml#/destinationID'
     trigger:
-      $ref: '#/TriggerInput'
+      $ref: '#/TaskCreateTrigger'
     action:
       $ref: '#/ActionType'
     enabled:
       type: boolean
+      description: Whether the task is enabled or not.
     # lastCursorValue:
     #   type: integer
     #   format: int64
@@ -53,12 +61,18 @@ TaskCreate:
     - trigger
     - action
 
+TaskCreateTrigger:
+  oneOf:
+    - $ref: '#/TriggerInput'
+    - $ref: '#/ScheduleTriggerInput'
+
 TaskCreateResponse:
   type: object
   additionalProperties: false
+  description: The response from the API after a task creation.
   properties:
     taskID:
-      type: string
+      $ref: './common.yml#/taskID'
     createdAt:
       $ref: './common.yml#/createdAt'
   required:
@@ -68,20 +82,23 @@ TaskCreateResponse:
 TaskUpdate:
   type: object
   additionalProperties: false
+  description: The payload for a task update.
   properties:
     destinationID:
-      type: string
+      $ref: './common.yml#/destinationID'
     trigger:
       $ref: '#/TriggerInput'
     enabled:
       type: boolean
+      description: Whether the task is enabled or not.
 
 TaskUpdateResponse:
   type: object
+  description: The response from the API after a task update.
   additionalProperties: false
   properties:
     taskID:
-      type: string
+      $ref: './common.yml#/taskID'
     updatedAt:
       $ref: './common.yml#/updatedAt'
   required:
@@ -101,36 +118,73 @@ TaskSearch:
 
 ActionType:
   type: string
+  description: The action to perform on the Algolia index.
   enum: ['replace', 'save', 'delete']
 
 TriggerInput:
   type: object
   additionalProperties: false
+  description: The trigger input of a task.
+  properties:
+    type:
+      $ref: '#/TriggerType'
+  required:
+    - type
+
+ScheduleTriggerInput:
+  type: object
+  additionalProperties: false
+  description: The trigger input for a task of type 'schedule'.
   properties:
     type:
       $ref: '#/TriggerType'
     cron:
-      type: string
+      $ref: '#/Cron'
   required:
     - type
+    - cron
 
 Trigger:
   type: object
   additionalProperties: false
+  description: The trigger information of a task.
+  properties:
+    type:
+      $ref: '#/TriggerType'
+  required:
+    - type
+
+ScheduleTrigger:
+  type: object
+  additionalProperties: false
+  description: The trigger information for a task of type 'schedule'.
   properties:
     type:
       $ref: '#/TriggerType'
     cron:
-      type: string
+      $ref: '#/Cron'
     lastRun:
-      description: The last time the task ran (`scheduled` or `on-demand`).
+      description: The last time the scheduled task ran.
       type: string
     nextRun:
-      description: The next scheduled run for the task (`scheduled`).
+      description: The next scheduled run of the task.
       type: string
   required:
     - type
+    - cron
+    - lastRun
+    - nextRun
 
 TriggerType:
   type: string
+  description: >
+    The type of the task reflect how it can be used:
+      - on_demand: a task that runs manually
+      - schedule: a task that runs regularly, following a given cron expression
+      - subscription: a task that runs after a subscription event is received from an integration (e.g. Webhook).
   enum: ['on_demand', 'schedule', 'subscription']
+
+Cron:
+  type: string
+  description: A cron expression that represent at which regularity the task should run.
+  example: '* * 1 * *'

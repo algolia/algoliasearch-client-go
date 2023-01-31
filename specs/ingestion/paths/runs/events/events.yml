@@ -1,13 +1,11 @@
 get:
   tags:
     - observability
-  summary: Get a list of events for a specific run.
-  description: Get a list of events for a specific run.
+  summary: Get a list of events.
+  description: Get a list of events associated to the given runID, for the given query parameters.
   operationId: getEvents
   parameters:
-    - $ref: '../../../common/parameters.yml#/runID'
-    - $ref: '../../../common/parameters.yml#/itemsPerPage'
-    - $ref: '../../../common/parameters.yml#/page'
+    - $ref: '../../../common/parameters.yml#/pathRunID'
     - $ref: '../../../common/observabilityParameters.yml#/eventStatus'
     - $ref: '../../../common/observabilityParameters.yml#/eventType'
   responses:
