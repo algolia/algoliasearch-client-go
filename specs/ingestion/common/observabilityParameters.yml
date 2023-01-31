@@ -1,0 +1,33 @@
+eventStatus:
+  name: status
+  in: query
+  description: Filter the status of the events.
+  schema:
+    type: array
+    items:
+      $ref: './schemas/event.yml#/EventStatus'
+
+eventType:
+  name: type
+  in: query
+  description: Filter the type of the events.
+  schema:
+    type: array
+    items:
+      $ref: './schemas/event.yml#/EventType'
+
+runStatus:
+  name: status
+  in: query
+  description: Filter the status of the runs.
+  schema:
+    type: array
+    items:
+      $ref: './schemas/run.yml#/RunStatus'
+
+taskID:
+  name: taskID
+  in: query
+  description: Filter by taskID.
+  schema:
+    type: string

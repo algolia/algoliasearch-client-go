@@ -180,9 +180,7 @@ SourceUpdateJson:
   required:
     - url
 
-
 SourceUpdateInput:
   oneOf:
     - $ref: '#/SourceUpdateCommercetools'
     - $ref: '#/SourceUpdateJson'
-
