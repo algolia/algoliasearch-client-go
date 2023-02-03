@@ -9,7 +9,7 @@ Task:
     destinationID:
       $ref: './common.yml#/destinationID'
     trigger:
-      $ref: '#/TaskTrigger'
+      $ref: '#/Trigger'
     enabled:
       type: boolean
       default: true
@@ -31,10 +31,11 @@ Task:
     - action
     - createdAt
 
-TaskTrigger:
+Trigger:
   oneOf:
-    - $ref: '#/Trigger'
+    - $ref: '#/OnDemandTrigger'
     - $ref: '#/ScheduleTrigger'
+    - $ref: '#/SubscriptionTrigger'
 
 TaskCreate:
   type: object
@@ -131,50 +132,6 @@ TriggerInput:
   required:
     - type
 
-ScheduleTriggerInput:
-  type: object
-  additionalProperties: false
-  description: The trigger input for a task of type 'schedule'.
-  properties:
-    type:
-      $ref: '#/TriggerType'
-    cron:
-      $ref: '#/Cron'
-  required:
-    - type
-    - cron
-
-Trigger:
-  type: object
-  additionalProperties: false
-  description: The trigger information of a task.
-  properties:
-    type:
-      $ref: '#/TriggerType'
-  required:
-    - type
-
-ScheduleTrigger:
-  type: object
-  additionalProperties: false
-  description: The trigger information for a task of type 'schedule'.
-  properties:
-    type:
-      $ref: '#/TriggerType'
-    cron:
-      $ref: '#/Cron'
-    lastRun:
-      description: The last time the scheduled task ran.
-      type: string
-    nextRun:
-      description: The next scheduled run of the task.
-      type: string
-  required:
-    - type
-    - cron
-    - lastRun
-    - nextRun
-
 TriggerType:
   type: string
   description: >
@@ -184,7 +141,96 @@ TriggerType:
       - subscription: a task that runs after a subscription event is received from an integration (e.g. Webhook).
   enum: ['on_demand', 'schedule', 'subscription']
 
+# schedule trigger
+
+LastRun:
+  description: The last time the scheduled task ran.
+  type: string
+
 Cron:
   type: string
   description: A cron expression that represent at which regularity the task should run.
   example: '* * 1 * *'
+
+ScheduleTriggerType:
+  type: string
+  description: A task which is triggered by a schedule (cron expression).
+  enum: ['schedule']
+
+ScheduleTriggerInput:
+  type: object
+  additionalProperties: false
+  description: The trigger input for a task of type 'schedule'.
+  properties:
+    type:
+      $ref: '#/ScheduleTriggerType'
+    cron:
+      $ref: '#/Cron'
+  required:
+    - type
+    - cron
+
+ScheduleTrigger:
+  type: object
+  additionalProperties: false
+  description: The trigger information for a task of type 'schedule'.
+  properties:
+    type:
+      $ref: '#/ScheduleTriggerType'
+    cron:
+      $ref: '#/Cron'
+    lastRun:
+      $ref: '#/LastRun'
+    nextRun:
+      description: The next scheduled run of the task.
+      type: string
+  required:
+    - type
+    - cron
+    - nextRun
+
+# on demand trigger
+
+OnDemandTriggerType:
+  type: string
+  description: A task which is manually executed via the run task endpoint.
+  enum: ['on_demand']
+
+OnDemandTriggerInput:
+  type: object
+  additionalProperties: false
+  description: The trigger information of a task of type `on-demand`.
+  properties:
+    type:
+      $ref: '#/OnDemandTriggerType'
+  required:
+    - type
+
+OnDemandTrigger:
+  type: object
+  additionalProperties: false
+  description: The trigger information of a task of type `on-demand`.
+  properties:
+    type:
+      $ref: '#/OnDemandTriggerType'
+    lastRun:
+      $ref: '#/LastRun'
+  required:
+    - type
+
+# subscription trigger
+
+SubscriptionTriggerType:
+  type: string
+  description: A task which is triggered by an external subscription (e.g. Webhook).
+  enum: ['subscription']
+
+SubscriptionTrigger:
+  type: object
+  additionalProperties: false
+  description: The trigger input for a task of type 'subscription'.
+  properties:
+    type:
+      $ref: '#/TriggerType'
+  required:
+    - type
