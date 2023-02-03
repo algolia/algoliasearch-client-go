@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [a1c7c245](https://github.com/algolia/api-clients-automation/commit/a1c7c245) fix(specs): correct types for Tasks trigger ([#1279](https://github.com/algolia/api-clients-automation/pull/1279)) by [@shortcuts](https://github.com/shortcuts/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [aed20fe6](https://github.com/algolia/api-clients-automation/commit/aed20fe6) feat(specs): add more descriptions to the Ingestion API ([#1273](https://github.com/algolia/api-clients-automation/pull/1273)) by [@shortcuts](https://github.com/shortcuts/)
 - [3739451a](https://github.com/algolia/api-clients-automation/commit/3739451a) fix(specs): add query params for observability ([#1277](https://github.com/algolia/api-clients-automation/pull/1277)) by [@millotp](https://github.com/millotp/)
 - [859c0a97](https://github.com/algolia/api-clients-automation/commit/859c0a97) feat(specs): source update changes ([#1276](https://github.com/algolia/api-clients-automation/pull/1276)) by [@mehmetaligok](https://github.com/mehmetaligok/)
