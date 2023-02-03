@@ -826,15 +826,30 @@ components:
       type: string
       description: The task UUID.
       example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
-    Trigger:
+    OnDemandTriggerType:
+      type: string
+      description: A task which is manually executed via the run task endpoint.
+      enum:
+        - on_demand
+    LastRun:
+      description: The last time the scheduled task ran.
+      type: string
+    OnDemandTrigger:
       type: object
       additionalProperties: false
-      description: The trigger information of a task.
+      description: The trigger information of a task of type `on-demand`.
       properties:
         type:
-          $ref: '#/components/schemas/TriggerType'
+          $ref: '#/components/schemas/OnDemandTriggerType'
+        lastRun:
+          $ref: '#/components/schemas/LastRun'
       required:
         - type
+    ScheduleTriggerType:
+      type: string
+      description: A task which is triggered by a schedule (cron expression).
+      enum:
+        - schedule
     Cron:
       type: string
       description: >-
@@ -847,24 +862,32 @@ components:
       description: The trigger information for a task of type 'schedule'.
       properties:
         type:
-          $ref: '#/components/schemas/TriggerType'
+          $ref: '#/components/schemas/ScheduleTriggerType'
         cron:
           $ref: '#/components/schemas/Cron'
         lastRun:
-          description: The last time the scheduled task ran.
-          type: string
+          $ref: '#/components/schemas/LastRun'
         nextRun:
           description: The next scheduled run of the task.
           type: string
       required:
         - type
         - cron
-        - lastRun
         - nextRun
-    TaskTrigger:
+    SubscriptionTrigger:
+      type: object
+      additionalProperties: false
+      description: The trigger input for a task of type 'subscription'.
+      properties:
+        type:
+          $ref: '#/components/schemas/TriggerType'
+      required:
+        - type
+    Trigger:
       oneOf:
-        - $ref: '#/components/schemas/Trigger'
+        - $ref: '#/components/schemas/OnDemandTrigger'
         - $ref: '#/components/schemas/ScheduleTrigger'
+        - $ref: '#/components/schemas/SubscriptionTrigger'
     Task:
       type: object
       additionalProperties: false
@@ -876,7 +899,7 @@ components:
         destinationID:
           $ref: '#/components/schemas/destinationID'
         trigger:
-          $ref: '#/components/schemas/TaskTrigger'
+          $ref: '#/components/schemas/Trigger'
         enabled:
           type: boolean
           default: true
@@ -909,7 +932,7 @@ components:
       description: The trigger input for a task of type 'schedule'.
       properties:
         type:
-          $ref: '#/components/schemas/TriggerType'
+          $ref: '#/components/schemas/ScheduleTriggerType'
         cron:
           $ref: '#/components/schemas/Cron'
       required:
