@@ -20,20 +20,20 @@ export function create{{capitalizedApiName}}({
     hosts: getDefaultHosts({{^hasRegionalHost}}appIdOption{{/hasRegionalHost}}{{#hasRegionalHost}}regionOption{{/hasRegionalHost}}),
     ...options,
     algoliaAgent: 
-      {{^useAlgoliaUA}}
+      {{#isIngestionClient}}
       {...getAlgoliaAgent({
         algoliaAgents,
         client: '{{{algoliaAgent}}}',
         version: apiClientVersion,
       }), value: ''},
-      {{/useAlgoliaUA}}
-      {{#useAlgoliaUA}}
+      {{/isIngestionClient}}
+      {{^isIngestionClient}}
       getAlgoliaAgent({
         algoliaAgents,
         client: '{{{algoliaAgent}}}',
         version: apiClientVersion,
       }),
-      {{/useAlgoliaUA}}
+      {{/isIngestionClient}}
     baseHeaders: {
       'content-type': 'text/plain',
       ...auth.headers(),
@@ -83,6 +83,9 @@ export function create{{capitalizedApiName}}({
     {{#isSearchClient}}
     {{> client/api/helpers}}
     {{/isSearchClient}}
+    {{#isIngestionClient}}
+    {{> client/api/guards}}
+    {{/isIngestionClient}}
     {{#operation}}
     {{> client/api/operation/jsdoc}}
     {{nickname}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}( {{> client/api/operation/parameters}} ) : Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}> {

@@ -1,0 +1,37 @@
+{{#isIngestionClient}}
+/**
+ * Guard: Return strongly typed specific OnDemandTrigger for a given Trigger.
+ *
+ * @summary Guard method that returns a strongly typed specific OnDemandTrigger for a given Trigger.
+ * @param trigger - The given Task Trigger.
+ */
+isOnDemandTrigger(
+  trigger: Trigger
+): trigger is OnDemandTrigger {
+  return trigger.type === 'on_demand';
+},
+
+/**
+ * Guard: Return strongly typed specific ScheduleTrigger for a given Trigger.
+ *
+ * @summary Guard method that returns a strongly typed specific ScheduleTrigger for a given Trigger.
+ * @param trigger - The given Task Trigger.
+ */
+isScheduleTrigger(
+  trigger: Trigger
+): trigger is ScheduleTrigger {
+  return trigger.type === 'schedule';
+},
+
+/**
+ * Guard: Return strongly typed specific SubscriptionTrigger for a given Trigger.
+ *
+ * @summary Guard method that returns a strongly typed specific SubscriptionTrigger for a given Trigger.
+ * @param trigger - The given Task Trigger.
+ */
+isSubscriptionTrigger(
+  trigger: Trigger
+): trigger is SubscriptionTrigger {
+  return trigger.type === 'subscription';
+},
+{{/isIngestionClient}}

@@ -43,3 +43,10 @@ import type {
   {{/operation}}
 } from '../model/clientMethodProps';
 {{/operations}}
+
+{{#isIngestionClient}}
+  import type { Trigger } from '../model/trigger';
+  import type { OnDemandTrigger } from '../model/onDemandTrigger';
+  import type { ScheduleTrigger } from '../model/scheduleTrigger';
+  import type { SubscriptionTrigger } from '../model/subscriptionTrigger';
+{{/isIngestionClient}}
