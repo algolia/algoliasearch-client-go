@@ -914,6 +914,7 @@ components:
         - taskID
         - sourceID
         - destinationID
+        - trigger
         - enabled
         - action
         - createdAt
