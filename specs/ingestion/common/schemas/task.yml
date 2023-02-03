@@ -27,6 +27,7 @@ Task:
     - taskID
     - sourceID
     - destinationID
+    - trigger
     - enabled
     - action
     - createdAt

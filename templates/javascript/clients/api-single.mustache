@@ -7,6 +7,11 @@ export const apiClientVersion = '{{packageVersion}}';
 {{#operations}}
 {{> client/api/hosts}}
 
+
+{{#isIngestionClient}}
+  {{> client/api/guards}}
+{{/isIngestionClient}}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function create{{capitalizedApiName}}({
     appId: appIdOption,
@@ -83,9 +88,6 @@ export function create{{capitalizedApiName}}({
     {{#isSearchClient}}
     {{> client/api/helpers}}
     {{/isSearchClient}}
-    {{#isIngestionClient}}
-    {{> client/api/guards}}
-    {{/isIngestionClient}}
     {{#operation}}
     {{> client/api/operation/jsdoc}}
     {{nickname}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}( {{> client/api/operation/parameters}} ) : Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}> {
