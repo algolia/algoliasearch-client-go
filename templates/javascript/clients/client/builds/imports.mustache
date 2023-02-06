@@ -15,5 +15,10 @@ export {
   {{#hasRegionalHost}}
   Region,
   {{/hasRegionalHost}}
+  {{#isIngestionClient}}
+  isOnDemandTrigger,
+  isScheduleTrigger,
+  isSubscriptionTrigger,
+  {{/isIngestionClient}}
 } from '../src/{{apiName}}';
 export * from '../model';
