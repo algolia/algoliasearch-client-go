@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [9d04dc22](https://github.com/algolia/api-clients-automation/commit/9d04dc22) fix(specs): rename task type to `onDemand` ([#1299](https://github.com/algolia/api-clients-automation/pull/1299)) by [@shortcuts](https://github.com/shortcuts/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [a1c7c245](https://github.com/algolia/api-clients-automation/commit/a1c7c245) fix(specs): correct types for Tasks trigger ([#1279](https://github.com/algolia/api-clients-automation/pull/1279)) by [@shortcuts](https://github.com/shortcuts/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
