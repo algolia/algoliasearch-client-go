@@ -55,4 +55,4 @@ triggerType:
     type: array
     items:
       $ref: './schemas/task.yml#/TriggerType'
-    example: on_demand,schedule
+    example: onDemand,schedule
