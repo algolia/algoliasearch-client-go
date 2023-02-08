@@ -627,6 +627,7 @@ components:
         - bigcommerce
         - commercetools
         - json
+        - csv
     sourceID:
       type: string
       description: The source UUID.
@@ -668,7 +669,7 @@ components:
       enum:
         - GET
         - POST
-    SourceJson:
+    SourceJSON:
       type: object
       additionalProperties: false
       properties:
@@ -679,11 +680,43 @@ components:
           $ref: '#/components/schemas/MethodType'
       required:
         - url
+    MappingTypeCSV:
+      type: string
+      enum:
+        - string
+        - integer
+        - float
+        - boolean
+        - json
+    SourceCSV:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+          description: The URL of the file.
+        uniqueIDColumn:
+          type: string
+          description: >-
+            The name of the column that contains the unique ID, used as
+            `objectID` in Algolia.
+        mapping:
+          type: object
+          description: >
+            Mapping of type for every column. For example {"myColumn":
+            "boolean", "myOtherColumn": "json"}.
+          additionalProperties:
+            $ref: '#/components/schemas/MappingTypeCSV'
+        method:
+          $ref: '#/components/schemas/MethodType'
+      required:
+        - url
     SourceInput:
       oneOf:
         - $ref: '#/components/schemas/SourceCommercetools'
         - $ref: '#/components/schemas/SourceBigCommerce'
-        - $ref: '#/components/schemas/SourceJson'
+        - $ref: '#/components/schemas/SourceJSON'
+        - $ref: '#/components/schemas/SourceCSV'
     Source:
       type: object
       additionalProperties: false
@@ -765,21 +798,11 @@ components:
             ^[a-z]{2}(-[A-Z]{2})?$. For example ["fr-FR", "en"].
           items:
             type: string
-    SourceUpdateJson:
-      type: object
-      additionalProperties: false
-      properties:
-        url:
-          type: string
-          description: The URL of the file.
-        method:
-          $ref: '#/components/schemas/MethodType'
-      required:
-        - url
     SourceUpdateInput:
       oneOf:
         - $ref: '#/components/schemas/SourceUpdateCommercetools'
-        - $ref: '#/components/schemas/SourceUpdateJson'
+        - $ref: '#/components/schemas/SourceJSON'
+        - $ref: '#/components/schemas/SourceCSV'
     SourceUpdate:
       type: object
       additionalProperties: false
