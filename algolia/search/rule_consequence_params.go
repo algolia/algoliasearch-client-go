@@ -80,6 +80,45 @@ type AutomaticFacetFilter struct {
 	Score       int    `json:"score"`       // Defaults to 1
 }
 
+// AutomaticFacetFilter can be unmarshalled from a string or an object.
+func (a *AutomaticFacetFilter) UnmarshalJSON(data []byte) error {
+	if string(data) == jsonNull {
+		return nil
+	}
+
+	if len(data) == 0 {
+		return nil
+	}
+
+	switch data[0] {
+	case '"':
+		var facet string
+		if err := json.Unmarshal(data, &facet); err != nil {
+			return err
+		}
+		*a = AutomaticFacetFilter{
+			Facet: facet,
+		}
+		return nil
+	case '{':
+		var alias struct {
+			Facet       string `json:"facet"`
+			Disjunctive bool   `json:"disjunctive"`
+			Score       int    `json:"score"`
+		}
+		if err := json.Unmarshal(data, &alias); err != nil {
+			return err
+		}
+		*a = AutomaticFacetFilter{
+			Facet:       alias.Facet,
+			Disjunctive: alias.Disjunctive,
+			Score:       alias.Score,
+		}
+		return nil
+	}
+	return fmt.Errorf("cannot unmarshal automatic facet filter")
+}
+
 type QueryEdit struct {
 	Type   QueryEditType `json:"type"`
 	Delete string        `json:"delete"`
