@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [023d5572](https://github.com/algolia/api-clients-automation/commit/023d5572) feat(specs): add sort and order handling in query parameters ([#1304](https://github.com/algolia/api-clients-automation/pull/1304)) by [@Fluf22](https://github.com/Fluf22/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [b9b4ba35](https://github.com/algolia/api-clients-automation/commit/b9b4ba35) feat(specs): add CSV source ([#1301](https://github.com/algolia/api-clients-automation/pull/1301)) by [@morganleroi](https://github.com/morganleroi/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
