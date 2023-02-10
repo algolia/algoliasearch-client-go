@@ -8,6 +8,8 @@ get:
     - $ref: '../../../common/parameters.yml#/pathRunID'
     - $ref: '../../../common/observabilityParameters.yml#/eventStatus'
     - $ref: '../../../common/observabilityParameters.yml#/eventType'
+    - $ref: '../../../common/observabilityParameters.yml#/eventSort'
+    - $ref: '../../../common/parameters.yml#/order'
   responses:
     '200':
       description: OK

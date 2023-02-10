@@ -31,3 +31,29 @@ taskID:
   description: Filter by taskID.
   schema:
     $ref: './schemas/common.yml#/taskID'
+
+runSort:
+  name: sort
+  in: query
+  description: The key by which the list should be sorted.
+  required: false
+  schema:
+    $ref: '#/runSortKeys'
+
+runSortKeys:
+  type: string
+  description: Used to sort the Run list endpoint.
+  enum: [status, updatedAt, createdAt]
+
+eventSort:
+  name: sort
+  in: query
+  description: The key by which the list should be sorted.
+  required: false
+  schema:
+    $ref: '#/eventSortKeys'
+
+eventSortKeys:
+  type: string
+  description: Used to sort the Event list endpoint.
+  enum: [status, type, publishedAt]

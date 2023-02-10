@@ -12,6 +12,8 @@ get:
     - $ref: '../../common/taskParameters.yml#/sourceID'
     - $ref: '../../common/taskParameters.yml#/destinationID'
     - $ref: '../../common/taskParameters.yml#/triggerType'
+    - $ref: '../../common/taskParameters.yml#/sort'
+    - $ref: '../../common/parameters.yml#/order'
   responses:
     '200':
       description: OK

@@ -56,3 +56,16 @@ triggerType:
     items:
       $ref: './schemas/task.yml#/TriggerType'
     example: onDemand,schedule
+
+sort:
+  name: sort
+  in: query
+  description: The key by which the list should be sorted.
+  required: false
+  schema:
+    $ref: '#/taskSortKeys'
+
+taskSortKeys:
+  type: string
+  description: Used to sort the Task list endpoint.
+  enum: [enabled, triggerType, action, updatedAt, createdAt]

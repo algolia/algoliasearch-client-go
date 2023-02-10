@@ -22,3 +22,16 @@ authenticationID:
     type: array
     items:
       $ref: './schemas/common.yml#/authenticationID'
+
+sort:
+  name: sort
+  in: query
+  description: The key by which the list should be sorted.
+  required: false
+  schema:
+    $ref: '#/destinationSortKeys'
+
+destinationSortKeys:
+  type: string
+  description: Used to sort the Destination list endpoint.
+  enum: [name, type, updatedAt, createdAt]

@@ -9,6 +9,8 @@ get:
     - $ref: '../../common/parameters.yml#/page'
     - $ref: '../../common/sourceParameters.yml#/type'
     - $ref: '../../common/sourceParameters.yml#/authenticationID'
+    - $ref: '../../common/sourceParameters.yml#/sort'
+    - $ref: '../../common/parameters.yml#/order'
   responses:
     '200':
       description: OK

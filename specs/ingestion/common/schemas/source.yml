@@ -194,7 +194,6 @@ SourceUpdateCommercetools:
       items:
         type: string
 
-
 SourceUpdateInput:
   oneOf:
     - $ref: '#/SourceUpdateCommercetools'

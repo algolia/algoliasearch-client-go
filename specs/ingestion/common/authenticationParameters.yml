@@ -33,3 +33,16 @@ platformWithNone:
   oneOf:
     - $ref: './schemas/authentication.yml#/Platform'
     - $ref: '#/platformNone'
+
+sort:
+  name: sort
+  in: query
+  description: The key by which the list should be sorted.
+  required: false
+  schema:
+    $ref: '#/authenticationSortKeys'
+
+authenticationSortKeys:
+  type: string
+  description: Used to sort the Authentication list endpoint.
+  enum: [name, auth_type, platform, updatedAt, createdAt]

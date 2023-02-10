@@ -61,3 +61,16 @@ page:
   required: false
   schema:
     type: integer
+
+order:
+  name: order
+  in: query
+  description: The order of the returned list.
+  required: false
+  schema:
+    $ref: '#/orderKeys'
+
+orderKeys:
+  type: string
+  description: Used to order a sorted request.
+  enum: [asc, desc]

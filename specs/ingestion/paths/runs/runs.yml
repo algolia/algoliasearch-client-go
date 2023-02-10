@@ -9,6 +9,8 @@ get:
     - $ref: '../../common/parameters.yml#/page'
     - $ref: '../../common/observabilityParameters.yml#/runStatus'
     - $ref: '../../common/observabilityParameters.yml#/taskID'
+    - $ref: '../../common/observabilityParameters.yml#/runSort'
+    - $ref: '../../common/parameters.yml#/order'
   responses:
     '200':
       description: OK
