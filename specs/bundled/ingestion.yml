@@ -52,6 +52,20 @@ components:
         items:
           $ref: '#/components/schemas/platformWithNone'
         example: commercetools,none
+    sort:
+      name: sort
+      in: query
+      description: The key by which the list should be sorted.
+      required: false
+      schema:
+        $ref: '#/components/schemas/authenticationSortKeys'
+    order:
+      name: order
+      in: query
+      description: The order of the returned list.
+      required: false
+      schema:
+        $ref: '#/components/schemas/orderKeys'
     pathAuthenticationID:
       name: authenticationID
       in: path
@@ -82,6 +96,13 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/authenticationID'
+    destinationParameters_sort:
+      name: sort
+      in: query
+      description: The key by which the list should be sorted.
+      required: false
+      schema:
+        $ref: '#/components/schemas/destinationSortKeys'
     pathDestinationID:
       name: destinationID
       in: path
@@ -115,6 +136,13 @@ components:
         items:
           $ref: '#/components/schemas/authenticationID'
         example: 10000000-0a75-4000-a000-000000000001,none
+    sourceParameters_sort:
+      name: sort
+      in: query
+      description: The key by which the list should be sorted.
+      required: false
+      schema:
+        $ref: '#/components/schemas/sourceSortKeys'
     pathSourceID:
       name: sourceID
       in: path
@@ -176,6 +204,13 @@ components:
         items:
           $ref: '#/components/schemas/TriggerType'
         example: onDemand,schedule
+    taskParameters_sort:
+      name: sort
+      in: query
+      description: The key by which the list should be sorted.
+      required: false
+      schema:
+        $ref: '#/components/schemas/taskSortKeys'
     pathTaskID:
       name: taskID
       in: path
@@ -197,6 +232,13 @@ components:
       description: Filter by taskID.
       schema:
         $ref: '#/components/schemas/taskID'
+    runSort:
+      name: sort
+      in: query
+      description: The key by which the list should be sorted.
+      required: false
+      schema:
+        $ref: '#/components/schemas/runSortKeys'
     pathRunID:
       name: runID
       in: path
@@ -220,6 +262,13 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/EventType'
+    eventSort:
+      name: sort
+      in: query
+      description: The key by which the list should be sorted.
+      required: false
+      schema:
+        $ref: '#/components/schemas/eventSortKeys'
     pathEventID:
       name: eventID
       in: path
@@ -254,6 +303,21 @@ components:
       oneOf:
         - $ref: '#/components/schemas/Platform'
         - $ref: '#/components/schemas/platformNone'
+    authenticationSortKeys:
+      type: string
+      description: Used to sort the Authentication list endpoint.
+      enum:
+        - name
+        - auth_type
+        - platform
+        - updatedAt
+        - createdAt
+    orderKeys:
+      type: string
+      description: Used to order a sorted request.
+      enum:
+        - asc
+        - desc
     authenticationID:
       type: string
       description: The authentication UUID.
@@ -496,6 +560,14 @@ components:
         - insights
         - flow
         - predict
+    destinationSortKeys:
+      type: string
+      description: Used to sort the Destination list endpoint.
+      enum:
+        - name
+        - type
+        - updatedAt
+        - createdAt
     destinationID:
       type: string
       description: The destination UUID.
@@ -628,6 +700,14 @@ components:
         - commercetools
         - json
         - csv
+    sourceSortKeys:
+      type: string
+      description: Used to sort the Source list endpoint.
+      enum:
+        - name
+        - type
+        - updatedAt
+        - createdAt
     sourceID:
       type: string
       description: The source UUID.
@@ -845,6 +925,15 @@ components:
         - onDemand
         - schedule
         - subscription
+    taskSortKeys:
+      type: string
+      description: Used to sort the Task list endpoint.
+      enum:
+        - enabled
+        - triggerType
+        - action
+        - updatedAt
+        - createdAt
     taskID:
       type: string
       description: The task UUID.
@@ -1058,6 +1147,13 @@ components:
         - started
         - idled
         - finished
+    runSortKeys:
+      type: string
+      description: Used to sort the Run list endpoint.
+      enum:
+        - status
+        - updatedAt
+        - createdAt
     RunOutcome:
       type: string
       enum:
@@ -1141,6 +1237,13 @@ components:
         - fetch
         - record
         - log
+    eventSortKeys:
+      type: string
+      description: Used to sort the Event list endpoint.
+      enum:
+        - status
+        - type
+        - publishedAt
     eventID:
       type: string
       description: The event UUID.
@@ -1230,6 +1333,8 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/type'
         - $ref: '#/components/parameters/platform'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/order'
       responses:
         '200':
           description: OK
@@ -1370,6 +1475,8 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/destinationParameters_type'
         - $ref: '#/components/parameters/authenticationID'
+        - $ref: '#/components/parameters/destinationParameters_sort'
+        - $ref: '#/components/parameters/order'
       responses:
         '200':
           description: OK
@@ -1510,6 +1617,8 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/sourceParameters_type'
         - $ref: '#/components/parameters/sourceParameters_authenticationID'
+        - $ref: '#/components/parameters/sourceParameters_sort'
+        - $ref: '#/components/parameters/order'
       responses:
         '200':
           description: OK
@@ -1653,6 +1762,8 @@ paths:
         - $ref: '#/components/parameters/sourceID'
         - $ref: '#/components/parameters/destinationID'
         - $ref: '#/components/parameters/triggerType'
+        - $ref: '#/components/parameters/taskParameters_sort'
+        - $ref: '#/components/parameters/order'
       responses:
         '200':
           description: OK
@@ -1848,6 +1959,8 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/runStatus'
         - $ref: '#/components/parameters/taskID'
+        - $ref: '#/components/parameters/runSort'
+        - $ref: '#/components/parameters/order'
       responses:
         '200':
           description: OK
@@ -1888,6 +2001,8 @@ paths:
         - $ref: '#/components/parameters/pathRunID'
         - $ref: '#/components/parameters/eventStatus'
         - $ref: '#/components/parameters/eventType'
+        - $ref: '#/components/parameters/eventSort'
+        - $ref: '#/components/parameters/order'
       responses:
         '200':
           description: OK
