@@ -1,5 +1,10 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [d3aead8a](https://github.com/algolia/api-clients-automation/commit/d3aead8a) refactor(specs): new predict segment condition syntax ([#1202](https://github.com/algolia/api-clients-automation/pull/1202)) by [@bengreenbank](https://github.com/bengreenbank/)
+- [bad11072](https://github.com/algolia/api-clients-automation/commit/bad11072) feat(specs): remove content attributes from models [PRED-982] ([#1226](https://github.com/algolia/api-clients-automation/pull/1226)) by [@bengreenbank](https://github.com/bengreenbank/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [023d5572](https://github.com/algolia/api-clients-automation/commit/023d5572) feat(specs): add sort and order handling in query parameters ([#1304](https://github.com/algolia/api-clients-automation/pull/1304)) by [@Fluf22](https://github.com/Fluf22/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
