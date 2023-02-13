@@ -65,18 +65,21 @@ createSegmentResponse:
 segment:
   type: object
   required:
+    - version
     - segmentID
     - name
     - conditions
     - segmentStatus
     - type
   properties:
+    version:
+      $ref: '#/segmentVersion'
     segmentID:
       $ref: '#/segmentID'
     name:
-      type: string
+      $ref: '#/segmentName'
     conditions:
-      type: string
+      $ref: '#/segmentParentConditions'
     segmentStatus:
       $ref: '#/segmentStatus'
     type:
@@ -86,6 +89,7 @@ segment:
 
 segmentStatus:
   type: string
+  description: The status of the segment.
   enum:
     - active
     - pending
@@ -93,18 +97,251 @@ segmentStatus:
 
 segmentType:
   type: string
+  description: The type of the segment.
   enum:
     - computed
     - custom
+
+segmentVersion:
+  type: number
+  format: float
+  description: The segment syntax version.
+  example: 1.1
 
 segmentID:
   type: string
   description: The ID of the segment.
 
+segmentName:
+  type: string
+  description: The name of the segment.
+
 updatedAt:
   type: string
-  description: The date and time at which the segment was last updated.
+  description: The date and time at which the segment was last updated (RFC3339).
+  example: 2021-07-22T12:30:00Z
 
 deletedUntil:
   type: string
   description: The date and time at which the segment will be re-ingested.
+  example: 2021-07-22T12:30:00Z
+
+segmentParentConditions:
+  description: |
+    The conditions that define which user profiles are included in the segment.
+
+    Can contain operands and a maximum of 1 level of nested conditions.
+  type: object
+  required:
+    - operator
+    - operands
+  properties:
+    operator:
+      $ref: '#/segmentConditionOperator'
+    operands:
+      type: array
+      items:
+        $ref: '#/segmentParentConditionOperands'
+
+segmentChildConditions:
+  description: Nested segment conditions that only contain operands.
+  type: object
+  required:
+    - operator
+    - operands
+  properties:
+    operator:
+      $ref: '#/segmentConditionOperator'
+    operands:
+      type: array
+      items:
+        $ref: '#/segmentChildConditionOperands'
+
+segmentConditionOperator:
+  description: Operator used to combine the operands.
+  type: string
+  enum:
+    - AND
+    - OR
+
+segmentParentConditionOperands:
+  oneOf:
+    - $ref: '#/segmentChildConditions'
+    - $ref: '#/segmentOperandAffinity'
+    - $ref: '#/segmentOperandFunnelStage'
+    - $ref: '#/segmentOperandOrderValue'
+    - $ref: '#/segmentOperandProperty'
+
+segmentChildConditionOperands:
+  oneOf:
+    - $ref: '#/segmentOperandAffinity'
+    - $ref: '#/segmentOperandFunnelStage'
+    - $ref: '#/segmentOperandOrderValue'
+    - $ref: '#/segmentOperandProperty'
+
+segmentOperandAffinity:
+  description: Operand for affinity model predictions.
+  type: object
+  required:
+    - name
+    - filters
+  properties:
+    name:
+      type: string
+      pattern: ^predictions\.affinities\.\w+$
+      example: predictions.affinities.color
+    filters:
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/segmentAffinityFilter'
+
+segmentOperandFunnelStage:
+  description: Operand for funnel stage model predictions.
+  type: object
+  required:
+    - name
+    - filters
+  properties:
+    name:
+      type: string
+      pattern: ^predictions\.funnel_stage$
+      example: predictions.funnel_stage
+    filters:
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/segmentFunnelStageFilter'
+
+segmentOperandOrderValue:
+  description: Operand for order value model predictions.
+  type: object
+  required:
+    - name
+    - filters
+  properties:
+    name:
+      type: string
+      pattern: ^predictions\.order_value$
+      example: predictions.order_value
+    filters:
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/segmentOrderValueFilter'
+
+segmentOperandProperty:
+  description: Operand for user profile properties.
+  type: object
+  required:
+    - name
+    - filters
+  properties:
+    name:
+      type: string
+      pattern: ^properties\.(raw|computed|custom)\.\w+$
+      example: properties.raw.age
+    filters:
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/segmentPropertyFilter'
+
+segmentAffinityFilter:
+  description: Filter for affinity model predictions.
+  type: object
+  required:
+    - value
+    - probability
+  properties:
+    operator:
+      $ref: '#/segmentFilterOperatorNumerical'
+    value:
+      $ref: '#/segmentAffinityFilterValue'
+    probability:
+      $ref: '#/segmentFilterProbability'
+
+segmentAffinityFilterValue:
+  oneOf:
+    - type: string
+    - type: number
+      format: float
+    - type: array
+      items:
+        type: string
+    - type: boolean
+
+segmentFunnelStageFilter:
+  description: Filter for funnel stage model predictions.
+  type: object
+  required:
+    - value
+    - probability
+  properties:
+    operator:
+      $ref: '#/segmentFilterOperatorBoolean'
+    value:
+      type: string
+    probability:
+      $ref: '#/segmentFilterProbability'
+
+segmentOrderValueFilter:
+  description: Filter for order value model predictions.
+  type: object
+  required:
+    - value
+  properties:
+    operator:
+      $ref: '#/segmentFilterOperatorNumerical'
+    value:
+      type: number
+
+segmentPropertyFilter:
+  description: Filter for user profile properties.
+  type: object
+  required:
+    - value
+  properties:
+    operator:
+      $ref: '#/segmentFilterOperatorNumerical'
+    value:
+      $ref: '#/segmentPropertyFilterValue'
+
+segmentPropertyFilterValue:
+  allOf:
+    - $ref: '#/segmentAffinityFilterValue'
+
+segmentFilterOperatorBoolean:
+  description: The operator used on the boolean filter value.
+  type: string
+  default: =
+  enum:
+    - =
+    - '!='
+
+segmentFilterOperatorNumerical:
+  description: The operator used on the numerical filter value.
+  type: string
+  default: =
+  enum:
+    - =
+    - '!='
+    - '>'
+    - '>='
+    - <
+    - <=
+
+segmentFilterProbability:
+  description: Probability of the filter.
+  type: object
+  minProperties: 1
+  maxProperties: 2
+  properties:
+    lt:
+      type: number
+    lte:
+      type: number
+    gt:
+      type: number
+    gte:
+      type: number

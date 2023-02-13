@@ -20,14 +20,40 @@
     "parameters": {
       "segmentID": "segment1",
       "updateSegmentParams": {
-        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+        "conditions": {
+          "operator": "AND",
+          "operands": [
+            {
+              "name": "predictions.order_value",
+              "filters": [
+                {
+                  "operator": ">",
+                  "value": 200
+                }
+              ]
+            }
+          ]
+        }
       }
     },
     "request": {
       "path": "/1/segments/segment1",
       "method": "POST",
       "body": {
-        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+        "conditions": {
+          "operator": "AND",
+          "operands": [
+            {
+              "name": "predictions.order_value",
+              "filters": [
+                {
+                  "operator": ">",
+                  "value": 200
+                }
+              ]
+            }
+          ]
+        }
       }
     }
   },
@@ -37,7 +63,20 @@
       "segmentID": "segment1",
       "updateSegmentParams": {
         "name": "example segment name",
-        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+        "conditions": {
+          "operator": "AND",
+          "operands": [
+            {
+              "name": "predictions.order_value",
+              "filters": [
+                {
+                  "operator": ">",
+                  "value": 200
+                }
+              ]
+            }
+          ]
+        }
       }
     },
     "request": {
@@ -45,7 +84,20 @@
       "method": "POST",
       "body": {
         "name": "example segment name",
-        "conditions": "predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9"
+        "conditions": {
+          "operator": "AND",
+          "operands": [
+            {
+              "name": "predictions.order_value",
+              "filters": [
+                {
+                  "operator": ">",
+                  "value": 200
+                }
+              ]
+            }
+          ]
+        }
       }
     }
   }

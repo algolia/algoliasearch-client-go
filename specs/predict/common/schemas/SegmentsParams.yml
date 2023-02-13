@@ -7,7 +7,7 @@ createSegmentParams:
     name:
       $ref: '#/name'
     conditions:
-      $ref: '#/conditions'
+      $ref: '../../responses/Segment.yml#/segmentParentConditions'
 
 updateSegmentParams:
   oneOf:
@@ -30,12 +30,8 @@ segmentConditionsParam:
   type: object
   properties:
     conditions:
-      $ref: '#/conditions'
+      $ref: '../../responses/Segment.yml#/segmentParentConditions'
 
 name:
   type: string
   description: The name or description of the segment.
-
-conditions:
-  type: string
-  description: The filters that define the segment, defined in the same way as filters for Rules.

@@ -560,11 +560,22 @@ public class ParametersWithDataType {
     String paramType = inferDataType(param, maybeMatch, null);
     maybeMatch.dataType = paramType;
 
+    boolean hasFloat = false;
     for (String oneOfName : model.oneOf) {
       if (oneOfName.equals(paramType)) {
         return maybeMatch;
       }
+      if (oneOfName.equals("Float") || oneOfName.equals("Double")) {
+        hasFloat = true;
+      }
     }
+
+    // If there is a number, try to use it as other number type, in the order
+    // Integer, Long, Float, Double
+    if (hasFloat && (paramType.equals("Integer") || paramType.equals("Long") || paramType.equals("Double"))) {
+      return maybeMatch;
+    }
+
     for (CodegenModel oneOf : model.interfaceModels) {
       // Somehow the dataType can be in lower case?
       if (oneOf.dataType.toLowerCase().equals(paramType.toLowerCase())) {
