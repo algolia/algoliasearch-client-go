@@ -11,10 +11,6 @@
           "category_level0",
           "category_level1"
         ],
-        "contentAttributes": [
-          "title",
-          "description"
-        ],
         "modelStatus": "inactive"
       }
     },
@@ -28,10 +24,6 @@
           "color",
           "category_level0",
           "category_level1"
-        ],
-        "contentAttributes": [
-          "title",
-          "description"
         ],
         "modelStatus": "inactive"
       }

@@ -19,10 +19,6 @@ modelInstance:
       type: array
       items:
         $ref: '#/modelAttributes'
-    contentAttributes:
-      type: array
-      items:
-        type: string
     lastTrained:
       type: string
       description: The date and time this model instance was last trained.
