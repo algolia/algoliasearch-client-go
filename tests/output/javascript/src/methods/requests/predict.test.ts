@@ -17,7 +17,6 @@ describe('activateModelInstance', () => {
       sourceID: '0200030-129930',
       index: 'Products Production',
       modelAttributes: [],
-      contentAttributes: ['title', 'description'],
     })) as unknown as EchoResponse;
 
     expect(req.path).toEqual('/1/predict/models');
@@ -28,7 +27,6 @@ describe('activateModelInstance', () => {
       sourceID: '0200030-129930',
       index: 'Products Production',
       modelAttributes: [],
-      contentAttributes: ['title', 'description'],
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });
@@ -680,7 +678,6 @@ describe('updateModelInstance', () => {
           'category_level0',
           'category_level1',
         ],
-        contentAttributes: ['title', 'description'],
         modelStatus: 'inactive',
       },
     })) as unknown as EchoResponse;
@@ -690,7 +687,6 @@ describe('updateModelInstance', () => {
     expect(req.data).toEqual({
       name: 'Shopping stage for EU users',
       modelAttributes: ['brand', 'color', 'category_level0', 'category_level1'],
-      contentAttributes: ['title', 'description'],
       modelStatus: 'inactive',
     });
     expect(req.searchParams).toStrictEqual(undefined);
