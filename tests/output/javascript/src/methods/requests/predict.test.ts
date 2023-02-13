@@ -36,16 +36,30 @@ describe('createSegment', () => {
   test('create segment with required params', async () => {
     const req = (await client.createSegment({
       name: 'segment1',
-      conditions:
-        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+      conditions: {
+        operator: 'AND',
+        operands: [
+          {
+            name: 'predictions.order_value',
+            filters: [{ operator: '>', value: 200 }],
+          },
+        ],
+      },
     })) as unknown as EchoResponse;
 
     expect(req.path).toEqual('/1/segments');
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({
       name: 'segment1',
-      conditions:
-        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+      conditions: {
+        operator: 'AND',
+        operands: [
+          {
+            name: 'predictions.order_value',
+            filters: [{ operator: '>', value: 200 }],
+          },
+        ],
+      },
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });
@@ -710,16 +724,30 @@ describe('updateSegment', () => {
     const req = (await client.updateSegment({
       segmentID: 'segment1',
       updateSegmentParams: {
-        conditions:
-          'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+        conditions: {
+          operator: 'AND',
+          operands: [
+            {
+              name: 'predictions.order_value',
+              filters: [{ operator: '>', value: 200 }],
+            },
+          ],
+        },
       },
     })) as unknown as EchoResponse;
 
     expect(req.path).toEqual('/1/segments/segment1');
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({
-      conditions:
-        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+      conditions: {
+        operator: 'AND',
+        operands: [
+          {
+            name: 'predictions.order_value',
+            filters: [{ operator: '>', value: 200 }],
+          },
+        ],
+      },
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });
@@ -729,8 +757,15 @@ describe('updateSegment', () => {
       segmentID: 'segment1',
       updateSegmentParams: {
         name: 'example segment name',
-        conditions:
-          'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+        conditions: {
+          operator: 'AND',
+          operands: [
+            {
+              name: 'predictions.order_value',
+              filters: [{ operator: '>', value: 200 }],
+            },
+          ],
+        },
       },
     })) as unknown as EchoResponse;
 
@@ -738,8 +773,15 @@ describe('updateSegment', () => {
     expect(req.method).toEqual('POST');
     expect(req.data).toEqual({
       name: 'example segment name',
-      conditions:
-        'predictions.order_value.value > 100 AND predictions.funnel_stage.score < 0.9',
+      conditions: {
+        operator: 'AND',
+        operands: [
+          {
+            name: 'predictions.order_value',
+            filters: [{ operator: '>', value: 200 }],
+          },
+        ],
+      },
     });
     expect(req.searchParams).toStrictEqual(undefined);
   });

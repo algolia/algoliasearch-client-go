@@ -459,32 +459,249 @@ components:
           $ref: '#/components/schemas/previousPageToken'
         nextPageToken:
           $ref: '#/components/schemas/nextPageToken'
+    segmentVersion:
+      type: number
+      format: float
+      description: The segment syntax version.
+      example: 1.1
+    segmentName:
+      type: string
+      description: The name of the segment.
+    segmentConditionOperator:
+      description: Operator used to combine the operands.
+      type: string
+      enum:
+        - AND
+        - OR
+    segmentFilterOperatorNumerical:
+      description: The operator used on the numerical filter value.
+      type: string
+      default: =
+      enum:
+        - =
+        - '!='
+        - '>'
+        - '>='
+        - <
+        - <=
+    segmentAffinityFilterValue:
+      oneOf:
+        - type: string
+        - type: number
+          format: float
+        - type: array
+          items:
+            type: string
+        - type: boolean
+    segmentFilterProbability:
+      description: Probability of the filter.
+      type: object
+      minProperties: 1
+      maxProperties: 2
+      properties:
+        lt:
+          type: number
+        lte:
+          type: number
+        gt:
+          type: number
+        gte:
+          type: number
+    segmentAffinityFilter:
+      description: Filter for affinity model predictions.
+      type: object
+      required:
+        - value
+        - probability
+      properties:
+        operator:
+          $ref: '#/components/schemas/segmentFilterOperatorNumerical'
+        value:
+          $ref: '#/components/schemas/segmentAffinityFilterValue'
+        probability:
+          $ref: '#/components/schemas/segmentFilterProbability'
+    segmentOperandAffinity:
+      description: Operand for affinity model predictions.
+      type: object
+      required:
+        - name
+        - filters
+      properties:
+        name:
+          type: string
+          pattern: ^predictions\.affinities\.\w+$
+          example: predictions.affinities.color
+        filters:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/segmentAffinityFilter'
+    segmentFilterOperatorBoolean:
+      description: The operator used on the boolean filter value.
+      type: string
+      default: =
+      enum:
+        - =
+        - '!='
+    segmentFunnelStageFilter:
+      description: Filter for funnel stage model predictions.
+      type: object
+      required:
+        - value
+        - probability
+      properties:
+        operator:
+          $ref: '#/components/schemas/segmentFilterOperatorBoolean'
+        value:
+          type: string
+        probability:
+          $ref: '#/components/schemas/segmentFilterProbability'
+    segmentOperandFunnelStage:
+      description: Operand for funnel stage model predictions.
+      type: object
+      required:
+        - name
+        - filters
+      properties:
+        name:
+          type: string
+          pattern: ^predictions\.funnel_stage$
+          example: predictions.funnel_stage
+        filters:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/segmentFunnelStageFilter'
+    segmentOrderValueFilter:
+      description: Filter for order value model predictions.
+      type: object
+      required:
+        - value
+      properties:
+        operator:
+          $ref: '#/components/schemas/segmentFilterOperatorNumerical'
+        value:
+          type: number
+    segmentOperandOrderValue:
+      description: Operand for order value model predictions.
+      type: object
+      required:
+        - name
+        - filters
+      properties:
+        name:
+          type: string
+          pattern: ^predictions\.order_value$
+          example: predictions.order_value
+        filters:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/segmentOrderValueFilter'
+    segmentPropertyFilterValue:
+      allOf:
+        - $ref: '#/components/schemas/segmentAffinityFilterValue'
+    segmentPropertyFilter:
+      description: Filter for user profile properties.
+      type: object
+      required:
+        - value
+      properties:
+        operator:
+          $ref: '#/components/schemas/segmentFilterOperatorNumerical'
+        value:
+          $ref: '#/components/schemas/segmentPropertyFilterValue'
+    segmentOperandProperty:
+      description: Operand for user profile properties.
+      type: object
+      required:
+        - name
+        - filters
+      properties:
+        name:
+          type: string
+          pattern: ^properties\.(raw|computed|custom)\.\w+$
+          example: properties.raw.age
+        filters:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/segmentPropertyFilter'
+    segmentChildConditionOperands:
+      oneOf:
+        - $ref: '#/components/schemas/segmentOperandAffinity'
+        - $ref: '#/components/schemas/segmentOperandFunnelStage'
+        - $ref: '#/components/schemas/segmentOperandOrderValue'
+        - $ref: '#/components/schemas/segmentOperandProperty'
+    segmentChildConditions:
+      description: Nested segment conditions that only contain operands.
+      type: object
+      required:
+        - operator
+        - operands
+      properties:
+        operator:
+          $ref: '#/components/schemas/segmentConditionOperator'
+        operands:
+          type: array
+          items:
+            $ref: '#/components/schemas/segmentChildConditionOperands'
+    segmentParentConditionOperands:
+      oneOf:
+        - $ref: '#/components/schemas/segmentChildConditions'
+        - $ref: '#/components/schemas/segmentOperandAffinity'
+        - $ref: '#/components/schemas/segmentOperandFunnelStage'
+        - $ref: '#/components/schemas/segmentOperandOrderValue'
+        - $ref: '#/components/schemas/segmentOperandProperty'
+    segmentParentConditions:
+      description: >
+        The conditions that define which user profiles are included in the
+        segment.
+
+
+        Can contain operands and a maximum of 1 level of nested conditions.
+      type: object
+      required:
+        - operator
+        - operands
+      properties:
+        operator:
+          $ref: '#/components/schemas/segmentConditionOperator'
+        operands:
+          type: array
+          items:
+            $ref: '#/components/schemas/segmentParentConditionOperands'
     segmentStatus:
       type: string
+      description: The status of the segment.
       enum:
         - active
         - pending
         - failed
     segmentType:
       type: string
+      description: The type of the segment.
       enum:
         - computed
         - custom
     segment:
       type: object
       required:
+        - version
         - segmentID
         - name
         - conditions
         - segmentStatus
         - type
       properties:
+        version:
+          $ref: '#/components/schemas/segmentVersion'
         segmentID:
           $ref: '#/components/schemas/segmentID'
         name:
-          type: string
+          $ref: '#/components/schemas/segmentName'
         conditions:
-          type: string
+          $ref: '#/components/schemas/segmentParentConditions'
         segmentStatus:
           $ref: '#/components/schemas/segmentStatus'
         type:
@@ -499,16 +716,11 @@ components:
       properties:
         name:
           $ref: '#/components/schemas/SegmentsParams_name'
-    conditions:
-      type: string
-      description: >-
-        The filters that define the segment, defined in the same way as filters
-        for Rules.
     segmentConditionsParam:
       type: object
       properties:
         conditions:
-          $ref: '#/components/schemas/conditions'
+          $ref: '#/components/schemas/segmentParentConditions'
     allUpdateSegmentParams:
       allOf:
         - $ref: '#/components/schemas/segmentNameParam'
@@ -520,7 +732,8 @@ components:
         - $ref: '#/components/schemas/allUpdateSegmentParams'
     Segment_updatedAt:
       type: string
-      description: The date and time at which the segment was last updated.
+      description: The date and time at which the segment was last updated (RFC3339).
+      example: '2021-07-22T12:30:00Z'
     updateSegmentResponse:
       title: updateSegmentResponse
       type: object
@@ -535,6 +748,7 @@ components:
     deletedUntil:
       type: string
       description: The date and time at which the segment will be re-ingested.
+      example: '2021-07-22T12:30:00Z'
     deleteSegmentResponse:
       title: deleteSegmentResponse
       type: object
@@ -560,7 +774,7 @@ components:
         name:
           $ref: '#/components/schemas/SegmentsParams_name'
         conditions:
-          $ref: '#/components/schemas/conditions'
+          $ref: '#/components/schemas/segmentParentConditions'
     createSegmentResponse:
       title: createSegmentResponse
       type: object
