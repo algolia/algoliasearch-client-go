@@ -7,26 +7,35 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_AutomaticFacetFilter_UnMarshalJSON(t *testing.T) {
+func Test_AutomaticFacetFilter_UnmarshalJSON(t *testing.T) {
 	for _, c := range []struct {
 		input    string
 		expected AutomaticFacetFilter
+		err      string
 	}{
 		{
-			`{"facet": "facet", "score": 42}`,
-			AutomaticFacetFilter{Facet: "facet", Score: 42},
+			input:    `{"facet": "facet", "score": 42}`,
+			expected: AutomaticFacetFilter{Facet: "facet", Score: 42},
 		},
 		{
-			`{"facet": "facet", "score": 42, "disjunctive": true}`,
-			AutomaticFacetFilter{Facet: "facet", Score: 42, Disjunctive: true},
+			input:    `{"facet": "facet", "score": 42, "disjunctive": true}`,
+			expected: AutomaticFacetFilter{Facet: "facet", Score: 42, Disjunctive: true},
 		},
 		{
-			`"facet"`,
-			AutomaticFacetFilter{Facet: "facet"},
+			input:    `"facet"`,
+			expected: AutomaticFacetFilter{Facet: "facet"},
+		},
+		{
+			input: `[]`,
+			err:   `cannot unmarshal automatic facet filter`,
 		},
 	} {
 		var actual AutomaticFacetFilter
 		err := json.Unmarshal([]byte(c.input), &actual)
+		if c.err != "" {
+			require.EqualError(t, err, c.err)
+			continue
+		}
 		require.NoError(t, err)
 		require.Equal(t, c.expected, actual)
 	}

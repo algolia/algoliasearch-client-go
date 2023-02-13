@@ -82,11 +82,11 @@ type AutomaticFacetFilter struct {
 
 // AutomaticFacetFilter can be unmarshalled from a string or an object.
 func (a *AutomaticFacetFilter) UnmarshalJSON(data []byte) error {
-	if string(data) == jsonNull {
+	if len(data) == 0 {
 		return nil
 	}
 
-	if len(data) == 0 {
+	if string(data) == jsonNull {
 		return nil
 	}
 
@@ -115,8 +115,9 @@ func (a *AutomaticFacetFilter) UnmarshalJSON(data []byte) error {
 			Score:       alias.Score,
 		}
 		return nil
+	default:
+		return fmt.Errorf("cannot unmarshal automatic facet filter")
 	}
-	return fmt.Errorf("cannot unmarshal automatic facet filter")
 }
 
 type QueryEdit struct {
