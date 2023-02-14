@@ -49,7 +49,7 @@ delete:
   parameters:
     - $ref: '../../common/parameters.yml#/pathSourceID'
   responses:
-    '204':
+    '200':
       description: OK
       content:
         application/json:
