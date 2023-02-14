@@ -1453,7 +1453,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/pathAuthenticationID'
       responses:
-        '204':
+        '200':
           description: OK
           content:
             application/json:
@@ -1595,7 +1595,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/pathDestinationID'
       responses:
-        '204':
+        '200':
           description: OK
           content:
             application/json:
@@ -1737,7 +1737,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/pathSourceID'
       responses:
-        '204':
+        '200':
           description: OK
           content:
             application/json:
@@ -1883,7 +1883,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/pathTaskID'
       responses:
-        '204':
+        '200':
           description: OK
           content:
             application/json:
