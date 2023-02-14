@@ -65,15 +65,12 @@ createSegmentResponse:
 segment:
   type: object
   required:
-    - version
     - segmentID
     - name
     - conditions
     - segmentStatus
     - type
   properties:
-    version:
-      $ref: '#/segmentVersion'
     segmentID:
       $ref: '#/segmentID'
     name:
@@ -101,12 +98,6 @@ segmentType:
   enum:
     - computed
     - custom
-
-segmentVersion:
-  type: number
-  format: float
-  description: The segment syntax version.
-  example: 1.1
 
 segmentID:
   type: string
