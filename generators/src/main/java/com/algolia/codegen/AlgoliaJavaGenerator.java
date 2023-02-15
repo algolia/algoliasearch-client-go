@@ -125,23 +125,6 @@ public class AlgoliaJavaGenerator extends JavaClientCodegen {
       return super.toEnumVarName(value, datatype);
     }
 
-    // predict has some enums that are operators, we internally convert them to prevent wrong
-    // assumptions from the generator/templates.
-    switch (value) {
-      case "<":
-        return "LT";
-      case ">":
-        return "GT";
-      case "=":
-        return "EQ";
-      case "<=":
-        return "LTE";
-      case ">=":
-        return "GTE";
-      case "!=":
-        return "NEQ";
-    }
-
     if (!value.matches("[A-Z0-9_]+")) {
       // convert camelCase77String to CAMEL_CASE_77_STRING
       return value.replaceAll("-", "_").replaceAll("(.+?)([A-Z]|[0-9])", "$1_$2").toUpperCase(Locale.ROOT);

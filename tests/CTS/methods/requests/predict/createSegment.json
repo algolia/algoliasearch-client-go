@@ -10,7 +10,7 @@
             "name": "predictions.order_value",
             "filters": [
               {
-                "operator": ">",
+                "operator": "GT",
                 "value": 200
               }
             ]
@@ -30,8 +30,57 @@
               "name": "predictions.order_value",
               "filters": [
                 {
-                  "operator": ">",
+                  "operator": "GT",
                   "value": 200
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "testName": "create segment with filter probability",
+    "parameters": {
+      "name": "segment1",
+      "conditions": {
+        "operator": "AND",
+        "operands": [
+          {
+            "name": "predictions.affinities.color",
+            "filters": [
+              {
+                "operator": "EQ",
+                "value": "red",
+                "probability": {
+                  "GTE": 0.5,
+                  "LTE": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "request": {
+      "path": "/1/segments",
+      "method": "POST",
+      "body": {
+        "name": "segment1",
+        "conditions": {
+          "operator": "AND",
+          "operands": [
+            {
+              "name": "predictions.affinities.color",
+              "filters": [
+                {
+                  "operator": "EQ",
+                  "value": "red",
+                  "probability": {
+                    "GTE": 0.5,
+                    "LTE": 1
+                  }
                 }
               ]
             }

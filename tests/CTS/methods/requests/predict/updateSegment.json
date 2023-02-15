@@ -27,7 +27,7 @@
               "name": "predictions.order_value",
               "filters": [
                 {
-                  "operator": ">",
+                  "operator": "GT",
                   "value": 200
                 }
               ]
@@ -47,7 +47,7 @@
               "name": "predictions.order_value",
               "filters": [
                 {
-                  "operator": ">",
+                  "operator": "GT",
                   "value": 200
                 }
               ]
@@ -70,7 +70,7 @@
               "name": "predictions.order_value",
               "filters": [
                 {
-                  "operator": ">",
+                  "operator": "GT",
                   "value": 200
                 }
               ]
@@ -91,8 +91,58 @@
               "name": "predictions.order_value",
               "filters": [
                 {
-                  "operator": ">",
+                  "operator": "GT",
                   "value": 200
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "testName": "updateSegment with filter probability",
+    "parameters": {
+      "segmentID": "segment1",
+      "updateSegmentParams": {
+        "conditions": {
+          "operator": "AND",
+          "operands": [
+            {
+              "name": "predictions.affinities.color",
+              "filters": [
+                {
+                  "operator": "EQ",
+                  "value": "red",
+                  "probability": {
+                    "GTE": 0.5,
+                    "LTE": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "request": {
+      "path": "/1/segments/segment1",
+      "method": "POST",
+      "body": {
+        "conditions": {
+          "operator": "AND",
+          "operands": [
+            {
+              "name": "predictions.affinities.color",
+              "filters": [
+                {
+                  "operator": "EQ",
+                  "value": "red",
+                  "probability": {
+                    "GTE": 0.5,
+                    "LTE": 1
+                  }
                 }
               ]
             }
