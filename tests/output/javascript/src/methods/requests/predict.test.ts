@@ -41,7 +41,7 @@ describe('createSegment', () => {
         operands: [
           {
             name: 'predictions.order_value',
-            filters: [{ operator: '>', value: 200 }],
+            filters: [{ operator: 'GT', value: 200 }],
           },
         ],
       },
@@ -56,7 +56,50 @@ describe('createSegment', () => {
         operands: [
           {
             name: 'predictions.order_value',
-            filters: [{ operator: '>', value: 200 }],
+            filters: [{ operator: 'GT', value: 200 }],
+          },
+        ],
+      },
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('create segment with filter probability', async () => {
+    const req = (await client.createSegment({
+      name: 'segment1',
+      conditions: {
+        operator: 'AND',
+        operands: [
+          {
+            name: 'predictions.affinities.color',
+            filters: [
+              {
+                operator: 'EQ',
+                value: 'red',
+                probability: { GTE: 0.5, LTE: 1 },
+              },
+            ],
+          },
+        ],
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      name: 'segment1',
+      conditions: {
+        operator: 'AND',
+        operands: [
+          {
+            name: 'predictions.affinities.color',
+            filters: [
+              {
+                operator: 'EQ',
+                value: 'red',
+                probability: { GTE: 0.5, LTE: 1 },
+              },
+            ],
           },
         ],
       },
@@ -729,7 +772,7 @@ describe('updateSegment', () => {
           operands: [
             {
               name: 'predictions.order_value',
-              filters: [{ operator: '>', value: 200 }],
+              filters: [{ operator: 'GT', value: 200 }],
             },
           ],
         },
@@ -744,7 +787,7 @@ describe('updateSegment', () => {
         operands: [
           {
             name: 'predictions.order_value',
-            filters: [{ operator: '>', value: 200 }],
+            filters: [{ operator: 'GT', value: 200 }],
           },
         ],
       },
@@ -762,7 +805,7 @@ describe('updateSegment', () => {
           operands: [
             {
               name: 'predictions.order_value',
-              filters: [{ operator: '>', value: 200 }],
+              filters: [{ operator: 'GT', value: 200 }],
             },
           ],
         },
@@ -778,7 +821,51 @@ describe('updateSegment', () => {
         operands: [
           {
             name: 'predictions.order_value',
-            filters: [{ operator: '>', value: 200 }],
+            filters: [{ operator: 'GT', value: 200 }],
+          },
+        ],
+      },
+    });
+    expect(req.searchParams).toStrictEqual(undefined);
+  });
+
+  test('updateSegment with filter probability', async () => {
+    const req = (await client.updateSegment({
+      segmentID: 'segment1',
+      updateSegmentParams: {
+        conditions: {
+          operator: 'AND',
+          operands: [
+            {
+              name: 'predictions.affinities.color',
+              filters: [
+                {
+                  operator: 'EQ',
+                  value: 'red',
+                  probability: { GTE: 0.5, LTE: 1 },
+                },
+              ],
+            },
+          ],
+        },
+      },
+    })) as unknown as EchoResponse;
+
+    expect(req.path).toEqual('/1/segments/segment1');
+    expect(req.method).toEqual('POST');
+    expect(req.data).toEqual({
+      conditions: {
+        operator: 'AND',
+        operands: [
+          {
+            name: 'predictions.affinities.color',
+            filters: [
+              {
+                operator: 'EQ',
+                value: 'red',
+                probability: { GTE: 0.5, LTE: 1 },
+              },
+            ],
           },
         ],
       },

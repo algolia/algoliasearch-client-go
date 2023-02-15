@@ -471,14 +471,14 @@ components:
     segmentFilterOperatorNumerical:
       description: The operator used on the numerical filter value.
       type: string
-      default: =
+      default: EQ
       enum:
-        - =
-        - '!='
-        - '>'
-        - '>='
-        - <
-        - <=
+        - EQ
+        - NEQ
+        - GT
+        - GTE
+        - LT
+        - LTE
     segmentAffinityFilterValue:
       oneOf:
         - type: string
@@ -494,13 +494,13 @@ components:
       minProperties: 1
       maxProperties: 2
       properties:
-        lt:
+        LT:
           type: number
-        lte:
+        LTE:
           type: number
-        gt:
+        GT:
           type: number
-        gte:
+        GTE:
           type: number
     segmentAffinityFilter:
       description: Filter for affinity model predictions.
@@ -534,10 +534,10 @@ components:
     segmentFilterOperatorBoolean:
       description: The operator used on the boolean filter value.
       type: string
-      default: =
+      default: EQ
       enum:
-        - =
-        - '!='
+        - EQ
+        - NEQ
     segmentFunnelStageFilter:
       description: Filter for funnel stage model predictions.
       type: object
