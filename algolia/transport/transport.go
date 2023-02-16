@@ -21,7 +21,7 @@ import (
 	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
 )
 
-const version = "3.26.2"
+const version = "3.26.3"
 
 type Transport struct {
 	requester     Requester

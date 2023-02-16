@@ -1,5 +1,17 @@
 # ChangeLog
 
+## [3.26.3](https://github.com/algolia/algoliasearch-client-go/compare/3.26.2...3.26.3) (2023-02-16)
+
+### Fix
+
+- composableFilterOption deserialization fixed (#717) ([b3a3422](https://github.com/algolia/algoliasearch-client-go/commit/b3a3422))
+
+### Misc
+
+- fix(search) handle automaticFacetFilters unmarshal from string (#716) ([e67fb07](https://github.com/algolia/algoliasearch-client-go/commit/e67fb07))
+
+
+
 ## [3.26.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.1...3.26.2) (2023-01-18)
 
 ### Fix
