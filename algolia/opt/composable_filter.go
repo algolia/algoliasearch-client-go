@@ -2,6 +2,7 @@ package opt
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 
@@ -74,10 +75,11 @@ func (o *composableFilterOption) UnmarshalJSON(data []byte) error {
 	}
 
 	var (
-		ok     = false
-		filter string
-		ors    []string
-		ands   [][]string
+		ok      = false
+		filter  string
+		ors     []string
+		ands    [][]string
+		options []interface{}
 	)
 
 	if json.Unmarshal(data, &filter) == nil {
@@ -86,13 +88,25 @@ func (o *composableFilterOption) UnmarshalJSON(data []byte) error {
 		ands = append(ands, ors)
 	}
 
-	if !ok && json.Unmarshal(data, &ors) == nil {
+	if !ok && json.Unmarshal(data, &options) == nil {
 		ok = true
-		ands = append(ands, ors)
-	}
 
-	if !ok && json.Unmarshal(data, &ands) == nil {
-		ok = true
+		for _, option := range options {
+			switch v := option.(type) {
+			case []interface{}:
+				ors = []string{}
+
+				for _, val := range v {
+					ors = append(ors, fmt.Sprint(val))
+				}
+
+				ands = append(ands, ors)
+			case string:
+				ands = append(ands, []string{v})
+			default:
+				return errs.ErrJSONDecode(data, "composableFilterOption (string or []string or [][]string)")
+			}
+		}
 	}
 
 	if !ok {
