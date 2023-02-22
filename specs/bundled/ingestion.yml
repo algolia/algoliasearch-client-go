@@ -744,6 +744,11 @@ components:
           description: The store hash identifying the store the shopper is signing in to.
       required:
         - store_hash
+    UniqueIDColumn:
+      type: string
+      description: >-
+        The name of the column that contains the unique ID, used as `objectID`
+        in Algolia.
     MethodType:
       type: string
       enum:
@@ -756,6 +761,8 @@ components:
         url:
           type: string
           description: The URL of the file.
+        uniqueIDColumn:
+          $ref: '#/components/schemas/UniqueIDColumn'
         method:
           $ref: '#/components/schemas/MethodType'
       required:
@@ -776,10 +783,7 @@ components:
           type: string
           description: The URL of the file.
         uniqueIDColumn:
-          type: string
-          description: >-
-            The name of the column that contains the unique ID, used as
-            `objectID` in Algolia.
+          $ref: '#/components/schemas/UniqueIDColumn'
         mapping:
           type: object
           description: >
