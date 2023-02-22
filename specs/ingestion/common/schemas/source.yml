@@ -134,6 +134,10 @@ MethodType:
   type: string
   enum: ['GET', 'POST']
 
+UniqueIDColumn:
+  type: string
+  description: The name of the column that contains the unique ID, used as `objectID` in Algolia.
+
 SourceJSON:
   type: object
   additionalProperties: false
@@ -141,6 +145,8 @@ SourceJSON:
     url:
       type: string
       description: The URL of the file.
+    uniqueIDColumn:
+      $ref: '#/UniqueIDColumn'
     method:
       $ref: '#/MethodType'
   required:
@@ -158,8 +164,7 @@ SourceCSV:
       type: string
       description: The URL of the file.
     uniqueIDColumn:
-      type: string
-      description: The name of the column that contains the unique ID, used as `objectID` in Algolia.
+      $ref: '#/UniqueIDColumn'
     mapping:
       type: object
       description: >
