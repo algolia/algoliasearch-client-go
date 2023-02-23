@@ -35,13 +35,13 @@ func TestComposableFilterOption_UnmarshalJSON(t *testing.T) {
 		{
 			`"color:green,color:yellow"`,
 			composableFilterOption{[][]string{
-				{`color:green`, `color:yellow`},
+				{`color:green`}, {`color:yellow`},
 			}},
 		},
 		{
 			`" color:green , color:yellow "`,
 			composableFilterOption{[][]string{
-				{`color:green`, `color:yellow`},
+				{`color:green`}, {`color:yellow`},
 			}},
 		},
 		{
@@ -79,6 +79,20 @@ func TestComposableFilterOption_UnmarshalJSON(t *testing.T) {
 		},
 		{
 			`[["color:green","color:yellow"], "color:blue"]`,
+			composableFilterOption{[][]string{
+				{`color:green`, `color:yellow`},
+				{`color:blue`},
+			}},
+		},
+		{
+			`["color:green,color:yellow","color:blue"]`,
+			composableFilterOption{[][]string{
+				{`color:green`, `color:yellow`},
+				{`color:blue`},
+			}},
+		},
+		{
+			`"(color:green,color:yellow),color:black"`,
 			composableFilterOption{[][]string{
 				{`color:green`, `color:yellow`},
 				{`color:blue`},

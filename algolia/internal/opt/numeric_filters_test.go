@@ -117,10 +117,14 @@ func TestNumericFilters_LegacyDeserialization(t *testing.T) {
 		},
 		{
 			`"filter1:value1,filter2:value2"`,
-			opt.NumericFilterOr("filter1:value1", "filter2:value2"),
+			opt.NumericFilterAnd("filter1:value1", "filter2:value2"),
 		},
 		{
 			`" filter1:value1 , filter2:value2 "`,
+			opt.NumericFilterAnd("filter1:value1", "filter2:value2"),
+		},
+		{
+			`"(filter1:value1,filter2:value2)"`,
 			opt.NumericFilterOr("filter1:value1", "filter2:value2"),
 		},
 		{
@@ -137,6 +141,14 @@ func TestNumericFilters_LegacyDeserialization(t *testing.T) {
 		},
 		{
 			`[["filter1:value1","filter2:value2"], "filter3:value3"]`,
+			opt.NumericFilterAnd(opt.NumericFilterOr("filter1:value1", "filter2:value2"), "filter3:value3"),
+		},
+		{
+			`["filter1:value1,filter2:value2","filter3:value3"]`,
+			opt.NumericFilterAnd(opt.NumericFilterOr("filter1:value1", "filter2:value2"), "filter3:value3"),
+		},
+		{
+			`"(filter1:value1,filter2:value2),filter3:value3"`,
 			opt.NumericFilterAnd(opt.NumericFilterOr("filter1:value1", "filter2:value2"), "filter3:value3"),
 		},
 	} {
