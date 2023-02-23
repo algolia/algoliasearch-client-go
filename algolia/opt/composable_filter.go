@@ -139,7 +139,7 @@ func (o *composableFilterOption) UnmarshalJSON(data []byte) error {
 		for _, filter := range ors {
 			filter = strings.Trim(filter, " ")
 			if len(filter) > 0 {
-				cleanORs = append(cleanORs, strings.Split(filter, ",")...)
+				cleanORs = append(cleanORs, filter)
 			}
 		}
 		if len(cleanORs) > 0 {

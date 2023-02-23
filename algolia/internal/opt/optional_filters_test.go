@@ -145,7 +145,7 @@ func TestOptionalFilters_LegacyDeserialization(t *testing.T) {
 		},
 		{
 			`["filter1:value1,filter2:value2","filter3:value3"]`,
-			opt.OptionalFilterAnd(opt.OptionalFilterOr("filter1:value1", "filter2:value2"), "filter3:value3"),
+			opt.OptionalFilterAnd("filter1:value1,filter2:value2", "filter3:value3"),
 		},
 		{
 			`"(filter1:value1,filter2:value2),filter3:value3"`,

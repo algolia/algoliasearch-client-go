@@ -87,7 +87,7 @@ func TestComposableFilterOption_UnmarshalJSON(t *testing.T) {
 		{
 			`["color:green,color:yellow","color:blue"]`,
 			composableFilterOption{[][]string{
-				{`color:green`, `color:yellow`},
+				{`color:green,color:yellow`},
 				{`color:blue`},
 			}},
 		},

@@ -145,7 +145,7 @@ func TestTagFilters_LegacyDeserialization(t *testing.T) {
 		},
 		{
 			`["filter1:value1,filter2:value2","filter3:value3"]`,
-			opt.TagFilterAnd(opt.TagFilterOr("filter1:value1", "filter2:value2"), "filter3:value3"),
+			opt.TagFilterAnd("filter1:value1,filter2:value2", "filter3:value3"),
 		},
 		{
 			`"(filter1:value1,filter2:value2),filter3:value3"`,
