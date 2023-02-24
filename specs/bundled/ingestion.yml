@@ -2003,6 +2003,8 @@ paths:
       operationId: getEvents
       parameters:
         - $ref: '#/components/parameters/pathRunID'
+        - $ref: '#/components/parameters/itemsPerPage'
+        - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/eventStatus'
         - $ref: '#/components/parameters/eventType'
         - $ref: '#/components/parameters/eventSort'
@@ -2021,8 +2023,11 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Event'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
                 required:
                   - events
+                  - pagination
         '400':
           $ref: '#/components/responses/BadRequest'
   /1/runs/{runID}/events/{eventID}:
