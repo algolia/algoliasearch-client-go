@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.26.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.3...3.26.4) (2023-02-24)
+
+### Fix
+
+- handle composableFilterOption deserialization for legacy usage (#718) ([301a2c5](https://github.com/algolia/algoliasearch-client-go/commit/301a2c5))
+
+
+
 ## [3.26.3](https://github.com/algolia/algoliasearch-client-go/compare/3.26.2...3.26.3) (2023-02-16)
 
 ### Fix
