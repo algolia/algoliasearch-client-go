@@ -35,13 +35,13 @@ func TestComposableFilterOption_UnmarshalJSON(t *testing.T) {
 		{
 			`"color:green,color:yellow"`,
 			composableFilterOption{[][]string{
-				{`color:green`, `color:yellow`},
+				{`color:green`}, {`color:yellow`},
 			}},
 		},
 		{
 			`" color:green , color:yellow "`,
 			composableFilterOption{[][]string{
-				{`color:green`, `color:yellow`},
+				{`color:green`}, {`color:yellow`},
 			}},
 		},
 		{
@@ -84,6 +84,20 @@ func TestComposableFilterOption_UnmarshalJSON(t *testing.T) {
 				{`color:blue`},
 			}},
 		},
+		{
+			`["color:green,color:yellow","color:blue"]`,
+			composableFilterOption{[][]string{
+				{`color:green,color:yellow`},
+				{`color:blue`},
+			}},
+		},
+		{
+			`"(color:green,color:yellow),color:blue"`,
+			composableFilterOption{[][]string{
+				{`color:green`, `color:yellow`},
+				{`color:blue`},
+			}},
+		},
 	} {
 		var got composableFilterOption
 		err := json.Unmarshal([]byte(c.payload), &got)
@@ -94,8 +108,8 @@ func TestComposableFilterOption_UnmarshalJSON(t *testing.T) {
 
 		require.Equal(
 			t,
-			len(fGot),
-			len(fExpected),
+			fGot,
+			fExpected,
 			"expected %v as deserialized filters instead of %v for payload %q",
 			fExpected,
 			fGot,
