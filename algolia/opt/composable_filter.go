@@ -82,6 +82,11 @@ func (o *composableFilterOption) UnmarshalJSON(data []byte) error {
 		options []interface{}
 	)
 
+	// Handles legacy one-string format as filters.
+	// Adds outer groups as `ands`, adds inner groups as `ors` if there are any.
+	//"A:1,B:2"       => [["A:1"],["B:2"]]
+	//"(A:1,B:2),C:3" => [["A:1","B:2"],["C:3"]]
+	//"(A:1,B:2)"     => [["A:1","B:2"]]
 	if json.Unmarshal(data, &filter) == nil {
 		ok = true
 		replacer := strings.NewReplacer("(", " ", ")", " ")
