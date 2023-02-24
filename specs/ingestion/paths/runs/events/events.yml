@@ -6,6 +6,8 @@ get:
   operationId: getEvents
   parameters:
     - $ref: '../../../common/parameters.yml#/pathRunID'
+    - $ref: '../../../common/parameters.yml#/itemsPerPage'
+    - $ref: '../../../common/parameters.yml#/page'
     - $ref: '../../../common/observabilityParameters.yml#/eventStatus'
     - $ref: '../../../common/observabilityParameters.yml#/eventType'
     - $ref: '../../../common/observabilityParameters.yml#/eventSort'
@@ -24,7 +26,10 @@ get:
                 type: array
                 items:
                   $ref: '../../../common/schemas/event.yml#/Event'
+              pagination:
+                $ref: '../../../common/schemas/pagination.yml#/Pagination'
             required:
               - events
+              - pagination
     '400':
       $ref: '../../../../common/responses/BadRequest.yml'
