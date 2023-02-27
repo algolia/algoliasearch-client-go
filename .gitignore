@@ -30,3 +30,4 @@ dist
 
 generators/bin
 
+**/java/bin/

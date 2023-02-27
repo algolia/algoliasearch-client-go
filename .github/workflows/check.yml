@@ -232,6 +232,10 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'javascript' && contains(matrix.client.toRun,'algoliasearch') }}
         run: cd ${{ matrix.client.path }} && yarn workspace algoliasearch test
 
+      - name: Run Java 'algoliasearch' public API validation
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && matrix.client.language == 'java' }}
+        run: cd ${{ matrix.client.path }} && ./gradlew :api:japicmp
+
       - name: Remove previous CTS output
         run: rm -rf ${{ matrix.client.testsToDelete }} || true
 
