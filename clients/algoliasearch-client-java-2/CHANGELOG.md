@@ -1,5 +1,10 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [33700b8c](https://github.com/algolia/api-clients-automation/commit/33700b8c) feat(specs): add a reason string to the run object ([#1347](https://github.com/algolia/api-clients-automation/pull/1347)) by [@Fluf22](https://github.com/Fluf22/)
+- [d7b03aed](https://github.com/algolia/api-clients-automation/commit/d7b03aed) chore(java): add api compat check ([#1335](https://github.com/algolia/api-clients-automation/pull/1335)) by [@aallam](https://github.com/aallam/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [b4d183fe](https://github.com/algolia/api-clients-automation/commit/b4d183fe) fix(specs): add pagination to events ([#1337](https://github.com/algolia/api-clients-automation/pull/1337)) by [@millotp](https://github.com/millotp/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
