@@ -1196,6 +1196,9 @@ components:
               type: integer
         outcome:
           $ref: '#/components/schemas/RunOutcome'
+        reason:
+          type: string
+          description: Explains the result of outcome.
         type:
           $ref: '#/components/schemas/RunType'
         createdAt:
