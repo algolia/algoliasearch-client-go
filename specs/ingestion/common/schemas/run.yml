@@ -47,6 +47,9 @@ Run:
           type: integer
     outcome:
       $ref: '#/RunOutcome'
+    reason:
+      type: string
+      description: 'Explains the result of outcome.'
     type:
       $ref: '#/RunType'
     createdAt:
