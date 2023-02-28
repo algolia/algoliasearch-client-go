@@ -1,4 +1,6 @@
-/* eslint-disable no-console,no-case-declarations */
+/* eslint-disable no-case-declarations */
+import * as core from '@actions/core';
+
 import { CLIENTS, createClientName, GENERATORS, LANGUAGES } from '../../common';
 import {
   getClientsConfigField,
@@ -150,16 +152,15 @@ async function getClientMatrix(baseBranch: string): Promise<void> {
       testsToDelete,
       testsToStore,
     });
-    console.log(`::set-output name=RUN_GEN_${language.toUpperCase()}::true`);
+    core.setOutput(`RUN_GEN_${language.toUpperCase()}`, true);
   }
 
   const shouldRun = clientMatrix.client.length > 0;
 
-  console.log(`::set-output name=RUN_GEN::${shouldRun}`);
-  console.log(
-    `::set-output name=GEN_MATRIX::${JSON.stringify(
-      shouldRun ? clientMatrix : EMPTY_MATRIX
-    )}`
+  core.setOutput('RUN_GEN', shouldRun);
+  core.setOutput(
+    'GEN_MATRIX',
+    JSON.stringify(shouldRun ? clientMatrix : EMPTY_MATRIX)
   );
 }
 
@@ -187,7 +188,7 @@ async function getSpecMatrix(): Promise<void> {
     ]),
   };
 
-  console.log(`::set-output name=MATRIX::${JSON.stringify(ciMatrix)}`);
+  core.setOutput('MATRIX', JSON.stringify(ciMatrix));
 }
 
 /**

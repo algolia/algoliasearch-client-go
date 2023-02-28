@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import * as core from '@actions/core';
+
 import { CLIENTS_JS_UTILS } from '../../common';
 import { getLanguageFolder } from '../../config';
 
@@ -81,7 +83,7 @@ async function setRunVariables({
 }): Promise<void> {
   console.log(`Checking diff between ${originBranch} and HEAD`);
 
-  console.log(`::set-output name=ORIGIN_BRANCH::${originBranch}`);
+  core.setOutput('ORIGIN_BRANCH', originBranch);
 
   await isBaseChanged(originBranch, DEPENDENCIES, true);
 }

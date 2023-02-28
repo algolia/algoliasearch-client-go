@@ -17,10 +17,10 @@ jobs:
       ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_PRIVATE_KEY_ID }}
       ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PRIVATE_KEY_PASSWORD }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: zulu
           java-version: 11.0.4
@@ -36,7 +36,7 @@ jobs:
         id: snapshot
         run: |
           if [[ $(cat ./gradle.properties | grep 'VERSION_NAME=.*-SNAPSHOT') ]]; then
-            echo "::set-output name=IS_SNAPSHOT::true"
+            echo "IS_SNAPSHOT=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Release Artifacts

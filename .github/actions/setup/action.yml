@@ -6,9 +6,6 @@ inputs:
   type:
     description: Type of setup, `minimal` will only setup the JavaScript monorepo, `matrix` will set the run variables.
     required: false
-  workflow_name:
-    description: Name of the workflow that is executing this action.
-    required: false
   language:
     description: the language for which to install deps
     required: false
@@ -24,7 +21,7 @@ runs:
     # Java for code generation
     - name: Install Java
       if: inputs.type != 'minimal'
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         distribution: zulu
         java-version: 11.0.4
@@ -41,7 +38,7 @@ runs:
 
     # JavaScript for monorepo and tooling
     - name: Install Node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version-file: .nvmrc
         cache: yarn
@@ -49,7 +46,7 @@ runs:
     - name: Get yarn cache directory path
       shell: bash
       id: yarn-cache-dir
-      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
     - name: Restore Yarn
       uses: actions/cache@v3
@@ -73,7 +70,7 @@ runs:
       if: ${{ inputs.language == 'javascript' }}
       shell: bash
       id: yarn-cache-dir-client
-      run: echo "::set-output name=dir::$(cd clients/algoliasearch-client-javascript && yarn config get cacheFolder)"
+      run: echo "dir=$(cd clients/algoliasearch-client-javascript && yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
     - name: Restore Yarn js-client
       if: ${{ inputs.language == 'javascript' }}
@@ -134,7 +131,7 @@ runs:
       run: |
         if ${{ steps.gen-matrix.outputs.RUN_GEN_JAVASCRIPT || steps.diff.outputs.JAVASCRIPT_UTILS_CHANGED > 0 }}; then
           echo "Running JavaScript utils: true"
-          echo "::set-output name=RUN_JS_UTILS::true"
+          echo "RUN_JS_UTILS=true" >> $GITHUB_OUTPUT
         fi
 
 outputs:
