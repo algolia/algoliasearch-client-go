@@ -27,6 +27,8 @@ module.exports = {
     '!clients/algoliasearch-client-javascript/packages/algoliasearch/__tests__/**',
     '!clients/algoliasearch-client-javascript/packages/algoliasearch/jest.config.ts',
 
+    'tests/output/javascript/package.json',
+
     // PHP
     '!clients/algoliasearch-client-php/**',
     'clients/algoliasearch-client-php/lib/Api/*',

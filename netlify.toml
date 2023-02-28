@@ -3,4 +3,4 @@
   publish="website/build"
 
 [build.environment]
-  YARN_VERSION = "3.2.3"
+  YARN_VERSION = "3.4.1"

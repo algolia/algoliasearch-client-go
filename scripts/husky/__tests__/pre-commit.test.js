@@ -5,7 +5,7 @@ const micromatch = require('micromatch');
 const { getPatterns } = require('../pre-commit');
 
 describe('micromatch', () => {
-  it('matches correctly', () => {
+  it('matches correctly the files to remove', () => {
     expect(
       micromatch
         .match(
@@ -53,6 +53,7 @@ describe('micromatch', () => {
         'tests/output/java/src/test/java/com/algolia/client/test.java',
 
         'tests/output/javascript/src/client/test.ts',
+        'tests/output/javascript/package.json',
 
         'tests/output/php/src/methods/requests/test.php',
       ].sort()

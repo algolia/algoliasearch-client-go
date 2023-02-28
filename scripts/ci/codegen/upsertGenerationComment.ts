@@ -14,7 +14,7 @@ const allowedTriggers = [
   'cleanup',
 ] as const;
 
-type Trigger = typeof allowedTriggers[number];
+type Trigger = (typeof allowedTriggers)[number];
 
 export async function getCommentBody(trigger: Trigger): Promise<string> {
   let generatedBranch = await run('git branch --show-current');

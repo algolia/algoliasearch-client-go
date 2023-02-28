@@ -59,6 +59,6 @@ Some examples of valid commit messages (used as first lines):
 
 To run this project, you will need:
 
-- Node.js ≥ 16 – [nvm](https://github.com/creationix/nvm#install-script) is recommended
+- Node.js ≥ 18 – [nvm](https://github.com/creationix/nvm#install-script) is recommended
 - [Yarn](https://yarnpkg.com)
 - [Docker](https://docs.docker.com/desktop/install/mac-install/)
