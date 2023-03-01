@@ -1,4 +1,4 @@
-import { CI, run, runComposerUpdate } from './common';
+import { run, runComposerUpdate } from './common';
 import { createSpinner } from './oraLog';
 
 export async function formatter(
@@ -27,9 +27,7 @@ export async function formatter(
     case 'php':
       await runComposerUpdate(verbose);
       cmd = `yarn run prettier ${folder} --write \
-            && PHP_CS_FIXER_IGNORE_ENV=1 ${
-              CI ? 'php' : 'php8'
-            } clients/algoliasearch-client-php/vendor/bin/php-cs-fixer fix ${folder} --using-cache=no --allow-risky=yes`;
+            && PHP_CS_FIXER_IGNORE_ENV=1 php clients/algoliasearch-client-php/vendor/bin/php-cs-fixer fix ${folder} --using-cache=no --allow-risky=yes`;
       break;
     default:
       return;

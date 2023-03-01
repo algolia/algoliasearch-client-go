@@ -32,7 +32,7 @@ export async function playground({
        composer update && \
        composer dump-autoload && \
        cd ../../playground/php/src && \
-       php8 ${client}.php`,
+       php ${client}.php`,
         { verbose }
       );
       break;

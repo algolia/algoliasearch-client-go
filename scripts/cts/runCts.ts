@@ -1,4 +1,4 @@
-import { CI, run, runComposerUpdate } from '../common';
+import { run, runComposerUpdate } from '../common';
 import { createSpinner } from '../oraLog';
 
 async function runCtsOne(language: string, verbose: boolean): Promise<void> {
@@ -23,10 +23,8 @@ async function runCtsOne(language: string, verbose: boolean): Promise<void> {
       break;
     case 'php': {
       await runComposerUpdate(verbose);
-      let php = 'php8';
-      if (CI) php = 'php';
       await run(
-        `${php} ./clients/algoliasearch-client-php/vendor/bin/phpunit tests/output/php`,
+        `php ./clients/algoliasearch-client-php/vendor/bin/phpunit tests/output/php`,
         { verbose }
       );
       break;
