@@ -71,7 +71,7 @@ Run:
 
 RunStatus:
   type: string
-  enum: ['created', 'started', 'idled', 'finished']
+  enum: ['created', 'started', 'idled', 'finished', 'skipped']
 
 RunOutcome:
   type: string
