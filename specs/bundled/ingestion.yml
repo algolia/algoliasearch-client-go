@@ -1151,6 +1151,7 @@ components:
         - started
         - idled
         - finished
+        - skipped
     runSortKeys:
       type: string
       description: Used to sort the Run list endpoint.
