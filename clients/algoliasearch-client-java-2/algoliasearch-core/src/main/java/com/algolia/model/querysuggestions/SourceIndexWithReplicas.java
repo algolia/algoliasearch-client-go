@@ -18,10 +18,10 @@ public class SourceIndexWithReplicas {
   private String indexName;
 
   @JsonProperty("analyticsTags")
-  private List<String> analyticsTags = new ArrayList<>();
+  private List<String> analyticsTags = null;
 
   @JsonProperty("facets")
-  private List<Object> facets = new ArrayList<>();
+  private List<Object> facets = null;
 
   @JsonProperty("minHits")
   private Integer minHits;
@@ -30,7 +30,7 @@ public class SourceIndexWithReplicas {
   private Integer minLetters;
 
   @JsonProperty("generate")
-  private List<List<String>> generate = new ArrayList<>();
+  private List<List<String>> generate = null;
 
   @JsonProperty("external")
   private List<SourceIndexExternal> external = new ArrayList<>();

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ApiKey {
 
   @JsonProperty("acl")
-  private List<Acl> acl = new ArrayList<>();
+  private List<Acl> acl = null;
 
   @JsonProperty("description")
   private String description;
