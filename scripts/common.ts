@@ -102,7 +102,8 @@ export async function run(
     if (errorMessage) {
       throw new Error(`[ERROR] ${errorMessage}`);
     } else {
-      throw err;
+      // it's already log thanks to the `all` option
+      throw new Error(`command failed: ${command}`);
     }
   }
 }
