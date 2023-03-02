@@ -449,6 +449,7 @@ async function createReleasePR(): Promise<void> {
 
   await run(`git checkout -b ${headBranch}`);
 
+  setVerbose(true);
   console.log(`Pushing updated changes to: ${headBranch}`);
   const commitMessage = generationCommitText.commitPrepareReleaseMessage;
   await run('git add .');
@@ -492,6 +493,6 @@ async function createReleasePR(): Promise<void> {
 }
 
 if (require.main === module) {
-  setVerbose(true);
+  setVerbose(false);
   createReleasePR();
 }
