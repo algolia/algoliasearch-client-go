@@ -8,22 +8,16 @@ export async function playground({
   language: AllLanguage;
   client: string;
 }): Promise<void> {
-  const verbose = true;
   switch (language) {
     case 'javascript':
-      await run(`yarn workspace javascript-playground start:${client}`, {
-        verbose,
-      });
+      await run(`yarn workspace javascript-playground start:${client}`);
       break;
     case 'java':
       await run(
         `./gradle/gradlew -p playground/java -PmainClass=com.algolia.playground.${createClientName(
           client,
           'java'
-        )} run`,
-        {
-          verbose,
-        }
+        )} run`
       );
       break;
     case 'php':
@@ -32,8 +26,7 @@ export async function playground({
        composer update && \
        composer dump-autoload && \
        cd ../../playground/php/src && \
-       php ${client}.php`,
-        { verbose }
+       php ${client}.php`
       );
       break;
     default:

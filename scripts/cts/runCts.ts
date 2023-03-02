@@ -1,31 +1,24 @@
 import { run, runComposerUpdate } from '../common';
-import { createSpinner } from '../oraLog';
+import { createSpinner } from '../spinners';
 
-async function runCtsOne(language: string, verbose: boolean): Promise<void> {
-  const spinner = createSpinner(
-    `running cts for '${language}'`,
-    verbose
-  ).start();
+async function runCtsOne(language: string): Promise<void> {
+  const spinner = createSpinner(`running cts for '${language}'`);
   switch (language) {
     case 'javascript':
       await run(
         'YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install && yarn test',
         {
-          verbose,
           cwd: 'tests/output/javascript',
         }
       );
       break;
     case 'java':
-      await run('./gradle/gradlew --no-daemon -p tests/output/java test', {
-        verbose,
-      });
+      await run('./gradle/gradlew --no-daemon -p tests/output/java test');
       break;
     case 'php': {
-      await runComposerUpdate(verbose);
+      await runComposerUpdate();
       await run(
-        `php ./clients/algoliasearch-client-php/vendor/bin/phpunit tests/output/php`,
-        { verbose }
+        `php ./clients/algoliasearch-client-php/vendor/bin/phpunit tests/output/php`
       );
       break;
     }
@@ -36,11 +29,8 @@ async function runCtsOne(language: string, verbose: boolean): Promise<void> {
   spinner.succeed();
 }
 
-export async function runCts(
-  languages: string[],
-  verbose: boolean
-): Promise<void> {
+export async function runCts(languages: string[]): Promise<void> {
   for (const lang of languages) {
-    await runCtsOne(lang, verbose);
+    await runCtsOne(lang);
   }
 }

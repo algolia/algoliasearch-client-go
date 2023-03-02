@@ -2,7 +2,7 @@ import { Argument, program } from 'commander';
 
 import { buildClients } from '../buildClients';
 import { buildSpecs } from '../buildSpecs';
-import { CI, DOCKER, LANGUAGES } from '../common';
+import { CI, DOCKER, LANGUAGES, setVerbose } from '../common';
 import { ctsGenerateMany } from '../cts/generate';
 import { runCts } from '../cts/runCts';
 import { formatter } from '../formatter';
@@ -49,10 +49,6 @@ const flags = {
     flag: '-s, --skip-cache',
     description: 'skip cache checking to force building specs',
   },
-  skipUtils: {
-    flag: '-su, --skip-utils',
-    description: 'skip utils build when building a JavaScript client',
-  },
   outputType: {
     flag: '-json, --output-json',
     description: 'outputs the spec in JSON instead of yml',
@@ -76,10 +72,9 @@ program
         interactive,
       });
 
-      await generate(
-        generatorList({ language, client, clientList }),
-        Boolean(verbose)
-      );
+      setVerbose(Boolean(verbose));
+
+      await generate(generatorList({ language, client, clientList }));
     }
   );
 
@@ -92,23 +87,17 @@ buildCommand
   .addArgument(args.clients)
   .option(flags.verbose.flag, flags.verbose.description)
   .option(flags.interactive.flag, flags.interactive.description)
-  .option(flags.skipUtils.flag, flags.skipUtils.description)
   .action(
-    async (
-      langArg: LangArg,
-      clientArg: string[],
-      { verbose, interactive, skipUtils }
-    ) => {
+    async (langArg: LangArg, clientArg: string[], { verbose, interactive }) => {
       const { language, client, clientList } = await prompt({
         langArg,
         clientArg,
         interactive,
       });
 
-      await buildClients(generatorList({ language, client, clientList }), {
-        verbose: Boolean(verbose),
-        skipUtils: Boolean(skipUtils),
-      });
+      setVerbose(Boolean(verbose));
+
+      await buildClients(generatorList({ language, client, clientList }));
     }
   );
 
@@ -131,13 +120,14 @@ buildCommand
         interactive,
       });
 
+      setVerbose(Boolean(verbose));
+
       const outputFormat = outputJson ? 'json' : 'yml';
 
       // ignore cache when building from cli
       await buildSpecs(
         client[0] === ALL ? clientList : client,
         outputFormat,
-        Boolean(verbose),
         !skipCache
       );
     }
@@ -160,10 +150,9 @@ ctsCommand
         interactive,
       });
 
-      await ctsGenerateMany(
-        generatorList({ language, client, clientList }),
-        Boolean(verbose)
-      );
+      setVerbose(Boolean(verbose));
+
+      await ctsGenerateMany(generatorList({ language, client, clientList }));
     }
   );
 
@@ -180,7 +169,9 @@ ctsCommand
       interactive,
     });
 
-    await runCts(language === ALL ? LANGUAGES : [language], Boolean(verbose));
+    setVerbose(Boolean(verbose));
+
+    await runCts(language === ALL ? LANGUAGES : [language]);
   });
 
 program
@@ -196,6 +187,8 @@ program
       interactive,
     });
 
+    setVerbose(false);
+
     await playground({
       language,
       client: client[0],
@@ -209,7 +202,9 @@ program
   .argument('folder', 'The folder to format')
   .option(flags.verbose.flag, flags.verbose.description)
   .action(async (language: string, folder: string, { verbose }) => {
-    await formatter(language, folder, verbose);
+    setVerbose(Boolean(verbose));
+
+    await formatter(language, folder);
   });
 
 program.parse();

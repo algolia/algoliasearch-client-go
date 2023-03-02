@@ -2,38 +2,29 @@ import { buildSpecs } from './buildSpecs';
 import { buildCustomGenerators, CI, run } from './common';
 import { getCustomGenerator, getLanguageFolder } from './config';
 import { formatter } from './formatter';
-import { createSpinner } from './oraLog';
 import { generateOpenapitools, removeExistingCodegen } from './pre-gen';
+import { createSpinner } from './spinners';
 import type { Generator } from './types';
 
 async function preGen(gen: Generator): Promise<void> {
   await removeExistingCodegen(gen);
 }
 
-async function generateClient(
-  { language, key }: Generator,
-  verbose?: boolean
-): Promise<void> {
+async function generateClient({ language, key }: Generator): Promise<void> {
   const customGenerator = getCustomGenerator(language);
   await run(
     `yarn openapi-generator-cli ${
       customGenerator
         ? '--custom-generator=generators/build/libs/algolia-java-openapi-generator-1.0.0.jar'
         : ''
-    } generate --generator-key ${key}`,
-    {
-      verbose,
-    }
+    } generate --generator-key ${key}`
   );
 }
 
-export async function generate(
-  generators: Generator[],
-  verbose: boolean
-): Promise<void> {
+export async function generate(generators: Generator[]): Promise<void> {
   if (!CI) {
     const clients = [...new Set(generators.map((gen) => gen.client))];
-    await buildSpecs(clients, 'yml', verbose, true);
+    await buildSpecs(clients, 'yml', true);
   }
 
   await generateOpenapitools(generators);
@@ -43,15 +34,15 @@ export async function generate(
     .map((lang) => getCustomGenerator(lang))
     .some(Boolean);
   if (useCustomGenerator) {
-    await buildCustomGenerators(verbose);
+    await buildCustomGenerators();
   }
 
   for (const gen of generators) {
-    const spinner = createSpinner(`pre-gen ${gen.key}`, verbose).start();
+    const spinner = createSpinner(`pre-gen ${gen.key}`);
     await preGen(gen);
 
     spinner.text = `generating ${gen.key}`;
-    await generateClient(gen, verbose);
+    await generateClient(gen);
 
     spinner.succeed();
   }
@@ -71,6 +62,6 @@ export async function generate(
       }, '');
     }
 
-    await formatter(lang, folder, verbose);
+    await formatter(lang, folder);
   }
 }

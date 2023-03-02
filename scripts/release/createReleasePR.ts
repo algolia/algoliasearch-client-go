@@ -17,6 +17,7 @@ import {
   TODAY,
   CI,
   gitBranchExists,
+  setVerbose,
 } from '../common';
 import { getPackageVersionDefault } from '../config';
 
@@ -450,17 +451,15 @@ async function createReleasePR(): Promise<void> {
 
   console.log(`Pushing updated changes to: ${headBranch}`);
   const commitMessage = generationCommitText.commitPrepareReleaseMessage;
-  await run('git add .', { verbose: true });
+  await run('git add .');
   if (process.env.LOCAL_TEST_DEV) {
-    await run(`git commit -m "${commitMessage} [skip ci]"`, {
-      verbose: true,
-    });
+    await run(`git commit -m "${commitMessage} [skip ci]"`);
   } else {
-    await run(`CI=false git commit -m "${commitMessage}"`, { verbose: true });
+    await run(`CI=false git commit -m "${commitMessage}"`);
   }
 
-  await run(`git push origin ${headBranch}`, { verbose: true });
-  await run(`git checkout ${MAIN_BRANCH}`, { verbose: true });
+  await run(`git push origin ${headBranch}`);
+  await run(`git checkout ${MAIN_BRANCH}`);
 
   console.log('Creating prepare release pull request...');
   const octokit = getOctokit();
@@ -493,5 +492,6 @@ async function createReleasePR(): Promise<void> {
 }
 
 if (require.main === module) {
+  setVerbose(true);
   createReleasePR();
 }

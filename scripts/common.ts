@@ -9,7 +9,7 @@ import { remove } from 'fs-extra';
 import openapiConfig from '../config/openapitools.json';
 import releaseConfig from '../config/release.config.json';
 
-import { createSpinner } from './oraLog';
+import { createSpinner } from './spinners';
 import type {
   CheckForCache,
   CheckForCacheOptions,
@@ -76,11 +76,11 @@ export const CLIENTS_JS_UTILS = [
 
 export async function run(
   command: string,
-  { errorMessage, verbose, cwd }: RunOptions = {}
+  { errorMessage, cwd }: RunOptions = {}
 ): Promise<string> {
   const realCwd = path.resolve(ROOT_DIR, cwd ?? '.');
   try {
-    if (verbose) {
+    if (isVerbose()) {
       return (
         (
           await execa.command(command, {
@@ -187,8 +187,8 @@ export async function checkForCache({
   return cache;
 }
 
-export async function buildCustomGenerators(verbose: boolean): Promise<void> {
-  const spinner = createSpinner('building custom generators', verbose).start();
+export async function buildCustomGenerators(): Promise<void> {
+  const spinner = createSpinner('building custom generators');
 
   const cacheFile = toAbsolutePath('generators/.cache');
   const { cacheExists, hash } = await checkForCache({
@@ -203,9 +203,7 @@ export async function buildCustomGenerators(verbose: boolean): Promise<void> {
     return;
   }
 
-  await run('./gradle/gradlew --no-daemon -p generators assemble', {
-    verbose,
-  });
+  await run('./gradle/gradlew --no-daemon -p generators assemble');
 
   if (hash) {
     spinner.text = 'storing custom generators cache';
@@ -227,13 +225,10 @@ export async function emptyDirExceptForDotGit(dir: string): Promise<void> {
   }
 }
 
-export async function runComposerUpdate(verbose: boolean): Promise<void> {
+export async function runComposerUpdate(): Promise<void> {
   if (!CI) {
     await run(
-      'composer update --working-dir=clients/algoliasearch-client-php && composer dump-autoload --working-dir=clients/algoliasearch-client-php',
-      {
-        verbose,
-      }
+      'composer update --working-dir=clients/algoliasearch-client-php && composer dump-autoload --working-dir=clients/algoliasearch-client-php'
     );
   }
 }
@@ -288,4 +283,13 @@ export function camelize(str: string, delimiter: string = '-'): string {
  */
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+let verbose = false;
+export function setVerbose(v: boolean): void {
+  verbose = v;
+}
+
+export function isVerbose(): boolean {
+  return verbose;
 }

@@ -1,15 +1,11 @@
 import { run, runComposerUpdate } from './common';
-import { createSpinner } from './oraLog';
+import { createSpinner } from './spinners';
 
 export async function formatter(
   language: string,
-  folder: string,
-  verbose = false
+  folder: string
 ): Promise<void> {
-  const spinner = createSpinner(
-    { text: `formatting '${language}'`, indent: 4 },
-    verbose
-  ).start();
+  const spinner = createSpinner(`formatting '${language}'`);
   let cmd = '';
   switch (language) {
     case 'javascript':
@@ -25,13 +21,13 @@ export async function formatter(
         && yarn prettier --write ${folder}`;
       break;
     case 'php':
-      await runComposerUpdate(verbose);
+      await runComposerUpdate();
       cmd = `yarn run prettier ${folder} --write \
             && PHP_CS_FIXER_IGNORE_ENV=1 php clients/algoliasearch-client-php/vendor/bin/php-cs-fixer fix ${folder} --using-cache=no --allow-risky=yes`;
       break;
     default:
       return;
   }
-  await run(cmd, { verbose });
+  await run(cmd);
   spinner.succeed();
 }

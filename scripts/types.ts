@@ -45,7 +45,6 @@ export type CheckForCache = {
 
 export type RunOptions = {
   errorMessage?: string;
-  verbose?: boolean;
   cwd?: string;
 };
 

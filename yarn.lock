@@ -2361,6 +2361,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/spinnies@npm:0.5.0":
+  version: 0.5.0
+  resolution: "@types/spinnies@npm:0.5.0"
+  checksum: 165cd9fce48b09f0a77923b86d46e1026cbbf9e02945e79337d9f751a7e6fad14f1f4b0fa7c2e4a38fb8293587a8caeef7a8a6e373837dea3feef986163282f1
+  languageName: node
+  linkType: hard
+
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
@@ -2613,6 +2620,13 @@ __metadata:
   dependencies:
     type-fest: ^0.21.3
   checksum: 93111c42189c0a6bed9cdb4d7f2829548e943827ee8479c74d6e0b22ee127b2a21d3f8b5ca57723b8ef78ce011fbfc2784350eb2bde3ccfccf2f575fa8489815
+  languageName: node
+  linkType: hard
+
+"ansi-regex@npm:^4.1.0":
+  version: 4.1.1
+  resolution: "ansi-regex@npm:4.1.1"
+  checksum: b1a6ee44cb6ecdabaa770b2ed500542714d4395d71c7e5c25baa631f680fb2ad322eb9ba697548d498a6fd366949fc8b5bfcf48d49a32803611f648005b01888
   languageName: node
   linkType: hard
 
@@ -3096,7 +3110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.0.0":
+"chalk@npm:^2.0.0, chalk@npm:^2.4.2":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -3184,7 +3198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-cursor@npm:^3.1.0":
+"cli-cursor@npm:^3.0.0, cli-cursor@npm:^3.1.0":
   version: 3.1.0
   resolution: "cli-cursor@npm:3.1.0"
   dependencies:
@@ -7044,23 +7058,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ora-classic@npm:5.4.2":
-  version: 5.4.2
-  resolution: "ora-classic@npm:5.4.2"
-  dependencies:
-    bl: ^4.1.0
-    chalk: ^4.1.0
-    cli-cursor: ^3.1.0
-    cli-spinners: ^2.5.0
-    is-interactive: ^1.0.0
-    is-unicode-supported: ^0.1.0
-    log-symbols: ^4.1.0
-    strip-ansi: ^6.0.0
-    wcwidth: ^1.0.1
-  checksum: f52ec97c8fbb051dd883d6bbb75a0b658a173f8230aba0d39b2cf5957b79dcaf7da53dda72d744d726ac8cb7e693fe6d7eb0c27a59298aa35f0ec06651c4626f
-  languageName: node
-  linkType: hard
-
 "ora@npm:^5.4.1":
   version: 5.4.1
   resolution: "ora@npm:5.4.1"
@@ -7749,6 +7746,7 @@ __metadata:
     "@types/mustache": 4.2.2
     "@types/node": 18.14.2
     "@types/semver": 7.3.13
+    "@types/spinnies": 0.5.0
     chalk: 4.1.2
     commander: 9.5.0
     dotenv: 16.0.3
@@ -7761,8 +7759,8 @@ __metadata:
     js-yaml: 4.1.0
     micromatch: 4.0.5
     mustache: 4.2.0
-    ora-classic: 5.4.2
     semver: 7.3.8
+    spinnies: 0.5.1
     ts-jest: 29.0.5
     ts-node: 10.9.1
     typescript: 4.9.5
@@ -8007,6 +8005,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"spinnies@npm:0.5.1":
+  version: 0.5.1
+  resolution: "spinnies@npm:0.5.1"
+  dependencies:
+    chalk: ^2.4.2
+    cli-cursor: ^3.0.0
+    strip-ansi: ^5.2.0
+  checksum: 7407c8cae31ff5868e56cfa12898e5a2db6f42b278c098637e28939d53ed6c7b0726027796c8e12bc6705f7dd5ec405d467c7cacf989d0beefca14c69440be77
+  languageName: node
+  linkType: hard
+
 "sprintf-js@npm:~1.0.2":
   version: 1.0.3
   resolution: "sprintf-js@npm:1.0.3"
@@ -8113,6 +8122,15 @@ __metadata:
   dependencies:
     safe-buffer: ~5.2.0
   checksum: 8417646695a66e73aefc4420eb3b84cc9ffd89572861fe004e6aeb13c7bc00e2f616247505d2dbbef24247c372f70268f594af7126f43548565c68c117bdeb56
+  languageName: node
+  linkType: hard
+
+"strip-ansi@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "strip-ansi@npm:5.2.0"
+  dependencies:
+    ansi-regex: ^4.1.0
+  checksum: bdb5f76ade97062bd88e7723aa019adbfacdcba42223b19ccb528ffb9fb0b89a5be442c663c4a3fb25268eaa3f6ea19c7c3fbae830bd1562d55adccae1fcec46
   languageName: node
   linkType: hard
 

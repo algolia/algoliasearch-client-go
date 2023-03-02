@@ -9,7 +9,7 @@ import {
   run,
   toAbsolutePath,
 } from './common';
-import { createSpinner } from './oraLog';
+import { createSpinner } from './spinners';
 import type { Spec } from './types';
 
 const ALGOLIASEARCH_LITE_OPERATIONS = ['search', 'post'];
@@ -109,8 +109,8 @@ async function transformBundle({
   }
 }
 
-async function lintCommon(verbose: boolean, useCache: boolean): Promise<void> {
-  const spinner = createSpinner('linting common spec', verbose).start();
+async function lintCommon(useCache: boolean): Promise<void> {
+  const spinner = createSpinner('linting common spec');
 
   let hash = '';
   const cacheFile = toAbsolutePath(`specs/dist/common.cache`);
@@ -130,10 +130,10 @@ async function lintCommon(verbose: boolean, useCache: boolean): Promise<void> {
     hash = newCache;
   }
 
-  await run(`yarn specs:lint common`, { verbose });
+  await run(`yarn specs:lint common`);
 
   if (hash) {
-    spinner.text = `storing common spec cache`;
+    spinner.text = 'storing common spec cache';
     await fsp.writeFile(cacheFile, hash);
   }
 
@@ -191,7 +191,6 @@ async function buildLiteSpec({
 async function buildSpec(
   spec: string,
   outputFormat: string,
-  verbose: boolean,
   useCache: boolean
 ): Promise<void> {
   const isAlgoliasearch = spec === 'algoliasearch';
@@ -200,7 +199,7 @@ async function buildSpec(
   const cacheFile = toAbsolutePath(`specs/dist/${spec}.cache`);
   let hash = '';
 
-  const spinner = createSpinner(`starting '${spec}' spec`, verbose).start();
+  const spinner = createSpinner(`starting '${spec}' spec`);
 
   if (useCache) {
     spinner.text = `checking cache for '${specBase}'`;
@@ -223,13 +222,12 @@ async function buildSpec(
 
   // First linting the base
   spinner.text = `linting '${spec}' spec`;
-  await run(`yarn specs:fix ${specBase}`, { verbose });
+  await run(`yarn specs:fix ${specBase}`);
 
   // Then bundle the file
   const bundledPath = `specs/bundled/${spec}.${outputFormat}`;
   await run(
-    `yarn openapi bundle specs/${specBase}/spec.yml -o ${bundledPath} --ext ${outputFormat}`,
-    { verbose }
+    `yarn openapi bundle specs/${specBase}/spec.yml -o ${bundledPath} --ext ${outputFormat}`
   );
 
   // Add the correct tags to be able to generate the proper client
@@ -249,12 +247,10 @@ async function buildSpec(
 
   // Validate and lint the final bundle
   spinner.text = `validating '${spec}' bundled spec`;
-  await run(`yarn openapi lint specs/bundled/${spec}.${outputFormat}`, {
-    verbose,
-  });
+  await run(`yarn openapi lint specs/bundled/${spec}.${outputFormat}`);
 
   spinner.text = `linting '${spec}' bundled spec`;
-  await run(`yarn specs:fix bundled/${spec}.${outputFormat}`, { verbose });
+  await run(`yarn specs:fix bundled/${spec}.${outputFormat}`);
 
   if (hash) {
     spinner.text = `storing '${spec}' spec cache`;
@@ -267,14 +263,13 @@ async function buildSpec(
 export async function buildSpecs(
   clients: string[],
   outputFormat: 'json' | 'yml',
-  verbose: boolean,
   useCache: boolean
 ): Promise<void> {
   await fsp.mkdir(toAbsolutePath('specs/dist'), { recursive: true });
 
-  await lintCommon(verbose, useCache);
+  await lintCommon(useCache);
 
   await Promise.all(
-    clients.map((client) => buildSpec(client, outputFormat, verbose, useCache))
+    clients.map((client) => buildSpec(client, outputFormat, useCache))
   );
 }

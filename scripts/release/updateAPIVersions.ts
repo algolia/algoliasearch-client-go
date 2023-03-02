@@ -13,6 +13,7 @@ import {
   GENERATORS,
   LANGUAGES,
   CI,
+  setVerbose,
 } from '../common';
 import {
   getClientsConfigField,
@@ -195,11 +196,10 @@ export async function updateAPIVersions(
       const cwd = getLanguageFolder(lang);
 
       // install yarn in case some package were updated
-      await run('yarn install', { verbose: true, cwd });
-      await run(`yarn release:bump ${releaseType}`, {
-        verbose: CI,
-        cwd,
-      });
+      setVerbose(true);
+      await run('yarn install', { cwd });
+      setVerbose(CI);
+      await run(`yarn release:bump ${releaseType}`, { cwd });
     }
 
     await updateChangelog(lang as Language, changelog[lang], current, next);
