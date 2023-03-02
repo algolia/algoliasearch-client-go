@@ -4,6 +4,9 @@
 {{#tsImports}}
 import { {{classname}} } from '{{filename}}';
 {{/tsImports}}
+{{#interfaces.size}}{{#composedSchemas.allOf}}
+import type { {{{dataType}}} } from './{{#lambda.camelcase}}{{{dataType}}}{{/lambda.camelcase}}';
+{{/composedSchemas.allOf}}{{/interfaces.size}}
 
 {{! We handle types that depend on other interfaces }}
 {{#interfaces.size}}

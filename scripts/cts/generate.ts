@@ -1,4 +1,5 @@
-import { buildCustomGenerators, run, toAbsolutePath } from '../common';
+import { buildSpecs } from '../buildSpecs';
+import { buildCustomGenerators, CI, run, toAbsolutePath } from '../common';
 import { getTestOutputFolder } from '../config';
 import { formatter } from '../formatter';
 import { createSpinner } from '../oraLog';
@@ -22,8 +23,13 @@ export async function ctsGenerateMany(
   generators: Generator[],
   verbose: boolean
 ): Promise<void> {
-  await buildCustomGenerators(verbose);
+  if (!CI) {
+    const clients = [...new Set(generators.map((gen) => gen.client))];
+    await buildSpecs(clients, 'yml', verbose, true);
+  }
+
   await generateOpenapitools(generators);
+  await buildCustomGenerators(verbose);
 
   for (const gen of generators) {
     if (!getTestOutputFolder(gen.language)) {

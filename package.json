@@ -31,7 +31,7 @@
     "website:build-specs": "BUNDLE_WITH_DOC=true DOCKER=true yarn cli build specs all -s"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "2.5.1",
+    "@openapitools/openapi-generator-cli": "2.5.2",
     "@prettier/plugin-php": "0.19.3",
     "@redocly/openapi-cli": "1.0.0-beta.95",
     "@typescript-eslint/eslint-plugin": "5.53.0",
