@@ -10,28 +10,13 @@ import {
   REPO_URL,
   ensureGitHubToken,
   configureGitHubAuthor,
+  setVerbose,
 } from '../../common';
 import { getLanguageFolder, getPackageVersionDefault } from '../../config';
 import { RELEASED_TAG } from '../../release/common';
-import type { Language } from '../../types';
 import { cloneRepository, getNbGitDiff } from '../utils';
 
 import text, { commitStartRelease } from './text';
-
-export function decideWhereToSpread(commitMessage: string): Language[] {
-  if (commitMessage.startsWith(commitStartRelease)) {
-    return LANGUAGES;
-  }
-
-  const result = commitMessage.match(/(.+)\((.+)\):/);
-  if (!result) {
-    // no scope
-    return LANGUAGES;
-  }
-
-  const scope = result[2] as Language;
-  return LANGUAGES.includes(scope) ? [scope] : LANGUAGES;
-}
 
 export function cleanUpCommitMessage(
   commitMessage: string,
@@ -84,10 +69,9 @@ async function spreadGeneration(): Promise<void> {
     .filter(Boolean);
 
   const IS_RELEASE_COMMIT = lastCommitMessage.startsWith(commitStartRelease);
-  const langs = decideWhereToSpread(lastCommitMessage);
   console.log(
     'Spreading code to the following repositories:',
-    langs.join(' | ')
+    LANGUAGES.join(' | ')
   );
 
   // At this point, we know the release will happen on at least one client
@@ -99,7 +83,6 @@ async function spreadGeneration(): Promise<void> {
     await run(
       `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
     );
-    await run(`git tag -d ${RELEASED_TAG}`);
     await run(`git push --delete origin ${RELEASED_TAG}`);
 
     console.log('Creating new `released` tag for latest commit');
@@ -107,62 +90,67 @@ async function spreadGeneration(): Promise<void> {
     await run('git push --tags');
   }
 
-  for (const lang of langs) {
-    const { tempGitDir } = await cloneRepository({
-      lang,
-      githubToken,
-      tempDir: process.env.RUNNER_TEMP!,
-    });
+  for (const lang of LANGUAGES) {
+    try {
+      const { tempGitDir } = await cloneRepository({
+        lang,
+        githubToken,
+        tempDir: process.env.RUNNER_TEMP!,
+      });
 
-    const clientPath = toAbsolutePath(getLanguageFolder(lang));
-    await emptyDirExceptForDotGit(tempGitDir);
-    await copy(clientPath, tempGitDir, { preserveTimestamps: true });
+      const clientPath = toAbsolutePath(getLanguageFolder(lang));
+      await emptyDirExceptForDotGit(tempGitDir);
+      await copy(clientPath, tempGitDir, { preserveTimestamps: true });
 
-    if (
-      (await getNbGitDiff({
-        head: null,
+      if (
+        (await getNbGitDiff({
+          head: null,
+          cwd: tempGitDir,
+        })) === 0
+      ) {
+        console.log(
+          `❎ Skipping ${lang} repository, because there is no change.`
+        );
+        continue;
+      } else {
+        console.log(`✅ Spreading code to the ${lang} repository.`);
+      }
+
+      const version = getPackageVersionDefault(lang);
+      const commitMessage = cleanUpCommitMessage(lastCommitMessage, version);
+
+      await configureGitHubAuthor(tempGitDir);
+
+      await run('git add .', { cwd: tempGitDir });
+      await gitCommit({
+        message: commitMessage,
+        coAuthors: [author, ...coAuthors],
         cwd: tempGitDir,
-      })) === 0
-    ) {
+      });
+      await run('git push', { cwd: tempGitDir });
+
+      // In case of a release commit, we also want to update tags on the clients repositories
+      if (IS_RELEASE_COMMIT) {
+        console.log(
+          `Processing release commit, creating new release tag ('${version}') for '${lang}' repository.`
+        );
+
+        // we always want to delete the tag in case it exists
+        await run(`git tag -d ${version} || true`, { cwd: tempGitDir });
+        await run(`git tag ${version} HEAD`, { cwd: tempGitDir });
+        await run('git push --tags', { cwd: tempGitDir });
+      }
+
       console.log(
-        `❎ Skipping ${lang} repository, because there is no change.`
+        `✅ Code generation successfully pushed to ${lang} repository.`
       );
-      continue;
-    } else {
-      console.log(`✅ Spreading code to the ${lang} repository.`);
+    } catch (e) {
+      console.error(`Release failed for language ${lang}: ${e}`);
     }
-
-    const version = getPackageVersionDefault(lang);
-    const commitMessage = cleanUpCommitMessage(lastCommitMessage, version);
-
-    await configureGitHubAuthor(tempGitDir);
-
-    await run('git add .', { cwd: tempGitDir });
-    await gitCommit({
-      message: commitMessage,
-      coAuthors: [author, ...coAuthors],
-      cwd: tempGitDir,
-    });
-    await run('git push', { cwd: tempGitDir });
-
-    // In case of a release commit, we also want to update tags on the clients repositories
-    if (IS_RELEASE_COMMIT) {
-      console.log(
-        `Processing release commit, creating new release tag ('${version}') for '${lang}' repository.`
-      );
-
-      // we always want to delete the tag in case it exists
-      await run(`git tag -d ${version} || true`, { cwd: tempGitDir });
-      await run(`git tag ${version} HEAD`, { cwd: tempGitDir });
-      await run('git push --tags', { cwd: tempGitDir });
-    }
-
-    console.log(
-      `✅ Code generation successfully pushed to ${lang} repository.`
-    );
   }
 }
 
 if (require.main === module) {
+  setVerbose(false);
   spreadGeneration();
 }

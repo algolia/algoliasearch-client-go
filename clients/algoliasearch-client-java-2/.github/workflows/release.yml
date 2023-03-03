@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: zulu
-          java-version-file: config/.java-version
+          java-version-file: .java-version
           cache: gradle
 
       - name: Validate gradle wrapper

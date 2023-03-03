@@ -1,42 +1,7 @@
-import { LANGUAGES } from '../../../common';
-import { decideWhereToSpread, cleanUpCommitMessage } from '../spreadGeneration';
+import { cleanUpCommitMessage } from '../spreadGeneration';
 import text from '../text';
 
 describe('spread generation', () => {
-  describe('decideWhereToSpread', () => {
-    it('spreads to all languages if it is a release commit', () => {
-      expect(
-        decideWhereToSpread(`${text.commitReleaseMessage} [skip ci]`)
-      ).toEqual(LANGUAGES);
-    });
-
-    it('spreads to all languages if scope is missing', () => {
-      expect(decideWhereToSpread('chore: do something')).toEqual(LANGUAGES);
-    });
-
-    it('spreads to javascript if the scope is javascript', () => {
-      expect(decideWhereToSpread('fix(javascript): fix something')).toEqual([
-        'javascript',
-      ]);
-    });
-
-    LANGUAGES.forEach((lang) => {
-      it(`spreads to ${lang} if the scope is ${lang}`, () => {
-        expect(decideWhereToSpread(`fix(${lang}): fix something`)).toEqual([
-          lang,
-        ]);
-      });
-    });
-
-    it('spreads to all if scope is not specific language', () => {
-      ['cts', 'spec', 'script', 'ci'].forEach((scope) => {
-        expect(decideWhereToSpread(`fix(${scope}): fix something`)).toEqual(
-          LANGUAGES
-        );
-      });
-    });
-  });
-
   describe('cleanUpCommitMessage', () => {
     it('returns a release commit message with the version', () => {
       expect(
