@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
-import { ensureGitHubToken, MAIN_BRANCH, run } from '../../common';
-import { configureGitHubAuthor } from '../../release/common';
+import {
+  configureGitHubAuthor,
+  ensureGitHubToken,
+  MAIN_BRANCH,
+  run,
+} from '../../common';
 import { getNbGitDiff } from '../utils';
 
 import text, { commitStartPrepareRelease } from './text';

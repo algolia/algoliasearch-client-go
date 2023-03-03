@@ -9,6 +9,7 @@ import { remove } from 'fs-extra';
 import openapiConfig from '../config/openapitools.json';
 import releaseConfig from '../config/release.config.json';
 
+import { getGitAuthor } from './release/common';
 import { createSpinner } from './spinners';
 import type {
   CheckForCache,
@@ -284,6 +285,13 @@ export function camelize(str: string, delimiter: string = '-'): string {
  */
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export async function configureGitHubAuthor(cwd?: string): Promise<void> {
+  const { name, email } = getGitAuthor();
+
+  await run(`git config user.name "${name}"`, { cwd });
+  await run(`git config user.email "${email}"`, { cwd });
 }
 
 let verbose = false;

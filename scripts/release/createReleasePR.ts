@@ -18,10 +18,11 @@ import {
   CI,
   gitBranchExists,
   setVerbose,
+  configureGitHubAuthor,
 } from '../common';
 import { getPackageVersionDefault } from '../config';
 
-import { configureGitHubAuthor, RELEASED_TAG } from './common';
+import { RELEASED_TAG } from './common';
 import TEXT from './text';
 import type {
   Versions,
@@ -458,6 +459,9 @@ async function createReleasePR(): Promise<void> {
   } else {
     await run(`CI=false git commit -m "${commitMessage}"`);
   }
+
+  // cleanup all the changes to the generated files (the ones not commited because of the pre-commit hook)
+  await run(`git checkout .`);
 
   await run(`git push origin ${headBranch}`);
   await run(`git checkout ${MAIN_BRANCH}`);

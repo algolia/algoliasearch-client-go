@@ -1,4 +1,10 @@
+import fsp from 'fs/promises';
+import { resolve } from 'path';
+
 import { run } from '../common';
+import { getGitHubUrl } from '../config';
+import { getTargetBranch } from '../release/common';
+import type { Language } from '../types';
 
 /**
  * Returns the number of diff between a `branch` and its `HEAD` for the given `path`.
@@ -31,4 +37,27 @@ export async function getNbGitDiff({
     ).trim(),
     10
   );
+}
+
+export async function cloneRepository({
+  lang,
+  githubToken,
+  tempDir,
+}: {
+  lang: Language;
+  githubToken: string;
+  tempDir: string;
+}): Promise<{ tempGitDir: string }> {
+  const targetBranch = getTargetBranch(lang);
+
+  const gitHubUrl = getGitHubUrl(lang, { token: githubToken });
+  const tempGitDir = resolve(tempDir, lang);
+  await fsp.rm(tempGitDir, { force: true, recursive: true });
+  await run(
+    `git clone --depth 1 --branch ${targetBranch} ${gitHubUrl} ${tempGitDir}`
+  );
+
+  return {
+    tempGitDir,
+  };
 }

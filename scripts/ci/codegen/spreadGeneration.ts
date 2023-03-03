@@ -9,15 +9,12 @@ import {
   toAbsolutePath,
   REPO_URL,
   ensureGitHubToken,
+  configureGitHubAuthor,
 } from '../../common';
 import { getLanguageFolder, getPackageVersionDefault } from '../../config';
-import {
-  cloneRepository,
-  configureGitHubAuthor,
-  RELEASED_TAG,
-} from '../../release/common';
+import { RELEASED_TAG } from '../../release/common';
 import type { Language } from '../../types';
-import { getNbGitDiff } from '../utils';
+import { cloneRepository, getNbGitDiff } from '../utils';
 
 import text, { commitStartRelease } from './text';
 
@@ -106,7 +103,7 @@ async function spreadGeneration(): Promise<void> {
     await run(`git push --delete origin ${RELEASED_TAG}`);
 
     console.log('Creating new `released` tag for latest commit');
-    await run('git tag released');
+    await run(`git tag ${RELEASED_TAG}`);
     await run('git push --tags');
   }
 
@@ -154,6 +151,8 @@ async function spreadGeneration(): Promise<void> {
         `Processing release commit, creating new release tag ('${version}') for '${lang}' repository.`
       );
 
+      // we always want to delete the tag in case it exists
+      await run(`git tag -d ${version} || true`, { cwd: tempGitDir });
       await run(`git tag ${version} HEAD`, { cwd: tempGitDir });
       await run('git push --tags', { cwd: tempGitDir });
     }
