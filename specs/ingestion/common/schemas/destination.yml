@@ -41,7 +41,6 @@ DestinationCreate:
     - type
     - name
     - input
-    - authenticationID
 
 DestinationCreateResponse:
   type: object

@@ -39,7 +39,6 @@ SourceCreate:
     - type
     - name
     - input
-    - authenticationID
 
 SourceCreateResponse:
   type: object
@@ -154,7 +153,7 @@ SourceJSON:
 
 MappingTypeCSV:
   type: string
-  enum: ['string','integer','float','boolean','json']
+  enum: ['string', 'integer', 'float', 'boolean', 'json']
 
 SourceCSV:
   type: object
