@@ -636,7 +636,6 @@ components:
         - type
         - name
         - input
-        - authenticationID
     DestinationCreateResponse:
       type: object
       additionalProperties: false
@@ -841,7 +840,6 @@ components:
         - type
         - name
         - input
-        - authenticationID
     SourceCreateResponse:
       type: object
       additionalProperties: false
