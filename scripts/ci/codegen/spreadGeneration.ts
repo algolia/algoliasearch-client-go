@@ -83,6 +83,7 @@ async function spreadGeneration(): Promise<void> {
     await run(
       `git fetch origin refs/tags/${RELEASED_TAG}:refs/tags/${RELEASED_TAG}`
     );
+    await run(`git tag -d ${RELEASED_TAG}`);
     await run(`git push --delete origin ${RELEASED_TAG}`);
 
     console.log('Creating new `released` tag for latest commit');
