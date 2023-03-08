@@ -1,5 +1,9 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [9f967a45](https://github.com/algolia/api-clients-automation/commit/9f967a45) fix(specs): authenticationID not required in source and destination ([#1379](https://github.com/algolia/api-clients-automation/pull/1379)) by [@millotp](https://github.com/millotp/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [5a93964e](https://github.com/algolia/api-clients-automation/commit/5a93964e) fix(specs): add skipped runs ([#1359](https://github.com/algolia/api-clients-automation/pull/1359)) by [@millotp](https://github.com/millotp/)
 - [2a4fe7ea](https://github.com/algolia/api-clients-automation/commit/2a4fe7ea) feat(clients): upgrade to node 18 ([#1344](https://github.com/algolia/api-clients-automation/pull/1344)) by [@millotp](https://github.com/millotp/)
 
