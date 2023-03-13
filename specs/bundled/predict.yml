@@ -161,6 +161,12 @@ components:
       oneOf:
         - $ref: '#/components/schemas/predictionsOrderValueSuccess'
         - $ref: '#/components/schemas/error'
+    predictionAffinityValue:
+      oneOf:
+        - type: string
+        - type: number
+          format: double
+        - type: boolean
     predictionsAffinitiesSuccess:
       type: object
       description: Prediction for the **affinities** model.
@@ -174,7 +180,7 @@ components:
               name:
                 type: string
               value:
-                type: string
+                $ref: '#/components/schemas/predictionAffinityValue'
               probability:
                 type: number
                 format: double
