@@ -125,7 +125,7 @@ predictionsAffinitiesSuccess:
           name:
             type: string
           value:
-            type: string
+            $ref: '#/predictionAffinityValue'
           probability:
             type: number
             format: double
@@ -140,3 +140,10 @@ predictionsAffinitiesSuccess:
   required:
     - value
     - lastUpdatedAt
+
+predictionAffinityValue:
+  oneOf:
+    - type: string
+    - type: number
+      format: double
+    - type: boolean
