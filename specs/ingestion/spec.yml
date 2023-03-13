@@ -14,6 +14,7 @@ servers:
     variables:
       region:
         enum:
+          - eu
           - us
         default: us
 security:
