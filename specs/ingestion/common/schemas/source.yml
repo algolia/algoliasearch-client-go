@@ -126,8 +126,29 @@ SourceBigCommerce:
     storeHash:
       type: string
       description: The store hash identifying the store the shopper is signing in to.
+    channels:
+      type: array
+      items:
+        $ref: "#/BigCommerceChannel"
   required:
     - store_hash
+
+BigCommerceChannel:
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      type: integer
+      description: The ID of the bigcommerce channel.
+    currencies:
+      type: array
+      description: An array of currencies for the given channel `ID`, a currency is a trigram string that represents the currency code.
+      example: ['usd','eur']
+      items:
+        type: string
+        example: "usd"
+  required:
+    - id
 
 MethodType:
   type: string
