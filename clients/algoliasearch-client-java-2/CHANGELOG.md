@@ -1,5 +1,11 @@
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
 
+- [e3fa5eb0](https://github.com/algolia/api-clients-automation/commit/e3fa5eb0) feat(specs): add new BigCommerce source fields ([#1387](https://github.com/algolia/api-clients-automation/pull/1387)) by [@shortcuts](https://github.com/shortcuts/)
+- [6f0ac998](https://github.com/algolia/api-clients-automation/commit/6f0ac998) feat(specs): make the `eu` region available for the ingestion client ([#1396](https://github.com/algolia/api-clients-automation/pull/1396)) by [@Fluf22](https://github.com/Fluf22/)
+- [79ae980b](https://github.com/algolia/api-clients-automation/commit/79ae980b) feat(specs): update affinity value type to accomodate booleans and numbers ([#1388](https://github.com/algolia/api-clients-automation/pull/1388)) by [@writeens](https://github.com/writeens/)
+
+## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
+
 - [9f967a45](https://github.com/algolia/api-clients-automation/commit/9f967a45) fix(specs): authenticationID not required in source and destination ([#1379](https://github.com/algolia/api-clients-automation/pull/1379)) by [@millotp](https://github.com/millotp/)
 
 ## [4.0.0-SNAPSHOT](https://github.com/algolia/algoliasearch-client-java-2/compare/4.0.0-SNAPSHOT...4.0.0-SNAPSHOT)
