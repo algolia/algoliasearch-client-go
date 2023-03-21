@@ -126,10 +126,8 @@ SourceBigCommerce:
     storeHash:
       type: string
       description: The store hash identifying the store the shopper is signing in to.
-    channels:
-      type: array
-      items:
-        $ref: "#/BigCommerceChannel"
+    channel:
+      $ref: "#/BigCommerceChannel"
   required:
     - store_hash
 
