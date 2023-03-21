@@ -761,10 +761,8 @@ components:
         storeHash:
           type: string
           description: The store hash identifying the store the shopper is signing in to.
-        channels:
-          type: array
-          items:
-            $ref: '#/components/schemas/BigCommerceChannel'
+        channel:
+          $ref: '#/components/schemas/BigCommerceChannel'
       required:
         - store_hash
     UniqueIDColumn:
