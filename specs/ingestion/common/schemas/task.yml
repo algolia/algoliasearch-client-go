@@ -65,8 +65,9 @@ TaskCreate:
 
 TaskCreateTrigger:
   oneOf:
-    - $ref: '#/TriggerInput'
+    - $ref: '#/OnDemandTriggerInput'
     - $ref: '#/ScheduleTriggerInput'
+    - $ref: '#/SubscriptionTrigger'
 
 TaskCreateResponse:
   type: object
@@ -145,7 +146,7 @@ TriggerType:
 # schedule trigger
 
 LastRun:
-  description: The last time the scheduled task ran.
+  description: The last time the scheduled task ran (RFC3339 format).
   type: string
 
 Cron:
@@ -183,7 +184,7 @@ ScheduleTrigger:
     lastRun:
       $ref: '#/LastRun'
     nextRun:
-      description: The next scheduled run of the task.
+      description: The next scheduled run of the task (RFC3339 format).
       type: string
   required:
     - type
@@ -200,7 +201,7 @@ OnDemandTriggerType:
 OnDemandTriggerInput:
   type: object
   additionalProperties: false
-  description: The trigger information of a task of type `on-demand`.
+  description: The trigger information of a task of type `onDemand`.
   properties:
     type:
       $ref: '#/OnDemandTriggerType'
@@ -210,7 +211,7 @@ OnDemandTriggerInput:
 OnDemandTrigger:
   type: object
   additionalProperties: false
-  description: The trigger information of a task of type `on-demand`.
+  description: The trigger information of a task of type `onDemand`.
   properties:
     type:
       $ref: '#/OnDemandTriggerType'
@@ -232,6 +233,6 @@ SubscriptionTrigger:
   description: The trigger input for a task of type 'subscription'.
   properties:
     type:
-      $ref: '#/TriggerType'
+      $ref: '#/SubscriptionTriggerType'
   required:
     - type

@@ -35,8 +35,14 @@ tags:
     description: A source describe the platform informations.
   - name: tasks
     x-displayName: Tasks
-    description: A Task describe how we fetch the data (reindex, on-demand, subscription) from a source and how we index it on the Algolia side.
+    description: A Task describe how we fetch the data (onDemand, schedule, subscription) from a source and how we index it on the Algolia side.
 paths:
+  # ######################
+  # ### Custom request ###
+  # ######################
+  /1{path}:
+    $ref: '../common/paths/customRequest.yml'
+
   # authentications API.
   /1/authentications:
     $ref: 'paths/authentications/authentications.yml'

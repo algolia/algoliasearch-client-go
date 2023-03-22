@@ -127,7 +127,7 @@ SourceBigCommerce:
       type: string
       description: The store hash identifying the store the shopper is signing in to.
     channel:
-      $ref: "#/BigCommerceChannel"
+      $ref: '#/BigCommerceChannel'
   required:
     - store_hash
 
@@ -144,7 +144,7 @@ BigCommerceChannel:
       example: ['usd','eur']
       items:
         type: string
-        example: "usd"
+        example: 'usd'
   required:
     - id
 
