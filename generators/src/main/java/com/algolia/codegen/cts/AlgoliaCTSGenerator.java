@@ -128,6 +128,8 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
             System.out.println(e.getMessage());
             continue;
           }
+          System.err.println("\n\n");
+          System.err.println(e.getMessage());
           e.printStackTrace();
           System.exit(1);
         } catch (Exception e) {

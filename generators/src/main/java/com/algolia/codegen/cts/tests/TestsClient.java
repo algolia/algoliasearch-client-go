@@ -48,63 +48,68 @@ public class TestsClient extends TestsGenerator {
       List<Object> tests = new ArrayList<>();
       int testIndex = 0;
       for (ClientTestData test : blockEntry.getValue()) {
-        Map<String, Object> testOut = new HashMap<>();
-        List<Object> steps = new ArrayList<>();
-        testOut.put("testName", test.testName);
-        testOut.put("testIndex", testIndex++);
-        testOut.put("autoCreateClient", test.autoCreateClient);
-        for (Step step : test.steps) {
-          Map<String, Object> stepOut = new HashMap<>();
-          CodegenOperation ope = null;
-          if (step.type.equals("createClient")) {
-            stepOut.put("isCreateClient", true);
-          } else if (step.type.equals("variable")) {
-            stepOut.put("isVariable", true);
-          } else if (step.type.equals("method")) {
-            ope = operations.get(step.path);
-            if (ope == null) {
-              throw new CTSException("Cannot find operation for method: " + step.path);
+        try {
+          Map<String, Object> testOut = new HashMap<>();
+          List<Object> steps = new ArrayList<>();
+          testOut.put("testName", test.testName);
+          testOut.put("testIndex", testIndex++);
+          testOut.put("autoCreateClient", test.autoCreateClient);
+          for (Step step : test.steps) {
+            Map<String, Object> stepOut = new HashMap<>();
+            CodegenOperation ope = null;
+            if (step.type.equals("createClient")) {
+              stepOut.put("isCreateClient", true);
+            } else if (step.type.equals("variable")) {
+              stepOut.put("isVariable", true);
+            } else if (step.type.equals("method")) {
+              ope = operations.get(step.path);
+              if (ope == null) {
+                throw new CTSException("Cannot find operation for method: " + step.path, test.testName);
+              }
+              stepOut.put("returnType", ope.returnType);
+              stepOut.put("isMethod", true);
             }
-            stepOut.put("returnType", ope.returnType);
-            stepOut.put("isMethod", true);
-          }
 
-          stepOut.put("object", step.object);
-          stepOut.put("path", step.path);
-          paramsType.enhanceParameters(step.parameters, stepOut, ope);
+            stepOut.put("object", step.object);
+            stepOut.put("path", step.path);
+            paramsType.enhanceParameters(step.parameters, stepOut, ope);
 
-          if (step.expected.type != null) {
-            switch (step.expected.type) {
-              case "userAgent":
-                stepOut.put("testUserAgent", true);
-                break;
-              case "host":
-                stepOut.put("testHost", true);
-                break;
-              case "timeouts":
-                stepOut.put("testTimeouts", true);
-                break;
-              default:
-                stepOut.put("testResult", true);
-                break;
+            if (step.expected.type != null) {
+              switch (step.expected.type) {
+                case "userAgent":
+                  stepOut.put("testUserAgent", true);
+                  break;
+                case "host":
+                  stepOut.put("testHost", true);
+                  break;
+                case "timeouts":
+                  stepOut.put("testTimeouts", true);
+                  break;
+                default:
+                  stepOut.put("testResult", true);
+                  break;
+              }
             }
-          }
-          if (step.expected.error != null) {
-            stepOut.put("isError", true);
-            stepOut.put("expectedError", step.expected.error);
-          } else if (step.expected.match != null) {
-            if (step.expected.match instanceof Map) {
-              Map<String, Object> match = new HashMap<>();
-              paramsType.enhanceParameters((Map<String, Object>) step.expected.match, match);
-              stepOut.put("match", match);
-            } else {
-              stepOut.put("match", step.expected.match);
+            if (step.expected.error != null) {
+              stepOut.put("isError", true);
+              stepOut.put("expectedError", step.expected.error);
+            } else if (step.expected.match != null) {
+              if (step.expected.match instanceof Map) {
+                Map<String, Object> match = new HashMap<>();
+                paramsType.enhanceParameters((Map<String, Object>) step.expected.match, match);
+                stepOut.put("match", match);
+              } else {
+                stepOut.put("match", step.expected.match);
+              }
             }
+            steps.add(stepOut);
           }
-          steps.add(stepOut);
+          testOut.put("steps", steps);
+          tests.add(testOut);
+        } catch (CTSException e) {
+          e.setTestName(test.testName);
+          throw e;
         }
-        testOut.put("steps", steps);
-        tests.add(testOut);
       }
       testObj.put("tests", tests);
       testObj.put("testType", blockEntry.getKey());

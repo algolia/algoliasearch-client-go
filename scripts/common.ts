@@ -103,7 +103,11 @@ export async function run(
     if (errorMessage) {
       throw new Error(`[ERROR] ${errorMessage}`);
     } else {
-      // it's already log thanks to the `all` option
+      // it's already logged in the verbose case
+      if (!isVerbose()) {
+        // eslint-disable-next-line no-console
+        console.log((err as execa.ExecaError).all);
+      }
       throw new Error(`command failed: ${command}`);
     }
   }

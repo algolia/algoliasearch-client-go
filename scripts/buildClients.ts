@@ -28,9 +28,8 @@ async function buildClient(
             : `${npmNamespace}/${packageName}`
       );
 
-      await run(`yarn build:many '{${packageNames.join(',')},}'`, {
-        cwd,
-      });
+      await run('YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install', { cwd });
+      await run(`yarn build:many '{${packageNames.join(',')},}'`, { cwd });
 
       break;
     default:
