@@ -14,6 +14,23 @@ components:
       in: header
       name: X-Algolia-API-Key
   parameters:
+    PathInPath:
+      name: path
+      in: path
+      description: >-
+        The path of the API endpoint to target, anything after the /1 needs to
+        be specified.
+      required: true
+      schema:
+        type: string
+        example: /keys
+    Parameters:
+      name: parameters
+      in: query
+      description: Query parameters to be applied to the current query.
+      schema:
+        type: object
+        additionalProperties: true
     itemsPerPage:
       name: itemsPerPage
       in: query
@@ -277,6 +294,14 @@ components:
       schema:
         $ref: '#/components/schemas/eventID'
   schemas:
+    ErrorBase:
+      description: Error.
+      type: object
+      additionalProperties: true
+      properties:
+        message:
+          type: string
+          example: Invalid Application-Id or API-Key
     AuthenticationType:
       type: string
       description: >-
@@ -371,14 +396,6 @@ components:
         - page
         - nbItems
         - itemsPerPage
-    ErrorBase:
-      description: Error.
-      type: object
-      additionalProperties: true
-      properties:
-        message:
-          type: string
-          example: Invalid Application-Id or API-Key
     AuthGoogleServiceAccount:
       type: object
       description: Authentication input to connect to a Google service (e.g. BigQuery).
@@ -968,12 +985,12 @@ components:
       enum:
         - onDemand
     LastRun:
-      description: The last time the scheduled task ran.
+      description: The last time the scheduled task ran (RFC3339 format).
       type: string
     OnDemandTrigger:
       type: object
       additionalProperties: false
-      description: The trigger information of a task of type `on-demand`.
+      description: The trigger information of a task of type `onDemand`.
       properties:
         type:
           $ref: '#/components/schemas/OnDemandTriggerType'
@@ -1004,19 +1021,24 @@ components:
         lastRun:
           $ref: '#/components/schemas/LastRun'
         nextRun:
-          description: The next scheduled run of the task.
+          description: The next scheduled run of the task (RFC3339 format).
           type: string
       required:
         - type
         - cron
         - nextRun
+    SubscriptionTriggerType:
+      type: string
+      description: A task which is triggered by an external subscription (e.g. Webhook).
+      enum:
+        - subscription
     SubscriptionTrigger:
       type: object
       additionalProperties: false
       description: The trigger input for a task of type 'subscription'.
       properties:
         type:
-          $ref: '#/components/schemas/TriggerType'
+          $ref: '#/components/schemas/SubscriptionTriggerType'
       required:
         - type
     Trigger:
@@ -1054,13 +1076,13 @@ components:
         - enabled
         - action
         - createdAt
-    TriggerInput:
+    OnDemandTriggerInput:
       type: object
       additionalProperties: false
-      description: The trigger input of a task.
+      description: The trigger information of a task of type `onDemand`.
       properties:
         type:
-          $ref: '#/components/schemas/TriggerType'
+          $ref: '#/components/schemas/OnDemandTriggerType'
       required:
         - type
     ScheduleTriggerInput:
@@ -1077,8 +1099,9 @@ components:
         - cron
     TaskCreateTrigger:
       oneOf:
-        - $ref: '#/components/schemas/TriggerInput'
+        - $ref: '#/components/schemas/OnDemandTriggerInput'
         - $ref: '#/components/schemas/ScheduleTriggerInput'
+        - $ref: '#/components/schemas/SubscriptionTrigger'
     TaskCreate:
       type: object
       additionalProperties: false
@@ -1122,6 +1145,15 @@ components:
             type: string
       required:
         - taskIDs
+    TriggerInput:
+      type: object
+      additionalProperties: false
+      description: The trigger input of a task.
+      properties:
+        type:
+          $ref: '#/components/schemas/TriggerType'
+      required:
+        - type
     TaskUpdate:
       type: object
       additionalProperties: false
@@ -1314,6 +1346,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorBase'
+    FeatureNotEnabled:
+      description: This feature is not enabled on your Algolia account.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+    MethodNotAllowed:
+      description: Method not allowed with this API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+    IndexNotFound:
+      description: Index not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
 servers:
   - url: https://data.{region}.algolia.com
     variables:
@@ -1345,9 +1395,118 @@ tags:
   - name: tasks
     x-displayName: Tasks
     description: >-
-      A Task describe how we fetch the data (reindex, on-demand, subscription)
+      A Task describe how we fetch the data (onDemand, schedule, subscription)
       from a source and how we index it on the Algolia side.
 paths:
+  /1{path}:
+    get:
+      operationId: get
+      summary: Send requests to the Algolia REST API.
+      description: This method allow you to send requests to the Algolia REST API.
+      parameters:
+        - $ref: '#/components/parameters/PathInPath'
+        - $ref: '#/components/parameters/Parameters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          $ref: '#/components/responses/FeatureNotEnabled'
+        '403':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+      tags:
+        - ingestion
+    post:
+      operationId: post
+      requestBody:
+        description: The parameters to send with the custom request.
+        content:
+          application/json:
+            schema:
+              type: object
+      summary: Send requests to the Algolia REST API.
+      description: This method allow you to send requests to the Algolia REST API.
+      parameters:
+        - $ref: '#/components/parameters/PathInPath'
+        - $ref: '#/components/parameters/Parameters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          $ref: '#/components/responses/FeatureNotEnabled'
+        '403':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+      tags:
+        - ingestion
+    put:
+      operationId: put
+      requestBody:
+        description: The parameters to send with the custom request.
+        content:
+          application/json:
+            schema:
+              type: object
+      summary: Send requests to the Algolia REST API.
+      description: This method allow you to send requests to the Algolia REST API.
+      parameters:
+        - $ref: '#/components/parameters/PathInPath'
+        - $ref: '#/components/parameters/Parameters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          $ref: '#/components/responses/FeatureNotEnabled'
+        '403':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+      tags:
+        - ingestion
+    delete:
+      operationId: del
+      summary: Send requests to the Algolia REST API.
+      description: This method allow you to send requests to the Algolia REST API.
+      parameters:
+        - $ref: '#/components/parameters/PathInPath'
+        - $ref: '#/components/parameters/Parameters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          $ref: '#/components/responses/FeatureNotEnabled'
+        '403':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '404':
+          $ref: '#/components/responses/IndexNotFound'
+      tags:
+        - ingestion
   /1/authentications:
     get:
       tags:
