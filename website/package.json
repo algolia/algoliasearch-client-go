@@ -31,5 +31,5 @@
     "react-dom": "18.2.0",
     "redocusaurus": "1.6.1"
   },
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.5.0"
 }

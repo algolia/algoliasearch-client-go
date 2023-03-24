@@ -79,7 +79,7 @@
       "description": "Update yarn version",
       "fileMatch": ".yarnrc.yml",
       "matchStrings": [
-        "yarn/releases/yarn-(?<currentValue>.*?)\\.cjs"
+        ".yarn/releases/yarn-(?<currentValue>.*?)\\.cjs"
       ],
       "depNameTemplate": "yarnpkg/berry",
       "datasourceTemplate": "github-releases"

@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
     "target": "esnext",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

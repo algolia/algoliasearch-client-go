@@ -141,7 +141,7 @@ BigCommerceChannel:
     currencies:
       type: array
       description: An array of currencies for the given channel `ID`, a currency is a trigram string that represents the currency code.
-      example: ['usd','eur']
+      example: ['usd', 'eur']
       items:
         type: string
         example: 'usd'
