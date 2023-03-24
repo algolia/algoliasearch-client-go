@@ -53,7 +53,8 @@ public class GetAvailableModelTypesResponseInnerDataRequirements {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetAvailableModelTypesResponseInnerDataRequirements getAvailableModelTypesResponseInnerDataRequirements = (GetAvailableModelTypesResponseInnerDataRequirements) o;
+    GetAvailableModelTypesResponseInnerDataRequirements getAvailableModelTypesResponseInnerDataRequirements =
+      (GetAvailableModelTypesResponseInnerDataRequirements) o;
     return (
       Objects.equals(this.minUsers, getAvailableModelTypesResponseInnerDataRequirements.minUsers) &&
       Objects.equals(this.minDays, getAvailableModelTypesResponseInnerDataRequirements.minDays)
