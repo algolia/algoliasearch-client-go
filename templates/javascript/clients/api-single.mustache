@@ -24,21 +24,11 @@ export function create{{capitalizedApiName}}({
   const transporter = createTransporter({
     hosts: getDefaultHosts({{^hasRegionalHost}}appIdOption{{/hasRegionalHost}}{{#hasRegionalHost}}regionOption{{/hasRegionalHost}}),
     ...options,
-    algoliaAgent: 
-      {{#isIngestionClient}}
-      {...getAlgoliaAgent({
-        algoliaAgents,
-        client: '{{{algoliaAgent}}}',
-        version: apiClientVersion,
-      }), value: ''},
-      {{/isIngestionClient}}
-      {{^isIngestionClient}}
-      getAlgoliaAgent({
-        algoliaAgents,
-        client: '{{{algoliaAgent}}}',
-        version: apiClientVersion,
-      }),
-      {{/isIngestionClient}}
+    algoliaAgent: getAlgoliaAgent({
+      algoliaAgents,
+      client: '{{{algoliaAgent}}}',
+      version: apiClientVersion,
+    }),
     baseHeaders: {
       'content-type': 'text/plain',
       ...auth.headers(),

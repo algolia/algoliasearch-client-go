@@ -1,0 +1,10 @@
+[
+  {
+    "testName": "getAuthentications",
+    "parameters": {},
+    "request": {
+      "path": "/1/authentications",
+      "method": "GET"
+    }
+  }
+]

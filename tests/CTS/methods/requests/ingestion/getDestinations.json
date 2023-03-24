@@ -1,0 +1,10 @@
+[
+  {
+    "testName": "getDestinations",
+    "parameters": {},
+    "request": {
+      "path": "/1/destinations",
+      "method": "GET"
+    }
+  }
+]

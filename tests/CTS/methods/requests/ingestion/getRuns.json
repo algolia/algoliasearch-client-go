@@ -1,0 +1,10 @@
+[
+  {
+    "testName": "getRuns",
+    "parameters": {},
+    "request": {
+      "path": "/1/runs",
+      "method": "GET"
+    }
+  }
+]
