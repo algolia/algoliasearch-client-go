@@ -16,6 +16,9 @@ type CamelCaseAttributesOption struct {
 
 // CamelCaseAttributes wraps the given value into a CamelCaseAttributesOption.
 func CamelCaseAttributes(v ...string) *CamelCaseAttributesOption {
+	if v == nil {
+		return &CamelCaseAttributesOption{[]string{}}
+	}
 	return &CamelCaseAttributesOption{v}
 }
 

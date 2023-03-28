@@ -16,6 +16,9 @@ type AnalyticsTagsOption struct {
 
 // AnalyticsTags wraps the given value into a AnalyticsTagsOption.
 func AnalyticsTags(v ...string) *AnalyticsTagsOption {
+	if v == nil {
+		return &AnalyticsTagsOption{[]string{}}
+	}
 	return &AnalyticsTagsOption{v}
 }
 

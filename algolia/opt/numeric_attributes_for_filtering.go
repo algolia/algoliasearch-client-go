@@ -16,6 +16,9 @@ type NumericAttributesForFilteringOption struct {
 
 // NumericAttributesForFiltering wraps the given value into a NumericAttributesForFilteringOption.
 func NumericAttributesForFiltering(v ...string) *NumericAttributesForFilteringOption {
+	if v == nil {
+		return &NumericAttributesForFilteringOption{[]string{}}
+	}
 	return &NumericAttributesForFilteringOption{v}
 }
 

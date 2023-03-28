@@ -16,6 +16,9 @@ type ScopesOption struct {
 
 // Scopes wraps the given value into a ScopesOption.
 func Scopes(v ...string) *ScopesOption {
+	if v == nil {
+		return &ScopesOption{[]string{}}
+	}
 	return &ScopesOption{v}
 }
 

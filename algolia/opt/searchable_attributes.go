@@ -16,6 +16,9 @@ type SearchableAttributesOption struct {
 
 // SearchableAttributes wraps the given value into a SearchableAttributesOption.
 func SearchableAttributes(v ...string) *SearchableAttributesOption {
+	if v == nil {
+		return &SearchableAttributesOption{[]string{}}
+	}
 	return &SearchableAttributesOption{v}
 }
 

@@ -16,6 +16,9 @@ type CustomRankingOption struct {
 
 // CustomRanking wraps the given value into a CustomRankingOption.
 func CustomRanking(v ...string) *CustomRankingOption {
+	if v == nil {
+		return &CustomRankingOption{[]string{}}
+	}
 	return &CustomRankingOption{v}
 }
 

@@ -16,6 +16,9 @@ type RestrictIndicesOption struct {
 
 // RestrictIndices wraps the given value into a RestrictIndicesOption.
 func RestrictIndices(v ...string) *RestrictIndicesOption {
+	if v == nil {
+		return &RestrictIndicesOption{[]string{}}
+	}
 	return &RestrictIndicesOption{v}
 }
 

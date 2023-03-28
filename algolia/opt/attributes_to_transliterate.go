@@ -16,6 +16,9 @@ type AttributesToTransliterateOption struct {
 
 // AttributesToTransliterate wraps the given value into a AttributesToTransliterateOption.
 func AttributesToTransliterate(v ...string) *AttributesToTransliterateOption {
+	if v == nil {
+		return &AttributesToTransliterateOption{[]string{}}
+	}
 	return &AttributesToTransliterateOption{v}
 }
 

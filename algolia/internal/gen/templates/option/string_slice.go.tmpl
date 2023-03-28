@@ -16,6 +16,9 @@ type {{ .Name }}Option struct {
 
 // {{ .Name }} wraps the given value into a {{ .Name }}Option.
 func {{ .Name }}(v ...string) *{{ .Name }}Option {
+    if v == nil {
+        return &{{ .Name }}Option{[]string{}}
+    }
     return &{{ .Name }}Option{v}
 }
 

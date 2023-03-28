@@ -19,7 +19,6 @@ func Replicas(v ...string) *ReplicasOption {
 	if v == nil {
 		return &ReplicasOption{[]string{}}
 	}
-
 	return &ReplicasOption{v}
 }
 

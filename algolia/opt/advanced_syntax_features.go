@@ -16,6 +16,9 @@ type AdvancedSyntaxFeaturesOption struct {
 
 // AdvancedSyntaxFeatures wraps the given value into a AdvancedSyntaxFeaturesOption.
 func AdvancedSyntaxFeatures(v ...string) *AdvancedSyntaxFeaturesOption {
+	if v == nil {
+		return &AdvancedSyntaxFeaturesOption{[]string{}}
+	}
 	return &AdvancedSyntaxFeaturesOption{v}
 }
 

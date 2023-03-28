@@ -16,6 +16,9 @@ type RestrictSearchableAttributesOption struct {
 
 // RestrictSearchableAttributes wraps the given value into a RestrictSearchableAttributesOption.
 func RestrictSearchableAttributes(v ...string) *RestrictSearchableAttributesOption {
+	if v == nil {
+		return &RestrictSearchableAttributesOption{[]string{}}
+	}
 	return &RestrictSearchableAttributesOption{v}
 }
 

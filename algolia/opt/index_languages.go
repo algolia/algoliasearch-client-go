@@ -16,6 +16,9 @@ type IndexLanguagesOption struct {
 
 // IndexLanguages wraps the given value into a IndexLanguagesOption.
 func IndexLanguages(v ...string) *IndexLanguagesOption {
+	if v == nil {
+		return &IndexLanguagesOption{[]string{}}
+	}
 	return &IndexLanguagesOption{v}
 }
 
