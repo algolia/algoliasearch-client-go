@@ -16,6 +16,10 @@ type ReplicasOption struct {
 
 // Replicas wraps the given value into a ReplicasOption.
 func Replicas(v ...string) *ReplicasOption {
+	if v == nil {
+		return &ReplicasOption{[]string{}}
+	}
+
 	return &ReplicasOption{v}
 }
 
