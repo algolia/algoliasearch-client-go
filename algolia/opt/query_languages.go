@@ -16,6 +16,9 @@ type QueryLanguagesOption struct {
 
 // QueryLanguages wraps the given value into a QueryLanguagesOption.
 func QueryLanguages(v ...string) *QueryLanguagesOption {
+	if v == nil {
+		return &QueryLanguagesOption{[]string{}}
+	}
 	return &QueryLanguagesOption{v}
 }
 

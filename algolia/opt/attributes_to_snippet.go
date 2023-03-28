@@ -16,6 +16,9 @@ type AttributesToSnippetOption struct {
 
 // AttributesToSnippet wraps the given value into a AttributesToSnippetOption.
 func AttributesToSnippet(v ...string) *AttributesToSnippetOption {
+	if v == nil {
+		return &AttributesToSnippetOption{[]string{}}
+	}
 	return &AttributesToSnippetOption{v}
 }
 

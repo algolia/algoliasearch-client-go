@@ -16,6 +16,9 @@ type OptionalWordsOption struct {
 
 // OptionalWords wraps the given value into a OptionalWordsOption.
 func OptionalWords(v ...string) *OptionalWordsOption {
+	if v == nil {
+		return &OptionalWordsOption{[]string{}}
+	}
 	return &OptionalWordsOption{v}
 }
 

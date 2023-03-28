@@ -16,6 +16,9 @@ type DisableExactOnAttributesOption struct {
 
 // DisableExactOnAttributes wraps the given value into a DisableExactOnAttributesOption.
 func DisableExactOnAttributes(v ...string) *DisableExactOnAttributesOption {
+	if v == nil {
+		return &DisableExactOnAttributesOption{[]string{}}
+	}
 	return &DisableExactOnAttributesOption{v}
 }
 

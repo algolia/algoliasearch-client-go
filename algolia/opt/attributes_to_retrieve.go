@@ -16,6 +16,9 @@ type AttributesToRetrieveOption struct {
 
 // AttributesToRetrieve wraps the given value into a AttributesToRetrieveOption.
 func AttributesToRetrieve(v ...string) *AttributesToRetrieveOption {
+	if v == nil {
+		return &AttributesToRetrieveOption{[]string{}}
+	}
 	return &AttributesToRetrieveOption{v}
 }
 

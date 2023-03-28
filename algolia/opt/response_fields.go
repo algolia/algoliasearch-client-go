@@ -16,6 +16,9 @@ type ResponseFieldsOption struct {
 
 // ResponseFields wraps the given value into a ResponseFieldsOption.
 func ResponseFields(v ...string) *ResponseFieldsOption {
+	if v == nil {
+		return &ResponseFieldsOption{[]string{}}
+	}
 	return &ResponseFieldsOption{v}
 }
 

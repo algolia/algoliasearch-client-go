@@ -16,6 +16,9 @@ type FacetsOption struct {
 
 // Facets wraps the given value into a FacetsOption.
 func Facets(v ...string) *FacetsOption {
+	if v == nil {
+		return &FacetsOption{[]string{}}
+	}
 	return &FacetsOption{v}
 }
 

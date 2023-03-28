@@ -16,6 +16,9 @@ type UnretrievableAttributesOption struct {
 
 // UnretrievableAttributes wraps the given value into a UnretrievableAttributesOption.
 func UnretrievableAttributes(v ...string) *UnretrievableAttributesOption {
+	if v == nil {
+		return &UnretrievableAttributesOption{[]string{}}
+	}
 	return &UnretrievableAttributesOption{v}
 }
 

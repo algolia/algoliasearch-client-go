@@ -16,6 +16,9 @@ type DisableTypoToleranceOnAttributesOption struct {
 
 // DisableTypoToleranceOnAttributes wraps the given value into a DisableTypoToleranceOnAttributesOption.
 func DisableTypoToleranceOnAttributes(v ...string) *DisableTypoToleranceOnAttributesOption {
+	if v == nil {
+		return &DisableTypoToleranceOnAttributesOption{[]string{}}
+	}
 	return &DisableTypoToleranceOnAttributesOption{v}
 }
 
