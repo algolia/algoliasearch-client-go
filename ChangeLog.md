@@ -1,5 +1,13 @@
 # ChangeLog
 
+## [3.26.5](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.4...3.26.5) (2023-03-29)
+
+### Fix
+
+- set default value to string slices to prevent `null` unmarshalling (#720) ([2de552a](https://github.com/algolia/algoliasearch-client-go/commit/2de552a))
+
+
+
 ## [3.26.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.3...3.26.4) (2023-02-24)
 
 ### Fix
