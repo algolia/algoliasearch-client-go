@@ -46,22 +46,22 @@ func (q *RuleQuery) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var objectQuery RuleQueryObjectQuery
-	if err := json.Unmarshal(data, &objectQuery); err == nil {
-		q.objectQuery = &objectQuery
-		return nil
-	}
-
 	// Kept for backward-compatibility only
 	var incrementalEdit struct {
 		Remove []string `json:"remove"`
 	}
-	if err := json.Unmarshal(data, &incrementalEdit); err == nil {
+	if err := json.Unmarshal(data, &incrementalEdit); err == nil && len(incrementalEdit.Remove) > 0 {
 		var edits []QueryEdit
 		for _, word := range incrementalEdit.Remove {
 			edits = append(edits, RemoveEdit(word))
 		}
 		q.objectQuery = &RuleQueryObjectQuery{Edits: edits}
+		return nil
+	}
+
+	var objectQuery RuleQueryObjectQuery
+	if err := json.Unmarshal(data, &objectQuery); err == nil {
+		q.objectQuery = &objectQuery
 		return nil
 	}
 

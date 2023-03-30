@@ -40,3 +40,24 @@ func Test_AutomaticFacetFilter_UnmarshalJSON(t *testing.T) {
 		require.Equal(t, c.expected, actual)
 	}
 }
+
+func Test_LegacyParsingOfQueryEdits(t *testing.T) {
+	for _, c := range []struct {
+		input    string
+		expected RuleQuery
+	}{
+		{
+			input:    `{"remove":["myWord"]}`,
+			expected: RuleQuery{objectQuery: &RuleQueryObjectQuery{Edits: []QueryEdit{RemoveEdit("myWord")}}},
+		},
+		{
+			input:    `{"edits":[{"type":"remove","delete":"myWord"}]}`,
+			expected: RuleQuery{objectQuery: &RuleQueryObjectQuery{Edits: []QueryEdit{RemoveEdit("myWord")}}},
+		},
+	} {
+		var actual RuleQuery
+		err := json.Unmarshal([]byte(c.input), &actual)
+		require.NoError(t, err)
+		require.Equal(t, c.expected, actual)
+	}
+}
