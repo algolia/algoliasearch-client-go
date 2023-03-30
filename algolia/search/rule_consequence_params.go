@@ -49,7 +49,6 @@ func (q *RuleQuery) UnmarshalJSON(data []byte) error {
 	var objectQuery RuleQueryObjectQuery
 	if err := json.Unmarshal(data, &objectQuery); err == nil {
 		q.objectQuery = &objectQuery
-		return nil
 	}
 
 	// Kept for backward-compatibility only
@@ -57,11 +56,12 @@ func (q *RuleQuery) UnmarshalJSON(data []byte) error {
 		Remove []string `json:"remove"`
 	}
 	if err := json.Unmarshal(data, &incrementalEdit); err == nil {
-		var edits []QueryEdit
-		for _, word := range incrementalEdit.Remove {
-			edits = append(edits, RemoveEdit(word))
+		if q.objectQuery == nil {
+			q.objectQuery = &RuleQueryObjectQuery{}
 		}
-		q.objectQuery = &RuleQueryObjectQuery{Edits: edits}
+		for _, word := range incrementalEdit.Remove {
+			q.objectQuery.Edits = append(q.objectQuery.Edits, RemoveEdit(word))
+		}
 		return nil
 	}
 
