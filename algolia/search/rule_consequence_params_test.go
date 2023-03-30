@@ -54,6 +54,10 @@ func Test_LegacyParsingOfQueryEdits(t *testing.T) {
 			input:    `{"edits":[{"type":"remove","delete":"myWord"}]}`,
 			expected: RuleQuery{objectQuery: &RuleQueryObjectQuery{Edits: []QueryEdit{RemoveEdit("myWord")}}},
 		},
+		{
+			input:    `{"edits":[{"type":"remove","delete":"myWord1"}],"remove":["myWord2"]}`,
+			expected: RuleQuery{objectQuery: &RuleQueryObjectQuery{Edits: []QueryEdit{RemoveEdit("myWord1"), RemoveEdit("myWord2")}}},
+		},
 	} {
 		var actual RuleQuery
 		err := json.Unmarshal([]byte(c.input), &actual)
