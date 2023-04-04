@@ -16,6 +16,9 @@ type RuleContextsOption struct {
 
 // RuleContexts wraps the given value into a RuleContextsOption.
 func RuleContexts(v ...string) *RuleContextsOption {
+	if v == nil {
+		return &RuleContextsOption{[]string{}}
+	}
 	return &RuleContextsOption{v}
 }
 

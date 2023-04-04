@@ -16,6 +16,9 @@ type AttributesToHighlightOption struct {
 
 // AttributesToHighlight wraps the given value into a AttributesToHighlightOption.
 func AttributesToHighlight(v ...string) *AttributesToHighlightOption {
+	if v == nil {
+		return &AttributesToHighlightOption{[]string{}}
+	}
 	return &AttributesToHighlightOption{v}
 }
 

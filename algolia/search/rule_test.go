@@ -52,6 +52,12 @@ func TestRule_MarshalJSON(t *testing.T) {
 			},
 			`{"condition":{"anchoring":"is","pattern":"Pattern","context":"Context","alternatives":true},"consequence":{}}`,
 		},
+		{
+			Rule{
+				Tags: []string{"visual-editor"},
+			},
+			`{"consequence":{},"tags":["visual-editor"]}`,
+		},
 	} {
 		// Encode the Rule to JSON
 		data, err := json.Marshal(&c.rule)

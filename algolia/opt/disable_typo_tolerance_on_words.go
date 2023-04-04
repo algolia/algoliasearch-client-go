@@ -16,6 +16,9 @@ type DisableTypoToleranceOnWordsOption struct {
 
 // DisableTypoToleranceOnWords wraps the given value into a DisableTypoToleranceOnWordsOption.
 func DisableTypoToleranceOnWords(v ...string) *DisableTypoToleranceOnWordsOption {
+	if v == nil {
+		return &DisableTypoToleranceOnWordsOption{[]string{}}
+	}
 	return &DisableTypoToleranceOnWordsOption{v}
 }
 
