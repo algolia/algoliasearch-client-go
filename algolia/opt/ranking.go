@@ -16,6 +16,9 @@ type RankingOption struct {
 
 // Ranking wraps the given value into a RankingOption.
 func Ranking(v ...string) *RankingOption {
+	if v == nil {
+		return &RankingOption{[]string{}}
+	}
 	return &RankingOption{v}
 }
 

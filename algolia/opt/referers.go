@@ -16,6 +16,9 @@ type ReferersOption struct {
 
 // Referers wraps the given value into a ReferersOption.
 func Referers(v ...string) *ReferersOption {
+	if v == nil {
+		return &ReferersOption{[]string{}}
+	}
 	return &ReferersOption{v}
 }
 

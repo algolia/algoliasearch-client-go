@@ -49,7 +49,6 @@ func (q *RuleQuery) UnmarshalJSON(data []byte) error {
 	var objectQuery RuleQueryObjectQuery
 	if err := json.Unmarshal(data, &objectQuery); err == nil {
 		q.objectQuery = &objectQuery
-		return nil
 	}
 
 	// Kept for backward-compatibility only
@@ -57,11 +56,12 @@ func (q *RuleQuery) UnmarshalJSON(data []byte) error {
 		Remove []string `json:"remove"`
 	}
 	if err := json.Unmarshal(data, &incrementalEdit); err == nil {
-		var edits []QueryEdit
-		for _, word := range incrementalEdit.Remove {
-			edits = append(edits, RemoveEdit(word))
+		if q.objectQuery == nil {
+			q.objectQuery = &RuleQueryObjectQuery{}
 		}
-		q.objectQuery = &RuleQueryObjectQuery{Edits: edits}
+		for _, word := range incrementalEdit.Remove {
+			q.objectQuery.Edits = append(q.objectQuery.Edits, RemoveEdit(word))
+		}
 		return nil
 	}
 
@@ -78,6 +78,46 @@ type AutomaticFacetFilter struct {
 	Facet       string `json:"facet"`
 	Disjunctive bool   `json:"disjunctive"` // Defaults to false
 	Score       int    `json:"score"`       // Defaults to 1
+}
+
+// AutomaticFacetFilter can be unmarshalled from a string or an object.
+func (a *AutomaticFacetFilter) UnmarshalJSON(data []byte) error {
+	if len(data) == 0 {
+		return nil
+	}
+
+	if string(data) == jsonNull {
+		return nil
+	}
+
+	switch data[0] {
+	case '"':
+		var facet string
+		if err := json.Unmarshal(data, &facet); err != nil {
+			return err
+		}
+		*a = AutomaticFacetFilter{
+			Facet: facet,
+		}
+		return nil
+	case '{':
+		var alias struct {
+			Facet       string `json:"facet"`
+			Disjunctive bool   `json:"disjunctive"`
+			Score       int    `json:"score"`
+		}
+		if err := json.Unmarshal(data, &alias); err != nil {
+			return err
+		}
+		*a = AutomaticFacetFilter{
+			Facet:       alias.Facet,
+			Disjunctive: alias.Disjunctive,
+			Score:       alias.Score,
+		}
+		return nil
+	default:
+		return fmt.Errorf("cannot unmarshal automatic facet filter")
+	}
 }
 
 type QueryEdit struct {

@@ -117,19 +117,39 @@ func TestFacetFilters_LegacyDeserialization(t *testing.T) {
 		},
 		{
 			`"filter1:value1,filter2:value2"`,
-			opt.FacetFilterOr("filter1:value1", "filter2:value2"),
+			opt.FacetFilterAnd("filter1:value1", "filter2:value2"),
 		},
 		{
 			`" filter1:value1 , filter2:value2 "`,
+			opt.FacetFilterAnd("filter1:value1", "filter2:value2"),
+		},
+		{
+			`"(filter1:value1,filter2:value2)"`,
 			opt.FacetFilterOr("filter1:value1", "filter2:value2"),
 		},
 		{
 			`["filter1:value1","filter2:value2"]`,
-			opt.FacetFilterOr("filter1:value1", "filter2:value2"),
+			opt.FacetFilterAnd("filter1:value1", "filter2:value2"),
 		},
 		{
 			`[" filter1:value1 "," filter2:value2 "]`,
+			opt.FacetFilterAnd("filter1:value1", "filter2:value2"),
+		},
+		{
+			`[["filter1:value1","filter2:value2"]]`,
 			opt.FacetFilterOr("filter1:value1", "filter2:value2"),
+		},
+		{
+			`[["filter1:value1","filter2:value2"], "filter3:value3"]`,
+			opt.FacetFilterAnd(opt.FacetFilterOr("filter1:value1", "filter2:value2"), "filter3:value3"),
+		},
+		{
+			`["filter1:value1,filter2:value2","filter3:value3"]`,
+			opt.FacetFilterAnd("filter1:value1,filter2:value2", "filter3:value3"),
+		},
+		{
+			`"(filter1:value1,filter2:value2),filter3:value3"`,
+			opt.FacetFilterAnd(opt.FacetFilterOr("filter1:value1", "filter2:value2"), "filter3:value3"),
 		},
 	} {
 		var got opt.FacetFiltersOption

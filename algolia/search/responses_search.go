@@ -17,7 +17,7 @@ type QueryRes struct {
 	Extensions                 map[string]map[string]interface{} `json:"extensions"`
 	Facets                     map[string]map[string]int         `json:"facets"`
 	FacetsStats                map[string]FacetStat              `json:"facets_stats"`
-	Hits                       []map[string]interface{}          `json:"Hits"`
+	Hits                       []map[string]interface{}          `json:"hits"`
 	HitsPerPage                int                               `json:"hitsPerPage"`
 	Index                      string                            `json:"index"`
 	IndexUsed                  string                            `json:"indexUsed"`
@@ -39,6 +39,7 @@ type QueryRes struct {
 	TimeoutHits                bool                              `json:"timeoutHits"`
 	UserData                   []interface{}                     `json:"userData"`
 	ABTestVariantID            int                               `json:"abTestVariantID"`
+	ABTestID                   uint32                            `json:"abTestID"`
 	RenderingContent           *RenderingContent                 `json:"renderingContent"`
 }
 

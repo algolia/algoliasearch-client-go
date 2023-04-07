@@ -107,3 +107,17 @@ func TestReplacing(t *testing.T) {
 		require.NoError(t, err)
 	}
 }
+
+func TestReplacingNonExistentIndex(t *testing.T) {
+	t.Parallel()
+	_, index, _ := cts.InitSearchClient1AndIndex(t)
+
+	_, err := index.ReplaceAllObjects([]map[string]string{{"objectID": "one"}, {"objectID": "two"}}, opt.Safe(true))
+	require.NoError(t, err)
+
+	err = index.GetObject("one", nil)
+	require.NoError(t, err)
+
+	err = index.GetObject("two", nil)
+	require.NoError(t, err)
+}

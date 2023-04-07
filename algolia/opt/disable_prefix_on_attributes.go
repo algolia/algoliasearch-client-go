@@ -16,6 +16,9 @@ type DisablePrefixOnAttributesOption struct {
 
 // DisablePrefixOnAttributes wraps the given value into a DisablePrefixOnAttributesOption.
 func DisablePrefixOnAttributes(v ...string) *DisablePrefixOnAttributesOption {
+	if v == nil {
+		return &DisablePrefixOnAttributesOption{[]string{}}
+	}
 	return &DisablePrefixOnAttributesOption{v}
 }
 

@@ -16,6 +16,9 @@ type ExplainOption struct {
 
 // Explain wraps the given value into a ExplainOption.
 func Explain(v ...string) *ExplainOption {
+	if v == nil {
+		return &ExplainOption{[]string{}}
+	}
 	return &ExplainOption{v}
 }
 

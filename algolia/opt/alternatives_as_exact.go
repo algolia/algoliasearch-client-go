@@ -16,6 +16,9 @@ type AlternativesAsExactOption struct {
 
 // AlternativesAsExact wraps the given value into a AlternativesAsExactOption.
 func AlternativesAsExact(v ...string) *AlternativesAsExactOption {
+	if v == nil {
+		return &AlternativesAsExactOption{[]string{}}
+	}
 	return &AlternativesAsExactOption{v}
 }
 

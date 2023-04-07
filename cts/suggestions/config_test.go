@@ -45,7 +45,7 @@ func TestConfig(t *testing.T) {
 				Generate:      nil,
 			},
 		},
-		Languages: []string{"en"},
+		Languages: suggestions.NewStringArray([]string{"en"}),
 		Exclude:   nil,
 	}
 
@@ -61,7 +61,7 @@ func TestConfig(t *testing.T) {
 	})
 
 	t.Run("Update the query suggestion index", func(t *testing.T) {
-		indexConfig.Languages = []string{"ja"}
+		indexConfig.Languages = suggestions.NewStringArray([]string{"ja"})
 		err := querySuggestionsClient.UpdateConfig(indexConfig)
 		require.NoError(t, err)
 
@@ -76,7 +76,7 @@ func TestConfig(t *testing.T) {
 		require.Equal(t, &indexConfig, got[0])
 	})
 
-	t.Run("Delete the AB test", func(t *testing.T) {
+	t.Run("Delete the query suggestion config", func(t *testing.T) {
 		err := querySuggestionsClient.DeleteConfig(indexName)
 		require.NoError(t, err)
 

@@ -16,6 +16,9 @@ type AttributesForFacetingOption struct {
 
 // AttributesForFaceting wraps the given value into a AttributesForFacetingOption.
 func AttributesForFaceting(v ...string) *AttributesForFacetingOption {
+	if v == nil {
+		return &AttributesForFacetingOption{[]string{}}
+	}
 	return &AttributesForFacetingOption{v}
 }
 

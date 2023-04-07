@@ -1,6 +1,101 @@
 # ChangeLog
 
-## [3.21.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.20.0...3.21.0) (2021-07-26)
+## [3.27.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.5...3.27.0) (2023-03-30)
+
+### Feat
+
+- add support of tags parsing in rules (#722) ([6bc0750](https://github.com/algolia/algoliasearch-client-go/commit/6bc0750))
+
+### Fix
+
+- support both schemas at the same time in rule consequence params (#721) ([1f720e4](https://github.com/algolia/algoliasearch-client-go/commit/1f720e4))
+
+## [3.26.5](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.4...3.26.5) (2023-03-29)
+
+### Fix
+
+- set default value to string slices to prevent `null` unmarshalling (#720) ([2de552a](https://github.com/algolia/algoliasearch-client-go/commit/2de552a))
+
+
+
+## [3.26.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.3...3.26.4) (2023-02-24)
+
+### Fix
+
+- handle composableFilterOption deserialization for legacy usage (#718) ([301a2c5](https://github.com/algolia/algoliasearch-client-go/commit/301a2c5))
+
+
+
+## [3.26.3](https://github.com/algolia/algoliasearch-client-go/compare/3.26.2...3.26.3) (2023-02-16)
+
+### Fix
+
+- composableFilterOption deserialization fixed (#717) ([b3a3422](https://github.com/algolia/algoliasearch-client-go/commit/b3a3422))
+
+### Misc
+
+- fix(search) handle automaticFacetFilters unmarshal from string (#716) ([e67fb07](https://github.com/algolia/algoliasearch-client-go/commit/e67fb07))
+
+
+
+## [3.26.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.1...3.26.2) (2023-01-18)
+
+### Fix
+
+- **search**: hits in search response are now marshalled as 'hits' (#709) ([f4c0bfd](https://github.com/algolia/algoliasearch-client-go/commit/f4c0bfd))
+
+
+
+
+## [3.26.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.0...3.26.1) (2022-08-31)
+
+### Fix
+
+- **indexing**: replaceAllObjects blocked if called for non-existent index (#699) ([29468c2](https://github.com/algolia/algoliasearch-client-go/commit/29468c2))
+- **query rules**: Suppress rule condition pattern marshalling in case of empty anchoring (#689) ([dce3e44](https://github.com/algolia/algoliasearch-client-go/commit/dce3e44))
+
+
+
+## [3.26.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.25.0...3.26.0) (2022-07-04)
+
+### Fix
+
+- **analytics**: add UpdatedAt field to ABTestResponse  (#656) ([c451e58](https://github.com/algolia/algoliasearch-client-go/commit/c451e58))
+
+
+
+## [3.25.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.24.0...v3.25.0) (2022-04-13)
+
+### Feat
+
+- update wait task max wait time (#691) ([96f7484](https://github.com/algolia/algoliasearch-client-go/commit/96f7484))
+
+
+## [3.24.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.23.0...v3.24.0) (2022-03-25)
+
+### Fix
+
+- Suggestion config bool value support (#690) ([3fea0f7](https://github.com/algolia/algoliasearch-client-go/commit/3fea0f7))
+
+
+
+## [3.23.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.22.0...v3.23.0) (2022-01-11)
+
+### Fix
+
+- reRankingApplyFilter accept same format as facet filters (#688) ([e4b6b96](https://github.com/algolia/algoliasearch-client-go/commit/e4b6b96))
+
+
+
+## [3.22.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.21.0...v3.22.0) (2021-11-08)
+
+### Feat
+
+- **recommend**: implement Recommend client (#679) ([998b1b8](https://github.com/algolia/algoliasearch-client-go/commit/998b1b8))
+
+
+
+## [3.21.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.20.0...v3.21.0) (2021-07-26)
 
 ### Feat
 
@@ -13,7 +108,7 @@
 
 
 
-## [3.20.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.19.0...3.20.0) (2021-07-05)
+## [3.20.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.19.0...v3.20.0) (2021-07-05)
 
 ### Feat
 
@@ -24,7 +119,7 @@
 
 
 
-## [3.19.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.1...3.19.0) (2021-06-23)
+## [3.19.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.1...v3.19.0) (2021-06-23)
 
 ### Feat
 
@@ -32,7 +127,7 @@
 
 
 
-## [3.18.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.0...3.18.1) (2021-04-02)
+## [3.18.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.18.0...v3.18.1) (2021-04-02)
 
 ### Fix
 
@@ -40,7 +135,7 @@
 
 
 
-## [3.18.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.17.0...3.18.0) (2021-03-26)
+## [3.18.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.17.0...v3.18.0) (2021-03-26)
 
 ### Feat
 
@@ -49,7 +144,7 @@
 - Dockerize the repository (#650) ([f429ef6](https://github.com/algolia/algoliasearch-client-go/commit/f429ef6))
 
 
-## [3.17.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.16.0...3.17.0) (2021-03-08)
+## [3.17.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.16.0...v3.17.0) (2021-03-08)
 
 ### Feat
 
@@ -66,7 +161,7 @@
 
 
 
-## [3.16.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.1...3.16.0) (2021-01-30)
+## [3.16.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.1...v3.16.0) (2021-01-30)
 
 ### Feat
 
@@ -74,7 +169,7 @@
 
 
 
-## [3.15.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.0...3.15.1) (2021-01-14)
+## [3.15.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.15.0...v3.15.1) (2021-01-14)
 
 ### Fix
 
@@ -82,7 +177,7 @@
 
 
 
-## [3.15.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.14.0...3.15.0) (2021-01-06)
+## [3.15.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.14.0...v3.15.0) (2021-01-06)
 
 ### Feat
 
@@ -94,7 +189,7 @@
 
 
 
-## [3.14.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.13.0...3.14.0) (2020-11-24)
+## [3.14.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.13.0...v3.14.0) (2020-11-24)
 
 ### Feat
 
@@ -106,7 +201,7 @@
 
 
 
-## [3.13.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.1...3.13.0) (2020-10-15)
+## [3.13.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.1...v3.13.0) (2020-10-15)
 
 ### Feat
 
@@ -114,7 +209,7 @@
 
 
 
-## [3.12.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.0...3.12.1) (2020-10-02)
+## [3.12.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.12.0...v3.12.1) (2020-10-02)
 
 ### Fix
 
@@ -122,7 +217,7 @@
 
 
 
-## [3.12.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.11.0...3.12.0) (2020-09-29)
+## [3.12.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.11.0...v3.12.0) (2020-09-29)
 
 ### Fix
 
@@ -134,7 +229,7 @@
 
 
 
-## [3.11.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.10.0...3.11.0) (2020-08-13)
+## [3.11.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.10.0...v3.11.0) (2020-08-13)
 
 ### Feat
 
@@ -150,7 +245,7 @@
 
 
 
-## [3.10.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.9.0...3.10.0) (2020-08-12)
+## [3.10.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.9.0...v3.10.0) (2020-08-12)
 
 ### Feat
 
@@ -160,7 +255,7 @@
 
 
 
-## [3.9.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.2...3.9.0) (2020-07-20)
+## [3.9.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.2...v3.9.0) (2020-07-20)
 
 ### Feat
 
@@ -168,7 +263,7 @@
 
 
 
-## [3.8.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.1...3.8.2) (2020-07-03)
+## [3.8.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.1...v3.8.2) (2020-07-03)
 
 ### Fix
 
@@ -176,7 +271,7 @@
 
 
 
-## [3.8.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.0...3.8.1) (2020-06-26)
+## [3.8.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.8.0...v3.8.1) (2020-06-26)
 
 ### Fix
 
@@ -192,7 +287,7 @@
 
 
 
-## [3.7.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.6.1...3.7.0) (2020-05-07)
+## [3.7.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.6.1...v3.7.0) (2020-05-07)
 
 ### Feat
 
@@ -298,51 +393,51 @@
 
 
 
-## [3.4.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.3.0...3.4.0) (2019-09-25)
+## [3.4.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.3.0...v3.4.0) (2019-09-25)
 
 ### Fix
 
 - correctly migrate to Go modules by using v3/ suffix for Semantic Import Versioning ([6be7683](https://github.com/algolia/algoliasearch-client-go/commit/6be7683))
 
     **Manual Intervention Required**
-    
+
     Our migration to Go modules starting at version v3.0.0 of this Go API
     client was done incorrectly since our module declaration was not
     including the required `v3/` suffix. This commit fixes this issue by
     respecting the Semantic Import Versioning described by the Go wiki.
-    
+
     **Step 1/2**
-    
+
     To update your project which depends on the Algolia Go API client, you
     need to replace all `github.com/algolia/algoliasearch-client-go/*`
     import statements with `github.com/algolia/algoliasearch-client-go/v3/*`
     instead. The following shell one-liner can be used to perform this
     change:
-    
+
     ```
     for f in $(find . -type f); do
       sed -i '' 's:github.com/algolia/algoliasearch-client-go:github.com/algolia/algoliasearch-client-go/v3:g' $f
     done
-    
+
     for f in $(find . -type f); do
       sed -i 's:github.com/algolia/algoliasearch-client-go:github.com/algolia/algoliasearch-client-go/v3:g' $f
     done
     ```
-    
+
     **Step 2/2**
-    
+
     After that, make sure to import the Algolia Go client dependency as such
     in your `go.mod` file:
-    
+
     ```
     require github.com/algolia/algoliasearch-client-go/v3 v3.X.Y
     ```
-    
+
     where `v3.X.z` stands for the exact release tag you want to use.
 
 
 
-## [3.3.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.2.1...3.3.0) (2019-09-06)
+## [3.3.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.2.1...v3.3.0) (2019-09-06)
 
 ### Feat
 

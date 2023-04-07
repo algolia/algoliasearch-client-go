@@ -16,6 +16,9 @@ type NaturalLanguagesOption struct {
 
 // NaturalLanguages wraps the given value into a NaturalLanguagesOption.
 func NaturalLanguages(v ...string) *NaturalLanguagesOption {
+	if v == nil {
+		return &NaturalLanguagesOption{[]string{}}
+	}
 	return &NaturalLanguagesOption{v}
 }
 
