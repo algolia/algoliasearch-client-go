@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 package main
@@ -153,6 +154,10 @@ var options = []Option{
 	{"restrictSources", Other, "", ""},
 	{"validUntil", Other, nil, ""},
 	{"referers", Other, []string{}, ""},
+
+	// AB Testing
+	{"indexPrefix", Other, "", ""},
+	{"indexSuffix", Other, "", ""},
 
 	// Other
 	{"query", Other, "", ""},

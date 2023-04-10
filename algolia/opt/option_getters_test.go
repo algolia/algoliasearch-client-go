@@ -299,6 +299,12 @@ func TestOptionGetters(t *testing.T) {
 	var referers *ReferersOption = nil
 	referers.Get()
 
+	var indexPrefix *IndexPrefixOption = nil
+	indexPrefix.Get()
+
+	var indexSuffix *IndexSuffixOption = nil
+	indexSuffix.Get()
+
 	var query *QueryOption = nil
 	query.Get()
 
