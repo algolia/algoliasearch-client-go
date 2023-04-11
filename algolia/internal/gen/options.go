@@ -180,4 +180,5 @@ var options = []Option{
 	{"exposeIntermediateNetworkErrors", Other, false, ""},
 	{"language", Other, "", ""},
 	{"disableStandardEntries", Other, map[string]map[string]bool{}, ""},
+	{"waitConfiguration", Other, nil, ""},
 }

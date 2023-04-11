@@ -8,12 +8,12 @@ import (
 	"time"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/transport"
 )
 
 const (
-	jsonNull                = "null"
-	maxDurationBetweenRetry = 10 * time.Second
+	jsonNull = "null"
 )
 
 func defaultHosts(appID string) (hosts []*transport.StatefulHost) {
@@ -33,8 +33,8 @@ func noWait(_ int64, _ ...interface{}) error {
 	return nil
 }
 
-func waitWithRetry(f func() (bool, error)) error {
-	d := time.Second
+func waitWithRetry(f func() (bool, error), waitCfg *opt.WaitConfigurationOption) error {
+	d := waitCfg.DelayGrowth(nil)
 
 	for {
 		done, err := f()
@@ -44,12 +44,7 @@ func waitWithRetry(f func() (bool, error)) error {
 
 		time.Sleep(d)
 
-		if d < maxDurationBetweenRetry {
-			d *= 2
-		}
-		if d > maxDurationBetweenRetry {
-			d = maxDurationBetweenRetry
-		}
+		d = waitCfg.DelayGrowth(&d)
 	}
 }
 
