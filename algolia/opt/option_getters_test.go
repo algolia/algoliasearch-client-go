@@ -362,4 +362,7 @@ func TestOptionGetters(t *testing.T) {
 	var disableStandardEntries *DisableStandardEntriesOption = nil
 	disableStandardEntries.Get()
 
+	var waitConfiguration *WaitConfigurationOption = nil
+	waitConfiguration.Get()
+
 }

@@ -9,6 +9,7 @@ import (
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/errs"
+	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
 // GetAPIKey retrieves the API key identified by the given keyID.
@@ -104,7 +105,7 @@ func (c *Client) waitKeyIsAvailable(keyID string) func() error {
 				return false, nil
 			}
 			return true, err
-		})
+		}, opt.DefaultWaitConfiguration())
 	}
 }
 
@@ -119,7 +120,7 @@ func (c *Client) waitKeyIsNotAvailable(keyID string) func() error {
 				return true, nil
 			}
 			return true, err
-		})
+		}, opt.DefaultWaitConfiguration())
 	}
 }
 
@@ -131,6 +132,6 @@ func (c *Client) waitKeyHasChanged(expected Key) func() error {
 				return true, err
 			}
 			return expected.Equal(found), nil
-		})
+		}, opt.DefaultWaitConfiguration())
 	}
 }
