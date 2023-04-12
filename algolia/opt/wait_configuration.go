@@ -4,6 +4,10 @@ import (
 	"time"
 )
 
+const (
+	maxDurationBetweenWaits = 10 * time.Second
+)
+
 // WaitConfigurationOption stores the logic to change the delay between waits
 type WaitConfigurationOption struct {
 	DelayGrowth func(*time.Duration) time.Duration
@@ -12,7 +16,6 @@ type WaitConfigurationOption struct {
 // DefaultWaitConfiguration returns the new delay to apply between waits
 func DefaultWaitConfiguration() *WaitConfigurationOption {
 	return &WaitConfigurationOption{DelayGrowth: func(d *time.Duration) time.Duration {
-		const maxDurationBetweenWaits = 10 * time.Second
 		if d == nil {
 			return time.Second
 		}
