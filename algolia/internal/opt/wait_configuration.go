@@ -4,7 +4,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
 )
 
-// ExtractScopes returns the first found ScopesOption from the
+// ExtractWaitConfiguration returns the first found wait configuration from....
 // given variadic arguments or nil otherwise.
 func ExtractWaitConfiguration(opts ...interface{}) *opt.WaitConfigurationOption {
 	for _, o := range opts {
