@@ -2,7 +2,6 @@ package index
 
 import (
 	"io"
-	"sync"
 	"testing"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/opt"
@@ -54,50 +53,35 @@ func TestSynonym(t *testing.T) {
 
 	require.NoError(t, g.Wait())
 
+	for _, synonym := range synonyms {
+		found, err := index.GetSynonym(synonym.ObjectID())
+		require.NoError(t, err, "should find synonym whose objectID is %s", synonym.ObjectID())
+		require.Equal(t, synonym, found)
+	}
+
 	{
-		var wg sync.WaitGroup
+		res, err := index.SearchSynonyms("", opt.Page(0), opt.HitsPerPage(10))
+		require.NoError(t, err)
 
-		for _, synonym := range synonyms {
-			wg.Add(1)
-			expected := synonym
-			go func(wg *sync.WaitGroup, expected search.Synonym) {
-				defer wg.Done()
-				found, err := index.GetSynonym(expected.ObjectID())
-				require.NoError(t, err, "should find synonym whose objectID is %s", expected.ObjectID())
-				require.Equal(t, expected, found)
-			}(&wg, expected)
-		}
+		found, err := res.Synonyms()
+		require.NoError(t, err)
+		require.ElementsMatch(t, synonyms, found)
+	}
 
-		wg.Add(1)
-		go func(wg *sync.WaitGroup) {
-			defer wg.Done()
-			res, err := index.SearchSynonyms("", opt.Page(0), opt.HitsPerPage(10))
-			require.NoError(t, err)
+	{
+		var found []search.Synonym
+		it, err := index.BrowseSynonyms()
+		require.NoError(t, err)
 
-			found, err := res.Synonyms()
-			require.NoError(t, err)
-			require.ElementsMatch(t, synonyms, found)
-		}(&wg)
-
-		wg.Add(1)
-		go func(wg *sync.WaitGroup) {
-			defer wg.Done()
-			var found []search.Synonym
-			it, err := index.BrowseSynonyms()
-			require.NoError(t, err)
-
-			for {
-				syn, err := it.Next()
-				if err != nil {
-					require.Equal(t, io.EOF, err)
-					break
-				}
-				found = append(found, syn)
+		for {
+			syn, err := it.Next()
+			if err != nil {
+				require.Equal(t, io.EOF, err)
+				break
 			}
-			require.ElementsMatch(t, found, synonyms)
-		}(&wg)
-
-		wg.Wait()
+			found = append(found, syn)
+		}
+		require.ElementsMatch(t, found, synonyms)
 	}
 
 	{

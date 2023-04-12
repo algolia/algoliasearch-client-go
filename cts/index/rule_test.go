@@ -2,7 +2,6 @@ package index
 
 import (
 	"io"
-	"sync"
 	"testing"
 	"time"
 
@@ -132,52 +131,36 @@ func TestQueryRule(t *testing.T) {
 		require.Equal(t, 1, res.NbHits)
 	}
 
+	for _, rule := range rules {
+		found, err := index.GetRule(rule.ObjectID)
+		require.NoError(t, err, "should find rule whose objectID is %s", rule.ObjectID)
+		require.True(t, found.Equal(rule))
+	}
+
 	{
-		var wg sync.WaitGroup
+		res, err := index.SearchRules("")
+		require.NoError(t, err)
 
-		for _, rule := range rules {
-			wg.Add(1)
-			expected := rule
-			go func(wg *sync.WaitGroup, expected search.Rule) {
-				defer wg.Done()
-				found, err := index.GetRule(expected.ObjectID)
-				require.NoError(t, err, "should find rule whose objectID is %s", expected.ObjectID)
-				require.True(t, found.Equal(expected))
-			}(&wg, expected)
-		}
+		found, err := res.Rules()
+		require.NoError(t, err)
 
-		wg.Add(1)
-		go func(wg *sync.WaitGroup) {
-			defer wg.Done()
-			res, err := index.SearchRules("")
-			require.NoError(t, err)
+		checkRulesMatch(t, rules, found)
+	}
 
-			found, err := res.Rules()
-			require.NoError(t, err)
+	{
+		var found []search.Rule
+		it, err := index.BrowseRules()
+		require.NoError(t, err)
 
-			checkRulesMatch(t, rules, found)
-		}(&wg)
-
-		wg.Add(1)
-		go func(wg *sync.WaitGroup) {
-			defer wg.Done()
-
-			var found []search.Rule
-			it, err := index.BrowseRules()
-			require.NoError(t, err)
-
-			for {
-				rule, err := it.Next()
-				if err != nil {
-					require.Equal(t, io.EOF, err)
-					break
-				}
-				found = append(found, *rule)
+		for {
+			rule, err := it.Next()
+			if err != nil {
+				require.Equal(t, io.EOF, err)
+				break
 			}
-			checkRulesMatch(t, rules, found)
-		}(&wg)
-
-		wg.Wait()
+			found = append(found, *rule)
+		}
+		checkRulesMatch(t, rules, found)
 	}
 
 	{

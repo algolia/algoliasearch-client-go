@@ -1,10 +1,10 @@
+//go:build !community
 // +build !community
 
 package search
 
 import (
 	"strings"
-	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -53,30 +53,17 @@ func TestMCM(t *testing.T) {
 
 		// Check (asynchronously) that userIDs were properly assigned (using get/search)
 		{
-			var wg sync.WaitGroup
-
 			for _, userID := range userIDs {
-				wg.Add(1)
-				go func(userID string) {
-					cts.Retry(func() bool {
-						_, err := client.GetUserID(userID)
-						return err == nil
-					})
-					wg.Done()
-				}(userID)
+				cts.Retry(func() bool {
+					_, err := client.GetUserID(userID)
+					return err == nil
+				})
 
-				wg.Add(1)
-				go func(userID string) {
-
-					cts.Retry(func() bool {
-						_, err := client.SearchUserIDs(userID)
-						return err == nil
-					})
-					wg.Done()
-				}(userID)
+				cts.Retry(func() bool {
+					_, err := client.SearchUserIDs(userID)
+					return err == nil
+				})
 			}
-
-			wg.Wait()
 		}
 
 		// Check that userIDs were properly assigned (using list)
@@ -121,38 +108,22 @@ func TestMCM(t *testing.T) {
 
 	// Remove (asynchronously) the previously assigned userIDs
 	{
-		var wg sync.WaitGroup
-
 		for _, userID := range userIDs {
-			wg.Add(1)
-			go func(userID string) {
-				cts.Retry(func() bool {
-					_, err := client.RemoveUserID(userID)
-					return err == nil
-				})
-				wg.Done()
-			}(userID)
+			cts.Retry(func() bool {
+				_, err := client.RemoveUserID(userID)
+				return err == nil
+			})
 		}
-
-		wg.Wait()
 	}
 
 	// Check (asynchronously) that userID was properly removed (using get)
 	{
-		var wg sync.WaitGroup
-
 		for _, userID := range userIDs {
-			wg.Add(1)
-			go func(userID string) {
-				cts.Retry(func() bool {
-					_, err := client.GetUserID(userID)
-					return err != nil
-				})
-				wg.Done()
-			}(userID)
+			cts.Retry(func() bool {
+				_, err := client.GetUserID(userID)
+				return err != nil
+			})
 		}
-
-		wg.Wait()
 	}
 
 	_, err = client.HasPendingMappings(opt.RetrieveMappings(true))

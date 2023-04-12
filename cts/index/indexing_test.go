@@ -84,17 +84,11 @@ func TestIndexing(t *testing.T) {
 	}
 
 	{
-		var wg sync.WaitGroup
-
 		for _, object := range expected[:7] {
-			wg.Add(1)
-			go getObjectAndCompareWith(t, &wg, index, object)
+			getObjectAndCompareWith(t, index, object)
 		}
 
-		wg.Add(1)
-		go getObjectsAndCompareWith(t, &wg, index, objectIDs[7:], expected[7:])
-
-		wg.Wait()
+		getObjectsAndCompareWith(t, index, objectIDs[7:], expected[7:])
 	}
 
 	{
@@ -151,9 +145,9 @@ func TestIndexing(t *testing.T) {
 	{
 		var wg sync.WaitGroup
 		wg.Add(3)
-		go getObjectAndCompareWith(t, &wg, index, map[string]string{"objectID": "one", "new_attribute": "new_value", "extra_attribute": "extra_value"})
-		go getObjectAndCompareWith(t, &wg, index, map[string]string{"objectID": "two", "new_attribute": "new_value", "extra_attribute": "extra_value"})
-		go getObjectAndCompareWith(t, &wg, index, map[string]string{"objectID": "three", "new_attribute": "new_value", "extra_attribute": "extra_value"})
+		go getObjectAndCompareWith(t, index, map[string]string{"objectID": "one", "new_attribute": "new_value", "extra_attribute": "extra_value"})
+		go getObjectAndCompareWith(t, index, map[string]string{"objectID": "two", "new_attribute": "new_value", "extra_attribute": "extra_value"})
+		go getObjectAndCompareWith(t, index, map[string]string{"objectID": "three", "new_attribute": "new_value", "extra_attribute": "extra_value"})
 		wg.Wait()
 	}
 
@@ -196,9 +190,7 @@ func TestIndexing(t *testing.T) {
 	}
 }
 
-func getObjectAndCompareWith(t *testing.T, wg *sync.WaitGroup, index *search.Index, expected map[string]string) {
-	defer wg.Done()
-
+func getObjectAndCompareWith(t *testing.T, index *search.Index, expected map[string]string) {
 	objectID, ok := expected["objectID"]
 	require.True(t, ok)
 
@@ -208,9 +200,7 @@ func getObjectAndCompareWith(t *testing.T, wg *sync.WaitGroup, index *search.Ind
 	require.Equal(t, expected, found)
 }
 
-func getObjectsAndCompareWith(t *testing.T, wg *sync.WaitGroup, index *search.Index, objectIDs []string, expected []map[string]string) {
-	defer wg.Done()
-
+func getObjectsAndCompareWith(t *testing.T, index *search.Index, objectIDs []string, expected []map[string]string) {
 	var objects []map[string]string
 	err := index.GetObjects(objectIDs, &objects)
 	require.NoError(t, err)

@@ -23,6 +23,8 @@ func TestAATesting(t *testing.T) {
 		require.NoError(t, err)
 		require.NoError(t, res.Wait())
 	}
+	// Wait to make sure the index are propagated to all nodes not only the targeted one
+	time.Sleep(15 * time.Second)
 
 	var abTestID int
 	now := time.Now()

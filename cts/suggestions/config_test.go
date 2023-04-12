@@ -2,6 +2,7 @@ package suggestions
 
 import (
 	"testing"
+	"time"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/suggestions"
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/wait"
@@ -30,6 +31,8 @@ func TestConfig(t *testing.T) {
 
 		require.NoError(t, g.Wait())
 	}
+	// Wait to make sure the indices are propagated to all nodes not only the targeted one
+	time.Sleep(15 * time.Second)
 
 	indexName := "test_query_suggestion_index"
 

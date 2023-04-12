@@ -46,18 +46,12 @@ func (a *Group) Wait() error {
 	a.Lock()
 	defer a.Unlock()
 
-	var wg sync.WaitGroup
 	errs := make(chan error, len(a.waitables))
 
 	for _, w := range a.waitables {
-		wg.Add(1)
-		go func(wg *sync.WaitGroup, w Waitable, errs chan<- error) {
-			errs <- w.Wait()
-			wg.Done()
-		}(&wg, w, errs)
+		errs <- w.Wait()
 	}
 
-	wg.Wait()
 	close(errs)
 	a.waitables = nil
 

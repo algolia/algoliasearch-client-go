@@ -2,7 +2,6 @@ package search
 
 import (
 	"fmt"
-	"sync"
 	"time"
 )
 
@@ -32,21 +31,13 @@ type GroupBatchRes struct {
 }
 
 func (r GroupBatchRes) Wait(opts ...interface{}) error {
-	var wg sync.WaitGroup
 	errs := make(chan error, len(r.Responses))
 
 	for _, res := range r.Responses {
-		wg.Add(1)
-		go func(wg *sync.WaitGroup, res BatchRes) {
-			errs <- res.Wait(opts...)
-			wg.Done()
-		}(&wg, res)
+		errs <- res.Wait(opts...)
 	}
 
-	go func() {
-		wg.Wait()
-		close(errs)
-	}()
+	close(errs)
 
 	for err := range errs {
 		if err != nil {

@@ -2,7 +2,6 @@ package search
 
 import (
 	"fmt"
-	"sync"
 )
 
 type MultipleBatchRes struct {
@@ -12,21 +11,13 @@ type MultipleBatchRes struct {
 }
 
 func (r MultipleBatchRes) Wait(opts ...interface{}) error {
-	var wg sync.WaitGroup
 	errs := make(chan error, len(r.TaskIDs))
 
 	for index, taskID := range r.TaskIDs {
-		wg.Add(1)
-		go func(wg *sync.WaitGroup, index string, taskID int64) {
-			errs <- r.wait(index, taskID, opts...)
-			wg.Done()
-		}(&wg, index, taskID)
+		errs <- r.wait(index, taskID, opts...)
 	}
 
-	go func() {
-		wg.Wait()
-		close(errs)
-	}()
+	close(errs)
 
 	for err := range errs {
 		if err != nil {

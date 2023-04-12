@@ -33,6 +33,8 @@ func TestABTesting(t *testing.T) {
 
 		require.NoError(t, g.Wait())
 	}
+	// Wait to make sure the indices are propagated to all nodes not only the targeted one
+	time.Sleep(15 * time.Second)
 
 	var abTestID int
 	now := time.Now()
