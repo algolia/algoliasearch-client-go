@@ -53,6 +53,12 @@ func (c *Client) GetABTests(opts ...interface{}) (res GetABTestsRes, err error) 
 	if limit := iopt.ExtractLimit(opts...); limit != nil {
 		opts = opt.InsertExtraURLParam(opts, "limit", limit.Get())
 	}
+	if indexPrefix := iopt.ExtractIndexPrefix(opts...); indexPrefix != nil {
+		opts = opt.InsertExtraURLParam(opts, "indexPrefix", indexPrefix.Get())
+	}
+	if indexSuffix := iopt.ExtractIndexSuffix(opts...); indexSuffix != nil {
+		opts = opt.InsertExtraURLParam(opts, "indexSuffix", indexSuffix.Get())
+	}
 	path := c.pathABTesting("")
 	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return

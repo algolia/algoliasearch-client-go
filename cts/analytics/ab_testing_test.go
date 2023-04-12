@@ -80,6 +80,40 @@ func TestABTesting(t *testing.T) {
 		require.True(t, found)
 	}
 
+	// Find the AB test using the suffix
+	{
+		found := false
+
+		res, err := analyticsClient.GetABTests(opt.IndexSuffix(indexName2))
+		require.NoError(t, err)
+		for _, b := range res.ABTests {
+			if b.ABTestID == abTestID {
+				found = true
+				checkABTestsAreEqual(t, abTest, b)
+				break
+			}
+		}
+
+		require.True(t, found)
+	}
+
+	// Find the AB test using the prefix
+	{
+		found := false
+
+		res, err := analyticsClient.GetABTests(opt.IndexPrefix(indexName2))
+		require.NoError(t, err)
+		for _, b := range res.ABTests {
+			if b.ABTestID == abTestID {
+				found = true
+				checkABTestsAreEqual(t, abTest, b)
+				break
+			}
+		}
+
+		require.True(t, found)
+	}
+
 	// Stop the AB test
 	{
 		res, err := analyticsClient.StopABTest(abTestID)

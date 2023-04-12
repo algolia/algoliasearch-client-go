@@ -154,6 +154,10 @@ var options = []Option{
 	{"validUntil", Other, nil, ""},
 	{"referers", Other, []string{}, ""},
 
+	// AB Testing
+	{"indexPrefix", Other, "", ""},
+	{"indexSuffix", Other, "", ""},
+
 	// Other
 	{"query", Other, "", ""},
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
