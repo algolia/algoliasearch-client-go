@@ -22,7 +22,7 @@ if ! is_working_dir_clean; then
   exit 1
 fi
 
-gsed -i -E "s/version = \".+\"$/version = \"$version\"/" algoliasearch/transport.go
+gsed -i -E "s/version = \".+\"$/version = \"$version\"/" algolia/transport/transport.go
 rake alg:changelog["$version"]
 
 git --no-pager diff
@@ -34,7 +34,7 @@ if [[ "$yes_or_no" != "y" ]]; then
   exit 1
 fi
 
-git add ChangeLog.md algoliasearch/transport.go
+git add ChangeLog.md algolia/transport/transport.go
 git commit -m "chore: Release version $version [skip ci]"
-git tag "$version"
+git tag "v${version}"
 git push --tags
