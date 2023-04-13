@@ -1,5 +1,12 @@
 # ChangeLog
 
+## [3.28.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.27.0...3.28.0) (2023-04-13)
+
+## Feat
+
+-  allow to set a custom delay for the wait functions (#726) ([0d078b3](https://github.com/algolia/algoliasearch-client-go/commit/0d078b3))
+- **abtests**: add index_prefix and index_suffix options for ab_testing (#725) ([cede093](https://github.com/algolia/algoliasearch-client-go/commit/cede093))
+
 ## [3.27.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.5...3.27.0) (2023-03-30)
 
 ### Feat
