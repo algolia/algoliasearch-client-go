@@ -101,3 +101,13 @@ func hasObjectID(object interface{}) bool {
 	_, ok := getObjectID(object)
 	return ok
 }
+
+// Contains check if a slice contains a given string
+func SliceContains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
