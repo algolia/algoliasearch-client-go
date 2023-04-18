@@ -35,7 +35,7 @@ func (c *Client) DeleteDictionaryEntries(dictionaryName DictionaryName, objectID
 
 // ClearDictionaryEntries deletes all the dictionary entries from the given dictionary
 func (c *Client) ClearDictionaryEntries(dictionaryName DictionaryName, opts ...interface{}) (res UpdateTaskRes, err error) {
-	return c.ReplaceDictionaryEntries(dictionaryName, []DictionaryEntry{}, opts)
+	return c.ReplaceDictionaryEntries(dictionaryName, []DictionaryEntry{}, opts...)
 }
 
 // SearchDictionaryEntries searches for dictionary entries according to the given query string and any rule

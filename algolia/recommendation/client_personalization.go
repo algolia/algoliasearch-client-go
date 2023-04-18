@@ -9,13 +9,13 @@ import (
 
 func (c *Client) GetPersonalizationStrategy(opts ...interface{}) (strategy Strategy, err error) {
 	path := c.pathPersonalization("")
-	err = c.transport.Request(&strategy, http.MethodGet, path, nil, call.Read)
+	err = c.transport.Request(&strategy, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
 
 func (c *Client) SetPersonalizationStrategy(strategy Strategy, opts ...interface{}) (res SetPersonalizationStrategyRes, err error) {
 	path := c.pathPersonalization("")
-	err = c.transport.Request(&strategy, http.MethodPost, path, strategy, call.Write)
+	err = c.transport.Request(&strategy, http.MethodPost, path, strategy, call.Write, opts...)
 	return
 }
 

@@ -9,7 +9,7 @@ import (
 
 func (c *Client) GetRecommendations(options []RecommendationsOptions, opts ...interface{}) (res search.MultipleQueriesRes, err error) {
 	path := c.path("")
-	err = c.transport.Request(&res, http.MethodPost, path, multipleOptions{options}, call.Read)
+	err = c.transport.Request(&res, http.MethodPost, path, multipleOptions{options}, call.Read, opts...)
 	return
 }
 
@@ -18,7 +18,7 @@ func (c *Client) GetRelatedProducts(options []RelatedProductsOptions, opts ...in
 	for _, o := range options {
 		requests = append(requests, o.recommendationsOptions)
 	}
-	return c.GetRecommendations(requests, opts)
+	return c.GetRecommendations(requests, opts...)
 }
 
 func (c *Client) GetFrequentlyBoughtTogether(options []FrequentlyBoughtTogetherOptions, opts ...interface{}) (res search.MultipleQueriesRes, err error) {
@@ -26,7 +26,7 @@ func (c *Client) GetFrequentlyBoughtTogether(options []FrequentlyBoughtTogetherO
 	for _, o := range options {
 		requests = append(requests, o.recommendationsOptions)
 	}
-	return c.GetRecommendations(requests, opts)
+	return c.GetRecommendations(requests, opts...)
 }
 
 func (c *Client) path(format string, a ...interface{}) string {

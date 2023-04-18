@@ -145,5 +145,5 @@ func (c *Client) WaitTask(taskID int64, opts ...interface{}) error {
 			return true, err
 		}
 		return res.Status == "published", nil
-	}, iopt.ExtractWaitConfiguration(opts))
+	}, iopt.ExtractWaitConfiguration(opts...))
 }
