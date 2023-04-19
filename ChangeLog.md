@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.28.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.28.0...3.28.1) (2023-04-19)
+
+## Fix
+
+- pass unpacked options in some requests call to avoid silently ignoring them (#729) ([2954d85](https://github.com/algolia/algoliasearch-client-go/commit/2954d85))
+
 ## [3.28.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.27.0...3.28.0) (2023-04-13)
 
 ## Feat
