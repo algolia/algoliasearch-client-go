@@ -53,3 +53,19 @@ func TestHasObjectIDField(t *testing.T) {
 
 	require.False(t, hasObjectID(nil))
 }
+
+func TestGetScopeFromTaskID(t *testing.T) {
+	for _, c := range []struct {
+		taskID        int64
+		expectedScope string
+	}{
+		{4001, "index"},
+		{4011, "app"},
+		{4021, "metis"},
+		{4031, "recommend"},
+	} {
+		scope, err := getScopeFromTaskID(c.taskID)
+		require.NoError(t, err)
+		require.Equal(t, c.expectedScope, scope)
+	}
+}
