@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.29.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.28.0...3.29.0) (2023-05-09)
+
+## Feat
+
+- feat(recommend): implement Recommend-level waitTask (#730) ([c08a853](https://github.com/algolia/algoliasearch-client-go/commit/c08a853))
+
 ## [3.28.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.27.0...3.28.0) (2023-04-13)
 
 ## Feat
