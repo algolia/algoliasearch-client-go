@@ -57,6 +57,7 @@ model_run.go
 model_run_list_response.go
 model_run_outcome.go
 model_run_progress.go
+model_run_reason_code.go
 model_run_response.go
 model_run_sort_keys.go
 model_run_status.go
