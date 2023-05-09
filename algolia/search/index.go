@@ -115,7 +115,7 @@ func (i *Index) GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes,
 func (i *Index) GetRecommendStatus(taskID int64, opts ...interface{}) (res TaskStatusRes, err error) {
 	// modelName is arbitrarily defined as related-products because this parameter does not matter anymore
 	modelName := "related-products"
-	path := i.path("%s/task/%d", modelName, taskID)
+	path := i.path("/%s/task/%d", modelName, taskID)
 	err = i.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }
