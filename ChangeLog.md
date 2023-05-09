@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.29.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.0...3.29.1) (2023-05-09)
+
+## Fix
+
+- fix(recommend): Add missing slash in a Recommend URL path (#732) ([77887f4](https://github.com/algolia/algoliasearch-client-go/commit/77887f4))
+
 ## [3.29.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.28.0...3.29.0) (2023-05-09)
 
 ## Feat
