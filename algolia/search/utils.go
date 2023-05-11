@@ -103,6 +103,9 @@ func hasObjectID(object interface{}) bool {
 }
 
 func getScopeFromTaskID(taskID int64) (string, error) {
+	if taskID < 1000 {
+		return "index", nil
+	}
 	scopeID := (taskID / 10) % 100
 	switch scopeID {
 	case 0:
@@ -114,6 +117,6 @@ func getScopeFromTaskID(taskID int64) (string, error) {
 	case 3:
 		return "recommend", nil
 	default:
-		return "", fmt.Errorf("invalid taskID scope")
+		return "", fmt.Errorf("invalid taskID scope: %d", scopeID)
 	}
 }
