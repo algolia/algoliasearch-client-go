@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.29.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.1...v3.29.2) (2023-05-11)
+
+## Fix
+
+- fix(recommend): Handle taskIDs below 1000 as index scope (#734) ([c1be0f7](https://github.com/algolia/algoliasearch-client-go/commit/c1be0f7))
+
 ## [3.29.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.0...v3.29.1) (2023-05-09)
 
 ## Fix
