@@ -58,15 +58,17 @@ func TestGetScopeFromTaskID(t *testing.T) {
 	for _, c := range []struct {
 		taskID        int64
 		expectedScope string
+		expectedError error
 	}{
-		{123, "index"},
-		{4001, "index"},
-		{4011, "app"},
-		{4021, "metis"},
-		{4031, "recommend"},
-		{4041, ""},
+		{123, "index", nil},
+		{4001, "index", nil},
+		{4011, "app", nil},
+		{4021, "metis", nil},
+		{4031, "recommend", nil},
+		{4041, "", fmt.Errorf("taskID '4041' has an invalid scope: 4")},
 	} {
-		scope := getScopeFromTaskID(c.taskID)
+		scope, err := getScopeFromTaskID(c.taskID)
 		require.Equal(t, c.expectedScope, scope)
+		require.Equal(t, c.expectedError, err)
 	}
 }

@@ -43,7 +43,7 @@ func (i *Index) WaitTask(taskID int64, opts ...interface{}) error {
 	return waitWithRetry(func() (bool, error) {
 		var res TaskStatusRes
 		var err error
-		scope := getScopeFromTaskID(taskID)
+		scope, _ := getScopeFromTaskID(taskID)
 		if scope == "recommend" {
 			res, err = i.GetRecommendStatus(taskID, opts...)
 		} else {
