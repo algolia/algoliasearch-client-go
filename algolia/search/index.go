@@ -42,10 +42,8 @@ func (i *Index) path(format string, a ...interface{}) string {
 func (i *Index) WaitTask(taskID int64, opts ...interface{}) error {
 	return waitWithRetry(func() (bool, error) {
 		var res TaskStatusRes
-		scope, err := getScopeFromTaskID(taskID)
-		if err != nil {
-			return true, err
-		}
+		var err error
+		scope := getScopeFromTaskID(taskID)
 		if scope == "recommend" {
 			res, err = i.GetRecommendStatus(taskID, opts...)
 		} else {
