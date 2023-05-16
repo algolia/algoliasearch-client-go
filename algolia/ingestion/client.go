@@ -50,6 +50,7 @@ func NewClient(appID, apiKey string, region Region) *APIClient {
 	})
 }
 
+// NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.
 func NewClientWithConfig(cfg Configuration) *APIClient {
 	var hosts []*transport.StatefulHost
 

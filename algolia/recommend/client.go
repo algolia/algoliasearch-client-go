@@ -37,7 +37,7 @@ type APIClient struct {
 	transport *transport.Transport
 }
 
-// NewClient creates a new API client with appID, apiKey and region.
+// NewClient creates a new API client with appID and apiKey.
 func NewClient(appID, apiKey string) *APIClient {
 	return NewClientWithConfig(Configuration{
 		AppID:         appID,
@@ -49,6 +49,7 @@ func NewClient(appID, apiKey string) *APIClient {
 	})
 }
 
+// NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.
 func NewClientWithConfig(cfg Configuration) *APIClient {
 	var hosts []*transport.StatefulHost
 
