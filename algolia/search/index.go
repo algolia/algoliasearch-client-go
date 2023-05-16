@@ -42,15 +42,20 @@ func (i *Index) path(format string, a ...interface{}) string {
 func (i *Index) WaitTask(taskID int64, opts ...interface{}) error {
 	return waitWithRetry(func() (bool, error) {
 		var res TaskStatusRes
-		scope, err := getScopeFromTaskID(taskID)
+		res, err := i.GetStatus(taskID, opts...)
 		if err != nil {
 			return true, err
 		}
-		if scope == "recommend" {
-			res, err = i.GetRecommendStatus(taskID, opts...)
-		} else {
-			res, err = i.GetStatus(taskID, opts...)
-		}
+		return res.Status == "published", nil
+	}, iopt.ExtractWaitConfiguration(opts...))
+}
+
+// WaitRecommendTask blocks until the task identified by the given Recommend-scope
+// taskID is completed on Algolia engine.
+func (i *Index) WaitRecommendTask(taskID int64, opts ...interface{}) error {
+	return waitWithRetry(func() (bool, error) {
+		var res TaskStatusRes
+		res, err := i.GetRecommendStatus(taskID, opts...)
 		if err != nil {
 			return true, err
 		}
