@@ -45,6 +45,7 @@ model_list_sources_response.go
 model_list_tasks_response.go
 model_mapping_type_csv.go
 model_method_type.go
+model_on_demand_date_utils_input.go
 model_on_demand_trigger.go
 model_on_demand_trigger_input.go
 model_on_demand_trigger_type.go
@@ -62,6 +63,7 @@ model_run_response.go
 model_run_sort_keys.go
 model_run_status.go
 model_run_type.go
+model_schedule_date_utils_input.go
 model_schedule_trigger.go
 model_schedule_trigger_input.go
 model_schedule_trigger_type.go
@@ -87,6 +89,7 @@ model_task.go
 model_task_create.go
 model_task_create_response.go
 model_task_create_trigger.go
+model_task_input.go
 model_task_search.go
 model_task_sort_keys.go
 model_task_update.go
