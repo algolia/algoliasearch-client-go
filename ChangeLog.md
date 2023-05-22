@@ -1,6 +1,6 @@
 # ChangeLog
 
-## [3.29.3](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.2...v3.29.3) (2023-05-22)
+## [3.29.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.2...v3.29.4) (2023-05-22)
 
 ## Fix
 
