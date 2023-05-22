@@ -136,6 +136,16 @@ func (c *Client) GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes
 	return
 }
 
+// GetRecommendStatus retrieves the task status according to the Algolia engine
+// for the given Recommend task.
+func (c *Client) GetRecommendStatus(taskID int64, opts ...interface{}) (res TaskStatusRes, err error) {
+	// modelName is arbitrarily defined as related-products because this parameter does not matter anymore
+	modelName := "related-products"
+	path := c.path("/%s/task/%d", modelName, taskID)
+	err = c.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
+	return
+}
+
 // WaitTask blocks until the task identified by the given taskID is completed on
 // Algolia engine.
 func (c *Client) WaitTask(taskID int64, opts ...interface{}) error {
@@ -144,6 +154,18 @@ func (c *Client) WaitTask(taskID int64, opts ...interface{}) error {
 		if err != nil {
 			return true, err
 		}
-		return res.Status == "published", nil
+		return res.Status == taskPublished, nil
+	}, iopt.ExtractWaitConfiguration(opts...))
+}
+
+// WaitRecommendTask blocks until the task identified by the given Recommend-scope
+// taskID is completed on Algolia engine.
+func (c *Client) WaitRecommendTask(taskID int64, opts ...interface{}) error {
+	return waitWithRetry(func() (bool, error) {
+		res, err := c.GetRecommendStatus(taskID, opts...)
+		if err != nil {
+			return true, err
+		}
+		return res.Status == taskPublished, nil
 	}, iopt.ExtractWaitConfiguration(opts...))
 }
