@@ -41,12 +41,11 @@ func (i *Index) path(format string, a ...interface{}) string {
 // Algolia engine.
 func (i *Index) WaitTask(taskID int64, opts ...interface{}) error {
 	return waitWithRetry(func() (bool, error) {
-		var res TaskStatusRes
 		res, err := i.GetStatus(taskID, opts...)
 		if err != nil {
 			return true, err
 		}
-		return res.Status == "published", nil
+		return res.Status == taskPublished, nil
 	}, iopt.ExtractWaitConfiguration(opts...))
 }
 
@@ -54,12 +53,11 @@ func (i *Index) WaitTask(taskID int64, opts ...interface{}) error {
 // taskID is completed on Algolia engine.
 func (i *Index) WaitRecommendTask(taskID int64, opts ...interface{}) error {
 	return waitWithRetry(func() (bool, error) {
-		var res TaskStatusRes
 		res, err := i.GetRecommendStatus(taskID, opts...)
 		if err != nil {
 			return true, err
 		}
-		return res.Status == "published", nil
+		return res.Status == taskPublished, nil
 	}, iopt.ExtractWaitConfiguration(opts...))
 }
 

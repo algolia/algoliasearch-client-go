@@ -13,7 +13,8 @@ import (
 )
 
 const (
-	jsonNull = "null"
+	jsonNull      = "null"
+	taskPublished = "published"
 )
 
 func defaultHosts(appID string) (hosts []*transport.StatefulHost) {
