@@ -33,6 +33,8 @@ model_destination_sort_keys.go
 model_destination_type.go
 model_destination_update.go
 model_destination_update_response.go
+model_docker_image_type.go
+model_docker_registry.go
 model_error_base.go
 model_event.go
 model_event_sort_keys.go
@@ -74,6 +76,7 @@ model_source_commercetools.go
 model_source_create.go
 model_source_create_response.go
 model_source_csv.go
+model_source_docker.go
 model_source_input.go
 model_source_json.go
 model_source_search.go
