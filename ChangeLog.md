@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.30.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.4...v3.30.0) (2023-06-06)
+
+## Feat
+
+- feat(renderingContent): parse the redirect attribute (#737) ([1032659](https://github.com/algolia/algoliasearch-client-go/commit/1032659))
+
 ## [3.29.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.2...v3.29.4) (2023-05-22)
 
 ## Fix
