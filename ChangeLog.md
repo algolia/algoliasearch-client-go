@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.29.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.2...v3.29.4) (2023-05-22)
+
+## Fix
+
+- fix(recommend): implement dedicated waitRecommendTask function (#736) ([f053623](https://github.com/algolia/algoliasearch-client-go/commit/f053623))
+
 ## [3.29.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.1...v3.29.2) (2023-05-11)
 
 ## Fix
