@@ -26,6 +26,9 @@ func TestUnmarshalRenderingContent(t *testing.T) {
 					"sortRemainingBy": "alpha"
 				}
 			}
+		},
+		"redirect": {
+			"url": "https://algolia.com/doc"
 		}
 	}`
 	var r RenderingContent
@@ -40,6 +43,8 @@ func TestUnmarshalRenderingContent(t *testing.T) {
 	require.Nil(t, r.FacetOrdering.Values["color"].SortRemainingBy)
 
 	require.Nil(t, r.FacetOrdering.Values["size"].Order)
+
+	require.Equal(t, *r.Redirect, Redirect{Url: "https://algolia.com/doc"})
 }
 
 func TestMarshalRenderingContent(t *testing.T) {
@@ -105,6 +110,26 @@ func TestMarshalRenderingContent(t *testing.T) {
 							"sortRemainingBy": "hidden"
 						}
 					}
+				}
+			}`,
+		},
+		{
+			name: "values with one empty facet value `order`",
+			input: RenderingContent{
+				FacetOrdering: nil,
+			},
+			expected: `{}`,
+		},
+		{
+			name: "values with one empty facet value `order`",
+			input: RenderingContent{
+				Redirect: &Redirect{
+					Url: "https://algolia.com/doc",
+				},
+			},
+			expected: `{
+				"redirect": {
+					"url": "https://algolia.com/doc"
 				}
 			}`,
 		},
