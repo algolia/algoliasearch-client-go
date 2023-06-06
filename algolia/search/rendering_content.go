@@ -3,7 +3,8 @@ package search
 // Content defining how the search interface should be rendered.
 // This is set via the settings for a default value and can be overridden via rules
 type RenderingContent struct {
-	FacetOrdering *FacetOrdering `json:"facetOrdering"`
+	FacetOrdering *FacetOrdering `json:"facetOrdering,omitempty"`
+	Redirect      *Redirect      `json:"redirect,omitempty"`
 }
 
 // Facets and facets values ordering rules container
@@ -13,6 +14,11 @@ type FacetOrdering struct {
 
 	// The ordering of facet values, within an individual list.
 	Values map[string]FacetValuesOrder `json:"values,omitempty"`
+}
+
+// Redirect rule container
+type Redirect struct {
+	Url string `json:"url"`
 }
 
 // Facets ordering rule container
