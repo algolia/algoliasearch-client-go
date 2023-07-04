@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 	"testing"
 	"time"
 
@@ -152,4 +153,43 @@ func TestOnNetworkErrorWithNilBody(t *testing.T) {
 	require.True(t, ok)
 	require.Len(t, noMoreHostToTryErr.IntermediateNetworkErrors(), 1)
 	require.Equal(t, noMoreHostToTryErr.IntermediateNetworkErrors()[0].Error(), "cannot perform request:\n\terror=oh no\n\tmethod=GET\n\turl=https:")
+}
+
+type MockRequester struct {
+	validator func(req *http.Request)
+}
+
+func (m *MockRequester) Request(req *http.Request) (*http.Response, error) {
+	m.validator(req)
+	return &http.Response{StatusCode: 200, Body: ioutil.NopCloser(strings.NewReader("\"\""))}, nil
+}
+
+func TestShouldSupportCaseSensitiveHeader(t *testing.T) {
+	hosts := []*StatefulHost{NewStatefulHost("", call.IsReadWrite)}
+	requester := &MockRequester{validator: func(req *http.Request) {
+		require.Equal(t, "/1/test", req.URL.Path)
+		require.Equal(t, http.Header{
+			"Connection":               []string{"Keep-Alive"},
+			"Content-Type":             []string{"application/json; charset=utf-8"},
+			"User-Agent":               []string{"Algolia for Go (3.30.0);Go (go1.20.5)"},
+			"X-Algolia-Api-Key":        []string{"newKey"},
+			"X-Algolia-Application-Id": []string{"appID"},
+		}, req.Header)
+	}}
+
+	transporter := New(
+		hosts,
+		requester,
+		"appID",
+		"wrong key",
+		time.Second,
+		time.Second,
+		map[string]string{"x-algolia-api-keY": "still wrong key"},
+		"",
+		compression.None,
+	)
+	opts := []interface{}{opt.ExtraHeaders(map[string]string{"x-algolia-api-key": "newKey"})}
+	var res string
+	err := transporter.Request(&res, http.MethodGet, "/1/test", nil, call.Read, opts...)
+	require.NoError(t, err)
 }
