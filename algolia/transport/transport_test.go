@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -171,7 +172,7 @@ func TestShouldSupportCaseSensitiveHeader(t *testing.T) {
 		require.Equal(t, http.Header{
 			"Connection":               []string{"Keep-Alive"},
 			"Content-Type":             []string{"application/json; charset=utf-8"},
-			"User-Agent":               []string{"Algolia for Go (3.30.0);Go (go1.20.5)"},
+			"User-Agent":               []string{fmt.Sprintf("Algolia for Go (%s);Go (%s)", version, runtime.Version())},
 			"X-Algolia-Api-Key":        []string{"newKey"},
 			"X-Algolia-Application-Id": []string{"appID"},
 		}, req.Header)
