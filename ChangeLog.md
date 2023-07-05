@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.30.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.30.0...v3.30.1) (2023-06-05)
+
+## Fix
+
+- fix(transport): allow to override existing header with extra headers (#738) ([62653fc](https://github.com/algolia/algoliasearch-client-go/commit/62653fc))
+
 ## [3.30.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.4...v3.30.0) (2023-06-06)
 
 ## Feat
