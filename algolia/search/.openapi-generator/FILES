@@ -131,6 +131,7 @@ model_search_params_string.go
 model_search_query.go
 model_search_response.go
 model_search_responses.go
+model_search_result.go
 model_search_rules_params.go
 model_search_rules_response.go
 model_search_strategy.go
