@@ -5,6 +5,8 @@ configuration.go
 model_advanced_syntax_features.go
 model_alternatives_as_exact.go
 model_anchoring.go
+model_around_precision.go
+model_around_precision_from_value_inner.go
 model_around_radius.go
 model_around_radius_all.go
 model_automatic_facet_filter.go
