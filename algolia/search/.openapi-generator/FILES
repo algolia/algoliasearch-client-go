@@ -79,7 +79,6 @@ model_hit.go
 model_ignore_plurals.go
 model_index_settings.go
 model_index_settings_as_search_params.go
-model_index_settings_as_search_params_semantic_search.go
 model_languages.go
 model_list_api_keys_response.go
 model_list_clusters_response.go
@@ -143,6 +142,7 @@ model_search_type_default.go
 model_search_type_facet.go
 model_search_user_ids_params.go
 model_search_user_ids_response.go
+model_semantic_search.go
 model_snippet_result.go
 model_snippet_result_option.go
 model_sort_remaining_by.go

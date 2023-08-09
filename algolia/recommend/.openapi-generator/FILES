@@ -41,7 +41,6 @@ model_highlight_result.go
 model_highlight_result_option.go
 model_ignore_plurals.go
 model_index_settings_as_search_params.go
-model_index_settings_as_search_params_semantic_search.go
 model_match_level.go
 model_matched_geo_location.go
 model_mixed_search_filters.go
@@ -74,6 +73,7 @@ model_search_params_object.go
 model_search_params_query.go
 model_search_recommend_rules_params.go
 model_search_recommend_rules_response.go
+model_semantic_search.go
 model_snippet_result.go
 model_snippet_result_option.go
 model_sort_remaining_by.go
