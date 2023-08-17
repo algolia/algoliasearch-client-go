@@ -154,6 +154,10 @@ var options = []Option{
 	{"validUntil", Other, nil, ""},
 	{"referers", Other, []string{}, ""},
 
+	// AB Testing
+	{"indexPrefix", Other, "", ""},
+	{"indexSuffix", Other, "", ""},
+
 	// Other
 	{"query", Other, "", ""},
 	{"autoGenerateObjectIDIfNotExist", Other, false, ""},
@@ -176,4 +180,5 @@ var options = []Option{
 	{"exposeIntermediateNetworkErrors", Other, false, ""},
 	{"language", Other, "", ""},
 	{"disableStandardEntries", Other, map[string]map[string]bool{}, ""},
+	{"waitConfiguration", Other, nil, ""},
 }

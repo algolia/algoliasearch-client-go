@@ -45,8 +45,20 @@ func (i *Index) WaitTask(taskID int64, opts ...interface{}) error {
 		if err != nil {
 			return true, err
 		}
-		return res.Status == "published", nil
-	})
+		return res.Status == taskPublished, nil
+	}, iopt.ExtractWaitConfiguration(opts...))
+}
+
+// WaitRecommendTask blocks until the task identified by the given Recommend-scope
+// taskID is completed on Algolia engine.
+func (i *Index) WaitRecommendTask(taskID int64, opts ...interface{}) error {
+	return waitWithRetry(func() (bool, error) {
+		res, err := i.GetRecommendStatus(taskID, opts...)
+		if err != nil {
+			return true, err
+		}
+		return res.Status == taskPublished, nil
+	}, iopt.ExtractWaitConfiguration(opts...))
 }
 
 func (i *Index) operation(destination, op string, opts ...interface{}) (res UpdateTaskRes, err error) {
@@ -97,6 +109,16 @@ func (i *Index) Delete(opts ...interface{}) (res DeleteTaskRes, err error) {
 // given task.
 func (i *Index) GetStatus(taskID int64, opts ...interface{}) (res TaskStatusRes, err error) {
 	path := i.path("/task/%d", taskID)
+	err = i.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
+	return
+}
+
+// GetRecommendStatus retrieves the task status according to the Algolia engine
+// for the given Recommend task.
+func (i *Index) GetRecommendStatus(taskID int64, opts ...interface{}) (res TaskStatusRes, err error) {
+	// modelName is arbitrarily defined as related-products because this parameter does not matter anymore
+	modelName := "related-products"
+	path := i.path("/%s/task/%d", modelName, taskID)
 	err = i.transport.Request(&res, http.MethodGet, path, nil, call.Read, opts...)
 	return
 }

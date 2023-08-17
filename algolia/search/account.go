@@ -141,7 +141,7 @@ func (a *Account) CopyIndex(src, dst *Index, opts ...interface{}) (*wait.Group, 
 		}
 
 		// Send the last batch
-		res, err := dst.SaveObjects(objects, opts)
+		res, err := dst.SaveObjects(objects, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("error while saving batch of objects: %v", err)
 		}

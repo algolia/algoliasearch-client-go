@@ -1,6 +1,49 @@
 # ChangeLog
 
-## [3.27.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.5...3.27.0) (2023-03-30)
+## [3.30.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.30.0...v3.30.1) (2023-06-05)
+
+## Fix
+
+- fix(transport): allow to override existing header with extra headers (#738) ([62653fc](https://github.com/algolia/algoliasearch-client-go/commit/62653fc))
+
+## [3.30.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.4...v3.30.0) (2023-06-06)
+
+## Feat
+
+- feat(renderingContent): parse the redirect attribute (#737) ([1032659](https://github.com/algolia/algoliasearch-client-go/commit/1032659))
+
+## [3.29.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.2...v3.29.4) (2023-05-22)
+
+## Fix
+
+- fix(recommend): implement dedicated waitRecommendTask function (#736) ([f053623](https://github.com/algolia/algoliasearch-client-go/commit/f053623))
+
+## [3.29.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.1...v3.29.2) (2023-05-11)
+
+## Fix
+
+- fix(recommend): Handle taskIDs below 1000 as index scope (#734) ([c1be0f7](https://github.com/algolia/algoliasearch-client-go/commit/c1be0f7))
+
+## [3.29.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.29.0...v3.29.1) (2023-05-09)
+
+## Fix
+
+- fix(recommend): Add missing slash in a Recommend URL path (#732) ([77887f4](https://github.com/algolia/algoliasearch-client-go/commit/77887f4))
+
+## [3.29.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.28.0...v3.29.0) (2023-05-09)
+
+## Feat
+
+- feat(recommend): implement Recommend-level waitTask (#730) ([c08a853](https://github.com/algolia/algoliasearch-client-go/commit/c08a853))
+
+## [3.28.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.27.0...v3.28.0) (2023-04-13)
+
+## Feat
+
+-  allow to set a custom delay for the wait functions (#726) ([0d078b3](https://github.com/algolia/algoliasearch-client-go/commit/0d078b3))
+- **abtests**: add index_prefix and index_suffix options for ab_testing (#725) ([cede093](https://github.com/algolia/algoliasearch-client-go/commit/cede093))
+
+## [3.27.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.5...v3.27.0) (2023-03-30)
 
 ### Feat
 
@@ -10,7 +53,7 @@
 
 - support both schemas at the same time in rule consequence params (#721) ([1f720e4](https://github.com/algolia/algoliasearch-client-go/commit/1f720e4))
 
-## [3.26.5](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.4...3.26.5) (2023-03-29)
+## [3.26.5](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.4...v3.26.5) (2023-03-29)
 
 ### Fix
 
@@ -18,7 +61,7 @@
 
 
 
-## [3.26.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.3...3.26.4) (2023-02-24)
+## [3.26.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.3...v3.26.4) (2023-02-24)
 
 ### Fix
 
@@ -26,7 +69,7 @@
 
 
 
-## [3.26.3](https://github.com/algolia/algoliasearch-client-go/compare/3.26.2...3.26.3) (2023-02-16)
+## [3.26.3](https://github.com/algolia/algoliasearch-client-go/compare/3.26.2...v3.26.3) (2023-02-16)
 
 ### Fix
 
@@ -47,7 +90,7 @@
 
 
 
-## [3.26.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.0...3.26.1) (2022-08-31)
+## [3.26.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.26.0...v3.26.1) (2022-08-31)
 
 ### Fix
 
@@ -56,7 +99,7 @@
 
 
 
-## [3.26.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.25.0...3.26.0) (2022-07-04)
+## [3.26.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.25.0...v3.26.0) (2022-07-04)
 
 ### Fix
 

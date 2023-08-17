@@ -21,12 +21,12 @@ import (
 	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
 )
 
-const version = "3.27.0"
+const version = "3.30.1"
 
 type Transport struct {
 	requester     Requester
 	retryStrategy *RetryStrategy
-	headers       map[string]string
+	headers       http.Header
 	compression   compression.Compression
 }
 
@@ -54,16 +54,19 @@ func New(
 		userAgents = append([]string{extraUserAgent}, userAgents...)
 	}
 
-	headers := map[string]string{
+	headers := http.Header{}
+	for k, v := range map[string]string{
 		"Connection":               "Keep-Alive",
 		"Content-Type":             "application/json; charset=utf-8",
 		"User-Agent":               strings.Join(userAgents, ";"),
 		"X-Algolia-Application-Id": appID,
 		"X-Algolia-API-Key":        apiKey,
+	} {
+		headers.Set(k, v)
 	}
 
 	for k, v := range defaultHeaders {
-		headers[k] = v
+		headers.Set(k, v)
 	}
 
 	return &Transport{
@@ -191,14 +194,11 @@ func (t *Transport) request(req *http.Request) (io.ReadCloser, int, error) {
 	return res.Body, res.StatusCode, nil
 }
 
-func mergeHeaders(defaultHeaders, extraHeaders map[string]string) map[string]string {
-	headers := make(map[string]string)
+func mergeHeaders(defaultHeaders http.Header, extraHeaders map[string]string) http.Header {
+	headers := defaultHeaders.Clone()
 
-	for key, value := range defaultHeaders {
-		headers[key] = value
-	}
 	for key, value := range extraHeaders {
-		headers[key] = value
+		headers.Set(key, value)
 	}
 
 	return headers
@@ -263,7 +263,7 @@ func buildRequest(
 	host string,
 	path string,
 	body interface{},
-	headers map[string]string,
+	headers http.Header,
 	urlParams map[string]string,
 ) (req *http.Request, err error) {
 	urlStr := "https://" + host + path
@@ -280,9 +280,7 @@ func buildRequest(
 	}
 
 	// Add headers
-	for k, v := range headers {
-		req.Header.Add(k, v)
-	}
+	req.Header = headers
 
 	// Add Content-Encoding header, if needed
 	if isCompressionEnabled {
