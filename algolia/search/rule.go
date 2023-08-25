@@ -20,6 +20,7 @@ type Rule struct {
 	ObjectID    string             `json:"objectID,omitempty"`
 	Validity    []TimeRange        `json:"validity,omitempty"`
 	Tags        []string           `json:"tags,omitempty"`
+	Scope       string             `json:"scope,omitempty"`
 }
 
 // TimeRange is a pair of begin/end time.Time used to represent a rule validity

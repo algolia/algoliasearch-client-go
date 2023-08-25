@@ -8,6 +8,11 @@ type RuleConsequence struct {
 	FilterPromotes *opt.FilterPromotesOption `json:"filterPromotes,omitempty"`
 	Hide           []HiddenObject            `json:"hide,omitempty"`
 	UserData       interface{}               `json:"userData,omitempty"`
+	Redirect       *RuleRedirect             `json:"redirect,omitempty"`
+}
+
+type RuleRedirect struct {
+	IndexName string `json:"indexName,omitempty"`
 }
 
 type PromotedObject struct {
