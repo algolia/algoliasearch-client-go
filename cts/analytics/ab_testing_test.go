@@ -13,7 +13,6 @@ import (
 )
 
 func TestABTesting(t *testing.T) {
-	t.Parallel()
 	searchClient, index1, indexName1 := cts.InitSearchClient1AndIndex(t)
 	indexName2 := indexName1 + "_dev"
 	index2 := searchClient.InitIndex(indexName2)

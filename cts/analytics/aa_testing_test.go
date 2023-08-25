@@ -13,7 +13,6 @@ import (
 )
 
 func TestAATesting(t *testing.T) {
-	t.Parallel()
 	_, index, indexName := cts.InitSearchClient1AndIndex(t)
 	analyticsClient := cts.InitAnalyticsClient1(t)
 
