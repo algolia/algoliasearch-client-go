@@ -106,6 +106,18 @@ workflows:
                     - "1.18"
                     - "1.19"
                     - "1.20"
+                    - "1.21"
+
+      # These cannot be run in a matrix because they use the same
+      # resources.
+      - integration-tests:
+          filters:
+            branches:
+              # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+              # https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/
+              ignore: /pull\/[0-9]+/
+          name: integration-tests-1.16
+          go_version: "1.16"
 
       - integration-tests:
           filters:
@@ -113,11 +125,41 @@ workflows:
               # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
               # https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/
               ignore: /pull\/[0-9]+/
-          matrix:
-              parameters:
-                go_version:
-                    - "1.16"
-                    - "1.17"
-                    - "1.18"
-                    - "1.19"
-                    - "1.20"
+          name: integration-tests-1.17
+          go_version: "1.17"
+
+      - integration-tests:
+          filters:
+            branches:
+              # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+              # https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/
+              ignore: /pull\/[0-9]+/
+          name: integration-tests-1.18
+          go_version: "1.18"
+
+      - integration-tests:
+          filters:
+            branches:
+              # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+              # https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/
+              ignore: /pull\/[0-9]+/
+          name: integration-tests-1.19
+          go_version: "1.19"
+
+      - integration-tests:
+          filters:
+            branches:
+              # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+              # https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/
+              ignore: /pull\/[0-9]+/
+          name: integration-tests-1.20
+          go_version: "1.20"
+
+      - integration-tests:
+          filters:
+            branches:
+              # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+              # https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/
+              ignore: /pull\/[0-9]+/
+          name: integration-tests-1.21
+          go_version: "1.21"
