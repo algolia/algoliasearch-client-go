@@ -61,6 +61,7 @@ model_pagination.go
 model_platform.go
 model_platform_none.go
 model_platform_with_none.go
+model_record_type.go
 model_run.go
 model_run_list_response.go
 model_run_outcome.go
