@@ -90,6 +90,7 @@ model_source_sort_keys.go
 model_source_type.go
 model_source_update.go
 model_source_update_commercetools.go
+model_source_update_docker.go
 model_source_update_input.go
 model_source_update_response.go
 model_subscription_trigger.go
