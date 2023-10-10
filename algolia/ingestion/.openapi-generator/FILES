@@ -40,6 +40,8 @@ model_destination_update.go
 model_destination_update_response.go
 model_docker_image_type.go
 model_docker_registry.go
+model_docker_source_discover.go
+model_docker_source_streams.go
 model_error_base.go
 model_event.go
 model_event_sort_keys.go
