@@ -107,7 +107,7 @@ model_task_sort_keys.go
 model_task_update.go
 model_task_update_response.go
 model_trigger.go
-model_trigger_input.go
 model_trigger_type.go
+model_trigger_update_input.go
 response.go
 utils.go
