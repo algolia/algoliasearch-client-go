@@ -22,7 +22,6 @@ model_base_index_settings.go
 model_base_search_params.go
 model_base_search_params_without_query.go
 model_base_search_response.go
-model_base_search_response_redirect.go
 model_batch_assign_user_ids_params.go
 model_batch_dictionary_entries_params.go
 model_batch_dictionary_entries_request.go
@@ -58,6 +57,7 @@ model_edit.go
 model_edit_type.go
 model_error_base.go
 model_exact_on_single_word_query.go
+model_exhaustive.go
 model_facet_filters.go
 model_facet_hits.go
 model_facet_ordering.go
@@ -105,6 +105,7 @@ model_promote_object_ids.go
 model_query_type.go
 model_ranking_info.go
 model_re_ranking_apply_filter.go
+model_redirect.go
 model_redirect_rule_index_metadata.go
 model_redirect_rule_index_metadata_data.go
 model_remove_stop_words.go

@@ -16,7 +16,6 @@ model_base_recommendations_query.go
 model_base_search_params.go
 model_base_search_params_without_query.go
 model_base_search_response.go
-model_base_search_response_redirect.go
 model_base_trending_facets_query.go
 model_base_trending_items_query.go
 model_condition.go
@@ -31,6 +30,7 @@ model_edit.go
 model_edit_type.go
 model_error_base.go
 model_exact_on_single_word_query.go
+model_exhaustive.go
 model_facet_filters.go
 model_facet_ordering.go
 model_facets.go
@@ -63,6 +63,7 @@ model_recommendation_models.go
 model_recommendations_query.go
 model_recommendations_request.go
 model_recommendations_response.go
+model_redirect.go
 model_redirect_rule_index_metadata.go
 model_redirect_rule_index_metadata_data.go
 model_remove_stop_words.go
