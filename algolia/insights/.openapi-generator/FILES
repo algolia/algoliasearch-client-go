@@ -17,8 +17,6 @@ model_discount.go
 model_error_base.go
 model_events_items.go
 model_events_response.go
-model_identify.go
-model_identify_event.go
 model_insights_events.go
 model_object_data.go
 model_object_data_after_search.go
