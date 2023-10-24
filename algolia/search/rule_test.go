@@ -58,6 +58,17 @@ func TestRule_MarshalJSON(t *testing.T) {
 			},
 			`{"consequence":{},"tags":["visual-editor"]}`,
 		},
+		{
+			Rule{
+				Scope: "redirect",
+				Consequence: RuleConsequence{
+					Redirect: &RuleRedirect{
+						IndexName: "virtual_replica_A",
+					},
+				},
+			},
+			`{"consequence":{"redirect":{"indexName":"virtual_replica_A"}},"scope":"redirect"}`,
+		},
 	} {
 		// Encode the Rule to JSON
 		data, err := json.Marshal(&c.rule)

@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.31.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.30.1...v3.31.0) (2023-08-25)
+
+## Fix
+
+- fix(rules): missing redirect field in RuleConsequence (#740) ([0ed3836](https://github.com/algolia/algoliasearch-client-go/commit/0ed3836))
+
 ## [3.30.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.30.0...v3.30.1) (2023-06-05)
 
 ## Fix
