@@ -2,6 +2,8 @@
 api_query_suggestions.go
 client.go
 configuration.go
+model_base_query_suggestions_configuration_response.go
+model_base_query_suggestions_configuration_with_index.go
 model_base_response.go
 model_error_base.go
 model_facet.go
@@ -11,9 +13,7 @@ model_languages.go
 model_log_level.go
 model_query_suggestions_configuration.go
 model_query_suggestions_configuration_response.go
-model_query_suggestions_configuration_response_all_of.go
 model_query_suggestions_configuration_with_index.go
-model_query_suggestions_configuration_with_index_all_of.go
 model_source_index.go
 response.go
 utils.go
