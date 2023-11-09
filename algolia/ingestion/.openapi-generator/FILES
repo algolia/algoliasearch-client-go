@@ -109,5 +109,6 @@ model_task_update_response.go
 model_trigger.go
 model_trigger_type.go
 model_trigger_update_input.go
+model_window.go
 response.go
 utils.go
