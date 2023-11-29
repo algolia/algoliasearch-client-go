@@ -1,3 +1,7 @@
+## [4.0.0-alpha.37](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.36...4.0.0-alpha.37)
+
+- [2ba2d6bf9](https://github.com/algolia/api-clients-automation/commit/2ba2d6bf9) fix(go): check for NPE ([#2307](https://github.com/algolia/api-clients-automation/pull/2307)) by [@millotp](https://github.com/millotp/)
+
 ## [4.0.0-alpha.36](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.35...4.0.0-alpha.36)
 
 - [5a7a8aeb4](https://github.com/algolia/api-clients-automation/commit/5a7a8aeb4) chore(specs): publish docs specs ([#2255](https://github.com/algolia/api-clients-automation/pull/2255)) by [@shortcuts](https://github.com/shortcuts/)
