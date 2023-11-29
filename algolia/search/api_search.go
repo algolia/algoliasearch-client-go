@@ -10372,6 +10372,10 @@ func (c *APIClient) WaitForTaskWithContext(
 			return c.GetTaskWithContext(ctx, c.NewApiGetTaskRequest(indexName, taskID), opts...)
 		},
 		func(response *GetTaskResponse, err error) bool {
+			if err != nil || response == nil {
+				return false
+			}
+
 			return response.Status == TASKSTATUS_PUBLISHED
 		},
 		maxRetries,
