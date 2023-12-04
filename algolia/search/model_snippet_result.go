@@ -8,8 +8,8 @@ import (
 
 // SnippetResult - struct for SnippetResult
 type SnippetResult struct {
-	SnippetResultOption        *SnippetResultOption
-	ArrayOfSnippetResultOption *[]SnippetResultOption
+	SnippetResultOption               *SnippetResultOption
+	MapmapOfStringSnippetResultOption *map[string]SnippetResultOption
 }
 
 // SnippetResultOptionAsSnippetResult is a convenience function that returns SnippetResultOption wrapped in SnippetResult
@@ -19,10 +19,10 @@ func SnippetResultOptionAsSnippetResult(v *SnippetResultOption) SnippetResult {
 	}
 }
 
-// []SnippetResultOptionAsSnippetResult is a convenience function that returns []SnippetResultOption wrapped in SnippetResult
-func ArrayOfSnippetResultOptionAsSnippetResult(v *[]SnippetResultOption) SnippetResult {
+// map[string]SnippetResultOptionAsSnippetResult is a convenience function that returns map[string]SnippetResultOption wrapped in SnippetResult
+func MapmapOfStringSnippetResultOptionAsSnippetResult(v *map[string]SnippetResultOption) SnippetResult {
 	return SnippetResult{
-		ArrayOfSnippetResultOption: v,
+		MapmapOfStringSnippetResultOption: v,
 	}
 }
 
@@ -42,17 +42,17 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 		dst.SnippetResultOption = nil
 	}
 
-	// try to unmarshal data into ArrayOfSnippetResultOption
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfSnippetResultOption)
-	if err == nil && validateStruct(dst.ArrayOfSnippetResultOption) == nil {
-		jsonArrayOfSnippetResultOption, _ := json.Marshal(dst.ArrayOfSnippetResultOption)
-		if string(jsonArrayOfSnippetResultOption) == "{}" { // empty struct
-			dst.ArrayOfSnippetResultOption = nil
+	// try to unmarshal data into MapmapOfStringSnippetResultOption
+	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringSnippetResultOption)
+	if err == nil && validateStruct(dst.MapmapOfStringSnippetResultOption) == nil {
+		jsonMapmapOfStringSnippetResultOption, _ := json.Marshal(dst.MapmapOfStringSnippetResultOption)
+		if string(jsonMapmapOfStringSnippetResultOption) == "{}" { // empty struct
+			dst.MapmapOfStringSnippetResultOption = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.ArrayOfSnippetResultOption = nil
+		dst.MapmapOfStringSnippetResultOption = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(SnippetResult)")
@@ -64,8 +64,8 @@ func (src SnippetResult) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.SnippetResultOption)
 	}
 
-	if src.ArrayOfSnippetResultOption != nil {
-		return json.Marshal(&src.ArrayOfSnippetResultOption)
+	if src.MapmapOfStringSnippetResultOption != nil {
+		return json.Marshal(&src.MapmapOfStringSnippetResultOption)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -80,8 +80,8 @@ func (obj *SnippetResult) GetActualInstance() any {
 		return obj.SnippetResultOption
 	}
 
-	if obj.ArrayOfSnippetResultOption != nil {
-		return obj.ArrayOfSnippetResultOption
+	if obj.MapmapOfStringSnippetResultOption != nil {
+		return obj.MapmapOfStringSnippetResultOption
 	}
 
 	// all schemas are nil

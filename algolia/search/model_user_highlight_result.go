@@ -8,17 +8,15 @@ import (
 
 // UserHighlightResult struct for UserHighlightResult
 type UserHighlightResult struct {
-	// Show highlighted section and words matched on a query.
-	UserID map[string]HighlightResult `json:"userID"`
-	// Show highlighted section and words matched on a query.
-	ClusterName map[string]HighlightResult `json:"clusterName"`
+	UserID      HighlightResult `json:"userID"`
+	ClusterName HighlightResult `json:"clusterName"`
 }
 
 // NewUserHighlightResult instantiates a new UserHighlightResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserHighlightResult(userID map[string]HighlightResult, clusterName map[string]HighlightResult) *UserHighlightResult {
+func NewUserHighlightResult(userID HighlightResult, clusterName HighlightResult) *UserHighlightResult {
 	this := &UserHighlightResult{}
 	this.UserID = userID
 	this.ClusterName = clusterName
@@ -34,9 +32,9 @@ func NewUserHighlightResultWithDefaults() *UserHighlightResult {
 }
 
 // GetUserID returns the UserID field value
-func (o *UserHighlightResult) GetUserID() map[string]HighlightResult {
+func (o *UserHighlightResult) GetUserID() HighlightResult {
 	if o == nil {
-		var ret map[string]HighlightResult
+		var ret HighlightResult
 		return ret
 	}
 
@@ -45,7 +43,7 @@ func (o *UserHighlightResult) GetUserID() map[string]HighlightResult {
 
 // GetUserIDOk returns a tuple with the UserID field value
 // and a boolean to check if the value has been set.
-func (o *UserHighlightResult) GetUserIDOk() (*map[string]HighlightResult, bool) {
+func (o *UserHighlightResult) GetUserIDOk() (*HighlightResult, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -53,14 +51,14 @@ func (o *UserHighlightResult) GetUserIDOk() (*map[string]HighlightResult, bool) 
 }
 
 // SetUserID sets field value
-func (o *UserHighlightResult) SetUserID(v map[string]HighlightResult) {
+func (o *UserHighlightResult) SetUserID(v HighlightResult) {
 	o.UserID = v
 }
 
 // GetClusterName returns the ClusterName field value
-func (o *UserHighlightResult) GetClusterName() map[string]HighlightResult {
+func (o *UserHighlightResult) GetClusterName() HighlightResult {
 	if o == nil {
-		var ret map[string]HighlightResult
+		var ret HighlightResult
 		return ret
 	}
 
@@ -69,7 +67,7 @@ func (o *UserHighlightResult) GetClusterName() map[string]HighlightResult {
 
 // GetClusterNameOk returns a tuple with the ClusterName field value
 // and a boolean to check if the value has been set.
-func (o *UserHighlightResult) GetClusterNameOk() (*map[string]HighlightResult, bool) {
+func (o *UserHighlightResult) GetClusterNameOk() (*HighlightResult, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,7 +75,7 @@ func (o *UserHighlightResult) GetClusterNameOk() (*map[string]HighlightResult, b
 }
 
 // SetClusterName sets field value
-func (o *UserHighlightResult) SetClusterName(v map[string]HighlightResult) {
+func (o *UserHighlightResult) SetClusterName(v HighlightResult) {
 	o.ClusterName = v
 }
 
