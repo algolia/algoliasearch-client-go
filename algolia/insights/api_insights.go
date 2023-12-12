@@ -35,7 +35,7 @@ func HeaderParamOption(name string, val any) Option {
 	}
 }
 
-func (r *ApiDelRequest) UnmarshalJSON(b []byte) error {
+func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
@@ -63,52 +63,52 @@ func (r *ApiDelRequest) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// ApiDelRequest represents the request with all the parameters for the API call.
-type ApiDelRequest struct {
+// ApiCustomDeleteRequest represents the request with all the parameters for the API call.
+type ApiCustomDeleteRequest struct {
 	path       string
 	parameters map[string]interface{}
 }
 
-// NewApiDelRequest creates an instance of the ApiDelRequest to be used for the API call.
-func (c *APIClient) NewApiDelRequest(path string) ApiDelRequest {
-	return ApiDelRequest{
+// NewApiCustomDeleteRequest creates an instance of the ApiCustomDeleteRequest to be used for the API call.
+func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteRequest {
+	return ApiCustomDeleteRequest{
 		path: path,
 	}
 }
 
-// WithParameters adds the parameters to the ApiDelRequest and returns the request for chaining.
-func (r ApiDelRequest) WithParameters(parameters map[string]interface{}) ApiDelRequest {
+// WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
+func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}) ApiCustomDeleteRequest {
 	r.parameters = parameters
 	return r
 }
 
 /*
-Del Send requests to the Algolia REST API. Wraps DelWithContext using context.Background.
+CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiDelRequest with parameters below.
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	@param parameters map[string]interface{} - Query parameters to apply to the current query.
 	@return map[string]interface{}
 */
-func (c *APIClient) Del(r ApiDelRequest, opts ...Option) (map[string]interface{}, error) {
-	return c.DelWithContext(context.Background(), r, opts...)
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[string]interface{}, error) {
+	return c.CustomDeleteWithContext(context.Background(), r, opts...)
 }
 
 /*
-Del Send requests to the Algolia REST API.
+CustomDelete Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiDelRequest with parameters below.
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	@param parameters map[string]interface{} - Query parameters to apply to the current query.
 	@return map[string]interface{}
 */
-func (c *APIClient) DelWithContext(ctx context.Context, r ApiDelRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (map[string]interface{}, error) {
 	var (
 		postBody    any
 		returnValue map[string]interface{}
@@ -207,7 +207,7 @@ func (c *APIClient) DelWithContext(ctx context.Context, r ApiDelRequest, opts ..
 	return returnValue, nil
 }
 
-func (r *ApiGetRequest) UnmarshalJSON(b []byte) error {
+func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
@@ -235,52 +235,52 @@ func (r *ApiGetRequest) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// ApiGetRequest represents the request with all the parameters for the API call.
-type ApiGetRequest struct {
+// ApiCustomGetRequest represents the request with all the parameters for the API call.
+type ApiCustomGetRequest struct {
 	path       string
 	parameters map[string]interface{}
 }
 
-// NewApiGetRequest creates an instance of the ApiGetRequest to be used for the API call.
-func (c *APIClient) NewApiGetRequest(path string) ApiGetRequest {
-	return ApiGetRequest{
+// NewApiCustomGetRequest creates an instance of the ApiCustomGetRequest to be used for the API call.
+func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
+	return ApiCustomGetRequest{
 		path: path,
 	}
 }
 
-// WithParameters adds the parameters to the ApiGetRequest and returns the request for chaining.
-func (r ApiGetRequest) WithParameters(parameters map[string]interface{}) ApiGetRequest {
+// WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
+func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) ApiCustomGetRequest {
 	r.parameters = parameters
 	return r
 }
 
 /*
-Get Send requests to the Algolia REST API. Wraps GetWithContext using context.Background.
+CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiGetRequest with parameters below.
+Request can be constructed by NewApiCustomGetRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	@param parameters map[string]interface{} - Query parameters to apply to the current query.
 	@return map[string]interface{}
 */
-func (c *APIClient) Get(r ApiGetRequest, opts ...Option) (map[string]interface{}, error) {
-	return c.GetWithContext(context.Background(), r, opts...)
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string]interface{}, error) {
+	return c.CustomGetWithContext(context.Background(), r, opts...)
 }
 
 /*
-Get Send requests to the Algolia REST API.
+CustomGet Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiGetRequest with parameters below.
+Request can be constructed by NewApiCustomGetRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	@param parameters map[string]interface{} - Query parameters to apply to the current query.
 	@return map[string]interface{}
 */
-func (c *APIClient) GetWithContext(ctx context.Context, r ApiGetRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (map[string]interface{}, error) {
 	var (
 		postBody    any
 		returnValue map[string]interface{}
@@ -379,7 +379,7 @@ func (c *APIClient) GetWithContext(ctx context.Context, r ApiGetRequest, opts ..
 	return returnValue, nil
 }
 
-func (r *ApiPostRequest) UnmarshalJSON(b []byte) error {
+func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
@@ -416,61 +416,61 @@ func (r *ApiPostRequest) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// ApiPostRequest represents the request with all the parameters for the API call.
-type ApiPostRequest struct {
+// ApiCustomPostRequest represents the request with all the parameters for the API call.
+type ApiCustomPostRequest struct {
 	path       string
 	parameters map[string]interface{}
 	body       map[string]interface{}
 }
 
-// NewApiPostRequest creates an instance of the ApiPostRequest to be used for the API call.
-func (c *APIClient) NewApiPostRequest(path string) ApiPostRequest {
-	return ApiPostRequest{
+// NewApiCustomPostRequest creates an instance of the ApiCustomPostRequest to be used for the API call.
+func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
+	return ApiCustomPostRequest{
 		path: path,
 	}
 }
 
-// WithParameters adds the parameters to the ApiPostRequest and returns the request for chaining.
-func (r ApiPostRequest) WithParameters(parameters map[string]interface{}) ApiPostRequest {
+// WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
+func (r ApiCustomPostRequest) WithParameters(parameters map[string]interface{}) ApiCustomPostRequest {
 	r.parameters = parameters
 	return r
 }
 
-// WithBody adds the body to the ApiPostRequest and returns the request for chaining.
-func (r ApiPostRequest) WithBody(body map[string]interface{}) ApiPostRequest {
+// WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
+func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPostRequest {
 	r.body = body
 	return r
 }
 
 /*
-Post Send requests to the Algolia REST API. Wraps PostWithContext using context.Background.
+CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiPostRequest with parameters below.
+Request can be constructed by NewApiCustomPostRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	@param parameters map[string]interface{} - Query parameters to apply to the current query.
 	@param body map[string]interface{} - Parameters to send with the custom request.
 	@return map[string]interface{}
 */
-func (c *APIClient) Post(r ApiPostRequest, opts ...Option) (map[string]interface{}, error) {
-	return c.PostWithContext(context.Background(), r, opts...)
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[string]interface{}, error) {
+	return c.CustomPostWithContext(context.Background(), r, opts...)
 }
 
 /*
-Post Send requests to the Algolia REST API.
+CustomPost Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiPostRequest with parameters below.
+Request can be constructed by NewApiCustomPostRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	@param parameters map[string]interface{} - Query parameters to apply to the current query.
 	@param body map[string]interface{} - Parameters to send with the custom request.
 	@return map[string]interface{}
 */
-func (c *APIClient) PostWithContext(ctx context.Context, r ApiPostRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (map[string]interface{}, error) {
 	var (
 		postBody    any
 		returnValue map[string]interface{}
@@ -505,6 +505,202 @@ func (c *APIClient) PostWithContext(ctx context.Context, r ApiPostRequest, opts 
 		postBody = r.body
 	}
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, err := c.callAPI(req, call.Write)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	resBody, err := io.ReadAll(res.Body)
+	res.Body.Close()
+	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+		if res.StatusCode == 400 {
+			var v ErrorBase
+			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.Message = err.Error()
+				return returnValue, newErr
+			}
+			return returnValue, newErr
+		}
+		if res.StatusCode == 402 {
+			var v ErrorBase
+			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.Message = err.Error()
+				return returnValue, newErr
+			}
+			return returnValue, newErr
+		}
+		if res.StatusCode == 403 {
+			var v ErrorBase
+			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.Message = err.Error()
+				return returnValue, newErr
+			}
+			return returnValue, newErr
+		}
+		if res.StatusCode == 404 {
+			var v ErrorBase
+			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.Message = err.Error()
+				return returnValue, newErr
+			}
+		}
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody, res.Header.Get("Content-Type"))
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return err
+	}
+	if v, ok := req["path"]; ok {
+		err = json.Unmarshal(v, &r.path)
+		if err != nil {
+			err = json.Unmarshal(b, &r.path)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	if v, ok := req["parameters"]; ok {
+		err = json.Unmarshal(v, &r.parameters)
+		if err != nil {
+			err = json.Unmarshal(b, &r.parameters)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	if v, ok := req["body"]; ok {
+		err = json.Unmarshal(v, &r.body)
+		if err != nil {
+			err = json.Unmarshal(b, &r.body)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiCustomPutRequest represents the request with all the parameters for the API call.
+type ApiCustomPutRequest struct {
+	path       string
+	parameters map[string]interface{}
+	body       map[string]interface{}
+}
+
+// NewApiCustomPutRequest creates an instance of the ApiCustomPutRequest to be used for the API call.
+func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
+	return ApiCustomPutRequest{
+		path: path,
+	}
+}
+
+// WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
+func (r ApiCustomPutRequest) WithParameters(parameters map[string]interface{}) ApiCustomPutRequest {
+	r.parameters = parameters
+	return r
+}
+
+// WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
+func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutRequest {
+	r.body = body
+	return r
+}
+
+/*
+CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]interface{} - Query parameters to apply to the current query.
+	@param body map[string]interface{} - Parameters to send with the custom request.
+	@return map[string]interface{}
+*/
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string]interface{}, error) {
+	return c.CustomPutWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomPut Send requests to the Algolia REST API.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]interface{} - Query parameters to apply to the current query.
+	@param body map[string]interface{} - Parameters to send with the custom request.
+	@return map[string]interface{}
+*/
+func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (map[string]interface{}, error) {
+	var (
+		postBody    any
+		returnValue map[string]interface{}
+	)
+
+	requestPath := "/1{path}"
+	requestPath = strings.Replace(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)), -1)
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	if !isNilorEmpty(r.parameters) {
+		for k, v := range r.parameters {
+			queryParams.Set(k, parameterToString(v))
+		}
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	// body params
+	if isNilorEmpty(r.body) {
+		postBody = "{}"
+	} else {
+		postBody = r.body
+	}
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
 	if err != nil {
 		return returnValue, err
 	}
@@ -739,202 +935,6 @@ func (c *APIClient) PushEventsWithContext(ctx context.Context, r ApiPushEventsRe
 		}
 		if res.StatusCode == 422 {
 			var v EventsResponse
-			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.Message = err.Error()
-				return returnValue, newErr
-			}
-		}
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody, res.Header.Get("Content-Type"))
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
-func (r *ApiPutRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return err
-	}
-	if v, ok := req["path"]; ok {
-		err = json.Unmarshal(v, &r.path)
-		if err != nil {
-			err = json.Unmarshal(b, &r.path)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	if v, ok := req["parameters"]; ok {
-		err = json.Unmarshal(v, &r.parameters)
-		if err != nil {
-			err = json.Unmarshal(b, &r.parameters)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	if v, ok := req["body"]; ok {
-		err = json.Unmarshal(v, &r.body)
-		if err != nil {
-			err = json.Unmarshal(b, &r.body)
-			if err != nil {
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiPutRequest represents the request with all the parameters for the API call.
-type ApiPutRequest struct {
-	path       string
-	parameters map[string]interface{}
-	body       map[string]interface{}
-}
-
-// NewApiPutRequest creates an instance of the ApiPutRequest to be used for the API call.
-func (c *APIClient) NewApiPutRequest(path string) ApiPutRequest {
-	return ApiPutRequest{
-		path: path,
-	}
-}
-
-// WithParameters adds the parameters to the ApiPutRequest and returns the request for chaining.
-func (r ApiPutRequest) WithParameters(parameters map[string]interface{}) ApiPutRequest {
-	r.parameters = parameters
-	return r
-}
-
-// WithBody adds the body to the ApiPutRequest and returns the request for chaining.
-func (r ApiPutRequest) WithBody(body map[string]interface{}) ApiPutRequest {
-	r.body = body
-	return r
-}
-
-/*
-Put Send requests to the Algolia REST API. Wraps PutWithContext using context.Background.
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiPutRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@param body map[string]interface{} - Parameters to send with the custom request.
-	@return map[string]interface{}
-*/
-func (c *APIClient) Put(r ApiPutRequest, opts ...Option) (map[string]interface{}, error) {
-	return c.PutWithContext(context.Background(), r, opts...)
-}
-
-/*
-Put Send requests to the Algolia REST API.
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiPutRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@param body map[string]interface{} - Parameters to send with the custom request.
-	@return map[string]interface{}
-*/
-func (c *APIClient) PutWithContext(ctx context.Context, r ApiPutRequest, opts ...Option) (map[string]interface{}, error) {
-	var (
-		postBody    any
-		returnValue map[string]interface{}
-	)
-
-	requestPath := "/1{path}"
-	requestPath = strings.Replace(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)), -1)
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	if !isNilorEmpty(r.parameters) {
-		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
-		}
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	// body params
-	if isNilorEmpty(r.body) {
-		postBody = "{}"
-	} else {
-		postBody = r.body
-	}
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, err := c.callAPI(req, call.Write)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-		if res.StatusCode == 400 {
-			var v ErrorBase
-			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.Message = err.Error()
-				return returnValue, newErr
-			}
-			return returnValue, newErr
-		}
-		if res.StatusCode == 402 {
-			var v ErrorBase
-			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.Message = err.Error()
-				return returnValue, newErr
-			}
-			return returnValue, newErr
-		}
-		if res.StatusCode == 403 {
-			var v ErrorBase
-			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.Message = err.Error()
-				return returnValue, newErr
-			}
-			return returnValue, newErr
-		}
-		if res.StatusCode == 404 {
-			var v ErrorBase
 			err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.Message = err.Error()
