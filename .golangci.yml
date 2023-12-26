@@ -1,0 +1,74 @@
+linters-settings:
+  govet:
+    check-shadowing: true
+    enable-all: true
+    disable:
+      - fieldalignment
+
+  revive:
+    min-confidence: 0.8
+    rules:
+      - name: var-naming
+        disabled: true
+
+linters:
+  enable-all: true
+
+  disable:
+    - godox
+    - contextcheck
+    - interfacebloat
+    - gci
+    - gosmopolitan
+    - wsl
+    - varnamelen
+    - nlreturn
+    - goerr113
+    - gochecknoglobals
+    - exhaustruct
+    - wrapcheck
+    - exhaustive
+    - depguard
+    - lll
+    - forbidigo
+    - gochecknoinits
+    - cyclop
+    - errorlint
+    - gomnd
+    - tagliatelle
+    - nilnil
+    - stylecheck
+    - musttag
+    - errchkjson
+    - nonamedreturns
+    - inamedparam
+    - ineffassign
+    - dupword
+    - nestif
+    - goconst
+    - funlen
+    - dupl
+    - unparam
+    - gocognit
+    - forcetypeassert
+    - wastedassign
+    - gocyclo
+    - maintidx
+
+    # Deprecated
+    - deadcode
+    - exhaustivestruct
+    - golint
+    - ifshort
+    - interfacer
+    - maligned
+    - nosnakecase
+    - scopelint
+    - structcheck
+    - varcheck
+service:
+  golangci-lint-version: 1.55.2
+
+run:
+  concurrency: 2
+  timeout: 10m

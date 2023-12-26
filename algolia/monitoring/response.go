@@ -1,7 +1,7 @@
 /*
 Algolia Monitoring API
 
-The Monitoring API lets you check the status and performance of your Algolia infrastructure.  > **Note**: The Monitoring API is available on [Premium plans](https://www.algolia.com/pricing/) and plans including the Enterprise add-on.
+The Monitoring API lets you check the status and performance of your Algolia infrastructure.  > **Note**: The Monitoring API is available on [Premium plans](https://www.algolia.com/pricing/) and plans including the Enterprise add-on. 
 
 API version: 1.0.0
 */

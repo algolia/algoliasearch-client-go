@@ -27,11 +27,11 @@ func copyReadCloser(r io.ReadCloser) (io.ReadCloser, string) {
 func decodeGzipContent(in string) (string, error) {
 	gr, err := gzip.NewReader(strings.NewReader(in))
 	if err != nil {
-		return in, fmt.Errorf("cannot open content with gzip.Reader: %v", err)
+		return in, fmt.Errorf("cannot open content with gzip.Reader: %w", err)
 	}
 	out, err := io.ReadAll(gr)
 	if err != nil {
-		return in, fmt.Errorf("cannot read content from gzip.Reader: %v", err)
+		return in, fmt.Errorf("cannot read content from gzip.Reader: %w", err)
 	}
 	return string(out), nil
 }

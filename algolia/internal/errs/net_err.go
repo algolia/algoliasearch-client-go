@@ -1,6 +1,8 @@
 package errs
 
-import "net"
+import (
+	"net"
+)
 
 type netError struct {
 	msg         string

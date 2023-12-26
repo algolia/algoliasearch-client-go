@@ -1,7 +1,7 @@
 /*
 Analytics API
 
-The Analytics API lets you review your search, and click and conversion analytics. > **Note**: The API key in the `X-Algolia-API-Key` header requires the [`analytics` ACL](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl).
+The Analytics API lets you review your search, and click and conversion analytics. > **Note**: The API key in the `X-Algolia-API-Key` header requires the [`analytics` ACL](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl). 
 
 API version: 1.0.0
 */
@@ -15,7 +15,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/internal/errs"
+  "github.com/algolia/algoliasearch-client-go/v4/algolia/internal/errs"
 )
 
 // PtrBool is a helper routine that returns a pointer to given boolean value.
@@ -338,48 +338,48 @@ func isNilorEmpty(i any) bool {
 	switch reflect.TypeOf(i).Kind() {
 	case reflect.Chan, reflect.Func, reflect.Map, reflect.Ptr, reflect.UnsafePointer, reflect.Interface, reflect.Slice:
 		return reflect.ValueOf(i).IsNil()
-	case reflect.Bool:
-		return false
+  case reflect.Bool:
+    return false
 	default:
 		return reflect.ValueOf(i).IsZero()
 	}
 }
 
 func RetryUntil[T any](
-	retry func() (*T, error),
-	until func(*T, error) bool,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+  retry func() (*T, error),
+  until func(*T, error) bool,
+  maxRetries *int,
+  initialDelay *time.Duration,
+  maxDelay *time.Duration,
 ) (*T, error) {
-	if maxRetries == nil {
-		maxRetries = new(int)
-		*maxRetries = 50
-	}
+  if maxRetries == nil {
+    maxRetries = new(int)
+    *maxRetries = 50
+  }
 
-	if initialDelay == nil {
-		initialDelay = new(time.Duration)
-		*initialDelay = 200 * time.Millisecond
-	}
+  if initialDelay == nil {
+    initialDelay = new(time.Duration)
+    *initialDelay = 200 * time.Millisecond
+  }
 
-	if maxDelay == nil {
-		maxDelay = new(time.Duration)
-		*maxDelay = 5 * time.Second
-	}
+  if maxDelay == nil {
+    maxDelay = new(time.Duration)
+    *maxDelay = 5 * time.Second
+  }
 
-	for i := 0; i < *maxRetries; i++ {
-		res, err := retry()
+  for i := 0; i < *maxRetries; i++ {
+    res, err := retry()
 
-		if ok := until(res, err); ok {
-			return res, nil
-		}
+    if ok := until(res, err); ok {
+      return res, nil
+    }
 
-		time.Sleep(*initialDelay)
-		*initialDelay *= 2
-		if *initialDelay > *maxDelay {
-			*initialDelay = *maxDelay
-		}
-	}
+    time.Sleep(*initialDelay)
+    *initialDelay *= 2
+    if *initialDelay > *maxDelay {
+      *initialDelay = *maxDelay
+    }
+  }
 
-	return nil, &errs.WaitError{}
+  return nil, &errs.WaitError{}
 }

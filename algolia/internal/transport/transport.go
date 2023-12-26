@@ -83,7 +83,7 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind)
 			if res != nil && res.Body != nil {
 				if err = res.Body.Close(); err != nil {
 					cancel()
-					return res, fmt.Errorf("cannot close response's body before retry: %v", err)
+					return res, fmt.Errorf("cannot close response's body before retry: %w", err)
 				}
 			}
 		}

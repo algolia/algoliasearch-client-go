@@ -49,7 +49,7 @@ func newRetryStrategy(hosts []*StatefulHost, readTimeout, writeTimeout time.Dura
 	}
 }
 
-func (s *RetryStrategy) GetTryableHosts(k call.Kind) (hosts []Host) {
+func (s *RetryStrategy) GetTryableHosts(k call.Kind) []Host {
 	s.Lock()
 	defer s.Unlock()
 
@@ -69,6 +69,8 @@ func (s *RetryStrategy) GetTryableHosts(k call.Kind) (hosts []Host) {
 	default:
 		baseTimeout = DefaultWriteTimeout
 	}
+
+	var hosts []Host
 
 	for _, h := range s.hosts {
 		if !h.isDown && h.accept(k) {
