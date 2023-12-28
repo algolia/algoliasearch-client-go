@@ -1,3 +1,9 @@
+## [4.0.0-alpha.38](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.37...4.0.0-alpha.38)
+
+- [1bb2667a3](https://github.com/algolia/api-clients-automation/commit/1bb2667a3) chore(go): use golangci-lint ([#2437](https://github.com/algolia/api-clients-automation/pull/2437)) by [@millotp](https://github.com/millotp/)
+- [8d71c2b69](https://github.com/algolia/api-clients-automation/commit/8d71c2b69) fix(specs): provide non clashing names for custom methods ([#2369](https://github.com/algolia/api-clients-automation/pull/2369)) by [@shortcuts](https://github.com/shortcuts/)
+- [205519c6f](https://github.com/algolia/api-clients-automation/commit/205519c6f) fix(specs): highlight result map definition ([#2312](https://github.com/algolia/api-clients-automation/pull/2312)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-alpha.37](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.36...4.0.0-alpha.37)
 
 - [2ba2d6bf9](https://github.com/algolia/api-clients-automation/commit/2ba2d6bf9) fix(go): check for NPE ([#2307](https://github.com/algolia/api-clients-automation/pull/2307)) by [@millotp](https://github.com/millotp/)
