@@ -13,6 +13,8 @@ model_automatic_facet_filter.go
 model_automatic_facet_filters.go
 model_base_recommend_request.go
 model_base_recommendations_query.go
+model_base_recommended_for_you_query.go
+model_base_recommended_for_you_query_parameters.go
 model_base_search_params.go
 model_base_search_params_without_query.go
 model_base_search_response.go
@@ -57,12 +59,16 @@ model_query_type.go
 model_ranking_info.go
 model_re_ranking_apply_filter.go
 model_recommend_hit.go
-model_recommend_hits.go
 model_recommend_models.go
 model_recommendation_models.go
+model_recommendations_hit.go
+model_recommendations_hits.go
 model_recommendations_query.go
 model_recommendations_request.go
-model_recommendations_response.go
+model_recommendations_results.go
+model_recommended_for_you_model.go
+model_recommended_for_you_query.go
+model_recommended_for_you_query_parameters.go
 model_redirect.go
 model_redirect_rule_index_metadata.go
 model_redirect_rule_index_metadata_data.go
@@ -81,6 +87,7 @@ model_snippet_result_option.go
 model_sort_remaining_by.go
 model_tag_filters.go
 model_task_status.go
+model_trending_facet_hit.go
 model_trending_facets_model.go
 model_trending_facets_query.go
 model_trending_items_model.go

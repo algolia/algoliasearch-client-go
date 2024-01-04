@@ -8,6 +8,12 @@ import (
 
 // TrendingItemsQuery struct for TrendingItemsQuery.
 type TrendingItemsQuery struct {
+	// Algolia index name.
+	IndexName string `json:"indexName"`
+	// Recommendations with a confidence score lower than `threshold` won't appear in results. > **Note**: Each recommendation has a confidence score of 0 to 100. The closer the score is to 100, the more relevant the recommendations are.
+	Threshold *int32 `json:"threshold,omitempty"`
+	// Maximum number of recommendations to retrieve. If 0, all recommendations will be returned.
+	MaxRecommendations *int32 `json:"maxRecommendations,omitempty"`
 	// Facet name for trending models.
 	FacetName *string `json:"facetName,omitempty"`
 	// Facet value for trending models.
@@ -15,15 +21,21 @@ type TrendingItemsQuery struct {
 	Model              *TrendingItemsModel `json:"model,omitempty"`
 	QueryParameters    *SearchParamsObject `json:"queryParameters,omitempty"`
 	FallbackParameters *SearchParamsObject `json:"fallbackParameters,omitempty"`
-	// Algolia index name.
-	IndexName string `json:"indexName"`
-	// Recommendations with a confidence score lower than `threshold` won't appear in results. > **Note**: Each recommendation has a confidence score of 0 to 100. The closer the score is to 100, the more relevant the recommendations are.
-	Threshold *int32 `json:"threshold,omitempty"`
-	// Maximum number of recommendations to retrieve. If 0, all recommendations will be returned.
-	MaxRecommendations *int32 `json:"maxRecommendations,omitempty"`
 }
 
 type TrendingItemsQueryOption func(f *TrendingItemsQuery)
+
+func WithTrendingItemsQueryThreshold(val int32) TrendingItemsQueryOption {
+	return func(f *TrendingItemsQuery) {
+		f.Threshold = &val
+	}
+}
+
+func WithTrendingItemsQueryMaxRecommendations(val int32) TrendingItemsQueryOption {
+	return func(f *TrendingItemsQuery) {
+		f.MaxRecommendations = &val
+	}
+}
 
 func WithTrendingItemsQueryFacetName(val string) TrendingItemsQueryOption {
 	return func(f *TrendingItemsQuery) {
@@ -55,18 +67,6 @@ func WithTrendingItemsQueryFallbackParameters(val SearchParamsObject) TrendingIt
 	}
 }
 
-func WithTrendingItemsQueryThreshold(val int32) TrendingItemsQueryOption {
-	return func(f *TrendingItemsQuery) {
-		f.Threshold = &val
-	}
-}
-
-func WithTrendingItemsQueryMaxRecommendations(val int32) TrendingItemsQueryOption {
-	return func(f *TrendingItemsQuery) {
-		f.MaxRecommendations = &val
-	}
-}
-
 // NewTrendingItemsQuery instantiates a new TrendingItemsQuery object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -88,6 +88,94 @@ func NewTrendingItemsQueryWithDefaults() *TrendingItemsQuery {
 	var maxRecommendations int32 = 0
 	this.MaxRecommendations = &maxRecommendations
 	return this
+}
+
+// GetIndexName returns the IndexName field value.
+func (o *TrendingItemsQuery) GetIndexName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.IndexName
+}
+
+// GetIndexNameOk returns a tuple with the IndexName field value
+// and a boolean to check if the value has been set.
+func (o *TrendingItemsQuery) GetIndexNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IndexName, true
+}
+
+// SetIndexName sets field value.
+func (o *TrendingItemsQuery) SetIndexName(v string) {
+	o.IndexName = v
+}
+
+// GetThreshold returns the Threshold field value if set, zero value otherwise.
+func (o *TrendingItemsQuery) GetThreshold() int32 {
+	if o == nil || o.Threshold == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Threshold
+}
+
+// GetThresholdOk returns a tuple with the Threshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TrendingItemsQuery) GetThresholdOk() (*int32, bool) {
+	if o == nil || o.Threshold == nil {
+		return nil, false
+	}
+	return o.Threshold, true
+}
+
+// HasThreshold returns a boolean if a field has been set.
+func (o *TrendingItemsQuery) HasThreshold() bool {
+	if o != nil && o.Threshold != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
+func (o *TrendingItemsQuery) SetThreshold(v int32) {
+	o.Threshold = &v
+}
+
+// GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
+func (o *TrendingItemsQuery) GetMaxRecommendations() int32 {
+	if o == nil || o.MaxRecommendations == nil {
+		var ret int32
+		return ret
+	}
+	return *o.MaxRecommendations
+}
+
+// GetMaxRecommendationsOk returns a tuple with the MaxRecommendations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TrendingItemsQuery) GetMaxRecommendationsOk() (*int32, bool) {
+	if o == nil || o.MaxRecommendations == nil {
+		return nil, false
+	}
+	return o.MaxRecommendations, true
+}
+
+// HasMaxRecommendations returns a boolean if a field has been set.
+func (o *TrendingItemsQuery) HasMaxRecommendations() bool {
+	if o != nil && o.MaxRecommendations != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
+func (o *TrendingItemsQuery) SetMaxRecommendations(v int32) {
+	o.MaxRecommendations = &v
 }
 
 // GetFacetName returns the FacetName field value if set, zero value otherwise.
@@ -250,96 +338,17 @@ func (o *TrendingItemsQuery) SetFallbackParameters(v SearchParamsObject) {
 	o.FallbackParameters = &v
 }
 
-// GetIndexName returns the IndexName field value.
-func (o *TrendingItemsQuery) GetIndexName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.IndexName
-}
-
-// GetIndexNameOk returns a tuple with the IndexName field value
-// and a boolean to check if the value has been set.
-func (o *TrendingItemsQuery) GetIndexNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IndexName, true
-}
-
-// SetIndexName sets field value.
-func (o *TrendingItemsQuery) SetIndexName(v string) {
-	o.IndexName = v
-}
-
-// GetThreshold returns the Threshold field value if set, zero value otherwise.
-func (o *TrendingItemsQuery) GetThreshold() int32 {
-	if o == nil || o.Threshold == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Threshold
-}
-
-// GetThresholdOk returns a tuple with the Threshold field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TrendingItemsQuery) GetThresholdOk() (*int32, bool) {
-	if o == nil || o.Threshold == nil {
-		return nil, false
-	}
-	return o.Threshold, true
-}
-
-// HasThreshold returns a boolean if a field has been set.
-func (o *TrendingItemsQuery) HasThreshold() bool {
-	if o != nil && o.Threshold != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *TrendingItemsQuery) SetThreshold(v int32) {
-	o.Threshold = &v
-}
-
-// GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
-func (o *TrendingItemsQuery) GetMaxRecommendations() int32 {
-	if o == nil || o.MaxRecommendations == nil {
-		var ret int32
-		return ret
-	}
-	return *o.MaxRecommendations
-}
-
-// GetMaxRecommendationsOk returns a tuple with the MaxRecommendations field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TrendingItemsQuery) GetMaxRecommendationsOk() (*int32, bool) {
-	if o == nil || o.MaxRecommendations == nil {
-		return nil, false
-	}
-	return o.MaxRecommendations, true
-}
-
-// HasMaxRecommendations returns a boolean if a field has been set.
-func (o *TrendingItemsQuery) HasMaxRecommendations() bool {
-	if o != nil && o.MaxRecommendations != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *TrendingItemsQuery) SetMaxRecommendations(v int32) {
-	o.MaxRecommendations = &v
-}
-
 func (o TrendingItemsQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+	if true {
+		toSerialize["indexName"] = o.IndexName
+	}
+	if o.Threshold != nil {
+		toSerialize["threshold"] = o.Threshold
+	}
+	if o.MaxRecommendations != nil {
+		toSerialize["maxRecommendations"] = o.MaxRecommendations
+	}
 	if o.FacetName != nil {
 		toSerialize["facetName"] = o.FacetName
 	}
@@ -355,28 +364,19 @@ func (o TrendingItemsQuery) MarshalJSON() ([]byte, error) {
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
-	if o.Threshold != nil {
-		toSerialize["threshold"] = o.Threshold
-	}
-	if o.MaxRecommendations != nil {
-		toSerialize["maxRecommendations"] = o.MaxRecommendations
-	}
 	return json.Marshal(toSerialize)
 }
 
 func (o TrendingItemsQuery) String() string {
 	out := ""
+	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
+	out += fmt.Sprintf("  threshold=%v\n", o.Threshold)
+	out += fmt.Sprintf("  maxRecommendations=%v\n", o.MaxRecommendations)
 	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
 	out += fmt.Sprintf("  facetValue=%v\n", o.FacetValue)
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
-	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
-	out += fmt.Sprintf("  threshold=%v\n", o.Threshold)
-	out += fmt.Sprintf("  maxRecommendations=%v\n", o.MaxRecommendations)
 	return fmt.Sprintf("TrendingItemsQuery {\n%s}", out)
 }
 

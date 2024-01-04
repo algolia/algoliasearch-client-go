@@ -18,8 +18,6 @@ type SearchRecommendRulesParams struct {
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// Restricts responses to enabled rules. When absent (default), _all_ rules are retrieved.
 	Enabled NullableBool `json:"enabled,omitempty"`
-	// Request options to send with the API call.
-	RequestOptions []map[string]interface{} `json:"requestOptions,omitempty"`
 }
 
 type SearchRecommendRulesParamsOption func(f *SearchRecommendRulesParams)
@@ -51,12 +49,6 @@ func WithSearchRecommendRulesParamsHitsPerPage(val int32) SearchRecommendRulesPa
 func WithSearchRecommendRulesParamsEnabled(val NullableBool) SearchRecommendRulesParamsOption {
 	return func(f *SearchRecommendRulesParams) {
 		f.Enabled = val
-	}
-}
-
-func WithSearchRecommendRulesParamsRequestOptions(val []map[string]interface{}) SearchRecommendRulesParamsOption {
-	return func(f *SearchRecommendRulesParams) {
-		f.RequestOptions = val
 	}
 }
 
@@ -255,38 +247,6 @@ func (o *SearchRecommendRulesParams) UnsetEnabled() {
 	o.Enabled.Unset()
 }
 
-// GetRequestOptions returns the RequestOptions field value if set, zero value otherwise.
-func (o *SearchRecommendRulesParams) GetRequestOptions() []map[string]interface{} {
-	if o == nil || o.RequestOptions == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-	return o.RequestOptions
-}
-
-// GetRequestOptionsOk returns a tuple with the RequestOptions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SearchRecommendRulesParams) GetRequestOptionsOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.RequestOptions == nil {
-		return nil, false
-	}
-	return o.RequestOptions, true
-}
-
-// HasRequestOptions returns a boolean if a field has been set.
-func (o *SearchRecommendRulesParams) HasRequestOptions() bool {
-	if o != nil && o.RequestOptions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRequestOptions gets a reference to the given []map[string]interface{} and assigns it to the RequestOptions field.
-func (o *SearchRecommendRulesParams) SetRequestOptions(v []map[string]interface{}) {
-	o.RequestOptions = v
-}
-
 func (o SearchRecommendRulesParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Query != nil {
@@ -304,9 +264,6 @@ func (o SearchRecommendRulesParams) MarshalJSON() ([]byte, error) {
 	if o.Enabled.IsSet() {
 		toSerialize["enabled"] = o.Enabled.Get()
 	}
-	if o.RequestOptions != nil {
-		toSerialize["requestOptions"] = o.RequestOptions
-	}
 	return json.Marshal(toSerialize)
 }
 
@@ -317,7 +274,6 @@ func (o SearchRecommendRulesParams) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
-	out += fmt.Sprintf("  requestOptions=%v\n", o.RequestOptions)
 	return fmt.Sprintf("SearchRecommendRulesParams {\n%s}", out)
 }
 

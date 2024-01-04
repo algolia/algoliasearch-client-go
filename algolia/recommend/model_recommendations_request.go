@@ -8,15 +8,23 @@ import (
 
 // RecommendationsRequest - struct for RecommendationsRequest.
 type RecommendationsRequest struct {
-	RecommendationsQuery *RecommendationsQuery
-	TrendingFacetsQuery  *TrendingFacetsQuery
-	TrendingItemsQuery   *TrendingItemsQuery
+	RecommendationsQuery   *RecommendationsQuery
+	RecommendedForYouQuery *RecommendedForYouQuery
+	TrendingFacetsQuery    *TrendingFacetsQuery
+	TrendingItemsQuery     *TrendingItemsQuery
 }
 
 // RecommendationsQueryAsRecommendationsRequest is a convenience function that returns RecommendationsQuery wrapped in RecommendationsRequest.
 func RecommendationsQueryAsRecommendationsRequest(v *RecommendationsQuery) RecommendationsRequest {
 	return RecommendationsRequest{
 		RecommendationsQuery: v,
+	}
+}
+
+// RecommendedForYouQueryAsRecommendationsRequest is a convenience function that returns RecommendedForYouQuery wrapped in RecommendationsRequest.
+func RecommendedForYouQueryAsRecommendationsRequest(v *RecommendedForYouQuery) RecommendationsRequest {
+	return RecommendationsRequest{
+		RecommendedForYouQuery: v,
 	}
 }
 
@@ -48,6 +56,19 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.RecommendationsQuery = nil
+	}
+
+	// try to unmarshal data into RecommendedForYouQuery
+	err = newStrictDecoder(data).Decode(&dst.RecommendedForYouQuery)
+	if err == nil && validateStruct(dst.RecommendedForYouQuery) == nil {
+		jsonRecommendedForYouQuery, _ := json.Marshal(dst.RecommendedForYouQuery)
+		if string(jsonRecommendedForYouQuery) == "{}" { // empty struct
+			dst.RecommendedForYouQuery = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.RecommendedForYouQuery = nil
 	}
 
 	// try to unmarshal data into TrendingFacetsQuery
@@ -85,6 +106,10 @@ func (src RecommendationsRequest) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.RecommendationsQuery)
 	}
 
+	if src.RecommendedForYouQuery != nil {
+		return json.Marshal(&src.RecommendedForYouQuery)
+	}
+
 	if src.TrendingFacetsQuery != nil {
 		return json.Marshal(&src.TrendingFacetsQuery)
 	}
@@ -103,6 +128,10 @@ func (obj *RecommendationsRequest) GetActualInstance() any {
 	}
 	if obj.RecommendationsQuery != nil {
 		return obj.RecommendationsQuery
+	}
+
+	if obj.RecommendedForYouQuery != nil {
+		return obj.RecommendedForYouQuery
 	}
 
 	if obj.TrendingFacetsQuery != nil {

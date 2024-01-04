@@ -8,12 +8,12 @@ import (
 
 // GetRecommendationsResponse struct for GetRecommendationsResponse.
 type GetRecommendationsResponse struct {
-	Results []RecommendationsResponse `json:"results,omitempty"`
+	Results []RecommendationsResults `json:"results,omitempty"`
 }
 
 type GetRecommendationsResponseOption func(f *GetRecommendationsResponse)
 
-func WithGetRecommendationsResponseResults(val []RecommendationsResponse) GetRecommendationsResponseOption {
+func WithGetRecommendationsResponseResults(val []RecommendationsResults) GetRecommendationsResponseOption {
 	return func(f *GetRecommendationsResponse) {
 		f.Results = val
 	}
@@ -40,9 +40,9 @@ func NewGetRecommendationsResponseWithDefaults() *GetRecommendationsResponse {
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *GetRecommendationsResponse) GetResults() []RecommendationsResponse {
+func (o *GetRecommendationsResponse) GetResults() []RecommendationsResults {
 	if o == nil || o.Results == nil {
-		var ret []RecommendationsResponse
+		var ret []RecommendationsResults
 		return ret
 	}
 	return o.Results
@@ -50,7 +50,7 @@ func (o *GetRecommendationsResponse) GetResults() []RecommendationsResponse {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetRecommendationsResponse) GetResultsOk() ([]RecommendationsResponse, bool) {
+func (o *GetRecommendationsResponse) GetResultsOk() ([]RecommendationsResults, bool) {
 	if o == nil || o.Results == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *GetRecommendationsResponse) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given []RecommendationsResponse and assigns it to the Results field.
-func (o *GetRecommendationsResponse) SetResults(v []RecommendationsResponse) {
+// SetResults gets a reference to the given []RecommendationsResults and assigns it to the Results field.
+func (o *GetRecommendationsResponse) SetResults(v []RecommendationsResults) {
 	o.Results = v
 }
 

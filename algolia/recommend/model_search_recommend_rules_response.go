@@ -10,11 +10,11 @@ import (
 type SearchRecommendRulesResponse struct {
 	// Fetched rules.
 	Hits []RuleResponse `json:"hits"`
-	// Number of fetched rules.
+	// Number of hits the search query matched.
 	NbHits int32 `json:"nbHits"`
-	// Current page.
+	// Page to retrieve (the first page is `0`, not `1`).
 	Page int32 `json:"page"`
-	// Number of pages.
+	// Number of pages of results for the current query.
 	NbPages int32 `json:"nbPages"`
 }
 
@@ -36,6 +36,8 @@ func NewSearchRecommendRulesResponse(hits []RuleResponse, nbHits int32, page int
 // but it doesn't guarantee that properties required by API are set.
 func NewSearchRecommendRulesResponseWithDefaults() *SearchRecommendRulesResponse {
 	this := &SearchRecommendRulesResponse{}
+	var page int32 = 0
+	this.Page = page
 	return this
 }
 

@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// RecommendationsResponse struct for RecommendationsResponse.
-type RecommendationsResponse struct {
+// RecommendationsResults struct for RecommendationsResults.
+type RecommendationsResults struct {
 	// A/B test ID. This is only included in the response for indices that are part of an A/B test.
 	AbTestID *int32 `json:"abTestID,omitempty"`
 	// Variant ID. This is only included in the response for indices that are part of an A/B test.
@@ -62,165 +62,165 @@ type RecommendationsResponse struct {
 	ServerUsed *string `json:"serverUsed,omitempty"`
 	// Lets you store custom data in your indices.
 	UserData map[string]interface{} `json:"userData,omitempty"`
-	Hits     []RecommendHit         `json:"hits"`
+	Hits     []RecommendationsHit   `json:"hits"`
 	// Text to search for in an index.
 	Query *string `json:"query,omitempty"`
 	// URL-encoded string of all search parameters.
 	Params *string `json:"params,omitempty"`
 }
 
-type RecommendationsResponseOption func(f *RecommendationsResponse)
+type RecommendationsResultsOption func(f *RecommendationsResults)
 
-func WithRecommendationsResponseAbTestID(val int32) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsAbTestID(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.AbTestID = &val
 	}
 }
 
-func WithRecommendationsResponseAbTestVariantID(val int32) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsAbTestVariantID(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.AbTestVariantID = &val
 	}
 }
 
-func WithRecommendationsResponseAroundLatLng(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsAroundLatLng(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.AroundLatLng = &val
 	}
 }
 
-func WithRecommendationsResponseAutomaticRadius(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsAutomaticRadius(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.AutomaticRadius = &val
 	}
 }
 
-func WithRecommendationsResponseExhaustive(val Exhaustive) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsExhaustive(val Exhaustive) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.Exhaustive = &val
 	}
 }
 
-func WithRecommendationsResponseExhaustiveFacetsCount(val bool) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsExhaustiveFacetsCount(val bool) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.ExhaustiveFacetsCount = &val
 	}
 }
 
-func WithRecommendationsResponseExhaustiveNbHits(val bool) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsExhaustiveNbHits(val bool) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.ExhaustiveNbHits = &val
 	}
 }
 
-func WithRecommendationsResponseExhaustiveTypo(val bool) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsExhaustiveTypo(val bool) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.ExhaustiveTypo = &val
 	}
 }
 
-func WithRecommendationsResponseFacets(val map[string]map[string]int32) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsFacets(val map[string]map[string]int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.Facets = &val
 	}
 }
 
-func WithRecommendationsResponseFacetsStats(val map[string]FacetsStats) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsFacetsStats(val map[string]FacetsStats) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.FacetsStats = &val
 	}
 }
 
-func WithRecommendationsResponseIndex(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsIndex(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.Index = &val
 	}
 }
 
-func WithRecommendationsResponseIndexUsed(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsIndexUsed(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.IndexUsed = &val
 	}
 }
 
-func WithRecommendationsResponseMessage(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsMessage(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.Message = &val
 	}
 }
 
-func WithRecommendationsResponseNbSortedHits(val int32) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsNbSortedHits(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.NbSortedHits = &val
 	}
 }
 
-func WithRecommendationsResponseParsedQuery(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsParsedQuery(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.ParsedQuery = &val
 	}
 }
 
-func WithRecommendationsResponseProcessingTimingsMS(val map[string]interface{}) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsProcessingTimingsMS(val map[string]interface{}) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.ProcessingTimingsMS = val
 	}
 }
 
-func WithRecommendationsResponseQueryAfterRemoval(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsQueryAfterRemoval(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.QueryAfterRemoval = &val
 	}
 }
 
-func WithRecommendationsResponseRedirect(val Redirect) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsRedirect(val Redirect) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.Redirect = &val
 	}
 }
 
-func WithRecommendationsResponseRenderingContent(val RenderingContent) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsRenderingContent(val RenderingContent) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.RenderingContent = &val
 	}
 }
 
-func WithRecommendationsResponseServerTimeMS(val int32) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsServerTimeMS(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.ServerTimeMS = &val
 	}
 }
 
-func WithRecommendationsResponseServerUsed(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsServerUsed(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.ServerUsed = &val
 	}
 }
 
-func WithRecommendationsResponseUserData(val map[string]interface{}) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsUserData(val map[string]interface{}) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.UserData = val
 	}
 }
 
-func WithRecommendationsResponseQuery(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsQuery(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.Query = &val
 	}
 }
 
-func WithRecommendationsResponseParams(val string) RecommendationsResponseOption {
-	return func(f *RecommendationsResponse) {
+func WithRecommendationsResultsParams(val string) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
 		f.Params = &val
 	}
 }
 
-// NewRecommendationsResponse instantiates a new RecommendationsResponse object
+// NewRecommendationsResults instantiates a new RecommendationsResults object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRecommendationsResponse(hitsPerPage int32, nbHits int32, nbPages int32, page int32, processingTimeMS int32, hits []RecommendHit, opts ...RecommendationsResponseOption) *RecommendationsResponse {
-	this := &RecommendationsResponse{}
+func NewRecommendationsResults(hitsPerPage int32, nbHits int32, nbPages int32, page int32, processingTimeMS int32, hits []RecommendationsHit, opts ...RecommendationsResultsOption) *RecommendationsResults {
+	this := &RecommendationsResults{}
 	this.HitsPerPage = hitsPerPage
 	this.NbHits = nbHits
 	this.NbPages = nbPages
@@ -233,11 +233,11 @@ func NewRecommendationsResponse(hitsPerPage int32, nbHits int32, nbPages int32, 
 	return this
 }
 
-// NewRecommendationsResponseWithDefaults instantiates a new RecommendationsResponse object
+// NewRecommendationsResultsWithDefaults instantiates a new RecommendationsResults object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set.
-func NewRecommendationsResponseWithDefaults() *RecommendationsResponse {
-	this := &RecommendationsResponse{}
+func NewRecommendationsResultsWithDefaults() *RecommendationsResults {
+	this := &RecommendationsResults{}
 	var hitsPerPage int32 = 20
 	this.HitsPerPage = hitsPerPage
 	var page int32 = 0
@@ -248,7 +248,7 @@ func NewRecommendationsResponseWithDefaults() *RecommendationsResponse {
 }
 
 // GetAbTestID returns the AbTestID field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetAbTestID() int32 {
+func (o *RecommendationsResults) GetAbTestID() int32 {
 	if o == nil || o.AbTestID == nil {
 		var ret int32
 		return ret
@@ -258,7 +258,7 @@ func (o *RecommendationsResponse) GetAbTestID() int32 {
 
 // GetAbTestIDOk returns a tuple with the AbTestID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetAbTestIDOk() (*int32, bool) {
+func (o *RecommendationsResults) GetAbTestIDOk() (*int32, bool) {
 	if o == nil || o.AbTestID == nil {
 		return nil, false
 	}
@@ -266,7 +266,7 @@ func (o *RecommendationsResponse) GetAbTestIDOk() (*int32, bool) {
 }
 
 // HasAbTestID returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasAbTestID() bool {
+func (o *RecommendationsResults) HasAbTestID() bool {
 	if o != nil && o.AbTestID != nil {
 		return true
 	}
@@ -275,12 +275,12 @@ func (o *RecommendationsResponse) HasAbTestID() bool {
 }
 
 // SetAbTestID gets a reference to the given int32 and assigns it to the AbTestID field.
-func (o *RecommendationsResponse) SetAbTestID(v int32) {
+func (o *RecommendationsResults) SetAbTestID(v int32) {
 	o.AbTestID = &v
 }
 
 // GetAbTestVariantID returns the AbTestVariantID field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetAbTestVariantID() int32 {
+func (o *RecommendationsResults) GetAbTestVariantID() int32 {
 	if o == nil || o.AbTestVariantID == nil {
 		var ret int32
 		return ret
@@ -290,7 +290,7 @@ func (o *RecommendationsResponse) GetAbTestVariantID() int32 {
 
 // GetAbTestVariantIDOk returns a tuple with the AbTestVariantID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetAbTestVariantIDOk() (*int32, bool) {
+func (o *RecommendationsResults) GetAbTestVariantIDOk() (*int32, bool) {
 	if o == nil || o.AbTestVariantID == nil {
 		return nil, false
 	}
@@ -298,7 +298,7 @@ func (o *RecommendationsResponse) GetAbTestVariantIDOk() (*int32, bool) {
 }
 
 // HasAbTestVariantID returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasAbTestVariantID() bool {
+func (o *RecommendationsResults) HasAbTestVariantID() bool {
 	if o != nil && o.AbTestVariantID != nil {
 		return true
 	}
@@ -307,12 +307,12 @@ func (o *RecommendationsResponse) HasAbTestVariantID() bool {
 }
 
 // SetAbTestVariantID gets a reference to the given int32 and assigns it to the AbTestVariantID field.
-func (o *RecommendationsResponse) SetAbTestVariantID(v int32) {
+func (o *RecommendationsResults) SetAbTestVariantID(v int32) {
 	o.AbTestVariantID = &v
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetAroundLatLng() string {
+func (o *RecommendationsResults) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
 		return ret
@@ -322,7 +322,7 @@ func (o *RecommendationsResponse) GetAroundLatLng() string {
 
 // GetAroundLatLngOk returns a tuple with the AroundLatLng field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetAroundLatLngOk() (*string, bool) {
+func (o *RecommendationsResults) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
@@ -330,7 +330,7 @@ func (o *RecommendationsResponse) GetAroundLatLngOk() (*string, bool) {
 }
 
 // HasAroundLatLng returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasAroundLatLng() bool {
+func (o *RecommendationsResults) HasAroundLatLng() bool {
 	if o != nil && o.AroundLatLng != nil {
 		return true
 	}
@@ -339,12 +339,12 @@ func (o *RecommendationsResponse) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *RecommendationsResponse) SetAroundLatLng(v string) {
+func (o *RecommendationsResults) SetAroundLatLng(v string) {
 	o.AroundLatLng = &v
 }
 
 // GetAutomaticRadius returns the AutomaticRadius field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetAutomaticRadius() string {
+func (o *RecommendationsResults) GetAutomaticRadius() string {
 	if o == nil || o.AutomaticRadius == nil {
 		var ret string
 		return ret
@@ -354,7 +354,7 @@ func (o *RecommendationsResponse) GetAutomaticRadius() string {
 
 // GetAutomaticRadiusOk returns a tuple with the AutomaticRadius field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetAutomaticRadiusOk() (*string, bool) {
+func (o *RecommendationsResults) GetAutomaticRadiusOk() (*string, bool) {
 	if o == nil || o.AutomaticRadius == nil {
 		return nil, false
 	}
@@ -362,7 +362,7 @@ func (o *RecommendationsResponse) GetAutomaticRadiusOk() (*string, bool) {
 }
 
 // HasAutomaticRadius returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasAutomaticRadius() bool {
+func (o *RecommendationsResults) HasAutomaticRadius() bool {
 	if o != nil && o.AutomaticRadius != nil {
 		return true
 	}
@@ -371,12 +371,12 @@ func (o *RecommendationsResponse) HasAutomaticRadius() bool {
 }
 
 // SetAutomaticRadius gets a reference to the given string and assigns it to the AutomaticRadius field.
-func (o *RecommendationsResponse) SetAutomaticRadius(v string) {
+func (o *RecommendationsResults) SetAutomaticRadius(v string) {
 	o.AutomaticRadius = &v
 }
 
 // GetExhaustive returns the Exhaustive field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetExhaustive() Exhaustive {
+func (o *RecommendationsResults) GetExhaustive() Exhaustive {
 	if o == nil || o.Exhaustive == nil {
 		var ret Exhaustive
 		return ret
@@ -386,7 +386,7 @@ func (o *RecommendationsResponse) GetExhaustive() Exhaustive {
 
 // GetExhaustiveOk returns a tuple with the Exhaustive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetExhaustiveOk() (*Exhaustive, bool) {
+func (o *RecommendationsResults) GetExhaustiveOk() (*Exhaustive, bool) {
 	if o == nil || o.Exhaustive == nil {
 		return nil, false
 	}
@@ -394,7 +394,7 @@ func (o *RecommendationsResponse) GetExhaustiveOk() (*Exhaustive, bool) {
 }
 
 // HasExhaustive returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasExhaustive() bool {
+func (o *RecommendationsResults) HasExhaustive() bool {
 	if o != nil && o.Exhaustive != nil {
 		return true
 	}
@@ -403,13 +403,13 @@ func (o *RecommendationsResponse) HasExhaustive() bool {
 }
 
 // SetExhaustive gets a reference to the given Exhaustive and assigns it to the Exhaustive field.
-func (o *RecommendationsResponse) SetExhaustive(v Exhaustive) {
+func (o *RecommendationsResults) SetExhaustive(v Exhaustive) {
 	o.Exhaustive = &v
 }
 
 // GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value if set, zero value otherwise.
 // Deprecated.
-func (o *RecommendationsResponse) GetExhaustiveFacetsCount() bool {
+func (o *RecommendationsResults) GetExhaustiveFacetsCount() bool {
 	if o == nil || o.ExhaustiveFacetsCount == nil {
 		var ret bool
 		return ret
@@ -420,7 +420,7 @@ func (o *RecommendationsResponse) GetExhaustiveFacetsCount() bool {
 // GetExhaustiveFacetsCountOk returns a tuple with the ExhaustiveFacetsCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated.
-func (o *RecommendationsResponse) GetExhaustiveFacetsCountOk() (*bool, bool) {
+func (o *RecommendationsResults) GetExhaustiveFacetsCountOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveFacetsCount == nil {
 		return nil, false
 	}
@@ -428,7 +428,7 @@ func (o *RecommendationsResponse) GetExhaustiveFacetsCountOk() (*bool, bool) {
 }
 
 // HasExhaustiveFacetsCount returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasExhaustiveFacetsCount() bool {
+func (o *RecommendationsResults) HasExhaustiveFacetsCount() bool {
 	if o != nil && o.ExhaustiveFacetsCount != nil {
 		return true
 	}
@@ -438,13 +438,13 @@ func (o *RecommendationsResponse) HasExhaustiveFacetsCount() bool {
 
 // SetExhaustiveFacetsCount gets a reference to the given bool and assigns it to the ExhaustiveFacetsCount field.
 // Deprecated.
-func (o *RecommendationsResponse) SetExhaustiveFacetsCount(v bool) {
+func (o *RecommendationsResults) SetExhaustiveFacetsCount(v bool) {
 	o.ExhaustiveFacetsCount = &v
 }
 
 // GetExhaustiveNbHits returns the ExhaustiveNbHits field value if set, zero value otherwise.
 // Deprecated.
-func (o *RecommendationsResponse) GetExhaustiveNbHits() bool {
+func (o *RecommendationsResults) GetExhaustiveNbHits() bool {
 	if o == nil || o.ExhaustiveNbHits == nil {
 		var ret bool
 		return ret
@@ -455,7 +455,7 @@ func (o *RecommendationsResponse) GetExhaustiveNbHits() bool {
 // GetExhaustiveNbHitsOk returns a tuple with the ExhaustiveNbHits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated.
-func (o *RecommendationsResponse) GetExhaustiveNbHitsOk() (*bool, bool) {
+func (o *RecommendationsResults) GetExhaustiveNbHitsOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveNbHits == nil {
 		return nil, false
 	}
@@ -463,7 +463,7 @@ func (o *RecommendationsResponse) GetExhaustiveNbHitsOk() (*bool, bool) {
 }
 
 // HasExhaustiveNbHits returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasExhaustiveNbHits() bool {
+func (o *RecommendationsResults) HasExhaustiveNbHits() bool {
 	if o != nil && o.ExhaustiveNbHits != nil {
 		return true
 	}
@@ -473,13 +473,13 @@ func (o *RecommendationsResponse) HasExhaustiveNbHits() bool {
 
 // SetExhaustiveNbHits gets a reference to the given bool and assigns it to the ExhaustiveNbHits field.
 // Deprecated.
-func (o *RecommendationsResponse) SetExhaustiveNbHits(v bool) {
+func (o *RecommendationsResults) SetExhaustiveNbHits(v bool) {
 	o.ExhaustiveNbHits = &v
 }
 
 // GetExhaustiveTypo returns the ExhaustiveTypo field value if set, zero value otherwise.
 // Deprecated.
-func (o *RecommendationsResponse) GetExhaustiveTypo() bool {
+func (o *RecommendationsResults) GetExhaustiveTypo() bool {
 	if o == nil || o.ExhaustiveTypo == nil {
 		var ret bool
 		return ret
@@ -490,7 +490,7 @@ func (o *RecommendationsResponse) GetExhaustiveTypo() bool {
 // GetExhaustiveTypoOk returns a tuple with the ExhaustiveTypo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated.
-func (o *RecommendationsResponse) GetExhaustiveTypoOk() (*bool, bool) {
+func (o *RecommendationsResults) GetExhaustiveTypoOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveTypo == nil {
 		return nil, false
 	}
@@ -498,7 +498,7 @@ func (o *RecommendationsResponse) GetExhaustiveTypoOk() (*bool, bool) {
 }
 
 // HasExhaustiveTypo returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasExhaustiveTypo() bool {
+func (o *RecommendationsResults) HasExhaustiveTypo() bool {
 	if o != nil && o.ExhaustiveTypo != nil {
 		return true
 	}
@@ -508,12 +508,12 @@ func (o *RecommendationsResponse) HasExhaustiveTypo() bool {
 
 // SetExhaustiveTypo gets a reference to the given bool and assigns it to the ExhaustiveTypo field.
 // Deprecated.
-func (o *RecommendationsResponse) SetExhaustiveTypo(v bool) {
+func (o *RecommendationsResults) SetExhaustiveTypo(v bool) {
 	o.ExhaustiveTypo = &v
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetFacets() map[string]map[string]int32 {
+func (o *RecommendationsResults) GetFacets() map[string]map[string]int32 {
 	if o == nil || o.Facets == nil {
 		var ret map[string]map[string]int32
 		return ret
@@ -523,7 +523,7 @@ func (o *RecommendationsResponse) GetFacets() map[string]map[string]int32 {
 
 // GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetFacetsOk() (*map[string]map[string]int32, bool) {
+func (o *RecommendationsResults) GetFacetsOk() (*map[string]map[string]int32, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
@@ -531,7 +531,7 @@ func (o *RecommendationsResponse) GetFacetsOk() (*map[string]map[string]int32, b
 }
 
 // HasFacets returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasFacets() bool {
+func (o *RecommendationsResults) HasFacets() bool {
 	if o != nil && o.Facets != nil {
 		return true
 	}
@@ -540,12 +540,12 @@ func (o *RecommendationsResponse) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given map[string]map[string]int32 and assigns it to the Facets field.
-func (o *RecommendationsResponse) SetFacets(v map[string]map[string]int32) {
+func (o *RecommendationsResults) SetFacets(v map[string]map[string]int32) {
 	o.Facets = &v
 }
 
 // GetFacetsStats returns the FacetsStats field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetFacetsStats() map[string]FacetsStats {
+func (o *RecommendationsResults) GetFacetsStats() map[string]FacetsStats {
 	if o == nil || o.FacetsStats == nil {
 		var ret map[string]FacetsStats
 		return ret
@@ -555,7 +555,7 @@ func (o *RecommendationsResponse) GetFacetsStats() map[string]FacetsStats {
 
 // GetFacetsStatsOk returns a tuple with the FacetsStats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetFacetsStatsOk() (*map[string]FacetsStats, bool) {
+func (o *RecommendationsResults) GetFacetsStatsOk() (*map[string]FacetsStats, bool) {
 	if o == nil || o.FacetsStats == nil {
 		return nil, false
 	}
@@ -563,7 +563,7 @@ func (o *RecommendationsResponse) GetFacetsStatsOk() (*map[string]FacetsStats, b
 }
 
 // HasFacetsStats returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasFacetsStats() bool {
+func (o *RecommendationsResults) HasFacetsStats() bool {
 	if o != nil && o.FacetsStats != nil {
 		return true
 	}
@@ -572,12 +572,12 @@ func (o *RecommendationsResponse) HasFacetsStats() bool {
 }
 
 // SetFacetsStats gets a reference to the given map[string]FacetsStats and assigns it to the FacetsStats field.
-func (o *RecommendationsResponse) SetFacetsStats(v map[string]FacetsStats) {
+func (o *RecommendationsResults) SetFacetsStats(v map[string]FacetsStats) {
 	o.FacetsStats = &v
 }
 
 // GetHitsPerPage returns the HitsPerPage field value.
-func (o *RecommendationsResponse) GetHitsPerPage() int32 {
+func (o *RecommendationsResults) GetHitsPerPage() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -588,7 +588,7 @@ func (o *RecommendationsResponse) GetHitsPerPage() int32 {
 
 // GetHitsPerPageOk returns a tuple with the HitsPerPage field value
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetHitsPerPageOk() (*int32, bool) {
+func (o *RecommendationsResults) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -596,12 +596,12 @@ func (o *RecommendationsResponse) GetHitsPerPageOk() (*int32, bool) {
 }
 
 // SetHitsPerPage sets field value.
-func (o *RecommendationsResponse) SetHitsPerPage(v int32) {
+func (o *RecommendationsResults) SetHitsPerPage(v int32) {
 	o.HitsPerPage = v
 }
 
 // GetIndex returns the Index field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetIndex() string {
+func (o *RecommendationsResults) GetIndex() string {
 	if o == nil || o.Index == nil {
 		var ret string
 		return ret
@@ -611,7 +611,7 @@ func (o *RecommendationsResponse) GetIndex() string {
 
 // GetIndexOk returns a tuple with the Index field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetIndexOk() (*string, bool) {
+func (o *RecommendationsResults) GetIndexOk() (*string, bool) {
 	if o == nil || o.Index == nil {
 		return nil, false
 	}
@@ -619,7 +619,7 @@ func (o *RecommendationsResponse) GetIndexOk() (*string, bool) {
 }
 
 // HasIndex returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasIndex() bool {
+func (o *RecommendationsResults) HasIndex() bool {
 	if o != nil && o.Index != nil {
 		return true
 	}
@@ -628,12 +628,12 @@ func (o *RecommendationsResponse) HasIndex() bool {
 }
 
 // SetIndex gets a reference to the given string and assigns it to the Index field.
-func (o *RecommendationsResponse) SetIndex(v string) {
+func (o *RecommendationsResults) SetIndex(v string) {
 	o.Index = &v
 }
 
 // GetIndexUsed returns the IndexUsed field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetIndexUsed() string {
+func (o *RecommendationsResults) GetIndexUsed() string {
 	if o == nil || o.IndexUsed == nil {
 		var ret string
 		return ret
@@ -643,7 +643,7 @@ func (o *RecommendationsResponse) GetIndexUsed() string {
 
 // GetIndexUsedOk returns a tuple with the IndexUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetIndexUsedOk() (*string, bool) {
+func (o *RecommendationsResults) GetIndexUsedOk() (*string, bool) {
 	if o == nil || o.IndexUsed == nil {
 		return nil, false
 	}
@@ -651,7 +651,7 @@ func (o *RecommendationsResponse) GetIndexUsedOk() (*string, bool) {
 }
 
 // HasIndexUsed returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasIndexUsed() bool {
+func (o *RecommendationsResults) HasIndexUsed() bool {
 	if o != nil && o.IndexUsed != nil {
 		return true
 	}
@@ -660,12 +660,12 @@ func (o *RecommendationsResponse) HasIndexUsed() bool {
 }
 
 // SetIndexUsed gets a reference to the given string and assigns it to the IndexUsed field.
-func (o *RecommendationsResponse) SetIndexUsed(v string) {
+func (o *RecommendationsResults) SetIndexUsed(v string) {
 	o.IndexUsed = &v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetMessage() string {
+func (o *RecommendationsResults) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
 		return ret
@@ -675,7 +675,7 @@ func (o *RecommendationsResponse) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetMessageOk() (*string, bool) {
+func (o *RecommendationsResults) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
@@ -683,7 +683,7 @@ func (o *RecommendationsResponse) GetMessageOk() (*string, bool) {
 }
 
 // HasMessage returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasMessage() bool {
+func (o *RecommendationsResults) HasMessage() bool {
 	if o != nil && o.Message != nil {
 		return true
 	}
@@ -692,12 +692,12 @@ func (o *RecommendationsResponse) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *RecommendationsResponse) SetMessage(v string) {
+func (o *RecommendationsResults) SetMessage(v string) {
 	o.Message = &v
 }
 
 // GetNbHits returns the NbHits field value.
-func (o *RecommendationsResponse) GetNbHits() int32 {
+func (o *RecommendationsResults) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -708,7 +708,7 @@ func (o *RecommendationsResponse) GetNbHits() int32 {
 
 // GetNbHitsOk returns a tuple with the NbHits field value
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetNbHitsOk() (*int32, bool) {
+func (o *RecommendationsResults) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -716,12 +716,12 @@ func (o *RecommendationsResponse) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *RecommendationsResponse) SetNbHits(v int32) {
+func (o *RecommendationsResults) SetNbHits(v int32) {
 	o.NbHits = v
 }
 
 // GetNbPages returns the NbPages field value.
-func (o *RecommendationsResponse) GetNbPages() int32 {
+func (o *RecommendationsResults) GetNbPages() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -732,7 +732,7 @@ func (o *RecommendationsResponse) GetNbPages() int32 {
 
 // GetNbPagesOk returns a tuple with the NbPages field value
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetNbPagesOk() (*int32, bool) {
+func (o *RecommendationsResults) GetNbPagesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -740,12 +740,12 @@ func (o *RecommendationsResponse) GetNbPagesOk() (*int32, bool) {
 }
 
 // SetNbPages sets field value.
-func (o *RecommendationsResponse) SetNbPages(v int32) {
+func (o *RecommendationsResults) SetNbPages(v int32) {
 	o.NbPages = v
 }
 
 // GetNbSortedHits returns the NbSortedHits field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetNbSortedHits() int32 {
+func (o *RecommendationsResults) GetNbSortedHits() int32 {
 	if o == nil || o.NbSortedHits == nil {
 		var ret int32
 		return ret
@@ -755,7 +755,7 @@ func (o *RecommendationsResponse) GetNbSortedHits() int32 {
 
 // GetNbSortedHitsOk returns a tuple with the NbSortedHits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetNbSortedHitsOk() (*int32, bool) {
+func (o *RecommendationsResults) GetNbSortedHitsOk() (*int32, bool) {
 	if o == nil || o.NbSortedHits == nil {
 		return nil, false
 	}
@@ -763,7 +763,7 @@ func (o *RecommendationsResponse) GetNbSortedHitsOk() (*int32, bool) {
 }
 
 // HasNbSortedHits returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasNbSortedHits() bool {
+func (o *RecommendationsResults) HasNbSortedHits() bool {
 	if o != nil && o.NbSortedHits != nil {
 		return true
 	}
@@ -772,12 +772,12 @@ func (o *RecommendationsResponse) HasNbSortedHits() bool {
 }
 
 // SetNbSortedHits gets a reference to the given int32 and assigns it to the NbSortedHits field.
-func (o *RecommendationsResponse) SetNbSortedHits(v int32) {
+func (o *RecommendationsResults) SetNbSortedHits(v int32) {
 	o.NbSortedHits = &v
 }
 
 // GetPage returns the Page field value.
-func (o *RecommendationsResponse) GetPage() int32 {
+func (o *RecommendationsResults) GetPage() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -788,7 +788,7 @@ func (o *RecommendationsResponse) GetPage() int32 {
 
 // GetPageOk returns a tuple with the Page field value
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetPageOk() (*int32, bool) {
+func (o *RecommendationsResults) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -796,12 +796,12 @@ func (o *RecommendationsResponse) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *RecommendationsResponse) SetPage(v int32) {
+func (o *RecommendationsResults) SetPage(v int32) {
 	o.Page = v
 }
 
 // GetParsedQuery returns the ParsedQuery field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetParsedQuery() string {
+func (o *RecommendationsResults) GetParsedQuery() string {
 	if o == nil || o.ParsedQuery == nil {
 		var ret string
 		return ret
@@ -811,7 +811,7 @@ func (o *RecommendationsResponse) GetParsedQuery() string {
 
 // GetParsedQueryOk returns a tuple with the ParsedQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetParsedQueryOk() (*string, bool) {
+func (o *RecommendationsResults) GetParsedQueryOk() (*string, bool) {
 	if o == nil || o.ParsedQuery == nil {
 		return nil, false
 	}
@@ -819,7 +819,7 @@ func (o *RecommendationsResponse) GetParsedQueryOk() (*string, bool) {
 }
 
 // HasParsedQuery returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasParsedQuery() bool {
+func (o *RecommendationsResults) HasParsedQuery() bool {
 	if o != nil && o.ParsedQuery != nil {
 		return true
 	}
@@ -828,12 +828,12 @@ func (o *RecommendationsResponse) HasParsedQuery() bool {
 }
 
 // SetParsedQuery gets a reference to the given string and assigns it to the ParsedQuery field.
-func (o *RecommendationsResponse) SetParsedQuery(v string) {
+func (o *RecommendationsResults) SetParsedQuery(v string) {
 	o.ParsedQuery = &v
 }
 
 // GetProcessingTimeMS returns the ProcessingTimeMS field value.
-func (o *RecommendationsResponse) GetProcessingTimeMS() int32 {
+func (o *RecommendationsResults) GetProcessingTimeMS() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -844,7 +844,7 @@ func (o *RecommendationsResponse) GetProcessingTimeMS() int32 {
 
 // GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetProcessingTimeMSOk() (*int32, bool) {
+func (o *RecommendationsResults) GetProcessingTimeMSOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -852,12 +852,12 @@ func (o *RecommendationsResponse) GetProcessingTimeMSOk() (*int32, bool) {
 }
 
 // SetProcessingTimeMS sets field value.
-func (o *RecommendationsResponse) SetProcessingTimeMS(v int32) {
+func (o *RecommendationsResults) SetProcessingTimeMS(v int32) {
 	o.ProcessingTimeMS = v
 }
 
 // GetProcessingTimingsMS returns the ProcessingTimingsMS field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetProcessingTimingsMS() map[string]interface{} {
+func (o *RecommendationsResults) GetProcessingTimingsMS() map[string]interface{} {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		var ret map[string]interface{}
 		return ret
@@ -867,7 +867,7 @@ func (o *RecommendationsResponse) GetProcessingTimingsMS() map[string]interface{
 
 // GetProcessingTimingsMSOk returns a tuple with the ProcessingTimingsMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetProcessingTimingsMSOk() (map[string]interface{}, bool) {
+func (o *RecommendationsResults) GetProcessingTimingsMSOk() (map[string]interface{}, bool) {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		return nil, false
 	}
@@ -875,7 +875,7 @@ func (o *RecommendationsResponse) GetProcessingTimingsMSOk() (map[string]interfa
 }
 
 // HasProcessingTimingsMS returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasProcessingTimingsMS() bool {
+func (o *RecommendationsResults) HasProcessingTimingsMS() bool {
 	if o != nil && o.ProcessingTimingsMS != nil {
 		return true
 	}
@@ -884,12 +884,12 @@ func (o *RecommendationsResponse) HasProcessingTimingsMS() bool {
 }
 
 // SetProcessingTimingsMS gets a reference to the given map[string]interface{} and assigns it to the ProcessingTimingsMS field.
-func (o *RecommendationsResponse) SetProcessingTimingsMS(v map[string]interface{}) {
+func (o *RecommendationsResults) SetProcessingTimingsMS(v map[string]interface{}) {
 	o.ProcessingTimingsMS = v
 }
 
 // GetQueryAfterRemoval returns the QueryAfterRemoval field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetQueryAfterRemoval() string {
+func (o *RecommendationsResults) GetQueryAfterRemoval() string {
 	if o == nil || o.QueryAfterRemoval == nil {
 		var ret string
 		return ret
@@ -899,7 +899,7 @@ func (o *RecommendationsResponse) GetQueryAfterRemoval() string {
 
 // GetQueryAfterRemovalOk returns a tuple with the QueryAfterRemoval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetQueryAfterRemovalOk() (*string, bool) {
+func (o *RecommendationsResults) GetQueryAfterRemovalOk() (*string, bool) {
 	if o == nil || o.QueryAfterRemoval == nil {
 		return nil, false
 	}
@@ -907,7 +907,7 @@ func (o *RecommendationsResponse) GetQueryAfterRemovalOk() (*string, bool) {
 }
 
 // HasQueryAfterRemoval returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasQueryAfterRemoval() bool {
+func (o *RecommendationsResults) HasQueryAfterRemoval() bool {
 	if o != nil && o.QueryAfterRemoval != nil {
 		return true
 	}
@@ -916,12 +916,12 @@ func (o *RecommendationsResponse) HasQueryAfterRemoval() bool {
 }
 
 // SetQueryAfterRemoval gets a reference to the given string and assigns it to the QueryAfterRemoval field.
-func (o *RecommendationsResponse) SetQueryAfterRemoval(v string) {
+func (o *RecommendationsResults) SetQueryAfterRemoval(v string) {
 	o.QueryAfterRemoval = &v
 }
 
 // GetRedirect returns the Redirect field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetRedirect() Redirect {
+func (o *RecommendationsResults) GetRedirect() Redirect {
 	if o == nil || o.Redirect == nil {
 		var ret Redirect
 		return ret
@@ -931,7 +931,7 @@ func (o *RecommendationsResponse) GetRedirect() Redirect {
 
 // GetRedirectOk returns a tuple with the Redirect field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetRedirectOk() (*Redirect, bool) {
+func (o *RecommendationsResults) GetRedirectOk() (*Redirect, bool) {
 	if o == nil || o.Redirect == nil {
 		return nil, false
 	}
@@ -939,7 +939,7 @@ func (o *RecommendationsResponse) GetRedirectOk() (*Redirect, bool) {
 }
 
 // HasRedirect returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasRedirect() bool {
+func (o *RecommendationsResults) HasRedirect() bool {
 	if o != nil && o.Redirect != nil {
 		return true
 	}
@@ -948,12 +948,12 @@ func (o *RecommendationsResponse) HasRedirect() bool {
 }
 
 // SetRedirect gets a reference to the given Redirect and assigns it to the Redirect field.
-func (o *RecommendationsResponse) SetRedirect(v Redirect) {
+func (o *RecommendationsResults) SetRedirect(v Redirect) {
 	o.Redirect = &v
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetRenderingContent() RenderingContent {
+func (o *RecommendationsResults) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
 		return ret
@@ -963,7 +963,7 @@ func (o *RecommendationsResponse) GetRenderingContent() RenderingContent {
 
 // GetRenderingContentOk returns a tuple with the RenderingContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetRenderingContentOk() (*RenderingContent, bool) {
+func (o *RecommendationsResults) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
@@ -971,7 +971,7 @@ func (o *RecommendationsResponse) GetRenderingContentOk() (*RenderingContent, bo
 }
 
 // HasRenderingContent returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasRenderingContent() bool {
+func (o *RecommendationsResults) HasRenderingContent() bool {
 	if o != nil && o.RenderingContent != nil {
 		return true
 	}
@@ -980,12 +980,12 @@ func (o *RecommendationsResponse) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *RecommendationsResponse) SetRenderingContent(v RenderingContent) {
+func (o *RecommendationsResults) SetRenderingContent(v RenderingContent) {
 	o.RenderingContent = &v
 }
 
 // GetServerTimeMS returns the ServerTimeMS field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetServerTimeMS() int32 {
+func (o *RecommendationsResults) GetServerTimeMS() int32 {
 	if o == nil || o.ServerTimeMS == nil {
 		var ret int32
 		return ret
@@ -995,7 +995,7 @@ func (o *RecommendationsResponse) GetServerTimeMS() int32 {
 
 // GetServerTimeMSOk returns a tuple with the ServerTimeMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetServerTimeMSOk() (*int32, bool) {
+func (o *RecommendationsResults) GetServerTimeMSOk() (*int32, bool) {
 	if o == nil || o.ServerTimeMS == nil {
 		return nil, false
 	}
@@ -1003,7 +1003,7 @@ func (o *RecommendationsResponse) GetServerTimeMSOk() (*int32, bool) {
 }
 
 // HasServerTimeMS returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasServerTimeMS() bool {
+func (o *RecommendationsResults) HasServerTimeMS() bool {
 	if o != nil && o.ServerTimeMS != nil {
 		return true
 	}
@@ -1012,12 +1012,12 @@ func (o *RecommendationsResponse) HasServerTimeMS() bool {
 }
 
 // SetServerTimeMS gets a reference to the given int32 and assigns it to the ServerTimeMS field.
-func (o *RecommendationsResponse) SetServerTimeMS(v int32) {
+func (o *RecommendationsResults) SetServerTimeMS(v int32) {
 	o.ServerTimeMS = &v
 }
 
 // GetServerUsed returns the ServerUsed field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetServerUsed() string {
+func (o *RecommendationsResults) GetServerUsed() string {
 	if o == nil || o.ServerUsed == nil {
 		var ret string
 		return ret
@@ -1027,7 +1027,7 @@ func (o *RecommendationsResponse) GetServerUsed() string {
 
 // GetServerUsedOk returns a tuple with the ServerUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetServerUsedOk() (*string, bool) {
+func (o *RecommendationsResults) GetServerUsedOk() (*string, bool) {
 	if o == nil || o.ServerUsed == nil {
 		return nil, false
 	}
@@ -1035,7 +1035,7 @@ func (o *RecommendationsResponse) GetServerUsedOk() (*string, bool) {
 }
 
 // HasServerUsed returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasServerUsed() bool {
+func (o *RecommendationsResults) HasServerUsed() bool {
 	if o != nil && o.ServerUsed != nil {
 		return true
 	}
@@ -1044,12 +1044,12 @@ func (o *RecommendationsResponse) HasServerUsed() bool {
 }
 
 // SetServerUsed gets a reference to the given string and assigns it to the ServerUsed field.
-func (o *RecommendationsResponse) SetServerUsed(v string) {
+func (o *RecommendationsResults) SetServerUsed(v string) {
 	o.ServerUsed = &v
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetUserData() map[string]interface{} {
+func (o *RecommendationsResults) GetUserData() map[string]interface{} {
 	if o == nil || o.UserData == nil {
 		var ret map[string]interface{}
 		return ret
@@ -1059,7 +1059,7 @@ func (o *RecommendationsResponse) GetUserData() map[string]interface{} {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetUserDataOk() (map[string]interface{}, bool) {
+func (o *RecommendationsResults) GetUserDataOk() (map[string]interface{}, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
@@ -1067,7 +1067,7 @@ func (o *RecommendationsResponse) GetUserDataOk() (map[string]interface{}, bool)
 }
 
 // HasUserData returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasUserData() bool {
+func (o *RecommendationsResults) HasUserData() bool {
 	if o != nil && o.UserData != nil {
 		return true
 	}
@@ -1076,14 +1076,14 @@ func (o *RecommendationsResponse) HasUserData() bool {
 }
 
 // SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *RecommendationsResponse) SetUserData(v map[string]interface{}) {
+func (o *RecommendationsResults) SetUserData(v map[string]interface{}) {
 	o.UserData = v
 }
 
 // GetHits returns the Hits field value.
-func (o *RecommendationsResponse) GetHits() []RecommendHit {
+func (o *RecommendationsResults) GetHits() []RecommendationsHit {
 	if o == nil {
-		var ret []RecommendHit
+		var ret []RecommendationsHit
 		return ret
 	}
 
@@ -1092,7 +1092,7 @@ func (o *RecommendationsResponse) GetHits() []RecommendHit {
 
 // GetHitsOk returns a tuple with the Hits field value
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetHitsOk() ([]RecommendHit, bool) {
+func (o *RecommendationsResults) GetHitsOk() ([]RecommendationsHit, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1100,12 +1100,12 @@ func (o *RecommendationsResponse) GetHitsOk() ([]RecommendHit, bool) {
 }
 
 // SetHits sets field value.
-func (o *RecommendationsResponse) SetHits(v []RecommendHit) {
+func (o *RecommendationsResults) SetHits(v []RecommendationsHit) {
 	o.Hits = v
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetQuery() string {
+func (o *RecommendationsResults) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
 		return ret
@@ -1115,7 +1115,7 @@ func (o *RecommendationsResponse) GetQuery() string {
 
 // GetQueryOk returns a tuple with the Query field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetQueryOk() (*string, bool) {
+func (o *RecommendationsResults) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
@@ -1123,7 +1123,7 @@ func (o *RecommendationsResponse) GetQueryOk() (*string, bool) {
 }
 
 // HasQuery returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasQuery() bool {
+func (o *RecommendationsResults) HasQuery() bool {
 	if o != nil && o.Query != nil {
 		return true
 	}
@@ -1132,12 +1132,12 @@ func (o *RecommendationsResponse) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *RecommendationsResponse) SetQuery(v string) {
+func (o *RecommendationsResults) SetQuery(v string) {
 	o.Query = &v
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
-func (o *RecommendationsResponse) GetParams() string {
+func (o *RecommendationsResults) GetParams() string {
 	if o == nil || o.Params == nil {
 		var ret string
 		return ret
@@ -1147,7 +1147,7 @@ func (o *RecommendationsResponse) GetParams() string {
 
 // GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResponse) GetParamsOk() (*string, bool) {
+func (o *RecommendationsResults) GetParamsOk() (*string, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
@@ -1155,7 +1155,7 @@ func (o *RecommendationsResponse) GetParamsOk() (*string, bool) {
 }
 
 // HasParams returns a boolean if a field has been set.
-func (o *RecommendationsResponse) HasParams() bool {
+func (o *RecommendationsResults) HasParams() bool {
 	if o != nil && o.Params != nil {
 		return true
 	}
@@ -1164,11 +1164,11 @@ func (o *RecommendationsResponse) HasParams() bool {
 }
 
 // SetParams gets a reference to the given string and assigns it to the Params field.
-func (o *RecommendationsResponse) SetParams(v string) {
+func (o *RecommendationsResults) SetParams(v string) {
 	o.Params = &v
 }
 
-func (o RecommendationsResponse) MarshalJSON() ([]byte, error) {
+func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.AbTestID != nil {
 		toSerialize["abTestID"] = o.AbTestID
@@ -1263,7 +1263,7 @@ func (o RecommendationsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o RecommendationsResponse) String() string {
+func (o RecommendationsResults) String() string {
 	out := ""
 	out += fmt.Sprintf("  abTestID=%v\n", o.AbTestID)
 	out += fmt.Sprintf("  abTestVariantID=%v\n", o.AbTestVariantID)
@@ -1295,41 +1295,41 @@ func (o RecommendationsResponse) String() string {
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
-	return fmt.Sprintf("RecommendationsResponse {\n%s}", out)
+	return fmt.Sprintf("RecommendationsResults {\n%s}", out)
 }
 
-type NullableRecommendationsResponse struct {
-	value *RecommendationsResponse
+type NullableRecommendationsResults struct {
+	value *RecommendationsResults
 	isSet bool
 }
 
-func (v NullableRecommendationsResponse) Get() *RecommendationsResponse {
+func (v NullableRecommendationsResults) Get() *RecommendationsResults {
 	return v.value
 }
 
-func (v *NullableRecommendationsResponse) Set(val *RecommendationsResponse) {
+func (v *NullableRecommendationsResults) Set(val *RecommendationsResults) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableRecommendationsResponse) IsSet() bool {
+func (v NullableRecommendationsResults) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableRecommendationsResponse) Unset() {
+func (v *NullableRecommendationsResults) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableRecommendationsResponse(val *RecommendationsResponse) *NullableRecommendationsResponse {
-	return &NullableRecommendationsResponse{value: val, isSet: true}
+func NewNullableRecommendationsResults(val *RecommendationsResults) *NullableRecommendationsResults {
+	return &NullableRecommendationsResults{value: val, isSet: true}
 }
 
-func (v NullableRecommendationsResponse) MarshalJSON() ([]byte, error) {
+func (v NullableRecommendationsResults) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableRecommendationsResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableRecommendationsResults) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

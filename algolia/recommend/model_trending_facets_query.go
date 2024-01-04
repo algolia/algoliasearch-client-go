@@ -8,24 +8,18 @@ import (
 
 // TrendingFacetsQuery struct for TrendingFacetsQuery.
 type TrendingFacetsQuery struct {
-	// Facet name for trending models.
-	FacetName string               `json:"facetName"`
-	Model     *TrendingFacetsModel `json:"model,omitempty"`
 	// Algolia index name.
 	IndexName string `json:"indexName"`
 	// Recommendations with a confidence score lower than `threshold` won't appear in results. > **Note**: Each recommendation has a confidence score of 0 to 100. The closer the score is to 100, the more relevant the recommendations are.
 	Threshold *int32 `json:"threshold,omitempty"`
 	// Maximum number of recommendations to retrieve. If 0, all recommendations will be returned.
 	MaxRecommendations *int32 `json:"maxRecommendations,omitempty"`
+	// Facet name for trending models.
+	FacetName string               `json:"facetName"`
+	Model     *TrendingFacetsModel `json:"model,omitempty"`
 }
 
 type TrendingFacetsQueryOption func(f *TrendingFacetsQuery)
-
-func WithTrendingFacetsQueryModel(val TrendingFacetsModel) TrendingFacetsQueryOption {
-	return func(f *TrendingFacetsQuery) {
-		f.Model = &val
-	}
-}
 
 func WithTrendingFacetsQueryThreshold(val int32) TrendingFacetsQueryOption {
 	return func(f *TrendingFacetsQuery) {
@@ -39,14 +33,20 @@ func WithTrendingFacetsQueryMaxRecommendations(val int32) TrendingFacetsQueryOpt
 	}
 }
 
+func WithTrendingFacetsQueryModel(val TrendingFacetsModel) TrendingFacetsQueryOption {
+	return func(f *TrendingFacetsQuery) {
+		f.Model = &val
+	}
+}
+
 // NewTrendingFacetsQuery instantiates a new TrendingFacetsQuery object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTrendingFacetsQuery(facetName string, indexName string, opts ...TrendingFacetsQueryOption) *TrendingFacetsQuery {
+func NewTrendingFacetsQuery(indexName string, facetName string, opts ...TrendingFacetsQueryOption) *TrendingFacetsQuery {
 	this := &TrendingFacetsQuery{}
-	this.FacetName = facetName
 	this.IndexName = indexName
+	this.FacetName = facetName
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -61,62 +61,6 @@ func NewTrendingFacetsQueryWithDefaults() *TrendingFacetsQuery {
 	var maxRecommendations int32 = 0
 	this.MaxRecommendations = &maxRecommendations
 	return this
-}
-
-// GetFacetName returns the FacetName field value.
-func (o *TrendingFacetsQuery) GetFacetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FacetName
-}
-
-// GetFacetNameOk returns a tuple with the FacetName field value
-// and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetFacetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FacetName, true
-}
-
-// SetFacetName sets field value.
-func (o *TrendingFacetsQuery) SetFacetName(v string) {
-	o.FacetName = v
-}
-
-// GetModel returns the Model field value if set, zero value otherwise.
-func (o *TrendingFacetsQuery) GetModel() TrendingFacetsModel {
-	if o == nil || o.Model == nil {
-		var ret TrendingFacetsModel
-		return ret
-	}
-	return *o.Model
-}
-
-// GetModelOk returns a tuple with the Model field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetModelOk() (*TrendingFacetsModel, bool) {
-	if o == nil || o.Model == nil {
-		return nil, false
-	}
-	return o.Model, true
-}
-
-// HasModel returns a boolean if a field has been set.
-func (o *TrendingFacetsQuery) HasModel() bool {
-	if o != nil && o.Model != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetModel gets a reference to the given TrendingFacetsModel and assigns it to the Model field.
-func (o *TrendingFacetsQuery) SetModel(v TrendingFacetsModel) {
-	o.Model = &v
 }
 
 // GetIndexName returns the IndexName field value.
@@ -207,14 +151,64 @@ func (o *TrendingFacetsQuery) SetMaxRecommendations(v int32) {
 	o.MaxRecommendations = &v
 }
 
+// GetFacetName returns the FacetName field value.
+func (o *TrendingFacetsQuery) GetFacetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FacetName
+}
+
+// GetFacetNameOk returns a tuple with the FacetName field value
+// and a boolean to check if the value has been set.
+func (o *TrendingFacetsQuery) GetFacetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FacetName, true
+}
+
+// SetFacetName sets field value.
+func (o *TrendingFacetsQuery) SetFacetName(v string) {
+	o.FacetName = v
+}
+
+// GetModel returns the Model field value if set, zero value otherwise.
+func (o *TrendingFacetsQuery) GetModel() TrendingFacetsModel {
+	if o == nil || o.Model == nil {
+		var ret TrendingFacetsModel
+		return ret
+	}
+	return *o.Model
+}
+
+// GetModelOk returns a tuple with the Model field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TrendingFacetsQuery) GetModelOk() (*TrendingFacetsModel, bool) {
+	if o == nil || o.Model == nil {
+		return nil, false
+	}
+	return o.Model, true
+}
+
+// HasModel returns a boolean if a field has been set.
+func (o *TrendingFacetsQuery) HasModel() bool {
+	if o != nil && o.Model != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModel gets a reference to the given TrendingFacetsModel and assigns it to the Model field.
+func (o *TrendingFacetsQuery) SetModel(v TrendingFacetsModel) {
+	o.Model = &v
+}
+
 func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["facetName"] = o.FacetName
-	}
-	if o.Model != nil {
-		toSerialize["model"] = o.Model
-	}
 	if true {
 		toSerialize["indexName"] = o.IndexName
 	}
@@ -224,16 +218,22 @@ func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
+	if true {
+		toSerialize["facetName"] = o.FacetName
+	}
+	if o.Model != nil {
+		toSerialize["model"] = o.Model
+	}
 	return json.Marshal(toSerialize)
 }
 
 func (o TrendingFacetsQuery) String() string {
 	out := ""
-	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
-	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  threshold=%v\n", o.Threshold)
 	out += fmt.Sprintf("  maxRecommendations=%v\n", o.MaxRecommendations)
+	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
+	out += fmt.Sprintf("  model=%v\n", o.Model)
 	return fmt.Sprintf("TrendingFacetsQuery {\n%s}", out)
 }
 
