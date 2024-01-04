@@ -1,3 +1,7 @@
+## [4.0.0-alpha.39](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.38...4.0.0-alpha.39)
+
+- [ae6adfbf7](https://github.com/algolia/api-clients-automation/commit/ae6adfbf7) fix(specs): port recommend changes ([#2476](https://github.com/algolia/api-clients-automation/pull/2476)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-alpha.38](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.37...4.0.0-alpha.38)
 
 - [1bb2667a3](https://github.com/algolia/api-clients-automation/commit/1bb2667a3) chore(go): use golangci-lint ([#2437](https://github.com/algolia/api-clients-automation/pull/2437)) by [@millotp](https://github.com/millotp/)
