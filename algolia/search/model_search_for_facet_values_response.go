@@ -9,15 +9,32 @@ import (
 // SearchForFacetValuesResponse struct for SearchForFacetValuesResponse.
 type SearchForFacetValuesResponse struct {
 	FacetHits []FacetHits `json:"facetHits"`
+	// See the `facetsCount` field of the `exhaustive` object in the response.
+	// Deprecated
+	ExhaustiveFacetsCount bool `json:"exhaustiveFacetsCount"`
+	// Time the server took to process the request, in milliseconds.
+	ProcessingTimeMS *int32 `json:"processingTimeMS,omitempty"`
+}
+
+type SearchForFacetValuesResponseOption func(f *SearchForFacetValuesResponse)
+
+func WithSearchForFacetValuesResponseProcessingTimeMS(val int32) SearchForFacetValuesResponseOption {
+	return func(f *SearchForFacetValuesResponse) {
+		f.ProcessingTimeMS = &val
+	}
 }
 
 // NewSearchForFacetValuesResponse instantiates a new SearchForFacetValuesResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSearchForFacetValuesResponse(facetHits []FacetHits) *SearchForFacetValuesResponse {
+func NewSearchForFacetValuesResponse(facetHits []FacetHits, exhaustiveFacetsCount bool, opts ...SearchForFacetValuesResponseOption) *SearchForFacetValuesResponse {
 	this := &SearchForFacetValuesResponse{}
 	this.FacetHits = facetHits
+	this.ExhaustiveFacetsCount = exhaustiveFacetsCount
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -53,10 +70,75 @@ func (o *SearchForFacetValuesResponse) SetFacetHits(v []FacetHits) {
 	o.FacetHits = v
 }
 
+// GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value
+// Deprecated.
+func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCount() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ExhaustiveFacetsCount
+}
+
+// GetExhaustiveFacetsCountOk returns a tuple with the ExhaustiveFacetsCount field value
+// and a boolean to check if the value has been set.
+// Deprecated.
+func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCountOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExhaustiveFacetsCount, true
+}
+
+// SetExhaustiveFacetsCount sets field value
+// Deprecated.
+func (o *SearchForFacetValuesResponse) SetExhaustiveFacetsCount(v bool) {
+	o.ExhaustiveFacetsCount = v
+}
+
+// GetProcessingTimeMS returns the ProcessingTimeMS field value if set, zero value otherwise.
+func (o *SearchForFacetValuesResponse) GetProcessingTimeMS() int32 {
+	if o == nil || o.ProcessingTimeMS == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ProcessingTimeMS
+}
+
+// GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchForFacetValuesResponse) GetProcessingTimeMSOk() (*int32, bool) {
+	if o == nil || o.ProcessingTimeMS == nil {
+		return nil, false
+	}
+	return o.ProcessingTimeMS, true
+}
+
+// HasProcessingTimeMS returns a boolean if a field has been set.
+func (o *SearchForFacetValuesResponse) HasProcessingTimeMS() bool {
+	if o != nil && o.ProcessingTimeMS != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessingTimeMS gets a reference to the given int32 and assigns it to the ProcessingTimeMS field.
+func (o *SearchForFacetValuesResponse) SetProcessingTimeMS(v int32) {
+	o.ProcessingTimeMS = &v
+}
+
 func (o SearchForFacetValuesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["facetHits"] = o.FacetHits
+	}
+	if true {
+		toSerialize["exhaustiveFacetsCount"] = o.ExhaustiveFacetsCount
+	}
+	if o.ProcessingTimeMS != nil {
+		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
 	}
 	return json.Marshal(toSerialize)
 }
@@ -64,6 +146,8 @@ func (o SearchForFacetValuesResponse) MarshalJSON() ([]byte, error) {
 func (o SearchForFacetValuesResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  facetHits=%v\n", o.FacetHits)
+	out += fmt.Sprintf("  exhaustiveFacetsCount=%v\n", o.ExhaustiveFacetsCount)
+	out += fmt.Sprintf("  processingTimeMS=%v\n", o.ProcessingTimeMS)
 	return fmt.Sprintf("SearchForFacetValuesResponse {\n%s}", out)
 }
 
