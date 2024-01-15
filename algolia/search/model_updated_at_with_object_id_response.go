@@ -48,12 +48,9 @@ func NewUpdatedAtWithObjectIdResponse(opts ...UpdatedAtWithObjectIdResponseOptio
 	return this
 }
 
-// NewUpdatedAtWithObjectIdResponseWithDefaults instantiates a new UpdatedAtWithObjectIdResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUpdatedAtWithObjectIdResponseWithDefaults() *UpdatedAtWithObjectIdResponse {
-	this := &UpdatedAtWithObjectIdResponse{}
-	return this
+// NewEmptyUpdatedAtWithObjectIdResponse return a pointer to an empty UpdatedAtWithObjectIdResponse object.
+func NewEmptyUpdatedAtWithObjectIdResponse() *UpdatedAtWithObjectIdResponse {
+	return &UpdatedAtWithObjectIdResponse{}
 }
 
 // GetTaskID returns the TaskID field value if set, zero value otherwise.
@@ -84,8 +81,9 @@ func (o *UpdatedAtWithObjectIdResponse) HasTaskID() bool {
 }
 
 // SetTaskID gets a reference to the given int64 and assigns it to the TaskID field.
-func (o *UpdatedAtWithObjectIdResponse) SetTaskID(v int64) {
+func (o *UpdatedAtWithObjectIdResponse) SetTaskID(v int64) *UpdatedAtWithObjectIdResponse {
 	o.TaskID = &v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -116,8 +114,9 @@ func (o *UpdatedAtWithObjectIdResponse) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *UpdatedAtWithObjectIdResponse) SetUpdatedAt(v string) {
+func (o *UpdatedAtWithObjectIdResponse) SetUpdatedAt(v string) *UpdatedAtWithObjectIdResponse {
 	o.UpdatedAt = &v
+	return o
 }
 
 // GetObjectID returns the ObjectID field value if set, zero value otherwise.
@@ -148,8 +147,9 @@ func (o *UpdatedAtWithObjectIdResponse) HasObjectID() bool {
 }
 
 // SetObjectID gets a reference to the given string and assigns it to the ObjectID field.
-func (o *UpdatedAtWithObjectIdResponse) SetObjectID(v string) {
+func (o *UpdatedAtWithObjectIdResponse) SetObjectID(v string) *UpdatedAtWithObjectIdResponse {
 	o.ObjectID = &v
+	return o
 }
 
 func (o UpdatedAtWithObjectIdResponse) MarshalJSON() ([]byte, error) {

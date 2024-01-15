@@ -64,12 +64,9 @@ func NewInfrastructureResponseMetrics(opts ...InfrastructureResponseMetricsOptio
 	return this
 }
 
-// NewInfrastructureResponseMetricsWithDefaults instantiates a new InfrastructureResponseMetrics object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewInfrastructureResponseMetricsWithDefaults() *InfrastructureResponseMetrics {
-	this := &InfrastructureResponseMetrics{}
-	return this
+// NewEmptyInfrastructureResponseMetrics return a pointer to an empty InfrastructureResponseMetrics object.
+func NewEmptyInfrastructureResponseMetrics() *InfrastructureResponseMetrics {
+	return &InfrastructureResponseMetrics{}
 }
 
 // GetCpuUsage returns the CpuUsage field value if set, zero value otherwise.
@@ -100,8 +97,9 @@ func (o *InfrastructureResponseMetrics) HasCpuUsage() bool {
 }
 
 // SetCpuUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the CpuUsage field.
-func (o *InfrastructureResponseMetrics) SetCpuUsage(v map[string][]ProbesMetric) {
+func (o *InfrastructureResponseMetrics) SetCpuUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
 	o.CpuUsage = &v
+	return o
 }
 
 // GetRamIndexingUsage returns the RamIndexingUsage field value if set, zero value otherwise.
@@ -132,8 +130,9 @@ func (o *InfrastructureResponseMetrics) HasRamIndexingUsage() bool {
 }
 
 // SetRamIndexingUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the RamIndexingUsage field.
-func (o *InfrastructureResponseMetrics) SetRamIndexingUsage(v map[string][]ProbesMetric) {
+func (o *InfrastructureResponseMetrics) SetRamIndexingUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
 	o.RamIndexingUsage = &v
+	return o
 }
 
 // GetRamSearchUsage returns the RamSearchUsage field value if set, zero value otherwise.
@@ -164,8 +163,9 @@ func (o *InfrastructureResponseMetrics) HasRamSearchUsage() bool {
 }
 
 // SetRamSearchUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the RamSearchUsage field.
-func (o *InfrastructureResponseMetrics) SetRamSearchUsage(v map[string][]ProbesMetric) {
+func (o *InfrastructureResponseMetrics) SetRamSearchUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
 	o.RamSearchUsage = &v
+	return o
 }
 
 // GetSsdUsage returns the SsdUsage field value if set, zero value otherwise.
@@ -196,8 +196,9 @@ func (o *InfrastructureResponseMetrics) HasSsdUsage() bool {
 }
 
 // SetSsdUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the SsdUsage field.
-func (o *InfrastructureResponseMetrics) SetSsdUsage(v map[string][]ProbesMetric) {
+func (o *InfrastructureResponseMetrics) SetSsdUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
 	o.SsdUsage = &v
+	return o
 }
 
 // GetAvgBuildTime returns the AvgBuildTime field value if set, zero value otherwise.
@@ -228,8 +229,9 @@ func (o *InfrastructureResponseMetrics) HasAvgBuildTime() bool {
 }
 
 // SetAvgBuildTime gets a reference to the given map[string][]ProbesMetric and assigns it to the AvgBuildTime field.
-func (o *InfrastructureResponseMetrics) SetAvgBuildTime(v map[string][]ProbesMetric) {
+func (o *InfrastructureResponseMetrics) SetAvgBuildTime(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
 	o.AvgBuildTime = &v
+	return o
 }
 
 func (o InfrastructureResponseMetrics) MarshalJSON() ([]byte, error) {

@@ -21,12 +21,9 @@ func NewBatchWriteParams(requests []BatchRequest) *BatchWriteParams {
 	return this
 }
 
-// NewBatchWriteParamsWithDefaults instantiates a new BatchWriteParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBatchWriteParamsWithDefaults() *BatchWriteParams {
-	this := &BatchWriteParams{}
-	return this
+// NewEmptyBatchWriteParams return a pointer to an empty BatchWriteParams object.
+func NewEmptyBatchWriteParams() *BatchWriteParams {
+	return &BatchWriteParams{}
 }
 
 // GetRequests returns the Requests field value.
@@ -49,8 +46,9 @@ func (o *BatchWriteParams) GetRequestsOk() ([]BatchRequest, bool) {
 }
 
 // SetRequests sets field value.
-func (o *BatchWriteParams) SetRequests(v []BatchRequest) {
+func (o *BatchWriteParams) SetRequests(v []BatchRequest) *BatchWriteParams {
 	o.Requests = v
+	return o
 }
 
 func (o BatchWriteParams) MarshalJSON() ([]byte, error) {

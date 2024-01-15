@@ -40,12 +40,9 @@ func NewFilterEffectsOutliers(opts ...FilterEffectsOutliersOption) *FilterEffect
 	return this
 }
 
-// NewFilterEffectsOutliersWithDefaults instantiates a new FilterEffectsOutliers object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFilterEffectsOutliersWithDefaults() *FilterEffectsOutliers {
-	this := &FilterEffectsOutliers{}
-	return this
+// NewEmptyFilterEffectsOutliers return a pointer to an empty FilterEffectsOutliers object.
+func NewEmptyFilterEffectsOutliers() *FilterEffectsOutliers {
+	return &FilterEffectsOutliers{}
 }
 
 // GetUsersCount returns the UsersCount field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *FilterEffectsOutliers) HasUsersCount() bool {
 }
 
 // SetUsersCount gets a reference to the given int32 and assigns it to the UsersCount field.
-func (o *FilterEffectsOutliers) SetUsersCount(v int32) {
+func (o *FilterEffectsOutliers) SetUsersCount(v int32) *FilterEffectsOutliers {
 	o.UsersCount = &v
+	return o
 }
 
 // GetTrackedSearchesCount returns the TrackedSearchesCount field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *FilterEffectsOutliers) HasTrackedSearchesCount() bool {
 }
 
 // SetTrackedSearchesCount gets a reference to the given int32 and assigns it to the TrackedSearchesCount field.
-func (o *FilterEffectsOutliers) SetTrackedSearchesCount(v int32) {
+func (o *FilterEffectsOutliers) SetTrackedSearchesCount(v int32) *FilterEffectsOutliers {
 	o.TrackedSearchesCount = &v
+	return o
 }
 
 func (o FilterEffectsOutliers) MarshalJSON() ([]byte, error) {

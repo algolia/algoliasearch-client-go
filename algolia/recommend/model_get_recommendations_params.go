@@ -22,12 +22,9 @@ func NewGetRecommendationsParams(requests []RecommendationsRequest) *GetRecommen
 	return this
 }
 
-// NewGetRecommendationsParamsWithDefaults instantiates a new GetRecommendationsParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetRecommendationsParamsWithDefaults() *GetRecommendationsParams {
-	this := &GetRecommendationsParams{}
-	return this
+// NewEmptyGetRecommendationsParams return a pointer to an empty GetRecommendationsParams object.
+func NewEmptyGetRecommendationsParams() *GetRecommendationsParams {
+	return &GetRecommendationsParams{}
 }
 
 // GetRequests returns the Requests field value.
@@ -50,8 +47,9 @@ func (o *GetRecommendationsParams) GetRequestsOk() ([]RecommendationsRequest, bo
 }
 
 // SetRequests sets field value.
-func (o *GetRecommendationsParams) SetRequests(v []RecommendationsRequest) {
+func (o *GetRecommendationsParams) SetRequests(v []RecommendationsRequest) *GetRecommendationsParams {
 	o.Requests = v
+	return o
 }
 
 func (o GetRecommendationsParams) MarshalJSON() ([]byte, error) {

@@ -42,14 +42,9 @@ func NewRecommendationsHits(hits []RecommendationsHit, opts ...RecommendationsHi
 	return this
 }
 
-// NewRecommendationsHitsWithDefaults instantiates a new RecommendationsHits object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRecommendationsHitsWithDefaults() *RecommendationsHits {
-	this := &RecommendationsHits{}
-	var query string = ""
-	this.Query = &query
-	return this
+// NewEmptyRecommendationsHits return a pointer to an empty RecommendationsHits object.
+func NewEmptyRecommendationsHits() *RecommendationsHits {
+	return &RecommendationsHits{}
 }
 
 // GetHits returns the Hits field value.
@@ -72,8 +67,9 @@ func (o *RecommendationsHits) GetHitsOk() ([]RecommendationsHit, bool) {
 }
 
 // SetHits sets field value.
-func (o *RecommendationsHits) SetHits(v []RecommendationsHit) {
+func (o *RecommendationsHits) SetHits(v []RecommendationsHit) *RecommendationsHits {
 	o.Hits = v
+	return o
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -104,8 +100,9 @@ func (o *RecommendationsHits) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *RecommendationsHits) SetQuery(v string) {
+func (o *RecommendationsHits) SetQuery(v string) *RecommendationsHits {
 	o.Query = &v
+	return o
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
@@ -136,8 +133,9 @@ func (o *RecommendationsHits) HasParams() bool {
 }
 
 // SetParams gets a reference to the given string and assigns it to the Params field.
-func (o *RecommendationsHits) SetParams(v string) {
+func (o *RecommendationsHits) SetParams(v string) *RecommendationsHits {
 	o.Params = &v
+	return o
 }
 
 func (o RecommendationsHits) MarshalJSON() ([]byte, error) {

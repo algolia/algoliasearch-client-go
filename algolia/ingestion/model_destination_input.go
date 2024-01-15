@@ -12,17 +12,17 @@ type DestinationInput struct {
 	DestinationIndexPrefix *DestinationIndexPrefix
 }
 
-// DestinationIndexNameAsDestinationInput is a convenience function that returns DestinationIndexName wrapped in DestinationInput.
-func DestinationIndexNameAsDestinationInput(v *DestinationIndexName) DestinationInput {
-	return DestinationInput{
-		DestinationIndexName: v,
+// DestinationIndexPrefixAsDestinationInput is a convenience function that returns DestinationIndexPrefix wrapped in DestinationInput.
+func DestinationIndexPrefixAsDestinationInput(v *DestinationIndexPrefix) *DestinationInput {
+	return &DestinationInput{
+		DestinationIndexPrefix: v,
 	}
 }
 
-// DestinationIndexPrefixAsDestinationInput is a convenience function that returns DestinationIndexPrefix wrapped in DestinationInput.
-func DestinationIndexPrefixAsDestinationInput(v *DestinationIndexPrefix) DestinationInput {
-	return DestinationInput{
-		DestinationIndexPrefix: v,
+// DestinationIndexNameAsDestinationInput is a convenience function that returns DestinationIndexName wrapped in DestinationInput.
+func DestinationIndexNameAsDestinationInput(v *DestinationIndexName) *DestinationInput {
+	return &DestinationInput{
+		DestinationIndexName: v,
 	}
 }
 

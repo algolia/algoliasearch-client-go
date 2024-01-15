@@ -13,16 +13,16 @@ type RemoveStopWords struct {
 }
 
 // []stringAsRemoveStopWords is a convenience function that returns []string wrapped in RemoveStopWords.
-func ArrayOfStringAsRemoveStopWords(v *[]string) RemoveStopWords {
-	return RemoveStopWords{
-		ArrayOfString: v,
+func ArrayOfStringAsRemoveStopWords(v []string) *RemoveStopWords {
+	return &RemoveStopWords{
+		ArrayOfString: &v,
 	}
 }
 
 // boolAsRemoveStopWords is a convenience function that returns bool wrapped in RemoveStopWords.
-func BoolAsRemoveStopWords(v *bool) RemoveStopWords {
-	return RemoveStopWords{
-		Bool: v,
+func BoolAsRemoveStopWords(v bool) *RemoveStopWords {
+	return &RemoveStopWords{
+		Bool: &v,
 	}
 }
 

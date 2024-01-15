@@ -644,90 +644,9 @@ func NewConsequenceParams(opts ...ConsequenceParamsOption) *ConsequenceParams {
 	return this
 }
 
-// NewConsequenceParamsWithDefaults instantiates a new ConsequenceParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConsequenceParamsWithDefaults() *ConsequenceParams {
-	this := &ConsequenceParams{}
-	var similarQuery string = ""
-	this.SimilarQuery = &similarQuery
-	var filters string = ""
-	this.Filters = &filters
-	var sumOrFiltersScores bool = false
-	this.SumOrFiltersScores = &sumOrFiltersScores
-	var facetingAfterDistinct bool = false
-	this.FacetingAfterDistinct = &facetingAfterDistinct
-	var page int32 = 0
-	this.Page = &page
-	var aroundLatLng string = ""
-	this.AroundLatLng = &aroundLatLng
-	var aroundLatLngViaIP bool = false
-	this.AroundLatLngViaIP = &aroundLatLngViaIP
-	var personalizationImpact int32 = 100
-	this.PersonalizationImpact = &personalizationImpact
-	var getRankingInfo bool = false
-	this.GetRankingInfo = &getRankingInfo
-	var synonyms bool = true
-	this.Synonyms = &synonyms
-	var clickAnalytics bool = false
-	this.ClickAnalytics = &clickAnalytics
-	var analytics bool = true
-	this.Analytics = &analytics
-	var percentileComputation bool = true
-	this.PercentileComputation = &percentileComputation
-	var enableABTest bool = true
-	this.EnableABTest = &enableABTest
-	var relevancyStrictness int32 = 100
-	this.RelevancyStrictness = &relevancyStrictness
-	var highlightPreTag string = "<em>"
-	this.HighlightPreTag = &highlightPreTag
-	var highlightPostTag string = "</em>"
-	this.HighlightPostTag = &highlightPostTag
-	var snippetEllipsisText string = "…"
-	this.SnippetEllipsisText = &snippetEllipsisText
-	var restrictHighlightAndSnippetArrays bool = false
-	this.RestrictHighlightAndSnippetArrays = &restrictHighlightAndSnippetArrays
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	var minWordSizefor1Typo int32 = 4
-	this.MinWordSizefor1Typo = &minWordSizefor1Typo
-	var minWordSizefor2Typos int32 = 8
-	this.MinWordSizefor2Typos = &minWordSizefor2Typos
-	var allowTyposOnNumericTokens bool = true
-	this.AllowTyposOnNumericTokens = &allowTyposOnNumericTokens
-	var keepDiacriticsOnCharacters string = ""
-	this.KeepDiacriticsOnCharacters = &keepDiacriticsOnCharacters
-	var decompoundQuery bool = true
-	this.DecompoundQuery = &decompoundQuery
-	var enableRules bool = true
-	this.EnableRules = &enableRules
-	var enablePersonalization bool = false
-	this.EnablePersonalization = &enablePersonalization
-	var queryType QueryType = QUERYTYPE_PREFIX_LAST
-	this.QueryType = &queryType
-	var removeWordsIfNoResults RemoveWordsIfNoResults = REMOVEWORDSIFNORESULTS_NONE
-	this.RemoveWordsIfNoResults = &removeWordsIfNoResults
-	var mode Mode = MODE_KEYWORD_SEARCH
-	this.Mode = &mode
-	var advancedSyntax bool = false
-	this.AdvancedSyntax = &advancedSyntax
-	var exactOnSingleWordQuery ExactOnSingleWordQuery = EXACTONSINGLEWORDQUERY_ATTRIBUTE
-	this.ExactOnSingleWordQuery = &exactOnSingleWordQuery
-	var replaceSynonymsInHighlight bool = false
-	this.ReplaceSynonymsInHighlight = &replaceSynonymsInHighlight
-	var minProximity int32 = 1
-	this.MinProximity = &minProximity
-	var maxFacetHits int32 = 10
-	this.MaxFacetHits = &maxFacetHits
-	var maxValuesPerFacet int32 = 100
-	this.MaxValuesPerFacet = &maxValuesPerFacet
-	var sortFacetValuesBy string = "count"
-	this.SortFacetValuesBy = &sortFacetValuesBy
-	var attributeCriteriaComputedByMinProximity bool = false
-	this.AttributeCriteriaComputedByMinProximity = &attributeCriteriaComputedByMinProximity
-	var enableReRanking bool = true
-	this.EnableReRanking = &enableReRanking
-	return this
+// NewEmptyConsequenceParams return a pointer to an empty ConsequenceParams object.
+func NewEmptyConsequenceParams() *ConsequenceParams {
+	return &ConsequenceParams{}
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
@@ -758,8 +677,9 @@ func (o *ConsequenceParams) HasSimilarQuery() bool {
 }
 
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
-func (o *ConsequenceParams) SetSimilarQuery(v string) {
+func (o *ConsequenceParams) SetSimilarQuery(v string) *ConsequenceParams {
 	o.SimilarQuery = &v
+	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -790,8 +710,9 @@ func (o *ConsequenceParams) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *ConsequenceParams) SetFilters(v string) {
+func (o *ConsequenceParams) SetFilters(v string) *ConsequenceParams {
 	o.Filters = &v
+	return o
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
@@ -822,8 +743,9 @@ func (o *ConsequenceParams) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *ConsequenceParams) SetFacetFilters(v FacetFilters) {
-	o.FacetFilters = &v
+func (o *ConsequenceParams) SetFacetFilters(v *FacetFilters) *ConsequenceParams {
+	o.FacetFilters = v
+	return o
 }
 
 // GetOptionalFilters returns the OptionalFilters field value if set, zero value otherwise.
@@ -854,8 +776,9 @@ func (o *ConsequenceParams) HasOptionalFilters() bool {
 }
 
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
-func (o *ConsequenceParams) SetOptionalFilters(v OptionalFilters) {
-	o.OptionalFilters = &v
+func (o *ConsequenceParams) SetOptionalFilters(v *OptionalFilters) *ConsequenceParams {
+	o.OptionalFilters = v
+	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
@@ -886,8 +809,9 @@ func (o *ConsequenceParams) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *ConsequenceParams) SetNumericFilters(v NumericFilters) {
-	o.NumericFilters = &v
+func (o *ConsequenceParams) SetNumericFilters(v *NumericFilters) *ConsequenceParams {
+	o.NumericFilters = v
+	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
@@ -918,8 +842,9 @@ func (o *ConsequenceParams) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *ConsequenceParams) SetTagFilters(v TagFilters) {
-	o.TagFilters = &v
+func (o *ConsequenceParams) SetTagFilters(v *TagFilters) *ConsequenceParams {
+	o.TagFilters = v
+	return o
 }
 
 // GetSumOrFiltersScores returns the SumOrFiltersScores field value if set, zero value otherwise.
@@ -950,8 +875,9 @@ func (o *ConsequenceParams) HasSumOrFiltersScores() bool {
 }
 
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
-func (o *ConsequenceParams) SetSumOrFiltersScores(v bool) {
+func (o *ConsequenceParams) SetSumOrFiltersScores(v bool) *ConsequenceParams {
 	o.SumOrFiltersScores = &v
+	return o
 }
 
 // GetRestrictSearchableAttributes returns the RestrictSearchableAttributes field value if set, zero value otherwise.
@@ -982,8 +908,9 @@ func (o *ConsequenceParams) HasRestrictSearchableAttributes() bool {
 }
 
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
-func (o *ConsequenceParams) SetRestrictSearchableAttributes(v []string) {
+func (o *ConsequenceParams) SetRestrictSearchableAttributes(v []string) *ConsequenceParams {
 	o.RestrictSearchableAttributes = v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -1014,8 +941,9 @@ func (o *ConsequenceParams) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *ConsequenceParams) SetFacets(v []string) {
+func (o *ConsequenceParams) SetFacets(v []string) *ConsequenceParams {
 	o.Facets = v
+	return o
 }
 
 // GetFacetingAfterDistinct returns the FacetingAfterDistinct field value if set, zero value otherwise.
@@ -1046,8 +974,9 @@ func (o *ConsequenceParams) HasFacetingAfterDistinct() bool {
 }
 
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
-func (o *ConsequenceParams) SetFacetingAfterDistinct(v bool) {
+func (o *ConsequenceParams) SetFacetingAfterDistinct(v bool) *ConsequenceParams {
 	o.FacetingAfterDistinct = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -1078,8 +1007,9 @@ func (o *ConsequenceParams) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *ConsequenceParams) SetPage(v int32) {
+func (o *ConsequenceParams) SetPage(v int32) *ConsequenceParams {
 	o.Page = &v
+	return o
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
@@ -1110,8 +1040,9 @@ func (o *ConsequenceParams) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *ConsequenceParams) SetOffset(v int32) {
+func (o *ConsequenceParams) SetOffset(v int32) *ConsequenceParams {
 	o.Offset = &v
+	return o
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
@@ -1142,8 +1073,9 @@ func (o *ConsequenceParams) HasLength() bool {
 }
 
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *ConsequenceParams) SetLength(v int32) {
+func (o *ConsequenceParams) SetLength(v int32) *ConsequenceParams {
 	o.Length = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -1174,8 +1106,9 @@ func (o *ConsequenceParams) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *ConsequenceParams) SetAroundLatLng(v string) {
+func (o *ConsequenceParams) SetAroundLatLng(v string) *ConsequenceParams {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAroundLatLngViaIP returns the AroundLatLngViaIP field value if set, zero value otherwise.
@@ -1206,8 +1139,9 @@ func (o *ConsequenceParams) HasAroundLatLngViaIP() bool {
 }
 
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
-func (o *ConsequenceParams) SetAroundLatLngViaIP(v bool) {
+func (o *ConsequenceParams) SetAroundLatLngViaIP(v bool) *ConsequenceParams {
 	o.AroundLatLngViaIP = &v
+	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
@@ -1238,8 +1172,9 @@ func (o *ConsequenceParams) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *ConsequenceParams) SetAroundRadius(v AroundRadius) {
-	o.AroundRadius = &v
+func (o *ConsequenceParams) SetAroundRadius(v *AroundRadius) *ConsequenceParams {
+	o.AroundRadius = v
+	return o
 }
 
 // GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise.
@@ -1270,8 +1205,9 @@ func (o *ConsequenceParams) HasAroundPrecision() bool {
 }
 
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
-func (o *ConsequenceParams) SetAroundPrecision(v AroundPrecision) {
-	o.AroundPrecision = &v
+func (o *ConsequenceParams) SetAroundPrecision(v *AroundPrecision) *ConsequenceParams {
+	o.AroundPrecision = v
+	return o
 }
 
 // GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
@@ -1302,8 +1238,9 @@ func (o *ConsequenceParams) HasMinimumAroundRadius() bool {
 }
 
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
-func (o *ConsequenceParams) SetMinimumAroundRadius(v int32) {
+func (o *ConsequenceParams) SetMinimumAroundRadius(v int32) *ConsequenceParams {
 	o.MinimumAroundRadius = &v
+	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
@@ -1334,8 +1271,9 @@ func (o *ConsequenceParams) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *ConsequenceParams) SetInsideBoundingBox(v [][]float64) {
+func (o *ConsequenceParams) SetInsideBoundingBox(v [][]float64) *ConsequenceParams {
 	o.InsideBoundingBox = v
+	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -1366,8 +1304,9 @@ func (o *ConsequenceParams) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *ConsequenceParams) SetInsidePolygon(v [][]float64) {
+func (o *ConsequenceParams) SetInsidePolygon(v [][]float64) *ConsequenceParams {
 	o.InsidePolygon = v
+	return o
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
@@ -1398,8 +1337,9 @@ func (o *ConsequenceParams) HasNaturalLanguages() bool {
 }
 
 // SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *ConsequenceParams) SetNaturalLanguages(v []string) {
+func (o *ConsequenceParams) SetNaturalLanguages(v []string) *ConsequenceParams {
 	o.NaturalLanguages = v
+	return o
 }
 
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
@@ -1430,8 +1370,9 @@ func (o *ConsequenceParams) HasRuleContexts() bool {
 }
 
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
-func (o *ConsequenceParams) SetRuleContexts(v []string) {
+func (o *ConsequenceParams) SetRuleContexts(v []string) *ConsequenceParams {
 	o.RuleContexts = v
+	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value if set, zero value otherwise.
@@ -1462,8 +1403,9 @@ func (o *ConsequenceParams) HasPersonalizationImpact() bool {
 }
 
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
-func (o *ConsequenceParams) SetPersonalizationImpact(v int32) {
+func (o *ConsequenceParams) SetPersonalizationImpact(v int32) *ConsequenceParams {
 	o.PersonalizationImpact = &v
+	return o
 }
 
 // GetUserToken returns the UserToken field value if set, zero value otherwise.
@@ -1494,8 +1436,9 @@ func (o *ConsequenceParams) HasUserToken() bool {
 }
 
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
-func (o *ConsequenceParams) SetUserToken(v string) {
+func (o *ConsequenceParams) SetUserToken(v string) *ConsequenceParams {
 	o.UserToken = &v
+	return o
 }
 
 // GetGetRankingInfo returns the GetRankingInfo field value if set, zero value otherwise.
@@ -1526,8 +1469,9 @@ func (o *ConsequenceParams) HasGetRankingInfo() bool {
 }
 
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
-func (o *ConsequenceParams) SetGetRankingInfo(v bool) {
+func (o *ConsequenceParams) SetGetRankingInfo(v bool) *ConsequenceParams {
 	o.GetRankingInfo = &v
+	return o
 }
 
 // GetExplain returns the Explain field value if set, zero value otherwise.
@@ -1558,8 +1502,9 @@ func (o *ConsequenceParams) HasExplain() bool {
 }
 
 // SetExplain gets a reference to the given []string and assigns it to the Explain field.
-func (o *ConsequenceParams) SetExplain(v []string) {
+func (o *ConsequenceParams) SetExplain(v []string) *ConsequenceParams {
 	o.Explain = v
+	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
@@ -1590,8 +1535,9 @@ func (o *ConsequenceParams) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
-func (o *ConsequenceParams) SetSynonyms(v bool) {
+func (o *ConsequenceParams) SetSynonyms(v bool) *ConsequenceParams {
 	o.Synonyms = &v
+	return o
 }
 
 // GetClickAnalytics returns the ClickAnalytics field value if set, zero value otherwise.
@@ -1622,8 +1568,9 @@ func (o *ConsequenceParams) HasClickAnalytics() bool {
 }
 
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
-func (o *ConsequenceParams) SetClickAnalytics(v bool) {
+func (o *ConsequenceParams) SetClickAnalytics(v bool) *ConsequenceParams {
 	o.ClickAnalytics = &v
+	return o
 }
 
 // GetAnalytics returns the Analytics field value if set, zero value otherwise.
@@ -1654,8 +1601,9 @@ func (o *ConsequenceParams) HasAnalytics() bool {
 }
 
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *ConsequenceParams) SetAnalytics(v bool) {
+func (o *ConsequenceParams) SetAnalytics(v bool) *ConsequenceParams {
 	o.Analytics = &v
+	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise.
@@ -1686,8 +1634,9 @@ func (o *ConsequenceParams) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *ConsequenceParams) SetAnalyticsTags(v []string) {
+func (o *ConsequenceParams) SetAnalyticsTags(v []string) *ConsequenceParams {
 	o.AnalyticsTags = v
+	return o
 }
 
 // GetPercentileComputation returns the PercentileComputation field value if set, zero value otherwise.
@@ -1718,8 +1667,9 @@ func (o *ConsequenceParams) HasPercentileComputation() bool {
 }
 
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
-func (o *ConsequenceParams) SetPercentileComputation(v bool) {
+func (o *ConsequenceParams) SetPercentileComputation(v bool) *ConsequenceParams {
 	o.PercentileComputation = &v
+	return o
 }
 
 // GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
@@ -1750,8 +1700,9 @@ func (o *ConsequenceParams) HasEnableABTest() bool {
 }
 
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *ConsequenceParams) SetEnableABTest(v bool) {
+func (o *ConsequenceParams) SetEnableABTest(v bool) *ConsequenceParams {
 	o.EnableABTest = &v
+	return o
 }
 
 // GetAttributesForFaceting returns the AttributesForFaceting field value if set, zero value otherwise.
@@ -1782,8 +1733,9 @@ func (o *ConsequenceParams) HasAttributesForFaceting() bool {
 }
 
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
-func (o *ConsequenceParams) SetAttributesForFaceting(v []string) {
+func (o *ConsequenceParams) SetAttributesForFaceting(v []string) *ConsequenceParams {
 	o.AttributesForFaceting = v
+	return o
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
@@ -1814,8 +1766,9 @@ func (o *ConsequenceParams) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *ConsequenceParams) SetAttributesToRetrieve(v []string) {
+func (o *ConsequenceParams) SetAttributesToRetrieve(v []string) *ConsequenceParams {
 	o.AttributesToRetrieve = v
+	return o
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
@@ -1846,8 +1799,9 @@ func (o *ConsequenceParams) HasRanking() bool {
 }
 
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *ConsequenceParams) SetRanking(v []string) {
+func (o *ConsequenceParams) SetRanking(v []string) *ConsequenceParams {
 	o.Ranking = v
+	return o
 }
 
 // GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
@@ -1878,8 +1832,9 @@ func (o *ConsequenceParams) HasCustomRanking() bool {
 }
 
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *ConsequenceParams) SetCustomRanking(v []string) {
+func (o *ConsequenceParams) SetCustomRanking(v []string) *ConsequenceParams {
 	o.CustomRanking = v
+	return o
 }
 
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
@@ -1910,8 +1865,9 @@ func (o *ConsequenceParams) HasRelevancyStrictness() bool {
 }
 
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *ConsequenceParams) SetRelevancyStrictness(v int32) {
+func (o *ConsequenceParams) SetRelevancyStrictness(v int32) *ConsequenceParams {
 	o.RelevancyStrictness = &v
+	return o
 }
 
 // GetAttributesToHighlight returns the AttributesToHighlight field value if set, zero value otherwise.
@@ -1942,8 +1898,9 @@ func (o *ConsequenceParams) HasAttributesToHighlight() bool {
 }
 
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
-func (o *ConsequenceParams) SetAttributesToHighlight(v []string) {
+func (o *ConsequenceParams) SetAttributesToHighlight(v []string) *ConsequenceParams {
 	o.AttributesToHighlight = v
+	return o
 }
 
 // GetAttributesToSnippet returns the AttributesToSnippet field value if set, zero value otherwise.
@@ -1974,8 +1931,9 @@ func (o *ConsequenceParams) HasAttributesToSnippet() bool {
 }
 
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
-func (o *ConsequenceParams) SetAttributesToSnippet(v []string) {
+func (o *ConsequenceParams) SetAttributesToSnippet(v []string) *ConsequenceParams {
 	o.AttributesToSnippet = v
+	return o
 }
 
 // GetHighlightPreTag returns the HighlightPreTag field value if set, zero value otherwise.
@@ -2006,8 +1964,9 @@ func (o *ConsequenceParams) HasHighlightPreTag() bool {
 }
 
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
-func (o *ConsequenceParams) SetHighlightPreTag(v string) {
+func (o *ConsequenceParams) SetHighlightPreTag(v string) *ConsequenceParams {
 	o.HighlightPreTag = &v
+	return o
 }
 
 // GetHighlightPostTag returns the HighlightPostTag field value if set, zero value otherwise.
@@ -2038,8 +1997,9 @@ func (o *ConsequenceParams) HasHighlightPostTag() bool {
 }
 
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
-func (o *ConsequenceParams) SetHighlightPostTag(v string) {
+func (o *ConsequenceParams) SetHighlightPostTag(v string) *ConsequenceParams {
 	o.HighlightPostTag = &v
+	return o
 }
 
 // GetSnippetEllipsisText returns the SnippetEllipsisText field value if set, zero value otherwise.
@@ -2070,8 +2030,9 @@ func (o *ConsequenceParams) HasSnippetEllipsisText() bool {
 }
 
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
-func (o *ConsequenceParams) SetSnippetEllipsisText(v string) {
+func (o *ConsequenceParams) SetSnippetEllipsisText(v string) *ConsequenceParams {
 	o.SnippetEllipsisText = &v
+	return o
 }
 
 // GetRestrictHighlightAndSnippetArrays returns the RestrictHighlightAndSnippetArrays field value if set, zero value otherwise.
@@ -2102,8 +2063,9 @@ func (o *ConsequenceParams) HasRestrictHighlightAndSnippetArrays() bool {
 }
 
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
-func (o *ConsequenceParams) SetRestrictHighlightAndSnippetArrays(v bool) {
+func (o *ConsequenceParams) SetRestrictHighlightAndSnippetArrays(v bool) *ConsequenceParams {
 	o.RestrictHighlightAndSnippetArrays = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -2134,8 +2096,9 @@ func (o *ConsequenceParams) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *ConsequenceParams) SetHitsPerPage(v int32) {
+func (o *ConsequenceParams) SetHitsPerPage(v int32) *ConsequenceParams {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
@@ -2166,8 +2129,9 @@ func (o *ConsequenceParams) HasMinWordSizefor1Typo() bool {
 }
 
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
-func (o *ConsequenceParams) SetMinWordSizefor1Typo(v int32) {
+func (o *ConsequenceParams) SetMinWordSizefor1Typo(v int32) *ConsequenceParams {
 	o.MinWordSizefor1Typo = &v
+	return o
 }
 
 // GetMinWordSizefor2Typos returns the MinWordSizefor2Typos field value if set, zero value otherwise.
@@ -2198,8 +2162,9 @@ func (o *ConsequenceParams) HasMinWordSizefor2Typos() bool {
 }
 
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
-func (o *ConsequenceParams) SetMinWordSizefor2Typos(v int32) {
+func (o *ConsequenceParams) SetMinWordSizefor2Typos(v int32) *ConsequenceParams {
 	o.MinWordSizefor2Typos = &v
+	return o
 }
 
 // GetTypoTolerance returns the TypoTolerance field value if set, zero value otherwise.
@@ -2230,8 +2195,9 @@ func (o *ConsequenceParams) HasTypoTolerance() bool {
 }
 
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
-func (o *ConsequenceParams) SetTypoTolerance(v TypoTolerance) {
-	o.TypoTolerance = &v
+func (o *ConsequenceParams) SetTypoTolerance(v *TypoTolerance) *ConsequenceParams {
+	o.TypoTolerance = v
+	return o
 }
 
 // GetAllowTyposOnNumericTokens returns the AllowTyposOnNumericTokens field value if set, zero value otherwise.
@@ -2262,8 +2228,9 @@ func (o *ConsequenceParams) HasAllowTyposOnNumericTokens() bool {
 }
 
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
-func (o *ConsequenceParams) SetAllowTyposOnNumericTokens(v bool) {
+func (o *ConsequenceParams) SetAllowTyposOnNumericTokens(v bool) *ConsequenceParams {
 	o.AllowTyposOnNumericTokens = &v
+	return o
 }
 
 // GetDisableTypoToleranceOnAttributes returns the DisableTypoToleranceOnAttributes field value if set, zero value otherwise.
@@ -2294,8 +2261,9 @@ func (o *ConsequenceParams) HasDisableTypoToleranceOnAttributes() bool {
 }
 
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
-func (o *ConsequenceParams) SetDisableTypoToleranceOnAttributes(v []string) {
+func (o *ConsequenceParams) SetDisableTypoToleranceOnAttributes(v []string) *ConsequenceParams {
 	o.DisableTypoToleranceOnAttributes = v
+	return o
 }
 
 // GetIgnorePlurals returns the IgnorePlurals field value if set, zero value otherwise.
@@ -2326,8 +2294,9 @@ func (o *ConsequenceParams) HasIgnorePlurals() bool {
 }
 
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
-func (o *ConsequenceParams) SetIgnorePlurals(v IgnorePlurals) {
-	o.IgnorePlurals = &v
+func (o *ConsequenceParams) SetIgnorePlurals(v *IgnorePlurals) *ConsequenceParams {
+	o.IgnorePlurals = v
+	return o
 }
 
 // GetRemoveStopWords returns the RemoveStopWords field value if set, zero value otherwise.
@@ -2358,8 +2327,9 @@ func (o *ConsequenceParams) HasRemoveStopWords() bool {
 }
 
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
-func (o *ConsequenceParams) SetRemoveStopWords(v RemoveStopWords) {
-	o.RemoveStopWords = &v
+func (o *ConsequenceParams) SetRemoveStopWords(v *RemoveStopWords) *ConsequenceParams {
+	o.RemoveStopWords = v
+	return o
 }
 
 // GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
@@ -2390,8 +2360,9 @@ func (o *ConsequenceParams) HasKeepDiacriticsOnCharacters() bool {
 }
 
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *ConsequenceParams) SetKeepDiacriticsOnCharacters(v string) {
+func (o *ConsequenceParams) SetKeepDiacriticsOnCharacters(v string) *ConsequenceParams {
 	o.KeepDiacriticsOnCharacters = &v
+	return o
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
@@ -2422,8 +2393,9 @@ func (o *ConsequenceParams) HasQueryLanguages() bool {
 }
 
 // SetQueryLanguages gets a reference to the given []string and assigns it to the QueryLanguages field.
-func (o *ConsequenceParams) SetQueryLanguages(v []string) {
+func (o *ConsequenceParams) SetQueryLanguages(v []string) *ConsequenceParams {
 	o.QueryLanguages = v
+	return o
 }
 
 // GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
@@ -2454,8 +2426,9 @@ func (o *ConsequenceParams) HasDecompoundQuery() bool {
 }
 
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *ConsequenceParams) SetDecompoundQuery(v bool) {
+func (o *ConsequenceParams) SetDecompoundQuery(v bool) *ConsequenceParams {
 	o.DecompoundQuery = &v
+	return o
 }
 
 // GetEnableRules returns the EnableRules field value if set, zero value otherwise.
@@ -2486,8 +2459,9 @@ func (o *ConsequenceParams) HasEnableRules() bool {
 }
 
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *ConsequenceParams) SetEnableRules(v bool) {
+func (o *ConsequenceParams) SetEnableRules(v bool) *ConsequenceParams {
 	o.EnableRules = &v
+	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
@@ -2518,8 +2492,9 @@ func (o *ConsequenceParams) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *ConsequenceParams) SetEnablePersonalization(v bool) {
+func (o *ConsequenceParams) SetEnablePersonalization(v bool) *ConsequenceParams {
 	o.EnablePersonalization = &v
+	return o
 }
 
 // GetQueryType returns the QueryType field value if set, zero value otherwise.
@@ -2550,8 +2525,9 @@ func (o *ConsequenceParams) HasQueryType() bool {
 }
 
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
-func (o *ConsequenceParams) SetQueryType(v QueryType) {
+func (o *ConsequenceParams) SetQueryType(v QueryType) *ConsequenceParams {
 	o.QueryType = &v
+	return o
 }
 
 // GetRemoveWordsIfNoResults returns the RemoveWordsIfNoResults field value if set, zero value otherwise.
@@ -2582,8 +2558,9 @@ func (o *ConsequenceParams) HasRemoveWordsIfNoResults() bool {
 }
 
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
-func (o *ConsequenceParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) {
+func (o *ConsequenceParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *ConsequenceParams {
 	o.RemoveWordsIfNoResults = &v
+	return o
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
@@ -2614,8 +2591,9 @@ func (o *ConsequenceParams) HasMode() bool {
 }
 
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *ConsequenceParams) SetMode(v Mode) {
+func (o *ConsequenceParams) SetMode(v Mode) *ConsequenceParams {
 	o.Mode = &v
+	return o
 }
 
 // GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
@@ -2646,8 +2624,9 @@ func (o *ConsequenceParams) HasSemanticSearch() bool {
 }
 
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *ConsequenceParams) SetSemanticSearch(v SemanticSearch) {
-	o.SemanticSearch = &v
+func (o *ConsequenceParams) SetSemanticSearch(v *SemanticSearch) *ConsequenceParams {
+	o.SemanticSearch = v
+	return o
 }
 
 // GetAdvancedSyntax returns the AdvancedSyntax field value if set, zero value otherwise.
@@ -2678,8 +2657,9 @@ func (o *ConsequenceParams) HasAdvancedSyntax() bool {
 }
 
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
-func (o *ConsequenceParams) SetAdvancedSyntax(v bool) {
+func (o *ConsequenceParams) SetAdvancedSyntax(v bool) *ConsequenceParams {
 	o.AdvancedSyntax = &v
+	return o
 }
 
 // GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
@@ -2710,8 +2690,9 @@ func (o *ConsequenceParams) HasOptionalWords() bool {
 }
 
 // SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *ConsequenceParams) SetOptionalWords(v []string) {
+func (o *ConsequenceParams) SetOptionalWords(v []string) *ConsequenceParams {
 	o.OptionalWords = v
+	return o
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
@@ -2742,8 +2723,9 @@ func (o *ConsequenceParams) HasDisableExactOnAttributes() bool {
 }
 
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
-func (o *ConsequenceParams) SetDisableExactOnAttributes(v []string) {
+func (o *ConsequenceParams) SetDisableExactOnAttributes(v []string) *ConsequenceParams {
 	o.DisableExactOnAttributes = v
+	return o
 }
 
 // GetExactOnSingleWordQuery returns the ExactOnSingleWordQuery field value if set, zero value otherwise.
@@ -2774,8 +2756,9 @@ func (o *ConsequenceParams) HasExactOnSingleWordQuery() bool {
 }
 
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
-func (o *ConsequenceParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) {
+func (o *ConsequenceParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *ConsequenceParams {
 	o.ExactOnSingleWordQuery = &v
+	return o
 }
 
 // GetAlternativesAsExact returns the AlternativesAsExact field value if set, zero value otherwise.
@@ -2806,8 +2789,9 @@ func (o *ConsequenceParams) HasAlternativesAsExact() bool {
 }
 
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
-func (o *ConsequenceParams) SetAlternativesAsExact(v []AlternativesAsExact) {
+func (o *ConsequenceParams) SetAlternativesAsExact(v []AlternativesAsExact) *ConsequenceParams {
 	o.AlternativesAsExact = v
+	return o
 }
 
 // GetAdvancedSyntaxFeatures returns the AdvancedSyntaxFeatures field value if set, zero value otherwise.
@@ -2838,8 +2822,9 @@ func (o *ConsequenceParams) HasAdvancedSyntaxFeatures() bool {
 }
 
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
-func (o *ConsequenceParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) {
+func (o *ConsequenceParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *ConsequenceParams {
 	o.AdvancedSyntaxFeatures = v
+	return o
 }
 
 // GetDistinct returns the Distinct field value if set, zero value otherwise.
@@ -2870,8 +2855,9 @@ func (o *ConsequenceParams) HasDistinct() bool {
 }
 
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
-func (o *ConsequenceParams) SetDistinct(v Distinct) {
-	o.Distinct = &v
+func (o *ConsequenceParams) SetDistinct(v *Distinct) *ConsequenceParams {
+	o.Distinct = v
+	return o
 }
 
 // GetReplaceSynonymsInHighlight returns the ReplaceSynonymsInHighlight field value if set, zero value otherwise.
@@ -2902,8 +2888,9 @@ func (o *ConsequenceParams) HasReplaceSynonymsInHighlight() bool {
 }
 
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
-func (o *ConsequenceParams) SetReplaceSynonymsInHighlight(v bool) {
+func (o *ConsequenceParams) SetReplaceSynonymsInHighlight(v bool) *ConsequenceParams {
 	o.ReplaceSynonymsInHighlight = &v
+	return o
 }
 
 // GetMinProximity returns the MinProximity field value if set, zero value otherwise.
@@ -2934,8 +2921,9 @@ func (o *ConsequenceParams) HasMinProximity() bool {
 }
 
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
-func (o *ConsequenceParams) SetMinProximity(v int32) {
+func (o *ConsequenceParams) SetMinProximity(v int32) *ConsequenceParams {
 	o.MinProximity = &v
+	return o
 }
 
 // GetResponseFields returns the ResponseFields field value if set, zero value otherwise.
@@ -2966,8 +2954,9 @@ func (o *ConsequenceParams) HasResponseFields() bool {
 }
 
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
-func (o *ConsequenceParams) SetResponseFields(v []string) {
+func (o *ConsequenceParams) SetResponseFields(v []string) *ConsequenceParams {
 	o.ResponseFields = v
+	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
@@ -2998,8 +2987,9 @@ func (o *ConsequenceParams) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *ConsequenceParams) SetMaxFacetHits(v int32) {
+func (o *ConsequenceParams) SetMaxFacetHits(v int32) *ConsequenceParams {
 	o.MaxFacetHits = &v
+	return o
 }
 
 // GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
@@ -3030,8 +3020,9 @@ func (o *ConsequenceParams) HasMaxValuesPerFacet() bool {
 }
 
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
-func (o *ConsequenceParams) SetMaxValuesPerFacet(v int32) {
+func (o *ConsequenceParams) SetMaxValuesPerFacet(v int32) *ConsequenceParams {
 	o.MaxValuesPerFacet = &v
+	return o
 }
 
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
@@ -3062,8 +3053,9 @@ func (o *ConsequenceParams) HasSortFacetValuesBy() bool {
 }
 
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
-func (o *ConsequenceParams) SetSortFacetValuesBy(v string) {
+func (o *ConsequenceParams) SetSortFacetValuesBy(v string) *ConsequenceParams {
 	o.SortFacetValuesBy = &v
+	return o
 }
 
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
@@ -3094,8 +3086,9 @@ func (o *ConsequenceParams) HasAttributeCriteriaComputedByMinProximity() bool {
 }
 
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
-func (o *ConsequenceParams) SetAttributeCriteriaComputedByMinProximity(v bool) {
+func (o *ConsequenceParams) SetAttributeCriteriaComputedByMinProximity(v bool) *ConsequenceParams {
 	o.AttributeCriteriaComputedByMinProximity = &v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -3126,8 +3119,9 @@ func (o *ConsequenceParams) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *ConsequenceParams) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *ConsequenceParams) SetRenderingContent(v *RenderingContent) *ConsequenceParams {
+	o.RenderingContent = v
+	return o
 }
 
 // GetEnableReRanking returns the EnableReRanking field value if set, zero value otherwise.
@@ -3158,8 +3152,9 @@ func (o *ConsequenceParams) HasEnableReRanking() bool {
 }
 
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
-func (o *ConsequenceParams) SetEnableReRanking(v bool) {
+func (o *ConsequenceParams) SetEnableReRanking(v bool) *ConsequenceParams {
 	o.EnableReRanking = &v
+	return o
 }
 
 // GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -3191,8 +3186,9 @@ func (o *ConsequenceParams) HasReRankingApplyFilter() bool {
 }
 
 // SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
-func (o *ConsequenceParams) SetReRankingApplyFilter(v ReRankingApplyFilter) {
-	o.ReRankingApplyFilter.Set(&v)
+func (o *ConsequenceParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *ConsequenceParams {
+	o.ReRankingApplyFilter.Set(v)
+	return o
 }
 
 // SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
@@ -3233,8 +3229,9 @@ func (o *ConsequenceParams) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given ConsequenceQuery and assigns it to the Query field.
-func (o *ConsequenceParams) SetQuery(v ConsequenceQuery) {
-	o.Query = &v
+func (o *ConsequenceParams) SetQuery(v *ConsequenceQuery) *ConsequenceParams {
+	o.Query = v
+	return o
 }
 
 // GetAutomaticFacetFilters returns the AutomaticFacetFilters field value if set, zero value otherwise.
@@ -3265,8 +3262,9 @@ func (o *ConsequenceParams) HasAutomaticFacetFilters() bool {
 }
 
 // SetAutomaticFacetFilters gets a reference to the given AutomaticFacetFilters and assigns it to the AutomaticFacetFilters field.
-func (o *ConsequenceParams) SetAutomaticFacetFilters(v AutomaticFacetFilters) {
-	o.AutomaticFacetFilters = &v
+func (o *ConsequenceParams) SetAutomaticFacetFilters(v *AutomaticFacetFilters) *ConsequenceParams {
+	o.AutomaticFacetFilters = v
+	return o
 }
 
 // GetAutomaticOptionalFacetFilters returns the AutomaticOptionalFacetFilters field value if set, zero value otherwise.
@@ -3297,8 +3295,9 @@ func (o *ConsequenceParams) HasAutomaticOptionalFacetFilters() bool {
 }
 
 // SetAutomaticOptionalFacetFilters gets a reference to the given AutomaticFacetFilters and assigns it to the AutomaticOptionalFacetFilters field.
-func (o *ConsequenceParams) SetAutomaticOptionalFacetFilters(v AutomaticFacetFilters) {
-	o.AutomaticOptionalFacetFilters = &v
+func (o *ConsequenceParams) SetAutomaticOptionalFacetFilters(v *AutomaticFacetFilters) *ConsequenceParams {
+	o.AutomaticOptionalFacetFilters = v
+	return o
 }
 
 func (o ConsequenceParams) MarshalJSON() ([]byte, error) {

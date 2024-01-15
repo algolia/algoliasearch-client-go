@@ -2100,8 +2100,8 @@ type ApiGetAuthenticationsRequest struct {
 	page         int32
 	type_        []AuthenticationType
 	platform     []PlatformWithNone
-	sort         *AuthenticationSortKeys
-	order        *OrderKeys
+	sort         AuthenticationSortKeys
+	order        OrderKeys
 }
 
 // NewApiGetAuthenticationsRequest creates an instance of the ApiGetAuthenticationsRequest to be used for the API call.
@@ -2121,8 +2121,8 @@ func (r ApiGetAuthenticationsRequest) WithPage(page int32) ApiGetAuthentications
 	return r
 }
 
-// WithType_ adds the type_ to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithType_(type_ []AuthenticationType) ApiGetAuthenticationsRequest {
+// WithType adds the type_ to the ApiGetAuthenticationsRequest and returns the request for chaining.
+func (r ApiGetAuthenticationsRequest) WithType(type_ []AuthenticationType) ApiGetAuthenticationsRequest {
 	r.type_ = type_
 	return r
 }
@@ -2134,13 +2134,13 @@ func (r ApiGetAuthenticationsRequest) WithPlatform(platform []PlatformWithNone) 
 }
 
 // WithSort adds the sort to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithSort(sort *AuthenticationSortKeys) ApiGetAuthenticationsRequest {
+func (r ApiGetAuthenticationsRequest) WithSort(sort AuthenticationSortKeys) ApiGetAuthenticationsRequest {
 	r.sort = sort
 	return r
 }
 
 // WithOrder adds the order to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithOrder(order *OrderKeys) ApiGetAuthenticationsRequest {
+func (r ApiGetAuthenticationsRequest) WithOrder(order OrderKeys) ApiGetAuthenticationsRequest {
 	r.order = order
 	return r
 }
@@ -2203,10 +2203,10 @@ func (c *APIClient) GetAuthenticationsWithContext(ctx context.Context, r ApiGetA
 		queryParams.Set("platform", parameterToString(r.platform))
 	}
 	if !isNilorEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(*r.sort))
+		queryParams.Set("sort", parameterToString(r.sort))
 	}
 	if !isNilorEmpty(r.order) {
-		queryParams.Set("order", parameterToString(*r.order))
+		queryParams.Set("order", parameterToString(r.order))
 	}
 
 	// optional params if any
@@ -2454,8 +2454,8 @@ type ApiGetDestinationsRequest struct {
 	page             int32
 	type_            []DestinationType
 	authenticationID []string
-	sort             *DestinationSortKeys
-	order            *OrderKeys
+	sort             DestinationSortKeys
+	order            OrderKeys
 }
 
 // NewApiGetDestinationsRequest creates an instance of the ApiGetDestinationsRequest to be used for the API call.
@@ -2475,8 +2475,8 @@ func (r ApiGetDestinationsRequest) WithPage(page int32) ApiGetDestinationsReques
 	return r
 }
 
-// WithType_ adds the type_ to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithType_(type_ []DestinationType) ApiGetDestinationsRequest {
+// WithType adds the type_ to the ApiGetDestinationsRequest and returns the request for chaining.
+func (r ApiGetDestinationsRequest) WithType(type_ []DestinationType) ApiGetDestinationsRequest {
 	r.type_ = type_
 	return r
 }
@@ -2488,13 +2488,13 @@ func (r ApiGetDestinationsRequest) WithAuthenticationID(authenticationID []strin
 }
 
 // WithSort adds the sort to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithSort(sort *DestinationSortKeys) ApiGetDestinationsRequest {
+func (r ApiGetDestinationsRequest) WithSort(sort DestinationSortKeys) ApiGetDestinationsRequest {
 	r.sort = sort
 	return r
 }
 
 // WithOrder adds the order to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithOrder(order *OrderKeys) ApiGetDestinationsRequest {
+func (r ApiGetDestinationsRequest) WithOrder(order OrderKeys) ApiGetDestinationsRequest {
 	r.order = order
 	return r
 }
@@ -2557,10 +2557,10 @@ func (c *APIClient) GetDestinationsWithContext(ctx context.Context, r ApiGetDest
 		queryParams.Set("authenticationID", parameterToString(r.authenticationID))
 	}
 	if !isNilorEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(*r.sort))
+		queryParams.Set("sort", parameterToString(r.sort))
 	}
 	if !isNilorEmpty(r.order) {
-		queryParams.Set("order", parameterToString(*r.order))
+		queryParams.Set("order", parameterToString(r.order))
 	}
 
 	// optional params if any
@@ -2971,8 +2971,8 @@ type ApiGetEventsRequest struct {
 	page         int32
 	status       []EventStatus
 	type_        []EventType
-	sort         *EventSortKeys
-	order        *OrderKeys
+	sort         EventSortKeys
+	order        OrderKeys
 	startDate    string
 	endDate      string
 }
@@ -3002,20 +3002,20 @@ func (r ApiGetEventsRequest) WithStatus(status []EventStatus) ApiGetEventsReques
 	return r
 }
 
-// WithType_ adds the type_ to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithType_(type_ []EventType) ApiGetEventsRequest {
+// WithType adds the type_ to the ApiGetEventsRequest and returns the request for chaining.
+func (r ApiGetEventsRequest) WithType(type_ []EventType) ApiGetEventsRequest {
 	r.type_ = type_
 	return r
 }
 
 // WithSort adds the sort to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithSort(sort *EventSortKeys) ApiGetEventsRequest {
+func (r ApiGetEventsRequest) WithSort(sort EventSortKeys) ApiGetEventsRequest {
 	r.sort = sort
 	return r
 }
 
 // WithOrder adds the order to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithOrder(order *OrderKeys) ApiGetEventsRequest {
+func (r ApiGetEventsRequest) WithOrder(order OrderKeys) ApiGetEventsRequest {
 	r.order = order
 	return r
 }
@@ -3097,10 +3097,10 @@ func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequ
 		queryParams.Set("type", parameterToString(r.type_))
 	}
 	if !isNilorEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(*r.sort))
+		queryParams.Set("sort", parameterToString(r.sort))
 	}
 	if !isNilorEmpty(r.order) {
-		queryParams.Set("order", parameterToString(*r.order))
+		queryParams.Set("order", parameterToString(r.order))
 	}
 	if !isNilorEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
@@ -3372,8 +3372,8 @@ type ApiGetRunsRequest struct {
 	page         int32
 	status       []RunStatus
 	taskID       string
-	sort         *RunSortKeys
-	order        *OrderKeys
+	sort         RunSortKeys
+	order        OrderKeys
 	startDate    string
 	endDate      string
 }
@@ -3408,13 +3408,13 @@ func (r ApiGetRunsRequest) WithTaskID(taskID string) ApiGetRunsRequest {
 }
 
 // WithSort adds the sort to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithSort(sort *RunSortKeys) ApiGetRunsRequest {
+func (r ApiGetRunsRequest) WithSort(sort RunSortKeys) ApiGetRunsRequest {
 	r.sort = sort
 	return r
 }
 
 // WithOrder adds the order to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithOrder(order *OrderKeys) ApiGetRunsRequest {
+func (r ApiGetRunsRequest) WithOrder(order OrderKeys) ApiGetRunsRequest {
 	r.order = order
 	return r
 }
@@ -3493,10 +3493,10 @@ func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest,
 		queryParams.Set("taskID", parameterToString(r.taskID))
 	}
 	if !isNilorEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(*r.sort))
+		queryParams.Set("sort", parameterToString(r.sort))
 	}
 	if !isNilorEmpty(r.order) {
-		queryParams.Set("order", parameterToString(*r.order))
+		queryParams.Set("order", parameterToString(r.order))
 	}
 	if !isNilorEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
@@ -3750,8 +3750,8 @@ type ApiGetSourcesRequest struct {
 	page             int32
 	type_            []SourceType
 	authenticationID []string
-	sort             *SourceSortKeys
-	order            *OrderKeys
+	sort             SourceSortKeys
+	order            OrderKeys
 }
 
 // NewApiGetSourcesRequest creates an instance of the ApiGetSourcesRequest to be used for the API call.
@@ -3771,8 +3771,8 @@ func (r ApiGetSourcesRequest) WithPage(page int32) ApiGetSourcesRequest {
 	return r
 }
 
-// WithType_ adds the type_ to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithType_(type_ []SourceType) ApiGetSourcesRequest {
+// WithType adds the type_ to the ApiGetSourcesRequest and returns the request for chaining.
+func (r ApiGetSourcesRequest) WithType(type_ []SourceType) ApiGetSourcesRequest {
 	r.type_ = type_
 	return r
 }
@@ -3784,13 +3784,13 @@ func (r ApiGetSourcesRequest) WithAuthenticationID(authenticationID []string) Ap
 }
 
 // WithSort adds the sort to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithSort(sort *SourceSortKeys) ApiGetSourcesRequest {
+func (r ApiGetSourcesRequest) WithSort(sort SourceSortKeys) ApiGetSourcesRequest {
 	r.sort = sort
 	return r
 }
 
 // WithOrder adds the order to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithOrder(order *OrderKeys) ApiGetSourcesRequest {
+func (r ApiGetSourcesRequest) WithOrder(order OrderKeys) ApiGetSourcesRequest {
 	r.order = order
 	return r
 }
@@ -3853,10 +3853,10 @@ func (c *APIClient) GetSourcesWithContext(ctx context.Context, r ApiGetSourcesRe
 		queryParams.Set("authenticationID", parameterToString(r.authenticationID))
 	}
 	if !isNilorEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(*r.sort))
+		queryParams.Set("sort", parameterToString(r.sort))
 	}
 	if !isNilorEmpty(r.order) {
-		queryParams.Set("order", parameterToString(*r.order))
+		queryParams.Set("order", parameterToString(r.order))
 	}
 
 	// optional params if any
@@ -4134,8 +4134,8 @@ type ApiGetTasksRequest struct {
 	sourceID      []string
 	destinationID []string
 	triggerType   []TriggerType
-	sort          *TaskSortKeys
-	order         *OrderKeys
+	sort          TaskSortKeys
+	order         OrderKeys
 }
 
 // NewApiGetTasksRequest creates an instance of the ApiGetTasksRequest to be used for the API call.
@@ -4186,13 +4186,13 @@ func (r ApiGetTasksRequest) WithTriggerType(triggerType []TriggerType) ApiGetTas
 }
 
 // WithSort adds the sort to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithSort(sort *TaskSortKeys) ApiGetTasksRequest {
+func (r ApiGetTasksRequest) WithSort(sort TaskSortKeys) ApiGetTasksRequest {
 	r.sort = sort
 	return r
 }
 
 // WithOrder adds the order to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithOrder(order *OrderKeys) ApiGetTasksRequest {
+func (r ApiGetTasksRequest) WithOrder(order OrderKeys) ApiGetTasksRequest {
 	r.order = order
 	return r
 }
@@ -4270,10 +4270,10 @@ func (c *APIClient) GetTasksWithContext(ctx context.Context, r ApiGetTasksReques
 		queryParams.Set("triggerType", parameterToString(r.triggerType))
 	}
 	if !isNilorEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(*r.sort))
+		queryParams.Set("sort", parameterToString(r.sort))
 	}
 	if !isNilorEmpty(r.order) {
-		queryParams.Set("order", parameterToString(*r.order))
+		queryParams.Set("order", parameterToString(r.order))
 	}
 
 	// optional params if any

@@ -46,12 +46,9 @@ func NewSourceUpdate(opts ...SourceUpdateOption) *SourceUpdate {
 	return this
 }
 
-// NewSourceUpdateWithDefaults instantiates a new SourceUpdate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceUpdateWithDefaults() *SourceUpdate {
-	this := &SourceUpdate{}
-	return this
+// NewEmptySourceUpdate return a pointer to an empty SourceUpdate object.
+func NewEmptySourceUpdate() *SourceUpdate {
+	return &SourceUpdate{}
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -82,8 +79,9 @@ func (o *SourceUpdate) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *SourceUpdate) SetName(v string) {
+func (o *SourceUpdate) SetName(v string) *SourceUpdate {
 	o.Name = &v
+	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -114,8 +112,9 @@ func (o *SourceUpdate) HasInput() bool {
 }
 
 // SetInput gets a reference to the given SourceUpdateInput and assigns it to the Input field.
-func (o *SourceUpdate) SetInput(v SourceUpdateInput) {
-	o.Input = &v
+func (o *SourceUpdate) SetInput(v *SourceUpdateInput) *SourceUpdate {
+	o.Input = v
+	return o
 }
 
 // GetAuthenticationID returns the AuthenticationID field value if set, zero value otherwise.
@@ -146,8 +145,9 @@ func (o *SourceUpdate) HasAuthenticationID() bool {
 }
 
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
-func (o *SourceUpdate) SetAuthenticationID(v string) {
+func (o *SourceUpdate) SetAuthenticationID(v string) *SourceUpdate {
 	o.AuthenticationID = &v
+	return o
 }
 
 func (o SourceUpdate) MarshalJSON() ([]byte, error) {

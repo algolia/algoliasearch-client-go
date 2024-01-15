@@ -32,12 +32,9 @@ func NewRuleResponseMetadata(opts ...RuleResponseMetadataOption) *RuleResponseMe
 	return this
 }
 
-// NewRuleResponseMetadataWithDefaults instantiates a new RuleResponseMetadata object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRuleResponseMetadataWithDefaults() *RuleResponseMetadata {
-	this := &RuleResponseMetadata{}
-	return this
+// NewEmptyRuleResponseMetadata return a pointer to an empty RuleResponseMetadata object.
+func NewEmptyRuleResponseMetadata() *RuleResponseMetadata {
+	return &RuleResponseMetadata{}
 }
 
 // GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
@@ -68,8 +65,9 @@ func (o *RuleResponseMetadata) HasLastUpdate() bool {
 }
 
 // SetLastUpdate gets a reference to the given string and assigns it to the LastUpdate field.
-func (o *RuleResponseMetadata) SetLastUpdate(v string) {
+func (o *RuleResponseMetadata) SetLastUpdate(v string) *RuleResponseMetadata {
 	o.LastUpdate = &v
+	return o
 }
 
 func (o RuleResponseMetadata) MarshalJSON() ([]byte, error) {

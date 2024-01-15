@@ -13,16 +13,16 @@ type FacetFilters struct {
 }
 
 // []MixedSearchFiltersAsFacetFilters is a convenience function that returns []MixedSearchFilters wrapped in FacetFilters.
-func ArrayOfMixedSearchFiltersAsFacetFilters(v *[]MixedSearchFilters) FacetFilters {
-	return FacetFilters{
-		ArrayOfMixedSearchFilters: v,
+func ArrayOfMixedSearchFiltersAsFacetFilters(v []MixedSearchFilters) *FacetFilters {
+	return &FacetFilters{
+		ArrayOfMixedSearchFilters: &v,
 	}
 }
 
 // stringAsFacetFilters is a convenience function that returns string wrapped in FacetFilters.
-func StringAsFacetFilters(v *string) FacetFilters {
-	return FacetFilters{
-		String: v,
+func StringAsFacetFilters(v string) *FacetFilters {
+	return &FacetFilters{
+		String: &v,
 	}
 }
 

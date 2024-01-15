@@ -25,12 +25,9 @@ func NewListEventsResponse(events []Event, pagination Pagination, window Window)
 	return this
 }
 
-// NewListEventsResponseWithDefaults instantiates a new ListEventsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListEventsResponseWithDefaults() *ListEventsResponse {
-	this := &ListEventsResponse{}
-	return this
+// NewEmptyListEventsResponse return a pointer to an empty ListEventsResponse object.
+func NewEmptyListEventsResponse() *ListEventsResponse {
+	return &ListEventsResponse{}
 }
 
 // GetEvents returns the Events field value.
@@ -53,8 +50,9 @@ func (o *ListEventsResponse) GetEventsOk() ([]Event, bool) {
 }
 
 // SetEvents sets field value.
-func (o *ListEventsResponse) SetEvents(v []Event) {
+func (o *ListEventsResponse) SetEvents(v []Event) *ListEventsResponse {
 	o.Events = v
+	return o
 }
 
 // GetPagination returns the Pagination field value.
@@ -77,8 +75,9 @@ func (o *ListEventsResponse) GetPaginationOk() (*Pagination, bool) {
 }
 
 // SetPagination sets field value.
-func (o *ListEventsResponse) SetPagination(v Pagination) {
-	o.Pagination = v
+func (o *ListEventsResponse) SetPagination(v *Pagination) *ListEventsResponse {
+	o.Pagination = *v
+	return o
 }
 
 // GetWindow returns the Window field value.
@@ -101,8 +100,9 @@ func (o *ListEventsResponse) GetWindowOk() (*Window, bool) {
 }
 
 // SetWindow sets field value.
-func (o *ListEventsResponse) SetWindow(v Window) {
-	o.Window = v
+func (o *ListEventsResponse) SetWindow(v *Window) *ListEventsResponse {
+	o.Window = *v
+	return o
 }
 
 func (o ListEventsResponse) MarshalJSON() ([]byte, error) {

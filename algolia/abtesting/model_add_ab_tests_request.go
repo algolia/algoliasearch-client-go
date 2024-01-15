@@ -28,12 +28,9 @@ func NewAddABTestsRequest(name string, variants []AddABTestsVariant, endAt strin
 	return this
 }
 
-// NewAddABTestsRequestWithDefaults instantiates a new AddABTestsRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAddABTestsRequestWithDefaults() *AddABTestsRequest {
-	this := &AddABTestsRequest{}
-	return this
+// NewEmptyAddABTestsRequest return a pointer to an empty AddABTestsRequest object.
+func NewEmptyAddABTestsRequest() *AddABTestsRequest {
+	return &AddABTestsRequest{}
 }
 
 // GetName returns the Name field value.
@@ -56,8 +53,9 @@ func (o *AddABTestsRequest) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *AddABTestsRequest) SetName(v string) {
+func (o *AddABTestsRequest) SetName(v string) *AddABTestsRequest {
 	o.Name = v
+	return o
 }
 
 // GetVariants returns the Variants field value.
@@ -80,8 +78,9 @@ func (o *AddABTestsRequest) GetVariantsOk() ([]AddABTestsVariant, bool) {
 }
 
 // SetVariants sets field value.
-func (o *AddABTestsRequest) SetVariants(v []AddABTestsVariant) {
+func (o *AddABTestsRequest) SetVariants(v []AddABTestsVariant) *AddABTestsRequest {
 	o.Variants = v
+	return o
 }
 
 // GetEndAt returns the EndAt field value.
@@ -104,8 +103,9 @@ func (o *AddABTestsRequest) GetEndAtOk() (*string, bool) {
 }
 
 // SetEndAt sets field value.
-func (o *AddABTestsRequest) SetEndAt(v string) {
+func (o *AddABTestsRequest) SetEndAt(v string) *AddABTestsRequest {
 	o.EndAt = v
+	return o
 }
 
 func (o AddABTestsRequest) MarshalJSON() ([]byte, error) {

@@ -34,12 +34,9 @@ func NewBaseTrendingFacetsQuery(facetName string, opts ...BaseTrendingFacetsQuer
 	return this
 }
 
-// NewBaseTrendingFacetsQueryWithDefaults instantiates a new BaseTrendingFacetsQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseTrendingFacetsQueryWithDefaults() *BaseTrendingFacetsQuery {
-	this := &BaseTrendingFacetsQuery{}
-	return this
+// NewEmptyBaseTrendingFacetsQuery return a pointer to an empty BaseTrendingFacetsQuery object.
+func NewEmptyBaseTrendingFacetsQuery() *BaseTrendingFacetsQuery {
+	return &BaseTrendingFacetsQuery{}
 }
 
 // GetFacetName returns the FacetName field value.
@@ -62,8 +59,9 @@ func (o *BaseTrendingFacetsQuery) GetFacetNameOk() (*string, bool) {
 }
 
 // SetFacetName sets field value.
-func (o *BaseTrendingFacetsQuery) SetFacetName(v string) {
+func (o *BaseTrendingFacetsQuery) SetFacetName(v string) *BaseTrendingFacetsQuery {
 	o.FacetName = v
+	return o
 }
 
 // GetModel returns the Model field value if set, zero value otherwise.
@@ -94,8 +92,9 @@ func (o *BaseTrendingFacetsQuery) HasModel() bool {
 }
 
 // SetModel gets a reference to the given TrendingFacetsModel and assigns it to the Model field.
-func (o *BaseTrendingFacetsQuery) SetModel(v TrendingFacetsModel) {
+func (o *BaseTrendingFacetsQuery) SetModel(v TrendingFacetsModel) *BaseTrendingFacetsQuery {
 	o.Model = &v
+	return o
 }
 
 func (o BaseTrendingFacetsQuery) MarshalJSON() ([]byte, error) {

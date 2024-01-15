@@ -15,38 +15,38 @@ type AuthInput struct {
 	AuthOAuth                *AuthOAuth
 }
 
-// AuthAPIKeyAsAuthInput is a convenience function that returns AuthAPIKey wrapped in AuthInput.
-func AuthAPIKeyAsAuthInput(v *AuthAPIKey) AuthInput {
-	return AuthInput{
-		AuthAPIKey: v,
-	}
-}
-
-// AuthAlgoliaAsAuthInput is a convenience function that returns AuthAlgolia wrapped in AuthInput.
-func AuthAlgoliaAsAuthInput(v *AuthAlgolia) AuthInput {
-	return AuthInput{
-		AuthAlgolia: v,
-	}
-}
-
-// AuthBasicAsAuthInput is a convenience function that returns AuthBasic wrapped in AuthInput.
-func AuthBasicAsAuthInput(v *AuthBasic) AuthInput {
-	return AuthInput{
-		AuthBasic: v,
-	}
-}
-
 // AuthGoogleServiceAccountAsAuthInput is a convenience function that returns AuthGoogleServiceAccount wrapped in AuthInput.
-func AuthGoogleServiceAccountAsAuthInput(v *AuthGoogleServiceAccount) AuthInput {
-	return AuthInput{
+func AuthGoogleServiceAccountAsAuthInput(v *AuthGoogleServiceAccount) *AuthInput {
+	return &AuthInput{
 		AuthGoogleServiceAccount: v,
 	}
 }
 
+// AuthBasicAsAuthInput is a convenience function that returns AuthBasic wrapped in AuthInput.
+func AuthBasicAsAuthInput(v *AuthBasic) *AuthInput {
+	return &AuthInput{
+		AuthBasic: v,
+	}
+}
+
+// AuthAPIKeyAsAuthInput is a convenience function that returns AuthAPIKey wrapped in AuthInput.
+func AuthAPIKeyAsAuthInput(v *AuthAPIKey) *AuthInput {
+	return &AuthInput{
+		AuthAPIKey: v,
+	}
+}
+
 // AuthOAuthAsAuthInput is a convenience function that returns AuthOAuth wrapped in AuthInput.
-func AuthOAuthAsAuthInput(v *AuthOAuth) AuthInput {
-	return AuthInput{
+func AuthOAuthAsAuthInput(v *AuthOAuth) *AuthInput {
+	return &AuthInput{
 		AuthOAuth: v,
+	}
+}
+
+// AuthAlgoliaAsAuthInput is a convenience function that returns AuthAlgolia wrapped in AuthInput.
+func AuthAlgoliaAsAuthInput(v *AuthAlgolia) *AuthInput {
+	return &AuthInput{
+		AuthAlgolia: v,
 	}
 }
 

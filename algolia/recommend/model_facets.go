@@ -32,12 +32,9 @@ func NewFacets(opts ...FacetsOption) *Facets {
 	return this
 }
 
-// NewFacetsWithDefaults instantiates a new Facets object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFacetsWithDefaults() *Facets {
-	this := &Facets{}
-	return this
+// NewEmptyFacets return a pointer to an empty Facets object.
+func NewEmptyFacets() *Facets {
+	return &Facets{}
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
@@ -68,8 +65,9 @@ func (o *Facets) HasOrder() bool {
 }
 
 // SetOrder gets a reference to the given []string and assigns it to the Order field.
-func (o *Facets) SetOrder(v []string) {
+func (o *Facets) SetOrder(v []string) *Facets {
 	o.Order = v
+	return o
 }
 
 func (o Facets) MarshalJSON() ([]byte, error) {

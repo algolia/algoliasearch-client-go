@@ -28,12 +28,9 @@ func NewDestinationCreateResponse(destinationID string, name string, createdAt s
 	return this
 }
 
-// NewDestinationCreateResponseWithDefaults instantiates a new DestinationCreateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDestinationCreateResponseWithDefaults() *DestinationCreateResponse {
-	this := &DestinationCreateResponse{}
-	return this
+// NewEmptyDestinationCreateResponse return a pointer to an empty DestinationCreateResponse object.
+func NewEmptyDestinationCreateResponse() *DestinationCreateResponse {
+	return &DestinationCreateResponse{}
 }
 
 // GetDestinationID returns the DestinationID field value.
@@ -56,8 +53,9 @@ func (o *DestinationCreateResponse) GetDestinationIDOk() (*string, bool) {
 }
 
 // SetDestinationID sets field value.
-func (o *DestinationCreateResponse) SetDestinationID(v string) {
+func (o *DestinationCreateResponse) SetDestinationID(v string) *DestinationCreateResponse {
 	o.DestinationID = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -80,8 +78,9 @@ func (o *DestinationCreateResponse) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *DestinationCreateResponse) SetName(v string) {
+func (o *DestinationCreateResponse) SetName(v string) *DestinationCreateResponse {
 	o.Name = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -104,8 +103,9 @@ func (o *DestinationCreateResponse) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *DestinationCreateResponse) SetCreatedAt(v string) {
+func (o *DestinationCreateResponse) SetCreatedAt(v string) *DestinationCreateResponse {
 	o.CreatedAt = v
+	return o
 }
 
 func (o DestinationCreateResponse) MarshalJSON() ([]byte, error) {

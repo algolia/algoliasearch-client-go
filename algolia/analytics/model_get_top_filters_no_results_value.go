@@ -28,12 +28,9 @@ func NewGetTopFiltersNoResultsValue(attribute string, operator string, value str
 	return this
 }
 
-// NewGetTopFiltersNoResultsValueWithDefaults instantiates a new GetTopFiltersNoResultsValue object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTopFiltersNoResultsValueWithDefaults() *GetTopFiltersNoResultsValue {
-	this := &GetTopFiltersNoResultsValue{}
-	return this
+// NewEmptyGetTopFiltersNoResultsValue return a pointer to an empty GetTopFiltersNoResultsValue object.
+func NewEmptyGetTopFiltersNoResultsValue() *GetTopFiltersNoResultsValue {
+	return &GetTopFiltersNoResultsValue{}
 }
 
 // GetAttribute returns the Attribute field value.
@@ -56,8 +53,9 @@ func (o *GetTopFiltersNoResultsValue) GetAttributeOk() (*string, bool) {
 }
 
 // SetAttribute sets field value.
-func (o *GetTopFiltersNoResultsValue) SetAttribute(v string) {
+func (o *GetTopFiltersNoResultsValue) SetAttribute(v string) *GetTopFiltersNoResultsValue {
 	o.Attribute = v
+	return o
 }
 
 // GetOperator returns the Operator field value.
@@ -80,8 +78,9 @@ func (o *GetTopFiltersNoResultsValue) GetOperatorOk() (*string, bool) {
 }
 
 // SetOperator sets field value.
-func (o *GetTopFiltersNoResultsValue) SetOperator(v string) {
+func (o *GetTopFiltersNoResultsValue) SetOperator(v string) *GetTopFiltersNoResultsValue {
 	o.Operator = v
+	return o
 }
 
 // GetValue returns the Value field value.
@@ -104,8 +103,9 @@ func (o *GetTopFiltersNoResultsValue) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value.
-func (o *GetTopFiltersNoResultsValue) SetValue(v string) {
+func (o *GetTopFiltersNoResultsValue) SetValue(v string) *GetTopFiltersNoResultsValue {
 	o.Value = v
+	return o
 }
 
 func (o GetTopFiltersNoResultsValue) MarshalJSON() ([]byte, error) {

@@ -40,12 +40,9 @@ func NewProbesMetric(opts ...ProbesMetricOption) *ProbesMetric {
 	return this
 }
 
-// NewProbesMetricWithDefaults instantiates a new ProbesMetric object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewProbesMetricWithDefaults() *ProbesMetric {
-	this := &ProbesMetric{}
-	return this
+// NewEmptyProbesMetric return a pointer to an empty ProbesMetric object.
+func NewEmptyProbesMetric() *ProbesMetric {
+	return &ProbesMetric{}
 }
 
 // GetT returns the T field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *ProbesMetric) HasT() bool {
 }
 
 // SetT gets a reference to the given int64 and assigns it to the T field.
-func (o *ProbesMetric) SetT(v int64) {
+func (o *ProbesMetric) SetT(v int64) *ProbesMetric {
 	o.T = &v
+	return o
 }
 
 // GetV returns the V field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *ProbesMetric) HasV() bool {
 }
 
 // SetV gets a reference to the given int32 and assigns it to the V field.
-func (o *ProbesMetric) SetV(v int32) {
+func (o *ProbesMetric) SetV(v int32) *ProbesMetric {
 	o.V = &v
+	return o
 }
 
 func (o ProbesMetric) MarshalJSON() ([]byte, error) {

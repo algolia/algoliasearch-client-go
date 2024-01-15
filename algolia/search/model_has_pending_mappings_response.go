@@ -35,12 +35,9 @@ func NewHasPendingMappingsResponse(pending bool, opts ...HasPendingMappingsRespo
 	return this
 }
 
-// NewHasPendingMappingsResponseWithDefaults instantiates a new HasPendingMappingsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewHasPendingMappingsResponseWithDefaults() *HasPendingMappingsResponse {
-	this := &HasPendingMappingsResponse{}
-	return this
+// NewEmptyHasPendingMappingsResponse return a pointer to an empty HasPendingMappingsResponse object.
+func NewEmptyHasPendingMappingsResponse() *HasPendingMappingsResponse {
+	return &HasPendingMappingsResponse{}
 }
 
 // GetPending returns the Pending field value.
@@ -63,8 +60,9 @@ func (o *HasPendingMappingsResponse) GetPendingOk() (*bool, bool) {
 }
 
 // SetPending sets field value.
-func (o *HasPendingMappingsResponse) SetPending(v bool) {
+func (o *HasPendingMappingsResponse) SetPending(v bool) *HasPendingMappingsResponse {
 	o.Pending = v
+	return o
 }
 
 // GetClusters returns the Clusters field value if set, zero value otherwise.
@@ -95,8 +93,9 @@ func (o *HasPendingMappingsResponse) HasClusters() bool {
 }
 
 // SetClusters gets a reference to the given map[string][]string and assigns it to the Clusters field.
-func (o *HasPendingMappingsResponse) SetClusters(v map[string][]string) {
+func (o *HasPendingMappingsResponse) SetClusters(v map[string][]string) *HasPendingMappingsResponse {
 	o.Clusters = &v
+	return o
 }
 
 func (o HasPendingMappingsResponse) MarshalJSON() ([]byte, error) {

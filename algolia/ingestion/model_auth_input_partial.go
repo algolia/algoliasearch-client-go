@@ -15,38 +15,38 @@ type AuthInputPartial struct {
 	AuthOAuthPartial                *AuthOAuthPartial
 }
 
-// AuthAPIKeyPartialAsAuthInputPartial is a convenience function that returns AuthAPIKeyPartial wrapped in AuthInputPartial.
-func AuthAPIKeyPartialAsAuthInputPartial(v *AuthAPIKeyPartial) AuthInputPartial {
-	return AuthInputPartial{
-		AuthAPIKeyPartial: v,
-	}
-}
-
-// AuthAlgoliaPartialAsAuthInputPartial is a convenience function that returns AuthAlgoliaPartial wrapped in AuthInputPartial.
-func AuthAlgoliaPartialAsAuthInputPartial(v *AuthAlgoliaPartial) AuthInputPartial {
-	return AuthInputPartial{
-		AuthAlgoliaPartial: v,
-	}
-}
-
-// AuthBasicPartialAsAuthInputPartial is a convenience function that returns AuthBasicPartial wrapped in AuthInputPartial.
-func AuthBasicPartialAsAuthInputPartial(v *AuthBasicPartial) AuthInputPartial {
-	return AuthInputPartial{
-		AuthBasicPartial: v,
-	}
-}
-
 // AuthGoogleServiceAccountPartialAsAuthInputPartial is a convenience function that returns AuthGoogleServiceAccountPartial wrapped in AuthInputPartial.
-func AuthGoogleServiceAccountPartialAsAuthInputPartial(v *AuthGoogleServiceAccountPartial) AuthInputPartial {
-	return AuthInputPartial{
+func AuthGoogleServiceAccountPartialAsAuthInputPartial(v *AuthGoogleServiceAccountPartial) *AuthInputPartial {
+	return &AuthInputPartial{
 		AuthGoogleServiceAccountPartial: v,
 	}
 }
 
+// AuthBasicPartialAsAuthInputPartial is a convenience function that returns AuthBasicPartial wrapped in AuthInputPartial.
+func AuthBasicPartialAsAuthInputPartial(v *AuthBasicPartial) *AuthInputPartial {
+	return &AuthInputPartial{
+		AuthBasicPartial: v,
+	}
+}
+
+// AuthAPIKeyPartialAsAuthInputPartial is a convenience function that returns AuthAPIKeyPartial wrapped in AuthInputPartial.
+func AuthAPIKeyPartialAsAuthInputPartial(v *AuthAPIKeyPartial) *AuthInputPartial {
+	return &AuthInputPartial{
+		AuthAPIKeyPartial: v,
+	}
+}
+
 // AuthOAuthPartialAsAuthInputPartial is a convenience function that returns AuthOAuthPartial wrapped in AuthInputPartial.
-func AuthOAuthPartialAsAuthInputPartial(v *AuthOAuthPartial) AuthInputPartial {
-	return AuthInputPartial{
+func AuthOAuthPartialAsAuthInputPartial(v *AuthOAuthPartial) *AuthInputPartial {
+	return &AuthInputPartial{
 		AuthOAuthPartial: v,
+	}
+}
+
+// AuthAlgoliaPartialAsAuthInputPartial is a convenience function that returns AuthAlgoliaPartial wrapped in AuthInputPartial.
+func AuthAlgoliaPartialAsAuthInputPartial(v *AuthAlgoliaPartial) *AuthInputPartial {
+	return &AuthInputPartial{
+		AuthAlgoliaPartial: v,
 	}
 }
 

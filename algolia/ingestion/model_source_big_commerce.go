@@ -60,12 +60,9 @@ func NewSourceBigCommerce(opts ...SourceBigCommerceOption) *SourceBigCommerce {
 	return this
 }
 
-// NewSourceBigCommerceWithDefaults instantiates a new SourceBigCommerce object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceBigCommerceWithDefaults() *SourceBigCommerce {
-	this := &SourceBigCommerce{}
-	return this
+// NewEmptySourceBigCommerce return a pointer to an empty SourceBigCommerce object.
+func NewEmptySourceBigCommerce() *SourceBigCommerce {
+	return &SourceBigCommerce{}
 }
 
 // GetStoreHash returns the StoreHash field value if set, zero value otherwise.
@@ -96,8 +93,9 @@ func (o *SourceBigCommerce) HasStoreHash() bool {
 }
 
 // SetStoreHash gets a reference to the given string and assigns it to the StoreHash field.
-func (o *SourceBigCommerce) SetStoreHash(v string) {
+func (o *SourceBigCommerce) SetStoreHash(v string) *SourceBigCommerce {
 	o.StoreHash = &v
+	return o
 }
 
 // GetChannel returns the Channel field value if set, zero value otherwise.
@@ -128,8 +126,9 @@ func (o *SourceBigCommerce) HasChannel() bool {
 }
 
 // SetChannel gets a reference to the given BigCommerceChannel and assigns it to the Channel field.
-func (o *SourceBigCommerce) SetChannel(v BigCommerceChannel) {
-	o.Channel = &v
+func (o *SourceBigCommerce) SetChannel(v *BigCommerceChannel) *SourceBigCommerce {
+	o.Channel = v
+	return o
 }
 
 // GetCustomFields returns the CustomFields field value if set, zero value otherwise.
@@ -160,8 +159,9 @@ func (o *SourceBigCommerce) HasCustomFields() bool {
 }
 
 // SetCustomFields gets a reference to the given []string and assigns it to the CustomFields field.
-func (o *SourceBigCommerce) SetCustomFields(v []string) {
+func (o *SourceBigCommerce) SetCustomFields(v []string) *SourceBigCommerce {
 	o.CustomFields = v
+	return o
 }
 
 // GetProductMetafields returns the ProductMetafields field value if set, zero value otherwise.
@@ -192,8 +192,9 @@ func (o *SourceBigCommerce) HasProductMetafields() bool {
 }
 
 // SetProductMetafields gets a reference to the given []BigCommerceMetafield and assigns it to the ProductMetafields field.
-func (o *SourceBigCommerce) SetProductMetafields(v []BigCommerceMetafield) {
+func (o *SourceBigCommerce) SetProductMetafields(v []BigCommerceMetafield) *SourceBigCommerce {
 	o.ProductMetafields = v
+	return o
 }
 
 // GetVariantMetafields returns the VariantMetafields field value if set, zero value otherwise.
@@ -224,8 +225,9 @@ func (o *SourceBigCommerce) HasVariantMetafields() bool {
 }
 
 // SetVariantMetafields gets a reference to the given []BigCommerceMetafield and assigns it to the VariantMetafields field.
-func (o *SourceBigCommerce) SetVariantMetafields(v []BigCommerceMetafield) {
+func (o *SourceBigCommerce) SetVariantMetafields(v []BigCommerceMetafield) *SourceBigCommerce {
 	o.VariantMetafields = v
+	return o
 }
 
 func (o SourceBigCommerce) MarshalJSON() ([]byte, error) {

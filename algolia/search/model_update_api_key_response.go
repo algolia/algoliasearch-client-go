@@ -25,12 +25,9 @@ func NewUpdateApiKeyResponse(key string, updatedAt string) *UpdateApiKeyResponse
 	return this
 }
 
-// NewUpdateApiKeyResponseWithDefaults instantiates a new UpdateApiKeyResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUpdateApiKeyResponseWithDefaults() *UpdateApiKeyResponse {
-	this := &UpdateApiKeyResponse{}
-	return this
+// NewEmptyUpdateApiKeyResponse return a pointer to an empty UpdateApiKeyResponse object.
+func NewEmptyUpdateApiKeyResponse() *UpdateApiKeyResponse {
+	return &UpdateApiKeyResponse{}
 }
 
 // GetKey returns the Key field value.
@@ -53,8 +50,9 @@ func (o *UpdateApiKeyResponse) GetKeyOk() (*string, bool) {
 }
 
 // SetKey sets field value.
-func (o *UpdateApiKeyResponse) SetKey(v string) {
+func (o *UpdateApiKeyResponse) SetKey(v string) *UpdateApiKeyResponse {
 	o.Key = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -77,8 +75,9 @@ func (o *UpdateApiKeyResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *UpdateApiKeyResponse) SetUpdatedAt(v string) {
+func (o *UpdateApiKeyResponse) SetUpdatedAt(v string) *UpdateApiKeyResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 func (o UpdateApiKeyResponse) MarshalJSON() ([]byte, error) {

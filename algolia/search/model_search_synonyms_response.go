@@ -28,12 +28,9 @@ func NewSearchSynonymsResponse(hits []SynonymHit, nbHits int32) *SearchSynonymsR
 	return this
 }
 
-// NewSearchSynonymsResponseWithDefaults instantiates a new SearchSynonymsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchSynonymsResponseWithDefaults() *SearchSynonymsResponse {
-	this := &SearchSynonymsResponse{}
-	return this
+// NewEmptySearchSynonymsResponse return a pointer to an empty SearchSynonymsResponse object.
+func NewEmptySearchSynonymsResponse() *SearchSynonymsResponse {
+	return &SearchSynonymsResponse{}
 }
 
 // GetHits returns the Hits field value.
@@ -56,8 +53,9 @@ func (o *SearchSynonymsResponse) GetHitsOk() ([]SynonymHit, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchSynonymsResponse) SetHits(v []SynonymHit) {
+func (o *SearchSynonymsResponse) SetHits(v []SynonymHit) *SearchSynonymsResponse {
 	o.Hits = v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -80,8 +78,19 @@ func (o *SearchSynonymsResponse) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *SearchSynonymsResponse) SetNbHits(v int32) {
+func (o *SearchSynonymsResponse) SetNbHits(v int32) *SearchSynonymsResponse {
 	o.NbHits = v
+	return o
+}
+
+func (o *SearchSynonymsResponse) SetAdditionalProperty(key string, value any) *SearchSynonymsResponse {
+	if o.AdditionalProperties == nil {
+		o.AdditionalProperties = make(map[string]any)
+	}
+
+	o.AdditionalProperties[key] = value
+
+	return o
 }
 
 func (o SearchSynonymsResponse) MarshalJSON() ([]byte, error) {

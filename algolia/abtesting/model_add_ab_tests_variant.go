@@ -13,15 +13,15 @@ type AddABTestsVariant struct {
 }
 
 // AbTestsVariantAsAddABTestsVariant is a convenience function that returns AbTestsVariant wrapped in AddABTestsVariant.
-func AbTestsVariantAsAddABTestsVariant(v *AbTestsVariant) AddABTestsVariant {
-	return AddABTestsVariant{
+func AbTestsVariantAsAddABTestsVariant(v *AbTestsVariant) *AddABTestsVariant {
+	return &AddABTestsVariant{
 		AbTestsVariant: v,
 	}
 }
 
 // AbTestsVariantSearchParamsAsAddABTestsVariant is a convenience function that returns AbTestsVariantSearchParams wrapped in AddABTestsVariant.
-func AbTestsVariantSearchParamsAsAddABTestsVariant(v *AbTestsVariantSearchParams) AddABTestsVariant {
-	return AddABTestsVariant{
+func AbTestsVariantSearchParamsAsAddABTestsVariant(v *AbTestsVariantSearchParams) *AddABTestsVariant {
+	return &AddABTestsVariant{
 		AbTestsVariantSearchParams: v,
 	}
 }

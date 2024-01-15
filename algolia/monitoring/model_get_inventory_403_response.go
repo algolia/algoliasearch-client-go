@@ -31,12 +31,9 @@ func NewGetInventory403Response(opts ...GetInventory403ResponseOption) *GetInven
 	return this
 }
 
-// NewGetInventory403ResponseWithDefaults instantiates a new GetInventory403Response object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetInventory403ResponseWithDefaults() *GetInventory403Response {
-	this := &GetInventory403Response{}
-	return this
+// NewEmptyGetInventory403Response return a pointer to an empty GetInventory403Response object.
+func NewEmptyGetInventory403Response() *GetInventory403Response {
+	return &GetInventory403Response{}
 }
 
 // GetReason returns the Reason field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *GetInventory403Response) HasReason() bool {
 }
 
 // SetReason gets a reference to the given string and assigns it to the Reason field.
-func (o *GetInventory403Response) SetReason(v string) {
+func (o *GetInventory403Response) SetReason(v string) *GetInventory403Response {
 	o.Reason = &v
+	return o
 }
 
 func (o GetInventory403Response) MarshalJSON() ([]byte, error) {

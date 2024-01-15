@@ -13,16 +13,16 @@ type OptionalFilters struct {
 }
 
 // []MixedSearchFiltersAsOptionalFilters is a convenience function that returns []MixedSearchFilters wrapped in OptionalFilters.
-func ArrayOfMixedSearchFiltersAsOptionalFilters(v *[]MixedSearchFilters) OptionalFilters {
-	return OptionalFilters{
-		ArrayOfMixedSearchFilters: v,
+func ArrayOfMixedSearchFiltersAsOptionalFilters(v []MixedSearchFilters) *OptionalFilters {
+	return &OptionalFilters{
+		ArrayOfMixedSearchFilters: &v,
 	}
 }
 
 // stringAsOptionalFilters is a convenience function that returns string wrapped in OptionalFilters.
-func StringAsOptionalFilters(v *string) OptionalFilters {
-	return OptionalFilters{
-		String: v,
+func StringAsOptionalFilters(v string) *OptionalFilters {
+	return &OptionalFilters{
+		String: &v,
 	}
 }
 

@@ -13,16 +13,16 @@ type NumericFilters struct {
 }
 
 // []MixedSearchFiltersAsNumericFilters is a convenience function that returns []MixedSearchFilters wrapped in NumericFilters.
-func ArrayOfMixedSearchFiltersAsNumericFilters(v *[]MixedSearchFilters) NumericFilters {
-	return NumericFilters{
-		ArrayOfMixedSearchFilters: v,
+func ArrayOfMixedSearchFiltersAsNumericFilters(v []MixedSearchFilters) *NumericFilters {
+	return &NumericFilters{
+		ArrayOfMixedSearchFilters: &v,
 	}
 }
 
 // stringAsNumericFilters is a convenience function that returns string wrapped in NumericFilters.
-func StringAsNumericFilters(v *string) NumericFilters {
-	return NumericFilters{
-		String: v,
+func StringAsNumericFilters(v string) *NumericFilters {
+	return &NumericFilters{
+		String: &v,
 	}
 }
 

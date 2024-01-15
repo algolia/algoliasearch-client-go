@@ -84,16 +84,9 @@ func NewDeleteByParams(opts ...DeleteByParamsOption) *DeleteByParams {
 	return this
 }
 
-// NewDeleteByParamsWithDefaults instantiates a new DeleteByParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDeleteByParamsWithDefaults() *DeleteByParams {
-	this := &DeleteByParams{}
-	var filters string = ""
-	this.Filters = &filters
-	var aroundLatLng string = ""
-	this.AroundLatLng = &aroundLatLng
-	return this
+// NewEmptyDeleteByParams return a pointer to an empty DeleteByParams object.
+func NewEmptyDeleteByParams() *DeleteByParams {
+	return &DeleteByParams{}
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
@@ -124,8 +117,9 @@ func (o *DeleteByParams) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *DeleteByParams) SetFacetFilters(v FacetFilters) {
-	o.FacetFilters = &v
+func (o *DeleteByParams) SetFacetFilters(v *FacetFilters) *DeleteByParams {
+	o.FacetFilters = v
+	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -156,8 +150,9 @@ func (o *DeleteByParams) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *DeleteByParams) SetFilters(v string) {
+func (o *DeleteByParams) SetFilters(v string) *DeleteByParams {
 	o.Filters = &v
+	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
@@ -188,8 +183,9 @@ func (o *DeleteByParams) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *DeleteByParams) SetNumericFilters(v NumericFilters) {
-	o.NumericFilters = &v
+func (o *DeleteByParams) SetNumericFilters(v *NumericFilters) *DeleteByParams {
+	o.NumericFilters = v
+	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
@@ -220,8 +216,9 @@ func (o *DeleteByParams) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *DeleteByParams) SetTagFilters(v TagFilters) {
-	o.TagFilters = &v
+func (o *DeleteByParams) SetTagFilters(v *TagFilters) *DeleteByParams {
+	o.TagFilters = v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -252,8 +249,9 @@ func (o *DeleteByParams) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *DeleteByParams) SetAroundLatLng(v string) {
+func (o *DeleteByParams) SetAroundLatLng(v string) *DeleteByParams {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
@@ -284,8 +282,9 @@ func (o *DeleteByParams) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *DeleteByParams) SetAroundRadius(v AroundRadius) {
-	o.AroundRadius = &v
+func (o *DeleteByParams) SetAroundRadius(v *AroundRadius) *DeleteByParams {
+	o.AroundRadius = v
+	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
@@ -316,8 +315,9 @@ func (o *DeleteByParams) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *DeleteByParams) SetInsideBoundingBox(v [][]float64) {
+func (o *DeleteByParams) SetInsideBoundingBox(v [][]float64) *DeleteByParams {
 	o.InsideBoundingBox = v
+	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -348,8 +348,9 @@ func (o *DeleteByParams) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *DeleteByParams) SetInsidePolygon(v [][]float64) {
+func (o *DeleteByParams) SetInsidePolygon(v [][]float64) *DeleteByParams {
 	o.InsidePolygon = v
+	return o
 }
 
 func (o DeleteByParams) MarshalJSON() ([]byte, error) {

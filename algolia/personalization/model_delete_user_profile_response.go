@@ -25,12 +25,9 @@ func NewDeleteUserProfileResponse(userToken string, deletedUntil string) *Delete
 	return this
 }
 
-// NewDeleteUserProfileResponseWithDefaults instantiates a new DeleteUserProfileResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDeleteUserProfileResponseWithDefaults() *DeleteUserProfileResponse {
-	this := &DeleteUserProfileResponse{}
-	return this
+// NewEmptyDeleteUserProfileResponse return a pointer to an empty DeleteUserProfileResponse object.
+func NewEmptyDeleteUserProfileResponse() *DeleteUserProfileResponse {
+	return &DeleteUserProfileResponse{}
 }
 
 // GetUserToken returns the UserToken field value.
@@ -53,8 +50,9 @@ func (o *DeleteUserProfileResponse) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *DeleteUserProfileResponse) SetUserToken(v string) {
+func (o *DeleteUserProfileResponse) SetUserToken(v string) *DeleteUserProfileResponse {
 	o.UserToken = v
+	return o
 }
 
 // GetDeletedUntil returns the DeletedUntil field value.
@@ -77,8 +75,9 @@ func (o *DeleteUserProfileResponse) GetDeletedUntilOk() (*string, bool) {
 }
 
 // SetDeletedUntil sets field value.
-func (o *DeleteUserProfileResponse) SetDeletedUntil(v string) {
+func (o *DeleteUserProfileResponse) SetDeletedUntil(v string) *DeleteUserProfileResponse {
 	o.DeletedUntil = v
+	return o
 }
 
 func (o DeleteUserProfileResponse) MarshalJSON() ([]byte, error) {

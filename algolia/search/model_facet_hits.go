@@ -28,12 +28,9 @@ func NewFacetHits(value string, highlighted string, count int32) *FacetHits {
 	return this
 }
 
-// NewFacetHitsWithDefaults instantiates a new FacetHits object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFacetHitsWithDefaults() *FacetHits {
-	this := &FacetHits{}
-	return this
+// NewEmptyFacetHits return a pointer to an empty FacetHits object.
+func NewEmptyFacetHits() *FacetHits {
+	return &FacetHits{}
 }
 
 // GetValue returns the Value field value.
@@ -56,8 +53,9 @@ func (o *FacetHits) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value.
-func (o *FacetHits) SetValue(v string) {
+func (o *FacetHits) SetValue(v string) *FacetHits {
 	o.Value = v
+	return o
 }
 
 // GetHighlighted returns the Highlighted field value.
@@ -80,8 +78,9 @@ func (o *FacetHits) GetHighlightedOk() (*string, bool) {
 }
 
 // SetHighlighted sets field value.
-func (o *FacetHits) SetHighlighted(v string) {
+func (o *FacetHits) SetHighlighted(v string) *FacetHits {
 	o.Highlighted = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -104,8 +103,9 @@ func (o *FacetHits) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *FacetHits) SetCount(v int32) {
+func (o *FacetHits) SetCount(v int32) *FacetHits {
 	o.Count = v
+	return o
 }
 
 func (o FacetHits) MarshalJSON() ([]byte, error) {

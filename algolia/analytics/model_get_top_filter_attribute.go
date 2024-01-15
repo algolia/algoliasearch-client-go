@@ -25,12 +25,9 @@ func NewGetTopFilterAttribute(attribute string, count int32) *GetTopFilterAttrib
 	return this
 }
 
-// NewGetTopFilterAttributeWithDefaults instantiates a new GetTopFilterAttribute object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTopFilterAttributeWithDefaults() *GetTopFilterAttribute {
-	this := &GetTopFilterAttribute{}
-	return this
+// NewEmptyGetTopFilterAttribute return a pointer to an empty GetTopFilterAttribute object.
+func NewEmptyGetTopFilterAttribute() *GetTopFilterAttribute {
+	return &GetTopFilterAttribute{}
 }
 
 // GetAttribute returns the Attribute field value.
@@ -53,8 +50,9 @@ func (o *GetTopFilterAttribute) GetAttributeOk() (*string, bool) {
 }
 
 // SetAttribute sets field value.
-func (o *GetTopFilterAttribute) SetAttribute(v string) {
+func (o *GetTopFilterAttribute) SetAttribute(v string) *GetTopFilterAttribute {
 	o.Attribute = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -77,8 +75,9 @@ func (o *GetTopFilterAttribute) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *GetTopFilterAttribute) SetCount(v int32) {
+func (o *GetTopFilterAttribute) SetCount(v int32) *GetTopFilterAttribute {
 	o.Count = v
+	return o
 }
 
 func (o GetTopFilterAttribute) MarshalJSON() ([]byte, error) {

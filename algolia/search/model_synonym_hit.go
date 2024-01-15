@@ -77,12 +77,9 @@ func NewSynonymHit(objectID string, type_ SynonymType, opts ...SynonymHitOption)
 	return this
 }
 
-// NewSynonymHitWithDefaults instantiates a new SynonymHit object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSynonymHitWithDefaults() *SynonymHit {
-	this := &SynonymHit{}
-	return this
+// NewEmptySynonymHit return a pointer to an empty SynonymHit object.
+func NewEmptySynonymHit() *SynonymHit {
+	return &SynonymHit{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -105,8 +102,9 @@ func (o *SynonymHit) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *SynonymHit) SetObjectID(v string) {
+func (o *SynonymHit) SetObjectID(v string) *SynonymHit {
 	o.ObjectID = v
+	return o
 }
 
 // GetType returns the Type field value.
@@ -129,8 +127,9 @@ func (o *SynonymHit) GetTypeOk() (*SynonymType, bool) {
 }
 
 // SetType sets field value.
-func (o *SynonymHit) SetType(v SynonymType) {
+func (o *SynonymHit) SetType(v SynonymType) *SynonymHit {
 	o.Type = v
+	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
@@ -161,8 +160,9 @@ func (o *SynonymHit) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given []string and assigns it to the Synonyms field.
-func (o *SynonymHit) SetSynonyms(v []string) {
+func (o *SynonymHit) SetSynonyms(v []string) *SynonymHit {
 	o.Synonyms = v
+	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -193,8 +193,9 @@ func (o *SynonymHit) HasInput() bool {
 }
 
 // SetInput gets a reference to the given string and assigns it to the Input field.
-func (o *SynonymHit) SetInput(v string) {
+func (o *SynonymHit) SetInput(v string) *SynonymHit {
 	o.Input = &v
+	return o
 }
 
 // GetWord returns the Word field value if set, zero value otherwise.
@@ -225,8 +226,9 @@ func (o *SynonymHit) HasWord() bool {
 }
 
 // SetWord gets a reference to the given string and assigns it to the Word field.
-func (o *SynonymHit) SetWord(v string) {
+func (o *SynonymHit) SetWord(v string) *SynonymHit {
 	o.Word = &v
+	return o
 }
 
 // GetCorrections returns the Corrections field value if set, zero value otherwise.
@@ -257,8 +259,9 @@ func (o *SynonymHit) HasCorrections() bool {
 }
 
 // SetCorrections gets a reference to the given []string and assigns it to the Corrections field.
-func (o *SynonymHit) SetCorrections(v []string) {
+func (o *SynonymHit) SetCorrections(v []string) *SynonymHit {
 	o.Corrections = v
+	return o
 }
 
 // GetPlaceholder returns the Placeholder field value if set, zero value otherwise.
@@ -289,8 +292,9 @@ func (o *SynonymHit) HasPlaceholder() bool {
 }
 
 // SetPlaceholder gets a reference to the given string and assigns it to the Placeholder field.
-func (o *SynonymHit) SetPlaceholder(v string) {
+func (o *SynonymHit) SetPlaceholder(v string) *SynonymHit {
 	o.Placeholder = &v
+	return o
 }
 
 // GetReplacements returns the Replacements field value if set, zero value otherwise.
@@ -321,8 +325,9 @@ func (o *SynonymHit) HasReplacements() bool {
 }
 
 // SetReplacements gets a reference to the given []string and assigns it to the Replacements field.
-func (o *SynonymHit) SetReplacements(v []string) {
+func (o *SynonymHit) SetReplacements(v []string) *SynonymHit {
 	o.Replacements = v
+	return o
 }
 
 func (o SynonymHit) MarshalJSON() ([]byte, error) {

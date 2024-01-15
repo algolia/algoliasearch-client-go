@@ -40,12 +40,9 @@ func NewScheduleTrigger(type_ ScheduleTriggerType, cron string, nextRun string, 
 	return this
 }
 
-// NewScheduleTriggerWithDefaults instantiates a new ScheduleTrigger object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewScheduleTriggerWithDefaults() *ScheduleTrigger {
-	this := &ScheduleTrigger{}
-	return this
+// NewEmptyScheduleTrigger return a pointer to an empty ScheduleTrigger object.
+func NewEmptyScheduleTrigger() *ScheduleTrigger {
+	return &ScheduleTrigger{}
 }
 
 // GetType returns the Type field value.
@@ -68,8 +65,9 @@ func (o *ScheduleTrigger) GetTypeOk() (*ScheduleTriggerType, bool) {
 }
 
 // SetType sets field value.
-func (o *ScheduleTrigger) SetType(v ScheduleTriggerType) {
+func (o *ScheduleTrigger) SetType(v ScheduleTriggerType) *ScheduleTrigger {
 	o.Type = v
+	return o
 }
 
 // GetCron returns the Cron field value.
@@ -92,8 +90,9 @@ func (o *ScheduleTrigger) GetCronOk() (*string, bool) {
 }
 
 // SetCron sets field value.
-func (o *ScheduleTrigger) SetCron(v string) {
+func (o *ScheduleTrigger) SetCron(v string) *ScheduleTrigger {
 	o.Cron = v
+	return o
 }
 
 // GetLastRun returns the LastRun field value if set, zero value otherwise.
@@ -124,8 +123,9 @@ func (o *ScheduleTrigger) HasLastRun() bool {
 }
 
 // SetLastRun gets a reference to the given string and assigns it to the LastRun field.
-func (o *ScheduleTrigger) SetLastRun(v string) {
+func (o *ScheduleTrigger) SetLastRun(v string) *ScheduleTrigger {
 	o.LastRun = &v
+	return o
 }
 
 // GetNextRun returns the NextRun field value.
@@ -148,8 +148,9 @@ func (o *ScheduleTrigger) GetNextRunOk() (*string, bool) {
 }
 
 // SetNextRun sets field value.
-func (o *ScheduleTrigger) SetNextRun(v string) {
+func (o *ScheduleTrigger) SetNextRun(v string) *ScheduleTrigger {
 	o.NextRun = v
+	return o
 }
 
 func (o ScheduleTrigger) MarshalJSON() ([]byte, error) {

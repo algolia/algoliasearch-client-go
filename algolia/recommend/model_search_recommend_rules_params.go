@@ -64,16 +64,9 @@ func NewSearchRecommendRulesParams(opts ...SearchRecommendRulesParamsOption) *Se
 	return this
 }
 
-// NewSearchRecommendRulesParamsWithDefaults instantiates a new SearchRecommendRulesParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchRecommendRulesParamsWithDefaults() *SearchRecommendRulesParams {
-	this := &SearchRecommendRulesParams{}
-	var query string = ""
-	this.Query = &query
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	return this
+// NewEmptySearchRecommendRulesParams return a pointer to an empty SearchRecommendRulesParams object.
+func NewEmptySearchRecommendRulesParams() *SearchRecommendRulesParams {
+	return &SearchRecommendRulesParams{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -104,8 +97,9 @@ func (o *SearchRecommendRulesParams) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *SearchRecommendRulesParams) SetQuery(v string) {
+func (o *SearchRecommendRulesParams) SetQuery(v string) *SearchRecommendRulesParams {
 	o.Query = &v
+	return o
 }
 
 // GetContext returns the Context field value if set, zero value otherwise.
@@ -136,8 +130,9 @@ func (o *SearchRecommendRulesParams) HasContext() bool {
 }
 
 // SetContext gets a reference to the given string and assigns it to the Context field.
-func (o *SearchRecommendRulesParams) SetContext(v string) {
+func (o *SearchRecommendRulesParams) SetContext(v string) *SearchRecommendRulesParams {
 	o.Context = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -168,8 +163,9 @@ func (o *SearchRecommendRulesParams) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *SearchRecommendRulesParams) SetPage(v int32) {
+func (o *SearchRecommendRulesParams) SetPage(v int32) *SearchRecommendRulesParams {
 	o.Page = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -200,8 +196,9 @@ func (o *SearchRecommendRulesParams) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *SearchRecommendRulesParams) SetHitsPerPage(v int32) {
+func (o *SearchRecommendRulesParams) SetHitsPerPage(v int32) *SearchRecommendRulesParams {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -233,8 +230,9 @@ func (o *SearchRecommendRulesParams) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given NullableBool and assigns it to the Enabled field.
-func (o *SearchRecommendRulesParams) SetEnabled(v bool) {
+func (o *SearchRecommendRulesParams) SetEnabled(v bool) *SearchRecommendRulesParams {
 	o.Enabled.Set(&v)
+	return o
 }
 
 // SetEnabledNil sets the value for Enabled to be an explicit nil.

@@ -25,12 +25,9 @@ func NewTopHit(hit string, count int32) *TopHit {
 	return this
 }
 
-// NewTopHitWithDefaults instantiates a new TopHit object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTopHitWithDefaults() *TopHit {
-	this := &TopHit{}
-	return this
+// NewEmptyTopHit return a pointer to an empty TopHit object.
+func NewEmptyTopHit() *TopHit {
+	return &TopHit{}
 }
 
 // GetHit returns the Hit field value.
@@ -53,8 +50,9 @@ func (o *TopHit) GetHitOk() (*string, bool) {
 }
 
 // SetHit sets field value.
-func (o *TopHit) SetHit(v string) {
+func (o *TopHit) SetHit(v string) *TopHit {
 	o.Hit = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -77,8 +75,9 @@ func (o *TopHit) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *TopHit) SetCount(v int32) {
+func (o *TopHit) SetCount(v int32) *TopHit {
 	o.Count = v
+	return o
 }
 
 func (o TopHit) MarshalJSON() ([]byte, error) {

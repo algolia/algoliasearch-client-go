@@ -28,12 +28,9 @@ func NewTopSearch(search string, count int32, nbHits int32) *TopSearch {
 	return this
 }
 
-// NewTopSearchWithDefaults instantiates a new TopSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTopSearchWithDefaults() *TopSearch {
-	this := &TopSearch{}
-	return this
+// NewEmptyTopSearch return a pointer to an empty TopSearch object.
+func NewEmptyTopSearch() *TopSearch {
+	return &TopSearch{}
 }
 
 // GetSearch returns the Search field value.
@@ -56,8 +53,9 @@ func (o *TopSearch) GetSearchOk() (*string, bool) {
 }
 
 // SetSearch sets field value.
-func (o *TopSearch) SetSearch(v string) {
+func (o *TopSearch) SetSearch(v string) *TopSearch {
 	o.Search = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -80,8 +78,9 @@ func (o *TopSearch) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *TopSearch) SetCount(v int32) {
+func (o *TopSearch) SetCount(v int32) *TopSearch {
 	o.Count = v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -104,8 +103,9 @@ func (o *TopSearch) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *TopSearch) SetNbHits(v int32) {
+func (o *TopSearch) SetNbHits(v int32) *TopSearch {
 	o.NbHits = v
+	return o
 }
 
 func (o TopSearch) MarshalJSON() ([]byte, error) {

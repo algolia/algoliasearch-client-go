@@ -31,12 +31,9 @@ func NewClickThroughRateEvent(rate float64, clickCount int32, trackedSearchCount
 	return this
 }
 
-// NewClickThroughRateEventWithDefaults instantiates a new ClickThroughRateEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewClickThroughRateEventWithDefaults() *ClickThroughRateEvent {
-	this := &ClickThroughRateEvent{}
-	return this
+// NewEmptyClickThroughRateEvent return a pointer to an empty ClickThroughRateEvent object.
+func NewEmptyClickThroughRateEvent() *ClickThroughRateEvent {
+	return &ClickThroughRateEvent{}
 }
 
 // GetRate returns the Rate field value.
@@ -59,8 +56,9 @@ func (o *ClickThroughRateEvent) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *ClickThroughRateEvent) SetRate(v float64) {
+func (o *ClickThroughRateEvent) SetRate(v float64) *ClickThroughRateEvent {
 	o.Rate = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -83,8 +81,9 @@ func (o *ClickThroughRateEvent) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *ClickThroughRateEvent) SetClickCount(v int32) {
+func (o *ClickThroughRateEvent) SetClickCount(v int32) *ClickThroughRateEvent {
 	o.ClickCount = v
+	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
@@ -107,8 +106,9 @@ func (o *ClickThroughRateEvent) GetTrackedSearchCountOk() (*int32, bool) {
 }
 
 // SetTrackedSearchCount sets field value.
-func (o *ClickThroughRateEvent) SetTrackedSearchCount(v int32) {
+func (o *ClickThroughRateEvent) SetTrackedSearchCount(v int32) *ClickThroughRateEvent {
 	o.TrackedSearchCount = v
+	return o
 }
 
 // GetDate returns the Date field value.
@@ -131,8 +131,9 @@ func (o *ClickThroughRateEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *ClickThroughRateEvent) SetDate(v string) {
+func (o *ClickThroughRateEvent) SetDate(v string) *ClickThroughRateEvent {
 	o.Date = v
+	return o
 }
 
 func (o ClickThroughRateEvent) MarshalJSON() ([]byte, error) {

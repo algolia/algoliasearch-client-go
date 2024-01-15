@@ -23,12 +23,9 @@ func NewListDestinationsResponse(destinations []Destination, pagination Paginati
 	return this
 }
 
-// NewListDestinationsResponseWithDefaults instantiates a new ListDestinationsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListDestinationsResponseWithDefaults() *ListDestinationsResponse {
-	this := &ListDestinationsResponse{}
-	return this
+// NewEmptyListDestinationsResponse return a pointer to an empty ListDestinationsResponse object.
+func NewEmptyListDestinationsResponse() *ListDestinationsResponse {
+	return &ListDestinationsResponse{}
 }
 
 // GetDestinations returns the Destinations field value.
@@ -51,8 +48,9 @@ func (o *ListDestinationsResponse) GetDestinationsOk() ([]Destination, bool) {
 }
 
 // SetDestinations sets field value.
-func (o *ListDestinationsResponse) SetDestinations(v []Destination) {
+func (o *ListDestinationsResponse) SetDestinations(v []Destination) *ListDestinationsResponse {
 	o.Destinations = v
+	return o
 }
 
 // GetPagination returns the Pagination field value.
@@ -75,8 +73,9 @@ func (o *ListDestinationsResponse) GetPaginationOk() (*Pagination, bool) {
 }
 
 // SetPagination sets field value.
-func (o *ListDestinationsResponse) SetPagination(v Pagination) {
-	o.Pagination = v
+func (o *ListDestinationsResponse) SetPagination(v *Pagination) *ListDestinationsResponse {
+	o.Pagination = *v
+	return o
 }
 
 func (o ListDestinationsResponse) MarshalJSON() ([]byte, error) {

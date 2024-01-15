@@ -40,12 +40,9 @@ func NewConsequenceQueryObject(opts ...ConsequenceQueryObjectOption) *Consequenc
 	return this
 }
 
-// NewConsequenceQueryObjectWithDefaults instantiates a new ConsequenceQueryObject object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConsequenceQueryObjectWithDefaults() *ConsequenceQueryObject {
-	this := &ConsequenceQueryObject{}
-	return this
+// NewEmptyConsequenceQueryObject return a pointer to an empty ConsequenceQueryObject object.
+func NewEmptyConsequenceQueryObject() *ConsequenceQueryObject {
+	return &ConsequenceQueryObject{}
 }
 
 // GetRemove returns the Remove field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *ConsequenceQueryObject) HasRemove() bool {
 }
 
 // SetRemove gets a reference to the given []string and assigns it to the Remove field.
-func (o *ConsequenceQueryObject) SetRemove(v []string) {
+func (o *ConsequenceQueryObject) SetRemove(v []string) *ConsequenceQueryObject {
 	o.Remove = v
+	return o
 }
 
 // GetEdits returns the Edits field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *ConsequenceQueryObject) HasEdits() bool {
 }
 
 // SetEdits gets a reference to the given []Edit and assigns it to the Edits field.
-func (o *ConsequenceQueryObject) SetEdits(v []Edit) {
+func (o *ConsequenceQueryObject) SetEdits(v []Edit) *ConsequenceQueryObject {
 	o.Edits = v
+	return o
 }
 
 func (o ConsequenceQueryObject) MarshalJSON() ([]byte, error) {

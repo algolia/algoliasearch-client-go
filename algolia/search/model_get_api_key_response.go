@@ -94,22 +94,9 @@ func NewGetApiKeyResponse(createdAt int64, acl []Acl, opts ...GetApiKeyResponseO
 	return this
 }
 
-// NewGetApiKeyResponseWithDefaults instantiates a new GetApiKeyResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetApiKeyResponseWithDefaults() *GetApiKeyResponse {
-	this := &GetApiKeyResponse{}
-	var description string = ""
-	this.Description = &description
-	var maxHitsPerQuery int32 = 0
-	this.MaxHitsPerQuery = &maxHitsPerQuery
-	var maxQueriesPerIPPerHour int32 = 0
-	this.MaxQueriesPerIPPerHour = &maxQueriesPerIPPerHour
-	var queryParameters string = ""
-	this.QueryParameters = &queryParameters
-	var validity int32 = 0
-	this.Validity = &validity
-	return this
+// NewEmptyGetApiKeyResponse return a pointer to an empty GetApiKeyResponse object.
+func NewEmptyGetApiKeyResponse() *GetApiKeyResponse {
+	return &GetApiKeyResponse{}
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -140,8 +127,9 @@ func (o *GetApiKeyResponse) HasValue() bool {
 }
 
 // SetValue gets a reference to the given string and assigns it to the Value field.
-func (o *GetApiKeyResponse) SetValue(v string) {
+func (o *GetApiKeyResponse) SetValue(v string) *GetApiKeyResponse {
 	o.Value = &v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -164,8 +152,9 @@ func (o *GetApiKeyResponse) GetCreatedAtOk() (*int64, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *GetApiKeyResponse) SetCreatedAt(v int64) {
+func (o *GetApiKeyResponse) SetCreatedAt(v int64) *GetApiKeyResponse {
 	o.CreatedAt = v
+	return o
 }
 
 // GetAcl returns the Acl field value.
@@ -188,8 +177,9 @@ func (o *GetApiKeyResponse) GetAclOk() ([]Acl, bool) {
 }
 
 // SetAcl sets field value.
-func (o *GetApiKeyResponse) SetAcl(v []Acl) {
+func (o *GetApiKeyResponse) SetAcl(v []Acl) *GetApiKeyResponse {
 	o.Acl = v
+	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -220,8 +210,9 @@ func (o *GetApiKeyResponse) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *GetApiKeyResponse) SetDescription(v string) {
+func (o *GetApiKeyResponse) SetDescription(v string) *GetApiKeyResponse {
 	o.Description = &v
+	return o
 }
 
 // GetIndexes returns the Indexes field value if set, zero value otherwise.
@@ -252,8 +243,9 @@ func (o *GetApiKeyResponse) HasIndexes() bool {
 }
 
 // SetIndexes gets a reference to the given []string and assigns it to the Indexes field.
-func (o *GetApiKeyResponse) SetIndexes(v []string) {
+func (o *GetApiKeyResponse) SetIndexes(v []string) *GetApiKeyResponse {
 	o.Indexes = v
+	return o
 }
 
 // GetMaxHitsPerQuery returns the MaxHitsPerQuery field value if set, zero value otherwise.
@@ -284,8 +276,9 @@ func (o *GetApiKeyResponse) HasMaxHitsPerQuery() bool {
 }
 
 // SetMaxHitsPerQuery gets a reference to the given int32 and assigns it to the MaxHitsPerQuery field.
-func (o *GetApiKeyResponse) SetMaxHitsPerQuery(v int32) {
+func (o *GetApiKeyResponse) SetMaxHitsPerQuery(v int32) *GetApiKeyResponse {
 	o.MaxHitsPerQuery = &v
+	return o
 }
 
 // GetMaxQueriesPerIPPerHour returns the MaxQueriesPerIPPerHour field value if set, zero value otherwise.
@@ -316,8 +309,9 @@ func (o *GetApiKeyResponse) HasMaxQueriesPerIPPerHour() bool {
 }
 
 // SetMaxQueriesPerIPPerHour gets a reference to the given int32 and assigns it to the MaxQueriesPerIPPerHour field.
-func (o *GetApiKeyResponse) SetMaxQueriesPerIPPerHour(v int32) {
+func (o *GetApiKeyResponse) SetMaxQueriesPerIPPerHour(v int32) *GetApiKeyResponse {
 	o.MaxQueriesPerIPPerHour = &v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -348,8 +342,9 @@ func (o *GetApiKeyResponse) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given string and assigns it to the QueryParameters field.
-func (o *GetApiKeyResponse) SetQueryParameters(v string) {
+func (o *GetApiKeyResponse) SetQueryParameters(v string) *GetApiKeyResponse {
 	o.QueryParameters = &v
+	return o
 }
 
 // GetReferers returns the Referers field value if set, zero value otherwise.
@@ -380,8 +375,9 @@ func (o *GetApiKeyResponse) HasReferers() bool {
 }
 
 // SetReferers gets a reference to the given []string and assigns it to the Referers field.
-func (o *GetApiKeyResponse) SetReferers(v []string) {
+func (o *GetApiKeyResponse) SetReferers(v []string) *GetApiKeyResponse {
 	o.Referers = v
+	return o
 }
 
 // GetValidity returns the Validity field value if set, zero value otherwise.
@@ -412,8 +408,9 @@ func (o *GetApiKeyResponse) HasValidity() bool {
 }
 
 // SetValidity gets a reference to the given int32 and assigns it to the Validity field.
-func (o *GetApiKeyResponse) SetValidity(v int32) {
+func (o *GetApiKeyResponse) SetValidity(v int32) *GetApiKeyResponse {
 	o.Validity = &v
+	return o
 }
 
 func (o GetApiKeyResponse) MarshalJSON() ([]byte, error) {

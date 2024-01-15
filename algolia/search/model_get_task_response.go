@@ -21,12 +21,9 @@ func NewGetTaskResponse(status TaskStatus) *GetTaskResponse {
 	return this
 }
 
-// NewGetTaskResponseWithDefaults instantiates a new GetTaskResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTaskResponseWithDefaults() *GetTaskResponse {
-	this := &GetTaskResponse{}
-	return this
+// NewEmptyGetTaskResponse return a pointer to an empty GetTaskResponse object.
+func NewEmptyGetTaskResponse() *GetTaskResponse {
+	return &GetTaskResponse{}
 }
 
 // GetStatus returns the Status field value.
@@ -49,8 +46,9 @@ func (o *GetTaskResponse) GetStatusOk() (*TaskStatus, bool) {
 }
 
 // SetStatus sets field value.
-func (o *GetTaskResponse) SetStatus(v TaskStatus) {
+func (o *GetTaskResponse) SetStatus(v TaskStatus) *GetTaskResponse {
 	o.Status = v
+	return o
 }
 
 func (o GetTaskResponse) MarshalJSON() ([]byte, error) {

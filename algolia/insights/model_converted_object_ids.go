@@ -54,12 +54,9 @@ func NewConvertedObjectIDs(eventName string, eventType ConversionEvent, index st
 	return this
 }
 
-// NewConvertedObjectIDsWithDefaults instantiates a new ConvertedObjectIDs object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConvertedObjectIDsWithDefaults() *ConvertedObjectIDs {
-	this := &ConvertedObjectIDs{}
-	return this
+// NewEmptyConvertedObjectIDs return a pointer to an empty ConvertedObjectIDs object.
+func NewEmptyConvertedObjectIDs() *ConvertedObjectIDs {
+	return &ConvertedObjectIDs{}
 }
 
 // GetEventName returns the EventName field value.
@@ -82,8 +79,9 @@ func (o *ConvertedObjectIDs) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *ConvertedObjectIDs) SetEventName(v string) {
+func (o *ConvertedObjectIDs) SetEventName(v string) *ConvertedObjectIDs {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -106,8 +104,9 @@ func (o *ConvertedObjectIDs) GetEventTypeOk() (*ConversionEvent, bool) {
 }
 
 // SetEventType sets field value.
-func (o *ConvertedObjectIDs) SetEventType(v ConversionEvent) {
+func (o *ConvertedObjectIDs) SetEventType(v ConversionEvent) *ConvertedObjectIDs {
 	o.EventType = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -130,8 +129,9 @@ func (o *ConvertedObjectIDs) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *ConvertedObjectIDs) SetIndex(v string) {
+func (o *ConvertedObjectIDs) SetIndex(v string) *ConvertedObjectIDs {
 	o.Index = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -154,8 +154,9 @@ func (o *ConvertedObjectIDs) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *ConvertedObjectIDs) SetObjectIDs(v []string) {
+func (o *ConvertedObjectIDs) SetObjectIDs(v []string) *ConvertedObjectIDs {
 	o.ObjectIDs = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -178,8 +179,9 @@ func (o *ConvertedObjectIDs) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *ConvertedObjectIDs) SetUserToken(v string) {
+func (o *ConvertedObjectIDs) SetUserToken(v string) *ConvertedObjectIDs {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -210,8 +212,9 @@ func (o *ConvertedObjectIDs) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *ConvertedObjectIDs) SetAuthenticatedUserToken(v string) {
+func (o *ConvertedObjectIDs) SetAuthenticatedUserToken(v string) *ConvertedObjectIDs {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -242,8 +245,9 @@ func (o *ConvertedObjectIDs) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ConvertedObjectIDs) SetTimestamp(v int64) {
+func (o *ConvertedObjectIDs) SetTimestamp(v int64) *ConvertedObjectIDs {
 	o.Timestamp = &v
+	return o
 }
 
 func (o ConvertedObjectIDs) MarshalJSON() ([]byte, error) {

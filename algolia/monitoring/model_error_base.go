@@ -34,12 +34,9 @@ func NewErrorBase(opts ...ErrorBaseOption) *ErrorBase {
 	return this
 }
 
-// NewErrorBaseWithDefaults instantiates a new ErrorBase object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewErrorBaseWithDefaults() *ErrorBase {
-	this := &ErrorBase{}
-	return this
+// NewEmptyErrorBase return a pointer to an empty ErrorBase object.
+func NewEmptyErrorBase() *ErrorBase {
+	return &ErrorBase{}
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -70,8 +67,19 @@ func (o *ErrorBase) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *ErrorBase) SetMessage(v string) {
+func (o *ErrorBase) SetMessage(v string) *ErrorBase {
 	o.Message = &v
+	return o
+}
+
+func (o *ErrorBase) SetAdditionalProperty(key string, value any) *ErrorBase {
+	if o.AdditionalProperties == nil {
+		o.AdditionalProperties = make(map[string]any)
+	}
+
+	o.AdditionalProperties[key] = value
+
+	return o
 }
 
 func (o ErrorBase) MarshalJSON() ([]byte, error) {

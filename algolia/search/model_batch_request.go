@@ -24,12 +24,9 @@ func NewBatchRequest(action Action, body map[string]interface{}) *BatchRequest {
 	return this
 }
 
-// NewBatchRequestWithDefaults instantiates a new BatchRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBatchRequestWithDefaults() *BatchRequest {
-	this := &BatchRequest{}
-	return this
+// NewEmptyBatchRequest return a pointer to an empty BatchRequest object.
+func NewEmptyBatchRequest() *BatchRequest {
+	return &BatchRequest{}
 }
 
 // GetAction returns the Action field value.
@@ -52,8 +49,9 @@ func (o *BatchRequest) GetActionOk() (*Action, bool) {
 }
 
 // SetAction sets field value.
-func (o *BatchRequest) SetAction(v Action) {
+func (o *BatchRequest) SetAction(v Action) *BatchRequest {
 	o.Action = v
+	return o
 }
 
 // GetBody returns the Body field value.
@@ -76,8 +74,9 @@ func (o *BatchRequest) GetBodyOk() (map[string]interface{}, bool) {
 }
 
 // SetBody sets field value.
-func (o *BatchRequest) SetBody(v map[string]interface{}) {
+func (o *BatchRequest) SetBody(v map[string]interface{}) *BatchRequest {
 	o.Body = v
+	return o
 }
 
 func (o BatchRequest) MarshalJSON() ([]byte, error) {

@@ -626,92 +626,9 @@ func NewRecommendedForYouQueryParameters(userToken string, opts ...RecommendedFo
 	return this
 }
 
-// NewRecommendedForYouQueryParametersWithDefaults instantiates a new RecommendedForYouQueryParameters object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRecommendedForYouQueryParametersWithDefaults() *RecommendedForYouQueryParameters {
-	this := &RecommendedForYouQueryParameters{}
-	var query string = ""
-	this.Query = &query
-	var similarQuery string = ""
-	this.SimilarQuery = &similarQuery
-	var filters string = ""
-	this.Filters = &filters
-	var sumOrFiltersScores bool = false
-	this.SumOrFiltersScores = &sumOrFiltersScores
-	var facetingAfterDistinct bool = false
-	this.FacetingAfterDistinct = &facetingAfterDistinct
-	var page int32 = 0
-	this.Page = &page
-	var aroundLatLng string = ""
-	this.AroundLatLng = &aroundLatLng
-	var aroundLatLngViaIP bool = false
-	this.AroundLatLngViaIP = &aroundLatLngViaIP
-	var personalizationImpact int32 = 100
-	this.PersonalizationImpact = &personalizationImpact
-	var getRankingInfo bool = false
-	this.GetRankingInfo = &getRankingInfo
-	var synonyms bool = true
-	this.Synonyms = &synonyms
-	var clickAnalytics bool = false
-	this.ClickAnalytics = &clickAnalytics
-	var analytics bool = true
-	this.Analytics = &analytics
-	var percentileComputation bool = true
-	this.PercentileComputation = &percentileComputation
-	var enableABTest bool = true
-	this.EnableABTest = &enableABTest
-	var relevancyStrictness int32 = 100
-	this.RelevancyStrictness = &relevancyStrictness
-	var highlightPreTag string = "<em>"
-	this.HighlightPreTag = &highlightPreTag
-	var highlightPostTag string = "</em>"
-	this.HighlightPostTag = &highlightPostTag
-	var snippetEllipsisText string = "…"
-	this.SnippetEllipsisText = &snippetEllipsisText
-	var restrictHighlightAndSnippetArrays bool = false
-	this.RestrictHighlightAndSnippetArrays = &restrictHighlightAndSnippetArrays
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	var minWordSizefor1Typo int32 = 4
-	this.MinWordSizefor1Typo = &minWordSizefor1Typo
-	var minWordSizefor2Typos int32 = 8
-	this.MinWordSizefor2Typos = &minWordSizefor2Typos
-	var allowTyposOnNumericTokens bool = true
-	this.AllowTyposOnNumericTokens = &allowTyposOnNumericTokens
-	var keepDiacriticsOnCharacters string = ""
-	this.KeepDiacriticsOnCharacters = &keepDiacriticsOnCharacters
-	var decompoundQuery bool = true
-	this.DecompoundQuery = &decompoundQuery
-	var enableRules bool = true
-	this.EnableRules = &enableRules
-	var enablePersonalization bool = false
-	this.EnablePersonalization = &enablePersonalization
-	var queryType QueryType = QUERYTYPE_PREFIX_LAST
-	this.QueryType = &queryType
-	var removeWordsIfNoResults RemoveWordsIfNoResults = REMOVEWORDSIFNORESULTS_NONE
-	this.RemoveWordsIfNoResults = &removeWordsIfNoResults
-	var mode Mode = MODE_KEYWORD_SEARCH
-	this.Mode = &mode
-	var advancedSyntax bool = false
-	this.AdvancedSyntax = &advancedSyntax
-	var exactOnSingleWordQuery ExactOnSingleWordQuery = EXACTONSINGLEWORDQUERY_ATTRIBUTE
-	this.ExactOnSingleWordQuery = &exactOnSingleWordQuery
-	var replaceSynonymsInHighlight bool = false
-	this.ReplaceSynonymsInHighlight = &replaceSynonymsInHighlight
-	var minProximity int32 = 1
-	this.MinProximity = &minProximity
-	var maxFacetHits int32 = 10
-	this.MaxFacetHits = &maxFacetHits
-	var maxValuesPerFacet int32 = 100
-	this.MaxValuesPerFacet = &maxValuesPerFacet
-	var sortFacetValuesBy string = "count"
-	this.SortFacetValuesBy = &sortFacetValuesBy
-	var attributeCriteriaComputedByMinProximity bool = false
-	this.AttributeCriteriaComputedByMinProximity = &attributeCriteriaComputedByMinProximity
-	var enableReRanking bool = true
-	this.EnableReRanking = &enableReRanking
-	return this
+// NewEmptyRecommendedForYouQueryParameters return a pointer to an empty RecommendedForYouQueryParameters object.
+func NewEmptyRecommendedForYouQueryParameters() *RecommendedForYouQueryParameters {
+	return &RecommendedForYouQueryParameters{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -742,8 +659,9 @@ func (o *RecommendedForYouQueryParameters) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *RecommendedForYouQueryParameters) SetQuery(v string) {
+func (o *RecommendedForYouQueryParameters) SetQuery(v string) *RecommendedForYouQueryParameters {
 	o.Query = &v
+	return o
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
@@ -774,8 +692,9 @@ func (o *RecommendedForYouQueryParameters) HasSimilarQuery() bool {
 }
 
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
-func (o *RecommendedForYouQueryParameters) SetSimilarQuery(v string) {
+func (o *RecommendedForYouQueryParameters) SetSimilarQuery(v string) *RecommendedForYouQueryParameters {
 	o.SimilarQuery = &v
+	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -806,8 +725,9 @@ func (o *RecommendedForYouQueryParameters) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *RecommendedForYouQueryParameters) SetFilters(v string) {
+func (o *RecommendedForYouQueryParameters) SetFilters(v string) *RecommendedForYouQueryParameters {
 	o.Filters = &v
+	return o
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
@@ -838,8 +758,9 @@ func (o *RecommendedForYouQueryParameters) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *RecommendedForYouQueryParameters) SetFacetFilters(v FacetFilters) {
-	o.FacetFilters = &v
+func (o *RecommendedForYouQueryParameters) SetFacetFilters(v *FacetFilters) *RecommendedForYouQueryParameters {
+	o.FacetFilters = v
+	return o
 }
 
 // GetOptionalFilters returns the OptionalFilters field value if set, zero value otherwise.
@@ -870,8 +791,9 @@ func (o *RecommendedForYouQueryParameters) HasOptionalFilters() bool {
 }
 
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
-func (o *RecommendedForYouQueryParameters) SetOptionalFilters(v OptionalFilters) {
-	o.OptionalFilters = &v
+func (o *RecommendedForYouQueryParameters) SetOptionalFilters(v *OptionalFilters) *RecommendedForYouQueryParameters {
+	o.OptionalFilters = v
+	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
@@ -902,8 +824,9 @@ func (o *RecommendedForYouQueryParameters) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *RecommendedForYouQueryParameters) SetNumericFilters(v NumericFilters) {
-	o.NumericFilters = &v
+func (o *RecommendedForYouQueryParameters) SetNumericFilters(v *NumericFilters) *RecommendedForYouQueryParameters {
+	o.NumericFilters = v
+	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
@@ -934,8 +857,9 @@ func (o *RecommendedForYouQueryParameters) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *RecommendedForYouQueryParameters) SetTagFilters(v TagFilters) {
-	o.TagFilters = &v
+func (o *RecommendedForYouQueryParameters) SetTagFilters(v *TagFilters) *RecommendedForYouQueryParameters {
+	o.TagFilters = v
+	return o
 }
 
 // GetSumOrFiltersScores returns the SumOrFiltersScores field value if set, zero value otherwise.
@@ -966,8 +890,9 @@ func (o *RecommendedForYouQueryParameters) HasSumOrFiltersScores() bool {
 }
 
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
-func (o *RecommendedForYouQueryParameters) SetSumOrFiltersScores(v bool) {
+func (o *RecommendedForYouQueryParameters) SetSumOrFiltersScores(v bool) *RecommendedForYouQueryParameters {
 	o.SumOrFiltersScores = &v
+	return o
 }
 
 // GetRestrictSearchableAttributes returns the RestrictSearchableAttributes field value if set, zero value otherwise.
@@ -998,8 +923,9 @@ func (o *RecommendedForYouQueryParameters) HasRestrictSearchableAttributes() boo
 }
 
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
-func (o *RecommendedForYouQueryParameters) SetRestrictSearchableAttributes(v []string) {
+func (o *RecommendedForYouQueryParameters) SetRestrictSearchableAttributes(v []string) *RecommendedForYouQueryParameters {
 	o.RestrictSearchableAttributes = v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -1030,8 +956,9 @@ func (o *RecommendedForYouQueryParameters) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *RecommendedForYouQueryParameters) SetFacets(v []string) {
+func (o *RecommendedForYouQueryParameters) SetFacets(v []string) *RecommendedForYouQueryParameters {
 	o.Facets = v
+	return o
 }
 
 // GetFacetingAfterDistinct returns the FacetingAfterDistinct field value if set, zero value otherwise.
@@ -1062,8 +989,9 @@ func (o *RecommendedForYouQueryParameters) HasFacetingAfterDistinct() bool {
 }
 
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
-func (o *RecommendedForYouQueryParameters) SetFacetingAfterDistinct(v bool) {
+func (o *RecommendedForYouQueryParameters) SetFacetingAfterDistinct(v bool) *RecommendedForYouQueryParameters {
 	o.FacetingAfterDistinct = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -1094,8 +1022,9 @@ func (o *RecommendedForYouQueryParameters) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *RecommendedForYouQueryParameters) SetPage(v int32) {
+func (o *RecommendedForYouQueryParameters) SetPage(v int32) *RecommendedForYouQueryParameters {
 	o.Page = &v
+	return o
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
@@ -1126,8 +1055,9 @@ func (o *RecommendedForYouQueryParameters) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *RecommendedForYouQueryParameters) SetOffset(v int32) {
+func (o *RecommendedForYouQueryParameters) SetOffset(v int32) *RecommendedForYouQueryParameters {
 	o.Offset = &v
+	return o
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
@@ -1158,8 +1088,9 @@ func (o *RecommendedForYouQueryParameters) HasLength() bool {
 }
 
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *RecommendedForYouQueryParameters) SetLength(v int32) {
+func (o *RecommendedForYouQueryParameters) SetLength(v int32) *RecommendedForYouQueryParameters {
 	o.Length = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -1190,8 +1121,9 @@ func (o *RecommendedForYouQueryParameters) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *RecommendedForYouQueryParameters) SetAroundLatLng(v string) {
+func (o *RecommendedForYouQueryParameters) SetAroundLatLng(v string) *RecommendedForYouQueryParameters {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAroundLatLngViaIP returns the AroundLatLngViaIP field value if set, zero value otherwise.
@@ -1222,8 +1154,9 @@ func (o *RecommendedForYouQueryParameters) HasAroundLatLngViaIP() bool {
 }
 
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
-func (o *RecommendedForYouQueryParameters) SetAroundLatLngViaIP(v bool) {
+func (o *RecommendedForYouQueryParameters) SetAroundLatLngViaIP(v bool) *RecommendedForYouQueryParameters {
 	o.AroundLatLngViaIP = &v
+	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
@@ -1254,8 +1187,9 @@ func (o *RecommendedForYouQueryParameters) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *RecommendedForYouQueryParameters) SetAroundRadius(v AroundRadius) {
-	o.AroundRadius = &v
+func (o *RecommendedForYouQueryParameters) SetAroundRadius(v *AroundRadius) *RecommendedForYouQueryParameters {
+	o.AroundRadius = v
+	return o
 }
 
 // GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise.
@@ -1286,8 +1220,9 @@ func (o *RecommendedForYouQueryParameters) HasAroundPrecision() bool {
 }
 
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
-func (o *RecommendedForYouQueryParameters) SetAroundPrecision(v AroundPrecision) {
-	o.AroundPrecision = &v
+func (o *RecommendedForYouQueryParameters) SetAroundPrecision(v *AroundPrecision) *RecommendedForYouQueryParameters {
+	o.AroundPrecision = v
+	return o
 }
 
 // GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
@@ -1318,8 +1253,9 @@ func (o *RecommendedForYouQueryParameters) HasMinimumAroundRadius() bool {
 }
 
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
-func (o *RecommendedForYouQueryParameters) SetMinimumAroundRadius(v int32) {
+func (o *RecommendedForYouQueryParameters) SetMinimumAroundRadius(v int32) *RecommendedForYouQueryParameters {
 	o.MinimumAroundRadius = &v
+	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
@@ -1350,8 +1286,9 @@ func (o *RecommendedForYouQueryParameters) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *RecommendedForYouQueryParameters) SetInsideBoundingBox(v [][]float64) {
+func (o *RecommendedForYouQueryParameters) SetInsideBoundingBox(v [][]float64) *RecommendedForYouQueryParameters {
 	o.InsideBoundingBox = v
+	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -1382,8 +1319,9 @@ func (o *RecommendedForYouQueryParameters) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *RecommendedForYouQueryParameters) SetInsidePolygon(v [][]float64) {
+func (o *RecommendedForYouQueryParameters) SetInsidePolygon(v [][]float64) *RecommendedForYouQueryParameters {
 	o.InsidePolygon = v
+	return o
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
@@ -1414,8 +1352,9 @@ func (o *RecommendedForYouQueryParameters) HasNaturalLanguages() bool {
 }
 
 // SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *RecommendedForYouQueryParameters) SetNaturalLanguages(v []string) {
+func (o *RecommendedForYouQueryParameters) SetNaturalLanguages(v []string) *RecommendedForYouQueryParameters {
 	o.NaturalLanguages = v
+	return o
 }
 
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
@@ -1446,8 +1385,9 @@ func (o *RecommendedForYouQueryParameters) HasRuleContexts() bool {
 }
 
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
-func (o *RecommendedForYouQueryParameters) SetRuleContexts(v []string) {
+func (o *RecommendedForYouQueryParameters) SetRuleContexts(v []string) *RecommendedForYouQueryParameters {
 	o.RuleContexts = v
+	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value if set, zero value otherwise.
@@ -1478,8 +1418,9 @@ func (o *RecommendedForYouQueryParameters) HasPersonalizationImpact() bool {
 }
 
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
-func (o *RecommendedForYouQueryParameters) SetPersonalizationImpact(v int32) {
+func (o *RecommendedForYouQueryParameters) SetPersonalizationImpact(v int32) *RecommendedForYouQueryParameters {
 	o.PersonalizationImpact = &v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -1502,8 +1443,9 @@ func (o *RecommendedForYouQueryParameters) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *RecommendedForYouQueryParameters) SetUserToken(v string) {
+func (o *RecommendedForYouQueryParameters) SetUserToken(v string) *RecommendedForYouQueryParameters {
 	o.UserToken = v
+	return o
 }
 
 // GetGetRankingInfo returns the GetRankingInfo field value if set, zero value otherwise.
@@ -1534,8 +1476,9 @@ func (o *RecommendedForYouQueryParameters) HasGetRankingInfo() bool {
 }
 
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
-func (o *RecommendedForYouQueryParameters) SetGetRankingInfo(v bool) {
+func (o *RecommendedForYouQueryParameters) SetGetRankingInfo(v bool) *RecommendedForYouQueryParameters {
 	o.GetRankingInfo = &v
+	return o
 }
 
 // GetExplain returns the Explain field value if set, zero value otherwise.
@@ -1566,8 +1509,9 @@ func (o *RecommendedForYouQueryParameters) HasExplain() bool {
 }
 
 // SetExplain gets a reference to the given []string and assigns it to the Explain field.
-func (o *RecommendedForYouQueryParameters) SetExplain(v []string) {
+func (o *RecommendedForYouQueryParameters) SetExplain(v []string) *RecommendedForYouQueryParameters {
 	o.Explain = v
+	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
@@ -1598,8 +1542,9 @@ func (o *RecommendedForYouQueryParameters) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
-func (o *RecommendedForYouQueryParameters) SetSynonyms(v bool) {
+func (o *RecommendedForYouQueryParameters) SetSynonyms(v bool) *RecommendedForYouQueryParameters {
 	o.Synonyms = &v
+	return o
 }
 
 // GetClickAnalytics returns the ClickAnalytics field value if set, zero value otherwise.
@@ -1630,8 +1575,9 @@ func (o *RecommendedForYouQueryParameters) HasClickAnalytics() bool {
 }
 
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
-func (o *RecommendedForYouQueryParameters) SetClickAnalytics(v bool) {
+func (o *RecommendedForYouQueryParameters) SetClickAnalytics(v bool) *RecommendedForYouQueryParameters {
 	o.ClickAnalytics = &v
+	return o
 }
 
 // GetAnalytics returns the Analytics field value if set, zero value otherwise.
@@ -1662,8 +1608,9 @@ func (o *RecommendedForYouQueryParameters) HasAnalytics() bool {
 }
 
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *RecommendedForYouQueryParameters) SetAnalytics(v bool) {
+func (o *RecommendedForYouQueryParameters) SetAnalytics(v bool) *RecommendedForYouQueryParameters {
 	o.Analytics = &v
+	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise.
@@ -1694,8 +1641,9 @@ func (o *RecommendedForYouQueryParameters) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *RecommendedForYouQueryParameters) SetAnalyticsTags(v []string) {
+func (o *RecommendedForYouQueryParameters) SetAnalyticsTags(v []string) *RecommendedForYouQueryParameters {
 	o.AnalyticsTags = v
+	return o
 }
 
 // GetPercentileComputation returns the PercentileComputation field value if set, zero value otherwise.
@@ -1726,8 +1674,9 @@ func (o *RecommendedForYouQueryParameters) HasPercentileComputation() bool {
 }
 
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
-func (o *RecommendedForYouQueryParameters) SetPercentileComputation(v bool) {
+func (o *RecommendedForYouQueryParameters) SetPercentileComputation(v bool) *RecommendedForYouQueryParameters {
 	o.PercentileComputation = &v
+	return o
 }
 
 // GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
@@ -1758,8 +1707,9 @@ func (o *RecommendedForYouQueryParameters) HasEnableABTest() bool {
 }
 
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *RecommendedForYouQueryParameters) SetEnableABTest(v bool) {
+func (o *RecommendedForYouQueryParameters) SetEnableABTest(v bool) *RecommendedForYouQueryParameters {
 	o.EnableABTest = &v
+	return o
 }
 
 // GetAttributesForFaceting returns the AttributesForFaceting field value if set, zero value otherwise.
@@ -1790,8 +1740,9 @@ func (o *RecommendedForYouQueryParameters) HasAttributesForFaceting() bool {
 }
 
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
-func (o *RecommendedForYouQueryParameters) SetAttributesForFaceting(v []string) {
+func (o *RecommendedForYouQueryParameters) SetAttributesForFaceting(v []string) *RecommendedForYouQueryParameters {
 	o.AttributesForFaceting = v
+	return o
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
@@ -1822,8 +1773,9 @@ func (o *RecommendedForYouQueryParameters) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *RecommendedForYouQueryParameters) SetAttributesToRetrieve(v []string) {
+func (o *RecommendedForYouQueryParameters) SetAttributesToRetrieve(v []string) *RecommendedForYouQueryParameters {
 	o.AttributesToRetrieve = v
+	return o
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
@@ -1854,8 +1806,9 @@ func (o *RecommendedForYouQueryParameters) HasRanking() bool {
 }
 
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *RecommendedForYouQueryParameters) SetRanking(v []string) {
+func (o *RecommendedForYouQueryParameters) SetRanking(v []string) *RecommendedForYouQueryParameters {
 	o.Ranking = v
+	return o
 }
 
 // GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
@@ -1886,8 +1839,9 @@ func (o *RecommendedForYouQueryParameters) HasCustomRanking() bool {
 }
 
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *RecommendedForYouQueryParameters) SetCustomRanking(v []string) {
+func (o *RecommendedForYouQueryParameters) SetCustomRanking(v []string) *RecommendedForYouQueryParameters {
 	o.CustomRanking = v
+	return o
 }
 
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
@@ -1918,8 +1872,9 @@ func (o *RecommendedForYouQueryParameters) HasRelevancyStrictness() bool {
 }
 
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *RecommendedForYouQueryParameters) SetRelevancyStrictness(v int32) {
+func (o *RecommendedForYouQueryParameters) SetRelevancyStrictness(v int32) *RecommendedForYouQueryParameters {
 	o.RelevancyStrictness = &v
+	return o
 }
 
 // GetAttributesToHighlight returns the AttributesToHighlight field value if set, zero value otherwise.
@@ -1950,8 +1905,9 @@ func (o *RecommendedForYouQueryParameters) HasAttributesToHighlight() bool {
 }
 
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
-func (o *RecommendedForYouQueryParameters) SetAttributesToHighlight(v []string) {
+func (o *RecommendedForYouQueryParameters) SetAttributesToHighlight(v []string) *RecommendedForYouQueryParameters {
 	o.AttributesToHighlight = v
+	return o
 }
 
 // GetAttributesToSnippet returns the AttributesToSnippet field value if set, zero value otherwise.
@@ -1982,8 +1938,9 @@ func (o *RecommendedForYouQueryParameters) HasAttributesToSnippet() bool {
 }
 
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
-func (o *RecommendedForYouQueryParameters) SetAttributesToSnippet(v []string) {
+func (o *RecommendedForYouQueryParameters) SetAttributesToSnippet(v []string) *RecommendedForYouQueryParameters {
 	o.AttributesToSnippet = v
+	return o
 }
 
 // GetHighlightPreTag returns the HighlightPreTag field value if set, zero value otherwise.
@@ -2014,8 +1971,9 @@ func (o *RecommendedForYouQueryParameters) HasHighlightPreTag() bool {
 }
 
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
-func (o *RecommendedForYouQueryParameters) SetHighlightPreTag(v string) {
+func (o *RecommendedForYouQueryParameters) SetHighlightPreTag(v string) *RecommendedForYouQueryParameters {
 	o.HighlightPreTag = &v
+	return o
 }
 
 // GetHighlightPostTag returns the HighlightPostTag field value if set, zero value otherwise.
@@ -2046,8 +2004,9 @@ func (o *RecommendedForYouQueryParameters) HasHighlightPostTag() bool {
 }
 
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
-func (o *RecommendedForYouQueryParameters) SetHighlightPostTag(v string) {
+func (o *RecommendedForYouQueryParameters) SetHighlightPostTag(v string) *RecommendedForYouQueryParameters {
 	o.HighlightPostTag = &v
+	return o
 }
 
 // GetSnippetEllipsisText returns the SnippetEllipsisText field value if set, zero value otherwise.
@@ -2078,8 +2037,9 @@ func (o *RecommendedForYouQueryParameters) HasSnippetEllipsisText() bool {
 }
 
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
-func (o *RecommendedForYouQueryParameters) SetSnippetEllipsisText(v string) {
+func (o *RecommendedForYouQueryParameters) SetSnippetEllipsisText(v string) *RecommendedForYouQueryParameters {
 	o.SnippetEllipsisText = &v
+	return o
 }
 
 // GetRestrictHighlightAndSnippetArrays returns the RestrictHighlightAndSnippetArrays field value if set, zero value otherwise.
@@ -2110,8 +2070,9 @@ func (o *RecommendedForYouQueryParameters) HasRestrictHighlightAndSnippetArrays(
 }
 
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
-func (o *RecommendedForYouQueryParameters) SetRestrictHighlightAndSnippetArrays(v bool) {
+func (o *RecommendedForYouQueryParameters) SetRestrictHighlightAndSnippetArrays(v bool) *RecommendedForYouQueryParameters {
 	o.RestrictHighlightAndSnippetArrays = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -2142,8 +2103,9 @@ func (o *RecommendedForYouQueryParameters) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *RecommendedForYouQueryParameters) SetHitsPerPage(v int32) {
+func (o *RecommendedForYouQueryParameters) SetHitsPerPage(v int32) *RecommendedForYouQueryParameters {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
@@ -2174,8 +2136,9 @@ func (o *RecommendedForYouQueryParameters) HasMinWordSizefor1Typo() bool {
 }
 
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
-func (o *RecommendedForYouQueryParameters) SetMinWordSizefor1Typo(v int32) {
+func (o *RecommendedForYouQueryParameters) SetMinWordSizefor1Typo(v int32) *RecommendedForYouQueryParameters {
 	o.MinWordSizefor1Typo = &v
+	return o
 }
 
 // GetMinWordSizefor2Typos returns the MinWordSizefor2Typos field value if set, zero value otherwise.
@@ -2206,8 +2169,9 @@ func (o *RecommendedForYouQueryParameters) HasMinWordSizefor2Typos() bool {
 }
 
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
-func (o *RecommendedForYouQueryParameters) SetMinWordSizefor2Typos(v int32) {
+func (o *RecommendedForYouQueryParameters) SetMinWordSizefor2Typos(v int32) *RecommendedForYouQueryParameters {
 	o.MinWordSizefor2Typos = &v
+	return o
 }
 
 // GetTypoTolerance returns the TypoTolerance field value if set, zero value otherwise.
@@ -2238,8 +2202,9 @@ func (o *RecommendedForYouQueryParameters) HasTypoTolerance() bool {
 }
 
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
-func (o *RecommendedForYouQueryParameters) SetTypoTolerance(v TypoTolerance) {
-	o.TypoTolerance = &v
+func (o *RecommendedForYouQueryParameters) SetTypoTolerance(v *TypoTolerance) *RecommendedForYouQueryParameters {
+	o.TypoTolerance = v
+	return o
 }
 
 // GetAllowTyposOnNumericTokens returns the AllowTyposOnNumericTokens field value if set, zero value otherwise.
@@ -2270,8 +2235,9 @@ func (o *RecommendedForYouQueryParameters) HasAllowTyposOnNumericTokens() bool {
 }
 
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
-func (o *RecommendedForYouQueryParameters) SetAllowTyposOnNumericTokens(v bool) {
+func (o *RecommendedForYouQueryParameters) SetAllowTyposOnNumericTokens(v bool) *RecommendedForYouQueryParameters {
 	o.AllowTyposOnNumericTokens = &v
+	return o
 }
 
 // GetDisableTypoToleranceOnAttributes returns the DisableTypoToleranceOnAttributes field value if set, zero value otherwise.
@@ -2302,8 +2268,9 @@ func (o *RecommendedForYouQueryParameters) HasDisableTypoToleranceOnAttributes()
 }
 
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
-func (o *RecommendedForYouQueryParameters) SetDisableTypoToleranceOnAttributes(v []string) {
+func (o *RecommendedForYouQueryParameters) SetDisableTypoToleranceOnAttributes(v []string) *RecommendedForYouQueryParameters {
 	o.DisableTypoToleranceOnAttributes = v
+	return o
 }
 
 // GetIgnorePlurals returns the IgnorePlurals field value if set, zero value otherwise.
@@ -2334,8 +2301,9 @@ func (o *RecommendedForYouQueryParameters) HasIgnorePlurals() bool {
 }
 
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
-func (o *RecommendedForYouQueryParameters) SetIgnorePlurals(v IgnorePlurals) {
-	o.IgnorePlurals = &v
+func (o *RecommendedForYouQueryParameters) SetIgnorePlurals(v *IgnorePlurals) *RecommendedForYouQueryParameters {
+	o.IgnorePlurals = v
+	return o
 }
 
 // GetRemoveStopWords returns the RemoveStopWords field value if set, zero value otherwise.
@@ -2366,8 +2334,9 @@ func (o *RecommendedForYouQueryParameters) HasRemoveStopWords() bool {
 }
 
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
-func (o *RecommendedForYouQueryParameters) SetRemoveStopWords(v RemoveStopWords) {
-	o.RemoveStopWords = &v
+func (o *RecommendedForYouQueryParameters) SetRemoveStopWords(v *RemoveStopWords) *RecommendedForYouQueryParameters {
+	o.RemoveStopWords = v
+	return o
 }
 
 // GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
@@ -2398,8 +2367,9 @@ func (o *RecommendedForYouQueryParameters) HasKeepDiacriticsOnCharacters() bool 
 }
 
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *RecommendedForYouQueryParameters) SetKeepDiacriticsOnCharacters(v string) {
+func (o *RecommendedForYouQueryParameters) SetKeepDiacriticsOnCharacters(v string) *RecommendedForYouQueryParameters {
 	o.KeepDiacriticsOnCharacters = &v
+	return o
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
@@ -2430,8 +2400,9 @@ func (o *RecommendedForYouQueryParameters) HasQueryLanguages() bool {
 }
 
 // SetQueryLanguages gets a reference to the given []string and assigns it to the QueryLanguages field.
-func (o *RecommendedForYouQueryParameters) SetQueryLanguages(v []string) {
+func (o *RecommendedForYouQueryParameters) SetQueryLanguages(v []string) *RecommendedForYouQueryParameters {
 	o.QueryLanguages = v
+	return o
 }
 
 // GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
@@ -2462,8 +2433,9 @@ func (o *RecommendedForYouQueryParameters) HasDecompoundQuery() bool {
 }
 
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *RecommendedForYouQueryParameters) SetDecompoundQuery(v bool) {
+func (o *RecommendedForYouQueryParameters) SetDecompoundQuery(v bool) *RecommendedForYouQueryParameters {
 	o.DecompoundQuery = &v
+	return o
 }
 
 // GetEnableRules returns the EnableRules field value if set, zero value otherwise.
@@ -2494,8 +2466,9 @@ func (o *RecommendedForYouQueryParameters) HasEnableRules() bool {
 }
 
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *RecommendedForYouQueryParameters) SetEnableRules(v bool) {
+func (o *RecommendedForYouQueryParameters) SetEnableRules(v bool) *RecommendedForYouQueryParameters {
 	o.EnableRules = &v
+	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
@@ -2526,8 +2499,9 @@ func (o *RecommendedForYouQueryParameters) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *RecommendedForYouQueryParameters) SetEnablePersonalization(v bool) {
+func (o *RecommendedForYouQueryParameters) SetEnablePersonalization(v bool) *RecommendedForYouQueryParameters {
 	o.EnablePersonalization = &v
+	return o
 }
 
 // GetQueryType returns the QueryType field value if set, zero value otherwise.
@@ -2558,8 +2532,9 @@ func (o *RecommendedForYouQueryParameters) HasQueryType() bool {
 }
 
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
-func (o *RecommendedForYouQueryParameters) SetQueryType(v QueryType) {
+func (o *RecommendedForYouQueryParameters) SetQueryType(v QueryType) *RecommendedForYouQueryParameters {
 	o.QueryType = &v
+	return o
 }
 
 // GetRemoveWordsIfNoResults returns the RemoveWordsIfNoResults field value if set, zero value otherwise.
@@ -2590,8 +2565,9 @@ func (o *RecommendedForYouQueryParameters) HasRemoveWordsIfNoResults() bool {
 }
 
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
-func (o *RecommendedForYouQueryParameters) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) {
+func (o *RecommendedForYouQueryParameters) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *RecommendedForYouQueryParameters {
 	o.RemoveWordsIfNoResults = &v
+	return o
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
@@ -2622,8 +2598,9 @@ func (o *RecommendedForYouQueryParameters) HasMode() bool {
 }
 
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *RecommendedForYouQueryParameters) SetMode(v Mode) {
+func (o *RecommendedForYouQueryParameters) SetMode(v Mode) *RecommendedForYouQueryParameters {
 	o.Mode = &v
+	return o
 }
 
 // GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
@@ -2654,8 +2631,9 @@ func (o *RecommendedForYouQueryParameters) HasSemanticSearch() bool {
 }
 
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *RecommendedForYouQueryParameters) SetSemanticSearch(v SemanticSearch) {
-	o.SemanticSearch = &v
+func (o *RecommendedForYouQueryParameters) SetSemanticSearch(v *SemanticSearch) *RecommendedForYouQueryParameters {
+	o.SemanticSearch = v
+	return o
 }
 
 // GetAdvancedSyntax returns the AdvancedSyntax field value if set, zero value otherwise.
@@ -2686,8 +2664,9 @@ func (o *RecommendedForYouQueryParameters) HasAdvancedSyntax() bool {
 }
 
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
-func (o *RecommendedForYouQueryParameters) SetAdvancedSyntax(v bool) {
+func (o *RecommendedForYouQueryParameters) SetAdvancedSyntax(v bool) *RecommendedForYouQueryParameters {
 	o.AdvancedSyntax = &v
+	return o
 }
 
 // GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
@@ -2718,8 +2697,9 @@ func (o *RecommendedForYouQueryParameters) HasOptionalWords() bool {
 }
 
 // SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *RecommendedForYouQueryParameters) SetOptionalWords(v []string) {
+func (o *RecommendedForYouQueryParameters) SetOptionalWords(v []string) *RecommendedForYouQueryParameters {
 	o.OptionalWords = v
+	return o
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
@@ -2750,8 +2730,9 @@ func (o *RecommendedForYouQueryParameters) HasDisableExactOnAttributes() bool {
 }
 
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
-func (o *RecommendedForYouQueryParameters) SetDisableExactOnAttributes(v []string) {
+func (o *RecommendedForYouQueryParameters) SetDisableExactOnAttributes(v []string) *RecommendedForYouQueryParameters {
 	o.DisableExactOnAttributes = v
+	return o
 }
 
 // GetExactOnSingleWordQuery returns the ExactOnSingleWordQuery field value if set, zero value otherwise.
@@ -2782,8 +2763,9 @@ func (o *RecommendedForYouQueryParameters) HasExactOnSingleWordQuery() bool {
 }
 
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
-func (o *RecommendedForYouQueryParameters) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) {
+func (o *RecommendedForYouQueryParameters) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *RecommendedForYouQueryParameters {
 	o.ExactOnSingleWordQuery = &v
+	return o
 }
 
 // GetAlternativesAsExact returns the AlternativesAsExact field value if set, zero value otherwise.
@@ -2814,8 +2796,9 @@ func (o *RecommendedForYouQueryParameters) HasAlternativesAsExact() bool {
 }
 
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
-func (o *RecommendedForYouQueryParameters) SetAlternativesAsExact(v []AlternativesAsExact) {
+func (o *RecommendedForYouQueryParameters) SetAlternativesAsExact(v []AlternativesAsExact) *RecommendedForYouQueryParameters {
 	o.AlternativesAsExact = v
+	return o
 }
 
 // GetAdvancedSyntaxFeatures returns the AdvancedSyntaxFeatures field value if set, zero value otherwise.
@@ -2846,8 +2829,9 @@ func (o *RecommendedForYouQueryParameters) HasAdvancedSyntaxFeatures() bool {
 }
 
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
-func (o *RecommendedForYouQueryParameters) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) {
+func (o *RecommendedForYouQueryParameters) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *RecommendedForYouQueryParameters {
 	o.AdvancedSyntaxFeatures = v
+	return o
 }
 
 // GetDistinct returns the Distinct field value if set, zero value otherwise.
@@ -2878,8 +2862,9 @@ func (o *RecommendedForYouQueryParameters) HasDistinct() bool {
 }
 
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
-func (o *RecommendedForYouQueryParameters) SetDistinct(v Distinct) {
-	o.Distinct = &v
+func (o *RecommendedForYouQueryParameters) SetDistinct(v *Distinct) *RecommendedForYouQueryParameters {
+	o.Distinct = v
+	return o
 }
 
 // GetReplaceSynonymsInHighlight returns the ReplaceSynonymsInHighlight field value if set, zero value otherwise.
@@ -2910,8 +2895,9 @@ func (o *RecommendedForYouQueryParameters) HasReplaceSynonymsInHighlight() bool 
 }
 
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
-func (o *RecommendedForYouQueryParameters) SetReplaceSynonymsInHighlight(v bool) {
+func (o *RecommendedForYouQueryParameters) SetReplaceSynonymsInHighlight(v bool) *RecommendedForYouQueryParameters {
 	o.ReplaceSynonymsInHighlight = &v
+	return o
 }
 
 // GetMinProximity returns the MinProximity field value if set, zero value otherwise.
@@ -2942,8 +2928,9 @@ func (o *RecommendedForYouQueryParameters) HasMinProximity() bool {
 }
 
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
-func (o *RecommendedForYouQueryParameters) SetMinProximity(v int32) {
+func (o *RecommendedForYouQueryParameters) SetMinProximity(v int32) *RecommendedForYouQueryParameters {
 	o.MinProximity = &v
+	return o
 }
 
 // GetResponseFields returns the ResponseFields field value if set, zero value otherwise.
@@ -2974,8 +2961,9 @@ func (o *RecommendedForYouQueryParameters) HasResponseFields() bool {
 }
 
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
-func (o *RecommendedForYouQueryParameters) SetResponseFields(v []string) {
+func (o *RecommendedForYouQueryParameters) SetResponseFields(v []string) *RecommendedForYouQueryParameters {
 	o.ResponseFields = v
+	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
@@ -3006,8 +2994,9 @@ func (o *RecommendedForYouQueryParameters) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *RecommendedForYouQueryParameters) SetMaxFacetHits(v int32) {
+func (o *RecommendedForYouQueryParameters) SetMaxFacetHits(v int32) *RecommendedForYouQueryParameters {
 	o.MaxFacetHits = &v
+	return o
 }
 
 // GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
@@ -3038,8 +3027,9 @@ func (o *RecommendedForYouQueryParameters) HasMaxValuesPerFacet() bool {
 }
 
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
-func (o *RecommendedForYouQueryParameters) SetMaxValuesPerFacet(v int32) {
+func (o *RecommendedForYouQueryParameters) SetMaxValuesPerFacet(v int32) *RecommendedForYouQueryParameters {
 	o.MaxValuesPerFacet = &v
+	return o
 }
 
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
@@ -3070,8 +3060,9 @@ func (o *RecommendedForYouQueryParameters) HasSortFacetValuesBy() bool {
 }
 
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
-func (o *RecommendedForYouQueryParameters) SetSortFacetValuesBy(v string) {
+func (o *RecommendedForYouQueryParameters) SetSortFacetValuesBy(v string) *RecommendedForYouQueryParameters {
 	o.SortFacetValuesBy = &v
+	return o
 }
 
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
@@ -3102,8 +3093,9 @@ func (o *RecommendedForYouQueryParameters) HasAttributeCriteriaComputedByMinProx
 }
 
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
-func (o *RecommendedForYouQueryParameters) SetAttributeCriteriaComputedByMinProximity(v bool) {
+func (o *RecommendedForYouQueryParameters) SetAttributeCriteriaComputedByMinProximity(v bool) *RecommendedForYouQueryParameters {
 	o.AttributeCriteriaComputedByMinProximity = &v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -3134,8 +3126,9 @@ func (o *RecommendedForYouQueryParameters) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *RecommendedForYouQueryParameters) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *RecommendedForYouQueryParameters) SetRenderingContent(v *RenderingContent) *RecommendedForYouQueryParameters {
+	o.RenderingContent = v
+	return o
 }
 
 // GetEnableReRanking returns the EnableReRanking field value if set, zero value otherwise.
@@ -3166,8 +3159,9 @@ func (o *RecommendedForYouQueryParameters) HasEnableReRanking() bool {
 }
 
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
-func (o *RecommendedForYouQueryParameters) SetEnableReRanking(v bool) {
+func (o *RecommendedForYouQueryParameters) SetEnableReRanking(v bool) *RecommendedForYouQueryParameters {
 	o.EnableReRanking = &v
+	return o
 }
 
 // GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -3199,8 +3193,9 @@ func (o *RecommendedForYouQueryParameters) HasReRankingApplyFilter() bool {
 }
 
 // SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
-func (o *RecommendedForYouQueryParameters) SetReRankingApplyFilter(v ReRankingApplyFilter) {
-	o.ReRankingApplyFilter.Set(&v)
+func (o *RecommendedForYouQueryParameters) SetReRankingApplyFilter(v *ReRankingApplyFilter) *RecommendedForYouQueryParameters {
+	o.ReRankingApplyFilter.Set(v)
+	return o
 }
 
 // SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.

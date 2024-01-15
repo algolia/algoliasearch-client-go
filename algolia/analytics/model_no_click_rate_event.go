@@ -31,12 +31,9 @@ func NewNoClickRateEvent(rate float64, count int32, noClickCount int32, date str
 	return this
 }
 
-// NewNoClickRateEventWithDefaults instantiates a new NoClickRateEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewNoClickRateEventWithDefaults() *NoClickRateEvent {
-	this := &NoClickRateEvent{}
-	return this
+// NewEmptyNoClickRateEvent return a pointer to an empty NoClickRateEvent object.
+func NewEmptyNoClickRateEvent() *NoClickRateEvent {
+	return &NoClickRateEvent{}
 }
 
 // GetRate returns the Rate field value.
@@ -59,8 +56,9 @@ func (o *NoClickRateEvent) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *NoClickRateEvent) SetRate(v float64) {
+func (o *NoClickRateEvent) SetRate(v float64) *NoClickRateEvent {
 	o.Rate = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -83,8 +81,9 @@ func (o *NoClickRateEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *NoClickRateEvent) SetCount(v int32) {
+func (o *NoClickRateEvent) SetCount(v int32) *NoClickRateEvent {
 	o.Count = v
+	return o
 }
 
 // GetNoClickCount returns the NoClickCount field value.
@@ -107,8 +106,9 @@ func (o *NoClickRateEvent) GetNoClickCountOk() (*int32, bool) {
 }
 
 // SetNoClickCount sets field value.
-func (o *NoClickRateEvent) SetNoClickCount(v int32) {
+func (o *NoClickRateEvent) SetNoClickCount(v int32) *NoClickRateEvent {
 	o.NoClickCount = v
+	return o
 }
 
 // GetDate returns the Date field value.
@@ -131,8 +131,9 @@ func (o *NoClickRateEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *NoClickRateEvent) SetDate(v string) {
+func (o *NoClickRateEvent) SetDate(v string) *NoClickRateEvent {
 	o.Date = v
+	return o
 }
 
 func (o NoClickRateEvent) MarshalJSON() ([]byte, error) {

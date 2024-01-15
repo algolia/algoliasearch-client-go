@@ -48,12 +48,9 @@ func NewMatchedGeoLocation(opts ...MatchedGeoLocationOption) *MatchedGeoLocation
 	return this
 }
 
-// NewMatchedGeoLocationWithDefaults instantiates a new MatchedGeoLocation object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewMatchedGeoLocationWithDefaults() *MatchedGeoLocation {
-	this := &MatchedGeoLocation{}
-	return this
+// NewEmptyMatchedGeoLocation return a pointer to an empty MatchedGeoLocation object.
+func NewEmptyMatchedGeoLocation() *MatchedGeoLocation {
+	return &MatchedGeoLocation{}
 }
 
 // GetLat returns the Lat field value if set, zero value otherwise.
@@ -84,8 +81,9 @@ func (o *MatchedGeoLocation) HasLat() bool {
 }
 
 // SetLat gets a reference to the given float64 and assigns it to the Lat field.
-func (o *MatchedGeoLocation) SetLat(v float64) {
+func (o *MatchedGeoLocation) SetLat(v float64) *MatchedGeoLocation {
 	o.Lat = &v
+	return o
 }
 
 // GetLng returns the Lng field value if set, zero value otherwise.
@@ -116,8 +114,9 @@ func (o *MatchedGeoLocation) HasLng() bool {
 }
 
 // SetLng gets a reference to the given float64 and assigns it to the Lng field.
-func (o *MatchedGeoLocation) SetLng(v float64) {
+func (o *MatchedGeoLocation) SetLng(v float64) *MatchedGeoLocation {
 	o.Lng = &v
+	return o
 }
 
 // GetDistance returns the Distance field value if set, zero value otherwise.
@@ -148,8 +147,9 @@ func (o *MatchedGeoLocation) HasDistance() bool {
 }
 
 // SetDistance gets a reference to the given int32 and assigns it to the Distance field.
-func (o *MatchedGeoLocation) SetDistance(v int32) {
+func (o *MatchedGeoLocation) SetDistance(v int32) *MatchedGeoLocation {
 	o.Distance = &v
+	return o
 }
 
 func (o MatchedGeoLocation) MarshalJSON() ([]byte, error) {

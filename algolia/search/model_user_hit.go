@@ -36,12 +36,9 @@ func NewUserHit(userID string, clusterName string, nbRecords int32, dataSize int
 	return this
 }
 
-// NewUserHitWithDefaults instantiates a new UserHit object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUserHitWithDefaults() *UserHit {
-	this := &UserHit{}
-	return this
+// NewEmptyUserHit return a pointer to an empty UserHit object.
+func NewEmptyUserHit() *UserHit {
+	return &UserHit{}
 }
 
 // GetUserID returns the UserID field value.
@@ -64,8 +61,9 @@ func (o *UserHit) GetUserIDOk() (*string, bool) {
 }
 
 // SetUserID sets field value.
-func (o *UserHit) SetUserID(v string) {
+func (o *UserHit) SetUserID(v string) *UserHit {
 	o.UserID = v
+	return o
 }
 
 // GetClusterName returns the ClusterName field value.
@@ -88,8 +86,9 @@ func (o *UserHit) GetClusterNameOk() (*string, bool) {
 }
 
 // SetClusterName sets field value.
-func (o *UserHit) SetClusterName(v string) {
+func (o *UserHit) SetClusterName(v string) *UserHit {
 	o.ClusterName = v
+	return o
 }
 
 // GetNbRecords returns the NbRecords field value.
@@ -112,8 +111,9 @@ func (o *UserHit) GetNbRecordsOk() (*int32, bool) {
 }
 
 // SetNbRecords sets field value.
-func (o *UserHit) SetNbRecords(v int32) {
+func (o *UserHit) SetNbRecords(v int32) *UserHit {
 	o.NbRecords = v
+	return o
 }
 
 // GetDataSize returns the DataSize field value.
@@ -136,8 +136,9 @@ func (o *UserHit) GetDataSizeOk() (*int32, bool) {
 }
 
 // SetDataSize sets field value.
-func (o *UserHit) SetDataSize(v int32) {
+func (o *UserHit) SetDataSize(v int32) *UserHit {
 	o.DataSize = v
+	return o
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -160,8 +161,9 @@ func (o *UserHit) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *UserHit) SetObjectID(v string) {
+func (o *UserHit) SetObjectID(v string) *UserHit {
 	o.ObjectID = v
+	return o
 }
 
 // GetHighlightResult returns the HighlightResult field value.
@@ -184,8 +186,9 @@ func (o *UserHit) GetHighlightResultOk() (*UserHighlightResult, bool) {
 }
 
 // SetHighlightResult sets field value.
-func (o *UserHit) SetHighlightResult(v UserHighlightResult) {
-	o.HighlightResult = v
+func (o *UserHit) SetHighlightResult(v *UserHighlightResult) *UserHit {
+	o.HighlightResult = *v
+	return o
 }
 
 func (o UserHit) MarshalJSON() ([]byte, error) {

@@ -28,12 +28,9 @@ func NewPersonalizationStrategyParams(eventScoring []EventScoring, facetScoring 
 	return this
 }
 
-// NewPersonalizationStrategyParamsWithDefaults instantiates a new PersonalizationStrategyParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewPersonalizationStrategyParamsWithDefaults() *PersonalizationStrategyParams {
-	this := &PersonalizationStrategyParams{}
-	return this
+// NewEmptyPersonalizationStrategyParams return a pointer to an empty PersonalizationStrategyParams object.
+func NewEmptyPersonalizationStrategyParams() *PersonalizationStrategyParams {
+	return &PersonalizationStrategyParams{}
 }
 
 // GetEventScoring returns the EventScoring field value.
@@ -56,8 +53,9 @@ func (o *PersonalizationStrategyParams) GetEventScoringOk() ([]EventScoring, boo
 }
 
 // SetEventScoring sets field value.
-func (o *PersonalizationStrategyParams) SetEventScoring(v []EventScoring) {
+func (o *PersonalizationStrategyParams) SetEventScoring(v []EventScoring) *PersonalizationStrategyParams {
 	o.EventScoring = v
+	return o
 }
 
 // GetFacetScoring returns the FacetScoring field value.
@@ -80,8 +78,9 @@ func (o *PersonalizationStrategyParams) GetFacetScoringOk() ([]FacetScoring, boo
 }
 
 // SetFacetScoring sets field value.
-func (o *PersonalizationStrategyParams) SetFacetScoring(v []FacetScoring) {
+func (o *PersonalizationStrategyParams) SetFacetScoring(v []FacetScoring) *PersonalizationStrategyParams {
 	o.FacetScoring = v
+	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value.
@@ -104,8 +103,9 @@ func (o *PersonalizationStrategyParams) GetPersonalizationImpactOk() (*int32, bo
 }
 
 // SetPersonalizationImpact sets field value.
-func (o *PersonalizationStrategyParams) SetPersonalizationImpact(v int32) {
+func (o *PersonalizationStrategyParams) SetPersonalizationImpact(v int32) *PersonalizationStrategyParams {
 	o.PersonalizationImpact = v
+	return o
 }
 
 func (o PersonalizationStrategyParams) MarshalJSON() ([]byte, error) {

@@ -22,12 +22,9 @@ func NewGetStatusResponse(updatedAt string) *GetStatusResponse {
 	return this
 }
 
-// NewGetStatusResponseWithDefaults instantiates a new GetStatusResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetStatusResponseWithDefaults() *GetStatusResponse {
-	this := &GetStatusResponse{}
-	return this
+// NewEmptyGetStatusResponse return a pointer to an empty GetStatusResponse object.
+func NewEmptyGetStatusResponse() *GetStatusResponse {
+	return &GetStatusResponse{}
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -50,8 +47,9 @@ func (o *GetStatusResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *GetStatusResponse) SetUpdatedAt(v string) {
+func (o *GetStatusResponse) SetUpdatedAt(v string) *GetStatusResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 func (o GetStatusResponse) MarshalJSON() ([]byte, error) {

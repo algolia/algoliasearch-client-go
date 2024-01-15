@@ -66,14 +66,9 @@ func NewRule(objectID string, opts ...RuleOption) *Rule {
 	return this
 }
 
-// NewRuleWithDefaults instantiates a new Rule object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRuleWithDefaults() *Rule {
-	this := &Rule{}
-	var enabled bool = true
-	this.Enabled = &enabled
-	return this
+// NewEmptyRule return a pointer to an empty Rule object.
+func NewEmptyRule() *Rule {
+	return &Rule{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -96,8 +91,9 @@ func (o *Rule) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *Rule) SetObjectID(v string) {
+func (o *Rule) SetObjectID(v string) *Rule {
 	o.ObjectID = v
+	return o
 }
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
@@ -128,8 +124,9 @@ func (o *Rule) HasConditions() bool {
 }
 
 // SetConditions gets a reference to the given []Condition and assigns it to the Conditions field.
-func (o *Rule) SetConditions(v []Condition) {
+func (o *Rule) SetConditions(v []Condition) *Rule {
 	o.Conditions = v
+	return o
 }
 
 // GetConsequence returns the Consequence field value if set, zero value otherwise.
@@ -160,8 +157,9 @@ func (o *Rule) HasConsequence() bool {
 }
 
 // SetConsequence gets a reference to the given Consequence and assigns it to the Consequence field.
-func (o *Rule) SetConsequence(v Consequence) {
-	o.Consequence = &v
+func (o *Rule) SetConsequence(v *Consequence) *Rule {
+	o.Consequence = v
+	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -192,8 +190,9 @@ func (o *Rule) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Rule) SetDescription(v string) {
+func (o *Rule) SetDescription(v string) *Rule {
 	o.Description = &v
+	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
@@ -224,8 +223,9 @@ func (o *Rule) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *Rule) SetEnabled(v bool) {
+func (o *Rule) SetEnabled(v bool) *Rule {
 	o.Enabled = &v
+	return o
 }
 
 // GetValidity returns the Validity field value if set, zero value otherwise.
@@ -256,8 +256,9 @@ func (o *Rule) HasValidity() bool {
 }
 
 // SetValidity gets a reference to the given []TimeRange and assigns it to the Validity field.
-func (o *Rule) SetValidity(v []TimeRange) {
+func (o *Rule) SetValidity(v []TimeRange) *Rule {
 	o.Validity = v
+	return o
 }
 
 func (o Rule) MarshalJSON() ([]byte, error) {

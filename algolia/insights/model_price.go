@@ -13,16 +13,16 @@ type Price struct {
 }
 
 // float64AsPrice is a convenience function that returns float64 wrapped in Price.
-func Float64AsPrice(v *float64) Price {
-	return Price{
-		Float64: v,
+func Float64AsPrice(v float64) *Price {
+	return &Price{
+		Float64: &v,
 	}
 }
 
 // stringAsPrice is a convenience function that returns string wrapped in Price.
-func StringAsPrice(v *string) Price {
-	return Price{
-		String: v,
+func StringAsPrice(v string) *Price {
+	return &Price{
+		String: &v,
 	}
 }
 

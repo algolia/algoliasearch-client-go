@@ -22,87 +22,87 @@ type EventsItems struct {
 	ViewedObjectIDs                 *ViewedObjectIDs
 }
 
-// AddedToCartObjectIDsAsEventsItems is a convenience function that returns AddedToCartObjectIDs wrapped in EventsItems.
-func AddedToCartObjectIDsAsEventsItems(v *AddedToCartObjectIDs) EventsItems {
-	return EventsItems{
-		AddedToCartObjectIDs: v,
-	}
-}
-
-// AddedToCartObjectIDsAfterSearchAsEventsItems is a convenience function that returns AddedToCartObjectIDsAfterSearch wrapped in EventsItems.
-func AddedToCartObjectIDsAfterSearchAsEventsItems(v *AddedToCartObjectIDsAfterSearch) EventsItems {
-	return EventsItems{
-		AddedToCartObjectIDsAfterSearch: v,
-	}
-}
-
-// ClickedFiltersAsEventsItems is a convenience function that returns ClickedFilters wrapped in EventsItems.
-func ClickedFiltersAsEventsItems(v *ClickedFilters) EventsItems {
-	return EventsItems{
-		ClickedFilters: v,
-	}
-}
-
-// ClickedObjectIDsAsEventsItems is a convenience function that returns ClickedObjectIDs wrapped in EventsItems.
-func ClickedObjectIDsAsEventsItems(v *ClickedObjectIDs) EventsItems {
-	return EventsItems{
-		ClickedObjectIDs: v,
-	}
-}
-
 // ClickedObjectIDsAfterSearchAsEventsItems is a convenience function that returns ClickedObjectIDsAfterSearch wrapped in EventsItems.
-func ClickedObjectIDsAfterSearchAsEventsItems(v *ClickedObjectIDsAfterSearch) EventsItems {
-	return EventsItems{
+func ClickedObjectIDsAfterSearchAsEventsItems(v *ClickedObjectIDsAfterSearch) *EventsItems {
+	return &EventsItems{
 		ClickedObjectIDsAfterSearch: v,
 	}
 }
 
-// ConvertedFiltersAsEventsItems is a convenience function that returns ConvertedFilters wrapped in EventsItems.
-func ConvertedFiltersAsEventsItems(v *ConvertedFilters) EventsItems {
-	return EventsItems{
-		ConvertedFilters: v,
-	}
-}
-
-// ConvertedObjectIDsAsEventsItems is a convenience function that returns ConvertedObjectIDs wrapped in EventsItems.
-func ConvertedObjectIDsAsEventsItems(v *ConvertedObjectIDs) EventsItems {
-	return EventsItems{
-		ConvertedObjectIDs: v,
-	}
-}
-
-// ConvertedObjectIDsAfterSearchAsEventsItems is a convenience function that returns ConvertedObjectIDsAfterSearch wrapped in EventsItems.
-func ConvertedObjectIDsAfterSearchAsEventsItems(v *ConvertedObjectIDsAfterSearch) EventsItems {
-	return EventsItems{
-		ConvertedObjectIDsAfterSearch: v,
-	}
-}
-
-// PurchasedObjectIDsAsEventsItems is a convenience function that returns PurchasedObjectIDs wrapped in EventsItems.
-func PurchasedObjectIDsAsEventsItems(v *PurchasedObjectIDs) EventsItems {
-	return EventsItems{
-		PurchasedObjectIDs: v,
+// AddedToCartObjectIDsAfterSearchAsEventsItems is a convenience function that returns AddedToCartObjectIDsAfterSearch wrapped in EventsItems.
+func AddedToCartObjectIDsAfterSearchAsEventsItems(v *AddedToCartObjectIDsAfterSearch) *EventsItems {
+	return &EventsItems{
+		AddedToCartObjectIDsAfterSearch: v,
 	}
 }
 
 // PurchasedObjectIDsAfterSearchAsEventsItems is a convenience function that returns PurchasedObjectIDsAfterSearch wrapped in EventsItems.
-func PurchasedObjectIDsAfterSearchAsEventsItems(v *PurchasedObjectIDsAfterSearch) EventsItems {
-	return EventsItems{
+func PurchasedObjectIDsAfterSearchAsEventsItems(v *PurchasedObjectIDsAfterSearch) *EventsItems {
+	return &EventsItems{
 		PurchasedObjectIDsAfterSearch: v,
 	}
 }
 
-// ViewedFiltersAsEventsItems is a convenience function that returns ViewedFilters wrapped in EventsItems.
-func ViewedFiltersAsEventsItems(v *ViewedFilters) EventsItems {
-	return EventsItems{
-		ViewedFilters: v,
+// ConvertedObjectIDsAfterSearchAsEventsItems is a convenience function that returns ConvertedObjectIDsAfterSearch wrapped in EventsItems.
+func ConvertedObjectIDsAfterSearchAsEventsItems(v *ConvertedObjectIDsAfterSearch) *EventsItems {
+	return &EventsItems{
+		ConvertedObjectIDsAfterSearch: v,
+	}
+}
+
+// ClickedObjectIDsAsEventsItems is a convenience function that returns ClickedObjectIDs wrapped in EventsItems.
+func ClickedObjectIDsAsEventsItems(v *ClickedObjectIDs) *EventsItems {
+	return &EventsItems{
+		ClickedObjectIDs: v,
+	}
+}
+
+// PurchasedObjectIDsAsEventsItems is a convenience function that returns PurchasedObjectIDs wrapped in EventsItems.
+func PurchasedObjectIDsAsEventsItems(v *PurchasedObjectIDs) *EventsItems {
+	return &EventsItems{
+		PurchasedObjectIDs: v,
+	}
+}
+
+// AddedToCartObjectIDsAsEventsItems is a convenience function that returns AddedToCartObjectIDs wrapped in EventsItems.
+func AddedToCartObjectIDsAsEventsItems(v *AddedToCartObjectIDs) *EventsItems {
+	return &EventsItems{
+		AddedToCartObjectIDs: v,
+	}
+}
+
+// ConvertedObjectIDsAsEventsItems is a convenience function that returns ConvertedObjectIDs wrapped in EventsItems.
+func ConvertedObjectIDsAsEventsItems(v *ConvertedObjectIDs) *EventsItems {
+	return &EventsItems{
+		ConvertedObjectIDs: v,
+	}
+}
+
+// ClickedFiltersAsEventsItems is a convenience function that returns ClickedFilters wrapped in EventsItems.
+func ClickedFiltersAsEventsItems(v *ClickedFilters) *EventsItems {
+	return &EventsItems{
+		ClickedFilters: v,
+	}
+}
+
+// ConvertedFiltersAsEventsItems is a convenience function that returns ConvertedFilters wrapped in EventsItems.
+func ConvertedFiltersAsEventsItems(v *ConvertedFilters) *EventsItems {
+	return &EventsItems{
+		ConvertedFilters: v,
 	}
 }
 
 // ViewedObjectIDsAsEventsItems is a convenience function that returns ViewedObjectIDs wrapped in EventsItems.
-func ViewedObjectIDsAsEventsItems(v *ViewedObjectIDs) EventsItems {
-	return EventsItems{
+func ViewedObjectIDsAsEventsItems(v *ViewedObjectIDs) *EventsItems {
+	return &EventsItems{
 		ViewedObjectIDs: v,
+	}
+}
+
+// ViewedFiltersAsEventsItems is a convenience function that returns ViewedFilters wrapped in EventsItems.
+func ViewedFiltersAsEventsItems(v *ViewedFilters) *EventsItems {
+	return &EventsItems{
+		ViewedFilters: v,
 	}
 }
 

@@ -48,12 +48,9 @@ func NewPersonalization(opts ...PersonalizationOption) *Personalization {
 	return this
 }
 
-// NewPersonalizationWithDefaults instantiates a new Personalization object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewPersonalizationWithDefaults() *Personalization {
-	this := &Personalization{}
-	return this
+// NewEmptyPersonalization return a pointer to an empty Personalization object.
+func NewEmptyPersonalization() *Personalization {
+	return &Personalization{}
 }
 
 // GetFiltersScore returns the FiltersScore field value if set, zero value otherwise.
@@ -84,8 +81,9 @@ func (o *Personalization) HasFiltersScore() bool {
 }
 
 // SetFiltersScore gets a reference to the given int32 and assigns it to the FiltersScore field.
-func (o *Personalization) SetFiltersScore(v int32) {
+func (o *Personalization) SetFiltersScore(v int32) *Personalization {
 	o.FiltersScore = &v
+	return o
 }
 
 // GetRankingScore returns the RankingScore field value if set, zero value otherwise.
@@ -116,8 +114,9 @@ func (o *Personalization) HasRankingScore() bool {
 }
 
 // SetRankingScore gets a reference to the given int32 and assigns it to the RankingScore field.
-func (o *Personalization) SetRankingScore(v int32) {
+func (o *Personalization) SetRankingScore(v int32) *Personalization {
 	o.RankingScore = &v
+	return o
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
@@ -148,8 +147,9 @@ func (o *Personalization) HasScore() bool {
 }
 
 // SetScore gets a reference to the given int32 and assigns it to the Score field.
-func (o *Personalization) SetScore(v int32) {
+func (o *Personalization) SetScore(v int32) *Personalization {
 	o.Score = &v
+	return o
 }
 
 func (o Personalization) MarshalJSON() ([]byte, error) {

@@ -28,12 +28,9 @@ func NewABTestResponse(index string, abTestID int32, taskID int64) *ABTestRespon
 	return this
 }
 
-// NewABTestResponseWithDefaults instantiates a new ABTestResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewABTestResponseWithDefaults() *ABTestResponse {
-	this := &ABTestResponse{}
-	return this
+// NewEmptyABTestResponse return a pointer to an empty ABTestResponse object.
+func NewEmptyABTestResponse() *ABTestResponse {
+	return &ABTestResponse{}
 }
 
 // GetIndex returns the Index field value.
@@ -56,8 +53,9 @@ func (o *ABTestResponse) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *ABTestResponse) SetIndex(v string) {
+func (o *ABTestResponse) SetIndex(v string) *ABTestResponse {
 	o.Index = v
+	return o
 }
 
 // GetAbTestID returns the AbTestID field value.
@@ -80,8 +78,9 @@ func (o *ABTestResponse) GetAbTestIDOk() (*int32, bool) {
 }
 
 // SetAbTestID sets field value.
-func (o *ABTestResponse) SetAbTestID(v int32) {
+func (o *ABTestResponse) SetAbTestID(v int32) *ABTestResponse {
 	o.AbTestID = v
+	return o
 }
 
 // GetTaskID returns the TaskID field value.
@@ -104,8 +103,9 @@ func (o *ABTestResponse) GetTaskIDOk() (*int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *ABTestResponse) SetTaskID(v int64) {
+func (o *ABTestResponse) SetTaskID(v int64) *ABTestResponse {
 	o.TaskID = v
+	return o
 }
 
 func (o ABTestResponse) MarshalJSON() ([]byte, error) {

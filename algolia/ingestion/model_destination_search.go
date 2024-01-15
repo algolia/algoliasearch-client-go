@@ -21,12 +21,9 @@ func NewDestinationSearch(destinationIDs []string) *DestinationSearch {
 	return this
 }
 
-// NewDestinationSearchWithDefaults instantiates a new DestinationSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDestinationSearchWithDefaults() *DestinationSearch {
-	this := &DestinationSearch{}
-	return this
+// NewEmptyDestinationSearch return a pointer to an empty DestinationSearch object.
+func NewEmptyDestinationSearch() *DestinationSearch {
+	return &DestinationSearch{}
 }
 
 // GetDestinationIDs returns the DestinationIDs field value.
@@ -49,8 +46,9 @@ func (o *DestinationSearch) GetDestinationIDsOk() ([]string, bool) {
 }
 
 // SetDestinationIDs sets field value.
-func (o *DestinationSearch) SetDestinationIDs(v []string) {
+func (o *DestinationSearch) SetDestinationIDs(v []string) *DestinationSearch {
 	o.DestinationIDs = v
+	return o
 }
 
 func (o DestinationSearch) MarshalJSON() ([]byte, error) {

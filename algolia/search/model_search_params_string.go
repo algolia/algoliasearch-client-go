@@ -32,14 +32,9 @@ func NewSearchParamsString(opts ...SearchParamsStringOption) *SearchParamsString
 	return this
 }
 
-// NewSearchParamsStringWithDefaults instantiates a new SearchParamsString object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchParamsStringWithDefaults() *SearchParamsString {
-	this := &SearchParamsString{}
-	var params string = ""
-	this.Params = &params
-	return this
+// NewEmptySearchParamsString return a pointer to an empty SearchParamsString object.
+func NewEmptySearchParamsString() *SearchParamsString {
+	return &SearchParamsString{}
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
@@ -70,8 +65,9 @@ func (o *SearchParamsString) HasParams() bool {
 }
 
 // SetParams gets a reference to the given string and assigns it to the Params field.
-func (o *SearchParamsString) SetParams(v string) {
+func (o *SearchParamsString) SetParams(v string) *SearchParamsString {
 	o.Params = &v
+	return o
 }
 
 func (o SearchParamsString) MarshalJSON() ([]byte, error) {

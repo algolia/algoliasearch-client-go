@@ -12,17 +12,17 @@ type AroundPrecision struct {
 	Int32                                *int32
 }
 
-// []AroundPrecisionFromValueInnerAsAroundPrecision is a convenience function that returns []AroundPrecisionFromValueInner wrapped in AroundPrecision.
-func ArrayOfAroundPrecisionFromValueInnerAsAroundPrecision(v *[]AroundPrecisionFromValueInner) AroundPrecision {
-	return AroundPrecision{
-		ArrayOfAroundPrecisionFromValueInner: v,
+// int32AsAroundPrecision is a convenience function that returns int32 wrapped in AroundPrecision.
+func Int32AsAroundPrecision(v int32) *AroundPrecision {
+	return &AroundPrecision{
+		Int32: &v,
 	}
 }
 
-// int32AsAroundPrecision is a convenience function that returns int32 wrapped in AroundPrecision.
-func Int32AsAroundPrecision(v *int32) AroundPrecision {
-	return AroundPrecision{
-		Int32: v,
+// []AroundPrecisionFromValueInnerAsAroundPrecision is a convenience function that returns []AroundPrecisionFromValueInner wrapped in AroundPrecision.
+func ArrayOfAroundPrecisionFromValueInnerAsAroundPrecision(v []AroundPrecisionFromValueInner) *AroundPrecision {
+	return &AroundPrecision{
+		ArrayOfAroundPrecisionFromValueInner: &v,
 	}
 }
 

@@ -53,14 +53,9 @@ func NewTrendingFacetsQuery(indexName string, facetName string, opts ...Trending
 	return this
 }
 
-// NewTrendingFacetsQueryWithDefaults instantiates a new TrendingFacetsQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTrendingFacetsQueryWithDefaults() *TrendingFacetsQuery {
-	this := &TrendingFacetsQuery{}
-	var maxRecommendations int32 = 0
-	this.MaxRecommendations = &maxRecommendations
-	return this
+// NewEmptyTrendingFacetsQuery return a pointer to an empty TrendingFacetsQuery object.
+func NewEmptyTrendingFacetsQuery() *TrendingFacetsQuery {
+	return &TrendingFacetsQuery{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -83,8 +78,9 @@ func (o *TrendingFacetsQuery) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *TrendingFacetsQuery) SetIndexName(v string) {
+func (o *TrendingFacetsQuery) SetIndexName(v string) *TrendingFacetsQuery {
 	o.IndexName = v
+	return o
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
@@ -115,8 +111,9 @@ func (o *TrendingFacetsQuery) HasThreshold() bool {
 }
 
 // SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *TrendingFacetsQuery) SetThreshold(v int32) {
+func (o *TrendingFacetsQuery) SetThreshold(v int32) *TrendingFacetsQuery {
 	o.Threshold = &v
+	return o
 }
 
 // GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
@@ -147,8 +144,9 @@ func (o *TrendingFacetsQuery) HasMaxRecommendations() bool {
 }
 
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *TrendingFacetsQuery) SetMaxRecommendations(v int32) {
+func (o *TrendingFacetsQuery) SetMaxRecommendations(v int32) *TrendingFacetsQuery {
 	o.MaxRecommendations = &v
+	return o
 }
 
 // GetFacetName returns the FacetName field value.
@@ -171,8 +169,9 @@ func (o *TrendingFacetsQuery) GetFacetNameOk() (*string, bool) {
 }
 
 // SetFacetName sets field value.
-func (o *TrendingFacetsQuery) SetFacetName(v string) {
+func (o *TrendingFacetsQuery) SetFacetName(v string) *TrendingFacetsQuery {
 	o.FacetName = v
+	return o
 }
 
 // GetModel returns the Model field value if set, zero value otherwise.
@@ -203,8 +202,9 @@ func (o *TrendingFacetsQuery) HasModel() bool {
 }
 
 // SetModel gets a reference to the given TrendingFacetsModel and assigns it to the Model field.
-func (o *TrendingFacetsQuery) SetModel(v TrendingFacetsModel) {
+func (o *TrendingFacetsQuery) SetModel(v TrendingFacetsModel) *TrendingFacetsQuery {
 	o.Model = &v
+	return o
 }
 
 func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {

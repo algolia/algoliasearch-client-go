@@ -13,15 +13,15 @@ type GetTopSearchesResponse struct {
 }
 
 // TopSearchesResponseAsGetTopSearchesResponse is a convenience function that returns TopSearchesResponse wrapped in GetTopSearchesResponse.
-func TopSearchesResponseAsGetTopSearchesResponse(v *TopSearchesResponse) GetTopSearchesResponse {
-	return GetTopSearchesResponse{
+func TopSearchesResponseAsGetTopSearchesResponse(v *TopSearchesResponse) *GetTopSearchesResponse {
+	return &GetTopSearchesResponse{
 		TopSearchesResponse: v,
 	}
 }
 
 // TopSearchesResponseWithAnalyticsAsGetTopSearchesResponse is a convenience function that returns TopSearchesResponseWithAnalytics wrapped in GetTopSearchesResponse.
-func TopSearchesResponseWithAnalyticsAsGetTopSearchesResponse(v *TopSearchesResponseWithAnalytics) GetTopSearchesResponse {
-	return GetTopSearchesResponse{
+func TopSearchesResponseWithAnalyticsAsGetTopSearchesResponse(v *TopSearchesResponseWithAnalytics) *GetTopSearchesResponse {
+	return &GetTopSearchesResponse{
 		TopSearchesResponseWithAnalytics: v,
 	}
 }

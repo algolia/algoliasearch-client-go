@@ -23,12 +23,9 @@ func NewBatchDictionaryEntriesRequest(action DictionaryAction, body DictionaryEn
 	return this
 }
 
-// NewBatchDictionaryEntriesRequestWithDefaults instantiates a new BatchDictionaryEntriesRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBatchDictionaryEntriesRequestWithDefaults() *BatchDictionaryEntriesRequest {
-	this := &BatchDictionaryEntriesRequest{}
-	return this
+// NewEmptyBatchDictionaryEntriesRequest return a pointer to an empty BatchDictionaryEntriesRequest object.
+func NewEmptyBatchDictionaryEntriesRequest() *BatchDictionaryEntriesRequest {
+	return &BatchDictionaryEntriesRequest{}
 }
 
 // GetAction returns the Action field value.
@@ -51,8 +48,9 @@ func (o *BatchDictionaryEntriesRequest) GetActionOk() (*DictionaryAction, bool) 
 }
 
 // SetAction sets field value.
-func (o *BatchDictionaryEntriesRequest) SetAction(v DictionaryAction) {
+func (o *BatchDictionaryEntriesRequest) SetAction(v DictionaryAction) *BatchDictionaryEntriesRequest {
 	o.Action = v
+	return o
 }
 
 // GetBody returns the Body field value.
@@ -75,8 +73,9 @@ func (o *BatchDictionaryEntriesRequest) GetBodyOk() (*DictionaryEntry, bool) {
 }
 
 // SetBody sets field value.
-func (o *BatchDictionaryEntriesRequest) SetBody(v DictionaryEntry) {
-	o.Body = v
+func (o *BatchDictionaryEntriesRequest) SetBody(v *DictionaryEntry) *BatchDictionaryEntriesRequest {
+	o.Body = *v
+	return o
 }
 
 func (o BatchDictionaryEntriesRequest) MarshalJSON() ([]byte, error) {

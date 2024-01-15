@@ -59,14 +59,9 @@ func NewRecommendedForYouQuery(indexName string, model RecommendedForYouModel, o
 	return this
 }
 
-// NewRecommendedForYouQueryWithDefaults instantiates a new RecommendedForYouQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRecommendedForYouQueryWithDefaults() *RecommendedForYouQuery {
-	this := &RecommendedForYouQuery{}
-	var maxRecommendations int32 = 0
-	this.MaxRecommendations = &maxRecommendations
-	return this
+// NewEmptyRecommendedForYouQuery return a pointer to an empty RecommendedForYouQuery object.
+func NewEmptyRecommendedForYouQuery() *RecommendedForYouQuery {
+	return &RecommendedForYouQuery{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -89,8 +84,9 @@ func (o *RecommendedForYouQuery) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *RecommendedForYouQuery) SetIndexName(v string) {
+func (o *RecommendedForYouQuery) SetIndexName(v string) *RecommendedForYouQuery {
 	o.IndexName = v
+	return o
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
@@ -121,8 +117,9 @@ func (o *RecommendedForYouQuery) HasThreshold() bool {
 }
 
 // SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *RecommendedForYouQuery) SetThreshold(v int32) {
+func (o *RecommendedForYouQuery) SetThreshold(v int32) *RecommendedForYouQuery {
 	o.Threshold = &v
+	return o
 }
 
 // GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
@@ -153,8 +150,9 @@ func (o *RecommendedForYouQuery) HasMaxRecommendations() bool {
 }
 
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *RecommendedForYouQuery) SetMaxRecommendations(v int32) {
+func (o *RecommendedForYouQuery) SetMaxRecommendations(v int32) *RecommendedForYouQuery {
 	o.MaxRecommendations = &v
+	return o
 }
 
 // GetModel returns the Model field value.
@@ -177,8 +175,9 @@ func (o *RecommendedForYouQuery) GetModelOk() (*RecommendedForYouModel, bool) {
 }
 
 // SetModel sets field value.
-func (o *RecommendedForYouQuery) SetModel(v RecommendedForYouModel) {
+func (o *RecommendedForYouQuery) SetModel(v RecommendedForYouModel) *RecommendedForYouQuery {
 	o.Model = v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -209,8 +208,9 @@ func (o *RecommendedForYouQuery) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given RecommendedForYouQueryParameters and assigns it to the QueryParameters field.
-func (o *RecommendedForYouQuery) SetQueryParameters(v RecommendedForYouQueryParameters) {
-	o.QueryParameters = &v
+func (o *RecommendedForYouQuery) SetQueryParameters(v *RecommendedForYouQueryParameters) *RecommendedForYouQuery {
+	o.QueryParameters = v
+	return o
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
@@ -241,8 +241,9 @@ func (o *RecommendedForYouQuery) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given RecommendedForYouQueryParameters and assigns it to the FallbackParameters field.
-func (o *RecommendedForYouQuery) SetFallbackParameters(v RecommendedForYouQueryParameters) {
-	o.FallbackParameters = &v
+func (o *RecommendedForYouQuery) SetFallbackParameters(v *RecommendedForYouQueryParameters) *RecommendedForYouQuery {
+	o.FallbackParameters = v
+	return o
 }
 
 func (o RecommendedForYouQuery) MarshalJSON() ([]byte, error) {

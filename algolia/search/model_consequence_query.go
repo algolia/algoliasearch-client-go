@@ -13,16 +13,16 @@ type ConsequenceQuery struct {
 }
 
 // ConsequenceQueryObjectAsConsequenceQuery is a convenience function that returns ConsequenceQueryObject wrapped in ConsequenceQuery.
-func ConsequenceQueryObjectAsConsequenceQuery(v *ConsequenceQueryObject) ConsequenceQuery {
-	return ConsequenceQuery{
+func ConsequenceQueryObjectAsConsequenceQuery(v *ConsequenceQueryObject) *ConsequenceQuery {
+	return &ConsequenceQuery{
 		ConsequenceQueryObject: v,
 	}
 }
 
 // stringAsConsequenceQuery is a convenience function that returns string wrapped in ConsequenceQuery.
-func StringAsConsequenceQuery(v *string) ConsequenceQuery {
-	return ConsequenceQuery{
-		String: v,
+func StringAsConsequenceQuery(v string) *ConsequenceQuery {
+	return &ConsequenceQuery{
+		String: &v,
 	}
 }
 

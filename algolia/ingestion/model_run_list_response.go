@@ -25,12 +25,9 @@ func NewRunListResponse(runs []Run, pagination Pagination, window Window) *RunLi
 	return this
 }
 
-// NewRunListResponseWithDefaults instantiates a new RunListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRunListResponseWithDefaults() *RunListResponse {
-	this := &RunListResponse{}
-	return this
+// NewEmptyRunListResponse return a pointer to an empty RunListResponse object.
+func NewEmptyRunListResponse() *RunListResponse {
+	return &RunListResponse{}
 }
 
 // GetRuns returns the Runs field value.
@@ -53,8 +50,9 @@ func (o *RunListResponse) GetRunsOk() ([]Run, bool) {
 }
 
 // SetRuns sets field value.
-func (o *RunListResponse) SetRuns(v []Run) {
+func (o *RunListResponse) SetRuns(v []Run) *RunListResponse {
 	o.Runs = v
+	return o
 }
 
 // GetPagination returns the Pagination field value.
@@ -77,8 +75,9 @@ func (o *RunListResponse) GetPaginationOk() (*Pagination, bool) {
 }
 
 // SetPagination sets field value.
-func (o *RunListResponse) SetPagination(v Pagination) {
-	o.Pagination = v
+func (o *RunListResponse) SetPagination(v *Pagination) *RunListResponse {
+	o.Pagination = *v
+	return o
 }
 
 // GetWindow returns the Window field value.
@@ -101,8 +100,9 @@ func (o *RunListResponse) GetWindowOk() (*Window, bool) {
 }
 
 // SetWindow sets field value.
-func (o *RunListResponse) SetWindow(v Window) {
-	o.Window = v
+func (o *RunListResponse) SetWindow(v *Window) *RunListResponse {
+	o.Window = *v
+	return o
 }
 
 func (o RunListResponse) MarshalJSON() ([]byte, error) {

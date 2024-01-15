@@ -47,12 +47,9 @@ func NewEdit(opts ...EditOption) *Edit {
 	return this
 }
 
-// NewEditWithDefaults instantiates a new Edit object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewEditWithDefaults() *Edit {
-	this := &Edit{}
-	return this
+// NewEmptyEdit return a pointer to an empty Edit object.
+func NewEmptyEdit() *Edit {
+	return &Edit{}
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -83,8 +80,9 @@ func (o *Edit) HasType() bool {
 }
 
 // SetType gets a reference to the given EditType and assigns it to the Type field.
-func (o *Edit) SetType(v EditType) {
+func (o *Edit) SetType(v EditType) *Edit {
 	o.Type = &v
+	return o
 }
 
 // GetDelete returns the Delete field value if set, zero value otherwise.
@@ -115,8 +113,9 @@ func (o *Edit) HasDelete() bool {
 }
 
 // SetDelete gets a reference to the given string and assigns it to the Delete field.
-func (o *Edit) SetDelete(v string) {
+func (o *Edit) SetDelete(v string) *Edit {
 	o.Delete = &v
+	return o
 }
 
 // GetInsert returns the Insert field value if set, zero value otherwise.
@@ -147,8 +146,9 @@ func (o *Edit) HasInsert() bool {
 }
 
 // SetInsert gets a reference to the given string and assigns it to the Insert field.
-func (o *Edit) SetInsert(v string) {
+func (o *Edit) SetInsert(v string) *Edit {
 	o.Insert = &v
+	return o
 }
 
 func (o Edit) MarshalJSON() ([]byte, error) {

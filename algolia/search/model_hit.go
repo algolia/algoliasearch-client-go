@@ -60,12 +60,9 @@ func NewHit(objectID string, opts ...HitOption) *Hit {
 	return this
 }
 
-// NewHitWithDefaults instantiates a new Hit object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewHitWithDefaults() *Hit {
-	this := &Hit{}
-	return this
+// NewEmptyHit return a pointer to an empty Hit object.
+func NewEmptyHit() *Hit {
+	return &Hit{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -88,8 +85,9 @@ func (o *Hit) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *Hit) SetObjectID(v string) {
+func (o *Hit) SetObjectID(v string) *Hit {
 	o.ObjectID = v
+	return o
 }
 
 // GetHighlightResult returns the HighlightResult field value if set, zero value otherwise.
@@ -120,8 +118,9 @@ func (o *Hit) HasHighlightResult() bool {
 }
 
 // SetHighlightResult gets a reference to the given map[string]HighlightResult and assigns it to the HighlightResult field.
-func (o *Hit) SetHighlightResult(v map[string]HighlightResult) {
+func (o *Hit) SetHighlightResult(v map[string]HighlightResult) *Hit {
 	o.HighlightResult = &v
+	return o
 }
 
 // GetSnippetResult returns the SnippetResult field value if set, zero value otherwise.
@@ -152,8 +151,9 @@ func (o *Hit) HasSnippetResult() bool {
 }
 
 // SetSnippetResult gets a reference to the given map[string]SnippetResult and assigns it to the SnippetResult field.
-func (o *Hit) SetSnippetResult(v map[string]SnippetResult) {
+func (o *Hit) SetSnippetResult(v map[string]SnippetResult) *Hit {
 	o.SnippetResult = &v
+	return o
 }
 
 // GetRankingInfo returns the RankingInfo field value if set, zero value otherwise.
@@ -184,8 +184,9 @@ func (o *Hit) HasRankingInfo() bool {
 }
 
 // SetRankingInfo gets a reference to the given RankingInfo and assigns it to the RankingInfo field.
-func (o *Hit) SetRankingInfo(v RankingInfo) {
-	o.RankingInfo = &v
+func (o *Hit) SetRankingInfo(v *RankingInfo) *Hit {
+	o.RankingInfo = v
+	return o
 }
 
 // GetDistinctSeqID returns the DistinctSeqID field value if set, zero value otherwise.
@@ -216,8 +217,19 @@ func (o *Hit) HasDistinctSeqID() bool {
 }
 
 // SetDistinctSeqID gets a reference to the given int32 and assigns it to the DistinctSeqID field.
-func (o *Hit) SetDistinctSeqID(v int32) {
+func (o *Hit) SetDistinctSeqID(v int32) *Hit {
 	o.DistinctSeqID = &v
+	return o
+}
+
+func (o *Hit) SetAdditionalProperty(key string, value any) *Hit {
+	if o.AdditionalProperties == nil {
+		o.AdditionalProperties = make(map[string]any)
+	}
+
+	o.AdditionalProperties[key] = value
+
+	return o
 }
 
 func (o Hit) MarshalJSON() ([]byte, error) {

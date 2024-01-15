@@ -501,68 +501,9 @@ func NewIndexSettings(opts ...IndexSettingsOption) *IndexSettings {
 	return this
 }
 
-// NewIndexSettingsWithDefaults instantiates a new IndexSettings object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewIndexSettingsWithDefaults() *IndexSettings {
-	this := &IndexSettings{}
-	var paginationLimitedTo int32 = 1000
-	this.PaginationLimitedTo = &paginationLimitedTo
-	var allowCompressionOfIntegerArray bool = false
-	this.AllowCompressionOfIntegerArray = &allowCompressionOfIntegerArray
-	var separatorsToIndex string = ""
-	this.SeparatorsToIndex = &separatorsToIndex
-	var relevancyStrictness int32 = 100
-	this.RelevancyStrictness = &relevancyStrictness
-	var highlightPreTag string = "<em>"
-	this.HighlightPreTag = &highlightPreTag
-	var highlightPostTag string = "</em>"
-	this.HighlightPostTag = &highlightPostTag
-	var snippetEllipsisText string = "…"
-	this.SnippetEllipsisText = &snippetEllipsisText
-	var restrictHighlightAndSnippetArrays bool = false
-	this.RestrictHighlightAndSnippetArrays = &restrictHighlightAndSnippetArrays
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	var minWordSizefor1Typo int32 = 4
-	this.MinWordSizefor1Typo = &minWordSizefor1Typo
-	var minWordSizefor2Typos int32 = 8
-	this.MinWordSizefor2Typos = &minWordSizefor2Typos
-	var allowTyposOnNumericTokens bool = true
-	this.AllowTyposOnNumericTokens = &allowTyposOnNumericTokens
-	var keepDiacriticsOnCharacters string = ""
-	this.KeepDiacriticsOnCharacters = &keepDiacriticsOnCharacters
-	var decompoundQuery bool = true
-	this.DecompoundQuery = &decompoundQuery
-	var enableRules bool = true
-	this.EnableRules = &enableRules
-	var enablePersonalization bool = false
-	this.EnablePersonalization = &enablePersonalization
-	var queryType QueryType = QUERYTYPE_PREFIX_LAST
-	this.QueryType = &queryType
-	var removeWordsIfNoResults RemoveWordsIfNoResults = REMOVEWORDSIFNORESULTS_NONE
-	this.RemoveWordsIfNoResults = &removeWordsIfNoResults
-	var mode Mode = MODE_KEYWORD_SEARCH
-	this.Mode = &mode
-	var advancedSyntax bool = false
-	this.AdvancedSyntax = &advancedSyntax
-	var exactOnSingleWordQuery ExactOnSingleWordQuery = EXACTONSINGLEWORDQUERY_ATTRIBUTE
-	this.ExactOnSingleWordQuery = &exactOnSingleWordQuery
-	var replaceSynonymsInHighlight bool = false
-	this.ReplaceSynonymsInHighlight = &replaceSynonymsInHighlight
-	var minProximity int32 = 1
-	this.MinProximity = &minProximity
-	var maxFacetHits int32 = 10
-	this.MaxFacetHits = &maxFacetHits
-	var maxValuesPerFacet int32 = 100
-	this.MaxValuesPerFacet = &maxValuesPerFacet
-	var sortFacetValuesBy string = "count"
-	this.SortFacetValuesBy = &sortFacetValuesBy
-	var attributeCriteriaComputedByMinProximity bool = false
-	this.AttributeCriteriaComputedByMinProximity = &attributeCriteriaComputedByMinProximity
-	var enableReRanking bool = true
-	this.EnableReRanking = &enableReRanking
-	return this
+// NewEmptyIndexSettings return a pointer to an empty IndexSettings object.
+func NewEmptyIndexSettings() *IndexSettings {
+	return &IndexSettings{}
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
@@ -593,8 +534,9 @@ func (o *IndexSettings) HasReplicas() bool {
 }
 
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
-func (o *IndexSettings) SetReplicas(v []string) {
+func (o *IndexSettings) SetReplicas(v []string) *IndexSettings {
 	o.Replicas = v
+	return o
 }
 
 // GetPaginationLimitedTo returns the PaginationLimitedTo field value if set, zero value otherwise.
@@ -625,8 +567,9 @@ func (o *IndexSettings) HasPaginationLimitedTo() bool {
 }
 
 // SetPaginationLimitedTo gets a reference to the given int32 and assigns it to the PaginationLimitedTo field.
-func (o *IndexSettings) SetPaginationLimitedTo(v int32) {
+func (o *IndexSettings) SetPaginationLimitedTo(v int32) *IndexSettings {
 	o.PaginationLimitedTo = &v
+	return o
 }
 
 // GetUnretrievableAttributes returns the UnretrievableAttributes field value if set, zero value otherwise.
@@ -657,8 +600,9 @@ func (o *IndexSettings) HasUnretrievableAttributes() bool {
 }
 
 // SetUnretrievableAttributes gets a reference to the given []string and assigns it to the UnretrievableAttributes field.
-func (o *IndexSettings) SetUnretrievableAttributes(v []string) {
+func (o *IndexSettings) SetUnretrievableAttributes(v []string) *IndexSettings {
 	o.UnretrievableAttributes = v
+	return o
 }
 
 // GetDisableTypoToleranceOnWords returns the DisableTypoToleranceOnWords field value if set, zero value otherwise.
@@ -689,8 +633,9 @@ func (o *IndexSettings) HasDisableTypoToleranceOnWords() bool {
 }
 
 // SetDisableTypoToleranceOnWords gets a reference to the given []string and assigns it to the DisableTypoToleranceOnWords field.
-func (o *IndexSettings) SetDisableTypoToleranceOnWords(v []string) {
+func (o *IndexSettings) SetDisableTypoToleranceOnWords(v []string) *IndexSettings {
 	o.DisableTypoToleranceOnWords = v
+	return o
 }
 
 // GetAttributesToTransliterate returns the AttributesToTransliterate field value if set, zero value otherwise.
@@ -721,8 +666,9 @@ func (o *IndexSettings) HasAttributesToTransliterate() bool {
 }
 
 // SetAttributesToTransliterate gets a reference to the given []string and assigns it to the AttributesToTransliterate field.
-func (o *IndexSettings) SetAttributesToTransliterate(v []string) {
+func (o *IndexSettings) SetAttributesToTransliterate(v []string) *IndexSettings {
 	o.AttributesToTransliterate = v
+	return o
 }
 
 // GetCamelCaseAttributes returns the CamelCaseAttributes field value if set, zero value otherwise.
@@ -753,8 +699,9 @@ func (o *IndexSettings) HasCamelCaseAttributes() bool {
 }
 
 // SetCamelCaseAttributes gets a reference to the given []string and assigns it to the CamelCaseAttributes field.
-func (o *IndexSettings) SetCamelCaseAttributes(v []string) {
+func (o *IndexSettings) SetCamelCaseAttributes(v []string) *IndexSettings {
 	o.CamelCaseAttributes = v
+	return o
 }
 
 // GetDecompoundedAttributes returns the DecompoundedAttributes field value if set, zero value otherwise.
@@ -785,8 +732,9 @@ func (o *IndexSettings) HasDecompoundedAttributes() bool {
 }
 
 // SetDecompoundedAttributes gets a reference to the given map[string]interface{} and assigns it to the DecompoundedAttributes field.
-func (o *IndexSettings) SetDecompoundedAttributes(v map[string]interface{}) {
+func (o *IndexSettings) SetDecompoundedAttributes(v map[string]interface{}) *IndexSettings {
 	o.DecompoundedAttributes = v
+	return o
 }
 
 // GetIndexLanguages returns the IndexLanguages field value if set, zero value otherwise.
@@ -817,8 +765,9 @@ func (o *IndexSettings) HasIndexLanguages() bool {
 }
 
 // SetIndexLanguages gets a reference to the given []string and assigns it to the IndexLanguages field.
-func (o *IndexSettings) SetIndexLanguages(v []string) {
+func (o *IndexSettings) SetIndexLanguages(v []string) *IndexSettings {
 	o.IndexLanguages = v
+	return o
 }
 
 // GetDisablePrefixOnAttributes returns the DisablePrefixOnAttributes field value if set, zero value otherwise.
@@ -849,8 +798,9 @@ func (o *IndexSettings) HasDisablePrefixOnAttributes() bool {
 }
 
 // SetDisablePrefixOnAttributes gets a reference to the given []string and assigns it to the DisablePrefixOnAttributes field.
-func (o *IndexSettings) SetDisablePrefixOnAttributes(v []string) {
+func (o *IndexSettings) SetDisablePrefixOnAttributes(v []string) *IndexSettings {
 	o.DisablePrefixOnAttributes = v
+	return o
 }
 
 // GetAllowCompressionOfIntegerArray returns the AllowCompressionOfIntegerArray field value if set, zero value otherwise.
@@ -881,8 +831,9 @@ func (o *IndexSettings) HasAllowCompressionOfIntegerArray() bool {
 }
 
 // SetAllowCompressionOfIntegerArray gets a reference to the given bool and assigns it to the AllowCompressionOfIntegerArray field.
-func (o *IndexSettings) SetAllowCompressionOfIntegerArray(v bool) {
+func (o *IndexSettings) SetAllowCompressionOfIntegerArray(v bool) *IndexSettings {
 	o.AllowCompressionOfIntegerArray = &v
+	return o
 }
 
 // GetNumericAttributesForFiltering returns the NumericAttributesForFiltering field value if set, zero value otherwise.
@@ -913,8 +864,9 @@ func (o *IndexSettings) HasNumericAttributesForFiltering() bool {
 }
 
 // SetNumericAttributesForFiltering gets a reference to the given []string and assigns it to the NumericAttributesForFiltering field.
-func (o *IndexSettings) SetNumericAttributesForFiltering(v []string) {
+func (o *IndexSettings) SetNumericAttributesForFiltering(v []string) *IndexSettings {
 	o.NumericAttributesForFiltering = v
+	return o
 }
 
 // GetSeparatorsToIndex returns the SeparatorsToIndex field value if set, zero value otherwise.
@@ -945,8 +897,9 @@ func (o *IndexSettings) HasSeparatorsToIndex() bool {
 }
 
 // SetSeparatorsToIndex gets a reference to the given string and assigns it to the SeparatorsToIndex field.
-func (o *IndexSettings) SetSeparatorsToIndex(v string) {
+func (o *IndexSettings) SetSeparatorsToIndex(v string) *IndexSettings {
 	o.SeparatorsToIndex = &v
+	return o
 }
 
 // GetSearchableAttributes returns the SearchableAttributes field value if set, zero value otherwise.
@@ -977,8 +930,9 @@ func (o *IndexSettings) HasSearchableAttributes() bool {
 }
 
 // SetSearchableAttributes gets a reference to the given []string and assigns it to the SearchableAttributes field.
-func (o *IndexSettings) SetSearchableAttributes(v []string) {
+func (o *IndexSettings) SetSearchableAttributes(v []string) *IndexSettings {
 	o.SearchableAttributes = v
+	return o
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
@@ -1009,8 +963,9 @@ func (o *IndexSettings) HasUserData() bool {
 }
 
 // SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *IndexSettings) SetUserData(v map[string]interface{}) {
+func (o *IndexSettings) SetUserData(v map[string]interface{}) *IndexSettings {
 	o.UserData = v
+	return o
 }
 
 // GetCustomNormalization returns the CustomNormalization field value if set, zero value otherwise.
@@ -1041,8 +996,9 @@ func (o *IndexSettings) HasCustomNormalization() bool {
 }
 
 // SetCustomNormalization gets a reference to the given map[string]map[string]string and assigns it to the CustomNormalization field.
-func (o *IndexSettings) SetCustomNormalization(v map[string]map[string]string) {
+func (o *IndexSettings) SetCustomNormalization(v map[string]map[string]string) *IndexSettings {
 	o.CustomNormalization = &v
+	return o
 }
 
 // GetAttributeForDistinct returns the AttributeForDistinct field value if set, zero value otherwise.
@@ -1073,8 +1029,9 @@ func (o *IndexSettings) HasAttributeForDistinct() bool {
 }
 
 // SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
-func (o *IndexSettings) SetAttributeForDistinct(v string) {
+func (o *IndexSettings) SetAttributeForDistinct(v string) *IndexSettings {
 	o.AttributeForDistinct = &v
+	return o
 }
 
 // GetAttributesForFaceting returns the AttributesForFaceting field value if set, zero value otherwise.
@@ -1105,8 +1062,9 @@ func (o *IndexSettings) HasAttributesForFaceting() bool {
 }
 
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
-func (o *IndexSettings) SetAttributesForFaceting(v []string) {
+func (o *IndexSettings) SetAttributesForFaceting(v []string) *IndexSettings {
 	o.AttributesForFaceting = v
+	return o
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
@@ -1137,8 +1095,9 @@ func (o *IndexSettings) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *IndexSettings) SetAttributesToRetrieve(v []string) {
+func (o *IndexSettings) SetAttributesToRetrieve(v []string) *IndexSettings {
 	o.AttributesToRetrieve = v
+	return o
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
@@ -1169,8 +1128,9 @@ func (o *IndexSettings) HasRanking() bool {
 }
 
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *IndexSettings) SetRanking(v []string) {
+func (o *IndexSettings) SetRanking(v []string) *IndexSettings {
 	o.Ranking = v
+	return o
 }
 
 // GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
@@ -1201,8 +1161,9 @@ func (o *IndexSettings) HasCustomRanking() bool {
 }
 
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *IndexSettings) SetCustomRanking(v []string) {
+func (o *IndexSettings) SetCustomRanking(v []string) *IndexSettings {
 	o.CustomRanking = v
+	return o
 }
 
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
@@ -1233,8 +1194,9 @@ func (o *IndexSettings) HasRelevancyStrictness() bool {
 }
 
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *IndexSettings) SetRelevancyStrictness(v int32) {
+func (o *IndexSettings) SetRelevancyStrictness(v int32) *IndexSettings {
 	o.RelevancyStrictness = &v
+	return o
 }
 
 // GetAttributesToHighlight returns the AttributesToHighlight field value if set, zero value otherwise.
@@ -1265,8 +1227,9 @@ func (o *IndexSettings) HasAttributesToHighlight() bool {
 }
 
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
-func (o *IndexSettings) SetAttributesToHighlight(v []string) {
+func (o *IndexSettings) SetAttributesToHighlight(v []string) *IndexSettings {
 	o.AttributesToHighlight = v
+	return o
 }
 
 // GetAttributesToSnippet returns the AttributesToSnippet field value if set, zero value otherwise.
@@ -1297,8 +1260,9 @@ func (o *IndexSettings) HasAttributesToSnippet() bool {
 }
 
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
-func (o *IndexSettings) SetAttributesToSnippet(v []string) {
+func (o *IndexSettings) SetAttributesToSnippet(v []string) *IndexSettings {
 	o.AttributesToSnippet = v
+	return o
 }
 
 // GetHighlightPreTag returns the HighlightPreTag field value if set, zero value otherwise.
@@ -1329,8 +1293,9 @@ func (o *IndexSettings) HasHighlightPreTag() bool {
 }
 
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
-func (o *IndexSettings) SetHighlightPreTag(v string) {
+func (o *IndexSettings) SetHighlightPreTag(v string) *IndexSettings {
 	o.HighlightPreTag = &v
+	return o
 }
 
 // GetHighlightPostTag returns the HighlightPostTag field value if set, zero value otherwise.
@@ -1361,8 +1326,9 @@ func (o *IndexSettings) HasHighlightPostTag() bool {
 }
 
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
-func (o *IndexSettings) SetHighlightPostTag(v string) {
+func (o *IndexSettings) SetHighlightPostTag(v string) *IndexSettings {
 	o.HighlightPostTag = &v
+	return o
 }
 
 // GetSnippetEllipsisText returns the SnippetEllipsisText field value if set, zero value otherwise.
@@ -1393,8 +1359,9 @@ func (o *IndexSettings) HasSnippetEllipsisText() bool {
 }
 
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
-func (o *IndexSettings) SetSnippetEllipsisText(v string) {
+func (o *IndexSettings) SetSnippetEllipsisText(v string) *IndexSettings {
 	o.SnippetEllipsisText = &v
+	return o
 }
 
 // GetRestrictHighlightAndSnippetArrays returns the RestrictHighlightAndSnippetArrays field value if set, zero value otherwise.
@@ -1425,8 +1392,9 @@ func (o *IndexSettings) HasRestrictHighlightAndSnippetArrays() bool {
 }
 
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
-func (o *IndexSettings) SetRestrictHighlightAndSnippetArrays(v bool) {
+func (o *IndexSettings) SetRestrictHighlightAndSnippetArrays(v bool) *IndexSettings {
 	o.RestrictHighlightAndSnippetArrays = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -1457,8 +1425,9 @@ func (o *IndexSettings) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *IndexSettings) SetHitsPerPage(v int32) {
+func (o *IndexSettings) SetHitsPerPage(v int32) *IndexSettings {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
@@ -1489,8 +1458,9 @@ func (o *IndexSettings) HasMinWordSizefor1Typo() bool {
 }
 
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
-func (o *IndexSettings) SetMinWordSizefor1Typo(v int32) {
+func (o *IndexSettings) SetMinWordSizefor1Typo(v int32) *IndexSettings {
 	o.MinWordSizefor1Typo = &v
+	return o
 }
 
 // GetMinWordSizefor2Typos returns the MinWordSizefor2Typos field value if set, zero value otherwise.
@@ -1521,8 +1491,9 @@ func (o *IndexSettings) HasMinWordSizefor2Typos() bool {
 }
 
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
-func (o *IndexSettings) SetMinWordSizefor2Typos(v int32) {
+func (o *IndexSettings) SetMinWordSizefor2Typos(v int32) *IndexSettings {
 	o.MinWordSizefor2Typos = &v
+	return o
 }
 
 // GetTypoTolerance returns the TypoTolerance field value if set, zero value otherwise.
@@ -1553,8 +1524,9 @@ func (o *IndexSettings) HasTypoTolerance() bool {
 }
 
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
-func (o *IndexSettings) SetTypoTolerance(v TypoTolerance) {
-	o.TypoTolerance = &v
+func (o *IndexSettings) SetTypoTolerance(v *TypoTolerance) *IndexSettings {
+	o.TypoTolerance = v
+	return o
 }
 
 // GetAllowTyposOnNumericTokens returns the AllowTyposOnNumericTokens field value if set, zero value otherwise.
@@ -1585,8 +1557,9 @@ func (o *IndexSettings) HasAllowTyposOnNumericTokens() bool {
 }
 
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
-func (o *IndexSettings) SetAllowTyposOnNumericTokens(v bool) {
+func (o *IndexSettings) SetAllowTyposOnNumericTokens(v bool) *IndexSettings {
 	o.AllowTyposOnNumericTokens = &v
+	return o
 }
 
 // GetDisableTypoToleranceOnAttributes returns the DisableTypoToleranceOnAttributes field value if set, zero value otherwise.
@@ -1617,8 +1590,9 @@ func (o *IndexSettings) HasDisableTypoToleranceOnAttributes() bool {
 }
 
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
-func (o *IndexSettings) SetDisableTypoToleranceOnAttributes(v []string) {
+func (o *IndexSettings) SetDisableTypoToleranceOnAttributes(v []string) *IndexSettings {
 	o.DisableTypoToleranceOnAttributes = v
+	return o
 }
 
 // GetIgnorePlurals returns the IgnorePlurals field value if set, zero value otherwise.
@@ -1649,8 +1623,9 @@ func (o *IndexSettings) HasIgnorePlurals() bool {
 }
 
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
-func (o *IndexSettings) SetIgnorePlurals(v IgnorePlurals) {
-	o.IgnorePlurals = &v
+func (o *IndexSettings) SetIgnorePlurals(v *IgnorePlurals) *IndexSettings {
+	o.IgnorePlurals = v
+	return o
 }
 
 // GetRemoveStopWords returns the RemoveStopWords field value if set, zero value otherwise.
@@ -1681,8 +1656,9 @@ func (o *IndexSettings) HasRemoveStopWords() bool {
 }
 
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
-func (o *IndexSettings) SetRemoveStopWords(v RemoveStopWords) {
-	o.RemoveStopWords = &v
+func (o *IndexSettings) SetRemoveStopWords(v *RemoveStopWords) *IndexSettings {
+	o.RemoveStopWords = v
+	return o
 }
 
 // GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
@@ -1713,8 +1689,9 @@ func (o *IndexSettings) HasKeepDiacriticsOnCharacters() bool {
 }
 
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *IndexSettings) SetKeepDiacriticsOnCharacters(v string) {
+func (o *IndexSettings) SetKeepDiacriticsOnCharacters(v string) *IndexSettings {
 	o.KeepDiacriticsOnCharacters = &v
+	return o
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
@@ -1745,8 +1722,9 @@ func (o *IndexSettings) HasQueryLanguages() bool {
 }
 
 // SetQueryLanguages gets a reference to the given []string and assigns it to the QueryLanguages field.
-func (o *IndexSettings) SetQueryLanguages(v []string) {
+func (o *IndexSettings) SetQueryLanguages(v []string) *IndexSettings {
 	o.QueryLanguages = v
+	return o
 }
 
 // GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
@@ -1777,8 +1755,9 @@ func (o *IndexSettings) HasDecompoundQuery() bool {
 }
 
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *IndexSettings) SetDecompoundQuery(v bool) {
+func (o *IndexSettings) SetDecompoundQuery(v bool) *IndexSettings {
 	o.DecompoundQuery = &v
+	return o
 }
 
 // GetEnableRules returns the EnableRules field value if set, zero value otherwise.
@@ -1809,8 +1788,9 @@ func (o *IndexSettings) HasEnableRules() bool {
 }
 
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *IndexSettings) SetEnableRules(v bool) {
+func (o *IndexSettings) SetEnableRules(v bool) *IndexSettings {
 	o.EnableRules = &v
+	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
@@ -1841,8 +1821,9 @@ func (o *IndexSettings) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *IndexSettings) SetEnablePersonalization(v bool) {
+func (o *IndexSettings) SetEnablePersonalization(v bool) *IndexSettings {
 	o.EnablePersonalization = &v
+	return o
 }
 
 // GetQueryType returns the QueryType field value if set, zero value otherwise.
@@ -1873,8 +1854,9 @@ func (o *IndexSettings) HasQueryType() bool {
 }
 
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
-func (o *IndexSettings) SetQueryType(v QueryType) {
+func (o *IndexSettings) SetQueryType(v QueryType) *IndexSettings {
 	o.QueryType = &v
+	return o
 }
 
 // GetRemoveWordsIfNoResults returns the RemoveWordsIfNoResults field value if set, zero value otherwise.
@@ -1905,8 +1887,9 @@ func (o *IndexSettings) HasRemoveWordsIfNoResults() bool {
 }
 
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
-func (o *IndexSettings) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) {
+func (o *IndexSettings) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *IndexSettings {
 	o.RemoveWordsIfNoResults = &v
+	return o
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
@@ -1937,8 +1920,9 @@ func (o *IndexSettings) HasMode() bool {
 }
 
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *IndexSettings) SetMode(v Mode) {
+func (o *IndexSettings) SetMode(v Mode) *IndexSettings {
 	o.Mode = &v
+	return o
 }
 
 // GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
@@ -1969,8 +1953,9 @@ func (o *IndexSettings) HasSemanticSearch() bool {
 }
 
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *IndexSettings) SetSemanticSearch(v SemanticSearch) {
-	o.SemanticSearch = &v
+func (o *IndexSettings) SetSemanticSearch(v *SemanticSearch) *IndexSettings {
+	o.SemanticSearch = v
+	return o
 }
 
 // GetAdvancedSyntax returns the AdvancedSyntax field value if set, zero value otherwise.
@@ -2001,8 +1986,9 @@ func (o *IndexSettings) HasAdvancedSyntax() bool {
 }
 
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
-func (o *IndexSettings) SetAdvancedSyntax(v bool) {
+func (o *IndexSettings) SetAdvancedSyntax(v bool) *IndexSettings {
 	o.AdvancedSyntax = &v
+	return o
 }
 
 // GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
@@ -2033,8 +2019,9 @@ func (o *IndexSettings) HasOptionalWords() bool {
 }
 
 // SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *IndexSettings) SetOptionalWords(v []string) {
+func (o *IndexSettings) SetOptionalWords(v []string) *IndexSettings {
 	o.OptionalWords = v
+	return o
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
@@ -2065,8 +2052,9 @@ func (o *IndexSettings) HasDisableExactOnAttributes() bool {
 }
 
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
-func (o *IndexSettings) SetDisableExactOnAttributes(v []string) {
+func (o *IndexSettings) SetDisableExactOnAttributes(v []string) *IndexSettings {
 	o.DisableExactOnAttributes = v
+	return o
 }
 
 // GetExactOnSingleWordQuery returns the ExactOnSingleWordQuery field value if set, zero value otherwise.
@@ -2097,8 +2085,9 @@ func (o *IndexSettings) HasExactOnSingleWordQuery() bool {
 }
 
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
-func (o *IndexSettings) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) {
+func (o *IndexSettings) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *IndexSettings {
 	o.ExactOnSingleWordQuery = &v
+	return o
 }
 
 // GetAlternativesAsExact returns the AlternativesAsExact field value if set, zero value otherwise.
@@ -2129,8 +2118,9 @@ func (o *IndexSettings) HasAlternativesAsExact() bool {
 }
 
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
-func (o *IndexSettings) SetAlternativesAsExact(v []AlternativesAsExact) {
+func (o *IndexSettings) SetAlternativesAsExact(v []AlternativesAsExact) *IndexSettings {
 	o.AlternativesAsExact = v
+	return o
 }
 
 // GetAdvancedSyntaxFeatures returns the AdvancedSyntaxFeatures field value if set, zero value otherwise.
@@ -2161,8 +2151,9 @@ func (o *IndexSettings) HasAdvancedSyntaxFeatures() bool {
 }
 
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
-func (o *IndexSettings) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) {
+func (o *IndexSettings) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *IndexSettings {
 	o.AdvancedSyntaxFeatures = v
+	return o
 }
 
 // GetDistinct returns the Distinct field value if set, zero value otherwise.
@@ -2193,8 +2184,9 @@ func (o *IndexSettings) HasDistinct() bool {
 }
 
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
-func (o *IndexSettings) SetDistinct(v Distinct) {
-	o.Distinct = &v
+func (o *IndexSettings) SetDistinct(v *Distinct) *IndexSettings {
+	o.Distinct = v
+	return o
 }
 
 // GetReplaceSynonymsInHighlight returns the ReplaceSynonymsInHighlight field value if set, zero value otherwise.
@@ -2225,8 +2217,9 @@ func (o *IndexSettings) HasReplaceSynonymsInHighlight() bool {
 }
 
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
-func (o *IndexSettings) SetReplaceSynonymsInHighlight(v bool) {
+func (o *IndexSettings) SetReplaceSynonymsInHighlight(v bool) *IndexSettings {
 	o.ReplaceSynonymsInHighlight = &v
+	return o
 }
 
 // GetMinProximity returns the MinProximity field value if set, zero value otherwise.
@@ -2257,8 +2250,9 @@ func (o *IndexSettings) HasMinProximity() bool {
 }
 
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
-func (o *IndexSettings) SetMinProximity(v int32) {
+func (o *IndexSettings) SetMinProximity(v int32) *IndexSettings {
 	o.MinProximity = &v
+	return o
 }
 
 // GetResponseFields returns the ResponseFields field value if set, zero value otherwise.
@@ -2289,8 +2283,9 @@ func (o *IndexSettings) HasResponseFields() bool {
 }
 
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
-func (o *IndexSettings) SetResponseFields(v []string) {
+func (o *IndexSettings) SetResponseFields(v []string) *IndexSettings {
 	o.ResponseFields = v
+	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
@@ -2321,8 +2316,9 @@ func (o *IndexSettings) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *IndexSettings) SetMaxFacetHits(v int32) {
+func (o *IndexSettings) SetMaxFacetHits(v int32) *IndexSettings {
 	o.MaxFacetHits = &v
+	return o
 }
 
 // GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
@@ -2353,8 +2349,9 @@ func (o *IndexSettings) HasMaxValuesPerFacet() bool {
 }
 
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
-func (o *IndexSettings) SetMaxValuesPerFacet(v int32) {
+func (o *IndexSettings) SetMaxValuesPerFacet(v int32) *IndexSettings {
 	o.MaxValuesPerFacet = &v
+	return o
 }
 
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
@@ -2385,8 +2382,9 @@ func (o *IndexSettings) HasSortFacetValuesBy() bool {
 }
 
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
-func (o *IndexSettings) SetSortFacetValuesBy(v string) {
+func (o *IndexSettings) SetSortFacetValuesBy(v string) *IndexSettings {
 	o.SortFacetValuesBy = &v
+	return o
 }
 
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
@@ -2417,8 +2415,9 @@ func (o *IndexSettings) HasAttributeCriteriaComputedByMinProximity() bool {
 }
 
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
-func (o *IndexSettings) SetAttributeCriteriaComputedByMinProximity(v bool) {
+func (o *IndexSettings) SetAttributeCriteriaComputedByMinProximity(v bool) *IndexSettings {
 	o.AttributeCriteriaComputedByMinProximity = &v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -2449,8 +2448,9 @@ func (o *IndexSettings) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *IndexSettings) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *IndexSettings) SetRenderingContent(v *RenderingContent) *IndexSettings {
+	o.RenderingContent = v
+	return o
 }
 
 // GetEnableReRanking returns the EnableReRanking field value if set, zero value otherwise.
@@ -2481,8 +2481,9 @@ func (o *IndexSettings) HasEnableReRanking() bool {
 }
 
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
-func (o *IndexSettings) SetEnableReRanking(v bool) {
+func (o *IndexSettings) SetEnableReRanking(v bool) *IndexSettings {
 	o.EnableReRanking = &v
+	return o
 }
 
 // GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -2514,8 +2515,9 @@ func (o *IndexSettings) HasReRankingApplyFilter() bool {
 }
 
 // SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
-func (o *IndexSettings) SetReRankingApplyFilter(v ReRankingApplyFilter) {
-	o.ReRankingApplyFilter.Set(&v)
+func (o *IndexSettings) SetReRankingApplyFilter(v *ReRankingApplyFilter) *IndexSettings {
+	o.ReRankingApplyFilter.Set(v)
+	return o
 }
 
 // SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.

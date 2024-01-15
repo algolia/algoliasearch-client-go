@@ -31,12 +31,9 @@ func NewAuthAPIKeyPartial(opts ...AuthAPIKeyPartialOption) *AuthAPIKeyPartial {
 	return this
 }
 
-// NewAuthAPIKeyPartialWithDefaults instantiates a new AuthAPIKeyPartial object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthAPIKeyPartialWithDefaults() *AuthAPIKeyPartial {
-	this := &AuthAPIKeyPartial{}
-	return this
+// NewEmptyAuthAPIKeyPartial return a pointer to an empty AuthAPIKeyPartial object.
+func NewEmptyAuthAPIKeyPartial() *AuthAPIKeyPartial {
+	return &AuthAPIKeyPartial{}
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *AuthAPIKeyPartial) HasKey() bool {
 }
 
 // SetKey gets a reference to the given string and assigns it to the Key field.
-func (o *AuthAPIKeyPartial) SetKey(v string) {
+func (o *AuthAPIKeyPartial) SetKey(v string) *AuthAPIKeyPartial {
 	o.Key = &v
+	return o
 }
 
 func (o AuthAPIKeyPartial) MarshalJSON() ([]byte, error) {

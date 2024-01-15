@@ -231,18 +231,9 @@ func NewBrowseResponse(hitsPerPage int32, nbHits int32, nbPages int32, page int3
 	return this
 }
 
-// NewBrowseResponseWithDefaults instantiates a new BrowseResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBrowseResponseWithDefaults() *BrowseResponse {
-	this := &BrowseResponse{}
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = hitsPerPage
-	var page int32 = 0
-	this.Page = page
-	var query string = ""
-	this.Query = query
-	return this
+// NewEmptyBrowseResponse return a pointer to an empty BrowseResponse object.
+func NewEmptyBrowseResponse() *BrowseResponse {
+	return &BrowseResponse{}
 }
 
 // GetAbTestID returns the AbTestID field value if set, zero value otherwise.
@@ -273,8 +264,9 @@ func (o *BrowseResponse) HasAbTestID() bool {
 }
 
 // SetAbTestID gets a reference to the given int32 and assigns it to the AbTestID field.
-func (o *BrowseResponse) SetAbTestID(v int32) {
+func (o *BrowseResponse) SetAbTestID(v int32) *BrowseResponse {
 	o.AbTestID = &v
+	return o
 }
 
 // GetAbTestVariantID returns the AbTestVariantID field value if set, zero value otherwise.
@@ -305,8 +297,9 @@ func (o *BrowseResponse) HasAbTestVariantID() bool {
 }
 
 // SetAbTestVariantID gets a reference to the given int32 and assigns it to the AbTestVariantID field.
-func (o *BrowseResponse) SetAbTestVariantID(v int32) {
+func (o *BrowseResponse) SetAbTestVariantID(v int32) *BrowseResponse {
 	o.AbTestVariantID = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -337,8 +330,9 @@ func (o *BrowseResponse) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *BrowseResponse) SetAroundLatLng(v string) {
+func (o *BrowseResponse) SetAroundLatLng(v string) *BrowseResponse {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAutomaticRadius returns the AutomaticRadius field value if set, zero value otherwise.
@@ -369,8 +363,9 @@ func (o *BrowseResponse) HasAutomaticRadius() bool {
 }
 
 // SetAutomaticRadius gets a reference to the given string and assigns it to the AutomaticRadius field.
-func (o *BrowseResponse) SetAutomaticRadius(v string) {
+func (o *BrowseResponse) SetAutomaticRadius(v string) *BrowseResponse {
 	o.AutomaticRadius = &v
+	return o
 }
 
 // GetExhaustive returns the Exhaustive field value if set, zero value otherwise.
@@ -401,8 +396,9 @@ func (o *BrowseResponse) HasExhaustive() bool {
 }
 
 // SetExhaustive gets a reference to the given Exhaustive and assigns it to the Exhaustive field.
-func (o *BrowseResponse) SetExhaustive(v Exhaustive) {
-	o.Exhaustive = &v
+func (o *BrowseResponse) SetExhaustive(v *Exhaustive) *BrowseResponse {
+	o.Exhaustive = v
+	return o
 }
 
 // GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value if set, zero value otherwise.
@@ -436,8 +432,9 @@ func (o *BrowseResponse) HasExhaustiveFacetsCount() bool {
 
 // SetExhaustiveFacetsCount gets a reference to the given bool and assigns it to the ExhaustiveFacetsCount field.
 // Deprecated.
-func (o *BrowseResponse) SetExhaustiveFacetsCount(v bool) {
+func (o *BrowseResponse) SetExhaustiveFacetsCount(v bool) *BrowseResponse {
 	o.ExhaustiveFacetsCount = &v
+	return o
 }
 
 // GetExhaustiveNbHits returns the ExhaustiveNbHits field value if set, zero value otherwise.
@@ -471,8 +468,9 @@ func (o *BrowseResponse) HasExhaustiveNbHits() bool {
 
 // SetExhaustiveNbHits gets a reference to the given bool and assigns it to the ExhaustiveNbHits field.
 // Deprecated.
-func (o *BrowseResponse) SetExhaustiveNbHits(v bool) {
+func (o *BrowseResponse) SetExhaustiveNbHits(v bool) *BrowseResponse {
 	o.ExhaustiveNbHits = &v
+	return o
 }
 
 // GetExhaustiveTypo returns the ExhaustiveTypo field value if set, zero value otherwise.
@@ -506,8 +504,9 @@ func (o *BrowseResponse) HasExhaustiveTypo() bool {
 
 // SetExhaustiveTypo gets a reference to the given bool and assigns it to the ExhaustiveTypo field.
 // Deprecated.
-func (o *BrowseResponse) SetExhaustiveTypo(v bool) {
+func (o *BrowseResponse) SetExhaustiveTypo(v bool) *BrowseResponse {
 	o.ExhaustiveTypo = &v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -538,8 +537,9 @@ func (o *BrowseResponse) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given map[string]map[string]int32 and assigns it to the Facets field.
-func (o *BrowseResponse) SetFacets(v map[string]map[string]int32) {
+func (o *BrowseResponse) SetFacets(v map[string]map[string]int32) *BrowseResponse {
 	o.Facets = &v
+	return o
 }
 
 // GetFacetsStats returns the FacetsStats field value if set, zero value otherwise.
@@ -570,8 +570,9 @@ func (o *BrowseResponse) HasFacetsStats() bool {
 }
 
 // SetFacetsStats gets a reference to the given map[string]FacetsStats and assigns it to the FacetsStats field.
-func (o *BrowseResponse) SetFacetsStats(v map[string]FacetsStats) {
+func (o *BrowseResponse) SetFacetsStats(v map[string]FacetsStats) *BrowseResponse {
 	o.FacetsStats = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value.
@@ -594,8 +595,9 @@ func (o *BrowseResponse) GetHitsPerPageOk() (*int32, bool) {
 }
 
 // SetHitsPerPage sets field value.
-func (o *BrowseResponse) SetHitsPerPage(v int32) {
+func (o *BrowseResponse) SetHitsPerPage(v int32) *BrowseResponse {
 	o.HitsPerPage = v
+	return o
 }
 
 // GetIndex returns the Index field value if set, zero value otherwise.
@@ -626,8 +628,9 @@ func (o *BrowseResponse) HasIndex() bool {
 }
 
 // SetIndex gets a reference to the given string and assigns it to the Index field.
-func (o *BrowseResponse) SetIndex(v string) {
+func (o *BrowseResponse) SetIndex(v string) *BrowseResponse {
 	o.Index = &v
+	return o
 }
 
 // GetIndexUsed returns the IndexUsed field value if set, zero value otherwise.
@@ -658,8 +661,9 @@ func (o *BrowseResponse) HasIndexUsed() bool {
 }
 
 // SetIndexUsed gets a reference to the given string and assigns it to the IndexUsed field.
-func (o *BrowseResponse) SetIndexUsed(v string) {
+func (o *BrowseResponse) SetIndexUsed(v string) *BrowseResponse {
 	o.IndexUsed = &v
+	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -690,8 +694,9 @@ func (o *BrowseResponse) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *BrowseResponse) SetMessage(v string) {
+func (o *BrowseResponse) SetMessage(v string) *BrowseResponse {
 	o.Message = &v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -714,8 +719,9 @@ func (o *BrowseResponse) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *BrowseResponse) SetNbHits(v int32) {
+func (o *BrowseResponse) SetNbHits(v int32) *BrowseResponse {
 	o.NbHits = v
+	return o
 }
 
 // GetNbPages returns the NbPages field value.
@@ -738,8 +744,9 @@ func (o *BrowseResponse) GetNbPagesOk() (*int32, bool) {
 }
 
 // SetNbPages sets field value.
-func (o *BrowseResponse) SetNbPages(v int32) {
+func (o *BrowseResponse) SetNbPages(v int32) *BrowseResponse {
 	o.NbPages = v
+	return o
 }
 
 // GetNbSortedHits returns the NbSortedHits field value if set, zero value otherwise.
@@ -770,8 +777,9 @@ func (o *BrowseResponse) HasNbSortedHits() bool {
 }
 
 // SetNbSortedHits gets a reference to the given int32 and assigns it to the NbSortedHits field.
-func (o *BrowseResponse) SetNbSortedHits(v int32) {
+func (o *BrowseResponse) SetNbSortedHits(v int32) *BrowseResponse {
 	o.NbSortedHits = &v
+	return o
 }
 
 // GetPage returns the Page field value.
@@ -794,8 +802,9 @@ func (o *BrowseResponse) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *BrowseResponse) SetPage(v int32) {
+func (o *BrowseResponse) SetPage(v int32) *BrowseResponse {
 	o.Page = v
+	return o
 }
 
 // GetParsedQuery returns the ParsedQuery field value if set, zero value otherwise.
@@ -826,8 +835,9 @@ func (o *BrowseResponse) HasParsedQuery() bool {
 }
 
 // SetParsedQuery gets a reference to the given string and assigns it to the ParsedQuery field.
-func (o *BrowseResponse) SetParsedQuery(v string) {
+func (o *BrowseResponse) SetParsedQuery(v string) *BrowseResponse {
 	o.ParsedQuery = &v
+	return o
 }
 
 // GetProcessingTimeMS returns the ProcessingTimeMS field value.
@@ -850,8 +860,9 @@ func (o *BrowseResponse) GetProcessingTimeMSOk() (*int32, bool) {
 }
 
 // SetProcessingTimeMS sets field value.
-func (o *BrowseResponse) SetProcessingTimeMS(v int32) {
+func (o *BrowseResponse) SetProcessingTimeMS(v int32) *BrowseResponse {
 	o.ProcessingTimeMS = v
+	return o
 }
 
 // GetProcessingTimingsMS returns the ProcessingTimingsMS field value if set, zero value otherwise.
@@ -882,8 +893,9 @@ func (o *BrowseResponse) HasProcessingTimingsMS() bool {
 }
 
 // SetProcessingTimingsMS gets a reference to the given map[string]interface{} and assigns it to the ProcessingTimingsMS field.
-func (o *BrowseResponse) SetProcessingTimingsMS(v map[string]interface{}) {
+func (o *BrowseResponse) SetProcessingTimingsMS(v map[string]interface{}) *BrowseResponse {
 	o.ProcessingTimingsMS = v
+	return o
 }
 
 // GetQueryAfterRemoval returns the QueryAfterRemoval field value if set, zero value otherwise.
@@ -914,8 +926,9 @@ func (o *BrowseResponse) HasQueryAfterRemoval() bool {
 }
 
 // SetQueryAfterRemoval gets a reference to the given string and assigns it to the QueryAfterRemoval field.
-func (o *BrowseResponse) SetQueryAfterRemoval(v string) {
+func (o *BrowseResponse) SetQueryAfterRemoval(v string) *BrowseResponse {
 	o.QueryAfterRemoval = &v
+	return o
 }
 
 // GetRedirect returns the Redirect field value if set, zero value otherwise.
@@ -946,8 +959,9 @@ func (o *BrowseResponse) HasRedirect() bool {
 }
 
 // SetRedirect gets a reference to the given Redirect and assigns it to the Redirect field.
-func (o *BrowseResponse) SetRedirect(v Redirect) {
-	o.Redirect = &v
+func (o *BrowseResponse) SetRedirect(v *Redirect) *BrowseResponse {
+	o.Redirect = v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -978,8 +992,9 @@ func (o *BrowseResponse) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *BrowseResponse) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *BrowseResponse) SetRenderingContent(v *RenderingContent) *BrowseResponse {
+	o.RenderingContent = v
+	return o
 }
 
 // GetServerTimeMS returns the ServerTimeMS field value if set, zero value otherwise.
@@ -1010,8 +1025,9 @@ func (o *BrowseResponse) HasServerTimeMS() bool {
 }
 
 // SetServerTimeMS gets a reference to the given int32 and assigns it to the ServerTimeMS field.
-func (o *BrowseResponse) SetServerTimeMS(v int32) {
+func (o *BrowseResponse) SetServerTimeMS(v int32) *BrowseResponse {
 	o.ServerTimeMS = &v
+	return o
 }
 
 // GetServerUsed returns the ServerUsed field value if set, zero value otherwise.
@@ -1042,8 +1058,9 @@ func (o *BrowseResponse) HasServerUsed() bool {
 }
 
 // SetServerUsed gets a reference to the given string and assigns it to the ServerUsed field.
-func (o *BrowseResponse) SetServerUsed(v string) {
+func (o *BrowseResponse) SetServerUsed(v string) *BrowseResponse {
 	o.ServerUsed = &v
+	return o
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
@@ -1074,8 +1091,9 @@ func (o *BrowseResponse) HasUserData() bool {
 }
 
 // SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *BrowseResponse) SetUserData(v map[string]interface{}) {
+func (o *BrowseResponse) SetUserData(v map[string]interface{}) *BrowseResponse {
 	o.UserData = v
+	return o
 }
 
 // GetHits returns the Hits field value.
@@ -1098,8 +1116,9 @@ func (o *BrowseResponse) GetHitsOk() ([]Hit, bool) {
 }
 
 // SetHits sets field value.
-func (o *BrowseResponse) SetHits(v []Hit) {
-	o.Hits = v
+func (o *BrowseResponse) SetHits(v *[]Hit) *BrowseResponse {
+	o.Hits = *v
+	return o
 }
 
 // GetQuery returns the Query field value.
@@ -1122,8 +1141,9 @@ func (o *BrowseResponse) GetQueryOk() (*string, bool) {
 }
 
 // SetQuery sets field value.
-func (o *BrowseResponse) SetQuery(v string) {
+func (o *BrowseResponse) SetQuery(v string) *BrowseResponse {
 	o.Query = v
+	return o
 }
 
 // GetParams returns the Params field value.
@@ -1146,8 +1166,9 @@ func (o *BrowseResponse) GetParamsOk() (*string, bool) {
 }
 
 // SetParams sets field value.
-func (o *BrowseResponse) SetParams(v string) {
+func (o *BrowseResponse) SetParams(v string) *BrowseResponse {
 	o.Params = v
+	return o
 }
 
 // GetCursor returns the Cursor field value if set, zero value otherwise.
@@ -1178,8 +1199,9 @@ func (o *BrowseResponse) HasCursor() bool {
 }
 
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
-func (o *BrowseResponse) SetCursor(v string) {
+func (o *BrowseResponse) SetCursor(v string) *BrowseResponse {
 	o.Cursor = &v
+	return o
 }
 
 func (o BrowseResponse) MarshalJSON() ([]byte, error) {

@@ -16,45 +16,45 @@ type SourceInput struct {
 	SourceJSON          *SourceJSON
 }
 
-// SourceBigCommerceAsSourceInput is a convenience function that returns SourceBigCommerce wrapped in SourceInput.
-func SourceBigCommerceAsSourceInput(v *SourceBigCommerce) SourceInput {
-	return SourceInput{
-		SourceBigCommerce: v,
-	}
-}
-
-// SourceBigQueryAsSourceInput is a convenience function that returns SourceBigQuery wrapped in SourceInput.
-func SourceBigQueryAsSourceInput(v *SourceBigQuery) SourceInput {
-	return SourceInput{
-		SourceBigQuery: v,
-	}
-}
-
-// SourceCSVAsSourceInput is a convenience function that returns SourceCSV wrapped in SourceInput.
-func SourceCSVAsSourceInput(v *SourceCSV) SourceInput {
-	return SourceInput{
-		SourceCSV: v,
-	}
-}
-
 // SourceCommercetoolsAsSourceInput is a convenience function that returns SourceCommercetools wrapped in SourceInput.
-func SourceCommercetoolsAsSourceInput(v *SourceCommercetools) SourceInput {
-	return SourceInput{
+func SourceCommercetoolsAsSourceInput(v *SourceCommercetools) *SourceInput {
+	return &SourceInput{
 		SourceCommercetools: v,
 	}
 }
 
-// SourceDockerAsSourceInput is a convenience function that returns SourceDocker wrapped in SourceInput.
-func SourceDockerAsSourceInput(v *SourceDocker) SourceInput {
-	return SourceInput{
-		SourceDocker: v,
+// SourceBigCommerceAsSourceInput is a convenience function that returns SourceBigCommerce wrapped in SourceInput.
+func SourceBigCommerceAsSourceInput(v *SourceBigCommerce) *SourceInput {
+	return &SourceInput{
+		SourceBigCommerce: v,
 	}
 }
 
 // SourceJSONAsSourceInput is a convenience function that returns SourceJSON wrapped in SourceInput.
-func SourceJSONAsSourceInput(v *SourceJSON) SourceInput {
-	return SourceInput{
+func SourceJSONAsSourceInput(v *SourceJSON) *SourceInput {
+	return &SourceInput{
 		SourceJSON: v,
+	}
+}
+
+// SourceCSVAsSourceInput is a convenience function that returns SourceCSV wrapped in SourceInput.
+func SourceCSVAsSourceInput(v *SourceCSV) *SourceInput {
+	return &SourceInput{
+		SourceCSV: v,
+	}
+}
+
+// SourceBigQueryAsSourceInput is a convenience function that returns SourceBigQuery wrapped in SourceInput.
+func SourceBigQueryAsSourceInput(v *SourceBigQuery) *SourceInput {
+	return &SourceInput{
+		SourceBigQuery: v,
+	}
+}
+
+// SourceDockerAsSourceInput is a convenience function that returns SourceDocker wrapped in SourceInput.
+func SourceDockerAsSourceInput(v *SourceDocker) *SourceInput {
+	return &SourceInput{
+		SourceDocker: v,
 	}
 }
 

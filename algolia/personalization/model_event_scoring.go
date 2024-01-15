@@ -28,12 +28,9 @@ func NewEventScoring(score int32, eventName string, eventType string) *EventScor
 	return this
 }
 
-// NewEventScoringWithDefaults instantiates a new EventScoring object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewEventScoringWithDefaults() *EventScoring {
-	this := &EventScoring{}
-	return this
+// NewEmptyEventScoring return a pointer to an empty EventScoring object.
+func NewEmptyEventScoring() *EventScoring {
+	return &EventScoring{}
 }
 
 // GetScore returns the Score field value.
@@ -56,8 +53,9 @@ func (o *EventScoring) GetScoreOk() (*int32, bool) {
 }
 
 // SetScore sets field value.
-func (o *EventScoring) SetScore(v int32) {
+func (o *EventScoring) SetScore(v int32) *EventScoring {
 	o.Score = v
+	return o
 }
 
 // GetEventName returns the EventName field value.
@@ -80,8 +78,9 @@ func (o *EventScoring) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *EventScoring) SetEventName(v string) {
+func (o *EventScoring) SetEventName(v string) *EventScoring {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -104,8 +103,9 @@ func (o *EventScoring) GetEventTypeOk() (*string, bool) {
 }
 
 // SetEventType sets field value.
-func (o *EventScoring) SetEventType(v string) {
+func (o *EventScoring) SetEventType(v string) *EventScoring {
 	o.EventType = v
+	return o
 }
 
 func (o EventScoring) MarshalJSON() ([]byte, error) {

@@ -12,17 +12,17 @@ type TypoTolerance struct {
 	Bool              *bool
 }
 
-// TypoToleranceEnumAsTypoTolerance is a convenience function that returns TypoToleranceEnum wrapped in TypoTolerance.
-func TypoToleranceEnumAsTypoTolerance(v *TypoToleranceEnum) TypoTolerance {
-	return TypoTolerance{
-		TypoToleranceEnum: v,
+// boolAsTypoTolerance is a convenience function that returns bool wrapped in TypoTolerance.
+func BoolAsTypoTolerance(v bool) *TypoTolerance {
+	return &TypoTolerance{
+		Bool: &v,
 	}
 }
 
-// boolAsTypoTolerance is a convenience function that returns bool wrapped in TypoTolerance.
-func BoolAsTypoTolerance(v *bool) TypoTolerance {
-	return TypoTolerance{
-		Bool: v,
+// TypoToleranceEnumAsTypoTolerance is a convenience function that returns TypoToleranceEnum wrapped in TypoTolerance.
+func TypoToleranceEnumAsTypoTolerance(v TypoToleranceEnum) *TypoTolerance {
+	return &TypoTolerance{
+		TypoToleranceEnum: &v,
 	}
 }
 

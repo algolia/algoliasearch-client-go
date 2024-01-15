@@ -51,14 +51,9 @@ func NewSourceCommercetools(url string, projectKey string, opts ...SourceCommerc
 	return this
 }
 
-// NewSourceCommercetoolsWithDefaults instantiates a new SourceCommercetools object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceCommercetoolsWithDefaults() *SourceCommercetools {
-	this := &SourceCommercetools{}
-	var fallbackIsInStockValue bool = true
-	this.FallbackIsInStockValue = &fallbackIsInStockValue
-	return this
+// NewEmptySourceCommercetools return a pointer to an empty SourceCommercetools object.
+func NewEmptySourceCommercetools() *SourceCommercetools {
+	return &SourceCommercetools{}
 }
 
 // GetStoreKeys returns the StoreKeys field value if set, zero value otherwise.
@@ -89,8 +84,9 @@ func (o *SourceCommercetools) HasStoreKeys() bool {
 }
 
 // SetStoreKeys gets a reference to the given []string and assigns it to the StoreKeys field.
-func (o *SourceCommercetools) SetStoreKeys(v []string) {
+func (o *SourceCommercetools) SetStoreKeys(v []string) *SourceCommercetools {
 	o.StoreKeys = v
+	return o
 }
 
 // GetLocales returns the Locales field value if set, zero value otherwise.
@@ -121,8 +117,9 @@ func (o *SourceCommercetools) HasLocales() bool {
 }
 
 // SetLocales gets a reference to the given []string and assigns it to the Locales field.
-func (o *SourceCommercetools) SetLocales(v []string) {
+func (o *SourceCommercetools) SetLocales(v []string) *SourceCommercetools {
 	o.Locales = v
+	return o
 }
 
 // GetUrl returns the Url field value.
@@ -145,8 +142,9 @@ func (o *SourceCommercetools) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value.
-func (o *SourceCommercetools) SetUrl(v string) {
+func (o *SourceCommercetools) SetUrl(v string) *SourceCommercetools {
 	o.Url = v
+	return o
 }
 
 // GetProjectKey returns the ProjectKey field value.
@@ -169,8 +167,9 @@ func (o *SourceCommercetools) GetProjectKeyOk() (*string, bool) {
 }
 
 // SetProjectKey sets field value.
-func (o *SourceCommercetools) SetProjectKey(v string) {
+func (o *SourceCommercetools) SetProjectKey(v string) *SourceCommercetools {
 	o.ProjectKey = v
+	return o
 }
 
 // GetFallbackIsInStockValue returns the FallbackIsInStockValue field value if set, zero value otherwise.
@@ -201,8 +200,9 @@ func (o *SourceCommercetools) HasFallbackIsInStockValue() bool {
 }
 
 // SetFallbackIsInStockValue gets a reference to the given bool and assigns it to the FallbackIsInStockValue field.
-func (o *SourceCommercetools) SetFallbackIsInStockValue(v bool) {
+func (o *SourceCommercetools) SetFallbackIsInStockValue(v bool) *SourceCommercetools {
 	o.FallbackIsInStockValue = &v
+	return o
 }
 
 func (o SourceCommercetools) MarshalJSON() ([]byte, error) {

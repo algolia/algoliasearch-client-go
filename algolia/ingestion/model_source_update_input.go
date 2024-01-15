@@ -15,37 +15,37 @@ type SourceUpdateInput struct {
 	SourceUpdateDocker        *SourceUpdateDocker
 }
 
-// SourceBigQueryAsSourceUpdateInput is a convenience function that returns SourceBigQuery wrapped in SourceUpdateInput.
-func SourceBigQueryAsSourceUpdateInput(v *SourceBigQuery) SourceUpdateInput {
-	return SourceUpdateInput{
-		SourceBigQuery: v,
-	}
-}
-
-// SourceCSVAsSourceUpdateInput is a convenience function that returns SourceCSV wrapped in SourceUpdateInput.
-func SourceCSVAsSourceUpdateInput(v *SourceCSV) SourceUpdateInput {
-	return SourceUpdateInput{
-		SourceCSV: v,
-	}
-}
-
-// SourceJSONAsSourceUpdateInput is a convenience function that returns SourceJSON wrapped in SourceUpdateInput.
-func SourceJSONAsSourceUpdateInput(v *SourceJSON) SourceUpdateInput {
-	return SourceUpdateInput{
-		SourceJSON: v,
-	}
-}
-
 // SourceUpdateCommercetoolsAsSourceUpdateInput is a convenience function that returns SourceUpdateCommercetools wrapped in SourceUpdateInput.
-func SourceUpdateCommercetoolsAsSourceUpdateInput(v *SourceUpdateCommercetools) SourceUpdateInput {
-	return SourceUpdateInput{
+func SourceUpdateCommercetoolsAsSourceUpdateInput(v *SourceUpdateCommercetools) *SourceUpdateInput {
+	return &SourceUpdateInput{
 		SourceUpdateCommercetools: v,
 	}
 }
 
+// SourceJSONAsSourceUpdateInput is a convenience function that returns SourceJSON wrapped in SourceUpdateInput.
+func SourceJSONAsSourceUpdateInput(v *SourceJSON) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceJSON: v,
+	}
+}
+
+// SourceCSVAsSourceUpdateInput is a convenience function that returns SourceCSV wrapped in SourceUpdateInput.
+func SourceCSVAsSourceUpdateInput(v *SourceCSV) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceCSV: v,
+	}
+}
+
+// SourceBigQueryAsSourceUpdateInput is a convenience function that returns SourceBigQuery wrapped in SourceUpdateInput.
+func SourceBigQueryAsSourceUpdateInput(v *SourceBigQuery) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceBigQuery: v,
+	}
+}
+
 // SourceUpdateDockerAsSourceUpdateInput is a convenience function that returns SourceUpdateDocker wrapped in SourceUpdateInput.
-func SourceUpdateDockerAsSourceUpdateInput(v *SourceUpdateDocker) SourceUpdateInput {
-	return SourceUpdateInput{
+func SourceUpdateDockerAsSourceUpdateInput(v *SourceUpdateDocker) *SourceUpdateInput {
+	return &SourceUpdateInput{
 		SourceUpdateDocker: v,
 	}
 }

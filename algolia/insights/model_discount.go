@@ -13,16 +13,16 @@ type Discount struct {
 }
 
 // float64AsDiscount is a convenience function that returns float64 wrapped in Discount.
-func Float64AsDiscount(v *float64) Discount {
-	return Discount{
-		Float64: v,
+func Float64AsDiscount(v float64) *Discount {
+	return &Discount{
+		Float64: &v,
 	}
 }
 
 // stringAsDiscount is a convenience function that returns string wrapped in Discount.
-func StringAsDiscount(v *string) Discount {
-	return Discount{
-		String: v,
+func StringAsDiscount(v string) *Discount {
+	return &Discount{
+		String: &v,
 	}
 }
 

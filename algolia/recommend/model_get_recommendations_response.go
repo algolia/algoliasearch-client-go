@@ -31,12 +31,9 @@ func NewGetRecommendationsResponse(opts ...GetRecommendationsResponseOption) *Ge
 	return this
 }
 
-// NewGetRecommendationsResponseWithDefaults instantiates a new GetRecommendationsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetRecommendationsResponseWithDefaults() *GetRecommendationsResponse {
-	this := &GetRecommendationsResponse{}
-	return this
+// NewEmptyGetRecommendationsResponse return a pointer to an empty GetRecommendationsResponse object.
+func NewEmptyGetRecommendationsResponse() *GetRecommendationsResponse {
+	return &GetRecommendationsResponse{}
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *GetRecommendationsResponse) HasResults() bool {
 }
 
 // SetResults gets a reference to the given []RecommendationsResults and assigns it to the Results field.
-func (o *GetRecommendationsResponse) SetResults(v []RecommendationsResults) {
+func (o *GetRecommendationsResponse) SetResults(v []RecommendationsResults) *GetRecommendationsResponse {
 	o.Results = v
+	return o
 }
 
 func (o GetRecommendationsResponse) MarshalJSON() ([]byte, error) {

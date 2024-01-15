@@ -35,12 +35,9 @@ func NewListIndicesResponse(items []FetchedIndex, opts ...ListIndicesResponseOpt
 	return this
 }
 
-// NewListIndicesResponseWithDefaults instantiates a new ListIndicesResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListIndicesResponseWithDefaults() *ListIndicesResponse {
-	this := &ListIndicesResponse{}
-	return this
+// NewEmptyListIndicesResponse return a pointer to an empty ListIndicesResponse object.
+func NewEmptyListIndicesResponse() *ListIndicesResponse {
+	return &ListIndicesResponse{}
 }
 
 // GetItems returns the Items field value.
@@ -63,8 +60,9 @@ func (o *ListIndicesResponse) GetItemsOk() ([]FetchedIndex, bool) {
 }
 
 // SetItems sets field value.
-func (o *ListIndicesResponse) SetItems(v []FetchedIndex) {
+func (o *ListIndicesResponse) SetItems(v []FetchedIndex) *ListIndicesResponse {
 	o.Items = v
+	return o
 }
 
 // GetNbPages returns the NbPages field value if set, zero value otherwise.
@@ -95,8 +93,9 @@ func (o *ListIndicesResponse) HasNbPages() bool {
 }
 
 // SetNbPages gets a reference to the given int32 and assigns it to the NbPages field.
-func (o *ListIndicesResponse) SetNbPages(v int32) {
+func (o *ListIndicesResponse) SetNbPages(v int32) *ListIndicesResponse {
 	o.NbPages = &v
+	return o
 }
 
 func (o ListIndicesResponse) MarshalJSON() ([]byte, error) {

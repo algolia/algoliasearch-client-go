@@ -40,12 +40,9 @@ func NewAbTestsVariantSearchParams(index string, trafficPercentage int32, custom
 	return this
 }
 
-// NewAbTestsVariantSearchParamsWithDefaults instantiates a new AbTestsVariantSearchParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAbTestsVariantSearchParamsWithDefaults() *AbTestsVariantSearchParams {
-	this := &AbTestsVariantSearchParams{}
-	return this
+// NewEmptyAbTestsVariantSearchParams return a pointer to an empty AbTestsVariantSearchParams object.
+func NewEmptyAbTestsVariantSearchParams() *AbTestsVariantSearchParams {
+	return &AbTestsVariantSearchParams{}
 }
 
 // GetIndex returns the Index field value.
@@ -68,8 +65,9 @@ func (o *AbTestsVariantSearchParams) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *AbTestsVariantSearchParams) SetIndex(v string) {
+func (o *AbTestsVariantSearchParams) SetIndex(v string) *AbTestsVariantSearchParams {
 	o.Index = v
+	return o
 }
 
 // GetTrafficPercentage returns the TrafficPercentage field value.
@@ -92,8 +90,9 @@ func (o *AbTestsVariantSearchParams) GetTrafficPercentageOk() (*int32, bool) {
 }
 
 // SetTrafficPercentage sets field value.
-func (o *AbTestsVariantSearchParams) SetTrafficPercentage(v int32) {
+func (o *AbTestsVariantSearchParams) SetTrafficPercentage(v int32) *AbTestsVariantSearchParams {
 	o.TrafficPercentage = v
+	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -124,8 +123,9 @@ func (o *AbTestsVariantSearchParams) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AbTestsVariantSearchParams) SetDescription(v string) {
+func (o *AbTestsVariantSearchParams) SetDescription(v string) *AbTestsVariantSearchParams {
 	o.Description = &v
+	return o
 }
 
 // GetCustomSearchParameters returns the CustomSearchParameters field value.
@@ -148,8 +148,9 @@ func (o *AbTestsVariantSearchParams) GetCustomSearchParametersOk() (map[string]i
 }
 
 // SetCustomSearchParameters sets field value.
-func (o *AbTestsVariantSearchParams) SetCustomSearchParameters(v map[string]interface{}) {
+func (o *AbTestsVariantSearchParams) SetCustomSearchParameters(v map[string]interface{}) *AbTestsVariantSearchParams {
 	o.CustomSearchParameters = v
+	return o
 }
 
 func (o AbTestsVariantSearchParams) MarshalJSON() ([]byte, error) {

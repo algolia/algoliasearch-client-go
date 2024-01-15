@@ -13,16 +13,16 @@ type MixedSearchFilters struct {
 }
 
 // []stringAsMixedSearchFilters is a convenience function that returns []string wrapped in MixedSearchFilters.
-func ArrayOfStringAsMixedSearchFilters(v *[]string) MixedSearchFilters {
-	return MixedSearchFilters{
-		ArrayOfString: v,
+func ArrayOfStringAsMixedSearchFilters(v []string) *MixedSearchFilters {
+	return &MixedSearchFilters{
+		ArrayOfString: &v,
 	}
 }
 
 // stringAsMixedSearchFilters is a convenience function that returns string wrapped in MixedSearchFilters.
-func StringAsMixedSearchFilters(v *string) MixedSearchFilters {
-	return MixedSearchFilters{
-		String: v,
+func StringAsMixedSearchFilters(v string) *MixedSearchFilters {
+	return &MixedSearchFilters{
+		String: &v,
 	}
 }
 

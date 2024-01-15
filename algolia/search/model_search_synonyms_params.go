@@ -32,14 +32,9 @@ func NewSearchSynonymsParams(opts ...SearchSynonymsParamsOption) *SearchSynonyms
 	return this
 }
 
-// NewSearchSynonymsParamsWithDefaults instantiates a new SearchSynonymsParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchSynonymsParamsWithDefaults() *SearchSynonymsParams {
-	this := &SearchSynonymsParams{}
-	var query string = ""
-	this.Query = &query
-	return this
+// NewEmptySearchSynonymsParams return a pointer to an empty SearchSynonymsParams object.
+func NewEmptySearchSynonymsParams() *SearchSynonymsParams {
+	return &SearchSynonymsParams{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -70,8 +65,9 @@ func (o *SearchSynonymsParams) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *SearchSynonymsParams) SetQuery(v string) {
+func (o *SearchSynonymsParams) SetQuery(v string) *SearchSynonymsParams {
 	o.Query = &v
+	return o
 }
 
 func (o SearchSynonymsParams) MarshalJSON() ([]byte, error) {

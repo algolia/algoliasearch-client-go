@@ -51,16 +51,9 @@ func NewSearchUserIdsParams(query string, opts ...SearchUserIdsParamsOption) *Se
 	return this
 }
 
-// NewSearchUserIdsParamsWithDefaults instantiates a new SearchUserIdsParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchUserIdsParamsWithDefaults() *SearchUserIdsParams {
-	this := &SearchUserIdsParams{}
-	var page int32 = 0
-	this.Page = &page
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	return this
+// NewEmptySearchUserIdsParams return a pointer to an empty SearchUserIdsParams object.
+func NewEmptySearchUserIdsParams() *SearchUserIdsParams {
+	return &SearchUserIdsParams{}
 }
 
 // GetQuery returns the Query field value.
@@ -83,8 +76,9 @@ func (o *SearchUserIdsParams) GetQueryOk() (*string, bool) {
 }
 
 // SetQuery sets field value.
-func (o *SearchUserIdsParams) SetQuery(v string) {
+func (o *SearchUserIdsParams) SetQuery(v string) *SearchUserIdsParams {
 	o.Query = v
+	return o
 }
 
 // GetClusterName returns the ClusterName field value if set, zero value otherwise.
@@ -115,8 +109,9 @@ func (o *SearchUserIdsParams) HasClusterName() bool {
 }
 
 // SetClusterName gets a reference to the given string and assigns it to the ClusterName field.
-func (o *SearchUserIdsParams) SetClusterName(v string) {
+func (o *SearchUserIdsParams) SetClusterName(v string) *SearchUserIdsParams {
 	o.ClusterName = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -147,8 +142,9 @@ func (o *SearchUserIdsParams) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *SearchUserIdsParams) SetPage(v int32) {
+func (o *SearchUserIdsParams) SetPage(v int32) *SearchUserIdsParams {
 	o.Page = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -179,8 +175,9 @@ func (o *SearchUserIdsParams) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *SearchUserIdsParams) SetHitsPerPage(v int32) {
+func (o *SearchUserIdsParams) SetHitsPerPage(v int32) *SearchUserIdsParams {
 	o.HitsPerPage = &v
+	return o
 }
 
 func (o SearchUserIdsParams) MarshalJSON() ([]byte, error) {

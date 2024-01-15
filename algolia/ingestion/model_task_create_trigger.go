@@ -14,22 +14,22 @@ type TaskCreateTrigger struct {
 }
 
 // OnDemandTriggerInputAsTaskCreateTrigger is a convenience function that returns OnDemandTriggerInput wrapped in TaskCreateTrigger.
-func OnDemandTriggerInputAsTaskCreateTrigger(v *OnDemandTriggerInput) TaskCreateTrigger {
-	return TaskCreateTrigger{
+func OnDemandTriggerInputAsTaskCreateTrigger(v *OnDemandTriggerInput) *TaskCreateTrigger {
+	return &TaskCreateTrigger{
 		OnDemandTriggerInput: v,
 	}
 }
 
 // ScheduleTriggerInputAsTaskCreateTrigger is a convenience function that returns ScheduleTriggerInput wrapped in TaskCreateTrigger.
-func ScheduleTriggerInputAsTaskCreateTrigger(v *ScheduleTriggerInput) TaskCreateTrigger {
-	return TaskCreateTrigger{
+func ScheduleTriggerInputAsTaskCreateTrigger(v *ScheduleTriggerInput) *TaskCreateTrigger {
+	return &TaskCreateTrigger{
 		ScheduleTriggerInput: v,
 	}
 }
 
 // SubscriptionTriggerAsTaskCreateTrigger is a convenience function that returns SubscriptionTrigger wrapped in TaskCreateTrigger.
-func SubscriptionTriggerAsTaskCreateTrigger(v *SubscriptionTrigger) TaskCreateTrigger {
-	return TaskCreateTrigger{
+func SubscriptionTriggerAsTaskCreateTrigger(v *SubscriptionTrigger) *TaskCreateTrigger {
+	return &TaskCreateTrigger{
 		SubscriptionTrigger: v,
 	}
 }

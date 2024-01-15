@@ -12,17 +12,17 @@ type Promote struct {
 	PromoteObjectIDs *PromoteObjectIDs
 }
 
-// PromoteObjectIDAsPromote is a convenience function that returns PromoteObjectID wrapped in Promote.
-func PromoteObjectIDAsPromote(v *PromoteObjectID) Promote {
-	return Promote{
-		PromoteObjectID: v,
+// PromoteObjectIDsAsPromote is a convenience function that returns PromoteObjectIDs wrapped in Promote.
+func PromoteObjectIDsAsPromote(v *PromoteObjectIDs) *Promote {
+	return &Promote{
+		PromoteObjectIDs: v,
 	}
 }
 
-// PromoteObjectIDsAsPromote is a convenience function that returns PromoteObjectIDs wrapped in Promote.
-func PromoteObjectIDsAsPromote(v *PromoteObjectIDs) Promote {
-	return Promote{
-		PromoteObjectIDs: v,
+// PromoteObjectIDAsPromote is a convenience function that returns PromoteObjectID wrapped in Promote.
+func PromoteObjectIDAsPromote(v *PromoteObjectID) *Promote {
+	return &Promote{
+		PromoteObjectID: v,
 	}
 }
 

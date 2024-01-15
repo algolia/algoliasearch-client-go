@@ -31,12 +31,9 @@ func NewGetClickThroughRateResponse(rate float64, clickCount int32, trackedSearc
 	return this
 }
 
-// NewGetClickThroughRateResponseWithDefaults instantiates a new GetClickThroughRateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetClickThroughRateResponseWithDefaults() *GetClickThroughRateResponse {
-	this := &GetClickThroughRateResponse{}
-	return this
+// NewEmptyGetClickThroughRateResponse return a pointer to an empty GetClickThroughRateResponse object.
+func NewEmptyGetClickThroughRateResponse() *GetClickThroughRateResponse {
+	return &GetClickThroughRateResponse{}
 }
 
 // GetRate returns the Rate field value.
@@ -59,8 +56,9 @@ func (o *GetClickThroughRateResponse) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *GetClickThroughRateResponse) SetRate(v float64) {
+func (o *GetClickThroughRateResponse) SetRate(v float64) *GetClickThroughRateResponse {
 	o.Rate = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -83,8 +81,9 @@ func (o *GetClickThroughRateResponse) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *GetClickThroughRateResponse) SetClickCount(v int32) {
+func (o *GetClickThroughRateResponse) SetClickCount(v int32) *GetClickThroughRateResponse {
 	o.ClickCount = v
+	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
@@ -107,8 +106,9 @@ func (o *GetClickThroughRateResponse) GetTrackedSearchCountOk() (*int32, bool) {
 }
 
 // SetTrackedSearchCount sets field value.
-func (o *GetClickThroughRateResponse) SetTrackedSearchCount(v int32) {
+func (o *GetClickThroughRateResponse) SetTrackedSearchCount(v int32) *GetClickThroughRateResponse {
 	o.TrackedSearchCount = v
+	return o
 }
 
 // GetDates returns the Dates field value.
@@ -131,8 +131,9 @@ func (o *GetClickThroughRateResponse) GetDatesOk() ([]ClickThroughRateEvent, boo
 }
 
 // SetDates sets field value.
-func (o *GetClickThroughRateResponse) SetDates(v []ClickThroughRateEvent) {
+func (o *GetClickThroughRateResponse) SetDates(v []ClickThroughRateEvent) *GetClickThroughRateResponse {
 	o.Dates = v
+	return o
 }
 
 func (o GetClickThroughRateResponse) MarshalJSON() ([]byte, error) {

@@ -22,12 +22,9 @@ func NewListApiKeysResponse(keys []GetApiKeyResponse) *ListApiKeysResponse {
 	return this
 }
 
-// NewListApiKeysResponseWithDefaults instantiates a new ListApiKeysResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListApiKeysResponseWithDefaults() *ListApiKeysResponse {
-	this := &ListApiKeysResponse{}
-	return this
+// NewEmptyListApiKeysResponse return a pointer to an empty ListApiKeysResponse object.
+func NewEmptyListApiKeysResponse() *ListApiKeysResponse {
+	return &ListApiKeysResponse{}
 }
 
 // GetKeys returns the Keys field value.
@@ -50,8 +47,9 @@ func (o *ListApiKeysResponse) GetKeysOk() ([]GetApiKeyResponse, bool) {
 }
 
 // SetKeys sets field value.
-func (o *ListApiKeysResponse) SetKeys(v []GetApiKeyResponse) {
+func (o *ListApiKeysResponse) SetKeys(v []GetApiKeyResponse) *ListApiKeysResponse {
 	o.Keys = v
+	return o
 }
 
 func (o ListApiKeysResponse) MarshalJSON() ([]byte, error) {

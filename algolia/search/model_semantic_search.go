@@ -32,12 +32,9 @@ func NewSemanticSearch(opts ...SemanticSearchOption) *SemanticSearch {
 	return this
 }
 
-// NewSemanticSearchWithDefaults instantiates a new SemanticSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSemanticSearchWithDefaults() *SemanticSearch {
-	this := &SemanticSearch{}
-	return this
+// NewEmptySemanticSearch return a pointer to an empty SemanticSearch object.
+func NewEmptySemanticSearch() *SemanticSearch {
+	return &SemanticSearch{}
 }
 
 // GetEventSources returns the EventSources field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -69,8 +66,9 @@ func (o *SemanticSearch) HasEventSources() bool {
 }
 
 // SetEventSources gets a reference to the given []string and assigns it to the EventSources field.
-func (o *SemanticSearch) SetEventSources(v []string) {
+func (o *SemanticSearch) SetEventSources(v []string) *SemanticSearch {
 	o.EventSources = v
+	return o
 }
 
 func (o SemanticSearch) MarshalJSON() ([]byte, error) {

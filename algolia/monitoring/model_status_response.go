@@ -31,12 +31,9 @@ func NewStatusResponse(opts ...StatusResponseOption) *StatusResponse {
 	return this
 }
 
-// NewStatusResponseWithDefaults instantiates a new StatusResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewStatusResponseWithDefaults() *StatusResponse {
-	this := &StatusResponse{}
-	return this
+// NewEmptyStatusResponse return a pointer to an empty StatusResponse object.
+func NewEmptyStatusResponse() *StatusResponse {
+	return &StatusResponse{}
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *StatusResponse) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given map[string]Status and assigns it to the Status field.
-func (o *StatusResponse) SetStatus(v map[string]Status) {
+func (o *StatusResponse) SetStatus(v map[string]Status) *StatusResponse {
 	o.Status = &v
+	return o
 }
 
 func (o StatusResponse) MarshalJSON() ([]byte, error) {

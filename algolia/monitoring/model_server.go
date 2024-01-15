@@ -78,16 +78,9 @@ func NewServer(opts ...ServerOption) *Server {
 	return this
 }
 
-// NewServerWithDefaults instantiates a new Server object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewServerWithDefaults() *Server {
-	this := &Server{}
-	var isSlave bool = false
-	this.IsSlave = &isSlave
-	var isReplica bool = false
-	this.IsReplica = &isReplica
-	return this
+// NewEmptyServer return a pointer to an empty Server object.
+func NewEmptyServer() *Server {
+	return &Server{}
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -118,8 +111,9 @@ func (o *Server) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *Server) SetName(v string) {
+func (o *Server) SetName(v string) *Server {
 	o.Name = &v
+	return o
 }
 
 // GetRegion returns the Region field value if set, zero value otherwise.
@@ -150,8 +144,9 @@ func (o *Server) HasRegion() bool {
 }
 
 // SetRegion gets a reference to the given Region and assigns it to the Region field.
-func (o *Server) SetRegion(v Region) {
+func (o *Server) SetRegion(v Region) *Server {
 	o.Region = &v
+	return o
 }
 
 // GetIsSlave returns the IsSlave field value if set, zero value otherwise.
@@ -185,8 +180,9 @@ func (o *Server) HasIsSlave() bool {
 
 // SetIsSlave gets a reference to the given bool and assigns it to the IsSlave field.
 // Deprecated.
-func (o *Server) SetIsSlave(v bool) {
+func (o *Server) SetIsSlave(v bool) *Server {
 	o.IsSlave = &v
+	return o
 }
 
 // GetIsReplica returns the IsReplica field value if set, zero value otherwise.
@@ -217,8 +213,9 @@ func (o *Server) HasIsReplica() bool {
 }
 
 // SetIsReplica gets a reference to the given bool and assigns it to the IsReplica field.
-func (o *Server) SetIsReplica(v bool) {
+func (o *Server) SetIsReplica(v bool) *Server {
 	o.IsReplica = &v
+	return o
 }
 
 // GetCluster returns the Cluster field value if set, zero value otherwise.
@@ -249,8 +246,9 @@ func (o *Server) HasCluster() bool {
 }
 
 // SetCluster gets a reference to the given string and assigns it to the Cluster field.
-func (o *Server) SetCluster(v string) {
+func (o *Server) SetCluster(v string) *Server {
 	o.Cluster = &v
+	return o
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -281,8 +279,9 @@ func (o *Server) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given ServerStatus and assigns it to the Status field.
-func (o *Server) SetStatus(v ServerStatus) {
+func (o *Server) SetStatus(v ServerStatus) *Server {
 	o.Status = &v
+	return o
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -313,8 +312,9 @@ func (o *Server) HasType() bool {
 }
 
 // SetType gets a reference to the given Type and assigns it to the Type field.
-func (o *Server) SetType(v Type) {
+func (o *Server) SetType(v Type) *Server {
 	o.Type = &v
+	return o
 }
 
 func (o Server) MarshalJSON() ([]byte, error) {

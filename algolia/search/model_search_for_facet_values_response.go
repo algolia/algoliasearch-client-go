@@ -38,12 +38,9 @@ func NewSearchForFacetValuesResponse(facetHits []FacetHits, exhaustiveFacetsCoun
 	return this
 }
 
-// NewSearchForFacetValuesResponseWithDefaults instantiates a new SearchForFacetValuesResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchForFacetValuesResponseWithDefaults() *SearchForFacetValuesResponse {
-	this := &SearchForFacetValuesResponse{}
-	return this
+// NewEmptySearchForFacetValuesResponse return a pointer to an empty SearchForFacetValuesResponse object.
+func NewEmptySearchForFacetValuesResponse() *SearchForFacetValuesResponse {
+	return &SearchForFacetValuesResponse{}
 }
 
 // GetFacetHits returns the FacetHits field value.
@@ -66,11 +63,12 @@ func (o *SearchForFacetValuesResponse) GetFacetHitsOk() ([]FacetHits, bool) {
 }
 
 // SetFacetHits sets field value.
-func (o *SearchForFacetValuesResponse) SetFacetHits(v []FacetHits) {
+func (o *SearchForFacetValuesResponse) SetFacetHits(v []FacetHits) *SearchForFacetValuesResponse {
 	o.FacetHits = v
+	return o
 }
 
-// GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value
+// GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value.
 // Deprecated.
 func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCount() bool {
 	if o == nil {
@@ -91,10 +89,11 @@ func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCountOk() (*bool, bool
 	return &o.ExhaustiveFacetsCount, true
 }
 
-// SetExhaustiveFacetsCount sets field value
+// SetExhaustiveFacetsCount sets field value.
 // Deprecated.
-func (o *SearchForFacetValuesResponse) SetExhaustiveFacetsCount(v bool) {
+func (o *SearchForFacetValuesResponse) SetExhaustiveFacetsCount(v bool) *SearchForFacetValuesResponse {
 	o.ExhaustiveFacetsCount = v
+	return o
 }
 
 // GetProcessingTimeMS returns the ProcessingTimeMS field value if set, zero value otherwise.
@@ -125,8 +124,9 @@ func (o *SearchForFacetValuesResponse) HasProcessingTimeMS() bool {
 }
 
 // SetProcessingTimeMS gets a reference to the given int32 and assigns it to the ProcessingTimeMS field.
-func (o *SearchForFacetValuesResponse) SetProcessingTimeMS(v int32) {
+func (o *SearchForFacetValuesResponse) SetProcessingTimeMS(v int32) *SearchForFacetValuesResponse {
 	o.ProcessingTimeMS = &v
+	return o
 }
 
 func (o SearchForFacetValuesResponse) MarshalJSON() ([]byte, error) {

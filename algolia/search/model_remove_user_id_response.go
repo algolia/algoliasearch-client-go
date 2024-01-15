@@ -22,12 +22,9 @@ func NewRemoveUserIdResponse(deletedAt string) *RemoveUserIdResponse {
 	return this
 }
 
-// NewRemoveUserIdResponseWithDefaults instantiates a new RemoveUserIdResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRemoveUserIdResponseWithDefaults() *RemoveUserIdResponse {
-	this := &RemoveUserIdResponse{}
-	return this
+// NewEmptyRemoveUserIdResponse return a pointer to an empty RemoveUserIdResponse object.
+func NewEmptyRemoveUserIdResponse() *RemoveUserIdResponse {
+	return &RemoveUserIdResponse{}
 }
 
 // GetDeletedAt returns the DeletedAt field value.
@@ -50,8 +47,9 @@ func (o *RemoveUserIdResponse) GetDeletedAtOk() (*string, bool) {
 }
 
 // SetDeletedAt sets field value.
-func (o *RemoveUserIdResponse) SetDeletedAt(v string) {
+func (o *RemoveUserIdResponse) SetDeletedAt(v string) *RemoveUserIdResponse {
 	o.DeletedAt = v
+	return o
 }
 
 func (o RemoveUserIdResponse) MarshalJSON() ([]byte, error) {

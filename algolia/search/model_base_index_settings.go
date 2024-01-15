@@ -152,18 +152,9 @@ func NewBaseIndexSettings(opts ...BaseIndexSettingsOption) *BaseIndexSettings {
 	return this
 }
 
-// NewBaseIndexSettingsWithDefaults instantiates a new BaseIndexSettings object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseIndexSettingsWithDefaults() *BaseIndexSettings {
-	this := &BaseIndexSettings{}
-	var paginationLimitedTo int32 = 1000
-	this.PaginationLimitedTo = &paginationLimitedTo
-	var allowCompressionOfIntegerArray bool = false
-	this.AllowCompressionOfIntegerArray = &allowCompressionOfIntegerArray
-	var separatorsToIndex string = ""
-	this.SeparatorsToIndex = &separatorsToIndex
-	return this
+// NewEmptyBaseIndexSettings return a pointer to an empty BaseIndexSettings object.
+func NewEmptyBaseIndexSettings() *BaseIndexSettings {
+	return &BaseIndexSettings{}
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
@@ -194,8 +185,9 @@ func (o *BaseIndexSettings) HasReplicas() bool {
 }
 
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
-func (o *BaseIndexSettings) SetReplicas(v []string) {
+func (o *BaseIndexSettings) SetReplicas(v []string) *BaseIndexSettings {
 	o.Replicas = v
+	return o
 }
 
 // GetPaginationLimitedTo returns the PaginationLimitedTo field value if set, zero value otherwise.
@@ -226,8 +218,9 @@ func (o *BaseIndexSettings) HasPaginationLimitedTo() bool {
 }
 
 // SetPaginationLimitedTo gets a reference to the given int32 and assigns it to the PaginationLimitedTo field.
-func (o *BaseIndexSettings) SetPaginationLimitedTo(v int32) {
+func (o *BaseIndexSettings) SetPaginationLimitedTo(v int32) *BaseIndexSettings {
 	o.PaginationLimitedTo = &v
+	return o
 }
 
 // GetUnretrievableAttributes returns the UnretrievableAttributes field value if set, zero value otherwise.
@@ -258,8 +251,9 @@ func (o *BaseIndexSettings) HasUnretrievableAttributes() bool {
 }
 
 // SetUnretrievableAttributes gets a reference to the given []string and assigns it to the UnretrievableAttributes field.
-func (o *BaseIndexSettings) SetUnretrievableAttributes(v []string) {
+func (o *BaseIndexSettings) SetUnretrievableAttributes(v []string) *BaseIndexSettings {
 	o.UnretrievableAttributes = v
+	return o
 }
 
 // GetDisableTypoToleranceOnWords returns the DisableTypoToleranceOnWords field value if set, zero value otherwise.
@@ -290,8 +284,9 @@ func (o *BaseIndexSettings) HasDisableTypoToleranceOnWords() bool {
 }
 
 // SetDisableTypoToleranceOnWords gets a reference to the given []string and assigns it to the DisableTypoToleranceOnWords field.
-func (o *BaseIndexSettings) SetDisableTypoToleranceOnWords(v []string) {
+func (o *BaseIndexSettings) SetDisableTypoToleranceOnWords(v []string) *BaseIndexSettings {
 	o.DisableTypoToleranceOnWords = v
+	return o
 }
 
 // GetAttributesToTransliterate returns the AttributesToTransliterate field value if set, zero value otherwise.
@@ -322,8 +317,9 @@ func (o *BaseIndexSettings) HasAttributesToTransliterate() bool {
 }
 
 // SetAttributesToTransliterate gets a reference to the given []string and assigns it to the AttributesToTransliterate field.
-func (o *BaseIndexSettings) SetAttributesToTransliterate(v []string) {
+func (o *BaseIndexSettings) SetAttributesToTransliterate(v []string) *BaseIndexSettings {
 	o.AttributesToTransliterate = v
+	return o
 }
 
 // GetCamelCaseAttributes returns the CamelCaseAttributes field value if set, zero value otherwise.
@@ -354,8 +350,9 @@ func (o *BaseIndexSettings) HasCamelCaseAttributes() bool {
 }
 
 // SetCamelCaseAttributes gets a reference to the given []string and assigns it to the CamelCaseAttributes field.
-func (o *BaseIndexSettings) SetCamelCaseAttributes(v []string) {
+func (o *BaseIndexSettings) SetCamelCaseAttributes(v []string) *BaseIndexSettings {
 	o.CamelCaseAttributes = v
+	return o
 }
 
 // GetDecompoundedAttributes returns the DecompoundedAttributes field value if set, zero value otherwise.
@@ -386,8 +383,9 @@ func (o *BaseIndexSettings) HasDecompoundedAttributes() bool {
 }
 
 // SetDecompoundedAttributes gets a reference to the given map[string]interface{} and assigns it to the DecompoundedAttributes field.
-func (o *BaseIndexSettings) SetDecompoundedAttributes(v map[string]interface{}) {
+func (o *BaseIndexSettings) SetDecompoundedAttributes(v map[string]interface{}) *BaseIndexSettings {
 	o.DecompoundedAttributes = v
+	return o
 }
 
 // GetIndexLanguages returns the IndexLanguages field value if set, zero value otherwise.
@@ -418,8 +416,9 @@ func (o *BaseIndexSettings) HasIndexLanguages() bool {
 }
 
 // SetIndexLanguages gets a reference to the given []string and assigns it to the IndexLanguages field.
-func (o *BaseIndexSettings) SetIndexLanguages(v []string) {
+func (o *BaseIndexSettings) SetIndexLanguages(v []string) *BaseIndexSettings {
 	o.IndexLanguages = v
+	return o
 }
 
 // GetDisablePrefixOnAttributes returns the DisablePrefixOnAttributes field value if set, zero value otherwise.
@@ -450,8 +449,9 @@ func (o *BaseIndexSettings) HasDisablePrefixOnAttributes() bool {
 }
 
 // SetDisablePrefixOnAttributes gets a reference to the given []string and assigns it to the DisablePrefixOnAttributes field.
-func (o *BaseIndexSettings) SetDisablePrefixOnAttributes(v []string) {
+func (o *BaseIndexSettings) SetDisablePrefixOnAttributes(v []string) *BaseIndexSettings {
 	o.DisablePrefixOnAttributes = v
+	return o
 }
 
 // GetAllowCompressionOfIntegerArray returns the AllowCompressionOfIntegerArray field value if set, zero value otherwise.
@@ -482,8 +482,9 @@ func (o *BaseIndexSettings) HasAllowCompressionOfIntegerArray() bool {
 }
 
 // SetAllowCompressionOfIntegerArray gets a reference to the given bool and assigns it to the AllowCompressionOfIntegerArray field.
-func (o *BaseIndexSettings) SetAllowCompressionOfIntegerArray(v bool) {
+func (o *BaseIndexSettings) SetAllowCompressionOfIntegerArray(v bool) *BaseIndexSettings {
 	o.AllowCompressionOfIntegerArray = &v
+	return o
 }
 
 // GetNumericAttributesForFiltering returns the NumericAttributesForFiltering field value if set, zero value otherwise.
@@ -514,8 +515,9 @@ func (o *BaseIndexSettings) HasNumericAttributesForFiltering() bool {
 }
 
 // SetNumericAttributesForFiltering gets a reference to the given []string and assigns it to the NumericAttributesForFiltering field.
-func (o *BaseIndexSettings) SetNumericAttributesForFiltering(v []string) {
+func (o *BaseIndexSettings) SetNumericAttributesForFiltering(v []string) *BaseIndexSettings {
 	o.NumericAttributesForFiltering = v
+	return o
 }
 
 // GetSeparatorsToIndex returns the SeparatorsToIndex field value if set, zero value otherwise.
@@ -546,8 +548,9 @@ func (o *BaseIndexSettings) HasSeparatorsToIndex() bool {
 }
 
 // SetSeparatorsToIndex gets a reference to the given string and assigns it to the SeparatorsToIndex field.
-func (o *BaseIndexSettings) SetSeparatorsToIndex(v string) {
+func (o *BaseIndexSettings) SetSeparatorsToIndex(v string) *BaseIndexSettings {
 	o.SeparatorsToIndex = &v
+	return o
 }
 
 // GetSearchableAttributes returns the SearchableAttributes field value if set, zero value otherwise.
@@ -578,8 +581,9 @@ func (o *BaseIndexSettings) HasSearchableAttributes() bool {
 }
 
 // SetSearchableAttributes gets a reference to the given []string and assigns it to the SearchableAttributes field.
-func (o *BaseIndexSettings) SetSearchableAttributes(v []string) {
+func (o *BaseIndexSettings) SetSearchableAttributes(v []string) *BaseIndexSettings {
 	o.SearchableAttributes = v
+	return o
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -611,8 +615,9 @@ func (o *BaseIndexSettings) HasUserData() bool {
 }
 
 // SetUserData gets a reference to the given interface{} and assigns it to the UserData field.
-func (o *BaseIndexSettings) SetUserData(v interface{}) {
+func (o *BaseIndexSettings) SetUserData(v interface{}) *BaseIndexSettings {
 	o.UserData = v
+	return o
 }
 
 // GetCustomNormalization returns the CustomNormalization field value if set, zero value otherwise.
@@ -643,8 +648,9 @@ func (o *BaseIndexSettings) HasCustomNormalization() bool {
 }
 
 // SetCustomNormalization gets a reference to the given map[string]map[string]string and assigns it to the CustomNormalization field.
-func (o *BaseIndexSettings) SetCustomNormalization(v map[string]map[string]string) {
+func (o *BaseIndexSettings) SetCustomNormalization(v map[string]map[string]string) *BaseIndexSettings {
 	o.CustomNormalization = &v
+	return o
 }
 
 // GetAttributeForDistinct returns the AttributeForDistinct field value if set, zero value otherwise.
@@ -675,8 +681,9 @@ func (o *BaseIndexSettings) HasAttributeForDistinct() bool {
 }
 
 // SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
-func (o *BaseIndexSettings) SetAttributeForDistinct(v string) {
+func (o *BaseIndexSettings) SetAttributeForDistinct(v string) *BaseIndexSettings {
 	o.AttributeForDistinct = &v
+	return o
 }
 
 func (o BaseIndexSettings) MarshalJSON() ([]byte, error) {

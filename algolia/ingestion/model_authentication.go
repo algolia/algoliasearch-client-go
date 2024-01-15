@@ -52,12 +52,9 @@ func NewAuthentication(authenticationID string, type_ AuthenticationType, name s
 	return this
 }
 
-// NewAuthenticationWithDefaults instantiates a new Authentication object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthenticationWithDefaults() *Authentication {
-	this := &Authentication{}
-	return this
+// NewEmptyAuthentication return a pointer to an empty Authentication object.
+func NewEmptyAuthentication() *Authentication {
+	return &Authentication{}
 }
 
 // GetAuthenticationID returns the AuthenticationID field value.
@@ -80,8 +77,9 @@ func (o *Authentication) GetAuthenticationIDOk() (*string, bool) {
 }
 
 // SetAuthenticationID sets field value.
-func (o *Authentication) SetAuthenticationID(v string) {
+func (o *Authentication) SetAuthenticationID(v string) *Authentication {
 	o.AuthenticationID = v
+	return o
 }
 
 // GetType returns the Type field value.
@@ -104,8 +102,9 @@ func (o *Authentication) GetTypeOk() (*AuthenticationType, bool) {
 }
 
 // SetType sets field value.
-func (o *Authentication) SetType(v AuthenticationType) {
+func (o *Authentication) SetType(v AuthenticationType) *Authentication {
 	o.Type = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -128,8 +127,9 @@ func (o *Authentication) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *Authentication) SetName(v string) {
+func (o *Authentication) SetName(v string) *Authentication {
 	o.Name = v
+	return o
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
@@ -160,8 +160,9 @@ func (o *Authentication) HasPlatform() bool {
 }
 
 // SetPlatform gets a reference to the given Platform and assigns it to the Platform field.
-func (o *Authentication) SetPlatform(v Platform) {
+func (o *Authentication) SetPlatform(v Platform) *Authentication {
 	o.Platform = &v
+	return o
 }
 
 // GetInput returns the Input field value.
@@ -184,8 +185,9 @@ func (o *Authentication) GetInputOk() (*AuthInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *Authentication) SetInput(v AuthInput) {
-	o.Input = v
+func (o *Authentication) SetInput(v *AuthInput) *Authentication {
+	o.Input = *v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -208,8 +210,9 @@ func (o *Authentication) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *Authentication) SetCreatedAt(v string) {
+func (o *Authentication) SetCreatedAt(v string) *Authentication {
 	o.CreatedAt = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -240,8 +243,9 @@ func (o *Authentication) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *Authentication) SetUpdatedAt(v string) {
+func (o *Authentication) SetUpdatedAt(v string) *Authentication {
 	o.UpdatedAt = &v
+	return o
 }
 
 func (o Authentication) MarshalJSON() ([]byte, error) {

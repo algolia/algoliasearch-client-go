@@ -25,12 +25,9 @@ func NewClickPosition(position []int32, clickCount int32) *ClickPosition {
 	return this
 }
 
-// NewClickPositionWithDefaults instantiates a new ClickPosition object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewClickPositionWithDefaults() *ClickPosition {
-	this := &ClickPosition{}
-	return this
+// NewEmptyClickPosition return a pointer to an empty ClickPosition object.
+func NewEmptyClickPosition() *ClickPosition {
+	return &ClickPosition{}
 }
 
 // GetPosition returns the Position field value.
@@ -53,8 +50,9 @@ func (o *ClickPosition) GetPositionOk() ([]int32, bool) {
 }
 
 // SetPosition sets field value.
-func (o *ClickPosition) SetPosition(v []int32) {
+func (o *ClickPosition) SetPosition(v []int32) *ClickPosition {
 	o.Position = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -77,8 +75,9 @@ func (o *ClickPosition) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *ClickPosition) SetClickCount(v int32) {
+func (o *ClickPosition) SetClickCount(v int32) *ClickPosition {
 	o.ClickCount = v
+	return o
 }
 
 func (o ClickPosition) MarshalJSON() ([]byte, error) {

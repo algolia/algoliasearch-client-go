@@ -82,12 +82,9 @@ func NewVariant(addToCartCount int32, addToCartRate float64, averageClickPositio
 	return this
 }
 
-// NewVariantWithDefaults instantiates a new Variant object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewVariantWithDefaults() *Variant {
-	this := &Variant{}
-	return this
+// NewEmptyVariant return a pointer to an empty Variant object.
+func NewEmptyVariant() *Variant {
+	return &Variant{}
 }
 
 // GetAddToCartCount returns the AddToCartCount field value.
@@ -110,8 +107,9 @@ func (o *Variant) GetAddToCartCountOk() (*int32, bool) {
 }
 
 // SetAddToCartCount sets field value.
-func (o *Variant) SetAddToCartCount(v int32) {
+func (o *Variant) SetAddToCartCount(v int32) *Variant {
 	o.AddToCartCount = v
+	return o
 }
 
 // GetAddToCartRate returns the AddToCartRate field value.
@@ -134,8 +132,9 @@ func (o *Variant) GetAddToCartRateOk() (*float64, bool) {
 }
 
 // SetAddToCartRate sets field value.
-func (o *Variant) SetAddToCartRate(v float64) {
+func (o *Variant) SetAddToCartRate(v float64) *Variant {
 	o.AddToCartRate = v
+	return o
 }
 
 // GetAverageClickPosition returns the AverageClickPosition field value.
@@ -158,8 +157,9 @@ func (o *Variant) GetAverageClickPositionOk() (*int32, bool) {
 }
 
 // SetAverageClickPosition sets field value.
-func (o *Variant) SetAverageClickPosition(v int32) {
+func (o *Variant) SetAverageClickPosition(v int32) *Variant {
 	o.AverageClickPosition = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -182,8 +182,9 @@ func (o *Variant) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *Variant) SetClickCount(v int32) {
+func (o *Variant) SetClickCount(v int32) *Variant {
 	o.ClickCount = v
+	return o
 }
 
 // GetClickThroughRate returns the ClickThroughRate field value.
@@ -206,8 +207,9 @@ func (o *Variant) GetClickThroughRateOk() (*float64, bool) {
 }
 
 // SetClickThroughRate sets field value.
-func (o *Variant) SetClickThroughRate(v float64) {
+func (o *Variant) SetClickThroughRate(v float64) *Variant {
 	o.ClickThroughRate = v
+	return o
 }
 
 // GetConversionCount returns the ConversionCount field value.
@@ -230,8 +232,9 @@ func (o *Variant) GetConversionCountOk() (*int32, bool) {
 }
 
 // SetConversionCount sets field value.
-func (o *Variant) SetConversionCount(v int32) {
+func (o *Variant) SetConversionCount(v int32) *Variant {
 	o.ConversionCount = v
+	return o
 }
 
 // GetConversionRate returns the ConversionRate field value.
@@ -254,8 +257,9 @@ func (o *Variant) GetConversionRateOk() (*float64, bool) {
 }
 
 // SetConversionRate sets field value.
-func (o *Variant) SetConversionRate(v float64) {
+func (o *Variant) SetConversionRate(v float64) *Variant {
 	o.ConversionRate = v
+	return o
 }
 
 // GetCurrencies returns the Currencies field value.
@@ -278,8 +282,9 @@ func (o *Variant) GetCurrenciesOk() (*map[string]CurrenciesValue, bool) {
 }
 
 // SetCurrencies sets field value.
-func (o *Variant) SetCurrencies(v map[string]CurrenciesValue) {
+func (o *Variant) SetCurrencies(v map[string]CurrenciesValue) *Variant {
 	o.Currencies = v
+	return o
 }
 
 // GetDescription returns the Description field value.
@@ -302,8 +307,9 @@ func (o *Variant) GetDescriptionOk() (*string, bool) {
 }
 
 // SetDescription sets field value.
-func (o *Variant) SetDescription(v string) {
+func (o *Variant) SetDescription(v string) *Variant {
 	o.Description = v
+	return o
 }
 
 // GetFilterEffects returns the FilterEffects field value if set, zero value otherwise.
@@ -334,8 +340,9 @@ func (o *Variant) HasFilterEffects() bool {
 }
 
 // SetFilterEffects gets a reference to the given FilterEffects and assigns it to the FilterEffects field.
-func (o *Variant) SetFilterEffects(v FilterEffects) {
-	o.FilterEffects = &v
+func (o *Variant) SetFilterEffects(v *FilterEffects) *Variant {
+	o.FilterEffects = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -358,8 +365,9 @@ func (o *Variant) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *Variant) SetIndex(v string) {
+func (o *Variant) SetIndex(v string) *Variant {
 	o.Index = v
+	return o
 }
 
 // GetNoResultCount returns the NoResultCount field value.
@@ -382,8 +390,9 @@ func (o *Variant) GetNoResultCountOk() (*int32, bool) {
 }
 
 // SetNoResultCount sets field value.
-func (o *Variant) SetNoResultCount(v int32) {
+func (o *Variant) SetNoResultCount(v int32) *Variant {
 	o.NoResultCount = v
+	return o
 }
 
 // GetPurchaseCount returns the PurchaseCount field value.
@@ -406,8 +415,9 @@ func (o *Variant) GetPurchaseCountOk() (*int32, bool) {
 }
 
 // SetPurchaseCount sets field value.
-func (o *Variant) SetPurchaseCount(v int32) {
+func (o *Variant) SetPurchaseCount(v int32) *Variant {
 	o.PurchaseCount = v
+	return o
 }
 
 // GetPurchaseRate returns the PurchaseRate field value.
@@ -430,8 +440,9 @@ func (o *Variant) GetPurchaseRateOk() (*float64, bool) {
 }
 
 // SetPurchaseRate sets field value.
-func (o *Variant) SetPurchaseRate(v float64) {
+func (o *Variant) SetPurchaseRate(v float64) *Variant {
 	o.PurchaseRate = v
+	return o
 }
 
 // GetSearchCount returns the SearchCount field value.
@@ -454,8 +465,9 @@ func (o *Variant) GetSearchCountOk() (*int32, bool) {
 }
 
 // SetSearchCount sets field value.
-func (o *Variant) SetSearchCount(v int32) {
+func (o *Variant) SetSearchCount(v int32) *Variant {
 	o.SearchCount = v
+	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
@@ -478,8 +490,9 @@ func (o *Variant) GetTrackedSearchCountOk() (*int32, bool) {
 }
 
 // SetTrackedSearchCount sets field value.
-func (o *Variant) SetTrackedSearchCount(v int32) {
+func (o *Variant) SetTrackedSearchCount(v int32) *Variant {
 	o.TrackedSearchCount = v
+	return o
 }
 
 // GetTrafficPercentage returns the TrafficPercentage field value.
@@ -502,8 +515,9 @@ func (o *Variant) GetTrafficPercentageOk() (*int32, bool) {
 }
 
 // SetTrafficPercentage sets field value.
-func (o *Variant) SetTrafficPercentage(v int32) {
+func (o *Variant) SetTrafficPercentage(v int32) *Variant {
 	o.TrafficPercentage = v
+	return o
 }
 
 // GetUserCount returns the UserCount field value.
@@ -526,8 +540,9 @@ func (o *Variant) GetUserCountOk() (*int32, bool) {
 }
 
 // SetUserCount sets field value.
-func (o *Variant) SetUserCount(v int32) {
+func (o *Variant) SetUserCount(v int32) *Variant {
 	o.UserCount = v
+	return o
 }
 
 func (o Variant) MarshalJSON() ([]byte, error) {

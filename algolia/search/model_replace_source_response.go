@@ -22,12 +22,9 @@ func NewReplaceSourceResponse(updatedAt string) *ReplaceSourceResponse {
 	return this
 }
 
-// NewReplaceSourceResponseWithDefaults instantiates a new ReplaceSourceResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewReplaceSourceResponseWithDefaults() *ReplaceSourceResponse {
-	this := &ReplaceSourceResponse{}
-	return this
+// NewEmptyReplaceSourceResponse return a pointer to an empty ReplaceSourceResponse object.
+func NewEmptyReplaceSourceResponse() *ReplaceSourceResponse {
+	return &ReplaceSourceResponse{}
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -50,8 +47,9 @@ func (o *ReplaceSourceResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *ReplaceSourceResponse) SetUpdatedAt(v string) {
+func (o *ReplaceSourceResponse) SetUpdatedAt(v string) *ReplaceSourceResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 func (o ReplaceSourceResponse) MarshalJSON() ([]byte, error) {

@@ -25,12 +25,9 @@ func NewSearchEvent(date string, count int32) *SearchEvent {
 	return this
 }
 
-// NewSearchEventWithDefaults instantiates a new SearchEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchEventWithDefaults() *SearchEvent {
-	this := &SearchEvent{}
-	return this
+// NewEmptySearchEvent return a pointer to an empty SearchEvent object.
+func NewEmptySearchEvent() *SearchEvent {
+	return &SearchEvent{}
 }
 
 // GetDate returns the Date field value.
@@ -53,8 +50,9 @@ func (o *SearchEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *SearchEvent) SetDate(v string) {
+func (o *SearchEvent) SetDate(v string) *SearchEvent {
 	o.Date = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -77,8 +75,9 @@ func (o *SearchEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *SearchEvent) SetCount(v int32) {
+func (o *SearchEvent) SetCount(v int32) *SearchEvent {
 	o.Count = v
+	return o
 }
 
 func (o SearchEvent) MarshalJSON() ([]byte, error) {

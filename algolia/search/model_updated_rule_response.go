@@ -28,12 +28,9 @@ func NewUpdatedRuleResponse(objectID string, updatedAt string, taskID int64) *Up
 	return this
 }
 
-// NewUpdatedRuleResponseWithDefaults instantiates a new UpdatedRuleResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUpdatedRuleResponseWithDefaults() *UpdatedRuleResponse {
-	this := &UpdatedRuleResponse{}
-	return this
+// NewEmptyUpdatedRuleResponse return a pointer to an empty UpdatedRuleResponse object.
+func NewEmptyUpdatedRuleResponse() *UpdatedRuleResponse {
+	return &UpdatedRuleResponse{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -56,8 +53,9 @@ func (o *UpdatedRuleResponse) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *UpdatedRuleResponse) SetObjectID(v string) {
+func (o *UpdatedRuleResponse) SetObjectID(v string) *UpdatedRuleResponse {
 	o.ObjectID = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -80,8 +78,9 @@ func (o *UpdatedRuleResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *UpdatedRuleResponse) SetUpdatedAt(v string) {
+func (o *UpdatedRuleResponse) SetUpdatedAt(v string) *UpdatedRuleResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 // GetTaskID returns the TaskID field value.
@@ -104,8 +103,9 @@ func (o *UpdatedRuleResponse) GetTaskIDOk() (*int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *UpdatedRuleResponse) SetTaskID(v int64) {
+func (o *UpdatedRuleResponse) SetTaskID(v int64) *UpdatedRuleResponse {
 	o.TaskID = v
+	return o
 }
 
 func (o UpdatedRuleResponse) MarshalJSON() ([]byte, error) {

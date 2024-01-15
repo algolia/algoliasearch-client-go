@@ -62,14 +62,9 @@ func NewRecommendationsQuery(indexName string, model RecommendationModels, objec
 	return this
 }
 
-// NewRecommendationsQueryWithDefaults instantiates a new RecommendationsQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRecommendationsQueryWithDefaults() *RecommendationsQuery {
-	this := &RecommendationsQuery{}
-	var maxRecommendations int32 = 0
-	this.MaxRecommendations = &maxRecommendations
-	return this
+// NewEmptyRecommendationsQuery return a pointer to an empty RecommendationsQuery object.
+func NewEmptyRecommendationsQuery() *RecommendationsQuery {
+	return &RecommendationsQuery{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -92,8 +87,9 @@ func (o *RecommendationsQuery) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *RecommendationsQuery) SetIndexName(v string) {
+func (o *RecommendationsQuery) SetIndexName(v string) *RecommendationsQuery {
 	o.IndexName = v
+	return o
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
@@ -124,8 +120,9 @@ func (o *RecommendationsQuery) HasThreshold() bool {
 }
 
 // SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *RecommendationsQuery) SetThreshold(v int32) {
+func (o *RecommendationsQuery) SetThreshold(v int32) *RecommendationsQuery {
 	o.Threshold = &v
+	return o
 }
 
 // GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
@@ -156,8 +153,9 @@ func (o *RecommendationsQuery) HasMaxRecommendations() bool {
 }
 
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *RecommendationsQuery) SetMaxRecommendations(v int32) {
+func (o *RecommendationsQuery) SetMaxRecommendations(v int32) *RecommendationsQuery {
 	o.MaxRecommendations = &v
+	return o
 }
 
 // GetModel returns the Model field value.
@@ -180,8 +178,9 @@ func (o *RecommendationsQuery) GetModelOk() (*RecommendationModels, bool) {
 }
 
 // SetModel sets field value.
-func (o *RecommendationsQuery) SetModel(v RecommendationModels) {
+func (o *RecommendationsQuery) SetModel(v RecommendationModels) *RecommendationsQuery {
 	o.Model = v
+	return o
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -204,8 +203,9 @@ func (o *RecommendationsQuery) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *RecommendationsQuery) SetObjectID(v string) {
+func (o *RecommendationsQuery) SetObjectID(v string) *RecommendationsQuery {
 	o.ObjectID = v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -236,8 +236,9 @@ func (o *RecommendationsQuery) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given SearchParamsObject and assigns it to the QueryParameters field.
-func (o *RecommendationsQuery) SetQueryParameters(v SearchParamsObject) {
-	o.QueryParameters = &v
+func (o *RecommendationsQuery) SetQueryParameters(v *SearchParamsObject) *RecommendationsQuery {
+	o.QueryParameters = v
+	return o
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
@@ -268,8 +269,9 @@ func (o *RecommendationsQuery) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given SearchParamsObject and assigns it to the FallbackParameters field.
-func (o *RecommendationsQuery) SetFallbackParameters(v SearchParamsObject) {
-	o.FallbackParameters = &v
+func (o *RecommendationsQuery) SetFallbackParameters(v *SearchParamsObject) *RecommendationsQuery {
+	o.FallbackParameters = v
+	return o
 }
 
 func (o RecommendationsQuery) MarshalJSON() ([]byte, error) {

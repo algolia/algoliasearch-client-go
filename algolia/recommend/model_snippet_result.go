@@ -13,16 +13,16 @@ type SnippetResult struct {
 }
 
 // SnippetResultOptionAsSnippetResult is a convenience function that returns SnippetResultOption wrapped in SnippetResult.
-func SnippetResultOptionAsSnippetResult(v *SnippetResultOption) SnippetResult {
-	return SnippetResult{
+func SnippetResultOptionAsSnippetResult(v *SnippetResultOption) *SnippetResult {
+	return &SnippetResult{
 		SnippetResultOption: v,
 	}
 }
 
 // map[string]SnippetResultOptionAsSnippetResult is a convenience function that returns map[string]SnippetResultOption wrapped in SnippetResult.
-func MapmapOfStringSnippetResultOptionAsSnippetResult(v *map[string]SnippetResultOption) SnippetResult {
-	return SnippetResult{
-		MapmapOfStringSnippetResultOption: v,
+func MapmapOfStringSnippetResultOptionAsSnippetResult(v map[string]SnippetResultOption) *SnippetResult {
+	return &SnippetResult{
+		MapmapOfStringSnippetResultOption: &v,
 	}
 }
 

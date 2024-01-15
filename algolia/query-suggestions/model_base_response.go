@@ -40,12 +40,9 @@ func NewBaseResponse(opts ...BaseResponseOption) *BaseResponse {
 	return this
 }
 
-// NewBaseResponseWithDefaults instantiates a new BaseResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseResponseWithDefaults() *BaseResponse {
-	this := &BaseResponse{}
-	return this
+// NewEmptyBaseResponse return a pointer to an empty BaseResponse object.
+func NewEmptyBaseResponse() *BaseResponse {
+	return &BaseResponse{}
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *BaseResponse) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given int32 and assigns it to the Status field.
-func (o *BaseResponse) SetStatus(v int32) {
+func (o *BaseResponse) SetStatus(v int32) *BaseResponse {
 	o.Status = &v
+	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *BaseResponse) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *BaseResponse) SetMessage(v string) {
+func (o *BaseResponse) SetMessage(v string) *BaseResponse {
 	o.Message = &v
+	return o
 }
 
 func (o BaseResponse) MarshalJSON() ([]byte, error) {

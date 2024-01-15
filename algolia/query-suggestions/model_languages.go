@@ -13,16 +13,16 @@ type Languages struct {
 }
 
 // []stringAsLanguages is a convenience function that returns []string wrapped in Languages.
-func ArrayOfStringAsLanguages(v *[]string) Languages {
-	return Languages{
-		ArrayOfString: v,
+func ArrayOfStringAsLanguages(v []string) *Languages {
+	return &Languages{
+		ArrayOfString: &v,
 	}
 }
 
 // boolAsLanguages is a convenience function that returns bool wrapped in Languages.
-func BoolAsLanguages(v *bool) Languages {
-	return Languages{
-		Bool: v,
+func BoolAsLanguages(v bool) *Languages {
+	return &Languages{
+		Bool: &v,
 	}
 }
 

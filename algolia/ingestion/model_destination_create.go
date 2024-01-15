@@ -39,12 +39,9 @@ func NewDestinationCreate(type_ DestinationType, name string, input DestinationI
 	return this
 }
 
-// NewDestinationCreateWithDefaults instantiates a new DestinationCreate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDestinationCreateWithDefaults() *DestinationCreate {
-	this := &DestinationCreate{}
-	return this
+// NewEmptyDestinationCreate return a pointer to an empty DestinationCreate object.
+func NewEmptyDestinationCreate() *DestinationCreate {
+	return &DestinationCreate{}
 }
 
 // GetType returns the Type field value.
@@ -67,8 +64,9 @@ func (o *DestinationCreate) GetTypeOk() (*DestinationType, bool) {
 }
 
 // SetType sets field value.
-func (o *DestinationCreate) SetType(v DestinationType) {
+func (o *DestinationCreate) SetType(v DestinationType) *DestinationCreate {
 	o.Type = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -91,8 +89,9 @@ func (o *DestinationCreate) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *DestinationCreate) SetName(v string) {
+func (o *DestinationCreate) SetName(v string) *DestinationCreate {
 	o.Name = v
+	return o
 }
 
 // GetInput returns the Input field value.
@@ -115,8 +114,9 @@ func (o *DestinationCreate) GetInputOk() (*DestinationInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *DestinationCreate) SetInput(v DestinationInput) {
-	o.Input = v
+func (o *DestinationCreate) SetInput(v *DestinationInput) *DestinationCreate {
+	o.Input = *v
+	return o
 }
 
 // GetAuthenticationID returns the AuthenticationID field value if set, zero value otherwise.
@@ -147,8 +147,9 @@ func (o *DestinationCreate) HasAuthenticationID() bool {
 }
 
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
-func (o *DestinationCreate) SetAuthenticationID(v string) {
+func (o *DestinationCreate) SetAuthenticationID(v string) *DestinationCreate {
 	o.AuthenticationID = &v
+	return o
 }
 
 func (o DestinationCreate) MarshalJSON() ([]byte, error) {

@@ -226,18 +226,9 @@ func NewSearchResponse(hitsPerPage int32, nbHits int32, nbPages int32, page int3
 	return this
 }
 
-// NewSearchResponseWithDefaults instantiates a new SearchResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchResponseWithDefaults() *SearchResponse {
-	this := &SearchResponse{}
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = hitsPerPage
-	var page int32 = 0
-	this.Page = page
-	var query string = ""
-	this.Query = query
-	return this
+// NewEmptySearchResponse return a pointer to an empty SearchResponse object.
+func NewEmptySearchResponse() *SearchResponse {
+	return &SearchResponse{}
 }
 
 // GetAbTestID returns the AbTestID field value if set, zero value otherwise.
@@ -268,8 +259,9 @@ func (o *SearchResponse) HasAbTestID() bool {
 }
 
 // SetAbTestID gets a reference to the given int32 and assigns it to the AbTestID field.
-func (o *SearchResponse) SetAbTestID(v int32) {
+func (o *SearchResponse) SetAbTestID(v int32) *SearchResponse {
 	o.AbTestID = &v
+	return o
 }
 
 // GetAbTestVariantID returns the AbTestVariantID field value if set, zero value otherwise.
@@ -300,8 +292,9 @@ func (o *SearchResponse) HasAbTestVariantID() bool {
 }
 
 // SetAbTestVariantID gets a reference to the given int32 and assigns it to the AbTestVariantID field.
-func (o *SearchResponse) SetAbTestVariantID(v int32) {
+func (o *SearchResponse) SetAbTestVariantID(v int32) *SearchResponse {
 	o.AbTestVariantID = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -332,8 +325,9 @@ func (o *SearchResponse) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *SearchResponse) SetAroundLatLng(v string) {
+func (o *SearchResponse) SetAroundLatLng(v string) *SearchResponse {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAutomaticRadius returns the AutomaticRadius field value if set, zero value otherwise.
@@ -364,8 +358,9 @@ func (o *SearchResponse) HasAutomaticRadius() bool {
 }
 
 // SetAutomaticRadius gets a reference to the given string and assigns it to the AutomaticRadius field.
-func (o *SearchResponse) SetAutomaticRadius(v string) {
+func (o *SearchResponse) SetAutomaticRadius(v string) *SearchResponse {
 	o.AutomaticRadius = &v
+	return o
 }
 
 // GetExhaustive returns the Exhaustive field value if set, zero value otherwise.
@@ -396,8 +391,9 @@ func (o *SearchResponse) HasExhaustive() bool {
 }
 
 // SetExhaustive gets a reference to the given Exhaustive and assigns it to the Exhaustive field.
-func (o *SearchResponse) SetExhaustive(v Exhaustive) {
-	o.Exhaustive = &v
+func (o *SearchResponse) SetExhaustive(v *Exhaustive) *SearchResponse {
+	o.Exhaustive = v
+	return o
 }
 
 // GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value if set, zero value otherwise.
@@ -431,8 +427,9 @@ func (o *SearchResponse) HasExhaustiveFacetsCount() bool {
 
 // SetExhaustiveFacetsCount gets a reference to the given bool and assigns it to the ExhaustiveFacetsCount field.
 // Deprecated.
-func (o *SearchResponse) SetExhaustiveFacetsCount(v bool) {
+func (o *SearchResponse) SetExhaustiveFacetsCount(v bool) *SearchResponse {
 	o.ExhaustiveFacetsCount = &v
+	return o
 }
 
 // GetExhaustiveNbHits returns the ExhaustiveNbHits field value if set, zero value otherwise.
@@ -466,8 +463,9 @@ func (o *SearchResponse) HasExhaustiveNbHits() bool {
 
 // SetExhaustiveNbHits gets a reference to the given bool and assigns it to the ExhaustiveNbHits field.
 // Deprecated.
-func (o *SearchResponse) SetExhaustiveNbHits(v bool) {
+func (o *SearchResponse) SetExhaustiveNbHits(v bool) *SearchResponse {
 	o.ExhaustiveNbHits = &v
+	return o
 }
 
 // GetExhaustiveTypo returns the ExhaustiveTypo field value if set, zero value otherwise.
@@ -501,8 +499,9 @@ func (o *SearchResponse) HasExhaustiveTypo() bool {
 
 // SetExhaustiveTypo gets a reference to the given bool and assigns it to the ExhaustiveTypo field.
 // Deprecated.
-func (o *SearchResponse) SetExhaustiveTypo(v bool) {
+func (o *SearchResponse) SetExhaustiveTypo(v bool) *SearchResponse {
 	o.ExhaustiveTypo = &v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -533,8 +532,9 @@ func (o *SearchResponse) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given map[string]map[string]int32 and assigns it to the Facets field.
-func (o *SearchResponse) SetFacets(v map[string]map[string]int32) {
+func (o *SearchResponse) SetFacets(v map[string]map[string]int32) *SearchResponse {
 	o.Facets = &v
+	return o
 }
 
 // GetFacetsStats returns the FacetsStats field value if set, zero value otherwise.
@@ -565,8 +565,9 @@ func (o *SearchResponse) HasFacetsStats() bool {
 }
 
 // SetFacetsStats gets a reference to the given map[string]FacetsStats and assigns it to the FacetsStats field.
-func (o *SearchResponse) SetFacetsStats(v map[string]FacetsStats) {
+func (o *SearchResponse) SetFacetsStats(v map[string]FacetsStats) *SearchResponse {
 	o.FacetsStats = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value.
@@ -589,8 +590,9 @@ func (o *SearchResponse) GetHitsPerPageOk() (*int32, bool) {
 }
 
 // SetHitsPerPage sets field value.
-func (o *SearchResponse) SetHitsPerPage(v int32) {
+func (o *SearchResponse) SetHitsPerPage(v int32) *SearchResponse {
 	o.HitsPerPage = v
+	return o
 }
 
 // GetIndex returns the Index field value if set, zero value otherwise.
@@ -621,8 +623,9 @@ func (o *SearchResponse) HasIndex() bool {
 }
 
 // SetIndex gets a reference to the given string and assigns it to the Index field.
-func (o *SearchResponse) SetIndex(v string) {
+func (o *SearchResponse) SetIndex(v string) *SearchResponse {
 	o.Index = &v
+	return o
 }
 
 // GetIndexUsed returns the IndexUsed field value if set, zero value otherwise.
@@ -653,8 +656,9 @@ func (o *SearchResponse) HasIndexUsed() bool {
 }
 
 // SetIndexUsed gets a reference to the given string and assigns it to the IndexUsed field.
-func (o *SearchResponse) SetIndexUsed(v string) {
+func (o *SearchResponse) SetIndexUsed(v string) *SearchResponse {
 	o.IndexUsed = &v
+	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -685,8 +689,9 @@ func (o *SearchResponse) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *SearchResponse) SetMessage(v string) {
+func (o *SearchResponse) SetMessage(v string) *SearchResponse {
 	o.Message = &v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -709,8 +714,9 @@ func (o *SearchResponse) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *SearchResponse) SetNbHits(v int32) {
+func (o *SearchResponse) SetNbHits(v int32) *SearchResponse {
 	o.NbHits = v
+	return o
 }
 
 // GetNbPages returns the NbPages field value.
@@ -733,8 +739,9 @@ func (o *SearchResponse) GetNbPagesOk() (*int32, bool) {
 }
 
 // SetNbPages sets field value.
-func (o *SearchResponse) SetNbPages(v int32) {
+func (o *SearchResponse) SetNbPages(v int32) *SearchResponse {
 	o.NbPages = v
+	return o
 }
 
 // GetNbSortedHits returns the NbSortedHits field value if set, zero value otherwise.
@@ -765,8 +772,9 @@ func (o *SearchResponse) HasNbSortedHits() bool {
 }
 
 // SetNbSortedHits gets a reference to the given int32 and assigns it to the NbSortedHits field.
-func (o *SearchResponse) SetNbSortedHits(v int32) {
+func (o *SearchResponse) SetNbSortedHits(v int32) *SearchResponse {
 	o.NbSortedHits = &v
+	return o
 }
 
 // GetPage returns the Page field value.
@@ -789,8 +797,9 @@ func (o *SearchResponse) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *SearchResponse) SetPage(v int32) {
+func (o *SearchResponse) SetPage(v int32) *SearchResponse {
 	o.Page = v
+	return o
 }
 
 // GetParsedQuery returns the ParsedQuery field value if set, zero value otherwise.
@@ -821,8 +830,9 @@ func (o *SearchResponse) HasParsedQuery() bool {
 }
 
 // SetParsedQuery gets a reference to the given string and assigns it to the ParsedQuery field.
-func (o *SearchResponse) SetParsedQuery(v string) {
+func (o *SearchResponse) SetParsedQuery(v string) *SearchResponse {
 	o.ParsedQuery = &v
+	return o
 }
 
 // GetProcessingTimeMS returns the ProcessingTimeMS field value.
@@ -845,8 +855,9 @@ func (o *SearchResponse) GetProcessingTimeMSOk() (*int32, bool) {
 }
 
 // SetProcessingTimeMS sets field value.
-func (o *SearchResponse) SetProcessingTimeMS(v int32) {
+func (o *SearchResponse) SetProcessingTimeMS(v int32) *SearchResponse {
 	o.ProcessingTimeMS = v
+	return o
 }
 
 // GetProcessingTimingsMS returns the ProcessingTimingsMS field value if set, zero value otherwise.
@@ -877,8 +888,9 @@ func (o *SearchResponse) HasProcessingTimingsMS() bool {
 }
 
 // SetProcessingTimingsMS gets a reference to the given map[string]interface{} and assigns it to the ProcessingTimingsMS field.
-func (o *SearchResponse) SetProcessingTimingsMS(v map[string]interface{}) {
+func (o *SearchResponse) SetProcessingTimingsMS(v map[string]interface{}) *SearchResponse {
 	o.ProcessingTimingsMS = v
+	return o
 }
 
 // GetQueryAfterRemoval returns the QueryAfterRemoval field value if set, zero value otherwise.
@@ -909,8 +921,9 @@ func (o *SearchResponse) HasQueryAfterRemoval() bool {
 }
 
 // SetQueryAfterRemoval gets a reference to the given string and assigns it to the QueryAfterRemoval field.
-func (o *SearchResponse) SetQueryAfterRemoval(v string) {
+func (o *SearchResponse) SetQueryAfterRemoval(v string) *SearchResponse {
 	o.QueryAfterRemoval = &v
+	return o
 }
 
 // GetRedirect returns the Redirect field value if set, zero value otherwise.
@@ -941,8 +954,9 @@ func (o *SearchResponse) HasRedirect() bool {
 }
 
 // SetRedirect gets a reference to the given Redirect and assigns it to the Redirect field.
-func (o *SearchResponse) SetRedirect(v Redirect) {
-	o.Redirect = &v
+func (o *SearchResponse) SetRedirect(v *Redirect) *SearchResponse {
+	o.Redirect = v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -973,8 +987,9 @@ func (o *SearchResponse) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *SearchResponse) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *SearchResponse) SetRenderingContent(v *RenderingContent) *SearchResponse {
+	o.RenderingContent = v
+	return o
 }
 
 // GetServerTimeMS returns the ServerTimeMS field value if set, zero value otherwise.
@@ -1005,8 +1020,9 @@ func (o *SearchResponse) HasServerTimeMS() bool {
 }
 
 // SetServerTimeMS gets a reference to the given int32 and assigns it to the ServerTimeMS field.
-func (o *SearchResponse) SetServerTimeMS(v int32) {
+func (o *SearchResponse) SetServerTimeMS(v int32) *SearchResponse {
 	o.ServerTimeMS = &v
+	return o
 }
 
 // GetServerUsed returns the ServerUsed field value if set, zero value otherwise.
@@ -1037,8 +1053,9 @@ func (o *SearchResponse) HasServerUsed() bool {
 }
 
 // SetServerUsed gets a reference to the given string and assigns it to the ServerUsed field.
-func (o *SearchResponse) SetServerUsed(v string) {
+func (o *SearchResponse) SetServerUsed(v string) *SearchResponse {
 	o.ServerUsed = &v
+	return o
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
@@ -1069,8 +1086,9 @@ func (o *SearchResponse) HasUserData() bool {
 }
 
 // SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *SearchResponse) SetUserData(v map[string]interface{}) {
+func (o *SearchResponse) SetUserData(v map[string]interface{}) *SearchResponse {
 	o.UserData = v
+	return o
 }
 
 // GetHits returns the Hits field value.
@@ -1093,8 +1111,9 @@ func (o *SearchResponse) GetHitsOk() ([]Hit, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchResponse) SetHits(v []Hit) {
-	o.Hits = v
+func (o *SearchResponse) SetHits(v *[]Hit) *SearchResponse {
+	o.Hits = *v
+	return o
 }
 
 // GetQuery returns the Query field value.
@@ -1117,8 +1136,9 @@ func (o *SearchResponse) GetQueryOk() (*string, bool) {
 }
 
 // SetQuery sets field value.
-func (o *SearchResponse) SetQuery(v string) {
+func (o *SearchResponse) SetQuery(v string) *SearchResponse {
 	o.Query = v
+	return o
 }
 
 // GetParams returns the Params field value.
@@ -1141,8 +1161,19 @@ func (o *SearchResponse) GetParamsOk() (*string, bool) {
 }
 
 // SetParams sets field value.
-func (o *SearchResponse) SetParams(v string) {
+func (o *SearchResponse) SetParams(v string) *SearchResponse {
 	o.Params = v
+	return o
+}
+
+func (o *SearchResponse) SetAdditionalProperty(key string, value any) *SearchResponse {
+	if o.AdditionalProperties == nil {
+		o.AdditionalProperties = make(map[string]any)
+	}
+
+	o.AdditionalProperties[key] = value
+
+	return o
 }
 
 func (o SearchResponse) MarshalJSON() ([]byte, error) {

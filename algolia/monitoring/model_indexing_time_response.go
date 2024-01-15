@@ -31,12 +31,9 @@ func NewIndexingTimeResponse(opts ...IndexingTimeResponseOption) *IndexingTimeRe
 	return this
 }
 
-// NewIndexingTimeResponseWithDefaults instantiates a new IndexingTimeResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewIndexingTimeResponseWithDefaults() *IndexingTimeResponse {
-	this := &IndexingTimeResponse{}
-	return this
+// NewEmptyIndexingTimeResponse return a pointer to an empty IndexingTimeResponse object.
+func NewEmptyIndexingTimeResponse() *IndexingTimeResponse {
+	return &IndexingTimeResponse{}
 }
 
 // GetMetrics returns the Metrics field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *IndexingTimeResponse) HasMetrics() bool {
 }
 
 // SetMetrics gets a reference to the given IndexingTimeResponseMetrics and assigns it to the Metrics field.
-func (o *IndexingTimeResponse) SetMetrics(v IndexingTimeResponseMetrics) {
-	o.Metrics = &v
+func (o *IndexingTimeResponse) SetMetrics(v *IndexingTimeResponseMetrics) *IndexingTimeResponse {
+	o.Metrics = v
+	return o
 }
 
 func (o IndexingTimeResponse) MarshalJSON() ([]byte, error) {

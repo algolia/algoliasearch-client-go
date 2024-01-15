@@ -31,12 +31,9 @@ func NewGetNoResultsRateResponse(rate float64, count int32, noResultCount int32,
 	return this
 }
 
-// NewGetNoResultsRateResponseWithDefaults instantiates a new GetNoResultsRateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetNoResultsRateResponseWithDefaults() *GetNoResultsRateResponse {
-	this := &GetNoResultsRateResponse{}
-	return this
+// NewEmptyGetNoResultsRateResponse return a pointer to an empty GetNoResultsRateResponse object.
+func NewEmptyGetNoResultsRateResponse() *GetNoResultsRateResponse {
+	return &GetNoResultsRateResponse{}
 }
 
 // GetRate returns the Rate field value.
@@ -59,8 +56,9 @@ func (o *GetNoResultsRateResponse) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *GetNoResultsRateResponse) SetRate(v float64) {
+func (o *GetNoResultsRateResponse) SetRate(v float64) *GetNoResultsRateResponse {
 	o.Rate = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -83,8 +81,9 @@ func (o *GetNoResultsRateResponse) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *GetNoResultsRateResponse) SetCount(v int32) {
+func (o *GetNoResultsRateResponse) SetCount(v int32) *GetNoResultsRateResponse {
 	o.Count = v
+	return o
 }
 
 // GetNoResultCount returns the NoResultCount field value.
@@ -107,8 +106,9 @@ func (o *GetNoResultsRateResponse) GetNoResultCountOk() (*int32, bool) {
 }
 
 // SetNoResultCount sets field value.
-func (o *GetNoResultsRateResponse) SetNoResultCount(v int32) {
+func (o *GetNoResultsRateResponse) SetNoResultCount(v int32) *GetNoResultsRateResponse {
 	o.NoResultCount = v
+	return o
 }
 
 // GetDates returns the Dates field value.
@@ -131,8 +131,9 @@ func (o *GetNoResultsRateResponse) GetDatesOk() ([]NoResultsRateEvent, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetNoResultsRateResponse) SetDates(v []NoResultsRateEvent) {
+func (o *GetNoResultsRateResponse) SetDates(v []NoResultsRateEvent) *GetNoResultsRateResponse {
 	o.Dates = v
+	return o
 }
 
 func (o GetNoResultsRateResponse) MarshalJSON() ([]byte, error) {

@@ -12,17 +12,17 @@ type SearchQuery struct {
 	SearchForHits   *SearchForHits
 }
 
-// SearchForFacetsAsSearchQuery is a convenience function that returns SearchForFacets wrapped in SearchQuery.
-func SearchForFacetsAsSearchQuery(v *SearchForFacets) SearchQuery {
-	return SearchQuery{
-		SearchForFacets: v,
+// SearchForHitsAsSearchQuery is a convenience function that returns SearchForHits wrapped in SearchQuery.
+func SearchForHitsAsSearchQuery(v *SearchForHits) *SearchQuery {
+	return &SearchQuery{
+		SearchForHits: v,
 	}
 }
 
-// SearchForHitsAsSearchQuery is a convenience function that returns SearchForHits wrapped in SearchQuery.
-func SearchForHitsAsSearchQuery(v *SearchForHits) SearchQuery {
-	return SearchQuery{
-		SearchForHits: v,
+// SearchForFacetsAsSearchQuery is a convenience function that returns SearchForFacets wrapped in SearchQuery.
+func SearchForFacetsAsSearchQuery(v *SearchForFacets) *SearchQuery {
+	return &SearchQuery{
+		SearchForFacets: v,
 	}
 }
 

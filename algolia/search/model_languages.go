@@ -25,15 +25,12 @@ func NewLanguages(plurals NullableDictionaryLanguage, stopwords NullableDictiona
 	return this
 }
 
-// NewLanguagesWithDefaults instantiates a new Languages object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewLanguagesWithDefaults() *Languages {
-	this := &Languages{}
-	return this
+// NewEmptyLanguages return a pointer to an empty Languages object.
+func NewEmptyLanguages() *Languages {
+	return &Languages{}
 }
 
-// GetPlurals returns the Plurals field value
+// GetPlurals returns the Plurals field value.
 // If the value is explicit nil, the zero value for DictionaryLanguage will be returned.
 func (o *Languages) GetPlurals() DictionaryLanguage {
 	if o == nil || o.Plurals.Get() == nil {
@@ -55,11 +52,12 @@ func (o *Languages) GetPluralsOk() (*DictionaryLanguage, bool) {
 }
 
 // SetPlurals sets field value.
-func (o *Languages) SetPlurals(v DictionaryLanguage) {
-	o.Plurals.Set(&v)
+func (o *Languages) SetPlurals(v *DictionaryLanguage) *Languages {
+	o.Plurals.Set(v)
+	return o
 }
 
-// GetStopwords returns the Stopwords field value
+// GetStopwords returns the Stopwords field value.
 // If the value is explicit nil, the zero value for DictionaryLanguage will be returned.
 func (o *Languages) GetStopwords() DictionaryLanguage {
 	if o == nil || o.Stopwords.Get() == nil {
@@ -81,11 +79,12 @@ func (o *Languages) GetStopwordsOk() (*DictionaryLanguage, bool) {
 }
 
 // SetStopwords sets field value.
-func (o *Languages) SetStopwords(v DictionaryLanguage) {
-	o.Stopwords.Set(&v)
+func (o *Languages) SetStopwords(v *DictionaryLanguage) *Languages {
+	o.Stopwords.Set(v)
+	return o
 }
 
-// GetCompounds returns the Compounds field value
+// GetCompounds returns the Compounds field value.
 // If the value is explicit nil, the zero value for DictionaryLanguage will be returned.
 func (o *Languages) GetCompounds() DictionaryLanguage {
 	if o == nil || o.Compounds.Get() == nil {
@@ -107,8 +106,9 @@ func (o *Languages) GetCompoundsOk() (*DictionaryLanguage, bool) {
 }
 
 // SetCompounds sets field value.
-func (o *Languages) SetCompounds(v DictionaryLanguage) {
-	o.Compounds.Set(&v)
+func (o *Languages) SetCompounds(v *DictionaryLanguage) *Languages {
+	o.Compounds.Set(v)
+	return o
 }
 
 func (o Languages) MarshalJSON() ([]byte, error) {

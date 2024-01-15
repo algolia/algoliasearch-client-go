@@ -31,12 +31,9 @@ func NewRedirect(opts ...RedirectOption) *Redirect {
 	return this
 }
 
-// NewRedirectWithDefaults instantiates a new Redirect object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRedirectWithDefaults() *Redirect {
-	this := &Redirect{}
-	return this
+// NewEmptyRedirect return a pointer to an empty Redirect object.
+func NewEmptyRedirect() *Redirect {
+	return &Redirect{}
 }
 
 // GetIndex returns the Index field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *Redirect) HasIndex() bool {
 }
 
 // SetIndex gets a reference to the given []RedirectRuleIndexMetadata and assigns it to the Index field.
-func (o *Redirect) SetIndex(v []RedirectRuleIndexMetadata) {
+func (o *Redirect) SetIndex(v []RedirectRuleIndexMetadata) *Redirect {
 	o.Index = v
+	return o
 }
 
 func (o Redirect) MarshalJSON() ([]byte, error) {

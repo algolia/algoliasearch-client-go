@@ -56,14 +56,9 @@ func NewBaseQuerySuggestionsConfigurationResponse(opts ...BaseQuerySuggestionsCo
 	return this
 }
 
-// NewBaseQuerySuggestionsConfigurationResponseWithDefaults instantiates a new BaseQuerySuggestionsConfigurationResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseQuerySuggestionsConfigurationResponseWithDefaults() *BaseQuerySuggestionsConfigurationResponse {
-	this := &BaseQuerySuggestionsConfigurationResponse{}
-	var externalIndicesAPIKey string = ""
-	this.ExternalIndicesAPIKey = &externalIndicesAPIKey
-	return this
+// NewEmptyBaseQuerySuggestionsConfigurationResponse return a pointer to an empty BaseQuerySuggestionsConfigurationResponse object.
+func NewEmptyBaseQuerySuggestionsConfigurationResponse() *BaseQuerySuggestionsConfigurationResponse {
+	return &BaseQuerySuggestionsConfigurationResponse{}
 }
 
 // GetAppId returns the AppId field value if set, zero value otherwise.
@@ -94,8 +89,9 @@ func (o *BaseQuerySuggestionsConfigurationResponse) HasAppId() bool {
 }
 
 // SetAppId gets a reference to the given string and assigns it to the AppId field.
-func (o *BaseQuerySuggestionsConfigurationResponse) SetAppId(v string) {
+func (o *BaseQuerySuggestionsConfigurationResponse) SetAppId(v string) *BaseQuerySuggestionsConfigurationResponse {
 	o.AppId = &v
+	return o
 }
 
 // GetSourceIndicesAPIKey returns the SourceIndicesAPIKey field value if set, zero value otherwise.
@@ -126,8 +122,9 @@ func (o *BaseQuerySuggestionsConfigurationResponse) HasSourceIndicesAPIKey() boo
 }
 
 // SetSourceIndicesAPIKey gets a reference to the given string and assigns it to the SourceIndicesAPIKey field.
-func (o *BaseQuerySuggestionsConfigurationResponse) SetSourceIndicesAPIKey(v string) {
+func (o *BaseQuerySuggestionsConfigurationResponse) SetSourceIndicesAPIKey(v string) *BaseQuerySuggestionsConfigurationResponse {
 	o.SourceIndicesAPIKey = &v
+	return o
 }
 
 // GetSuggestionsIndicesAPIKey returns the SuggestionsIndicesAPIKey field value if set, zero value otherwise.
@@ -158,8 +155,9 @@ func (o *BaseQuerySuggestionsConfigurationResponse) HasSuggestionsIndicesAPIKey(
 }
 
 // SetSuggestionsIndicesAPIKey gets a reference to the given string and assigns it to the SuggestionsIndicesAPIKey field.
-func (o *BaseQuerySuggestionsConfigurationResponse) SetSuggestionsIndicesAPIKey(v string) {
+func (o *BaseQuerySuggestionsConfigurationResponse) SetSuggestionsIndicesAPIKey(v string) *BaseQuerySuggestionsConfigurationResponse {
 	o.SuggestionsIndicesAPIKey = &v
+	return o
 }
 
 // GetExternalIndicesAPIKey returns the ExternalIndicesAPIKey field value if set, zero value otherwise.
@@ -190,8 +188,9 @@ func (o *BaseQuerySuggestionsConfigurationResponse) HasExternalIndicesAPIKey() b
 }
 
 // SetExternalIndicesAPIKey gets a reference to the given string and assigns it to the ExternalIndicesAPIKey field.
-func (o *BaseQuerySuggestionsConfigurationResponse) SetExternalIndicesAPIKey(v string) {
+func (o *BaseQuerySuggestionsConfigurationResponse) SetExternalIndicesAPIKey(v string) *BaseQuerySuggestionsConfigurationResponse {
 	o.ExternalIndicesAPIKey = &v
+	return o
 }
 
 func (o BaseQuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {

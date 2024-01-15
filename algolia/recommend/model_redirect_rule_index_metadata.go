@@ -33,12 +33,9 @@ func NewRedirectRuleIndexMetadata(source string, dest string, reason string, suc
 	return this
 }
 
-// NewRedirectRuleIndexMetadataWithDefaults instantiates a new RedirectRuleIndexMetadata object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRedirectRuleIndexMetadataWithDefaults() *RedirectRuleIndexMetadata {
-	this := &RedirectRuleIndexMetadata{}
-	return this
+// NewEmptyRedirectRuleIndexMetadata return a pointer to an empty RedirectRuleIndexMetadata object.
+func NewEmptyRedirectRuleIndexMetadata() *RedirectRuleIndexMetadata {
+	return &RedirectRuleIndexMetadata{}
 }
 
 // GetSource returns the Source field value.
@@ -61,8 +58,9 @@ func (o *RedirectRuleIndexMetadata) GetSourceOk() (*string, bool) {
 }
 
 // SetSource sets field value.
-func (o *RedirectRuleIndexMetadata) SetSource(v string) {
+func (o *RedirectRuleIndexMetadata) SetSource(v string) *RedirectRuleIndexMetadata {
 	o.Source = v
+	return o
 }
 
 // GetDest returns the Dest field value.
@@ -85,8 +83,9 @@ func (o *RedirectRuleIndexMetadata) GetDestOk() (*string, bool) {
 }
 
 // SetDest sets field value.
-func (o *RedirectRuleIndexMetadata) SetDest(v string) {
+func (o *RedirectRuleIndexMetadata) SetDest(v string) *RedirectRuleIndexMetadata {
 	o.Dest = v
+	return o
 }
 
 // GetReason returns the Reason field value.
@@ -109,8 +108,9 @@ func (o *RedirectRuleIndexMetadata) GetReasonOk() (*string, bool) {
 }
 
 // SetReason sets field value.
-func (o *RedirectRuleIndexMetadata) SetReason(v string) {
+func (o *RedirectRuleIndexMetadata) SetReason(v string) *RedirectRuleIndexMetadata {
 	o.Reason = v
+	return o
 }
 
 // GetSucceed returns the Succeed field value.
@@ -133,8 +133,9 @@ func (o *RedirectRuleIndexMetadata) GetSucceedOk() (*bool, bool) {
 }
 
 // SetSucceed sets field value.
-func (o *RedirectRuleIndexMetadata) SetSucceed(v bool) {
+func (o *RedirectRuleIndexMetadata) SetSucceed(v bool) *RedirectRuleIndexMetadata {
 	o.Succeed = v
+	return o
 }
 
 // GetData returns the Data field value.
@@ -157,8 +158,9 @@ func (o *RedirectRuleIndexMetadata) GetDataOk() (*RedirectRuleIndexMetadataData,
 }
 
 // SetData sets field value.
-func (o *RedirectRuleIndexMetadata) SetData(v RedirectRuleIndexMetadataData) {
-	o.Data = v
+func (o *RedirectRuleIndexMetadata) SetData(v *RedirectRuleIndexMetadataData) *RedirectRuleIndexMetadata {
+	o.Data = *v
+	return o
 }
 
 func (o RedirectRuleIndexMetadata) MarshalJSON() ([]byte, error) {

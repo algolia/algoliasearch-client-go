@@ -40,12 +40,9 @@ func NewTopHitWithAnalytics(hit string, count int32, clickThroughRate float64, c
 	return this
 }
 
-// NewTopHitWithAnalyticsWithDefaults instantiates a new TopHitWithAnalytics object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTopHitWithAnalyticsWithDefaults() *TopHitWithAnalytics {
-	this := &TopHitWithAnalytics{}
-	return this
+// NewEmptyTopHitWithAnalytics return a pointer to an empty TopHitWithAnalytics object.
+func NewEmptyTopHitWithAnalytics() *TopHitWithAnalytics {
+	return &TopHitWithAnalytics{}
 }
 
 // GetHit returns the Hit field value.
@@ -68,8 +65,9 @@ func (o *TopHitWithAnalytics) GetHitOk() (*string, bool) {
 }
 
 // SetHit sets field value.
-func (o *TopHitWithAnalytics) SetHit(v string) {
+func (o *TopHitWithAnalytics) SetHit(v string) *TopHitWithAnalytics {
 	o.Hit = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -92,8 +90,9 @@ func (o *TopHitWithAnalytics) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *TopHitWithAnalytics) SetCount(v int32) {
+func (o *TopHitWithAnalytics) SetCount(v int32) *TopHitWithAnalytics {
 	o.Count = v
+	return o
 }
 
 // GetClickThroughRate returns the ClickThroughRate field value.
@@ -116,8 +115,9 @@ func (o *TopHitWithAnalytics) GetClickThroughRateOk() (*float64, bool) {
 }
 
 // SetClickThroughRate sets field value.
-func (o *TopHitWithAnalytics) SetClickThroughRate(v float64) {
+func (o *TopHitWithAnalytics) SetClickThroughRate(v float64) *TopHitWithAnalytics {
 	o.ClickThroughRate = v
+	return o
 }
 
 // GetConversionRate returns the ConversionRate field value.
@@ -140,8 +140,9 @@ func (o *TopHitWithAnalytics) GetConversionRateOk() (*float64, bool) {
 }
 
 // SetConversionRate sets field value.
-func (o *TopHitWithAnalytics) SetConversionRate(v float64) {
+func (o *TopHitWithAnalytics) SetConversionRate(v float64) *TopHitWithAnalytics {
 	o.ConversionRate = v
+	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
@@ -164,8 +165,9 @@ func (o *TopHitWithAnalytics) GetTrackedSearchCountOk() (*int32, bool) {
 }
 
 // SetTrackedSearchCount sets field value.
-func (o *TopHitWithAnalytics) SetTrackedSearchCount(v int32) {
+func (o *TopHitWithAnalytics) SetTrackedSearchCount(v int32) *TopHitWithAnalytics {
 	o.TrackedSearchCount = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -188,8 +190,9 @@ func (o *TopHitWithAnalytics) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *TopHitWithAnalytics) SetClickCount(v int32) {
+func (o *TopHitWithAnalytics) SetClickCount(v int32) *TopHitWithAnalytics {
 	o.ClickCount = v
+	return o
 }
 
 // GetConversionCount returns the ConversionCount field value.
@@ -212,8 +215,9 @@ func (o *TopHitWithAnalytics) GetConversionCountOk() (*int32, bool) {
 }
 
 // SetConversionCount sets field value.
-func (o *TopHitWithAnalytics) SetConversionCount(v int32) {
+func (o *TopHitWithAnalytics) SetConversionCount(v int32) *TopHitWithAnalytics {
 	o.ConversionCount = v
+	return o
 }
 
 func (o TopHitWithAnalytics) MarshalJSON() ([]byte, error) {

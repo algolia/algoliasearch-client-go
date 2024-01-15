@@ -28,12 +28,9 @@ func NewSearchNoClickEvent(search string, count int32, withFilterCount int32) *S
 	return this
 }
 
-// NewSearchNoClickEventWithDefaults instantiates a new SearchNoClickEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchNoClickEventWithDefaults() *SearchNoClickEvent {
-	this := &SearchNoClickEvent{}
-	return this
+// NewEmptySearchNoClickEvent return a pointer to an empty SearchNoClickEvent object.
+func NewEmptySearchNoClickEvent() *SearchNoClickEvent {
+	return &SearchNoClickEvent{}
 }
 
 // GetSearch returns the Search field value.
@@ -56,8 +53,9 @@ func (o *SearchNoClickEvent) GetSearchOk() (*string, bool) {
 }
 
 // SetSearch sets field value.
-func (o *SearchNoClickEvent) SetSearch(v string) {
+func (o *SearchNoClickEvent) SetSearch(v string) *SearchNoClickEvent {
 	o.Search = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -80,8 +78,9 @@ func (o *SearchNoClickEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *SearchNoClickEvent) SetCount(v int32) {
+func (o *SearchNoClickEvent) SetCount(v int32) *SearchNoClickEvent {
 	o.Count = v
+	return o
 }
 
 // GetWithFilterCount returns the WithFilterCount field value.
@@ -104,8 +103,9 @@ func (o *SearchNoClickEvent) GetWithFilterCountOk() (*int32, bool) {
 }
 
 // SetWithFilterCount sets field value.
-func (o *SearchNoClickEvent) SetWithFilterCount(v int32) {
+func (o *SearchNoClickEvent) SetWithFilterCount(v int32) *SearchNoClickEvent {
 	o.WithFilterCount = v
+	return o
 }
 
 func (o SearchNoClickEvent) MarshalJSON() ([]byte, error) {

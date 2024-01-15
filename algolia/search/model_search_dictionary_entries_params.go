@@ -51,18 +51,9 @@ func NewSearchDictionaryEntriesParams(query string, opts ...SearchDictionaryEntr
 	return this
 }
 
-// NewSearchDictionaryEntriesParamsWithDefaults instantiates a new SearchDictionaryEntriesParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchDictionaryEntriesParamsWithDefaults() *SearchDictionaryEntriesParams {
-	this := &SearchDictionaryEntriesParams{}
-	var query string = ""
-	this.Query = query
-	var page int32 = 0
-	this.Page = &page
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	return this
+// NewEmptySearchDictionaryEntriesParams return a pointer to an empty SearchDictionaryEntriesParams object.
+func NewEmptySearchDictionaryEntriesParams() *SearchDictionaryEntriesParams {
+	return &SearchDictionaryEntriesParams{}
 }
 
 // GetQuery returns the Query field value.
@@ -85,8 +76,9 @@ func (o *SearchDictionaryEntriesParams) GetQueryOk() (*string, bool) {
 }
 
 // SetQuery sets field value.
-func (o *SearchDictionaryEntriesParams) SetQuery(v string) {
+func (o *SearchDictionaryEntriesParams) SetQuery(v string) *SearchDictionaryEntriesParams {
 	o.Query = v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -117,8 +109,9 @@ func (o *SearchDictionaryEntriesParams) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *SearchDictionaryEntriesParams) SetPage(v int32) {
+func (o *SearchDictionaryEntriesParams) SetPage(v int32) *SearchDictionaryEntriesParams {
 	o.Page = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -149,8 +142,9 @@ func (o *SearchDictionaryEntriesParams) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *SearchDictionaryEntriesParams) SetHitsPerPage(v int32) {
+func (o *SearchDictionaryEntriesParams) SetHitsPerPage(v int32) *SearchDictionaryEntriesParams {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
@@ -181,8 +175,9 @@ func (o *SearchDictionaryEntriesParams) HasLanguage() bool {
 }
 
 // SetLanguage gets a reference to the given string and assigns it to the Language field.
-func (o *SearchDictionaryEntriesParams) SetLanguage(v string) {
+func (o *SearchDictionaryEntriesParams) SetLanguage(v string) *SearchDictionaryEntriesParams {
 	o.Language = &v
+	return o
 }
 
 func (o SearchDictionaryEntriesParams) MarshalJSON() ([]byte, error) {

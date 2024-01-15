@@ -25,12 +25,9 @@ func NewAuthGoogleServiceAccount(clientEmail string, privateKey string) *AuthGoo
 	return this
 }
 
-// NewAuthGoogleServiceAccountWithDefaults instantiates a new AuthGoogleServiceAccount object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthGoogleServiceAccountWithDefaults() *AuthGoogleServiceAccount {
-	this := &AuthGoogleServiceAccount{}
-	return this
+// NewEmptyAuthGoogleServiceAccount return a pointer to an empty AuthGoogleServiceAccount object.
+func NewEmptyAuthGoogleServiceAccount() *AuthGoogleServiceAccount {
+	return &AuthGoogleServiceAccount{}
 }
 
 // GetClientEmail returns the ClientEmail field value.
@@ -53,8 +50,9 @@ func (o *AuthGoogleServiceAccount) GetClientEmailOk() (*string, bool) {
 }
 
 // SetClientEmail sets field value.
-func (o *AuthGoogleServiceAccount) SetClientEmail(v string) {
+func (o *AuthGoogleServiceAccount) SetClientEmail(v string) *AuthGoogleServiceAccount {
 	o.ClientEmail = v
+	return o
 }
 
 // GetPrivateKey returns the PrivateKey field value.
@@ -77,8 +75,9 @@ func (o *AuthGoogleServiceAccount) GetPrivateKeyOk() (*string, bool) {
 }
 
 // SetPrivateKey sets field value.
-func (o *AuthGoogleServiceAccount) SetPrivateKey(v string) {
+func (o *AuthGoogleServiceAccount) SetPrivateKey(v string) *AuthGoogleServiceAccount {
 	o.PrivateKey = v
+	return o
 }
 
 func (o AuthGoogleServiceAccount) MarshalJSON() ([]byte, error) {

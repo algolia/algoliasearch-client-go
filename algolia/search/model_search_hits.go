@@ -30,14 +30,9 @@ func NewSearchHits(hits []Hit, query string, params string) *SearchHits {
 	return this
 }
 
-// NewSearchHitsWithDefaults instantiates a new SearchHits object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchHitsWithDefaults() *SearchHits {
-	this := &SearchHits{}
-	var query string = ""
-	this.Query = query
-	return this
+// NewEmptySearchHits return a pointer to an empty SearchHits object.
+func NewEmptySearchHits() *SearchHits {
+	return &SearchHits{}
 }
 
 // GetHits returns the Hits field value.
@@ -60,8 +55,9 @@ func (o *SearchHits) GetHitsOk() ([]Hit, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchHits) SetHits(v []Hit) {
-	o.Hits = v
+func (o *SearchHits) SetHits(v *[]Hit) *SearchHits {
+	o.Hits = *v
+	return o
 }
 
 // GetQuery returns the Query field value.
@@ -84,8 +80,9 @@ func (o *SearchHits) GetQueryOk() (*string, bool) {
 }
 
 // SetQuery sets field value.
-func (o *SearchHits) SetQuery(v string) {
+func (o *SearchHits) SetQuery(v string) *SearchHits {
 	o.Query = v
+	return o
 }
 
 // GetParams returns the Params field value.
@@ -108,8 +105,19 @@ func (o *SearchHits) GetParamsOk() (*string, bool) {
 }
 
 // SetParams sets field value.
-func (o *SearchHits) SetParams(v string) {
+func (o *SearchHits) SetParams(v string) *SearchHits {
 	o.Params = v
+	return o
+}
+
+func (o *SearchHits) SetAdditionalProperty(key string, value any) *SearchHits {
+	if o.AdditionalProperties == nil {
+		o.AdditionalProperties = make(map[string]any)
+	}
+
+	o.AdditionalProperties[key] = value
+
+	return o
 }
 
 func (o SearchHits) MarshalJSON() ([]byte, error) {

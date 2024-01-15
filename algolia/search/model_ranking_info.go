@@ -86,12 +86,9 @@ func NewRankingInfo(filters int32, firstMatchedWord int32, geoDistance int32, nb
 	return this
 }
 
-// NewRankingInfoWithDefaults instantiates a new RankingInfo object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRankingInfoWithDefaults() *RankingInfo {
-	this := &RankingInfo{}
-	return this
+// NewEmptyRankingInfo return a pointer to an empty RankingInfo object.
+func NewEmptyRankingInfo() *RankingInfo {
+	return &RankingInfo{}
 }
 
 // GetFilters returns the Filters field value.
@@ -114,8 +111,9 @@ func (o *RankingInfo) GetFiltersOk() (*int32, bool) {
 }
 
 // SetFilters sets field value.
-func (o *RankingInfo) SetFilters(v int32) {
+func (o *RankingInfo) SetFilters(v int32) *RankingInfo {
 	o.Filters = v
+	return o
 }
 
 // GetFirstMatchedWord returns the FirstMatchedWord field value.
@@ -138,8 +136,9 @@ func (o *RankingInfo) GetFirstMatchedWordOk() (*int32, bool) {
 }
 
 // SetFirstMatchedWord sets field value.
-func (o *RankingInfo) SetFirstMatchedWord(v int32) {
+func (o *RankingInfo) SetFirstMatchedWord(v int32) *RankingInfo {
 	o.FirstMatchedWord = v
+	return o
 }
 
 // GetGeoDistance returns the GeoDistance field value.
@@ -162,8 +161,9 @@ func (o *RankingInfo) GetGeoDistanceOk() (*int32, bool) {
 }
 
 // SetGeoDistance sets field value.
-func (o *RankingInfo) SetGeoDistance(v int32) {
+func (o *RankingInfo) SetGeoDistance(v int32) *RankingInfo {
 	o.GeoDistance = v
+	return o
 }
 
 // GetGeoPrecision returns the GeoPrecision field value if set, zero value otherwise.
@@ -194,8 +194,9 @@ func (o *RankingInfo) HasGeoPrecision() bool {
 }
 
 // SetGeoPrecision gets a reference to the given int32 and assigns it to the GeoPrecision field.
-func (o *RankingInfo) SetGeoPrecision(v int32) {
+func (o *RankingInfo) SetGeoPrecision(v int32) *RankingInfo {
 	o.GeoPrecision = &v
+	return o
 }
 
 // GetMatchedGeoLocation returns the MatchedGeoLocation field value if set, zero value otherwise.
@@ -226,8 +227,9 @@ func (o *RankingInfo) HasMatchedGeoLocation() bool {
 }
 
 // SetMatchedGeoLocation gets a reference to the given MatchedGeoLocation and assigns it to the MatchedGeoLocation field.
-func (o *RankingInfo) SetMatchedGeoLocation(v MatchedGeoLocation) {
-	o.MatchedGeoLocation = &v
+func (o *RankingInfo) SetMatchedGeoLocation(v *MatchedGeoLocation) *RankingInfo {
+	o.MatchedGeoLocation = v
+	return o
 }
 
 // GetPersonalization returns the Personalization field value if set, zero value otherwise.
@@ -258,8 +260,9 @@ func (o *RankingInfo) HasPersonalization() bool {
 }
 
 // SetPersonalization gets a reference to the given Personalization and assigns it to the Personalization field.
-func (o *RankingInfo) SetPersonalization(v Personalization) {
-	o.Personalization = &v
+func (o *RankingInfo) SetPersonalization(v *Personalization) *RankingInfo {
+	o.Personalization = v
+	return o
 }
 
 // GetNbExactWords returns the NbExactWords field value.
@@ -282,8 +285,9 @@ func (o *RankingInfo) GetNbExactWordsOk() (*int32, bool) {
 }
 
 // SetNbExactWords sets field value.
-func (o *RankingInfo) SetNbExactWords(v int32) {
+func (o *RankingInfo) SetNbExactWords(v int32) *RankingInfo {
 	o.NbExactWords = v
+	return o
 }
 
 // GetNbTypos returns the NbTypos field value.
@@ -306,8 +310,9 @@ func (o *RankingInfo) GetNbTyposOk() (*int32, bool) {
 }
 
 // SetNbTypos sets field value.
-func (o *RankingInfo) SetNbTypos(v int32) {
+func (o *RankingInfo) SetNbTypos(v int32) *RankingInfo {
 	o.NbTypos = v
+	return o
 }
 
 // GetPromoted returns the Promoted field value.
@@ -330,8 +335,9 @@ func (o *RankingInfo) GetPromotedOk() (*bool, bool) {
 }
 
 // SetPromoted sets field value.
-func (o *RankingInfo) SetPromoted(v bool) {
+func (o *RankingInfo) SetPromoted(v bool) *RankingInfo {
 	o.Promoted = v
+	return o
 }
 
 // GetProximityDistance returns the ProximityDistance field value if set, zero value otherwise.
@@ -362,8 +368,9 @@ func (o *RankingInfo) HasProximityDistance() bool {
 }
 
 // SetProximityDistance gets a reference to the given int32 and assigns it to the ProximityDistance field.
-func (o *RankingInfo) SetProximityDistance(v int32) {
+func (o *RankingInfo) SetProximityDistance(v int32) *RankingInfo {
 	o.ProximityDistance = &v
+	return o
 }
 
 // GetUserScore returns the UserScore field value.
@@ -386,8 +393,9 @@ func (o *RankingInfo) GetUserScoreOk() (*int32, bool) {
 }
 
 // SetUserScore sets field value.
-func (o *RankingInfo) SetUserScore(v int32) {
+func (o *RankingInfo) SetUserScore(v int32) *RankingInfo {
 	o.UserScore = v
+	return o
 }
 
 // GetWords returns the Words field value.
@@ -410,8 +418,9 @@ func (o *RankingInfo) GetWordsOk() (*int32, bool) {
 }
 
 // SetWords sets field value.
-func (o *RankingInfo) SetWords(v int32) {
+func (o *RankingInfo) SetWords(v int32) *RankingInfo {
 	o.Words = v
+	return o
 }
 
 // GetPromotedByReRanking returns the PromotedByReRanking field value if set, zero value otherwise.
@@ -442,8 +451,9 @@ func (o *RankingInfo) HasPromotedByReRanking() bool {
 }
 
 // SetPromotedByReRanking gets a reference to the given bool and assigns it to the PromotedByReRanking field.
-func (o *RankingInfo) SetPromotedByReRanking(v bool) {
+func (o *RankingInfo) SetPromotedByReRanking(v bool) *RankingInfo {
 	o.PromotedByReRanking = &v
+	return o
 }
 
 func (o RankingInfo) MarshalJSON() ([]byte, error) {

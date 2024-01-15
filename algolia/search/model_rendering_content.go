@@ -31,12 +31,9 @@ func NewRenderingContent(opts ...RenderingContentOption) *RenderingContent {
 	return this
 }
 
-// NewRenderingContentWithDefaults instantiates a new RenderingContent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRenderingContentWithDefaults() *RenderingContent {
-	this := &RenderingContent{}
-	return this
+// NewEmptyRenderingContent return a pointer to an empty RenderingContent object.
+func NewEmptyRenderingContent() *RenderingContent {
+	return &RenderingContent{}
 }
 
 // GetFacetOrdering returns the FacetOrdering field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *RenderingContent) HasFacetOrdering() bool {
 }
 
 // SetFacetOrdering gets a reference to the given FacetOrdering and assigns it to the FacetOrdering field.
-func (o *RenderingContent) SetFacetOrdering(v FacetOrdering) {
-	o.FacetOrdering = &v
+func (o *RenderingContent) SetFacetOrdering(v *FacetOrdering) *RenderingContent {
+	o.FacetOrdering = v
+	return o
 }
 
 func (o RenderingContent) MarshalJSON() ([]byte, error) {

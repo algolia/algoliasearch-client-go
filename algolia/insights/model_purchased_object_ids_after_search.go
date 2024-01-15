@@ -79,12 +79,9 @@ func NewPurchasedObjectIDsAfterSearch(eventName string, eventType ConversionEven
 	return this
 }
 
-// NewPurchasedObjectIDsAfterSearchWithDefaults instantiates a new PurchasedObjectIDsAfterSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewPurchasedObjectIDsAfterSearchWithDefaults() *PurchasedObjectIDsAfterSearch {
-	this := &PurchasedObjectIDsAfterSearch{}
-	return this
+// NewEmptyPurchasedObjectIDsAfterSearch return a pointer to an empty PurchasedObjectIDsAfterSearch object.
+func NewEmptyPurchasedObjectIDsAfterSearch() *PurchasedObjectIDsAfterSearch {
+	return &PurchasedObjectIDsAfterSearch{}
 }
 
 // GetEventName returns the EventName field value.
@@ -107,8 +104,9 @@ func (o *PurchasedObjectIDsAfterSearch) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *PurchasedObjectIDsAfterSearch) SetEventName(v string) {
+func (o *PurchasedObjectIDsAfterSearch) SetEventName(v string) *PurchasedObjectIDsAfterSearch {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -131,8 +129,9 @@ func (o *PurchasedObjectIDsAfterSearch) GetEventTypeOk() (*ConversionEvent, bool
 }
 
 // SetEventType sets field value.
-func (o *PurchasedObjectIDsAfterSearch) SetEventType(v ConversionEvent) {
+func (o *PurchasedObjectIDsAfterSearch) SetEventType(v ConversionEvent) *PurchasedObjectIDsAfterSearch {
 	o.EventType = v
+	return o
 }
 
 // GetEventSubtype returns the EventSubtype field value.
@@ -155,8 +154,9 @@ func (o *PurchasedObjectIDsAfterSearch) GetEventSubtypeOk() (*PurchaseEvent, boo
 }
 
 // SetEventSubtype sets field value.
-func (o *PurchasedObjectIDsAfterSearch) SetEventSubtype(v PurchaseEvent) {
+func (o *PurchasedObjectIDsAfterSearch) SetEventSubtype(v PurchaseEvent) *PurchasedObjectIDsAfterSearch {
 	o.EventSubtype = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -179,8 +179,9 @@ func (o *PurchasedObjectIDsAfterSearch) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *PurchasedObjectIDsAfterSearch) SetIndex(v string) {
+func (o *PurchasedObjectIDsAfterSearch) SetIndex(v string) *PurchasedObjectIDsAfterSearch {
 	o.Index = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -203,8 +204,9 @@ func (o *PurchasedObjectIDsAfterSearch) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *PurchasedObjectIDsAfterSearch) SetObjectIDs(v []string) {
+func (o *PurchasedObjectIDsAfterSearch) SetObjectIDs(v []string) *PurchasedObjectIDsAfterSearch {
 	o.ObjectIDs = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -227,8 +229,9 @@ func (o *PurchasedObjectIDsAfterSearch) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *PurchasedObjectIDsAfterSearch) SetUserToken(v string) {
+func (o *PurchasedObjectIDsAfterSearch) SetUserToken(v string) *PurchasedObjectIDsAfterSearch {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -259,8 +262,9 @@ func (o *PurchasedObjectIDsAfterSearch) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *PurchasedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) {
+func (o *PurchasedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *PurchasedObjectIDsAfterSearch {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -291,8 +295,9 @@ func (o *PurchasedObjectIDsAfterSearch) HasCurrency() bool {
 }
 
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *PurchasedObjectIDsAfterSearch) SetCurrency(v string) {
+func (o *PurchasedObjectIDsAfterSearch) SetCurrency(v string) *PurchasedObjectIDsAfterSearch {
 	o.Currency = &v
+	return o
 }
 
 // GetObjectData returns the ObjectData field value if set, zero value otherwise.
@@ -323,8 +328,9 @@ func (o *PurchasedObjectIDsAfterSearch) HasObjectData() bool {
 }
 
 // SetObjectData gets a reference to the given []ObjectDataAfterSearch and assigns it to the ObjectData field.
-func (o *PurchasedObjectIDsAfterSearch) SetObjectData(v []ObjectDataAfterSearch) {
+func (o *PurchasedObjectIDsAfterSearch) SetObjectData(v []ObjectDataAfterSearch) *PurchasedObjectIDsAfterSearch {
 	o.ObjectData = v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -355,8 +361,9 @@ func (o *PurchasedObjectIDsAfterSearch) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *PurchasedObjectIDsAfterSearch) SetTimestamp(v int64) {
+func (o *PurchasedObjectIDsAfterSearch) SetTimestamp(v int64) *PurchasedObjectIDsAfterSearch {
 	o.Timestamp = &v
+	return o
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -387,8 +394,9 @@ func (o *PurchasedObjectIDsAfterSearch) HasValue() bool {
 }
 
 // SetValue gets a reference to the given Value and assigns it to the Value field.
-func (o *PurchasedObjectIDsAfterSearch) SetValue(v Value) {
-	o.Value = &v
+func (o *PurchasedObjectIDsAfterSearch) SetValue(v *Value) *PurchasedObjectIDsAfterSearch {
+	o.Value = v
+	return o
 }
 
 func (o PurchasedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {

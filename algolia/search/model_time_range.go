@@ -25,12 +25,9 @@ func NewTimeRange(from int32, until int32) *TimeRange {
 	return this
 }
 
-// NewTimeRangeWithDefaults instantiates a new TimeRange object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTimeRangeWithDefaults() *TimeRange {
-	this := &TimeRange{}
-	return this
+// NewEmptyTimeRange return a pointer to an empty TimeRange object.
+func NewEmptyTimeRange() *TimeRange {
+	return &TimeRange{}
 }
 
 // GetFrom returns the From field value.
@@ -53,8 +50,9 @@ func (o *TimeRange) GetFromOk() (*int32, bool) {
 }
 
 // SetFrom sets field value.
-func (o *TimeRange) SetFrom(v int32) {
+func (o *TimeRange) SetFrom(v int32) *TimeRange {
 	o.From = v
+	return o
 }
 
 // GetUntil returns the Until field value.
@@ -77,8 +75,9 @@ func (o *TimeRange) GetUntilOk() (*int32, bool) {
 }
 
 // SetUntil sets field value.
-func (o *TimeRange) SetUntil(v int32) {
+func (o *TimeRange) SetUntil(v int32) *TimeRange {
 	o.Until = v
+	return o
 }
 
 func (o TimeRange) MarshalJSON() ([]byte, error) {

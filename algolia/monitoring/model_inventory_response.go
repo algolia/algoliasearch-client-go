@@ -31,12 +31,9 @@ func NewInventoryResponse(opts ...InventoryResponseOption) *InventoryResponse {
 	return this
 }
 
-// NewInventoryResponseWithDefaults instantiates a new InventoryResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewInventoryResponseWithDefaults() *InventoryResponse {
-	this := &InventoryResponse{}
-	return this
+// NewEmptyInventoryResponse return a pointer to an empty InventoryResponse object.
+func NewEmptyInventoryResponse() *InventoryResponse {
+	return &InventoryResponse{}
 }
 
 // GetInventory returns the Inventory field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *InventoryResponse) HasInventory() bool {
 }
 
 // SetInventory gets a reference to the given []Server and assigns it to the Inventory field.
-func (o *InventoryResponse) SetInventory(v []Server) {
+func (o *InventoryResponse) SetInventory(v []Server) *InventoryResponse {
 	o.Inventory = v
+	return o
 }
 
 func (o InventoryResponse) MarshalJSON() ([]byte, error) {

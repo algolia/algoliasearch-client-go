@@ -28,12 +28,9 @@ func NewListABTestsResponse(abtests []ABTest, count int32, total int32) *ListABT
 	return this
 }
 
-// NewListABTestsResponseWithDefaults instantiates a new ListABTestsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListABTestsResponseWithDefaults() *ListABTestsResponse {
-	this := &ListABTestsResponse{}
-	return this
+// NewEmptyListABTestsResponse return a pointer to an empty ListABTestsResponse object.
+func NewEmptyListABTestsResponse() *ListABTestsResponse {
+	return &ListABTestsResponse{}
 }
 
 // GetAbtests returns the Abtests field value.
@@ -56,8 +53,9 @@ func (o *ListABTestsResponse) GetAbtestsOk() ([]ABTest, bool) {
 }
 
 // SetAbtests sets field value.
-func (o *ListABTestsResponse) SetAbtests(v []ABTest) {
+func (o *ListABTestsResponse) SetAbtests(v []ABTest) *ListABTestsResponse {
 	o.Abtests = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -80,8 +78,9 @@ func (o *ListABTestsResponse) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *ListABTestsResponse) SetCount(v int32) {
+func (o *ListABTestsResponse) SetCount(v int32) *ListABTestsResponse {
 	o.Count = v
+	return o
 }
 
 // GetTotal returns the Total field value.
@@ -104,8 +103,9 @@ func (o *ListABTestsResponse) GetTotalOk() (*int32, bool) {
 }
 
 // SetTotal sets field value.
-func (o *ListABTestsResponse) SetTotal(v int32) {
+func (o *ListABTestsResponse) SetTotal(v int32) *ListABTestsResponse {
 	o.Total = v
+	return o
 }
 
 func (o ListABTestsResponse) MarshalJSON() ([]byte, error) {

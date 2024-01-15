@@ -233,18 +233,9 @@ func NewRecommendationsResults(hitsPerPage int32, nbHits int32, nbPages int32, p
 	return this
 }
 
-// NewRecommendationsResultsWithDefaults instantiates a new RecommendationsResults object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRecommendationsResultsWithDefaults() *RecommendationsResults {
-	this := &RecommendationsResults{}
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = hitsPerPage
-	var page int32 = 0
-	this.Page = page
-	var query string = ""
-	this.Query = &query
-	return this
+// NewEmptyRecommendationsResults return a pointer to an empty RecommendationsResults object.
+func NewEmptyRecommendationsResults() *RecommendationsResults {
+	return &RecommendationsResults{}
 }
 
 // GetAbTestID returns the AbTestID field value if set, zero value otherwise.
@@ -275,8 +266,9 @@ func (o *RecommendationsResults) HasAbTestID() bool {
 }
 
 // SetAbTestID gets a reference to the given int32 and assigns it to the AbTestID field.
-func (o *RecommendationsResults) SetAbTestID(v int32) {
+func (o *RecommendationsResults) SetAbTestID(v int32) *RecommendationsResults {
 	o.AbTestID = &v
+	return o
 }
 
 // GetAbTestVariantID returns the AbTestVariantID field value if set, zero value otherwise.
@@ -307,8 +299,9 @@ func (o *RecommendationsResults) HasAbTestVariantID() bool {
 }
 
 // SetAbTestVariantID gets a reference to the given int32 and assigns it to the AbTestVariantID field.
-func (o *RecommendationsResults) SetAbTestVariantID(v int32) {
+func (o *RecommendationsResults) SetAbTestVariantID(v int32) *RecommendationsResults {
 	o.AbTestVariantID = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -339,8 +332,9 @@ func (o *RecommendationsResults) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *RecommendationsResults) SetAroundLatLng(v string) {
+func (o *RecommendationsResults) SetAroundLatLng(v string) *RecommendationsResults {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAutomaticRadius returns the AutomaticRadius field value if set, zero value otherwise.
@@ -371,8 +365,9 @@ func (o *RecommendationsResults) HasAutomaticRadius() bool {
 }
 
 // SetAutomaticRadius gets a reference to the given string and assigns it to the AutomaticRadius field.
-func (o *RecommendationsResults) SetAutomaticRadius(v string) {
+func (o *RecommendationsResults) SetAutomaticRadius(v string) *RecommendationsResults {
 	o.AutomaticRadius = &v
+	return o
 }
 
 // GetExhaustive returns the Exhaustive field value if set, zero value otherwise.
@@ -403,8 +398,9 @@ func (o *RecommendationsResults) HasExhaustive() bool {
 }
 
 // SetExhaustive gets a reference to the given Exhaustive and assigns it to the Exhaustive field.
-func (o *RecommendationsResults) SetExhaustive(v Exhaustive) {
-	o.Exhaustive = &v
+func (o *RecommendationsResults) SetExhaustive(v *Exhaustive) *RecommendationsResults {
+	o.Exhaustive = v
+	return o
 }
 
 // GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value if set, zero value otherwise.
@@ -438,8 +434,9 @@ func (o *RecommendationsResults) HasExhaustiveFacetsCount() bool {
 
 // SetExhaustiveFacetsCount gets a reference to the given bool and assigns it to the ExhaustiveFacetsCount field.
 // Deprecated.
-func (o *RecommendationsResults) SetExhaustiveFacetsCount(v bool) {
+func (o *RecommendationsResults) SetExhaustiveFacetsCount(v bool) *RecommendationsResults {
 	o.ExhaustiveFacetsCount = &v
+	return o
 }
 
 // GetExhaustiveNbHits returns the ExhaustiveNbHits field value if set, zero value otherwise.
@@ -473,8 +470,9 @@ func (o *RecommendationsResults) HasExhaustiveNbHits() bool {
 
 // SetExhaustiveNbHits gets a reference to the given bool and assigns it to the ExhaustiveNbHits field.
 // Deprecated.
-func (o *RecommendationsResults) SetExhaustiveNbHits(v bool) {
+func (o *RecommendationsResults) SetExhaustiveNbHits(v bool) *RecommendationsResults {
 	o.ExhaustiveNbHits = &v
+	return o
 }
 
 // GetExhaustiveTypo returns the ExhaustiveTypo field value if set, zero value otherwise.
@@ -508,8 +506,9 @@ func (o *RecommendationsResults) HasExhaustiveTypo() bool {
 
 // SetExhaustiveTypo gets a reference to the given bool and assigns it to the ExhaustiveTypo field.
 // Deprecated.
-func (o *RecommendationsResults) SetExhaustiveTypo(v bool) {
+func (o *RecommendationsResults) SetExhaustiveTypo(v bool) *RecommendationsResults {
 	o.ExhaustiveTypo = &v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -540,8 +539,9 @@ func (o *RecommendationsResults) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given map[string]map[string]int32 and assigns it to the Facets field.
-func (o *RecommendationsResults) SetFacets(v map[string]map[string]int32) {
+func (o *RecommendationsResults) SetFacets(v map[string]map[string]int32) *RecommendationsResults {
 	o.Facets = &v
+	return o
 }
 
 // GetFacetsStats returns the FacetsStats field value if set, zero value otherwise.
@@ -572,8 +572,9 @@ func (o *RecommendationsResults) HasFacetsStats() bool {
 }
 
 // SetFacetsStats gets a reference to the given map[string]FacetsStats and assigns it to the FacetsStats field.
-func (o *RecommendationsResults) SetFacetsStats(v map[string]FacetsStats) {
+func (o *RecommendationsResults) SetFacetsStats(v map[string]FacetsStats) *RecommendationsResults {
 	o.FacetsStats = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value.
@@ -596,8 +597,9 @@ func (o *RecommendationsResults) GetHitsPerPageOk() (*int32, bool) {
 }
 
 // SetHitsPerPage sets field value.
-func (o *RecommendationsResults) SetHitsPerPage(v int32) {
+func (o *RecommendationsResults) SetHitsPerPage(v int32) *RecommendationsResults {
 	o.HitsPerPage = v
+	return o
 }
 
 // GetIndex returns the Index field value if set, zero value otherwise.
@@ -628,8 +630,9 @@ func (o *RecommendationsResults) HasIndex() bool {
 }
 
 // SetIndex gets a reference to the given string and assigns it to the Index field.
-func (o *RecommendationsResults) SetIndex(v string) {
+func (o *RecommendationsResults) SetIndex(v string) *RecommendationsResults {
 	o.Index = &v
+	return o
 }
 
 // GetIndexUsed returns the IndexUsed field value if set, zero value otherwise.
@@ -660,8 +663,9 @@ func (o *RecommendationsResults) HasIndexUsed() bool {
 }
 
 // SetIndexUsed gets a reference to the given string and assigns it to the IndexUsed field.
-func (o *RecommendationsResults) SetIndexUsed(v string) {
+func (o *RecommendationsResults) SetIndexUsed(v string) *RecommendationsResults {
 	o.IndexUsed = &v
+	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -692,8 +696,9 @@ func (o *RecommendationsResults) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *RecommendationsResults) SetMessage(v string) {
+func (o *RecommendationsResults) SetMessage(v string) *RecommendationsResults {
 	o.Message = &v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -716,8 +721,9 @@ func (o *RecommendationsResults) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *RecommendationsResults) SetNbHits(v int32) {
+func (o *RecommendationsResults) SetNbHits(v int32) *RecommendationsResults {
 	o.NbHits = v
+	return o
 }
 
 // GetNbPages returns the NbPages field value.
@@ -740,8 +746,9 @@ func (o *RecommendationsResults) GetNbPagesOk() (*int32, bool) {
 }
 
 // SetNbPages sets field value.
-func (o *RecommendationsResults) SetNbPages(v int32) {
+func (o *RecommendationsResults) SetNbPages(v int32) *RecommendationsResults {
 	o.NbPages = v
+	return o
 }
 
 // GetNbSortedHits returns the NbSortedHits field value if set, zero value otherwise.
@@ -772,8 +779,9 @@ func (o *RecommendationsResults) HasNbSortedHits() bool {
 }
 
 // SetNbSortedHits gets a reference to the given int32 and assigns it to the NbSortedHits field.
-func (o *RecommendationsResults) SetNbSortedHits(v int32) {
+func (o *RecommendationsResults) SetNbSortedHits(v int32) *RecommendationsResults {
 	o.NbSortedHits = &v
+	return o
 }
 
 // GetPage returns the Page field value.
@@ -796,8 +804,9 @@ func (o *RecommendationsResults) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *RecommendationsResults) SetPage(v int32) {
+func (o *RecommendationsResults) SetPage(v int32) *RecommendationsResults {
 	o.Page = v
+	return o
 }
 
 // GetParsedQuery returns the ParsedQuery field value if set, zero value otherwise.
@@ -828,8 +837,9 @@ func (o *RecommendationsResults) HasParsedQuery() bool {
 }
 
 // SetParsedQuery gets a reference to the given string and assigns it to the ParsedQuery field.
-func (o *RecommendationsResults) SetParsedQuery(v string) {
+func (o *RecommendationsResults) SetParsedQuery(v string) *RecommendationsResults {
 	o.ParsedQuery = &v
+	return o
 }
 
 // GetProcessingTimeMS returns the ProcessingTimeMS field value.
@@ -852,8 +862,9 @@ func (o *RecommendationsResults) GetProcessingTimeMSOk() (*int32, bool) {
 }
 
 // SetProcessingTimeMS sets field value.
-func (o *RecommendationsResults) SetProcessingTimeMS(v int32) {
+func (o *RecommendationsResults) SetProcessingTimeMS(v int32) *RecommendationsResults {
 	o.ProcessingTimeMS = v
+	return o
 }
 
 // GetProcessingTimingsMS returns the ProcessingTimingsMS field value if set, zero value otherwise.
@@ -884,8 +895,9 @@ func (o *RecommendationsResults) HasProcessingTimingsMS() bool {
 }
 
 // SetProcessingTimingsMS gets a reference to the given map[string]interface{} and assigns it to the ProcessingTimingsMS field.
-func (o *RecommendationsResults) SetProcessingTimingsMS(v map[string]interface{}) {
+func (o *RecommendationsResults) SetProcessingTimingsMS(v map[string]interface{}) *RecommendationsResults {
 	o.ProcessingTimingsMS = v
+	return o
 }
 
 // GetQueryAfterRemoval returns the QueryAfterRemoval field value if set, zero value otherwise.
@@ -916,8 +928,9 @@ func (o *RecommendationsResults) HasQueryAfterRemoval() bool {
 }
 
 // SetQueryAfterRemoval gets a reference to the given string and assigns it to the QueryAfterRemoval field.
-func (o *RecommendationsResults) SetQueryAfterRemoval(v string) {
+func (o *RecommendationsResults) SetQueryAfterRemoval(v string) *RecommendationsResults {
 	o.QueryAfterRemoval = &v
+	return o
 }
 
 // GetRedirect returns the Redirect field value if set, zero value otherwise.
@@ -948,8 +961,9 @@ func (o *RecommendationsResults) HasRedirect() bool {
 }
 
 // SetRedirect gets a reference to the given Redirect and assigns it to the Redirect field.
-func (o *RecommendationsResults) SetRedirect(v Redirect) {
-	o.Redirect = &v
+func (o *RecommendationsResults) SetRedirect(v *Redirect) *RecommendationsResults {
+	o.Redirect = v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -980,8 +994,9 @@ func (o *RecommendationsResults) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *RecommendationsResults) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *RecommendationsResults) SetRenderingContent(v *RenderingContent) *RecommendationsResults {
+	o.RenderingContent = v
+	return o
 }
 
 // GetServerTimeMS returns the ServerTimeMS field value if set, zero value otherwise.
@@ -1012,8 +1027,9 @@ func (o *RecommendationsResults) HasServerTimeMS() bool {
 }
 
 // SetServerTimeMS gets a reference to the given int32 and assigns it to the ServerTimeMS field.
-func (o *RecommendationsResults) SetServerTimeMS(v int32) {
+func (o *RecommendationsResults) SetServerTimeMS(v int32) *RecommendationsResults {
 	o.ServerTimeMS = &v
+	return o
 }
 
 // GetServerUsed returns the ServerUsed field value if set, zero value otherwise.
@@ -1044,8 +1060,9 @@ func (o *RecommendationsResults) HasServerUsed() bool {
 }
 
 // SetServerUsed gets a reference to the given string and assigns it to the ServerUsed field.
-func (o *RecommendationsResults) SetServerUsed(v string) {
+func (o *RecommendationsResults) SetServerUsed(v string) *RecommendationsResults {
 	o.ServerUsed = &v
+	return o
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
@@ -1076,8 +1093,9 @@ func (o *RecommendationsResults) HasUserData() bool {
 }
 
 // SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *RecommendationsResults) SetUserData(v map[string]interface{}) {
+func (o *RecommendationsResults) SetUserData(v map[string]interface{}) *RecommendationsResults {
 	o.UserData = v
+	return o
 }
 
 // GetHits returns the Hits field value.
@@ -1100,8 +1118,9 @@ func (o *RecommendationsResults) GetHitsOk() ([]RecommendationsHit, bool) {
 }
 
 // SetHits sets field value.
-func (o *RecommendationsResults) SetHits(v []RecommendationsHit) {
+func (o *RecommendationsResults) SetHits(v []RecommendationsHit) *RecommendationsResults {
 	o.Hits = v
+	return o
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -1132,8 +1151,9 @@ func (o *RecommendationsResults) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *RecommendationsResults) SetQuery(v string) {
+func (o *RecommendationsResults) SetQuery(v string) *RecommendationsResults {
 	o.Query = &v
+	return o
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
@@ -1164,8 +1184,9 @@ func (o *RecommendationsResults) HasParams() bool {
 }
 
 // SetParams gets a reference to the given string and assigns it to the Params field.
-func (o *RecommendationsResults) SetParams(v string) {
+func (o *RecommendationsResults) SetParams(v string) *RecommendationsResults {
 	o.Params = &v
+	return o
 }
 
 func (o RecommendationsResults) MarshalJSON() ([]byte, error) {

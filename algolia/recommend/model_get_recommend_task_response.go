@@ -21,12 +21,9 @@ func NewGetRecommendTaskResponse(status TaskStatus) *GetRecommendTaskResponse {
 	return this
 }
 
-// NewGetRecommendTaskResponseWithDefaults instantiates a new GetRecommendTaskResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetRecommendTaskResponseWithDefaults() *GetRecommendTaskResponse {
-	this := &GetRecommendTaskResponse{}
-	return this
+// NewEmptyGetRecommendTaskResponse return a pointer to an empty GetRecommendTaskResponse object.
+func NewEmptyGetRecommendTaskResponse() *GetRecommendTaskResponse {
+	return &GetRecommendTaskResponse{}
 }
 
 // GetStatus returns the Status field value.
@@ -49,8 +46,9 @@ func (o *GetRecommendTaskResponse) GetStatusOk() (*TaskStatus, bool) {
 }
 
 // SetStatus sets field value.
-func (o *GetRecommendTaskResponse) SetStatus(v TaskStatus) {
+func (o *GetRecommendTaskResponse) SetStatus(v TaskStatus) *GetRecommendTaskResponse {
 	o.Status = v
+	return o
 }
 
 func (o GetRecommendTaskResponse) MarshalJSON() ([]byte, error) {

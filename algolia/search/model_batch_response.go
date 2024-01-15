@@ -25,12 +25,9 @@ func NewBatchResponse(taskID int64, objectIDs []string) *BatchResponse {
 	return this
 }
 
-// NewBatchResponseWithDefaults instantiates a new BatchResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBatchResponseWithDefaults() *BatchResponse {
-	this := &BatchResponse{}
-	return this
+// NewEmptyBatchResponse return a pointer to an empty BatchResponse object.
+func NewEmptyBatchResponse() *BatchResponse {
+	return &BatchResponse{}
 }
 
 // GetTaskID returns the TaskID field value.
@@ -53,8 +50,9 @@ func (o *BatchResponse) GetTaskIDOk() (*int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *BatchResponse) SetTaskID(v int64) {
+func (o *BatchResponse) SetTaskID(v int64) *BatchResponse {
 	o.TaskID = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -77,8 +75,9 @@ func (o *BatchResponse) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *BatchResponse) SetObjectIDs(v []string) {
+func (o *BatchResponse) SetObjectIDs(v []string) *BatchResponse {
 	o.ObjectIDs = v
+	return o
 }
 
 func (o BatchResponse) MarshalJSON() ([]byte, error) {

@@ -25,12 +25,9 @@ func NewDeletedAtResponse(taskID int64, deletedAt string) *DeletedAtResponse {
 	return this
 }
 
-// NewDeletedAtResponseWithDefaults instantiates a new DeletedAtResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDeletedAtResponseWithDefaults() *DeletedAtResponse {
-	this := &DeletedAtResponse{}
-	return this
+// NewEmptyDeletedAtResponse return a pointer to an empty DeletedAtResponse object.
+func NewEmptyDeletedAtResponse() *DeletedAtResponse {
+	return &DeletedAtResponse{}
 }
 
 // GetTaskID returns the TaskID field value.
@@ -53,8 +50,9 @@ func (o *DeletedAtResponse) GetTaskIDOk() (*int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *DeletedAtResponse) SetTaskID(v int64) {
+func (o *DeletedAtResponse) SetTaskID(v int64) *DeletedAtResponse {
 	o.TaskID = v
+	return o
 }
 
 // GetDeletedAt returns the DeletedAt field value.
@@ -77,8 +75,9 @@ func (o *DeletedAtResponse) GetDeletedAtOk() (*string, bool) {
 }
 
 // SetDeletedAt sets field value.
-func (o *DeletedAtResponse) SetDeletedAt(v string) {
+func (o *DeletedAtResponse) SetDeletedAt(v string) *DeletedAtResponse {
 	o.DeletedAt = v
+	return o
 }
 
 func (o DeletedAtResponse) MarshalJSON() ([]byte, error) {

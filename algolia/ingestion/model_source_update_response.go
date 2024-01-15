@@ -27,12 +27,9 @@ func NewSourceUpdateResponse(sourceID string, name string, updatedAt string) *So
 	return this
 }
 
-// NewSourceUpdateResponseWithDefaults instantiates a new SourceUpdateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceUpdateResponseWithDefaults() *SourceUpdateResponse {
-	this := &SourceUpdateResponse{}
-	return this
+// NewEmptySourceUpdateResponse return a pointer to an empty SourceUpdateResponse object.
+func NewEmptySourceUpdateResponse() *SourceUpdateResponse {
+	return &SourceUpdateResponse{}
 }
 
 // GetSourceID returns the SourceID field value.
@@ -55,8 +52,9 @@ func (o *SourceUpdateResponse) GetSourceIDOk() (*string, bool) {
 }
 
 // SetSourceID sets field value.
-func (o *SourceUpdateResponse) SetSourceID(v string) {
+func (o *SourceUpdateResponse) SetSourceID(v string) *SourceUpdateResponse {
 	o.SourceID = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -79,8 +77,9 @@ func (o *SourceUpdateResponse) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *SourceUpdateResponse) SetName(v string) {
+func (o *SourceUpdateResponse) SetName(v string) *SourceUpdateResponse {
 	o.Name = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -103,8 +102,9 @@ func (o *SourceUpdateResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *SourceUpdateResponse) SetUpdatedAt(v string) {
+func (o *SourceUpdateResponse) SetUpdatedAt(v string) *SourceUpdateResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 func (o SourceUpdateResponse) MarshalJSON() ([]byte, error) {

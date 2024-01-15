@@ -64,12 +64,9 @@ func NewExhaustive(opts ...ExhaustiveOption) *Exhaustive {
 	return this
 }
 
-// NewExhaustiveWithDefaults instantiates a new Exhaustive object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewExhaustiveWithDefaults() *Exhaustive {
-	this := &Exhaustive{}
-	return this
+// NewEmptyExhaustive return a pointer to an empty Exhaustive object.
+func NewEmptyExhaustive() *Exhaustive {
+	return &Exhaustive{}
 }
 
 // GetFacetsCount returns the FacetsCount field value if set, zero value otherwise.
@@ -100,8 +97,9 @@ func (o *Exhaustive) HasFacetsCount() bool {
 }
 
 // SetFacetsCount gets a reference to the given bool and assigns it to the FacetsCount field.
-func (o *Exhaustive) SetFacetsCount(v bool) {
+func (o *Exhaustive) SetFacetsCount(v bool) *Exhaustive {
 	o.FacetsCount = &v
+	return o
 }
 
 // GetFacetValues returns the FacetValues field value if set, zero value otherwise.
@@ -132,8 +130,9 @@ func (o *Exhaustive) HasFacetValues() bool {
 }
 
 // SetFacetValues gets a reference to the given bool and assigns it to the FacetValues field.
-func (o *Exhaustive) SetFacetValues(v bool) {
+func (o *Exhaustive) SetFacetValues(v bool) *Exhaustive {
 	o.FacetValues = &v
+	return o
 }
 
 // GetNbHits returns the NbHits field value if set, zero value otherwise.
@@ -164,8 +163,9 @@ func (o *Exhaustive) HasNbHits() bool {
 }
 
 // SetNbHits gets a reference to the given bool and assigns it to the NbHits field.
-func (o *Exhaustive) SetNbHits(v bool) {
+func (o *Exhaustive) SetNbHits(v bool) *Exhaustive {
 	o.NbHits = &v
+	return o
 }
 
 // GetRulesMatch returns the RulesMatch field value if set, zero value otherwise.
@@ -196,8 +196,9 @@ func (o *Exhaustive) HasRulesMatch() bool {
 }
 
 // SetRulesMatch gets a reference to the given bool and assigns it to the RulesMatch field.
-func (o *Exhaustive) SetRulesMatch(v bool) {
+func (o *Exhaustive) SetRulesMatch(v bool) *Exhaustive {
 	o.RulesMatch = &v
+	return o
 }
 
 // GetTypo returns the Typo field value if set, zero value otherwise.
@@ -228,8 +229,9 @@ func (o *Exhaustive) HasTypo() bool {
 }
 
 // SetTypo gets a reference to the given bool and assigns it to the Typo field.
-func (o *Exhaustive) SetTypo(v bool) {
+func (o *Exhaustive) SetTypo(v bool) *Exhaustive {
 	o.Typo = &v
+	return o
 }
 
 func (o Exhaustive) MarshalJSON() ([]byte, error) {

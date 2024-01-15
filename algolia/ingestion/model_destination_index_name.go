@@ -42,12 +42,9 @@ func NewDestinationIndexName(indexName string, opts ...DestinationIndexNameOptio
 	return this
 }
 
-// NewDestinationIndexNameWithDefaults instantiates a new DestinationIndexName object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDestinationIndexNameWithDefaults() *DestinationIndexName {
-	this := &DestinationIndexName{}
-	return this
+// NewEmptyDestinationIndexName return a pointer to an empty DestinationIndexName object.
+func NewEmptyDestinationIndexName() *DestinationIndexName {
+	return &DestinationIndexName{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -70,8 +67,9 @@ func (o *DestinationIndexName) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *DestinationIndexName) SetIndexName(v string) {
+func (o *DestinationIndexName) SetIndexName(v string) *DestinationIndexName {
 	o.IndexName = v
+	return o
 }
 
 // GetRecordType returns the RecordType field value if set, zero value otherwise.
@@ -102,8 +100,9 @@ func (o *DestinationIndexName) HasRecordType() bool {
 }
 
 // SetRecordType gets a reference to the given RecordType and assigns it to the RecordType field.
-func (o *DestinationIndexName) SetRecordType(v RecordType) {
+func (o *DestinationIndexName) SetRecordType(v RecordType) *DestinationIndexName {
 	o.RecordType = &v
+	return o
 }
 
 // GetAttributesToExclude returns the AttributesToExclude field value if set, zero value otherwise.
@@ -134,8 +133,9 @@ func (o *DestinationIndexName) HasAttributesToExclude() bool {
 }
 
 // SetAttributesToExclude gets a reference to the given []string and assigns it to the AttributesToExclude field.
-func (o *DestinationIndexName) SetAttributesToExclude(v []string) {
+func (o *DestinationIndexName) SetAttributesToExclude(v []string) *DestinationIndexName {
 	o.AttributesToExclude = v
+	return o
 }
 
 func (o DestinationIndexName) MarshalJSON() ([]byte, error) {

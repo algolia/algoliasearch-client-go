@@ -25,12 +25,9 @@ func NewAuthAlgolia(appID string, apiKey string) *AuthAlgolia {
 	return this
 }
 
-// NewAuthAlgoliaWithDefaults instantiates a new AuthAlgolia object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthAlgoliaWithDefaults() *AuthAlgolia {
-	this := &AuthAlgolia{}
-	return this
+// NewEmptyAuthAlgolia return a pointer to an empty AuthAlgolia object.
+func NewEmptyAuthAlgolia() *AuthAlgolia {
+	return &AuthAlgolia{}
 }
 
 // GetAppID returns the AppID field value.
@@ -53,8 +50,9 @@ func (o *AuthAlgolia) GetAppIDOk() (*string, bool) {
 }
 
 // SetAppID sets field value.
-func (o *AuthAlgolia) SetAppID(v string) {
+func (o *AuthAlgolia) SetAppID(v string) *AuthAlgolia {
 	o.AppID = v
+	return o
 }
 
 // GetApiKey returns the ApiKey field value.
@@ -77,8 +75,9 @@ func (o *AuthAlgolia) GetApiKeyOk() (*string, bool) {
 }
 
 // SetApiKey sets field value.
-func (o *AuthAlgolia) SetApiKey(v string) {
+func (o *AuthAlgolia) SetApiKey(v string) *AuthAlgolia {
 	o.ApiKey = v
+	return o
 }
 
 func (o AuthAlgolia) MarshalJSON() ([]byte, error) {

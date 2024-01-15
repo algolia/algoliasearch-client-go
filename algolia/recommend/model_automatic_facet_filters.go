@@ -13,16 +13,16 @@ type AutomaticFacetFilters struct {
 }
 
 // []AutomaticFacetFilterAsAutomaticFacetFilters is a convenience function that returns []AutomaticFacetFilter wrapped in AutomaticFacetFilters.
-func ArrayOfAutomaticFacetFilterAsAutomaticFacetFilters(v *[]AutomaticFacetFilter) AutomaticFacetFilters {
-	return AutomaticFacetFilters{
-		ArrayOfAutomaticFacetFilter: v,
+func ArrayOfAutomaticFacetFilterAsAutomaticFacetFilters(v []AutomaticFacetFilter) *AutomaticFacetFilters {
+	return &AutomaticFacetFilters{
+		ArrayOfAutomaticFacetFilter: &v,
 	}
 }
 
 // []stringAsAutomaticFacetFilters is a convenience function that returns []string wrapped in AutomaticFacetFilters.
-func ArrayOfStringAsAutomaticFacetFilters(v *[]string) AutomaticFacetFilters {
-	return AutomaticFacetFilters{
-		ArrayOfString: v,
+func ArrayOfStringAsAutomaticFacetFilters(v []string) *AutomaticFacetFilters {
+	return &AutomaticFacetFilters{
+		ArrayOfString: &v,
 	}
 }
 

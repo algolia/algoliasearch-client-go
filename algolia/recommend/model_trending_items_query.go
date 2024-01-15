@@ -80,14 +80,9 @@ func NewTrendingItemsQuery(indexName string, opts ...TrendingItemsQueryOption) *
 	return this
 }
 
-// NewTrendingItemsQueryWithDefaults instantiates a new TrendingItemsQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTrendingItemsQueryWithDefaults() *TrendingItemsQuery {
-	this := &TrendingItemsQuery{}
-	var maxRecommendations int32 = 0
-	this.MaxRecommendations = &maxRecommendations
-	return this
+// NewEmptyTrendingItemsQuery return a pointer to an empty TrendingItemsQuery object.
+func NewEmptyTrendingItemsQuery() *TrendingItemsQuery {
+	return &TrendingItemsQuery{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -110,8 +105,9 @@ func (o *TrendingItemsQuery) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *TrendingItemsQuery) SetIndexName(v string) {
+func (o *TrendingItemsQuery) SetIndexName(v string) *TrendingItemsQuery {
 	o.IndexName = v
+	return o
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
@@ -142,8 +138,9 @@ func (o *TrendingItemsQuery) HasThreshold() bool {
 }
 
 // SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *TrendingItemsQuery) SetThreshold(v int32) {
+func (o *TrendingItemsQuery) SetThreshold(v int32) *TrendingItemsQuery {
 	o.Threshold = &v
+	return o
 }
 
 // GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
@@ -174,8 +171,9 @@ func (o *TrendingItemsQuery) HasMaxRecommendations() bool {
 }
 
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *TrendingItemsQuery) SetMaxRecommendations(v int32) {
+func (o *TrendingItemsQuery) SetMaxRecommendations(v int32) *TrendingItemsQuery {
 	o.MaxRecommendations = &v
+	return o
 }
 
 // GetFacetName returns the FacetName field value if set, zero value otherwise.
@@ -206,8 +204,9 @@ func (o *TrendingItemsQuery) HasFacetName() bool {
 }
 
 // SetFacetName gets a reference to the given string and assigns it to the FacetName field.
-func (o *TrendingItemsQuery) SetFacetName(v string) {
+func (o *TrendingItemsQuery) SetFacetName(v string) *TrendingItemsQuery {
 	o.FacetName = &v
+	return o
 }
 
 // GetFacetValue returns the FacetValue field value if set, zero value otherwise.
@@ -238,8 +237,9 @@ func (o *TrendingItemsQuery) HasFacetValue() bool {
 }
 
 // SetFacetValue gets a reference to the given string and assigns it to the FacetValue field.
-func (o *TrendingItemsQuery) SetFacetValue(v string) {
+func (o *TrendingItemsQuery) SetFacetValue(v string) *TrendingItemsQuery {
 	o.FacetValue = &v
+	return o
 }
 
 // GetModel returns the Model field value if set, zero value otherwise.
@@ -270,8 +270,9 @@ func (o *TrendingItemsQuery) HasModel() bool {
 }
 
 // SetModel gets a reference to the given TrendingItemsModel and assigns it to the Model field.
-func (o *TrendingItemsQuery) SetModel(v TrendingItemsModel) {
+func (o *TrendingItemsQuery) SetModel(v TrendingItemsModel) *TrendingItemsQuery {
 	o.Model = &v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -302,8 +303,9 @@ func (o *TrendingItemsQuery) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given SearchParamsObject and assigns it to the QueryParameters field.
-func (o *TrendingItemsQuery) SetQueryParameters(v SearchParamsObject) {
-	o.QueryParameters = &v
+func (o *TrendingItemsQuery) SetQueryParameters(v *SearchParamsObject) *TrendingItemsQuery {
+	o.QueryParameters = v
+	return o
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
@@ -334,8 +336,9 @@ func (o *TrendingItemsQuery) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given SearchParamsObject and assigns it to the FallbackParameters field.
-func (o *TrendingItemsQuery) SetFallbackParameters(v SearchParamsObject) {
-	o.FallbackParameters = &v
+func (o *TrendingItemsQuery) SetFallbackParameters(v *SearchParamsObject) *TrendingItemsQuery {
+	o.FallbackParameters = v
+	return o
 }
 
 func (o TrendingItemsQuery) MarshalJSON() ([]byte, error) {

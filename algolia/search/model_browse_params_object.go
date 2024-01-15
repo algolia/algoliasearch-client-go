@@ -639,92 +639,9 @@ func NewBrowseParamsObject(opts ...BrowseParamsObjectOption) *BrowseParamsObject
 	return this
 }
 
-// NewBrowseParamsObjectWithDefaults instantiates a new BrowseParamsObject object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBrowseParamsObjectWithDefaults() *BrowseParamsObject {
-	this := &BrowseParamsObject{}
-	var query string = ""
-	this.Query = &query
-	var similarQuery string = ""
-	this.SimilarQuery = &similarQuery
-	var filters string = ""
-	this.Filters = &filters
-	var sumOrFiltersScores bool = false
-	this.SumOrFiltersScores = &sumOrFiltersScores
-	var facetingAfterDistinct bool = false
-	this.FacetingAfterDistinct = &facetingAfterDistinct
-	var page int32 = 0
-	this.Page = &page
-	var aroundLatLng string = ""
-	this.AroundLatLng = &aroundLatLng
-	var aroundLatLngViaIP bool = false
-	this.AroundLatLngViaIP = &aroundLatLngViaIP
-	var personalizationImpact int32 = 100
-	this.PersonalizationImpact = &personalizationImpact
-	var getRankingInfo bool = false
-	this.GetRankingInfo = &getRankingInfo
-	var synonyms bool = true
-	this.Synonyms = &synonyms
-	var clickAnalytics bool = false
-	this.ClickAnalytics = &clickAnalytics
-	var analytics bool = true
-	this.Analytics = &analytics
-	var percentileComputation bool = true
-	this.PercentileComputation = &percentileComputation
-	var enableABTest bool = true
-	this.EnableABTest = &enableABTest
-	var relevancyStrictness int32 = 100
-	this.RelevancyStrictness = &relevancyStrictness
-	var highlightPreTag string = "<em>"
-	this.HighlightPreTag = &highlightPreTag
-	var highlightPostTag string = "</em>"
-	this.HighlightPostTag = &highlightPostTag
-	var snippetEllipsisText string = "…"
-	this.SnippetEllipsisText = &snippetEllipsisText
-	var restrictHighlightAndSnippetArrays bool = false
-	this.RestrictHighlightAndSnippetArrays = &restrictHighlightAndSnippetArrays
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	var minWordSizefor1Typo int32 = 4
-	this.MinWordSizefor1Typo = &minWordSizefor1Typo
-	var minWordSizefor2Typos int32 = 8
-	this.MinWordSizefor2Typos = &minWordSizefor2Typos
-	var allowTyposOnNumericTokens bool = true
-	this.AllowTyposOnNumericTokens = &allowTyposOnNumericTokens
-	var keepDiacriticsOnCharacters string = ""
-	this.KeepDiacriticsOnCharacters = &keepDiacriticsOnCharacters
-	var decompoundQuery bool = true
-	this.DecompoundQuery = &decompoundQuery
-	var enableRules bool = true
-	this.EnableRules = &enableRules
-	var enablePersonalization bool = false
-	this.EnablePersonalization = &enablePersonalization
-	var queryType QueryType = QUERYTYPE_PREFIX_LAST
-	this.QueryType = &queryType
-	var removeWordsIfNoResults RemoveWordsIfNoResults = REMOVEWORDSIFNORESULTS_NONE
-	this.RemoveWordsIfNoResults = &removeWordsIfNoResults
-	var mode Mode = MODE_KEYWORD_SEARCH
-	this.Mode = &mode
-	var advancedSyntax bool = false
-	this.AdvancedSyntax = &advancedSyntax
-	var exactOnSingleWordQuery ExactOnSingleWordQuery = EXACTONSINGLEWORDQUERY_ATTRIBUTE
-	this.ExactOnSingleWordQuery = &exactOnSingleWordQuery
-	var replaceSynonymsInHighlight bool = false
-	this.ReplaceSynonymsInHighlight = &replaceSynonymsInHighlight
-	var minProximity int32 = 1
-	this.MinProximity = &minProximity
-	var maxFacetHits int32 = 10
-	this.MaxFacetHits = &maxFacetHits
-	var maxValuesPerFacet int32 = 100
-	this.MaxValuesPerFacet = &maxValuesPerFacet
-	var sortFacetValuesBy string = "count"
-	this.SortFacetValuesBy = &sortFacetValuesBy
-	var attributeCriteriaComputedByMinProximity bool = false
-	this.AttributeCriteriaComputedByMinProximity = &attributeCriteriaComputedByMinProximity
-	var enableReRanking bool = true
-	this.EnableReRanking = &enableReRanking
-	return this
+// NewEmptyBrowseParamsObject return a pointer to an empty BrowseParamsObject object.
+func NewEmptyBrowseParamsObject() *BrowseParamsObject {
+	return &BrowseParamsObject{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -755,8 +672,9 @@ func (o *BrowseParamsObject) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *BrowseParamsObject) SetQuery(v string) {
+func (o *BrowseParamsObject) SetQuery(v string) *BrowseParamsObject {
 	o.Query = &v
+	return o
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
@@ -787,8 +705,9 @@ func (o *BrowseParamsObject) HasSimilarQuery() bool {
 }
 
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
-func (o *BrowseParamsObject) SetSimilarQuery(v string) {
+func (o *BrowseParamsObject) SetSimilarQuery(v string) *BrowseParamsObject {
 	o.SimilarQuery = &v
+	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -819,8 +738,9 @@ func (o *BrowseParamsObject) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *BrowseParamsObject) SetFilters(v string) {
+func (o *BrowseParamsObject) SetFilters(v string) *BrowseParamsObject {
 	o.Filters = &v
+	return o
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
@@ -851,8 +771,9 @@ func (o *BrowseParamsObject) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *BrowseParamsObject) SetFacetFilters(v FacetFilters) {
-	o.FacetFilters = &v
+func (o *BrowseParamsObject) SetFacetFilters(v *FacetFilters) *BrowseParamsObject {
+	o.FacetFilters = v
+	return o
 }
 
 // GetOptionalFilters returns the OptionalFilters field value if set, zero value otherwise.
@@ -883,8 +804,9 @@ func (o *BrowseParamsObject) HasOptionalFilters() bool {
 }
 
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
-func (o *BrowseParamsObject) SetOptionalFilters(v OptionalFilters) {
-	o.OptionalFilters = &v
+func (o *BrowseParamsObject) SetOptionalFilters(v *OptionalFilters) *BrowseParamsObject {
+	o.OptionalFilters = v
+	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
@@ -915,8 +837,9 @@ func (o *BrowseParamsObject) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *BrowseParamsObject) SetNumericFilters(v NumericFilters) {
-	o.NumericFilters = &v
+func (o *BrowseParamsObject) SetNumericFilters(v *NumericFilters) *BrowseParamsObject {
+	o.NumericFilters = v
+	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
@@ -947,8 +870,9 @@ func (o *BrowseParamsObject) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *BrowseParamsObject) SetTagFilters(v TagFilters) {
-	o.TagFilters = &v
+func (o *BrowseParamsObject) SetTagFilters(v *TagFilters) *BrowseParamsObject {
+	o.TagFilters = v
+	return o
 }
 
 // GetSumOrFiltersScores returns the SumOrFiltersScores field value if set, zero value otherwise.
@@ -979,8 +903,9 @@ func (o *BrowseParamsObject) HasSumOrFiltersScores() bool {
 }
 
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
-func (o *BrowseParamsObject) SetSumOrFiltersScores(v bool) {
+func (o *BrowseParamsObject) SetSumOrFiltersScores(v bool) *BrowseParamsObject {
 	o.SumOrFiltersScores = &v
+	return o
 }
 
 // GetRestrictSearchableAttributes returns the RestrictSearchableAttributes field value if set, zero value otherwise.
@@ -1011,8 +936,9 @@ func (o *BrowseParamsObject) HasRestrictSearchableAttributes() bool {
 }
 
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
-func (o *BrowseParamsObject) SetRestrictSearchableAttributes(v []string) {
+func (o *BrowseParamsObject) SetRestrictSearchableAttributes(v []string) *BrowseParamsObject {
 	o.RestrictSearchableAttributes = v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -1043,8 +969,9 @@ func (o *BrowseParamsObject) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *BrowseParamsObject) SetFacets(v []string) {
+func (o *BrowseParamsObject) SetFacets(v []string) *BrowseParamsObject {
 	o.Facets = v
+	return o
 }
 
 // GetFacetingAfterDistinct returns the FacetingAfterDistinct field value if set, zero value otherwise.
@@ -1075,8 +1002,9 @@ func (o *BrowseParamsObject) HasFacetingAfterDistinct() bool {
 }
 
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
-func (o *BrowseParamsObject) SetFacetingAfterDistinct(v bool) {
+func (o *BrowseParamsObject) SetFacetingAfterDistinct(v bool) *BrowseParamsObject {
 	o.FacetingAfterDistinct = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -1107,8 +1035,9 @@ func (o *BrowseParamsObject) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *BrowseParamsObject) SetPage(v int32) {
+func (o *BrowseParamsObject) SetPage(v int32) *BrowseParamsObject {
 	o.Page = &v
+	return o
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
@@ -1139,8 +1068,9 @@ func (o *BrowseParamsObject) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *BrowseParamsObject) SetOffset(v int32) {
+func (o *BrowseParamsObject) SetOffset(v int32) *BrowseParamsObject {
 	o.Offset = &v
+	return o
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
@@ -1171,8 +1101,9 @@ func (o *BrowseParamsObject) HasLength() bool {
 }
 
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *BrowseParamsObject) SetLength(v int32) {
+func (o *BrowseParamsObject) SetLength(v int32) *BrowseParamsObject {
 	o.Length = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -1203,8 +1134,9 @@ func (o *BrowseParamsObject) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *BrowseParamsObject) SetAroundLatLng(v string) {
+func (o *BrowseParamsObject) SetAroundLatLng(v string) *BrowseParamsObject {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAroundLatLngViaIP returns the AroundLatLngViaIP field value if set, zero value otherwise.
@@ -1235,8 +1167,9 @@ func (o *BrowseParamsObject) HasAroundLatLngViaIP() bool {
 }
 
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
-func (o *BrowseParamsObject) SetAroundLatLngViaIP(v bool) {
+func (o *BrowseParamsObject) SetAroundLatLngViaIP(v bool) *BrowseParamsObject {
 	o.AroundLatLngViaIP = &v
+	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
@@ -1267,8 +1200,9 @@ func (o *BrowseParamsObject) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *BrowseParamsObject) SetAroundRadius(v AroundRadius) {
-	o.AroundRadius = &v
+func (o *BrowseParamsObject) SetAroundRadius(v *AroundRadius) *BrowseParamsObject {
+	o.AroundRadius = v
+	return o
 }
 
 // GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise.
@@ -1299,8 +1233,9 @@ func (o *BrowseParamsObject) HasAroundPrecision() bool {
 }
 
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
-func (o *BrowseParamsObject) SetAroundPrecision(v AroundPrecision) {
-	o.AroundPrecision = &v
+func (o *BrowseParamsObject) SetAroundPrecision(v *AroundPrecision) *BrowseParamsObject {
+	o.AroundPrecision = v
+	return o
 }
 
 // GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
@@ -1331,8 +1266,9 @@ func (o *BrowseParamsObject) HasMinimumAroundRadius() bool {
 }
 
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
-func (o *BrowseParamsObject) SetMinimumAroundRadius(v int32) {
+func (o *BrowseParamsObject) SetMinimumAroundRadius(v int32) *BrowseParamsObject {
 	o.MinimumAroundRadius = &v
+	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
@@ -1363,8 +1299,9 @@ func (o *BrowseParamsObject) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *BrowseParamsObject) SetInsideBoundingBox(v [][]float64) {
+func (o *BrowseParamsObject) SetInsideBoundingBox(v [][]float64) *BrowseParamsObject {
 	o.InsideBoundingBox = v
+	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -1395,8 +1332,9 @@ func (o *BrowseParamsObject) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *BrowseParamsObject) SetInsidePolygon(v [][]float64) {
+func (o *BrowseParamsObject) SetInsidePolygon(v [][]float64) *BrowseParamsObject {
 	o.InsidePolygon = v
+	return o
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
@@ -1427,8 +1365,9 @@ func (o *BrowseParamsObject) HasNaturalLanguages() bool {
 }
 
 // SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *BrowseParamsObject) SetNaturalLanguages(v []string) {
+func (o *BrowseParamsObject) SetNaturalLanguages(v []string) *BrowseParamsObject {
 	o.NaturalLanguages = v
+	return o
 }
 
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
@@ -1459,8 +1398,9 @@ func (o *BrowseParamsObject) HasRuleContexts() bool {
 }
 
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
-func (o *BrowseParamsObject) SetRuleContexts(v []string) {
+func (o *BrowseParamsObject) SetRuleContexts(v []string) *BrowseParamsObject {
 	o.RuleContexts = v
+	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value if set, zero value otherwise.
@@ -1491,8 +1431,9 @@ func (o *BrowseParamsObject) HasPersonalizationImpact() bool {
 }
 
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
-func (o *BrowseParamsObject) SetPersonalizationImpact(v int32) {
+func (o *BrowseParamsObject) SetPersonalizationImpact(v int32) *BrowseParamsObject {
 	o.PersonalizationImpact = &v
+	return o
 }
 
 // GetUserToken returns the UserToken field value if set, zero value otherwise.
@@ -1523,8 +1464,9 @@ func (o *BrowseParamsObject) HasUserToken() bool {
 }
 
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
-func (o *BrowseParamsObject) SetUserToken(v string) {
+func (o *BrowseParamsObject) SetUserToken(v string) *BrowseParamsObject {
 	o.UserToken = &v
+	return o
 }
 
 // GetGetRankingInfo returns the GetRankingInfo field value if set, zero value otherwise.
@@ -1555,8 +1497,9 @@ func (o *BrowseParamsObject) HasGetRankingInfo() bool {
 }
 
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
-func (o *BrowseParamsObject) SetGetRankingInfo(v bool) {
+func (o *BrowseParamsObject) SetGetRankingInfo(v bool) *BrowseParamsObject {
 	o.GetRankingInfo = &v
+	return o
 }
 
 // GetExplain returns the Explain field value if set, zero value otherwise.
@@ -1587,8 +1530,9 @@ func (o *BrowseParamsObject) HasExplain() bool {
 }
 
 // SetExplain gets a reference to the given []string and assigns it to the Explain field.
-func (o *BrowseParamsObject) SetExplain(v []string) {
+func (o *BrowseParamsObject) SetExplain(v []string) *BrowseParamsObject {
 	o.Explain = v
+	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
@@ -1619,8 +1563,9 @@ func (o *BrowseParamsObject) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
-func (o *BrowseParamsObject) SetSynonyms(v bool) {
+func (o *BrowseParamsObject) SetSynonyms(v bool) *BrowseParamsObject {
 	o.Synonyms = &v
+	return o
 }
 
 // GetClickAnalytics returns the ClickAnalytics field value if set, zero value otherwise.
@@ -1651,8 +1596,9 @@ func (o *BrowseParamsObject) HasClickAnalytics() bool {
 }
 
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
-func (o *BrowseParamsObject) SetClickAnalytics(v bool) {
+func (o *BrowseParamsObject) SetClickAnalytics(v bool) *BrowseParamsObject {
 	o.ClickAnalytics = &v
+	return o
 }
 
 // GetAnalytics returns the Analytics field value if set, zero value otherwise.
@@ -1683,8 +1629,9 @@ func (o *BrowseParamsObject) HasAnalytics() bool {
 }
 
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *BrowseParamsObject) SetAnalytics(v bool) {
+func (o *BrowseParamsObject) SetAnalytics(v bool) *BrowseParamsObject {
 	o.Analytics = &v
+	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise.
@@ -1715,8 +1662,9 @@ func (o *BrowseParamsObject) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *BrowseParamsObject) SetAnalyticsTags(v []string) {
+func (o *BrowseParamsObject) SetAnalyticsTags(v []string) *BrowseParamsObject {
 	o.AnalyticsTags = v
+	return o
 }
 
 // GetPercentileComputation returns the PercentileComputation field value if set, zero value otherwise.
@@ -1747,8 +1695,9 @@ func (o *BrowseParamsObject) HasPercentileComputation() bool {
 }
 
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
-func (o *BrowseParamsObject) SetPercentileComputation(v bool) {
+func (o *BrowseParamsObject) SetPercentileComputation(v bool) *BrowseParamsObject {
 	o.PercentileComputation = &v
+	return o
 }
 
 // GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
@@ -1779,8 +1728,9 @@ func (o *BrowseParamsObject) HasEnableABTest() bool {
 }
 
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *BrowseParamsObject) SetEnableABTest(v bool) {
+func (o *BrowseParamsObject) SetEnableABTest(v bool) *BrowseParamsObject {
 	o.EnableABTest = &v
+	return o
 }
 
 // GetAttributesForFaceting returns the AttributesForFaceting field value if set, zero value otherwise.
@@ -1811,8 +1761,9 @@ func (o *BrowseParamsObject) HasAttributesForFaceting() bool {
 }
 
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
-func (o *BrowseParamsObject) SetAttributesForFaceting(v []string) {
+func (o *BrowseParamsObject) SetAttributesForFaceting(v []string) *BrowseParamsObject {
 	o.AttributesForFaceting = v
+	return o
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
@@ -1843,8 +1794,9 @@ func (o *BrowseParamsObject) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *BrowseParamsObject) SetAttributesToRetrieve(v []string) {
+func (o *BrowseParamsObject) SetAttributesToRetrieve(v []string) *BrowseParamsObject {
 	o.AttributesToRetrieve = v
+	return o
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
@@ -1875,8 +1827,9 @@ func (o *BrowseParamsObject) HasRanking() bool {
 }
 
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *BrowseParamsObject) SetRanking(v []string) {
+func (o *BrowseParamsObject) SetRanking(v []string) *BrowseParamsObject {
 	o.Ranking = v
+	return o
 }
 
 // GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
@@ -1907,8 +1860,9 @@ func (o *BrowseParamsObject) HasCustomRanking() bool {
 }
 
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *BrowseParamsObject) SetCustomRanking(v []string) {
+func (o *BrowseParamsObject) SetCustomRanking(v []string) *BrowseParamsObject {
 	o.CustomRanking = v
+	return o
 }
 
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
@@ -1939,8 +1893,9 @@ func (o *BrowseParamsObject) HasRelevancyStrictness() bool {
 }
 
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *BrowseParamsObject) SetRelevancyStrictness(v int32) {
+func (o *BrowseParamsObject) SetRelevancyStrictness(v int32) *BrowseParamsObject {
 	o.RelevancyStrictness = &v
+	return o
 }
 
 // GetAttributesToHighlight returns the AttributesToHighlight field value if set, zero value otherwise.
@@ -1971,8 +1926,9 @@ func (o *BrowseParamsObject) HasAttributesToHighlight() bool {
 }
 
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
-func (o *BrowseParamsObject) SetAttributesToHighlight(v []string) {
+func (o *BrowseParamsObject) SetAttributesToHighlight(v []string) *BrowseParamsObject {
 	o.AttributesToHighlight = v
+	return o
 }
 
 // GetAttributesToSnippet returns the AttributesToSnippet field value if set, zero value otherwise.
@@ -2003,8 +1959,9 @@ func (o *BrowseParamsObject) HasAttributesToSnippet() bool {
 }
 
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
-func (o *BrowseParamsObject) SetAttributesToSnippet(v []string) {
+func (o *BrowseParamsObject) SetAttributesToSnippet(v []string) *BrowseParamsObject {
 	o.AttributesToSnippet = v
+	return o
 }
 
 // GetHighlightPreTag returns the HighlightPreTag field value if set, zero value otherwise.
@@ -2035,8 +1992,9 @@ func (o *BrowseParamsObject) HasHighlightPreTag() bool {
 }
 
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
-func (o *BrowseParamsObject) SetHighlightPreTag(v string) {
+func (o *BrowseParamsObject) SetHighlightPreTag(v string) *BrowseParamsObject {
 	o.HighlightPreTag = &v
+	return o
 }
 
 // GetHighlightPostTag returns the HighlightPostTag field value if set, zero value otherwise.
@@ -2067,8 +2025,9 @@ func (o *BrowseParamsObject) HasHighlightPostTag() bool {
 }
 
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
-func (o *BrowseParamsObject) SetHighlightPostTag(v string) {
+func (o *BrowseParamsObject) SetHighlightPostTag(v string) *BrowseParamsObject {
 	o.HighlightPostTag = &v
+	return o
 }
 
 // GetSnippetEllipsisText returns the SnippetEllipsisText field value if set, zero value otherwise.
@@ -2099,8 +2058,9 @@ func (o *BrowseParamsObject) HasSnippetEllipsisText() bool {
 }
 
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
-func (o *BrowseParamsObject) SetSnippetEllipsisText(v string) {
+func (o *BrowseParamsObject) SetSnippetEllipsisText(v string) *BrowseParamsObject {
 	o.SnippetEllipsisText = &v
+	return o
 }
 
 // GetRestrictHighlightAndSnippetArrays returns the RestrictHighlightAndSnippetArrays field value if set, zero value otherwise.
@@ -2131,8 +2091,9 @@ func (o *BrowseParamsObject) HasRestrictHighlightAndSnippetArrays() bool {
 }
 
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
-func (o *BrowseParamsObject) SetRestrictHighlightAndSnippetArrays(v bool) {
+func (o *BrowseParamsObject) SetRestrictHighlightAndSnippetArrays(v bool) *BrowseParamsObject {
 	o.RestrictHighlightAndSnippetArrays = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -2163,8 +2124,9 @@ func (o *BrowseParamsObject) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *BrowseParamsObject) SetHitsPerPage(v int32) {
+func (o *BrowseParamsObject) SetHitsPerPage(v int32) *BrowseParamsObject {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
@@ -2195,8 +2157,9 @@ func (o *BrowseParamsObject) HasMinWordSizefor1Typo() bool {
 }
 
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
-func (o *BrowseParamsObject) SetMinWordSizefor1Typo(v int32) {
+func (o *BrowseParamsObject) SetMinWordSizefor1Typo(v int32) *BrowseParamsObject {
 	o.MinWordSizefor1Typo = &v
+	return o
 }
 
 // GetMinWordSizefor2Typos returns the MinWordSizefor2Typos field value if set, zero value otherwise.
@@ -2227,8 +2190,9 @@ func (o *BrowseParamsObject) HasMinWordSizefor2Typos() bool {
 }
 
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
-func (o *BrowseParamsObject) SetMinWordSizefor2Typos(v int32) {
+func (o *BrowseParamsObject) SetMinWordSizefor2Typos(v int32) *BrowseParamsObject {
 	o.MinWordSizefor2Typos = &v
+	return o
 }
 
 // GetTypoTolerance returns the TypoTolerance field value if set, zero value otherwise.
@@ -2259,8 +2223,9 @@ func (o *BrowseParamsObject) HasTypoTolerance() bool {
 }
 
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
-func (o *BrowseParamsObject) SetTypoTolerance(v TypoTolerance) {
-	o.TypoTolerance = &v
+func (o *BrowseParamsObject) SetTypoTolerance(v *TypoTolerance) *BrowseParamsObject {
+	o.TypoTolerance = v
+	return o
 }
 
 // GetAllowTyposOnNumericTokens returns the AllowTyposOnNumericTokens field value if set, zero value otherwise.
@@ -2291,8 +2256,9 @@ func (o *BrowseParamsObject) HasAllowTyposOnNumericTokens() bool {
 }
 
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
-func (o *BrowseParamsObject) SetAllowTyposOnNumericTokens(v bool) {
+func (o *BrowseParamsObject) SetAllowTyposOnNumericTokens(v bool) *BrowseParamsObject {
 	o.AllowTyposOnNumericTokens = &v
+	return o
 }
 
 // GetDisableTypoToleranceOnAttributes returns the DisableTypoToleranceOnAttributes field value if set, zero value otherwise.
@@ -2323,8 +2289,9 @@ func (o *BrowseParamsObject) HasDisableTypoToleranceOnAttributes() bool {
 }
 
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
-func (o *BrowseParamsObject) SetDisableTypoToleranceOnAttributes(v []string) {
+func (o *BrowseParamsObject) SetDisableTypoToleranceOnAttributes(v []string) *BrowseParamsObject {
 	o.DisableTypoToleranceOnAttributes = v
+	return o
 }
 
 // GetIgnorePlurals returns the IgnorePlurals field value if set, zero value otherwise.
@@ -2355,8 +2322,9 @@ func (o *BrowseParamsObject) HasIgnorePlurals() bool {
 }
 
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
-func (o *BrowseParamsObject) SetIgnorePlurals(v IgnorePlurals) {
-	o.IgnorePlurals = &v
+func (o *BrowseParamsObject) SetIgnorePlurals(v *IgnorePlurals) *BrowseParamsObject {
+	o.IgnorePlurals = v
+	return o
 }
 
 // GetRemoveStopWords returns the RemoveStopWords field value if set, zero value otherwise.
@@ -2387,8 +2355,9 @@ func (o *BrowseParamsObject) HasRemoveStopWords() bool {
 }
 
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
-func (o *BrowseParamsObject) SetRemoveStopWords(v RemoveStopWords) {
-	o.RemoveStopWords = &v
+func (o *BrowseParamsObject) SetRemoveStopWords(v *RemoveStopWords) *BrowseParamsObject {
+	o.RemoveStopWords = v
+	return o
 }
 
 // GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
@@ -2419,8 +2388,9 @@ func (o *BrowseParamsObject) HasKeepDiacriticsOnCharacters() bool {
 }
 
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *BrowseParamsObject) SetKeepDiacriticsOnCharacters(v string) {
+func (o *BrowseParamsObject) SetKeepDiacriticsOnCharacters(v string) *BrowseParamsObject {
 	o.KeepDiacriticsOnCharacters = &v
+	return o
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
@@ -2451,8 +2421,9 @@ func (o *BrowseParamsObject) HasQueryLanguages() bool {
 }
 
 // SetQueryLanguages gets a reference to the given []string and assigns it to the QueryLanguages field.
-func (o *BrowseParamsObject) SetQueryLanguages(v []string) {
+func (o *BrowseParamsObject) SetQueryLanguages(v []string) *BrowseParamsObject {
 	o.QueryLanguages = v
+	return o
 }
 
 // GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
@@ -2483,8 +2454,9 @@ func (o *BrowseParamsObject) HasDecompoundQuery() bool {
 }
 
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *BrowseParamsObject) SetDecompoundQuery(v bool) {
+func (o *BrowseParamsObject) SetDecompoundQuery(v bool) *BrowseParamsObject {
 	o.DecompoundQuery = &v
+	return o
 }
 
 // GetEnableRules returns the EnableRules field value if set, zero value otherwise.
@@ -2515,8 +2487,9 @@ func (o *BrowseParamsObject) HasEnableRules() bool {
 }
 
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *BrowseParamsObject) SetEnableRules(v bool) {
+func (o *BrowseParamsObject) SetEnableRules(v bool) *BrowseParamsObject {
 	o.EnableRules = &v
+	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
@@ -2547,8 +2520,9 @@ func (o *BrowseParamsObject) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *BrowseParamsObject) SetEnablePersonalization(v bool) {
+func (o *BrowseParamsObject) SetEnablePersonalization(v bool) *BrowseParamsObject {
 	o.EnablePersonalization = &v
+	return o
 }
 
 // GetQueryType returns the QueryType field value if set, zero value otherwise.
@@ -2579,8 +2553,9 @@ func (o *BrowseParamsObject) HasQueryType() bool {
 }
 
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
-func (o *BrowseParamsObject) SetQueryType(v QueryType) {
+func (o *BrowseParamsObject) SetQueryType(v QueryType) *BrowseParamsObject {
 	o.QueryType = &v
+	return o
 }
 
 // GetRemoveWordsIfNoResults returns the RemoveWordsIfNoResults field value if set, zero value otherwise.
@@ -2611,8 +2586,9 @@ func (o *BrowseParamsObject) HasRemoveWordsIfNoResults() bool {
 }
 
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
-func (o *BrowseParamsObject) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) {
+func (o *BrowseParamsObject) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *BrowseParamsObject {
 	o.RemoveWordsIfNoResults = &v
+	return o
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
@@ -2643,8 +2619,9 @@ func (o *BrowseParamsObject) HasMode() bool {
 }
 
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *BrowseParamsObject) SetMode(v Mode) {
+func (o *BrowseParamsObject) SetMode(v Mode) *BrowseParamsObject {
 	o.Mode = &v
+	return o
 }
 
 // GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
@@ -2675,8 +2652,9 @@ func (o *BrowseParamsObject) HasSemanticSearch() bool {
 }
 
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *BrowseParamsObject) SetSemanticSearch(v SemanticSearch) {
-	o.SemanticSearch = &v
+func (o *BrowseParamsObject) SetSemanticSearch(v *SemanticSearch) *BrowseParamsObject {
+	o.SemanticSearch = v
+	return o
 }
 
 // GetAdvancedSyntax returns the AdvancedSyntax field value if set, zero value otherwise.
@@ -2707,8 +2685,9 @@ func (o *BrowseParamsObject) HasAdvancedSyntax() bool {
 }
 
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
-func (o *BrowseParamsObject) SetAdvancedSyntax(v bool) {
+func (o *BrowseParamsObject) SetAdvancedSyntax(v bool) *BrowseParamsObject {
 	o.AdvancedSyntax = &v
+	return o
 }
 
 // GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
@@ -2739,8 +2718,9 @@ func (o *BrowseParamsObject) HasOptionalWords() bool {
 }
 
 // SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *BrowseParamsObject) SetOptionalWords(v []string) {
+func (o *BrowseParamsObject) SetOptionalWords(v []string) *BrowseParamsObject {
 	o.OptionalWords = v
+	return o
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
@@ -2771,8 +2751,9 @@ func (o *BrowseParamsObject) HasDisableExactOnAttributes() bool {
 }
 
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
-func (o *BrowseParamsObject) SetDisableExactOnAttributes(v []string) {
+func (o *BrowseParamsObject) SetDisableExactOnAttributes(v []string) *BrowseParamsObject {
 	o.DisableExactOnAttributes = v
+	return o
 }
 
 // GetExactOnSingleWordQuery returns the ExactOnSingleWordQuery field value if set, zero value otherwise.
@@ -2803,8 +2784,9 @@ func (o *BrowseParamsObject) HasExactOnSingleWordQuery() bool {
 }
 
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
-func (o *BrowseParamsObject) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) {
+func (o *BrowseParamsObject) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *BrowseParamsObject {
 	o.ExactOnSingleWordQuery = &v
+	return o
 }
 
 // GetAlternativesAsExact returns the AlternativesAsExact field value if set, zero value otherwise.
@@ -2835,8 +2817,9 @@ func (o *BrowseParamsObject) HasAlternativesAsExact() bool {
 }
 
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
-func (o *BrowseParamsObject) SetAlternativesAsExact(v []AlternativesAsExact) {
+func (o *BrowseParamsObject) SetAlternativesAsExact(v []AlternativesAsExact) *BrowseParamsObject {
 	o.AlternativesAsExact = v
+	return o
 }
 
 // GetAdvancedSyntaxFeatures returns the AdvancedSyntaxFeatures field value if set, zero value otherwise.
@@ -2867,8 +2850,9 @@ func (o *BrowseParamsObject) HasAdvancedSyntaxFeatures() bool {
 }
 
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
-func (o *BrowseParamsObject) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) {
+func (o *BrowseParamsObject) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *BrowseParamsObject {
 	o.AdvancedSyntaxFeatures = v
+	return o
 }
 
 // GetDistinct returns the Distinct field value if set, zero value otherwise.
@@ -2899,8 +2883,9 @@ func (o *BrowseParamsObject) HasDistinct() bool {
 }
 
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
-func (o *BrowseParamsObject) SetDistinct(v Distinct) {
-	o.Distinct = &v
+func (o *BrowseParamsObject) SetDistinct(v *Distinct) *BrowseParamsObject {
+	o.Distinct = v
+	return o
 }
 
 // GetReplaceSynonymsInHighlight returns the ReplaceSynonymsInHighlight field value if set, zero value otherwise.
@@ -2931,8 +2916,9 @@ func (o *BrowseParamsObject) HasReplaceSynonymsInHighlight() bool {
 }
 
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
-func (o *BrowseParamsObject) SetReplaceSynonymsInHighlight(v bool) {
+func (o *BrowseParamsObject) SetReplaceSynonymsInHighlight(v bool) *BrowseParamsObject {
 	o.ReplaceSynonymsInHighlight = &v
+	return o
 }
 
 // GetMinProximity returns the MinProximity field value if set, zero value otherwise.
@@ -2963,8 +2949,9 @@ func (o *BrowseParamsObject) HasMinProximity() bool {
 }
 
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
-func (o *BrowseParamsObject) SetMinProximity(v int32) {
+func (o *BrowseParamsObject) SetMinProximity(v int32) *BrowseParamsObject {
 	o.MinProximity = &v
+	return o
 }
 
 // GetResponseFields returns the ResponseFields field value if set, zero value otherwise.
@@ -2995,8 +2982,9 @@ func (o *BrowseParamsObject) HasResponseFields() bool {
 }
 
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
-func (o *BrowseParamsObject) SetResponseFields(v []string) {
+func (o *BrowseParamsObject) SetResponseFields(v []string) *BrowseParamsObject {
 	o.ResponseFields = v
+	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
@@ -3027,8 +3015,9 @@ func (o *BrowseParamsObject) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *BrowseParamsObject) SetMaxFacetHits(v int32) {
+func (o *BrowseParamsObject) SetMaxFacetHits(v int32) *BrowseParamsObject {
 	o.MaxFacetHits = &v
+	return o
 }
 
 // GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
@@ -3059,8 +3048,9 @@ func (o *BrowseParamsObject) HasMaxValuesPerFacet() bool {
 }
 
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
-func (o *BrowseParamsObject) SetMaxValuesPerFacet(v int32) {
+func (o *BrowseParamsObject) SetMaxValuesPerFacet(v int32) *BrowseParamsObject {
 	o.MaxValuesPerFacet = &v
+	return o
 }
 
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
@@ -3091,8 +3081,9 @@ func (o *BrowseParamsObject) HasSortFacetValuesBy() bool {
 }
 
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
-func (o *BrowseParamsObject) SetSortFacetValuesBy(v string) {
+func (o *BrowseParamsObject) SetSortFacetValuesBy(v string) *BrowseParamsObject {
 	o.SortFacetValuesBy = &v
+	return o
 }
 
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
@@ -3123,8 +3114,9 @@ func (o *BrowseParamsObject) HasAttributeCriteriaComputedByMinProximity() bool {
 }
 
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
-func (o *BrowseParamsObject) SetAttributeCriteriaComputedByMinProximity(v bool) {
+func (o *BrowseParamsObject) SetAttributeCriteriaComputedByMinProximity(v bool) *BrowseParamsObject {
 	o.AttributeCriteriaComputedByMinProximity = &v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -3155,8 +3147,9 @@ func (o *BrowseParamsObject) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *BrowseParamsObject) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *BrowseParamsObject) SetRenderingContent(v *RenderingContent) *BrowseParamsObject {
+	o.RenderingContent = v
+	return o
 }
 
 // GetEnableReRanking returns the EnableReRanking field value if set, zero value otherwise.
@@ -3187,8 +3180,9 @@ func (o *BrowseParamsObject) HasEnableReRanking() bool {
 }
 
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
-func (o *BrowseParamsObject) SetEnableReRanking(v bool) {
+func (o *BrowseParamsObject) SetEnableReRanking(v bool) *BrowseParamsObject {
 	o.EnableReRanking = &v
+	return o
 }
 
 // GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -3220,8 +3214,9 @@ func (o *BrowseParamsObject) HasReRankingApplyFilter() bool {
 }
 
 // SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
-func (o *BrowseParamsObject) SetReRankingApplyFilter(v ReRankingApplyFilter) {
-	o.ReRankingApplyFilter.Set(&v)
+func (o *BrowseParamsObject) SetReRankingApplyFilter(v *ReRankingApplyFilter) *BrowseParamsObject {
+	o.ReRankingApplyFilter.Set(v)
+	return o
 }
 
 // SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
@@ -3262,8 +3257,9 @@ func (o *BrowseParamsObject) HasCursor() bool {
 }
 
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
-func (o *BrowseParamsObject) SetCursor(v string) {
+func (o *BrowseParamsObject) SetCursor(v string) *BrowseParamsObject {
 	o.Cursor = &v
+	return o
 }
 
 func (o BrowseParamsObject) MarshalJSON() ([]byte, error) {

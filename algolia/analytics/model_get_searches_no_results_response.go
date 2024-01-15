@@ -22,12 +22,9 @@ func NewGetSearchesNoResultsResponse(searches []SearchNoResultEvent) *GetSearche
 	return this
 }
 
-// NewGetSearchesNoResultsResponseWithDefaults instantiates a new GetSearchesNoResultsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetSearchesNoResultsResponseWithDefaults() *GetSearchesNoResultsResponse {
-	this := &GetSearchesNoResultsResponse{}
-	return this
+// NewEmptyGetSearchesNoResultsResponse return a pointer to an empty GetSearchesNoResultsResponse object.
+func NewEmptyGetSearchesNoResultsResponse() *GetSearchesNoResultsResponse {
+	return &GetSearchesNoResultsResponse{}
 }
 
 // GetSearches returns the Searches field value.
@@ -50,8 +47,9 @@ func (o *GetSearchesNoResultsResponse) GetSearchesOk() ([]SearchNoResultEvent, b
 }
 
 // SetSearches sets field value.
-func (o *GetSearchesNoResultsResponse) SetSearches(v []SearchNoResultEvent) {
+func (o *GetSearchesNoResultsResponse) SetSearches(v []SearchNoResultEvent) *GetSearchesNoResultsResponse {
 	o.Searches = v
+	return o
 }
 
 func (o GetSearchesNoResultsResponse) MarshalJSON() ([]byte, error) {

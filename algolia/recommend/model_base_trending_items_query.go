@@ -61,12 +61,9 @@ func NewBaseTrendingItemsQuery(opts ...BaseTrendingItemsQueryOption) *BaseTrendi
 	return this
 }
 
-// NewBaseTrendingItemsQueryWithDefaults instantiates a new BaseTrendingItemsQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseTrendingItemsQueryWithDefaults() *BaseTrendingItemsQuery {
-	this := &BaseTrendingItemsQuery{}
-	return this
+// NewEmptyBaseTrendingItemsQuery return a pointer to an empty BaseTrendingItemsQuery object.
+func NewEmptyBaseTrendingItemsQuery() *BaseTrendingItemsQuery {
+	return &BaseTrendingItemsQuery{}
 }
 
 // GetFacetName returns the FacetName field value if set, zero value otherwise.
@@ -97,8 +94,9 @@ func (o *BaseTrendingItemsQuery) HasFacetName() bool {
 }
 
 // SetFacetName gets a reference to the given string and assigns it to the FacetName field.
-func (o *BaseTrendingItemsQuery) SetFacetName(v string) {
+func (o *BaseTrendingItemsQuery) SetFacetName(v string) *BaseTrendingItemsQuery {
 	o.FacetName = &v
+	return o
 }
 
 // GetFacetValue returns the FacetValue field value if set, zero value otherwise.
@@ -129,8 +127,9 @@ func (o *BaseTrendingItemsQuery) HasFacetValue() bool {
 }
 
 // SetFacetValue gets a reference to the given string and assigns it to the FacetValue field.
-func (o *BaseTrendingItemsQuery) SetFacetValue(v string) {
+func (o *BaseTrendingItemsQuery) SetFacetValue(v string) *BaseTrendingItemsQuery {
 	o.FacetValue = &v
+	return o
 }
 
 // GetModel returns the Model field value if set, zero value otherwise.
@@ -161,8 +160,9 @@ func (o *BaseTrendingItemsQuery) HasModel() bool {
 }
 
 // SetModel gets a reference to the given TrendingItemsModel and assigns it to the Model field.
-func (o *BaseTrendingItemsQuery) SetModel(v TrendingItemsModel) {
+func (o *BaseTrendingItemsQuery) SetModel(v TrendingItemsModel) *BaseTrendingItemsQuery {
 	o.Model = &v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -193,8 +193,9 @@ func (o *BaseTrendingItemsQuery) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given SearchParamsObject and assigns it to the QueryParameters field.
-func (o *BaseTrendingItemsQuery) SetQueryParameters(v SearchParamsObject) {
-	o.QueryParameters = &v
+func (o *BaseTrendingItemsQuery) SetQueryParameters(v *SearchParamsObject) *BaseTrendingItemsQuery {
+	o.QueryParameters = v
+	return o
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
@@ -225,8 +226,9 @@ func (o *BaseTrendingItemsQuery) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given SearchParamsObject and assigns it to the FallbackParameters field.
-func (o *BaseTrendingItemsQuery) SetFallbackParameters(v SearchParamsObject) {
-	o.FallbackParameters = &v
+func (o *BaseTrendingItemsQuery) SetFallbackParameters(v *SearchParamsObject) *BaseTrendingItemsQuery {
+	o.FallbackParameters = v
+	return o
 }
 
 func (o BaseTrendingItemsQuery) MarshalJSON() ([]byte, error) {

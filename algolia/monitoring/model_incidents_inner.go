@@ -39,12 +39,9 @@ func NewIncidentsInner(opts ...IncidentsInnerOption) *IncidentsInner {
 	return this
 }
 
-// NewIncidentsInnerWithDefaults instantiates a new IncidentsInner object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewIncidentsInnerWithDefaults() *IncidentsInner {
-	this := &IncidentsInner{}
-	return this
+// NewEmptyIncidentsInner return a pointer to an empty IncidentsInner object.
+func NewEmptyIncidentsInner() *IncidentsInner {
+	return &IncidentsInner{}
 }
 
 // GetT returns the T field value if set, zero value otherwise.
@@ -75,8 +72,9 @@ func (o *IncidentsInner) HasT() bool {
 }
 
 // SetT gets a reference to the given int64 and assigns it to the T field.
-func (o *IncidentsInner) SetT(v int64) {
+func (o *IncidentsInner) SetT(v int64) *IncidentsInner {
 	o.T = &v
+	return o
 }
 
 // GetV returns the V field value if set, zero value otherwise.
@@ -107,8 +105,9 @@ func (o *IncidentsInner) HasV() bool {
 }
 
 // SetV gets a reference to the given Incident and assigns it to the V field.
-func (o *IncidentsInner) SetV(v Incident) {
-	o.V = &v
+func (o *IncidentsInner) SetV(v *Incident) *IncidentsInner {
+	o.V = v
+	return o
 }
 
 func (o IncidentsInner) MarshalJSON() ([]byte, error) {

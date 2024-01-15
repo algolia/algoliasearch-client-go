@@ -649,96 +649,9 @@ func NewSearchForHits(indexName string, opts ...SearchForHitsOption) *SearchForH
 	return this
 }
 
-// NewSearchForHitsWithDefaults instantiates a new SearchForHits object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchForHitsWithDefaults() *SearchForHits {
-	this := &SearchForHits{}
-	var params string = ""
-	this.Params = &params
-	var query string = ""
-	this.Query = &query
-	var similarQuery string = ""
-	this.SimilarQuery = &similarQuery
-	var filters string = ""
-	this.Filters = &filters
-	var sumOrFiltersScores bool = false
-	this.SumOrFiltersScores = &sumOrFiltersScores
-	var facetingAfterDistinct bool = false
-	this.FacetingAfterDistinct = &facetingAfterDistinct
-	var page int32 = 0
-	this.Page = &page
-	var aroundLatLng string = ""
-	this.AroundLatLng = &aroundLatLng
-	var aroundLatLngViaIP bool = false
-	this.AroundLatLngViaIP = &aroundLatLngViaIP
-	var personalizationImpact int32 = 100
-	this.PersonalizationImpact = &personalizationImpact
-	var getRankingInfo bool = false
-	this.GetRankingInfo = &getRankingInfo
-	var synonyms bool = true
-	this.Synonyms = &synonyms
-	var clickAnalytics bool = false
-	this.ClickAnalytics = &clickAnalytics
-	var analytics bool = true
-	this.Analytics = &analytics
-	var percentileComputation bool = true
-	this.PercentileComputation = &percentileComputation
-	var enableABTest bool = true
-	this.EnableABTest = &enableABTest
-	var relevancyStrictness int32 = 100
-	this.RelevancyStrictness = &relevancyStrictness
-	var highlightPreTag string = "<em>"
-	this.HighlightPreTag = &highlightPreTag
-	var highlightPostTag string = "</em>"
-	this.HighlightPostTag = &highlightPostTag
-	var snippetEllipsisText string = "…"
-	this.SnippetEllipsisText = &snippetEllipsisText
-	var restrictHighlightAndSnippetArrays bool = false
-	this.RestrictHighlightAndSnippetArrays = &restrictHighlightAndSnippetArrays
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	var minWordSizefor1Typo int32 = 4
-	this.MinWordSizefor1Typo = &minWordSizefor1Typo
-	var minWordSizefor2Typos int32 = 8
-	this.MinWordSizefor2Typos = &minWordSizefor2Typos
-	var allowTyposOnNumericTokens bool = true
-	this.AllowTyposOnNumericTokens = &allowTyposOnNumericTokens
-	var keepDiacriticsOnCharacters string = ""
-	this.KeepDiacriticsOnCharacters = &keepDiacriticsOnCharacters
-	var decompoundQuery bool = true
-	this.DecompoundQuery = &decompoundQuery
-	var enableRules bool = true
-	this.EnableRules = &enableRules
-	var enablePersonalization bool = false
-	this.EnablePersonalization = &enablePersonalization
-	var queryType QueryType = QUERYTYPE_PREFIX_LAST
-	this.QueryType = &queryType
-	var removeWordsIfNoResults RemoveWordsIfNoResults = REMOVEWORDSIFNORESULTS_NONE
-	this.RemoveWordsIfNoResults = &removeWordsIfNoResults
-	var mode Mode = MODE_KEYWORD_SEARCH
-	this.Mode = &mode
-	var advancedSyntax bool = false
-	this.AdvancedSyntax = &advancedSyntax
-	var exactOnSingleWordQuery ExactOnSingleWordQuery = EXACTONSINGLEWORDQUERY_ATTRIBUTE
-	this.ExactOnSingleWordQuery = &exactOnSingleWordQuery
-	var replaceSynonymsInHighlight bool = false
-	this.ReplaceSynonymsInHighlight = &replaceSynonymsInHighlight
-	var minProximity int32 = 1
-	this.MinProximity = &minProximity
-	var maxFacetHits int32 = 10
-	this.MaxFacetHits = &maxFacetHits
-	var maxValuesPerFacet int32 = 100
-	this.MaxValuesPerFacet = &maxValuesPerFacet
-	var sortFacetValuesBy string = "count"
-	this.SortFacetValuesBy = &sortFacetValuesBy
-	var attributeCriteriaComputedByMinProximity bool = false
-	this.AttributeCriteriaComputedByMinProximity = &attributeCriteriaComputedByMinProximity
-	var enableReRanking bool = true
-	this.EnableReRanking = &enableReRanking
-	var type_ SearchTypeDefault = SEARCHTYPEDEFAULT_DEFAULT
-	this.Type = &type_
-	return this
+// NewEmptySearchForHits return a pointer to an empty SearchForHits object.
+func NewEmptySearchForHits() *SearchForHits {
+	return &SearchForHits{}
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
@@ -769,8 +682,9 @@ func (o *SearchForHits) HasParams() bool {
 }
 
 // SetParams gets a reference to the given string and assigns it to the Params field.
-func (o *SearchForHits) SetParams(v string) {
+func (o *SearchForHits) SetParams(v string) *SearchForHits {
 	o.Params = &v
+	return o
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -801,8 +715,9 @@ func (o *SearchForHits) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *SearchForHits) SetQuery(v string) {
+func (o *SearchForHits) SetQuery(v string) *SearchForHits {
 	o.Query = &v
+	return o
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
@@ -833,8 +748,9 @@ func (o *SearchForHits) HasSimilarQuery() bool {
 }
 
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
-func (o *SearchForHits) SetSimilarQuery(v string) {
+func (o *SearchForHits) SetSimilarQuery(v string) *SearchForHits {
 	o.SimilarQuery = &v
+	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -865,8 +781,9 @@ func (o *SearchForHits) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *SearchForHits) SetFilters(v string) {
+func (o *SearchForHits) SetFilters(v string) *SearchForHits {
 	o.Filters = &v
+	return o
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
@@ -897,8 +814,9 @@ func (o *SearchForHits) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *SearchForHits) SetFacetFilters(v FacetFilters) {
-	o.FacetFilters = &v
+func (o *SearchForHits) SetFacetFilters(v *FacetFilters) *SearchForHits {
+	o.FacetFilters = v
+	return o
 }
 
 // GetOptionalFilters returns the OptionalFilters field value if set, zero value otherwise.
@@ -929,8 +847,9 @@ func (o *SearchForHits) HasOptionalFilters() bool {
 }
 
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
-func (o *SearchForHits) SetOptionalFilters(v OptionalFilters) {
-	o.OptionalFilters = &v
+func (o *SearchForHits) SetOptionalFilters(v *OptionalFilters) *SearchForHits {
+	o.OptionalFilters = v
+	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
@@ -961,8 +880,9 @@ func (o *SearchForHits) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *SearchForHits) SetNumericFilters(v NumericFilters) {
-	o.NumericFilters = &v
+func (o *SearchForHits) SetNumericFilters(v *NumericFilters) *SearchForHits {
+	o.NumericFilters = v
+	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
@@ -993,8 +913,9 @@ func (o *SearchForHits) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *SearchForHits) SetTagFilters(v TagFilters) {
-	o.TagFilters = &v
+func (o *SearchForHits) SetTagFilters(v *TagFilters) *SearchForHits {
+	o.TagFilters = v
+	return o
 }
 
 // GetSumOrFiltersScores returns the SumOrFiltersScores field value if set, zero value otherwise.
@@ -1025,8 +946,9 @@ func (o *SearchForHits) HasSumOrFiltersScores() bool {
 }
 
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
-func (o *SearchForHits) SetSumOrFiltersScores(v bool) {
+func (o *SearchForHits) SetSumOrFiltersScores(v bool) *SearchForHits {
 	o.SumOrFiltersScores = &v
+	return o
 }
 
 // GetRestrictSearchableAttributes returns the RestrictSearchableAttributes field value if set, zero value otherwise.
@@ -1057,8 +979,9 @@ func (o *SearchForHits) HasRestrictSearchableAttributes() bool {
 }
 
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
-func (o *SearchForHits) SetRestrictSearchableAttributes(v []string) {
+func (o *SearchForHits) SetRestrictSearchableAttributes(v []string) *SearchForHits {
 	o.RestrictSearchableAttributes = v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -1089,8 +1012,9 @@ func (o *SearchForHits) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *SearchForHits) SetFacets(v []string) {
+func (o *SearchForHits) SetFacets(v []string) *SearchForHits {
 	o.Facets = v
+	return o
 }
 
 // GetFacetingAfterDistinct returns the FacetingAfterDistinct field value if set, zero value otherwise.
@@ -1121,8 +1045,9 @@ func (o *SearchForHits) HasFacetingAfterDistinct() bool {
 }
 
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
-func (o *SearchForHits) SetFacetingAfterDistinct(v bool) {
+func (o *SearchForHits) SetFacetingAfterDistinct(v bool) *SearchForHits {
 	o.FacetingAfterDistinct = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -1153,8 +1078,9 @@ func (o *SearchForHits) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *SearchForHits) SetPage(v int32) {
+func (o *SearchForHits) SetPage(v int32) *SearchForHits {
 	o.Page = &v
+	return o
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
@@ -1185,8 +1111,9 @@ func (o *SearchForHits) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *SearchForHits) SetOffset(v int32) {
+func (o *SearchForHits) SetOffset(v int32) *SearchForHits {
 	o.Offset = &v
+	return o
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
@@ -1217,8 +1144,9 @@ func (o *SearchForHits) HasLength() bool {
 }
 
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *SearchForHits) SetLength(v int32) {
+func (o *SearchForHits) SetLength(v int32) *SearchForHits {
 	o.Length = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -1249,8 +1177,9 @@ func (o *SearchForHits) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *SearchForHits) SetAroundLatLng(v string) {
+func (o *SearchForHits) SetAroundLatLng(v string) *SearchForHits {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAroundLatLngViaIP returns the AroundLatLngViaIP field value if set, zero value otherwise.
@@ -1281,8 +1210,9 @@ func (o *SearchForHits) HasAroundLatLngViaIP() bool {
 }
 
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
-func (o *SearchForHits) SetAroundLatLngViaIP(v bool) {
+func (o *SearchForHits) SetAroundLatLngViaIP(v bool) *SearchForHits {
 	o.AroundLatLngViaIP = &v
+	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
@@ -1313,8 +1243,9 @@ func (o *SearchForHits) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *SearchForHits) SetAroundRadius(v AroundRadius) {
-	o.AroundRadius = &v
+func (o *SearchForHits) SetAroundRadius(v *AroundRadius) *SearchForHits {
+	o.AroundRadius = v
+	return o
 }
 
 // GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise.
@@ -1345,8 +1276,9 @@ func (o *SearchForHits) HasAroundPrecision() bool {
 }
 
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
-func (o *SearchForHits) SetAroundPrecision(v AroundPrecision) {
-	o.AroundPrecision = &v
+func (o *SearchForHits) SetAroundPrecision(v *AroundPrecision) *SearchForHits {
+	o.AroundPrecision = v
+	return o
 }
 
 // GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
@@ -1377,8 +1309,9 @@ func (o *SearchForHits) HasMinimumAroundRadius() bool {
 }
 
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
-func (o *SearchForHits) SetMinimumAroundRadius(v int32) {
+func (o *SearchForHits) SetMinimumAroundRadius(v int32) *SearchForHits {
 	o.MinimumAroundRadius = &v
+	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
@@ -1409,8 +1342,9 @@ func (o *SearchForHits) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *SearchForHits) SetInsideBoundingBox(v [][]float64) {
+func (o *SearchForHits) SetInsideBoundingBox(v [][]float64) *SearchForHits {
 	o.InsideBoundingBox = v
+	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -1441,8 +1375,9 @@ func (o *SearchForHits) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *SearchForHits) SetInsidePolygon(v [][]float64) {
+func (o *SearchForHits) SetInsidePolygon(v [][]float64) *SearchForHits {
 	o.InsidePolygon = v
+	return o
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
@@ -1473,8 +1408,9 @@ func (o *SearchForHits) HasNaturalLanguages() bool {
 }
 
 // SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *SearchForHits) SetNaturalLanguages(v []string) {
+func (o *SearchForHits) SetNaturalLanguages(v []string) *SearchForHits {
 	o.NaturalLanguages = v
+	return o
 }
 
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
@@ -1505,8 +1441,9 @@ func (o *SearchForHits) HasRuleContexts() bool {
 }
 
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
-func (o *SearchForHits) SetRuleContexts(v []string) {
+func (o *SearchForHits) SetRuleContexts(v []string) *SearchForHits {
 	o.RuleContexts = v
+	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value if set, zero value otherwise.
@@ -1537,8 +1474,9 @@ func (o *SearchForHits) HasPersonalizationImpact() bool {
 }
 
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
-func (o *SearchForHits) SetPersonalizationImpact(v int32) {
+func (o *SearchForHits) SetPersonalizationImpact(v int32) *SearchForHits {
 	o.PersonalizationImpact = &v
+	return o
 }
 
 // GetUserToken returns the UserToken field value if set, zero value otherwise.
@@ -1569,8 +1507,9 @@ func (o *SearchForHits) HasUserToken() bool {
 }
 
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
-func (o *SearchForHits) SetUserToken(v string) {
+func (o *SearchForHits) SetUserToken(v string) *SearchForHits {
 	o.UserToken = &v
+	return o
 }
 
 // GetGetRankingInfo returns the GetRankingInfo field value if set, zero value otherwise.
@@ -1601,8 +1540,9 @@ func (o *SearchForHits) HasGetRankingInfo() bool {
 }
 
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
-func (o *SearchForHits) SetGetRankingInfo(v bool) {
+func (o *SearchForHits) SetGetRankingInfo(v bool) *SearchForHits {
 	o.GetRankingInfo = &v
+	return o
 }
 
 // GetExplain returns the Explain field value if set, zero value otherwise.
@@ -1633,8 +1573,9 @@ func (o *SearchForHits) HasExplain() bool {
 }
 
 // SetExplain gets a reference to the given []string and assigns it to the Explain field.
-func (o *SearchForHits) SetExplain(v []string) {
+func (o *SearchForHits) SetExplain(v []string) *SearchForHits {
 	o.Explain = v
+	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
@@ -1665,8 +1606,9 @@ func (o *SearchForHits) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
-func (o *SearchForHits) SetSynonyms(v bool) {
+func (o *SearchForHits) SetSynonyms(v bool) *SearchForHits {
 	o.Synonyms = &v
+	return o
 }
 
 // GetClickAnalytics returns the ClickAnalytics field value if set, zero value otherwise.
@@ -1697,8 +1639,9 @@ func (o *SearchForHits) HasClickAnalytics() bool {
 }
 
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
-func (o *SearchForHits) SetClickAnalytics(v bool) {
+func (o *SearchForHits) SetClickAnalytics(v bool) *SearchForHits {
 	o.ClickAnalytics = &v
+	return o
 }
 
 // GetAnalytics returns the Analytics field value if set, zero value otherwise.
@@ -1729,8 +1672,9 @@ func (o *SearchForHits) HasAnalytics() bool {
 }
 
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *SearchForHits) SetAnalytics(v bool) {
+func (o *SearchForHits) SetAnalytics(v bool) *SearchForHits {
 	o.Analytics = &v
+	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise.
@@ -1761,8 +1705,9 @@ func (o *SearchForHits) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *SearchForHits) SetAnalyticsTags(v []string) {
+func (o *SearchForHits) SetAnalyticsTags(v []string) *SearchForHits {
 	o.AnalyticsTags = v
+	return o
 }
 
 // GetPercentileComputation returns the PercentileComputation field value if set, zero value otherwise.
@@ -1793,8 +1738,9 @@ func (o *SearchForHits) HasPercentileComputation() bool {
 }
 
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
-func (o *SearchForHits) SetPercentileComputation(v bool) {
+func (o *SearchForHits) SetPercentileComputation(v bool) *SearchForHits {
 	o.PercentileComputation = &v
+	return o
 }
 
 // GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
@@ -1825,8 +1771,9 @@ func (o *SearchForHits) HasEnableABTest() bool {
 }
 
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *SearchForHits) SetEnableABTest(v bool) {
+func (o *SearchForHits) SetEnableABTest(v bool) *SearchForHits {
 	o.EnableABTest = &v
+	return o
 }
 
 // GetAttributesForFaceting returns the AttributesForFaceting field value if set, zero value otherwise.
@@ -1857,8 +1804,9 @@ func (o *SearchForHits) HasAttributesForFaceting() bool {
 }
 
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
-func (o *SearchForHits) SetAttributesForFaceting(v []string) {
+func (o *SearchForHits) SetAttributesForFaceting(v []string) *SearchForHits {
 	o.AttributesForFaceting = v
+	return o
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
@@ -1889,8 +1837,9 @@ func (o *SearchForHits) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *SearchForHits) SetAttributesToRetrieve(v []string) {
+func (o *SearchForHits) SetAttributesToRetrieve(v []string) *SearchForHits {
 	o.AttributesToRetrieve = v
+	return o
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
@@ -1921,8 +1870,9 @@ func (o *SearchForHits) HasRanking() bool {
 }
 
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *SearchForHits) SetRanking(v []string) {
+func (o *SearchForHits) SetRanking(v []string) *SearchForHits {
 	o.Ranking = v
+	return o
 }
 
 // GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
@@ -1953,8 +1903,9 @@ func (o *SearchForHits) HasCustomRanking() bool {
 }
 
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *SearchForHits) SetCustomRanking(v []string) {
+func (o *SearchForHits) SetCustomRanking(v []string) *SearchForHits {
 	o.CustomRanking = v
+	return o
 }
 
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
@@ -1985,8 +1936,9 @@ func (o *SearchForHits) HasRelevancyStrictness() bool {
 }
 
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *SearchForHits) SetRelevancyStrictness(v int32) {
+func (o *SearchForHits) SetRelevancyStrictness(v int32) *SearchForHits {
 	o.RelevancyStrictness = &v
+	return o
 }
 
 // GetAttributesToHighlight returns the AttributesToHighlight field value if set, zero value otherwise.
@@ -2017,8 +1969,9 @@ func (o *SearchForHits) HasAttributesToHighlight() bool {
 }
 
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
-func (o *SearchForHits) SetAttributesToHighlight(v []string) {
+func (o *SearchForHits) SetAttributesToHighlight(v []string) *SearchForHits {
 	o.AttributesToHighlight = v
+	return o
 }
 
 // GetAttributesToSnippet returns the AttributesToSnippet field value if set, zero value otherwise.
@@ -2049,8 +2002,9 @@ func (o *SearchForHits) HasAttributesToSnippet() bool {
 }
 
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
-func (o *SearchForHits) SetAttributesToSnippet(v []string) {
+func (o *SearchForHits) SetAttributesToSnippet(v []string) *SearchForHits {
 	o.AttributesToSnippet = v
+	return o
 }
 
 // GetHighlightPreTag returns the HighlightPreTag field value if set, zero value otherwise.
@@ -2081,8 +2035,9 @@ func (o *SearchForHits) HasHighlightPreTag() bool {
 }
 
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
-func (o *SearchForHits) SetHighlightPreTag(v string) {
+func (o *SearchForHits) SetHighlightPreTag(v string) *SearchForHits {
 	o.HighlightPreTag = &v
+	return o
 }
 
 // GetHighlightPostTag returns the HighlightPostTag field value if set, zero value otherwise.
@@ -2113,8 +2068,9 @@ func (o *SearchForHits) HasHighlightPostTag() bool {
 }
 
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
-func (o *SearchForHits) SetHighlightPostTag(v string) {
+func (o *SearchForHits) SetHighlightPostTag(v string) *SearchForHits {
 	o.HighlightPostTag = &v
+	return o
 }
 
 // GetSnippetEllipsisText returns the SnippetEllipsisText field value if set, zero value otherwise.
@@ -2145,8 +2101,9 @@ func (o *SearchForHits) HasSnippetEllipsisText() bool {
 }
 
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
-func (o *SearchForHits) SetSnippetEllipsisText(v string) {
+func (o *SearchForHits) SetSnippetEllipsisText(v string) *SearchForHits {
 	o.SnippetEllipsisText = &v
+	return o
 }
 
 // GetRestrictHighlightAndSnippetArrays returns the RestrictHighlightAndSnippetArrays field value if set, zero value otherwise.
@@ -2177,8 +2134,9 @@ func (o *SearchForHits) HasRestrictHighlightAndSnippetArrays() bool {
 }
 
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
-func (o *SearchForHits) SetRestrictHighlightAndSnippetArrays(v bool) {
+func (o *SearchForHits) SetRestrictHighlightAndSnippetArrays(v bool) *SearchForHits {
 	o.RestrictHighlightAndSnippetArrays = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -2209,8 +2167,9 @@ func (o *SearchForHits) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *SearchForHits) SetHitsPerPage(v int32) {
+func (o *SearchForHits) SetHitsPerPage(v int32) *SearchForHits {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
@@ -2241,8 +2200,9 @@ func (o *SearchForHits) HasMinWordSizefor1Typo() bool {
 }
 
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
-func (o *SearchForHits) SetMinWordSizefor1Typo(v int32) {
+func (o *SearchForHits) SetMinWordSizefor1Typo(v int32) *SearchForHits {
 	o.MinWordSizefor1Typo = &v
+	return o
 }
 
 // GetMinWordSizefor2Typos returns the MinWordSizefor2Typos field value if set, zero value otherwise.
@@ -2273,8 +2233,9 @@ func (o *SearchForHits) HasMinWordSizefor2Typos() bool {
 }
 
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
-func (o *SearchForHits) SetMinWordSizefor2Typos(v int32) {
+func (o *SearchForHits) SetMinWordSizefor2Typos(v int32) *SearchForHits {
 	o.MinWordSizefor2Typos = &v
+	return o
 }
 
 // GetTypoTolerance returns the TypoTolerance field value if set, zero value otherwise.
@@ -2305,8 +2266,9 @@ func (o *SearchForHits) HasTypoTolerance() bool {
 }
 
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
-func (o *SearchForHits) SetTypoTolerance(v TypoTolerance) {
-	o.TypoTolerance = &v
+func (o *SearchForHits) SetTypoTolerance(v *TypoTolerance) *SearchForHits {
+	o.TypoTolerance = v
+	return o
 }
 
 // GetAllowTyposOnNumericTokens returns the AllowTyposOnNumericTokens field value if set, zero value otherwise.
@@ -2337,8 +2299,9 @@ func (o *SearchForHits) HasAllowTyposOnNumericTokens() bool {
 }
 
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
-func (o *SearchForHits) SetAllowTyposOnNumericTokens(v bool) {
+func (o *SearchForHits) SetAllowTyposOnNumericTokens(v bool) *SearchForHits {
 	o.AllowTyposOnNumericTokens = &v
+	return o
 }
 
 // GetDisableTypoToleranceOnAttributes returns the DisableTypoToleranceOnAttributes field value if set, zero value otherwise.
@@ -2369,8 +2332,9 @@ func (o *SearchForHits) HasDisableTypoToleranceOnAttributes() bool {
 }
 
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
-func (o *SearchForHits) SetDisableTypoToleranceOnAttributes(v []string) {
+func (o *SearchForHits) SetDisableTypoToleranceOnAttributes(v []string) *SearchForHits {
 	o.DisableTypoToleranceOnAttributes = v
+	return o
 }
 
 // GetIgnorePlurals returns the IgnorePlurals field value if set, zero value otherwise.
@@ -2401,8 +2365,9 @@ func (o *SearchForHits) HasIgnorePlurals() bool {
 }
 
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
-func (o *SearchForHits) SetIgnorePlurals(v IgnorePlurals) {
-	o.IgnorePlurals = &v
+func (o *SearchForHits) SetIgnorePlurals(v *IgnorePlurals) *SearchForHits {
+	o.IgnorePlurals = v
+	return o
 }
 
 // GetRemoveStopWords returns the RemoveStopWords field value if set, zero value otherwise.
@@ -2433,8 +2398,9 @@ func (o *SearchForHits) HasRemoveStopWords() bool {
 }
 
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
-func (o *SearchForHits) SetRemoveStopWords(v RemoveStopWords) {
-	o.RemoveStopWords = &v
+func (o *SearchForHits) SetRemoveStopWords(v *RemoveStopWords) *SearchForHits {
+	o.RemoveStopWords = v
+	return o
 }
 
 // GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
@@ -2465,8 +2431,9 @@ func (o *SearchForHits) HasKeepDiacriticsOnCharacters() bool {
 }
 
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *SearchForHits) SetKeepDiacriticsOnCharacters(v string) {
+func (o *SearchForHits) SetKeepDiacriticsOnCharacters(v string) *SearchForHits {
 	o.KeepDiacriticsOnCharacters = &v
+	return o
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
@@ -2497,8 +2464,9 @@ func (o *SearchForHits) HasQueryLanguages() bool {
 }
 
 // SetQueryLanguages gets a reference to the given []string and assigns it to the QueryLanguages field.
-func (o *SearchForHits) SetQueryLanguages(v []string) {
+func (o *SearchForHits) SetQueryLanguages(v []string) *SearchForHits {
 	o.QueryLanguages = v
+	return o
 }
 
 // GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
@@ -2529,8 +2497,9 @@ func (o *SearchForHits) HasDecompoundQuery() bool {
 }
 
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *SearchForHits) SetDecompoundQuery(v bool) {
+func (o *SearchForHits) SetDecompoundQuery(v bool) *SearchForHits {
 	o.DecompoundQuery = &v
+	return o
 }
 
 // GetEnableRules returns the EnableRules field value if set, zero value otherwise.
@@ -2561,8 +2530,9 @@ func (o *SearchForHits) HasEnableRules() bool {
 }
 
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *SearchForHits) SetEnableRules(v bool) {
+func (o *SearchForHits) SetEnableRules(v bool) *SearchForHits {
 	o.EnableRules = &v
+	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
@@ -2593,8 +2563,9 @@ func (o *SearchForHits) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *SearchForHits) SetEnablePersonalization(v bool) {
+func (o *SearchForHits) SetEnablePersonalization(v bool) *SearchForHits {
 	o.EnablePersonalization = &v
+	return o
 }
 
 // GetQueryType returns the QueryType field value if set, zero value otherwise.
@@ -2625,8 +2596,9 @@ func (o *SearchForHits) HasQueryType() bool {
 }
 
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
-func (o *SearchForHits) SetQueryType(v QueryType) {
+func (o *SearchForHits) SetQueryType(v QueryType) *SearchForHits {
 	o.QueryType = &v
+	return o
 }
 
 // GetRemoveWordsIfNoResults returns the RemoveWordsIfNoResults field value if set, zero value otherwise.
@@ -2657,8 +2629,9 @@ func (o *SearchForHits) HasRemoveWordsIfNoResults() bool {
 }
 
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
-func (o *SearchForHits) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) {
+func (o *SearchForHits) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *SearchForHits {
 	o.RemoveWordsIfNoResults = &v
+	return o
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
@@ -2689,8 +2662,9 @@ func (o *SearchForHits) HasMode() bool {
 }
 
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *SearchForHits) SetMode(v Mode) {
+func (o *SearchForHits) SetMode(v Mode) *SearchForHits {
 	o.Mode = &v
+	return o
 }
 
 // GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
@@ -2721,8 +2695,9 @@ func (o *SearchForHits) HasSemanticSearch() bool {
 }
 
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *SearchForHits) SetSemanticSearch(v SemanticSearch) {
-	o.SemanticSearch = &v
+func (o *SearchForHits) SetSemanticSearch(v *SemanticSearch) *SearchForHits {
+	o.SemanticSearch = v
+	return o
 }
 
 // GetAdvancedSyntax returns the AdvancedSyntax field value if set, zero value otherwise.
@@ -2753,8 +2728,9 @@ func (o *SearchForHits) HasAdvancedSyntax() bool {
 }
 
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
-func (o *SearchForHits) SetAdvancedSyntax(v bool) {
+func (o *SearchForHits) SetAdvancedSyntax(v bool) *SearchForHits {
 	o.AdvancedSyntax = &v
+	return o
 }
 
 // GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
@@ -2785,8 +2761,9 @@ func (o *SearchForHits) HasOptionalWords() bool {
 }
 
 // SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *SearchForHits) SetOptionalWords(v []string) {
+func (o *SearchForHits) SetOptionalWords(v []string) *SearchForHits {
 	o.OptionalWords = v
+	return o
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
@@ -2817,8 +2794,9 @@ func (o *SearchForHits) HasDisableExactOnAttributes() bool {
 }
 
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
-func (o *SearchForHits) SetDisableExactOnAttributes(v []string) {
+func (o *SearchForHits) SetDisableExactOnAttributes(v []string) *SearchForHits {
 	o.DisableExactOnAttributes = v
+	return o
 }
 
 // GetExactOnSingleWordQuery returns the ExactOnSingleWordQuery field value if set, zero value otherwise.
@@ -2849,8 +2827,9 @@ func (o *SearchForHits) HasExactOnSingleWordQuery() bool {
 }
 
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
-func (o *SearchForHits) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) {
+func (o *SearchForHits) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *SearchForHits {
 	o.ExactOnSingleWordQuery = &v
+	return o
 }
 
 // GetAlternativesAsExact returns the AlternativesAsExact field value if set, zero value otherwise.
@@ -2881,8 +2860,9 @@ func (o *SearchForHits) HasAlternativesAsExact() bool {
 }
 
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
-func (o *SearchForHits) SetAlternativesAsExact(v []AlternativesAsExact) {
+func (o *SearchForHits) SetAlternativesAsExact(v []AlternativesAsExact) *SearchForHits {
 	o.AlternativesAsExact = v
+	return o
 }
 
 // GetAdvancedSyntaxFeatures returns the AdvancedSyntaxFeatures field value if set, zero value otherwise.
@@ -2913,8 +2893,9 @@ func (o *SearchForHits) HasAdvancedSyntaxFeatures() bool {
 }
 
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
-func (o *SearchForHits) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) {
+func (o *SearchForHits) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *SearchForHits {
 	o.AdvancedSyntaxFeatures = v
+	return o
 }
 
 // GetDistinct returns the Distinct field value if set, zero value otherwise.
@@ -2945,8 +2926,9 @@ func (o *SearchForHits) HasDistinct() bool {
 }
 
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
-func (o *SearchForHits) SetDistinct(v Distinct) {
-	o.Distinct = &v
+func (o *SearchForHits) SetDistinct(v *Distinct) *SearchForHits {
+	o.Distinct = v
+	return o
 }
 
 // GetReplaceSynonymsInHighlight returns the ReplaceSynonymsInHighlight field value if set, zero value otherwise.
@@ -2977,8 +2959,9 @@ func (o *SearchForHits) HasReplaceSynonymsInHighlight() bool {
 }
 
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
-func (o *SearchForHits) SetReplaceSynonymsInHighlight(v bool) {
+func (o *SearchForHits) SetReplaceSynonymsInHighlight(v bool) *SearchForHits {
 	o.ReplaceSynonymsInHighlight = &v
+	return o
 }
 
 // GetMinProximity returns the MinProximity field value if set, zero value otherwise.
@@ -3009,8 +2992,9 @@ func (o *SearchForHits) HasMinProximity() bool {
 }
 
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
-func (o *SearchForHits) SetMinProximity(v int32) {
+func (o *SearchForHits) SetMinProximity(v int32) *SearchForHits {
 	o.MinProximity = &v
+	return o
 }
 
 // GetResponseFields returns the ResponseFields field value if set, zero value otherwise.
@@ -3041,8 +3025,9 @@ func (o *SearchForHits) HasResponseFields() bool {
 }
 
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
-func (o *SearchForHits) SetResponseFields(v []string) {
+func (o *SearchForHits) SetResponseFields(v []string) *SearchForHits {
 	o.ResponseFields = v
+	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
@@ -3073,8 +3058,9 @@ func (o *SearchForHits) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *SearchForHits) SetMaxFacetHits(v int32) {
+func (o *SearchForHits) SetMaxFacetHits(v int32) *SearchForHits {
 	o.MaxFacetHits = &v
+	return o
 }
 
 // GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
@@ -3105,8 +3091,9 @@ func (o *SearchForHits) HasMaxValuesPerFacet() bool {
 }
 
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
-func (o *SearchForHits) SetMaxValuesPerFacet(v int32) {
+func (o *SearchForHits) SetMaxValuesPerFacet(v int32) *SearchForHits {
 	o.MaxValuesPerFacet = &v
+	return o
 }
 
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
@@ -3137,8 +3124,9 @@ func (o *SearchForHits) HasSortFacetValuesBy() bool {
 }
 
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
-func (o *SearchForHits) SetSortFacetValuesBy(v string) {
+func (o *SearchForHits) SetSortFacetValuesBy(v string) *SearchForHits {
 	o.SortFacetValuesBy = &v
+	return o
 }
 
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
@@ -3169,8 +3157,9 @@ func (o *SearchForHits) HasAttributeCriteriaComputedByMinProximity() bool {
 }
 
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
-func (o *SearchForHits) SetAttributeCriteriaComputedByMinProximity(v bool) {
+func (o *SearchForHits) SetAttributeCriteriaComputedByMinProximity(v bool) *SearchForHits {
 	o.AttributeCriteriaComputedByMinProximity = &v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -3201,8 +3190,9 @@ func (o *SearchForHits) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *SearchForHits) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *SearchForHits) SetRenderingContent(v *RenderingContent) *SearchForHits {
+	o.RenderingContent = v
+	return o
 }
 
 // GetEnableReRanking returns the EnableReRanking field value if set, zero value otherwise.
@@ -3233,8 +3223,9 @@ func (o *SearchForHits) HasEnableReRanking() bool {
 }
 
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
-func (o *SearchForHits) SetEnableReRanking(v bool) {
+func (o *SearchForHits) SetEnableReRanking(v bool) *SearchForHits {
 	o.EnableReRanking = &v
+	return o
 }
 
 // GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -3266,8 +3257,9 @@ func (o *SearchForHits) HasReRankingApplyFilter() bool {
 }
 
 // SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
-func (o *SearchForHits) SetReRankingApplyFilter(v ReRankingApplyFilter) {
-	o.ReRankingApplyFilter.Set(&v)
+func (o *SearchForHits) SetReRankingApplyFilter(v *ReRankingApplyFilter) *SearchForHits {
+	o.ReRankingApplyFilter.Set(v)
+	return o
 }
 
 // SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
@@ -3300,8 +3292,9 @@ func (o *SearchForHits) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *SearchForHits) SetIndexName(v string) {
+func (o *SearchForHits) SetIndexName(v string) *SearchForHits {
 	o.IndexName = v
+	return o
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -3332,8 +3325,9 @@ func (o *SearchForHits) HasType() bool {
 }
 
 // SetType gets a reference to the given SearchTypeDefault and assigns it to the Type field.
-func (o *SearchForHits) SetType(v SearchTypeDefault) {
+func (o *SearchForHits) SetType(v SearchTypeDefault) *SearchForHits {
 	o.Type = &v
+	return o
 }
 
 func (o SearchForHits) MarshalJSON() ([]byte, error) {

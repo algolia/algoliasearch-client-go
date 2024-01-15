@@ -38,12 +38,9 @@ func NewAuthBasicPartial(opts ...AuthBasicPartialOption) *AuthBasicPartial {
 	return this
 }
 
-// NewAuthBasicPartialWithDefaults instantiates a new AuthBasicPartial object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthBasicPartialWithDefaults() *AuthBasicPartial {
-	this := &AuthBasicPartial{}
-	return this
+// NewEmptyAuthBasicPartial return a pointer to an empty AuthBasicPartial object.
+func NewEmptyAuthBasicPartial() *AuthBasicPartial {
+	return &AuthBasicPartial{}
 }
 
 // GetUsername returns the Username field value if set, zero value otherwise.
@@ -74,8 +71,9 @@ func (o *AuthBasicPartial) HasUsername() bool {
 }
 
 // SetUsername gets a reference to the given string and assigns it to the Username field.
-func (o *AuthBasicPartial) SetUsername(v string) {
+func (o *AuthBasicPartial) SetUsername(v string) *AuthBasicPartial {
 	o.Username = &v
+	return o
 }
 
 // GetPassword returns the Password field value if set, zero value otherwise.
@@ -106,8 +104,9 @@ func (o *AuthBasicPartial) HasPassword() bool {
 }
 
 // SetPassword gets a reference to the given string and assigns it to the Password field.
-func (o *AuthBasicPartial) SetPassword(v string) {
+func (o *AuthBasicPartial) SetPassword(v string) *AuthBasicPartial {
 	o.Password = &v
+	return o
 }
 
 func (o AuthBasicPartial) MarshalJSON() ([]byte, error) {

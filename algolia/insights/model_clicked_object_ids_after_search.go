@@ -60,12 +60,9 @@ func NewClickedObjectIDsAfterSearch(eventName string, eventType ClickEvent, inde
 	return this
 }
 
-// NewClickedObjectIDsAfterSearchWithDefaults instantiates a new ClickedObjectIDsAfterSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewClickedObjectIDsAfterSearchWithDefaults() *ClickedObjectIDsAfterSearch {
-	this := &ClickedObjectIDsAfterSearch{}
-	return this
+// NewEmptyClickedObjectIDsAfterSearch return a pointer to an empty ClickedObjectIDsAfterSearch object.
+func NewEmptyClickedObjectIDsAfterSearch() *ClickedObjectIDsAfterSearch {
+	return &ClickedObjectIDsAfterSearch{}
 }
 
 // GetEventName returns the EventName field value.
@@ -88,8 +85,9 @@ func (o *ClickedObjectIDsAfterSearch) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *ClickedObjectIDsAfterSearch) SetEventName(v string) {
+func (o *ClickedObjectIDsAfterSearch) SetEventName(v string) *ClickedObjectIDsAfterSearch {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -112,8 +110,9 @@ func (o *ClickedObjectIDsAfterSearch) GetEventTypeOk() (*ClickEvent, bool) {
 }
 
 // SetEventType sets field value.
-func (o *ClickedObjectIDsAfterSearch) SetEventType(v ClickEvent) {
+func (o *ClickedObjectIDsAfterSearch) SetEventType(v ClickEvent) *ClickedObjectIDsAfterSearch {
 	o.EventType = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -136,8 +135,9 @@ func (o *ClickedObjectIDsAfterSearch) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *ClickedObjectIDsAfterSearch) SetIndex(v string) {
+func (o *ClickedObjectIDsAfterSearch) SetIndex(v string) *ClickedObjectIDsAfterSearch {
 	o.Index = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -160,8 +160,9 @@ func (o *ClickedObjectIDsAfterSearch) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *ClickedObjectIDsAfterSearch) SetObjectIDs(v []string) {
+func (o *ClickedObjectIDsAfterSearch) SetObjectIDs(v []string) *ClickedObjectIDsAfterSearch {
 	o.ObjectIDs = v
+	return o
 }
 
 // GetPositions returns the Positions field value.
@@ -184,8 +185,9 @@ func (o *ClickedObjectIDsAfterSearch) GetPositionsOk() ([]int32, bool) {
 }
 
 // SetPositions sets field value.
-func (o *ClickedObjectIDsAfterSearch) SetPositions(v []int32) {
+func (o *ClickedObjectIDsAfterSearch) SetPositions(v []int32) *ClickedObjectIDsAfterSearch {
 	o.Positions = v
+	return o
 }
 
 // GetQueryID returns the QueryID field value.
@@ -208,8 +210,9 @@ func (o *ClickedObjectIDsAfterSearch) GetQueryIDOk() (*string, bool) {
 }
 
 // SetQueryID sets field value.
-func (o *ClickedObjectIDsAfterSearch) SetQueryID(v string) {
+func (o *ClickedObjectIDsAfterSearch) SetQueryID(v string) *ClickedObjectIDsAfterSearch {
 	o.QueryID = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -232,8 +235,9 @@ func (o *ClickedObjectIDsAfterSearch) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *ClickedObjectIDsAfterSearch) SetUserToken(v string) {
+func (o *ClickedObjectIDsAfterSearch) SetUserToken(v string) *ClickedObjectIDsAfterSearch {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -264,8 +268,9 @@ func (o *ClickedObjectIDsAfterSearch) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *ClickedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) {
+func (o *ClickedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *ClickedObjectIDsAfterSearch {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -296,8 +301,9 @@ func (o *ClickedObjectIDsAfterSearch) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ClickedObjectIDsAfterSearch) SetTimestamp(v int64) {
+func (o *ClickedObjectIDsAfterSearch) SetTimestamp(v int64) *ClickedObjectIDsAfterSearch {
 	o.Timestamp = &v
+	return o
 }
 
 func (o ClickedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {

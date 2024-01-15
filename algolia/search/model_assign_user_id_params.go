@@ -22,12 +22,9 @@ func NewAssignUserIdParams(cluster string) *AssignUserIdParams {
 	return this
 }
 
-// NewAssignUserIdParamsWithDefaults instantiates a new AssignUserIdParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAssignUserIdParamsWithDefaults() *AssignUserIdParams {
-	this := &AssignUserIdParams{}
-	return this
+// NewEmptyAssignUserIdParams return a pointer to an empty AssignUserIdParams object.
+func NewEmptyAssignUserIdParams() *AssignUserIdParams {
+	return &AssignUserIdParams{}
 }
 
 // GetCluster returns the Cluster field value.
@@ -50,8 +47,9 @@ func (o *AssignUserIdParams) GetClusterOk() (*string, bool) {
 }
 
 // SetCluster sets field value.
-func (o *AssignUserIdParams) SetCluster(v string) {
+func (o *AssignUserIdParams) SetCluster(v string) *AssignUserIdParams {
 	o.Cluster = v
+	return o
 }
 
 func (o AssignUserIdParams) MarshalJSON() ([]byte, error) {

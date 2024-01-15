@@ -28,12 +28,9 @@ func NewTrendingFacetHit(score float64, facetName string, facetValue string) *Tr
 	return this
 }
 
-// NewTrendingFacetHitWithDefaults instantiates a new TrendingFacetHit object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTrendingFacetHitWithDefaults() *TrendingFacetHit {
-	this := &TrendingFacetHit{}
-	return this
+// NewEmptyTrendingFacetHit return a pointer to an empty TrendingFacetHit object.
+func NewEmptyTrendingFacetHit() *TrendingFacetHit {
+	return &TrendingFacetHit{}
 }
 
 // GetScore returns the Score field value.
@@ -56,8 +53,9 @@ func (o *TrendingFacetHit) GetScoreOk() (*float64, bool) {
 }
 
 // SetScore sets field value.
-func (o *TrendingFacetHit) SetScore(v float64) {
+func (o *TrendingFacetHit) SetScore(v float64) *TrendingFacetHit {
 	o.Score = v
+	return o
 }
 
 // GetFacetName returns the FacetName field value.
@@ -80,8 +78,9 @@ func (o *TrendingFacetHit) GetFacetNameOk() (*string, bool) {
 }
 
 // SetFacetName sets field value.
-func (o *TrendingFacetHit) SetFacetName(v string) {
+func (o *TrendingFacetHit) SetFacetName(v string) *TrendingFacetHit {
 	o.FacetName = v
+	return o
 }
 
 // GetFacetValue returns the FacetValue field value.
@@ -104,8 +103,9 @@ func (o *TrendingFacetHit) GetFacetValueOk() (*string, bool) {
 }
 
 // SetFacetValue sets field value.
-func (o *TrendingFacetHit) SetFacetValue(v string) {
+func (o *TrendingFacetHit) SetFacetValue(v string) *TrendingFacetHit {
 	o.FacetValue = v
+	return o
 }
 
 func (o TrendingFacetHit) MarshalJSON() ([]byte, error) {

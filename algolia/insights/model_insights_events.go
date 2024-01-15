@@ -22,12 +22,9 @@ func NewInsightsEvents(events []EventsItems) *InsightsEvents {
 	return this
 }
 
-// NewInsightsEventsWithDefaults instantiates a new InsightsEvents object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewInsightsEventsWithDefaults() *InsightsEvents {
-	this := &InsightsEvents{}
-	return this
+// NewEmptyInsightsEvents return a pointer to an empty InsightsEvents object.
+func NewEmptyInsightsEvents() *InsightsEvents {
+	return &InsightsEvents{}
 }
 
 // GetEvents returns the Events field value.
@@ -50,8 +47,9 @@ func (o *InsightsEvents) GetEventsOk() ([]EventsItems, bool) {
 }
 
 // SetEvents sets field value.
-func (o *InsightsEvents) SetEvents(v []EventsItems) {
+func (o *InsightsEvents) SetEvents(v []EventsItems) *InsightsEvents {
 	o.Events = v
+	return o
 }
 
 func (o InsightsEvents) MarshalJSON() ([]byte, error) {

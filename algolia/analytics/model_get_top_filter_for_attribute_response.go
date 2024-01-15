@@ -22,12 +22,9 @@ func NewGetTopFilterForAttributeResponse(values []GetTopFilterForAttribute) *Get
 	return this
 }
 
-// NewGetTopFilterForAttributeResponseWithDefaults instantiates a new GetTopFilterForAttributeResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTopFilterForAttributeResponseWithDefaults() *GetTopFilterForAttributeResponse {
-	this := &GetTopFilterForAttributeResponse{}
-	return this
+// NewEmptyGetTopFilterForAttributeResponse return a pointer to an empty GetTopFilterForAttributeResponse object.
+func NewEmptyGetTopFilterForAttributeResponse() *GetTopFilterForAttributeResponse {
+	return &GetTopFilterForAttributeResponse{}
 }
 
 // GetValues returns the Values field value.
@@ -50,8 +47,9 @@ func (o *GetTopFilterForAttributeResponse) GetValuesOk() ([]GetTopFilterForAttri
 }
 
 // SetValues sets field value.
-func (o *GetTopFilterForAttributeResponse) SetValues(v []GetTopFilterForAttribute) {
+func (o *GetTopFilterForAttributeResponse) SetValues(v []GetTopFilterForAttribute) *GetTopFilterForAttributeResponse {
 	o.Values = v
+	return o
 }
 
 func (o GetTopFilterForAttributeResponse) MarshalJSON() ([]byte, error) {

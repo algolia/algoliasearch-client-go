@@ -40,12 +40,9 @@ func NewHighlightResultOption(value string, matchLevel MatchLevel, matchedWords 
 	return this
 }
 
-// NewHighlightResultOptionWithDefaults instantiates a new HighlightResultOption object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewHighlightResultOptionWithDefaults() *HighlightResultOption {
-	this := &HighlightResultOption{}
-	return this
+// NewEmptyHighlightResultOption return a pointer to an empty HighlightResultOption object.
+func NewEmptyHighlightResultOption() *HighlightResultOption {
+	return &HighlightResultOption{}
 }
 
 // GetValue returns the Value field value.
@@ -68,8 +65,9 @@ func (o *HighlightResultOption) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value.
-func (o *HighlightResultOption) SetValue(v string) {
+func (o *HighlightResultOption) SetValue(v string) *HighlightResultOption {
 	o.Value = v
+	return o
 }
 
 // GetMatchLevel returns the MatchLevel field value.
@@ -92,8 +90,9 @@ func (o *HighlightResultOption) GetMatchLevelOk() (*MatchLevel, bool) {
 }
 
 // SetMatchLevel sets field value.
-func (o *HighlightResultOption) SetMatchLevel(v MatchLevel) {
+func (o *HighlightResultOption) SetMatchLevel(v MatchLevel) *HighlightResultOption {
 	o.MatchLevel = v
+	return o
 }
 
 // GetMatchedWords returns the MatchedWords field value.
@@ -116,8 +115,9 @@ func (o *HighlightResultOption) GetMatchedWordsOk() ([]string, bool) {
 }
 
 // SetMatchedWords sets field value.
-func (o *HighlightResultOption) SetMatchedWords(v []string) {
+func (o *HighlightResultOption) SetMatchedWords(v []string) *HighlightResultOption {
 	o.MatchedWords = v
+	return o
 }
 
 // GetFullyHighlighted returns the FullyHighlighted field value if set, zero value otherwise.
@@ -148,8 +148,9 @@ func (o *HighlightResultOption) HasFullyHighlighted() bool {
 }
 
 // SetFullyHighlighted gets a reference to the given bool and assigns it to the FullyHighlighted field.
-func (o *HighlightResultOption) SetFullyHighlighted(v bool) {
+func (o *HighlightResultOption) SetFullyHighlighted(v bool) *HighlightResultOption {
 	o.FullyHighlighted = &v
+	return o
 }
 
 func (o HighlightResultOption) MarshalJSON() ([]byte, error) {

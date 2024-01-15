@@ -54,12 +54,9 @@ func NewConvertedFilters(eventName string, eventType ConversionEvent, index stri
 	return this
 }
 
-// NewConvertedFiltersWithDefaults instantiates a new ConvertedFilters object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConvertedFiltersWithDefaults() *ConvertedFilters {
-	this := &ConvertedFilters{}
-	return this
+// NewEmptyConvertedFilters return a pointer to an empty ConvertedFilters object.
+func NewEmptyConvertedFilters() *ConvertedFilters {
+	return &ConvertedFilters{}
 }
 
 // GetEventName returns the EventName field value.
@@ -82,8 +79,9 @@ func (o *ConvertedFilters) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *ConvertedFilters) SetEventName(v string) {
+func (o *ConvertedFilters) SetEventName(v string) *ConvertedFilters {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -106,8 +104,9 @@ func (o *ConvertedFilters) GetEventTypeOk() (*ConversionEvent, bool) {
 }
 
 // SetEventType sets field value.
-func (o *ConvertedFilters) SetEventType(v ConversionEvent) {
+func (o *ConvertedFilters) SetEventType(v ConversionEvent) *ConvertedFilters {
 	o.EventType = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -130,8 +129,9 @@ func (o *ConvertedFilters) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *ConvertedFilters) SetIndex(v string) {
+func (o *ConvertedFilters) SetIndex(v string) *ConvertedFilters {
 	o.Index = v
+	return o
 }
 
 // GetFilters returns the Filters field value.
@@ -154,8 +154,9 @@ func (o *ConvertedFilters) GetFiltersOk() ([]string, bool) {
 }
 
 // SetFilters sets field value.
-func (o *ConvertedFilters) SetFilters(v []string) {
+func (o *ConvertedFilters) SetFilters(v []string) *ConvertedFilters {
 	o.Filters = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -178,8 +179,9 @@ func (o *ConvertedFilters) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *ConvertedFilters) SetUserToken(v string) {
+func (o *ConvertedFilters) SetUserToken(v string) *ConvertedFilters {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -210,8 +212,9 @@ func (o *ConvertedFilters) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *ConvertedFilters) SetAuthenticatedUserToken(v string) {
+func (o *ConvertedFilters) SetAuthenticatedUserToken(v string) *ConvertedFilters {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -242,8 +245,9 @@ func (o *ConvertedFilters) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ConvertedFilters) SetTimestamp(v int64) {
+func (o *ConvertedFilters) SetTimestamp(v int64) *ConvertedFilters {
 	o.Timestamp = &v
+	return o
 }
 
 func (o ConvertedFilters) MarshalJSON() ([]byte, error) {

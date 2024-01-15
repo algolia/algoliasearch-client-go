@@ -38,12 +38,9 @@ func NewAbTestsVariant(index string, trafficPercentage int32, opts ...AbTestsVar
 	return this
 }
 
-// NewAbTestsVariantWithDefaults instantiates a new AbTestsVariant object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAbTestsVariantWithDefaults() *AbTestsVariant {
-	this := &AbTestsVariant{}
-	return this
+// NewEmptyAbTestsVariant return a pointer to an empty AbTestsVariant object.
+func NewEmptyAbTestsVariant() *AbTestsVariant {
+	return &AbTestsVariant{}
 }
 
 // GetIndex returns the Index field value.
@@ -66,8 +63,9 @@ func (o *AbTestsVariant) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *AbTestsVariant) SetIndex(v string) {
+func (o *AbTestsVariant) SetIndex(v string) *AbTestsVariant {
 	o.Index = v
+	return o
 }
 
 // GetTrafficPercentage returns the TrafficPercentage field value.
@@ -90,8 +88,9 @@ func (o *AbTestsVariant) GetTrafficPercentageOk() (*int32, bool) {
 }
 
 // SetTrafficPercentage sets field value.
-func (o *AbTestsVariant) SetTrafficPercentage(v int32) {
+func (o *AbTestsVariant) SetTrafficPercentage(v int32) *AbTestsVariant {
 	o.TrafficPercentage = v
+	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -122,8 +121,9 @@ func (o *AbTestsVariant) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AbTestsVariant) SetDescription(v string) {
+func (o *AbTestsVariant) SetDescription(v string) *AbTestsVariant {
 	o.Description = &v
+	return o
 }
 
 func (o AbTestsVariant) MarshalJSON() ([]byte, error) {

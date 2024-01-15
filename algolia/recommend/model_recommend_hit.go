@@ -63,12 +63,9 @@ func NewRecommendHit(objectID string, score float64, opts ...RecommendHitOption)
 	return this
 }
 
-// NewRecommendHitWithDefaults instantiates a new RecommendHit object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRecommendHitWithDefaults() *RecommendHit {
-	this := &RecommendHit{}
-	return this
+// NewEmptyRecommendHit return a pointer to an empty RecommendHit object.
+func NewEmptyRecommendHit() *RecommendHit {
+	return &RecommendHit{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -91,8 +88,9 @@ func (o *RecommendHit) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *RecommendHit) SetObjectID(v string) {
+func (o *RecommendHit) SetObjectID(v string) *RecommendHit {
 	o.ObjectID = v
+	return o
 }
 
 // GetHighlightResult returns the HighlightResult field value if set, zero value otherwise.
@@ -123,8 +121,9 @@ func (o *RecommendHit) HasHighlightResult() bool {
 }
 
 // SetHighlightResult gets a reference to the given map[string]HighlightResult and assigns it to the HighlightResult field.
-func (o *RecommendHit) SetHighlightResult(v map[string]HighlightResult) {
+func (o *RecommendHit) SetHighlightResult(v map[string]HighlightResult) *RecommendHit {
 	o.HighlightResult = &v
+	return o
 }
 
 // GetSnippetResult returns the SnippetResult field value if set, zero value otherwise.
@@ -155,8 +154,9 @@ func (o *RecommendHit) HasSnippetResult() bool {
 }
 
 // SetSnippetResult gets a reference to the given map[string]SnippetResult and assigns it to the SnippetResult field.
-func (o *RecommendHit) SetSnippetResult(v map[string]SnippetResult) {
+func (o *RecommendHit) SetSnippetResult(v map[string]SnippetResult) *RecommendHit {
 	o.SnippetResult = &v
+	return o
 }
 
 // GetRankingInfo returns the RankingInfo field value if set, zero value otherwise.
@@ -187,8 +187,9 @@ func (o *RecommendHit) HasRankingInfo() bool {
 }
 
 // SetRankingInfo gets a reference to the given RankingInfo and assigns it to the RankingInfo field.
-func (o *RecommendHit) SetRankingInfo(v RankingInfo) {
-	o.RankingInfo = &v
+func (o *RecommendHit) SetRankingInfo(v *RankingInfo) *RecommendHit {
+	o.RankingInfo = v
+	return o
 }
 
 // GetDistinctSeqID returns the DistinctSeqID field value if set, zero value otherwise.
@@ -219,8 +220,9 @@ func (o *RecommendHit) HasDistinctSeqID() bool {
 }
 
 // SetDistinctSeqID gets a reference to the given int32 and assigns it to the DistinctSeqID field.
-func (o *RecommendHit) SetDistinctSeqID(v int32) {
+func (o *RecommendHit) SetDistinctSeqID(v int32) *RecommendHit {
 	o.DistinctSeqID = &v
+	return o
 }
 
 // GetScore returns the Score field value.
@@ -243,8 +245,19 @@ func (o *RecommendHit) GetScoreOk() (*float64, bool) {
 }
 
 // SetScore sets field value.
-func (o *RecommendHit) SetScore(v float64) {
+func (o *RecommendHit) SetScore(v float64) *RecommendHit {
 	o.Score = v
+	return o
+}
+
+func (o *RecommendHit) SetAdditionalProperty(key string, value any) *RecommendHit {
+	if o.AdditionalProperties == nil {
+		o.AdditionalProperties = make(map[string]any)
+	}
+
+	o.AdditionalProperties[key] = value
+
+	return o
 }
 
 func (o RecommendHit) MarshalJSON() ([]byte, error) {

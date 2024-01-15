@@ -21,12 +21,9 @@ func NewCustomSearchParams(customSearchParameters map[string]interface{}) *Custo
 	return this
 }
 
-// NewCustomSearchParamsWithDefaults instantiates a new CustomSearchParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewCustomSearchParamsWithDefaults() *CustomSearchParams {
-	this := &CustomSearchParams{}
-	return this
+// NewEmptyCustomSearchParams return a pointer to an empty CustomSearchParams object.
+func NewEmptyCustomSearchParams() *CustomSearchParams {
+	return &CustomSearchParams{}
 }
 
 // GetCustomSearchParameters returns the CustomSearchParameters field value.
@@ -49,8 +46,9 @@ func (o *CustomSearchParams) GetCustomSearchParametersOk() (map[string]interface
 }
 
 // SetCustomSearchParameters sets field value.
-func (o *CustomSearchParams) SetCustomSearchParameters(v map[string]interface{}) {
+func (o *CustomSearchParams) SetCustomSearchParameters(v map[string]interface{}) *CustomSearchParams {
 	o.CustomSearchParameters = v
+	return o
 }
 
 func (o CustomSearchParams) MarshalJSON() ([]byte, error) {

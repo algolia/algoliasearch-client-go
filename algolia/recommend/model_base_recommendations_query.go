@@ -43,12 +43,9 @@ func NewBaseRecommendationsQuery(model RecommendationModels, objectID string, op
 	return this
 }
 
-// NewBaseRecommendationsQueryWithDefaults instantiates a new BaseRecommendationsQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseRecommendationsQueryWithDefaults() *BaseRecommendationsQuery {
-	this := &BaseRecommendationsQuery{}
-	return this
+// NewEmptyBaseRecommendationsQuery return a pointer to an empty BaseRecommendationsQuery object.
+func NewEmptyBaseRecommendationsQuery() *BaseRecommendationsQuery {
+	return &BaseRecommendationsQuery{}
 }
 
 // GetModel returns the Model field value.
@@ -71,8 +68,9 @@ func (o *BaseRecommendationsQuery) GetModelOk() (*RecommendationModels, bool) {
 }
 
 // SetModel sets field value.
-func (o *BaseRecommendationsQuery) SetModel(v RecommendationModels) {
+func (o *BaseRecommendationsQuery) SetModel(v RecommendationModels) *BaseRecommendationsQuery {
 	o.Model = v
+	return o
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -95,8 +93,9 @@ func (o *BaseRecommendationsQuery) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *BaseRecommendationsQuery) SetObjectID(v string) {
+func (o *BaseRecommendationsQuery) SetObjectID(v string) *BaseRecommendationsQuery {
 	o.ObjectID = v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -127,8 +126,9 @@ func (o *BaseRecommendationsQuery) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given SearchParamsObject and assigns it to the QueryParameters field.
-func (o *BaseRecommendationsQuery) SetQueryParameters(v SearchParamsObject) {
-	o.QueryParameters = &v
+func (o *BaseRecommendationsQuery) SetQueryParameters(v *SearchParamsObject) *BaseRecommendationsQuery {
+	o.QueryParameters = v
+	return o
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
@@ -159,8 +159,9 @@ func (o *BaseRecommendationsQuery) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given SearchParamsObject and assigns it to the FallbackParameters field.
-func (o *BaseRecommendationsQuery) SetFallbackParameters(v SearchParamsObject) {
-	o.FallbackParameters = &v
+func (o *BaseRecommendationsQuery) SetFallbackParameters(v *SearchParamsObject) *BaseRecommendationsQuery {
+	o.FallbackParameters = v
+	return o
 }
 
 func (o BaseRecommendationsQuery) MarshalJSON() ([]byte, error) {

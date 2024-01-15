@@ -25,12 +25,9 @@ func NewGetSearchesCountResponse(count int32, dates []SearchEvent) *GetSearchesC
 	return this
 }
 
-// NewGetSearchesCountResponseWithDefaults instantiates a new GetSearchesCountResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetSearchesCountResponseWithDefaults() *GetSearchesCountResponse {
-	this := &GetSearchesCountResponse{}
-	return this
+// NewEmptyGetSearchesCountResponse return a pointer to an empty GetSearchesCountResponse object.
+func NewEmptyGetSearchesCountResponse() *GetSearchesCountResponse {
+	return &GetSearchesCountResponse{}
 }
 
 // GetCount returns the Count field value.
@@ -53,8 +50,9 @@ func (o *GetSearchesCountResponse) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *GetSearchesCountResponse) SetCount(v int32) {
+func (o *GetSearchesCountResponse) SetCount(v int32) *GetSearchesCountResponse {
 	o.Count = v
+	return o
 }
 
 // GetDates returns the Dates field value.
@@ -77,8 +75,9 @@ func (o *GetSearchesCountResponse) GetDatesOk() ([]SearchEvent, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetSearchesCountResponse) SetDates(v []SearchEvent) {
+func (o *GetSearchesCountResponse) SetDates(v []SearchEvent) *GetSearchesCountResponse {
 	o.Dates = v
+	return o
 }
 
 func (o GetSearchesCountResponse) MarshalJSON() ([]byte, error) {

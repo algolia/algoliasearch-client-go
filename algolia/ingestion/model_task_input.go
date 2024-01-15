@@ -13,15 +13,15 @@ type TaskInput struct {
 }
 
 // OnDemandDateUtilsInputAsTaskInput is a convenience function that returns OnDemandDateUtilsInput wrapped in TaskInput.
-func OnDemandDateUtilsInputAsTaskInput(v *OnDemandDateUtilsInput) TaskInput {
-	return TaskInput{
+func OnDemandDateUtilsInputAsTaskInput(v *OnDemandDateUtilsInput) *TaskInput {
+	return &TaskInput{
 		OnDemandDateUtilsInput: v,
 	}
 }
 
 // ScheduleDateUtilsInputAsTaskInput is a convenience function that returns ScheduleDateUtilsInput wrapped in TaskInput.
-func ScheduleDateUtilsInputAsTaskInput(v *ScheduleDateUtilsInput) TaskInput {
-	return TaskInput{
+func ScheduleDateUtilsInputAsTaskInput(v *ScheduleDateUtilsInput) *TaskInput {
+	return &TaskInput{
 		ScheduleDateUtilsInput: v,
 	}
 }

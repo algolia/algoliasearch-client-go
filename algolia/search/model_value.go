@@ -39,12 +39,9 @@ func NewValue(opts ...ValueOption) *Value {
 	return this
 }
 
-// NewValueWithDefaults instantiates a new Value object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewValueWithDefaults() *Value {
-	this := &Value{}
-	return this
+// NewEmptyValue return a pointer to an empty Value object.
+func NewEmptyValue() *Value {
+	return &Value{}
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
@@ -75,8 +72,9 @@ func (o *Value) HasOrder() bool {
 }
 
 // SetOrder gets a reference to the given []string and assigns it to the Order field.
-func (o *Value) SetOrder(v []string) {
+func (o *Value) SetOrder(v []string) *Value {
 	o.Order = v
+	return o
 }
 
 // GetSortRemainingBy returns the SortRemainingBy field value if set, zero value otherwise.
@@ -107,8 +105,9 @@ func (o *Value) HasSortRemainingBy() bool {
 }
 
 // SetSortRemainingBy gets a reference to the given SortRemainingBy and assigns it to the SortRemainingBy field.
-func (o *Value) SetSortRemainingBy(v SortRemainingBy) {
+func (o *Value) SetSortRemainingBy(v SortRemainingBy) *Value {
 	o.SortRemainingBy = &v
+	return o
 }
 
 func (o Value) MarshalJSON() ([]byte, error) {

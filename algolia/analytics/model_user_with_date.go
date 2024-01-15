@@ -25,12 +25,9 @@ func NewUserWithDate(date string, count int32) *UserWithDate {
 	return this
 }
 
-// NewUserWithDateWithDefaults instantiates a new UserWithDate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUserWithDateWithDefaults() *UserWithDate {
-	this := &UserWithDate{}
-	return this
+// NewEmptyUserWithDate return a pointer to an empty UserWithDate object.
+func NewEmptyUserWithDate() *UserWithDate {
+	return &UserWithDate{}
 }
 
 // GetDate returns the Date field value.
@@ -53,8 +50,9 @@ func (o *UserWithDate) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *UserWithDate) SetDate(v string) {
+func (o *UserWithDate) SetDate(v string) *UserWithDate {
 	o.Date = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -77,8 +75,9 @@ func (o *UserWithDate) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *UserWithDate) SetCount(v int32) {
+func (o *UserWithDate) SetCount(v int32) *UserWithDate {
 	o.Count = v
+	return o
 }
 
 func (o UserWithDate) MarshalJSON() ([]byte, error) {

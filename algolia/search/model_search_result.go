@@ -12,17 +12,17 @@ type SearchResult struct {
 	SearchResponse               *SearchResponse
 }
 
-// SearchForFacetValuesResponseAsSearchResult is a convenience function that returns SearchForFacetValuesResponse wrapped in SearchResult.
-func SearchForFacetValuesResponseAsSearchResult(v *SearchForFacetValuesResponse) SearchResult {
-	return SearchResult{
-		SearchForFacetValuesResponse: v,
+// SearchResponseAsSearchResult is a convenience function that returns SearchResponse wrapped in SearchResult.
+func SearchResponseAsSearchResult(v *SearchResponse) *SearchResult {
+	return &SearchResult{
+		SearchResponse: v,
 	}
 }
 
-// SearchResponseAsSearchResult is a convenience function that returns SearchResponse wrapped in SearchResult.
-func SearchResponseAsSearchResult(v *SearchResponse) SearchResult {
-	return SearchResult{
-		SearchResponse: v,
+// SearchForFacetValuesResponseAsSearchResult is a convenience function that returns SearchForFacetValuesResponse wrapped in SearchResult.
+func SearchForFacetValuesResponseAsSearchResult(v *SearchForFacetValuesResponse) *SearchResult {
+	return &SearchResult{
+		SearchForFacetValuesResponse: v,
 	}
 }
 

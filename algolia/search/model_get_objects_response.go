@@ -22,12 +22,9 @@ func NewGetObjectsResponse(results []map[string]interface{}) *GetObjectsResponse
 	return this
 }
 
-// NewGetObjectsResponseWithDefaults instantiates a new GetObjectsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetObjectsResponseWithDefaults() *GetObjectsResponse {
-	this := &GetObjectsResponse{}
-	return this
+// NewEmptyGetObjectsResponse return a pointer to an empty GetObjectsResponse object.
+func NewEmptyGetObjectsResponse() *GetObjectsResponse {
+	return &GetObjectsResponse{}
 }
 
 // GetResults returns the Results field value.
@@ -50,8 +47,9 @@ func (o *GetObjectsResponse) GetResultsOk() ([]map[string]interface{}, bool) {
 }
 
 // SetResults sets field value.
-func (o *GetObjectsResponse) SetResults(v []map[string]interface{}) {
+func (o *GetObjectsResponse) SetResults(v []map[string]interface{}) *GetObjectsResponse {
 	o.Results = v
+	return o
 }
 
 func (o GetObjectsResponse) MarshalJSON() ([]byte, error) {

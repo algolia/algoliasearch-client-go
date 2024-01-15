@@ -64,12 +64,9 @@ func NewGetConfigStatus200Response(opts ...GetConfigStatus200ResponseOption) *Ge
 	return this
 }
 
-// NewGetConfigStatus200ResponseWithDefaults instantiates a new GetConfigStatus200Response object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetConfigStatus200ResponseWithDefaults() *GetConfigStatus200Response {
-	this := &GetConfigStatus200Response{}
-	return this
+// NewEmptyGetConfigStatus200Response return a pointer to an empty GetConfigStatus200Response object.
+func NewEmptyGetConfigStatus200Response() *GetConfigStatus200Response {
+	return &GetConfigStatus200Response{}
 }
 
 // GetIndexName returns the IndexName field value if set, zero value otherwise.
@@ -100,8 +97,9 @@ func (o *GetConfigStatus200Response) HasIndexName() bool {
 }
 
 // SetIndexName gets a reference to the given string and assigns it to the IndexName field.
-func (o *GetConfigStatus200Response) SetIndexName(v string) {
+func (o *GetConfigStatus200Response) SetIndexName(v string) *GetConfigStatus200Response {
 	o.IndexName = &v
+	return o
 }
 
 // GetIsRunning returns the IsRunning field value if set, zero value otherwise.
@@ -132,8 +130,9 @@ func (o *GetConfigStatus200Response) HasIsRunning() bool {
 }
 
 // SetIsRunning gets a reference to the given bool and assigns it to the IsRunning field.
-func (o *GetConfigStatus200Response) SetIsRunning(v bool) {
+func (o *GetConfigStatus200Response) SetIsRunning(v bool) *GetConfigStatus200Response {
 	o.IsRunning = &v
+	return o
 }
 
 // GetLastBuiltAt returns the LastBuiltAt field value if set, zero value otherwise.
@@ -164,8 +163,9 @@ func (o *GetConfigStatus200Response) HasLastBuiltAt() bool {
 }
 
 // SetLastBuiltAt gets a reference to the given string and assigns it to the LastBuiltAt field.
-func (o *GetConfigStatus200Response) SetLastBuiltAt(v string) {
+func (o *GetConfigStatus200Response) SetLastBuiltAt(v string) *GetConfigStatus200Response {
 	o.LastBuiltAt = &v
+	return o
 }
 
 // GetLastSuccessfulBuiltAt returns the LastSuccessfulBuiltAt field value if set, zero value otherwise.
@@ -196,8 +196,9 @@ func (o *GetConfigStatus200Response) HasLastSuccessfulBuiltAt() bool {
 }
 
 // SetLastSuccessfulBuiltAt gets a reference to the given string and assigns it to the LastSuccessfulBuiltAt field.
-func (o *GetConfigStatus200Response) SetLastSuccessfulBuiltAt(v string) {
+func (o *GetConfigStatus200Response) SetLastSuccessfulBuiltAt(v string) *GetConfigStatus200Response {
 	o.LastSuccessfulBuiltAt = &v
+	return o
 }
 
 // GetLastSuccessfulBuildDuration returns the LastSuccessfulBuildDuration field value if set, zero value otherwise.
@@ -228,8 +229,9 @@ func (o *GetConfigStatus200Response) HasLastSuccessfulBuildDuration() bool {
 }
 
 // SetLastSuccessfulBuildDuration gets a reference to the given string and assigns it to the LastSuccessfulBuildDuration field.
-func (o *GetConfigStatus200Response) SetLastSuccessfulBuildDuration(v string) {
+func (o *GetConfigStatus200Response) SetLastSuccessfulBuildDuration(v string) *GetConfigStatus200Response {
 	o.LastSuccessfulBuildDuration = &v
+	return o
 }
 
 func (o GetConfigStatus200Response) MarshalJSON() ([]byte, error) {

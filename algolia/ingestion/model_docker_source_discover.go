@@ -25,12 +25,9 @@ func NewDockerSourceDiscover(runID string, createdAt string) *DockerSourceDiscov
 	return this
 }
 
-// NewDockerSourceDiscoverWithDefaults instantiates a new DockerSourceDiscover object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDockerSourceDiscoverWithDefaults() *DockerSourceDiscover {
-	this := &DockerSourceDiscover{}
-	return this
+// NewEmptyDockerSourceDiscover return a pointer to an empty DockerSourceDiscover object.
+func NewEmptyDockerSourceDiscover() *DockerSourceDiscover {
+	return &DockerSourceDiscover{}
 }
 
 // GetRunID returns the RunID field value.
@@ -53,8 +50,9 @@ func (o *DockerSourceDiscover) GetRunIDOk() (*string, bool) {
 }
 
 // SetRunID sets field value.
-func (o *DockerSourceDiscover) SetRunID(v string) {
+func (o *DockerSourceDiscover) SetRunID(v string) *DockerSourceDiscover {
 	o.RunID = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -77,8 +75,9 @@ func (o *DockerSourceDiscover) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *DockerSourceDiscover) SetCreatedAt(v string) {
+func (o *DockerSourceDiscover) SetCreatedAt(v string) *DockerSourceDiscover {
 	o.CreatedAt = v
+	return o
 }
 
 func (o DockerSourceDiscover) MarshalJSON() ([]byte, error) {

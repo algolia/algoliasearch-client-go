@@ -48,12 +48,9 @@ func NewAuthOAuthPartial(opts ...AuthOAuthPartialOption) *AuthOAuthPartial {
 	return this
 }
 
-// NewAuthOAuthPartialWithDefaults instantiates a new AuthOAuthPartial object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthOAuthPartialWithDefaults() *AuthOAuthPartial {
-	this := &AuthOAuthPartial{}
-	return this
+// NewEmptyAuthOAuthPartial return a pointer to an empty AuthOAuthPartial object.
+func NewEmptyAuthOAuthPartial() *AuthOAuthPartial {
+	return &AuthOAuthPartial{}
 }
 
 // GetUrl returns the Url field value if set, zero value otherwise.
@@ -84,8 +81,9 @@ func (o *AuthOAuthPartial) HasUrl() bool {
 }
 
 // SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *AuthOAuthPartial) SetUrl(v string) {
+func (o *AuthOAuthPartial) SetUrl(v string) *AuthOAuthPartial {
 	o.Url = &v
+	return o
 }
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
@@ -116,8 +114,9 @@ func (o *AuthOAuthPartial) HasClientId() bool {
 }
 
 // SetClientId gets a reference to the given string and assigns it to the ClientId field.
-func (o *AuthOAuthPartial) SetClientId(v string) {
+func (o *AuthOAuthPartial) SetClientId(v string) *AuthOAuthPartial {
 	o.ClientId = &v
+	return o
 }
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
@@ -148,8 +147,9 @@ func (o *AuthOAuthPartial) HasClientSecret() bool {
 }
 
 // SetClientSecret gets a reference to the given string and assigns it to the ClientSecret field.
-func (o *AuthOAuthPartial) SetClientSecret(v string) {
+func (o *AuthOAuthPartial) SetClientSecret(v string) *AuthOAuthPartial {
 	o.ClientSecret = &v
+	return o
 }
 
 func (o AuthOAuthPartial) MarshalJSON() ([]byte, error) {

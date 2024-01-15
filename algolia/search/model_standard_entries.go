@@ -48,12 +48,9 @@ func NewStandardEntries(opts ...StandardEntriesOption) *StandardEntries {
 	return this
 }
 
-// NewStandardEntriesWithDefaults instantiates a new StandardEntries object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewStandardEntriesWithDefaults() *StandardEntries {
-	this := &StandardEntries{}
-	return this
+// NewEmptyStandardEntries return a pointer to an empty StandardEntries object.
+func NewEmptyStandardEntries() *StandardEntries {
+	return &StandardEntries{}
 }
 
 // GetPlurals returns the Plurals field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -85,8 +82,9 @@ func (o *StandardEntries) HasPlurals() bool {
 }
 
 // SetPlurals gets a reference to the given map[string]bool and assigns it to the Plurals field.
-func (o *StandardEntries) SetPlurals(v map[string]bool) {
+func (o *StandardEntries) SetPlurals(v map[string]bool) *StandardEntries {
 	o.Plurals = v
+	return o
 }
 
 // GetStopwords returns the Stopwords field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -118,8 +116,9 @@ func (o *StandardEntries) HasStopwords() bool {
 }
 
 // SetStopwords gets a reference to the given map[string]bool and assigns it to the Stopwords field.
-func (o *StandardEntries) SetStopwords(v map[string]bool) {
+func (o *StandardEntries) SetStopwords(v map[string]bool) *StandardEntries {
 	o.Stopwords = v
+	return o
 }
 
 // GetCompounds returns the Compounds field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -151,8 +150,9 @@ func (o *StandardEntries) HasCompounds() bool {
 }
 
 // SetCompounds gets a reference to the given map[string]bool and assigns it to the Compounds field.
-func (o *StandardEntries) SetCompounds(v map[string]bool) {
+func (o *StandardEntries) SetCompounds(v map[string]bool) *StandardEntries {
 	o.Compounds = v
+	return o
 }
 
 func (o StandardEntries) MarshalJSON() ([]byte, error) {

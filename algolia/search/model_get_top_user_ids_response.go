@@ -22,12 +22,9 @@ func NewGetTopUserIdsResponse(topUsers []map[string][]UserId) *GetTopUserIdsResp
 	return this
 }
 
-// NewGetTopUserIdsResponseWithDefaults instantiates a new GetTopUserIdsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTopUserIdsResponseWithDefaults() *GetTopUserIdsResponse {
-	this := &GetTopUserIdsResponse{}
-	return this
+// NewEmptyGetTopUserIdsResponse return a pointer to an empty GetTopUserIdsResponse object.
+func NewEmptyGetTopUserIdsResponse() *GetTopUserIdsResponse {
+	return &GetTopUserIdsResponse{}
 }
 
 // GetTopUsers returns the TopUsers field value.
@@ -50,8 +47,9 @@ func (o *GetTopUserIdsResponse) GetTopUsersOk() ([]map[string][]UserId, bool) {
 }
 
 // SetTopUsers sets field value.
-func (o *GetTopUserIdsResponse) SetTopUsers(v []map[string][]UserId) {
+func (o *GetTopUserIdsResponse) SetTopUsers(v []map[string][]UserId) *GetTopUserIdsResponse {
 	o.TopUsers = v
+	return o
 }
 
 func (o GetTopUserIdsResponse) MarshalJSON() ([]byte, error) {

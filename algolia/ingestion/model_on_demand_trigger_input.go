@@ -21,12 +21,9 @@ func NewOnDemandTriggerInput(type_ OnDemandTriggerType) *OnDemandTriggerInput {
 	return this
 }
 
-// NewOnDemandTriggerInputWithDefaults instantiates a new OnDemandTriggerInput object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewOnDemandTriggerInputWithDefaults() *OnDemandTriggerInput {
-	this := &OnDemandTriggerInput{}
-	return this
+// NewEmptyOnDemandTriggerInput return a pointer to an empty OnDemandTriggerInput object.
+func NewEmptyOnDemandTriggerInput() *OnDemandTriggerInput {
+	return &OnDemandTriggerInput{}
 }
 
 // GetType returns the Type field value.
@@ -49,8 +46,9 @@ func (o *OnDemandTriggerInput) GetTypeOk() (*OnDemandTriggerType, bool) {
 }
 
 // SetType sets field value.
-func (o *OnDemandTriggerInput) SetType(v OnDemandTriggerType) {
+func (o *OnDemandTriggerInput) SetType(v OnDemandTriggerType) *OnDemandTriggerInput {
 	o.Type = v
+	return o
 }
 
 func (o OnDemandTriggerInput) MarshalJSON() ([]byte, error) {

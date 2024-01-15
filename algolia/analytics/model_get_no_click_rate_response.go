@@ -31,12 +31,9 @@ func NewGetNoClickRateResponse(rate float64, count int32, noClickCount int32, da
 	return this
 }
 
-// NewGetNoClickRateResponseWithDefaults instantiates a new GetNoClickRateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetNoClickRateResponseWithDefaults() *GetNoClickRateResponse {
-	this := &GetNoClickRateResponse{}
-	return this
+// NewEmptyGetNoClickRateResponse return a pointer to an empty GetNoClickRateResponse object.
+func NewEmptyGetNoClickRateResponse() *GetNoClickRateResponse {
+	return &GetNoClickRateResponse{}
 }
 
 // GetRate returns the Rate field value.
@@ -59,8 +56,9 @@ func (o *GetNoClickRateResponse) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *GetNoClickRateResponse) SetRate(v float64) {
+func (o *GetNoClickRateResponse) SetRate(v float64) *GetNoClickRateResponse {
 	o.Rate = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -83,8 +81,9 @@ func (o *GetNoClickRateResponse) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *GetNoClickRateResponse) SetCount(v int32) {
+func (o *GetNoClickRateResponse) SetCount(v int32) *GetNoClickRateResponse {
 	o.Count = v
+	return o
 }
 
 // GetNoClickCount returns the NoClickCount field value.
@@ -107,8 +106,9 @@ func (o *GetNoClickRateResponse) GetNoClickCountOk() (*int32, bool) {
 }
 
 // SetNoClickCount sets field value.
-func (o *GetNoClickRateResponse) SetNoClickCount(v int32) {
+func (o *GetNoClickRateResponse) SetNoClickCount(v int32) *GetNoClickRateResponse {
 	o.NoClickCount = v
+	return o
 }
 
 // GetDates returns the Dates field value.
@@ -131,8 +131,9 @@ func (o *GetNoClickRateResponse) GetDatesOk() ([]NoClickRateEvent, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetNoClickRateResponse) SetDates(v []NoClickRateEvent) {
+func (o *GetNoClickRateResponse) SetDates(v []NoClickRateEvent) *GetNoClickRateResponse {
 	o.Dates = v
+	return o
 }
 
 func (o GetNoClickRateResponse) MarshalJSON() ([]byte, error) {

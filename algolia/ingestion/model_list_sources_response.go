@@ -23,12 +23,9 @@ func NewListSourcesResponse(sources []Source, pagination Pagination) *ListSource
 	return this
 }
 
-// NewListSourcesResponseWithDefaults instantiates a new ListSourcesResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListSourcesResponseWithDefaults() *ListSourcesResponse {
-	this := &ListSourcesResponse{}
-	return this
+// NewEmptyListSourcesResponse return a pointer to an empty ListSourcesResponse object.
+func NewEmptyListSourcesResponse() *ListSourcesResponse {
+	return &ListSourcesResponse{}
 }
 
 // GetSources returns the Sources field value.
@@ -51,8 +48,9 @@ func (o *ListSourcesResponse) GetSourcesOk() ([]Source, bool) {
 }
 
 // SetSources sets field value.
-func (o *ListSourcesResponse) SetSources(v []Source) {
+func (o *ListSourcesResponse) SetSources(v []Source) *ListSourcesResponse {
 	o.Sources = v
+	return o
 }
 
 // GetPagination returns the Pagination field value.
@@ -75,8 +73,9 @@ func (o *ListSourcesResponse) GetPaginationOk() (*Pagination, bool) {
 }
 
 // SetPagination sets field value.
-func (o *ListSourcesResponse) SetPagination(v Pagination) {
-	o.Pagination = v
+func (o *ListSourcesResponse) SetPagination(v *Pagination) *ListSourcesResponse {
+	o.Pagination = *v
+	return o
 }
 
 func (o ListSourcesResponse) MarshalJSON() ([]byte, error) {

@@ -12,17 +12,17 @@ type BrowseParams struct {
 	SearchParamsString *SearchParamsString
 }
 
-// BrowseParamsObjectAsBrowseParams is a convenience function that returns BrowseParamsObject wrapped in BrowseParams.
-func BrowseParamsObjectAsBrowseParams(v *BrowseParamsObject) BrowseParams {
-	return BrowseParams{
-		BrowseParamsObject: v,
+// SearchParamsStringAsBrowseParams is a convenience function that returns SearchParamsString wrapped in BrowseParams.
+func SearchParamsStringAsBrowseParams(v *SearchParamsString) *BrowseParams {
+	return &BrowseParams{
+		SearchParamsString: v,
 	}
 }
 
-// SearchParamsStringAsBrowseParams is a convenience function that returns SearchParamsString wrapped in BrowseParams.
-func SearchParamsStringAsBrowseParams(v *SearchParamsString) BrowseParams {
-	return BrowseParams{
-		SearchParamsString: v,
+// BrowseParamsObjectAsBrowseParams is a convenience function that returns BrowseParamsObject wrapped in BrowseParams.
+func BrowseParamsObjectAsBrowseParams(v *BrowseParamsObject) *BrowseParams {
+	return &BrowseParams{
+		BrowseParamsObject: v,
 	}
 }
 

@@ -43,14 +43,9 @@ func NewBaseRecommendRequest(indexName string, opts ...BaseRecommendRequestOptio
 	return this
 }
 
-// NewBaseRecommendRequestWithDefaults instantiates a new BaseRecommendRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseRecommendRequestWithDefaults() *BaseRecommendRequest {
-	this := &BaseRecommendRequest{}
-	var maxRecommendations int32 = 0
-	this.MaxRecommendations = &maxRecommendations
-	return this
+// NewEmptyBaseRecommendRequest return a pointer to an empty BaseRecommendRequest object.
+func NewEmptyBaseRecommendRequest() *BaseRecommendRequest {
+	return &BaseRecommendRequest{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -73,8 +68,9 @@ func (o *BaseRecommendRequest) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *BaseRecommendRequest) SetIndexName(v string) {
+func (o *BaseRecommendRequest) SetIndexName(v string) *BaseRecommendRequest {
 	o.IndexName = v
+	return o
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
@@ -105,8 +101,9 @@ func (o *BaseRecommendRequest) HasThreshold() bool {
 }
 
 // SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *BaseRecommendRequest) SetThreshold(v int32) {
+func (o *BaseRecommendRequest) SetThreshold(v int32) *BaseRecommendRequest {
 	o.Threshold = &v
+	return o
 }
 
 // GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
@@ -137,8 +134,9 @@ func (o *BaseRecommendRequest) HasMaxRecommendations() bool {
 }
 
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *BaseRecommendRequest) SetMaxRecommendations(v int32) {
+func (o *BaseRecommendRequest) SetMaxRecommendations(v int32) *BaseRecommendRequest {
 	o.MaxRecommendations = &v
+	return o
 }
 
 func (o BaseRecommendRequest) MarshalJSON() ([]byte, error) {

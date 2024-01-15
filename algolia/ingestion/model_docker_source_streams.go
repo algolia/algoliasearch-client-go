@@ -21,12 +21,9 @@ func NewDockerSourceStreams(streams []map[string]interface{}) *DockerSourceStrea
 	return this
 }
 
-// NewDockerSourceStreamsWithDefaults instantiates a new DockerSourceStreams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDockerSourceStreamsWithDefaults() *DockerSourceStreams {
-	this := &DockerSourceStreams{}
-	return this
+// NewEmptyDockerSourceStreams return a pointer to an empty DockerSourceStreams object.
+func NewEmptyDockerSourceStreams() *DockerSourceStreams {
+	return &DockerSourceStreams{}
 }
 
 // GetStreams returns the Streams field value.
@@ -49,8 +46,9 @@ func (o *DockerSourceStreams) GetStreamsOk() ([]map[string]interface{}, bool) {
 }
 
 // SetStreams sets field value.
-func (o *DockerSourceStreams) SetStreams(v []map[string]interface{}) {
+func (o *DockerSourceStreams) SetStreams(v []map[string]interface{}) *DockerSourceStreams {
 	o.Streams = v
+	return o
 }
 
 func (o DockerSourceStreams) MarshalJSON() ([]byte, error) {

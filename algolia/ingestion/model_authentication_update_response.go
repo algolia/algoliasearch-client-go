@@ -28,12 +28,9 @@ func NewAuthenticationUpdateResponse(authenticationID string, name string, updat
 	return this
 }
 
-// NewAuthenticationUpdateResponseWithDefaults instantiates a new AuthenticationUpdateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthenticationUpdateResponseWithDefaults() *AuthenticationUpdateResponse {
-	this := &AuthenticationUpdateResponse{}
-	return this
+// NewEmptyAuthenticationUpdateResponse return a pointer to an empty AuthenticationUpdateResponse object.
+func NewEmptyAuthenticationUpdateResponse() *AuthenticationUpdateResponse {
+	return &AuthenticationUpdateResponse{}
 }
 
 // GetAuthenticationID returns the AuthenticationID field value.
@@ -56,8 +53,9 @@ func (o *AuthenticationUpdateResponse) GetAuthenticationIDOk() (*string, bool) {
 }
 
 // SetAuthenticationID sets field value.
-func (o *AuthenticationUpdateResponse) SetAuthenticationID(v string) {
+func (o *AuthenticationUpdateResponse) SetAuthenticationID(v string) *AuthenticationUpdateResponse {
 	o.AuthenticationID = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -80,8 +78,9 @@ func (o *AuthenticationUpdateResponse) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *AuthenticationUpdateResponse) SetName(v string) {
+func (o *AuthenticationUpdateResponse) SetName(v string) *AuthenticationUpdateResponse {
 	o.Name = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -104,8 +103,9 @@ func (o *AuthenticationUpdateResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *AuthenticationUpdateResponse) SetUpdatedAt(v string) {
+func (o *AuthenticationUpdateResponse) SetUpdatedAt(v string) *AuthenticationUpdateResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 func (o AuthenticationUpdateResponse) MarshalJSON() ([]byte, error) {

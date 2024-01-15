@@ -22,12 +22,9 @@ func NewDestinationIndexPrefix(indexPrefix string) *DestinationIndexPrefix {
 	return this
 }
 
-// NewDestinationIndexPrefixWithDefaults instantiates a new DestinationIndexPrefix object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDestinationIndexPrefixWithDefaults() *DestinationIndexPrefix {
-	this := &DestinationIndexPrefix{}
-	return this
+// NewEmptyDestinationIndexPrefix return a pointer to an empty DestinationIndexPrefix object.
+func NewEmptyDestinationIndexPrefix() *DestinationIndexPrefix {
+	return &DestinationIndexPrefix{}
 }
 
 // GetIndexPrefix returns the IndexPrefix field value.
@@ -50,8 +47,9 @@ func (o *DestinationIndexPrefix) GetIndexPrefixOk() (*string, bool) {
 }
 
 // SetIndexPrefix sets field value.
-func (o *DestinationIndexPrefix) SetIndexPrefix(v string) {
+func (o *DestinationIndexPrefix) SetIndexPrefix(v string) *DestinationIndexPrefix {
 	o.IndexPrefix = v
+	return o
 }
 
 func (o DestinationIndexPrefix) MarshalJSON() ([]byte, error) {

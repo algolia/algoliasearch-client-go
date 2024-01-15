@@ -50,12 +50,9 @@ func NewSourceUpdateDocker(configuration map[string]interface{}, opts ...SourceU
 	return this
 }
 
-// NewSourceUpdateDockerWithDefaults instantiates a new SourceUpdateDocker object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceUpdateDockerWithDefaults() *SourceUpdateDocker {
-	this := &SourceUpdateDocker{}
-	return this
+// NewEmptySourceUpdateDocker return a pointer to an empty SourceUpdateDocker object.
+func NewEmptySourceUpdateDocker() *SourceUpdateDocker {
+	return &SourceUpdateDocker{}
 }
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
@@ -86,8 +83,9 @@ func (o *SourceUpdateDocker) HasRegistry() bool {
 }
 
 // SetRegistry gets a reference to the given DockerRegistry and assigns it to the Registry field.
-func (o *SourceUpdateDocker) SetRegistry(v DockerRegistry) {
+func (o *SourceUpdateDocker) SetRegistry(v DockerRegistry) *SourceUpdateDocker {
 	o.Registry = &v
+	return o
 }
 
 // GetImage returns the Image field value if set, zero value otherwise.
@@ -118,8 +116,9 @@ func (o *SourceUpdateDocker) HasImage() bool {
 }
 
 // SetImage gets a reference to the given string and assigns it to the Image field.
-func (o *SourceUpdateDocker) SetImage(v string) {
+func (o *SourceUpdateDocker) SetImage(v string) *SourceUpdateDocker {
 	o.Image = &v
+	return o
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
@@ -150,8 +149,9 @@ func (o *SourceUpdateDocker) HasVersion() bool {
 }
 
 // SetVersion gets a reference to the given string and assigns it to the Version field.
-func (o *SourceUpdateDocker) SetVersion(v string) {
+func (o *SourceUpdateDocker) SetVersion(v string) *SourceUpdateDocker {
 	o.Version = &v
+	return o
 }
 
 // GetConfiguration returns the Configuration field value.
@@ -174,8 +174,9 @@ func (o *SourceUpdateDocker) GetConfigurationOk() (map[string]interface{}, bool)
 }
 
 // SetConfiguration sets field value.
-func (o *SourceUpdateDocker) SetConfiguration(v map[string]interface{}) {
+func (o *SourceUpdateDocker) SetConfiguration(v map[string]interface{}) *SourceUpdateDocker {
 	o.Configuration = v
+	return o
 }
 
 func (o SourceUpdateDocker) MarshalJSON() ([]byte, error) {

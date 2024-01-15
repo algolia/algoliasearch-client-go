@@ -21,12 +21,9 @@ func NewAuthenticationSearch(authenticationIDs []string) *AuthenticationSearch {
 	return this
 }
 
-// NewAuthenticationSearchWithDefaults instantiates a new AuthenticationSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthenticationSearchWithDefaults() *AuthenticationSearch {
-	this := &AuthenticationSearch{}
-	return this
+// NewEmptyAuthenticationSearch return a pointer to an empty AuthenticationSearch object.
+func NewEmptyAuthenticationSearch() *AuthenticationSearch {
+	return &AuthenticationSearch{}
 }
 
 // GetAuthenticationIDs returns the AuthenticationIDs field value.
@@ -49,8 +46,9 @@ func (o *AuthenticationSearch) GetAuthenticationIDsOk() ([]string, bool) {
 }
 
 // SetAuthenticationIDs sets field value.
-func (o *AuthenticationSearch) SetAuthenticationIDs(v []string) {
+func (o *AuthenticationSearch) SetAuthenticationIDs(v []string) *AuthenticationSearch {
 	o.AuthenticationIDs = v
+	return o
 }
 
 func (o AuthenticationSearch) MarshalJSON() ([]byte, error) {

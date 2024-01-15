@@ -25,12 +25,9 @@ func NewBigCommerceMetafield(namespace string, key string) *BigCommerceMetafield
 	return this
 }
 
-// NewBigCommerceMetafieldWithDefaults instantiates a new BigCommerceMetafield object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBigCommerceMetafieldWithDefaults() *BigCommerceMetafield {
-	this := &BigCommerceMetafield{}
-	return this
+// NewEmptyBigCommerceMetafield return a pointer to an empty BigCommerceMetafield object.
+func NewEmptyBigCommerceMetafield() *BigCommerceMetafield {
+	return &BigCommerceMetafield{}
 }
 
 // GetNamespace returns the Namespace field value.
@@ -53,8 +50,9 @@ func (o *BigCommerceMetafield) GetNamespaceOk() (*string, bool) {
 }
 
 // SetNamespace sets field value.
-func (o *BigCommerceMetafield) SetNamespace(v string) {
+func (o *BigCommerceMetafield) SetNamespace(v string) *BigCommerceMetafield {
 	o.Namespace = v
+	return o
 }
 
 // GetKey returns the Key field value.
@@ -77,8 +75,9 @@ func (o *BigCommerceMetafield) GetKeyOk() (*string, bool) {
 }
 
 // SetKey sets field value.
-func (o *BigCommerceMetafield) SetKey(v string) {
+func (o *BigCommerceMetafield) SetKey(v string) *BigCommerceMetafield {
 	o.Key = v
+	return o
 }
 
 func (o BigCommerceMetafield) MarshalJSON() ([]byte, error) {

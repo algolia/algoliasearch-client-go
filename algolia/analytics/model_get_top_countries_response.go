@@ -22,12 +22,9 @@ func NewGetTopCountriesResponse(countries []TopCountry) *GetTopCountriesResponse
 	return this
 }
 
-// NewGetTopCountriesResponseWithDefaults instantiates a new GetTopCountriesResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTopCountriesResponseWithDefaults() *GetTopCountriesResponse {
-	this := &GetTopCountriesResponse{}
-	return this
+// NewEmptyGetTopCountriesResponse return a pointer to an empty GetTopCountriesResponse object.
+func NewEmptyGetTopCountriesResponse() *GetTopCountriesResponse {
+	return &GetTopCountriesResponse{}
 }
 
 // GetCountries returns the Countries field value.
@@ -50,8 +47,9 @@ func (o *GetTopCountriesResponse) GetCountriesOk() ([]TopCountry, bool) {
 }
 
 // SetCountries sets field value.
-func (o *GetTopCountriesResponse) SetCountries(v []TopCountry) {
+func (o *GetTopCountriesResponse) SetCountries(v []TopCountry) *GetTopCountriesResponse {
 	o.Countries = v
+	return o
 }
 
 func (o GetTopCountriesResponse) MarshalJSON() ([]byte, error) {

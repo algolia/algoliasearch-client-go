@@ -62,12 +62,9 @@ func NewTaskUpdate(opts ...TaskUpdateOption) *TaskUpdate {
 	return this
 }
 
-// NewTaskUpdateWithDefaults instantiates a new TaskUpdate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTaskUpdateWithDefaults() *TaskUpdate {
-	this := &TaskUpdate{}
-	return this
+// NewEmptyTaskUpdate return a pointer to an empty TaskUpdate object.
+func NewEmptyTaskUpdate() *TaskUpdate {
+	return &TaskUpdate{}
 }
 
 // GetDestinationID returns the DestinationID field value if set, zero value otherwise.
@@ -98,8 +95,9 @@ func (o *TaskUpdate) HasDestinationID() bool {
 }
 
 // SetDestinationID gets a reference to the given string and assigns it to the DestinationID field.
-func (o *TaskUpdate) SetDestinationID(v string) {
+func (o *TaskUpdate) SetDestinationID(v string) *TaskUpdate {
 	o.DestinationID = &v
+	return o
 }
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise.
@@ -130,8 +128,9 @@ func (o *TaskUpdate) HasTrigger() bool {
 }
 
 // SetTrigger gets a reference to the given TriggerUpdateInput and assigns it to the Trigger field.
-func (o *TaskUpdate) SetTrigger(v TriggerUpdateInput) {
-	o.Trigger = &v
+func (o *TaskUpdate) SetTrigger(v *TriggerUpdateInput) *TaskUpdate {
+	o.Trigger = v
+	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -162,8 +161,9 @@ func (o *TaskUpdate) HasInput() bool {
 }
 
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
-func (o *TaskUpdate) SetInput(v TaskInput) {
-	o.Input = &v
+func (o *TaskUpdate) SetInput(v *TaskInput) *TaskUpdate {
+	o.Input = v
+	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
@@ -194,8 +194,9 @@ func (o *TaskUpdate) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *TaskUpdate) SetEnabled(v bool) {
+func (o *TaskUpdate) SetEnabled(v bool) *TaskUpdate {
 	o.Enabled = &v
+	return o
 }
 
 // GetFailureThreshold returns the FailureThreshold field value if set, zero value otherwise.
@@ -226,8 +227,9 @@ func (o *TaskUpdate) HasFailureThreshold() bool {
 }
 
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
-func (o *TaskUpdate) SetFailureThreshold(v int32) {
+func (o *TaskUpdate) SetFailureThreshold(v int32) *TaskUpdate {
 	o.FailureThreshold = &v
+	return o
 }
 
 func (o TaskUpdate) MarshalJSON() ([]byte, error) {

@@ -54,12 +54,9 @@ func NewViewedObjectIDs(eventName string, eventType ViewEvent, index string, obj
 	return this
 }
 
-// NewViewedObjectIDsWithDefaults instantiates a new ViewedObjectIDs object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewViewedObjectIDsWithDefaults() *ViewedObjectIDs {
-	this := &ViewedObjectIDs{}
-	return this
+// NewEmptyViewedObjectIDs return a pointer to an empty ViewedObjectIDs object.
+func NewEmptyViewedObjectIDs() *ViewedObjectIDs {
+	return &ViewedObjectIDs{}
 }
 
 // GetEventName returns the EventName field value.
@@ -82,8 +79,9 @@ func (o *ViewedObjectIDs) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *ViewedObjectIDs) SetEventName(v string) {
+func (o *ViewedObjectIDs) SetEventName(v string) *ViewedObjectIDs {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -106,8 +104,9 @@ func (o *ViewedObjectIDs) GetEventTypeOk() (*ViewEvent, bool) {
 }
 
 // SetEventType sets field value.
-func (o *ViewedObjectIDs) SetEventType(v ViewEvent) {
+func (o *ViewedObjectIDs) SetEventType(v ViewEvent) *ViewedObjectIDs {
 	o.EventType = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -130,8 +129,9 @@ func (o *ViewedObjectIDs) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *ViewedObjectIDs) SetIndex(v string) {
+func (o *ViewedObjectIDs) SetIndex(v string) *ViewedObjectIDs {
 	o.Index = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -154,8 +154,9 @@ func (o *ViewedObjectIDs) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *ViewedObjectIDs) SetObjectIDs(v []string) {
+func (o *ViewedObjectIDs) SetObjectIDs(v []string) *ViewedObjectIDs {
 	o.ObjectIDs = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -178,8 +179,9 @@ func (o *ViewedObjectIDs) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *ViewedObjectIDs) SetUserToken(v string) {
+func (o *ViewedObjectIDs) SetUserToken(v string) *ViewedObjectIDs {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -210,8 +212,9 @@ func (o *ViewedObjectIDs) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *ViewedObjectIDs) SetAuthenticatedUserToken(v string) {
+func (o *ViewedObjectIDs) SetAuthenticatedUserToken(v string) *ViewedObjectIDs {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -242,8 +245,9 @@ func (o *ViewedObjectIDs) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ViewedObjectIDs) SetTimestamp(v int64) {
+func (o *ViewedObjectIDs) SetTimestamp(v int64) *ViewedObjectIDs {
 	o.Timestamp = &v
+	return o
 }
 
 func (o ViewedObjectIDs) MarshalJSON() ([]byte, error) {

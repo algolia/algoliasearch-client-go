@@ -34,14 +34,9 @@ func NewSearchForHitsOptions(indexName string, opts ...SearchForHitsOptionsOptio
 	return this
 }
 
-// NewSearchForHitsOptionsWithDefaults instantiates a new SearchForHitsOptions object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchForHitsOptionsWithDefaults() *SearchForHitsOptions {
-	this := &SearchForHitsOptions{}
-	var type_ SearchTypeDefault = SEARCHTYPEDEFAULT_DEFAULT
-	this.Type = &type_
-	return this
+// NewEmptySearchForHitsOptions return a pointer to an empty SearchForHitsOptions object.
+func NewEmptySearchForHitsOptions() *SearchForHitsOptions {
+	return &SearchForHitsOptions{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -64,8 +59,9 @@ func (o *SearchForHitsOptions) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *SearchForHitsOptions) SetIndexName(v string) {
+func (o *SearchForHitsOptions) SetIndexName(v string) *SearchForHitsOptions {
 	o.IndexName = v
+	return o
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -96,8 +92,9 @@ func (o *SearchForHitsOptions) HasType() bool {
 }
 
 // SetType gets a reference to the given SearchTypeDefault and assigns it to the Type field.
-func (o *SearchForHitsOptions) SetType(v SearchTypeDefault) {
+func (o *SearchForHitsOptions) SetType(v SearchTypeDefault) *SearchForHitsOptions {
 	o.Type = &v
+	return o
 }
 
 func (o SearchForHitsOptions) MarshalJSON() ([]byte, error) {

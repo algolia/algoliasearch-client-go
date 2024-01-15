@@ -13,16 +13,16 @@ type Distinct struct {
 }
 
 // boolAsDistinct is a convenience function that returns bool wrapped in Distinct.
-func BoolAsDistinct(v *bool) Distinct {
-	return Distinct{
-		Bool: v,
+func BoolAsDistinct(v bool) *Distinct {
+	return &Distinct{
+		Bool: &v,
 	}
 }
 
 // int32AsDistinct is a convenience function that returns int32 wrapped in Distinct.
-func Int32AsDistinct(v *int32) Distinct {
-	return Distinct{
-		Int32: v,
+func Int32AsDistinct(v int32) *Distinct {
+	return &Distinct{
+		Int32: &v,
 	}
 }
 

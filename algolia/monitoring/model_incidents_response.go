@@ -31,12 +31,9 @@ func NewIncidentsResponse(opts ...IncidentsResponseOption) *IncidentsResponse {
 	return this
 }
 
-// NewIncidentsResponseWithDefaults instantiates a new IncidentsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewIncidentsResponseWithDefaults() *IncidentsResponse {
-	this := &IncidentsResponse{}
-	return this
+// NewEmptyIncidentsResponse return a pointer to an empty IncidentsResponse object.
+func NewEmptyIncidentsResponse() *IncidentsResponse {
+	return &IncidentsResponse{}
 }
 
 // GetIncidents returns the Incidents field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *IncidentsResponse) HasIncidents() bool {
 }
 
 // SetIncidents gets a reference to the given map[string][]IncidentsInner and assigns it to the Incidents field.
-func (o *IncidentsResponse) SetIncidents(v map[string][]IncidentsInner) {
+func (o *IncidentsResponse) SetIncidents(v map[string][]IncidentsInner) *IncidentsResponse {
 	o.Incidents = &v
+	return o
 }
 
 func (o IncidentsResponse) MarshalJSON() ([]byte, error) {

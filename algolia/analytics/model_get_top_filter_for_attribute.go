@@ -31,12 +31,9 @@ func NewGetTopFilterForAttribute(attribute string, operator string, value string
 	return this
 }
 
-// NewGetTopFilterForAttributeWithDefaults instantiates a new GetTopFilterForAttribute object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTopFilterForAttributeWithDefaults() *GetTopFilterForAttribute {
-	this := &GetTopFilterForAttribute{}
-	return this
+// NewEmptyGetTopFilterForAttribute return a pointer to an empty GetTopFilterForAttribute object.
+func NewEmptyGetTopFilterForAttribute() *GetTopFilterForAttribute {
+	return &GetTopFilterForAttribute{}
 }
 
 // GetAttribute returns the Attribute field value.
@@ -59,8 +56,9 @@ func (o *GetTopFilterForAttribute) GetAttributeOk() (*string, bool) {
 }
 
 // SetAttribute sets field value.
-func (o *GetTopFilterForAttribute) SetAttribute(v string) {
+func (o *GetTopFilterForAttribute) SetAttribute(v string) *GetTopFilterForAttribute {
 	o.Attribute = v
+	return o
 }
 
 // GetOperator returns the Operator field value.
@@ -83,8 +81,9 @@ func (o *GetTopFilterForAttribute) GetOperatorOk() (*string, bool) {
 }
 
 // SetOperator sets field value.
-func (o *GetTopFilterForAttribute) SetOperator(v string) {
+func (o *GetTopFilterForAttribute) SetOperator(v string) *GetTopFilterForAttribute {
 	o.Operator = v
+	return o
 }
 
 // GetValue returns the Value field value.
@@ -107,8 +106,9 @@ func (o *GetTopFilterForAttribute) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value.
-func (o *GetTopFilterForAttribute) SetValue(v string) {
+func (o *GetTopFilterForAttribute) SetValue(v string) *GetTopFilterForAttribute {
 	o.Value = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -131,8 +131,9 @@ func (o *GetTopFilterForAttribute) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *GetTopFilterForAttribute) SetCount(v int32) {
+func (o *GetTopFilterForAttribute) SetCount(v int32) *GetTopFilterForAttribute {
 	o.Count = v
+	return o
 }
 
 func (o GetTopFilterForAttribute) MarshalJSON() ([]byte, error) {

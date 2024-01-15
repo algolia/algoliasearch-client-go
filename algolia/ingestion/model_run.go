@@ -92,12 +92,9 @@ func NewRun(runID string, appID string, taskID string, status RunStatus, type_ R
 	return this
 }
 
-// NewRunWithDefaults instantiates a new Run object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRunWithDefaults() *Run {
-	this := &Run{}
-	return this
+// NewEmptyRun return a pointer to an empty Run object.
+func NewEmptyRun() *Run {
+	return &Run{}
 }
 
 // GetRunID returns the RunID field value.
@@ -120,8 +117,9 @@ func (o *Run) GetRunIDOk() (*string, bool) {
 }
 
 // SetRunID sets field value.
-func (o *Run) SetRunID(v string) {
+func (o *Run) SetRunID(v string) *Run {
 	o.RunID = v
+	return o
 }
 
 // GetAppID returns the AppID field value.
@@ -144,8 +142,9 @@ func (o *Run) GetAppIDOk() (*string, bool) {
 }
 
 // SetAppID sets field value.
-func (o *Run) SetAppID(v string) {
+func (o *Run) SetAppID(v string) *Run {
 	o.AppID = v
+	return o
 }
 
 // GetTaskID returns the TaskID field value.
@@ -168,8 +167,9 @@ func (o *Run) GetTaskIDOk() (*string, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *Run) SetTaskID(v string) {
+func (o *Run) SetTaskID(v string) *Run {
 	o.TaskID = v
+	return o
 }
 
 // GetStatus returns the Status field value.
@@ -192,8 +192,9 @@ func (o *Run) GetStatusOk() (*RunStatus, bool) {
 }
 
 // SetStatus sets field value.
-func (o *Run) SetStatus(v RunStatus) {
+func (o *Run) SetStatus(v RunStatus) *Run {
 	o.Status = v
+	return o
 }
 
 // GetProgress returns the Progress field value if set, zero value otherwise.
@@ -224,8 +225,9 @@ func (o *Run) HasProgress() bool {
 }
 
 // SetProgress gets a reference to the given RunProgress and assigns it to the Progress field.
-func (o *Run) SetProgress(v RunProgress) {
-	o.Progress = &v
+func (o *Run) SetProgress(v *RunProgress) *Run {
+	o.Progress = v
+	return o
 }
 
 // GetOutcome returns the Outcome field value if set, zero value otherwise.
@@ -256,8 +258,9 @@ func (o *Run) HasOutcome() bool {
 }
 
 // SetOutcome gets a reference to the given RunOutcome and assigns it to the Outcome field.
-func (o *Run) SetOutcome(v RunOutcome) {
+func (o *Run) SetOutcome(v RunOutcome) *Run {
 	o.Outcome = &v
+	return o
 }
 
 // GetFailureThreshold returns the FailureThreshold field value if set, zero value otherwise.
@@ -288,8 +291,9 @@ func (o *Run) HasFailureThreshold() bool {
 }
 
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
-func (o *Run) SetFailureThreshold(v int32) {
+func (o *Run) SetFailureThreshold(v int32) *Run {
 	o.FailureThreshold = &v
+	return o
 }
 
 // GetReason returns the Reason field value if set, zero value otherwise.
@@ -320,8 +324,9 @@ func (o *Run) HasReason() bool {
 }
 
 // SetReason gets a reference to the given string and assigns it to the Reason field.
-func (o *Run) SetReason(v string) {
+func (o *Run) SetReason(v string) *Run {
 	o.Reason = &v
+	return o
 }
 
 // GetReasonCode returns the ReasonCode field value if set, zero value otherwise.
@@ -352,8 +357,9 @@ func (o *Run) HasReasonCode() bool {
 }
 
 // SetReasonCode gets a reference to the given RunReasonCode and assigns it to the ReasonCode field.
-func (o *Run) SetReasonCode(v RunReasonCode) {
+func (o *Run) SetReasonCode(v RunReasonCode) *Run {
 	o.ReasonCode = &v
+	return o
 }
 
 // GetType returns the Type field value.
@@ -376,8 +382,9 @@ func (o *Run) GetTypeOk() (*RunType, bool) {
 }
 
 // SetType sets field value.
-func (o *Run) SetType(v RunType) {
+func (o *Run) SetType(v RunType) *Run {
 	o.Type = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -400,8 +407,9 @@ func (o *Run) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *Run) SetCreatedAt(v string) {
+func (o *Run) SetCreatedAt(v string) *Run {
 	o.CreatedAt = v
+	return o
 }
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise.
@@ -432,8 +440,9 @@ func (o *Run) HasStartedAt() bool {
 }
 
 // SetStartedAt gets a reference to the given string and assigns it to the StartedAt field.
-func (o *Run) SetStartedAt(v string) {
+func (o *Run) SetStartedAt(v string) *Run {
 	o.StartedAt = &v
+	return o
 }
 
 // GetFinishedAt returns the FinishedAt field value if set, zero value otherwise.
@@ -464,8 +473,9 @@ func (o *Run) HasFinishedAt() bool {
 }
 
 // SetFinishedAt gets a reference to the given string and assigns it to the FinishedAt field.
-func (o *Run) SetFinishedAt(v string) {
+func (o *Run) SetFinishedAt(v string) *Run {
 	o.FinishedAt = &v
+	return o
 }
 
 func (o Run) MarshalJSON() ([]byte, error) {

@@ -25,12 +25,9 @@ func NewMultipleBatchResponse(taskID map[string]int64, objectIDs []string) *Mult
 	return this
 }
 
-// NewMultipleBatchResponseWithDefaults instantiates a new MultipleBatchResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewMultipleBatchResponseWithDefaults() *MultipleBatchResponse {
-	this := &MultipleBatchResponse{}
-	return this
+// NewEmptyMultipleBatchResponse return a pointer to an empty MultipleBatchResponse object.
+func NewEmptyMultipleBatchResponse() *MultipleBatchResponse {
+	return &MultipleBatchResponse{}
 }
 
 // GetTaskID returns the TaskID field value.
@@ -53,8 +50,9 @@ func (o *MultipleBatchResponse) GetTaskIDOk() (*map[string]int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *MultipleBatchResponse) SetTaskID(v map[string]int64) {
+func (o *MultipleBatchResponse) SetTaskID(v map[string]int64) *MultipleBatchResponse {
 	o.TaskID = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -77,8 +75,9 @@ func (o *MultipleBatchResponse) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *MultipleBatchResponse) SetObjectIDs(v []string) {
+func (o *MultipleBatchResponse) SetObjectIDs(v []string) *MultipleBatchResponse {
 	o.ObjectIDs = v
+	return o
 }
 
 func (o MultipleBatchResponse) MarshalJSON() ([]byte, error) {

@@ -21,12 +21,9 @@ func NewSubscriptionTrigger(type_ SubscriptionTriggerType) *SubscriptionTrigger 
 	return this
 }
 
-// NewSubscriptionTriggerWithDefaults instantiates a new SubscriptionTrigger object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSubscriptionTriggerWithDefaults() *SubscriptionTrigger {
-	this := &SubscriptionTrigger{}
-	return this
+// NewEmptySubscriptionTrigger return a pointer to an empty SubscriptionTrigger object.
+func NewEmptySubscriptionTrigger() *SubscriptionTrigger {
+	return &SubscriptionTrigger{}
 }
 
 // GetType returns the Type field value.
@@ -49,8 +46,9 @@ func (o *SubscriptionTrigger) GetTypeOk() (*SubscriptionTriggerType, bool) {
 }
 
 // SetType sets field value.
-func (o *SubscriptionTrigger) SetType(v SubscriptionTriggerType) {
+func (o *SubscriptionTrigger) SetType(v SubscriptionTriggerType) *SubscriptionTrigger {
 	o.Type = v
+	return o
 }
 
 func (o SubscriptionTrigger) MarshalJSON() ([]byte, error) {

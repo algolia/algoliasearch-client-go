@@ -40,12 +40,9 @@ func NewTimeInner(opts ...TimeInnerOption) *TimeInner {
 	return this
 }
 
-// NewTimeInnerWithDefaults instantiates a new TimeInner object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTimeInnerWithDefaults() *TimeInner {
-	this := &TimeInner{}
-	return this
+// NewEmptyTimeInner return a pointer to an empty TimeInner object.
+func NewEmptyTimeInner() *TimeInner {
+	return &TimeInner{}
 }
 
 // GetT returns the T field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *TimeInner) HasT() bool {
 }
 
 // SetT gets a reference to the given int64 and assigns it to the T field.
-func (o *TimeInner) SetT(v int64) {
+func (o *TimeInner) SetT(v int64) *TimeInner {
 	o.T = &v
+	return o
 }
 
 // GetV returns the V field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *TimeInner) HasV() bool {
 }
 
 // SetV gets a reference to the given int32 and assigns it to the V field.
-func (o *TimeInner) SetV(v int32) {
+func (o *TimeInner) SetV(v int32) *TimeInner {
 	o.V = &v
+	return o
 }
 
 func (o TimeInner) MarshalJSON() ([]byte, error) {

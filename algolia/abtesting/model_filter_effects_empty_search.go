@@ -40,12 +40,9 @@ func NewFilterEffectsEmptySearch(opts ...FilterEffectsEmptySearchOption) *Filter
 	return this
 }
 
-// NewFilterEffectsEmptySearchWithDefaults instantiates a new FilterEffectsEmptySearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFilterEffectsEmptySearchWithDefaults() *FilterEffectsEmptySearch {
-	this := &FilterEffectsEmptySearch{}
-	return this
+// NewEmptyFilterEffectsEmptySearch return a pointer to an empty FilterEffectsEmptySearch object.
+func NewEmptyFilterEffectsEmptySearch() *FilterEffectsEmptySearch {
+	return &FilterEffectsEmptySearch{}
 }
 
 // GetUsersCount returns the UsersCount field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *FilterEffectsEmptySearch) HasUsersCount() bool {
 }
 
 // SetUsersCount gets a reference to the given int32 and assigns it to the UsersCount field.
-func (o *FilterEffectsEmptySearch) SetUsersCount(v int32) {
+func (o *FilterEffectsEmptySearch) SetUsersCount(v int32) *FilterEffectsEmptySearch {
 	o.UsersCount = &v
+	return o
 }
 
 // GetTrackedSearchesCount returns the TrackedSearchesCount field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *FilterEffectsEmptySearch) HasTrackedSearchesCount() bool {
 }
 
 // SetTrackedSearchesCount gets a reference to the given int32 and assigns it to the TrackedSearchesCount field.
-func (o *FilterEffectsEmptySearch) SetTrackedSearchesCount(v int32) {
+func (o *FilterEffectsEmptySearch) SetTrackedSearchesCount(v int32) *FilterEffectsEmptySearch {
 	o.TrackedSearchesCount = &v
+	return o
 }
 
 func (o FilterEffectsEmptySearch) MarshalJSON() ([]byte, error) {

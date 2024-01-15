@@ -25,12 +25,9 @@ func NewBatchAssignUserIdsParams(cluster string, users []string) *BatchAssignUse
 	return this
 }
 
-// NewBatchAssignUserIdsParamsWithDefaults instantiates a new BatchAssignUserIdsParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBatchAssignUserIdsParamsWithDefaults() *BatchAssignUserIdsParams {
-	this := &BatchAssignUserIdsParams{}
-	return this
+// NewEmptyBatchAssignUserIdsParams return a pointer to an empty BatchAssignUserIdsParams object.
+func NewEmptyBatchAssignUserIdsParams() *BatchAssignUserIdsParams {
+	return &BatchAssignUserIdsParams{}
 }
 
 // GetCluster returns the Cluster field value.
@@ -53,8 +50,9 @@ func (o *BatchAssignUserIdsParams) GetClusterOk() (*string, bool) {
 }
 
 // SetCluster sets field value.
-func (o *BatchAssignUserIdsParams) SetCluster(v string) {
+func (o *BatchAssignUserIdsParams) SetCluster(v string) *BatchAssignUserIdsParams {
 	o.Cluster = v
+	return o
 }
 
 // GetUsers returns the Users field value.
@@ -77,8 +75,9 @@ func (o *BatchAssignUserIdsParams) GetUsersOk() ([]string, bool) {
 }
 
 // SetUsers sets field value.
-func (o *BatchAssignUserIdsParams) SetUsers(v []string) {
+func (o *BatchAssignUserIdsParams) SetUsers(v []string) *BatchAssignUserIdsParams {
 	o.Users = v
+	return o
 }
 
 func (o BatchAssignUserIdsParams) MarshalJSON() ([]byte, error) {

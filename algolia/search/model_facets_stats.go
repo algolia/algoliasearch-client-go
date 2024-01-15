@@ -56,12 +56,9 @@ func NewFacetsStats(opts ...FacetsStatsOption) *FacetsStats {
 	return this
 }
 
-// NewFacetsStatsWithDefaults instantiates a new FacetsStats object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFacetsStatsWithDefaults() *FacetsStats {
-	this := &FacetsStats{}
-	return this
+// NewEmptyFacetsStats return a pointer to an empty FacetsStats object.
+func NewEmptyFacetsStats() *FacetsStats {
+	return &FacetsStats{}
 }
 
 // GetMin returns the Min field value if set, zero value otherwise.
@@ -92,8 +89,9 @@ func (o *FacetsStats) HasMin() bool {
 }
 
 // SetMin gets a reference to the given float64 and assigns it to the Min field.
-func (o *FacetsStats) SetMin(v float64) {
+func (o *FacetsStats) SetMin(v float64) *FacetsStats {
 	o.Min = &v
+	return o
 }
 
 // GetMax returns the Max field value if set, zero value otherwise.
@@ -124,8 +122,9 @@ func (o *FacetsStats) HasMax() bool {
 }
 
 // SetMax gets a reference to the given float64 and assigns it to the Max field.
-func (o *FacetsStats) SetMax(v float64) {
+func (o *FacetsStats) SetMax(v float64) *FacetsStats {
 	o.Max = &v
+	return o
 }
 
 // GetAvg returns the Avg field value if set, zero value otherwise.
@@ -156,8 +155,9 @@ func (o *FacetsStats) HasAvg() bool {
 }
 
 // SetAvg gets a reference to the given float64 and assigns it to the Avg field.
-func (o *FacetsStats) SetAvg(v float64) {
+func (o *FacetsStats) SetAvg(v float64) *FacetsStats {
 	o.Avg = &v
+	return o
 }
 
 // GetSum returns the Sum field value if set, zero value otherwise.
@@ -188,8 +188,9 @@ func (o *FacetsStats) HasSum() bool {
 }
 
 // SetSum gets a reference to the given float64 and assigns it to the Sum field.
-func (o *FacetsStats) SetSum(v float64) {
+func (o *FacetsStats) SetSum(v float64) *FacetsStats {
 	o.Sum = &v
+	return o
 }
 
 func (o FacetsStats) MarshalJSON() ([]byte, error) {

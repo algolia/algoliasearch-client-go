@@ -23,12 +23,9 @@ func NewAuthBasic(username string, password string) *AuthBasic {
 	return this
 }
 
-// NewAuthBasicWithDefaults instantiates a new AuthBasic object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthBasicWithDefaults() *AuthBasic {
-	this := &AuthBasic{}
-	return this
+// NewEmptyAuthBasic return a pointer to an empty AuthBasic object.
+func NewEmptyAuthBasic() *AuthBasic {
+	return &AuthBasic{}
 }
 
 // GetUsername returns the Username field value.
@@ -51,8 +48,9 @@ func (o *AuthBasic) GetUsernameOk() (*string, bool) {
 }
 
 // SetUsername sets field value.
-func (o *AuthBasic) SetUsername(v string) {
+func (o *AuthBasic) SetUsername(v string) *AuthBasic {
 	o.Username = v
+	return o
 }
 
 // GetPassword returns the Password field value.
@@ -75,8 +73,9 @@ func (o *AuthBasic) GetPasswordOk() (*string, bool) {
 }
 
 // SetPassword sets field value.
-func (o *AuthBasic) SetPassword(v string) {
+func (o *AuthBasic) SetPassword(v string) *AuthBasic {
 	o.Password = v
+	return o
 }
 
 func (o AuthBasic) MarshalJSON() ([]byte, error) {

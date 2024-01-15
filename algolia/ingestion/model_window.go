@@ -25,12 +25,9 @@ func NewWindow(startDate string, endDate string) *Window {
 	return this
 }
 
-// NewWindowWithDefaults instantiates a new Window object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewWindowWithDefaults() *Window {
-	this := &Window{}
-	return this
+// NewEmptyWindow return a pointer to an empty Window object.
+func NewEmptyWindow() *Window {
+	return &Window{}
 }
 
 // GetStartDate returns the StartDate field value.
@@ -53,8 +50,9 @@ func (o *Window) GetStartDateOk() (*string, bool) {
 }
 
 // SetStartDate sets field value.
-func (o *Window) SetStartDate(v string) {
+func (o *Window) SetStartDate(v string) *Window {
 	o.StartDate = v
+	return o
 }
 
 // GetEndDate returns the EndDate field value.
@@ -77,8 +75,9 @@ func (o *Window) GetEndDateOk() (*string, bool) {
 }
 
 // SetEndDate sets field value.
-func (o *Window) SetEndDate(v string) {
+func (o *Window) SetEndDate(v string) *Window {
 	o.EndDate = v
+	return o
 }
 
 func (o Window) MarshalJSON() ([]byte, error) {

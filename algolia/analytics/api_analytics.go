@@ -3938,8 +3938,8 @@ type ApiGetTopSearchesRequest struct {
 	clickAnalytics bool
 	startDate      string
 	endDate        string
-	orderBy        *OrderBy
-	direction      *Direction
+	orderBy        OrderBy
+	direction      Direction
 	limit          int32
 	offset         int32
 	tags           string
@@ -3971,13 +3971,13 @@ func (r ApiGetTopSearchesRequest) WithEndDate(endDate string) ApiGetTopSearchesR
 }
 
 // WithOrderBy adds the orderBy to the ApiGetTopSearchesRequest and returns the request for chaining.
-func (r ApiGetTopSearchesRequest) WithOrderBy(orderBy *OrderBy) ApiGetTopSearchesRequest {
+func (r ApiGetTopSearchesRequest) WithOrderBy(orderBy OrderBy) ApiGetTopSearchesRequest {
 	r.orderBy = orderBy
 	return r
 }
 
 // WithDirection adds the direction to the ApiGetTopSearchesRequest and returns the request for chaining.
-func (r ApiGetTopSearchesRequest) WithDirection(direction *Direction) ApiGetTopSearchesRequest {
+func (r ApiGetTopSearchesRequest) WithDirection(direction Direction) ApiGetTopSearchesRequest {
 	r.direction = direction
 	return r
 }
@@ -4065,10 +4065,10 @@ func (c *APIClient) GetTopSearchesWithContext(ctx context.Context, r ApiGetTopSe
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
 	if !isNilorEmpty(r.orderBy) {
-		queryParams.Set("orderBy", parameterToString(*r.orderBy))
+		queryParams.Set("orderBy", parameterToString(r.orderBy))
 	}
 	if !isNilorEmpty(r.direction) {
-		queryParams.Set("direction", parameterToString(*r.direction))
+		queryParams.Set("direction", parameterToString(r.direction))
 	}
 	if !isNilorEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))

@@ -13,16 +13,16 @@ type IgnorePlurals struct {
 }
 
 // []stringAsIgnorePlurals is a convenience function that returns []string wrapped in IgnorePlurals.
-func ArrayOfStringAsIgnorePlurals(v *[]string) IgnorePlurals {
-	return IgnorePlurals{
-		ArrayOfString: v,
+func ArrayOfStringAsIgnorePlurals(v []string) *IgnorePlurals {
+	return &IgnorePlurals{
+		ArrayOfString: &v,
 	}
 }
 
 // boolAsIgnorePlurals is a convenience function that returns bool wrapped in IgnorePlurals.
-func BoolAsIgnorePlurals(v *bool) IgnorePlurals {
-	return IgnorePlurals{
-		Bool: v,
+func BoolAsIgnorePlurals(v bool) *IgnorePlurals {
+	return &IgnorePlurals{
+		Bool: &v,
 	}
 }
 

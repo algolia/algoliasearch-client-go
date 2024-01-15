@@ -40,12 +40,9 @@ func NewBaseRecommendedForYouQuery(model RecommendedForYouModel, opts ...BaseRec
 	return this
 }
 
-// NewBaseRecommendedForYouQueryWithDefaults instantiates a new BaseRecommendedForYouQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseRecommendedForYouQueryWithDefaults() *BaseRecommendedForYouQuery {
-	this := &BaseRecommendedForYouQuery{}
-	return this
+// NewEmptyBaseRecommendedForYouQuery return a pointer to an empty BaseRecommendedForYouQuery object.
+func NewEmptyBaseRecommendedForYouQuery() *BaseRecommendedForYouQuery {
+	return &BaseRecommendedForYouQuery{}
 }
 
 // GetModel returns the Model field value.
@@ -68,8 +65,9 @@ func (o *BaseRecommendedForYouQuery) GetModelOk() (*RecommendedForYouModel, bool
 }
 
 // SetModel sets field value.
-func (o *BaseRecommendedForYouQuery) SetModel(v RecommendedForYouModel) {
+func (o *BaseRecommendedForYouQuery) SetModel(v RecommendedForYouModel) *BaseRecommendedForYouQuery {
 	o.Model = v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -100,8 +98,9 @@ func (o *BaseRecommendedForYouQuery) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given RecommendedForYouQueryParameters and assigns it to the QueryParameters field.
-func (o *BaseRecommendedForYouQuery) SetQueryParameters(v RecommendedForYouQueryParameters) {
-	o.QueryParameters = &v
+func (o *BaseRecommendedForYouQuery) SetQueryParameters(v *RecommendedForYouQueryParameters) *BaseRecommendedForYouQuery {
+	o.QueryParameters = v
+	return o
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
@@ -132,8 +131,9 @@ func (o *BaseRecommendedForYouQuery) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given RecommendedForYouQueryParameters and assigns it to the FallbackParameters field.
-func (o *BaseRecommendedForYouQuery) SetFallbackParameters(v RecommendedForYouQueryParameters) {
-	o.FallbackParameters = &v
+func (o *BaseRecommendedForYouQuery) SetFallbackParameters(v *RecommendedForYouQueryParameters) *BaseRecommendedForYouQuery {
+	o.FallbackParameters = v
+	return o
 }
 
 func (o BaseRecommendedForYouQuery) MarshalJSON() ([]byte, error) {

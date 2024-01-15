@@ -34,16 +34,9 @@ func NewSearchUserIdsResponse(hits []UserHit, nbHits int32, page int32, hitsPerP
 	return this
 }
 
-// NewSearchUserIdsResponseWithDefaults instantiates a new SearchUserIdsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchUserIdsResponseWithDefaults() *SearchUserIdsResponse {
-	this := &SearchUserIdsResponse{}
-	var page int32 = 0
-	this.Page = page
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = hitsPerPage
-	return this
+// NewEmptySearchUserIdsResponse return a pointer to an empty SearchUserIdsResponse object.
+func NewEmptySearchUserIdsResponse() *SearchUserIdsResponse {
+	return &SearchUserIdsResponse{}
 }
 
 // GetHits returns the Hits field value.
@@ -66,8 +59,9 @@ func (o *SearchUserIdsResponse) GetHitsOk() ([]UserHit, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchUserIdsResponse) SetHits(v []UserHit) {
+func (o *SearchUserIdsResponse) SetHits(v []UserHit) *SearchUserIdsResponse {
 	o.Hits = v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -90,8 +84,9 @@ func (o *SearchUserIdsResponse) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *SearchUserIdsResponse) SetNbHits(v int32) {
+func (o *SearchUserIdsResponse) SetNbHits(v int32) *SearchUserIdsResponse {
 	o.NbHits = v
+	return o
 }
 
 // GetPage returns the Page field value.
@@ -114,8 +109,9 @@ func (o *SearchUserIdsResponse) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *SearchUserIdsResponse) SetPage(v int32) {
+func (o *SearchUserIdsResponse) SetPage(v int32) *SearchUserIdsResponse {
 	o.Page = v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value.
@@ -138,8 +134,9 @@ func (o *SearchUserIdsResponse) GetHitsPerPageOk() (*int32, bool) {
 }
 
 // SetHitsPerPage sets field value.
-func (o *SearchUserIdsResponse) SetHitsPerPage(v int32) {
+func (o *SearchUserIdsResponse) SetHitsPerPage(v int32) *SearchUserIdsResponse {
 	o.HitsPerPage = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -162,8 +159,9 @@ func (o *SearchUserIdsResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *SearchUserIdsResponse) SetUpdatedAt(v string) {
+func (o *SearchUserIdsResponse) SetUpdatedAt(v string) *SearchUserIdsResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 func (o SearchUserIdsResponse) MarshalJSON() ([]byte, error) {

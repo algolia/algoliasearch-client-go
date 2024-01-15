@@ -28,12 +28,9 @@ func NewGetAverageClickPositionResponse(average float64, clickCount int32, dates
 	return this
 }
 
-// NewGetAverageClickPositionResponseWithDefaults instantiates a new GetAverageClickPositionResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetAverageClickPositionResponseWithDefaults() *GetAverageClickPositionResponse {
-	this := &GetAverageClickPositionResponse{}
-	return this
+// NewEmptyGetAverageClickPositionResponse return a pointer to an empty GetAverageClickPositionResponse object.
+func NewEmptyGetAverageClickPositionResponse() *GetAverageClickPositionResponse {
+	return &GetAverageClickPositionResponse{}
 }
 
 // GetAverage returns the Average field value.
@@ -56,8 +53,9 @@ func (o *GetAverageClickPositionResponse) GetAverageOk() (*float64, bool) {
 }
 
 // SetAverage sets field value.
-func (o *GetAverageClickPositionResponse) SetAverage(v float64) {
+func (o *GetAverageClickPositionResponse) SetAverage(v float64) *GetAverageClickPositionResponse {
 	o.Average = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -80,8 +78,9 @@ func (o *GetAverageClickPositionResponse) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *GetAverageClickPositionResponse) SetClickCount(v int32) {
+func (o *GetAverageClickPositionResponse) SetClickCount(v int32) *GetAverageClickPositionResponse {
 	o.ClickCount = v
+	return o
 }
 
 // GetDates returns the Dates field value.
@@ -104,8 +103,9 @@ func (o *GetAverageClickPositionResponse) GetDatesOk() ([]AverageClickEvent, boo
 }
 
 // SetDates sets field value.
-func (o *GetAverageClickPositionResponse) SetDates(v []AverageClickEvent) {
+func (o *GetAverageClickPositionResponse) SetDates(v []AverageClickEvent) *GetAverageClickPositionResponse {
 	o.Dates = v
+	return o
 }
 
 func (o GetAverageClickPositionResponse) MarshalJSON() ([]byte, error) {

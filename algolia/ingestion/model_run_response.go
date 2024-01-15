@@ -25,12 +25,9 @@ func NewRunResponse(runID string, createdAt string) *RunResponse {
 	return this
 }
 
-// NewRunResponseWithDefaults instantiates a new RunResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRunResponseWithDefaults() *RunResponse {
-	this := &RunResponse{}
-	return this
+// NewEmptyRunResponse return a pointer to an empty RunResponse object.
+func NewEmptyRunResponse() *RunResponse {
+	return &RunResponse{}
 }
 
 // GetRunID returns the RunID field value.
@@ -53,8 +50,9 @@ func (o *RunResponse) GetRunIDOk() (*string, bool) {
 }
 
 // SetRunID sets field value.
-func (o *RunResponse) SetRunID(v string) {
+func (o *RunResponse) SetRunID(v string) *RunResponse {
 	o.RunID = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -77,8 +75,9 @@ func (o *RunResponse) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *RunResponse) SetCreatedAt(v string) {
+func (o *RunResponse) SetCreatedAt(v string) *RunResponse {
 	o.CreatedAt = v
+	return o
 }
 
 func (o RunResponse) MarshalJSON() ([]byte, error) {

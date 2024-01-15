@@ -66,14 +66,9 @@ func NewTask(taskID string, sourceID string, destinationID string, trigger Trigg
 	return this
 }
 
-// NewTaskWithDefaults instantiates a new Task object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTaskWithDefaults() *Task {
-	this := &Task{}
-	var enabled bool = true
-	this.Enabled = enabled
-	return this
+// NewEmptyTask return a pointer to an empty Task object.
+func NewEmptyTask() *Task {
+	return &Task{}
 }
 
 // GetTaskID returns the TaskID field value.
@@ -96,8 +91,9 @@ func (o *Task) GetTaskIDOk() (*string, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *Task) SetTaskID(v string) {
+func (o *Task) SetTaskID(v string) *Task {
 	o.TaskID = v
+	return o
 }
 
 // GetSourceID returns the SourceID field value.
@@ -120,8 +116,9 @@ func (o *Task) GetSourceIDOk() (*string, bool) {
 }
 
 // SetSourceID sets field value.
-func (o *Task) SetSourceID(v string) {
+func (o *Task) SetSourceID(v string) *Task {
 	o.SourceID = v
+	return o
 }
 
 // GetDestinationID returns the DestinationID field value.
@@ -144,8 +141,9 @@ func (o *Task) GetDestinationIDOk() (*string, bool) {
 }
 
 // SetDestinationID sets field value.
-func (o *Task) SetDestinationID(v string) {
+func (o *Task) SetDestinationID(v string) *Task {
 	o.DestinationID = v
+	return o
 }
 
 // GetTrigger returns the Trigger field value.
@@ -168,8 +166,9 @@ func (o *Task) GetTriggerOk() (*Trigger, bool) {
 }
 
 // SetTrigger sets field value.
-func (o *Task) SetTrigger(v Trigger) {
-	o.Trigger = v
+func (o *Task) SetTrigger(v *Trigger) *Task {
+	o.Trigger = *v
+	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -200,8 +199,9 @@ func (o *Task) HasInput() bool {
 }
 
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
-func (o *Task) SetInput(v TaskInput) {
-	o.Input = &v
+func (o *Task) SetInput(v *TaskInput) *Task {
+	o.Input = v
+	return o
 }
 
 // GetEnabled returns the Enabled field value.
@@ -224,8 +224,9 @@ func (o *Task) GetEnabledOk() (*bool, bool) {
 }
 
 // SetEnabled sets field value.
-func (o *Task) SetEnabled(v bool) {
+func (o *Task) SetEnabled(v bool) *Task {
 	o.Enabled = v
+	return o
 }
 
 // GetFailureThreshold returns the FailureThreshold field value if set, zero value otherwise.
@@ -256,8 +257,9 @@ func (o *Task) HasFailureThreshold() bool {
 }
 
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
-func (o *Task) SetFailureThreshold(v int32) {
+func (o *Task) SetFailureThreshold(v int32) *Task {
 	o.FailureThreshold = &v
+	return o
 }
 
 // GetAction returns the Action field value.
@@ -280,8 +282,9 @@ func (o *Task) GetActionOk() (*ActionType, bool) {
 }
 
 // SetAction sets field value.
-func (o *Task) SetAction(v ActionType) {
+func (o *Task) SetAction(v ActionType) *Task {
 	o.Action = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -304,8 +307,9 @@ func (o *Task) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *Task) SetCreatedAt(v string) {
+func (o *Task) SetCreatedAt(v string) *Task {
 	o.CreatedAt = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -336,8 +340,9 @@ func (o *Task) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *Task) SetUpdatedAt(v string) {
+func (o *Task) SetUpdatedAt(v string) *Task {
 	o.UpdatedAt = &v
+	return o
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {

@@ -22,12 +22,9 @@ func NewTopSearchesResponseWithAnalytics(searches []TopSearchWithAnalytics) *Top
 	return this
 }
 
-// NewTopSearchesResponseWithAnalyticsWithDefaults instantiates a new TopSearchesResponseWithAnalytics object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTopSearchesResponseWithAnalyticsWithDefaults() *TopSearchesResponseWithAnalytics {
-	this := &TopSearchesResponseWithAnalytics{}
-	return this
+// NewEmptyTopSearchesResponseWithAnalytics return a pointer to an empty TopSearchesResponseWithAnalytics object.
+func NewEmptyTopSearchesResponseWithAnalytics() *TopSearchesResponseWithAnalytics {
+	return &TopSearchesResponseWithAnalytics{}
 }
 
 // GetSearches returns the Searches field value.
@@ -50,8 +47,9 @@ func (o *TopSearchesResponseWithAnalytics) GetSearchesOk() ([]TopSearchWithAnaly
 }
 
 // SetSearches sets field value.
-func (o *TopSearchesResponseWithAnalytics) SetSearches(v []TopSearchWithAnalytics) {
+func (o *TopSearchesResponseWithAnalytics) SetSearches(v []TopSearchWithAnalytics) *TopSearchesResponseWithAnalytics {
 	o.Searches = v
+	return o
 }
 
 func (o TopSearchesResponseWithAnalytics) MarshalJSON() ([]byte, error) {

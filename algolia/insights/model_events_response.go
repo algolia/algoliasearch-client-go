@@ -40,12 +40,9 @@ func NewEventsResponse(opts ...EventsResponseOption) *EventsResponse {
 	return this
 }
 
-// NewEventsResponseWithDefaults instantiates a new EventsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewEventsResponseWithDefaults() *EventsResponse {
-	this := &EventsResponse{}
-	return this
+// NewEmptyEventsResponse return a pointer to an empty EventsResponse object.
+func NewEmptyEventsResponse() *EventsResponse {
+	return &EventsResponse{}
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *EventsResponse) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *EventsResponse) SetMessage(v string) {
+func (o *EventsResponse) SetMessage(v string) *EventsResponse {
 	o.Message = &v
+	return o
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *EventsResponse) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given int32 and assigns it to the Status field.
-func (o *EventsResponse) SetStatus(v int32) {
+func (o *EventsResponse) SetStatus(v int32) *EventsResponse {
 	o.Status = &v
+	return o
 }
 
 func (o EventsResponse) MarshalJSON() ([]byte, error) {

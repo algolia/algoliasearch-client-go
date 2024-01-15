@@ -21,12 +21,9 @@ func NewTaskSearch(taskIDs []string) *TaskSearch {
 	return this
 }
 
-// NewTaskSearchWithDefaults instantiates a new TaskSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTaskSearchWithDefaults() *TaskSearch {
-	this := &TaskSearch{}
-	return this
+// NewEmptyTaskSearch return a pointer to an empty TaskSearch object.
+func NewEmptyTaskSearch() *TaskSearch {
+	return &TaskSearch{}
 }
 
 // GetTaskIDs returns the TaskIDs field value.
@@ -49,8 +46,9 @@ func (o *TaskSearch) GetTaskIDsOk() ([]string, bool) {
 }
 
 // SetTaskIDs sets field value.
-func (o *TaskSearch) SetTaskIDs(v []string) {
+func (o *TaskSearch) SetTaskIDs(v []string) *TaskSearch {
 	o.TaskIDs = v
+	return o
 }
 
 func (o TaskSearch) MarshalJSON() ([]byte, error) {

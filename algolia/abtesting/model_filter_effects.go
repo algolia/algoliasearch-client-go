@@ -38,12 +38,9 @@ func NewFilterEffects(opts ...FilterEffectsOption) *FilterEffects {
 	return this
 }
 
-// NewFilterEffectsWithDefaults instantiates a new FilterEffects object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFilterEffectsWithDefaults() *FilterEffects {
-	this := &FilterEffects{}
-	return this
+// NewEmptyFilterEffects return a pointer to an empty FilterEffects object.
+func NewEmptyFilterEffects() *FilterEffects {
+	return &FilterEffects{}
 }
 
 // GetOutliers returns the Outliers field value if set, zero value otherwise.
@@ -74,8 +71,9 @@ func (o *FilterEffects) HasOutliers() bool {
 }
 
 // SetOutliers gets a reference to the given FilterEffectsOutliers and assigns it to the Outliers field.
-func (o *FilterEffects) SetOutliers(v FilterEffectsOutliers) {
-	o.Outliers = &v
+func (o *FilterEffects) SetOutliers(v *FilterEffectsOutliers) *FilterEffects {
+	o.Outliers = v
+	return o
 }
 
 // GetEmptySearch returns the EmptySearch field value if set, zero value otherwise.
@@ -106,8 +104,9 @@ func (o *FilterEffects) HasEmptySearch() bool {
 }
 
 // SetEmptySearch gets a reference to the given FilterEffectsEmptySearch and assigns it to the EmptySearch field.
-func (o *FilterEffects) SetEmptySearch(v FilterEffectsEmptySearch) {
-	o.EmptySearch = &v
+func (o *FilterEffects) SetEmptySearch(v *FilterEffectsEmptySearch) *FilterEffects {
+	o.EmptySearch = v
+	return o
 }
 
 func (o FilterEffects) MarshalJSON() ([]byte, error) {

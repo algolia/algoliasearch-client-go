@@ -58,14 +58,9 @@ func NewSourceCSV(url string, opts ...SourceCSVOption) *SourceCSV {
 	return this
 }
 
-// NewSourceCSVWithDefaults instantiates a new SourceCSV object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceCSVWithDefaults() *SourceCSV {
-	this := &SourceCSV{}
-	var delimiter string = ","
-	this.Delimiter = &delimiter
-	return this
+// NewEmptySourceCSV return a pointer to an empty SourceCSV object.
+func NewEmptySourceCSV() *SourceCSV {
+	return &SourceCSV{}
 }
 
 // GetUrl returns the Url field value.
@@ -88,8 +83,9 @@ func (o *SourceCSV) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value.
-func (o *SourceCSV) SetUrl(v string) {
+func (o *SourceCSV) SetUrl(v string) *SourceCSV {
 	o.Url = v
+	return o
 }
 
 // GetUniqueIDColumn returns the UniqueIDColumn field value if set, zero value otherwise.
@@ -120,8 +116,9 @@ func (o *SourceCSV) HasUniqueIDColumn() bool {
 }
 
 // SetUniqueIDColumn gets a reference to the given string and assigns it to the UniqueIDColumn field.
-func (o *SourceCSV) SetUniqueIDColumn(v string) {
+func (o *SourceCSV) SetUniqueIDColumn(v string) *SourceCSV {
 	o.UniqueIDColumn = &v
+	return o
 }
 
 // GetMapping returns the Mapping field value if set, zero value otherwise.
@@ -152,8 +149,9 @@ func (o *SourceCSV) HasMapping() bool {
 }
 
 // SetMapping gets a reference to the given map[string]MappingTypeCSV and assigns it to the Mapping field.
-func (o *SourceCSV) SetMapping(v map[string]MappingTypeCSV) {
+func (o *SourceCSV) SetMapping(v map[string]MappingTypeCSV) *SourceCSV {
 	o.Mapping = &v
+	return o
 }
 
 // GetMethod returns the Method field value if set, zero value otherwise.
@@ -184,8 +182,9 @@ func (o *SourceCSV) HasMethod() bool {
 }
 
 // SetMethod gets a reference to the given MethodType and assigns it to the Method field.
-func (o *SourceCSV) SetMethod(v MethodType) {
+func (o *SourceCSV) SetMethod(v MethodType) *SourceCSV {
 	o.Method = &v
+	return o
 }
 
 // GetDelimiter returns the Delimiter field value if set, zero value otherwise.
@@ -216,8 +215,9 @@ func (o *SourceCSV) HasDelimiter() bool {
 }
 
 // SetDelimiter gets a reference to the given string and assigns it to the Delimiter field.
-func (o *SourceCSV) SetDelimiter(v string) {
+func (o *SourceCSV) SetDelimiter(v string) *SourceCSV {
 	o.Delimiter = &v
+	return o
 }
 
 func (o SourceCSV) MarshalJSON() ([]byte, error) {

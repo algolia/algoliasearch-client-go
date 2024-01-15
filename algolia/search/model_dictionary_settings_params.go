@@ -21,12 +21,9 @@ func NewDictionarySettingsParams(disableStandardEntries StandardEntries) *Dictio
 	return this
 }
 
-// NewDictionarySettingsParamsWithDefaults instantiates a new DictionarySettingsParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDictionarySettingsParamsWithDefaults() *DictionarySettingsParams {
-	this := &DictionarySettingsParams{}
-	return this
+// NewEmptyDictionarySettingsParams return a pointer to an empty DictionarySettingsParams object.
+func NewEmptyDictionarySettingsParams() *DictionarySettingsParams {
+	return &DictionarySettingsParams{}
 }
 
 // GetDisableStandardEntries returns the DisableStandardEntries field value.
@@ -49,8 +46,9 @@ func (o *DictionarySettingsParams) GetDisableStandardEntriesOk() (*StandardEntri
 }
 
 // SetDisableStandardEntries sets field value.
-func (o *DictionarySettingsParams) SetDisableStandardEntries(v StandardEntries) {
-	o.DisableStandardEntries = v
+func (o *DictionarySettingsParams) SetDisableStandardEntries(v *StandardEntries) *DictionarySettingsParams {
+	o.DisableStandardEntries = *v
+	return o
 }
 
 func (o DictionarySettingsParams) MarshalJSON() ([]byte, error) {

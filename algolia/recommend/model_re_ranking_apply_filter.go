@@ -13,16 +13,16 @@ type ReRankingApplyFilter struct {
 }
 
 // []MixedSearchFiltersAsReRankingApplyFilter is a convenience function that returns []MixedSearchFilters wrapped in ReRankingApplyFilter.
-func ArrayOfMixedSearchFiltersAsReRankingApplyFilter(v *[]MixedSearchFilters) ReRankingApplyFilter {
-	return ReRankingApplyFilter{
-		ArrayOfMixedSearchFilters: v,
+func ArrayOfMixedSearchFiltersAsReRankingApplyFilter(v []MixedSearchFilters) *ReRankingApplyFilter {
+	return &ReRankingApplyFilter{
+		ArrayOfMixedSearchFilters: &v,
 	}
 }
 
 // stringAsReRankingApplyFilter is a convenience function that returns string wrapped in ReRankingApplyFilter.
-func StringAsReRankingApplyFilter(v *string) ReRankingApplyFilter {
-	return ReRankingApplyFilter{
-		String: v,
+func StringAsReRankingApplyFilter(v string) *ReRankingApplyFilter {
+	return &ReRankingApplyFilter{
+		String: &v,
 	}
 }
 

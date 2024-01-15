@@ -35,12 +35,9 @@ func NewSource(source string, opts ...SourceOption) *Source {
 	return this
 }
 
-// NewSourceWithDefaults instantiates a new Source object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceWithDefaults() *Source {
-	this := &Source{}
-	return this
+// NewEmptySource return a pointer to an empty Source object.
+func NewEmptySource() *Source {
+	return &Source{}
 }
 
 // GetSource returns the Source field value.
@@ -63,8 +60,9 @@ func (o *Source) GetSourceOk() (*string, bool) {
 }
 
 // SetSource sets field value.
-func (o *Source) SetSource(v string) {
+func (o *Source) SetSource(v string) *Source {
 	o.Source = v
+	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -95,8 +93,9 @@ func (o *Source) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Source) SetDescription(v string) {
+func (o *Source) SetDescription(v string) *Source {
 	o.Description = &v
+	return o
 }
 
 func (o Source) MarshalJSON() ([]byte, error) {

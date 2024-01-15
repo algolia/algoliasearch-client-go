@@ -27,12 +27,9 @@ func NewMultipleBatchRequest(action Action, body map[string]interface{}, indexNa
 	return this
 }
 
-// NewMultipleBatchRequestWithDefaults instantiates a new MultipleBatchRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewMultipleBatchRequestWithDefaults() *MultipleBatchRequest {
-	this := &MultipleBatchRequest{}
-	return this
+// NewEmptyMultipleBatchRequest return a pointer to an empty MultipleBatchRequest object.
+func NewEmptyMultipleBatchRequest() *MultipleBatchRequest {
+	return &MultipleBatchRequest{}
 }
 
 // GetAction returns the Action field value.
@@ -55,8 +52,9 @@ func (o *MultipleBatchRequest) GetActionOk() (*Action, bool) {
 }
 
 // SetAction sets field value.
-func (o *MultipleBatchRequest) SetAction(v Action) {
+func (o *MultipleBatchRequest) SetAction(v Action) *MultipleBatchRequest {
 	o.Action = v
+	return o
 }
 
 // GetBody returns the Body field value.
@@ -79,8 +77,9 @@ func (o *MultipleBatchRequest) GetBodyOk() (map[string]interface{}, bool) {
 }
 
 // SetBody sets field value.
-func (o *MultipleBatchRequest) SetBody(v map[string]interface{}) {
+func (o *MultipleBatchRequest) SetBody(v map[string]interface{}) *MultipleBatchRequest {
 	o.Body = v
+	return o
 }
 
 // GetIndexName returns the IndexName field value.
@@ -103,8 +102,9 @@ func (o *MultipleBatchRequest) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *MultipleBatchRequest) SetIndexName(v string) {
+func (o *MultipleBatchRequest) SetIndexName(v string) *MultipleBatchRequest {
 	o.IndexName = v
+	return o
 }
 
 func (o MultipleBatchRequest) MarshalJSON() ([]byte, error) {

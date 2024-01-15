@@ -13,16 +13,16 @@ type TagFilters struct {
 }
 
 // []MixedSearchFiltersAsTagFilters is a convenience function that returns []MixedSearchFilters wrapped in TagFilters.
-func ArrayOfMixedSearchFiltersAsTagFilters(v *[]MixedSearchFilters) TagFilters {
-	return TagFilters{
-		ArrayOfMixedSearchFilters: v,
+func ArrayOfMixedSearchFiltersAsTagFilters(v []MixedSearchFilters) *TagFilters {
+	return &TagFilters{
+		ArrayOfMixedSearchFilters: &v,
 	}
 }
 
 // stringAsTagFilters is a convenience function that returns string wrapped in TagFilters.
-func StringAsTagFilters(v *string) TagFilters {
-	return TagFilters{
-		String: v,
+func StringAsTagFilters(v string) *TagFilters {
+	return &TagFilters{
+		String: &v,
 	}
 }
 

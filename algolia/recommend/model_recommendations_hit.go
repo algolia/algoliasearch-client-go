@@ -13,15 +13,15 @@ type RecommendationsHit struct {
 }
 
 // RecommendHitAsRecommendationsHit is a convenience function that returns RecommendHit wrapped in RecommendationsHit.
-func RecommendHitAsRecommendationsHit(v *RecommendHit) RecommendationsHit {
-	return RecommendationsHit{
-		RecommendHit: v,
+func RecommendHitAsRecommendationsHit(v RecommendHit) *RecommendationsHit {
+	return &RecommendationsHit{
+		RecommendHit: &v,
 	}
 }
 
 // TrendingFacetHitAsRecommendationsHit is a convenience function that returns TrendingFacetHit wrapped in RecommendationsHit.
-func TrendingFacetHitAsRecommendationsHit(v *TrendingFacetHit) RecommendationsHit {
-	return RecommendationsHit{
+func TrendingFacetHitAsRecommendationsHit(v *TrendingFacetHit) *RecommendationsHit {
+	return &RecommendationsHit{
 		TrendingFacetHit: v,
 	}
 }

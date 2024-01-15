@@ -38,12 +38,9 @@ func NewAuthenticationCreate(type_ AuthenticationType, name string, input AuthIn
 	return this
 }
 
-// NewAuthenticationCreateWithDefaults instantiates a new AuthenticationCreate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthenticationCreateWithDefaults() *AuthenticationCreate {
-	this := &AuthenticationCreate{}
-	return this
+// NewEmptyAuthenticationCreate return a pointer to an empty AuthenticationCreate object.
+func NewEmptyAuthenticationCreate() *AuthenticationCreate {
+	return &AuthenticationCreate{}
 }
 
 // GetType returns the Type field value.
@@ -66,8 +63,9 @@ func (o *AuthenticationCreate) GetTypeOk() (*AuthenticationType, bool) {
 }
 
 // SetType sets field value.
-func (o *AuthenticationCreate) SetType(v AuthenticationType) {
+func (o *AuthenticationCreate) SetType(v AuthenticationType) *AuthenticationCreate {
 	o.Type = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -90,8 +88,9 @@ func (o *AuthenticationCreate) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *AuthenticationCreate) SetName(v string) {
+func (o *AuthenticationCreate) SetName(v string) *AuthenticationCreate {
 	o.Name = v
+	return o
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
@@ -122,8 +121,9 @@ func (o *AuthenticationCreate) HasPlatform() bool {
 }
 
 // SetPlatform gets a reference to the given Platform and assigns it to the Platform field.
-func (o *AuthenticationCreate) SetPlatform(v Platform) {
+func (o *AuthenticationCreate) SetPlatform(v Platform) *AuthenticationCreate {
 	o.Platform = &v
+	return o
 }
 
 // GetInput returns the Input field value.
@@ -146,8 +146,9 @@ func (o *AuthenticationCreate) GetInputOk() (*AuthInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *AuthenticationCreate) SetInput(v AuthInput) {
-	o.Input = v
+func (o *AuthenticationCreate) SetInput(v *AuthInput) *AuthenticationCreate {
+	o.Input = *v
+	return o
 }
 
 func (o AuthenticationCreate) MarshalJSON() ([]byte, error) {

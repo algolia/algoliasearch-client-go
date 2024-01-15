@@ -31,12 +31,9 @@ func NewGetConversationRateResponse(rate float64, trackedSearchCount int32, conv
 	return this
 }
 
-// NewGetConversationRateResponseWithDefaults instantiates a new GetConversationRateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetConversationRateResponseWithDefaults() *GetConversationRateResponse {
-	this := &GetConversationRateResponse{}
-	return this
+// NewEmptyGetConversationRateResponse return a pointer to an empty GetConversationRateResponse object.
+func NewEmptyGetConversationRateResponse() *GetConversationRateResponse {
+	return &GetConversationRateResponse{}
 }
 
 // GetRate returns the Rate field value.
@@ -59,8 +56,9 @@ func (o *GetConversationRateResponse) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *GetConversationRateResponse) SetRate(v float64) {
+func (o *GetConversationRateResponse) SetRate(v float64) *GetConversationRateResponse {
 	o.Rate = v
+	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
@@ -83,8 +81,9 @@ func (o *GetConversationRateResponse) GetTrackedSearchCountOk() (*int32, bool) {
 }
 
 // SetTrackedSearchCount sets field value.
-func (o *GetConversationRateResponse) SetTrackedSearchCount(v int32) {
+func (o *GetConversationRateResponse) SetTrackedSearchCount(v int32) *GetConversationRateResponse {
 	o.TrackedSearchCount = v
+	return o
 }
 
 // GetConversionCount returns the ConversionCount field value.
@@ -107,8 +106,9 @@ func (o *GetConversationRateResponse) GetConversionCountOk() (*int32, bool) {
 }
 
 // SetConversionCount sets field value.
-func (o *GetConversationRateResponse) SetConversionCount(v int32) {
+func (o *GetConversationRateResponse) SetConversionCount(v int32) *GetConversationRateResponse {
 	o.ConversionCount = v
+	return o
 }
 
 // GetDates returns the Dates field value.
@@ -131,8 +131,9 @@ func (o *GetConversationRateResponse) GetDatesOk() ([]ConversionRateEvent, bool)
 }
 
 // SetDates sets field value.
-func (o *GetConversationRateResponse) SetDates(v []ConversionRateEvent) {
+func (o *GetConversationRateResponse) SetDates(v []ConversionRateEvent) *GetConversationRateResponse {
 	o.Dates = v
+	return o
 }
 
 func (o GetConversationRateResponse) MarshalJSON() ([]byte, error) {

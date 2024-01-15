@@ -25,12 +25,9 @@ func NewTopCountry(country string, count int32) *TopCountry {
 	return this
 }
 
-// NewTopCountryWithDefaults instantiates a new TopCountry object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTopCountryWithDefaults() *TopCountry {
-	this := &TopCountry{}
-	return this
+// NewEmptyTopCountry return a pointer to an empty TopCountry object.
+func NewEmptyTopCountry() *TopCountry {
+	return &TopCountry{}
 }
 
 // GetCountry returns the Country field value.
@@ -53,8 +50,9 @@ func (o *TopCountry) GetCountryOk() (*string, bool) {
 }
 
 // SetCountry sets field value.
-func (o *TopCountry) SetCountry(v string) {
+func (o *TopCountry) SetCountry(v string) *TopCountry {
 	o.Country = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -77,8 +75,9 @@ func (o *TopCountry) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *TopCountry) SetCount(v int32) {
+func (o *TopCountry) SetCount(v int32) *TopCountry {
 	o.Count = v
+	return o
 }
 
 func (o TopCountry) MarshalJSON() ([]byte, error) {

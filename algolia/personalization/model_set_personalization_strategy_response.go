@@ -22,12 +22,9 @@ func NewSetPersonalizationStrategyResponse(message string) *SetPersonalizationSt
 	return this
 }
 
-// NewSetPersonalizationStrategyResponseWithDefaults instantiates a new SetPersonalizationStrategyResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSetPersonalizationStrategyResponseWithDefaults() *SetPersonalizationStrategyResponse {
-	this := &SetPersonalizationStrategyResponse{}
-	return this
+// NewEmptySetPersonalizationStrategyResponse return a pointer to an empty SetPersonalizationStrategyResponse object.
+func NewEmptySetPersonalizationStrategyResponse() *SetPersonalizationStrategyResponse {
+	return &SetPersonalizationStrategyResponse{}
 }
 
 // GetMessage returns the Message field value.
@@ -50,8 +47,9 @@ func (o *SetPersonalizationStrategyResponse) GetMessageOk() (*string, bool) {
 }
 
 // SetMessage sets field value.
-func (o *SetPersonalizationStrategyResponse) SetMessage(v string) {
+func (o *SetPersonalizationStrategyResponse) SetMessage(v string) *SetPersonalizationStrategyResponse {
 	o.Message = v
+	return o
 }
 
 func (o SetPersonalizationStrategyResponse) MarshalJSON() ([]byte, error) {

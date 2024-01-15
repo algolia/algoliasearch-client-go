@@ -28,12 +28,9 @@ func NewGetUserTokenResponse(userToken string, lastEventAt string, scores map[st
 	return this
 }
 
-// NewGetUserTokenResponseWithDefaults instantiates a new GetUserTokenResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetUserTokenResponseWithDefaults() *GetUserTokenResponse {
-	this := &GetUserTokenResponse{}
-	return this
+// NewEmptyGetUserTokenResponse return a pointer to an empty GetUserTokenResponse object.
+func NewEmptyGetUserTokenResponse() *GetUserTokenResponse {
+	return &GetUserTokenResponse{}
 }
 
 // GetUserToken returns the UserToken field value.
@@ -56,8 +53,9 @@ func (o *GetUserTokenResponse) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *GetUserTokenResponse) SetUserToken(v string) {
+func (o *GetUserTokenResponse) SetUserToken(v string) *GetUserTokenResponse {
 	o.UserToken = v
+	return o
 }
 
 // GetLastEventAt returns the LastEventAt field value.
@@ -80,8 +78,9 @@ func (o *GetUserTokenResponse) GetLastEventAtOk() (*string, bool) {
 }
 
 // SetLastEventAt sets field value.
-func (o *GetUserTokenResponse) SetLastEventAt(v string) {
+func (o *GetUserTokenResponse) SetLastEventAt(v string) *GetUserTokenResponse {
 	o.LastEventAt = v
+	return o
 }
 
 // GetScores returns the Scores field value.
@@ -104,8 +103,9 @@ func (o *GetUserTokenResponse) GetScoresOk() (map[string]interface{}, bool) {
 }
 
 // SetScores sets field value.
-func (o *GetUserTokenResponse) SetScores(v map[string]interface{}) {
+func (o *GetUserTokenResponse) SetScores(v map[string]interface{}) *GetUserTokenResponse {
 	o.Scores = v
+	return o
 }
 
 func (o GetUserTokenResponse) MarshalJSON() ([]byte, error) {

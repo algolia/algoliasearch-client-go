@@ -55,14 +55,9 @@ func NewCondition(opts ...ConditionOption) *Condition {
 	return this
 }
 
-// NewConditionWithDefaults instantiates a new Condition object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConditionWithDefaults() *Condition {
-	this := &Condition{}
-	var alternatives bool = false
-	this.Alternatives = &alternatives
-	return this
+// NewEmptyCondition return a pointer to an empty Condition object.
+func NewEmptyCondition() *Condition {
+	return &Condition{}
 }
 
 // GetPattern returns the Pattern field value if set, zero value otherwise.
@@ -93,8 +88,9 @@ func (o *Condition) HasPattern() bool {
 }
 
 // SetPattern gets a reference to the given string and assigns it to the Pattern field.
-func (o *Condition) SetPattern(v string) {
+func (o *Condition) SetPattern(v string) *Condition {
 	o.Pattern = &v
+	return o
 }
 
 // GetAnchoring returns the Anchoring field value if set, zero value otherwise.
@@ -125,8 +121,9 @@ func (o *Condition) HasAnchoring() bool {
 }
 
 // SetAnchoring gets a reference to the given Anchoring and assigns it to the Anchoring field.
-func (o *Condition) SetAnchoring(v Anchoring) {
+func (o *Condition) SetAnchoring(v Anchoring) *Condition {
 	o.Anchoring = &v
+	return o
 }
 
 // GetAlternatives returns the Alternatives field value if set, zero value otherwise.
@@ -157,8 +154,9 @@ func (o *Condition) HasAlternatives() bool {
 }
 
 // SetAlternatives gets a reference to the given bool and assigns it to the Alternatives field.
-func (o *Condition) SetAlternatives(v bool) {
+func (o *Condition) SetAlternatives(v bool) *Condition {
 	o.Alternatives = &v
+	return o
 }
 
 // GetContext returns the Context field value if set, zero value otherwise.
@@ -189,8 +187,9 @@ func (o *Condition) HasContext() bool {
 }
 
 // SetContext gets a reference to the given string and assigns it to the Context field.
-func (o *Condition) SetContext(v string) {
+func (o *Condition) SetContext(v string) *Condition {
 	o.Context = &v
+	return o
 }
 
 func (o Condition) MarshalJSON() ([]byte, error) {

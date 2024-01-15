@@ -22,12 +22,9 @@ func NewGetClickPositionsResponse(positions []ClickPosition) *GetClickPositionsR
 	return this
 }
 
-// NewGetClickPositionsResponseWithDefaults instantiates a new GetClickPositionsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetClickPositionsResponseWithDefaults() *GetClickPositionsResponse {
-	this := &GetClickPositionsResponse{}
-	return this
+// NewEmptyGetClickPositionsResponse return a pointer to an empty GetClickPositionsResponse object.
+func NewEmptyGetClickPositionsResponse() *GetClickPositionsResponse {
+	return &GetClickPositionsResponse{}
 }
 
 // GetPositions returns the Positions field value.
@@ -50,8 +47,9 @@ func (o *GetClickPositionsResponse) GetPositionsOk() ([]ClickPosition, bool) {
 }
 
 // SetPositions sets field value.
-func (o *GetClickPositionsResponse) SetPositions(v []ClickPosition) {
+func (o *GetClickPositionsResponse) SetPositions(v []ClickPosition) *GetClickPositionsResponse {
 	o.Positions = v
+	return o
 }
 
 func (o GetClickPositionsResponse) MarshalJSON() ([]byte, error) {

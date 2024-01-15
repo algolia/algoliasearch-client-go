@@ -48,12 +48,9 @@ func NewLogQuery(opts ...LogQueryOption) *LogQuery {
 	return this
 }
 
-// NewLogQueryWithDefaults instantiates a new LogQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewLogQueryWithDefaults() *LogQuery {
-	this := &LogQuery{}
-	return this
+// NewEmptyLogQuery return a pointer to an empty LogQuery object.
+func NewEmptyLogQuery() *LogQuery {
+	return &LogQuery{}
 }
 
 // GetIndexName returns the IndexName field value if set, zero value otherwise.
@@ -84,8 +81,9 @@ func (o *LogQuery) HasIndexName() bool {
 }
 
 // SetIndexName gets a reference to the given string and assigns it to the IndexName field.
-func (o *LogQuery) SetIndexName(v string) {
+func (o *LogQuery) SetIndexName(v string) *LogQuery {
 	o.IndexName = &v
+	return o
 }
 
 // GetUserToken returns the UserToken field value if set, zero value otherwise.
@@ -116,8 +114,9 @@ func (o *LogQuery) HasUserToken() bool {
 }
 
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
-func (o *LogQuery) SetUserToken(v string) {
+func (o *LogQuery) SetUserToken(v string) *LogQuery {
 	o.UserToken = &v
+	return o
 }
 
 // GetQueryId returns the QueryId field value if set, zero value otherwise.
@@ -148,8 +147,9 @@ func (o *LogQuery) HasQueryId() bool {
 }
 
 // SetQueryId gets a reference to the given string and assigns it to the QueryId field.
-func (o *LogQuery) SetQueryId(v string) {
+func (o *LogQuery) SetQueryId(v string) *LogQuery {
 	o.QueryId = &v
+	return o
 }
 
 func (o LogQuery) MarshalJSON() ([]byte, error) {

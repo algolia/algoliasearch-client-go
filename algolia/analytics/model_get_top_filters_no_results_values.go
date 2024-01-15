@@ -25,12 +25,9 @@ func NewGetTopFiltersNoResultsValues(count int32, values []GetTopFiltersNoResult
 	return this
 }
 
-// NewGetTopFiltersNoResultsValuesWithDefaults instantiates a new GetTopFiltersNoResultsValues object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetTopFiltersNoResultsValuesWithDefaults() *GetTopFiltersNoResultsValues {
-	this := &GetTopFiltersNoResultsValues{}
-	return this
+// NewEmptyGetTopFiltersNoResultsValues return a pointer to an empty GetTopFiltersNoResultsValues object.
+func NewEmptyGetTopFiltersNoResultsValues() *GetTopFiltersNoResultsValues {
+	return &GetTopFiltersNoResultsValues{}
 }
 
 // GetCount returns the Count field value.
@@ -53,8 +50,9 @@ func (o *GetTopFiltersNoResultsValues) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *GetTopFiltersNoResultsValues) SetCount(v int32) {
+func (o *GetTopFiltersNoResultsValues) SetCount(v int32) *GetTopFiltersNoResultsValues {
 	o.Count = v
+	return o
 }
 
 // GetValues returns the Values field value.
@@ -77,8 +75,9 @@ func (o *GetTopFiltersNoResultsValues) GetValuesOk() ([]GetTopFiltersNoResultsVa
 }
 
 // SetValues sets field value.
-func (o *GetTopFiltersNoResultsValues) SetValues(v []GetTopFiltersNoResultsValue) {
+func (o *GetTopFiltersNoResultsValues) SetValues(v []GetTopFiltersNoResultsValue) *GetTopFiltersNoResultsValues {
 	o.Values = v
+	return o
 }
 
 func (o GetTopFiltersNoResultsValues) MarshalJSON() ([]byte, error) {

@@ -27,12 +27,9 @@ func NewSourceCreateResponse(sourceID string, name string, createdAt string) *So
 	return this
 }
 
-// NewSourceCreateResponseWithDefaults instantiates a new SourceCreateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceCreateResponseWithDefaults() *SourceCreateResponse {
-	this := &SourceCreateResponse{}
-	return this
+// NewEmptySourceCreateResponse return a pointer to an empty SourceCreateResponse object.
+func NewEmptySourceCreateResponse() *SourceCreateResponse {
+	return &SourceCreateResponse{}
 }
 
 // GetSourceID returns the SourceID field value.
@@ -55,8 +52,9 @@ func (o *SourceCreateResponse) GetSourceIDOk() (*string, bool) {
 }
 
 // SetSourceID sets field value.
-func (o *SourceCreateResponse) SetSourceID(v string) {
+func (o *SourceCreateResponse) SetSourceID(v string) *SourceCreateResponse {
 	o.SourceID = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -79,8 +77,9 @@ func (o *SourceCreateResponse) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *SourceCreateResponse) SetName(v string) {
+func (o *SourceCreateResponse) SetName(v string) *SourceCreateResponse {
 	o.Name = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -103,8 +102,9 @@ func (o *SourceCreateResponse) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *SourceCreateResponse) SetCreatedAt(v string) {
+func (o *SourceCreateResponse) SetCreatedAt(v string) *SourceCreateResponse {
 	o.CreatedAt = v
+	return o
 }
 
 func (o SourceCreateResponse) MarshalJSON() ([]byte, error) {

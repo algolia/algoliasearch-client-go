@@ -46,12 +46,9 @@ func NewTopSearchWithAnalytics(search string, count int32, clickThroughRate floa
 	return this
 }
 
-// NewTopSearchWithAnalyticsWithDefaults instantiates a new TopSearchWithAnalytics object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTopSearchWithAnalyticsWithDefaults() *TopSearchWithAnalytics {
-	this := &TopSearchWithAnalytics{}
-	return this
+// NewEmptyTopSearchWithAnalytics return a pointer to an empty TopSearchWithAnalytics object.
+func NewEmptyTopSearchWithAnalytics() *TopSearchWithAnalytics {
+	return &TopSearchWithAnalytics{}
 }
 
 // GetSearch returns the Search field value.
@@ -74,8 +71,9 @@ func (o *TopSearchWithAnalytics) GetSearchOk() (*string, bool) {
 }
 
 // SetSearch sets field value.
-func (o *TopSearchWithAnalytics) SetSearch(v string) {
+func (o *TopSearchWithAnalytics) SetSearch(v string) *TopSearchWithAnalytics {
 	o.Search = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -98,8 +96,9 @@ func (o *TopSearchWithAnalytics) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *TopSearchWithAnalytics) SetCount(v int32) {
+func (o *TopSearchWithAnalytics) SetCount(v int32) *TopSearchWithAnalytics {
 	o.Count = v
+	return o
 }
 
 // GetClickThroughRate returns the ClickThroughRate field value.
@@ -122,8 +121,9 @@ func (o *TopSearchWithAnalytics) GetClickThroughRateOk() (*float64, bool) {
 }
 
 // SetClickThroughRate sets field value.
-func (o *TopSearchWithAnalytics) SetClickThroughRate(v float64) {
+func (o *TopSearchWithAnalytics) SetClickThroughRate(v float64) *TopSearchWithAnalytics {
 	o.ClickThroughRate = v
+	return o
 }
 
 // GetAverageClickPosition returns the AverageClickPosition field value.
@@ -146,8 +146,9 @@ func (o *TopSearchWithAnalytics) GetAverageClickPositionOk() (*int32, bool) {
 }
 
 // SetAverageClickPosition sets field value.
-func (o *TopSearchWithAnalytics) SetAverageClickPosition(v int32) {
+func (o *TopSearchWithAnalytics) SetAverageClickPosition(v int32) *TopSearchWithAnalytics {
 	o.AverageClickPosition = v
+	return o
 }
 
 // GetConversionRate returns the ConversionRate field value.
@@ -170,8 +171,9 @@ func (o *TopSearchWithAnalytics) GetConversionRateOk() (*float64, bool) {
 }
 
 // SetConversionRate sets field value.
-func (o *TopSearchWithAnalytics) SetConversionRate(v float64) {
+func (o *TopSearchWithAnalytics) SetConversionRate(v float64) *TopSearchWithAnalytics {
 	o.ConversionRate = v
+	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
@@ -194,8 +196,9 @@ func (o *TopSearchWithAnalytics) GetTrackedSearchCountOk() (*int32, bool) {
 }
 
 // SetTrackedSearchCount sets field value.
-func (o *TopSearchWithAnalytics) SetTrackedSearchCount(v int32) {
+func (o *TopSearchWithAnalytics) SetTrackedSearchCount(v int32) *TopSearchWithAnalytics {
 	o.TrackedSearchCount = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -218,8 +221,9 @@ func (o *TopSearchWithAnalytics) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *TopSearchWithAnalytics) SetClickCount(v int32) {
+func (o *TopSearchWithAnalytics) SetClickCount(v int32) *TopSearchWithAnalytics {
 	o.ClickCount = v
+	return o
 }
 
 // GetConversionCount returns the ConversionCount field value.
@@ -242,8 +246,9 @@ func (o *TopSearchWithAnalytics) GetConversionCountOk() (*int32, bool) {
 }
 
 // SetConversionCount sets field value.
-func (o *TopSearchWithAnalytics) SetConversionCount(v int32) {
+func (o *TopSearchWithAnalytics) SetConversionCount(v int32) *TopSearchWithAnalytics {
 	o.ConversionCount = v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -266,8 +271,9 @@ func (o *TopSearchWithAnalytics) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *TopSearchWithAnalytics) SetNbHits(v int32) {
+func (o *TopSearchWithAnalytics) SetNbHits(v int32) *TopSearchWithAnalytics {
 	o.NbHits = v
+	return o
 }
 
 func (o TopSearchWithAnalytics) MarshalJSON() ([]byte, error) {

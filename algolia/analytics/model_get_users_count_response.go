@@ -25,12 +25,9 @@ func NewGetUsersCountResponse(count int32, dates []UserWithDate) *GetUsersCountR
 	return this
 }
 
-// NewGetUsersCountResponseWithDefaults instantiates a new GetUsersCountResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetUsersCountResponseWithDefaults() *GetUsersCountResponse {
-	this := &GetUsersCountResponse{}
-	return this
+// NewEmptyGetUsersCountResponse return a pointer to an empty GetUsersCountResponse object.
+func NewEmptyGetUsersCountResponse() *GetUsersCountResponse {
+	return &GetUsersCountResponse{}
 }
 
 // GetCount returns the Count field value.
@@ -53,8 +50,9 @@ func (o *GetUsersCountResponse) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *GetUsersCountResponse) SetCount(v int32) {
+func (o *GetUsersCountResponse) SetCount(v int32) *GetUsersCountResponse {
 	o.Count = v
+	return o
 }
 
 // GetDates returns the Dates field value.
@@ -77,8 +75,9 @@ func (o *GetUsersCountResponse) GetDatesOk() ([]UserWithDate, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetUsersCountResponse) SetDates(v []UserWithDate) {
+func (o *GetUsersCountResponse) SetDates(v []UserWithDate) *GetUsersCountResponse {
 	o.Dates = v
+	return o
 }
 
 func (o GetUsersCountResponse) MarshalJSON() ([]byte, error) {

@@ -69,12 +69,9 @@ func NewSourceBigQuery(projectID string, datasetID string, opts ...SourceBigQuer
 	return this
 }
 
-// NewSourceBigQueryWithDefaults instantiates a new SourceBigQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceBigQueryWithDefaults() *SourceBigQuery {
-	this := &SourceBigQuery{}
-	return this
+// NewEmptySourceBigQuery return a pointer to an empty SourceBigQuery object.
+func NewEmptySourceBigQuery() *SourceBigQuery {
+	return &SourceBigQuery{}
 }
 
 // GetProjectID returns the ProjectID field value.
@@ -97,8 +94,9 @@ func (o *SourceBigQuery) GetProjectIDOk() (*string, bool) {
 }
 
 // SetProjectID sets field value.
-func (o *SourceBigQuery) SetProjectID(v string) {
+func (o *SourceBigQuery) SetProjectID(v string) *SourceBigQuery {
 	o.ProjectID = v
+	return o
 }
 
 // GetDatasetID returns the DatasetID field value.
@@ -121,8 +119,9 @@ func (o *SourceBigQuery) GetDatasetIDOk() (*string, bool) {
 }
 
 // SetDatasetID sets field value.
-func (o *SourceBigQuery) SetDatasetID(v string) {
+func (o *SourceBigQuery) SetDatasetID(v string) *SourceBigQuery {
 	o.DatasetID = v
+	return o
 }
 
 // GetDataType returns the DataType field value if set, zero value otherwise.
@@ -153,8 +152,9 @@ func (o *SourceBigQuery) HasDataType() bool {
 }
 
 // SetDataType gets a reference to the given BigQueryDataType and assigns it to the DataType field.
-func (o *SourceBigQuery) SetDataType(v BigQueryDataType) {
+func (o *SourceBigQuery) SetDataType(v BigQueryDataType) *SourceBigQuery {
 	o.DataType = &v
+	return o
 }
 
 // GetTable returns the Table field value if set, zero value otherwise.
@@ -185,8 +185,9 @@ func (o *SourceBigQuery) HasTable() bool {
 }
 
 // SetTable gets a reference to the given string and assigns it to the Table field.
-func (o *SourceBigQuery) SetTable(v string) {
+func (o *SourceBigQuery) SetTable(v string) *SourceBigQuery {
 	o.Table = &v
+	return o
 }
 
 // GetTablePrefix returns the TablePrefix field value if set, zero value otherwise.
@@ -217,8 +218,9 @@ func (o *SourceBigQuery) HasTablePrefix() bool {
 }
 
 // SetTablePrefix gets a reference to the given string and assigns it to the TablePrefix field.
-func (o *SourceBigQuery) SetTablePrefix(v string) {
+func (o *SourceBigQuery) SetTablePrefix(v string) *SourceBigQuery {
 	o.TablePrefix = &v
+	return o
 }
 
 // GetCustomSQLRequest returns the CustomSQLRequest field value if set, zero value otherwise.
@@ -249,8 +251,9 @@ func (o *SourceBigQuery) HasCustomSQLRequest() bool {
 }
 
 // SetCustomSQLRequest gets a reference to the given string and assigns it to the CustomSQLRequest field.
-func (o *SourceBigQuery) SetCustomSQLRequest(v string) {
+func (o *SourceBigQuery) SetCustomSQLRequest(v string) *SourceBigQuery {
 	o.CustomSQLRequest = &v
+	return o
 }
 
 // GetUniqueIDColumn returns the UniqueIDColumn field value if set, zero value otherwise.
@@ -281,8 +284,9 @@ func (o *SourceBigQuery) HasUniqueIDColumn() bool {
 }
 
 // SetUniqueIDColumn gets a reference to the given string and assigns it to the UniqueIDColumn field.
-func (o *SourceBigQuery) SetUniqueIDColumn(v string) {
+func (o *SourceBigQuery) SetUniqueIDColumn(v string) *SourceBigQuery {
 	o.UniqueIDColumn = &v
+	return o
 }
 
 func (o SourceBigQuery) MarshalJSON() ([]byte, error) {

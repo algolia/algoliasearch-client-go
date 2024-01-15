@@ -34,12 +34,9 @@ func NewOnDemandTrigger(type_ OnDemandTriggerType, opts ...OnDemandTriggerOption
 	return this
 }
 
-// NewOnDemandTriggerWithDefaults instantiates a new OnDemandTrigger object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewOnDemandTriggerWithDefaults() *OnDemandTrigger {
-	this := &OnDemandTrigger{}
-	return this
+// NewEmptyOnDemandTrigger return a pointer to an empty OnDemandTrigger object.
+func NewEmptyOnDemandTrigger() *OnDemandTrigger {
+	return &OnDemandTrigger{}
 }
 
 // GetType returns the Type field value.
@@ -62,8 +59,9 @@ func (o *OnDemandTrigger) GetTypeOk() (*OnDemandTriggerType, bool) {
 }
 
 // SetType sets field value.
-func (o *OnDemandTrigger) SetType(v OnDemandTriggerType) {
+func (o *OnDemandTrigger) SetType(v OnDemandTriggerType) *OnDemandTrigger {
 	o.Type = v
+	return o
 }
 
 // GetLastRun returns the LastRun field value if set, zero value otherwise.
@@ -94,8 +92,9 @@ func (o *OnDemandTrigger) HasLastRun() bool {
 }
 
 // SetLastRun gets a reference to the given string and assigns it to the LastRun field.
-func (o *OnDemandTrigger) SetLastRun(v string) {
+func (o *OnDemandTrigger) SetLastRun(v string) *OnDemandTrigger {
 	o.LastRun = &v
+	return o
 }
 
 func (o OnDemandTrigger) MarshalJSON() ([]byte, error) {

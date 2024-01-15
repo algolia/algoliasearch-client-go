@@ -52,12 +52,9 @@ func NewSource(sourceID string, type_ SourceType, name string, input SourceInput
 	return this
 }
 
-// NewSourceWithDefaults instantiates a new Source object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceWithDefaults() *Source {
-	this := &Source{}
-	return this
+// NewEmptySource return a pointer to an empty Source object.
+func NewEmptySource() *Source {
+	return &Source{}
 }
 
 // GetSourceID returns the SourceID field value.
@@ -80,8 +77,9 @@ func (o *Source) GetSourceIDOk() (*string, bool) {
 }
 
 // SetSourceID sets field value.
-func (o *Source) SetSourceID(v string) {
+func (o *Source) SetSourceID(v string) *Source {
 	o.SourceID = v
+	return o
 }
 
 // GetType returns the Type field value.
@@ -104,8 +102,9 @@ func (o *Source) GetTypeOk() (*SourceType, bool) {
 }
 
 // SetType sets field value.
-func (o *Source) SetType(v SourceType) {
+func (o *Source) SetType(v SourceType) *Source {
 	o.Type = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -128,8 +127,9 @@ func (o *Source) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *Source) SetName(v string) {
+func (o *Source) SetName(v string) *Source {
 	o.Name = v
+	return o
 }
 
 // GetInput returns the Input field value.
@@ -152,8 +152,9 @@ func (o *Source) GetInputOk() (*SourceInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *Source) SetInput(v SourceInput) {
-	o.Input = v
+func (o *Source) SetInput(v *SourceInput) *Source {
+	o.Input = *v
+	return o
 }
 
 // GetAuthenticationID returns the AuthenticationID field value if set, zero value otherwise.
@@ -184,8 +185,9 @@ func (o *Source) HasAuthenticationID() bool {
 }
 
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
-func (o *Source) SetAuthenticationID(v string) {
+func (o *Source) SetAuthenticationID(v string) *Source {
 	o.AuthenticationID = &v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -208,8 +210,9 @@ func (o *Source) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *Source) SetCreatedAt(v string) {
+func (o *Source) SetCreatedAt(v string) *Source {
 	o.CreatedAt = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -240,8 +243,9 @@ func (o *Source) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *Source) SetUpdatedAt(v string) {
+func (o *Source) SetUpdatedAt(v string) *Source {
 	o.UpdatedAt = &v
+	return o
 }
 
 func (o Source) MarshalJSON() ([]byte, error) {

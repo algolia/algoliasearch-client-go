@@ -35,12 +35,9 @@ func NewBigCommerceChannel(id int32, opts ...BigCommerceChannelOption) *BigComme
 	return this
 }
 
-// NewBigCommerceChannelWithDefaults instantiates a new BigCommerceChannel object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBigCommerceChannelWithDefaults() *BigCommerceChannel {
-	this := &BigCommerceChannel{}
-	return this
+// NewEmptyBigCommerceChannel return a pointer to an empty BigCommerceChannel object.
+func NewEmptyBigCommerceChannel() *BigCommerceChannel {
+	return &BigCommerceChannel{}
 }
 
 // GetId returns the Id field value.
@@ -63,8 +60,9 @@ func (o *BigCommerceChannel) GetIdOk() (*int32, bool) {
 }
 
 // SetId sets field value.
-func (o *BigCommerceChannel) SetId(v int32) {
+func (o *BigCommerceChannel) SetId(v int32) *BigCommerceChannel {
 	o.Id = v
+	return o
 }
 
 // GetCurrencies returns the Currencies field value if set, zero value otherwise.
@@ -95,8 +93,9 @@ func (o *BigCommerceChannel) HasCurrencies() bool {
 }
 
 // SetCurrencies gets a reference to the given []string and assigns it to the Currencies field.
-func (o *BigCommerceChannel) SetCurrencies(v []string) {
+func (o *BigCommerceChannel) SetCurrencies(v []string) *BigCommerceChannel {
 	o.Currencies = v
+	return o
 }
 
 func (o BigCommerceChannel) MarshalJSON() ([]byte, error) {

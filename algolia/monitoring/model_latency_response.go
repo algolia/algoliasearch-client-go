@@ -31,12 +31,9 @@ func NewLatencyResponse(opts ...LatencyResponseOption) *LatencyResponse {
 	return this
 }
 
-// NewLatencyResponseWithDefaults instantiates a new LatencyResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewLatencyResponseWithDefaults() *LatencyResponse {
-	this := &LatencyResponse{}
-	return this
+// NewEmptyLatencyResponse return a pointer to an empty LatencyResponse object.
+func NewEmptyLatencyResponse() *LatencyResponse {
+	return &LatencyResponse{}
 }
 
 // GetMetrics returns the Metrics field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *LatencyResponse) HasMetrics() bool {
 }
 
 // SetMetrics gets a reference to the given LatencyResponseMetrics and assigns it to the Metrics field.
-func (o *LatencyResponse) SetMetrics(v LatencyResponseMetrics) {
-	o.Metrics = &v
+func (o *LatencyResponse) SetMetrics(v *LatencyResponseMetrics) *LatencyResponse {
+	o.Metrics = v
+	return o
 }
 
 func (o LatencyResponse) MarshalJSON() ([]byte, error) {

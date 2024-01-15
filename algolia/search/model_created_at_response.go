@@ -22,12 +22,9 @@ func NewCreatedAtResponse(createdAt string) *CreatedAtResponse {
 	return this
 }
 
-// NewCreatedAtResponseWithDefaults instantiates a new CreatedAtResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewCreatedAtResponseWithDefaults() *CreatedAtResponse {
-	this := &CreatedAtResponse{}
-	return this
+// NewEmptyCreatedAtResponse return a pointer to an empty CreatedAtResponse object.
+func NewEmptyCreatedAtResponse() *CreatedAtResponse {
+	return &CreatedAtResponse{}
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -50,8 +47,9 @@ func (o *CreatedAtResponse) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *CreatedAtResponse) SetCreatedAt(v string) {
+func (o *CreatedAtResponse) SetCreatedAt(v string) *CreatedAtResponse {
 	o.CreatedAt = v
+	return o
 }
 
 func (o CreatedAtResponse) MarshalJSON() ([]byte, error) {

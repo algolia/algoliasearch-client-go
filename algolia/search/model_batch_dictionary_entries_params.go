@@ -35,14 +35,9 @@ func NewBatchDictionaryEntriesParams(requests []BatchDictionaryEntriesRequest, o
 	return this
 }
 
-// NewBatchDictionaryEntriesParamsWithDefaults instantiates a new BatchDictionaryEntriesParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBatchDictionaryEntriesParamsWithDefaults() *BatchDictionaryEntriesParams {
-	this := &BatchDictionaryEntriesParams{}
-	var clearExistingDictionaryEntries bool = false
-	this.ClearExistingDictionaryEntries = &clearExistingDictionaryEntries
-	return this
+// NewEmptyBatchDictionaryEntriesParams return a pointer to an empty BatchDictionaryEntriesParams object.
+func NewEmptyBatchDictionaryEntriesParams() *BatchDictionaryEntriesParams {
+	return &BatchDictionaryEntriesParams{}
 }
 
 // GetClearExistingDictionaryEntries returns the ClearExistingDictionaryEntries field value if set, zero value otherwise.
@@ -73,8 +68,9 @@ func (o *BatchDictionaryEntriesParams) HasClearExistingDictionaryEntries() bool 
 }
 
 // SetClearExistingDictionaryEntries gets a reference to the given bool and assigns it to the ClearExistingDictionaryEntries field.
-func (o *BatchDictionaryEntriesParams) SetClearExistingDictionaryEntries(v bool) {
+func (o *BatchDictionaryEntriesParams) SetClearExistingDictionaryEntries(v bool) *BatchDictionaryEntriesParams {
 	o.ClearExistingDictionaryEntries = &v
+	return o
 }
 
 // GetRequests returns the Requests field value.
@@ -97,8 +93,9 @@ func (o *BatchDictionaryEntriesParams) GetRequestsOk() ([]BatchDictionaryEntries
 }
 
 // SetRequests sets field value.
-func (o *BatchDictionaryEntriesParams) SetRequests(v []BatchDictionaryEntriesRequest) {
+func (o *BatchDictionaryEntriesParams) SetRequests(v []BatchDictionaryEntriesRequest) *BatchDictionaryEntriesParams {
 	o.Requests = v
+	return o
 }
 
 func (o BatchDictionaryEntriesParams) MarshalJSON() ([]byte, error) {

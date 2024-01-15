@@ -32,12 +32,9 @@ func NewCursor(opts ...CursorOption) *Cursor {
 	return this
 }
 
-// NewCursorWithDefaults instantiates a new Cursor object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewCursorWithDefaults() *Cursor {
-	this := &Cursor{}
-	return this
+// NewEmptyCursor return a pointer to an empty Cursor object.
+func NewEmptyCursor() *Cursor {
+	return &Cursor{}
 }
 
 // GetCursor returns the Cursor field value if set, zero value otherwise.
@@ -68,8 +65,9 @@ func (o *Cursor) HasCursor() bool {
 }
 
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
-func (o *Cursor) SetCursor(v string) {
+func (o *Cursor) SetCursor(v string) *Cursor {
 	o.Cursor = &v
+	return o
 }
 
 func (o Cursor) MarshalJSON() ([]byte, error) {

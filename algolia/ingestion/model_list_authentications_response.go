@@ -23,12 +23,9 @@ func NewListAuthenticationsResponse(authentications []Authentication, pagination
 	return this
 }
 
-// NewListAuthenticationsResponseWithDefaults instantiates a new ListAuthenticationsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListAuthenticationsResponseWithDefaults() *ListAuthenticationsResponse {
-	this := &ListAuthenticationsResponse{}
-	return this
+// NewEmptyListAuthenticationsResponse return a pointer to an empty ListAuthenticationsResponse object.
+func NewEmptyListAuthenticationsResponse() *ListAuthenticationsResponse {
+	return &ListAuthenticationsResponse{}
 }
 
 // GetAuthentications returns the Authentications field value.
@@ -51,8 +48,9 @@ func (o *ListAuthenticationsResponse) GetAuthenticationsOk() ([]Authentication, 
 }
 
 // SetAuthentications sets field value.
-func (o *ListAuthenticationsResponse) SetAuthentications(v []Authentication) {
+func (o *ListAuthenticationsResponse) SetAuthentications(v []Authentication) *ListAuthenticationsResponse {
 	o.Authentications = v
+	return o
 }
 
 // GetPagination returns the Pagination field value.
@@ -75,8 +73,9 @@ func (o *ListAuthenticationsResponse) GetPaginationOk() (*Pagination, bool) {
 }
 
 // SetPagination sets field value.
-func (o *ListAuthenticationsResponse) SetPagination(v Pagination) {
-	o.Pagination = v
+func (o *ListAuthenticationsResponse) SetPagination(v *Pagination) *ListAuthenticationsResponse {
+	o.Pagination = *v
+	return o
 }
 
 func (o ListAuthenticationsResponse) MarshalJSON() ([]byte, error) {

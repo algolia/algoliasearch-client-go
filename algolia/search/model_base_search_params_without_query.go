@@ -274,40 +274,9 @@ func NewBaseSearchParamsWithoutQuery(opts ...BaseSearchParamsWithoutQueryOption)
 	return this
 }
 
-// NewBaseSearchParamsWithoutQueryWithDefaults instantiates a new BaseSearchParamsWithoutQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseSearchParamsWithoutQueryWithDefaults() *BaseSearchParamsWithoutQuery {
-	this := &BaseSearchParamsWithoutQuery{}
-	var similarQuery string = ""
-	this.SimilarQuery = &similarQuery
-	var filters string = ""
-	this.Filters = &filters
-	var sumOrFiltersScores bool = false
-	this.SumOrFiltersScores = &sumOrFiltersScores
-	var facetingAfterDistinct bool = false
-	this.FacetingAfterDistinct = &facetingAfterDistinct
-	var page int32 = 0
-	this.Page = &page
-	var aroundLatLng string = ""
-	this.AroundLatLng = &aroundLatLng
-	var aroundLatLngViaIP bool = false
-	this.AroundLatLngViaIP = &aroundLatLngViaIP
-	var personalizationImpact int32 = 100
-	this.PersonalizationImpact = &personalizationImpact
-	var getRankingInfo bool = false
-	this.GetRankingInfo = &getRankingInfo
-	var synonyms bool = true
-	this.Synonyms = &synonyms
-	var clickAnalytics bool = false
-	this.ClickAnalytics = &clickAnalytics
-	var analytics bool = true
-	this.Analytics = &analytics
-	var percentileComputation bool = true
-	this.PercentileComputation = &percentileComputation
-	var enableABTest bool = true
-	this.EnableABTest = &enableABTest
-	return this
+// NewEmptyBaseSearchParamsWithoutQuery return a pointer to an empty BaseSearchParamsWithoutQuery object.
+func NewEmptyBaseSearchParamsWithoutQuery() *BaseSearchParamsWithoutQuery {
+	return &BaseSearchParamsWithoutQuery{}
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
@@ -338,8 +307,9 @@ func (o *BaseSearchParamsWithoutQuery) HasSimilarQuery() bool {
 }
 
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
-func (o *BaseSearchParamsWithoutQuery) SetSimilarQuery(v string) {
+func (o *BaseSearchParamsWithoutQuery) SetSimilarQuery(v string) *BaseSearchParamsWithoutQuery {
 	o.SimilarQuery = &v
+	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -370,8 +340,9 @@ func (o *BaseSearchParamsWithoutQuery) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *BaseSearchParamsWithoutQuery) SetFilters(v string) {
+func (o *BaseSearchParamsWithoutQuery) SetFilters(v string) *BaseSearchParamsWithoutQuery {
 	o.Filters = &v
+	return o
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
@@ -402,8 +373,9 @@ func (o *BaseSearchParamsWithoutQuery) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *BaseSearchParamsWithoutQuery) SetFacetFilters(v FacetFilters) {
-	o.FacetFilters = &v
+func (o *BaseSearchParamsWithoutQuery) SetFacetFilters(v *FacetFilters) *BaseSearchParamsWithoutQuery {
+	o.FacetFilters = v
+	return o
 }
 
 // GetOptionalFilters returns the OptionalFilters field value if set, zero value otherwise.
@@ -434,8 +406,9 @@ func (o *BaseSearchParamsWithoutQuery) HasOptionalFilters() bool {
 }
 
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
-func (o *BaseSearchParamsWithoutQuery) SetOptionalFilters(v OptionalFilters) {
-	o.OptionalFilters = &v
+func (o *BaseSearchParamsWithoutQuery) SetOptionalFilters(v *OptionalFilters) *BaseSearchParamsWithoutQuery {
+	o.OptionalFilters = v
+	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
@@ -466,8 +439,9 @@ func (o *BaseSearchParamsWithoutQuery) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *BaseSearchParamsWithoutQuery) SetNumericFilters(v NumericFilters) {
-	o.NumericFilters = &v
+func (o *BaseSearchParamsWithoutQuery) SetNumericFilters(v *NumericFilters) *BaseSearchParamsWithoutQuery {
+	o.NumericFilters = v
+	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
@@ -498,8 +472,9 @@ func (o *BaseSearchParamsWithoutQuery) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *BaseSearchParamsWithoutQuery) SetTagFilters(v TagFilters) {
-	o.TagFilters = &v
+func (o *BaseSearchParamsWithoutQuery) SetTagFilters(v *TagFilters) *BaseSearchParamsWithoutQuery {
+	o.TagFilters = v
+	return o
 }
 
 // GetSumOrFiltersScores returns the SumOrFiltersScores field value if set, zero value otherwise.
@@ -530,8 +505,9 @@ func (o *BaseSearchParamsWithoutQuery) HasSumOrFiltersScores() bool {
 }
 
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
-func (o *BaseSearchParamsWithoutQuery) SetSumOrFiltersScores(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetSumOrFiltersScores(v bool) *BaseSearchParamsWithoutQuery {
 	o.SumOrFiltersScores = &v
+	return o
 }
 
 // GetRestrictSearchableAttributes returns the RestrictSearchableAttributes field value if set, zero value otherwise.
@@ -562,8 +538,9 @@ func (o *BaseSearchParamsWithoutQuery) HasRestrictSearchableAttributes() bool {
 }
 
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
-func (o *BaseSearchParamsWithoutQuery) SetRestrictSearchableAttributes(v []string) {
+func (o *BaseSearchParamsWithoutQuery) SetRestrictSearchableAttributes(v []string) *BaseSearchParamsWithoutQuery {
 	o.RestrictSearchableAttributes = v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -594,8 +571,9 @@ func (o *BaseSearchParamsWithoutQuery) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *BaseSearchParamsWithoutQuery) SetFacets(v []string) {
+func (o *BaseSearchParamsWithoutQuery) SetFacets(v []string) *BaseSearchParamsWithoutQuery {
 	o.Facets = v
+	return o
 }
 
 // GetFacetingAfterDistinct returns the FacetingAfterDistinct field value if set, zero value otherwise.
@@ -626,8 +604,9 @@ func (o *BaseSearchParamsWithoutQuery) HasFacetingAfterDistinct() bool {
 }
 
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
-func (o *BaseSearchParamsWithoutQuery) SetFacetingAfterDistinct(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetFacetingAfterDistinct(v bool) *BaseSearchParamsWithoutQuery {
 	o.FacetingAfterDistinct = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -658,8 +637,9 @@ func (o *BaseSearchParamsWithoutQuery) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *BaseSearchParamsWithoutQuery) SetPage(v int32) {
+func (o *BaseSearchParamsWithoutQuery) SetPage(v int32) *BaseSearchParamsWithoutQuery {
 	o.Page = &v
+	return o
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
@@ -690,8 +670,9 @@ func (o *BaseSearchParamsWithoutQuery) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *BaseSearchParamsWithoutQuery) SetOffset(v int32) {
+func (o *BaseSearchParamsWithoutQuery) SetOffset(v int32) *BaseSearchParamsWithoutQuery {
 	o.Offset = &v
+	return o
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
@@ -722,8 +703,9 @@ func (o *BaseSearchParamsWithoutQuery) HasLength() bool {
 }
 
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *BaseSearchParamsWithoutQuery) SetLength(v int32) {
+func (o *BaseSearchParamsWithoutQuery) SetLength(v int32) *BaseSearchParamsWithoutQuery {
 	o.Length = &v
+	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
@@ -754,8 +736,9 @@ func (o *BaseSearchParamsWithoutQuery) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *BaseSearchParamsWithoutQuery) SetAroundLatLng(v string) {
+func (o *BaseSearchParamsWithoutQuery) SetAroundLatLng(v string) *BaseSearchParamsWithoutQuery {
 	o.AroundLatLng = &v
+	return o
 }
 
 // GetAroundLatLngViaIP returns the AroundLatLngViaIP field value if set, zero value otherwise.
@@ -786,8 +769,9 @@ func (o *BaseSearchParamsWithoutQuery) HasAroundLatLngViaIP() bool {
 }
 
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
-func (o *BaseSearchParamsWithoutQuery) SetAroundLatLngViaIP(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetAroundLatLngViaIP(v bool) *BaseSearchParamsWithoutQuery {
 	o.AroundLatLngViaIP = &v
+	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
@@ -818,8 +802,9 @@ func (o *BaseSearchParamsWithoutQuery) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *BaseSearchParamsWithoutQuery) SetAroundRadius(v AroundRadius) {
-	o.AroundRadius = &v
+func (o *BaseSearchParamsWithoutQuery) SetAroundRadius(v *AroundRadius) *BaseSearchParamsWithoutQuery {
+	o.AroundRadius = v
+	return o
 }
 
 // GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise.
@@ -850,8 +835,9 @@ func (o *BaseSearchParamsWithoutQuery) HasAroundPrecision() bool {
 }
 
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
-func (o *BaseSearchParamsWithoutQuery) SetAroundPrecision(v AroundPrecision) {
-	o.AroundPrecision = &v
+func (o *BaseSearchParamsWithoutQuery) SetAroundPrecision(v *AroundPrecision) *BaseSearchParamsWithoutQuery {
+	o.AroundPrecision = v
+	return o
 }
 
 // GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
@@ -882,8 +868,9 @@ func (o *BaseSearchParamsWithoutQuery) HasMinimumAroundRadius() bool {
 }
 
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
-func (o *BaseSearchParamsWithoutQuery) SetMinimumAroundRadius(v int32) {
+func (o *BaseSearchParamsWithoutQuery) SetMinimumAroundRadius(v int32) *BaseSearchParamsWithoutQuery {
 	o.MinimumAroundRadius = &v
+	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
@@ -914,8 +901,9 @@ func (o *BaseSearchParamsWithoutQuery) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *BaseSearchParamsWithoutQuery) SetInsideBoundingBox(v [][]float64) {
+func (o *BaseSearchParamsWithoutQuery) SetInsideBoundingBox(v [][]float64) *BaseSearchParamsWithoutQuery {
 	o.InsideBoundingBox = v
+	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -946,8 +934,9 @@ func (o *BaseSearchParamsWithoutQuery) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *BaseSearchParamsWithoutQuery) SetInsidePolygon(v [][]float64) {
+func (o *BaseSearchParamsWithoutQuery) SetInsidePolygon(v [][]float64) *BaseSearchParamsWithoutQuery {
 	o.InsidePolygon = v
+	return o
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
@@ -978,8 +967,9 @@ func (o *BaseSearchParamsWithoutQuery) HasNaturalLanguages() bool {
 }
 
 // SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *BaseSearchParamsWithoutQuery) SetNaturalLanguages(v []string) {
+func (o *BaseSearchParamsWithoutQuery) SetNaturalLanguages(v []string) *BaseSearchParamsWithoutQuery {
 	o.NaturalLanguages = v
+	return o
 }
 
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
@@ -1010,8 +1000,9 @@ func (o *BaseSearchParamsWithoutQuery) HasRuleContexts() bool {
 }
 
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
-func (o *BaseSearchParamsWithoutQuery) SetRuleContexts(v []string) {
+func (o *BaseSearchParamsWithoutQuery) SetRuleContexts(v []string) *BaseSearchParamsWithoutQuery {
 	o.RuleContexts = v
+	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value if set, zero value otherwise.
@@ -1042,8 +1033,9 @@ func (o *BaseSearchParamsWithoutQuery) HasPersonalizationImpact() bool {
 }
 
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
-func (o *BaseSearchParamsWithoutQuery) SetPersonalizationImpact(v int32) {
+func (o *BaseSearchParamsWithoutQuery) SetPersonalizationImpact(v int32) *BaseSearchParamsWithoutQuery {
 	o.PersonalizationImpact = &v
+	return o
 }
 
 // GetUserToken returns the UserToken field value if set, zero value otherwise.
@@ -1074,8 +1066,9 @@ func (o *BaseSearchParamsWithoutQuery) HasUserToken() bool {
 }
 
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
-func (o *BaseSearchParamsWithoutQuery) SetUserToken(v string) {
+func (o *BaseSearchParamsWithoutQuery) SetUserToken(v string) *BaseSearchParamsWithoutQuery {
 	o.UserToken = &v
+	return o
 }
 
 // GetGetRankingInfo returns the GetRankingInfo field value if set, zero value otherwise.
@@ -1106,8 +1099,9 @@ func (o *BaseSearchParamsWithoutQuery) HasGetRankingInfo() bool {
 }
 
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
-func (o *BaseSearchParamsWithoutQuery) SetGetRankingInfo(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetGetRankingInfo(v bool) *BaseSearchParamsWithoutQuery {
 	o.GetRankingInfo = &v
+	return o
 }
 
 // GetExplain returns the Explain field value if set, zero value otherwise.
@@ -1138,8 +1132,9 @@ func (o *BaseSearchParamsWithoutQuery) HasExplain() bool {
 }
 
 // SetExplain gets a reference to the given []string and assigns it to the Explain field.
-func (o *BaseSearchParamsWithoutQuery) SetExplain(v []string) {
+func (o *BaseSearchParamsWithoutQuery) SetExplain(v []string) *BaseSearchParamsWithoutQuery {
 	o.Explain = v
+	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
@@ -1170,8 +1165,9 @@ func (o *BaseSearchParamsWithoutQuery) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
-func (o *BaseSearchParamsWithoutQuery) SetSynonyms(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetSynonyms(v bool) *BaseSearchParamsWithoutQuery {
 	o.Synonyms = &v
+	return o
 }
 
 // GetClickAnalytics returns the ClickAnalytics field value if set, zero value otherwise.
@@ -1202,8 +1198,9 @@ func (o *BaseSearchParamsWithoutQuery) HasClickAnalytics() bool {
 }
 
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
-func (o *BaseSearchParamsWithoutQuery) SetClickAnalytics(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetClickAnalytics(v bool) *BaseSearchParamsWithoutQuery {
 	o.ClickAnalytics = &v
+	return o
 }
 
 // GetAnalytics returns the Analytics field value if set, zero value otherwise.
@@ -1234,8 +1231,9 @@ func (o *BaseSearchParamsWithoutQuery) HasAnalytics() bool {
 }
 
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *BaseSearchParamsWithoutQuery) SetAnalytics(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetAnalytics(v bool) *BaseSearchParamsWithoutQuery {
 	o.Analytics = &v
+	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise.
@@ -1266,8 +1264,9 @@ func (o *BaseSearchParamsWithoutQuery) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *BaseSearchParamsWithoutQuery) SetAnalyticsTags(v []string) {
+func (o *BaseSearchParamsWithoutQuery) SetAnalyticsTags(v []string) *BaseSearchParamsWithoutQuery {
 	o.AnalyticsTags = v
+	return o
 }
 
 // GetPercentileComputation returns the PercentileComputation field value if set, zero value otherwise.
@@ -1298,8 +1297,9 @@ func (o *BaseSearchParamsWithoutQuery) HasPercentileComputation() bool {
 }
 
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
-func (o *BaseSearchParamsWithoutQuery) SetPercentileComputation(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetPercentileComputation(v bool) *BaseSearchParamsWithoutQuery {
 	o.PercentileComputation = &v
+	return o
 }
 
 // GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
@@ -1330,8 +1330,9 @@ func (o *BaseSearchParamsWithoutQuery) HasEnableABTest() bool {
 }
 
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *BaseSearchParamsWithoutQuery) SetEnableABTest(v bool) {
+func (o *BaseSearchParamsWithoutQuery) SetEnableABTest(v bool) *BaseSearchParamsWithoutQuery {
 	o.EnableABTest = &v
+	return o
 }
 
 func (o BaseSearchParamsWithoutQuery) MarshalJSON() ([]byte, error) {

@@ -40,12 +40,9 @@ func NewFacet(opts ...FacetOption) *Facet {
 	return this
 }
 
-// NewFacetWithDefaults instantiates a new Facet object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFacetWithDefaults() *Facet {
-	this := &Facet{}
-	return this
+// NewEmptyFacet return a pointer to an empty Facet object.
+func NewEmptyFacet() *Facet {
+	return &Facet{}
 }
 
 // GetAttribute returns the Attribute field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *Facet) HasAttribute() bool {
 }
 
 // SetAttribute gets a reference to the given string and assigns it to the Attribute field.
-func (o *Facet) SetAttribute(v string) {
+func (o *Facet) SetAttribute(v string) *Facet {
 	o.Attribute = &v
+	return o
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *Facet) HasAmount() bool {
 }
 
 // SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *Facet) SetAmount(v int32) {
+func (o *Facet) SetAmount(v int32) *Facet {
 	o.Amount = &v
+	return o
 }
 
 func (o Facet) MarshalJSON() ([]byte, error) {

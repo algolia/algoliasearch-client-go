@@ -25,12 +25,9 @@ func NewOnDemandDateUtilsInput(startDate string, endDate string) *OnDemandDateUt
 	return this
 }
 
-// NewOnDemandDateUtilsInputWithDefaults instantiates a new OnDemandDateUtilsInput object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewOnDemandDateUtilsInputWithDefaults() *OnDemandDateUtilsInput {
-	this := &OnDemandDateUtilsInput{}
-	return this
+// NewEmptyOnDemandDateUtilsInput return a pointer to an empty OnDemandDateUtilsInput object.
+func NewEmptyOnDemandDateUtilsInput() *OnDemandDateUtilsInput {
+	return &OnDemandDateUtilsInput{}
 }
 
 // GetStartDate returns the StartDate field value.
@@ -53,8 +50,9 @@ func (o *OnDemandDateUtilsInput) GetStartDateOk() (*string, bool) {
 }
 
 // SetStartDate sets field value.
-func (o *OnDemandDateUtilsInput) SetStartDate(v string) {
+func (o *OnDemandDateUtilsInput) SetStartDate(v string) *OnDemandDateUtilsInput {
 	o.StartDate = v
+	return o
 }
 
 // GetEndDate returns the EndDate field value.
@@ -77,8 +75,9 @@ func (o *OnDemandDateUtilsInput) GetEndDateOk() (*string, bool) {
 }
 
 // SetEndDate sets field value.
-func (o *OnDemandDateUtilsInput) SetEndDate(v string) {
+func (o *OnDemandDateUtilsInput) SetEndDate(v string) *OnDemandDateUtilsInput {
 	o.EndDate = v
+	return o
 }
 
 func (o OnDemandDateUtilsInput) MarshalJSON() ([]byte, error) {

@@ -21,12 +21,9 @@ func NewRedirectRuleIndexMetadataData(ruleObjectID string) *RedirectRuleIndexMet
 	return this
 }
 
-// NewRedirectRuleIndexMetadataDataWithDefaults instantiates a new RedirectRuleIndexMetadataData object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRedirectRuleIndexMetadataDataWithDefaults() *RedirectRuleIndexMetadataData {
-	this := &RedirectRuleIndexMetadataData{}
-	return this
+// NewEmptyRedirectRuleIndexMetadataData return a pointer to an empty RedirectRuleIndexMetadataData object.
+func NewEmptyRedirectRuleIndexMetadataData() *RedirectRuleIndexMetadataData {
+	return &RedirectRuleIndexMetadataData{}
 }
 
 // GetRuleObjectID returns the RuleObjectID field value.
@@ -49,8 +46,9 @@ func (o *RedirectRuleIndexMetadataData) GetRuleObjectIDOk() (*string, bool) {
 }
 
 // SetRuleObjectID sets field value.
-func (o *RedirectRuleIndexMetadataData) SetRuleObjectID(v string) {
+func (o *RedirectRuleIndexMetadataData) SetRuleObjectID(v string) *RedirectRuleIndexMetadataData {
 	o.RuleObjectID = v
+	return o
 }
 
 func (o RedirectRuleIndexMetadataData) MarshalJSON() ([]byte, error) {

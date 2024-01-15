@@ -31,14 +31,9 @@ func NewSearchRecommendRulesResponse(hits []RuleResponse, nbHits int32, page int
 	return this
 }
 
-// NewSearchRecommendRulesResponseWithDefaults instantiates a new SearchRecommendRulesResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchRecommendRulesResponseWithDefaults() *SearchRecommendRulesResponse {
-	this := &SearchRecommendRulesResponse{}
-	var page int32 = 0
-	this.Page = page
-	return this
+// NewEmptySearchRecommendRulesResponse return a pointer to an empty SearchRecommendRulesResponse object.
+func NewEmptySearchRecommendRulesResponse() *SearchRecommendRulesResponse {
+	return &SearchRecommendRulesResponse{}
 }
 
 // GetHits returns the Hits field value.
@@ -61,8 +56,9 @@ func (o *SearchRecommendRulesResponse) GetHitsOk() ([]RuleResponse, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchRecommendRulesResponse) SetHits(v []RuleResponse) {
+func (o *SearchRecommendRulesResponse) SetHits(v []RuleResponse) *SearchRecommendRulesResponse {
 	o.Hits = v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -85,8 +81,9 @@ func (o *SearchRecommendRulesResponse) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *SearchRecommendRulesResponse) SetNbHits(v int32) {
+func (o *SearchRecommendRulesResponse) SetNbHits(v int32) *SearchRecommendRulesResponse {
 	o.NbHits = v
+	return o
 }
 
 // GetPage returns the Page field value.
@@ -109,8 +106,9 @@ func (o *SearchRecommendRulesResponse) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *SearchRecommendRulesResponse) SetPage(v int32) {
+func (o *SearchRecommendRulesResponse) SetPage(v int32) *SearchRecommendRulesResponse {
 	o.Page = v
+	return o
 }
 
 // GetNbPages returns the NbPages field value.
@@ -133,8 +131,9 @@ func (o *SearchRecommendRulesResponse) GetNbPagesOk() (*int32, bool) {
 }
 
 // SetNbPages sets field value.
-func (o *SearchRecommendRulesResponse) SetNbPages(v int32) {
+func (o *SearchRecommendRulesResponse) SetNbPages(v int32) *SearchRecommendRulesResponse {
 	o.NbPages = v
+	return o
 }
 
 func (o SearchRecommendRulesResponse) MarshalJSON() ([]byte, error) {

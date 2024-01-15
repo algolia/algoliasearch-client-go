@@ -31,12 +31,9 @@ func NewUserId(userID string, clusterName string, nbRecords int32, dataSize int3
 	return this
 }
 
-// NewUserIdWithDefaults instantiates a new UserId object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUserIdWithDefaults() *UserId {
-	this := &UserId{}
-	return this
+// NewEmptyUserId return a pointer to an empty UserId object.
+func NewEmptyUserId() *UserId {
+	return &UserId{}
 }
 
 // GetUserID returns the UserID field value.
@@ -59,8 +56,9 @@ func (o *UserId) GetUserIDOk() (*string, bool) {
 }
 
 // SetUserID sets field value.
-func (o *UserId) SetUserID(v string) {
+func (o *UserId) SetUserID(v string) *UserId {
 	o.UserID = v
+	return o
 }
 
 // GetClusterName returns the ClusterName field value.
@@ -83,8 +81,9 @@ func (o *UserId) GetClusterNameOk() (*string, bool) {
 }
 
 // SetClusterName sets field value.
-func (o *UserId) SetClusterName(v string) {
+func (o *UserId) SetClusterName(v string) *UserId {
 	o.ClusterName = v
+	return o
 }
 
 // GetNbRecords returns the NbRecords field value.
@@ -107,8 +106,9 @@ func (o *UserId) GetNbRecordsOk() (*int32, bool) {
 }
 
 // SetNbRecords sets field value.
-func (o *UserId) SetNbRecords(v int32) {
+func (o *UserId) SetNbRecords(v int32) *UserId {
 	o.NbRecords = v
+	return o
 }
 
 // GetDataSize returns the DataSize field value.
@@ -131,8 +131,9 @@ func (o *UserId) GetDataSizeOk() (*int32, bool) {
 }
 
 // SetDataSize sets field value.
-func (o *UserId) SetDataSize(v int32) {
+func (o *UserId) SetDataSize(v int32) *UserId {
 	o.DataSize = v
+	return o
 }
 
 func (o UserId) MarshalJSON() ([]byte, error) {

@@ -25,12 +25,9 @@ func NewAddApiKeyResponse(key string, createdAt string) *AddApiKeyResponse {
 	return this
 }
 
-// NewAddApiKeyResponseWithDefaults instantiates a new AddApiKeyResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAddApiKeyResponseWithDefaults() *AddApiKeyResponse {
-	this := &AddApiKeyResponse{}
-	return this
+// NewEmptyAddApiKeyResponse return a pointer to an empty AddApiKeyResponse object.
+func NewEmptyAddApiKeyResponse() *AddApiKeyResponse {
+	return &AddApiKeyResponse{}
 }
 
 // GetKey returns the Key field value.
@@ -53,8 +50,9 @@ func (o *AddApiKeyResponse) GetKeyOk() (*string, bool) {
 }
 
 // SetKey sets field value.
-func (o *AddApiKeyResponse) SetKey(v string) {
+func (o *AddApiKeyResponse) SetKey(v string) *AddApiKeyResponse {
 	o.Key = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -77,8 +75,9 @@ func (o *AddApiKeyResponse) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *AddApiKeyResponse) SetCreatedAt(v string) {
+func (o *AddApiKeyResponse) SetCreatedAt(v string) *AddApiKeyResponse {
 	o.CreatedAt = v
+	return o
 }
 
 func (o AddApiKeyResponse) MarshalJSON() ([]byte, error) {

@@ -57,12 +57,9 @@ func NewConvertedObjectIDsAfterSearch(eventName string, eventType ConversionEven
 	return this
 }
 
-// NewConvertedObjectIDsAfterSearchWithDefaults instantiates a new ConvertedObjectIDsAfterSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConvertedObjectIDsAfterSearchWithDefaults() *ConvertedObjectIDsAfterSearch {
-	this := &ConvertedObjectIDsAfterSearch{}
-	return this
+// NewEmptyConvertedObjectIDsAfterSearch return a pointer to an empty ConvertedObjectIDsAfterSearch object.
+func NewEmptyConvertedObjectIDsAfterSearch() *ConvertedObjectIDsAfterSearch {
+	return &ConvertedObjectIDsAfterSearch{}
 }
 
 // GetEventName returns the EventName field value.
@@ -85,8 +82,9 @@ func (o *ConvertedObjectIDsAfterSearch) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *ConvertedObjectIDsAfterSearch) SetEventName(v string) {
+func (o *ConvertedObjectIDsAfterSearch) SetEventName(v string) *ConvertedObjectIDsAfterSearch {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -109,8 +107,9 @@ func (o *ConvertedObjectIDsAfterSearch) GetEventTypeOk() (*ConversionEvent, bool
 }
 
 // SetEventType sets field value.
-func (o *ConvertedObjectIDsAfterSearch) SetEventType(v ConversionEvent) {
+func (o *ConvertedObjectIDsAfterSearch) SetEventType(v ConversionEvent) *ConvertedObjectIDsAfterSearch {
 	o.EventType = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -133,8 +132,9 @@ func (o *ConvertedObjectIDsAfterSearch) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *ConvertedObjectIDsAfterSearch) SetIndex(v string) {
+func (o *ConvertedObjectIDsAfterSearch) SetIndex(v string) *ConvertedObjectIDsAfterSearch {
 	o.Index = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -157,8 +157,9 @@ func (o *ConvertedObjectIDsAfterSearch) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *ConvertedObjectIDsAfterSearch) SetObjectIDs(v []string) {
+func (o *ConvertedObjectIDsAfterSearch) SetObjectIDs(v []string) *ConvertedObjectIDsAfterSearch {
 	o.ObjectIDs = v
+	return o
 }
 
 // GetQueryID returns the QueryID field value.
@@ -181,8 +182,9 @@ func (o *ConvertedObjectIDsAfterSearch) GetQueryIDOk() (*string, bool) {
 }
 
 // SetQueryID sets field value.
-func (o *ConvertedObjectIDsAfterSearch) SetQueryID(v string) {
+func (o *ConvertedObjectIDsAfterSearch) SetQueryID(v string) *ConvertedObjectIDsAfterSearch {
 	o.QueryID = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -205,8 +207,9 @@ func (o *ConvertedObjectIDsAfterSearch) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *ConvertedObjectIDsAfterSearch) SetUserToken(v string) {
+func (o *ConvertedObjectIDsAfterSearch) SetUserToken(v string) *ConvertedObjectIDsAfterSearch {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -237,8 +240,9 @@ func (o *ConvertedObjectIDsAfterSearch) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *ConvertedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) {
+func (o *ConvertedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *ConvertedObjectIDsAfterSearch {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -269,8 +273,9 @@ func (o *ConvertedObjectIDsAfterSearch) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ConvertedObjectIDsAfterSearch) SetTimestamp(v int64) {
+func (o *ConvertedObjectIDsAfterSearch) SetTimestamp(v int64) *ConvertedObjectIDsAfterSearch {
 	o.Timestamp = &v
+	return o
 }
 
 func (o ConvertedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {

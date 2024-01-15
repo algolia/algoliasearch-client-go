@@ -13,16 +13,16 @@ type Value struct {
 }
 
 // float64AsValue is a convenience function that returns float64 wrapped in Value.
-func Float64AsValue(v *float64) Value {
-	return Value{
-		Float64: v,
+func Float64AsValue(v float64) *Value {
+	return &Value{
+		Float64: &v,
 	}
 }
 
 // stringAsValue is a convenience function that returns string wrapped in Value.
-func StringAsValue(v *string) Value {
-	return Value{
-		String: v,
+func StringAsValue(v string) *Value {
+	return &Value{
+		String: &v,
 	}
 }
 

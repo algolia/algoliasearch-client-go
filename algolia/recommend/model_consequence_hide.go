@@ -22,12 +22,9 @@ func NewConsequenceHide(objectID string) *ConsequenceHide {
 	return this
 }
 
-// NewConsequenceHideWithDefaults instantiates a new ConsequenceHide object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConsequenceHideWithDefaults() *ConsequenceHide {
-	this := &ConsequenceHide{}
-	return this
+// NewEmptyConsequenceHide return a pointer to an empty ConsequenceHide object.
+func NewEmptyConsequenceHide() *ConsequenceHide {
+	return &ConsequenceHide{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -50,8 +47,9 @@ func (o *ConsequenceHide) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *ConsequenceHide) SetObjectID(v string) {
+func (o *ConsequenceHide) SetObjectID(v string) *ConsequenceHide {
 	o.ObjectID = v
+	return o
 }
 
 func (o ConsequenceHide) MarshalJSON() ([]byte, error) {

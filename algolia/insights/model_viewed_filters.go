@@ -54,12 +54,9 @@ func NewViewedFilters(eventName string, eventType ViewEvent, index string, filte
 	return this
 }
 
-// NewViewedFiltersWithDefaults instantiates a new ViewedFilters object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewViewedFiltersWithDefaults() *ViewedFilters {
-	this := &ViewedFilters{}
-	return this
+// NewEmptyViewedFilters return a pointer to an empty ViewedFilters object.
+func NewEmptyViewedFilters() *ViewedFilters {
+	return &ViewedFilters{}
 }
 
 // GetEventName returns the EventName field value.
@@ -82,8 +79,9 @@ func (o *ViewedFilters) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *ViewedFilters) SetEventName(v string) {
+func (o *ViewedFilters) SetEventName(v string) *ViewedFilters {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -106,8 +104,9 @@ func (o *ViewedFilters) GetEventTypeOk() (*ViewEvent, bool) {
 }
 
 // SetEventType sets field value.
-func (o *ViewedFilters) SetEventType(v ViewEvent) {
+func (o *ViewedFilters) SetEventType(v ViewEvent) *ViewedFilters {
 	o.EventType = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -130,8 +129,9 @@ func (o *ViewedFilters) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *ViewedFilters) SetIndex(v string) {
+func (o *ViewedFilters) SetIndex(v string) *ViewedFilters {
 	o.Index = v
+	return o
 }
 
 // GetFilters returns the Filters field value.
@@ -154,8 +154,9 @@ func (o *ViewedFilters) GetFiltersOk() ([]string, bool) {
 }
 
 // SetFilters sets field value.
-func (o *ViewedFilters) SetFilters(v []string) {
+func (o *ViewedFilters) SetFilters(v []string) *ViewedFilters {
 	o.Filters = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -178,8 +179,9 @@ func (o *ViewedFilters) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *ViewedFilters) SetUserToken(v string) {
+func (o *ViewedFilters) SetUserToken(v string) *ViewedFilters {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -210,8 +212,9 @@ func (o *ViewedFilters) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *ViewedFilters) SetAuthenticatedUserToken(v string) {
+func (o *ViewedFilters) SetAuthenticatedUserToken(v string) *ViewedFilters {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -242,8 +245,9 @@ func (o *ViewedFilters) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ViewedFilters) SetTimestamp(v int64) {
+func (o *ViewedFilters) SetTimestamp(v int64) *ViewedFilters {
 	o.Timestamp = &v
+	return o
 }
 
 func (o ViewedFilters) MarshalJSON() ([]byte, error) {

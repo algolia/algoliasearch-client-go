@@ -21,12 +21,9 @@ func NewGetDictionarySettingsResponse(disableStandardEntries StandardEntries) *G
 	return this
 }
 
-// NewGetDictionarySettingsResponseWithDefaults instantiates a new GetDictionarySettingsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetDictionarySettingsResponseWithDefaults() *GetDictionarySettingsResponse {
-	this := &GetDictionarySettingsResponse{}
-	return this
+// NewEmptyGetDictionarySettingsResponse return a pointer to an empty GetDictionarySettingsResponse object.
+func NewEmptyGetDictionarySettingsResponse() *GetDictionarySettingsResponse {
+	return &GetDictionarySettingsResponse{}
 }
 
 // GetDisableStandardEntries returns the DisableStandardEntries field value.
@@ -49,8 +46,9 @@ func (o *GetDictionarySettingsResponse) GetDisableStandardEntriesOk() (*Standard
 }
 
 // SetDisableStandardEntries sets field value.
-func (o *GetDictionarySettingsResponse) SetDisableStandardEntries(v StandardEntries) {
-	o.DisableStandardEntries = v
+func (o *GetDictionarySettingsResponse) SetDisableStandardEntries(v *StandardEntries) *GetDictionarySettingsResponse {
+	o.DisableStandardEntries = *v
+	return o
 }
 
 func (o GetDictionarySettingsResponse) MarshalJSON() ([]byte, error) {

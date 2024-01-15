@@ -39,12 +39,9 @@ func NewIncident(opts ...IncidentOption) *Incident {
 	return this
 }
 
-// NewIncidentWithDefaults instantiates a new Incident object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewIncidentWithDefaults() *Incident {
-	this := &Incident{}
-	return this
+// NewEmptyIncident return a pointer to an empty Incident object.
+func NewEmptyIncident() *Incident {
+	return &Incident{}
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
@@ -75,8 +72,9 @@ func (o *Incident) HasTitle() bool {
 }
 
 // SetTitle gets a reference to the given string and assigns it to the Title field.
-func (o *Incident) SetTitle(v string) {
+func (o *Incident) SetTitle(v string) *Incident {
 	o.Title = &v
+	return o
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -107,8 +105,9 @@ func (o *Incident) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given Status and assigns it to the Status field.
-func (o *Incident) SetStatus(v Status) {
+func (o *Incident) SetStatus(v Status) *Incident {
 	o.Status = &v
+	return o
 }
 
 func (o Incident) MarshalJSON() ([]byte, error) {

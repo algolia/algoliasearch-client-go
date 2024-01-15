@@ -31,12 +31,9 @@ func NewNoResultsRateEvent(date string, noResultCount int32, count int32, rate f
 	return this
 }
 
-// NewNoResultsRateEventWithDefaults instantiates a new NoResultsRateEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewNoResultsRateEventWithDefaults() *NoResultsRateEvent {
-	this := &NoResultsRateEvent{}
-	return this
+// NewEmptyNoResultsRateEvent return a pointer to an empty NoResultsRateEvent object.
+func NewEmptyNoResultsRateEvent() *NoResultsRateEvent {
+	return &NoResultsRateEvent{}
 }
 
 // GetDate returns the Date field value.
@@ -59,8 +56,9 @@ func (o *NoResultsRateEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *NoResultsRateEvent) SetDate(v string) {
+func (o *NoResultsRateEvent) SetDate(v string) *NoResultsRateEvent {
 	o.Date = v
+	return o
 }
 
 // GetNoResultCount returns the NoResultCount field value.
@@ -83,8 +81,9 @@ func (o *NoResultsRateEvent) GetNoResultCountOk() (*int32, bool) {
 }
 
 // SetNoResultCount sets field value.
-func (o *NoResultsRateEvent) SetNoResultCount(v int32) {
+func (o *NoResultsRateEvent) SetNoResultCount(v int32) *NoResultsRateEvent {
 	o.NoResultCount = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -107,8 +106,9 @@ func (o *NoResultsRateEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *NoResultsRateEvent) SetCount(v int32) {
+func (o *NoResultsRateEvent) SetCount(v int32) *NoResultsRateEvent {
 	o.Count = v
+	return o
 }
 
 // GetRate returns the Rate field value.
@@ -131,8 +131,9 @@ func (o *NoResultsRateEvent) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *NoResultsRateEvent) SetRate(v float64) {
+func (o *NoResultsRateEvent) SetRate(v float64) *NoResultsRateEvent {
 	o.Rate = v
+	return o
 }
 
 func (o NoResultsRateEvent) MarshalJSON() ([]byte, error) {

@@ -22,12 +22,9 @@ func NewBaseRecommendedForYouQueryParameters(userToken string) *BaseRecommendedF
 	return this
 }
 
-// NewBaseRecommendedForYouQueryParametersWithDefaults instantiates a new BaseRecommendedForYouQueryParameters object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseRecommendedForYouQueryParametersWithDefaults() *BaseRecommendedForYouQueryParameters {
-	this := &BaseRecommendedForYouQueryParameters{}
-	return this
+// NewEmptyBaseRecommendedForYouQueryParameters return a pointer to an empty BaseRecommendedForYouQueryParameters object.
+func NewEmptyBaseRecommendedForYouQueryParameters() *BaseRecommendedForYouQueryParameters {
+	return &BaseRecommendedForYouQueryParameters{}
 }
 
 // GetUserToken returns the UserToken field value.
@@ -50,8 +47,9 @@ func (o *BaseRecommendedForYouQueryParameters) GetUserTokenOk() (*string, bool) 
 }
 
 // SetUserToken sets field value.
-func (o *BaseRecommendedForYouQueryParameters) SetUserToken(v string) {
+func (o *BaseRecommendedForYouQueryParameters) SetUserToken(v string) *BaseRecommendedForYouQueryParameters {
 	o.UserToken = v
+	return o
 }
 
 func (o BaseRecommendedForYouQueryParameters) MarshalJSON() ([]byte, error) {

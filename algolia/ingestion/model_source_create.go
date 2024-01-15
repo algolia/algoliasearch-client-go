@@ -38,12 +38,9 @@ func NewSourceCreate(type_ SourceType, name string, input SourceInput, opts ...S
 	return this
 }
 
-// NewSourceCreateWithDefaults instantiates a new SourceCreate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceCreateWithDefaults() *SourceCreate {
-	this := &SourceCreate{}
-	return this
+// NewEmptySourceCreate return a pointer to an empty SourceCreate object.
+func NewEmptySourceCreate() *SourceCreate {
+	return &SourceCreate{}
 }
 
 // GetType returns the Type field value.
@@ -66,8 +63,9 @@ func (o *SourceCreate) GetTypeOk() (*SourceType, bool) {
 }
 
 // SetType sets field value.
-func (o *SourceCreate) SetType(v SourceType) {
+func (o *SourceCreate) SetType(v SourceType) *SourceCreate {
 	o.Type = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -90,8 +88,9 @@ func (o *SourceCreate) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *SourceCreate) SetName(v string) {
+func (o *SourceCreate) SetName(v string) *SourceCreate {
 	o.Name = v
+	return o
 }
 
 // GetInput returns the Input field value.
@@ -114,8 +113,9 @@ func (o *SourceCreate) GetInputOk() (*SourceInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *SourceCreate) SetInput(v SourceInput) {
-	o.Input = v
+func (o *SourceCreate) SetInput(v *SourceInput) *SourceCreate {
+	o.Input = *v
+	return o
 }
 
 // GetAuthenticationID returns the AuthenticationID field value if set, zero value otherwise.
@@ -146,8 +146,9 @@ func (o *SourceCreate) HasAuthenticationID() bool {
 }
 
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
-func (o *SourceCreate) SetAuthenticationID(v string) {
+func (o *SourceCreate) SetAuthenticationID(v string) *SourceCreate {
 	o.AuthenticationID = &v
+	return o
 }
 
 func (o SourceCreate) MarshalJSON() ([]byte, error) {

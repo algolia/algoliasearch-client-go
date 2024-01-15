@@ -28,12 +28,9 @@ func NewSaveSynonymResponse(taskID int64, updatedAt string, id string) *SaveSyno
 	return this
 }
 
-// NewSaveSynonymResponseWithDefaults instantiates a new SaveSynonymResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSaveSynonymResponseWithDefaults() *SaveSynonymResponse {
-	this := &SaveSynonymResponse{}
-	return this
+// NewEmptySaveSynonymResponse return a pointer to an empty SaveSynonymResponse object.
+func NewEmptySaveSynonymResponse() *SaveSynonymResponse {
+	return &SaveSynonymResponse{}
 }
 
 // GetTaskID returns the TaskID field value.
@@ -56,8 +53,9 @@ func (o *SaveSynonymResponse) GetTaskIDOk() (*int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *SaveSynonymResponse) SetTaskID(v int64) {
+func (o *SaveSynonymResponse) SetTaskID(v int64) *SaveSynonymResponse {
 	o.TaskID = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -80,8 +78,9 @@ func (o *SaveSynonymResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *SaveSynonymResponse) SetUpdatedAt(v string) {
+func (o *SaveSynonymResponse) SetUpdatedAt(v string) *SaveSynonymResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 // GetId returns the Id field value.
@@ -104,8 +103,9 @@ func (o *SaveSynonymResponse) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value.
-func (o *SaveSynonymResponse) SetId(v string) {
+func (o *SaveSynonymResponse) SetId(v string) *SaveSynonymResponse {
 	o.Id = v
+	return o
 }
 
 func (o SaveSynonymResponse) MarshalJSON() ([]byte, error) {

@@ -24,12 +24,9 @@ func NewSnippetResultOption(value string, matchLevel MatchLevel) *SnippetResultO
 	return this
 }
 
-// NewSnippetResultOptionWithDefaults instantiates a new SnippetResultOption object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSnippetResultOptionWithDefaults() *SnippetResultOption {
-	this := &SnippetResultOption{}
-	return this
+// NewEmptySnippetResultOption return a pointer to an empty SnippetResultOption object.
+func NewEmptySnippetResultOption() *SnippetResultOption {
+	return &SnippetResultOption{}
 }
 
 // GetValue returns the Value field value.
@@ -52,8 +49,9 @@ func (o *SnippetResultOption) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value.
-func (o *SnippetResultOption) SetValue(v string) {
+func (o *SnippetResultOption) SetValue(v string) *SnippetResultOption {
 	o.Value = v
+	return o
 }
 
 // GetMatchLevel returns the MatchLevel field value.
@@ -76,8 +74,9 @@ func (o *SnippetResultOption) GetMatchLevelOk() (*MatchLevel, bool) {
 }
 
 // SetMatchLevel sets field value.
-func (o *SnippetResultOption) SetMatchLevel(v MatchLevel) {
+func (o *SnippetResultOption) SetMatchLevel(v MatchLevel) *SnippetResultOption {
 	o.MatchLevel = v
+	return o
 }
 
 func (o SnippetResultOption) MarshalJSON() ([]byte, error) {

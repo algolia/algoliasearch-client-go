@@ -3547,7 +3547,7 @@ type ApiGetLogsRequest struct {
 	offset    int32
 	length    int32
 	indexName string
-	type_     *LogType
+	type_     LogType
 }
 
 // NewApiGetLogsRequest creates an instance of the ApiGetLogsRequest to be used for the API call.
@@ -3573,8 +3573,8 @@ func (r ApiGetLogsRequest) WithIndexName(indexName string) ApiGetLogsRequest {
 	return r
 }
 
-// WithType_ adds the type_ to the ApiGetLogsRequest and returns the request for chaining.
-func (r ApiGetLogsRequest) WithType_(type_ *LogType) ApiGetLogsRequest {
+// WithType adds the type_ to the ApiGetLogsRequest and returns the request for chaining.
+func (r ApiGetLogsRequest) WithType(type_ LogType) ApiGetLogsRequest {
 	r.type_ = type_
 	return r
 }
@@ -3636,7 +3636,7 @@ func (c *APIClient) GetLogsWithContext(ctx context.Context, r ApiGetLogsRequest,
 		queryParams.Set("indexName", parameterToString(r.indexName))
 	}
 	if !isNilorEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(*r.type_))
+		queryParams.Set("type", parameterToString(r.type_))
 	}
 
 	// optional params if any
@@ -5756,12 +5756,12 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 type ApiPartialUpdateObjectRequest struct {
 	indexName          string
 	objectID           string
-	attributesToUpdate *map[string]AttributeToUpdate
+	attributesToUpdate map[string]AttributeToUpdate
 	createIfNotExists  bool
 }
 
 // NewApiPartialUpdateObjectRequest creates an instance of the ApiPartialUpdateObjectRequest to be used for the API call.
-func (c *APIClient) NewApiPartialUpdateObjectRequest(indexName string, objectID string, attributesToUpdate *map[string]AttributeToUpdate) ApiPartialUpdateObjectRequest {
+func (c *APIClient) NewApiPartialUpdateObjectRequest(indexName string, objectID string, attributesToUpdate map[string]AttributeToUpdate) ApiPartialUpdateObjectRequest {
 	return ApiPartialUpdateObjectRequest{
 		indexName:          indexName,
 		objectID:           objectID,
@@ -7927,7 +7927,7 @@ func (r *ApiSearchSynonymsRequest) UnmarshalJSON(b []byte) error {
 // ApiSearchSynonymsRequest represents the request with all the parameters for the API call.
 type ApiSearchSynonymsRequest struct {
 	indexName            string
-	type_                *SynonymType
+	type_                SynonymType
 	page                 int32
 	hitsPerPage          int32
 	searchSynonymsParams *SearchSynonymsParams
@@ -7940,8 +7940,8 @@ func (c *APIClient) NewApiSearchSynonymsRequest(indexName string) ApiSearchSynon
 	}
 }
 
-// WithType_ adds the type_ to the ApiSearchSynonymsRequest and returns the request for chaining.
-func (r ApiSearchSynonymsRequest) WithType_(type_ *SynonymType) ApiSearchSynonymsRequest {
+// WithType adds the type_ to the ApiSearchSynonymsRequest and returns the request for chaining.
+func (r ApiSearchSynonymsRequest) WithType(type_ SynonymType) ApiSearchSynonymsRequest {
 	r.type_ = type_
 	return r
 }
@@ -8009,7 +8009,7 @@ func (c *APIClient) SearchSynonymsWithContext(ctx context.Context, r ApiSearchSy
 	queryParams := url.Values{}
 
 	if !isNilorEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(*r.type_))
+		queryParams.Set("type", parameterToString(r.type_))
 	}
 	if !isNilorEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))

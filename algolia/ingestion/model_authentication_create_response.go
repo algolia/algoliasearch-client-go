@@ -28,12 +28,9 @@ func NewAuthenticationCreateResponse(authenticationID string, name string, creat
 	return this
 }
 
-// NewAuthenticationCreateResponseWithDefaults instantiates a new AuthenticationCreateResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthenticationCreateResponseWithDefaults() *AuthenticationCreateResponse {
-	this := &AuthenticationCreateResponse{}
-	return this
+// NewEmptyAuthenticationCreateResponse return a pointer to an empty AuthenticationCreateResponse object.
+func NewEmptyAuthenticationCreateResponse() *AuthenticationCreateResponse {
+	return &AuthenticationCreateResponse{}
 }
 
 // GetAuthenticationID returns the AuthenticationID field value.
@@ -56,8 +53,9 @@ func (o *AuthenticationCreateResponse) GetAuthenticationIDOk() (*string, bool) {
 }
 
 // SetAuthenticationID sets field value.
-func (o *AuthenticationCreateResponse) SetAuthenticationID(v string) {
+func (o *AuthenticationCreateResponse) SetAuthenticationID(v string) *AuthenticationCreateResponse {
 	o.AuthenticationID = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -80,8 +78,9 @@ func (o *AuthenticationCreateResponse) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *AuthenticationCreateResponse) SetName(v string) {
+func (o *AuthenticationCreateResponse) SetName(v string) *AuthenticationCreateResponse {
 	o.Name = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -104,8 +103,9 @@ func (o *AuthenticationCreateResponse) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *AuthenticationCreateResponse) SetCreatedAt(v string) {
+func (o *AuthenticationCreateResponse) SetCreatedAt(v string) *AuthenticationCreateResponse {
 	o.CreatedAt = v
+	return o
 }
 
 func (o AuthenticationCreateResponse) MarshalJSON() ([]byte, error) {

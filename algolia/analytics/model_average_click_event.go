@@ -28,12 +28,9 @@ func NewAverageClickEvent(average float64, clickCount int32, date string) *Avera
 	return this
 }
 
-// NewAverageClickEventWithDefaults instantiates a new AverageClickEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAverageClickEventWithDefaults() *AverageClickEvent {
-	this := &AverageClickEvent{}
-	return this
+// NewEmptyAverageClickEvent return a pointer to an empty AverageClickEvent object.
+func NewEmptyAverageClickEvent() *AverageClickEvent {
+	return &AverageClickEvent{}
 }
 
 // GetAverage returns the Average field value.
@@ -56,8 +53,9 @@ func (o *AverageClickEvent) GetAverageOk() (*float64, bool) {
 }
 
 // SetAverage sets field value.
-func (o *AverageClickEvent) SetAverage(v float64) {
+func (o *AverageClickEvent) SetAverage(v float64) *AverageClickEvent {
 	o.Average = v
+	return o
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -80,8 +78,9 @@ func (o *AverageClickEvent) GetClickCountOk() (*int32, bool) {
 }
 
 // SetClickCount sets field value.
-func (o *AverageClickEvent) SetClickCount(v int32) {
+func (o *AverageClickEvent) SetClickCount(v int32) *AverageClickEvent {
 	o.ClickCount = v
+	return o
 }
 
 // GetDate returns the Date field value.
@@ -104,8 +103,9 @@ func (o *AverageClickEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *AverageClickEvent) SetDate(v string) {
+func (o *AverageClickEvent) SetDate(v string) *AverageClickEvent {
 	o.Date = v
+	return o
 }
 
 func (o AverageClickEvent) MarshalJSON() ([]byte, error) {

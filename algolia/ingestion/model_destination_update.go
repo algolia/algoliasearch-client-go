@@ -53,12 +53,9 @@ func NewDestinationUpdate(opts ...DestinationUpdateOption) *DestinationUpdate {
 	return this
 }
 
-// NewDestinationUpdateWithDefaults instantiates a new DestinationUpdate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDestinationUpdateWithDefaults() *DestinationUpdate {
-	this := &DestinationUpdate{}
-	return this
+// NewEmptyDestinationUpdate return a pointer to an empty DestinationUpdate object.
+func NewEmptyDestinationUpdate() *DestinationUpdate {
+	return &DestinationUpdate{}
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -89,8 +86,9 @@ func (o *DestinationUpdate) HasType() bool {
 }
 
 // SetType gets a reference to the given DestinationType and assigns it to the Type field.
-func (o *DestinationUpdate) SetType(v DestinationType) {
+func (o *DestinationUpdate) SetType(v DestinationType) *DestinationUpdate {
 	o.Type = &v
+	return o
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -121,8 +119,9 @@ func (o *DestinationUpdate) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *DestinationUpdate) SetName(v string) {
+func (o *DestinationUpdate) SetName(v string) *DestinationUpdate {
 	o.Name = &v
+	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -153,8 +152,9 @@ func (o *DestinationUpdate) HasInput() bool {
 }
 
 // SetInput gets a reference to the given DestinationInput and assigns it to the Input field.
-func (o *DestinationUpdate) SetInput(v DestinationInput) {
-	o.Input = &v
+func (o *DestinationUpdate) SetInput(v *DestinationInput) *DestinationUpdate {
+	o.Input = v
+	return o
 }
 
 // GetAuthenticationID returns the AuthenticationID field value if set, zero value otherwise.
@@ -185,8 +185,9 @@ func (o *DestinationUpdate) HasAuthenticationID() bool {
 }
 
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
-func (o *DestinationUpdate) SetAuthenticationID(v string) {
+func (o *DestinationUpdate) SetAuthenticationID(v string) *DestinationUpdate {
 	o.AuthenticationID = &v
+	return o
 }
 
 func (o DestinationUpdate) MarshalJSON() ([]byte, error) {

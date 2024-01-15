@@ -25,12 +25,9 @@ func NewFacetScoring(score int32, facetName string) *FacetScoring {
 	return this
 }
 
-// NewFacetScoringWithDefaults instantiates a new FacetScoring object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFacetScoringWithDefaults() *FacetScoring {
-	this := &FacetScoring{}
-	return this
+// NewEmptyFacetScoring return a pointer to an empty FacetScoring object.
+func NewEmptyFacetScoring() *FacetScoring {
+	return &FacetScoring{}
 }
 
 // GetScore returns the Score field value.
@@ -53,8 +50,9 @@ func (o *FacetScoring) GetScoreOk() (*int32, bool) {
 }
 
 // SetScore sets field value.
-func (o *FacetScoring) SetScore(v int32) {
+func (o *FacetScoring) SetScore(v int32) *FacetScoring {
 	o.Score = v
+	return o
 }
 
 // GetFacetName returns the FacetName field value.
@@ -77,8 +75,9 @@ func (o *FacetScoring) GetFacetNameOk() (*string, bool) {
 }
 
 // SetFacetName sets field value.
-func (o *FacetScoring) SetFacetName(v string) {
+func (o *FacetScoring) SetFacetName(v string) *FacetScoring {
 	o.FacetName = v
+	return o
 }
 
 func (o FacetScoring) MarshalJSON() ([]byte, error) {

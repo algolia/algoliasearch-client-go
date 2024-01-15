@@ -22,12 +22,9 @@ func NewTriggerUpdateInput(cron string) *TriggerUpdateInput {
 	return this
 }
 
-// NewTriggerUpdateInputWithDefaults instantiates a new TriggerUpdateInput object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTriggerUpdateInputWithDefaults() *TriggerUpdateInput {
-	this := &TriggerUpdateInput{}
-	return this
+// NewEmptyTriggerUpdateInput return a pointer to an empty TriggerUpdateInput object.
+func NewEmptyTriggerUpdateInput() *TriggerUpdateInput {
+	return &TriggerUpdateInput{}
 }
 
 // GetCron returns the Cron field value.
@@ -50,8 +47,9 @@ func (o *TriggerUpdateInput) GetCronOk() (*string, bool) {
 }
 
 // SetCron sets field value.
-func (o *TriggerUpdateInput) SetCron(v string) {
+func (o *TriggerUpdateInput) SetCron(v string) *TriggerUpdateInput {
 	o.Cron = v
+	return o
 }
 
 func (o TriggerUpdateInput) MarshalJSON() ([]byte, error) {

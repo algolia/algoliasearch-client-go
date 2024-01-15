@@ -22,12 +22,9 @@ func NewListClustersResponse(topUsers []string) *ListClustersResponse {
 	return this
 }
 
-// NewListClustersResponseWithDefaults instantiates a new ListClustersResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListClustersResponseWithDefaults() *ListClustersResponse {
-	this := &ListClustersResponse{}
-	return this
+// NewEmptyListClustersResponse return a pointer to an empty ListClustersResponse object.
+func NewEmptyListClustersResponse() *ListClustersResponse {
+	return &ListClustersResponse{}
 }
 
 // GetTopUsers returns the TopUsers field value.
@@ -50,8 +47,9 @@ func (o *ListClustersResponse) GetTopUsersOk() ([]string, bool) {
 }
 
 // SetTopUsers sets field value.
-func (o *ListClustersResponse) SetTopUsers(v []string) {
+func (o *ListClustersResponse) SetTopUsers(v []string) *ListClustersResponse {
 	o.TopUsers = v
+	return o
 }
 
 func (o ListClustersResponse) MarshalJSON() ([]byte, error) {

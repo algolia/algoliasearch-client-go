@@ -32,12 +32,9 @@ func NewDictionaryLanguage(opts ...DictionaryLanguageOption) *DictionaryLanguage
 	return this
 }
 
-// NewDictionaryLanguageWithDefaults instantiates a new DictionaryLanguage object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDictionaryLanguageWithDefaults() *DictionaryLanguage {
-	this := &DictionaryLanguage{}
-	return this
+// NewEmptyDictionaryLanguage return a pointer to an empty DictionaryLanguage object.
+func NewEmptyDictionaryLanguage() *DictionaryLanguage {
+	return &DictionaryLanguage{}
 }
 
 // GetNbCustomEntries returns the NbCustomEntries field value if set, zero value otherwise.
@@ -68,8 +65,9 @@ func (o *DictionaryLanguage) HasNbCustomEntries() bool {
 }
 
 // SetNbCustomEntries gets a reference to the given int32 and assigns it to the NbCustomEntries field.
-func (o *DictionaryLanguage) SetNbCustomEntries(v int32) {
+func (o *DictionaryLanguage) SetNbCustomEntries(v int32) *DictionaryLanguage {
 	o.NbCustomEntries = &v
+	return o
 }
 
 func (o DictionaryLanguage) MarshalJSON() ([]byte, error) {

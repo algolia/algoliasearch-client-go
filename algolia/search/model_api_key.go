@@ -83,22 +83,9 @@ func NewApiKey(acl []Acl, opts ...ApiKeyOption) *ApiKey {
 	return this
 }
 
-// NewApiKeyWithDefaults instantiates a new ApiKey object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewApiKeyWithDefaults() *ApiKey {
-	this := &ApiKey{}
-	var description string = ""
-	this.Description = &description
-	var maxHitsPerQuery int32 = 0
-	this.MaxHitsPerQuery = &maxHitsPerQuery
-	var maxQueriesPerIPPerHour int32 = 0
-	this.MaxQueriesPerIPPerHour = &maxQueriesPerIPPerHour
-	var queryParameters string = ""
-	this.QueryParameters = &queryParameters
-	var validity int32 = 0
-	this.Validity = &validity
-	return this
+// NewEmptyApiKey return a pointer to an empty ApiKey object.
+func NewEmptyApiKey() *ApiKey {
+	return &ApiKey{}
 }
 
 // GetAcl returns the Acl field value.
@@ -121,8 +108,9 @@ func (o *ApiKey) GetAclOk() ([]Acl, bool) {
 }
 
 // SetAcl sets field value.
-func (o *ApiKey) SetAcl(v []Acl) {
+func (o *ApiKey) SetAcl(v []Acl) *ApiKey {
 	o.Acl = v
+	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -153,8 +141,9 @@ func (o *ApiKey) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ApiKey) SetDescription(v string) {
+func (o *ApiKey) SetDescription(v string) *ApiKey {
 	o.Description = &v
+	return o
 }
 
 // GetIndexes returns the Indexes field value if set, zero value otherwise.
@@ -185,8 +174,9 @@ func (o *ApiKey) HasIndexes() bool {
 }
 
 // SetIndexes gets a reference to the given []string and assigns it to the Indexes field.
-func (o *ApiKey) SetIndexes(v []string) {
+func (o *ApiKey) SetIndexes(v []string) *ApiKey {
 	o.Indexes = v
+	return o
 }
 
 // GetMaxHitsPerQuery returns the MaxHitsPerQuery field value if set, zero value otherwise.
@@ -217,8 +207,9 @@ func (o *ApiKey) HasMaxHitsPerQuery() bool {
 }
 
 // SetMaxHitsPerQuery gets a reference to the given int32 and assigns it to the MaxHitsPerQuery field.
-func (o *ApiKey) SetMaxHitsPerQuery(v int32) {
+func (o *ApiKey) SetMaxHitsPerQuery(v int32) *ApiKey {
 	o.MaxHitsPerQuery = &v
+	return o
 }
 
 // GetMaxQueriesPerIPPerHour returns the MaxQueriesPerIPPerHour field value if set, zero value otherwise.
@@ -249,8 +240,9 @@ func (o *ApiKey) HasMaxQueriesPerIPPerHour() bool {
 }
 
 // SetMaxQueriesPerIPPerHour gets a reference to the given int32 and assigns it to the MaxQueriesPerIPPerHour field.
-func (o *ApiKey) SetMaxQueriesPerIPPerHour(v int32) {
+func (o *ApiKey) SetMaxQueriesPerIPPerHour(v int32) *ApiKey {
 	o.MaxQueriesPerIPPerHour = &v
+	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
@@ -281,8 +273,9 @@ func (o *ApiKey) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given string and assigns it to the QueryParameters field.
-func (o *ApiKey) SetQueryParameters(v string) {
+func (o *ApiKey) SetQueryParameters(v string) *ApiKey {
 	o.QueryParameters = &v
+	return o
 }
 
 // GetReferers returns the Referers field value if set, zero value otherwise.
@@ -313,8 +306,9 @@ func (o *ApiKey) HasReferers() bool {
 }
 
 // SetReferers gets a reference to the given []string and assigns it to the Referers field.
-func (o *ApiKey) SetReferers(v []string) {
+func (o *ApiKey) SetReferers(v []string) *ApiKey {
 	o.Referers = v
+	return o
 }
 
 // GetValidity returns the Validity field value if set, zero value otherwise.
@@ -345,8 +339,9 @@ func (o *ApiKey) HasValidity() bool {
 }
 
 // SetValidity gets a reference to the given int32 and assigns it to the Validity field.
-func (o *ApiKey) SetValidity(v int32) {
+func (o *ApiKey) SetValidity(v int32) *ApiKey {
 	o.Validity = &v
+	return o
 }
 
 func (o ApiKey) MarshalJSON() ([]byte, error) {

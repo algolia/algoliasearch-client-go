@@ -21,12 +21,9 @@ func NewGetObjectsParams(requests []GetObjectsRequest) *GetObjectsParams {
 	return this
 }
 
-// NewGetObjectsParamsWithDefaults instantiates a new GetObjectsParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetObjectsParamsWithDefaults() *GetObjectsParams {
-	this := &GetObjectsParams{}
-	return this
+// NewEmptyGetObjectsParams return a pointer to an empty GetObjectsParams object.
+func NewEmptyGetObjectsParams() *GetObjectsParams {
+	return &GetObjectsParams{}
 }
 
 // GetRequests returns the Requests field value.
@@ -49,8 +46,9 @@ func (o *GetObjectsParams) GetRequestsOk() ([]GetObjectsRequest, bool) {
 }
 
 // SetRequests sets field value.
-func (o *GetObjectsParams) SetRequests(v []GetObjectsRequest) {
+func (o *GetObjectsParams) SetRequests(v []GetObjectsRequest) *GetObjectsParams {
 	o.Requests = v
+	return o
 }
 
 func (o GetObjectsParams) MarshalJSON() ([]byte, error) {

@@ -56,12 +56,9 @@ func NewCurrenciesValue(opts ...CurrenciesValueOption) *CurrenciesValue {
 	return this
 }
 
-// NewCurrenciesValueWithDefaults instantiates a new CurrenciesValue object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewCurrenciesValueWithDefaults() *CurrenciesValue {
-	this := &CurrenciesValue{}
-	return this
+// NewEmptyCurrenciesValue return a pointer to an empty CurrenciesValue object.
+func NewEmptyCurrenciesValue() *CurrenciesValue {
+	return &CurrenciesValue{}
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -92,8 +89,9 @@ func (o *CurrenciesValue) HasCurrency() bool {
 }
 
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *CurrenciesValue) SetCurrency(v string) {
+func (o *CurrenciesValue) SetCurrency(v string) *CurrenciesValue {
 	o.Currency = &v
+	return o
 }
 
 // GetRevenue returns the Revenue field value if set, zero value otherwise.
@@ -124,8 +122,9 @@ func (o *CurrenciesValue) HasRevenue() bool {
 }
 
 // SetRevenue gets a reference to the given float64 and assigns it to the Revenue field.
-func (o *CurrenciesValue) SetRevenue(v float64) {
+func (o *CurrenciesValue) SetRevenue(v float64) *CurrenciesValue {
 	o.Revenue = &v
+	return o
 }
 
 // GetMean returns the Mean field value if set, zero value otherwise.
@@ -156,8 +155,9 @@ func (o *CurrenciesValue) HasMean() bool {
 }
 
 // SetMean gets a reference to the given float64 and assigns it to the Mean field.
-func (o *CurrenciesValue) SetMean(v float64) {
+func (o *CurrenciesValue) SetMean(v float64) *CurrenciesValue {
 	o.Mean = &v
+	return o
 }
 
 // GetStandardDeviation returns the StandardDeviation field value if set, zero value otherwise.
@@ -188,8 +188,9 @@ func (o *CurrenciesValue) HasStandardDeviation() bool {
 }
 
 // SetStandardDeviation gets a reference to the given float64 and assigns it to the StandardDeviation field.
-func (o *CurrenciesValue) SetStandardDeviation(v float64) {
+func (o *CurrenciesValue) SetStandardDeviation(v float64) *CurrenciesValue {
 	o.StandardDeviation = &v
+	return o
 }
 
 func (o CurrenciesValue) MarshalJSON() ([]byte, error) {

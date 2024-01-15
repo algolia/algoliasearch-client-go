@@ -28,12 +28,9 @@ func NewSearchNoResultEvent(search string, count int32, nbHits int32) *SearchNoR
 	return this
 }
 
-// NewSearchNoResultEventWithDefaults instantiates a new SearchNoResultEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchNoResultEventWithDefaults() *SearchNoResultEvent {
-	this := &SearchNoResultEvent{}
-	return this
+// NewEmptySearchNoResultEvent return a pointer to an empty SearchNoResultEvent object.
+func NewEmptySearchNoResultEvent() *SearchNoResultEvent {
+	return &SearchNoResultEvent{}
 }
 
 // GetSearch returns the Search field value.
@@ -56,8 +53,9 @@ func (o *SearchNoResultEvent) GetSearchOk() (*string, bool) {
 }
 
 // SetSearch sets field value.
-func (o *SearchNoResultEvent) SetSearch(v string) {
+func (o *SearchNoResultEvent) SetSearch(v string) *SearchNoResultEvent {
 	o.Search = v
+	return o
 }
 
 // GetCount returns the Count field value.
@@ -80,8 +78,9 @@ func (o *SearchNoResultEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *SearchNoResultEvent) SetCount(v int32) {
+func (o *SearchNoResultEvent) SetCount(v int32) *SearchNoResultEvent {
 	o.Count = v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -104,8 +103,9 @@ func (o *SearchNoResultEvent) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *SearchNoResultEvent) SetNbHits(v int32) {
+func (o *SearchNoResultEvent) SetNbHits(v int32) *SearchNoResultEvent {
 	o.NbHits = v
+	return o
 }
 
 func (o SearchNoResultEvent) MarshalJSON() ([]byte, error) {

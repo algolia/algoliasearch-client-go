@@ -52,12 +52,9 @@ func NewDestination(destinationID string, type_ DestinationType, name string, in
 	return this
 }
 
-// NewDestinationWithDefaults instantiates a new Destination object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDestinationWithDefaults() *Destination {
-	this := &Destination{}
-	return this
+// NewEmptyDestination return a pointer to an empty Destination object.
+func NewEmptyDestination() *Destination {
+	return &Destination{}
 }
 
 // GetDestinationID returns the DestinationID field value.
@@ -80,8 +77,9 @@ func (o *Destination) GetDestinationIDOk() (*string, bool) {
 }
 
 // SetDestinationID sets field value.
-func (o *Destination) SetDestinationID(v string) {
+func (o *Destination) SetDestinationID(v string) *Destination {
 	o.DestinationID = v
+	return o
 }
 
 // GetType returns the Type field value.
@@ -104,8 +102,9 @@ func (o *Destination) GetTypeOk() (*DestinationType, bool) {
 }
 
 // SetType sets field value.
-func (o *Destination) SetType(v DestinationType) {
+func (o *Destination) SetType(v DestinationType) *Destination {
 	o.Type = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -128,8 +127,9 @@ func (o *Destination) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *Destination) SetName(v string) {
+func (o *Destination) SetName(v string) *Destination {
 	o.Name = v
+	return o
 }
 
 // GetInput returns the Input field value.
@@ -152,8 +152,9 @@ func (o *Destination) GetInputOk() (*DestinationInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *Destination) SetInput(v DestinationInput) {
-	o.Input = v
+func (o *Destination) SetInput(v *DestinationInput) *Destination {
+	o.Input = *v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -176,8 +177,9 @@ func (o *Destination) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *Destination) SetCreatedAt(v string) {
+func (o *Destination) SetCreatedAt(v string) *Destination {
 	o.CreatedAt = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -208,8 +210,9 @@ func (o *Destination) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *Destination) SetUpdatedAt(v string) {
+func (o *Destination) SetUpdatedAt(v string) *Destination {
 	o.UpdatedAt = &v
+	return o
 }
 
 // GetAuthenticationID returns the AuthenticationID field value if set, zero value otherwise.
@@ -240,8 +243,9 @@ func (o *Destination) HasAuthenticationID() bool {
 }
 
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
-func (o *Destination) SetAuthenticationID(v string) {
+func (o *Destination) SetAuthenticationID(v string) *Destination {
 	o.AuthenticationID = &v
+	return o
 }
 
 func (o Destination) MarshalJSON() ([]byte, error) {

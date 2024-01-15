@@ -65,14 +65,9 @@ func NewRuleResponse(objectID string, opts ...RuleResponseOption) *RuleResponse 
 	return this
 }
 
-// NewRuleResponseWithDefaults instantiates a new RuleResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRuleResponseWithDefaults() *RuleResponse {
-	this := &RuleResponse{}
-	var enabled bool = true
-	this.Enabled = &enabled
-	return this
+// NewEmptyRuleResponse return a pointer to an empty RuleResponse object.
+func NewEmptyRuleResponse() *RuleResponse {
+	return &RuleResponse{}
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -103,8 +98,9 @@ func (o *RuleResponse) HasMetadata() bool {
 }
 
 // SetMetadata gets a reference to the given RuleResponseMetadata and assigns it to the Metadata field.
-func (o *RuleResponse) SetMetadata(v RuleResponseMetadata) {
-	o.Metadata = &v
+func (o *RuleResponse) SetMetadata(v *RuleResponseMetadata) *RuleResponse {
+	o.Metadata = v
+	return o
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -127,8 +123,9 @@ func (o *RuleResponse) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *RuleResponse) SetObjectID(v string) {
+func (o *RuleResponse) SetObjectID(v string) *RuleResponse {
 	o.ObjectID = v
+	return o
 }
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
@@ -159,8 +156,9 @@ func (o *RuleResponse) HasConditions() bool {
 }
 
 // SetConditions gets a reference to the given []Condition and assigns it to the Conditions field.
-func (o *RuleResponse) SetConditions(v []Condition) {
+func (o *RuleResponse) SetConditions(v []Condition) *RuleResponse {
 	o.Conditions = v
+	return o
 }
 
 // GetConsequence returns the Consequence field value if set, zero value otherwise.
@@ -191,8 +189,9 @@ func (o *RuleResponse) HasConsequence() bool {
 }
 
 // SetConsequence gets a reference to the given Consequence and assigns it to the Consequence field.
-func (o *RuleResponse) SetConsequence(v Consequence) {
-	o.Consequence = &v
+func (o *RuleResponse) SetConsequence(v *Consequence) *RuleResponse {
+	o.Consequence = v
+	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -223,8 +222,9 @@ func (o *RuleResponse) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *RuleResponse) SetDescription(v string) {
+func (o *RuleResponse) SetDescription(v string) *RuleResponse {
 	o.Description = &v
+	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
@@ -255,8 +255,9 @@ func (o *RuleResponse) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *RuleResponse) SetEnabled(v bool) {
+func (o *RuleResponse) SetEnabled(v bool) *RuleResponse {
 	o.Enabled = &v
+	return o
 }
 
 func (o RuleResponse) MarshalJSON() ([]byte, error) {

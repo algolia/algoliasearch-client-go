@@ -22,12 +22,9 @@ func NewTopHitsResponse(hits []TopHit) *TopHitsResponse {
 	return this
 }
 
-// NewTopHitsResponseWithDefaults instantiates a new TopHitsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTopHitsResponseWithDefaults() *TopHitsResponse {
-	this := &TopHitsResponse{}
-	return this
+// NewEmptyTopHitsResponse return a pointer to an empty TopHitsResponse object.
+func NewEmptyTopHitsResponse() *TopHitsResponse {
+	return &TopHitsResponse{}
 }
 
 // GetHits returns the Hits field value.
@@ -50,8 +47,9 @@ func (o *TopHitsResponse) GetHitsOk() ([]TopHit, bool) {
 }
 
 // SetHits sets field value.
-func (o *TopHitsResponse) SetHits(v []TopHit) {
+func (o *TopHitsResponse) SetHits(v []TopHit) *TopHitsResponse {
 	o.Hits = v
+	return o
 }
 
 func (o TopHitsResponse) MarshalJSON() ([]byte, error) {

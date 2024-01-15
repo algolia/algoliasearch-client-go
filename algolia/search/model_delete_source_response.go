@@ -22,12 +22,9 @@ func NewDeleteSourceResponse(deletedAt string) *DeleteSourceResponse {
 	return this
 }
 
-// NewDeleteSourceResponseWithDefaults instantiates a new DeleteSourceResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDeleteSourceResponseWithDefaults() *DeleteSourceResponse {
-	this := &DeleteSourceResponse{}
-	return this
+// NewEmptyDeleteSourceResponse return a pointer to an empty DeleteSourceResponse object.
+func NewEmptyDeleteSourceResponse() *DeleteSourceResponse {
+	return &DeleteSourceResponse{}
 }
 
 // GetDeletedAt returns the DeletedAt field value.
@@ -50,8 +47,9 @@ func (o *DeleteSourceResponse) GetDeletedAtOk() (*string, bool) {
 }
 
 // SetDeletedAt sets field value.
-func (o *DeleteSourceResponse) SetDeletedAt(v string) {
+func (o *DeleteSourceResponse) SetDeletedAt(v string) *DeleteSourceResponse {
 	o.DeletedAt = v
+	return o
 }
 
 func (o DeleteSourceResponse) MarshalJSON() ([]byte, error) {

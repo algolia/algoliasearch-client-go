@@ -14,31 +14,31 @@ type RecommendationsRequest struct {
 	TrendingItemsQuery     *TrendingItemsQuery
 }
 
+// TrendingItemsQueryAsRecommendationsRequest is a convenience function that returns TrendingItemsQuery wrapped in RecommendationsRequest.
+func TrendingItemsQueryAsRecommendationsRequest(v *TrendingItemsQuery) *RecommendationsRequest {
+	return &RecommendationsRequest{
+		TrendingItemsQuery: v,
+	}
+}
+
+// TrendingFacetsQueryAsRecommendationsRequest is a convenience function that returns TrendingFacetsQuery wrapped in RecommendationsRequest.
+func TrendingFacetsQueryAsRecommendationsRequest(v *TrendingFacetsQuery) *RecommendationsRequest {
+	return &RecommendationsRequest{
+		TrendingFacetsQuery: v,
+	}
+}
+
 // RecommendationsQueryAsRecommendationsRequest is a convenience function that returns RecommendationsQuery wrapped in RecommendationsRequest.
-func RecommendationsQueryAsRecommendationsRequest(v *RecommendationsQuery) RecommendationsRequest {
-	return RecommendationsRequest{
+func RecommendationsQueryAsRecommendationsRequest(v *RecommendationsQuery) *RecommendationsRequest {
+	return &RecommendationsRequest{
 		RecommendationsQuery: v,
 	}
 }
 
 // RecommendedForYouQueryAsRecommendationsRequest is a convenience function that returns RecommendedForYouQuery wrapped in RecommendationsRequest.
-func RecommendedForYouQueryAsRecommendationsRequest(v *RecommendedForYouQuery) RecommendationsRequest {
-	return RecommendationsRequest{
+func RecommendedForYouQueryAsRecommendationsRequest(v *RecommendedForYouQuery) *RecommendationsRequest {
+	return &RecommendationsRequest{
 		RecommendedForYouQuery: v,
-	}
-}
-
-// TrendingFacetsQueryAsRecommendationsRequest is a convenience function that returns TrendingFacetsQuery wrapped in RecommendationsRequest.
-func TrendingFacetsQueryAsRecommendationsRequest(v *TrendingFacetsQuery) RecommendationsRequest {
-	return RecommendationsRequest{
-		TrendingFacetsQuery: v,
-	}
-}
-
-// TrendingItemsQueryAsRecommendationsRequest is a convenience function that returns TrendingItemsQuery wrapped in RecommendationsRequest.
-func TrendingItemsQueryAsRecommendationsRequest(v *TrendingItemsQuery) RecommendationsRequest {
-	return RecommendationsRequest{
-		TrendingItemsQuery: v,
 	}
 }
 

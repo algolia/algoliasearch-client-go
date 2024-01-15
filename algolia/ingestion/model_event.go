@@ -55,12 +55,9 @@ func NewEvent(eventID string, runID string, status EventStatus, type_ EventType,
 	return this
 }
 
-// NewEventWithDefaults instantiates a new Event object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewEventWithDefaults() *Event {
-	this := &Event{}
-	return this
+// NewEmptyEvent return a pointer to an empty Event object.
+func NewEmptyEvent() *Event {
+	return &Event{}
 }
 
 // GetEventID returns the EventID field value.
@@ -83,8 +80,9 @@ func (o *Event) GetEventIDOk() (*string, bool) {
 }
 
 // SetEventID sets field value.
-func (o *Event) SetEventID(v string) {
+func (o *Event) SetEventID(v string) *Event {
 	o.EventID = v
+	return o
 }
 
 // GetRunID returns the RunID field value.
@@ -107,8 +105,9 @@ func (o *Event) GetRunIDOk() (*string, bool) {
 }
 
 // SetRunID sets field value.
-func (o *Event) SetRunID(v string) {
+func (o *Event) SetRunID(v string) *Event {
 	o.RunID = v
+	return o
 }
 
 // GetParentID returns the ParentID field value if set, zero value otherwise.
@@ -139,8 +138,9 @@ func (o *Event) HasParentID() bool {
 }
 
 // SetParentID gets a reference to the given string and assigns it to the ParentID field.
-func (o *Event) SetParentID(v string) {
+func (o *Event) SetParentID(v string) *Event {
 	o.ParentID = &v
+	return o
 }
 
 // GetStatus returns the Status field value.
@@ -163,8 +163,9 @@ func (o *Event) GetStatusOk() (*EventStatus, bool) {
 }
 
 // SetStatus sets field value.
-func (o *Event) SetStatus(v EventStatus) {
+func (o *Event) SetStatus(v EventStatus) *Event {
 	o.Status = v
+	return o
 }
 
 // GetType returns the Type field value.
@@ -187,8 +188,9 @@ func (o *Event) GetTypeOk() (*EventType, bool) {
 }
 
 // SetType sets field value.
-func (o *Event) SetType(v EventType) {
+func (o *Event) SetType(v EventType) *Event {
 	o.Type = v
+	return o
 }
 
 // GetBatchSize returns the BatchSize field value.
@@ -211,8 +213,9 @@ func (o *Event) GetBatchSizeOk() (*int32, bool) {
 }
 
 // SetBatchSize sets field value.
-func (o *Event) SetBatchSize(v int32) {
+func (o *Event) SetBatchSize(v int32) *Event {
 	o.BatchSize = v
+	return o
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
@@ -243,8 +246,9 @@ func (o *Event) HasData() bool {
 }
 
 // SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
-func (o *Event) SetData(v map[string]interface{}) {
+func (o *Event) SetData(v map[string]interface{}) *Event {
 	o.Data = v
+	return o
 }
 
 // GetPublishedAt returns the PublishedAt field value.
@@ -267,8 +271,9 @@ func (o *Event) GetPublishedAtOk() (*string, bool) {
 }
 
 // SetPublishedAt sets field value.
-func (o *Event) SetPublishedAt(v string) {
+func (o *Event) SetPublishedAt(v string) *Event {
 	o.PublishedAt = v
+	return o
 }
 
 func (o Event) MarshalJSON() ([]byte, error) {

@@ -27,12 +27,9 @@ func NewPagination(nbPages int32, page int32, nbItems int32, itemsPerPage int32)
 	return this
 }
 
-// NewPaginationWithDefaults instantiates a new Pagination object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewPaginationWithDefaults() *Pagination {
-	this := &Pagination{}
-	return this
+// NewEmptyPagination return a pointer to an empty Pagination object.
+func NewEmptyPagination() *Pagination {
+	return &Pagination{}
 }
 
 // GetNbPages returns the NbPages field value.
@@ -55,8 +52,9 @@ func (o *Pagination) GetNbPagesOk() (*int32, bool) {
 }
 
 // SetNbPages sets field value.
-func (o *Pagination) SetNbPages(v int32) {
+func (o *Pagination) SetNbPages(v int32) *Pagination {
 	o.NbPages = v
+	return o
 }
 
 // GetPage returns the Page field value.
@@ -79,8 +77,9 @@ func (o *Pagination) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *Pagination) SetPage(v int32) {
+func (o *Pagination) SetPage(v int32) *Pagination {
 	o.Page = v
+	return o
 }
 
 // GetNbItems returns the NbItems field value.
@@ -103,8 +102,9 @@ func (o *Pagination) GetNbItemsOk() (*int32, bool) {
 }
 
 // SetNbItems sets field value.
-func (o *Pagination) SetNbItems(v int32) {
+func (o *Pagination) SetNbItems(v int32) *Pagination {
 	o.NbItems = v
+	return o
 }
 
 // GetItemsPerPage returns the ItemsPerPage field value.
@@ -127,8 +127,9 @@ func (o *Pagination) GetItemsPerPageOk() (*int32, bool) {
 }
 
 // SetItemsPerPage sets field value.
-func (o *Pagination) SetItemsPerPage(v int32) {
+func (o *Pagination) SetItemsPerPage(v int32) *Pagination {
 	o.ItemsPerPage = v
+	return o
 }
 
 func (o Pagination) MarshalJSON() ([]byte, error) {

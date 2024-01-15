@@ -24,12 +24,9 @@ func NewScheduleTriggerInput(type_ ScheduleTriggerType, cron string) *ScheduleTr
 	return this
 }
 
-// NewScheduleTriggerInputWithDefaults instantiates a new ScheduleTriggerInput object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewScheduleTriggerInputWithDefaults() *ScheduleTriggerInput {
-	this := &ScheduleTriggerInput{}
-	return this
+// NewEmptyScheduleTriggerInput return a pointer to an empty ScheduleTriggerInput object.
+func NewEmptyScheduleTriggerInput() *ScheduleTriggerInput {
+	return &ScheduleTriggerInput{}
 }
 
 // GetType returns the Type field value.
@@ -52,8 +49,9 @@ func (o *ScheduleTriggerInput) GetTypeOk() (*ScheduleTriggerType, bool) {
 }
 
 // SetType sets field value.
-func (o *ScheduleTriggerInput) SetType(v ScheduleTriggerType) {
+func (o *ScheduleTriggerInput) SetType(v ScheduleTriggerType) *ScheduleTriggerInput {
 	o.Type = v
+	return o
 }
 
 // GetCron returns the Cron field value.
@@ -76,8 +74,9 @@ func (o *ScheduleTriggerInput) GetCronOk() (*string, bool) {
 }
 
 // SetCron sets field value.
-func (o *ScheduleTriggerInput) SetCron(v string) {
+func (o *ScheduleTriggerInput) SetCron(v string) *ScheduleTriggerInput {
 	o.Cron = v
+	return o
 }
 
 func (o ScheduleTriggerInput) MarshalJSON() ([]byte, error) {

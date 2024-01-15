@@ -57,12 +57,9 @@ func NewTaskCreate(sourceID string, destinationID string, trigger TaskCreateTrig
 	return this
 }
 
-// NewTaskCreateWithDefaults instantiates a new TaskCreate object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewTaskCreateWithDefaults() *TaskCreate {
-	this := &TaskCreate{}
-	return this
+// NewEmptyTaskCreate return a pointer to an empty TaskCreate object.
+func NewEmptyTaskCreate() *TaskCreate {
+	return &TaskCreate{}
 }
 
 // GetSourceID returns the SourceID field value.
@@ -85,8 +82,9 @@ func (o *TaskCreate) GetSourceIDOk() (*string, bool) {
 }
 
 // SetSourceID sets field value.
-func (o *TaskCreate) SetSourceID(v string) {
+func (o *TaskCreate) SetSourceID(v string) *TaskCreate {
 	o.SourceID = v
+	return o
 }
 
 // GetDestinationID returns the DestinationID field value.
@@ -109,8 +107,9 @@ func (o *TaskCreate) GetDestinationIDOk() (*string, bool) {
 }
 
 // SetDestinationID sets field value.
-func (o *TaskCreate) SetDestinationID(v string) {
+func (o *TaskCreate) SetDestinationID(v string) *TaskCreate {
 	o.DestinationID = v
+	return o
 }
 
 // GetTrigger returns the Trigger field value.
@@ -133,8 +132,9 @@ func (o *TaskCreate) GetTriggerOk() (*TaskCreateTrigger, bool) {
 }
 
 // SetTrigger sets field value.
-func (o *TaskCreate) SetTrigger(v TaskCreateTrigger) {
-	o.Trigger = v
+func (o *TaskCreate) SetTrigger(v *TaskCreateTrigger) *TaskCreate {
+	o.Trigger = *v
+	return o
 }
 
 // GetAction returns the Action field value.
@@ -157,8 +157,9 @@ func (o *TaskCreate) GetActionOk() (*ActionType, bool) {
 }
 
 // SetAction sets field value.
-func (o *TaskCreate) SetAction(v ActionType) {
+func (o *TaskCreate) SetAction(v ActionType) *TaskCreate {
 	o.Action = v
+	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
@@ -189,8 +190,9 @@ func (o *TaskCreate) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *TaskCreate) SetEnabled(v bool) {
+func (o *TaskCreate) SetEnabled(v bool) *TaskCreate {
 	o.Enabled = &v
+	return o
 }
 
 // GetFailureThreshold returns the FailureThreshold field value if set, zero value otherwise.
@@ -221,8 +223,9 @@ func (o *TaskCreate) HasFailureThreshold() bool {
 }
 
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
-func (o *TaskCreate) SetFailureThreshold(v int32) {
+func (o *TaskCreate) SetFailureThreshold(v int32) *TaskCreate {
 	o.FailureThreshold = &v
+	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -253,8 +256,9 @@ func (o *TaskCreate) HasInput() bool {
 }
 
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
-func (o *TaskCreate) SetInput(v TaskInput) {
-	o.Input = &v
+func (o *TaskCreate) SetInput(v *TaskInput) *TaskCreate {
+	o.Input = v
+	return o
 }
 
 func (o TaskCreate) MarshalJSON() ([]byte, error) {

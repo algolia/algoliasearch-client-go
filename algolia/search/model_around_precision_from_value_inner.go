@@ -38,12 +38,9 @@ func NewAroundPrecisionFromValueInner(opts ...AroundPrecisionFromValueInnerOptio
 	return this
 }
 
-// NewAroundPrecisionFromValueInnerWithDefaults instantiates a new AroundPrecisionFromValueInner object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAroundPrecisionFromValueInnerWithDefaults() *AroundPrecisionFromValueInner {
-	this := &AroundPrecisionFromValueInner{}
-	return this
+// NewEmptyAroundPrecisionFromValueInner return a pointer to an empty AroundPrecisionFromValueInner object.
+func NewEmptyAroundPrecisionFromValueInner() *AroundPrecisionFromValueInner {
+	return &AroundPrecisionFromValueInner{}
 }
 
 // GetFrom returns the From field value if set, zero value otherwise.
@@ -74,8 +71,9 @@ func (o *AroundPrecisionFromValueInner) HasFrom() bool {
 }
 
 // SetFrom gets a reference to the given int32 and assigns it to the From field.
-func (o *AroundPrecisionFromValueInner) SetFrom(v int32) {
+func (o *AroundPrecisionFromValueInner) SetFrom(v int32) *AroundPrecisionFromValueInner {
 	o.From = &v
+	return o
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -106,8 +104,9 @@ func (o *AroundPrecisionFromValueInner) HasValue() bool {
 }
 
 // SetValue gets a reference to the given int32 and assigns it to the Value field.
-func (o *AroundPrecisionFromValueInner) SetValue(v int32) {
+func (o *AroundPrecisionFromValueInner) SetValue(v int32) *AroundPrecisionFromValueInner {
 	o.Value = &v
+	return o
 }
 
 func (o AroundPrecisionFromValueInner) MarshalJSON() ([]byte, error) {

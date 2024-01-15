@@ -79,16 +79,9 @@ func NewSearchRulesParams(opts ...SearchRulesParamsOption) *SearchRulesParams {
 	return this
 }
 
-// NewSearchRulesParamsWithDefaults instantiates a new SearchRulesParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchRulesParamsWithDefaults() *SearchRulesParams {
-	this := &SearchRulesParams{}
-	var query string = ""
-	this.Query = &query
-	var hitsPerPage int32 = 20
-	this.HitsPerPage = &hitsPerPage
-	return this
+// NewEmptySearchRulesParams return a pointer to an empty SearchRulesParams object.
+func NewEmptySearchRulesParams() *SearchRulesParams {
+	return &SearchRulesParams{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -119,8 +112,9 @@ func (o *SearchRulesParams) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *SearchRulesParams) SetQuery(v string) {
+func (o *SearchRulesParams) SetQuery(v string) *SearchRulesParams {
 	o.Query = &v
+	return o
 }
 
 // GetAnchoring returns the Anchoring field value if set, zero value otherwise.
@@ -151,8 +145,9 @@ func (o *SearchRulesParams) HasAnchoring() bool {
 }
 
 // SetAnchoring gets a reference to the given Anchoring and assigns it to the Anchoring field.
-func (o *SearchRulesParams) SetAnchoring(v Anchoring) {
+func (o *SearchRulesParams) SetAnchoring(v Anchoring) *SearchRulesParams {
 	o.Anchoring = &v
+	return o
 }
 
 // GetContext returns the Context field value if set, zero value otherwise.
@@ -183,8 +178,9 @@ func (o *SearchRulesParams) HasContext() bool {
 }
 
 // SetContext gets a reference to the given string and assigns it to the Context field.
-func (o *SearchRulesParams) SetContext(v string) {
+func (o *SearchRulesParams) SetContext(v string) *SearchRulesParams {
 	o.Context = &v
+	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
@@ -215,8 +211,9 @@ func (o *SearchRulesParams) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *SearchRulesParams) SetPage(v int32) {
+func (o *SearchRulesParams) SetPage(v int32) *SearchRulesParams {
 	o.Page = &v
+	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
@@ -247,8 +244,9 @@ func (o *SearchRulesParams) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *SearchRulesParams) SetHitsPerPage(v int32) {
+func (o *SearchRulesParams) SetHitsPerPage(v int32) *SearchRulesParams {
 	o.HitsPerPage = &v
+	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -280,8 +278,9 @@ func (o *SearchRulesParams) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given NullableBool and assigns it to the Enabled field.
-func (o *SearchRulesParams) SetEnabled(v bool) {
+func (o *SearchRulesParams) SetEnabled(v bool) *SearchRulesParams {
 	o.Enabled.Set(&v)
+	return o
 }
 
 // SetEnabledNil sets the value for Enabled to be an explicit nil.
@@ -322,8 +321,9 @@ func (o *SearchRulesParams) HasRequestOptions() bool {
 }
 
 // SetRequestOptions gets a reference to the given []map[string]interface{} and assigns it to the RequestOptions field.
-func (o *SearchRulesParams) SetRequestOptions(v []map[string]interface{}) {
+func (o *SearchRulesParams) SetRequestOptions(v []map[string]interface{}) *SearchRulesParams {
 	o.RequestOptions = v
+	return o
 }
 
 func (o SearchRulesParams) MarshalJSON() ([]byte, error) {

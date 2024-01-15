@@ -31,12 +31,9 @@ func NewConversionRateEvent(rate float64, trackedSearchCount int32, conversionCo
 	return this
 }
 
-// NewConversionRateEventWithDefaults instantiates a new ConversionRateEvent object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConversionRateEventWithDefaults() *ConversionRateEvent {
-	this := &ConversionRateEvent{}
-	return this
+// NewEmptyConversionRateEvent return a pointer to an empty ConversionRateEvent object.
+func NewEmptyConversionRateEvent() *ConversionRateEvent {
+	return &ConversionRateEvent{}
 }
 
 // GetRate returns the Rate field value.
@@ -59,8 +56,9 @@ func (o *ConversionRateEvent) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *ConversionRateEvent) SetRate(v float64) {
+func (o *ConversionRateEvent) SetRate(v float64) *ConversionRateEvent {
 	o.Rate = v
+	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
@@ -83,8 +81,9 @@ func (o *ConversionRateEvent) GetTrackedSearchCountOk() (*int32, bool) {
 }
 
 // SetTrackedSearchCount sets field value.
-func (o *ConversionRateEvent) SetTrackedSearchCount(v int32) {
+func (o *ConversionRateEvent) SetTrackedSearchCount(v int32) *ConversionRateEvent {
 	o.TrackedSearchCount = v
+	return o
 }
 
 // GetConversionCount returns the ConversionCount field value.
@@ -107,8 +106,9 @@ func (o *ConversionRateEvent) GetConversionCountOk() (*int32, bool) {
 }
 
 // SetConversionCount sets field value.
-func (o *ConversionRateEvent) SetConversionCount(v int32) {
+func (o *ConversionRateEvent) SetConversionCount(v int32) *ConversionRateEvent {
 	o.ConversionCount = v
+	return o
 }
 
 // GetDate returns the Date field value.
@@ -131,8 +131,9 @@ func (o *ConversionRateEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *ConversionRateEvent) SetDate(v string) {
+func (o *ConversionRateEvent) SetDate(v string) *ConversionRateEvent {
 	o.Date = v
+	return o
 }
 
 func (o ConversionRateEvent) MarshalJSON() ([]byte, error) {

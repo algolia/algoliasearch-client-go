@@ -25,12 +25,9 @@ func NewUpdatedAtResponse(taskID int64, updatedAt string) *UpdatedAtResponse {
 	return this
 }
 
-// NewUpdatedAtResponseWithDefaults instantiates a new UpdatedAtResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUpdatedAtResponseWithDefaults() *UpdatedAtResponse {
-	this := &UpdatedAtResponse{}
-	return this
+// NewEmptyUpdatedAtResponse return a pointer to an empty UpdatedAtResponse object.
+func NewEmptyUpdatedAtResponse() *UpdatedAtResponse {
+	return &UpdatedAtResponse{}
 }
 
 // GetTaskID returns the TaskID field value.
@@ -53,8 +50,9 @@ func (o *UpdatedAtResponse) GetTaskIDOk() (*int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *UpdatedAtResponse) SetTaskID(v int64) {
+func (o *UpdatedAtResponse) SetTaskID(v int64) *UpdatedAtResponse {
 	o.TaskID = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -77,8 +75,9 @@ func (o *UpdatedAtResponse) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *UpdatedAtResponse) SetUpdatedAt(v string) {
+func (o *UpdatedAtResponse) SetUpdatedAt(v string) *UpdatedAtResponse {
 	o.UpdatedAt = v
+	return o
 }
 
 func (o UpdatedAtResponse) MarshalJSON() ([]byte, error) {

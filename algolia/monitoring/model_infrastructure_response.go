@@ -31,12 +31,9 @@ func NewInfrastructureResponse(opts ...InfrastructureResponseOption) *Infrastruc
 	return this
 }
 
-// NewInfrastructureResponseWithDefaults instantiates a new InfrastructureResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewInfrastructureResponseWithDefaults() *InfrastructureResponse {
-	this := &InfrastructureResponse{}
-	return this
+// NewEmptyInfrastructureResponse return a pointer to an empty InfrastructureResponse object.
+func NewEmptyInfrastructureResponse() *InfrastructureResponse {
+	return &InfrastructureResponse{}
 }
 
 // GetMetrics returns the Metrics field value if set, zero value otherwise.
@@ -67,8 +64,9 @@ func (o *InfrastructureResponse) HasMetrics() bool {
 }
 
 // SetMetrics gets a reference to the given InfrastructureResponseMetrics and assigns it to the Metrics field.
-func (o *InfrastructureResponse) SetMetrics(v InfrastructureResponseMetrics) {
-	o.Metrics = &v
+func (o *InfrastructureResponse) SetMetrics(v *InfrastructureResponseMetrics) *InfrastructureResponse {
+	o.Metrics = v
+	return o
 }
 
 func (o InfrastructureResponse) MarshalJSON() ([]byte, error) {

@@ -54,12 +54,9 @@ func NewObjectDataAfterSearch(opts ...ObjectDataAfterSearchOption) *ObjectDataAf
 	return this
 }
 
-// NewObjectDataAfterSearchWithDefaults instantiates a new ObjectDataAfterSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewObjectDataAfterSearchWithDefaults() *ObjectDataAfterSearch {
-	this := &ObjectDataAfterSearch{}
-	return this
+// NewEmptyObjectDataAfterSearch return a pointer to an empty ObjectDataAfterSearch object.
+func NewEmptyObjectDataAfterSearch() *ObjectDataAfterSearch {
+	return &ObjectDataAfterSearch{}
 }
 
 // GetQueryID returns the QueryID field value if set, zero value otherwise.
@@ -90,8 +87,9 @@ func (o *ObjectDataAfterSearch) HasQueryID() bool {
 }
 
 // SetQueryID gets a reference to the given string and assigns it to the QueryID field.
-func (o *ObjectDataAfterSearch) SetQueryID(v string) {
+func (o *ObjectDataAfterSearch) SetQueryID(v string) *ObjectDataAfterSearch {
 	o.QueryID = &v
+	return o
 }
 
 // GetPrice returns the Price field value if set, zero value otherwise.
@@ -122,8 +120,9 @@ func (o *ObjectDataAfterSearch) HasPrice() bool {
 }
 
 // SetPrice gets a reference to the given Price and assigns it to the Price field.
-func (o *ObjectDataAfterSearch) SetPrice(v Price) {
-	o.Price = &v
+func (o *ObjectDataAfterSearch) SetPrice(v *Price) *ObjectDataAfterSearch {
+	o.Price = v
+	return o
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
@@ -154,8 +153,9 @@ func (o *ObjectDataAfterSearch) HasQuantity() bool {
 }
 
 // SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *ObjectDataAfterSearch) SetQuantity(v int32) {
+func (o *ObjectDataAfterSearch) SetQuantity(v int32) *ObjectDataAfterSearch {
 	o.Quantity = &v
+	return o
 }
 
 // GetDiscount returns the Discount field value if set, zero value otherwise.
@@ -186,8 +186,9 @@ func (o *ObjectDataAfterSearch) HasDiscount() bool {
 }
 
 // SetDiscount gets a reference to the given Discount and assigns it to the Discount field.
-func (o *ObjectDataAfterSearch) SetDiscount(v Discount) {
-	o.Discount = &v
+func (o *ObjectDataAfterSearch) SetDiscount(v *Discount) *ObjectDataAfterSearch {
+	o.Discount = v
+	return o
 }
 
 func (o ObjectDataAfterSearch) MarshalJSON() ([]byte, error) {

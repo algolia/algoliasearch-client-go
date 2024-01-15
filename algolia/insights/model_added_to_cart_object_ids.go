@@ -79,12 +79,9 @@ func NewAddedToCartObjectIDs(eventName string, eventType ConversionEvent, eventS
 	return this
 }
 
-// NewAddedToCartObjectIDsWithDefaults instantiates a new AddedToCartObjectIDs object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAddedToCartObjectIDsWithDefaults() *AddedToCartObjectIDs {
-	this := &AddedToCartObjectIDs{}
-	return this
+// NewEmptyAddedToCartObjectIDs return a pointer to an empty AddedToCartObjectIDs object.
+func NewEmptyAddedToCartObjectIDs() *AddedToCartObjectIDs {
+	return &AddedToCartObjectIDs{}
 }
 
 // GetEventName returns the EventName field value.
@@ -107,8 +104,9 @@ func (o *AddedToCartObjectIDs) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *AddedToCartObjectIDs) SetEventName(v string) {
+func (o *AddedToCartObjectIDs) SetEventName(v string) *AddedToCartObjectIDs {
 	o.EventName = v
+	return o
 }
 
 // GetEventType returns the EventType field value.
@@ -131,8 +129,9 @@ func (o *AddedToCartObjectIDs) GetEventTypeOk() (*ConversionEvent, bool) {
 }
 
 // SetEventType sets field value.
-func (o *AddedToCartObjectIDs) SetEventType(v ConversionEvent) {
+func (o *AddedToCartObjectIDs) SetEventType(v ConversionEvent) *AddedToCartObjectIDs {
 	o.EventType = v
+	return o
 }
 
 // GetEventSubtype returns the EventSubtype field value.
@@ -155,8 +154,9 @@ func (o *AddedToCartObjectIDs) GetEventSubtypeOk() (*AddToCartEvent, bool) {
 }
 
 // SetEventSubtype sets field value.
-func (o *AddedToCartObjectIDs) SetEventSubtype(v AddToCartEvent) {
+func (o *AddedToCartObjectIDs) SetEventSubtype(v AddToCartEvent) *AddedToCartObjectIDs {
 	o.EventSubtype = v
+	return o
 }
 
 // GetIndex returns the Index field value.
@@ -179,8 +179,9 @@ func (o *AddedToCartObjectIDs) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *AddedToCartObjectIDs) SetIndex(v string) {
+func (o *AddedToCartObjectIDs) SetIndex(v string) *AddedToCartObjectIDs {
 	o.Index = v
+	return o
 }
 
 // GetObjectIDs returns the ObjectIDs field value.
@@ -203,8 +204,9 @@ func (o *AddedToCartObjectIDs) GetObjectIDsOk() ([]string, bool) {
 }
 
 // SetObjectIDs sets field value.
-func (o *AddedToCartObjectIDs) SetObjectIDs(v []string) {
+func (o *AddedToCartObjectIDs) SetObjectIDs(v []string) *AddedToCartObjectIDs {
 	o.ObjectIDs = v
+	return o
 }
 
 // GetUserToken returns the UserToken field value.
@@ -227,8 +229,9 @@ func (o *AddedToCartObjectIDs) GetUserTokenOk() (*string, bool) {
 }
 
 // SetUserToken sets field value.
-func (o *AddedToCartObjectIDs) SetUserToken(v string) {
+func (o *AddedToCartObjectIDs) SetUserToken(v string) *AddedToCartObjectIDs {
 	o.UserToken = v
+	return o
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -259,8 +262,9 @@ func (o *AddedToCartObjectIDs) HasAuthenticatedUserToken() bool {
 }
 
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
-func (o *AddedToCartObjectIDs) SetAuthenticatedUserToken(v string) {
+func (o *AddedToCartObjectIDs) SetAuthenticatedUserToken(v string) *AddedToCartObjectIDs {
 	o.AuthenticatedUserToken = &v
+	return o
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -291,8 +295,9 @@ func (o *AddedToCartObjectIDs) HasCurrency() bool {
 }
 
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *AddedToCartObjectIDs) SetCurrency(v string) {
+func (o *AddedToCartObjectIDs) SetCurrency(v string) *AddedToCartObjectIDs {
 	o.Currency = &v
+	return o
 }
 
 // GetObjectData returns the ObjectData field value if set, zero value otherwise.
@@ -323,8 +328,9 @@ func (o *AddedToCartObjectIDs) HasObjectData() bool {
 }
 
 // SetObjectData gets a reference to the given []ObjectData and assigns it to the ObjectData field.
-func (o *AddedToCartObjectIDs) SetObjectData(v []ObjectData) {
+func (o *AddedToCartObjectIDs) SetObjectData(v []ObjectData) *AddedToCartObjectIDs {
 	o.ObjectData = v
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -355,8 +361,9 @@ func (o *AddedToCartObjectIDs) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *AddedToCartObjectIDs) SetTimestamp(v int64) {
+func (o *AddedToCartObjectIDs) SetTimestamp(v int64) *AddedToCartObjectIDs {
 	o.Timestamp = &v
+	return o
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -387,8 +394,9 @@ func (o *AddedToCartObjectIDs) HasValue() bool {
 }
 
 // SetValue gets a reference to the given Value and assigns it to the Value field.
-func (o *AddedToCartObjectIDs) SetValue(v Value) {
-	o.Value = &v
+func (o *AddedToCartObjectIDs) SetValue(v *Value) *AddedToCartObjectIDs {
+	o.Value = v
+	return o
 }
 
 func (o AddedToCartObjectIDs) MarshalJSON() ([]byte, error) {

@@ -21,12 +21,9 @@ func NewGetLogsResponse(logs []Log) *GetLogsResponse {
 	return this
 }
 
-// NewGetLogsResponseWithDefaults instantiates a new GetLogsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetLogsResponseWithDefaults() *GetLogsResponse {
-	this := &GetLogsResponse{}
-	return this
+// NewEmptyGetLogsResponse return a pointer to an empty GetLogsResponse object.
+func NewEmptyGetLogsResponse() *GetLogsResponse {
+	return &GetLogsResponse{}
 }
 
 // GetLogs returns the Logs field value.
@@ -49,8 +46,9 @@ func (o *GetLogsResponse) GetLogsOk() ([]Log, bool) {
 }
 
 // SetLogs sets field value.
-func (o *GetLogsResponse) SetLogs(v []Log) {
+func (o *GetLogsResponse) SetLogs(v []Log) *GetLogsResponse {
 	o.Logs = v
+	return o
 }
 
 func (o GetLogsResponse) MarshalJSON() ([]byte, error) {

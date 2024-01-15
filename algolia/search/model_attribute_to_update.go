@@ -12,17 +12,17 @@ type AttributeToUpdate struct {
 	String           *string
 }
 
-// BuiltInOperationAsAttributeToUpdate is a convenience function that returns BuiltInOperation wrapped in AttributeToUpdate.
-func BuiltInOperationAsAttributeToUpdate(v *BuiltInOperation) AttributeToUpdate {
-	return AttributeToUpdate{
-		BuiltInOperation: v,
+// stringAsAttributeToUpdate is a convenience function that returns string wrapped in AttributeToUpdate.
+func StringAsAttributeToUpdate(v string) *AttributeToUpdate {
+	return &AttributeToUpdate{
+		String: &v,
 	}
 }
 
-// stringAsAttributeToUpdate is a convenience function that returns string wrapped in AttributeToUpdate.
-func StringAsAttributeToUpdate(v *string) AttributeToUpdate {
-	return AttributeToUpdate{
-		String: v,
+// BuiltInOperationAsAttributeToUpdate is a convenience function that returns BuiltInOperation wrapped in AttributeToUpdate.
+func BuiltInOperationAsAttributeToUpdate(v *BuiltInOperation) *AttributeToUpdate {
+	return &AttributeToUpdate{
+		BuiltInOperation: v,
 	}
 }
 

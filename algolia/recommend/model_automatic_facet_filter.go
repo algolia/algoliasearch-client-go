@@ -43,16 +43,9 @@ func NewAutomaticFacetFilter(facet string, opts ...AutomaticFacetFilterOption) *
 	return this
 }
 
-// NewAutomaticFacetFilterWithDefaults instantiates a new AutomaticFacetFilter object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAutomaticFacetFilterWithDefaults() *AutomaticFacetFilter {
-	this := &AutomaticFacetFilter{}
-	var score int32 = 1
-	this.Score = &score
-	var disjunctive bool = false
-	this.Disjunctive = &disjunctive
-	return this
+// NewEmptyAutomaticFacetFilter return a pointer to an empty AutomaticFacetFilter object.
+func NewEmptyAutomaticFacetFilter() *AutomaticFacetFilter {
+	return &AutomaticFacetFilter{}
 }
 
 // GetFacet returns the Facet field value.
@@ -75,8 +68,9 @@ func (o *AutomaticFacetFilter) GetFacetOk() (*string, bool) {
 }
 
 // SetFacet sets field value.
-func (o *AutomaticFacetFilter) SetFacet(v string) {
+func (o *AutomaticFacetFilter) SetFacet(v string) *AutomaticFacetFilter {
 	o.Facet = v
+	return o
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
@@ -107,8 +101,9 @@ func (o *AutomaticFacetFilter) HasScore() bool {
 }
 
 // SetScore gets a reference to the given int32 and assigns it to the Score field.
-func (o *AutomaticFacetFilter) SetScore(v int32) {
+func (o *AutomaticFacetFilter) SetScore(v int32) *AutomaticFacetFilter {
 	o.Score = &v
+	return o
 }
 
 // GetDisjunctive returns the Disjunctive field value if set, zero value otherwise.
@@ -139,8 +134,9 @@ func (o *AutomaticFacetFilter) HasDisjunctive() bool {
 }
 
 // SetDisjunctive gets a reference to the given bool and assigns it to the Disjunctive field.
-func (o *AutomaticFacetFilter) SetDisjunctive(v bool) {
+func (o *AutomaticFacetFilter) SetDisjunctive(v bool) *AutomaticFacetFilter {
 	o.Disjunctive = &v
+	return o
 }
 
 func (o AutomaticFacetFilter) MarshalJSON() ([]byte, error) {

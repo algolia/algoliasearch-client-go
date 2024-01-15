@@ -25,12 +25,9 @@ func NewPromoteObjectID(objectID string, position int32) *PromoteObjectID {
 	return this
 }
 
-// NewPromoteObjectIDWithDefaults instantiates a new PromoteObjectID object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewPromoteObjectIDWithDefaults() *PromoteObjectID {
-	this := &PromoteObjectID{}
-	return this
+// NewEmptyPromoteObjectID return a pointer to an empty PromoteObjectID object.
+func NewEmptyPromoteObjectID() *PromoteObjectID {
+	return &PromoteObjectID{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -53,8 +50,9 @@ func (o *PromoteObjectID) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *PromoteObjectID) SetObjectID(v string) {
+func (o *PromoteObjectID) SetObjectID(v string) *PromoteObjectID {
 	o.ObjectID = v
+	return o
 }
 
 // GetPosition returns the Position field value.
@@ -77,8 +75,9 @@ func (o *PromoteObjectID) GetPositionOk() (*int32, bool) {
 }
 
 // SetPosition sets field value.
-func (o *PromoteObjectID) SetPosition(v int32) {
+func (o *PromoteObjectID) SetPosition(v int32) *PromoteObjectID {
 	o.Position = v
+	return o
 }
 
 func (o PromoteObjectID) MarshalJSON() ([]byte, error) {

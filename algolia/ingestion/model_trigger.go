@@ -14,22 +14,22 @@ type Trigger struct {
 }
 
 // OnDemandTriggerAsTrigger is a convenience function that returns OnDemandTrigger wrapped in Trigger.
-func OnDemandTriggerAsTrigger(v *OnDemandTrigger) Trigger {
-	return Trigger{
+func OnDemandTriggerAsTrigger(v *OnDemandTrigger) *Trigger {
+	return &Trigger{
 		OnDemandTrigger: v,
 	}
 }
 
 // ScheduleTriggerAsTrigger is a convenience function that returns ScheduleTrigger wrapped in Trigger.
-func ScheduleTriggerAsTrigger(v *ScheduleTrigger) Trigger {
-	return Trigger{
+func ScheduleTriggerAsTrigger(v *ScheduleTrigger) *Trigger {
+	return &Trigger{
 		ScheduleTrigger: v,
 	}
 }
 
 // SubscriptionTriggerAsTrigger is a convenience function that returns SubscriptionTrigger wrapped in Trigger.
-func SubscriptionTriggerAsTrigger(v *SubscriptionTrigger) Trigger {
-	return Trigger{
+func SubscriptionTriggerAsTrigger(v *SubscriptionTrigger) *Trigger {
+	return &Trigger{
 		SubscriptionTrigger: v,
 	}
 }

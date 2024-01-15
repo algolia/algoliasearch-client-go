@@ -48,18 +48,9 @@ func NewSearchForFacetsOptions(facet string, indexName string, type_ SearchTypeF
 	return this
 }
 
-// NewSearchForFacetsOptionsWithDefaults instantiates a new SearchForFacetsOptions object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchForFacetsOptionsWithDefaults() *SearchForFacetsOptions {
-	this := &SearchForFacetsOptions{}
-	var facetQuery string = ""
-	this.FacetQuery = &facetQuery
-	var maxFacetHits int32 = 10
-	this.MaxFacetHits = &maxFacetHits
-	var type_ SearchTypeFacet = SEARCHTYPEFACET_FACET
-	this.Type = type_
-	return this
+// NewEmptySearchForFacetsOptions return a pointer to an empty SearchForFacetsOptions object.
+func NewEmptySearchForFacetsOptions() *SearchForFacetsOptions {
+	return &SearchForFacetsOptions{}
 }
 
 // GetFacet returns the Facet field value.
@@ -82,8 +73,9 @@ func (o *SearchForFacetsOptions) GetFacetOk() (*string, bool) {
 }
 
 // SetFacet sets field value.
-func (o *SearchForFacetsOptions) SetFacet(v string) {
+func (o *SearchForFacetsOptions) SetFacet(v string) *SearchForFacetsOptions {
 	o.Facet = v
+	return o
 }
 
 // GetIndexName returns the IndexName field value.
@@ -106,8 +98,9 @@ func (o *SearchForFacetsOptions) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *SearchForFacetsOptions) SetIndexName(v string) {
+func (o *SearchForFacetsOptions) SetIndexName(v string) *SearchForFacetsOptions {
 	o.IndexName = v
+	return o
 }
 
 // GetFacetQuery returns the FacetQuery field value if set, zero value otherwise.
@@ -138,8 +131,9 @@ func (o *SearchForFacetsOptions) HasFacetQuery() bool {
 }
 
 // SetFacetQuery gets a reference to the given string and assigns it to the FacetQuery field.
-func (o *SearchForFacetsOptions) SetFacetQuery(v string) {
+func (o *SearchForFacetsOptions) SetFacetQuery(v string) *SearchForFacetsOptions {
 	o.FacetQuery = &v
+	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
@@ -170,8 +164,9 @@ func (o *SearchForFacetsOptions) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *SearchForFacetsOptions) SetMaxFacetHits(v int32) {
+func (o *SearchForFacetsOptions) SetMaxFacetHits(v int32) *SearchForFacetsOptions {
 	o.MaxFacetHits = &v
+	return o
 }
 
 // GetType returns the Type field value.
@@ -194,8 +189,9 @@ func (o *SearchForFacetsOptions) GetTypeOk() (*SearchTypeFacet, bool) {
 }
 
 // SetType sets field value.
-func (o *SearchForFacetsOptions) SetType(v SearchTypeFacet) {
+func (o *SearchForFacetsOptions) SetType(v SearchTypeFacet) *SearchForFacetsOptions {
 	o.Type = v
+	return o
 }
 
 func (o SearchForFacetsOptions) MarshalJSON() ([]byte, error) {

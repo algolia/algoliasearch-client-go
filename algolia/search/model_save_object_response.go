@@ -38,12 +38,9 @@ func NewSaveObjectResponse(createdAt string, taskID int64, opts ...SaveObjectRes
 	return this
 }
 
-// NewSaveObjectResponseWithDefaults instantiates a new SaveObjectResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSaveObjectResponseWithDefaults() *SaveObjectResponse {
-	this := &SaveObjectResponse{}
-	return this
+// NewEmptySaveObjectResponse return a pointer to an empty SaveObjectResponse object.
+func NewEmptySaveObjectResponse() *SaveObjectResponse {
+	return &SaveObjectResponse{}
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -66,8 +63,9 @@ func (o *SaveObjectResponse) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *SaveObjectResponse) SetCreatedAt(v string) {
+func (o *SaveObjectResponse) SetCreatedAt(v string) *SaveObjectResponse {
 	o.CreatedAt = v
+	return o
 }
 
 // GetTaskID returns the TaskID field value.
@@ -90,8 +88,9 @@ func (o *SaveObjectResponse) GetTaskIDOk() (*int64, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *SaveObjectResponse) SetTaskID(v int64) {
+func (o *SaveObjectResponse) SetTaskID(v int64) *SaveObjectResponse {
 	o.TaskID = v
+	return o
 }
 
 // GetObjectID returns the ObjectID field value if set, zero value otherwise.
@@ -122,8 +121,9 @@ func (o *SaveObjectResponse) HasObjectID() bool {
 }
 
 // SetObjectID gets a reference to the given string and assigns it to the ObjectID field.
-func (o *SaveObjectResponse) SetObjectID(v string) {
+func (o *SaveObjectResponse) SetObjectID(v string) *SaveObjectResponse {
 	o.ObjectID = &v
+	return o
 }
 
 func (o SaveObjectResponse) MarshalJSON() ([]byte, error) {

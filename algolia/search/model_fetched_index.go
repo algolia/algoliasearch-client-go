@@ -67,16 +67,9 @@ func NewFetchedIndex(name string, createdAt string, updatedAt string, entries in
 	return this
 }
 
-// NewFetchedIndexWithDefaults instantiates a new FetchedIndex object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFetchedIndexWithDefaults() *FetchedIndex {
-	this := &FetchedIndex{}
-	var numberOfPendingTasks int32 = 0
-	this.NumberOfPendingTasks = numberOfPendingTasks
-	var pendingTask bool = false
-	this.PendingTask = pendingTask
-	return this
+// NewEmptyFetchedIndex return a pointer to an empty FetchedIndex object.
+func NewEmptyFetchedIndex() *FetchedIndex {
+	return &FetchedIndex{}
 }
 
 // GetName returns the Name field value.
@@ -99,8 +92,9 @@ func (o *FetchedIndex) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *FetchedIndex) SetName(v string) {
+func (o *FetchedIndex) SetName(v string) *FetchedIndex {
 	o.Name = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -123,8 +117,9 @@ func (o *FetchedIndex) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *FetchedIndex) SetCreatedAt(v string) {
+func (o *FetchedIndex) SetCreatedAt(v string) *FetchedIndex {
 	o.CreatedAt = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -147,8 +142,9 @@ func (o *FetchedIndex) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *FetchedIndex) SetUpdatedAt(v string) {
+func (o *FetchedIndex) SetUpdatedAt(v string) *FetchedIndex {
 	o.UpdatedAt = v
+	return o
 }
 
 // GetEntries returns the Entries field value.
@@ -171,8 +167,9 @@ func (o *FetchedIndex) GetEntriesOk() (*int32, bool) {
 }
 
 // SetEntries sets field value.
-func (o *FetchedIndex) SetEntries(v int32) {
+func (o *FetchedIndex) SetEntries(v int32) *FetchedIndex {
 	o.Entries = v
+	return o
 }
 
 // GetDataSize returns the DataSize field value.
@@ -195,8 +192,9 @@ func (o *FetchedIndex) GetDataSizeOk() (*int32, bool) {
 }
 
 // SetDataSize sets field value.
-func (o *FetchedIndex) SetDataSize(v int32) {
+func (o *FetchedIndex) SetDataSize(v int32) *FetchedIndex {
 	o.DataSize = v
+	return o
 }
 
 // GetFileSize returns the FileSize field value.
@@ -219,8 +217,9 @@ func (o *FetchedIndex) GetFileSizeOk() (*int32, bool) {
 }
 
 // SetFileSize sets field value.
-func (o *FetchedIndex) SetFileSize(v int32) {
+func (o *FetchedIndex) SetFileSize(v int32) *FetchedIndex {
 	o.FileSize = v
+	return o
 }
 
 // GetLastBuildTimeS returns the LastBuildTimeS field value.
@@ -243,8 +242,9 @@ func (o *FetchedIndex) GetLastBuildTimeSOk() (*int32, bool) {
 }
 
 // SetLastBuildTimeS sets field value.
-func (o *FetchedIndex) SetLastBuildTimeS(v int32) {
+func (o *FetchedIndex) SetLastBuildTimeS(v int32) *FetchedIndex {
 	o.LastBuildTimeS = v
+	return o
 }
 
 // GetNumberOfPendingTasks returns the NumberOfPendingTasks field value.
@@ -267,8 +267,9 @@ func (o *FetchedIndex) GetNumberOfPendingTasksOk() (*int32, bool) {
 }
 
 // SetNumberOfPendingTasks sets field value.
-func (o *FetchedIndex) SetNumberOfPendingTasks(v int32) {
+func (o *FetchedIndex) SetNumberOfPendingTasks(v int32) *FetchedIndex {
 	o.NumberOfPendingTasks = v
+	return o
 }
 
 // GetPendingTask returns the PendingTask field value.
@@ -291,8 +292,9 @@ func (o *FetchedIndex) GetPendingTaskOk() (*bool, bool) {
 }
 
 // SetPendingTask sets field value.
-func (o *FetchedIndex) SetPendingTask(v bool) {
+func (o *FetchedIndex) SetPendingTask(v bool) *FetchedIndex {
 	o.PendingTask = v
+	return o
 }
 
 // GetPrimary returns the Primary field value if set, zero value otherwise.
@@ -323,8 +325,9 @@ func (o *FetchedIndex) HasPrimary() bool {
 }
 
 // SetPrimary gets a reference to the given string and assigns it to the Primary field.
-func (o *FetchedIndex) SetPrimary(v string) {
+func (o *FetchedIndex) SetPrimary(v string) *FetchedIndex {
 	o.Primary = &v
+	return o
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
@@ -355,8 +358,9 @@ func (o *FetchedIndex) HasReplicas() bool {
 }
 
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
-func (o *FetchedIndex) SetReplicas(v []string) {
+func (o *FetchedIndex) SetReplicas(v []string) *FetchedIndex {
 	o.Replicas = v
+	return o
 }
 
 func (o FetchedIndex) MarshalJSON() ([]byte, error) {

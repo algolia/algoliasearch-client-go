@@ -21,12 +21,9 @@ func NewSourceSearch(sourceIDs []string) *SourceSearch {
 	return this
 }
 
-// NewSourceSearchWithDefaults instantiates a new SourceSearch object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceSearchWithDefaults() *SourceSearch {
-	this := &SourceSearch{}
-	return this
+// NewEmptySourceSearch return a pointer to an empty SourceSearch object.
+func NewEmptySourceSearch() *SourceSearch {
+	return &SourceSearch{}
 }
 
 // GetSourceIDs returns the SourceIDs field value.
@@ -49,8 +46,9 @@ func (o *SourceSearch) GetSourceIDsOk() ([]string, bool) {
 }
 
 // SetSourceIDs sets field value.
-func (o *SourceSearch) SetSourceIDs(v []string) {
+func (o *SourceSearch) SetSourceIDs(v []string) *SourceSearch {
 	o.SourceIDs = v
+	return o
 }
 
 func (o SourceSearch) MarshalJSON() ([]byte, error) {

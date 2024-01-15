@@ -35,12 +35,9 @@ func NewBaseGetApiKeyResponse(createdAt int64, opts ...BaseGetApiKeyResponseOpti
 	return this
 }
 
-// NewBaseGetApiKeyResponseWithDefaults instantiates a new BaseGetApiKeyResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseGetApiKeyResponseWithDefaults() *BaseGetApiKeyResponse {
-	this := &BaseGetApiKeyResponse{}
-	return this
+// NewEmptyBaseGetApiKeyResponse return a pointer to an empty BaseGetApiKeyResponse object.
+func NewEmptyBaseGetApiKeyResponse() *BaseGetApiKeyResponse {
+	return &BaseGetApiKeyResponse{}
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -71,8 +68,9 @@ func (o *BaseGetApiKeyResponse) HasValue() bool {
 }
 
 // SetValue gets a reference to the given string and assigns it to the Value field.
-func (o *BaseGetApiKeyResponse) SetValue(v string) {
+func (o *BaseGetApiKeyResponse) SetValue(v string) *BaseGetApiKeyResponse {
 	o.Value = &v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -95,8 +93,9 @@ func (o *BaseGetApiKeyResponse) GetCreatedAtOk() (*int64, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *BaseGetApiKeyResponse) SetCreatedAt(v int64) {
+func (o *BaseGetApiKeyResponse) SetCreatedAt(v int64) *BaseGetApiKeyResponse {
 	o.CreatedAt = v
+	return o
 }
 
 func (o BaseGetApiKeyResponse) MarshalJSON() ([]byte, error) {

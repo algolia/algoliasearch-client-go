@@ -89,12 +89,9 @@ func NewLog(timestamp string, method string, answerCode string, queryBody string
 	return this
 }
 
-// NewLogWithDefaults instantiates a new Log object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewLogWithDefaults() *Log {
-	this := &Log{}
-	return this
+// NewEmptyLog return a pointer to an empty Log object.
+func NewEmptyLog() *Log {
+	return &Log{}
 }
 
 // GetTimestamp returns the Timestamp field value.
@@ -117,8 +114,9 @@ func (o *Log) GetTimestampOk() (*string, bool) {
 }
 
 // SetTimestamp sets field value.
-func (o *Log) SetTimestamp(v string) {
+func (o *Log) SetTimestamp(v string) *Log {
 	o.Timestamp = v
+	return o
 }
 
 // GetMethod returns the Method field value.
@@ -141,8 +139,9 @@ func (o *Log) GetMethodOk() (*string, bool) {
 }
 
 // SetMethod sets field value.
-func (o *Log) SetMethod(v string) {
+func (o *Log) SetMethod(v string) *Log {
 	o.Method = v
+	return o
 }
 
 // GetAnswerCode returns the AnswerCode field value.
@@ -165,8 +164,9 @@ func (o *Log) GetAnswerCodeOk() (*string, bool) {
 }
 
 // SetAnswerCode sets field value.
-func (o *Log) SetAnswerCode(v string) {
+func (o *Log) SetAnswerCode(v string) *Log {
 	o.AnswerCode = v
+	return o
 }
 
 // GetQueryBody returns the QueryBody field value.
@@ -189,8 +189,9 @@ func (o *Log) GetQueryBodyOk() (*string, bool) {
 }
 
 // SetQueryBody sets field value.
-func (o *Log) SetQueryBody(v string) {
+func (o *Log) SetQueryBody(v string) *Log {
 	o.QueryBody = v
+	return o
 }
 
 // GetAnswer returns the Answer field value.
@@ -213,8 +214,9 @@ func (o *Log) GetAnswerOk() (*string, bool) {
 }
 
 // SetAnswer sets field value.
-func (o *Log) SetAnswer(v string) {
+func (o *Log) SetAnswer(v string) *Log {
 	o.Answer = v
+	return o
 }
 
 // GetUrl returns the Url field value.
@@ -237,8 +239,9 @@ func (o *Log) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value.
-func (o *Log) SetUrl(v string) {
+func (o *Log) SetUrl(v string) *Log {
 	o.Url = v
+	return o
 }
 
 // GetIp returns the Ip field value.
@@ -261,8 +264,9 @@ func (o *Log) GetIpOk() (*string, bool) {
 }
 
 // SetIp sets field value.
-func (o *Log) SetIp(v string) {
+func (o *Log) SetIp(v string) *Log {
 	o.Ip = v
+	return o
 }
 
 // GetQueryHeaders returns the QueryHeaders field value.
@@ -285,8 +289,9 @@ func (o *Log) GetQueryHeadersOk() (*string, bool) {
 }
 
 // SetQueryHeaders sets field value.
-func (o *Log) SetQueryHeaders(v string) {
+func (o *Log) SetQueryHeaders(v string) *Log {
 	o.QueryHeaders = v
+	return o
 }
 
 // GetSha1 returns the Sha1 field value.
@@ -309,8 +314,9 @@ func (o *Log) GetSha1Ok() (*string, bool) {
 }
 
 // SetSha1 sets field value.
-func (o *Log) SetSha1(v string) {
+func (o *Log) SetSha1(v string) *Log {
 	o.Sha1 = v
+	return o
 }
 
 // GetNbApiCalls returns the NbApiCalls field value.
@@ -333,8 +339,9 @@ func (o *Log) GetNbApiCallsOk() (*string, bool) {
 }
 
 // SetNbApiCalls sets field value.
-func (o *Log) SetNbApiCalls(v string) {
+func (o *Log) SetNbApiCalls(v string) *Log {
 	o.NbApiCalls = v
+	return o
 }
 
 // GetProcessingTimeMs returns the ProcessingTimeMs field value.
@@ -357,8 +364,9 @@ func (o *Log) GetProcessingTimeMsOk() (*string, bool) {
 }
 
 // SetProcessingTimeMs sets field value.
-func (o *Log) SetProcessingTimeMs(v string) {
+func (o *Log) SetProcessingTimeMs(v string) *Log {
 	o.ProcessingTimeMs = v
+	return o
 }
 
 // GetIndex returns the Index field value if set, zero value otherwise.
@@ -389,8 +397,9 @@ func (o *Log) HasIndex() bool {
 }
 
 // SetIndex gets a reference to the given string and assigns it to the Index field.
-func (o *Log) SetIndex(v string) {
+func (o *Log) SetIndex(v string) *Log {
 	o.Index = &v
+	return o
 }
 
 // GetQueryParams returns the QueryParams field value if set, zero value otherwise.
@@ -421,8 +430,9 @@ func (o *Log) HasQueryParams() bool {
 }
 
 // SetQueryParams gets a reference to the given string and assigns it to the QueryParams field.
-func (o *Log) SetQueryParams(v string) {
+func (o *Log) SetQueryParams(v string) *Log {
 	o.QueryParams = &v
+	return o
 }
 
 // GetQueryNbHits returns the QueryNbHits field value if set, zero value otherwise.
@@ -453,8 +463,9 @@ func (o *Log) HasQueryNbHits() bool {
 }
 
 // SetQueryNbHits gets a reference to the given string and assigns it to the QueryNbHits field.
-func (o *Log) SetQueryNbHits(v string) {
+func (o *Log) SetQueryNbHits(v string) *Log {
 	o.QueryNbHits = &v
+	return o
 }
 
 // GetInnerQueries returns the InnerQueries field value if set, zero value otherwise.
@@ -485,8 +496,9 @@ func (o *Log) HasInnerQueries() bool {
 }
 
 // SetInnerQueries gets a reference to the given []LogQuery and assigns it to the InnerQueries field.
-func (o *Log) SetInnerQueries(v []LogQuery) {
+func (o *Log) SetInnerQueries(v []LogQuery) *Log {
 	o.InnerQueries = v
+	return o
 }
 
 func (o Log) MarshalJSON() ([]byte, error) {

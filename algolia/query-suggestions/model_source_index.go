@@ -19,8 +19,8 @@ type SourceIndex struct {
 	// Minimum number of hits required to be included as a suggestion.  A search query must at least generate `minHits` hits to be included in the Query Suggestions index.
 	MinHits *int32 `json:"minHits,omitempty"`
 	// Minimum letters required to be included as a suggestion.  A search query must be at least `minLetters` long to be included in the Query Suggestions index.
-	MinLetters *int32      `json:"minLetters,omitempty"`
-	Generate   []*[]string `json:"generate,omitempty"`
+	MinLetters *int32     `json:"minLetters,omitempty"`
+	Generate   [][]string `json:"generate,omitempty"`
 	// Algolia indices with popular searches to use as query suggestions.  Records of these indices must have these attributes:    - `query`: search query which will be added as a suggestion   - `count`: measure of popularity of that search query  For example, you can export popular searches from an external analytics tool, such as Google Analytics or Adobe Analytics, and feed this data into an external Algolia index. You can use this external index to generate query suggestions until your Algolia analytics has collected enough data.
 	External []string `json:"external,omitempty"`
 }
@@ -57,7 +57,7 @@ func WithSourceIndexMinLetters(val int32) SourceIndexOption {
 	}
 }
 
-func WithSourceIndexGenerate(val []*[]string) SourceIndexOption {
+func WithSourceIndexGenerate(val [][]string) SourceIndexOption {
 	return func(f *SourceIndex) {
 		f.Generate = val
 	}
@@ -82,18 +82,9 @@ func NewSourceIndex(indexName string, opts ...SourceIndexOption) *SourceIndex {
 	return this
 }
 
-// NewSourceIndexWithDefaults instantiates a new SourceIndex object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceIndexWithDefaults() *SourceIndex {
-	this := &SourceIndex{}
-	var replicas bool = false
-	this.Replicas = &replicas
-	var minHits int32 = 5
-	this.MinHits = &minHits
-	var minLetters int32 = 4
-	this.MinLetters = &minLetters
-	return this
+// NewEmptySourceIndex return a pointer to an empty SourceIndex object.
+func NewEmptySourceIndex() *SourceIndex {
+	return &SourceIndex{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -116,8 +107,9 @@ func (o *SourceIndex) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *SourceIndex) SetIndexName(v string) {
+func (o *SourceIndex) SetIndexName(v string) *SourceIndex {
 	o.IndexName = v
+	return o
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
@@ -148,8 +140,9 @@ func (o *SourceIndex) HasReplicas() bool {
 }
 
 // SetReplicas gets a reference to the given bool and assigns it to the Replicas field.
-func (o *SourceIndex) SetReplicas(v bool) {
+func (o *SourceIndex) SetReplicas(v bool) *SourceIndex {
 	o.Replicas = &v
+	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -181,8 +174,9 @@ func (o *SourceIndex) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *SourceIndex) SetAnalyticsTags(v []string) {
+func (o *SourceIndex) SetAnalyticsTags(v []string) *SourceIndex {
 	o.AnalyticsTags = v
+	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -214,8 +208,9 @@ func (o *SourceIndex) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []Facet and assigns it to the Facets field.
-func (o *SourceIndex) SetFacets(v []Facet) {
+func (o *SourceIndex) SetFacets(v []Facet) *SourceIndex {
 	o.Facets = v
+	return o
 }
 
 // GetMinHits returns the MinHits field value if set, zero value otherwise.
@@ -246,8 +241,9 @@ func (o *SourceIndex) HasMinHits() bool {
 }
 
 // SetMinHits gets a reference to the given int32 and assigns it to the MinHits field.
-func (o *SourceIndex) SetMinHits(v int32) {
+func (o *SourceIndex) SetMinHits(v int32) *SourceIndex {
 	o.MinHits = &v
+	return o
 }
 
 // GetMinLetters returns the MinLetters field value if set, zero value otherwise.
@@ -278,14 +274,15 @@ func (o *SourceIndex) HasMinLetters() bool {
 }
 
 // SetMinLetters gets a reference to the given int32 and assigns it to the MinLetters field.
-func (o *SourceIndex) SetMinLetters(v int32) {
+func (o *SourceIndex) SetMinLetters(v int32) *SourceIndex {
 	o.MinLetters = &v
+	return o
 }
 
 // GetGenerate returns the Generate field value if set, zero value otherwise.
-func (o *SourceIndex) GetGenerate() []*[]string {
+func (o *SourceIndex) GetGenerate() [][]string {
 	if o == nil || o.Generate == nil {
-		var ret []*[]string
+		var ret [][]string
 		return ret
 	}
 	return o.Generate
@@ -293,7 +290,7 @@ func (o *SourceIndex) GetGenerate() []*[]string {
 
 // GetGenerateOk returns a tuple with the Generate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceIndex) GetGenerateOk() ([]*[]string, bool) {
+func (o *SourceIndex) GetGenerateOk() ([][]string, bool) {
 	if o == nil || o.Generate == nil {
 		return nil, false
 	}
@@ -309,9 +306,10 @@ func (o *SourceIndex) HasGenerate() bool {
 	return false
 }
 
-// SetGenerate gets a reference to the given []*[]string and assigns it to the Generate field.
-func (o *SourceIndex) SetGenerate(v []*[]string) {
+// SetGenerate gets a reference to the given [][]string and assigns it to the Generate field.
+func (o *SourceIndex) SetGenerate(v [][]string) *SourceIndex {
 	o.Generate = v
+	return o
 }
 
 // GetExternal returns the External field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -343,8 +341,9 @@ func (o *SourceIndex) HasExternal() bool {
 }
 
 // SetExternal gets a reference to the given []string and assigns it to the External field.
-func (o *SourceIndex) SetExternal(v []string) {
+func (o *SourceIndex) SetExternal(v []string) *SourceIndex {
 	o.External = v
+	return o
 }
 
 func (o SourceIndex) MarshalJSON() ([]byte, error) {

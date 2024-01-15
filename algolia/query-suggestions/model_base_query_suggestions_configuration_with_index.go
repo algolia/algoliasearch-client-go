@@ -22,12 +22,9 @@ func NewBaseQuerySuggestionsConfigurationWithIndex(indexName string) *BaseQueryS
 	return this
 }
 
-// NewBaseQuerySuggestionsConfigurationWithIndexWithDefaults instantiates a new BaseQuerySuggestionsConfigurationWithIndex object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBaseQuerySuggestionsConfigurationWithIndexWithDefaults() *BaseQuerySuggestionsConfigurationWithIndex {
-	this := &BaseQuerySuggestionsConfigurationWithIndex{}
-	return this
+// NewEmptyBaseQuerySuggestionsConfigurationWithIndex return a pointer to an empty BaseQuerySuggestionsConfigurationWithIndex object.
+func NewEmptyBaseQuerySuggestionsConfigurationWithIndex() *BaseQuerySuggestionsConfigurationWithIndex {
+	return &BaseQuerySuggestionsConfigurationWithIndex{}
 }
 
 // GetIndexName returns the IndexName field value.
@@ -50,8 +47,9 @@ func (o *BaseQuerySuggestionsConfigurationWithIndex) GetIndexNameOk() (*string, 
 }
 
 // SetIndexName sets field value.
-func (o *BaseQuerySuggestionsConfigurationWithIndex) SetIndexName(v string) {
+func (o *BaseQuerySuggestionsConfigurationWithIndex) SetIndexName(v string) *BaseQuerySuggestionsConfigurationWithIndex {
 	o.IndexName = v
+	return o
 }
 
 func (o BaseQuerySuggestionsConfigurationWithIndex) MarshalJSON() ([]byte, error) {

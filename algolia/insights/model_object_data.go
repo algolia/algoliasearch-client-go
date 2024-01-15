@@ -46,12 +46,9 @@ func NewObjectData(opts ...ObjectDataOption) *ObjectData {
 	return this
 }
 
-// NewObjectDataWithDefaults instantiates a new ObjectData object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewObjectDataWithDefaults() *ObjectData {
-	this := &ObjectData{}
-	return this
+// NewEmptyObjectData return a pointer to an empty ObjectData object.
+func NewEmptyObjectData() *ObjectData {
+	return &ObjectData{}
 }
 
 // GetPrice returns the Price field value if set, zero value otherwise.
@@ -82,8 +79,9 @@ func (o *ObjectData) HasPrice() bool {
 }
 
 // SetPrice gets a reference to the given Price and assigns it to the Price field.
-func (o *ObjectData) SetPrice(v Price) {
-	o.Price = &v
+func (o *ObjectData) SetPrice(v *Price) *ObjectData {
+	o.Price = v
+	return o
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
@@ -114,8 +112,9 @@ func (o *ObjectData) HasQuantity() bool {
 }
 
 // SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *ObjectData) SetQuantity(v int32) {
+func (o *ObjectData) SetQuantity(v int32) *ObjectData {
 	o.Quantity = &v
+	return o
 }
 
 // GetDiscount returns the Discount field value if set, zero value otherwise.
@@ -146,8 +145,9 @@ func (o *ObjectData) HasDiscount() bool {
 }
 
 // SetDiscount gets a reference to the given Discount and assigns it to the Discount field.
-func (o *ObjectData) SetDiscount(v Discount) {
-	o.Discount = &v
+func (o *ObjectData) SetDiscount(v *Discount) *ObjectData {
+	o.Discount = v
+	return o
 }
 
 func (o ObjectData) MarshalJSON() ([]byte, error) {

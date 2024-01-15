@@ -58,16 +58,9 @@ func NewQuerySuggestionsConfiguration(sourceIndices []SourceIndex, opts ...Query
 	return this
 }
 
-// NewQuerySuggestionsConfigurationWithDefaults instantiates a new QuerySuggestionsConfiguration object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewQuerySuggestionsConfigurationWithDefaults() *QuerySuggestionsConfiguration {
-	this := &QuerySuggestionsConfiguration{}
-	var enablePersonalization bool = false
-	this.EnablePersonalization = &enablePersonalization
-	var allowSpecialCharacters bool = false
-	this.AllowSpecialCharacters = &allowSpecialCharacters
-	return this
+// NewEmptyQuerySuggestionsConfiguration return a pointer to an empty QuerySuggestionsConfiguration object.
+func NewEmptyQuerySuggestionsConfiguration() *QuerySuggestionsConfiguration {
+	return &QuerySuggestionsConfiguration{}
 }
 
 // GetSourceIndices returns the SourceIndices field value.
@@ -90,8 +83,9 @@ func (o *QuerySuggestionsConfiguration) GetSourceIndicesOk() ([]SourceIndex, boo
 }
 
 // SetSourceIndices sets field value.
-func (o *QuerySuggestionsConfiguration) SetSourceIndices(v []SourceIndex) {
+func (o *QuerySuggestionsConfiguration) SetSourceIndices(v []SourceIndex) *QuerySuggestionsConfiguration {
 	o.SourceIndices = v
+	return o
 }
 
 // GetLanguages returns the Languages field value if set, zero value otherwise.
@@ -122,8 +116,9 @@ func (o *QuerySuggestionsConfiguration) HasLanguages() bool {
 }
 
 // SetLanguages gets a reference to the given Languages and assigns it to the Languages field.
-func (o *QuerySuggestionsConfiguration) SetLanguages(v Languages) {
-	o.Languages = &v
+func (o *QuerySuggestionsConfiguration) SetLanguages(v *Languages) *QuerySuggestionsConfiguration {
+	o.Languages = v
+	return o
 }
 
 // GetExclude returns the Exclude field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -155,8 +150,9 @@ func (o *QuerySuggestionsConfiguration) HasExclude() bool {
 }
 
 // SetExclude gets a reference to the given []string and assigns it to the Exclude field.
-func (o *QuerySuggestionsConfiguration) SetExclude(v []string) {
+func (o *QuerySuggestionsConfiguration) SetExclude(v []string) *QuerySuggestionsConfiguration {
 	o.Exclude = v
+	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
@@ -187,8 +183,9 @@ func (o *QuerySuggestionsConfiguration) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *QuerySuggestionsConfiguration) SetEnablePersonalization(v bool) {
+func (o *QuerySuggestionsConfiguration) SetEnablePersonalization(v bool) *QuerySuggestionsConfiguration {
 	o.EnablePersonalization = &v
+	return o
 }
 
 // GetAllowSpecialCharacters returns the AllowSpecialCharacters field value if set, zero value otherwise.
@@ -219,8 +216,9 @@ func (o *QuerySuggestionsConfiguration) HasAllowSpecialCharacters() bool {
 }
 
 // SetAllowSpecialCharacters gets a reference to the given bool and assigns it to the AllowSpecialCharacters field.
-func (o *QuerySuggestionsConfiguration) SetAllowSpecialCharacters(v bool) {
+func (o *QuerySuggestionsConfiguration) SetAllowSpecialCharacters(v bool) *QuerySuggestionsConfiguration {
 	o.AllowSpecialCharacters = &v
+	return o
 }
 
 func (o QuerySuggestionsConfiguration) MarshalJSON() ([]byte, error) {

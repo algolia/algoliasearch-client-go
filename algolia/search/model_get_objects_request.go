@@ -38,12 +38,9 @@ func NewGetObjectsRequest(objectID string, indexName string, opts ...GetObjectsR
 	return this
 }
 
-// NewGetObjectsRequestWithDefaults instantiates a new GetObjectsRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetObjectsRequestWithDefaults() *GetObjectsRequest {
-	this := &GetObjectsRequest{}
-	return this
+// NewEmptyGetObjectsRequest return a pointer to an empty GetObjectsRequest object.
+func NewEmptyGetObjectsRequest() *GetObjectsRequest {
+	return &GetObjectsRequest{}
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
@@ -74,8 +71,9 @@ func (o *GetObjectsRequest) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *GetObjectsRequest) SetAttributesToRetrieve(v []string) {
+func (o *GetObjectsRequest) SetAttributesToRetrieve(v []string) *GetObjectsRequest {
 	o.AttributesToRetrieve = v
+	return o
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -98,8 +96,9 @@ func (o *GetObjectsRequest) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *GetObjectsRequest) SetObjectID(v string) {
+func (o *GetObjectsRequest) SetObjectID(v string) *GetObjectsRequest {
 	o.ObjectID = v
+	return o
 }
 
 // GetIndexName returns the IndexName field value.
@@ -122,8 +121,9 @@ func (o *GetObjectsRequest) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *GetObjectsRequest) SetIndexName(v string) {
+func (o *GetObjectsRequest) SetIndexName(v string) *GetObjectsRequest {
 	o.IndexName = v
+	return o
 }
 
 func (o GetObjectsRequest) MarshalJSON() ([]byte, error) {

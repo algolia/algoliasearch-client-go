@@ -12,17 +12,17 @@ type AroundRadius struct {
 	Int32           *int32
 }
 
-// AroundRadiusAllAsAroundRadius is a convenience function that returns AroundRadiusAll wrapped in AroundRadius.
-func AroundRadiusAllAsAroundRadius(v *AroundRadiusAll) AroundRadius {
-	return AroundRadius{
-		AroundRadiusAll: v,
+// int32AsAroundRadius is a convenience function that returns int32 wrapped in AroundRadius.
+func Int32AsAroundRadius(v int32) *AroundRadius {
+	return &AroundRadius{
+		Int32: &v,
 	}
 }
 
-// int32AsAroundRadius is a convenience function that returns int32 wrapped in AroundRadius.
-func Int32AsAroundRadius(v *int32) AroundRadius {
-	return AroundRadius{
-		Int32: v,
+// AroundRadiusAllAsAroundRadius is a convenience function that returns AroundRadiusAll wrapped in AroundRadius.
+func AroundRadiusAllAsAroundRadius(v AroundRadiusAll) *AroundRadius {
+	return &AroundRadius{
+		AroundRadiusAll: &v,
 	}
 }
 

@@ -21,12 +21,9 @@ func NewAuthAPIKey(key string) *AuthAPIKey {
 	return this
 }
 
-// NewAuthAPIKeyWithDefaults instantiates a new AuthAPIKey object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthAPIKeyWithDefaults() *AuthAPIKey {
-	this := &AuthAPIKey{}
-	return this
+// NewEmptyAuthAPIKey return a pointer to an empty AuthAPIKey object.
+func NewEmptyAuthAPIKey() *AuthAPIKey {
+	return &AuthAPIKey{}
 }
 
 // GetKey returns the Key field value.
@@ -49,8 +46,9 @@ func (o *AuthAPIKey) GetKeyOk() (*string, bool) {
 }
 
 // SetKey sets field value.
-func (o *AuthAPIKey) SetKey(v string) {
+func (o *AuthAPIKey) SetKey(v string) *AuthAPIKey {
 	o.Key = v
+	return o
 }
 
 func (o AuthAPIKey) MarshalJSON() ([]byte, error) {

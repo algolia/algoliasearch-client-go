@@ -64,14 +64,9 @@ func NewDictionaryEntry(objectID string, language string, opts ...DictionaryEntr
 	return this
 }
 
-// NewDictionaryEntryWithDefaults instantiates a new DictionaryEntry object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDictionaryEntryWithDefaults() *DictionaryEntry {
-	this := &DictionaryEntry{}
-	var state DictionaryEntryState = DICTIONARYENTRYSTATE_ENABLED
-	this.State = &state
-	return this
+// NewEmptyDictionaryEntry return a pointer to an empty DictionaryEntry object.
+func NewEmptyDictionaryEntry() *DictionaryEntry {
+	return &DictionaryEntry{}
 }
 
 // GetObjectID returns the ObjectID field value.
@@ -94,8 +89,9 @@ func (o *DictionaryEntry) GetObjectIDOk() (*string, bool) {
 }
 
 // SetObjectID sets field value.
-func (o *DictionaryEntry) SetObjectID(v string) {
+func (o *DictionaryEntry) SetObjectID(v string) *DictionaryEntry {
 	o.ObjectID = v
+	return o
 }
 
 // GetLanguage returns the Language field value.
@@ -118,8 +114,9 @@ func (o *DictionaryEntry) GetLanguageOk() (*string, bool) {
 }
 
 // SetLanguage sets field value.
-func (o *DictionaryEntry) SetLanguage(v string) {
+func (o *DictionaryEntry) SetLanguage(v string) *DictionaryEntry {
 	o.Language = v
+	return o
 }
 
 // GetWord returns the Word field value if set, zero value otherwise.
@@ -150,8 +147,9 @@ func (o *DictionaryEntry) HasWord() bool {
 }
 
 // SetWord gets a reference to the given string and assigns it to the Word field.
-func (o *DictionaryEntry) SetWord(v string) {
+func (o *DictionaryEntry) SetWord(v string) *DictionaryEntry {
 	o.Word = &v
+	return o
 }
 
 // GetWords returns the Words field value if set, zero value otherwise.
@@ -182,8 +180,9 @@ func (o *DictionaryEntry) HasWords() bool {
 }
 
 // SetWords gets a reference to the given []string and assigns it to the Words field.
-func (o *DictionaryEntry) SetWords(v []string) {
+func (o *DictionaryEntry) SetWords(v []string) *DictionaryEntry {
 	o.Words = v
+	return o
 }
 
 // GetDecomposition returns the Decomposition field value if set, zero value otherwise.
@@ -214,8 +213,9 @@ func (o *DictionaryEntry) HasDecomposition() bool {
 }
 
 // SetDecomposition gets a reference to the given []string and assigns it to the Decomposition field.
-func (o *DictionaryEntry) SetDecomposition(v []string) {
+func (o *DictionaryEntry) SetDecomposition(v []string) *DictionaryEntry {
 	o.Decomposition = v
+	return o
 }
 
 // GetState returns the State field value if set, zero value otherwise.
@@ -246,8 +246,19 @@ func (o *DictionaryEntry) HasState() bool {
 }
 
 // SetState gets a reference to the given DictionaryEntryState and assigns it to the State field.
-func (o *DictionaryEntry) SetState(v DictionaryEntryState) {
+func (o *DictionaryEntry) SetState(v DictionaryEntryState) *DictionaryEntry {
 	o.State = &v
+	return o
+}
+
+func (o *DictionaryEntry) SetAdditionalProperty(key string, value any) *DictionaryEntry {
+	if o.AdditionalProperties == nil {
+		o.AdditionalProperties = make(map[string]any)
+	}
+
+	o.AdditionalProperties[key] = value
+
+	return o
 }
 
 func (o DictionaryEntry) MarshalJSON() ([]byte, error) {

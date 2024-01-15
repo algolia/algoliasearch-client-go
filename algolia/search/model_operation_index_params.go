@@ -37,12 +37,9 @@ func NewOperationIndexParams(operation OperationType, destination string, opts .
 	return this
 }
 
-// NewOperationIndexParamsWithDefaults instantiates a new OperationIndexParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewOperationIndexParamsWithDefaults() *OperationIndexParams {
-	this := &OperationIndexParams{}
-	return this
+// NewEmptyOperationIndexParams return a pointer to an empty OperationIndexParams object.
+func NewEmptyOperationIndexParams() *OperationIndexParams {
+	return &OperationIndexParams{}
 }
 
 // GetOperation returns the Operation field value.
@@ -65,8 +62,9 @@ func (o *OperationIndexParams) GetOperationOk() (*OperationType, bool) {
 }
 
 // SetOperation sets field value.
-func (o *OperationIndexParams) SetOperation(v OperationType) {
+func (o *OperationIndexParams) SetOperation(v OperationType) *OperationIndexParams {
 	o.Operation = v
+	return o
 }
 
 // GetDestination returns the Destination field value.
@@ -89,8 +87,9 @@ func (o *OperationIndexParams) GetDestinationOk() (*string, bool) {
 }
 
 // SetDestination sets field value.
-func (o *OperationIndexParams) SetDestination(v string) {
+func (o *OperationIndexParams) SetDestination(v string) *OperationIndexParams {
 	o.Destination = v
+	return o
 }
 
 // GetScope returns the Scope field value if set, zero value otherwise.
@@ -121,8 +120,9 @@ func (o *OperationIndexParams) HasScope() bool {
 }
 
 // SetScope gets a reference to the given []ScopeType and assigns it to the Scope field.
-func (o *OperationIndexParams) SetScope(v []ScopeType) {
+func (o *OperationIndexParams) SetScope(v []ScopeType) *OperationIndexParams {
 	o.Scope = v
+	return o
 }
 
 func (o OperationIndexParams) MarshalJSON() ([]byte, error) {

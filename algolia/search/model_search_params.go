@@ -12,17 +12,17 @@ type SearchParams struct {
 	SearchParamsString *SearchParamsString
 }
 
-// SearchParamsObjectAsSearchParams is a convenience function that returns SearchParamsObject wrapped in SearchParams.
-func SearchParamsObjectAsSearchParams(v *SearchParamsObject) SearchParams {
-	return SearchParams{
-		SearchParamsObject: v,
+// SearchParamsStringAsSearchParams is a convenience function that returns SearchParamsString wrapped in SearchParams.
+func SearchParamsStringAsSearchParams(v *SearchParamsString) *SearchParams {
+	return &SearchParams{
+		SearchParamsString: v,
 	}
 }
 
-// SearchParamsStringAsSearchParams is a convenience function that returns SearchParamsString wrapped in SearchParams.
-func SearchParamsStringAsSearchParams(v *SearchParamsString) SearchParams {
-	return SearchParams{
-		SearchParamsString: v,
+// SearchParamsObjectAsSearchParams is a convenience function that returns SearchParamsObject wrapped in SearchParams.
+func SearchParamsObjectAsSearchParams(v *SearchParamsObject) *SearchParams {
+	return &SearchParams{
+		SearchParamsObject: v,
 	}
 }
 

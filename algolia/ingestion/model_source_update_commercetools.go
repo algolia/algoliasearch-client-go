@@ -40,12 +40,9 @@ func NewSourceUpdateCommercetools(opts ...SourceUpdateCommercetoolsOption) *Sour
 	return this
 }
 
-// NewSourceUpdateCommercetoolsWithDefaults instantiates a new SourceUpdateCommercetools object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceUpdateCommercetoolsWithDefaults() *SourceUpdateCommercetools {
-	this := &SourceUpdateCommercetools{}
-	return this
+// NewEmptySourceUpdateCommercetools return a pointer to an empty SourceUpdateCommercetools object.
+func NewEmptySourceUpdateCommercetools() *SourceUpdateCommercetools {
+	return &SourceUpdateCommercetools{}
 }
 
 // GetStoreKeys returns the StoreKeys field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *SourceUpdateCommercetools) HasStoreKeys() bool {
 }
 
 // SetStoreKeys gets a reference to the given []string and assigns it to the StoreKeys field.
-func (o *SourceUpdateCommercetools) SetStoreKeys(v []string) {
+func (o *SourceUpdateCommercetools) SetStoreKeys(v []string) *SourceUpdateCommercetools {
 	o.StoreKeys = v
+	return o
 }
 
 // GetLocales returns the Locales field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *SourceUpdateCommercetools) HasLocales() bool {
 }
 
 // SetLocales gets a reference to the given []string and assigns it to the Locales field.
-func (o *SourceUpdateCommercetools) SetLocales(v []string) {
+func (o *SourceUpdateCommercetools) SetLocales(v []string) *SourceUpdateCommercetools {
 	o.Locales = v
+	return o
 }
 
 func (o SourceUpdateCommercetools) MarshalJSON() ([]byte, error) {

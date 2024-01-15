@@ -33,12 +33,9 @@ func NewSearchMethodParams(requests []SearchQuery, opts ...SearchMethodParamsOpt
 	return this
 }
 
-// NewSearchMethodParamsWithDefaults instantiates a new SearchMethodParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchMethodParamsWithDefaults() *SearchMethodParams {
-	this := &SearchMethodParams{}
-	return this
+// NewEmptySearchMethodParams return a pointer to an empty SearchMethodParams object.
+func NewEmptySearchMethodParams() *SearchMethodParams {
+	return &SearchMethodParams{}
 }
 
 // GetRequests returns the Requests field value.
@@ -61,8 +58,9 @@ func (o *SearchMethodParams) GetRequestsOk() ([]SearchQuery, bool) {
 }
 
 // SetRequests sets field value.
-func (o *SearchMethodParams) SetRequests(v []SearchQuery) {
+func (o *SearchMethodParams) SetRequests(v []SearchQuery) *SearchMethodParams {
 	o.Requests = v
+	return o
 }
 
 // GetStrategy returns the Strategy field value if set, zero value otherwise.
@@ -93,8 +91,9 @@ func (o *SearchMethodParams) HasStrategy() bool {
 }
 
 // SetStrategy gets a reference to the given SearchStrategy and assigns it to the Strategy field.
-func (o *SearchMethodParams) SetStrategy(v SearchStrategy) {
+func (o *SearchMethodParams) SetStrategy(v SearchStrategy) *SearchMethodParams {
 	o.Strategy = &v
+	return o
 }
 
 func (o SearchMethodParams) MarshalJSON() ([]byte, error) {

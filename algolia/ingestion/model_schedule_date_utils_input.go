@@ -22,12 +22,9 @@ func NewScheduleDateUtilsInput(timeframe int32) *ScheduleDateUtilsInput {
 	return this
 }
 
-// NewScheduleDateUtilsInputWithDefaults instantiates a new ScheduleDateUtilsInput object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewScheduleDateUtilsInputWithDefaults() *ScheduleDateUtilsInput {
-	this := &ScheduleDateUtilsInput{}
-	return this
+// NewEmptyScheduleDateUtilsInput return a pointer to an empty ScheduleDateUtilsInput object.
+func NewEmptyScheduleDateUtilsInput() *ScheduleDateUtilsInput {
+	return &ScheduleDateUtilsInput{}
 }
 
 // GetTimeframe returns the Timeframe field value.
@@ -50,8 +47,9 @@ func (o *ScheduleDateUtilsInput) GetTimeframeOk() (*int32, bool) {
 }
 
 // SetTimeframe sets field value.
-func (o *ScheduleDateUtilsInput) SetTimeframe(v int32) {
+func (o *ScheduleDateUtilsInput) SetTimeframe(v int32) *ScheduleDateUtilsInput {
 	o.Timeframe = v
+	return o
 }
 
 func (o ScheduleDateUtilsInput) MarshalJSON() ([]byte, error) {

@@ -39,12 +39,9 @@ func NewFacetOrdering(opts ...FacetOrderingOption) *FacetOrdering {
 	return this
 }
 
-// NewFacetOrderingWithDefaults instantiates a new FacetOrdering object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewFacetOrderingWithDefaults() *FacetOrdering {
-	this := &FacetOrdering{}
-	return this
+// NewEmptyFacetOrdering return a pointer to an empty FacetOrdering object.
+func NewEmptyFacetOrdering() *FacetOrdering {
+	return &FacetOrdering{}
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
@@ -75,8 +72,9 @@ func (o *FacetOrdering) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given Facets and assigns it to the Facets field.
-func (o *FacetOrdering) SetFacets(v Facets) {
-	o.Facets = &v
+func (o *FacetOrdering) SetFacets(v *Facets) *FacetOrdering {
+	o.Facets = v
+	return o
 }
 
 // GetValues returns the Values field value if set, zero value otherwise.
@@ -107,8 +105,9 @@ func (o *FacetOrdering) HasValues() bool {
 }
 
 // SetValues gets a reference to the given map[string]Value and assigns it to the Values field.
-func (o *FacetOrdering) SetValues(v map[string]Value) {
+func (o *FacetOrdering) SetValues(v map[string]Value) *FacetOrdering {
 	o.Values = &v
+	return o
 }
 
 func (o FacetOrdering) MarshalJSON() ([]byte, error) {

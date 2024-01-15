@@ -40,12 +40,9 @@ func NewAuthAlgoliaPartial(opts ...AuthAlgoliaPartialOption) *AuthAlgoliaPartial
 	return this
 }
 
-// NewAuthAlgoliaPartialWithDefaults instantiates a new AuthAlgoliaPartial object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthAlgoliaPartialWithDefaults() *AuthAlgoliaPartial {
-	this := &AuthAlgoliaPartial{}
-	return this
+// NewEmptyAuthAlgoliaPartial return a pointer to an empty AuthAlgoliaPartial object.
+func NewEmptyAuthAlgoliaPartial() *AuthAlgoliaPartial {
+	return &AuthAlgoliaPartial{}
 }
 
 // GetAppID returns the AppID field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *AuthAlgoliaPartial) HasAppID() bool {
 }
 
 // SetAppID gets a reference to the given string and assigns it to the AppID field.
-func (o *AuthAlgoliaPartial) SetAppID(v string) {
+func (o *AuthAlgoliaPartial) SetAppID(v string) *AuthAlgoliaPartial {
 	o.AppID = &v
+	return o
 }
 
 // GetApiKey returns the ApiKey field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *AuthAlgoliaPartial) HasApiKey() bool {
 }
 
 // SetApiKey gets a reference to the given string and assigns it to the ApiKey field.
-func (o *AuthAlgoliaPartial) SetApiKey(v string) {
+func (o *AuthAlgoliaPartial) SetApiKey(v string) *AuthAlgoliaPartial {
 	o.ApiKey = &v
+	return o
 }
 
 func (o AuthAlgoliaPartial) MarshalJSON() ([]byte, error) {

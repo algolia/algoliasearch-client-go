@@ -28,12 +28,9 @@ func NewAuthOAuth(url string, clientId string, clientSecret string) *AuthOAuth {
 	return this
 }
 
-// NewAuthOAuthWithDefaults instantiates a new AuthOAuth object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthOAuthWithDefaults() *AuthOAuth {
-	this := &AuthOAuth{}
-	return this
+// NewEmptyAuthOAuth return a pointer to an empty AuthOAuth object.
+func NewEmptyAuthOAuth() *AuthOAuth {
+	return &AuthOAuth{}
 }
 
 // GetUrl returns the Url field value.
@@ -56,8 +53,9 @@ func (o *AuthOAuth) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value.
-func (o *AuthOAuth) SetUrl(v string) {
+func (o *AuthOAuth) SetUrl(v string) *AuthOAuth {
 	o.Url = v
+	return o
 }
 
 // GetClientId returns the ClientId field value.
@@ -80,8 +78,9 @@ func (o *AuthOAuth) GetClientIdOk() (*string, bool) {
 }
 
 // SetClientId sets field value.
-func (o *AuthOAuth) SetClientId(v string) {
+func (o *AuthOAuth) SetClientId(v string) *AuthOAuth {
 	o.ClientId = v
+	return o
 }
 
 // GetClientSecret returns the ClientSecret field value.
@@ -104,8 +103,9 @@ func (o *AuthOAuth) GetClientSecretOk() (*string, bool) {
 }
 
 // SetClientSecret sets field value.
-func (o *AuthOAuth) SetClientSecret(v string) {
+func (o *AuthOAuth) SetClientSecret(v string) *AuthOAuth {
 	o.ClientSecret = v
+	return o
 }
 
 func (o AuthOAuth) MarshalJSON() ([]byte, error) {

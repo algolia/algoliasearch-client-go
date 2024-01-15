@@ -48,18 +48,9 @@ func NewSearchForFacetValuesRequest(opts ...SearchForFacetValuesRequestOption) *
 	return this
 }
 
-// NewSearchForFacetValuesRequestWithDefaults instantiates a new SearchForFacetValuesRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchForFacetValuesRequestWithDefaults() *SearchForFacetValuesRequest {
-	this := &SearchForFacetValuesRequest{}
-	var params string = ""
-	this.Params = &params
-	var facetQuery string = ""
-	this.FacetQuery = &facetQuery
-	var maxFacetHits int32 = 10
-	this.MaxFacetHits = &maxFacetHits
-	return this
+// NewEmptySearchForFacetValuesRequest return a pointer to an empty SearchForFacetValuesRequest object.
+func NewEmptySearchForFacetValuesRequest() *SearchForFacetValuesRequest {
+	return &SearchForFacetValuesRequest{}
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
@@ -90,8 +81,9 @@ func (o *SearchForFacetValuesRequest) HasParams() bool {
 }
 
 // SetParams gets a reference to the given string and assigns it to the Params field.
-func (o *SearchForFacetValuesRequest) SetParams(v string) {
+func (o *SearchForFacetValuesRequest) SetParams(v string) *SearchForFacetValuesRequest {
 	o.Params = &v
+	return o
 }
 
 // GetFacetQuery returns the FacetQuery field value if set, zero value otherwise.
@@ -122,8 +114,9 @@ func (o *SearchForFacetValuesRequest) HasFacetQuery() bool {
 }
 
 // SetFacetQuery gets a reference to the given string and assigns it to the FacetQuery field.
-func (o *SearchForFacetValuesRequest) SetFacetQuery(v string) {
+func (o *SearchForFacetValuesRequest) SetFacetQuery(v string) *SearchForFacetValuesRequest {
 	o.FacetQuery = &v
+	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
@@ -154,8 +147,9 @@ func (o *SearchForFacetValuesRequest) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *SearchForFacetValuesRequest) SetMaxFacetHits(v int32) {
+func (o *SearchForFacetValuesRequest) SetMaxFacetHits(v int32) *SearchForFacetValuesRequest {
 	o.MaxFacetHits = &v
+	return o
 }
 
 func (o SearchForFacetValuesRequest) MarshalJSON() ([]byte, error) {

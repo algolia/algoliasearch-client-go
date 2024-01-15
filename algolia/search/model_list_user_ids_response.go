@@ -22,12 +22,9 @@ func NewListUserIdsResponse(userIDs []UserId) *ListUserIdsResponse {
 	return this
 }
 
-// NewListUserIdsResponseWithDefaults instantiates a new ListUserIdsResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListUserIdsResponseWithDefaults() *ListUserIdsResponse {
-	this := &ListUserIdsResponse{}
-	return this
+// NewEmptyListUserIdsResponse return a pointer to an empty ListUserIdsResponse object.
+func NewEmptyListUserIdsResponse() *ListUserIdsResponse {
+	return &ListUserIdsResponse{}
 }
 
 // GetUserIDs returns the UserIDs field value.
@@ -50,8 +47,9 @@ func (o *ListUserIdsResponse) GetUserIDsOk() ([]UserId, bool) {
 }
 
 // SetUserIDs sets field value.
-func (o *ListUserIdsResponse) SetUserIDs(v []UserId) {
+func (o *ListUserIdsResponse) SetUserIDs(v []UserId) *ListUserIdsResponse {
 	o.UserIDs = v
+	return o
 }
 
 func (o ListUserIdsResponse) MarshalJSON() ([]byte, error) {

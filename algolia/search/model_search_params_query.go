@@ -32,14 +32,9 @@ func NewSearchParamsQuery(opts ...SearchParamsQueryOption) *SearchParamsQuery {
 	return this
 }
 
-// NewSearchParamsQueryWithDefaults instantiates a new SearchParamsQuery object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchParamsQueryWithDefaults() *SearchParamsQuery {
-	this := &SearchParamsQuery{}
-	var query string = ""
-	this.Query = &query
-	return this
+// NewEmptySearchParamsQuery return a pointer to an empty SearchParamsQuery object.
+func NewEmptySearchParamsQuery() *SearchParamsQuery {
+	return &SearchParamsQuery{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -70,8 +65,9 @@ func (o *SearchParamsQuery) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *SearchParamsQuery) SetQuery(v string) {
+func (o *SearchParamsQuery) SetQuery(v string) *SearchParamsQuery {
 	o.Query = &v
+	return o
 }
 
 func (o SearchParamsQuery) MarshalJSON() ([]byte, error) {

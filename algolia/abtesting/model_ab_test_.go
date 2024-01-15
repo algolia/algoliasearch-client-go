@@ -55,12 +55,9 @@ func NewABTest(abTestID int32, clickSignificance float64, conversionSignificance
 	return this
 }
 
-// NewABTestWithDefaults instantiates a new ABTest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewABTestWithDefaults() *ABTest {
-	this := &ABTest{}
-	return this
+// NewEmptyABTest return a pointer to an empty ABTest object.
+func NewEmptyABTest() *ABTest {
+	return &ABTest{}
 }
 
 // GetAbTestID returns the AbTestID field value.
@@ -83,8 +80,9 @@ func (o *ABTest) GetAbTestIDOk() (*int32, bool) {
 }
 
 // SetAbTestID sets field value.
-func (o *ABTest) SetAbTestID(v int32) {
+func (o *ABTest) SetAbTestID(v int32) *ABTest {
 	o.AbTestID = v
+	return o
 }
 
 // GetClickSignificance returns the ClickSignificance field value.
@@ -107,8 +105,9 @@ func (o *ABTest) GetClickSignificanceOk() (*float64, bool) {
 }
 
 // SetClickSignificance sets field value.
-func (o *ABTest) SetClickSignificance(v float64) {
+func (o *ABTest) SetClickSignificance(v float64) *ABTest {
 	o.ClickSignificance = v
+	return o
 }
 
 // GetConversionSignificance returns the ConversionSignificance field value.
@@ -131,8 +130,9 @@ func (o *ABTest) GetConversionSignificanceOk() (*float64, bool) {
 }
 
 // SetConversionSignificance sets field value.
-func (o *ABTest) SetConversionSignificance(v float64) {
+func (o *ABTest) SetConversionSignificance(v float64) *ABTest {
 	o.ConversionSignificance = v
+	return o
 }
 
 // GetAddToCartSignificance returns the AddToCartSignificance field value.
@@ -155,8 +155,9 @@ func (o *ABTest) GetAddToCartSignificanceOk() (*float64, bool) {
 }
 
 // SetAddToCartSignificance sets field value.
-func (o *ABTest) SetAddToCartSignificance(v float64) {
+func (o *ABTest) SetAddToCartSignificance(v float64) *ABTest {
 	o.AddToCartSignificance = v
+	return o
 }
 
 // GetPurchaseSignificance returns the PurchaseSignificance field value.
@@ -179,8 +180,9 @@ func (o *ABTest) GetPurchaseSignificanceOk() (*float64, bool) {
 }
 
 // SetPurchaseSignificance sets field value.
-func (o *ABTest) SetPurchaseSignificance(v float64) {
+func (o *ABTest) SetPurchaseSignificance(v float64) *ABTest {
 	o.PurchaseSignificance = v
+	return o
 }
 
 // GetRevenueSignificance returns the RevenueSignificance field value.
@@ -203,8 +205,9 @@ func (o *ABTest) GetRevenueSignificanceOk() (*map[string]float64, bool) {
 }
 
 // SetRevenueSignificance sets field value.
-func (o *ABTest) SetRevenueSignificance(v map[string]float64) {
+func (o *ABTest) SetRevenueSignificance(v map[string]float64) *ABTest {
 	o.RevenueSignificance = v
+	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value.
@@ -227,8 +230,9 @@ func (o *ABTest) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value.
-func (o *ABTest) SetUpdatedAt(v string) {
+func (o *ABTest) SetUpdatedAt(v string) *ABTest {
 	o.UpdatedAt = v
+	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -251,8 +255,9 @@ func (o *ABTest) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *ABTest) SetCreatedAt(v string) {
+func (o *ABTest) SetCreatedAt(v string) *ABTest {
 	o.CreatedAt = v
+	return o
 }
 
 // GetEndAt returns the EndAt field value.
@@ -275,8 +280,9 @@ func (o *ABTest) GetEndAtOk() (*string, bool) {
 }
 
 // SetEndAt sets field value.
-func (o *ABTest) SetEndAt(v string) {
+func (o *ABTest) SetEndAt(v string) *ABTest {
 	o.EndAt = v
+	return o
 }
 
 // GetName returns the Name field value.
@@ -299,8 +305,9 @@ func (o *ABTest) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *ABTest) SetName(v string) {
+func (o *ABTest) SetName(v string) *ABTest {
 	o.Name = v
+	return o
 }
 
 // GetStatus returns the Status field value.
@@ -323,8 +330,9 @@ func (o *ABTest) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value.
-func (o *ABTest) SetStatus(v string) {
+func (o *ABTest) SetStatus(v string) *ABTest {
 	o.Status = v
+	return o
 }
 
 // GetVariants returns the Variants field value.
@@ -347,8 +355,9 @@ func (o *ABTest) GetVariantsOk() ([]Variant, bool) {
 }
 
 // SetVariants sets field value.
-func (o *ABTest) SetVariants(v []Variant) {
+func (o *ABTest) SetVariants(v []Variant) *ABTest {
 	o.Variants = v
+	return o
 }
 
 func (o ABTest) MarshalJSON() ([]byte, error) {

@@ -24,12 +24,9 @@ func NewBuiltInOperation(operation BuiltInOperationType, value string) *BuiltInO
 	return this
 }
 
-// NewBuiltInOperationWithDefaults instantiates a new BuiltInOperation object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBuiltInOperationWithDefaults() *BuiltInOperation {
-	this := &BuiltInOperation{}
-	return this
+// NewEmptyBuiltInOperation return a pointer to an empty BuiltInOperation object.
+func NewEmptyBuiltInOperation() *BuiltInOperation {
+	return &BuiltInOperation{}
 }
 
 // GetOperation returns the Operation field value.
@@ -52,8 +49,9 @@ func (o *BuiltInOperation) GetOperationOk() (*BuiltInOperationType, bool) {
 }
 
 // SetOperation sets field value.
-func (o *BuiltInOperation) SetOperation(v BuiltInOperationType) {
+func (o *BuiltInOperation) SetOperation(v BuiltInOperationType) *BuiltInOperation {
 	o.Operation = v
+	return o
 }
 
 // GetValue returns the Value field value.
@@ -76,8 +74,9 @@ func (o *BuiltInOperation) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value.
-func (o *BuiltInOperation) SetValue(v string) {
+func (o *BuiltInOperation) SetValue(v string) *BuiltInOperation {
 	o.Value = v
+	return o
 }
 
 func (o BuiltInOperation) MarshalJSON() ([]byte, error) {

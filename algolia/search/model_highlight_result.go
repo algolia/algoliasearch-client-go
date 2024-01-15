@@ -13,16 +13,16 @@ type HighlightResult struct {
 }
 
 // HighlightResultOptionAsHighlightResult is a convenience function that returns HighlightResultOption wrapped in HighlightResult.
-func HighlightResultOptionAsHighlightResult(v *HighlightResultOption) HighlightResult {
-	return HighlightResult{
+func HighlightResultOptionAsHighlightResult(v *HighlightResultOption) *HighlightResult {
+	return &HighlightResult{
 		HighlightResultOption: v,
 	}
 }
 
 // map[string]HighlightResultOptionAsHighlightResult is a convenience function that returns map[string]HighlightResultOption wrapped in HighlightResult.
-func MapmapOfStringHighlightResultOptionAsHighlightResult(v *map[string]HighlightResultOption) HighlightResult {
-	return HighlightResult{
-		MapmapOfStringHighlightResultOption: v,
+func MapmapOfStringHighlightResultOptionAsHighlightResult(v map[string]HighlightResultOption) *HighlightResult {
+	return &HighlightResult{
+		MapmapOfStringHighlightResultOption: &v,
 	}
 }
 

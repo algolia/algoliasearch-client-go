@@ -42,12 +42,9 @@ func NewSourceJSON(url string, opts ...SourceJSONOption) *SourceJSON {
 	return this
 }
 
-// NewSourceJSONWithDefaults instantiates a new SourceJSON object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSourceJSONWithDefaults() *SourceJSON {
-	this := &SourceJSON{}
-	return this
+// NewEmptySourceJSON return a pointer to an empty SourceJSON object.
+func NewEmptySourceJSON() *SourceJSON {
+	return &SourceJSON{}
 }
 
 // GetUrl returns the Url field value.
@@ -70,8 +67,9 @@ func (o *SourceJSON) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value.
-func (o *SourceJSON) SetUrl(v string) {
+func (o *SourceJSON) SetUrl(v string) *SourceJSON {
 	o.Url = v
+	return o
 }
 
 // GetUniqueIDColumn returns the UniqueIDColumn field value if set, zero value otherwise.
@@ -102,8 +100,9 @@ func (o *SourceJSON) HasUniqueIDColumn() bool {
 }
 
 // SetUniqueIDColumn gets a reference to the given string and assigns it to the UniqueIDColumn field.
-func (o *SourceJSON) SetUniqueIDColumn(v string) {
+func (o *SourceJSON) SetUniqueIDColumn(v string) *SourceJSON {
 	o.UniqueIDColumn = &v
+	return o
 }
 
 // GetMethod returns the Method field value if set, zero value otherwise.
@@ -134,8 +133,9 @@ func (o *SourceJSON) HasMethod() bool {
 }
 
 // SetMethod gets a reference to the given MethodType and assigns it to the Method field.
-func (o *SourceJSON) SetMethod(v MethodType) {
+func (o *SourceJSON) SetMethod(v MethodType) *SourceJSON {
 	o.Method = &v
+	return o
 }
 
 func (o SourceJSON) MarshalJSON() ([]byte, error) {

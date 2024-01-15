@@ -23,12 +23,9 @@ func NewUserHighlightResult(userID HighlightResult, clusterName HighlightResult)
 	return this
 }
 
-// NewUserHighlightResultWithDefaults instantiates a new UserHighlightResult object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewUserHighlightResultWithDefaults() *UserHighlightResult {
-	this := &UserHighlightResult{}
-	return this
+// NewEmptyUserHighlightResult return a pointer to an empty UserHighlightResult object.
+func NewEmptyUserHighlightResult() *UserHighlightResult {
+	return &UserHighlightResult{}
 }
 
 // GetUserID returns the UserID field value.
@@ -51,8 +48,9 @@ func (o *UserHighlightResult) GetUserIDOk() (*HighlightResult, bool) {
 }
 
 // SetUserID sets field value.
-func (o *UserHighlightResult) SetUserID(v HighlightResult) {
-	o.UserID = v
+func (o *UserHighlightResult) SetUserID(v *HighlightResult) *UserHighlightResult {
+	o.UserID = *v
+	return o
 }
 
 // GetClusterName returns the ClusterName field value.
@@ -75,8 +73,9 @@ func (o *UserHighlightResult) GetClusterNameOk() (*HighlightResult, bool) {
 }
 
 // SetClusterName sets field value.
-func (o *UserHighlightResult) SetClusterName(v HighlightResult) {
-	o.ClusterName = v
+func (o *UserHighlightResult) SetClusterName(v *HighlightResult) *UserHighlightResult {
+	o.ClusterName = *v
+	return o
 }
 
 func (o UserHighlightResult) MarshalJSON() ([]byte, error) {

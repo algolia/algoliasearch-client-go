@@ -13,16 +13,16 @@ type PlatformWithNone struct {
 }
 
 // PlatformAsPlatformWithNone is a convenience function that returns Platform wrapped in PlatformWithNone.
-func PlatformAsPlatformWithNone(v *Platform) PlatformWithNone {
-	return PlatformWithNone{
-		Platform: v,
+func PlatformAsPlatformWithNone(v Platform) *PlatformWithNone {
+	return &PlatformWithNone{
+		Platform: &v,
 	}
 }
 
 // PlatformNoneAsPlatformWithNone is a convenience function that returns PlatformNone wrapped in PlatformWithNone.
-func PlatformNoneAsPlatformWithNone(v *PlatformNone) PlatformWithNone {
-	return PlatformWithNone{
-		PlatformNone: v,
+func PlatformNoneAsPlatformWithNone(v PlatformNone) *PlatformWithNone {
+	return &PlatformWithNone{
+		PlatformNone: &v,
 	}
 }
 

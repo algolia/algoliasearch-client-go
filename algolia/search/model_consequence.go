@@ -63,14 +63,9 @@ func NewConsequence(opts ...ConsequenceOption) *Consequence {
 	return this
 }
 
-// NewConsequenceWithDefaults instantiates a new Consequence object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewConsequenceWithDefaults() *Consequence {
-	this := &Consequence{}
-	var filterPromotes bool = false
-	this.FilterPromotes = &filterPromotes
-	return this
+// NewEmptyConsequence return a pointer to an empty Consequence object.
+func NewEmptyConsequence() *Consequence {
+	return &Consequence{}
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
@@ -101,8 +96,9 @@ func (o *Consequence) HasParams() bool {
 }
 
 // SetParams gets a reference to the given ConsequenceParams and assigns it to the Params field.
-func (o *Consequence) SetParams(v ConsequenceParams) {
-	o.Params = &v
+func (o *Consequence) SetParams(v *ConsequenceParams) *Consequence {
+	o.Params = v
+	return o
 }
 
 // GetPromote returns the Promote field value if set, zero value otherwise.
@@ -133,8 +129,9 @@ func (o *Consequence) HasPromote() bool {
 }
 
 // SetPromote gets a reference to the given []Promote and assigns it to the Promote field.
-func (o *Consequence) SetPromote(v []Promote) {
+func (o *Consequence) SetPromote(v []Promote) *Consequence {
 	o.Promote = v
+	return o
 }
 
 // GetFilterPromotes returns the FilterPromotes field value if set, zero value otherwise.
@@ -165,8 +162,9 @@ func (o *Consequence) HasFilterPromotes() bool {
 }
 
 // SetFilterPromotes gets a reference to the given bool and assigns it to the FilterPromotes field.
-func (o *Consequence) SetFilterPromotes(v bool) {
+func (o *Consequence) SetFilterPromotes(v bool) *Consequence {
 	o.FilterPromotes = &v
+	return o
 }
 
 // GetHide returns the Hide field value if set, zero value otherwise.
@@ -197,8 +195,9 @@ func (o *Consequence) HasHide() bool {
 }
 
 // SetHide gets a reference to the given []ConsequenceHide and assigns it to the Hide field.
-func (o *Consequence) SetHide(v []ConsequenceHide) {
+func (o *Consequence) SetHide(v []ConsequenceHide) *Consequence {
 	o.Hide = v
+	return o
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -230,8 +229,9 @@ func (o *Consequence) HasUserData() bool {
 }
 
 // SetUserData gets a reference to the given interface{} and assigns it to the UserData field.
-func (o *Consequence) SetUserData(v interface{}) {
+func (o *Consequence) SetUserData(v interface{}) *Consequence {
 	o.UserData = v
+	return o
 }
 
 func (o Consequence) MarshalJSON() ([]byte, error) {

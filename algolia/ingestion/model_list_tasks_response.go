@@ -23,12 +23,9 @@ func NewListTasksResponse(tasks []Task, pagination Pagination) *ListTasksRespons
 	return this
 }
 
-// NewListTasksResponseWithDefaults instantiates a new ListTasksResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewListTasksResponseWithDefaults() *ListTasksResponse {
-	this := &ListTasksResponse{}
-	return this
+// NewEmptyListTasksResponse return a pointer to an empty ListTasksResponse object.
+func NewEmptyListTasksResponse() *ListTasksResponse {
+	return &ListTasksResponse{}
 }
 
 // GetTasks returns the Tasks field value.
@@ -51,8 +48,9 @@ func (o *ListTasksResponse) GetTasksOk() ([]Task, bool) {
 }
 
 // SetTasks sets field value.
-func (o *ListTasksResponse) SetTasks(v []Task) {
+func (o *ListTasksResponse) SetTasks(v []Task) *ListTasksResponse {
 	o.Tasks = v
+	return o
 }
 
 // GetPagination returns the Pagination field value.
@@ -75,8 +73,9 @@ func (o *ListTasksResponse) GetPaginationOk() (*Pagination, bool) {
 }
 
 // SetPagination sets field value.
-func (o *ListTasksResponse) SetPagination(v Pagination) {
-	o.Pagination = v
+func (o *ListTasksResponse) SetPagination(v *Pagination) *ListTasksResponse {
+	o.Pagination = *v
+	return o
 }
 
 func (o ListTasksResponse) MarshalJSON() ([]byte, error) {

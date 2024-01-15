@@ -55,12 +55,9 @@ func NewGetLogFile200Response(opts ...GetLogFile200ResponseOption) *GetLogFile20
 	return this
 }
 
-// NewGetLogFile200ResponseWithDefaults instantiates a new GetLogFile200Response object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewGetLogFile200ResponseWithDefaults() *GetLogFile200Response {
-	this := &GetLogFile200Response{}
-	return this
+// NewEmptyGetLogFile200Response return a pointer to an empty GetLogFile200Response object.
+func NewEmptyGetLogFile200Response() *GetLogFile200Response {
+	return &GetLogFile200Response{}
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -91,8 +88,9 @@ func (o *GetLogFile200Response) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given string and assigns it to the Timestamp field.
-func (o *GetLogFile200Response) SetTimestamp(v string) {
+func (o *GetLogFile200Response) SetTimestamp(v string) *GetLogFile200Response {
 	o.Timestamp = &v
+	return o
 }
 
 // GetLevel returns the Level field value if set, zero value otherwise.
@@ -123,8 +121,9 @@ func (o *GetLogFile200Response) HasLevel() bool {
 }
 
 // SetLevel gets a reference to the given LogLevel and assigns it to the Level field.
-func (o *GetLogFile200Response) SetLevel(v LogLevel) {
+func (o *GetLogFile200Response) SetLevel(v LogLevel) *GetLogFile200Response {
 	o.Level = &v
+	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -155,8 +154,9 @@ func (o *GetLogFile200Response) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *GetLogFile200Response) SetMessage(v string) {
+func (o *GetLogFile200Response) SetMessage(v string) *GetLogFile200Response {
 	o.Message = &v
+	return o
 }
 
 // GetContextLevel returns the ContextLevel field value if set, zero value otherwise.
@@ -187,8 +187,9 @@ func (o *GetLogFile200Response) HasContextLevel() bool {
 }
 
 // SetContextLevel gets a reference to the given int32 and assigns it to the ContextLevel field.
-func (o *GetLogFile200Response) SetContextLevel(v int32) {
+func (o *GetLogFile200Response) SetContextLevel(v int32) *GetLogFile200Response {
 	o.ContextLevel = &v
+	return o
 }
 
 func (o GetLogFile200Response) MarshalJSON() ([]byte, error) {

@@ -13,15 +13,15 @@ type GetTopHitsResponse struct {
 }
 
 // TopHitsResponseAsGetTopHitsResponse is a convenience function that returns TopHitsResponse wrapped in GetTopHitsResponse.
-func TopHitsResponseAsGetTopHitsResponse(v *TopHitsResponse) GetTopHitsResponse {
-	return GetTopHitsResponse{
+func TopHitsResponseAsGetTopHitsResponse(v *TopHitsResponse) *GetTopHitsResponse {
+	return &GetTopHitsResponse{
 		TopHitsResponse: v,
 	}
 }
 
 // TopHitsResponseWithAnalyticsAsGetTopHitsResponse is a convenience function that returns TopHitsResponseWithAnalytics wrapped in GetTopHitsResponse.
-func TopHitsResponseWithAnalyticsAsGetTopHitsResponse(v *TopHitsResponseWithAnalytics) GetTopHitsResponse {
-	return GetTopHitsResponse{
+func TopHitsResponseWithAnalyticsAsGetTopHitsResponse(v *TopHitsResponseWithAnalytics) *GetTopHitsResponse {
+	return &GetTopHitsResponse{
 		TopHitsResponseWithAnalytics: v,
 	}
 }

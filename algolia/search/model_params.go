@@ -52,12 +52,9 @@ func NewParams(opts ...ParamsOption) *Params {
 	return this
 }
 
-// NewParamsWithDefaults instantiates a new Params object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewParamsWithDefaults() *Params {
-	this := &Params{}
-	return this
+// NewEmptyParams return a pointer to an empty Params object.
+func NewEmptyParams() *Params {
+	return &Params{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -88,8 +85,9 @@ func (o *Params) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given ConsequenceQuery and assigns it to the Query field.
-func (o *Params) SetQuery(v ConsequenceQuery) {
-	o.Query = &v
+func (o *Params) SetQuery(v *ConsequenceQuery) *Params {
+	o.Query = v
+	return o
 }
 
 // GetAutomaticFacetFilters returns the AutomaticFacetFilters field value if set, zero value otherwise.
@@ -120,8 +118,9 @@ func (o *Params) HasAutomaticFacetFilters() bool {
 }
 
 // SetAutomaticFacetFilters gets a reference to the given AutomaticFacetFilters and assigns it to the AutomaticFacetFilters field.
-func (o *Params) SetAutomaticFacetFilters(v AutomaticFacetFilters) {
-	o.AutomaticFacetFilters = &v
+func (o *Params) SetAutomaticFacetFilters(v *AutomaticFacetFilters) *Params {
+	o.AutomaticFacetFilters = v
+	return o
 }
 
 // GetAutomaticOptionalFacetFilters returns the AutomaticOptionalFacetFilters field value if set, zero value otherwise.
@@ -152,8 +151,9 @@ func (o *Params) HasAutomaticOptionalFacetFilters() bool {
 }
 
 // SetAutomaticOptionalFacetFilters gets a reference to the given AutomaticFacetFilters and assigns it to the AutomaticOptionalFacetFilters field.
-func (o *Params) SetAutomaticOptionalFacetFilters(v AutomaticFacetFilters) {
-	o.AutomaticOptionalFacetFilters = &v
+func (o *Params) SetAutomaticOptionalFacetFilters(v *AutomaticFacetFilters) *Params {
+	o.AutomaticOptionalFacetFilters = v
+	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
@@ -184,8 +184,9 @@ func (o *Params) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *Params) SetRenderingContent(v RenderingContent) {
-	o.RenderingContent = &v
+func (o *Params) SetRenderingContent(v *RenderingContent) *Params {
+	o.RenderingContent = v
+	return o
 }
 
 func (o Params) MarshalJSON() ([]byte, error) {

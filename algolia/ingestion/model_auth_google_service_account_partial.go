@@ -40,12 +40,9 @@ func NewAuthGoogleServiceAccountPartial(opts ...AuthGoogleServiceAccountPartialO
 	return this
 }
 
-// NewAuthGoogleServiceAccountPartialWithDefaults instantiates a new AuthGoogleServiceAccountPartial object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewAuthGoogleServiceAccountPartialWithDefaults() *AuthGoogleServiceAccountPartial {
-	this := &AuthGoogleServiceAccountPartial{}
-	return this
+// NewEmptyAuthGoogleServiceAccountPartial return a pointer to an empty AuthGoogleServiceAccountPartial object.
+func NewEmptyAuthGoogleServiceAccountPartial() *AuthGoogleServiceAccountPartial {
+	return &AuthGoogleServiceAccountPartial{}
 }
 
 // GetClientEmail returns the ClientEmail field value if set, zero value otherwise.
@@ -76,8 +73,9 @@ func (o *AuthGoogleServiceAccountPartial) HasClientEmail() bool {
 }
 
 // SetClientEmail gets a reference to the given string and assigns it to the ClientEmail field.
-func (o *AuthGoogleServiceAccountPartial) SetClientEmail(v string) {
+func (o *AuthGoogleServiceAccountPartial) SetClientEmail(v string) *AuthGoogleServiceAccountPartial {
 	o.ClientEmail = &v
+	return o
 }
 
 // GetPrivateKey returns the PrivateKey field value if set, zero value otherwise.
@@ -108,8 +106,9 @@ func (o *AuthGoogleServiceAccountPartial) HasPrivateKey() bool {
 }
 
 // SetPrivateKey gets a reference to the given string and assigns it to the PrivateKey field.
-func (o *AuthGoogleServiceAccountPartial) SetPrivateKey(v string) {
+func (o *AuthGoogleServiceAccountPartial) SetPrivateKey(v string) *AuthGoogleServiceAccountPartial {
 	o.PrivateKey = &v
+	return o
 }
 
 func (o AuthGoogleServiceAccountPartial) MarshalJSON() ([]byte, error) {

@@ -93,18 +93,9 @@ func NewQuerySuggestionsConfigurationResponse(indexName string, sourceIndices []
 	return this
 }
 
-// NewQuerySuggestionsConfigurationResponseWithDefaults instantiates a new QuerySuggestionsConfigurationResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewQuerySuggestionsConfigurationResponseWithDefaults() *QuerySuggestionsConfigurationResponse {
-	this := &QuerySuggestionsConfigurationResponse{}
-	var externalIndicesAPIKey string = ""
-	this.ExternalIndicesAPIKey = &externalIndicesAPIKey
-	var enablePersonalization bool = false
-	this.EnablePersonalization = &enablePersonalization
-	var allowSpecialCharacters bool = false
-	this.AllowSpecialCharacters = &allowSpecialCharacters
-	return this
+// NewEmptyQuerySuggestionsConfigurationResponse return a pointer to an empty QuerySuggestionsConfigurationResponse object.
+func NewEmptyQuerySuggestionsConfigurationResponse() *QuerySuggestionsConfigurationResponse {
+	return &QuerySuggestionsConfigurationResponse{}
 }
 
 // GetAppId returns the AppId field value if set, zero value otherwise.
@@ -135,8 +126,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasAppId() bool {
 }
 
 // SetAppId gets a reference to the given string and assigns it to the AppId field.
-func (o *QuerySuggestionsConfigurationResponse) SetAppId(v string) {
+func (o *QuerySuggestionsConfigurationResponse) SetAppId(v string) *QuerySuggestionsConfigurationResponse {
 	o.AppId = &v
+	return o
 }
 
 // GetSourceIndicesAPIKey returns the SourceIndicesAPIKey field value if set, zero value otherwise.
@@ -167,8 +159,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasSourceIndicesAPIKey() bool {
 }
 
 // SetSourceIndicesAPIKey gets a reference to the given string and assigns it to the SourceIndicesAPIKey field.
-func (o *QuerySuggestionsConfigurationResponse) SetSourceIndicesAPIKey(v string) {
+func (o *QuerySuggestionsConfigurationResponse) SetSourceIndicesAPIKey(v string) *QuerySuggestionsConfigurationResponse {
 	o.SourceIndicesAPIKey = &v
+	return o
 }
 
 // GetSuggestionsIndicesAPIKey returns the SuggestionsIndicesAPIKey field value if set, zero value otherwise.
@@ -199,8 +192,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasSuggestionsIndicesAPIKey() bo
 }
 
 // SetSuggestionsIndicesAPIKey gets a reference to the given string and assigns it to the SuggestionsIndicesAPIKey field.
-func (o *QuerySuggestionsConfigurationResponse) SetSuggestionsIndicesAPIKey(v string) {
+func (o *QuerySuggestionsConfigurationResponse) SetSuggestionsIndicesAPIKey(v string) *QuerySuggestionsConfigurationResponse {
 	o.SuggestionsIndicesAPIKey = &v
+	return o
 }
 
 // GetExternalIndicesAPIKey returns the ExternalIndicesAPIKey field value if set, zero value otherwise.
@@ -231,8 +225,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasExternalIndicesAPIKey() bool 
 }
 
 // SetExternalIndicesAPIKey gets a reference to the given string and assigns it to the ExternalIndicesAPIKey field.
-func (o *QuerySuggestionsConfigurationResponse) SetExternalIndicesAPIKey(v string) {
+func (o *QuerySuggestionsConfigurationResponse) SetExternalIndicesAPIKey(v string) *QuerySuggestionsConfigurationResponse {
 	o.ExternalIndicesAPIKey = &v
+	return o
 }
 
 // GetIndexName returns the IndexName field value.
@@ -255,8 +250,9 @@ func (o *QuerySuggestionsConfigurationResponse) GetIndexNameOk() (*string, bool)
 }
 
 // SetIndexName sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetIndexName(v string) {
+func (o *QuerySuggestionsConfigurationResponse) SetIndexName(v string) *QuerySuggestionsConfigurationResponse {
 	o.IndexName = v
+	return o
 }
 
 // GetSourceIndices returns the SourceIndices field value.
@@ -279,8 +275,9 @@ func (o *QuerySuggestionsConfigurationResponse) GetSourceIndicesOk() ([]SourceIn
 }
 
 // SetSourceIndices sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetSourceIndices(v []SourceIndex) {
+func (o *QuerySuggestionsConfigurationResponse) SetSourceIndices(v []SourceIndex) *QuerySuggestionsConfigurationResponse {
 	o.SourceIndices = v
+	return o
 }
 
 // GetLanguages returns the Languages field value if set, zero value otherwise.
@@ -311,8 +308,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasLanguages() bool {
 }
 
 // SetLanguages gets a reference to the given Languages and assigns it to the Languages field.
-func (o *QuerySuggestionsConfigurationResponse) SetLanguages(v Languages) {
-	o.Languages = &v
+func (o *QuerySuggestionsConfigurationResponse) SetLanguages(v *Languages) *QuerySuggestionsConfigurationResponse {
+	o.Languages = v
+	return o
 }
 
 // GetExclude returns the Exclude field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -344,8 +342,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasExclude() bool {
 }
 
 // SetExclude gets a reference to the given []string and assigns it to the Exclude field.
-func (o *QuerySuggestionsConfigurationResponse) SetExclude(v []string) {
+func (o *QuerySuggestionsConfigurationResponse) SetExclude(v []string) *QuerySuggestionsConfigurationResponse {
 	o.Exclude = v
+	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
@@ -376,8 +375,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasEnablePersonalization() bool 
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *QuerySuggestionsConfigurationResponse) SetEnablePersonalization(v bool) {
+func (o *QuerySuggestionsConfigurationResponse) SetEnablePersonalization(v bool) *QuerySuggestionsConfigurationResponse {
 	o.EnablePersonalization = &v
+	return o
 }
 
 // GetAllowSpecialCharacters returns the AllowSpecialCharacters field value if set, zero value otherwise.
@@ -408,8 +408,9 @@ func (o *QuerySuggestionsConfigurationResponse) HasAllowSpecialCharacters() bool
 }
 
 // SetAllowSpecialCharacters gets a reference to the given bool and assigns it to the AllowSpecialCharacters field.
-func (o *QuerySuggestionsConfigurationResponse) SetAllowSpecialCharacters(v bool) {
+func (o *QuerySuggestionsConfigurationResponse) SetAllowSpecialCharacters(v bool) *QuerySuggestionsConfigurationResponse {
 	o.AllowSpecialCharacters = &v
+	return o
 }
 
 func (o QuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {

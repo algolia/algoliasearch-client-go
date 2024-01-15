@@ -31,12 +31,9 @@ func NewSearchRulesResponse(hits []Rule, nbHits int32, page int32, nbPages int32
 	return this
 }
 
-// NewSearchRulesResponseWithDefaults instantiates a new SearchRulesResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewSearchRulesResponseWithDefaults() *SearchRulesResponse {
-	this := &SearchRulesResponse{}
-	return this
+// NewEmptySearchRulesResponse return a pointer to an empty SearchRulesResponse object.
+func NewEmptySearchRulesResponse() *SearchRulesResponse {
+	return &SearchRulesResponse{}
 }
 
 // GetHits returns the Hits field value.
@@ -59,8 +56,9 @@ func (o *SearchRulesResponse) GetHitsOk() ([]Rule, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchRulesResponse) SetHits(v []Rule) {
+func (o *SearchRulesResponse) SetHits(v []Rule) *SearchRulesResponse {
 	o.Hits = v
+	return o
 }
 
 // GetNbHits returns the NbHits field value.
@@ -83,8 +81,9 @@ func (o *SearchRulesResponse) GetNbHitsOk() (*int32, bool) {
 }
 
 // SetNbHits sets field value.
-func (o *SearchRulesResponse) SetNbHits(v int32) {
+func (o *SearchRulesResponse) SetNbHits(v int32) *SearchRulesResponse {
 	o.NbHits = v
+	return o
 }
 
 // GetPage returns the Page field value.
@@ -107,8 +106,9 @@ func (o *SearchRulesResponse) GetPageOk() (*int32, bool) {
 }
 
 // SetPage sets field value.
-func (o *SearchRulesResponse) SetPage(v int32) {
+func (o *SearchRulesResponse) SetPage(v int32) *SearchRulesResponse {
 	o.Page = v
+	return o
 }
 
 // GetNbPages returns the NbPages field value.
@@ -131,8 +131,9 @@ func (o *SearchRulesResponse) GetNbPagesOk() (*int32, bool) {
 }
 
 // SetNbPages sets field value.
-func (o *SearchRulesResponse) SetNbPages(v int32) {
+func (o *SearchRulesResponse) SetNbPages(v int32) *SearchRulesResponse {
 	o.NbPages = v
+	return o
 }
 
 func (o SearchRulesResponse) MarshalJSON() ([]byte, error) {

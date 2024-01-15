@@ -38,12 +38,9 @@ func NewRunProgress(opts ...RunProgressOption) *RunProgress {
 	return this
 }
 
-// NewRunProgressWithDefaults instantiates a new RunProgress object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewRunProgressWithDefaults() *RunProgress {
-	this := &RunProgress{}
-	return this
+// NewEmptyRunProgress return a pointer to an empty RunProgress object.
+func NewEmptyRunProgress() *RunProgress {
+	return &RunProgress{}
 }
 
 // GetExpectedNbOfEvents returns the ExpectedNbOfEvents field value if set, zero value otherwise.
@@ -74,8 +71,9 @@ func (o *RunProgress) HasExpectedNbOfEvents() bool {
 }
 
 // SetExpectedNbOfEvents gets a reference to the given int32 and assigns it to the ExpectedNbOfEvents field.
-func (o *RunProgress) SetExpectedNbOfEvents(v int32) {
+func (o *RunProgress) SetExpectedNbOfEvents(v int32) *RunProgress {
 	o.ExpectedNbOfEvents = &v
+	return o
 }
 
 // GetReceivedNbOfEvents returns the ReceivedNbOfEvents field value if set, zero value otherwise.
@@ -106,8 +104,9 @@ func (o *RunProgress) HasReceivedNbOfEvents() bool {
 }
 
 // SetReceivedNbOfEvents gets a reference to the given int32 and assigns it to the ReceivedNbOfEvents field.
-func (o *RunProgress) SetReceivedNbOfEvents(v int32) {
+func (o *RunProgress) SetReceivedNbOfEvents(v int32) *RunProgress {
 	o.ReceivedNbOfEvents = &v
+	return o
 }
 
 func (o RunProgress) MarshalJSON() ([]byte, error) {

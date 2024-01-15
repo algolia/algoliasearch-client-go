@@ -22,12 +22,9 @@ func NewDeleteApiKeyResponse(deletedAt string) *DeleteApiKeyResponse {
 	return this
 }
 
-// NewDeleteApiKeyResponseWithDefaults instantiates a new DeleteApiKeyResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewDeleteApiKeyResponseWithDefaults() *DeleteApiKeyResponse {
-	this := &DeleteApiKeyResponse{}
-	return this
+// NewEmptyDeleteApiKeyResponse return a pointer to an empty DeleteApiKeyResponse object.
+func NewEmptyDeleteApiKeyResponse() *DeleteApiKeyResponse {
+	return &DeleteApiKeyResponse{}
 }
 
 // GetDeletedAt returns the DeletedAt field value.
@@ -50,8 +47,9 @@ func (o *DeleteApiKeyResponse) GetDeletedAtOk() (*string, bool) {
 }
 
 // SetDeletedAt sets field value.
-func (o *DeleteApiKeyResponse) SetDeletedAt(v string) {
+func (o *DeleteApiKeyResponse) SetDeletedAt(v string) *DeleteApiKeyResponse {
 	o.DeletedAt = v
+	return o
 }
 
 func (o DeleteApiKeyResponse) MarshalJSON() ([]byte, error) {

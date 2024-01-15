@@ -21,12 +21,9 @@ func NewBatchParams(requests []MultipleBatchRequest) *BatchParams {
 	return this
 }
 
-// NewBatchParamsWithDefaults instantiates a new BatchParams object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set.
-func NewBatchParamsWithDefaults() *BatchParams {
-	this := &BatchParams{}
-	return this
+// NewEmptyBatchParams return a pointer to an empty BatchParams object.
+func NewEmptyBatchParams() *BatchParams {
+	return &BatchParams{}
 }
 
 // GetRequests returns the Requests field value.
@@ -49,8 +46,9 @@ func (o *BatchParams) GetRequestsOk() ([]MultipleBatchRequest, bool) {
 }
 
 // SetRequests sets field value.
-func (o *BatchParams) SetRequests(v []MultipleBatchRequest) {
+func (o *BatchParams) SetRequests(v []MultipleBatchRequest) *BatchParams {
 	o.Requests = v
+	return o
 }
 
 func (o BatchParams) MarshalJSON() ([]byte, error) {
