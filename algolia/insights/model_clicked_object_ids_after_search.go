@@ -8,36 +8,36 @@ import (
 
 // ClickedObjectIDsAfterSearch Click event after an Algolia request.  Use this event to track when users click items in the search results. If you're building your category pages with Algolia, you'll also use this event.
 type ClickedObjectIDsAfterSearch struct {
-	// Can contain up to 64 ASCII characters.   Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
+	// The name of the event, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName string     `json:"eventName"`
 	EventType ClickEvent `json:"eventType"`
-	// Name of the Algolia index.
+	// The name of an Algolia index.
 	Index string `json:"index"`
-	// List of object identifiers for items of an Algolia index.
+	// The object IDs of the records that are part of the event.
 	ObjectIDs []string `json:"objectIDs"`
-	// Position of the clicked objects in the search results.  The first search result has a position of 1 (not 0). You must provide 1 `position` for each `objectID`.
+	// The position of the clicked item the search results.  The first search result has a position of 1 (not 0). You must provide 1 `position` for each `objectID`.
 	Positions []int32 `json:"positions"`
 	// Unique identifier for a search query.  The query ID is required for events related to search or browse requests. If you add `clickAnalytics: true` as a search request parameter, the query ID is included in the API response.
 	QueryID string `json:"queryID"`
-	// Anonymous or pseudonymous user identifier.   > **Note**: Never include personally identifiable information in user tokens.
+	// An anonymous or pseudonymous user identifier.  > **Note**: Never include personally identifiable information in user tokens.
 	UserToken string `json:"userToken"`
-	// Time of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-	// User token for authenticated users.
+	// An identifier for authenticated users.  > **Note**: Never include personally identifiable information in user tokens.
 	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
+	// The timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 type ClickedObjectIDsAfterSearchOption func(f *ClickedObjectIDsAfterSearch)
 
-func WithClickedObjectIDsAfterSearchTimestamp(val int64) ClickedObjectIDsAfterSearchOption {
-	return func(f *ClickedObjectIDsAfterSearch) {
-		f.Timestamp = &val
-	}
-}
-
 func WithClickedObjectIDsAfterSearchAuthenticatedUserToken(val string) ClickedObjectIDsAfterSearchOption {
 	return func(f *ClickedObjectIDsAfterSearch) {
 		f.AuthenticatedUserToken = &val
+	}
+}
+
+func WithClickedObjectIDsAfterSearchTimestamp(val int64) ClickedObjectIDsAfterSearchOption {
+	return func(f *ClickedObjectIDsAfterSearch) {
+		f.Timestamp = &val
 	}
 }
 
@@ -236,38 +236,6 @@ func (o *ClickedObjectIDsAfterSearch) SetUserToken(v string) {
 	o.UserToken = v
 }
 
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *ClickedObjectIDsAfterSearch) GetTimestamp() int64 {
-	if o == nil || o.Timestamp == nil {
-		var ret int64
-		return ret
-	}
-	return *o.Timestamp
-}
-
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ClickedObjectIDsAfterSearch) GetTimestampOk() (*int64, bool) {
-	if o == nil || o.Timestamp == nil {
-		return nil, false
-	}
-	return o.Timestamp, true
-}
-
-// HasTimestamp returns a boolean if a field has been set.
-func (o *ClickedObjectIDsAfterSearch) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ClickedObjectIDsAfterSearch) SetTimestamp(v int64) {
-	o.Timestamp = &v
-}
-
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
 func (o *ClickedObjectIDsAfterSearch) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
@@ -300,6 +268,38 @@ func (o *ClickedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) {
 	o.AuthenticatedUserToken = &v
 }
 
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *ClickedObjectIDsAfterSearch) GetTimestamp() int64 {
+	if o == nil || o.Timestamp == nil {
+		var ret int64
+		return ret
+	}
+	return *o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClickedObjectIDsAfterSearch) GetTimestampOk() (*int64, bool) {
+	if o == nil || o.Timestamp == nil {
+		return nil, false
+	}
+	return o.Timestamp, true
+}
+
+// HasTimestamp returns a boolean if a field has been set.
+func (o *ClickedObjectIDsAfterSearch) HasTimestamp() bool {
+	if o != nil && o.Timestamp != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *ClickedObjectIDsAfterSearch) SetTimestamp(v int64) {
+	o.Timestamp = &v
+}
+
 func (o ClickedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -323,11 +323,11 @@ func (o ClickedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["userToken"] = o.UserToken
 	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
-	}
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
+	}
+	if o.Timestamp != nil {
+		toSerialize["timestamp"] = o.Timestamp
 	}
 	return json.Marshal(toSerialize)
 }
@@ -341,8 +341,8 @@ func (o ClickedObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  positions=%v\n", o.Positions)
 	out += fmt.Sprintf("  queryID=%v\n", o.QueryID)
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
-	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
+	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	return fmt.Sprintf("ClickedObjectIDsAfterSearch {\n%s}", out)
 }
 

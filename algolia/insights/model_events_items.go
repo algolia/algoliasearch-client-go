@@ -187,16 +187,16 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 
 	// If the model wasn't discriminated yet, continue checking for other discriminating properties
 	if validSchemaForModel {
-		// Check if the model holds a property 'queryID'
-		if _, ok := jsonDict["queryID"]; !ok {
+		// Check if the model holds a property 'objectIDs'
+		if _, ok := jsonDict["objectIDs"]; !ok {
 			validSchemaForModel = false
 		}
 	}
 
 	// If the model wasn't discriminated yet, continue checking for other discriminating properties
 	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
+		// Check if the model holds a property 'objectData'
+		if _, ok := jsonDict["objectData"]; !ok {
 			validSchemaForModel = false
 		}
 	}

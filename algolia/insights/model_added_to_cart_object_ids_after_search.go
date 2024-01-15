@@ -8,33 +8,34 @@ import (
 
 // AddedToCartObjectIDsAfterSearch Use this event to track when users add items to their shopping cart after a previous Algolia request. If you're building your category pages with Algolia, you'll also use this event.
 type AddedToCartObjectIDsAfterSearch struct {
-	// Can contain up to 64 ASCII characters.   Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
+	// The name of the event, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName    string          `json:"eventName"`
 	EventType    ConversionEvent `json:"eventType"`
 	EventSubtype AddToCartEvent  `json:"eventSubtype"`
-	// Name of the Algolia index.
+	// The name of an Algolia index.
 	Index string `json:"index"`
 	// Unique identifier for a search query.  The query ID is required for events related to search or browse requests. If you add `clickAnalytics: true` as a search request parameter, the query ID is included in the API response.
 	QueryID string `json:"queryID"`
-	// List of object identifiers for items of an Algolia index.
+	// The object IDs of the records that are part of the event.
 	ObjectIDs []string `json:"objectIDs"`
-	// Extra information about the records involved in the event—for example, to add price and quantities of purchased products.  If provided, must be the same length as `objectIDs`.
-	ObjectData []ObjectDataAfterSearch `json:"objectData,omitempty"`
-	// If you include pricing information in the `objectData` parameter, you must also specify the currency as ISO-4217 currency code, such as USD or EUR.
-	Currency *string `json:"currency,omitempty"`
-	// Anonymous or pseudonymous user identifier.   > **Note**: Never include personally identifiable information in user tokens.
+	// An anonymous or pseudonymous user identifier.  > **Note**: Never include personally identifiable information in user tokens.
 	UserToken string `json:"userToken"`
-	// Time of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-	// User token for authenticated users.
+	// An identifier for authenticated users.  > **Note**: Never include personally identifiable information in user tokens.
 	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
+	// Three-letter [currency code](https://www.iso.org/iso-4217-currency-codes.html).
+	Currency *string `json:"currency,omitempty"`
+	// Extra information about the records involved in a purchase or add-to-cart events.  If provided, it must be the same length as `objectIDs`.
+	ObjectData []ObjectDataAfterSearch `json:"objectData,omitempty"`
+	// The timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+	Value     *Value `json:"value,omitempty"`
 }
 
 type AddedToCartObjectIDsAfterSearchOption func(f *AddedToCartObjectIDsAfterSearch)
 
-func WithAddedToCartObjectIDsAfterSearchObjectData(val []ObjectDataAfterSearch) AddedToCartObjectIDsAfterSearchOption {
+func WithAddedToCartObjectIDsAfterSearchAuthenticatedUserToken(val string) AddedToCartObjectIDsAfterSearchOption {
 	return func(f *AddedToCartObjectIDsAfterSearch) {
-		f.ObjectData = val
+		f.AuthenticatedUserToken = &val
 	}
 }
 
@@ -44,15 +45,21 @@ func WithAddedToCartObjectIDsAfterSearchCurrency(val string) AddedToCartObjectID
 	}
 }
 
+func WithAddedToCartObjectIDsAfterSearchObjectData(val []ObjectDataAfterSearch) AddedToCartObjectIDsAfterSearchOption {
+	return func(f *AddedToCartObjectIDsAfterSearch) {
+		f.ObjectData = val
+	}
+}
+
 func WithAddedToCartObjectIDsAfterSearchTimestamp(val int64) AddedToCartObjectIDsAfterSearchOption {
 	return func(f *AddedToCartObjectIDsAfterSearch) {
 		f.Timestamp = &val
 	}
 }
 
-func WithAddedToCartObjectIDsAfterSearchAuthenticatedUserToken(val string) AddedToCartObjectIDsAfterSearchOption {
+func WithAddedToCartObjectIDsAfterSearchValue(val Value) AddedToCartObjectIDsAfterSearchOption {
 	return func(f *AddedToCartObjectIDsAfterSearch) {
-		f.AuthenticatedUserToken = &val
+		f.Value = &val
 	}
 }
 
@@ -227,70 +234,6 @@ func (o *AddedToCartObjectIDsAfterSearch) SetObjectIDs(v []string) {
 	o.ObjectIDs = v
 }
 
-// GetObjectData returns the ObjectData field value if set, zero value otherwise.
-func (o *AddedToCartObjectIDsAfterSearch) GetObjectData() []ObjectDataAfterSearch {
-	if o == nil || o.ObjectData == nil {
-		var ret []ObjectDataAfterSearch
-		return ret
-	}
-	return o.ObjectData
-}
-
-// GetObjectDataOk returns a tuple with the ObjectData field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AddedToCartObjectIDsAfterSearch) GetObjectDataOk() ([]ObjectDataAfterSearch, bool) {
-	if o == nil || o.ObjectData == nil {
-		return nil, false
-	}
-	return o.ObjectData, true
-}
-
-// HasObjectData returns a boolean if a field has been set.
-func (o *AddedToCartObjectIDsAfterSearch) HasObjectData() bool {
-	if o != nil && o.ObjectData != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetObjectData gets a reference to the given []ObjectDataAfterSearch and assigns it to the ObjectData field.
-func (o *AddedToCartObjectIDsAfterSearch) SetObjectData(v []ObjectDataAfterSearch) {
-	o.ObjectData = v
-}
-
-// GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *AddedToCartObjectIDsAfterSearch) GetCurrency() string {
-	if o == nil || o.Currency == nil {
-		var ret string
-		return ret
-	}
-	return *o.Currency
-}
-
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AddedToCartObjectIDsAfterSearch) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
-		return nil, false
-	}
-	return o.Currency, true
-}
-
-// HasCurrency returns a boolean if a field has been set.
-func (o *AddedToCartObjectIDsAfterSearch) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *AddedToCartObjectIDsAfterSearch) SetCurrency(v string) {
-	o.Currency = &v
-}
-
 // GetUserToken returns the UserToken field value.
 func (o *AddedToCartObjectIDsAfterSearch) GetUserToken() string {
 	if o == nil {
@@ -313,38 +256,6 @@ func (o *AddedToCartObjectIDsAfterSearch) GetUserTokenOk() (*string, bool) {
 // SetUserToken sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetUserToken(v string) {
 	o.UserToken = v
-}
-
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *AddedToCartObjectIDsAfterSearch) GetTimestamp() int64 {
-	if o == nil || o.Timestamp == nil {
-		var ret int64
-		return ret
-	}
-	return *o.Timestamp
-}
-
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AddedToCartObjectIDsAfterSearch) GetTimestampOk() (*int64, bool) {
-	if o == nil || o.Timestamp == nil {
-		return nil, false
-	}
-	return o.Timestamp, true
-}
-
-// HasTimestamp returns a boolean if a field has been set.
-func (o *AddedToCartObjectIDsAfterSearch) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *AddedToCartObjectIDsAfterSearch) SetTimestamp(v int64) {
-	o.Timestamp = &v
 }
 
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
@@ -379,6 +290,134 @@ func (o *AddedToCartObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) {
 	o.AuthenticatedUserToken = &v
 }
 
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *AddedToCartObjectIDsAfterSearch) GetCurrency() string {
+	if o == nil || o.Currency == nil {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AddedToCartObjectIDsAfterSearch) GetCurrencyOk() (*string, bool) {
+	if o == nil || o.Currency == nil {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *AddedToCartObjectIDsAfterSearch) HasCurrency() bool {
+	if o != nil && o.Currency != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *AddedToCartObjectIDsAfterSearch) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetObjectData returns the ObjectData field value if set, zero value otherwise.
+func (o *AddedToCartObjectIDsAfterSearch) GetObjectData() []ObjectDataAfterSearch {
+	if o == nil || o.ObjectData == nil {
+		var ret []ObjectDataAfterSearch
+		return ret
+	}
+	return o.ObjectData
+}
+
+// GetObjectDataOk returns a tuple with the ObjectData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AddedToCartObjectIDsAfterSearch) GetObjectDataOk() ([]ObjectDataAfterSearch, bool) {
+	if o == nil || o.ObjectData == nil {
+		return nil, false
+	}
+	return o.ObjectData, true
+}
+
+// HasObjectData returns a boolean if a field has been set.
+func (o *AddedToCartObjectIDsAfterSearch) HasObjectData() bool {
+	if o != nil && o.ObjectData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectData gets a reference to the given []ObjectDataAfterSearch and assigns it to the ObjectData field.
+func (o *AddedToCartObjectIDsAfterSearch) SetObjectData(v []ObjectDataAfterSearch) {
+	o.ObjectData = v
+}
+
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *AddedToCartObjectIDsAfterSearch) GetTimestamp() int64 {
+	if o == nil || o.Timestamp == nil {
+		var ret int64
+		return ret
+	}
+	return *o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AddedToCartObjectIDsAfterSearch) GetTimestampOk() (*int64, bool) {
+	if o == nil || o.Timestamp == nil {
+		return nil, false
+	}
+	return o.Timestamp, true
+}
+
+// HasTimestamp returns a boolean if a field has been set.
+func (o *AddedToCartObjectIDsAfterSearch) HasTimestamp() bool {
+	if o != nil && o.Timestamp != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *AddedToCartObjectIDsAfterSearch) SetTimestamp(v int64) {
+	o.Timestamp = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *AddedToCartObjectIDsAfterSearch) GetValue() Value {
+	if o == nil || o.Value == nil {
+		var ret Value
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AddedToCartObjectIDsAfterSearch) GetValueOk() (*Value, bool) {
+	if o == nil || o.Value == nil {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *AddedToCartObjectIDsAfterSearch) HasValue() bool {
+	if o != nil && o.Value != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given Value and assigns it to the Value field.
+func (o *AddedToCartObjectIDsAfterSearch) SetValue(v Value) {
+	o.Value = &v
+}
+
 func (o AddedToCartObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -399,20 +438,23 @@ func (o AddedToCartObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["objectIDs"] = o.ObjectIDs
 	}
-	if o.ObjectData != nil {
-		toSerialize["objectData"] = o.ObjectData
+	if true {
+		toSerialize["userToken"] = o.UserToken
+	}
+	if o.AuthenticatedUserToken != nil {
+		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
 	}
-	if true {
-		toSerialize["userToken"] = o.UserToken
+	if o.ObjectData != nil {
+		toSerialize["objectData"] = o.ObjectData
 	}
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
-	if o.AuthenticatedUserToken != nil {
-		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
+	if o.Value != nil {
+		toSerialize["value"] = o.Value
 	}
 	return json.Marshal(toSerialize)
 }
@@ -425,11 +467,12 @@ func (o AddedToCartObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  queryID=%v\n", o.QueryID)
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
-	out += fmt.Sprintf("  objectData=%v\n", o.ObjectData)
-	out += fmt.Sprintf("  currency=%v\n", o.Currency)
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
-	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
+	out += fmt.Sprintf("  currency=%v\n", o.Currency)
+	out += fmt.Sprintf("  objectData=%v\n", o.ObjectData)
+	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
+	out += fmt.Sprintf("  value=%v\n", o.Value)
 	return fmt.Sprintf("AddedToCartObjectIDsAfterSearch {\n%s}", out)
 }
 

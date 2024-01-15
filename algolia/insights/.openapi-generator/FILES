@@ -24,6 +24,7 @@ model_price.go
 model_purchase_event.go
 model_purchased_object_ids.go
 model_purchased_object_ids_after_search.go
+model_value.go
 model_view_event.go
 model_viewed_filters.go
 model_viewed_object_ids.go

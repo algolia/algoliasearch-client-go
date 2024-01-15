@@ -8,20 +8,28 @@ import (
 
 // ClickedObjectIDs Use this event to track when users click items unrelated to a previous Algolia request. For example, if you don't use Algolia to build your category pages, use this event.  To track click events related to Algolia requests, use the \"Clicked object IDs after search\" event.
 type ClickedObjectIDs struct {
-	// Can contain up to 64 ASCII characters.   Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
+	// The name of the event, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName string     `json:"eventName"`
 	EventType ClickEvent `json:"eventType"`
-	// Name of the Algolia index.
+	// The name of an Algolia index.
 	Index string `json:"index"`
-	// List of object identifiers for items of an Algolia index.
+	// The object IDs of the records that are part of the event.
 	ObjectIDs []string `json:"objectIDs"`
-	// Anonymous or pseudonymous user identifier.   > **Note**: Never include personally identifiable information in user tokens.
+	// An anonymous or pseudonymous user identifier.  > **Note**: Never include personally identifiable information in user tokens.
 	UserToken string `json:"userToken"`
-	// Time of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
+	// An identifier for authenticated users.  > **Note**: Never include personally identifiable information in user tokens.
+	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
+	// The timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 type ClickedObjectIDsOption func(f *ClickedObjectIDs)
+
+func WithClickedObjectIDsAuthenticatedUserToken(val string) ClickedObjectIDsOption {
+	return func(f *ClickedObjectIDs) {
+		f.AuthenticatedUserToken = &val
+	}
+}
 
 func WithClickedObjectIDsTimestamp(val int64) ClickedObjectIDsOption {
 	return func(f *ClickedObjectIDs) {
@@ -174,6 +182,38 @@ func (o *ClickedObjectIDs) SetUserToken(v string) {
 	o.UserToken = v
 }
 
+// GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
+func (o *ClickedObjectIDs) GetAuthenticatedUserToken() string {
+	if o == nil || o.AuthenticatedUserToken == nil {
+		var ret string
+		return ret
+	}
+	return *o.AuthenticatedUserToken
+}
+
+// GetAuthenticatedUserTokenOk returns a tuple with the AuthenticatedUserToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClickedObjectIDs) GetAuthenticatedUserTokenOk() (*string, bool) {
+	if o == nil || o.AuthenticatedUserToken == nil {
+		return nil, false
+	}
+	return o.AuthenticatedUserToken, true
+}
+
+// HasAuthenticatedUserToken returns a boolean if a field has been set.
+func (o *ClickedObjectIDs) HasAuthenticatedUserToken() bool {
+	if o != nil && o.AuthenticatedUserToken != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
+func (o *ClickedObjectIDs) SetAuthenticatedUserToken(v string) {
+	o.AuthenticatedUserToken = &v
+}
+
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
 func (o *ClickedObjectIDs) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
@@ -223,6 +263,9 @@ func (o ClickedObjectIDs) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["userToken"] = o.UserToken
 	}
+	if o.AuthenticatedUserToken != nil {
+		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
+	}
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
@@ -236,6 +279,7 @@ func (o ClickedObjectIDs) String() string {
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
+	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	return fmt.Sprintf("ClickedObjectIDs {\n%s}", out)
 }

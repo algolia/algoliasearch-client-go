@@ -663,6 +663,125 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	return returnValue, nil
 }
 
+func (r *ApiDeleteUserTokenRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return err
+	}
+	if v, ok := req["userToken"]; ok {
+		err = json.Unmarshal(v, &r.userToken)
+		if err != nil {
+			err = json.Unmarshal(b, &r.userToken)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiDeleteUserTokenRequest represents the request with all the parameters for the API call.
+type ApiDeleteUserTokenRequest struct {
+	userToken string
+}
+
+// NewApiDeleteUserTokenRequest creates an instance of the ApiDeleteUserTokenRequest to be used for the API call.
+func (c *APIClient) NewApiDeleteUserTokenRequest(userToken string) ApiDeleteUserTokenRequest {
+	return ApiDeleteUserTokenRequest{
+		userToken: userToken,
+	}
+}
+
+/*
+DeleteUserToken Delete user token. Wraps DeleteUserTokenWithContext using context.Background.
+
+Delete all events related to a certain user token from events metrics and analytics.
+To delete a personalization user profile, see [Delete a user profile](https://www.algolia.com/doc/rest-api/personalization/#delete-a-user-profile).
+
+Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
+
+	@param userToken string - The user token for which to delete all associated events.
+*/
+func (c *APIClient) DeleteUserToken(r ApiDeleteUserTokenRequest, opts ...Option) error {
+	return c.DeleteUserTokenWithContext(context.Background(), r, opts...)
+}
+
+/*
+DeleteUserToken Delete user token.
+
+Delete all events related to a certain user token from events metrics and analytics.
+To delete a personalization user profile, see [Delete a user profile](https://www.algolia.com/doc/rest-api/personalization/#delete-a-user-profile).
+
+Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
+
+	@param userToken string - The user token for which to delete all associated events.
+*/
+func (c *APIClient) DeleteUserTokenWithContext(ctx context.Context, r ApiDeleteUserTokenRequest, opts ...Option) error {
+	var postBody any
+
+	requestPath := "/1/usertokens/{userToken}"
+	requestPath = strings.ReplaceAll(requestPath, "{"+"userToken"+"}", url.PathEscape(parameterToString(r.userToken)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if len(r.userToken) < 1 {
+		return reportError("userToken must have at least 1 elements")
+	}
+	if len(r.userToken) > 129 {
+		return reportError("userToken must have less than 129 elements")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
+	if err != nil {
+		return err
+	}
+
+	res, err := c.callAPI(req, call.Write)
+	if err != nil {
+		return err
+	}
+	if res == nil {
+		return reportError("res is nil")
+	}
+
+	resBody, err := io.ReadAll(res.Body)
+	res.Body.Close()
+	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
+	if err != nil {
+		return err
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.Message = err.Error()
+			return newErr
+		}
+
+		return newErr
+	}
+
+	return nil
+}
+
 func (r *ApiPushEventsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)

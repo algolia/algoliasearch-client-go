@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Price - The price of the item. This should be the final price, inclusive of any discounts in effect.
+// Price - The total price of a product, including any discounts, in units of `currency`.
 type Price struct {
 	Float64 *float64
 	String  *string

@@ -6,28 +6,28 @@ import (
 	"fmt"
 )
 
-// Discount - The absolute value of the discount for this product, in units of `currency`.
-type Discount struct {
+// Value - Total monetary value of this event in units of `currency`.
+type Value struct {
 	Float64 *float64
 	String  *string
 }
 
-// float64AsDiscount is a convenience function that returns float64 wrapped in Discount.
-func Float64AsDiscount(v *float64) Discount {
-	return Discount{
+// float64AsValue is a convenience function that returns float64 wrapped in Value.
+func Float64AsValue(v *float64) Value {
+	return Value{
 		Float64: v,
 	}
 }
 
-// stringAsDiscount is a convenience function that returns string wrapped in Discount.
-func StringAsDiscount(v *string) Discount {
-	return Discount{
+// stringAsValue is a convenience function that returns string wrapped in Value.
+func StringAsValue(v *string) Value {
+	return Value{
 		String: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct.
-func (dst *Discount) UnmarshalJSON(data []byte) error {
+func (dst *Value) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into Float64
 	err = newStrictDecoder(data).Decode(&dst.Float64)
@@ -55,11 +55,11 @@ func (dst *Discount) UnmarshalJSON(data []byte) error {
 		dst.String = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(Discount)")
+	return fmt.Errorf("Data failed to match schemas in oneOf(Value)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
-func (src Discount) MarshalJSON() ([]byte, error) {
+func (src Value) MarshalJSON() ([]byte, error) {
 	if src.Float64 != nil {
 		return json.Marshal(&src.Float64)
 	}
@@ -72,7 +72,7 @@ func (src Discount) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *Discount) GetActualInstance() any {
+func (obj *Value) GetActualInstance() any {
 	if obj == nil {
 		return nil
 	}
@@ -88,38 +88,38 @@ func (obj *Discount) GetActualInstance() any {
 	return nil
 }
 
-type NullableDiscount struct {
-	value *Discount
+type NullableValue struct {
+	value *Value
 	isSet bool
 }
 
-func (v NullableDiscount) Get() *Discount {
+func (v NullableValue) Get() *Value {
 	return v.value
 }
 
-func (v *NullableDiscount) Set(val *Discount) {
+func (v *NullableValue) Set(val *Value) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDiscount) IsSet() bool {
+func (v NullableValue) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDiscount) Unset() {
+func (v *NullableValue) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDiscount(val *Discount) *NullableDiscount {
-	return &NullableDiscount{value: val, isSet: true}
+func NewNullableValue(val *Value) *NullableValue {
+	return &NullableValue{value: val, isSet: true}
 }
 
-func (v NullableDiscount) MarshalJSON() ([]byte, error) {
+func (v NullableValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDiscount) UnmarshalJSON(src []byte) error {
+func (v *NullableValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

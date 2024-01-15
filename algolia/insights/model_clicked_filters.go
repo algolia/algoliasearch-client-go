@@ -8,32 +8,32 @@ import (
 
 // ClickedFilters Use this event to track when users click facet filters in your user interface.
 type ClickedFilters struct {
-	// Can contain up to 64 ASCII characters.   Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
+	// The name of the event, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName string     `json:"eventName"`
 	EventType ClickEvent `json:"eventType"`
-	// Name of the Algolia index.
+	// The name of an Algolia index.
 	Index string `json:"index"`
 	// Facet filters.  Each facet filter string must be URL-encoded, such as, `discount:10%25`.
 	Filters []string `json:"filters"`
-	// Anonymous or pseudonymous user identifier.   > **Note**: Never include personally identifiable information in user tokens.
+	// An anonymous or pseudonymous user identifier.  > **Note**: Never include personally identifiable information in user tokens.
 	UserToken string `json:"userToken"`
-	// Time of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-	// User token for authenticated users.
+	// An identifier for authenticated users.  > **Note**: Never include personally identifiable information in user tokens.
 	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
+	// The timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 type ClickedFiltersOption func(f *ClickedFilters)
 
-func WithClickedFiltersTimestamp(val int64) ClickedFiltersOption {
-	return func(f *ClickedFilters) {
-		f.Timestamp = &val
-	}
-}
-
 func WithClickedFiltersAuthenticatedUserToken(val string) ClickedFiltersOption {
 	return func(f *ClickedFilters) {
 		f.AuthenticatedUserToken = &val
+	}
+}
+
+func WithClickedFiltersTimestamp(val int64) ClickedFiltersOption {
+	return func(f *ClickedFilters) {
+		f.Timestamp = &val
 	}
 }
 
@@ -182,38 +182,6 @@ func (o *ClickedFilters) SetUserToken(v string) {
 	o.UserToken = v
 }
 
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *ClickedFilters) GetTimestamp() int64 {
-	if o == nil || o.Timestamp == nil {
-		var ret int64
-		return ret
-	}
-	return *o.Timestamp
-}
-
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ClickedFilters) GetTimestampOk() (*int64, bool) {
-	if o == nil || o.Timestamp == nil {
-		return nil, false
-	}
-	return o.Timestamp, true
-}
-
-// HasTimestamp returns a boolean if a field has been set.
-func (o *ClickedFilters) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *ClickedFilters) SetTimestamp(v int64) {
-	o.Timestamp = &v
-}
-
 // GetAuthenticatedUserToken returns the AuthenticatedUserToken field value if set, zero value otherwise.
 func (o *ClickedFilters) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
@@ -246,6 +214,38 @@ func (o *ClickedFilters) SetAuthenticatedUserToken(v string) {
 	o.AuthenticatedUserToken = &v
 }
 
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *ClickedFilters) GetTimestamp() int64 {
+	if o == nil || o.Timestamp == nil {
+		var ret int64
+		return ret
+	}
+	return *o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClickedFilters) GetTimestampOk() (*int64, bool) {
+	if o == nil || o.Timestamp == nil {
+		return nil, false
+	}
+	return o.Timestamp, true
+}
+
+// HasTimestamp returns a boolean if a field has been set.
+func (o *ClickedFilters) HasTimestamp() bool {
+	if o != nil && o.Timestamp != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *ClickedFilters) SetTimestamp(v int64) {
+	o.Timestamp = &v
+}
+
 func (o ClickedFilters) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -263,11 +263,11 @@ func (o ClickedFilters) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["userToken"] = o.UserToken
 	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
-	}
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
+	}
+	if o.Timestamp != nil {
+		toSerialize["timestamp"] = o.Timestamp
 	}
 	return json.Marshal(toSerialize)
 }
@@ -279,8 +279,8 @@ func (o ClickedFilters) String() string {
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
-	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
+	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	return fmt.Sprintf("ClickedFilters {\n%s}", out)
 }
 
