@@ -1,3 +1,10 @@
+## [4.0.0-alpha.42](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.41...4.0.0-alpha.42)
+
+- [0bb2c8000](https://github.com/algolia/api-clients-automation/commit/0bb2c8000) fix(go): use better parameters ([#2514](https://github.com/algolia/api-clients-automation/pull/2514)) by [@millotp](https://github.com/millotp/)
+- [7c5ba3288](https://github.com/algolia/api-clients-automation/commit/7c5ba3288) feat(specs): update Insights API spec ([#2376](https://github.com/algolia/api-clients-automation/pull/2376)) by [@kai687](https://github.com/kai687/)
+- [297baa987](https://github.com/algolia/api-clients-automation/commit/297baa987) chore(clients): provide snippets for all languages ([#2518](https://github.com/algolia/api-clients-automation/pull/2518)) by [@shortcuts](https://github.com/shortcuts/)
+- [857f3632e](https://github.com/algolia/api-clients-automation/commit/857f3632e) feat(clients): generate code snippets from cts ([#2511](https://github.com/algolia/api-clients-automation/pull/2511)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-alpha.41](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.40...4.0.0-alpha.41)
 
 - [ae20258c6](https://github.com/algolia/api-clients-automation/commit/ae20258c6) feat(clients): deserialize in e2e and SFFV response ([#2500](https://github.com/algolia/api-clients-automation/pull/2500)) by [@shortcuts](https://github.com/shortcuts/)
