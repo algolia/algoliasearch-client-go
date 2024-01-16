@@ -1204,149 +1204,6 @@ func (c *APIClient) BrowseWithContext(ctx context.Context, r ApiBrowseRequest, o
 	return returnValue, nil
 }
 
-func (r *ApiClearAllSynonymsRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return err
-	}
-	if v, ok := req["indexName"]; ok {
-		err = json.Unmarshal(v, &r.indexName)
-		if err != nil {
-			err = json.Unmarshal(b, &r.indexName)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	if v, ok := req["forwardToReplicas"]; ok {
-		err = json.Unmarshal(v, &r.forwardToReplicas)
-		if err != nil {
-			err = json.Unmarshal(b, &r.forwardToReplicas)
-			if err != nil {
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiClearAllSynonymsRequest represents the request with all the parameters for the API call.
-type ApiClearAllSynonymsRequest struct {
-	indexName         string
-	forwardToReplicas bool
-}
-
-// NewApiClearAllSynonymsRequest creates an instance of the ApiClearAllSynonymsRequest to be used for the API call.
-func (c *APIClient) NewApiClearAllSynonymsRequest(indexName string) ApiClearAllSynonymsRequest {
-	return ApiClearAllSynonymsRequest{
-		indexName: indexName,
-	}
-}
-
-// WithForwardToReplicas adds the forwardToReplicas to the ApiClearAllSynonymsRequest and returns the request for chaining.
-func (r ApiClearAllSynonymsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiClearAllSynonymsRequest {
-	r.forwardToReplicas = forwardToReplicas
-	return r
-}
-
-/*
-ClearAllSynonyms Delete all synonyms. Wraps ClearAllSynonymsWithContext using context.Background.
-
-Delete all synonyms in the index.
-
-Request can be constructed by NewApiClearAllSynonymsRequest with parameters below.
-
-	@param indexName string - Index on which to perform the request.
-	@param forwardToReplicas bool - Indicates whether changed index settings are forwarded to the replica indices.
-	@return UpdatedAtResponse
-*/
-func (c *APIClient) ClearAllSynonyms(r ApiClearAllSynonymsRequest, opts ...Option) (*UpdatedAtResponse, error) {
-	return c.ClearAllSynonymsWithContext(context.Background(), r, opts...)
-}
-
-/*
-ClearAllSynonyms Delete all synonyms.
-
-Delete all synonyms in the index.
-
-Request can be constructed by NewApiClearAllSynonymsRequest with parameters below.
-
-	@param indexName string - Index on which to perform the request.
-	@param forwardToReplicas bool - Indicates whether changed index settings are forwarded to the replica indices.
-	@return UpdatedAtResponse
-*/
-func (c *APIClient) ClearAllSynonymsWithContext(ctx context.Context, r ApiClearAllSynonymsRequest, opts ...Option) (*UpdatedAtResponse, error) {
-	var (
-		postBody    any
-		returnValue *UpdatedAtResponse
-	)
-
-	requestPath := "/1/indexes/{indexName}/synonyms/clear"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	if !isNilorEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, err := c.callAPI(req, call.Write)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody, res.Header.Get("Content-Type"))
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
 func (r *ApiClearObjectsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -1548,6 +1405,149 @@ func (c *APIClient) ClearRulesWithContext(ctx context.Context, r ApiClearRulesRe
 	)
 
 	requestPath := "/1/indexes/{indexName}/rules/clear"
+	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	if !isNilorEmpty(r.forwardToReplicas) {
+		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, err := c.callAPI(req, call.Write)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	resBody, err := io.ReadAll(res.Body)
+	res.Body.Close()
+	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody, res.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody, res.Header.Get("Content-Type"))
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiClearSynonymsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return err
+	}
+	if v, ok := req["indexName"]; ok {
+		err = json.Unmarshal(v, &r.indexName)
+		if err != nil {
+			err = json.Unmarshal(b, &r.indexName)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	if v, ok := req["forwardToReplicas"]; ok {
+		err = json.Unmarshal(v, &r.forwardToReplicas)
+		if err != nil {
+			err = json.Unmarshal(b, &r.forwardToReplicas)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiClearSynonymsRequest represents the request with all the parameters for the API call.
+type ApiClearSynonymsRequest struct {
+	indexName         string
+	forwardToReplicas bool
+}
+
+// NewApiClearSynonymsRequest creates an instance of the ApiClearSynonymsRequest to be used for the API call.
+func (c *APIClient) NewApiClearSynonymsRequest(indexName string) ApiClearSynonymsRequest {
+	return ApiClearSynonymsRequest{
+		indexName: indexName,
+	}
+}
+
+// WithForwardToReplicas adds the forwardToReplicas to the ApiClearSynonymsRequest and returns the request for chaining.
+func (r ApiClearSynonymsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiClearSynonymsRequest {
+	r.forwardToReplicas = forwardToReplicas
+	return r
+}
+
+/*
+ClearSynonyms Delete all synonyms. Wraps ClearSynonymsWithContext using context.Background.
+
+Delete all synonyms in the index.
+
+Request can be constructed by NewApiClearSynonymsRequest with parameters below.
+
+	@param indexName string - Index on which to perform the request.
+	@param forwardToReplicas bool - Indicates whether changed index settings are forwarded to the replica indices.
+	@return UpdatedAtResponse
+*/
+func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...Option) (*UpdatedAtResponse, error) {
+	return c.ClearSynonymsWithContext(context.Background(), r, opts...)
+}
+
+/*
+ClearSynonyms Delete all synonyms.
+
+Delete all synonyms in the index.
+
+Request can be constructed by NewApiClearSynonymsRequest with parameters below.
+
+	@param indexName string - Index on which to perform the request.
+	@param forwardToReplicas bool - Indicates whether changed index settings are forwarded to the replica indices.
+	@return UpdatedAtResponse
+*/
+func (c *APIClient) ClearSynonymsWithContext(ctx context.Context, r ApiClearSynonymsRequest, opts ...Option) (*UpdatedAtResponse, error) {
+	var (
+		postBody    any
+		returnValue *UpdatedAtResponse
+	)
+
+	requestPath := "/1/indexes/{indexName}/synonyms/clear"
 	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
