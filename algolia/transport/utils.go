@@ -2,12 +2,7 @@ package transport
 
 import (
 	"math/rand"
-	"time"
 )
-
-func init() {
-	rand.Seed(int64(time.Now().Nanosecond()))
-}
 
 func Shuffle(hosts []*StatefulHost) []*StatefulHost {
 	if hosts == nil {

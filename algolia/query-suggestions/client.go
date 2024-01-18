@@ -16,6 +16,7 @@ import (
 	"reflect"
 	"regexp"
 	"runtime"
+	"slices"
 	"strings"
 	"time"
 
@@ -23,7 +24,7 @@ import (
 
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/internal/transport"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 )
 
 var jsonCheck = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
@@ -37,31 +38,33 @@ type APIClient struct {
 }
 
 // NewClient creates a new API client with appID, apiKey and region.
-func NewClient(appID, apiKey string, region Region) *APIClient {
+func NewClient(appID, apiKey string, region Region) (*APIClient, error) {
 	return NewClientWithConfig(Configuration{
-		AppID:         appID,
-		ApiKey:        apiKey,
-		Region:        region,
-		DefaultHeader: make(map[string]string),
-		UserAgent:     getUserAgent(),
-		Debug:         false,
-		Requester:     newDefaultRequester(),
+		Configuration: transport.Configuration{
+			AppID:         appID,
+			ApiKey:        apiKey,
+			DefaultHeader: make(map[string]string),
+			UserAgent:     getUserAgent(),
+			Debug:         false,
+			Requester:     transport.NewDefaultRequester(nil),
+		},
+		Region: region,
 	})
 }
 
 // NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.
-func NewClientWithConfig(cfg Configuration) *APIClient {
+func NewClientWithConfig(cfg Configuration) (*APIClient, error) {
 	var hosts []*transport.StatefulHost
 
 	if cfg.AppID == "" {
-		panic("appID is required")
+		return nil, errors.New("`appId` is missing.")
 	}
 	if cfg.ApiKey == "" {
-		panic("apiKey is required")
+		return nil, errors.New("`apiKey` is missing.")
 	}
 	if len(cfg.Hosts) == 0 {
-		if cfg.Region == "" {
-			panic("region is required")
+		if cfg.Region == "" || (cfg.Region != "" && !slices.Contains(allowedRegions[:], string(cfg.Region))) {
+			return nil, fmt.Errorf("`region` is required and must be one of the following: %s", strings.Join(allowedRegions[:], ", "))
 		}
 		hosts = getDefaultHosts(cfg.Region)
 	} else {
@@ -70,7 +73,7 @@ func NewClientWithConfig(cfg Configuration) *APIClient {
 		}
 	}
 	if cfg.Requester == nil {
-		cfg.Requester = newDefaultRequester()
+		cfg.Requester = transport.NewDefaultRequester(&cfg.ConnectTimeout)
 	}
 	if cfg.UserAgent == "" {
 		cfg.UserAgent = getUserAgent()
@@ -84,22 +87,18 @@ func NewClientWithConfig(cfg Configuration) *APIClient {
 			cfg.Requester,
 			cfg.ReadTimeout,
 			cfg.WriteTimeout,
+			cfg.ConnectTimeout,
 			cfg.Compression,
 		),
-	}
+	}, nil
 }
 
 func getDefaultHosts(r Region) []*transport.StatefulHost {
-	hosts := []*transport.StatefulHost{}
-	switch r {
-	case EU, US:
-		hosts = append(hosts, transport.NewStatefulHost(strings.ReplaceAll("query-suggestions.{region}.algolia.com", "{region}", string(r)), call.IsReadWrite))
-	}
-	return hosts
+	return []*transport.StatefulHost{transport.NewStatefulHost(strings.ReplaceAll("query-suggestions.{region}.algolia.com", "{region}", string(r)), call.IsReadWrite)}
 }
 
 func getUserAgent() string {
-	return fmt.Sprintf("Algolia for Go (4.0.0-alpha.42); Go (%s); Query-suggestions (4.0.0-alpha.42)", runtime.Version())
+	return fmt.Sprintf("Algolia for Go (4.0.0-alpha.42); Go (%s); QuerySuggestions (4.0.0-alpha.42)", runtime.Version())
 }
 
 // parameterToString convert any parameters to string.
@@ -119,7 +118,7 @@ func (c *APIClient) AddDefaultHeader(key string, value string) {
 }
 
 // callAPI do the request.
-func (c *APIClient) callAPI(request *http.Request, kind call.Kind) (*http.Response, error) {
+func (c *APIClient) callAPI(request *http.Request, useReadTransporter bool) (*http.Response, error) {
 	if c.cfg.Debug {
 		dump, err := httputil.DumpRequestOut(request, true)
 		if err != nil {
@@ -128,7 +127,12 @@ func (c *APIClient) callAPI(request *http.Request, kind call.Kind) (*http.Respon
 		log.Printf("\n%s\n", string(dump))
 	}
 
-	resp, err := c.transport.Request(request.Context(), request, kind)
+	callKind := call.Write
+	if useReadTransporter || request.Method == http.MethodGet {
+		callKind = call.Read
+	}
+
+	resp, err := c.transport.Request(request.Context(), request, callKind)
 	if err != nil {
 		return nil, err
 	}

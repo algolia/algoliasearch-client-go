@@ -16,5 +16,3 @@ model_filter_effects_empty_search.go
 model_filter_effects_outliers.go
 model_list_ab_tests_response.go
 model_variant.go
-response.go
-utils.go

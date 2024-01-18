@@ -2,29 +2,10 @@
 package analytics
 
 import (
-	"net/http"
-	"time"
-
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 )
 
-type Requester interface {
-	Request(*http.Request) (*http.Response, error)
-}
-
-type defaultRequester struct {
-	client *http.Client
-}
-
-func newDefaultRequester() *defaultRequester {
-	return &defaultRequester{
-		client: http.DefaultClient,
-	}
-}
-
-func (r *defaultRequester) Request(req *http.Request) (*http.Response, error) {
-	return r.client.Do(req)
-}
+var allowedRegions = [...]string{"de", "us"}
 
 type Region string
 
@@ -35,16 +16,7 @@ const (
 
 // Configuration stores the configuration of the API client.
 type Configuration struct {
-	AppID  string
-	ApiKey string
-	Region Region
+	transport.Configuration
 
-	Hosts         []string          `json:"host,omitempty"`
-	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
-	UserAgent     string            `json:"userAgent,omitempty"`
-	Debug         bool              `json:"debug,omitempty"`
-	Requester     Requester
-	ReadTimeout   time.Duration
-	WriteTimeout  time.Duration
-	Compression   compression.Compression
+	Region Region
 }

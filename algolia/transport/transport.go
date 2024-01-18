@@ -11,13 +11,14 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/debug"
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/internal/errs"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
 )
 
 type Transport struct {
-	requester     Requester
-	retryStrategy *RetryStrategy
-	compression   compression.Compression
+	requester      Requester
+	retryStrategy  *RetryStrategy
+	compression    compression.Compression
+	connectTimeout time.Duration
 }
 
 func New(
@@ -25,16 +26,22 @@ func New(
 	requester Requester,
 	readTimeout time.Duration,
 	writeTimeout time.Duration,
+	connectTimeout time.Duration,
 	compression compression.Compression,
 ) *Transport {
+	if connectTimeout == 0 {
+		connectTimeout = DefaultConnectTimeout
+	}
+
 	if requester == nil {
-		requester = newDefaultRequester()
+		requester = NewDefaultRequester(&connectTimeout)
 	}
 
 	return &Transport{
-		requester:     requester,
-		retryStrategy: newRetryStrategy(hosts, readTimeout, writeTimeout),
-		compression:   compression,
+		requester:      requester,
+		retryStrategy:  newRetryStrategy(hosts, readTimeout, writeTimeout),
+		compression:    compression,
+		connectTimeout: connectTimeout,
 	}
 }
 
@@ -56,7 +63,7 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind)
 		// cancelled` error may happen when the body is read.
 		perRequestCtx, cancel := context.WithTimeout(ctx, h.timeout)
 		req = req.WithContext(perRequestCtx)
-		res, err := t.request(req, h.host)
+		res, err := t.request(req, h.host, h.timeout, t.connectTimeout)
 
 		code := 0
 		if res != nil {
@@ -98,12 +105,12 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind)
 	return nil, errs.ErrNoMoreHostToTry
 }
 
-func (t *Transport) request(req *http.Request, host string) (*http.Response, error) {
+func (t *Transport) request(req *http.Request, host string, timeout time.Duration, connectTimeout time.Duration) (*http.Response, error) {
 	req.URL.Scheme = "https"
 	req.URL.Host = host
 
 	debug.Display(req)
-	res, err := t.requester.Request(req)
+	res, err := t.requester.Request(req, timeout, connectTimeout)
 	debug.Display(res)
 
 	if err != nil {

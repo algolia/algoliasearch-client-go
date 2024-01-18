@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -105,8 +105,9 @@ func (c *APIClient) AddABTestsWithContext(ctx context.Context, r ApiAddABTestsRe
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.addABTestsRequest == nil {
-		return returnValue, reportError("addABTestsRequest is required and must be specified")
+		return returnValue, reportError("Parameter `addABTestsRequest` is required when calling `AddABTests`.")
 	}
 
 	// optional params if any
@@ -126,7 +127,7 @@ func (c *APIClient) AddABTestsWithContext(ctx context.Context, r ApiAddABTestsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -245,12 +246,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -271,7 +275,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -390,12 +394,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -416,7 +423,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -553,12 +560,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -575,7 +585,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -585,7 +595,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -722,12 +732,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -744,7 +757,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -754,7 +767,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -857,7 +870,7 @@ func (c *APIClient) DeleteABTestWithContext(ctx context.Context, r ApiDeleteABTe
 	)
 
 	requestPath := "/2/abtests/{id}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id)))
+	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(parameterToString(r.id)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
@@ -877,7 +890,7 @@ func (c *APIClient) DeleteABTestWithContext(ctx context.Context, r ApiDeleteABTe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -980,7 +993,7 @@ func (c *APIClient) GetABTestWithContext(ctx context.Context, r ApiGetABTestRequ
 	)
 
 	requestPath := "/2/abtests/{id}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id)))
+	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(parameterToString(r.id)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
@@ -1000,7 +1013,7 @@ func (c *APIClient) GetABTestWithContext(ctx context.Context, r ApiGetABTestRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1163,16 +1176,16 @@ func (c *APIClient) ListABTestsWithContext(ctx context.Context, r ApiListABTests
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.indexPrefix) {
+	if !utils.IsNilOrEmpty(r.indexPrefix) {
 		queryParams.Set("indexPrefix", parameterToString(r.indexPrefix))
 	}
-	if !isNilorEmpty(r.indexSuffix) {
+	if !utils.IsNilOrEmpty(r.indexSuffix) {
 		queryParams.Set("indexSuffix", parameterToString(r.indexSuffix))
 	}
 
@@ -1191,7 +1204,7 @@ func (c *APIClient) ListABTestsWithContext(ctx context.Context, r ApiListABTests
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1296,7 +1309,7 @@ func (c *APIClient) StopABTestWithContext(ctx context.Context, r ApiStopABTestRe
 	)
 
 	requestPath := "/2/abtests/{id}/stop"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id)))
+	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(parameterToString(r.id)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
@@ -1316,7 +1329,7 @@ func (c *APIClient) StopABTestWithContext(ctx context.Context, r ApiStopABTestRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}

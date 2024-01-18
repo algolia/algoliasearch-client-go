@@ -4,6 +4,8 @@ package recommend
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SearchRecommendRulesParams Recommend rules search parameters.
@@ -17,7 +19,7 @@ type SearchRecommendRulesParams struct {
 	// Maximum number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// Restricts responses to enabled rules. When absent (default), _all_ rules are retrieved.
-	Enabled NullableBool `json:"enabled,omitempty"`
+	Enabled utils.NullableBool `json:"enabled,omitempty"`
 }
 
 type SearchRecommendRulesParamsOption func(f *SearchRecommendRulesParams)
@@ -46,7 +48,7 @@ func WithSearchRecommendRulesParamsHitsPerPage(val int32) SearchRecommendRulesPa
 	}
 }
 
-func WithSearchRecommendRulesParamsEnabled(val NullableBool) SearchRecommendRulesParamsOption {
+func WithSearchRecommendRulesParamsEnabled(val utils.NullableBool) SearchRecommendRulesParamsOption {
 	return func(f *SearchRecommendRulesParams) {
 		f.Enabled = val
 	}
@@ -229,7 +231,7 @@ func (o *SearchRecommendRulesParams) HasEnabled() bool {
 	return false
 }
 
-// SetEnabled gets a reference to the given NullableBool and assigns it to the Enabled field.
+// SetEnabled gets a reference to the given utils.NullableBool and assigns it to the Enabled field.
 func (o *SearchRecommendRulesParams) SetEnabled(v bool) *SearchRecommendRulesParams {
 	o.Enabled.Set(&v)
 	return o

@@ -10,7 +10,7 @@
     <a href="https://pkg.go.dev/github.com/algolia/algoliasearch-client-go/v4"><img src="https://pkg.go.dev/badge/github.com/algolia/algoliasearch-client-go/v4" alt="GoDoc"></img></a>
     <a href="https://goreportcard.com/report/github.com/algolia/algoliasearch-client-go"><img src="https://goreportcard.com/badge/github.com/algolia/algoliasearch-client-go" alt="Go Report Card"></img></a>
     <a href="https://github.com/algolia/algoliasearch-client-go/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></img></a>
-    <img src="https://img.shields.io/badge/Go-%3E=1.19-green.svg" alt="Supported version"></img></a>
+    <img src="https://img.shields.io/badge/Go-%3E=1.21-green.svg" alt="Supported version"></img></a>
   </p>
 </p>
 

@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -115,12 +115,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -141,7 +144,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -260,12 +263,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -286,7 +292,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -423,12 +429,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -445,7 +454,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -455,7 +464,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -592,12 +601,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -614,7 +626,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -624,7 +636,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -751,12 +763,19 @@ func (c *APIClient) DeleteRecommendRuleWithContext(ctx context.Context, r ApiDel
 	)
 
 	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"model"+"}", url.PathEscape(parameterToString(r.model)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(parameterToString(r.model)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteRecommendRule`.")
+	}
+
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `DeleteRecommendRule`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -773,7 +792,7 @@ func (c *APIClient) DeleteRecommendRuleWithContext(ctx context.Context, r ApiDel
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -900,12 +919,19 @@ func (c *APIClient) GetRecommendRuleWithContext(ctx context.Context, r ApiGetRec
 	)
 
 	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"model"+"}", url.PathEscape(parameterToString(r.model)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(parameterToString(r.model)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetRecommendRule`.")
+	}
+
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `GetRecommendRule`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -922,7 +948,7 @@ func (c *APIClient) GetRecommendRuleWithContext(ctx context.Context, r ApiGetRec
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1049,12 +1075,15 @@ func (c *APIClient) GetRecommendStatusWithContext(ctx context.Context, r ApiGetR
 	)
 
 	requestPath := "/1/indexes/{indexName}/{model}/task/{taskID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"model"+"}", url.PathEscape(parameterToString(r.model)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(parameterToString(r.model)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetRecommendStatus`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1071,7 +1100,7 @@ func (c *APIClient) GetRecommendStatusWithContext(ctx context.Context, r ApiGetR
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1186,8 +1215,9 @@ func (c *APIClient) GetRecommendationsWithContext(ctx context.Context, r ApiGetR
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.getRecommendationsParams == nil {
-		return returnValue, reportError("getRecommendationsParams is required and must be specified")
+		return returnValue, reportError("Parameter `getRecommendationsParams` is required when calling `GetRecommendations`.")
 	}
 
 	// optional params if any
@@ -1207,7 +1237,7 @@ func (c *APIClient) GetRecommendationsWithContext(ctx context.Context, r ApiGetR
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1339,11 +1369,14 @@ func (c *APIClient) SearchRecommendRulesWithContext(ctx context.Context, r ApiSe
 	)
 
 	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/search"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"model"+"}", url.PathEscape(parameterToString(r.model)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(parameterToString(r.model)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SearchRecommendRules`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1356,7 +1389,7 @@ func (c *APIClient) SearchRecommendRulesWithContext(ctx context.Context, r ApiSe
 	}
 
 	// body params
-	if isNilorEmpty(r.searchRecommendRulesParams) {
+	if utils.IsNilOrEmpty(r.searchRecommendRulesParams) {
 		postBody = "{}"
 	} else {
 		postBody = r.searchRecommendRulesParams
@@ -1366,7 +1399,7 @@ func (c *APIClient) SearchRecommendRulesWithContext(ctx context.Context, r ApiSe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}

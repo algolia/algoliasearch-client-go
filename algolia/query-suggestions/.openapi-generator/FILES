@@ -15,5 +15,3 @@ model_query_suggestions_configuration.go
 model_query_suggestions_configuration_response.go
 model_query_suggestions_configuration_with_index.go
 model_source_index.go
-response.go
-utils.go

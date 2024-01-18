@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -115,12 +115,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -141,7 +144,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -260,12 +263,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -286,7 +292,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -423,12 +429,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -445,7 +454,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -455,7 +464,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -592,12 +601,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -614,7 +626,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -624,7 +636,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -785,17 +797,17 @@ func (c *APIClient) GetAverageClickPositionWithContext(ctx context.Context, r Ap
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetAverageClickPosition`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -814,7 +826,7 @@ func (c *APIClient) GetAverageClickPositionWithContext(ctx context.Context, r Ap
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -977,17 +989,17 @@ func (c *APIClient) GetClickPositionsWithContext(ctx context.Context, r ApiGetCl
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetClickPositions`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -1006,7 +1018,7 @@ func (c *APIClient) GetClickPositionsWithContext(ctx context.Context, r ApiGetCl
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1165,17 +1177,17 @@ func (c *APIClient) GetClickThroughRateWithContext(ctx context.Context, r ApiGet
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetClickThroughRate`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -1194,7 +1206,7 @@ func (c *APIClient) GetClickThroughRateWithContext(ctx context.Context, r ApiGet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1353,17 +1365,17 @@ func (c *APIClient) GetConversationRateWithContext(ctx context.Context, r ApiGet
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetConversationRate`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -1382,7 +1394,7 @@ func (c *APIClient) GetConversationRateWithContext(ctx context.Context, r ApiGet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1541,17 +1553,17 @@ func (c *APIClient) GetNoClickRateWithContext(ctx context.Context, r ApiGetNoCli
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetNoClickRate`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -1570,7 +1582,7 @@ func (c *APIClient) GetNoClickRateWithContext(ctx context.Context, r ApiGetNoCli
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1729,17 +1741,17 @@ func (c *APIClient) GetNoResultsRateWithContext(ctx context.Context, r ApiGetNoR
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetNoResultsRate`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -1758,7 +1770,7 @@ func (c *APIClient) GetNoResultsRateWithContext(ctx context.Context, r ApiGetNoR
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1917,17 +1929,17 @@ func (c *APIClient) GetSearchesCountWithContext(ctx context.Context, r ApiGetSea
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetSearchesCount`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -1946,7 +1958,7 @@ func (c *APIClient) GetSearchesCountWithContext(ctx context.Context, r ApiGetSea
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2141,23 +2153,23 @@ func (c *APIClient) GetSearchesNoClicksWithContext(ctx context.Context, r ApiGet
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetSearchesNoClicks`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -2176,7 +2188,7 @@ func (c *APIClient) GetSearchesNoClicksWithContext(ctx context.Context, r ApiGet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2371,23 +2383,23 @@ func (c *APIClient) GetSearchesNoResultsWithContext(ctx context.Context, r ApiGe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetSearchesNoResults`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -2406,7 +2418,7 @@ func (c *APIClient) GetSearchesNoResultsWithContext(ctx context.Context, r ApiGe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2513,7 +2525,7 @@ func (c *APIClient) GetStatusWithContext(ctx context.Context, r ApiGetStatusRequ
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetStatus`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
@@ -2533,7 +2545,7 @@ func (c *APIClient) GetStatusWithContext(ctx context.Context, r ApiGetStatusRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2728,23 +2740,23 @@ func (c *APIClient) GetTopCountriesWithContext(ctx context.Context, r ApiGetTopC
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetTopCountries`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -2763,7 +2775,7 @@ func (c *APIClient) GetTopCountriesWithContext(ctx context.Context, r ApiGetTopC
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2976,26 +2988,26 @@ func (c *APIClient) GetTopFilterAttributesWithContext(ctx context.Context, r Api
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetTopFilterAttributes`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.search) {
+	if !utils.IsNilOrEmpty(r.search) {
 		queryParams.Set("search", parameterToString(r.search))
 	}
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -3014,7 +3026,7 @@ func (c *APIClient) GetTopFilterAttributesWithContext(ctx context.Context, r Api
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3236,31 +3248,34 @@ func (c *APIClient) GetTopFilterForAttributeWithContext(ctx context.Context, r A
 	)
 
 	requestPath := "/2/filters/{attribute}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"attribute"+"}", url.PathEscape(parameterToString(r.attribute)))
+	requestPath = strings.ReplaceAll(requestPath, "{attribute}", url.PathEscape(parameterToString(r.attribute)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.attribute == "" {
+		return returnValue, reportError("Parameter `attribute` is required when calling `GetTopFilterForAttribute`.")
+	}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetTopFilterForAttribute`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.search) {
+	if !utils.IsNilOrEmpty(r.search) {
 		queryParams.Set("search", parameterToString(r.search))
 	}
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -3279,7 +3294,7 @@ func (c *APIClient) GetTopFilterForAttributeWithContext(ctx context.Context, r A
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3492,26 +3507,26 @@ func (c *APIClient) GetTopFiltersNoResultsWithContext(ctx context.Context, r Api
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetTopFiltersNoResults`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.search) {
+	if !utils.IsNilOrEmpty(r.search) {
 		queryParams.Set("search", parameterToString(r.search))
 	}
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -3530,7 +3545,7 @@ func (c *APIClient) GetTopFiltersNoResultsWithContext(ctx context.Context, r Api
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3761,29 +3776,29 @@ func (c *APIClient) GetTopHitsWithContext(ctx context.Context, r ApiGetTopHitsRe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetTopHits`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.search) {
+	if !utils.IsNilOrEmpty(r.search) {
 		queryParams.Set("search", parameterToString(r.search))
 	}
-	if !isNilorEmpty(r.clickAnalytics) {
+	if !utils.IsNilOrEmpty(r.clickAnalytics) {
 		queryParams.Set("clickAnalytics", parameterToString(r.clickAnalytics))
 	}
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -3802,7 +3817,7 @@ func (c *APIClient) GetTopHitsWithContext(ctx context.Context, r ApiGetTopHitsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4051,32 +4066,32 @@ func (c *APIClient) GetTopSearchesWithContext(ctx context.Context, r ApiGetTopSe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetTopSearches`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.clickAnalytics) {
+	if !utils.IsNilOrEmpty(r.clickAnalytics) {
 		queryParams.Set("clickAnalytics", parameterToString(r.clickAnalytics))
 	}
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.orderBy) {
+	if !utils.IsNilOrEmpty(r.orderBy) {
 		queryParams.Set("orderBy", parameterToString(r.orderBy))
 	}
-	if !isNilorEmpty(r.direction) {
+	if !utils.IsNilOrEmpty(r.direction) {
 		queryParams.Set("direction", parameterToString(r.direction))
 	}
-	if !isNilorEmpty(r.limit) {
+	if !utils.IsNilOrEmpty(r.limit) {
 		queryParams.Set("limit", parameterToString(r.limit))
 	}
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -4095,7 +4110,7 @@ func (c *APIClient) GetTopSearchesWithContext(ctx context.Context, r ApiGetTopSe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4254,17 +4269,17 @@ func (c *APIClient) GetUsersCountWithContext(ctx context.Context, r ApiGetUsersC
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.index == "" {
-		return returnValue, reportError("index is required and must be specified")
+		return returnValue, reportError("Parameter `index` is required when calling `GetUsersCount`.")
 	}
 
 	queryParams.Set("index", parameterToString(r.index))
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
-	if !isNilorEmpty(r.tags) {
+	if !utils.IsNilOrEmpty(r.tags) {
 		queryParams.Set("tags", parameterToString(r.tags))
 	}
 
@@ -4283,7 +4298,7 @@ func (c *APIClient) GetUsersCountWithContext(ctx context.Context, r ApiGetUsersC
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}

@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -105,8 +105,9 @@ func (c *APIClient) CreateAuthenticationWithContext(ctx context.Context, r ApiCr
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.authenticationCreate == nil {
-		return returnValue, reportError("authenticationCreate is required and must be specified")
+		return returnValue, reportError("Parameter `authenticationCreate` is required when calling `CreateAuthentication`.")
 	}
 
 	// optional params if any
@@ -126,7 +127,7 @@ func (c *APIClient) CreateAuthenticationWithContext(ctx context.Context, r ApiCr
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -235,8 +236,9 @@ func (c *APIClient) CreateDestinationWithContext(ctx context.Context, r ApiCreat
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.destinationCreate == nil {
-		return returnValue, reportError("destinationCreate is required and must be specified")
+		return returnValue, reportError("Parameter `destinationCreate` is required when calling `CreateDestination`.")
 	}
 
 	// optional params if any
@@ -256,7 +258,7 @@ func (c *APIClient) CreateDestinationWithContext(ctx context.Context, r ApiCreat
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -365,8 +367,9 @@ func (c *APIClient) CreateSourceWithContext(ctx context.Context, r ApiCreateSour
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.sourceCreate == nil {
-		return returnValue, reportError("sourceCreate is required and must be specified")
+		return returnValue, reportError("Parameter `sourceCreate` is required when calling `CreateSource`.")
 	}
 
 	// optional params if any
@@ -386,7 +389,7 @@ func (c *APIClient) CreateSourceWithContext(ctx context.Context, r ApiCreateSour
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -495,8 +498,9 @@ func (c *APIClient) CreateTaskWithContext(ctx context.Context, r ApiCreateTaskRe
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.taskCreate == nil {
-		return returnValue, reportError("taskCreate is required and must be specified")
+		return returnValue, reportError("Parameter `taskCreate` is required when calling `CreateTask`.")
 	}
 
 	// optional params if any
@@ -516,7 +520,7 @@ func (c *APIClient) CreateTaskWithContext(ctx context.Context, r ApiCreateTaskRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -635,12 +639,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -661,7 +668,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -780,12 +787,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -806,7 +816,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -943,12 +953,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -965,7 +978,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -975,7 +988,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1112,12 +1125,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -1134,7 +1150,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -1144,7 +1160,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1245,10 +1261,13 @@ func (c *APIClient) DeleteAuthenticationWithContext(ctx context.Context, r ApiDe
 	)
 
 	requestPath := "/1/authentications/{authenticationID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"authenticationID"+"}", url.PathEscape(parameterToString(r.authenticationID)))
+	requestPath = strings.ReplaceAll(requestPath, "{authenticationID}", url.PathEscape(parameterToString(r.authenticationID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.authenticationID == "" {
+		return returnValue, reportError("Parameter `authenticationID` is required when calling `DeleteAuthentication`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1265,7 +1284,7 @@ func (c *APIClient) DeleteAuthenticationWithContext(ctx context.Context, r ApiDe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1366,10 +1385,13 @@ func (c *APIClient) DeleteDestinationWithContext(ctx context.Context, r ApiDelet
 	)
 
 	requestPath := "/1/destinations/{destinationID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"destinationID"+"}", url.PathEscape(parameterToString(r.destinationID)))
+	requestPath = strings.ReplaceAll(requestPath, "{destinationID}", url.PathEscape(parameterToString(r.destinationID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.destinationID == "" {
+		return returnValue, reportError("Parameter `destinationID` is required when calling `DeleteDestination`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1386,7 +1408,7 @@ func (c *APIClient) DeleteDestinationWithContext(ctx context.Context, r ApiDelet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1487,10 +1509,13 @@ func (c *APIClient) DeleteSourceWithContext(ctx context.Context, r ApiDeleteSour
 	)
 
 	requestPath := "/1/sources/{sourceID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"sourceID"+"}", url.PathEscape(parameterToString(r.sourceID)))
+	requestPath = strings.ReplaceAll(requestPath, "{sourceID}", url.PathEscape(parameterToString(r.sourceID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.sourceID == "" {
+		return returnValue, reportError("Parameter `sourceID` is required when calling `DeleteSource`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1507,7 +1532,7 @@ func (c *APIClient) DeleteSourceWithContext(ctx context.Context, r ApiDeleteSour
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1608,10 +1633,13 @@ func (c *APIClient) DeleteTaskWithContext(ctx context.Context, r ApiDeleteTaskRe
 	)
 
 	requestPath := "/1/tasks/{taskID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.taskID == "" {
+		return returnValue, reportError("Parameter `taskID` is required when calling `DeleteTask`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1628,7 +1656,7 @@ func (c *APIClient) DeleteTaskWithContext(ctx context.Context, r ApiDeleteTaskRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1729,10 +1757,13 @@ func (c *APIClient) DisableTaskWithContext(ctx context.Context, r ApiDisableTask
 	)
 
 	requestPath := "/1/tasks/{taskID}/disable"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.taskID == "" {
+		return returnValue, reportError("Parameter `taskID` is required when calling `DisableTask`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1749,7 +1780,7 @@ func (c *APIClient) DisableTaskWithContext(ctx context.Context, r ApiDisableTask
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1850,10 +1881,13 @@ func (c *APIClient) EnableTaskWithContext(ctx context.Context, r ApiEnableTaskRe
 	)
 
 	requestPath := "/1/tasks/{taskID}/enable"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.taskID == "" {
+		return returnValue, reportError("Parameter `taskID` is required when calling `EnableTask`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1870,7 +1904,7 @@ func (c *APIClient) EnableTaskWithContext(ctx context.Context, r ApiEnableTaskRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1971,10 +2005,13 @@ func (c *APIClient) GetAuthenticationWithContext(ctx context.Context, r ApiGetAu
 	)
 
 	requestPath := "/1/authentications/{authenticationID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"authenticationID"+"}", url.PathEscape(parameterToString(r.authenticationID)))
+	requestPath = strings.ReplaceAll(requestPath, "{authenticationID}", url.PathEscape(parameterToString(r.authenticationID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.authenticationID == "" {
+		return returnValue, reportError("Parameter `authenticationID` is required when calling `GetAuthentication`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1991,7 +2028,7 @@ func (c *APIClient) GetAuthenticationWithContext(ctx context.Context, r ApiGetAu
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2190,22 +2227,22 @@ func (c *APIClient) GetAuthenticationsWithContext(ctx context.Context, r ApiGetA
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.itemsPerPage) {
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
 		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
 	}
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.type_) {
+	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", parameterToString(r.type_))
 	}
-	if !isNilorEmpty(r.platform) {
+	if !utils.IsNilOrEmpty(r.platform) {
 		queryParams.Set("platform", parameterToString(r.platform))
 	}
-	if !isNilorEmpty(r.sort) {
+	if !utils.IsNilOrEmpty(r.sort) {
 		queryParams.Set("sort", parameterToString(r.sort))
 	}
-	if !isNilorEmpty(r.order) {
+	if !utils.IsNilOrEmpty(r.order) {
 		queryParams.Set("order", parameterToString(r.order))
 	}
 
@@ -2224,7 +2261,7 @@ func (c *APIClient) GetAuthenticationsWithContext(ctx context.Context, r ApiGetA
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2325,10 +2362,13 @@ func (c *APIClient) GetDestinationWithContext(ctx context.Context, r ApiGetDesti
 	)
 
 	requestPath := "/1/destinations/{destinationID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"destinationID"+"}", url.PathEscape(parameterToString(r.destinationID)))
+	requestPath = strings.ReplaceAll(requestPath, "{destinationID}", url.PathEscape(parameterToString(r.destinationID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.destinationID == "" {
+		return returnValue, reportError("Parameter `destinationID` is required when calling `GetDestination`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -2345,7 +2385,7 @@ func (c *APIClient) GetDestinationWithContext(ctx context.Context, r ApiGetDesti
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2544,22 +2584,22 @@ func (c *APIClient) GetDestinationsWithContext(ctx context.Context, r ApiGetDest
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.itemsPerPage) {
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
 		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
 	}
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.type_) {
+	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", parameterToString(r.type_))
 	}
-	if !isNilorEmpty(r.authenticationID) {
+	if !utils.IsNilOrEmpty(r.authenticationID) {
 		queryParams.Set("authenticationID", parameterToString(r.authenticationID))
 	}
-	if !isNilorEmpty(r.sort) {
+	if !utils.IsNilOrEmpty(r.sort) {
 		queryParams.Set("sort", parameterToString(r.sort))
 	}
-	if !isNilorEmpty(r.order) {
+	if !utils.IsNilOrEmpty(r.order) {
 		queryParams.Set("order", parameterToString(r.order))
 	}
 
@@ -2578,7 +2618,7 @@ func (c *APIClient) GetDestinationsWithContext(ctx context.Context, r ApiGetDest
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2679,10 +2719,13 @@ func (c *APIClient) GetDockerSourceStreamsWithContext(ctx context.Context, r Api
 	)
 
 	requestPath := "/1/sources/{sourceID}/discover"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"sourceID"+"}", url.PathEscape(parameterToString(r.sourceID)))
+	requestPath = strings.ReplaceAll(requestPath, "{sourceID}", url.PathEscape(parameterToString(r.sourceID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.sourceID == "" {
+		return returnValue, reportError("Parameter `sourceID` is required when calling `GetDockerSourceStreams`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -2699,7 +2742,7 @@ func (c *APIClient) GetDockerSourceStreamsWithContext(ctx context.Context, r Api
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2813,11 +2856,17 @@ func (c *APIClient) GetEventWithContext(ctx context.Context, r ApiGetEventReques
 	)
 
 	requestPath := "/1/runs/{runID}/events/{eventID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"runID"+"}", url.PathEscape(parameterToString(r.runID)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"eventID"+"}", url.PathEscape(parameterToString(r.eventID)))
+	requestPath = strings.ReplaceAll(requestPath, "{runID}", url.PathEscape(parameterToString(r.runID)))
+	requestPath = strings.ReplaceAll(requestPath, "{eventID}", url.PathEscape(parameterToString(r.eventID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.runID == "" {
+		return returnValue, reportError("Parameter `runID` is required when calling `GetEvent`.")
+	}
+	if r.eventID == "" {
+		return returnValue, reportError("Parameter `eventID` is required when calling `GetEvent`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -2834,7 +2883,7 @@ func (c *APIClient) GetEventWithContext(ctx context.Context, r ApiGetEventReques
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3079,33 +3128,36 @@ func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequ
 	)
 
 	requestPath := "/1/runs/{runID}/events"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"runID"+"}", url.PathEscape(parameterToString(r.runID)))
+	requestPath = strings.ReplaceAll(requestPath, "{runID}", url.PathEscape(parameterToString(r.runID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.runID == "" {
+		return returnValue, reportError("Parameter `runID` is required when calling `GetEvents`.")
+	}
 
-	if !isNilorEmpty(r.itemsPerPage) {
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
 		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
 	}
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.status) {
+	if !utils.IsNilOrEmpty(r.status) {
 		queryParams.Set("status", parameterToString(r.status))
 	}
-	if !isNilorEmpty(r.type_) {
+	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", parameterToString(r.type_))
 	}
-	if !isNilorEmpty(r.sort) {
+	if !utils.IsNilOrEmpty(r.sort) {
 		queryParams.Set("sort", parameterToString(r.sort))
 	}
-	if !isNilorEmpty(r.order) {
+	if !utils.IsNilOrEmpty(r.order) {
 		queryParams.Set("order", parameterToString(r.order))
 	}
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
 
@@ -3124,7 +3176,7 @@ func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3225,10 +3277,13 @@ func (c *APIClient) GetRunWithContext(ctx context.Context, r ApiGetRunRequest, o
 	)
 
 	requestPath := "/1/runs/{runID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"runID"+"}", url.PathEscape(parameterToString(r.runID)))
+	requestPath = strings.ReplaceAll(requestPath, "{runID}", url.PathEscape(parameterToString(r.runID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.runID == "" {
+		return returnValue, reportError("Parameter `runID` is required when calling `GetRun`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -3245,7 +3300,7 @@ func (c *APIClient) GetRunWithContext(ctx context.Context, r ApiGetRunRequest, o
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3480,28 +3535,28 @@ func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest,
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.itemsPerPage) {
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
 		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
 	}
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.status) {
+	if !utils.IsNilOrEmpty(r.status) {
 		queryParams.Set("status", parameterToString(r.status))
 	}
-	if !isNilorEmpty(r.taskID) {
+	if !utils.IsNilOrEmpty(r.taskID) {
 		queryParams.Set("taskID", parameterToString(r.taskID))
 	}
-	if !isNilorEmpty(r.sort) {
+	if !utils.IsNilOrEmpty(r.sort) {
 		queryParams.Set("sort", parameterToString(r.sort))
 	}
-	if !isNilorEmpty(r.order) {
+	if !utils.IsNilOrEmpty(r.order) {
 		queryParams.Set("order", parameterToString(r.order))
 	}
-	if !isNilorEmpty(r.startDate) {
+	if !utils.IsNilOrEmpty(r.startDate) {
 		queryParams.Set("startDate", parameterToString(r.startDate))
 	}
-	if !isNilorEmpty(r.endDate) {
+	if !utils.IsNilOrEmpty(r.endDate) {
 		queryParams.Set("endDate", parameterToString(r.endDate))
 	}
 
@@ -3520,7 +3575,7 @@ func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3621,10 +3676,13 @@ func (c *APIClient) GetSourceWithContext(ctx context.Context, r ApiGetSourceRequ
 	)
 
 	requestPath := "/1/sources/{sourceID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"sourceID"+"}", url.PathEscape(parameterToString(r.sourceID)))
+	requestPath = strings.ReplaceAll(requestPath, "{sourceID}", url.PathEscape(parameterToString(r.sourceID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.sourceID == "" {
+		return returnValue, reportError("Parameter `sourceID` is required when calling `GetSource`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -3641,7 +3699,7 @@ func (c *APIClient) GetSourceWithContext(ctx context.Context, r ApiGetSourceRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3840,22 +3898,22 @@ func (c *APIClient) GetSourcesWithContext(ctx context.Context, r ApiGetSourcesRe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.itemsPerPage) {
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
 		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
 	}
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.type_) {
+	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", parameterToString(r.type_))
 	}
-	if !isNilorEmpty(r.authenticationID) {
+	if !utils.IsNilOrEmpty(r.authenticationID) {
 		queryParams.Set("authenticationID", parameterToString(r.authenticationID))
 	}
-	if !isNilorEmpty(r.sort) {
+	if !utils.IsNilOrEmpty(r.sort) {
 		queryParams.Set("sort", parameterToString(r.sort))
 	}
-	if !isNilorEmpty(r.order) {
+	if !utils.IsNilOrEmpty(r.order) {
 		queryParams.Set("order", parameterToString(r.order))
 	}
 
@@ -3874,7 +3932,7 @@ func (c *APIClient) GetSourcesWithContext(ctx context.Context, r ApiGetSourcesRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3975,10 +4033,13 @@ func (c *APIClient) GetTaskWithContext(ctx context.Context, r ApiGetTaskRequest,
 	)
 
 	requestPath := "/1/tasks/{taskID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.taskID == "" {
+		return returnValue, reportError("Parameter `taskID` is required when calling `GetTask`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -3995,7 +4056,7 @@ func (c *APIClient) GetTaskWithContext(ctx context.Context, r ApiGetTaskRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4248,31 +4309,31 @@ func (c *APIClient) GetTasksWithContext(ctx context.Context, r ApiGetTasksReques
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.itemsPerPage) {
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
 		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
 	}
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.action) {
+	if !utils.IsNilOrEmpty(r.action) {
 		queryParams.Set("action", parameterToString(r.action))
 	}
-	if !isNilorEmpty(r.enabled) {
+	if !utils.IsNilOrEmpty(r.enabled) {
 		queryParams.Set("enabled", parameterToString(r.enabled))
 	}
-	if !isNilorEmpty(r.sourceID) {
+	if !utils.IsNilOrEmpty(r.sourceID) {
 		queryParams.Set("sourceID", parameterToString(r.sourceID))
 	}
-	if !isNilorEmpty(r.destinationID) {
+	if !utils.IsNilOrEmpty(r.destinationID) {
 		queryParams.Set("destinationID", parameterToString(r.destinationID))
 	}
-	if !isNilorEmpty(r.triggerType) {
+	if !utils.IsNilOrEmpty(r.triggerType) {
 		queryParams.Set("triggerType", parameterToString(r.triggerType))
 	}
-	if !isNilorEmpty(r.sort) {
+	if !utils.IsNilOrEmpty(r.sort) {
 		queryParams.Set("sort", parameterToString(r.sort))
 	}
-	if !isNilorEmpty(r.order) {
+	if !utils.IsNilOrEmpty(r.order) {
 		queryParams.Set("order", parameterToString(r.order))
 	}
 
@@ -4291,7 +4352,7 @@ func (c *APIClient) GetTasksWithContext(ctx context.Context, r ApiGetTasksReques
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4392,10 +4453,13 @@ func (c *APIClient) RunTaskWithContext(ctx context.Context, r ApiRunTaskRequest,
 	)
 
 	requestPath := "/1/tasks/{taskID}/run"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.taskID == "" {
+		return returnValue, reportError("Parameter `taskID` is required when calling `RunTask`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -4412,7 +4476,7 @@ func (c *APIClient) RunTaskWithContext(ctx context.Context, r ApiRunTaskRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4521,8 +4585,9 @@ func (c *APIClient) SearchAuthenticationsWithContext(ctx context.Context, r ApiS
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.authenticationSearch == nil {
-		return returnValue, reportError("authenticationSearch is required and must be specified")
+		return returnValue, reportError("Parameter `authenticationSearch` is required when calling `SearchAuthentications`.")
 	}
 
 	// optional params if any
@@ -4542,7 +4607,7 @@ func (c *APIClient) SearchAuthenticationsWithContext(ctx context.Context, r ApiS
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4651,8 +4716,9 @@ func (c *APIClient) SearchDestinationsWithContext(ctx context.Context, r ApiSear
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.destinationSearch == nil {
-		return returnValue, reportError("destinationSearch is required and must be specified")
+		return returnValue, reportError("Parameter `destinationSearch` is required when calling `SearchDestinations`.")
 	}
 
 	// optional params if any
@@ -4672,7 +4738,7 @@ func (c *APIClient) SearchDestinationsWithContext(ctx context.Context, r ApiSear
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4781,8 +4847,9 @@ func (c *APIClient) SearchSourcesWithContext(ctx context.Context, r ApiSearchSou
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.sourceSearch == nil {
-		return returnValue, reportError("sourceSearch is required and must be specified")
+		return returnValue, reportError("Parameter `sourceSearch` is required when calling `SearchSources`.")
 	}
 
 	// optional params if any
@@ -4802,7 +4869,7 @@ func (c *APIClient) SearchSourcesWithContext(ctx context.Context, r ApiSearchSou
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4911,8 +4978,9 @@ func (c *APIClient) SearchTasksWithContext(ctx context.Context, r ApiSearchTasks
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.taskSearch == nil {
-		return returnValue, reportError("taskSearch is required and must be specified")
+		return returnValue, reportError("Parameter `taskSearch` is required when calling `SearchTasks`.")
 	}
 
 	// optional params if any
@@ -4932,7 +5000,7 @@ func (c *APIClient) SearchTasksWithContext(ctx context.Context, r ApiSearchTasks
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5033,10 +5101,13 @@ func (c *APIClient) TriggerDockerSourceDiscoverWithContext(ctx context.Context, 
 	)
 
 	requestPath := "/1/sources/{sourceID}/discover"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"sourceID"+"}", url.PathEscape(parameterToString(r.sourceID)))
+	requestPath = strings.ReplaceAll(requestPath, "{sourceID}", url.PathEscape(parameterToString(r.sourceID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.sourceID == "" {
+		return returnValue, reportError("Parameter `sourceID` is required when calling `TriggerDockerSourceDiscover`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -5053,7 +5124,7 @@ func (c *APIClient) TriggerDockerSourceDiscoverWithContext(ctx context.Context, 
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5172,12 +5243,16 @@ func (c *APIClient) UpdateAuthenticationWithContext(ctx context.Context, r ApiUp
 	)
 
 	requestPath := "/1/authentications/{authenticationID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"authenticationID"+"}", url.PathEscape(parameterToString(r.authenticationID)))
+	requestPath = strings.ReplaceAll(requestPath, "{authenticationID}", url.PathEscape(parameterToString(r.authenticationID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.authenticationID == "" {
+		return returnValue, reportError("Parameter `authenticationID` is required when calling `UpdateAuthentication`.")
+	}
+
 	if r.authenticationUpdate == nil {
-		return returnValue, reportError("authenticationUpdate is required and must be specified")
+		return returnValue, reportError("Parameter `authenticationUpdate` is required when calling `UpdateAuthentication`.")
 	}
 
 	// optional params if any
@@ -5197,7 +5272,7 @@ func (c *APIClient) UpdateAuthenticationWithContext(ctx context.Context, r ApiUp
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5316,12 +5391,16 @@ func (c *APIClient) UpdateDestinationWithContext(ctx context.Context, r ApiUpdat
 	)
 
 	requestPath := "/1/destinations/{destinationID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"destinationID"+"}", url.PathEscape(parameterToString(r.destinationID)))
+	requestPath = strings.ReplaceAll(requestPath, "{destinationID}", url.PathEscape(parameterToString(r.destinationID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.destinationID == "" {
+		return returnValue, reportError("Parameter `destinationID` is required when calling `UpdateDestination`.")
+	}
+
 	if r.destinationUpdate == nil {
-		return returnValue, reportError("destinationUpdate is required and must be specified")
+		return returnValue, reportError("Parameter `destinationUpdate` is required when calling `UpdateDestination`.")
 	}
 
 	// optional params if any
@@ -5341,7 +5420,7 @@ func (c *APIClient) UpdateDestinationWithContext(ctx context.Context, r ApiUpdat
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5460,12 +5539,16 @@ func (c *APIClient) UpdateSourceWithContext(ctx context.Context, r ApiUpdateSour
 	)
 
 	requestPath := "/1/sources/{sourceID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"sourceID"+"}", url.PathEscape(parameterToString(r.sourceID)))
+	requestPath = strings.ReplaceAll(requestPath, "{sourceID}", url.PathEscape(parameterToString(r.sourceID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.sourceID == "" {
+		return returnValue, reportError("Parameter `sourceID` is required when calling `UpdateSource`.")
+	}
+
 	if r.sourceUpdate == nil {
-		return returnValue, reportError("sourceUpdate is required and must be specified")
+		return returnValue, reportError("Parameter `sourceUpdate` is required when calling `UpdateSource`.")
 	}
 
 	// optional params if any
@@ -5485,7 +5568,7 @@ func (c *APIClient) UpdateSourceWithContext(ctx context.Context, r ApiUpdateSour
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5604,12 +5687,16 @@ func (c *APIClient) UpdateTaskWithContext(ctx context.Context, r ApiUpdateTaskRe
 	)
 
 	requestPath := "/1/tasks/{taskID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.taskID == "" {
+		return returnValue, reportError("Parameter `taskID` is required when calling `UpdateTask`.")
+	}
+
 	if r.taskUpdate == nil {
-		return returnValue, reportError("taskUpdate is required and must be specified")
+		return returnValue, reportError("Parameter `taskUpdate` is required when calling `UpdateTask`.")
 	}
 
 	// optional params if any
@@ -5629,7 +5716,7 @@ func (c *APIClient) UpdateTaskWithContext(ctx context.Context, r ApiUpdateTaskRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}

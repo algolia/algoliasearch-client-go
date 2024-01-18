@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SearchRulesParams Rules search parameters.
@@ -18,7 +20,7 @@ type SearchRulesParams struct {
 	// Maximum number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// Restricts responses to enabled rules. When not specified (default), _all_ rules are retrieved.
-	Enabled NullableBool `json:"enabled,omitempty"`
+	Enabled utils.NullableBool `json:"enabled,omitempty"`
 	// Request options to send with the API call.
 	RequestOptions []map[string]interface{} `json:"requestOptions,omitempty"`
 }
@@ -55,7 +57,7 @@ func WithSearchRulesParamsHitsPerPage(val int32) SearchRulesParamsOption {
 	}
 }
 
-func WithSearchRulesParamsEnabled(val NullableBool) SearchRulesParamsOption {
+func WithSearchRulesParamsEnabled(val utils.NullableBool) SearchRulesParamsOption {
 	return func(f *SearchRulesParams) {
 		f.Enabled = val
 	}
@@ -277,7 +279,7 @@ func (o *SearchRulesParams) HasEnabled() bool {
 	return false
 }
 
-// SetEnabled gets a reference to the given NullableBool and assigns it to the Enabled field.
+// SetEnabled gets a reference to the given utils.NullableBool and assigns it to the Enabled field.
 func (o *SearchRulesParams) SetEnabled(v bool) *SearchRulesParams {
 	o.Enabled.Set(&v)
 	return o

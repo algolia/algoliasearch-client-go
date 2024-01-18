@@ -95,5 +95,3 @@ model_trending_items_query.go
 model_typo_tolerance.go
 model_typo_tolerance_enum.go
 model_value.go
-response.go
-utils.go

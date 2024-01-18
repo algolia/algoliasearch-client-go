@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -115,12 +115,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -141,7 +144,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -260,12 +263,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -286,7 +292,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -423,12 +429,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -445,7 +454,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -455,7 +464,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -592,12 +601,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -614,7 +626,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -624,7 +636,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -722,10 +734,13 @@ func (c *APIClient) DeleteUserTokenWithContext(ctx context.Context, r ApiDeleteU
 	var postBody any
 
 	requestPath := "/1/usertokens/{userToken}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"userToken"+"}", url.PathEscape(parameterToString(r.userToken)))
+	requestPath = strings.ReplaceAll(requestPath, "{userToken}", url.PathEscape(parameterToString(r.userToken)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.userToken == "" {
+		return reportError("Parameter `userToken` is required when calling `DeleteUserToken`.")
+	}
 	if len(r.userToken) < 1 {
 		return reportError("userToken must have at least 1 elements")
 	}
@@ -748,7 +763,7 @@ func (c *APIClient) DeleteUserTokenWithContext(ctx context.Context, r ApiDeleteU
 		return err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return err
 	}
@@ -858,8 +873,9 @@ func (c *APIClient) PushEventsWithContext(ctx context.Context, r ApiPushEventsRe
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.insightsEvents == nil {
-		return returnValue, reportError("insightsEvents is required and must be specified")
+		return returnValue, reportError("Parameter `insightsEvents` is required when calling `PushEvents`.")
 	}
 
 	// optional params if any
@@ -879,7 +895,7 @@ func (c *APIClient) PushEventsWithContext(ctx context.Context, r ApiPushEventsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}

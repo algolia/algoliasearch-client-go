@@ -24,5 +24,3 @@ model_status.go
 model_status_response.go
 model_time_inner.go
 model_type.go
-response.go
-utils.go

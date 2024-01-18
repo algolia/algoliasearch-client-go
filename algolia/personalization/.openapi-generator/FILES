@@ -9,5 +9,3 @@ model_facet_scoring.go
 model_get_user_token_response.go
 model_personalization_strategy_params.go
 model_set_personalization_strategy_response.go
-response.go
-utils.go

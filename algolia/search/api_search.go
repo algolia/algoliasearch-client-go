@@ -12,8 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/internal/errs"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -112,8 +113,9 @@ func (c *APIClient) AddApiKeyWithContext(ctx context.Context, r ApiAddApiKeyRequ
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.apiKey == nil {
-		return returnValue, reportError("apiKey is required and must be specified")
+		return returnValue, reportError("Parameter `apiKey` is required when calling `AddApiKey`.")
 	}
 
 	// optional params if any
@@ -133,7 +135,7 @@ func (c *APIClient) AddApiKeyWithContext(ctx context.Context, r ApiAddApiKeyRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -273,11 +275,21 @@ func (c *APIClient) AddOrUpdateObjectWithContext(ctx context.Context, r ApiAddOr
 	)
 
 	requestPath := "/1/indexes/{indexName}/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `AddOrUpdateObject`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `AddOrUpdateObject`.")
+	}
+
+	if len(r.body) == 0 {
+		return returnValue, reportError("Parameter `body` is required when calling `AddOrUpdateObject`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -296,7 +308,7 @@ func (c *APIClient) AddOrUpdateObjectWithContext(ctx context.Context, r ApiAddOr
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -405,8 +417,9 @@ func (c *APIClient) AppendSourceWithContext(ctx context.Context, r ApiAppendSour
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.source == nil {
-		return returnValue, reportError("source is required and must be specified")
+		return returnValue, reportError("Parameter `source` is required when calling `AppendSource`.")
 	}
 
 	// optional params if any
@@ -426,7 +439,7 @@ func (c *APIClient) AppendSourceWithContext(ctx context.Context, r ApiAppendSour
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -551,10 +564,11 @@ func (c *APIClient) AssignUserIdWithContext(ctx context.Context, r ApiAssignUser
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.xAlgoliaUserID == "" {
-		return returnValue, reportError("xAlgoliaUserID is required and must be specified")
+		return returnValue, reportError("Parameter `xAlgoliaUserID` is required when calling `AssignUserId`.")
 	}
+
 	if r.assignUserIdParams == nil {
-		return returnValue, reportError("assignUserIdParams is required and must be specified")
+		return returnValue, reportError("Parameter `assignUserIdParams` is required when calling `AssignUserId`.")
 	}
 
 	headers["X-Algolia-User-ID"] = parameterToString(r.xAlgoliaUserID)
@@ -576,7 +590,7 @@ func (c *APIClient) AssignUserIdWithContext(ctx context.Context, r ApiAssignUser
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -697,12 +711,16 @@ func (c *APIClient) BatchWithContext(ctx context.Context, r ApiBatchRequest, opt
 	)
 
 	requestPath := "/1/indexes/{indexName}/batch"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `Batch`.")
+	}
+
 	if r.batchWriteParams == nil {
-		return returnValue, reportError("batchWriteParams is required and must be specified")
+		return returnValue, reportError("Parameter `batchWriteParams` is required when calling `Batch`.")
 	}
 
 	// optional params if any
@@ -722,7 +740,7 @@ func (c *APIClient) BatchWithContext(ctx context.Context, r ApiBatchRequest, opt
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -847,10 +865,11 @@ func (c *APIClient) BatchAssignUserIdsWithContext(ctx context.Context, r ApiBatc
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.xAlgoliaUserID == "" {
-		return returnValue, reportError("xAlgoliaUserID is required and must be specified")
+		return returnValue, reportError("Parameter `xAlgoliaUserID` is required when calling `BatchAssignUserIds`.")
 	}
+
 	if r.batchAssignUserIdsParams == nil {
-		return returnValue, reportError("batchAssignUserIdsParams is required and must be specified")
+		return returnValue, reportError("Parameter `batchAssignUserIdsParams` is required when calling `BatchAssignUserIds`.")
 	}
 
 	headers["X-Algolia-User-ID"] = parameterToString(r.xAlgoliaUserID)
@@ -872,7 +891,7 @@ func (c *APIClient) BatchAssignUserIdsWithContext(ctx context.Context, r ApiBatc
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -991,12 +1010,13 @@ func (c *APIClient) BatchDictionaryEntriesWithContext(ctx context.Context, r Api
 	)
 
 	requestPath := "/1/dictionaries/{dictionaryName}/batch"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"dictionaryName"+"}", url.PathEscape(parameterToString(r.dictionaryName)))
+	requestPath = strings.ReplaceAll(requestPath, "{dictionaryName}", url.PathEscape(parameterToString(r.dictionaryName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.batchDictionaryEntriesParams == nil {
-		return returnValue, reportError("batchDictionaryEntriesParams is required and must be specified")
+		return returnValue, reportError("Parameter `batchDictionaryEntriesParams` is required when calling `BatchDictionaryEntries`.")
 	}
 
 	// optional params if any
@@ -1016,7 +1036,7 @@ func (c *APIClient) BatchDictionaryEntriesWithContext(ctx context.Context, r Api
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1139,10 +1159,13 @@ func (c *APIClient) BrowseWithContext(ctx context.Context, r ApiBrowseRequest, o
 	)
 
 	requestPath := "/1/indexes/{indexName}/browse"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `Browse`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1155,7 +1178,7 @@ func (c *APIClient) BrowseWithContext(ctx context.Context, r ApiBrowseRequest, o
 	}
 
 	// body params
-	if isNilorEmpty(r.browseParams) {
+	if utils.IsNilOrEmpty(r.browseParams) {
 		postBody = "{}"
 	} else {
 		postBody = r.browseParams
@@ -1165,7 +1188,7 @@ func (c *APIClient) BrowseWithContext(ctx context.Context, r ApiBrowseRequest, o
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1266,10 +1289,13 @@ func (c *APIClient) ClearObjectsWithContext(ctx context.Context, r ApiClearObjec
 	)
 
 	requestPath := "/1/indexes/{indexName}/clear"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `ClearObjects`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1286,7 +1312,7 @@ func (c *APIClient) ClearObjectsWithContext(ctx context.Context, r ApiClearObjec
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1405,12 +1431,15 @@ func (c *APIClient) ClearRulesWithContext(ctx context.Context, r ApiClearRulesRe
 	)
 
 	requestPath := "/1/indexes/{indexName}/rules/clear"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `ClearRules`.")
+	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
 
@@ -1429,7 +1458,7 @@ func (c *APIClient) ClearRulesWithContext(ctx context.Context, r ApiClearRulesRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1548,12 +1577,15 @@ func (c *APIClient) ClearSynonymsWithContext(ctx context.Context, r ApiClearSyno
 	)
 
 	requestPath := "/1/indexes/{indexName}/synonyms/clear"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `ClearSynonyms`.")
+	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
 
@@ -1572,7 +1604,7 @@ func (c *APIClient) ClearSynonymsWithContext(ctx context.Context, r ApiClearSyno
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1691,12 +1723,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -1717,7 +1752,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1836,12 +1871,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -1862,7 +1900,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1999,12 +2037,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -2021,7 +2062,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -2031,7 +2072,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2168,12 +2209,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -2190,7 +2234,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -2200,7 +2244,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2303,10 +2347,13 @@ func (c *APIClient) DeleteApiKeyWithContext(ctx context.Context, r ApiDeleteApiK
 	)
 
 	requestPath := "/1/keys/{key}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"key"+"}", url.PathEscape(parameterToString(r.key)))
+	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(parameterToString(r.key)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.key == "" {
+		return returnValue, reportError("Parameter `key` is required when calling `DeleteApiKey`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -2323,7 +2370,7 @@ func (c *APIClient) DeleteApiKeyWithContext(ctx context.Context, r ApiDeleteApiK
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2444,12 +2491,16 @@ func (c *APIClient) DeleteByWithContext(ctx context.Context, r ApiDeleteByReques
 	)
 
 	requestPath := "/1/indexes/{indexName}/deleteByQuery"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteBy`.")
+	}
+
 	if r.deleteByParams == nil {
-		return returnValue, reportError("deleteByParams is required and must be specified")
+		return returnValue, reportError("Parameter `deleteByParams` is required when calling `DeleteBy`.")
 	}
 
 	// optional params if any
@@ -2469,7 +2520,7 @@ func (c *APIClient) DeleteByWithContext(ctx context.Context, r ApiDeleteByReques
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2570,10 +2621,13 @@ func (c *APIClient) DeleteIndexWithContext(ctx context.Context, r ApiDeleteIndex
 	)
 
 	requestPath := "/1/indexes/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteIndex`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -2590,7 +2644,7 @@ func (c *APIClient) DeleteIndexWithContext(ctx context.Context, r ApiDeleteIndex
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2704,11 +2758,17 @@ func (c *APIClient) DeleteObjectWithContext(ctx context.Context, r ApiDeleteObje
 	)
 
 	requestPath := "/1/indexes/{indexName}/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteObject`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `DeleteObject`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -2725,7 +2785,7 @@ func (c *APIClient) DeleteObjectWithContext(ctx context.Context, r ApiDeleteObje
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2857,13 +2917,19 @@ func (c *APIClient) DeleteRuleWithContext(ctx context.Context, r ApiDeleteRuleRe
 	)
 
 	requestPath := "/1/indexes/{indexName}/rules/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteRule`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `DeleteRule`.")
+	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
 
@@ -2882,7 +2948,7 @@ func (c *APIClient) DeleteRuleWithContext(ctx context.Context, r ApiDeleteRuleRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2983,10 +3049,13 @@ func (c *APIClient) DeleteSourceWithContext(ctx context.Context, r ApiDeleteSour
 	)
 
 	requestPath := "/1/security/sources/{source}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source)))
+	requestPath = strings.ReplaceAll(requestPath, "{source}", url.PathEscape(parameterToString(r.source)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.source == "" {
+		return returnValue, reportError("Parameter `source` is required when calling `DeleteSource`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -3003,7 +3072,7 @@ func (c *APIClient) DeleteSourceWithContext(ctx context.Context, r ApiDeleteSour
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3135,13 +3204,19 @@ func (c *APIClient) DeleteSynonymWithContext(ctx context.Context, r ApiDeleteSyn
 	)
 
 	requestPath := "/1/indexes/{indexName}/synonyms/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteSynonym`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `DeleteSynonym`.")
+	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
 
@@ -3160,7 +3235,7 @@ func (c *APIClient) DeleteSynonymWithContext(ctx context.Context, r ApiDeleteSyn
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3263,10 +3338,13 @@ func (c *APIClient) GetApiKeyWithContext(ctx context.Context, r ApiGetApiKeyRequ
 	)
 
 	requestPath := "/1/keys/{key}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"key"+"}", url.PathEscape(parameterToString(r.key)))
+	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(parameterToString(r.key)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.key == "" {
+		return returnValue, reportError("Parameter `key` is required when calling `GetApiKey`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -3283,7 +3361,7 @@ func (c *APIClient) GetApiKeyWithContext(ctx context.Context, r ApiGetApiKeyRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3370,7 +3448,7 @@ func (c *APIClient) GetDictionaryLanguagesWithContext(ctx context.Context, opts 
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3457,7 +3535,7 @@ func (c *APIClient) GetDictionarySettingsWithContext(ctx context.Context, opts .
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3626,16 +3704,16 @@ func (c *APIClient) GetLogsWithContext(ctx context.Context, r ApiGetLogsRequest,
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.offset) {
+	if !utils.IsNilOrEmpty(r.offset) {
 		queryParams.Set("offset", parameterToString(r.offset))
 	}
-	if !isNilorEmpty(r.length) {
+	if !utils.IsNilOrEmpty(r.length) {
 		queryParams.Set("length", parameterToString(r.length))
 	}
-	if !isNilorEmpty(r.indexName) {
+	if !utils.IsNilOrEmpty(r.indexName) {
 		queryParams.Set("indexName", parameterToString(r.indexName))
 	}
-	if !isNilorEmpty(r.type_) {
+	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", parameterToString(r.type_))
 	}
 
@@ -3654,7 +3732,7 @@ func (c *APIClient) GetLogsWithContext(ctx context.Context, r ApiGetLogsRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3786,13 +3864,19 @@ func (c *APIClient) GetObjectWithContext(ctx context.Context, r ApiGetObjectRequ
 	)
 
 	requestPath := "/1/indexes/{indexName}/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetObject`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `GetObject`.")
+	}
 
-	if !isNilorEmpty(r.attributesToRetrieve) {
+	if !utils.IsNilOrEmpty(r.attributesToRetrieve) {
 		queryParams.Set("attributesToRetrieve", parameterToString(r.attributesToRetrieve))
 	}
 
@@ -3811,7 +3895,7 @@ func (c *APIClient) GetObjectWithContext(ctx context.Context, r ApiGetObjectRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3920,8 +4004,9 @@ func (c *APIClient) GetObjectsWithContext(ctx context.Context, r ApiGetObjectsRe
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.getObjectsParams == nil {
-		return returnValue, reportError("getObjectsParams is required and must be specified")
+		return returnValue, reportError("Parameter `getObjectsParams` is required when calling `GetObjects`.")
 	}
 
 	// optional params if any
@@ -3941,7 +4026,7 @@ func (c *APIClient) GetObjectsWithContext(ctx context.Context, r ApiGetObjectsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4055,11 +4140,17 @@ func (c *APIClient) GetRuleWithContext(ctx context.Context, r ApiGetRuleRequest,
 	)
 
 	requestPath := "/1/indexes/{indexName}/rules/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetRule`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `GetRule`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -4076,7 +4167,7 @@ func (c *APIClient) GetRuleWithContext(ctx context.Context, r ApiGetRuleRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4177,10 +4268,13 @@ func (c *APIClient) GetSettingsWithContext(ctx context.Context, r ApiGetSettings
 	)
 
 	requestPath := "/1/indexes/{indexName}/settings"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetSettings`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -4197,7 +4291,7 @@ func (c *APIClient) GetSettingsWithContext(ctx context.Context, r ApiGetSettings
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4284,7 +4378,7 @@ func (c *APIClient) GetSourcesWithContext(ctx context.Context, opts ...Option) (
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4398,11 +4492,17 @@ func (c *APIClient) GetSynonymWithContext(ctx context.Context, r ApiGetSynonymRe
 	)
 
 	requestPath := "/1/indexes/{indexName}/synonyms/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetSynonym`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `GetSynonym`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -4419,7 +4519,7 @@ func (c *APIClient) GetSynonymWithContext(ctx context.Context, r ApiGetSynonymRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4533,11 +4633,14 @@ func (c *APIClient) GetTaskWithContext(ctx context.Context, r ApiGetTaskRequest,
 	)
 
 	requestPath := "/1/indexes/{indexName}/task/{taskID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"taskID"+"}", url.PathEscape(parameterToString(r.taskID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetTask`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -4554,7 +4657,7 @@ func (c *APIClient) GetTaskWithContext(ctx context.Context, r ApiGetTaskRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4643,7 +4746,7 @@ func (c *APIClient) GetTopUserIdsWithContext(ctx context.Context, opts ...Option
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4746,10 +4849,13 @@ func (c *APIClient) GetUserIdWithContext(ctx context.Context, r ApiGetUserIdRequ
 	)
 
 	requestPath := "/1/clusters/mapping/{userID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"userID"+"}", url.PathEscape(parameterToString(r.userID)))
+	requestPath = strings.ReplaceAll(requestPath, "{userID}", url.PathEscape(parameterToString(r.userID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.userID == "" {
+		return returnValue, reportError("Parameter `userID` is required when calling `GetUserId`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -4766,7 +4872,7 @@ func (c *APIClient) GetUserIdWithContext(ctx context.Context, r ApiGetUserIdRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4875,7 +4981,7 @@ func (c *APIClient) HasPendingMappingsWithContext(ctx context.Context, r ApiHasP
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.getClusters) {
+	if !utils.IsNilOrEmpty(r.getClusters) {
 		queryParams.Set("getClusters", parameterToString(r.getClusters))
 	}
 
@@ -4894,7 +5000,7 @@ func (c *APIClient) HasPendingMappingsWithContext(ctx context.Context, r ApiHasP
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4981,7 +5087,7 @@ func (c *APIClient) ListApiKeysWithContext(ctx context.Context, opts ...Option) 
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5068,7 +5174,7 @@ func (c *APIClient) ListClustersWithContext(ctx context.Context, opts ...Option)
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5195,10 +5301,10 @@ func (c *APIClient) ListIndicesWithContext(ctx context.Context, r ApiListIndices
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.hitsPerPage) {
+	if !utils.IsNilOrEmpty(r.hitsPerPage) {
 		queryParams.Set("hitsPerPage", parameterToString(r.hitsPerPage))
 	}
 
@@ -5217,7 +5323,7 @@ func (c *APIClient) ListIndicesWithContext(ctx context.Context, r ApiListIndices
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5346,10 +5452,10 @@ func (c *APIClient) ListUserIdsWithContext(ctx context.Context, r ApiListUserIds
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.hitsPerPage) {
+	if !utils.IsNilOrEmpty(r.hitsPerPage) {
 		queryParams.Set("hitsPerPage", parameterToString(r.hitsPerPage))
 	}
 
@@ -5368,7 +5474,7 @@ func (c *APIClient) ListUserIdsWithContext(ctx context.Context, r ApiListUserIds
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5479,8 +5585,9 @@ func (c *APIClient) MultipleBatchWithContext(ctx context.Context, r ApiMultipleB
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.batchParams == nil {
-		return returnValue, reportError("batchParams is required and must be specified")
+		return returnValue, reportError("Parameter `batchParams` is required when calling `MultipleBatch`.")
 	}
 
 	// optional params if any
@@ -5500,7 +5607,7 @@ func (c *APIClient) MultipleBatchWithContext(ctx context.Context, r ApiMultipleB
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5637,12 +5744,16 @@ func (c *APIClient) OperationIndexWithContext(ctx context.Context, r ApiOperatio
 	)
 
 	requestPath := "/1/indexes/{indexName}/operation"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `OperationIndex`.")
+	}
+
 	if r.operationIndexParams == nil {
-		return returnValue, reportError("operationIndexParams is required and must be specified")
+		return returnValue, reportError("Parameter `operationIndexParams` is required when calling `OperationIndex`.")
 	}
 
 	// optional params if any
@@ -5662,7 +5773,7 @@ func (c *APIClient) OperationIndexWithContext(ctx context.Context, r ApiOperatio
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5814,16 +5925,26 @@ func (c *APIClient) PartialUpdateObjectWithContext(ctx context.Context, r ApiPar
 	)
 
 	requestPath := "/1/indexes/{indexName}/{objectID}/partial"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
-	if r.attributesToUpdate == nil {
-		return returnValue, reportError("attributesToUpdate is required and must be specified")
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `PartialUpdateObject`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `PartialUpdateObject`.")
 	}
 
-	if !isNilorEmpty(r.createIfNotExists) {
+	if len(r.attributesToUpdate) == 0 {
+		return returnValue, reportError("Parameter `attributesToUpdate` is required when calling `PartialUpdateObject`.")
+	}
+	if len(r.attributesToUpdate) == 0 {
+		return returnValue, reportError("Parameter `attributesToUpdate` is required when calling `PartialUpdateObject`.")
+	}
+
+	if !utils.IsNilOrEmpty(r.createIfNotExists) {
 		queryParams.Set("createIfNotExists", parameterToString(r.createIfNotExists))
 	}
 
@@ -5844,7 +5965,7 @@ func (c *APIClient) PartialUpdateObjectWithContext(ctx context.Context, r ApiPar
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5945,10 +6066,13 @@ func (c *APIClient) RemoveUserIdWithContext(ctx context.Context, r ApiRemoveUser
 	)
 
 	requestPath := "/1/clusters/mapping/{userID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"userID"+"}", url.PathEscape(parameterToString(r.userID)))
+	requestPath = strings.ReplaceAll(requestPath, "{userID}", url.PathEscape(parameterToString(r.userID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.userID == "" {
+		return returnValue, reportError("Parameter `userID` is required when calling `RemoveUserId`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -5965,7 +6089,7 @@ func (c *APIClient) RemoveUserIdWithContext(ctx context.Context, r ApiRemoveUser
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -6074,8 +6198,9 @@ func (c *APIClient) ReplaceSourcesWithContext(ctx context.Context, r ApiReplaceS
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
-	if r.source == nil {
-		return returnValue, reportError("source is required and must be specified")
+
+	if len(r.source) == 0 {
+		return returnValue, reportError("Parameter `source` is required when calling `ReplaceSources`.")
 	}
 
 	// optional params if any
@@ -6095,7 +6220,7 @@ func (c *APIClient) ReplaceSourcesWithContext(ctx context.Context, r ApiReplaceS
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -6198,10 +6323,13 @@ func (c *APIClient) RestoreApiKeyWithContext(ctx context.Context, r ApiRestoreAp
 	)
 
 	requestPath := "/1/keys/{key}/restore"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"key"+"}", url.PathEscape(parameterToString(r.key)))
+	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(parameterToString(r.key)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.key == "" {
+		return returnValue, reportError("Parameter `key` is required when calling `RestoreApiKey`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -6218,7 +6346,7 @@ func (c *APIClient) RestoreApiKeyWithContext(ctx context.Context, r ApiRestoreAp
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -6343,10 +6471,17 @@ func (c *APIClient) SaveObjectWithContext(ctx context.Context, r ApiSaveObjectRe
 	)
 
 	requestPath := "/1/indexes/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SaveObject`.")
+	}
+
+	if len(r.body) == 0 {
+		return returnValue, reportError("Parameter `body` is required when calling `SaveObject`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -6365,7 +6500,7 @@ func (c *APIClient) SaveObjectWithContext(ctx context.Context, r ApiSaveObjectRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -6515,16 +6650,23 @@ func (c *APIClient) SaveRuleWithContext(ctx context.Context, r ApiSaveRuleReques
 	)
 
 	requestPath := "/1/indexes/{indexName}/rules/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
-	if r.rule == nil {
-		return returnValue, reportError("rule is required and must be specified")
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SaveRule`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `SaveRule`.")
 	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if r.rule == nil {
+		return returnValue, reportError("Parameter `rule` is required when calling `SaveRule`.")
+	}
+
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
 
@@ -6545,7 +6687,7 @@ func (c *APIClient) SaveRuleWithContext(ctx context.Context, r ApiSaveRuleReques
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -6700,18 +6842,22 @@ func (c *APIClient) SaveRulesWithContext(ctx context.Context, r ApiSaveRulesRequ
 	)
 
 	requestPath := "/1/indexes/{indexName}/rules/batch"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
-	if r.rules == nil {
-		return returnValue, reportError("rules is required and must be specified")
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SaveRules`.")
 	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if len(r.rules) == 0 {
+		return returnValue, reportError("Parameter `rules` is required when calling `SaveRules`.")
+	}
+
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
-	if !isNilorEmpty(r.clearExistingRules) {
+	if !utils.IsNilOrEmpty(r.clearExistingRules) {
 		queryParams.Set("clearExistingRules", parameterToString(r.clearExistingRules))
 	}
 
@@ -6732,7 +6878,7 @@ func (c *APIClient) SaveRulesWithContext(ctx context.Context, r ApiSaveRulesRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -6888,16 +7034,23 @@ func (c *APIClient) SaveSynonymWithContext(ctx context.Context, r ApiSaveSynonym
 	)
 
 	requestPath := "/1/indexes/{indexName}/synonyms/{objectID}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"objectID"+"}", url.PathEscape(parameterToString(r.objectID)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(parameterToString(r.objectID)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
-	if r.synonymHit == nil {
-		return returnValue, reportError("synonymHit is required and must be specified")
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SaveSynonym`.")
+	}
+	if r.objectID == "" {
+		return returnValue, reportError("Parameter `objectID` is required when calling `SaveSynonym`.")
 	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if r.synonymHit == nil {
+		return returnValue, reportError("Parameter `synonymHit` is required when calling `SaveSynonym`.")
+	}
+
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
 
@@ -6918,7 +7071,7 @@ func (c *APIClient) SaveSynonymWithContext(ctx context.Context, r ApiSaveSynonym
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -7073,18 +7226,22 @@ func (c *APIClient) SaveSynonymsWithContext(ctx context.Context, r ApiSaveSynony
 	)
 
 	requestPath := "/1/indexes/{indexName}/synonyms/batch"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
-	if r.synonymHit == nil {
-		return returnValue, reportError("synonymHit is required and must be specified")
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SaveSynonyms`.")
 	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if len(r.synonymHit) == 0 {
+		return returnValue, reportError("Parameter `synonymHit` is required when calling `SaveSynonyms`.")
+	}
+
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
-	if !isNilorEmpty(r.replaceExistingSynonyms) {
+	if !utils.IsNilOrEmpty(r.replaceExistingSynonyms) {
 		queryParams.Set("replaceExistingSynonyms", parameterToString(r.replaceExistingSynonyms))
 	}
 
@@ -7105,7 +7262,7 @@ func (c *APIClient) SaveSynonymsWithContext(ctx context.Context, r ApiSaveSynony
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -7214,8 +7371,9 @@ func (c *APIClient) SearchWithContext(ctx context.Context, r ApiSearchRequest, o
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.searchMethodParams == nil {
-		return returnValue, reportError("searchMethodParams is required and must be specified")
+		return returnValue, reportError("Parameter `searchMethodParams` is required when calling `Search`.")
 	}
 
 	// optional params if any
@@ -7235,7 +7393,7 @@ func (c *APIClient) SearchWithContext(ctx context.Context, r ApiSearchRequest, o
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -7354,12 +7512,13 @@ func (c *APIClient) SearchDictionaryEntriesWithContext(ctx context.Context, r Ap
 	)
 
 	requestPath := "/1/dictionaries/{dictionaryName}/search"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"dictionaryName"+"}", url.PathEscape(parameterToString(r.dictionaryName)))
+	requestPath = strings.ReplaceAll(requestPath, "{dictionaryName}", url.PathEscape(parameterToString(r.dictionaryName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.searchDictionaryEntriesParams == nil {
-		return returnValue, reportError("searchDictionaryEntriesParams is required and must be specified")
+		return returnValue, reportError("Parameter `searchDictionaryEntriesParams` is required when calling `SearchDictionaryEntries`.")
 	}
 
 	// optional params if any
@@ -7379,7 +7538,7 @@ func (c *APIClient) SearchDictionaryEntriesWithContext(ctx context.Context, r Ap
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -7513,11 +7672,17 @@ func (c *APIClient) SearchForFacetValuesWithContext(ctx context.Context, r ApiSe
 	)
 
 	requestPath := "/1/indexes/{indexName}/facets/{facetName}/query"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"facetName"+"}", url.PathEscape(parameterToString(r.facetName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{facetName}", url.PathEscape(parameterToString(r.facetName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SearchForFacetValues`.")
+	}
+	if r.facetName == "" {
+		return returnValue, reportError("Parameter `facetName` is required when calling `SearchForFacetValues`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -7530,7 +7695,7 @@ func (c *APIClient) SearchForFacetValuesWithContext(ctx context.Context, r ApiSe
 	}
 
 	// body params
-	if isNilorEmpty(r.searchForFacetValuesRequest) {
+	if utils.IsNilOrEmpty(r.searchForFacetValuesRequest) {
 		postBody = "{}"
 	} else {
 		postBody = r.searchForFacetValuesRequest
@@ -7540,7 +7705,7 @@ func (c *APIClient) SearchForFacetValuesWithContext(ctx context.Context, r ApiSe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -7659,10 +7824,13 @@ func (c *APIClient) SearchRulesWithContext(ctx context.Context, r ApiSearchRules
 	)
 
 	requestPath := "/1/indexes/{indexName}/rules/search"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SearchRules`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -7675,7 +7843,7 @@ func (c *APIClient) SearchRulesWithContext(ctx context.Context, r ApiSearchRules
 	}
 
 	// body params
-	if isNilorEmpty(r.searchRulesParams) {
+	if utils.IsNilOrEmpty(r.searchRulesParams) {
 		postBody = "{}"
 	} else {
 		postBody = r.searchRulesParams
@@ -7685,7 +7853,7 @@ func (c *APIClient) SearchRulesWithContext(ctx context.Context, r ApiSearchRules
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -7804,10 +7972,13 @@ func (c *APIClient) SearchSingleIndexWithContext(ctx context.Context, r ApiSearc
 	)
 
 	requestPath := "/1/indexes/{indexName}/query"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SearchSingleIndex`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -7820,7 +7991,7 @@ func (c *APIClient) SearchSingleIndexWithContext(ctx context.Context, r ApiSearc
 	}
 
 	// body params
-	if isNilorEmpty(r.searchParams) {
+	if utils.IsNilOrEmpty(r.searchParams) {
 		postBody = "{}"
 	} else {
 		postBody = r.searchParams
@@ -7830,7 +8001,7 @@ func (c *APIClient) SearchSingleIndexWithContext(ctx context.Context, r ApiSearc
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -8003,18 +8174,21 @@ func (c *APIClient) SearchSynonymsWithContext(ctx context.Context, r ApiSearchSy
 	)
 
 	requestPath := "/1/indexes/{indexName}/synonyms/search"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SearchSynonyms`.")
+	}
 
-	if !isNilorEmpty(r.type_) {
+	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", parameterToString(r.type_))
 	}
-	if !isNilorEmpty(r.page) {
+	if !utils.IsNilOrEmpty(r.page) {
 		queryParams.Set("page", parameterToString(r.page))
 	}
-	if !isNilorEmpty(r.hitsPerPage) {
+	if !utils.IsNilOrEmpty(r.hitsPerPage) {
 		queryParams.Set("hitsPerPage", parameterToString(r.hitsPerPage))
 	}
 
@@ -8029,7 +8203,7 @@ func (c *APIClient) SearchSynonymsWithContext(ctx context.Context, r ApiSearchSy
 	}
 
 	// body params
-	if isNilorEmpty(r.searchSynonymsParams) {
+	if utils.IsNilOrEmpty(r.searchSynonymsParams) {
 		postBody = "{}"
 	} else {
 		postBody = r.searchSynonymsParams
@@ -8039,7 +8213,7 @@ func (c *APIClient) SearchSynonymsWithContext(ctx context.Context, r ApiSearchSy
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -8150,8 +8324,9 @@ func (c *APIClient) SearchUserIdsWithContext(ctx context.Context, r ApiSearchUse
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.searchUserIdsParams == nil {
-		return returnValue, reportError("searchUserIdsParams is required and must be specified")
+		return returnValue, reportError("Parameter `searchUserIdsParams` is required when calling `SearchUserIds`.")
 	}
 
 	// optional params if any
@@ -8171,7 +8346,7 @@ func (c *APIClient) SearchUserIdsWithContext(ctx context.Context, r ApiSearchUse
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Read)
+	res, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
@@ -8280,8 +8455,9 @@ func (c *APIClient) SetDictionarySettingsWithContext(ctx context.Context, r ApiS
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.dictionarySettingsParams == nil {
-		return returnValue, reportError("dictionarySettingsParams is required and must be specified")
+		return returnValue, reportError("Parameter `dictionarySettingsParams` is required when calling `SetDictionarySettings`.")
 	}
 
 	// optional params if any
@@ -8301,7 +8477,7 @@ func (c *APIClient) SetDictionarySettingsWithContext(ctx context.Context, r ApiS
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -8438,15 +8614,19 @@ func (c *APIClient) SetSettingsWithContext(ctx context.Context, r ApiSetSettings
 	)
 
 	requestPath := "/1/indexes/{indexName}/settings"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
-	if r.indexSettings == nil {
-		return returnValue, reportError("indexSettings is required and must be specified")
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `SetSettings`.")
 	}
 
-	if !isNilorEmpty(r.forwardToReplicas) {
+	if r.indexSettings == nil {
+		return returnValue, reportError("Parameter `indexSettings` is required when calling `SetSettings`.")
+	}
+
+	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
 	}
 
@@ -8467,7 +8647,7 @@ func (c *APIClient) SetSettingsWithContext(ctx context.Context, r ApiSetSettings
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -8590,12 +8770,16 @@ func (c *APIClient) UpdateApiKeyWithContext(ctx context.Context, r ApiUpdateApiK
 	)
 
 	requestPath := "/1/keys/{key}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"key"+"}", url.PathEscape(parameterToString(r.key)))
+	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(parameterToString(r.key)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.key == "" {
+		return returnValue, reportError("Parameter `key` is required when calling `UpdateApiKey`.")
+	}
+
 	if r.apiKey == nil {
-		return returnValue, reportError("apiKey is required and must be specified")
+		return returnValue, reportError("Parameter `apiKey` is required when calling `UpdateApiKey`.")
 	}
 
 	// optional params if any
@@ -8615,7 +8799,7 @@ func (c *APIClient) UpdateApiKeyWithContext(ctx context.Context, r ApiUpdateApiK
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -8720,7 +8904,7 @@ func (c *APIClient) WaitForTaskWithContext(
 	maxDelay *time.Duration,
 	opts ...Option,
 ) (*GetTaskResponse, error) {
-	return RetryUntil(
+	return utils.RetryUntil(
 		func() (*GetTaskResponse, error) {
 			return c.GetTaskWithContext(ctx, c.NewApiGetTaskRequest(indexName, taskID), opts...)
 		},
@@ -8833,7 +9017,7 @@ func (c *APIClient) WaitForApiKeyWithContext(
 			return nil, &errs.WaitKeyUpdateError{}
 		}
 
-		return RetryUntil(
+		return utils.RetryUntil(
 			func() (*GetApiKeyResponse, error) {
 				return c.GetApiKeyWithContext(ctx, c.NewApiGetApiKeyRequest(key), opts...)
 			},
@@ -8891,7 +9075,7 @@ func (c *APIClient) WaitForApiKeyWithContext(
 		)
 	}
 
-	return RetryUntil(
+	return utils.RetryUntil(
 		func() (*GetApiKeyResponse, error) {
 			return c.GetApiKeyWithContext(ctx, c.NewApiGetApiKeyRequest(key), opts...)
 		},

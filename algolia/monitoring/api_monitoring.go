@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -115,12 +115,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -141,7 +144,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -260,12 +263,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -286,7 +292,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -423,12 +429,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -445,7 +454,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -455,7 +464,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -592,12 +601,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -614,7 +626,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -624,7 +636,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -725,10 +737,13 @@ func (c *APIClient) GetClusterIncidentsWithContext(ctx context.Context, r ApiGet
 	)
 
 	requestPath := "/1/incidents/{clusters}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"clusters"+"}", url.PathEscape(parameterToString(r.clusters)))
+	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.clusters == "" {
+		return returnValue, reportError("Parameter `clusters` is required when calling `GetClusterIncidents`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -745,7 +760,7 @@ func (c *APIClient) GetClusterIncidentsWithContext(ctx context.Context, r ApiGet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -846,10 +861,13 @@ func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClu
 	)
 
 	requestPath := "/1/status/{clusters}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"clusters"+"}", url.PathEscape(parameterToString(r.clusters)))
+	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.clusters == "" {
+		return returnValue, reportError("Parameter `clusters` is required when calling `GetClusterStatus`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -866,7 +884,7 @@ func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClu
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -953,7 +971,7 @@ func (c *APIClient) GetIncidentsWithContext(ctx context.Context, opts ...Option)
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1054,10 +1072,13 @@ func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetInde
 	)
 
 	requestPath := "/1/indexing/{clusters}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"clusters"+"}", url.PathEscape(parameterToString(r.clusters)))
+	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.clusters == "" {
+		return returnValue, reportError("Parameter `clusters` is required when calling `GetIndexingTime`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1074,7 +1095,7 @@ func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetInde
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1177,7 +1198,7 @@ func (c *APIClient) GetInventoryWithContext(ctx context.Context, opts ...Option)
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1278,10 +1299,13 @@ func (c *APIClient) GetLatencyWithContext(ctx context.Context, r ApiGetLatencyRe
 	)
 
 	requestPath := "/1/latency/{clusters}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"clusters"+"}", url.PathEscape(parameterToString(r.clusters)))
+	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.clusters == "" {
+		return returnValue, reportError("Parameter `clusters` is required when calling `GetLatency`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1298,7 +1322,7 @@ func (c *APIClient) GetLatencyWithContext(ctx context.Context, r ApiGetLatencyRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1412,8 +1436,8 @@ func (c *APIClient) GetMetricsWithContext(ctx context.Context, r ApiGetMetricsRe
 	)
 
 	requestPath := "/1/infrastructure/{metric}/period/{period}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"metric"+"}", url.PathEscape(parameterToString(r.metric)))
-	requestPath = strings.ReplaceAll(requestPath, "{"+"period"+"}", url.PathEscape(parameterToString(r.period)))
+	requestPath = strings.ReplaceAll(requestPath, "{metric}", url.PathEscape(parameterToString(r.metric)))
+	requestPath = strings.ReplaceAll(requestPath, "{period}", url.PathEscape(parameterToString(r.period)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
@@ -1433,7 +1457,7 @@ func (c *APIClient) GetMetricsWithContext(ctx context.Context, r ApiGetMetricsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1534,10 +1558,13 @@ func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReac
 	)
 
 	requestPath := "/1/reachability/{clusters}/probes"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"clusters"+"}", url.PathEscape(parameterToString(r.clusters)))
+	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.clusters == "" {
+		return returnValue, reportError("Parameter `clusters` is required when calling `GetReachability`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1554,7 +1581,7 @@ func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReac
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1657,7 +1684,7 @@ func (c *APIClient) GetStatusWithContext(ctx context.Context, opts ...Option) (*
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}

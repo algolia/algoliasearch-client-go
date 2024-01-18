@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 type Option struct {
@@ -109,8 +109,9 @@ func (c *APIClient) CreateConfigWithContext(ctx context.Context, r ApiCreateConf
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+
 	if r.querySuggestionsConfigurationWithIndex == nil {
-		return returnValue, reportError("querySuggestionsConfigurationWithIndex is required and must be specified")
+		return returnValue, reportError("Parameter `querySuggestionsConfigurationWithIndex` is required when calling `CreateConfig`.")
 	}
 
 	// optional params if any
@@ -130,7 +131,7 @@ func (c *APIClient) CreateConfigWithContext(ctx context.Context, r ApiCreateConf
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -249,12 +250,15 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -275,7 +279,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -394,12 +398,15 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -420,7 +427,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -557,12 +564,15 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -579,7 +589,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -589,7 +599,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -726,12 +736,15 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	)
 
 	requestPath := "/1{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path)))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", url.PathEscape(parameterToString(r.path)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.path == "" {
+		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
 
-	if !isNilorEmpty(r.parameters) {
+	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
 			queryParams.Set(k, parameterToString(v))
 		}
@@ -748,7 +761,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 
 	// body params
-	if isNilorEmpty(r.body) {
+	if utils.IsNilOrEmpty(r.body) {
 		postBody = "{}"
 	} else {
 		postBody = r.body
@@ -758,7 +771,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -865,10 +878,13 @@ func (c *APIClient) DeleteConfigWithContext(ctx context.Context, r ApiDeleteConf
 	)
 
 	requestPath := "/1/configs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteConfig`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -885,7 +901,7 @@ func (c *APIClient) DeleteConfigWithContext(ctx context.Context, r ApiDeleteConf
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -972,7 +988,7 @@ func (c *APIClient) GetAllConfigsWithContext(ctx context.Context, opts ...Option
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1073,10 +1089,13 @@ func (c *APIClient) GetConfigWithContext(ctx context.Context, r ApiGetConfigRequ
 	)
 
 	requestPath := "/1/configs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetConfig`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1093,7 +1112,7 @@ func (c *APIClient) GetConfigWithContext(ctx context.Context, r ApiGetConfigRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1194,10 +1213,13 @@ func (c *APIClient) GetConfigStatusWithContext(ctx context.Context, r ApiGetConf
 	)
 
 	requestPath := "/1/configs/{indexName}/status"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetConfigStatus`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1214,7 +1236,7 @@ func (c *APIClient) GetConfigStatusWithContext(ctx context.Context, r ApiGetConf
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1315,10 +1337,13 @@ func (c *APIClient) GetLogFileWithContext(ctx context.Context, r ApiGetLogFileRe
 	)
 
 	requestPath := "/1/logs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `GetLogFile`.")
+	}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1335,7 +1360,7 @@ func (c *APIClient) GetLogFileWithContext(ctx context.Context, r ApiGetLogFileRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1454,12 +1479,16 @@ func (c *APIClient) UpdateConfigWithContext(ctx context.Context, r ApiUpdateConf
 	)
 
 	requestPath := "/1/configs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{"+"indexName"+"}", url.PathEscape(parameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
 
 	headers := make(map[string]string)
 	queryParams := url.Values{}
+	if r.indexName == "" {
+		return returnValue, reportError("Parameter `indexName` is required when calling `UpdateConfig`.")
+	}
+
 	if r.querySuggestionsConfiguration == nil {
-		return returnValue, reportError("querySuggestionsConfiguration is required and must be specified")
+		return returnValue, reportError("Parameter `querySuggestionsConfiguration` is required when calling `UpdateConfig`.")
 	}
 
 	// optional params if any
@@ -1479,7 +1508,7 @@ func (c *APIClient) UpdateConfigWithContext(ctx context.Context, r ApiUpdateConf
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, call.Write)
+	res, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}

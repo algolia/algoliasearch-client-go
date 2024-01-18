@@ -164,5 +164,3 @@ model_user_highlight_result.go
 model_user_hit.go
 model_user_id.go
 model_value.go
-response.go
-utils.go

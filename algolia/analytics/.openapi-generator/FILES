@@ -45,5 +45,3 @@ model_top_search_with_analytics.go
 model_top_searches_response.go
 model_top_searches_response_with_analytics.go
 model_user_with_date.go
-response.go
-utils.go
