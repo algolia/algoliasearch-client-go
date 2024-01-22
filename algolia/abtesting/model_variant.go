@@ -43,6 +43,8 @@ type Variant struct {
 	TrafficPercentage int32 `json:"trafficPercentage"`
 	// Number of users during the A/B test.
 	UserCount int32 `json:"userCount"`
+	// Number of users that performed a tracked search during the A/B test.
+	TrackedUserCount int32 `json:"trackedUserCount"`
 }
 
 type VariantOption func(f *Variant)
@@ -57,7 +59,7 @@ func WithVariantFilterEffects(val FilterEffects) VariantOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewVariant(addToCartCount int32, addToCartRate float64, averageClickPosition int32, clickCount int32, clickThroughRate float64, conversionCount int32, conversionRate float64, currencies map[string]CurrenciesValue, description string, index string, noResultCount int32, purchaseCount int32, purchaseRate float64, searchCount int32, trackedSearchCount int32, trafficPercentage int32, userCount int32, opts ...VariantOption) *Variant {
+func NewVariant(addToCartCount int32, addToCartRate float64, averageClickPosition int32, clickCount int32, clickThroughRate float64, conversionCount int32, conversionRate float64, currencies map[string]CurrenciesValue, description string, index string, noResultCount int32, purchaseCount int32, purchaseRate float64, searchCount int32, trackedSearchCount int32, trafficPercentage int32, userCount int32, trackedUserCount int32, opts ...VariantOption) *Variant {
 	this := &Variant{}
 	this.AddToCartCount = addToCartCount
 	this.AddToCartRate = addToCartRate
@@ -76,6 +78,7 @@ func NewVariant(addToCartCount int32, addToCartRate float64, averageClickPositio
 	this.TrackedSearchCount = trackedSearchCount
 	this.TrafficPercentage = trafficPercentage
 	this.UserCount = userCount
+	this.TrackedUserCount = trackedUserCount
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -545,6 +548,31 @@ func (o *Variant) SetUserCount(v int32) *Variant {
 	return o
 }
 
+// GetTrackedUserCount returns the TrackedUserCount field value.
+func (o *Variant) GetTrackedUserCount() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.TrackedUserCount
+}
+
+// GetTrackedUserCountOk returns a tuple with the TrackedUserCount field value
+// and a boolean to check if the value has been set.
+func (o *Variant) GetTrackedUserCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TrackedUserCount, true
+}
+
+// SetTrackedUserCount sets field value.
+func (o *Variant) SetTrackedUserCount(v int32) *Variant {
+	o.TrackedUserCount = v
+	return o
+}
+
 func (o Variant) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -601,6 +629,9 @@ func (o Variant) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["userCount"] = o.UserCount
 	}
+	if true {
+		toSerialize["trackedUserCount"] = o.TrackedUserCount
+	}
 	return json.Marshal(toSerialize)
 }
 
@@ -624,6 +655,7 @@ func (o Variant) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  trafficPercentage=%v\n", o.TrafficPercentage)
 	out += fmt.Sprintf("  userCount=%v\n", o.UserCount)
+	out += fmt.Sprintf("  trackedUserCount=%v\n", o.TrackedUserCount)
 	return fmt.Sprintf("Variant {\n%s}", out)
 }
 
