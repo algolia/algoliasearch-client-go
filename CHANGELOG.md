@@ -1,3 +1,15 @@
+## [4.0.0-alpha.43](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.42...4.0.0-alpha.43)
+
+- [379fbc501](https://github.com/algolia/api-clients-automation/commit/379fbc501) fix(specs): correct `searchSynonyms` parameters ([#2595](https://github.com/algolia/api-clients-automation/pull/2595)) by [@morganleroi](https://github.com/morganleroi/)
+- [982fd3ca4](https://github.com/algolia/api-clients-automation/commit/982fd3ca4) feat(specs): import `crawler` and `usage` specs from new world repo ([#2598](https://github.com/algolia/api-clients-automation/pull/2598)) by [@shortcuts](https://github.com/shortcuts/)
+- [9532a0136](https://github.com/algolia/api-clients-automation/commit/9532a0136) feat(specs): AB testing tracked user count ([#2596](https://github.com/algolia/api-clients-automation/pull/2596)) by [@cdhawke](https://github.com/cdhawke/)
+- [1557175a7](https://github.com/algolia/api-clients-automation/commit/1557175a7) snippets(go): add snippets ([#2573](https://github.com/algolia/api-clients-automation/pull/2573)) by [@millotp](https://github.com/millotp/)
+- [2481e3ac8](https://github.com/algolia/api-clients-automation/commit/2481e3ac8) fix(clients): support the rest of the languages ([#2571](https://github.com/algolia/api-clients-automation/pull/2571)) by [@millotp](https://github.com/millotp/)
+- [99ce6dbae](https://github.com/algolia/api-clients-automation/commit/99ce6dbae) fix(clients): monitoring for JavaScript and Python ([#2568](https://github.com/algolia/api-clients-automation/pull/2568)) by [@shortcuts](https://github.com/shortcuts/)
+- [30a1f2797](https://github.com/algolia/api-clients-automation/commit/30a1f2797) feat(go): add client tests ([#2552](https://github.com/algolia/api-clients-automation/pull/2552)) by [@millotp](https://github.com/millotp/)
+- [99e4bdf2c](https://github.com/algolia/api-clients-automation/commit/99e4bdf2c) feat(specs): add acl permissions to operations ([#2555](https://github.com/algolia/api-clients-automation/pull/2555)) by [@kai687](https://github.com/kai687/)
+- [8b0622380](https://github.com/algolia/api-clients-automation/commit/8b0622380) fix(specs): rename clearAllSynonyms to clearSynonyms ([#2553](https://github.com/algolia/api-clients-automation/pull/2553)) by [@kai687](https://github.com/kai687/)
+
 ## [4.0.0-alpha.42](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.41...4.0.0-alpha.42)
 
 - [0bb2c8000](https://github.com/algolia/api-clients-automation/commit/0bb2c8000) fix(go): use better parameters ([#2514](https://github.com/algolia/api-clients-automation/pull/2514)) by [@millotp](https://github.com/millotp/)
