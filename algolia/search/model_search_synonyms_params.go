@@ -9,7 +9,12 @@ import (
 // SearchSynonymsParams struct for SearchSynonymsParams.
 type SearchSynonymsParams struct {
 	// Text to search for in an index.
-	Query *string `json:"query,omitempty"`
+	Query *string      `json:"query,omitempty"`
+	Type  *SynonymType `json:"type,omitempty"`
+	// Page to retrieve (the first page is `0`, not `1`).
+	Page *int32 `json:"page,omitempty"`
+	// Number of hits per page.
+	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 }
 
 type SearchSynonymsParamsOption func(f *SearchSynonymsParams)
@@ -17,6 +22,24 @@ type SearchSynonymsParamsOption func(f *SearchSynonymsParams)
 func WithSearchSynonymsParamsQuery(val string) SearchSynonymsParamsOption {
 	return func(f *SearchSynonymsParams) {
 		f.Query = &val
+	}
+}
+
+func WithSearchSynonymsParamsType(val SynonymType) SearchSynonymsParamsOption {
+	return func(f *SearchSynonymsParams) {
+		f.Type = &val
+	}
+}
+
+func WithSearchSynonymsParamsPage(val int32) SearchSynonymsParamsOption {
+	return func(f *SearchSynonymsParams) {
+		f.Page = &val
+	}
+}
+
+func WithSearchSynonymsParamsHitsPerPage(val int32) SearchSynonymsParamsOption {
+	return func(f *SearchSynonymsParams) {
+		f.HitsPerPage = &val
 	}
 }
 
@@ -70,10 +93,118 @@ func (o *SearchSynonymsParams) SetQuery(v string) *SearchSynonymsParams {
 	return o
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *SearchSynonymsParams) GetType() SynonymType {
+	if o == nil || o.Type == nil {
+		var ret SynonymType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchSynonymsParams) GetTypeOk() (*SynonymType, bool) {
+	if o == nil || o.Type == nil {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *SearchSynonymsParams) HasType() bool {
+	if o != nil && o.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given SynonymType and assigns it to the Type field.
+func (o *SearchSynonymsParams) SetType(v SynonymType) *SearchSynonymsParams {
+	o.Type = &v
+	return o
+}
+
+// GetPage returns the Page field value if set, zero value otherwise.
+func (o *SearchSynonymsParams) GetPage() int32 {
+	if o == nil || o.Page == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Page
+}
+
+// GetPageOk returns a tuple with the Page field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchSynonymsParams) GetPageOk() (*int32, bool) {
+	if o == nil || o.Page == nil {
+		return nil, false
+	}
+	return o.Page, true
+}
+
+// HasPage returns a boolean if a field has been set.
+func (o *SearchSynonymsParams) HasPage() bool {
+	if o != nil && o.Page != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPage gets a reference to the given int32 and assigns it to the Page field.
+func (o *SearchSynonymsParams) SetPage(v int32) *SearchSynonymsParams {
+	o.Page = &v
+	return o
+}
+
+// GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
+func (o *SearchSynonymsParams) GetHitsPerPage() int32 {
+	if o == nil || o.HitsPerPage == nil {
+		var ret int32
+		return ret
+	}
+	return *o.HitsPerPage
+}
+
+// GetHitsPerPageOk returns a tuple with the HitsPerPage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchSynonymsParams) GetHitsPerPageOk() (*int32, bool) {
+	if o == nil || o.HitsPerPage == nil {
+		return nil, false
+	}
+	return o.HitsPerPage, true
+}
+
+// HasHitsPerPage returns a boolean if a field has been set.
+func (o *SearchSynonymsParams) HasHitsPerPage() bool {
+	if o != nil && o.HitsPerPage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
+func (o *SearchSynonymsParams) SetHitsPerPage(v int32) *SearchSynonymsParams {
+	o.HitsPerPage = &v
+	return o
+}
+
 func (o SearchSynonymsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
+	}
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
+	}
+	if o.Page != nil {
+		toSerialize["page"] = o.Page
+	}
+	if o.HitsPerPage != nil {
+		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
 	return json.Marshal(toSerialize)
 }
@@ -81,6 +212,9 @@ func (o SearchSynonymsParams) MarshalJSON() ([]byte, error) {
 func (o SearchSynonymsParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  query=%v\n", o.Query)
+	out += fmt.Sprintf("  type=%v\n", o.Type)
+	out += fmt.Sprintf("  page=%v\n", o.Page)
+	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	return fmt.Sprintf("SearchSynonymsParams {\n%s}", out)
 }
 

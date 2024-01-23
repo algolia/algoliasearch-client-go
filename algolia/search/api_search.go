@@ -8055,33 +8055,6 @@ func (r *ApiSearchSynonymsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
-	if v, ok := req["type"]; ok {
-		err = json.Unmarshal(v, &r.type_)
-		if err != nil {
-			err = json.Unmarshal(b, &r.type_)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	if v, ok := req["page"]; ok {
-		err = json.Unmarshal(v, &r.page)
-		if err != nil {
-			err = json.Unmarshal(b, &r.page)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	if v, ok := req["hitsPerPage"]; ok {
-		err = json.Unmarshal(v, &r.hitsPerPage)
-		if err != nil {
-			err = json.Unmarshal(b, &r.hitsPerPage)
-			if err != nil {
-				return err
-			}
-		}
-	}
 	if v, ok := req["searchSynonymsParams"]; ok {
 		err = json.Unmarshal(v, &r.searchSynonymsParams)
 		if err != nil {
@@ -8098,9 +8071,6 @@ func (r *ApiSearchSynonymsRequest) UnmarshalJSON(b []byte) error {
 // ApiSearchSynonymsRequest represents the request with all the parameters for the API call.
 type ApiSearchSynonymsRequest struct {
 	indexName            string
-	type_                SynonymType
-	page                 int32
-	hitsPerPage          int32
 	searchSynonymsParams *SearchSynonymsParams
 }
 
@@ -8109,24 +8079,6 @@ func (c *APIClient) NewApiSearchSynonymsRequest(indexName string) ApiSearchSynon
 	return ApiSearchSynonymsRequest{
 		indexName: indexName,
 	}
-}
-
-// WithType adds the type_ to the ApiSearchSynonymsRequest and returns the request for chaining.
-func (r ApiSearchSynonymsRequest) WithType(type_ SynonymType) ApiSearchSynonymsRequest {
-	r.type_ = type_
-	return r
-}
-
-// WithPage adds the page to the ApiSearchSynonymsRequest and returns the request for chaining.
-func (r ApiSearchSynonymsRequest) WithPage(page int32) ApiSearchSynonymsRequest {
-	r.page = page
-	return r
-}
-
-// WithHitsPerPage adds the hitsPerPage to the ApiSearchSynonymsRequest and returns the request for chaining.
-func (r ApiSearchSynonymsRequest) WithHitsPerPage(hitsPerPage int32) ApiSearchSynonymsRequest {
-	r.hitsPerPage = hitsPerPage
-	return r
 }
 
 // WithSearchSynonymsParams adds the searchSynonymsParams to the ApiSearchSynonymsRequest and returns the request for chaining.
@@ -8143,9 +8095,6 @@ Search for synonyms in your index. You can control and filter the search with pa
 Request can be constructed by NewApiSearchSynonymsRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
-	@param type_ SynonymType - Search for specific [types of synonyms](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/#the-different-types-of-synonyms).
-	@param page int32 - Returns the requested page number (the first page is 0). Page size is set by `hitsPerPage`. When null, there's no pagination.
-	@param hitsPerPage int32 - Maximum number of hits per page.
 	@param searchSynonymsParams SearchSynonymsParams - Body of the `searchSynonyms` operation.
 	@return SearchSynonymsResponse
 */
@@ -8161,9 +8110,6 @@ Search for synonyms in your index. You can control and filter the search with pa
 Request can be constructed by NewApiSearchSynonymsRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
-	@param type_ SynonymType - Search for specific [types of synonyms](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/#the-different-types-of-synonyms).
-	@param page int32 - Returns the requested page number (the first page is 0). Page size is set by `hitsPerPage`. When null, there's no pagination.
-	@param hitsPerPage int32 - Maximum number of hits per page.
 	@param searchSynonymsParams SearchSynonymsParams - Body of the `searchSynonyms` operation.
 	@return SearchSynonymsResponse
 */
@@ -8180,16 +8126,6 @@ func (c *APIClient) SearchSynonymsWithContext(ctx context.Context, r ApiSearchSy
 	queryParams := url.Values{}
 	if r.indexName == "" {
 		return returnValue, reportError("Parameter `indexName` is required when calling `SearchSynonyms`.")
-	}
-
-	if !utils.IsNilOrEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(r.type_))
-	}
-	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
-	}
-	if !utils.IsNilOrEmpty(r.hitsPerPage) {
-		queryParams.Set("hitsPerPage", parameterToString(r.hitsPerPage))
 	}
 
 	// optional params if any
