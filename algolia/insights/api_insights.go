@@ -2,10 +2,9 @@
 package insights
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
-	"io"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -39,14 +38,14 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -55,7 +54,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -144,19 +143,12 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -187,14 +179,14 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -203,7 +195,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -292,19 +284,12 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -335,14 +320,14 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -351,7 +336,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -360,7 +345,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	}
@@ -464,19 +449,12 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -507,14 +485,14 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -523,7 +501,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -532,7 +510,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	}
@@ -636,19 +614,12 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -679,14 +650,14 @@ func (r *ApiDeleteUserTokenRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["userToken"]; ok {
 		err = json.Unmarshal(v, &r.userToken)
 		if err != nil {
 			err = json.Unmarshal(b, &r.userToken)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal userToken: %w", err)
 			}
 		}
 	}
@@ -763,19 +734,12 @@ func (c *APIClient) DeleteUserTokenWithContext(ctx context.Context, r ApiDeleteU
 		return err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return err
 	}
 	if res == nil {
 		return reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return err
 	}
 
 	if res.StatusCode >= 300 {
@@ -801,20 +765,20 @@ func (r *ApiPushEventsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["insightsEvents"]; ok {
 		err = json.Unmarshal(v, &r.insightsEvents)
 		if err != nil {
 			err = json.Unmarshal(b, &r.insightsEvents)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal insightsEvents: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.insightsEvents)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter insightsEvents: %w", err)
 		}
 	}
 
@@ -895,19 +859,12 @@ func (c *APIClient) PushEventsWithContext(ctx context.Context, r ApiPushEventsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {

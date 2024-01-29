@@ -56,7 +56,12 @@ func (o CustomSearchParams) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["customSearchParameters"] = o.CustomSearchParameters
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal CustomSearchParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o CustomSearchParams) String() string {
@@ -93,10 +98,10 @@ func NewNullableCustomSearchParams(val *CustomSearchParams) *NullableCustomSearc
 }
 
 func (v NullableCustomSearchParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableCustomSearchParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

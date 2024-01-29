@@ -284,7 +284,12 @@ func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TaskCreate: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TaskCreate) String() string {
@@ -327,10 +332,10 @@ func NewNullableTaskCreate(val *TaskCreate) *NullableTaskCreate {
 }
 
 func (v NullableTaskCreate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTaskCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

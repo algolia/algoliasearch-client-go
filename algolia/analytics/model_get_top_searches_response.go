@@ -61,11 +61,21 @@ func (dst *GetTopSearchesResponse) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src GetTopSearchesResponse) MarshalJSON() ([]byte, error) {
 	if src.TopSearchesResponse != nil {
-		return json.Marshal(&src.TopSearchesResponse)
+		serialized, err := json.Marshal(&src.TopSearchesResponse)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of TopSearchesResponse of GetTopSearchesResponse: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.TopSearchesResponseWithAnalytics != nil {
-		return json.Marshal(&src.TopSearchesResponseWithAnalytics)
+		serialized, err := json.Marshal(&src.TopSearchesResponseWithAnalytics)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of TopSearchesResponseWithAnalytics of GetTopSearchesResponse: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableGetTopSearchesResponse(val *GetTopSearchesResponse) *NullableGet
 }
 
 func (v NullableGetTopSearchesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetTopSearchesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

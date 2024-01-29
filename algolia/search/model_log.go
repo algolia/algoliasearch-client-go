@@ -548,7 +548,12 @@ func (o Log) MarshalJSON() ([]byte, error) {
 	if o.InnerQueries != nil {
 		toSerialize["inner_queries"] = o.InnerQueries
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Log: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Log) String() string {
@@ -599,10 +604,10 @@ func NewNullableLog(val *Log) *NullableLog {
 }
 
 func (v NullableLog) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableLog) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

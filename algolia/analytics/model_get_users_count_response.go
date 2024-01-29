@@ -88,7 +88,12 @@ func (o GetUsersCountResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["dates"] = o.Dates
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetUsersCountResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetUsersCountResponse) String() string {
@@ -126,10 +131,10 @@ func NewNullableGetUsersCountResponse(val *GetUsersCountResponse) *NullableGetUs
 }
 
 func (v NullableGetUsersCountResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetUsersCountResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

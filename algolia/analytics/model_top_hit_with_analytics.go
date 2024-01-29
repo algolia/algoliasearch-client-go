@@ -243,7 +243,12 @@ func (o TopHitWithAnalytics) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["conversionCount"] = o.ConversionCount
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TopHitWithAnalytics: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TopHitWithAnalytics) String() string {
@@ -286,10 +291,10 @@ func NewNullableTopHitWithAnalytics(val *TopHitWithAnalytics) *NullableTopHitWit
 }
 
 func (v NullableTopHitWithAnalytics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTopHitWithAnalytics) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

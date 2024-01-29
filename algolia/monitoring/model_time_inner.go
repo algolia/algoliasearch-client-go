@@ -119,7 +119,12 @@ func (o TimeInner) MarshalJSON() ([]byte, error) {
 	if o.V != nil {
 		toSerialize["v"] = o.V
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TimeInner: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TimeInner) String() string {
@@ -157,10 +162,10 @@ func NewNullableTimeInner(val *TimeInner) *NullableTimeInner {
 }
 
 func (v NullableTimeInner) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTimeInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

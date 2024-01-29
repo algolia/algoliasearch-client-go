@@ -163,7 +163,12 @@ func (o AuthOAuthPartial) MarshalJSON() ([]byte, error) {
 	if o.ClientSecret != nil {
 		toSerialize["client_secret"] = o.ClientSecret
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AuthOAuthPartial: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AuthOAuthPartial) String() string {
@@ -202,10 +207,10 @@ func NewNullableAuthOAuthPartial(val *AuthOAuthPartial) *NullableAuthOAuthPartia
 }
 
 func (v NullableAuthOAuthPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAuthOAuthPartial) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

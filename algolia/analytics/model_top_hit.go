@@ -88,7 +88,12 @@ func (o TopHit) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["count"] = o.Count
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TopHit: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TopHit) String() string {
@@ -126,10 +131,10 @@ func NewNullableTopHit(val *TopHit) *NullableTopHit {
 }
 
 func (v NullableTopHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTopHit) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

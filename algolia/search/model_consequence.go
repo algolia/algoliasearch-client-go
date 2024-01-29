@@ -251,7 +251,12 @@ func (o Consequence) MarshalJSON() ([]byte, error) {
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Consequence: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Consequence) String() string {
@@ -292,10 +297,10 @@ func NewNullableConsequence(val *Consequence) *NullableConsequence {
 }
 
 func (v NullableConsequence) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableConsequence) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

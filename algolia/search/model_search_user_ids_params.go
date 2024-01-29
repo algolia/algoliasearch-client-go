@@ -194,7 +194,12 @@ func (o SearchUserIdsParams) MarshalJSON() ([]byte, error) {
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchUserIdsParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SearchUserIdsParams) String() string {
@@ -234,10 +239,10 @@ func NewNullableSearchUserIdsParams(val *SearchUserIdsParams) *NullableSearchUse
 }
 
 func (v NullableSearchUserIdsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchUserIdsParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

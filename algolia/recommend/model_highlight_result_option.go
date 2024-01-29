@@ -167,7 +167,12 @@ func (o HighlightResultOption) MarshalJSON() ([]byte, error) {
 	if o.FullyHighlighted != nil {
 		toSerialize["fullyHighlighted"] = o.FullyHighlighted
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal HighlightResultOption: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o HighlightResultOption) String() string {
@@ -207,10 +212,10 @@ func NewNullableHighlightResultOption(val *HighlightResultOption) *NullableHighl
 }
 
 func (v NullableHighlightResultOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableHighlightResultOption) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

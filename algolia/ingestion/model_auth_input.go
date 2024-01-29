@@ -124,23 +124,48 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AuthInput) MarshalJSON() ([]byte, error) {
 	if src.AuthAPIKey != nil {
-		return json.Marshal(&src.AuthAPIKey)
+		serialized, err := json.Marshal(&src.AuthAPIKey)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthAPIKey of AuthInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthAlgolia != nil {
-		return json.Marshal(&src.AuthAlgolia)
+		serialized, err := json.Marshal(&src.AuthAlgolia)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthAlgolia of AuthInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthBasic != nil {
-		return json.Marshal(&src.AuthBasic)
+		serialized, err := json.Marshal(&src.AuthBasic)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthBasic of AuthInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthGoogleServiceAccount != nil {
-		return json.Marshal(&src.AuthGoogleServiceAccount)
+		serialized, err := json.Marshal(&src.AuthGoogleServiceAccount)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthGoogleServiceAccount of AuthInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthOAuth != nil {
-		return json.Marshal(&src.AuthOAuth)
+		serialized, err := json.Marshal(&src.AuthOAuth)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthOAuth of AuthInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -203,10 +228,10 @@ func NewNullableAuthInput(val *AuthInput) *NullableAuthInput {
 }
 
 func (v NullableAuthInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAuthInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

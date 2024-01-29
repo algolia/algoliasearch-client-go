@@ -9,9 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
 	"reflect"
 	"regexp"
@@ -44,7 +42,6 @@ func NewClient(appID, apiKey string) (*APIClient, error) {
 			ApiKey:        apiKey,
 			DefaultHeader: make(map[string]string),
 			UserAgent:     getUserAgent(),
-			Debug:         false,
 			Requester:     transport.NewDefaultRequester(nil),
 		},
 	})
@@ -113,33 +110,18 @@ func (c *APIClient) AddDefaultHeader(key string, value string) {
 }
 
 // callAPI do the request.
-func (c *APIClient) callAPI(request *http.Request, useReadTransporter bool) (*http.Response, error) {
-	if c.cfg.Debug {
-		dump, err := httputil.DumpRequestOut(request, true)
-		if err != nil {
-			return nil, err
-		}
-		log.Printf("\n%s\n", string(dump))
-	}
-
+func (c *APIClient) callAPI(request *http.Request, useReadTransporter bool) (*http.Response, []byte, error) {
 	callKind := call.Write
 	if useReadTransporter || request.Method == http.MethodGet {
 		callKind = call.Read
 	}
 
-	resp, err := c.transport.Request(request.Context(), request, callKind)
+	resp, body, err := c.transport.Request(request.Context(), request, callKind)
 	if err != nil {
-		return nil, err
+		return nil, nil, fmt.Errorf("failed to do request: %w", err)
 	}
 
-	if c.cfg.Debug {
-		dump, err := httputil.DumpResponse(resp, true)
-		if err != nil {
-			return nil, err
-		}
-		log.Printf("\n%s\n", string(dump))
-	}
-	return resp, nil
+	return resp, body, nil
 }
 
 // Allow modification of underlying config for alternate implementations and testing
@@ -160,13 +142,13 @@ func (c *APIClient) prepareRequest(
 
 	body, err := setBody(postBody, contentType, c.cfg.Compression)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to set the body: %w", err)
 	}
 
 	// Setup path and query parameters
 	url, err := url.Parse(path)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to parse the path: %w", err)
 	}
 
 	// Adding Query Param
@@ -189,7 +171,7 @@ func (c *APIClient) prepareRequest(
 	}
 	req, err = http.NewRequest(method, url.String(), bodyReader)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create http request: %w", err)
 	}
 
 	// add header parameters, if any
@@ -230,13 +212,13 @@ func (c *APIClient) decode(v any, b []byte, contentType string) error {
 		if actualObj, ok := v.(interface{ GetActualInstance() any }); ok { // oneOf, anyOf schemas
 			if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
 				if err := unmarshalObj.UnmarshalJSON(b); err != nil {
-					return err
+					return fmt.Errorf("failed to unmarshal one of in response body: %w", err)
 				}
 			} else {
 				return errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
 			}
 		} else if err := json.Unmarshal(b, v); err != nil { // simple model
-			return err
+			return fmt.Errorf("failed to unmarshal response body: %w", err)
 		}
 		return nil
 	}
@@ -295,12 +277,11 @@ func setBody(body any, contentType string, c compression.Compression) (*bytes.Bu
 	}
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to encode body: %w", err)
 	}
 
 	if bodyBuf.Len() == 0 {
-		err = fmt.Errorf("Invalid body type %s\n", contentType)
-		return nil, err
+		return nil, fmt.Errorf("Invalid body type %s\n", contentType)
 	}
 	return bodyBuf, nil
 }

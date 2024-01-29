@@ -88,7 +88,12 @@ func (o BatchResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["objectIDs"] = o.ObjectIDs
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal BatchResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o BatchResponse) String() string {
@@ -126,10 +131,10 @@ func NewNullableBatchResponse(val *BatchResponse) *NullableBatchResponse {
 }
 
 func (v NullableBatchResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableBatchResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

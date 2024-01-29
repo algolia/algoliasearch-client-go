@@ -119,7 +119,12 @@ func (o GetAverageClickPositionResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["dates"] = o.Dates
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetAverageClickPositionResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetAverageClickPositionResponse) String() string {
@@ -158,10 +163,10 @@ func NewNullableGetAverageClickPositionResponse(val *GetAverageClickPositionResp
 }
 
 func (v NullableGetAverageClickPositionResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetAverageClickPositionResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

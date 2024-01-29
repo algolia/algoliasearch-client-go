@@ -88,7 +88,12 @@ func (o ClickPosition) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["clickCount"] = o.ClickCount
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ClickPosition: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ClickPosition) String() string {
@@ -126,10 +131,10 @@ func NewNullableClickPosition(val *ClickPosition) *NullableClickPosition {
 }
 
 func (v NullableClickPosition) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableClickPosition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

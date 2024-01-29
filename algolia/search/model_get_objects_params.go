@@ -56,7 +56,12 @@ func (o GetObjectsParams) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["requests"] = o.Requests
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetObjectsParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetObjectsParams) String() string {
@@ -93,10 +98,10 @@ func NewNullableGetObjectsParams(val *GetObjectsParams) *NullableGetObjectsParam
 }
 
 func (v NullableGetObjectsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetObjectsParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

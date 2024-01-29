@@ -2,10 +2,9 @@
 package search
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
-	"io"
+	"fmt"
 	"net/http"
 	"net/url"
 	"slices"
@@ -43,20 +42,20 @@ func (r *ApiAddApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["apiKey"]; ok {
 		err = json.Unmarshal(v, &r.apiKey)
 		if err != nil {
 			err = json.Unmarshal(b, &r.apiKey)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal apiKey: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.apiKey)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter apiKey: %w", err)
 		}
 	}
 
@@ -135,19 +134,12 @@ func (c *APIClient) AddApiKeyWithContext(ctx context.Context, r ApiAddApiKeyRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -178,14 +170,14 @@ func (r *ApiAddOrUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -194,7 +186,7 @@ func (r *ApiAddOrUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -203,13 +195,13 @@ func (r *ApiAddOrUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.body)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter body: %w", err)
 		}
 	}
 
@@ -308,19 +300,12 @@ func (c *APIClient) AddOrUpdateObjectWithContext(ctx context.Context, r ApiAddOr
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -351,20 +336,20 @@ func (r *ApiAppendSourceRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["source"]; ok {
 		err = json.Unmarshal(v, &r.source)
 		if err != nil {
 			err = json.Unmarshal(b, &r.source)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal source: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.source)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter source: %w", err)
 		}
 	}
 
@@ -439,19 +424,12 @@ func (c *APIClient) AppendSourceWithContext(ctx context.Context, r ApiAppendSour
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -482,14 +460,14 @@ func (r *ApiAssignUserIdRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["xAlgoliaUserID"]; ok {
 		err = json.Unmarshal(v, &r.xAlgoliaUserID)
 		if err != nil {
 			err = json.Unmarshal(b, &r.xAlgoliaUserID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal xAlgoliaUserID: %w", err)
 			}
 		}
 	}
@@ -498,13 +476,13 @@ func (r *ApiAssignUserIdRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.assignUserIdParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal assignUserIdParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.assignUserIdParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter assignUserIdParams: %w", err)
 		}
 	}
 
@@ -590,19 +568,12 @@ func (c *APIClient) AssignUserIdWithContext(ctx context.Context, r ApiAssignUser
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -633,14 +604,14 @@ func (r *ApiBatchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -649,13 +620,13 @@ func (r *ApiBatchRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.batchWriteParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal batchWriteParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.batchWriteParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter batchWriteParams: %w", err)
 		}
 	}
 
@@ -740,19 +711,12 @@ func (c *APIClient) BatchWithContext(ctx context.Context, r ApiBatchRequest, opt
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -783,14 +747,14 @@ func (r *ApiBatchAssignUserIdsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["xAlgoliaUserID"]; ok {
 		err = json.Unmarshal(v, &r.xAlgoliaUserID)
 		if err != nil {
 			err = json.Unmarshal(b, &r.xAlgoliaUserID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal xAlgoliaUserID: %w", err)
 			}
 		}
 	}
@@ -799,13 +763,13 @@ func (r *ApiBatchAssignUserIdsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.batchAssignUserIdsParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal batchAssignUserIdsParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.batchAssignUserIdsParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter batchAssignUserIdsParams: %w", err)
 		}
 	}
 
@@ -891,19 +855,12 @@ func (c *APIClient) BatchAssignUserIdsWithContext(ctx context.Context, r ApiBatc
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -934,14 +891,14 @@ func (r *ApiBatchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["dictionaryName"]; ok {
 		err = json.Unmarshal(v, &r.dictionaryName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.dictionaryName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal dictionaryName: %w", err)
 			}
 		}
 	}
@@ -950,13 +907,13 @@ func (r *ApiBatchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.batchDictionaryEntriesParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal batchDictionaryEntriesParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.batchDictionaryEntriesParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter batchDictionaryEntriesParams: %w", err)
 		}
 	}
 
@@ -1036,19 +993,12 @@ func (c *APIClient) BatchDictionaryEntriesWithContext(ctx context.Context, r Api
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1079,14 +1029,14 @@ func (r *ApiBrowseRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -1095,7 +1045,7 @@ func (r *ApiBrowseRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.browseParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal browseParams: %w", err)
 			}
 		}
 	}
@@ -1188,19 +1138,12 @@ func (c *APIClient) BrowseWithContext(ctx context.Context, r ApiBrowseRequest, o
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1231,14 +1174,14 @@ func (r *ApiClearObjectsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -1312,19 +1255,12 @@ func (c *APIClient) ClearObjectsWithContext(ctx context.Context, r ApiClearObjec
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1355,14 +1291,14 @@ func (r *ApiClearRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -1371,7 +1307,7 @@ func (r *ApiClearRulesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -1458,19 +1394,12 @@ func (c *APIClient) ClearRulesWithContext(ctx context.Context, r ApiClearRulesRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1501,14 +1430,14 @@ func (r *ApiClearSynonymsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -1517,7 +1446,7 @@ func (r *ApiClearSynonymsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -1604,19 +1533,12 @@ func (c *APIClient) ClearSynonymsWithContext(ctx context.Context, r ApiClearSyno
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1647,14 +1569,14 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -1663,7 +1585,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -1752,19 +1674,12 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1795,14 +1710,14 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -1811,7 +1726,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -1900,19 +1815,12 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1943,14 +1851,14 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -1959,7 +1867,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -1968,7 +1876,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	}
@@ -2072,19 +1980,12 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2115,14 +2016,14 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -2131,7 +2032,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -2140,7 +2041,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	}
@@ -2244,19 +2145,12 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2287,14 +2181,14 @@ func (r *ApiDeleteApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
 			err = json.Unmarshal(b, &r.key)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal key: %w", err)
 			}
 		}
 	}
@@ -2370,19 +2264,12 @@ func (c *APIClient) DeleteApiKeyWithContext(ctx context.Context, r ApiDeleteApiK
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2413,14 +2300,14 @@ func (r *ApiDeleteByRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -2429,13 +2316,13 @@ func (r *ApiDeleteByRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.deleteByParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal deleteByParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.deleteByParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter deleteByParams: %w", err)
 		}
 	}
 
@@ -2520,19 +2407,12 @@ func (c *APIClient) DeleteByWithContext(ctx context.Context, r ApiDeleteByReques
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2563,14 +2443,14 @@ func (r *ApiDeleteIndexRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -2644,19 +2524,12 @@ func (c *APIClient) DeleteIndexWithContext(ctx context.Context, r ApiDeleteIndex
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2687,14 +2560,14 @@ func (r *ApiDeleteObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -2703,7 +2576,7 @@ func (r *ApiDeleteObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -2785,19 +2658,12 @@ func (c *APIClient) DeleteObjectWithContext(ctx context.Context, r ApiDeleteObje
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2828,14 +2694,14 @@ func (r *ApiDeleteRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -2844,7 +2710,7 @@ func (r *ApiDeleteRuleRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -2853,7 +2719,7 @@ func (r *ApiDeleteRuleRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -2948,19 +2814,12 @@ func (c *APIClient) DeleteRuleWithContext(ctx context.Context, r ApiDeleteRuleRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2991,14 +2850,14 @@ func (r *ApiDeleteSourceRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["source"]; ok {
 		err = json.Unmarshal(v, &r.source)
 		if err != nil {
 			err = json.Unmarshal(b, &r.source)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal source: %w", err)
 			}
 		}
 	}
@@ -3072,19 +2931,12 @@ func (c *APIClient) DeleteSourceWithContext(ctx context.Context, r ApiDeleteSour
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3115,14 +2967,14 @@ func (r *ApiDeleteSynonymRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -3131,7 +2983,7 @@ func (r *ApiDeleteSynonymRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -3140,7 +2992,7 @@ func (r *ApiDeleteSynonymRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -3235,19 +3087,12 @@ func (c *APIClient) DeleteSynonymWithContext(ctx context.Context, r ApiDeleteSyn
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3278,14 +3123,14 @@ func (r *ApiGetApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
 			err = json.Unmarshal(b, &r.key)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal key: %w", err)
 			}
 		}
 	}
@@ -3361,19 +3206,12 @@ func (c *APIClient) GetApiKeyWithContext(ctx context.Context, r ApiGetApiKeyRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3448,19 +3286,12 @@ func (c *APIClient) GetDictionaryLanguagesWithContext(ctx context.Context, opts 
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3535,19 +3366,12 @@ func (c *APIClient) GetDictionarySettingsWithContext(ctx context.Context, opts .
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3578,14 +3402,14 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -3594,7 +3418,7 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.length)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal length: %w", err)
 			}
 		}
 	}
@@ -3603,7 +3427,7 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -3612,7 +3436,7 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.type_)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal type_: %w", err)
 			}
 		}
 	}
@@ -3732,19 +3556,12 @@ func (c *APIClient) GetLogsWithContext(ctx context.Context, r ApiGetLogsRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3775,14 +3592,14 @@ func (r *ApiGetObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -3791,7 +3608,7 @@ func (r *ApiGetObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -3800,7 +3617,7 @@ func (r *ApiGetObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.attributesToRetrieve)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal attributesToRetrieve: %w", err)
 			}
 		}
 	}
@@ -3895,19 +3712,12 @@ func (c *APIClient) GetObjectWithContext(ctx context.Context, r ApiGetObjectRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3938,20 +3748,20 @@ func (r *ApiGetObjectsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["getObjectsParams"]; ok {
 		err = json.Unmarshal(v, &r.getObjectsParams)
 		if err != nil {
 			err = json.Unmarshal(b, &r.getObjectsParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal getObjectsParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.getObjectsParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter getObjectsParams: %w", err)
 		}
 	}
 
@@ -4026,19 +3836,12 @@ func (c *APIClient) GetObjectsWithContext(ctx context.Context, r ApiGetObjectsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4069,14 +3872,14 @@ func (r *ApiGetRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -4085,7 +3888,7 @@ func (r *ApiGetRuleRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -4167,19 +3970,12 @@ func (c *APIClient) GetRuleWithContext(ctx context.Context, r ApiGetRuleRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4210,14 +4006,14 @@ func (r *ApiGetSettingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -4291,19 +4087,12 @@ func (c *APIClient) GetSettingsWithContext(ctx context.Context, r ApiGetSettings
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4378,19 +4167,12 @@ func (c *APIClient) GetSourcesWithContext(ctx context.Context, opts ...Option) (
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4421,14 +4203,14 @@ func (r *ApiGetSynonymRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -4437,7 +4219,7 @@ func (r *ApiGetSynonymRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -4519,19 +4301,12 @@ func (c *APIClient) GetSynonymWithContext(ctx context.Context, r ApiGetSynonymRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4562,14 +4337,14 @@ func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -4578,7 +4353,7 @@ func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.taskID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
 			}
 		}
 	}
@@ -4657,19 +4432,12 @@ func (c *APIClient) GetTaskWithContext(ctx context.Context, r ApiGetTaskRequest,
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4746,19 +4514,12 @@ func (c *APIClient) GetTopUserIdsWithContext(ctx context.Context, opts ...Option
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4789,14 +4550,14 @@ func (r *ApiGetUserIdRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["userID"]; ok {
 		err = json.Unmarshal(v, &r.userID)
 		if err != nil {
 			err = json.Unmarshal(b, &r.userID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal userID: %w", err)
 			}
 		}
 	}
@@ -4872,19 +4633,12 @@ func (c *APIClient) GetUserIdWithContext(ctx context.Context, r ApiGetUserIdRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4915,14 +4669,14 @@ func (r *ApiHasPendingMappingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["getClusters"]; ok {
 		err = json.Unmarshal(v, &r.getClusters)
 		if err != nil {
 			err = json.Unmarshal(b, &r.getClusters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal getClusters: %w", err)
 			}
 		}
 	}
@@ -5000,19 +4754,12 @@ func (c *APIClient) HasPendingMappingsWithContext(ctx context.Context, r ApiHasP
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -5087,19 +4834,12 @@ func (c *APIClient) ListApiKeysWithContext(ctx context.Context, opts ...Option) 
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -5174,19 +4914,12 @@ func (c *APIClient) ListClustersWithContext(ctx context.Context, opts ...Option)
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -5217,14 +4950,14 @@ func (r *ApiListIndicesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["page"]; ok {
 		err = json.Unmarshal(v, &r.page)
 		if err != nil {
 			err = json.Unmarshal(b, &r.page)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal page: %w", err)
 			}
 		}
 	}
@@ -5233,7 +4966,7 @@ func (r *ApiListIndicesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.hitsPerPage)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal hitsPerPage: %w", err)
 			}
 		}
 	}
@@ -5323,19 +5056,12 @@ func (c *APIClient) ListIndicesWithContext(ctx context.Context, r ApiListIndices
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -5366,14 +5092,14 @@ func (r *ApiListUserIdsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["page"]; ok {
 		err = json.Unmarshal(v, &r.page)
 		if err != nil {
 			err = json.Unmarshal(b, &r.page)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal page: %w", err)
 			}
 		}
 	}
@@ -5382,7 +5108,7 @@ func (r *ApiListUserIdsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.hitsPerPage)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal hitsPerPage: %w", err)
 			}
 		}
 	}
@@ -5474,19 +5200,12 @@ func (c *APIClient) ListUserIdsWithContext(ctx context.Context, r ApiListUserIds
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -5517,20 +5236,20 @@ func (r *ApiMultipleBatchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["batchParams"]; ok {
 		err = json.Unmarshal(v, &r.batchParams)
 		if err != nil {
 			err = json.Unmarshal(b, &r.batchParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal batchParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.batchParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter batchParams: %w", err)
 		}
 	}
 
@@ -5607,19 +5326,12 @@ func (c *APIClient) MultipleBatchWithContext(ctx context.Context, r ApiMultipleB
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -5650,14 +5362,14 @@ func (r *ApiOperationIndexRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -5666,13 +5378,13 @@ func (r *ApiOperationIndexRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.operationIndexParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal operationIndexParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.operationIndexParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter operationIndexParams: %w", err)
 		}
 	}
 
@@ -5773,19 +5485,12 @@ func (c *APIClient) OperationIndexWithContext(ctx context.Context, r ApiOperatio
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -5816,14 +5521,14 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -5832,7 +5537,7 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -5841,13 +5546,13 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.attributesToUpdate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal attributesToUpdate: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.attributesToUpdate)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter attributesToUpdate: %w", err)
 		}
 	}
 	if v, ok := req["createIfNotExists"]; ok {
@@ -5855,7 +5560,7 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.createIfNotExists)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal createIfNotExists: %w", err)
 			}
 		}
 	}
@@ -5965,19 +5670,12 @@ func (c *APIClient) PartialUpdateObjectWithContext(ctx context.Context, r ApiPar
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -6008,14 +5706,14 @@ func (r *ApiRemoveUserIdRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["userID"]; ok {
 		err = json.Unmarshal(v, &r.userID)
 		if err != nil {
 			err = json.Unmarshal(b, &r.userID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal userID: %w", err)
 			}
 		}
 	}
@@ -6089,19 +5787,12 @@ func (c *APIClient) RemoveUserIdWithContext(ctx context.Context, r ApiRemoveUser
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -6132,20 +5823,20 @@ func (r *ApiReplaceSourcesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["source"]; ok {
 		err = json.Unmarshal(v, &r.source)
 		if err != nil {
 			err = json.Unmarshal(b, &r.source)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal source: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.source)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter source: %w", err)
 		}
 	}
 
@@ -6220,19 +5911,12 @@ func (c *APIClient) ReplaceSourcesWithContext(ctx context.Context, r ApiReplaceS
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -6263,14 +5947,14 @@ func (r *ApiRestoreApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
 			err = json.Unmarshal(b, &r.key)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal key: %w", err)
 			}
 		}
 	}
@@ -6346,19 +6030,12 @@ func (c *APIClient) RestoreApiKeyWithContext(ctx context.Context, r ApiRestoreAp
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -6389,14 +6066,14 @@ func (r *ApiSaveObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -6405,13 +6082,13 @@ func (r *ApiSaveObjectRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.body)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter body: %w", err)
 		}
 	}
 
@@ -6500,19 +6177,12 @@ func (c *APIClient) SaveObjectWithContext(ctx context.Context, r ApiSaveObjectRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -6543,14 +6213,14 @@ func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -6559,7 +6229,7 @@ func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -6568,13 +6238,13 @@ func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.rule)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal rule: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.rule)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter rule: %w", err)
 		}
 	}
 	if v, ok := req["forwardToReplicas"]; ok {
@@ -6582,7 +6252,7 @@ func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -6687,19 +6357,12 @@ func (c *APIClient) SaveRuleWithContext(ctx context.Context, r ApiSaveRuleReques
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -6730,14 +6393,14 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -6746,13 +6409,13 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.rules)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal rules: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.rules)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter rules: %w", err)
 		}
 	}
 	if v, ok := req["forwardToReplicas"]; ok {
@@ -6760,7 +6423,7 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -6769,7 +6432,7 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.clearExistingRules)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal clearExistingRules: %w", err)
 			}
 		}
 	}
@@ -6878,19 +6541,12 @@ func (c *APIClient) SaveRulesWithContext(ctx context.Context, r ApiSaveRulesRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -6921,14 +6577,14 @@ func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -6937,7 +6593,7 @@ func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.objectID)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
 			}
 		}
 	}
@@ -6946,13 +6602,13 @@ func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.synonymHit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal synonymHit: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.synonymHit)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter synonymHit: %w", err)
 		}
 	}
 	if v, ok := req["forwardToReplicas"]; ok {
@@ -6960,7 +6616,7 @@ func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -7071,19 +6727,12 @@ func (c *APIClient) SaveSynonymWithContext(ctx context.Context, r ApiSaveSynonym
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -7114,14 +6763,14 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -7130,13 +6779,13 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.synonymHit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal synonymHit: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.synonymHit)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter synonymHit: %w", err)
 		}
 	}
 	if v, ok := req["forwardToReplicas"]; ok {
@@ -7144,7 +6793,7 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -7153,7 +6802,7 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.replaceExistingSynonyms)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal replaceExistingSynonyms: %w", err)
 			}
 		}
 	}
@@ -7262,19 +6911,12 @@ func (c *APIClient) SaveSynonymsWithContext(ctx context.Context, r ApiSaveSynony
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -7305,20 +6947,20 @@ func (r *ApiSearchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["searchMethodParams"]; ok {
 		err = json.Unmarshal(v, &r.searchMethodParams)
 		if err != nil {
 			err = json.Unmarshal(b, &r.searchMethodParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal searchMethodParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.searchMethodParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter searchMethodParams: %w", err)
 		}
 	}
 
@@ -7393,19 +7035,12 @@ func (c *APIClient) SearchWithContext(ctx context.Context, r ApiSearchRequest, o
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -7436,14 +7071,14 @@ func (r *ApiSearchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["dictionaryName"]; ok {
 		err = json.Unmarshal(v, &r.dictionaryName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.dictionaryName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal dictionaryName: %w", err)
 			}
 		}
 	}
@@ -7452,13 +7087,13 @@ func (r *ApiSearchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.searchDictionaryEntriesParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal searchDictionaryEntriesParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.searchDictionaryEntriesParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter searchDictionaryEntriesParams: %w", err)
 		}
 	}
 
@@ -7538,19 +7173,12 @@ func (c *APIClient) SearchDictionaryEntriesWithContext(ctx context.Context, r Ap
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -7581,14 +7209,14 @@ func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -7597,7 +7225,7 @@ func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.facetName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal facetName: %w", err)
 			}
 		}
 	}
@@ -7606,7 +7234,7 @@ func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.searchForFacetValuesRequest)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal searchForFacetValuesRequest: %w", err)
 			}
 		}
 	}
@@ -7705,19 +7333,12 @@ func (c *APIClient) SearchForFacetValuesWithContext(ctx context.Context, r ApiSe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -7748,14 +7369,14 @@ func (r *ApiSearchRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -7764,7 +7385,7 @@ func (r *ApiSearchRulesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.searchRulesParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal searchRulesParams: %w", err)
 			}
 		}
 	}
@@ -7853,19 +7474,12 @@ func (c *APIClient) SearchRulesWithContext(ctx context.Context, r ApiSearchRules
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -7896,14 +7510,14 @@ func (r *ApiSearchSingleIndexRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -7912,7 +7526,7 @@ func (r *ApiSearchSingleIndexRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.searchParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal searchParams: %w", err)
 			}
 		}
 	}
@@ -8001,19 +7615,12 @@ func (c *APIClient) SearchSingleIndexWithContext(ctx context.Context, r ApiSearc
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -8044,14 +7651,14 @@ func (r *ApiSearchSynonymsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -8060,7 +7667,7 @@ func (r *ApiSearchSynonymsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.searchSynonymsParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal searchSynonymsParams: %w", err)
 			}
 		}
 	}
@@ -8149,19 +7756,12 @@ func (c *APIClient) SearchSynonymsWithContext(ctx context.Context, r ApiSearchSy
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -8192,20 +7792,20 @@ func (r *ApiSearchUserIdsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["searchUserIdsParams"]; ok {
 		err = json.Unmarshal(v, &r.searchUserIdsParams)
 		if err != nil {
 			err = json.Unmarshal(b, &r.searchUserIdsParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal searchUserIdsParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.searchUserIdsParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter searchUserIdsParams: %w", err)
 		}
 	}
 
@@ -8282,19 +7882,12 @@ func (c *APIClient) SearchUserIdsWithContext(ctx context.Context, r ApiSearchUse
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, true)
+	res, resBody, err := c.callAPI(req, true)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -8325,20 +7918,20 @@ func (r *ApiSetDictionarySettingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["dictionarySettingsParams"]; ok {
 		err = json.Unmarshal(v, &r.dictionarySettingsParams)
 		if err != nil {
 			err = json.Unmarshal(b, &r.dictionarySettingsParams)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal dictionarySettingsParams: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.dictionarySettingsParams)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter dictionarySettingsParams: %w", err)
 		}
 	}
 
@@ -8413,19 +8006,12 @@ func (c *APIClient) SetDictionarySettingsWithContext(ctx context.Context, r ApiS
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -8456,14 +8042,14 @@ func (r *ApiSetSettingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexName)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
 			}
 		}
 	}
@@ -8472,13 +8058,13 @@ func (r *ApiSetSettingsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.indexSettings)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal indexSettings: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.indexSettings)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter indexSettings: %w", err)
 		}
 	}
 	if v, ok := req["forwardToReplicas"]; ok {
@@ -8486,7 +8072,7 @@ func (r *ApiSetSettingsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.forwardToReplicas)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal forwardToReplicas: %w", err)
 			}
 		}
 	}
@@ -8583,19 +8169,12 @@ func (c *APIClient) SetSettingsWithContext(ctx context.Context, r ApiSetSettings
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -8626,14 +8205,14 @@ func (r *ApiUpdateApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
 			err = json.Unmarshal(b, &r.key)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal key: %w", err)
 			}
 		}
 	}
@@ -8642,13 +8221,13 @@ func (r *ApiUpdateApiKeyRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.apiKey)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal apiKey: %w", err)
 			}
 		}
 	} else {
 		err = json.Unmarshal(b, &r.apiKey)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot unmarshal body parameter apiKey: %w", err)
 		}
 	}
 
@@ -8735,19 +8314,12 @@ func (c *APIClient) UpdateApiKeyWithContext(ctx context.Context, r ApiUpdateApiK
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -8840,7 +8412,7 @@ func (c *APIClient) WaitForTaskWithContext(
 	maxDelay *time.Duration,
 	opts ...Option,
 ) (*GetTaskResponse, error) {
-	return utils.RetryUntil(
+	return utils.RetryUntil( //nolint:wrapcheck
 		func() (*GetTaskResponse, error) {
 			return c.GetTaskWithContext(ctx, c.NewApiGetTaskRequest(indexName, taskID), opts...)
 		},
@@ -8953,7 +8525,7 @@ func (c *APIClient) WaitForApiKeyWithContext(
 			return nil, &errs.WaitKeyUpdateError{}
 		}
 
-		return utils.RetryUntil(
+		return utils.RetryUntil( //nolint:wrapcheck
 			func() (*GetApiKeyResponse, error) {
 				return c.GetApiKeyWithContext(ctx, c.NewApiGetApiKeyRequest(key), opts...)
 			},
@@ -9011,7 +8583,7 @@ func (c *APIClient) WaitForApiKeyWithContext(
 		)
 	}
 
-	return utils.RetryUntil(
+	return utils.RetryUntil( //nolint:wrapcheck
 		func() (*GetApiKeyResponse, error) {
 			return c.GetApiKeyWithContext(ctx, c.NewApiGetApiKeyRequest(key), opts...)
 		},

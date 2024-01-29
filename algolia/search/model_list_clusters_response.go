@@ -57,7 +57,12 @@ func (o ListClustersResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["topUsers"] = o.TopUsers
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ListClustersResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ListClustersResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableListClustersResponse(val *ListClustersResponse) *NullableListClu
 }
 
 func (v NullableListClustersResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableListClustersResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -285,7 +285,12 @@ func (o RecommendHit) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RecommendHit: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o *RecommendHit) UnmarshalJSON(bytes []byte) (err error) {
@@ -297,17 +302,20 @@ func (o *RecommendHit) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]any)
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "objectID")
-		delete(additionalProperties, "_highlightResult")
-		delete(additionalProperties, "_snippetResult")
-		delete(additionalProperties, "_rankingInfo")
-		delete(additionalProperties, "_distinctSeqID")
-		delete(additionalProperties, "_score")
-		o.AdditionalProperties = additionalProperties
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal additionalProperties in RecommendHit: %w", err)
 	}
 
-	return err
+	delete(additionalProperties, "objectID")
+	delete(additionalProperties, "_highlightResult")
+	delete(additionalProperties, "_snippetResult")
+	delete(additionalProperties, "_rankingInfo")
+	delete(additionalProperties, "_distinctSeqID")
+	delete(additionalProperties, "_score")
+	o.AdditionalProperties = additionalProperties
+
+	return nil
 }
 
 func (o RecommendHit) String() string {
@@ -352,10 +360,10 @@ func NewNullableRecommendHit(val *RecommendHit) *NullableRecommendHit {
 }
 
 func (v NullableRecommendHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRecommendHit) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

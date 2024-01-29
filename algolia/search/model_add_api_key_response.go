@@ -88,7 +88,12 @@ func (o AddApiKeyResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AddApiKeyResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AddApiKeyResponse) String() string {
@@ -126,10 +131,10 @@ func NewNullableAddApiKeyResponse(val *AddApiKeyResponse) *NullableAddApiKeyResp
 }
 
 func (v NullableAddApiKeyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAddApiKeyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

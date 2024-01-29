@@ -61,11 +61,21 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src SnippetResult) MarshalJSON() ([]byte, error) {
 	if src.SnippetResultOption != nil {
-		return json.Marshal(&src.SnippetResultOption)
+		serialized, err := json.Marshal(&src.SnippetResultOption)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SnippetResultOption of SnippetResult: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.MapmapOfStringSnippetResultOption != nil {
-		return json.Marshal(&src.MapmapOfStringSnippetResultOption)
+		serialized, err := json.Marshal(&src.MapmapOfStringSnippetResultOption)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringSnippetResultOption of SnippetResult: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableSnippetResult(val *SnippetResult) *NullableSnippetResult {
 }
 
 func (v NullableSnippetResult) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSnippetResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

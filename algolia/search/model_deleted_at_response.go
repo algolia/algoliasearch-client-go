@@ -88,7 +88,12 @@ func (o DeletedAtResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["deletedAt"] = o.DeletedAt
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DeletedAtResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DeletedAtResponse) String() string {
@@ -126,10 +131,10 @@ func NewNullableDeletedAtResponse(val *DeletedAtResponse) *NullableDeletedAtResp
 }
 
 func (v NullableDeletedAtResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDeletedAtResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -3542,7 +3542,12 @@ func (o ConsequenceParams) MarshalJSON() ([]byte, error) {
 	if o.AutomaticOptionalFacetFilters != nil {
 		toSerialize["automaticOptionalFacetFilters"] = o.AutomaticOptionalFacetFilters
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ConsequenceParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ConsequenceParams) String() string {
@@ -3658,10 +3663,10 @@ func NewNullableConsequenceParams(val *ConsequenceParams) *NullableConsequencePa
 }
 
 func (v NullableConsequenceParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableConsequenceParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

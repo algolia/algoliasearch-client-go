@@ -57,7 +57,12 @@ func (o DestinationIndexPrefix) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["indexPrefix"] = o.IndexPrefix
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DestinationIndexPrefix: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DestinationIndexPrefix) String() string {
@@ -94,10 +99,10 @@ func NewNullableDestinationIndexPrefix(val *DestinationIndexPrefix) *NullableDes
 }
 
 func (v NullableDestinationIndexPrefix) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDestinationIndexPrefix) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

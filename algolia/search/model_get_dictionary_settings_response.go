@@ -56,7 +56,12 @@ func (o GetDictionarySettingsResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["disableStandardEntries"] = o.DisableStandardEntries
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetDictionarySettingsResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetDictionarySettingsResponse) String() string {
@@ -93,10 +98,10 @@ func NewNullableGetDictionarySettingsResponse(val *GetDictionarySettingsResponse
 }
 
 func (v NullableGetDictionarySettingsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetDictionarySettingsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -445,7 +445,12 @@ func (o QuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
 	if o.AllowSpecialCharacters != nil {
 		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal QuerySuggestionsConfigurationResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o QuerySuggestionsConfigurationResponse) String() string {
@@ -491,10 +496,10 @@ func NewNullableQuerySuggestionsConfigurationResponse(val *QuerySuggestionsConfi
 }
 
 func (v NullableQuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableQuerySuggestionsConfigurationResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

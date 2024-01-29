@@ -23,7 +23,7 @@ func (v *ScheduleTriggerType) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ScheduleTriggerType': %w", string(src), err)
 	}
 	enumTypeValue := ScheduleTriggerType(value)
 	for _, existing := range AllowedScheduleTriggerTypeEnumValues {
@@ -90,10 +90,10 @@ func NewNullableScheduleTriggerType(val *ScheduleTriggerType) *NullableScheduleT
 }
 
 func (v NullableScheduleTriggerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableScheduleTriggerType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

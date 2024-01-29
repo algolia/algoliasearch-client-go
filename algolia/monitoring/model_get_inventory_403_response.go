@@ -74,7 +74,12 @@ func (o GetInventory403Response) MarshalJSON() ([]byte, error) {
 	if o.Reason != nil {
 		toSerialize["reason"] = o.Reason
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetInventory403Response: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetInventory403Response) String() string {
@@ -111,10 +116,10 @@ func NewNullableGetInventory403Response(val *GetInventory403Response) *NullableG
 }
 
 func (v NullableGetInventory403Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetInventory403Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

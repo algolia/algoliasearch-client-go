@@ -119,7 +119,12 @@ func (o ABTestResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["taskID"] = o.TaskID
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ABTestResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ABTestResponse) String() string {
@@ -158,10 +163,10 @@ func NewNullableABTestResponse(val *ABTestResponse) *NullableABTestResponse {
 }
 
 func (v NullableABTestResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableABTestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

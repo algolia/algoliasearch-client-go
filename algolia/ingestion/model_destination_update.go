@@ -204,7 +204,12 @@ func (o DestinationUpdate) MarshalJSON() ([]byte, error) {
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DestinationUpdate: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DestinationUpdate) String() string {
@@ -244,10 +249,10 @@ func NewNullableDestinationUpdate(val *DestinationUpdate) *NullableDestinationUp
 }
 
 func (v NullableDestinationUpdate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDestinationUpdate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

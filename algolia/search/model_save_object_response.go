@@ -137,7 +137,12 @@ func (o SaveObjectResponse) MarshalJSON() ([]byte, error) {
 	if o.ObjectID != nil {
 		toSerialize["objectID"] = o.ObjectID
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SaveObjectResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SaveObjectResponse) String() string {
@@ -176,10 +181,10 @@ func NewNullableSaveObjectResponse(val *SaveObjectResponse) *NullableSaveObjectR
 }
 
 func (v NullableSaveObjectResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSaveObjectResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

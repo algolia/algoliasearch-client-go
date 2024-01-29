@@ -434,7 +434,12 @@ func (o PurchasedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal PurchasedObjectIDsAfterSearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o PurchasedObjectIDsAfterSearch) String() string {
@@ -481,10 +486,10 @@ func NewNullablePurchasedObjectIDsAfterSearch(val *PurchasedObjectIDsAfterSearch
 }
 
 func (v NullablePurchasedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullablePurchasedObjectIDsAfterSearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

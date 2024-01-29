@@ -57,7 +57,12 @@ func (o GetTopFilterForAttributeResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["values"] = o.Values
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetTopFilterForAttributeResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetTopFilterForAttributeResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableGetTopFilterForAttributeResponse(val *GetTopFilterForAttributeRe
 }
 
 func (v NullableGetTopFilterForAttributeResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetTopFilterForAttributeResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

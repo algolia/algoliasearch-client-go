@@ -74,7 +74,12 @@ func (o RenderingContent) MarshalJSON() ([]byte, error) {
 	if o.FacetOrdering != nil {
 		toSerialize["facetOrdering"] = o.FacetOrdering
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RenderingContent: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o RenderingContent) String() string {
@@ -111,10 +116,10 @@ func NewNullableRenderingContent(val *RenderingContent) *NullableRenderingConten
 }
 
 func (v NullableRenderingContent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRenderingContent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

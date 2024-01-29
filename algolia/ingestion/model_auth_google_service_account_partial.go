@@ -119,7 +119,12 @@ func (o AuthGoogleServiceAccountPartial) MarshalJSON() ([]byte, error) {
 	if o.PrivateKey != nil {
 		toSerialize["privateKey"] = o.PrivateKey
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AuthGoogleServiceAccountPartial: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AuthGoogleServiceAccountPartial) String() string {
@@ -157,10 +162,10 @@ func NewNullableAuthGoogleServiceAccountPartial(val *AuthGoogleServiceAccountPar
 }
 
 func (v NullableAuthGoogleServiceAccountPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAuthGoogleServiceAccountPartial) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

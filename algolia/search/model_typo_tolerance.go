@@ -61,11 +61,21 @@ func (dst *TypoTolerance) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src TypoTolerance) MarshalJSON() ([]byte, error) {
 	if src.TypoToleranceEnum != nil {
-		return json.Marshal(&src.TypoToleranceEnum)
+		serialized, err := json.Marshal(&src.TypoToleranceEnum)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of TypoToleranceEnum of TypoTolerance: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.Bool != nil {
-		return json.Marshal(&src.Bool)
+		serialized, err := json.Marshal(&src.Bool)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of Bool of TypoTolerance: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableTypoTolerance(val *TypoTolerance) *NullableTypoTolerance {
 }
 
 func (v NullableTypoTolerance) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTypoTolerance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

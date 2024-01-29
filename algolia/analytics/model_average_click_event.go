@@ -119,7 +119,12 @@ func (o AverageClickEvent) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["date"] = o.Date
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AverageClickEvent: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AverageClickEvent) String() string {
@@ -158,10 +163,10 @@ func NewNullableAverageClickEvent(val *AverageClickEvent) *NullableAverageClickE
 }
 
 func (v NullableAverageClickEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAverageClickEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

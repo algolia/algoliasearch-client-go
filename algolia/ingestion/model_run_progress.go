@@ -117,7 +117,12 @@ func (o RunProgress) MarshalJSON() ([]byte, error) {
 	if o.ReceivedNbOfEvents != nil {
 		toSerialize["receivedNbOfEvents"] = o.ReceivedNbOfEvents
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RunProgress: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o RunProgress) String() string {
@@ -155,10 +160,10 @@ func NewNullableRunProgress(val *RunProgress) *NullableRunProgress {
 }
 
 func (v NullableRunProgress) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRunProgress) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

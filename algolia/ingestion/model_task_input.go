@@ -61,11 +61,21 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src TaskInput) MarshalJSON() ([]byte, error) {
 	if src.OnDemandDateUtilsInput != nil {
-		return json.Marshal(&src.OnDemandDateUtilsInput)
+		serialized, err := json.Marshal(&src.OnDemandDateUtilsInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of OnDemandDateUtilsInput of TaskInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ScheduleDateUtilsInput != nil {
-		return json.Marshal(&src.ScheduleDateUtilsInput)
+		serialized, err := json.Marshal(&src.ScheduleDateUtilsInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ScheduleDateUtilsInput of TaskInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableTaskInput(val *TaskInput) *NullableTaskInput {
 }
 
 func (v NullableTaskInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTaskInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

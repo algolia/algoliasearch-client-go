@@ -75,7 +75,12 @@ func (o RuleResponseMetadata) MarshalJSON() ([]byte, error) {
 	if o.LastUpdate != nil {
 		toSerialize["lastUpdate"] = o.LastUpdate
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RuleResponseMetadata: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o RuleResponseMetadata) String() string {
@@ -112,10 +117,10 @@ func NewNullableRuleResponseMetadata(val *RuleResponseMetadata) *NullableRuleRes
 }
 
 func (v NullableRuleResponseMetadata) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRuleResponseMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

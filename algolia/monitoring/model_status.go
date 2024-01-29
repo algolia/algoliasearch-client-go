@@ -29,7 +29,7 @@ func (v *Status) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Status': %w", string(src), err)
 	}
 	enumTypeValue := Status(value)
 	for _, existing := range AllowedStatusEnumValues {
@@ -96,10 +96,10 @@ func NewNullableStatus(val *Status) *NullableStatus {
 }
 
 func (v NullableStatus) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

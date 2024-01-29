@@ -2011,7 +2011,12 @@ func (o IndexSettingsAsSearchParams) MarshalJSON() ([]byte, error) {
 	if o.ReRankingApplyFilter.IsSet() {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal IndexSettingsAsSearchParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o IndexSettingsAsSearchParams) String() string {
@@ -2092,10 +2097,10 @@ func NewNullableIndexSettingsAsSearchParams(val *IndexSettingsAsSearchParams) *N
 }
 
 func (v NullableIndexSettingsAsSearchParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableIndexSettingsAsSearchParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

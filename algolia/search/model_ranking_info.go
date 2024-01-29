@@ -497,7 +497,12 @@ func (o RankingInfo) MarshalJSON() ([]byte, error) {
 	if o.PromotedByReRanking != nil {
 		toSerialize["promotedByReRanking"] = o.PromotedByReRanking
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RankingInfo: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o RankingInfo) String() string {
@@ -546,10 +551,10 @@ func NewNullableRankingInfo(val *RankingInfo) *NullableRankingInfo {
 }
 
 func (v NullableRankingInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRankingInfo) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

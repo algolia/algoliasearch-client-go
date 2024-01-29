@@ -61,11 +61,21 @@ func (dst *PlatformWithNone) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src PlatformWithNone) MarshalJSON() ([]byte, error) {
 	if src.Platform != nil {
-		return json.Marshal(&src.Platform)
+		serialized, err := json.Marshal(&src.Platform)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of Platform of PlatformWithNone: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.PlatformNone != nil {
-		return json.Marshal(&src.PlatformNone)
+		serialized, err := json.Marshal(&src.PlatformNone)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of PlatformNone of PlatformWithNone: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullablePlatformWithNone(val *PlatformWithNone) *NullablePlatformWithNon
 }
 
 func (v NullablePlatformWithNone) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullablePlatformWithNone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -104,7 +104,12 @@ func (o SearchMethodParams) MarshalJSON() ([]byte, error) {
 	if o.Strategy != nil {
 		toSerialize["strategy"] = o.Strategy
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchMethodParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SearchMethodParams) String() string {
@@ -142,10 +147,10 @@ func NewNullableSearchMethodParams(val *SearchMethodParams) *NullableSearchMetho
 }
 
 func (v NullableSearchMethodParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchMethodParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

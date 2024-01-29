@@ -27,7 +27,7 @@ func (v *RunType) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RunType': %w", string(src), err)
 	}
 	enumTypeValue := RunType(value)
 	for _, existing := range AllowedRunTypeEnumValues {
@@ -94,10 +94,10 @@ func NewNullableRunType(val *RunType) *NullableRunType {
 }
 
 func (v NullableRunType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRunType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

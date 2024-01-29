@@ -286,7 +286,12 @@ func (o DictionaryEntry) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DictionaryEntry: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o *DictionaryEntry) UnmarshalJSON(bytes []byte) (err error) {
@@ -298,17 +303,20 @@ func (o *DictionaryEntry) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]any)
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "objectID")
-		delete(additionalProperties, "language")
-		delete(additionalProperties, "word")
-		delete(additionalProperties, "words")
-		delete(additionalProperties, "decomposition")
-		delete(additionalProperties, "state")
-		o.AdditionalProperties = additionalProperties
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal additionalProperties in DictionaryEntry: %w", err)
 	}
 
-	return err
+	delete(additionalProperties, "objectID")
+	delete(additionalProperties, "language")
+	delete(additionalProperties, "word")
+	delete(additionalProperties, "words")
+	delete(additionalProperties, "decomposition")
+	delete(additionalProperties, "state")
+	o.AdditionalProperties = additionalProperties
+
+	return nil
 }
 
 func (o DictionaryEntry) String() string {
@@ -353,10 +361,10 @@ func NewNullableDictionaryEntry(val *DictionaryEntry) *NullableDictionaryEntry {
 }
 
 func (v NullableDictionaryEntry) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDictionaryEntry) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

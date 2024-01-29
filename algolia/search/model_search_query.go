@@ -92,11 +92,21 @@ func (dst *SearchQuery) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src SearchQuery) MarshalJSON() ([]byte, error) {
 	if src.SearchForFacets != nil {
-		return json.Marshal(&src.SearchForFacets)
+		serialized, err := json.Marshal(&src.SearchForFacets)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SearchForFacets of SearchQuery: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SearchForHits != nil {
-		return json.Marshal(&src.SearchForHits)
+		serialized, err := json.Marshal(&src.SearchForHits)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SearchForHits of SearchQuery: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -147,10 +157,10 @@ func NewNullableSearchQuery(val *SearchQuery) *NullableSearchQuery {
 }
 
 func (v NullableSearchQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -51,7 +51,7 @@ func (v *Region) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Region': %w", string(src), err)
 	}
 	enumTypeValue := Region(value)
 	for _, existing := range AllowedRegionEnumValues {
@@ -118,10 +118,10 @@ func NewNullableRegion(val *Region) *NullableRegion {
 }
 
 func (v NullableRegion) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRegion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

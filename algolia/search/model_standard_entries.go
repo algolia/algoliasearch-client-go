@@ -166,7 +166,12 @@ func (o StandardEntries) MarshalJSON() ([]byte, error) {
 	if o.Compounds != nil {
 		toSerialize["compounds"] = o.Compounds
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal StandardEntries: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o StandardEntries) String() string {
@@ -205,10 +210,10 @@ func NewNullableStandardEntries(val *StandardEntries) *NullableStandardEntries {
 }
 
 func (v NullableStandardEntries) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableStandardEntries) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

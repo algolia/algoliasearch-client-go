@@ -119,7 +119,12 @@ func (o EventsResponse) MarshalJSON() ([]byte, error) {
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal EventsResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o EventsResponse) String() string {
@@ -157,10 +162,10 @@ func NewNullableEventsResponse(val *EventsResponse) *NullableEventsResponse {
 }
 
 func (v NullableEventsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableEventsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

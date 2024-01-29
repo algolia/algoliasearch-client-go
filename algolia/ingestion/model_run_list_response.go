@@ -116,7 +116,12 @@ func (o RunListResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["window"] = o.Window
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RunListResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o RunListResponse) String() string {
@@ -155,10 +160,10 @@ func NewNullableRunListResponse(val *RunListResponse) *NullableRunListResponse {
 }
 
 func (v NullableRunListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRunListResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

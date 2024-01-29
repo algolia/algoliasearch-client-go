@@ -56,7 +56,12 @@ func (o DestinationSearch) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["destinationIDs"] = o.DestinationIDs
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DestinationSearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DestinationSearch) String() string {
@@ -93,10 +98,10 @@ func NewNullableDestinationSearch(val *DestinationSearch) *NullableDestinationSe
 }
 
 func (v NullableDestinationSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDestinationSearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

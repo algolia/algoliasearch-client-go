@@ -61,11 +61,21 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src Promote) MarshalJSON() ([]byte, error) {
 	if src.PromoteObjectID != nil {
-		return json.Marshal(&src.PromoteObjectID)
+		serialized, err := json.Marshal(&src.PromoteObjectID)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of PromoteObjectID of Promote: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.PromoteObjectIDs != nil {
-		return json.Marshal(&src.PromoteObjectIDs)
+		serialized, err := json.Marshal(&src.PromoteObjectIDs)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of PromoteObjectIDs of Promote: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullablePromote(val *Promote) *NullablePromote {
 }
 
 func (v NullablePromote) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullablePromote) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

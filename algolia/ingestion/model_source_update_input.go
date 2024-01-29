@@ -124,23 +124,48 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src SourceUpdateInput) MarshalJSON() ([]byte, error) {
 	if src.SourceBigQuery != nil {
-		return json.Marshal(&src.SourceBigQuery)
+		serialized, err := json.Marshal(&src.SourceBigQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceBigQuery of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceCSV != nil {
-		return json.Marshal(&src.SourceCSV)
+		serialized, err := json.Marshal(&src.SourceCSV)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceCSV of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceJSON != nil {
-		return json.Marshal(&src.SourceJSON)
+		serialized, err := json.Marshal(&src.SourceJSON)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceJSON of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceUpdateCommercetools != nil {
-		return json.Marshal(&src.SourceUpdateCommercetools)
+		serialized, err := json.Marshal(&src.SourceUpdateCommercetools)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceUpdateCommercetools of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceUpdateDocker != nil {
-		return json.Marshal(&src.SourceUpdateDocker)
+		serialized, err := json.Marshal(&src.SourceUpdateDocker)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceUpdateDocker of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -203,10 +228,10 @@ func NewNullableSourceUpdateInput(val *SourceUpdateInput) *NullableSourceUpdateI
 }
 
 func (v NullableSourceUpdateInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSourceUpdateInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

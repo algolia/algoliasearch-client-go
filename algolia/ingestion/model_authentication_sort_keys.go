@@ -31,7 +31,7 @@ func (v *AuthenticationSortKeys) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AuthenticationSortKeys': %w", string(src), err)
 	}
 	enumTypeValue := AuthenticationSortKeys(value)
 	for _, existing := range AllowedAuthenticationSortKeysEnumValues {
@@ -98,10 +98,10 @@ func NewNullableAuthenticationSortKeys(val *AuthenticationSortKeys) *NullableAut
 }
 
 func (v NullableAuthenticationSortKeys) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAuthenticationSortKeys) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

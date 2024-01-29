@@ -398,7 +398,12 @@ func (o FetchedIndex) MarshalJSON() ([]byte, error) {
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal FetchedIndex: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o FetchedIndex) String() string {
@@ -445,10 +450,10 @@ func NewNullableFetchedIndex(val *FetchedIndex) *NullableFetchedIndex {
 }
 
 func (v NullableFetchedIndex) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableFetchedIndex) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

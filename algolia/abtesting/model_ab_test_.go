@@ -398,7 +398,12 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["variants"] = o.Variants
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ABTest: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ABTest) String() string {
@@ -446,10 +451,10 @@ func NewNullableABTest(val *ABTest) *NullableABTest {
 }
 
 func (v NullableABTest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableABTest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

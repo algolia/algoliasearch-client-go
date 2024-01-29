@@ -149,7 +149,12 @@ func (o DestinationIndexName) MarshalJSON() ([]byte, error) {
 	if o.AttributesToExclude != nil {
 		toSerialize["attributesToExclude"] = o.AttributesToExclude
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DestinationIndexName: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DestinationIndexName) String() string {
@@ -188,10 +193,10 @@ func NewNullableDestinationIndexName(val *DestinationIndexName) *NullableDestina
 }
 
 func (v NullableDestinationIndexName) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDestinationIndexName) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

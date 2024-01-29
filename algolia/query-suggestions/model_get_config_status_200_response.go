@@ -251,7 +251,12 @@ func (o GetConfigStatus200Response) MarshalJSON() ([]byte, error) {
 	if o.LastSuccessfulBuildDuration != nil {
 		toSerialize["lastSuccessfulBuildDuration"] = o.LastSuccessfulBuildDuration
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetConfigStatus200Response: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetConfigStatus200Response) String() string {
@@ -292,10 +297,10 @@ func NewNullableGetConfigStatus200Response(val *GetConfigStatus200Response) *Nul
 }
 
 func (v NullableGetConfigStatus200Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetConfigStatus200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

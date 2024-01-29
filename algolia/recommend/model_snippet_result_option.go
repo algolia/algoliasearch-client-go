@@ -87,7 +87,12 @@ func (o SnippetResultOption) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["matchLevel"] = o.MatchLevel
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SnippetResultOption: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SnippetResultOption) String() string {
@@ -125,10 +130,10 @@ func NewNullableSnippetResultOption(val *SnippetResultOption) *NullableSnippetRe
 }
 
 func (v NullableSnippetResultOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSnippetResultOption) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

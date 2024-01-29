@@ -249,7 +249,12 @@ func (o TaskUpdate) MarshalJSON() ([]byte, error) {
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TaskUpdate: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TaskUpdate) String() string {
@@ -290,10 +295,10 @@ func NewNullableTaskUpdate(val *TaskUpdate) *NullableTaskUpdate {
 }
 
 func (v NullableTaskUpdate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTaskUpdate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

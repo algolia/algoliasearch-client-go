@@ -61,11 +61,21 @@ func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src RecommendationsHit) MarshalJSON() ([]byte, error) {
 	if src.RecommendHit != nil {
-		return json.Marshal(&src.RecommendHit)
+		serialized, err := json.Marshal(&src.RecommendHit)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of RecommendHit of RecommendationsHit: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.TrendingFacetHit != nil {
-		return json.Marshal(&src.TrendingFacetHit)
+		serialized, err := json.Marshal(&src.TrendingFacetHit)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of TrendingFacetHit of RecommendationsHit: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableRecommendationsHit(val *RecommendationsHit) *NullableRecommendat
 }
 
 func (v NullableRecommendationsHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRecommendationsHit) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -27,7 +27,7 @@ func (v *DockerImageType) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DockerImageType': %w", string(src), err)
 	}
 	enumTypeValue := DockerImageType(value)
 	for _, existing := range AllowedDockerImageTypeEnumValues {
@@ -94,10 +94,10 @@ func NewNullableDockerImageType(val *DockerImageType) *NullableDockerImageType {
 }
 
 func (v NullableDockerImageType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDockerImageType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

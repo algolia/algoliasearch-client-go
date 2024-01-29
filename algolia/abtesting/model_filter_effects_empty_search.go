@@ -119,7 +119,12 @@ func (o FilterEffectsEmptySearch) MarshalJSON() ([]byte, error) {
 	if o.TrackedSearchesCount != nil {
 		toSerialize["trackedSearchesCount"] = o.TrackedSearchesCount
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal FilterEffectsEmptySearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o FilterEffectsEmptySearch) String() string {
@@ -157,10 +162,10 @@ func NewNullableFilterEffectsEmptySearch(val *FilterEffectsEmptySearch) *Nullabl
 }
 
 func (v NullableFilterEffectsEmptySearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableFilterEffectsEmptySearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

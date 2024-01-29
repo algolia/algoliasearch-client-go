@@ -206,7 +206,12 @@ func (o SearchSynonymsParams) MarshalJSON() ([]byte, error) {
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchSynonymsParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SearchSynonymsParams) String() string {
@@ -246,10 +251,10 @@ func NewNullableSearchSynonymsParams(val *SearchSynonymsParams) *NullableSearchS
 }
 
 func (v NullableSearchSynonymsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchSynonymsParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

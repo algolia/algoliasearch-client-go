@@ -2,10 +2,9 @@
 package analytics
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
-	"io"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -39,14 +38,14 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -55,7 +54,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -144,19 +143,12 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -187,14 +179,14 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -203,7 +195,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -292,19 +284,12 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -335,14 +320,14 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -351,7 +336,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -360,7 +345,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	}
@@ -464,19 +449,12 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -507,14 +485,14 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
 			err = json.Unmarshal(b, &r.path)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal path: %w", err)
 			}
 		}
 	}
@@ -523,7 +501,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.parameters)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
 			}
 		}
 	}
@@ -532,7 +510,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.body)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal body: %w", err)
 			}
 		}
 	}
@@ -636,19 +614,12 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -679,14 +650,14 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -695,7 +666,7 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -704,7 +675,7 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -713,7 +684,7 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -826,19 +797,12 @@ func (c *APIClient) GetAverageClickPositionWithContext(ctx context.Context, r Ap
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -869,14 +833,14 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -885,7 +849,7 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -894,7 +858,7 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -903,7 +867,7 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -1018,19 +982,12 @@ func (c *APIClient) GetClickPositionsWithContext(ctx context.Context, r ApiGetCl
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1061,14 +1018,14 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -1077,7 +1034,7 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -1086,7 +1043,7 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -1095,7 +1052,7 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -1206,19 +1163,12 @@ func (c *APIClient) GetClickThroughRateWithContext(ctx context.Context, r ApiGet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1249,14 +1199,14 @@ func (r *ApiGetConversationRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -1265,7 +1215,7 @@ func (r *ApiGetConversationRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -1274,7 +1224,7 @@ func (r *ApiGetConversationRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -1283,7 +1233,7 @@ func (r *ApiGetConversationRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -1394,19 +1344,12 @@ func (c *APIClient) GetConversationRateWithContext(ctx context.Context, r ApiGet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1437,14 +1380,14 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -1453,7 +1396,7 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -1462,7 +1405,7 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -1471,7 +1414,7 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -1582,19 +1525,12 @@ func (c *APIClient) GetNoClickRateWithContext(ctx context.Context, r ApiGetNoCli
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1625,14 +1561,14 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -1641,7 +1577,7 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -1650,7 +1586,7 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -1659,7 +1595,7 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -1770,19 +1706,12 @@ func (c *APIClient) GetNoResultsRateWithContext(ctx context.Context, r ApiGetNoR
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -1813,14 +1742,14 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -1829,7 +1758,7 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -1838,7 +1767,7 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -1847,7 +1776,7 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -1958,19 +1887,12 @@ func (c *APIClient) GetSearchesCountWithContext(ctx context.Context, r ApiGetSea
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2001,14 +1923,14 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -2017,7 +1939,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -2026,7 +1948,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -2035,7 +1957,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -2044,7 +1966,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -2053,7 +1975,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -2188,19 +2110,12 @@ func (c *APIClient) GetSearchesNoClicksWithContext(ctx context.Context, r ApiGet
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2231,14 +2146,14 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -2247,7 +2162,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -2256,7 +2171,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -2265,7 +2180,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -2274,7 +2189,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -2283,7 +2198,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -2418,19 +2333,12 @@ func (c *APIClient) GetSearchesNoResultsWithContext(ctx context.Context, r ApiGe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2461,14 +2369,14 @@ func (r *ApiGetStatusRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -2545,19 +2453,12 @@ func (c *APIClient) GetStatusWithContext(ctx context.Context, r ApiGetStatusRequ
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2588,14 +2489,14 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -2604,7 +2505,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -2613,7 +2514,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -2622,7 +2523,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -2631,7 +2532,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -2640,7 +2541,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -2775,19 +2676,12 @@ func (c *APIClient) GetTopCountriesWithContext(ctx context.Context, r ApiGetTopC
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -2818,14 +2712,14 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -2834,7 +2728,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.search)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal search: %w", err)
 			}
 		}
 	}
@@ -2843,7 +2737,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -2852,7 +2746,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -2861,7 +2755,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -2870,7 +2764,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -2879,7 +2773,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -3026,19 +2920,12 @@ func (c *APIClient) GetTopFilterAttributesWithContext(ctx context.Context, r Api
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3069,14 +2956,14 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["attribute"]; ok {
 		err = json.Unmarshal(v, &r.attribute)
 		if err != nil {
 			err = json.Unmarshal(b, &r.attribute)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal attribute: %w", err)
 			}
 		}
 	}
@@ -3085,7 +2972,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -3094,7 +2981,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.search)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal search: %w", err)
 			}
 		}
 	}
@@ -3103,7 +2990,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -3112,7 +2999,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -3121,7 +3008,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -3130,7 +3017,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -3139,7 +3026,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -3294,19 +3181,12 @@ func (c *APIClient) GetTopFilterForAttributeWithContext(ctx context.Context, r A
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3337,14 +3217,14 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -3353,7 +3233,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.search)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal search: %w", err)
 			}
 		}
 	}
@@ -3362,7 +3242,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -3371,7 +3251,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -3380,7 +3260,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -3389,7 +3269,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -3398,7 +3278,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -3545,19 +3425,12 @@ func (c *APIClient) GetTopFiltersNoResultsWithContext(ctx context.Context, r Api
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3588,14 +3461,14 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -3604,7 +3477,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.search)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal search: %w", err)
 			}
 		}
 	}
@@ -3613,7 +3486,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.clickAnalytics)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal clickAnalytics: %w", err)
 			}
 		}
 	}
@@ -3622,7 +3495,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -3631,7 +3504,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -3640,7 +3513,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -3649,7 +3522,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -3658,7 +3531,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -3817,19 +3690,12 @@ func (c *APIClient) GetTopHitsWithContext(ctx context.Context, r ApiGetTopHitsRe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -3860,14 +3726,14 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -3876,7 +3742,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.clickAnalytics)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal clickAnalytics: %w", err)
 			}
 		}
 	}
@@ -3885,7 +3751,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -3894,7 +3760,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -3903,7 +3769,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.orderBy)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal orderBy: %w", err)
 			}
 		}
 	}
@@ -3912,7 +3778,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.direction)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal direction: %w", err)
 			}
 		}
 	}
@@ -3921,7 +3787,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.limit)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal limit: %w", err)
 			}
 		}
 	}
@@ -3930,7 +3796,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.offset)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal offset: %w", err)
 			}
 		}
 	}
@@ -3939,7 +3805,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -4110,19 +3976,12 @@ func (c *APIClient) GetTopSearchesWithContext(ctx context.Context, r ApiGetTopSe
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {
@@ -4153,14 +4012,14 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
 			err = json.Unmarshal(b, &r.index)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal index: %w", err)
 			}
 		}
 	}
@@ -4169,7 +4028,7 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.startDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
 			}
 		}
 	}
@@ -4178,7 +4037,7 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.endDate)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
 			}
 		}
 	}
@@ -4187,7 +4046,7 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 		if err != nil {
 			err = json.Unmarshal(b, &r.tags)
 			if err != nil {
-				return err
+				return fmt.Errorf("cannot unmarshal tags: %w", err)
 			}
 		}
 	}
@@ -4298,19 +4157,12 @@ func (c *APIClient) GetUsersCountWithContext(ctx context.Context, r ApiGetUsersC
 		return returnValue, err
 	}
 
-	res, err := c.callAPI(req, false)
+	res, resBody, err := c.callAPI(req, false)
 	if err != nil {
 		return returnValue, err
 	}
 	if res == nil {
 		return returnValue, reportError("res is nil")
-	}
-
-	resBody, err := io.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = io.NopCloser(bytes.NewBuffer(resBody))
-	if err != nil {
-		return returnValue, err
 	}
 
 	if res.StatusCode >= 300 {

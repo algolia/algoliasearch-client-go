@@ -166,7 +166,12 @@ func (o DestinationCreate) MarshalJSON() ([]byte, error) {
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DestinationCreate: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DestinationCreate) String() string {
@@ -206,10 +211,10 @@ func NewNullableDestinationCreate(val *DestinationCreate) *NullableDestinationCr
 }
 
 func (v NullableDestinationCreate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDestinationCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

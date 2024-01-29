@@ -92,7 +92,12 @@ func (o ErrorBase) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ErrorBase: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o *ErrorBase) UnmarshalJSON(bytes []byte) (err error) {
@@ -104,12 +109,15 @@ func (o *ErrorBase) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]any)
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "message")
-		o.AdditionalProperties = additionalProperties
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal additionalProperties in ErrorBase: %w", err)
 	}
 
-	return err
+	delete(additionalProperties, "message")
+	o.AdditionalProperties = additionalProperties
+
+	return nil
 }
 
 func (o ErrorBase) String() string {
@@ -149,10 +157,10 @@ func NewNullableErrorBase(val *ErrorBase) *NullableErrorBase {
 }
 
 func (v NullableErrorBase) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableErrorBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

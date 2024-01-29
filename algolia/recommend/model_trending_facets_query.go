@@ -224,7 +224,12 @@ func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {
 	if o.Model != nil {
 		toSerialize["model"] = o.Model
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TrendingFacetsQuery: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TrendingFacetsQuery) String() string {
@@ -265,10 +270,10 @@ func NewNullableTrendingFacetsQuery(val *TrendingFacetsQuery) *NullableTrendingF
 }
 
 func (v NullableTrendingFacetsQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTrendingFacetsQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

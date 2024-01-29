@@ -207,7 +207,12 @@ func (o FacetsStats) MarshalJSON() ([]byte, error) {
 	if o.Sum != nil {
 		toSerialize["sum"] = o.Sum
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal FacetsStats: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o FacetsStats) String() string {
@@ -247,10 +252,10 @@ func NewNullableFacetsStats(val *FacetsStats) *NullableFacetsStats {
 }
 
 func (v NullableFacetsStats) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableFacetsStats) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

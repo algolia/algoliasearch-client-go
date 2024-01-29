@@ -254,7 +254,12 @@ func (o Hit) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Hit: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o *Hit) UnmarshalJSON(bytes []byte) (err error) {
@@ -266,16 +271,19 @@ func (o *Hit) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]any)
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "objectID")
-		delete(additionalProperties, "_highlightResult")
-		delete(additionalProperties, "_snippetResult")
-		delete(additionalProperties, "_rankingInfo")
-		delete(additionalProperties, "_distinctSeqID")
-		o.AdditionalProperties = additionalProperties
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal additionalProperties in Hit: %w", err)
 	}
 
-	return err
+	delete(additionalProperties, "objectID")
+	delete(additionalProperties, "_highlightResult")
+	delete(additionalProperties, "_snippetResult")
+	delete(additionalProperties, "_rankingInfo")
+	delete(additionalProperties, "_distinctSeqID")
+	o.AdditionalProperties = additionalProperties
+
+	return nil
 }
 
 func (o Hit) String() string {
@@ -319,10 +327,10 @@ func NewNullableHit(val *Hit) *NullableHit {
 }
 
 func (v NullableHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableHit) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

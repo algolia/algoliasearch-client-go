@@ -150,7 +150,12 @@ func (o ClickThroughRateEvent) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["date"] = o.Date
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ClickThroughRateEvent: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ClickThroughRateEvent) String() string {
@@ -190,10 +195,10 @@ func NewNullableClickThroughRateEvent(val *ClickThroughRateEvent) *NullableClick
 }
 
 func (v NullableClickThroughRateEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableClickThroughRateEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

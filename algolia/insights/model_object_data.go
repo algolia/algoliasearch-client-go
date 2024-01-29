@@ -161,7 +161,12 @@ func (o ObjectData) MarshalJSON() ([]byte, error) {
 	if o.Discount != nil {
 		toSerialize["discount"] = o.Discount
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ObjectData: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ObjectData) String() string {
@@ -200,10 +205,10 @@ func NewNullableObjectData(val *ObjectData) *NullableObjectData {
 }
 
 func (v NullableObjectData) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableObjectData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

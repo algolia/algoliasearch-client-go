@@ -163,7 +163,12 @@ func (o MatchedGeoLocation) MarshalJSON() ([]byte, error) {
 	if o.Distance != nil {
 		toSerialize["distance"] = o.Distance
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal MatchedGeoLocation: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o MatchedGeoLocation) String() string {
@@ -202,10 +207,10 @@ func NewNullableMatchedGeoLocation(val *MatchedGeoLocation) *NullableMatchedGeoL
 }
 
 func (v NullableMatchedGeoLocation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableMatchedGeoLocation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

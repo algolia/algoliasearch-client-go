@@ -88,7 +88,12 @@ func (o AuthAlgolia) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["apiKey"] = o.ApiKey
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AuthAlgolia: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AuthAlgolia) String() string {
@@ -126,10 +131,10 @@ func NewNullableAuthAlgolia(val *AuthAlgolia) *NullableAuthAlgolia {
 }
 
 func (v NullableAuthAlgolia) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAuthAlgolia) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

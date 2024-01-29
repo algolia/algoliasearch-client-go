@@ -434,7 +434,12 @@ func (o AddedToCartObjectIDs) MarshalJSON() ([]byte, error) {
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AddedToCartObjectIDs: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AddedToCartObjectIDs) String() string {
@@ -481,10 +486,10 @@ func NewNullableAddedToCartObjectIDs(val *AddedToCartObjectIDs) *NullableAddedTo
 }
 
 func (v NullableAddedToCartObjectIDs) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAddedToCartObjectIDs) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

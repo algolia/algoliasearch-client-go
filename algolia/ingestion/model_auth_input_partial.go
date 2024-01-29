@@ -124,23 +124,48 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AuthInputPartial) MarshalJSON() ([]byte, error) {
 	if src.AuthAPIKeyPartial != nil {
-		return json.Marshal(&src.AuthAPIKeyPartial)
+		serialized, err := json.Marshal(&src.AuthAPIKeyPartial)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthAPIKeyPartial of AuthInputPartial: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthAlgoliaPartial != nil {
-		return json.Marshal(&src.AuthAlgoliaPartial)
+		serialized, err := json.Marshal(&src.AuthAlgoliaPartial)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthAlgoliaPartial of AuthInputPartial: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthBasicPartial != nil {
-		return json.Marshal(&src.AuthBasicPartial)
+		serialized, err := json.Marshal(&src.AuthBasicPartial)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthBasicPartial of AuthInputPartial: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthGoogleServiceAccountPartial != nil {
-		return json.Marshal(&src.AuthGoogleServiceAccountPartial)
+		serialized, err := json.Marshal(&src.AuthGoogleServiceAccountPartial)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthGoogleServiceAccountPartial of AuthInputPartial: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AuthOAuthPartial != nil {
-		return json.Marshal(&src.AuthOAuthPartial)
+		serialized, err := json.Marshal(&src.AuthOAuthPartial)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthOAuthPartial of AuthInputPartial: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -203,10 +228,10 @@ func NewNullableAuthInputPartial(val *AuthInputPartial) *NullableAuthInputPartia
 }
 
 func (v NullableAuthInputPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAuthInputPartial) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

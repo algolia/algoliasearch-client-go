@@ -88,7 +88,12 @@ func (o RunResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RunResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o RunResponse) String() string {
@@ -126,10 +131,10 @@ func NewNullableRunResponse(val *RunResponse) *NullableRunResponse {
 }
 
 func (v NullableRunResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRunResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -379,7 +379,12 @@ func (o DeleteByParams) MarshalJSON() ([]byte, error) {
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DeleteByParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DeleteByParams) String() string {
@@ -423,10 +428,10 @@ func NewNullableDeleteByParams(val *DeleteByParams) *NullableDeleteByParams {
 }
 
 func (v NullableDeleteByParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDeleteByParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

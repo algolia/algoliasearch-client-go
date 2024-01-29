@@ -82,15 +82,30 @@ func (dst *Trigger) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src Trigger) MarshalJSON() ([]byte, error) {
 	if src.OnDemandTrigger != nil {
-		return json.Marshal(&src.OnDemandTrigger)
+		serialized, err := json.Marshal(&src.OnDemandTrigger)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of OnDemandTrigger of Trigger: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ScheduleTrigger != nil {
-		return json.Marshal(&src.ScheduleTrigger)
+		serialized, err := json.Marshal(&src.ScheduleTrigger)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ScheduleTrigger of Trigger: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SubscriptionTrigger != nil {
-		return json.Marshal(&src.SubscriptionTrigger)
+		serialized, err := json.Marshal(&src.SubscriptionTrigger)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SubscriptionTrigger of Trigger: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -145,10 +160,10 @@ func NewNullableTrigger(val *Trigger) *NullableTrigger {
 }
 
 func (v NullableTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTrigger) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

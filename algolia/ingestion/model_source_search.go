@@ -56,7 +56,12 @@ func (o SourceSearch) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["sourceIDs"] = o.SourceIDs
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SourceSearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SourceSearch) String() string {
@@ -93,10 +98,10 @@ func NewNullableSourceSearch(val *SourceSearch) *NullableSourceSearch {
 }
 
 func (v NullableSourceSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSourceSearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -61,11 +61,21 @@ func (dst *RemoveStopWords) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src RemoveStopWords) MarshalJSON() ([]byte, error) {
 	if src.ArrayOfString != nil {
-		return json.Marshal(&src.ArrayOfString)
+		serialized, err := json.Marshal(&src.ArrayOfString)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfString of RemoveStopWords: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.Bool != nil {
-		return json.Marshal(&src.Bool)
+		serialized, err := json.Marshal(&src.Bool)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of Bool of RemoveStopWords: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableRemoveStopWords(val *RemoveStopWords) *NullableRemoveStopWords {
 }
 
 func (v NullableRemoveStopWords) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRemoveStopWords) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

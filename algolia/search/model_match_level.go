@@ -27,7 +27,7 @@ func (v *MatchLevel) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MatchLevel': %w", string(src), err)
 	}
 	enumTypeValue := MatchLevel(value)
 	for _, existing := range AllowedMatchLevelEnumValues {
@@ -94,10 +94,10 @@ func NewNullableMatchLevel(val *MatchLevel) *NullableMatchLevel {
 }
 
 func (v NullableMatchLevel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableMatchLevel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

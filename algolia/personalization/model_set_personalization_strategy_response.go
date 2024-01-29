@@ -57,7 +57,12 @@ func (o SetPersonalizationStrategyResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["message"] = o.Message
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SetPersonalizationStrategyResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SetPersonalizationStrategyResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableSetPersonalizationStrategyResponse(val *SetPersonalizationStrate
 }
 
 func (v NullableSetPersonalizationStrategyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSetPersonalizationStrategyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

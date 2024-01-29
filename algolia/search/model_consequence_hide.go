@@ -57,7 +57,12 @@ func (o ConsequenceHide) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["objectID"] = o.ObjectID
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ConsequenceHide: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ConsequenceHide) String() string {
@@ -94,10 +99,10 @@ func NewNullableConsequenceHide(val *ConsequenceHide) *NullableConsequenceHide {
 }
 
 func (v NullableConsequenceHide) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableConsequenceHide) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

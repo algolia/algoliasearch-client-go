@@ -137,7 +137,12 @@ func (o GetObjectsRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["indexName"] = o.IndexName
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetObjectsRequest: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetObjectsRequest) String() string {
@@ -176,10 +181,10 @@ func NewNullableGetObjectsRequest(val *GetObjectsRequest) *NullableGetObjectsReq
 }
 
 func (v NullableGetObjectsRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetObjectsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

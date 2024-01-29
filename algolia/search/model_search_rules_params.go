@@ -351,7 +351,12 @@ func (o SearchRulesParams) MarshalJSON() ([]byte, error) {
 	if o.RequestOptions != nil {
 		toSerialize["requestOptions"] = o.RequestOptions
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchRulesParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SearchRulesParams) String() string {
@@ -394,10 +399,10 @@ func NewNullableSearchRulesParams(val *SearchRulesParams) *NullableSearchRulesPa
 }
 
 func (v NullableSearchRulesParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchRulesParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -88,7 +88,12 @@ func (o TimeRange) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["until"] = o.Until
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TimeRange: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TimeRange) String() string {
@@ -126,10 +131,10 @@ func NewNullableTimeRange(val *TimeRange) *NullableTimeRange {
 }
 
 func (v NullableTimeRange) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTimeRange) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

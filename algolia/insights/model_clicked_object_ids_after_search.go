@@ -335,7 +335,12 @@ func (o ClickedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ClickedObjectIDsAfterSearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ClickedObjectIDsAfterSearch) String() string {
@@ -380,10 +385,10 @@ func NewNullableClickedObjectIDsAfterSearch(val *ClickedObjectIDsAfterSearch) *N
 }
 
 func (v NullableClickedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableClickedObjectIDsAfterSearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

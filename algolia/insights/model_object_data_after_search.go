@@ -205,7 +205,12 @@ func (o ObjectDataAfterSearch) MarshalJSON() ([]byte, error) {
 	if o.Discount != nil {
 		toSerialize["discount"] = o.Discount
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ObjectDataAfterSearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ObjectDataAfterSearch) String() string {
@@ -245,10 +250,10 @@ func NewNullableObjectDataAfterSearch(val *ObjectDataAfterSearch) *NullableObjec
 }
 
 func (v NullableObjectDataAfterSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableObjectDataAfterSearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

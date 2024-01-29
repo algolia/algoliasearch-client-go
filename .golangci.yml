@@ -16,6 +16,7 @@ linters:
 
   disable:
     - godox
+    - bodyclose
     - contextcheck
     - interfacebloat
     - gci
@@ -26,7 +27,6 @@ linters:
     - goerr113
     - gochecknoglobals
     - exhaustruct
-    - wrapcheck
     - exhaustive
     - depguard
     - lll

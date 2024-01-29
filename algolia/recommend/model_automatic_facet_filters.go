@@ -61,11 +61,21 @@ func (dst *AutomaticFacetFilters) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AutomaticFacetFilters) MarshalJSON() ([]byte, error) {
 	if src.ArrayOfAutomaticFacetFilter != nil {
-		return json.Marshal(&src.ArrayOfAutomaticFacetFilter)
+		serialized, err := json.Marshal(&src.ArrayOfAutomaticFacetFilter)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfAutomaticFacetFilter of AutomaticFacetFilters: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ArrayOfString != nil {
-		return json.Marshal(&src.ArrayOfString)
+		serialized, err := json.Marshal(&src.ArrayOfString)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfString of AutomaticFacetFilters: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableAutomaticFacetFilters(val *AutomaticFacetFilters) *NullableAutom
 }
 
 func (v NullableAutomaticFacetFilters) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAutomaticFacetFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

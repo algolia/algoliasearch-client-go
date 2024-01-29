@@ -1281,7 +1281,12 @@ func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal RecommendationsResults: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o RecommendationsResults) String() string {
@@ -1347,10 +1352,10 @@ func NewNullableRecommendationsResults(val *RecommendationsResults) *NullableRec
 }
 
 func (v NullableRecommendationsResults) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRecommendationsResults) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

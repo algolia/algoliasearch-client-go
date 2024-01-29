@@ -27,7 +27,7 @@ func (v *TriggerType) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TriggerType': %w", string(src), err)
 	}
 	enumTypeValue := TriggerType(value)
 	for _, existing := range AllowedTriggerTypeEnumValues {
@@ -94,10 +94,10 @@ func NewNullableTriggerType(val *TriggerType) *NullableTriggerType {
 }
 
 func (v NullableTriggerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTriggerType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

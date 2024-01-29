@@ -206,7 +206,12 @@ func (o GetLogFile200Response) MarshalJSON() ([]byte, error) {
 	if o.ContextLevel != nil {
 		toSerialize["contextLevel"] = o.ContextLevel
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetLogFile200Response: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetLogFile200Response) String() string {
@@ -246,10 +251,10 @@ func NewNullableGetLogFile200Response(val *GetLogFile200Response) *NullableGetLo
 }
 
 func (v NullableGetLogFile200Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetLogFile200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

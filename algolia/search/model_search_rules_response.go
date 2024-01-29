@@ -150,7 +150,12 @@ func (o SearchRulesResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["nbPages"] = o.NbPages
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchRulesResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SearchRulesResponse) String() string {
@@ -190,10 +195,10 @@ func NewNullableSearchRulesResponse(val *SearchRulesResponse) *NullableSearchRul
 }
 
 func (v NullableSearchRulesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchRulesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

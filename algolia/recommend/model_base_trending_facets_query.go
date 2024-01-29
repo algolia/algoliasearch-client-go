@@ -105,7 +105,12 @@ func (o BaseTrendingFacetsQuery) MarshalJSON() ([]byte, error) {
 	if o.Model != nil {
 		toSerialize["model"] = o.Model
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal BaseTrendingFacetsQuery: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o BaseTrendingFacetsQuery) String() string {
@@ -143,10 +148,10 @@ func NewNullableBaseTrendingFacetsQuery(val *BaseTrendingFacetsQuery) *NullableB
 }
 
 func (v NullableBaseTrendingFacetsQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableBaseTrendingFacetsQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -57,7 +57,12 @@ func (o GetTopUserIdsResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["topUsers"] = o.TopUsers
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetTopUserIdsResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetTopUserIdsResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableGetTopUserIdsResponse(val *GetTopUserIdsResponse) *NullableGetTo
 }
 
 func (v NullableGetTopUserIdsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetTopUserIdsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

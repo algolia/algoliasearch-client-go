@@ -61,11 +61,21 @@ func (dst *Discount) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src Discount) MarshalJSON() ([]byte, error) {
 	if src.Float64 != nil {
-		return json.Marshal(&src.Float64)
+		serialized, err := json.Marshal(&src.Float64)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of Float64 of Discount: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.String != nil {
-		return json.Marshal(&src.String)
+		serialized, err := json.Marshal(&src.String)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of String of Discount: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableDiscount(val *Discount) *NullableDiscount {
 }
 
 func (v NullableDiscount) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDiscount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

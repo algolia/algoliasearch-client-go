@@ -585,51 +585,111 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src EventsItems) MarshalJSON() ([]byte, error) {
 	if src.AddedToCartObjectIDs != nil {
-		return json.Marshal(&src.AddedToCartObjectIDs)
+		serialized, err := json.Marshal(&src.AddedToCartObjectIDs)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AddedToCartObjectIDs of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AddedToCartObjectIDsAfterSearch != nil {
-		return json.Marshal(&src.AddedToCartObjectIDsAfterSearch)
+		serialized, err := json.Marshal(&src.AddedToCartObjectIDsAfterSearch)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AddedToCartObjectIDsAfterSearch of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ClickedFilters != nil {
-		return json.Marshal(&src.ClickedFilters)
+		serialized, err := json.Marshal(&src.ClickedFilters)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ClickedFilters of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ClickedObjectIDs != nil {
-		return json.Marshal(&src.ClickedObjectIDs)
+		serialized, err := json.Marshal(&src.ClickedObjectIDs)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ClickedObjectIDs of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ClickedObjectIDsAfterSearch != nil {
-		return json.Marshal(&src.ClickedObjectIDsAfterSearch)
+		serialized, err := json.Marshal(&src.ClickedObjectIDsAfterSearch)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ClickedObjectIDsAfterSearch of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ConvertedFilters != nil {
-		return json.Marshal(&src.ConvertedFilters)
+		serialized, err := json.Marshal(&src.ConvertedFilters)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ConvertedFilters of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ConvertedObjectIDs != nil {
-		return json.Marshal(&src.ConvertedObjectIDs)
+		serialized, err := json.Marshal(&src.ConvertedObjectIDs)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ConvertedObjectIDs of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ConvertedObjectIDsAfterSearch != nil {
-		return json.Marshal(&src.ConvertedObjectIDsAfterSearch)
+		serialized, err := json.Marshal(&src.ConvertedObjectIDsAfterSearch)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ConvertedObjectIDsAfterSearch of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.PurchasedObjectIDs != nil {
-		return json.Marshal(&src.PurchasedObjectIDs)
+		serialized, err := json.Marshal(&src.PurchasedObjectIDs)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of PurchasedObjectIDs of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.PurchasedObjectIDsAfterSearch != nil {
-		return json.Marshal(&src.PurchasedObjectIDsAfterSearch)
+		serialized, err := json.Marshal(&src.PurchasedObjectIDsAfterSearch)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of PurchasedObjectIDsAfterSearch of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ViewedFilters != nil {
-		return json.Marshal(&src.ViewedFilters)
+		serialized, err := json.Marshal(&src.ViewedFilters)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ViewedFilters of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ViewedObjectIDs != nil {
-		return json.Marshal(&src.ViewedObjectIDs)
+		serialized, err := json.Marshal(&src.ViewedObjectIDs)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ViewedObjectIDs of EventsItems: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -720,10 +780,10 @@ func NewNullableEventsItems(val *EventsItems) *NullableEventsItems {
 }
 
 func (v NullableEventsItems) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableEventsItems) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

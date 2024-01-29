@@ -88,7 +88,12 @@ func (o BatchAssignUserIdsParams) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["users"] = o.Users
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal BatchAssignUserIdsParams: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o BatchAssignUserIdsParams) String() string {
@@ -126,10 +131,10 @@ func NewNullableBatchAssignUserIdsParams(val *BatchAssignUserIdsParams) *Nullabl
 }
 
 func (v NullableBatchAssignUserIdsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableBatchAssignUserIdsParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

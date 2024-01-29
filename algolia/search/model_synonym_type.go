@@ -31,7 +31,7 @@ func (v *SynonymType) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SynonymType': %w", string(src), err)
 	}
 	enumTypeValue := SynonymType(value)
 	for _, existing := range AllowedSynonymTypeEnumValues {
@@ -98,10 +98,10 @@ func NewNullableSynonymType(val *SynonymType) *NullableSynonymType {
 }
 
 func (v NullableSynonymType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSynonymType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -147,7 +147,12 @@ func (o BaseRecommendedForYouQuery) MarshalJSON() ([]byte, error) {
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal BaseRecommendedForYouQuery: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o BaseRecommendedForYouQuery) String() string {
@@ -186,10 +191,10 @@ func NewNullableBaseRecommendedForYouQuery(val *BaseRecommendedForYouQuery) *Nul
 }
 
 func (v NullableBaseRecommendedForYouQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableBaseRecommendedForYouQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

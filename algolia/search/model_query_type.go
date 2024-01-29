@@ -27,7 +27,7 @@ func (v *QueryType) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'QueryType': %w", string(src), err)
 	}
 	enumTypeValue := QueryType(value)
 	for _, existing := range AllowedQueryTypeEnumValues {
@@ -94,10 +94,10 @@ func NewNullableQueryType(val *QueryType) *NullableQueryType {
 }
 
 func (v NullableQueryType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableQueryType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

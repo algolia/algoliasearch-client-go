@@ -57,7 +57,12 @@ func (o GetTopCountriesResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["countries"] = o.Countries
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetTopCountriesResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetTopCountriesResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableGetTopCountriesResponse(val *GetTopCountriesResponse) *NullableG
 }
 
 func (v NullableGetTopCountriesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetTopCountriesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

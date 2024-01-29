@@ -88,7 +88,12 @@ func (o DeleteUserProfileResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["deletedUntil"] = o.DeletedUntil
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DeleteUserProfileResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DeleteUserProfileResponse) String() string {
@@ -126,10 +131,10 @@ func NewNullableDeleteUserProfileResponse(val *DeleteUserProfileResponse) *Nulla
 }
 
 func (v NullableDeleteUserProfileResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDeleteUserProfileResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

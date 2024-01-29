@@ -56,7 +56,12 @@ func (o TaskSearch) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["taskIDs"] = o.TaskIDs
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TaskSearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TaskSearch) String() string {
@@ -93,10 +98,10 @@ func NewNullableTaskSearch(val *TaskSearch) *NullableTaskSearch {
 }
 
 func (v NullableTaskSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTaskSearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

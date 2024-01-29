@@ -25,7 +25,7 @@ func (v *DictionaryAction) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DictionaryAction': %w", string(src), err)
 	}
 	enumTypeValue := DictionaryAction(value)
 	for _, existing := range AllowedDictionaryActionEnumValues {
@@ -92,10 +92,10 @@ func NewNullableDictionaryAction(val *DictionaryAction) *NullableDictionaryActio
 }
 
 func (v NullableDictionaryAction) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDictionaryAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

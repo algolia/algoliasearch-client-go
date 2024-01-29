@@ -106,7 +106,12 @@ func (o HasPendingMappingsResponse) MarshalJSON() ([]byte, error) {
 	if o.Clusters != nil {
 		toSerialize["clusters"] = o.Clusters
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal HasPendingMappingsResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o HasPendingMappingsResponse) String() string {
@@ -144,10 +149,10 @@ func NewNullableHasPendingMappingsResponse(val *HasPendingMappingsResponse) *Nul
 }
 
 func (v NullableHasPendingMappingsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableHasPendingMappingsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -146,7 +146,12 @@ func (o Pagination) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["itemsPerPage"] = o.ItemsPerPage
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Pagination: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Pagination) String() string {
@@ -186,10 +191,10 @@ func NewNullablePagination(val *Pagination) *NullablePagination {
 }
 
 func (v NullablePagination) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullablePagination) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

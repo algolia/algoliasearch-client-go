@@ -119,7 +119,12 @@ func (o Facet) MarshalJSON() ([]byte, error) {
 	if o.Amount != nil {
 		toSerialize["amount"] = o.Amount
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Facet: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Facet) String() string {
@@ -157,10 +162,10 @@ func NewNullableFacet(val *Facet) *NullableFacet {
 }
 
 func (v NullableFacet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableFacet) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

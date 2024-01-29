@@ -106,7 +106,12 @@ func (o BigCommerceChannel) MarshalJSON() ([]byte, error) {
 	if o.Currencies != nil {
 		toSerialize["currencies"] = o.Currencies
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal BigCommerceChannel: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o BigCommerceChannel) String() string {
@@ -144,10 +149,10 @@ func NewNullableBigCommerceChannel(val *BigCommerceChannel) *NullableBigCommerce
 }
 
 func (v NullableBigCommerceChannel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableBigCommerceChannel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -61,11 +61,21 @@ func (dst *AroundPrecision) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AroundPrecision) MarshalJSON() ([]byte, error) {
 	if src.ArrayOfAroundPrecisionFromValueInner != nil {
-		return json.Marshal(&src.ArrayOfAroundPrecisionFromValueInner)
+		serialized, err := json.Marshal(&src.ArrayOfAroundPrecisionFromValueInner)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfAroundPrecisionFromValueInner of AroundPrecision: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.Int32 != nil {
-		return json.Marshal(&src.Int32)
+		serialized, err := json.Marshal(&src.Int32)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of Int32 of AroundPrecision: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableAroundPrecision(val *AroundPrecision) *NullableAroundPrecision {
 }
 
 func (v NullableAroundPrecision) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAroundPrecision) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

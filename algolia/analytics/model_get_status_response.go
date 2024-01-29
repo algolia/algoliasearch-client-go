@@ -57,7 +57,12 @@ func (o GetStatusResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetStatusResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetStatusResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableGetStatusResponse(val *GetStatusResponse) *NullableGetStatusResp
 }
 
 func (v NullableGetStatusResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetStatusResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

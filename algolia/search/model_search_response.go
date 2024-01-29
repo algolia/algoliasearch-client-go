@@ -1273,7 +1273,12 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o *SearchResponse) UnmarshalJSON(bytes []byte) (err error) {
@@ -1285,41 +1290,44 @@ func (o *SearchResponse) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]any)
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "abTestID")
-		delete(additionalProperties, "abTestVariantID")
-		delete(additionalProperties, "aroundLatLng")
-		delete(additionalProperties, "automaticRadius")
-		delete(additionalProperties, "exhaustive")
-		delete(additionalProperties, "exhaustiveFacetsCount")
-		delete(additionalProperties, "exhaustiveNbHits")
-		delete(additionalProperties, "exhaustiveTypo")
-		delete(additionalProperties, "facets")
-		delete(additionalProperties, "facets_stats")
-		delete(additionalProperties, "hitsPerPage")
-		delete(additionalProperties, "index")
-		delete(additionalProperties, "indexUsed")
-		delete(additionalProperties, "message")
-		delete(additionalProperties, "nbHits")
-		delete(additionalProperties, "nbPages")
-		delete(additionalProperties, "nbSortedHits")
-		delete(additionalProperties, "page")
-		delete(additionalProperties, "parsedQuery")
-		delete(additionalProperties, "processingTimeMS")
-		delete(additionalProperties, "processingTimingsMS")
-		delete(additionalProperties, "queryAfterRemoval")
-		delete(additionalProperties, "redirect")
-		delete(additionalProperties, "renderingContent")
-		delete(additionalProperties, "serverTimeMS")
-		delete(additionalProperties, "serverUsed")
-		delete(additionalProperties, "userData")
-		delete(additionalProperties, "hits")
-		delete(additionalProperties, "query")
-		delete(additionalProperties, "params")
-		o.AdditionalProperties = additionalProperties
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal additionalProperties in SearchResponse: %w", err)
 	}
 
-	return err
+	delete(additionalProperties, "abTestID")
+	delete(additionalProperties, "abTestVariantID")
+	delete(additionalProperties, "aroundLatLng")
+	delete(additionalProperties, "automaticRadius")
+	delete(additionalProperties, "exhaustive")
+	delete(additionalProperties, "exhaustiveFacetsCount")
+	delete(additionalProperties, "exhaustiveNbHits")
+	delete(additionalProperties, "exhaustiveTypo")
+	delete(additionalProperties, "facets")
+	delete(additionalProperties, "facets_stats")
+	delete(additionalProperties, "hitsPerPage")
+	delete(additionalProperties, "index")
+	delete(additionalProperties, "indexUsed")
+	delete(additionalProperties, "message")
+	delete(additionalProperties, "nbHits")
+	delete(additionalProperties, "nbPages")
+	delete(additionalProperties, "nbSortedHits")
+	delete(additionalProperties, "page")
+	delete(additionalProperties, "parsedQuery")
+	delete(additionalProperties, "processingTimeMS")
+	delete(additionalProperties, "processingTimingsMS")
+	delete(additionalProperties, "queryAfterRemoval")
+	delete(additionalProperties, "redirect")
+	delete(additionalProperties, "renderingContent")
+	delete(additionalProperties, "serverTimeMS")
+	delete(additionalProperties, "serverUsed")
+	delete(additionalProperties, "userData")
+	delete(additionalProperties, "hits")
+	delete(additionalProperties, "query")
+	delete(additionalProperties, "params")
+	o.AdditionalProperties = additionalProperties
+
+	return nil
 }
 
 func (o SearchResponse) String() string {
@@ -1388,10 +1396,10 @@ func NewNullableSearchResponse(val *SearchResponse) *NullableSearchResponse {
 }
 
 func (v NullableSearchResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

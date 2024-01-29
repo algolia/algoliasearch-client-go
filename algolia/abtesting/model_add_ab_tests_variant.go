@@ -61,11 +61,21 @@ func (dst *AddABTestsVariant) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AddABTestsVariant) MarshalJSON() ([]byte, error) {
 	if src.AbTestsVariant != nil {
-		return json.Marshal(&src.AbTestsVariant)
+		serialized, err := json.Marshal(&src.AbTestsVariant)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AbTestsVariant of AddABTestsVariant: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.AbTestsVariantSearchParams != nil {
-		return json.Marshal(&src.AbTestsVariantSearchParams)
+		serialized, err := json.Marshal(&src.AbTestsVariantSearchParams)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AbTestsVariantSearchParams of AddABTestsVariant: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableAddABTestsVariant(val *AddABTestsVariant) *NullableAddABTestsVar
 }
 
 func (v NullableAddABTestsVariant) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAddABTestsVariant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

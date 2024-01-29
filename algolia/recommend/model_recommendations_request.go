@@ -103,19 +103,39 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src RecommendationsRequest) MarshalJSON() ([]byte, error) {
 	if src.RecommendationsQuery != nil {
-		return json.Marshal(&src.RecommendationsQuery)
+		serialized, err := json.Marshal(&src.RecommendationsQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of RecommendationsQuery of RecommendationsRequest: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.RecommendedForYouQuery != nil {
-		return json.Marshal(&src.RecommendedForYouQuery)
+		serialized, err := json.Marshal(&src.RecommendedForYouQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of RecommendedForYouQuery of RecommendationsRequest: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.TrendingFacetsQuery != nil {
-		return json.Marshal(&src.TrendingFacetsQuery)
+		serialized, err := json.Marshal(&src.TrendingFacetsQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of TrendingFacetsQuery of RecommendationsRequest: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.TrendingItemsQuery != nil {
-		return json.Marshal(&src.TrendingItemsQuery)
+		serialized, err := json.Marshal(&src.TrendingItemsQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of TrendingItemsQuery of RecommendationsRequest: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -174,10 +194,10 @@ func NewNullableRecommendationsRequest(val *RecommendationsRequest) *NullableRec
 }
 
 func (v NullableRecommendationsRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRecommendationsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

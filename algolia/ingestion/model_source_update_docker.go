@@ -193,7 +193,12 @@ func (o SourceUpdateDocker) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["configuration"] = o.Configuration
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SourceUpdateDocker: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SourceUpdateDocker) String() string {
@@ -233,10 +238,10 @@ func NewNullableSourceUpdateDocker(val *SourceUpdateDocker) *NullableSourceUpdat
 }
 
 func (v NullableSourceUpdateDocker) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSourceUpdateDocker) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

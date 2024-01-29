@@ -356,7 +356,12 @@ func (o SynonymHit) MarshalJSON() ([]byte, error) {
 	if o.Replacements != nil {
 		toSerialize["replacements"] = o.Replacements
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SynonymHit: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SynonymHit) String() string {
@@ -400,10 +405,10 @@ func NewNullableSynonymHit(val *SynonymHit) *NullableSynonymHit {
 }
 
 func (v NullableSynonymHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSynonymHit) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

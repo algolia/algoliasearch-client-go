@@ -150,7 +150,12 @@ func (o AutomaticFacetFilter) MarshalJSON() ([]byte, error) {
 	if o.Disjunctive != nil {
 		toSerialize["disjunctive"] = o.Disjunctive
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AutomaticFacetFilter: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AutomaticFacetFilter) String() string {
@@ -189,10 +194,10 @@ func NewNullableAutomaticFacetFilter(val *AutomaticFacetFilter) *NullableAutomat
 }
 
 func (v NullableAutomaticFacetFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAutomaticFacetFilter) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

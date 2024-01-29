@@ -145,27 +145,57 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src SourceInput) MarshalJSON() ([]byte, error) {
 	if src.SourceBigCommerce != nil {
-		return json.Marshal(&src.SourceBigCommerce)
+		serialized, err := json.Marshal(&src.SourceBigCommerce)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceBigCommerce of SourceInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceBigQuery != nil {
-		return json.Marshal(&src.SourceBigQuery)
+		serialized, err := json.Marshal(&src.SourceBigQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceBigQuery of SourceInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceCSV != nil {
-		return json.Marshal(&src.SourceCSV)
+		serialized, err := json.Marshal(&src.SourceCSV)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceCSV of SourceInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceCommercetools != nil {
-		return json.Marshal(&src.SourceCommercetools)
+		serialized, err := json.Marshal(&src.SourceCommercetools)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceCommercetools of SourceInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceDocker != nil {
-		return json.Marshal(&src.SourceDocker)
+		serialized, err := json.Marshal(&src.SourceDocker)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceDocker of SourceInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SourceJSON != nil {
-		return json.Marshal(&src.SourceJSON)
+		serialized, err := json.Marshal(&src.SourceJSON)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceJSON of SourceInput: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -232,10 +262,10 @@ func NewNullableSourceInput(val *SourceInput) *NullableSourceInput {
 }
 
 func (v NullableSourceInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSourceInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

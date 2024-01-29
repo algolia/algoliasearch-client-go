@@ -57,7 +57,12 @@ func (o TriggerUpdateInput) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["cron"] = o.Cron
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TriggerUpdateInput: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TriggerUpdateInput) String() string {
@@ -94,10 +99,10 @@ func NewNullableTriggerUpdateInput(val *TriggerUpdateInput) *NullableTriggerUpda
 }
 
 func (v NullableTriggerUpdateInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTriggerUpdateInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

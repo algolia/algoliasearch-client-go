@@ -13,7 +13,6 @@ type Configuration struct {
 	Hosts          []string
 	DefaultHeader  map[string]string
 	UserAgent      string
-	Debug          bool
 	Requester      Requester
 	ReadTimeout    time.Duration
 	WriteTimeout   time.Duration

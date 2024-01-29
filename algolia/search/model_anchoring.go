@@ -29,7 +29,7 @@ func (v *Anchoring) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Anchoring': %w", string(src), err)
 	}
 	enumTypeValue := Anchoring(value)
 	for _, existing := range AllowedAnchoringEnumValues {
@@ -96,10 +96,10 @@ func NewNullableAnchoring(val *Anchoring) *NullableAnchoring {
 }
 
 func (v NullableAnchoring) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAnchoring) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

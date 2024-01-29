@@ -57,7 +57,12 @@ func (o TopHitsResponseWithAnalytics) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["hits"] = o.Hits
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal TopHitsResponseWithAnalytics: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o TopHitsResponseWithAnalytics) String() string {
@@ -94,10 +99,10 @@ func NewNullableTopHitsResponseWithAnalytics(val *TopHitsResponseWithAnalytics) 
 }
 
 func (v NullableTopHitsResponseWithAnalytics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTopHitsResponseWithAnalytics) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

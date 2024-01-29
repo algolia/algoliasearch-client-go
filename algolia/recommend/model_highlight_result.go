@@ -100,11 +100,21 @@ func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src HighlightResult) MarshalJSON() ([]byte, error) {
 	if src.HighlightResultOption != nil {
-		return json.Marshal(&src.HighlightResultOption)
+		serialized, err := json.Marshal(&src.HighlightResultOption)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of HighlightResultOption of HighlightResult: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.MapmapOfStringHighlightResultOption != nil {
-		return json.Marshal(&src.MapmapOfStringHighlightResultOption)
+		serialized, err := json.Marshal(&src.MapmapOfStringHighlightResultOption)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringHighlightResultOption of HighlightResult: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -155,10 +165,10 @@ func NewNullableHighlightResult(val *HighlightResult) *NullableHighlightResult {
 }
 
 func (v NullableHighlightResult) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableHighlightResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

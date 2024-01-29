@@ -1433,7 +1433,12 @@ func (o BaseSearchParamsWithoutQuery) MarshalJSON() ([]byte, error) {
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal BaseSearchParamsWithoutQuery: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o BaseSearchParamsWithoutQuery) String() string {
@@ -1501,10 +1506,10 @@ func NewNullableBaseSearchParamsWithoutQuery(val *BaseSearchParamsWithoutQuery) 
 }
 
 func (v NullableBaseSearchParamsWithoutQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableBaseSearchParamsWithoutQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -57,7 +57,12 @@ func (o CreatedAtResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal CreatedAtResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o CreatedAtResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableCreatedAtResponse(val *CreatedAtResponse) *NullableCreatedAtResp
 }
 
 func (v NullableCreatedAtResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableCreatedAtResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

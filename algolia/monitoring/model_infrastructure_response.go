@@ -74,7 +74,12 @@ func (o InfrastructureResponse) MarshalJSON() ([]byte, error) {
 	if o.Metrics != nil {
 		toSerialize["metrics"] = o.Metrics
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal InfrastructureResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o InfrastructureResponse) String() string {
@@ -111,10 +116,10 @@ func NewNullableInfrastructureResponse(val *InfrastructureResponse) *NullableInf
 }
 
 func (v NullableInfrastructureResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableInfrastructureResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

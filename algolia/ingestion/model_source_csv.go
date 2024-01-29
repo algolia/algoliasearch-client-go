@@ -237,7 +237,12 @@ func (o SourceCSV) MarshalJSON() ([]byte, error) {
 	if o.Delimiter != nil {
 		toSerialize["delimiter"] = o.Delimiter
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SourceCSV: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SourceCSV) String() string {
@@ -278,10 +283,10 @@ func NewNullableSourceCSV(val *SourceCSV) *NullableSourceCSV {
 }
 
 func (v NullableSourceCSV) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSourceCSV) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

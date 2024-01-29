@@ -61,11 +61,21 @@ func (dst *NumericFilters) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src NumericFilters) MarshalJSON() ([]byte, error) {
 	if src.ArrayOfMixedSearchFilters != nil {
-		return json.Marshal(&src.ArrayOfMixedSearchFilters)
+		serialized, err := json.Marshal(&src.ArrayOfMixedSearchFilters)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfMixedSearchFilters of NumericFilters: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.String != nil {
-		return json.Marshal(&src.String)
+		serialized, err := json.Marshal(&src.String)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of String of NumericFilters: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableNumericFilters(val *NumericFilters) *NullableNumericFilters {
 }
 
 func (v NullableNumericFilters) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableNumericFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -57,7 +57,12 @@ func (o ReplaceSourceResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ReplaceSourceResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ReplaceSourceResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableReplaceSourceResponse(val *ReplaceSourceResponse) *NullableRepla
 }
 
 func (v NullableReplaceSourceResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableReplaceSourceResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

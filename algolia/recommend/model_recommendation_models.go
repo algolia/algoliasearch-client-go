@@ -25,7 +25,7 @@ func (v *RecommendationModels) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RecommendationModels': %w", string(src), err)
 	}
 	enumTypeValue := RecommendationModels(value)
 	for _, existing := range AllowedRecommendationModelsEnumValues {
@@ -92,10 +92,10 @@ func NewNullableRecommendationModels(val *RecommendationModels) *NullableRecomme
 }
 
 func (v NullableRecommendationModels) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRecommendationModels) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

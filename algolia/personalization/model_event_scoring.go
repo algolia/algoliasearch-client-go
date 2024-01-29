@@ -119,7 +119,12 @@ func (o EventScoring) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["eventType"] = o.EventType
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal EventScoring: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o EventScoring) String() string {
@@ -158,10 +163,10 @@ func NewNullableEventScoring(val *EventScoring) *NullableEventScoring {
 }
 
 func (v NullableEventScoring) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableEventScoring) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

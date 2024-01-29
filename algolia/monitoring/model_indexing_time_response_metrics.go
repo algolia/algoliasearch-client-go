@@ -74,7 +74,12 @@ func (o IndexingTimeResponseMetrics) MarshalJSON() ([]byte, error) {
 	if o.Indexing != nil {
 		toSerialize["indexing"] = o.Indexing
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal IndexingTimeResponseMetrics: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o IndexingTimeResponseMetrics) String() string {
@@ -111,10 +116,10 @@ func NewNullableIndexingTimeResponseMetrics(val *IndexingTimeResponseMetrics) *N
 }
 
 func (v NullableIndexingTimeResponseMetrics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableIndexingTimeResponseMetrics) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

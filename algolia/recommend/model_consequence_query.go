@@ -61,11 +61,21 @@ func (dst *ConsequenceQuery) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src ConsequenceQuery) MarshalJSON() ([]byte, error) {
 	if src.ConsequenceQueryObject != nil {
-		return json.Marshal(&src.ConsequenceQueryObject)
+		serialized, err := json.Marshal(&src.ConsequenceQueryObject)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ConsequenceQueryObject of ConsequenceQuery: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.String != nil {
-		return json.Marshal(&src.String)
+		serialized, err := json.Marshal(&src.String)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of String of ConsequenceQuery: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableConsequenceQuery(val *ConsequenceQuery) *NullableConsequenceQuer
 }
 
 func (v NullableConsequenceQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableConsequenceQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

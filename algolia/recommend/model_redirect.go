@@ -74,7 +74,12 @@ func (o Redirect) MarshalJSON() ([]byte, error) {
 	if o.Index != nil {
 		toSerialize["index"] = o.Index
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Redirect: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Redirect) String() string {
@@ -111,10 +116,10 @@ func NewNullableRedirect(val *Redirect) *NullableRedirect {
 }
 
 func (v NullableRedirect) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRedirect) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

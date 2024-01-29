@@ -136,7 +136,12 @@ func (o SearchHits) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchHits: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o *SearchHits) UnmarshalJSON(bytes []byte) (err error) {
@@ -148,14 +153,17 @@ func (o *SearchHits) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]any)
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "hits")
-		delete(additionalProperties, "query")
-		delete(additionalProperties, "params")
-		o.AdditionalProperties = additionalProperties
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal additionalProperties in SearchHits: %w", err)
 	}
 
-	return err
+	delete(additionalProperties, "hits")
+	delete(additionalProperties, "query")
+	delete(additionalProperties, "params")
+	o.AdditionalProperties = additionalProperties
+
+	return nil
 }
 
 func (o SearchHits) String() string {
@@ -197,10 +205,10 @@ func NewNullableSearchHits(val *SearchHits) *NullableSearchHits {
 }
 
 func (v NullableSearchHits) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchHits) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

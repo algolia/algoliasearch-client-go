@@ -23,7 +23,7 @@ func (v *SearchTypeFacet) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SearchTypeFacet': %w", string(src), err)
 	}
 	enumTypeValue := SearchTypeFacet(value)
 	for _, existing := range AllowedSearchTypeFacetEnumValues {
@@ -90,10 +90,10 @@ func NewNullableSearchTypeFacet(val *SearchTypeFacet) *NullableSearchTypeFacet {
 }
 
 func (v NullableSearchTypeFacet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchTypeFacet) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

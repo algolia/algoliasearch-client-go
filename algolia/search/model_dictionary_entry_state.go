@@ -25,7 +25,7 @@ func (v *DictionaryEntryState) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DictionaryEntryState': %w", string(src), err)
 	}
 	enumTypeValue := DictionaryEntryState(value)
 	for _, existing := range AllowedDictionaryEntryStateEnumValues {
@@ -92,10 +92,10 @@ func NewNullableDictionaryEntryState(val *DictionaryEntryState) *NullableDiction
 }
 
 func (v NullableDictionaryEntryState) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDictionaryEntryState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

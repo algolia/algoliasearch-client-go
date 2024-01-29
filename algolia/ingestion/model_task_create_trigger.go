@@ -82,15 +82,30 @@ func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src TaskCreateTrigger) MarshalJSON() ([]byte, error) {
 	if src.OnDemandTriggerInput != nil {
-		return json.Marshal(&src.OnDemandTriggerInput)
+		serialized, err := json.Marshal(&src.OnDemandTriggerInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of OnDemandTriggerInput of TaskCreateTrigger: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.ScheduleTriggerInput != nil {
-		return json.Marshal(&src.ScheduleTriggerInput)
+		serialized, err := json.Marshal(&src.ScheduleTriggerInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ScheduleTriggerInput of TaskCreateTrigger: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.SubscriptionTrigger != nil {
-		return json.Marshal(&src.SubscriptionTrigger)
+		serialized, err := json.Marshal(&src.SubscriptionTrigger)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SubscriptionTrigger of TaskCreateTrigger: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -145,10 +160,10 @@ func NewNullableTaskCreateTrigger(val *TaskCreateTrigger) *NullableTaskCreateTri
 }
 
 func (v NullableTaskCreateTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTaskCreateTrigger) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

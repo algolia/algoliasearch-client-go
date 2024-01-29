@@ -203,7 +203,12 @@ func (o Params) MarshalJSON() ([]byte, error) {
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Params: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Params) String() string {
@@ -243,10 +248,10 @@ func NewNullableParams(val *Params) *NullableParams {
 }
 
 func (v NullableParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

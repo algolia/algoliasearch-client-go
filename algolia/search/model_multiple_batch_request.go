@@ -118,7 +118,12 @@ func (o MultipleBatchRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["indexName"] = o.IndexName
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal MultipleBatchRequest: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o MultipleBatchRequest) String() string {
@@ -157,10 +162,10 @@ func NewNullableMultipleBatchRequest(val *MultipleBatchRequest) *NullableMultipl
 }
 
 func (v NullableMultipleBatchRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableMultipleBatchRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

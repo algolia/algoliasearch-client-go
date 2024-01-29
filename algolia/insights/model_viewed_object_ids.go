@@ -273,7 +273,12 @@ func (o ViewedObjectIDs) MarshalJSON() ([]byte, error) {
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ViewedObjectIDs: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o ViewedObjectIDs) String() string {
@@ -316,10 +321,10 @@ func NewNullableViewedObjectIDs(val *ViewedObjectIDs) *NullableViewedObjectIDs {
 }
 
 func (v NullableViewedObjectIDs) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableViewedObjectIDs) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -74,7 +74,12 @@ func (o GetRecommendationsResponse) MarshalJSON() ([]byte, error) {
 	if o.Results != nil {
 		toSerialize["results"] = o.Results
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetRecommendationsResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetRecommendationsResponse) String() string {
@@ -111,10 +116,10 @@ func NewNullableGetRecommendationsResponse(val *GetRecommendationsResponse) *Nul
 }
 
 func (v NullableGetRecommendationsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetRecommendationsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

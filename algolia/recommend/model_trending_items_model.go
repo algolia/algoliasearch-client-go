@@ -23,7 +23,7 @@ func (v *TrendingItemsModel) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TrendingItemsModel': %w", string(src), err)
 	}
 	enumTypeValue := TrendingItemsModel(value)
 	for _, existing := range AllowedTrendingItemsModelEnumValues {
@@ -90,10 +90,10 @@ func NewNullableTrendingItemsModel(val *TrendingItemsModel) *NullableTrendingIte
 }
 
 func (v NullableTrendingItemsModel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableTrendingItemsModel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -211,7 +211,12 @@ func (o UserHit) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["_highlightResult"] = o.HighlightResult
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal UserHit: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o UserHit) String() string {
@@ -253,10 +258,10 @@ func NewNullableUserHit(val *UserHit) *NullableUserHit {
 }
 
 func (v NullableUserHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableUserHit) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

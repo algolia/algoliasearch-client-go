@@ -150,7 +150,12 @@ func (o GetNoResultsRateResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["dates"] = o.Dates
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetNoResultsRateResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetNoResultsRateResponse) String() string {
@@ -190,10 +195,10 @@ func NewNullableGetNoResultsRateResponse(val *GetNoResultsRateResponse) *Nullabl
 }
 
 func (v NullableGetNoResultsRateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetNoResultsRateResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

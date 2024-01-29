@@ -165,7 +165,12 @@ func (o AuthenticationCreate) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["input"] = o.Input
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal AuthenticationCreate: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o AuthenticationCreate) String() string {
@@ -205,10 +210,10 @@ func NewNullableAuthenticationCreate(val *AuthenticationCreate) *NullableAuthent
 }
 
 func (v NullableAuthenticationCreate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAuthenticationCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

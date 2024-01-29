@@ -75,7 +75,12 @@ func (o DictionaryLanguage) MarshalJSON() ([]byte, error) {
 	if o.NbCustomEntries != nil {
 		toSerialize["nbCustomEntries"] = o.NbCustomEntries
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DictionaryLanguage: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o DictionaryLanguage) String() string {
@@ -112,10 +117,10 @@ func NewNullableDictionaryLanguage(val *DictionaryLanguage) *NullableDictionaryL
 }
 
 func (v NullableDictionaryLanguage) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableDictionaryLanguage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

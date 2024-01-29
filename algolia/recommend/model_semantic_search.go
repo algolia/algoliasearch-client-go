@@ -76,7 +76,12 @@ func (o SemanticSearch) MarshalJSON() ([]byte, error) {
 	if o.EventSources != nil {
 		toSerialize["eventSources"] = o.EventSources
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SemanticSearch: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SemanticSearch) String() string {
@@ -113,10 +118,10 @@ func NewNullableSemanticSearch(val *SemanticSearch) *NullableSemanticSearch {
 }
 
 func (v NullableSemanticSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSemanticSearch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

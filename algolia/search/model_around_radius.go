@@ -61,11 +61,21 @@ func (dst *AroundRadius) UnmarshalJSON(data []byte) error {
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AroundRadius) MarshalJSON() ([]byte, error) {
 	if src.AroundRadiusAll != nil {
-		return json.Marshal(&src.AroundRadiusAll)
+		serialized, err := json.Marshal(&src.AroundRadiusAll)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AroundRadiusAll of AroundRadius: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	if src.Int32 != nil {
-		return json.Marshal(&src.Int32)
+		serialized, err := json.Marshal(&src.Int32)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of Int32 of AroundRadius: %w", err)
+		}
+
+		return serialized, nil
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -116,10 +126,10 @@ func NewNullableAroundRadius(val *AroundRadius) *NullableAroundRadius {
 }
 
 func (v NullableAroundRadius) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableAroundRadius) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

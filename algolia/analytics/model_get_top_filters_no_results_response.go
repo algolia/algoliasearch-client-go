@@ -57,7 +57,12 @@ func (o GetTopFiltersNoResultsResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["values"] = o.Values
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal GetTopFiltersNoResultsResponse: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o GetTopFiltersNoResultsResponse) String() string {
@@ -94,10 +99,10 @@ func NewNullableGetTopFiltersNoResultsResponse(val *GetTopFiltersNoResultsRespon
 }
 
 func (v NullableGetTopFiltersNoResultsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableGetTopFiltersNoResultsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

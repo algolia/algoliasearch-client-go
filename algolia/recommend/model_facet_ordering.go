@@ -118,7 +118,12 @@ func (o FacetOrdering) MarshalJSON() ([]byte, error) {
 	if o.Values != nil {
 		toSerialize["values"] = o.Values
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal FacetOrdering: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o FacetOrdering) String() string {
@@ -156,10 +161,10 @@ func NewNullableFacetOrdering(val *FacetOrdering) *NullableFacetOrdering {
 }
 
 func (v NullableFacetOrdering) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableFacetOrdering) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

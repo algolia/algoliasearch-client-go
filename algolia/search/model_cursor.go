@@ -75,7 +75,12 @@ func (o Cursor) MarshalJSON() ([]byte, error) {
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Cursor: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Cursor) String() string {
@@ -112,10 +117,10 @@ func NewNullableCursor(val *Cursor) *NullableCursor {
 }
 
 func (v NullableCursor) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableCursor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

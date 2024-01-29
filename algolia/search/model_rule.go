@@ -281,7 +281,12 @@ func (o Rule) MarshalJSON() ([]byte, error) {
 	if o.Validity != nil {
 		toSerialize["validity"] = o.Validity
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal Rule: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o Rule) String() string {
@@ -323,10 +328,10 @@ func NewNullableRule(val *Rule) *NullableRule {
 }
 
 func (v NullableRule) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

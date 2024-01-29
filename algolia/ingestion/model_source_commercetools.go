@@ -222,7 +222,12 @@ func (o SourceCommercetools) MarshalJSON() ([]byte, error) {
 	if o.FallbackIsInStockValue != nil {
 		toSerialize["fallbackIsInStockValue"] = o.FallbackIsInStockValue
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SourceCommercetools: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SourceCommercetools) String() string {
@@ -263,10 +268,10 @@ func NewNullableSourceCommercetools(val *SourceCommercetools) *NullableSourceCom
 }
 
 func (v NullableSourceCommercetools) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSourceCommercetools) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

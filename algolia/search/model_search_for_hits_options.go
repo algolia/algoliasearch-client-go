@@ -105,7 +105,12 @@ func (o SearchForHitsOptions) MarshalJSON() ([]byte, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal SearchForHitsOptions: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o SearchForHitsOptions) String() string {
@@ -143,10 +148,10 @@ func NewNullableSearchForHitsOptions(val *SearchForHitsOptions) *NullableSearchF
 }
 
 func (v NullableSearchForHitsOptions) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableSearchForHitsOptions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

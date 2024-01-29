@@ -251,7 +251,12 @@ func (o InfrastructureResponseMetrics) MarshalJSON() ([]byte, error) {
 	if o.AvgBuildTime != nil {
 		toSerialize["avg_build_time"] = o.AvgBuildTime
 	}
-	return json.Marshal(toSerialize)
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal InfrastructureResponseMetrics: %w", err)
+	}
+
+	return serialized, nil
 }
 
 func (o InfrastructureResponseMetrics) String() string {
@@ -292,10 +297,10 @@ func NewNullableInfrastructureResponseMetrics(val *InfrastructureResponseMetrics
 }
 
 func (v NullableInfrastructureResponseMetrics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
 func (v *NullableInfrastructureResponseMetrics) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }
