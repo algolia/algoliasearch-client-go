@@ -71,12 +71,9 @@ func (c *APIClient) NewApiAddABTestsRequest(addABTestsRequest *AddABTestsRequest
 }
 
 /*
-AddABTests Wraps AddABTestsWithContext using context.Background.
+AddABTests Create an A/B test. Wraps AddABTestsWithContext using context.Background.
 
 Creates an A/B test.
-
-Required API Key ACLs:
-  - editSettings
 
 Request can be constructed by NewApiAddABTestsRequest with parameters below.
 
@@ -88,7 +85,7 @@ func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...Option) (*ABTestR
 }
 
 /*
-AddABTests
+AddABTests Create an A/B test.
 
 Creates an A/B test.
 
@@ -209,7 +206,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -224,7 +221,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete
+CustomDelete Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -350,7 +347,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Wraps CustomGetWithContext using context.Background.
+CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -365,7 +362,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet
+CustomGet Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -507,7 +504,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Wraps CustomPostWithContext using context.Background.
+CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -523,7 +520,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost
+CustomPost Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -672,7 +669,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Wraps CustomPutWithContext using context.Background.
+CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -688,7 +685,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut
+CustomPut Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -805,13 +802,10 @@ func (c *APIClient) NewApiDeleteABTestRequest(id int32) ApiDeleteABTestRequest {
 }
 
 /*
-DeleteABTest Wraps DeleteABTestWithContext using context.Background.
+DeleteABTest Delete an A/B test. Wraps DeleteABTestWithContext using context.Background.
 
 Delete an A/B test.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
-
-Required API Key ACLs:
-  - editSettings
 
 Request can be constructed by NewApiDeleteABTestRequest with parameters below.
 
@@ -823,7 +817,7 @@ func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...Option) (*ABT
 }
 
 /*
-DeleteABTest
+DeleteABTest Delete an A/B test.
 
 Delete an A/B test.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
@@ -924,13 +918,10 @@ func (c *APIClient) NewApiGetABTestRequest(id int32) ApiGetABTestRequest {
 }
 
 /*
-GetABTest Wraps GetABTestWithContext using context.Background.
+GetABTest Get A/B test details. Wraps GetABTestWithContext using context.Background.
 
 Get specific details for an A/B test.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetABTestRequest with parameters below.
 
@@ -942,7 +933,7 @@ func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...Option) (*ABTest, e
 }
 
 /*
-GetABTest
+GetABTest Get A/B test details.
 
 Get specific details for an A/B test.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
@@ -1095,12 +1086,9 @@ func (r ApiListABTestsRequest) WithIndexSuffix(indexSuffix string) ApiListABTest
 }
 
 /*
-ListABTests Wraps ListABTestsWithContext using context.Background.
+ListABTests List all A/B tests. Wraps ListABTestsWithContext using context.Background.
 
 List all A/B tests.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiListABTestsRequest with parameters below.
 
@@ -1115,7 +1103,7 @@ func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...Option) (*ListA
 }
 
 /*
-ListABTests
+ListABTests List all A/B tests.
 
 List all A/B tests.
 
@@ -1230,14 +1218,11 @@ func (c *APIClient) NewApiStopABTestRequest(id int32) ApiStopABTestRequest {
 }
 
 /*
-StopABTest Wraps StopABTestWithContext using context.Background.
+StopABTest Stop an A/B test. Wraps StopABTestWithContext using context.Background.
 
 If stopped, the test is over and can't be restarted. There is now only one index, receiving 100% of all search requests.
 The data gathered for stopped A/B tests is retained.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
-
-Required API Key ACLs:
-  - editSettings
 
 Request can be constructed by NewApiStopABTestRequest with parameters below.
 
@@ -1249,7 +1234,7 @@ func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...Option) (*ABTestR
 }
 
 /*
-StopABTest
+StopABTest Stop an A/B test.
 
 If stopped, the test is over and can't be restarted. There is now only one index, receiving 100% of all search requests.
 The data gathered for stopped A/B tests is retained.

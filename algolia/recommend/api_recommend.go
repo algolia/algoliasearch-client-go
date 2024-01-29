@@ -82,7 +82,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -97,7 +97,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete
+CustomDelete Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -223,7 +223,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Wraps CustomGetWithContext using context.Background.
+CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -238,7 +238,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet
+CustomGet Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -380,7 +380,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Wraps CustomPostWithContext using context.Background.
+CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -396,7 +396,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost
+CustomPost Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -545,7 +545,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Wraps CustomPutWithContext using context.Background.
+CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -561,7 +561,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut
+CustomPut Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -700,12 +700,9 @@ func (c *APIClient) NewApiDeleteRecommendRuleRequest(indexName string, model Rec
 }
 
 /*
-DeleteRecommendRule Wraps DeleteRecommendRuleWithContext using context.Background.
+DeleteRecommendRule Delete a Recommend rule. Wraps DeleteRecommendRuleWithContext using context.Background.
 
 Delete a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
-
-Required API Key ACLs:
-  - editSettings
 
 Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
 
@@ -719,7 +716,7 @@ func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ..
 }
 
 /*
-DeleteRecommendRule
+DeleteRecommendRule Delete a Recommend rule.
 
 Delete a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
 
@@ -852,12 +849,9 @@ func (c *APIClient) NewApiGetRecommendRuleRequest(indexName string, model Recomm
 }
 
 /*
-GetRecommendRule Wraps GetRecommendRuleWithContext using context.Background.
+GetRecommendRule Get a Recommend rule. Wraps GetRecommendRuleWithContext using context.Background.
 
 Return a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
-
-Required API Key ACLs:
-  - settings
 
 Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
 
@@ -871,7 +865,7 @@ func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Optio
 }
 
 /*
-GetRecommendRule
+GetRecommendRule Get a Recommend rule.
 
 Return a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
 
@@ -1004,12 +998,9 @@ func (c *APIClient) NewApiGetRecommendStatusRequest(indexName string, model Reco
 }
 
 /*
-GetRecommendStatus Wraps GetRecommendStatusWithContext using context.Background.
+GetRecommendStatus Get a Recommend task's status. Wraps GetRecommendStatusWithContext using context.Background.
 
 Some operations, such as deleting a Recommend rule, will respond with a `taskID` value. Use this value here to check the status of that task.
-
-Required API Key ACLs:
-  - editSettings
 
 Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
 
@@ -1023,7 +1014,7 @@ func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...O
 }
 
 /*
-GetRecommendStatus
+GetRecommendStatus Get a Recommend task's status.
 
 Some operations, such as deleting a Recommend rule, will respond with a `taskID` value. Use this value here to check the status of that task.
 
@@ -1135,15 +1126,12 @@ func (c *APIClient) NewApiGetRecommendationsRequest(getRecommendationsParams *Ge
 }
 
 /*
-GetRecommendations Wraps GetRecommendationsWithContext using context.Background.
+GetRecommendations Get recommendations and trending items. Wraps GetRecommendationsWithContext using context.Background.
 
 Returns results from either recommendation or trending models:
 
   - **Recommendations** are provided by the [Related Products](https://www.algolia.com/doc/guides/algolia-recommend/overview/#related-products-and-related-content) and [Frequently Bought Together](https://www.algolia.com/doc/guides/algolia-recommend/overview/#frequently-bought-together) models
   - **Trending** models are [Trending Items and Trending Facet Values](https://www.algolia.com/doc/guides/algolia-recommend/overview/#trending-items-and-trending-facet-values).
-
-Required API Key ACLs:
-  - search
 
 Request can be constructed by NewApiGetRecommendationsRequest with parameters below.
 
@@ -1155,7 +1143,7 @@ func (c *APIClient) GetRecommendations(r ApiGetRecommendationsRequest, opts ...O
 }
 
 /*
-GetRecommendations
+GetRecommendations Get recommendations and trending items.
 
 Returns results from either recommendation or trending models:
 
@@ -1290,12 +1278,9 @@ func (r ApiSearchRecommendRulesRequest) WithSearchRecommendRulesParams(searchRec
 }
 
 /*
-SearchRecommendRules Wraps SearchRecommendRulesWithContext using context.Background.
+SearchRecommendRules List Recommend rules. Wraps SearchRecommendRulesWithContext using context.Background.
 
 List [Recommend rules](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
-
-Required API Key ACLs:
-  - settings
 
 Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
 
@@ -1309,7 +1294,7 @@ func (c *APIClient) SearchRecommendRules(r ApiSearchRecommendRulesRequest, opts 
 }
 
 /*
-SearchRecommendRules
+SearchRecommendRules List Recommend rules.
 
 List [Recommend rules](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
 

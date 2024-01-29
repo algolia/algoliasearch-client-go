@@ -82,7 +82,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -97,7 +97,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete
+CustomDelete Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -223,7 +223,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Wraps CustomGetWithContext using context.Background.
+CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -238,7 +238,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet
+CustomGet Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -380,7 +380,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Wraps CustomPostWithContext using context.Background.
+CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -396,7 +396,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost
+CustomPost Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -545,7 +545,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Wraps CustomPutWithContext using context.Background.
+CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -561,7 +561,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut
+CustomPut Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -726,13 +726,10 @@ func (r ApiGetAverageClickPositionRequest) WithTags(tags string) ApiGetAverageCl
 }
 
 /*
-GetAverageClickPosition Wraps GetAverageClickPositionWithContext using context.Background.
+GetAverageClickPosition Get average click position. Wraps GetAverageClickPositionWithContext using context.Background.
 
 Return the average click position for the complete time range and for individual days.
 > **Note**: If all `positions` have a `clickCount` of `0` or `null`, it means Algolia didn't receive any click events for tracked searches. A _tracked_ search is a search request where the `clickAnalytics` parameter is `true`.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetAverageClickPositionRequest with parameters below.
 
@@ -747,7 +744,7 @@ func (c *APIClient) GetAverageClickPosition(r ApiGetAverageClickPositionRequest,
 }
 
 /*
-GetAverageClickPosition
+GetAverageClickPosition Get average click position.
 
 Return the average click position for the complete time range and for individual days.
 > **Note**: If all `positions` have a `clickCount` of `0` or `null`, it means Algolia didn't receive any click events for tracked searches. A _tracked_ search is a search request where the `clickAnalytics` parameter is `true`.
@@ -912,14 +909,11 @@ func (r ApiGetClickPositionsRequest) WithTags(tags string) ApiGetClickPositionsR
 }
 
 /*
-GetClickPositions Wraps GetClickPositionsWithContext using context.Background.
+GetClickPositions Get click positions. Wraps GetClickPositionsWithContext using context.Background.
 
 Show the number of clicks events and their associated position in the search results.
 
 > **Note**: If all `positions` have a `clickCount` of `0` or `null`, it means Algolia didn't receive any click events for tracked searches. A _tracked_ search is a search request where the `clickAnalytics` parameter is `true`.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetClickPositionsRequest with parameters below.
 
@@ -934,7 +928,7 @@ func (c *APIClient) GetClickPositions(r ApiGetClickPositionsRequest, opts ...Opt
 }
 
 /*
-GetClickPositions
+GetClickPositions Get click positions.
 
 Show the number of clicks events and their associated position in the search results.
 
@@ -1100,12 +1094,9 @@ func (r ApiGetClickThroughRateRequest) WithTags(tags string) ApiGetClickThroughR
 }
 
 /*
-GetClickThroughRate Wraps GetClickThroughRateWithContext using context.Background.
+GetClickThroughRate Get click-through rate (CTR). Wraps GetClickThroughRateWithContext using context.Background.
 
 Returns a [click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetClickThroughRateRequest with parameters below.
 
@@ -1120,7 +1111,7 @@ func (c *APIClient) GetClickThroughRate(r ApiGetClickThroughRateRequest, opts ..
 }
 
 /*
-GetClickThroughRate
+GetClickThroughRate Get click-through rate (CTR).
 
 Returns a [click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
 
@@ -1284,12 +1275,9 @@ func (r ApiGetConversationRateRequest) WithTags(tags string) ApiGetConversationR
 }
 
 /*
-GetConversationRate Wraps GetConversationRateWithContext using context.Background.
+GetConversationRate Get conversion rate (CR). Wraps GetConversationRateWithContext using context.Background.
 
 Return a [conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetConversationRateRequest with parameters below.
 
@@ -1304,7 +1292,7 @@ func (c *APIClient) GetConversationRate(r ApiGetConversationRateRequest, opts ..
 }
 
 /*
-GetConversationRate
+GetConversationRate Get conversion rate (CR).
 
 Return a [conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
 
@@ -1468,12 +1456,9 @@ func (r ApiGetNoClickRateRequest) WithTags(tags string) ApiGetNoClickRateRequest
 }
 
 /*
-GetNoClickRate Wraps GetNoClickRateWithContext using context.Background.
+GetNoClickRate Get no click rate. Wraps GetNoClickRateWithContext using context.Background.
 
 Returns the rate at which searches don't lead to any clicks. The endpoint returns a value for the complete given time range, as well as a value per day. It also returns the count of searches and searches without clicks.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 
@@ -1488,7 +1473,7 @@ func (c *APIClient) GetNoClickRate(r ApiGetNoClickRateRequest, opts ...Option) (
 }
 
 /*
-GetNoClickRate
+GetNoClickRate Get no click rate.
 
 Returns the rate at which searches don't lead to any clicks. The endpoint returns a value for the complete given time range, as well as a value per day. It also returns the count of searches and searches without clicks.
 
@@ -1652,12 +1637,9 @@ func (r ApiGetNoResultsRateRequest) WithTags(tags string) ApiGetNoResultsRateReq
 }
 
 /*
-GetNoResultsRate Wraps GetNoResultsRateWithContext using context.Background.
+GetNoResultsRate Get no results rate. Wraps GetNoResultsRateWithContext using context.Background.
 
 Returns the rate at which searches didn't return any results.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetNoResultsRateRequest with parameters below.
 
@@ -1672,7 +1654,7 @@ func (c *APIClient) GetNoResultsRate(r ApiGetNoResultsRateRequest, opts ...Optio
 }
 
 /*
-GetNoResultsRate
+GetNoResultsRate Get no results rate.
 
 Returns the rate at which searches didn't return any results.
 
@@ -1836,12 +1818,9 @@ func (r ApiGetSearchesCountRequest) WithTags(tags string) ApiGetSearchesCountReq
 }
 
 /*
-GetSearchesCount Wraps GetSearchesCountWithContext using context.Background.
+GetSearchesCount Get number of searches. Wraps GetSearchesCountWithContext using context.Background.
 
 Returns the number of searches within a time range.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetSearchesCountRequest with parameters below.
 
@@ -1856,7 +1835,7 @@ func (c *APIClient) GetSearchesCount(r ApiGetSearchesCountRequest, opts ...Optio
 }
 
 /*
-GetSearchesCount
+GetSearchesCount Get number of searches.
 
 Returns the number of searches within a time range.
 
@@ -2052,12 +2031,9 @@ func (r ApiGetSearchesNoClicksRequest) WithTags(tags string) ApiGetSearchesNoCli
 }
 
 /*
-GetSearchesNoClicks Wraps GetSearchesNoClicksWithContext using context.Background.
+GetSearchesNoClicks Get top searches with no clicks. Wraps GetSearchesNoClicksWithContext using context.Background.
 
 Return the most popular of the last 1,000 searches that didn't lead to any clicks.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters below.
 
@@ -2074,7 +2050,7 @@ func (c *APIClient) GetSearchesNoClicks(r ApiGetSearchesNoClicksRequest, opts ..
 }
 
 /*
-GetSearchesNoClicks
+GetSearchesNoClicks Get top searches with no clicks.
 
 Return the most popular of the last 1,000 searches that didn't lead to any clicks.
 
@@ -2278,12 +2254,9 @@ func (r ApiGetSearchesNoResultsRequest) WithTags(tags string) ApiGetSearchesNoRe
 }
 
 /*
-GetSearchesNoResults Wraps GetSearchesNoResultsWithContext using context.Background.
+GetSearchesNoResults Get top searches with no results. Wraps GetSearchesNoResultsWithContext using context.Background.
 
 Returns the most popular of the latest 1,000 searches that didn't return any results.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters below.
 
@@ -2300,7 +2273,7 @@ func (c *APIClient) GetSearchesNoResults(r ApiGetSearchesNoResultsRequest, opts 
 }
 
 /*
-GetSearchesNoResults
+GetSearchesNoResults Get top searches with no results.
 
 Returns the most popular of the latest 1,000 searches that didn't return any results.
 
@@ -2424,13 +2397,10 @@ func (c *APIClient) NewApiGetStatusRequest(index string) ApiGetStatusRequest {
 }
 
 /*
-GetStatus Wraps GetStatusWithContext using context.Background.
+GetStatus Get Analytics API status. Wraps GetStatusWithContext using context.Background.
 
 Return the latest update time of the Analytics API for an index. If the index has been recently created or no search has been performed yet, `updatedAt` will be `null`.
 > **Note**: The Analytics API is updated every 5&nbsp;minutes.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetStatusRequest with parameters below.
 
@@ -2442,7 +2412,7 @@ func (c *APIClient) GetStatus(r ApiGetStatusRequest, opts ...Option) (*GetStatus
 }
 
 /*
-GetStatus
+GetStatus Get Analytics API status.
 
 Return the latest update time of the Analytics API for an index. If the index has been recently created or no search has been performed yet, `updatedAt` will be `null`.
 > **Note**: The Analytics API is updated every 5&nbsp;minutes.
@@ -2627,12 +2597,9 @@ func (r ApiGetTopCountriesRequest) WithTags(tags string) ApiGetTopCountriesReque
 }
 
 /*
-GetTopCountries Wraps GetTopCountriesWithContext using context.Background.
+GetTopCountries Get top countries. Wraps GetTopCountriesWithContext using context.Background.
 
 Returns top countries. Limited to the 1,000 most frequent ones.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetTopCountriesRequest with parameters below.
 
@@ -2649,7 +2616,7 @@ func (c *APIClient) GetTopCountries(r ApiGetTopCountriesRequest, opts ...Option)
 }
 
 /*
-GetTopCountries
+GetTopCountries Get top countries.
 
 Returns top countries. Limited to the 1,000 most frequent ones.
 
@@ -2869,12 +2836,9 @@ func (r ApiGetTopFilterAttributesRequest) WithTags(tags string) ApiGetTopFilterA
 }
 
 /*
-GetTopFilterAttributes Wraps GetTopFilterAttributesWithContext using context.Background.
+GetTopFilterAttributes Get top filterable attributes. Wraps GetTopFilterAttributesWithContext using context.Background.
 
 Return the most popular [filterable attributes](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/) in the 1,000 most recently used filters.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetTopFilterAttributesRequest with parameters below.
 
@@ -2892,7 +2856,7 @@ func (c *APIClient) GetTopFilterAttributes(r ApiGetTopFilterAttributesRequest, o
 }
 
 /*
-GetTopFilterAttributes
+GetTopFilterAttributes Get top filterable attributes.
 
 Return the most popular [filterable attributes](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/) in the 1,000 most recently used filters.
 
@@ -3127,12 +3091,9 @@ func (r ApiGetTopFilterForAttributeRequest) WithTags(tags string) ApiGetTopFilte
 }
 
 /*
-GetTopFilterForAttribute Wraps GetTopFilterForAttributeWithContext using context.Background.
+GetTopFilterForAttribute Get top filter values for an attribute. Wraps GetTopFilterForAttributeWithContext using context.Background.
 
 Returns the most popular filter values for an attribute in the 1,000 most recently used filters.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetTopFilterForAttributeRequest with parameters below.
 
@@ -3151,7 +3112,7 @@ func (c *APIClient) GetTopFilterForAttribute(r ApiGetTopFilterForAttributeReques
 }
 
 /*
-GetTopFilterForAttribute
+GetTopFilterForAttribute Get top filter values for an attribute.
 
 Returns the most popular filter values for an attribute in the 1,000 most recently used filters.
 
@@ -3380,12 +3341,9 @@ func (r ApiGetTopFiltersNoResultsRequest) WithTags(tags string) ApiGetTopFilters
 }
 
 /*
-GetTopFiltersNoResults Wraps GetTopFiltersNoResultsWithContext using context.Background.
+GetTopFiltersNoResults Get top filters for a no result search. Wraps GetTopFiltersNoResultsWithContext using context.Background.
 
 Returns top filters for filter-enabled searches that don't return results. Limited to the 1,000 most recently used filters.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameters below.
 
@@ -3403,7 +3361,7 @@ func (c *APIClient) GetTopFiltersNoResults(r ApiGetTopFiltersNoResultsRequest, o
 }
 
 /*
-GetTopFiltersNoResults
+GetTopFiltersNoResults Get top filters for a no result search.
 
 Returns top filters for filter-enabled searches that don't return results. Limited to the 1,000 most recently used filters.
 
@@ -3643,12 +3601,9 @@ func (r ApiGetTopHitsRequest) WithTags(tags string) ApiGetTopHitsRequest {
 }
 
 /*
-GetTopHits Wraps GetTopHitsWithContext using context.Background.
+GetTopHits Get top hits. Wraps GetTopHitsWithContext using context.Background.
 
 Return the most popular clicked results in the last 1,000 searches.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 
@@ -3667,7 +3622,7 @@ func (c *APIClient) GetTopHits(r ApiGetTopHitsRequest, opts ...Option) (*GetTopH
 }
 
 /*
-GetTopHits
+GetTopHits Get top hits.
 
 Return the most popular clicked results in the last 1,000 searches.
 
@@ -3927,12 +3882,9 @@ func (r ApiGetTopSearchesRequest) WithTags(tags string) ApiGetTopSearchesRequest
 }
 
 /*
-GetTopSearches Wraps GetTopSearchesWithContext using context.Background.
+GetTopSearches Get top searches. Wraps GetTopSearchesWithContext using context.Background.
 
 Returns the most popular of the latest 1,000 searches. For each search, also returns the number of hits.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 
@@ -3952,7 +3904,7 @@ func (c *APIClient) GetTopSearches(r ApiGetTopSearchesRequest, opts ...Option) (
 }
 
 /*
-GetTopSearches
+GetTopSearches Get top searches.
 
 Returns the most popular of the latest 1,000 searches. For each search, also returns the number of hits.
 
@@ -4136,12 +4088,9 @@ func (r ApiGetUsersCountRequest) WithTags(tags string) ApiGetUsersCountRequest {
 }
 
 /*
-GetUsersCount Wraps GetUsersCountWithContext using context.Background.
+GetUsersCount Get user count. Wraps GetUsersCountWithContext using context.Background.
 
 Return the count of unique users.
-
-Required API Key ACLs:
-  - analytics
 
 Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 
@@ -4156,7 +4105,7 @@ func (c *APIClient) GetUsersCount(r ApiGetUsersCountRequest, opts ...Option) (*G
 }
 
 /*
-GetUsersCount
+GetUsersCount Get user count.
 
 Return the count of unique users.
 

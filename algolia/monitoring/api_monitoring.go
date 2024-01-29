@@ -82,7 +82,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -97,7 +97,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete
+CustomDelete Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -223,7 +223,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Wraps CustomGetWithContext using context.Background.
+CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -238,7 +238,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet
+CustomGet Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -380,7 +380,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Wraps CustomPostWithContext using context.Background.
+CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -396,7 +396,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost
+CustomPost Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -545,7 +545,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Wraps CustomPutWithContext using context.Background.
+CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -561,7 +561,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut
+CustomPut Send requests to the Algolia REST API.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -678,7 +678,7 @@ func (c *APIClient) NewApiGetClusterIncidentsRequest(clusters string) ApiGetClus
 }
 
 /*
-GetClusterIncidents Wraps GetClusterIncidentsWithContext using context.Background.
+GetClusterIncidents List incidents for selected clusters. Wraps GetClusterIncidentsWithContext using context.Background.
 
 List known incidents for selected clusters.
 
@@ -692,7 +692,7 @@ func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ..
 }
 
 /*
-GetClusterIncidents
+GetClusterIncidents List incidents for selected clusters.
 
 List known incidents for selected clusters.
 
@@ -795,7 +795,7 @@ func (c *APIClient) NewApiGetClusterStatusRequest(clusters string) ApiGetCluster
 }
 
 /*
-GetClusterStatus Wraps GetClusterStatusWithContext using context.Background.
+GetClusterStatus List statuses of selected clusters. Wraps GetClusterStatusWithContext using context.Background.
 
 Report whether a cluster is operational.
 
@@ -809,7 +809,7 @@ func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...Optio
 }
 
 /*
-GetClusterStatus
+GetClusterStatus List statuses of selected clusters.
 
 Report whether a cluster is operational.
 
@@ -881,7 +881,7 @@ func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClu
 }
 
 /*
-GetIncidents Wraps GetIncidentsWithContext using context.Background.
+GetIncidents List incidents. Wraps GetIncidentsWithContext using context.Background.
 
 List known incidents for all clusters.
 
@@ -894,7 +894,7 @@ func (c *APIClient) GetIncidents(opts ...Option) (*IncidentsResponse, error) {
 }
 
 /*
-GetIncidents
+GetIncidents List incidents.
 
 List known incidents for all clusters.
 
@@ -992,7 +992,7 @@ func (c *APIClient) NewApiGetIndexingTimeRequest(clusters string) ApiGetIndexing
 }
 
 /*
-GetIndexingTime Wraps GetIndexingTimeWithContext using context.Background.
+GetIndexingTime Get indexing times. Wraps GetIndexingTimeWithContext using context.Background.
 
 List the average times for indexing operations for selected clusters.
 
@@ -1006,7 +1006,7 @@ func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...Option)
 }
 
 /*
-GetIndexingTime
+GetIndexingTime Get indexing times.
 
 List the average times for indexing operations for selected clusters.
 
@@ -1078,7 +1078,7 @@ func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetInde
 }
 
 /*
-GetInventory Wraps GetInventoryWithContext using context.Background.
+GetInventory List servers. Wraps GetInventoryWithContext using context.Background.
 
 List the servers belonging to clusters.
 
@@ -1099,7 +1099,7 @@ func (c *APIClient) GetInventory(opts ...Option) (*InventoryResponse, error) {
 }
 
 /*
-GetInventory
+GetInventory List servers.
 
 List the servers belonging to clusters.
 
@@ -1205,7 +1205,7 @@ func (c *APIClient) NewApiGetLatencyRequest(clusters string) ApiGetLatencyReques
 }
 
 /*
-GetLatency Wraps GetLatencyWithContext using context.Background.
+GetLatency Get search latency times. Wraps GetLatencyWithContext using context.Background.
 
 List the average latency for search requests for selected clusters.
 
@@ -1219,7 +1219,7 @@ func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...Option) (*Latency
 }
 
 /*
-GetLatency
+GetLatency Get search latency times.
 
 List the average latency for search requests for selected clusters.
 
@@ -1333,7 +1333,7 @@ func (c *APIClient) NewApiGetMetricsRequest(metric Metric, period Period) ApiGet
 }
 
 /*
-GetMetrics Wraps GetMetricsWithContext using context.Background.
+GetMetrics Get metrics for a given period. Wraps GetMetricsWithContext using context.Background.
 
 Report the aggregate value of a metric for a selected period of time.
 
@@ -1348,7 +1348,7 @@ func (c *APIClient) GetMetrics(r ApiGetMetricsRequest, opts ...Option) (*Infrast
 }
 
 /*
-GetMetrics
+GetMetrics Get metrics for a given period.
 
 Report the aggregate value of a metric for a selected period of time.
 
@@ -1450,7 +1450,7 @@ func (c *APIClient) NewApiGetReachabilityRequest(clusters string) ApiGetReachabi
 }
 
 /*
-GetReachability Wraps GetReachabilityWithContext using context.Background.
+GetReachability Test the reachability of clusters. Wraps GetReachabilityWithContext using context.Background.
 
 Test whether clusters are reachable or not.
 
@@ -1464,7 +1464,7 @@ func (c *APIClient) GetReachability(r ApiGetReachabilityRequest, opts ...Option)
 }
 
 /*
-GetReachability
+GetReachability Test the reachability of clusters.
 
 Test whether clusters are reachable or not.
 
@@ -1536,7 +1536,7 @@ func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReac
 }
 
 /*
-GetStatus Wraps GetStatusWithContext using context.Background.
+GetStatus List cluster statuses. Wraps GetStatusWithContext using context.Background.
 
 Report whether clusters are operational.
 
@@ -1557,7 +1557,7 @@ func (c *APIClient) GetStatus(opts ...Option) (*StatusResponse, error) {
 }
 
 /*
-GetStatus
+GetStatus List cluster statuses.
 
 Report whether clusters are operational.
 
