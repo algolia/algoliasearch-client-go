@@ -75,11 +75,14 @@ func (c *APIClient) NewApiAddApiKeyRequest(apiKey *ApiKey) ApiAddApiKeyRequest {
 }
 
 /*
-AddApiKey Add API key. Wraps AddApiKeyWithContext using context.Background.
+AddApiKey Wraps AddApiKeyWithContext using context.Background.
 
 Add a new API key with specific permissions and restrictions.
 The request must be authenticated with the admin API key.
 The response returns an API key string.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiAddApiKeyRequest with parameters below.
 
@@ -91,7 +94,7 @@ func (c *APIClient) AddApiKey(r ApiAddApiKeyRequest, opts ...Option) (*AddApiKey
 }
 
 /*
-AddApiKey Add API key.
+AddApiKey
 
 Add a new API key with specific permissions and restrictions.
 The request must be authenticated with the admin API key.
@@ -225,13 +228,16 @@ func (c *APIClient) NewApiAddOrUpdateObjectRequest(indexName string, objectID st
 }
 
 /*
-AddOrUpdateObject Add or update a record (using objectID). Wraps AddOrUpdateObjectWithContext using context.Background.
+AddOrUpdateObject Wraps AddOrUpdateObjectWithContext using context.Background.
 
 If you use an existing `objectID`, the existing record will be replaced with the new one.
 
 To update only some attributes of an existing record, use the [`partial` operation](#tag/Records/operation/partialUpdateObject) instead.
 
 To add multiple records to your index in a single API request, use the [`batch` operation](#tag/Records/operation/batch).
+
+Required API Key ACLs:
+  - addObject
 
 Request can be constructed by NewApiAddOrUpdateObjectRequest with parameters below.
 
@@ -245,7 +251,7 @@ func (c *APIClient) AddOrUpdateObject(r ApiAddOrUpdateObjectRequest, opts ...Opt
 }
 
 /*
-AddOrUpdateObject Add or update a record (using objectID).
+AddOrUpdateObject
 
 If you use an existing `objectID`, the existing record will be replaced with the new one.
 
@@ -369,9 +375,12 @@ func (c *APIClient) NewApiAppendSourceRequest(source *Source) ApiAppendSourceReq
 }
 
 /*
-AppendSource Add a source. Wraps AppendSourceWithContext using context.Background.
+AppendSource Wraps AppendSourceWithContext using context.Background.
 
 Add a source to the list of allowed sources.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiAppendSourceRequest with parameters below.
 
@@ -383,7 +392,7 @@ func (c *APIClient) AppendSource(r ApiAppendSourceRequest, opts ...Option) (*Cre
 }
 
 /*
-AppendSource Add a source.
+AppendSource
 
 Add a source to the list of allowed sources.
 
@@ -504,10 +513,13 @@ func (c *APIClient) NewApiAssignUserIdRequest(xAlgoliaUserID string, assignUserI
 }
 
 /*
-AssignUserId Assign or move a user ID. Wraps AssignUserIdWithContext using context.Background.
+AssignUserId Wraps AssignUserIdWithContext using context.Background.
 
 Assign or move a user ID to a cluster.
 The time it takes to move a user is proportional to the amount of data linked to the user ID.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiAssignUserIdRequest with parameters below.
 
@@ -520,7 +532,7 @@ func (c *APIClient) AssignUserId(r ApiAssignUserIdRequest, opts ...Option) (*Cre
 }
 
 /*
-AssignUserId Assign or move a user ID.
+AssignUserId
 
 Assign or move a user ID to a cluster.
 The time it takes to move a user is proportional to the amount of data linked to the user ID.
@@ -648,7 +660,7 @@ func (c *APIClient) NewApiBatchRequest(indexName string, batchWriteParams *Batch
 }
 
 /*
-Batch Batch write operations on one index. Wraps BatchWithContext using context.Background.
+Batch Wraps BatchWithContext using context.Background.
 
 To reduce the time spent on network round trips, you can perform several write actions in a single API call. Actions are applied in the order they are specified.
 The supported `action`s are equivalent to the individual operations of the same name.
@@ -664,7 +676,7 @@ func (c *APIClient) Batch(r ApiBatchRequest, opts ...Option) (*BatchResponse, er
 }
 
 /*
-Batch Batch write operations on one index.
+Batch
 
 To reduce the time spent on network round trips, you can perform several write actions in a single API call. Actions are applied in the order they are specified.
 The supported `action`s are equivalent to the individual operations of the same name.
@@ -791,10 +803,13 @@ func (c *APIClient) NewApiBatchAssignUserIdsRequest(xAlgoliaUserID string, batch
 }
 
 /*
-BatchAssignUserIds Batch assign userIDs. Wraps BatchAssignUserIdsWithContext using context.Background.
+BatchAssignUserIds Wraps BatchAssignUserIdsWithContext using context.Background.
 
 Assign multiple user IDs to a cluster.
 **You can't _move_ users with this operation.**.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiBatchAssignUserIdsRequest with parameters below.
 
@@ -807,7 +822,7 @@ func (c *APIClient) BatchAssignUserIds(r ApiBatchAssignUserIdsRequest, opts ...O
 }
 
 /*
-BatchAssignUserIds Batch assign userIDs.
+BatchAssignUserIds
 
 Assign multiple user IDs to a cluster.
 **You can't _move_ users with this operation.**.
@@ -935,9 +950,12 @@ func (c *APIClient) NewApiBatchDictionaryEntriesRequest(dictionaryName Dictionar
 }
 
 /*
-BatchDictionaryEntries Batch dictionary entries. Wraps BatchDictionaryEntriesWithContext using context.Background.
+BatchDictionaryEntries Wraps BatchDictionaryEntriesWithContext using context.Background.
 
 Add or remove a batch of dictionary entries.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiBatchDictionaryEntriesRequest with parameters below.
 
@@ -950,7 +968,7 @@ func (c *APIClient) BatchDictionaryEntries(r ApiBatchDictionaryEntriesRequest, o
 }
 
 /*
-BatchDictionaryEntries Batch dictionary entries.
+BatchDictionaryEntries
 
 Add or remove a batch of dictionary entries.
 
@@ -1073,11 +1091,14 @@ func (r ApiBrowseRequest) WithBrowseParams(browseParams *BrowseParams) ApiBrowse
 }
 
 /*
-Browse Get all records from an index. Wraps BrowseWithContext using context.Background.
+Browse Wraps BrowseWithContext using context.Background.
 
 Retrieve up to 1,000 records per call.
 Supports full-text search and filters. For better performance, it doesn't support:
 - The `distinct` query parameter - Sorting by typos, proximity, words, or geographical distance.
+
+Required API Key ACLs:
+  - browse
 
 Request can be constructed by NewApiBrowseRequest with parameters below.
 
@@ -1090,7 +1111,7 @@ func (c *APIClient) Browse(r ApiBrowseRequest, opts ...Option) (*BrowseResponse,
 }
 
 /*
-Browse Get all records from an index.
+Browse
 
 Retrieve up to 1,000 records per call.
 Supports full-text search and filters. For better performance, it doesn't support:
@@ -1202,9 +1223,12 @@ func (c *APIClient) NewApiClearObjectsRequest(indexName string) ApiClearObjectsR
 }
 
 /*
-ClearObjects Delete all records from an index. Wraps ClearObjectsWithContext using context.Background.
+ClearObjects Wraps ClearObjectsWithContext using context.Background.
 
 Delete the records but leave settings and index-specific API keys untouched.
+
+Required API Key ACLs:
+  - deleteIndex
 
 Request can be constructed by NewApiClearObjectsRequest with parameters below.
 
@@ -1216,7 +1240,7 @@ func (c *APIClient) ClearObjects(r ApiClearObjectsRequest, opts ...Option) (*Upd
 }
 
 /*
-ClearObjects Delete all records from an index.
+ClearObjects
 
 Delete the records but leave settings and index-specific API keys untouched.
 
@@ -1335,9 +1359,12 @@ func (r ApiClearRulesRequest) WithForwardToReplicas(forwardToReplicas bool) ApiC
 }
 
 /*
-ClearRules Delete all rules. Wraps ClearRulesWithContext using context.Background.
+ClearRules Wraps ClearRulesWithContext using context.Background.
 
 Delete all rules in the index.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiClearRulesRequest with parameters below.
 
@@ -1350,7 +1377,7 @@ func (c *APIClient) ClearRules(r ApiClearRulesRequest, opts ...Option) (*Updated
 }
 
 /*
-ClearRules Delete all rules.
+ClearRules
 
 Delete all rules in the index.
 
@@ -1474,9 +1501,12 @@ func (r ApiClearSynonymsRequest) WithForwardToReplicas(forwardToReplicas bool) A
 }
 
 /*
-ClearSynonyms Delete all synonyms. Wraps ClearSynonymsWithContext using context.Background.
+ClearSynonyms Wraps ClearSynonymsWithContext using context.Background.
 
 Delete all synonyms in the index.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiClearSynonymsRequest with parameters below.
 
@@ -1489,7 +1519,7 @@ func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...Option) (*U
 }
 
 /*
-ClearSynonyms Delete all synonyms.
+ClearSynonyms
 
 Delete all synonyms in the index.
 
@@ -1613,7 +1643,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1628,7 +1658,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API.
+CustomDelete
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1754,7 +1784,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
+CustomGet Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1769,7 +1799,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet Send requests to the Algolia REST API.
+CustomGet
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1911,7 +1941,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
+CustomPost Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1927,7 +1957,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost Send requests to the Algolia REST API.
+CustomPost
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -2076,7 +2106,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
+CustomPut Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -2092,7 +2122,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut Send requests to the Algolia REST API.
+CustomPut
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -2209,10 +2239,13 @@ func (c *APIClient) NewApiDeleteApiKeyRequest(key string) ApiDeleteApiKeyRequest
 }
 
 /*
-DeleteApiKey Delete API key. Wraps DeleteApiKeyWithContext using context.Background.
+DeleteApiKey Wraps DeleteApiKeyWithContext using context.Background.
 
 Delete an existing API key.
 The request must be authenticated with the admin API key.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiDeleteApiKeyRequest with parameters below.
 
@@ -2224,7 +2257,7 @@ func (c *APIClient) DeleteApiKey(r ApiDeleteApiKeyRequest, opts ...Option) (*Del
 }
 
 /*
-DeleteApiKey Delete API key.
+DeleteApiKey
 
 Delete an existing API key.
 The request must be authenticated with the admin API key.
@@ -2344,10 +2377,13 @@ func (c *APIClient) NewApiDeleteByRequest(indexName string, deleteByParams *Dele
 }
 
 /*
-DeleteBy Delete all records matching a query. Wraps DeleteByWithContext using context.Background.
+DeleteBy Wraps DeleteByWithContext using context.Background.
 
 This operation doesn't support all the query options, only its filters (numeric, facet, or tag) and geo queries.
 It doesn't accept empty filters or queries.
+
+Required API Key ACLs:
+  - deleteIndex
 
 Request can be constructed by NewApiDeleteByRequest with parameters below.
 
@@ -2360,7 +2396,7 @@ func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...Option) (*DeletedAtRe
 }
 
 /*
-DeleteBy Delete all records matching a query.
+DeleteBy
 
 This operation doesn't support all the query options, only its filters (numeric, facet, or tag) and geo queries.
 It doesn't accept empty filters or queries.
@@ -2471,9 +2507,12 @@ func (c *APIClient) NewApiDeleteIndexRequest(indexName string) ApiDeleteIndexReq
 }
 
 /*
-DeleteIndex Delete index. Wraps DeleteIndexWithContext using context.Background.
+DeleteIndex Wraps DeleteIndexWithContext using context.Background.
 
 Delete an existing index.
+
+Required API Key ACLs:
+  - deleteIndex
 
 Request can be constructed by NewApiDeleteIndexRequest with parameters below.
 
@@ -2485,7 +2524,7 @@ func (c *APIClient) DeleteIndex(r ApiDeleteIndexRequest, opts ...Option) (*Delet
 }
 
 /*
-DeleteIndex Delete index.
+DeleteIndex
 
 Delete an existing index.
 
@@ -2599,9 +2638,12 @@ func (c *APIClient) NewApiDeleteObjectRequest(indexName string, objectID string)
 }
 
 /*
-DeleteObject Delete a record. Wraps DeleteObjectWithContext using context.Background.
+DeleteObject Wraps DeleteObjectWithContext using context.Background.
 
 To delete a set of records matching a query, use the [`deleteByQuery` operation](#tag/Records/operation/deleteBy) instead.
+
+Required API Key ACLs:
+  - deleteObject
 
 Request can be constructed by NewApiDeleteObjectRequest with parameters below.
 
@@ -2614,7 +2656,7 @@ func (c *APIClient) DeleteObject(r ApiDeleteObjectRequest, opts ...Option) (*Del
 }
 
 /*
-DeleteObject Delete a record.
+DeleteObject
 
 To delete a set of records matching a query, use the [`deleteByQuery` operation](#tag/Records/operation/deleteBy) instead.
 
@@ -2749,9 +2791,12 @@ func (r ApiDeleteRuleRequest) WithForwardToReplicas(forwardToReplicas bool) ApiD
 }
 
 /*
-DeleteRule Delete a rule. Wraps DeleteRuleWithContext using context.Background.
+DeleteRule Wraps DeleteRuleWithContext using context.Background.
 
 Delete a rule by its `objectID`. To find the `objectID` for rules, use the [`search` operation](#tag/Rules/operation/searchRules).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiDeleteRuleRequest with parameters below.
 
@@ -2765,7 +2810,7 @@ func (c *APIClient) DeleteRule(r ApiDeleteRuleRequest, opts ...Option) (*Updated
 }
 
 /*
-DeleteRule Delete a rule.
+DeleteRule
 
 Delete a rule by its `objectID`. To find the `objectID` for rules, use the [`search` operation](#tag/Rules/operation/searchRules).
 
@@ -2878,9 +2923,12 @@ func (c *APIClient) NewApiDeleteSourceRequest(source string) ApiDeleteSourceRequ
 }
 
 /*
-DeleteSource Remove a source. Wraps DeleteSourceWithContext using context.Background.
+DeleteSource Wraps DeleteSourceWithContext using context.Background.
 
 Remove a source from the list of allowed sources.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 
@@ -2892,7 +2940,7 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...Option) (*Del
 }
 
 /*
-DeleteSource Remove a source.
+DeleteSource
 
 Remove a source from the list of allowed sources.
 
@@ -3022,9 +3070,12 @@ func (r ApiDeleteSynonymRequest) WithForwardToReplicas(forwardToReplicas bool) A
 }
 
 /*
-DeleteSynonym Delete a synonym. Wraps DeleteSynonymWithContext using context.Background.
+DeleteSynonym Wraps DeleteSynonymWithContext using context.Background.
 
 Delete a synonym by its `objectID`. To find the object IDs of your synonyms, use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiDeleteSynonymRequest with parameters below.
 
@@ -3038,7 +3089,7 @@ func (c *APIClient) DeleteSynonym(r ApiDeleteSynonymRequest, opts ...Option) (*D
 }
 
 /*
-DeleteSynonym Delete a synonym.
+DeleteSynonym
 
 Delete a synonym by its `objectID`. To find the object IDs of your synonyms, use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
 
@@ -3151,7 +3202,7 @@ func (c *APIClient) NewApiGetApiKeyRequest(key string) ApiGetApiKeyRequest {
 }
 
 /*
-GetApiKey Get API key permissions. Wraps GetApiKeyWithContext using context.Background.
+GetApiKey Wraps GetApiKeyWithContext using context.Background.
 
 Get the permissions and restrictions of a specific API key.
 When authenticating with the admin API key, you can request information for any of your application's keys. When authenticating with other API keys, you can only retrieve information for that key.
@@ -3166,7 +3217,7 @@ func (c *APIClient) GetApiKey(r ApiGetApiKeyRequest, opts ...Option) (*GetApiKey
 }
 
 /*
-GetApiKey Get API key permissions.
+GetApiKey
 
 Get the permissions and restrictions of a specific API key.
 When authenticating with the admin API key, you can request information for any of your application's keys. When authenticating with other API keys, you can only retrieve information for that key.
@@ -3239,9 +3290,12 @@ func (c *APIClient) GetApiKeyWithContext(ctx context.Context, r ApiGetApiKeyRequ
 }
 
 /*
-GetDictionaryLanguages List available languages. Wraps GetDictionaryLanguagesWithContext using context.Background.
+GetDictionaryLanguages Wraps GetDictionaryLanguagesWithContext using context.Background.
 
 Lists Algolia's [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/) and any customizations applied to each language's [stop word](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/), [plural](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-plurals-and-other-declensions/), and [segmentation (compound)](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) features.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetDictionaryLanguagesRequest with parameters below.
 
@@ -3252,7 +3306,7 @@ func (c *APIClient) GetDictionaryLanguages(opts ...Option) (*map[string]Language
 }
 
 /*
-GetDictionaryLanguages List available languages.
+GetDictionaryLanguages
 
 Lists Algolia's [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/) and any customizations applied to each language's [stop word](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/), [plural](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-plurals-and-other-declensions/), and [segmentation (compound)](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) features.
 
@@ -3319,9 +3373,12 @@ func (c *APIClient) GetDictionaryLanguagesWithContext(ctx context.Context, opts 
 }
 
 /*
-GetDictionarySettings Get stop word settings. Wraps GetDictionarySettingsWithContext using context.Background.
+GetDictionarySettings Wraps GetDictionarySettingsWithContext using context.Background.
 
 Get the languages for which [stop words are turned off](#tag/Dictionaries/operation/setDictionarySettings).
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetDictionarySettingsRequest with parameters below.
 
@@ -3332,7 +3389,7 @@ func (c *APIClient) GetDictionarySettings(opts ...Option) (*GetDictionarySetting
 }
 
 /*
-GetDictionarySettings Get stop word settings.
+GetDictionarySettings
 
 Get the languages for which [stop words are turned off](#tag/Dictionaries/operation/setDictionarySettings).
 
@@ -3482,12 +3539,15 @@ func (r ApiGetLogsRequest) WithType(type_ LogType) ApiGetLogsRequest {
 }
 
 /*
-GetLogs Return the latest log entries. Wraps GetLogsWithContext using context.Background.
+GetLogs Wraps GetLogsWithContext using context.Background.
 
 The request must be authenticated by an API key with the [`logs` ACL](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl).
 Logs are held for the last seven days. There's also a logging limit of 1,000 API calls per server.
 This request counts towards your [operations quota](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-) but doesn't appear in the logs itself.
 > **Note**: To fetch the logs for a Distributed Search Network (DSN) cluster, target the [DSN's endpoint](https://www.algolia.com/doc/guides/scaling/distributed-search-network-dsn/#accessing-dsn-servers).
+
+Required API Key ACLs:
+  - logs
 
 Request can be constructed by NewApiGetLogsRequest with parameters below.
 
@@ -3502,7 +3562,7 @@ func (c *APIClient) GetLogs(r ApiGetLogsRequest, opts ...Option) (*GetLogsRespon
 }
 
 /*
-GetLogs Return the latest log entries.
+GetLogs
 
 The request must be authenticated by an API key with the [`logs` ACL](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl).
 Logs are held for the last seven days. There's also a logging limit of 1,000 API calls per server.
@@ -3647,9 +3707,12 @@ func (r ApiGetObjectRequest) WithAttributesToRetrieve(attributesToRetrieve []str
 }
 
 /*
-GetObject Get a record. Wraps GetObjectWithContext using context.Background.
+GetObject Wraps GetObjectWithContext using context.Background.
 
 To get more than one record, use the [`objects` operation](#tag/Records/operation/getObjects).
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiGetObjectRequest with parameters below.
 
@@ -3663,7 +3726,7 @@ func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...Option) (map[string
 }
 
 /*
-GetObject Get a record.
+GetObject
 
 To get more than one record, use the [`objects` operation](#tag/Records/operation/getObjects).
 
@@ -3781,9 +3844,12 @@ func (c *APIClient) NewApiGetObjectsRequest(getObjectsParams *GetObjectsParams) 
 }
 
 /*
-GetObjects Get multiple records. Wraps GetObjectsWithContext using context.Background.
+GetObjects Wraps GetObjectsWithContext using context.Background.
 
 Retrieve one or more records, potentially from different indices, in a single API operation. Results will be received in the same order as the requests.
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiGetObjectsRequest with parameters below.
 
@@ -3795,7 +3861,7 @@ func (c *APIClient) GetObjects(r ApiGetObjectsRequest, opts ...Option) (*GetObje
 }
 
 /*
-GetObjects Get multiple records.
+GetObjects
 
 Retrieve one or more records, potentially from different indices, in a single API operation. Results will be received in the same order as the requests.
 
@@ -3911,9 +3977,12 @@ func (c *APIClient) NewApiGetRuleRequest(indexName string, objectID string) ApiG
 }
 
 /*
-GetRule Get a rule. Wraps GetRuleWithContext using context.Background.
+GetRule Wraps GetRuleWithContext using context.Background.
 
 Get a rule by its `objectID`. To find the `objectID` for rules, use the [`search` operation](#tag/Rules/operation/searchRules).
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetRuleRequest with parameters below.
 
@@ -3926,7 +3995,7 @@ func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...Option) (*Rule, error) 
 }
 
 /*
-GetRule Get a rule.
+GetRule
 
 Get a rule by its `objectID`. To find the `objectID` for rules, use the [`search` operation](#tag/Rules/operation/searchRules).
 
@@ -4034,9 +4103,12 @@ func (c *APIClient) NewApiGetSettingsRequest(indexName string) ApiGetSettingsReq
 }
 
 /*
-GetSettings Get index settings. Wraps GetSettingsWithContext using context.Background.
+GetSettings Wraps GetSettingsWithContext using context.Background.
 
 Return an object containing an index's [configuration settings](https://www.algolia.com/doc/api-reference/settings-api-parameters/).
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiGetSettingsRequest with parameters below.
 
@@ -4048,7 +4120,7 @@ func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...Option) (*Index
 }
 
 /*
-GetSettings Get index settings.
+GetSettings
 
 Return an object containing an index's [configuration settings](https://www.algolia.com/doc/api-reference/settings-api-parameters/).
 
@@ -4120,9 +4192,12 @@ func (c *APIClient) GetSettingsWithContext(ctx context.Context, r ApiGetSettings
 }
 
 /*
-GetSources Get all allowed IP addresses. Wraps GetSourcesWithContext using context.Background.
+GetSources Wraps GetSourcesWithContext using context.Background.
 
 Get all allowed sources (IP addresses).
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiGetSourcesRequest with parameters below.
 
@@ -4133,7 +4208,7 @@ func (c *APIClient) GetSources(opts ...Option) ([]Source, error) {
 }
 
 /*
-GetSources Get all allowed IP addresses.
+GetSources
 
 Get all allowed sources (IP addresses).
 
@@ -4242,9 +4317,12 @@ func (c *APIClient) NewApiGetSynonymRequest(indexName string, objectID string) A
 }
 
 /*
-GetSynonym Get a synonym object. Wraps GetSynonymWithContext using context.Background.
+GetSynonym Wraps GetSynonymWithContext using context.Background.
 
 Get a syonym by its `objectID`. To find the object IDs for your synonyms, use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetSynonymRequest with parameters below.
 
@@ -4257,7 +4335,7 @@ func (c *APIClient) GetSynonym(r ApiGetSynonymRequest, opts ...Option) (*Synonym
 }
 
 /*
-GetSynonym Get a synonym object.
+GetSynonym
 
 Get a syonym by its `objectID`. To find the object IDs for your synonyms, use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
 
@@ -4376,9 +4454,12 @@ func (c *APIClient) NewApiGetTaskRequest(indexName string, taskID int64) ApiGetT
 }
 
 /*
-GetTask Check a task's status. Wraps GetTaskWithContext using context.Background.
+GetTask Wraps GetTaskWithContext using context.Background.
 
 Some operations, such as copying an index, will respond with a `taskID` value. Use this value here to check the status of that task.
+
+Required API Key ACLs:
+  - addObject
 
 Request can be constructed by NewApiGetTaskRequest with parameters below.
 
@@ -4391,7 +4472,7 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...Option) (*GetTaskRespon
 }
 
 /*
-GetTask Check a task's status.
+GetTask
 
 Some operations, such as copying an index, will respond with a `taskID` value. Use this value here to check the status of that task.
 
@@ -4465,10 +4546,13 @@ func (c *APIClient) GetTaskWithContext(ctx context.Context, r ApiGetTaskRequest,
 }
 
 /*
-GetTopUserIds Get top userID. Wraps GetTopUserIdsWithContext using context.Background.
+GetTopUserIds Wraps GetTopUserIdsWithContext using context.Background.
 
 Get the IDs of the 10 users with the highest number of records per cluster.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiGetTopUserIdsRequest with parameters below.
 
@@ -4479,7 +4563,7 @@ func (c *APIClient) GetTopUserIds(opts ...Option) (*GetTopUserIdsResponse, error
 }
 
 /*
-GetTopUserIds Get top userID.
+GetTopUserIds
 
 Get the IDs of the 10 users with the highest number of records per cluster.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
@@ -4578,10 +4662,13 @@ func (c *APIClient) NewApiGetUserIdRequest(userID string) ApiGetUserIdRequest {
 }
 
 /*
-GetUserId Get userID. Wraps GetUserIdWithContext using context.Background.
+GetUserId Wraps GetUserIdWithContext using context.Background.
 
 Returns the userID data stored in the mapping.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiGetUserIdRequest with parameters below.
 
@@ -4593,7 +4680,7 @@ func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...Option) (*UserId, e
 }
 
 /*
-GetUserId Get userID.
+GetUserId
 
 Returns the userID data stored in the mapping.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
@@ -4701,9 +4788,12 @@ func (r ApiHasPendingMappingsRequest) WithGetClusters(getClusters bool) ApiHasPe
 }
 
 /*
-HasPendingMappings Get migration and user mapping status. Wraps HasPendingMappingsWithContext using context.Background.
+HasPendingMappings Wraps HasPendingMappingsWithContext using context.Background.
 
 To determine when the time-consuming process of creating a large batch of users or migrating users from one cluster to another is complete, this operation retrieves the status of the process.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiHasPendingMappingsRequest with parameters below.
 
@@ -4715,7 +4805,7 @@ func (c *APIClient) HasPendingMappings(r ApiHasPendingMappingsRequest, opts ...O
 }
 
 /*
-HasPendingMappings Get migration and user mapping status.
+HasPendingMappings
 
 To determine when the time-consuming process of creating a large batch of users or migrating users from one cluster to another is complete, this operation retrieves the status of the process.
 
@@ -4787,9 +4877,12 @@ func (c *APIClient) HasPendingMappingsWithContext(ctx context.Context, r ApiHasP
 }
 
 /*
-ListApiKeys List API keys. Wraps ListApiKeysWithContext using context.Background.
+ListApiKeys Wraps ListApiKeysWithContext using context.Background.
 
 List all API keys associated with your Algolia application, including their permissions and restrictions.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiListApiKeysRequest with parameters below.
 
@@ -4800,7 +4893,7 @@ func (c *APIClient) ListApiKeys(opts ...Option) (*ListApiKeysResponse, error) {
 }
 
 /*
-ListApiKeys List API keys.
+ListApiKeys
 
 List all API keys associated with your Algolia application, including their permissions and restrictions.
 
@@ -4867,9 +4960,12 @@ func (c *APIClient) ListApiKeysWithContext(ctx context.Context, opts ...Option) 
 }
 
 /*
-ListClusters List clusters. Wraps ListClustersWithContext using context.Background.
+ListClusters Wraps ListClustersWithContext using context.Background.
 
 List the available clusters in a multi-cluster setup.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiListClustersRequest with parameters below.
 
@@ -4880,7 +4976,7 @@ func (c *APIClient) ListClusters(opts ...Option) (*ListClustersResponse, error) 
 }
 
 /*
-ListClusters List clusters.
+ListClusters
 
 List the available clusters in a multi-cluster setup.
 
@@ -4998,9 +5094,12 @@ func (r ApiListIndicesRequest) WithHitsPerPage(hitsPerPage int32) ApiListIndices
 }
 
 /*
-ListIndices List indices. Wraps ListIndicesWithContext using context.Background.
+ListIndices Wraps ListIndicesWithContext using context.Background.
 
 List indices in an Algolia application.
+
+Required API Key ACLs:
+  - listIndexes
 
 Request can be constructed by NewApiListIndicesRequest with parameters below.
 
@@ -5013,7 +5112,7 @@ func (c *APIClient) ListIndices(r ApiListIndicesRequest, opts ...Option) (*ListI
 }
 
 /*
-ListIndices List indices.
+ListIndices
 
 List indices in an Algolia application.
 
@@ -5140,10 +5239,13 @@ func (r ApiListUserIdsRequest) WithHitsPerPage(hitsPerPage int32) ApiListUserIds
 }
 
 /*
-ListUserIds List userIDs. Wraps ListUserIdsWithContext using context.Background.
+ListUserIds Wraps ListUserIdsWithContext using context.Background.
 
 List the userIDs assigned to a multi-cluster application.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiListUserIdsRequest with parameters below.
 
@@ -5156,7 +5258,7 @@ func (c *APIClient) ListUserIds(r ApiListUserIdsRequest, opts ...Option) (*ListU
 }
 
 /*
-ListUserIds List userIDs.
+ListUserIds
 
 List the userIDs assigned to a multi-cluster application.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
@@ -5269,7 +5371,7 @@ func (c *APIClient) NewApiMultipleBatchRequest(batchParams *BatchParams) ApiMult
 }
 
 /*
-MultipleBatch Batch write operations on multiple indices. Wraps MultipleBatchWithContext using context.Background.
+MultipleBatch Wraps MultipleBatchWithContext using context.Background.
 
 To reduce the time spent on network round trips, you can perform several write actions in a single request. It's a multi-index version of the [`batch` operation](#tag/Records/operation/batch). Actions are applied in the order they are specified.
 The supported actions are equivalent to the individual operations of the same name.
@@ -5284,7 +5386,7 @@ func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...Option) (*M
 }
 
 /*
-MultipleBatch Batch write operations on multiple indices.
+MultipleBatch
 
 To reduce the time spent on network round trips, you can perform several write actions in a single request. It's a multi-index version of the [`batch` operation](#tag/Records/operation/batch). Actions are applied in the order they are specified.
 The supported actions are equivalent to the individual operations of the same name.
@@ -5406,7 +5508,7 @@ func (c *APIClient) NewApiOperationIndexRequest(indexName string, operationIndex
 }
 
 /*
-OperationIndex Copy, move, or rename an index. Wraps OperationIndexWithContext using context.Background.
+OperationIndex Wraps OperationIndexWithContext using context.Background.
 
 This `operation`, _copy_ or _move_, will copy or move a source index's (`IndexName`) records, settings, synonyms, and rules to a `destination` index.
 If the destination index exists, it will be replaced, except for index-specific API keys and analytics data.
@@ -5419,6 +5521,9 @@ The choice between moving or copying an index depends on your needs. Choose:
 
 > **Note**: When considering copying or moving, be aware of the [rate limitations](https://www.algolia.com/doc/guides/scaling/algolia-service-limits/#application-record-and-index-limits) on these processes and the [impact on your analytics data](https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices/concepts/indices-analytics/).
 
+Required API Key ACLs:
+  - addObject
+
 Request can be constructed by NewApiOperationIndexRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -5430,7 +5535,7 @@ func (c *APIClient) OperationIndex(r ApiOperationIndexRequest, opts ...Option) (
 }
 
 /*
-OperationIndex Copy, move, or rename an index.
+OperationIndex
 
 This `operation`, _copy_ or _move_, will copy or move a source index's (`IndexName`) records, settings, synonyms, and rules to a `destination` index.
 If the destination index exists, it will be replaced, except for index-specific API keys and analytics data.
@@ -5592,10 +5697,13 @@ func (r ApiPartialUpdateObjectRequest) WithCreateIfNotExists(createIfNotExists b
 }
 
 /*
-PartialUpdateObject Update record attributes. Wraps PartialUpdateObjectWithContext using context.Background.
+PartialUpdateObject Wraps PartialUpdateObjectWithContext using context.Background.
 
 Add new attributes or update current ones in an existing record.
 You can use any first-level attribute but not nested attributes. If you specify a [nested attribute](https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/creating-and-using-nested-attributes/), the engine treats it as a replacement for its first-level ancestor.
+
+Required API Key ACLs:
+  - addObject
 
 Request can be constructed by NewApiPartialUpdateObjectRequest with parameters below.
 
@@ -5610,7 +5718,7 @@ func (c *APIClient) PartialUpdateObject(r ApiPartialUpdateObjectRequest, opts ..
 }
 
 /*
-PartialUpdateObject Update record attributes.
+PartialUpdateObject
 
 Add new attributes or update current ones in an existing record.
 You can use any first-level attribute but not nested attributes. If you specify a [nested attribute](https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/creating-and-using-nested-attributes/), the engine treats it as a replacement for its first-level ancestor.
@@ -5734,9 +5842,12 @@ func (c *APIClient) NewApiRemoveUserIdRequest(userID string) ApiRemoveUserIdRequ
 }
 
 /*
-RemoveUserId Remove userID. Wraps RemoveUserIdWithContext using context.Background.
+RemoveUserId Wraps RemoveUserIdWithContext using context.Background.
 
 Remove a userID and its associated data from the multi-clusters.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiRemoveUserIdRequest with parameters below.
 
@@ -5748,7 +5859,7 @@ func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...Option) (*Rem
 }
 
 /*
-RemoveUserId Remove userID.
+RemoveUserId
 
 Remove a userID and its associated data from the multi-clusters.
 
@@ -5856,9 +5967,12 @@ func (c *APIClient) NewApiReplaceSourcesRequest(source []Source) ApiReplaceSourc
 }
 
 /*
-ReplaceSources Replace all sources. Wraps ReplaceSourcesWithContext using context.Background.
+ReplaceSources Wraps ReplaceSourcesWithContext using context.Background.
 
 Replace all allowed sources.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiReplaceSourcesRequest with parameters below.
 
@@ -5870,7 +5984,7 @@ func (c *APIClient) ReplaceSources(r ApiReplaceSourcesRequest, opts ...Option) (
 }
 
 /*
-ReplaceSources Replace all sources.
+ReplaceSources
 
 Replace all allowed sources.
 
@@ -5975,10 +6089,13 @@ func (c *APIClient) NewApiRestoreApiKeyRequest(key string) ApiRestoreApiKeyReque
 }
 
 /*
-RestoreApiKey Restore API key. Wraps RestoreApiKeyWithContext using context.Background.
+RestoreApiKey Wraps RestoreApiKeyWithContext using context.Background.
 
 Restore a deleted API key, along with its associated permissions.
 The request must be authenticated with the admin API key.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiRestoreApiKeyRequest with parameters below.
 
@@ -5990,7 +6107,7 @@ func (c *APIClient) RestoreApiKey(r ApiRestoreApiKeyRequest, opts ...Option) (*A
 }
 
 /*
-RestoreApiKey Restore API key.
+RestoreApiKey
 
 Restore a deleted API key, along with its associated permissions.
 The request must be authenticated with the admin API key.
@@ -6110,12 +6227,15 @@ func (c *APIClient) NewApiSaveObjectRequest(indexName string, body map[string]in
 }
 
 /*
-SaveObject Add or update a record. Wraps SaveObjectWithContext using context.Background.
+SaveObject Wraps SaveObjectWithContext using context.Background.
 
 Add a record (object) to an index or replace it.
 If the record doesn't contain an `objectID`, Algolia automatically adds it.
 If you use an existing `objectID`, the existing record is replaced with the new one.
 To add multiple records to your index in a single API request, use the [`batch` operation](#tag/Records/operation/batch).
+
+Required API Key ACLs:
+  - addObject
 
 Request can be constructed by NewApiSaveObjectRequest with parameters below.
 
@@ -6128,7 +6248,7 @@ func (c *APIClient) SaveObject(r ApiSaveObjectRequest, opts ...Option) (*SaveObj
 }
 
 /*
-SaveObject Add or update a record.
+SaveObject
 
 Add a record (object) to an index or replace it.
 If the record doesn't contain an `objectID`, Algolia automatically adds it.
@@ -6284,9 +6404,12 @@ func (r ApiSaveRuleRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSav
 }
 
 /*
-SaveRule Create or update a rule. Wraps SaveRuleWithContext using context.Background.
+SaveRule Wraps SaveRuleWithContext using context.Background.
 
 To create or update more than one rule, use the [`batch` operation](#tag/Rules/operation/saveRules).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSaveRuleRequest with parameters below.
 
@@ -6301,7 +6424,7 @@ func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...Option) (*UpdatedRule
 }
 
 /*
-SaveRule Create or update a rule.
+SaveRule
 
 To create or update more than one rule, use the [`batch` operation](#tag/Rules/operation/saveRules).
 
@@ -6469,9 +6592,12 @@ func (r ApiSaveRulesRequest) WithClearExistingRules(clearExistingRules bool) Api
 }
 
 /*
-SaveRules Save a batch of rules. Wraps SaveRulesWithContext using context.Background.
+SaveRules Wraps SaveRulesWithContext using context.Background.
 
 Create or update multiple rules.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSaveRulesRequest with parameters below.
 
@@ -6486,7 +6612,7 @@ func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...Option) (*UpdatedAt
 }
 
 /*
-SaveRules Save a batch of rules.
+SaveRules
 
 Create or update multiple rules.
 
@@ -6648,12 +6774,15 @@ func (r ApiSaveSynonymRequest) WithForwardToReplicas(forwardToReplicas bool) Api
 }
 
 /*
-SaveSynonym Save a synonym. Wraps SaveSynonymWithContext using context.Background.
+SaveSynonym Wraps SaveSynonymWithContext using context.Background.
 
 Add a [synonym](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/#the-different-types-of-synonyms) to an index or replace it.
 If the synonym `objectID` doesn't exist, Algolia adds a new one.
 If you use an existing synonym `objectID`, the existing synonym is replaced with the new one.
 To add multiple synonyms in a single API request, use the [`batch` operation](#tag/Synonyms/operation/saveSynonyms).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSaveSynonymRequest with parameters below.
 
@@ -6668,7 +6797,7 @@ func (c *APIClient) SaveSynonym(r ApiSaveSynonymRequest, opts ...Option) (*SaveS
 }
 
 /*
-SaveSynonym Save a synonym.
+SaveSynonym
 
 Add a [synonym](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/#the-different-types-of-synonyms) to an index or replace it.
 If the synonym `objectID` doesn't exist, Algolia adds a new one.
@@ -6839,9 +6968,12 @@ func (r ApiSaveSynonymsRequest) WithReplaceExistingSynonyms(replaceExistingSynon
 }
 
 /*
-SaveSynonyms Save a batch of synonyms. Wraps SaveSynonymsWithContext using context.Background.
+SaveSynonyms Wraps SaveSynonymsWithContext using context.Background.
 
 Create or update multiple synonyms.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSaveSynonymsRequest with parameters below.
 
@@ -6856,7 +6988,7 @@ func (c *APIClient) SaveSynonyms(r ApiSaveSynonymsRequest, opts ...Option) (*Upd
 }
 
 /*
-SaveSynonyms Save a batch of synonyms.
+SaveSynonyms
 
 Create or update multiple synonyms.
 
@@ -6980,9 +7112,12 @@ func (c *APIClient) NewApiSearchRequest(searchMethodParams *SearchMethodParams) 
 }
 
 /*
-Search Search multiple indices. Wraps SearchWithContext using context.Background.
+Search Wraps SearchWithContext using context.Background.
 
 Send multiple search queries to one or more indices.
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiSearchRequest with parameters below.
 
@@ -6994,7 +7129,7 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...Option) (*SearchResponses
 }
 
 /*
-Search Search multiple indices.
+Search
 
 Send multiple search queries to one or more indices.
 
@@ -7115,9 +7250,12 @@ func (c *APIClient) NewApiSearchDictionaryEntriesRequest(dictionaryName Dictiona
 }
 
 /*
-SearchDictionaryEntries Search dictionary entries. Wraps SearchDictionaryEntriesWithContext using context.Background.
+SearchDictionaryEntries Wraps SearchDictionaryEntriesWithContext using context.Background.
 
 Search for standard and [custom](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/) entries in the [stop words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/), [plurals](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-plurals-and-other-declensions/), or [segmentation (compounds)](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) dictionaries.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiSearchDictionaryEntriesRequest with parameters below.
 
@@ -7130,7 +7268,7 @@ func (c *APIClient) SearchDictionaryEntries(r ApiSearchDictionaryEntriesRequest,
 }
 
 /*
-SearchDictionaryEntries Search dictionary entries.
+SearchDictionaryEntries
 
 Search for standard and [custom](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/) entries in the [stop words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/), [plurals](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-plurals-and-other-declensions/), or [segmentation (compounds)](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) dictionaries.
 
@@ -7264,10 +7402,13 @@ func (r ApiSearchForFacetValuesRequest) WithSearchForFacetValuesRequest(searchFo
 }
 
 /*
-SearchForFacetValues Search for facet values. Wraps SearchForFacetValuesWithContext using context.Background.
+SearchForFacetValues Wraps SearchForFacetValuesWithContext using context.Background.
 
 [Search for a facet's values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values), optionally restricting the returned values to those contained in records matching other search criteria.
 > **Note**: Pagination isn't supported (`page` and `hitsPerPage` are ignored). By default, the engine returns a maximum of 10 values but you can adjust this with `maxFacetHits`.
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiSearchForFacetValuesRequest with parameters below.
 
@@ -7281,7 +7422,7 @@ func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts 
 }
 
 /*
-SearchForFacetValues Search for facet values.
+SearchForFacetValues
 
 [Search for a facet's values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values), optionally restricting the returned values to those contained in records matching other search criteria.
 > **Note**: Pagination isn't supported (`page` and `hitsPerPage` are ignored). By default, the engine returns a maximum of 10 values but you can adjust this with `maxFacetHits`.
@@ -7413,9 +7554,12 @@ func (r ApiSearchRulesRequest) WithSearchRulesParams(searchRulesParams *SearchRu
 }
 
 /*
-SearchRules Search for rules. Wraps SearchRulesWithContext using context.Background.
+SearchRules Wraps SearchRulesWithContext using context.Background.
 
 Search for rules in your index. You can control the search with parameters. To list all rules, send an empty request body.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiSearchRulesRequest with parameters below.
 
@@ -7428,7 +7572,7 @@ func (c *APIClient) SearchRules(r ApiSearchRulesRequest, opts ...Option) (*Searc
 }
 
 /*
-SearchRules Search for rules.
+SearchRules
 
 Search for rules in your index. You can control the search with parameters. To list all rules, send an empty request body.
 
@@ -7554,9 +7698,12 @@ func (r ApiSearchSingleIndexRequest) WithSearchParams(searchParams *SearchParams
 }
 
 /*
-SearchSingleIndex Search an index. Wraps SearchSingleIndexWithContext using context.Background.
+SearchSingleIndex Wraps SearchSingleIndexWithContext using context.Background.
 
 Return records that match the query.
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiSearchSingleIndexRequest with parameters below.
 
@@ -7569,7 +7716,7 @@ func (c *APIClient) SearchSingleIndex(r ApiSearchSingleIndexRequest, opts ...Opt
 }
 
 /*
-SearchSingleIndex Search an index.
+SearchSingleIndex
 
 Return records that match the query.
 
@@ -7695,9 +7842,12 @@ func (r ApiSearchSynonymsRequest) WithSearchSynonymsParams(searchSynonymsParams 
 }
 
 /*
-SearchSynonyms Search for synonyms. Wraps SearchSynonymsWithContext using context.Background.
+SearchSynonyms Wraps SearchSynonymsWithContext using context.Background.
 
 Search for synonyms in your index. You can control and filter the search with parameters. To get all synonyms, send an empty request body.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiSearchSynonymsRequest with parameters below.
 
@@ -7710,7 +7860,7 @@ func (c *APIClient) SearchSynonyms(r ApiSearchSynonymsRequest, opts ...Option) (
 }
 
 /*
-SearchSynonyms Search for synonyms.
+SearchSynonyms
 
 Search for synonyms in your index. You can control and filter the search with parameters. To get all synonyms, send an empty request body.
 
@@ -7825,10 +7975,13 @@ func (c *APIClient) NewApiSearchUserIdsRequest(searchUserIdsParams *SearchUserId
 }
 
 /*
-SearchUserIds Search for a user ID. Wraps SearchUserIdsWithContext using context.Background.
+SearchUserIds Wraps SearchUserIdsWithContext using context.Background.
 
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
 To ensure rapid updates, the user IDs index isn't built at the same time as the mapping. Instead, it's built every 12 hours, at the same time as the update of user ID usage. For example, if you add or move a user ID, the search will show an old value until the next time the mapping is rebuilt (every 12 hours).
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiSearchUserIdsRequest with parameters below.
 
@@ -7840,7 +7993,7 @@ func (c *APIClient) SearchUserIds(r ApiSearchUserIdsRequest, opts ...Option) (*S
 }
 
 /*
-SearchUserIds Search for a user ID.
+SearchUserIds
 
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
 To ensure rapid updates, the user IDs index isn't built at the same time as the mapping. Instead, it's built every 12 hours, at the same time as the update of user ID usage. For example, if you add or move a user ID, the search will show an old value until the next time the mapping is rebuilt (every 12 hours).
@@ -7951,9 +8104,12 @@ func (c *APIClient) NewApiSetDictionarySettingsRequest(dictionarySettingsParams 
 }
 
 /*
-SetDictionarySettings Set stop word settings. Wraps SetDictionarySettingsWithContext using context.Background.
+SetDictionarySettings Wraps SetDictionarySettingsWithContext using context.Background.
 
 Set stop word settings for a specific language.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSetDictionarySettingsRequest with parameters below.
 
@@ -7965,7 +8121,7 @@ func (c *APIClient) SetDictionarySettings(r ApiSetDictionarySettingsRequest, opt
 }
 
 /*
-SetDictionarySettings Set stop word settings.
+SetDictionarySettings
 
 Set stop word settings for a specific language.
 
@@ -8102,9 +8258,12 @@ func (r ApiSetSettingsRequest) WithForwardToReplicas(forwardToReplicas bool) Api
 }
 
 /*
-SetSettings Update index settings. Wraps SetSettingsWithContext using context.Background.
+SetSettings Wraps SetSettingsWithContext using context.Background.
 
 Update the specified [index settings](https://www.algolia.com/doc/api-reference/settings-api-parameters/). Specifying null for a setting resets it to its default value.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSetSettingsRequest with parameters below.
 
@@ -8118,7 +8277,7 @@ func (c *APIClient) SetSettings(r ApiSetSettingsRequest, opts ...Option) (*Updat
 }
 
 /*
-SetSettings Update index settings.
+SetSettings
 
 Update the specified [index settings](https://www.algolia.com/doc/api-reference/settings-api-parameters/). Specifying null for a setting resets it to its default value.
 
@@ -8249,11 +8408,14 @@ func (c *APIClient) NewApiUpdateApiKeyRequest(key string, apiKey *ApiKey) ApiUpd
 }
 
 /*
-UpdateApiKey Update an API key. Wraps UpdateApiKeyWithContext using context.Background.
+UpdateApiKey Wraps UpdateApiKeyWithContext using context.Background.
 
 Replace the permissions of an existing API key.
 Any unspecified parameter resets that permission to its default value.
 The request must be authenticated with the admin API key.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiUpdateApiKeyRequest with parameters below.
 
@@ -8266,7 +8428,7 @@ func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...Option) (*Upd
 }
 
 /*
-UpdateApiKey Update an API key.
+UpdateApiKey
 
 Replace the permissions of an existing API key.
 Any unspecified parameter resets that permission to its default value.

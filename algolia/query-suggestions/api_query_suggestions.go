@@ -71,11 +71,14 @@ func (c *APIClient) NewApiCreateConfigRequest(querySuggestionsConfigurationWithI
 }
 
 /*
-CreateConfig Create a configuration. Wraps CreateConfigWithContext using context.Background.
+CreateConfig Wraps CreateConfigWithContext using context.Background.
 
 Create a new Query Suggestions configuration.
 
 You can have up to 100 configurations per Algolia application.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiCreateConfigRequest with parameters below.
 
@@ -87,7 +90,7 @@ func (c *APIClient) CreateConfig(r ApiCreateConfigRequest, opts ...Option) (*Bas
 }
 
 /*
-CreateConfig Create a configuration.
+CreateConfig
 
 Create a new Query Suggestions configuration.
 
@@ -210,7 +213,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -225,7 +228,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API.
+CustomDelete
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -351,7 +354,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
+CustomGet Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -366,7 +369,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet Send requests to the Algolia REST API.
+CustomGet
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -508,7 +511,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
+CustomPost Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -524,7 +527,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost Send requests to the Algolia REST API.
+CustomPost
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -673,7 +676,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
+CustomPut Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -689,7 +692,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut Send requests to the Algolia REST API.
+CustomPut
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -806,12 +809,15 @@ func (c *APIClient) NewApiDeleteConfigRequest(indexName string) ApiDeleteConfigR
 }
 
 /*
-DeleteConfig Delete a configuration. Wraps DeleteConfigWithContext using context.Background.
+DeleteConfig Wraps DeleteConfigWithContext using context.Background.
 
 Delete a Query Suggestions configuration.
 
 Deleting only removes the configuration and stops updates to the Query Suggestions index.
 The Query Suggestions index itself is not deleted.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiDeleteConfigRequest with parameters below.
 
@@ -823,7 +829,7 @@ func (c *APIClient) DeleteConfig(r ApiDeleteConfigRequest, opts ...Option) (*Bas
 }
 
 /*
-DeleteConfig Delete a configuration.
+DeleteConfig
 
 Delete a Query Suggestions configuration.
 
@@ -898,9 +904,12 @@ func (c *APIClient) DeleteConfigWithContext(ctx context.Context, r ApiDeleteConf
 }
 
 /*
-GetAllConfigs List configurations. Wraps GetAllConfigsWithContext using context.Background.
+GetAllConfigs Wraps GetAllConfigsWithContext using context.Background.
 
 List all Query Suggestions configurations of your Algolia application.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
 
@@ -911,7 +920,7 @@ func (c *APIClient) GetAllConfigs(opts ...Option) ([]QuerySuggestionsConfigurati
 }
 
 /*
-GetAllConfigs List configurations.
+GetAllConfigs
 
 List all Query Suggestions configurations of your Algolia application.
 
@@ -1009,9 +1018,12 @@ func (c *APIClient) NewApiGetConfigRequest(indexName string) ApiGetConfigRequest
 }
 
 /*
-GetConfig Get a configuration. Wraps GetConfigWithContext using context.Background.
+GetConfig Wraps GetConfigWithContext using context.Background.
 
 Get a single Query Suggestions configuration.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetConfigRequest with parameters below.
 
@@ -1023,7 +1035,7 @@ func (c *APIClient) GetConfig(r ApiGetConfigRequest, opts ...Option) (*QuerySugg
 }
 
 /*
-GetConfig Get a configuration.
+GetConfig
 
 Get a single Query Suggestions configuration.
 
@@ -1126,9 +1138,12 @@ func (c *APIClient) NewApiGetConfigStatusRequest(indexName string) ApiGetConfigS
 }
 
 /*
-GetConfigStatus Get configuration status. Wraps GetConfigStatusWithContext using context.Background.
+GetConfigStatus Wraps GetConfigStatusWithContext using context.Background.
 
 Report the status of a Query Suggestions index.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetConfigStatusRequest with parameters below.
 
@@ -1140,7 +1155,7 @@ func (c *APIClient) GetConfigStatus(r ApiGetConfigStatusRequest, opts ...Option)
 }
 
 /*
-GetConfigStatus Get configuration status.
+GetConfigStatus
 
 Report the status of a Query Suggestions index.
 
@@ -1243,9 +1258,12 @@ func (c *APIClient) NewApiGetLogFileRequest(indexName string) ApiGetLogFileReque
 }
 
 /*
-GetLogFile Get logs. Wraps GetLogFileWithContext using context.Background.
+GetLogFile Wraps GetLogFileWithContext using context.Background.
 
 Get the logs for a single Query Suggestions index.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetLogFileRequest with parameters below.
 
@@ -1257,7 +1275,7 @@ func (c *APIClient) GetLogFile(r ApiGetLogFileRequest, opts ...Option) (*GetLogF
 }
 
 /*
-GetLogFile Get logs.
+GetLogFile
 
 Get the logs for a single Query Suggestions index.
 
@@ -1376,9 +1394,12 @@ func (c *APIClient) NewApiUpdateConfigRequest(indexName string, querySuggestions
 }
 
 /*
-UpdateConfig Update a configuration. Wraps UpdateConfigWithContext using context.Background.
+UpdateConfig Wraps UpdateConfigWithContext using context.Background.
 
 Update a QuerySuggestions configuration.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiUpdateConfigRequest with parameters below.
 
@@ -1391,7 +1412,7 @@ func (c *APIClient) UpdateConfig(r ApiUpdateConfigRequest, opts ...Option) (*Bas
 }
 
 /*
-UpdateConfig Update a configuration.
+UpdateConfig
 
 Update a QuerySuggestions configuration.
 

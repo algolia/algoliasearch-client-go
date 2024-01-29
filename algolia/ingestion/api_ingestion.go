@@ -71,9 +71,14 @@ func (c *APIClient) NewApiCreateAuthenticationRequest(authenticationCreate *Auth
 }
 
 /*
-CreateAuthentication Create a authentication. Wraps CreateAuthenticationWithContext using context.Background.
+CreateAuthentication Wraps CreateAuthenticationWithContext using context.Background.
 
 Create a authentication.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiCreateAuthenticationRequest with parameters below.
 
@@ -85,7 +90,7 @@ func (c *APIClient) CreateAuthentication(r ApiCreateAuthenticationRequest, opts 
 }
 
 /*
-CreateAuthentication Create a authentication.
+CreateAuthentication
 
 Create a authentication.
 
@@ -195,9 +200,14 @@ func (c *APIClient) NewApiCreateDestinationRequest(destinationCreate *Destinatio
 }
 
 /*
-CreateDestination Create a destination. Wraps CreateDestinationWithContext using context.Background.
+CreateDestination Wraps CreateDestinationWithContext using context.Background.
 
 Create a destination.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiCreateDestinationRequest with parameters below.
 
@@ -209,7 +219,7 @@ func (c *APIClient) CreateDestination(r ApiCreateDestinationRequest, opts ...Opt
 }
 
 /*
-CreateDestination Create a destination.
+CreateDestination
 
 Create a destination.
 
@@ -319,9 +329,14 @@ func (c *APIClient) NewApiCreateSourceRequest(sourceCreate *SourceCreate) ApiCre
 }
 
 /*
-CreateSource Create a source. Wraps CreateSourceWithContext using context.Background.
+CreateSource Wraps CreateSourceWithContext using context.Background.
 
 Create a source.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiCreateSourceRequest with parameters below.
 
@@ -333,7 +348,7 @@ func (c *APIClient) CreateSource(r ApiCreateSourceRequest, opts ...Option) (*Sou
 }
 
 /*
-CreateSource Create a source.
+CreateSource
 
 Create a source.
 
@@ -443,7 +458,7 @@ func (c *APIClient) NewApiCreateTaskRequest(taskCreate *TaskCreate) ApiCreateTas
 }
 
 /*
-CreateTask Create a task. Wraps CreateTaskWithContext using context.Background.
+CreateTask Wraps CreateTaskWithContext using context.Background.
 
 Create a task.
 
@@ -457,7 +472,7 @@ func (c *APIClient) CreateTask(r ApiCreateTaskRequest, opts ...Option) (*TaskCre
 }
 
 /*
-CreateTask Create a task.
+CreateTask
 
 Create a task.
 
@@ -578,7 +593,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -593,7 +608,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API.
+CustomDelete
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -719,7 +734,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
+CustomGet Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -734,7 +749,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet Send requests to the Algolia REST API.
+CustomGet
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -876,7 +891,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
+CustomPost Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -892,7 +907,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost Send requests to the Algolia REST API.
+CustomPost
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1041,7 +1056,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
+CustomPut Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1057,7 +1072,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut Send requests to the Algolia REST API.
+CustomPut
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -1174,9 +1189,14 @@ func (c *APIClient) NewApiDeleteAuthenticationRequest(authenticationID string) A
 }
 
 /*
-DeleteAuthentication Delete a authentication. Wraps DeleteAuthenticationWithContext using context.Background.
+DeleteAuthentication Wraps DeleteAuthenticationWithContext using context.Background.
 
 Soft delete the authentication of the given authenticationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDeleteAuthenticationRequest with parameters below.
 
@@ -1188,7 +1208,7 @@ func (c *APIClient) DeleteAuthentication(r ApiDeleteAuthenticationRequest, opts 
 }
 
 /*
-DeleteAuthentication Delete a authentication.
+DeleteAuthentication
 
 Soft delete the authentication of the given authenticationID.
 
@@ -1291,9 +1311,14 @@ func (c *APIClient) NewApiDeleteDestinationRequest(destinationID string) ApiDele
 }
 
 /*
-DeleteDestination Delete a destination. Wraps DeleteDestinationWithContext using context.Background.
+DeleteDestination Wraps DeleteDestinationWithContext using context.Background.
 
 Soft delete the destination of the given destinationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDeleteDestinationRequest with parameters below.
 
@@ -1305,7 +1330,7 @@ func (c *APIClient) DeleteDestination(r ApiDeleteDestinationRequest, opts ...Opt
 }
 
 /*
-DeleteDestination Delete a destination.
+DeleteDestination
 
 Soft delete the destination of the given destinationID.
 
@@ -1408,9 +1433,14 @@ func (c *APIClient) NewApiDeleteSourceRequest(sourceID string) ApiDeleteSourceRe
 }
 
 /*
-DeleteSource Delete a source. Wraps DeleteSourceWithContext using context.Background.
+DeleteSource Wraps DeleteSourceWithContext using context.Background.
 
 Soft delete the source of the given sourceID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 
@@ -1422,7 +1452,7 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...Option) (*Del
 }
 
 /*
-DeleteSource Delete a source.
+DeleteSource
 
 Soft delete the source of the given sourceID.
 
@@ -1525,7 +1555,7 @@ func (c *APIClient) NewApiDeleteTaskRequest(taskID string) ApiDeleteTaskRequest 
 }
 
 /*
-DeleteTask Delete a task. Wraps DeleteTaskWithContext using context.Background.
+DeleteTask Wraps DeleteTaskWithContext using context.Background.
 
 Soft delete the task of the given taskID.
 
@@ -1539,7 +1569,7 @@ func (c *APIClient) DeleteTask(r ApiDeleteTaskRequest, opts ...Option) (*DeleteR
 }
 
 /*
-DeleteTask Delete a task.
+DeleteTask
 
 Soft delete the task of the given taskID.
 
@@ -1642,9 +1672,14 @@ func (c *APIClient) NewApiDisableTaskRequest(taskID string) ApiDisableTaskReques
 }
 
 /*
-DisableTask Disable a task. Wraps DisableTaskWithContext using context.Background.
+DisableTask Wraps DisableTaskWithContext using context.Background.
 
 Disable the task of the given taskID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDisableTaskRequest with parameters below.
 
@@ -1656,7 +1691,7 @@ func (c *APIClient) DisableTask(r ApiDisableTaskRequest, opts ...Option) (*TaskU
 }
 
 /*
-DisableTask Disable a task.
+DisableTask
 
 Disable the task of the given taskID.
 
@@ -1759,9 +1794,14 @@ func (c *APIClient) NewApiEnableTaskRequest(taskID string) ApiEnableTaskRequest 
 }
 
 /*
-EnableTask Enable a task. Wraps EnableTaskWithContext using context.Background.
+EnableTask Wraps EnableTaskWithContext using context.Background.
 
 Enable the task of the given taskID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiEnableTaskRequest with parameters below.
 
@@ -1773,7 +1813,7 @@ func (c *APIClient) EnableTask(r ApiEnableTaskRequest, opts ...Option) (*TaskUpd
 }
 
 /*
-EnableTask Enable a task.
+EnableTask
 
 Enable the task of the given taskID.
 
@@ -1876,9 +1916,14 @@ func (c *APIClient) NewApiGetAuthenticationRequest(authenticationID string) ApiG
 }
 
 /*
-GetAuthentication Get a authentication. Wraps GetAuthenticationWithContext using context.Background.
+GetAuthentication Wraps GetAuthenticationWithContext using context.Background.
 
 Get the authentication of the given authenticationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetAuthenticationRequest with parameters below.
 
@@ -1890,7 +1935,7 @@ func (c *APIClient) GetAuthentication(r ApiGetAuthenticationRequest, opts ...Opt
 }
 
 /*
-GetAuthentication Get a authentication.
+GetAuthentication
 
 Get the authentication of the given authenticationID.
 
@@ -2077,9 +2122,14 @@ func (r ApiGetAuthenticationsRequest) WithOrder(order OrderKeys) ApiGetAuthentic
 }
 
 /*
-GetAuthentications Get a list of authentications. Wraps GetAuthenticationsWithContext using context.Background.
+GetAuthentications Wraps GetAuthenticationsWithContext using context.Background.
 
 Get a list of authentications for the given query parameters, with pagination details.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetAuthenticationsRequest with parameters below.
 
@@ -2096,7 +2146,7 @@ func (c *APIClient) GetAuthentications(r ApiGetAuthenticationsRequest, opts ...O
 }
 
 /*
-GetAuthentications Get a list of authentications.
+GetAuthentications
 
 Get a list of authentications for the given query parameters, with pagination details.
 
@@ -2219,9 +2269,14 @@ func (c *APIClient) NewApiGetDestinationRequest(destinationID string) ApiGetDest
 }
 
 /*
-GetDestination Get a destination. Wraps GetDestinationWithContext using context.Background.
+GetDestination Wraps GetDestinationWithContext using context.Background.
 
 Get the destination of the given destinationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetDestinationRequest with parameters below.
 
@@ -2233,7 +2288,7 @@ func (c *APIClient) GetDestination(r ApiGetDestinationRequest, opts ...Option) (
 }
 
 /*
-GetDestination Get a destination.
+GetDestination
 
 Get the destination of the given destinationID.
 
@@ -2420,9 +2475,14 @@ func (r ApiGetDestinationsRequest) WithOrder(order OrderKeys) ApiGetDestinations
 }
 
 /*
-GetDestinations Get a list of destinations. Wraps GetDestinationsWithContext using context.Background.
+GetDestinations Wraps GetDestinationsWithContext using context.Background.
 
 Get a list of destinations for the given query parameters, with pagination details.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetDestinationsRequest with parameters below.
 
@@ -2439,7 +2499,7 @@ func (c *APIClient) GetDestinations(r ApiGetDestinationsRequest, opts ...Option)
 }
 
 /*
-GetDestinations Get a list of destinations.
+GetDestinations
 
 Get a list of destinations for the given query parameters, with pagination details.
 
@@ -2562,9 +2622,14 @@ func (c *APIClient) NewApiGetDockerSourceStreamsRequest(sourceID string) ApiGetD
 }
 
 /*
-GetDockerSourceStreams Retrieve a stream listing. Wraps GetDockerSourceStreamsWithContext using context.Background.
+GetDockerSourceStreams Wraps GetDockerSourceStreamsWithContext using context.Background.
 
 Retrieve a stream listing for a given Singer specification compatible docker type source ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetDockerSourceStreamsRequest with parameters below.
 
@@ -2576,7 +2641,7 @@ func (c *APIClient) GetDockerSourceStreams(r ApiGetDockerSourceStreamsRequest, o
 }
 
 /*
-GetDockerSourceStreams Retrieve a stream listing.
+GetDockerSourceStreams
 
 Retrieve a stream listing for a given Singer specification compatible docker type source ID.
 
@@ -2690,9 +2755,14 @@ func (c *APIClient) NewApiGetEventRequest(runID string, eventID string) ApiGetEv
 }
 
 /*
-GetEvent Get an event. Wraps GetEventWithContext using context.Background.
+GetEvent Wraps GetEventWithContext using context.Background.
 
 Get a single event for a specific runID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetEventRequest with parameters below.
 
@@ -2705,7 +2775,7 @@ func (c *APIClient) GetEvent(r ApiGetEventRequest, opts ...Option) (*Event, erro
 }
 
 /*
-GetEvent Get an event.
+GetEvent
 
 Get a single event for a specific runID.
 
@@ -2941,9 +3011,14 @@ func (r ApiGetEventsRequest) WithEndDate(endDate string) ApiGetEventsRequest {
 }
 
 /*
-GetEvents Get a list of events. Wraps GetEventsWithContext using context.Background.
+GetEvents Wraps GetEventsWithContext using context.Background.
 
 Get a list of events associated to the given runID, for the given query parameters.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetEventsRequest with parameters below.
 
@@ -2963,7 +3038,7 @@ func (c *APIClient) GetEvents(r ApiGetEventsRequest, opts ...Option) (*ListEvent
 }
 
 /*
-GetEvents Get a list of events.
+GetEvents
 
 Get a list of events associated to the given runID, for the given query parameters.
 
@@ -3099,9 +3174,14 @@ func (c *APIClient) NewApiGetRunRequest(runID string) ApiGetRunRequest {
 }
 
 /*
-GetRun Get a run. Wraps GetRunWithContext using context.Background.
+GetRun Wraps GetRunWithContext using context.Background.
 
 Get a single run for the given ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetRunRequest with parameters below.
 
@@ -3113,7 +3193,7 @@ func (c *APIClient) GetRun(r ApiGetRunRequest, opts ...Option) (*Run, error) {
 }
 
 /*
-GetRun Get a run.
+GetRun
 
 Get a single run for the given ID.
 
@@ -3332,9 +3412,14 @@ func (r ApiGetRunsRequest) WithEndDate(endDate string) ApiGetRunsRequest {
 }
 
 /*
-GetRuns Get a list of runs. Wraps GetRunsWithContext using context.Background.
+GetRuns Wraps GetRunsWithContext using context.Background.
 
 Get a list of runs for the given query parameters, with pagination details.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetRunsRequest with parameters below.
 
@@ -3353,7 +3438,7 @@ func (c *APIClient) GetRuns(r ApiGetRunsRequest, opts ...Option) (*RunListRespon
 }
 
 /*
-GetRuns Get a list of runs.
+GetRuns
 
 Get a list of runs for the given query parameters, with pagination details.
 
@@ -3484,9 +3569,14 @@ func (c *APIClient) NewApiGetSourceRequest(sourceID string) ApiGetSourceRequest 
 }
 
 /*
-GetSource Get a source. Wraps GetSourceWithContext using context.Background.
+GetSource Wraps GetSourceWithContext using context.Background.
 
 Get the source of the given sourceID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetSourceRequest with parameters below.
 
@@ -3498,7 +3588,7 @@ func (c *APIClient) GetSource(r ApiGetSourceRequest, opts ...Option) (*Source, e
 }
 
 /*
-GetSource Get a source.
+GetSource
 
 Get the source of the given sourceID.
 
@@ -3685,9 +3775,14 @@ func (r ApiGetSourcesRequest) WithOrder(order OrderKeys) ApiGetSourcesRequest {
 }
 
 /*
-GetSources Get a list of sources. Wraps GetSourcesWithContext using context.Background.
+GetSources Wraps GetSourcesWithContext using context.Background.
 
 Get a list of sources for the given query parameters, with pagination details.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetSourcesRequest with parameters below.
 
@@ -3704,7 +3799,7 @@ func (c *APIClient) GetSources(r ApiGetSourcesRequest, opts ...Option) (*ListSou
 }
 
 /*
-GetSources Get a list of sources.
+GetSources
 
 Get a list of sources for the given query parameters, with pagination details.
 
@@ -3827,9 +3922,14 @@ func (c *APIClient) NewApiGetTaskRequest(taskID string) ApiGetTaskRequest {
 }
 
 /*
-GetTask Get a task. Wraps GetTaskWithContext using context.Background.
+GetTask Wraps GetTaskWithContext using context.Background.
 
 Get the task of the given taskID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetTaskRequest with parameters below.
 
@@ -3841,7 +3941,7 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...Option) (*Task, error) 
 }
 
 /*
-GetTask Get a task.
+GetTask
 
 Get the task of the given taskID.
 
@@ -4076,9 +4176,14 @@ func (r ApiGetTasksRequest) WithOrder(order OrderKeys) ApiGetTasksRequest {
 }
 
 /*
-GetTasks Get a list of tasks. Wraps GetTasksWithContext using context.Background.
+GetTasks Wraps GetTasksWithContext using context.Background.
 
 Get a list of tasks for the given query parameters, with pagination details.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetTasksRequest with parameters below.
 
@@ -4098,7 +4203,7 @@ func (c *APIClient) GetTasks(r ApiGetTasksRequest, opts ...Option) (*ListTasksRe
 }
 
 /*
-GetTasks Get a list of tasks.
+GetTasks
 
 Get a list of tasks for the given query parameters, with pagination details.
 
@@ -4233,9 +4338,14 @@ func (c *APIClient) NewApiRunTaskRequest(taskID string) ApiRunTaskRequest {
 }
 
 /*
-RunTask Run a task. Wraps RunTaskWithContext using context.Background.
+RunTask Wraps RunTaskWithContext using context.Background.
 
 Run the task of the given taskID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiRunTaskRequest with parameters below.
 
@@ -4247,7 +4357,7 @@ func (c *APIClient) RunTask(r ApiRunTaskRequest, opts ...Option) (*RunResponse, 
 }
 
 /*
-RunTask Run a task.
+RunTask
 
 Run the task of the given taskID.
 
@@ -4355,9 +4465,14 @@ func (c *APIClient) NewApiSearchAuthenticationsRequest(authenticationSearch *Aut
 }
 
 /*
-SearchAuthentications Search among authentications. Wraps SearchAuthenticationsWithContext using context.Background.
+SearchAuthentications Wraps SearchAuthenticationsWithContext using context.Background.
 
 Search among authentications with a defined set of parameters.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiSearchAuthenticationsRequest with parameters below.
 
@@ -4369,7 +4484,7 @@ func (c *APIClient) SearchAuthentications(r ApiSearchAuthenticationsRequest, opt
 }
 
 /*
-SearchAuthentications Search among authentications.
+SearchAuthentications
 
 Search among authentications with a defined set of parameters.
 
@@ -4479,9 +4594,14 @@ func (c *APIClient) NewApiSearchDestinationsRequest(destinationSearch *Destinati
 }
 
 /*
-SearchDestinations Search among destinations. Wraps SearchDestinationsWithContext using context.Background.
+SearchDestinations Wraps SearchDestinationsWithContext using context.Background.
 
 Search among destinations with a defined set of parameters.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiSearchDestinationsRequest with parameters below.
 
@@ -4493,7 +4613,7 @@ func (c *APIClient) SearchDestinations(r ApiSearchDestinationsRequest, opts ...O
 }
 
 /*
-SearchDestinations Search among destinations.
+SearchDestinations
 
 Search among destinations with a defined set of parameters.
 
@@ -4603,9 +4723,14 @@ func (c *APIClient) NewApiSearchSourcesRequest(sourceSearch *SourceSearch) ApiSe
 }
 
 /*
-SearchSources Search among sources. Wraps SearchSourcesWithContext using context.Background.
+SearchSources Wraps SearchSourcesWithContext using context.Background.
 
 Search among sources with a defined set of parameters.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiSearchSourcesRequest with parameters below.
 
@@ -4617,7 +4742,7 @@ func (c *APIClient) SearchSources(r ApiSearchSourcesRequest, opts ...Option) ([]
 }
 
 /*
-SearchSources Search among sources.
+SearchSources
 
 Search among sources with a defined set of parameters.
 
@@ -4727,9 +4852,14 @@ func (c *APIClient) NewApiSearchTasksRequest(taskSearch *TaskSearch) ApiSearchTa
 }
 
 /*
-SearchTasks Search among tasks. Wraps SearchTasksWithContext using context.Background.
+SearchTasks Wraps SearchTasksWithContext using context.Background.
 
 Search among tasks with a defined set of parameters.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiSearchTasksRequest with parameters below.
 
@@ -4741,7 +4871,7 @@ func (c *APIClient) SearchTasks(r ApiSearchTasksRequest, opts ...Option) ([]Task
 }
 
 /*
-SearchTasks Search among tasks.
+SearchTasks
 
 Search among tasks with a defined set of parameters.
 
@@ -4846,9 +4976,14 @@ func (c *APIClient) NewApiTriggerDockerSourceDiscoverRequest(sourceID string) Ap
 }
 
 /*
-TriggerDockerSourceDiscover Trigger a stream listing request. Wraps TriggerDockerSourceDiscoverWithContext using context.Background.
+TriggerDockerSourceDiscover Wraps TriggerDockerSourceDiscoverWithContext using context.Background.
 
 Trigger a stream listing request for a Singer specification compatible docker type source.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiTriggerDockerSourceDiscoverRequest with parameters below.
 
@@ -4860,7 +4995,7 @@ func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscover
 }
 
 /*
-TriggerDockerSourceDiscover Trigger a stream listing request.
+TriggerDockerSourceDiscover
 
 Trigger a stream listing request for a Singer specification compatible docker type source.
 
@@ -4979,9 +5114,14 @@ func (c *APIClient) NewApiUpdateAuthenticationRequest(authenticationID string, a
 }
 
 /*
-UpdateAuthentication Update a authentication. Wraps UpdateAuthenticationWithContext using context.Background.
+UpdateAuthentication Wraps UpdateAuthenticationWithContext using context.Background.
 
 Update the authentication of the given authenticationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateAuthenticationRequest with parameters below.
 
@@ -4994,7 +5134,7 @@ func (c *APIClient) UpdateAuthentication(r ApiUpdateAuthenticationRequest, opts 
 }
 
 /*
-UpdateAuthentication Update a authentication.
+UpdateAuthentication
 
 Update the authentication of the given authenticationID.
 
@@ -5120,9 +5260,14 @@ func (c *APIClient) NewApiUpdateDestinationRequest(destinationID string, destina
 }
 
 /*
-UpdateDestination Update a destination. Wraps UpdateDestinationWithContext using context.Background.
+UpdateDestination Wraps UpdateDestinationWithContext using context.Background.
 
 Update the destination of the given destinationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateDestinationRequest with parameters below.
 
@@ -5135,7 +5280,7 @@ func (c *APIClient) UpdateDestination(r ApiUpdateDestinationRequest, opts ...Opt
 }
 
 /*
-UpdateDestination Update a destination.
+UpdateDestination
 
 Update the destination of the given destinationID.
 
@@ -5261,9 +5406,14 @@ func (c *APIClient) NewApiUpdateSourceRequest(sourceID string, sourceUpdate *Sou
 }
 
 /*
-UpdateSource Update a source. Wraps UpdateSourceWithContext using context.Background.
+UpdateSource Wraps UpdateSourceWithContext using context.Background.
 
 Update the source of the given sourceID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateSourceRequest with parameters below.
 
@@ -5276,7 +5426,7 @@ func (c *APIClient) UpdateSource(r ApiUpdateSourceRequest, opts ...Option) (*Sou
 }
 
 /*
-UpdateSource Update a source.
+UpdateSource
 
 Update the source of the given sourceID.
 
@@ -5402,7 +5552,7 @@ func (c *APIClient) NewApiUpdateTaskRequest(taskID string, taskUpdate *TaskUpdat
 }
 
 /*
-UpdateTask Update a task. Wraps UpdateTaskWithContext using context.Background.
+UpdateTask Wraps UpdateTaskWithContext using context.Background.
 
 Update the task of the given taskID.
 
@@ -5417,7 +5567,7 @@ func (c *APIClient) UpdateTask(r ApiUpdateTaskRequest, opts ...Option) (*TaskUpd
 }
 
 /*
-UpdateTask Update a task.
+UpdateTask
 
 Update the task of the given taskID.
 

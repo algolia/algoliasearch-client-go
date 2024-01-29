@@ -82,7 +82,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -97,7 +97,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API.
+CustomDelete
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -223,7 +223,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
+CustomGet Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -238,7 +238,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet Send requests to the Algolia REST API.
+CustomGet
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -380,7 +380,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
+CustomPost Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -396,7 +396,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost Send requests to the Algolia REST API.
+CustomPost
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -545,7 +545,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
+CustomPut Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -561,7 +561,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut Send requests to the Algolia REST API.
+CustomPut
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -678,13 +678,16 @@ func (c *APIClient) NewApiDeleteUserProfileRequest(userToken string) ApiDeleteUs
 }
 
 /*
-DeleteUserProfile Delete a user profile. Wraps DeleteUserProfileWithContext using context.Background.
+DeleteUserProfile Wraps DeleteUserProfileWithContext using context.Background.
 
 Delete the user profile and all its associated data.
 
 Returns, as part of the response, a date until which the data can safely be considered as deleted for the given user. This means if you send events for the given user before this date, they will be ignored. Any data received after the deletedUntil date will start building a new user profile.
 
 It might take a couple hours for the deletion request to be fully processed.
+
+Required API Key ACLs:
+  - recommendation
 
 Request can be constructed by NewApiDeleteUserProfileRequest with parameters below.
 
@@ -696,7 +699,7 @@ func (c *APIClient) DeleteUserProfile(r ApiDeleteUserProfileRequest, opts ...Opt
 }
 
 /*
-DeleteUserProfile Delete a user profile.
+DeleteUserProfile
 
 Delete the user profile and all its associated data.
 
@@ -772,9 +775,12 @@ func (c *APIClient) DeleteUserProfileWithContext(ctx context.Context, r ApiDelet
 }
 
 /*
-GetPersonalizationStrategy Get the current strategy. Wraps GetPersonalizationStrategyWithContext using context.Background.
+GetPersonalizationStrategy Wraps GetPersonalizationStrategyWithContext using context.Background.
 
 The strategy contains information on the events and facets that impact user profiles and personalized search results.
+
+Required API Key ACLs:
+  - recommendation
 
 Request can be constructed by NewApiGetPersonalizationStrategyRequest with parameters below.
 
@@ -785,7 +791,7 @@ func (c *APIClient) GetPersonalizationStrategy(opts ...Option) (*Personalization
 }
 
 /*
-GetPersonalizationStrategy Get the current strategy.
+GetPersonalizationStrategy
 
 The strategy contains information on the events and facets that impact user profiles and personalized search results.
 
@@ -883,11 +889,14 @@ func (c *APIClient) NewApiGetUserTokenProfileRequest(userToken string) ApiGetUse
 }
 
 /*
-GetUserTokenProfile Get a user profile. Wraps GetUserTokenProfileWithContext using context.Background.
+GetUserTokenProfile Wraps GetUserTokenProfileWithContext using context.Background.
 
 Get the user profile built from Personalization strategy.
 
 The profile is structured by facet name used in the strategy. Each facet value is mapped to its score. Each score represents the user affinity for a specific facet value given the userToken past events and the Personalization strategy defined. Scores are bounded to 20. The last processed event timestamp is provided using the ISO 8601 format for debugging purposes.
+
+Required API Key ACLs:
+  - recommendation
 
 Request can be constructed by NewApiGetUserTokenProfileRequest with parameters below.
 
@@ -899,7 +908,7 @@ func (c *APIClient) GetUserTokenProfile(r ApiGetUserTokenProfileRequest, opts ..
 }
 
 /*
-GetUserTokenProfile Get a user profile.
+GetUserTokenProfile
 
 Get the user profile built from Personalization strategy.
 
@@ -1009,9 +1018,12 @@ func (c *APIClient) NewApiSetPersonalizationStrategyRequest(personalizationStrat
 }
 
 /*
-SetPersonalizationStrategy Set a new strategy. Wraps SetPersonalizationStrategyWithContext using context.Background.
+SetPersonalizationStrategy Wraps SetPersonalizationStrategyWithContext using context.Background.
 
 A strategy defines the events and facets that impact user profiles and personalized search results.
+
+Required API Key ACLs:
+  - recommendation
 
 Request can be constructed by NewApiSetPersonalizationStrategyRequest with parameters below.
 
@@ -1023,7 +1035,7 @@ func (c *APIClient) SetPersonalizationStrategy(r ApiSetPersonalizationStrategyRe
 }
 
 /*
-SetPersonalizationStrategy Set a new strategy.
+SetPersonalizationStrategy
 
 A strategy defines the events and facets that impact user profiles and personalized search results.
 

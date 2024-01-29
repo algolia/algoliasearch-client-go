@@ -82,7 +82,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API. Wraps CustomDeleteWithContext using context.Background.
+CustomDelete Wraps CustomDeleteWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -97,7 +97,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[
 }
 
 /*
-CustomDelete Send requests to the Algolia REST API.
+CustomDelete
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -223,7 +223,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) A
 }
 
 /*
-CustomGet Send requests to the Algolia REST API. Wraps CustomGetWithContext using context.Background.
+CustomGet Wraps CustomGetWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -238,7 +238,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string
 }
 
 /*
-CustomGet Send requests to the Algolia REST API.
+CustomGet
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -380,7 +380,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPos
 }
 
 /*
-CustomPost Send requests to the Algolia REST API. Wraps CustomPostWithContext using context.Background.
+CustomPost Wraps CustomPostWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -396,7 +396,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[stri
 }
 
 /*
-CustomPost Send requests to the Algolia REST API.
+CustomPost
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -545,7 +545,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutR
 }
 
 /*
-CustomPut Send requests to the Algolia REST API. Wraps CustomPutWithContext using context.Background.
+CustomPut Wraps CustomPutWithContext using context.Background.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -561,7 +561,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string
 }
 
 /*
-CustomPut Send requests to the Algolia REST API.
+CustomPut
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -678,7 +678,7 @@ func (c *APIClient) NewApiDeleteUserTokenRequest(userToken string) ApiDeleteUser
 }
 
 /*
-DeleteUserToken Delete user token. Wraps DeleteUserTokenWithContext using context.Background.
+DeleteUserToken Wraps DeleteUserTokenWithContext using context.Background.
 
 Delete all events related to a certain user token from events metrics and analytics.
 To delete a personalization user profile, see [Delete a user profile](https://www.algolia.com/doc/rest-api/personalization/#delete-a-user-profile).
@@ -692,7 +692,7 @@ func (c *APIClient) DeleteUserToken(r ApiDeleteUserTokenRequest, opts ...Option)
 }
 
 /*
-DeleteUserToken Delete user token.
+DeleteUserToken
 
 Delete all events related to a certain user token from events metrics and analytics.
 To delete a personalization user profile, see [Delete a user profile](https://www.algolia.com/doc/rest-api/personalization/#delete-a-user-profile).
@@ -798,7 +798,7 @@ func (c *APIClient) NewApiPushEventsRequest(insightsEvents *InsightsEvents) ApiP
 }
 
 /*
-PushEvents Send events. Wraps PushEventsWithContext using context.Background.
+PushEvents Wraps PushEventsWithContext using context.Background.
 
 Send a list of events to the Insights API.
 
@@ -815,7 +815,7 @@ func (c *APIClient) PushEvents(r ApiPushEventsRequest, opts ...Option) (*EventsR
 }
 
 /*
-PushEvents Send events.
+PushEvents
 
 Send a list of events to the Insights API.
 
