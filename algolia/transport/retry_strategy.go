@@ -22,18 +22,19 @@ const (
 )
 
 type Host struct {
+	scheme  string
 	host    string
 	timeout time.Duration
 }
 
 type RetryStrategy struct {
 	sync.RWMutex
-	hosts        []*StatefulHost
+	hosts        []StatefulHost
 	writeTimeout time.Duration
 	readTimeout  time.Duration
 }
 
-func newRetryStrategy(hosts []*StatefulHost, readTimeout, writeTimeout time.Duration) *RetryStrategy {
+func newRetryStrategy(hosts []StatefulHost, readTimeout, writeTimeout time.Duration) *RetryStrategy {
 	if readTimeout == 0 {
 		readTimeout = DefaultReadTimeout
 	}
@@ -74,7 +75,7 @@ func (s *RetryStrategy) GetTryableHosts(k call.Kind) []Host {
 
 	for _, h := range s.hosts {
 		if !h.isDown && h.accept(k) {
-			hosts = append(hosts, Host{h.host, time.Duration(h.retryCount+1) * baseTimeout})
+			hosts = append(hosts, Host{h.scheme, h.host, time.Duration(h.retryCount+1) * baseTimeout})
 		}
 	}
 
@@ -85,7 +86,7 @@ func (s *RetryStrategy) GetTryableHosts(k call.Kind) []Host {
 	for _, h := range s.hosts {
 		if h.accept(k) {
 			h.reset()
-			hosts = append(hosts, Host{h.host, time.Duration(h.retryCount+1) * baseTimeout})
+			hosts = append(hosts, Host{h.scheme, h.host, time.Duration(h.retryCount+1) * baseTimeout})
 		}
 	}
 

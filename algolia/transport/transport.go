@@ -24,7 +24,7 @@ type Transport struct {
 }
 
 func New(
-	hosts []*StatefulHost,
+	hosts []StatefulHost,
 	requester Requester,
 	readTimeout time.Duration,
 	writeTimeout time.Duration,
@@ -65,7 +65,7 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind)
 		// cancelled` error may happen when the body is read.
 		perRequestCtx, cancel := context.WithTimeout(ctx, h.timeout)
 		req = req.WithContext(perRequestCtx)
-		res, err := t.request(req, h.host, h.timeout, t.connectTimeout)
+		res, err := t.request(req, h, h.timeout, t.connectTimeout)
 
 		code := 0
 		if res != nil {
@@ -116,9 +116,9 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind)
 	return nil, nil, errs.ErrNoMoreHostToTry
 }
 
-func (t *Transport) request(req *http.Request, host string, timeout time.Duration, connectTimeout time.Duration) (*http.Response, error) {
-	req.URL.Scheme = "https"
-	req.URL.Host = host
+func (t *Transport) request(req *http.Request, host Host, timeout time.Duration, connectTimeout time.Duration) (*http.Response, error) {
+	req.URL.Scheme = host.scheme
+	req.URL.Host = host.host
 
 	debug.Display(req)
 	res, err := t.requester.Request(req, timeout, connectTimeout)

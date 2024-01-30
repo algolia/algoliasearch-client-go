@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
-	"regexp"
 	"runtime"
 	"slices"
 	"strings"
@@ -24,8 +23,6 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 )
-
-var jsonCheck = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
 
 // APIClient manages communication with the A/B Testing API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
@@ -51,7 +48,7 @@ func NewClient(appID, apiKey string, region Region) (*APIClient, error) {
 
 // NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.
 func NewClientWithConfig(cfg Configuration) (*APIClient, error) {
-	var hosts []*transport.StatefulHost
+	var hosts []transport.StatefulHost
 
 	if cfg.AppID == "" {
 		return nil, errors.New("`appId` is missing.")
@@ -65,9 +62,7 @@ func NewClientWithConfig(cfg Configuration) (*APIClient, error) {
 		}
 		hosts = getDefaultHosts(cfg.Region)
 	} else {
-		for _, h := range cfg.Hosts {
-			hosts = append(hosts, transport.NewStatefulHost(h, call.IsReadWrite))
-		}
+		hosts = cfg.Hosts
 	}
 	if cfg.Requester == nil {
 		cfg.Requester = transport.NewDefaultRequester(&cfg.ConnectTimeout)
@@ -90,12 +85,12 @@ func NewClientWithConfig(cfg Configuration) (*APIClient, error) {
 	}, nil
 }
 
-func getDefaultHosts(r Region) []*transport.StatefulHost {
+func getDefaultHosts(r Region) []transport.StatefulHost {
 	if r == "" {
-		return []*transport.StatefulHost{transport.NewStatefulHost("analytics.algolia.com", call.IsReadWrite)}
+		return []transport.StatefulHost{transport.NewStatefulHost("https", "analytics.algolia.com", call.IsReadWrite)}
 	}
 
-	return []*transport.StatefulHost{transport.NewStatefulHost(strings.ReplaceAll("analytics.{region}.algolia.com", "{region}", string(r)), call.IsReadWrite)}
+	return []transport.StatefulHost{transport.NewStatefulHost("https", strings.ReplaceAll("analytics.{region}.algolia.com", "{region}", string(r)), call.IsReadWrite)}
 }
 
 func getUserAgent() string {
@@ -147,9 +142,7 @@ func (c *APIClient) prepareRequest(
 	headerParams map[string]string,
 	queryParams url.Values,
 ) (req *http.Request, err error) {
-	contentType := "application/json"
-
-	body, err := setBody(postBody, contentType, c.cfg.Compression)
+	body, err := setBody(postBody, c.cfg.Compression)
 	if err != nil {
 		return nil, fmt.Errorf("failed to set the body: %w", err)
 	}
@@ -190,6 +183,8 @@ func (c *APIClient) prepareRequest(
 		}
 	}
 
+	contentType := "application/json"
+
 	// Add the user agent to the request.
 	req.Header.Add("User-Agent", c.cfg.UserAgent)
 	req.Header.Add("X-Algolia-Application-Id", c.cfg.AppID)
@@ -209,7 +204,7 @@ func (c *APIClient) prepareRequest(
 	return req, nil
 }
 
-func (c *APIClient) decode(v any, b []byte, contentType string) error {
+func (c *APIClient) decode(v any, b []byte) error {
 	if len(b) == 0 {
 		return nil
 	}
@@ -217,21 +212,20 @@ func (c *APIClient) decode(v any, b []byte, contentType string) error {
 		*s = string(b)
 		return nil
 	}
-	if jsonCheck.MatchString(contentType) {
-		if actualObj, ok := v.(interface{ GetActualInstance() any }); ok { // oneOf, anyOf schemas
-			if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
-				if err := unmarshalObj.UnmarshalJSON(b); err != nil {
-					return fmt.Errorf("failed to unmarshal one of in response body: %w", err)
-				}
-			} else {
-				return errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
+
+	if actualObj, ok := v.(interface{ GetActualInstance() any }); ok { // oneOf, anyOf schemas
+		if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
+			if err := unmarshalObj.UnmarshalJSON(b); err != nil {
+				return fmt.Errorf("failed to unmarshal one of in response body: %w", err)
 			}
-		} else if err := json.Unmarshal(b, v); err != nil { // simple model
-			return fmt.Errorf("failed to unmarshal response body: %w", err)
+		} else {
+			return errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
 		}
-		return nil
+	} else if err := json.Unmarshal(b, v); err != nil { // simple model
+		return fmt.Errorf("failed to unmarshal response body: %w", err)
 	}
-	return errors.New("undefined response type")
+
+	return nil
 }
 
 // Prevent trying to import "fmt".
@@ -258,7 +252,7 @@ func validateStruct(v any) error {
 }
 
 // Set request body from an any.
-func setBody(body any, contentType string, c compression.Compression) (*bytes.Buffer, error) {
+func setBody(body any, c compression.Compression) (*bytes.Buffer, error) {
 	if body == nil {
 		return nil, nil
 	}
@@ -280,7 +274,7 @@ func setBody(body any, contentType string, c compression.Compression) (*bytes.Bu
 			_, err = bodyBuf.WriteString(s)
 		} else if s, ok := body.(*string); ok {
 			_, err = bodyBuf.WriteString(*s)
-		} else if jsonCheck.MatchString(contentType) {
+		} else {
 			err = json.NewEncoder(bodyBuf).Encode(body)
 		}
 	}
@@ -290,7 +284,7 @@ func setBody(body any, contentType string, c compression.Compression) (*bytes.Bu
 	}
 
 	if bodyBuf.Len() == 0 {
-		return nil, fmt.Errorf("Invalid body type %s\n", contentType)
+		return nil, errors.New("Invalid body type, or empty body")
 	}
 	return bodyBuf, nil
 }

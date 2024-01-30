@@ -10,7 +10,7 @@ type Configuration struct {
 	AppID  string
 	ApiKey string
 
-	Hosts          []string
+	Hosts          []StatefulHost
 	DefaultHeader  map[string]string
 	UserAgent      string
 	Requester      Requester

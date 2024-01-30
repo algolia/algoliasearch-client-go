@@ -11,6 +11,7 @@ const (
 )
 
 type StatefulHost struct {
+	scheme     string
 	host       string
 	isDown     bool
 	retryCount int
@@ -18,8 +19,9 @@ type StatefulHost struct {
 	accept     func(k call.Kind) bool
 }
 
-func NewStatefulHost(host string, accept func(k call.Kind) bool) *StatefulHost {
-	return &StatefulHost{
+func NewStatefulHost(scheme string, host string, accept func(k call.Kind) bool) StatefulHost {
+	return StatefulHost{
+		scheme:     scheme,
 		host:       host,
 		isDown:     false,
 		retryCount: 0,
