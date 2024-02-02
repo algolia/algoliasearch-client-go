@@ -114,12 +114,15 @@ func (o SearchSynonymsResponse) MarshalJSON() ([]byte, error) {
 	return serialized, nil
 }
 
-func (o *SearchSynonymsResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SearchSynonymsResponse) UnmarshalJSON(bytes []byte) error {
 	varSearchSynonymsResponse := _SearchSynonymsResponse{}
 
-	if err = json.Unmarshal(bytes, &varSearchSynonymsResponse); err == nil {
-		*o = SearchSynonymsResponse(varSearchSynonymsResponse)
+	err := json.Unmarshal(bytes, &varSearchSynonymsResponse)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal SearchSynonymsResponse: %w", err)
 	}
+
+	*o = SearchSynonymsResponse(varSearchSynonymsResponse)
 
 	additionalProperties := make(map[string]any)
 

@@ -1190,12 +1190,15 @@ func (o BaseSearchResponse) MarshalJSON() ([]byte, error) {
 	return serialized, nil
 }
 
-func (o *BaseSearchResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseSearchResponse) UnmarshalJSON(bytes []byte) error {
 	varBaseSearchResponse := _BaseSearchResponse{}
 
-	if err = json.Unmarshal(bytes, &varBaseSearchResponse); err == nil {
-		*o = BaseSearchResponse(varBaseSearchResponse)
+	err := json.Unmarshal(bytes, &varBaseSearchResponse)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal BaseSearchResponse: %w", err)
 	}
+
+	*o = BaseSearchResponse(varBaseSearchResponse)
 
 	additionalProperties := make(map[string]any)
 

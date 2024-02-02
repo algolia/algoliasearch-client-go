@@ -294,12 +294,15 @@ func (o DictionaryEntry) MarshalJSON() ([]byte, error) {
 	return serialized, nil
 }
 
-func (o *DictionaryEntry) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DictionaryEntry) UnmarshalJSON(bytes []byte) error {
 	varDictionaryEntry := _DictionaryEntry{}
 
-	if err = json.Unmarshal(bytes, &varDictionaryEntry); err == nil {
-		*o = DictionaryEntry(varDictionaryEntry)
+	err := json.Unmarshal(bytes, &varDictionaryEntry)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal DictionaryEntry: %w", err)
 	}
+
+	*o = DictionaryEntry(varDictionaryEntry)
 
 	additionalProperties := make(map[string]any)
 

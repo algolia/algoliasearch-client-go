@@ -262,12 +262,15 @@ func (o Hit) MarshalJSON() ([]byte, error) {
 	return serialized, nil
 }
 
-func (o *Hit) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Hit) UnmarshalJSON(bytes []byte) error {
 	varHit := _Hit{}
 
-	if err = json.Unmarshal(bytes, &varHit); err == nil {
-		*o = Hit(varHit)
+	err := json.Unmarshal(bytes, &varHit)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal Hit: %w", err)
 	}
+
+	*o = Hit(varHit)
 
 	additionalProperties := make(map[string]any)
 

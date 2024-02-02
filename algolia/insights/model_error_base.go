@@ -100,12 +100,15 @@ func (o ErrorBase) MarshalJSON() ([]byte, error) {
 	return serialized, nil
 }
 
-func (o *ErrorBase) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ErrorBase) UnmarshalJSON(bytes []byte) error {
 	varErrorBase := _ErrorBase{}
 
-	if err = json.Unmarshal(bytes, &varErrorBase); err == nil {
-		*o = ErrorBase(varErrorBase)
+	err := json.Unmarshal(bytes, &varErrorBase)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal ErrorBase: %w", err)
 	}
+
+	*o = ErrorBase(varErrorBase)
 
 	additionalProperties := make(map[string]any)
 

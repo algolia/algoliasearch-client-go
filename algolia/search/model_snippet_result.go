@@ -9,6 +9,7 @@ import (
 // SnippetResult - struct for SnippetResult.
 type SnippetResult struct {
 	SnippetResultOption               *SnippetResultOption
+	ArrayOfSnippetResultOption        *[]SnippetResultOption
 	MapmapOfStringSnippetResultOption *map[string]SnippetResultOption
 }
 
@@ -26,6 +27,13 @@ func MapmapOfStringSnippetResultOptionAsSnippetResult(v map[string]SnippetResult
 	}
 }
 
+// []SnippetResultOptionAsSnippetResult is a convenience function that returns []SnippetResultOption wrapped in SnippetResult.
+func ArrayOfSnippetResultOptionAsSnippetResult(v []SnippetResultOption) *SnippetResult {
+	return &SnippetResult{
+		ArrayOfSnippetResultOption: &v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 	var err error
@@ -40,6 +48,19 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.SnippetResultOption = nil
+	}
+
+	// try to unmarshal data into ArrayOfSnippetResultOption
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfSnippetResultOption)
+	if err == nil && validateStruct(dst.ArrayOfSnippetResultOption) == nil {
+		jsonArrayOfSnippetResultOption, _ := json.Marshal(dst.ArrayOfSnippetResultOption)
+		if string(jsonArrayOfSnippetResultOption) == "{}" { // empty struct
+			dst.ArrayOfSnippetResultOption = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.ArrayOfSnippetResultOption = nil
 	}
 
 	// try to unmarshal data into MapmapOfStringSnippetResultOption
@@ -69,6 +90,15 @@ func (src SnippetResult) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.ArrayOfSnippetResultOption != nil {
+		serialized, err := json.Marshal(&src.ArrayOfSnippetResultOption)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfSnippetResultOption of SnippetResult: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.MapmapOfStringSnippetResultOption != nil {
 		serialized, err := json.Marshal(&src.MapmapOfStringSnippetResultOption)
 		if err != nil {
@@ -88,6 +118,10 @@ func (obj *SnippetResult) GetActualInstance() any {
 	}
 	if obj.SnippetResultOption != nil {
 		return obj.SnippetResultOption
+	}
+
+	if obj.ArrayOfSnippetResultOption != nil {
+		return obj.ArrayOfSnippetResultOption
 	}
 
 	if obj.MapmapOfStringSnippetResultOption != nil {

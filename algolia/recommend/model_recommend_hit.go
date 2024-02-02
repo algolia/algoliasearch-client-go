@@ -293,12 +293,15 @@ func (o RecommendHit) MarshalJSON() ([]byte, error) {
 	return serialized, nil
 }
 
-func (o *RecommendHit) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RecommendHit) UnmarshalJSON(bytes []byte) error {
 	varRecommendHit := _RecommendHit{}
 
-	if err = json.Unmarshal(bytes, &varRecommendHit); err == nil {
-		*o = RecommendHit(varRecommendHit)
+	err := json.Unmarshal(bytes, &varRecommendHit)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal RecommendHit: %w", err)
 	}
+
+	*o = RecommendHit(varRecommendHit)
 
 	additionalProperties := make(map[string]any)
 
