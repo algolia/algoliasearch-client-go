@@ -82,16 +82,13 @@ func (src AroundPrecision) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *AroundPrecision) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj AroundPrecision) GetActualInstance() any {
 	if obj.ArrayOfAroundPrecisionFromValueInner != nil {
-		return obj.ArrayOfAroundPrecisionFromValueInner
+		return *obj.ArrayOfAroundPrecisionFromValueInner
 	}
 
 	if obj.Int32 != nil {
-		return obj.Int32
+		return *obj.Int32
 	}
 
 	// all schemas are nil

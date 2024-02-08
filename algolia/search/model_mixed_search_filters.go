@@ -82,16 +82,13 @@ func (src MixedSearchFilters) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *MixedSearchFilters) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj MixedSearchFilters) GetActualInstance() any {
 	if obj.ArrayOfString != nil {
-		return obj.ArrayOfString
+		return *obj.ArrayOfString
 	}
 
 	if obj.String != nil {
-		return obj.String
+		return *obj.String
 	}
 
 	// all schemas are nil

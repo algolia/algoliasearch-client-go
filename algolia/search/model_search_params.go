@@ -104,16 +104,13 @@ func (src SearchParams) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *SearchParams) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj SearchParams) GetActualInstance() any {
 	if obj.SearchParamsObject != nil {
-		return obj.SearchParamsObject
+		return *obj.SearchParamsObject
 	}
 
 	if obj.SearchParamsString != nil {
-		return obj.SearchParamsString
+		return *obj.SearchParamsString
 	}
 
 	// all schemas are nil

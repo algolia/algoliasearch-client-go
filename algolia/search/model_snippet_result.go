@@ -112,20 +112,17 @@ func (src SnippetResult) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *SnippetResult) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj SnippetResult) GetActualInstance() any {
 	if obj.SnippetResultOption != nil {
-		return obj.SnippetResultOption
+		return *obj.SnippetResultOption
 	}
 
 	if obj.ArrayOfSnippetResultOption != nil {
-		return obj.ArrayOfSnippetResultOption
+		return *obj.ArrayOfSnippetResultOption
 	}
 
 	if obj.MapmapOfStringSnippetResultOption != nil {
-		return obj.MapmapOfStringSnippetResultOption
+		return *obj.MapmapOfStringSnippetResultOption
 	}
 
 	// all schemas are nil

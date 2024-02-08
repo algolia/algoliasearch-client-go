@@ -22,7 +22,7 @@ func QueryParamOption(name string, val any) Option {
 	return Option{
 		optionType: "query",
 		name:       name,
-		value:      parameterToString(val),
+		value:      queryParameterToString(val),
 	}
 }
 
@@ -251,7 +251,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -392,7 +392,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -551,7 +551,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -716,7 +716,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -1139,16 +1139,16 @@ func (c *APIClient) ListABTestsWithContext(ctx context.Context, r ApiListABTests
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", parameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", parameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.indexPrefix) {
-		queryParams.Set("indexPrefix", parameterToString(r.indexPrefix))
+		queryParams.Set("indexPrefix", queryParameterToString(r.indexPrefix))
 	}
 	if !utils.IsNilOrEmpty(r.indexSuffix) {
-		queryParams.Set("indexSuffix", parameterToString(r.indexSuffix))
+		queryParams.Set("indexSuffix", queryParameterToString(r.indexSuffix))
 	}
 
 	// optional params if any

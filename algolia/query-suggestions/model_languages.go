@@ -82,16 +82,13 @@ func (src Languages) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *Languages) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj Languages) GetActualInstance() any {
 	if obj.ArrayOfString != nil {
-		return obj.ArrayOfString
+		return *obj.ArrayOfString
 	}
 
 	if obj.Bool != nil {
-		return obj.Bool
+		return *obj.Bool
 	}
 
 	// all schemas are nil

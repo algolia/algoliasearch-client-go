@@ -22,7 +22,7 @@ func QueryParamOption(name string, val any) Option {
 	return Option{
 		optionType: "query",
 		name:       name,
-		value:      parameterToString(val),
+		value:      queryParameterToString(val),
 	}
 }
 
@@ -635,7 +635,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -776,7 +776,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -935,7 +935,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -1100,7 +1100,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -2172,22 +2172,22 @@ func (c *APIClient) GetAuthenticationsWithContext(ctx context.Context, r ApiGetA
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(r.type_))
+		queryParams.Set("type", queryParameterToString(r.type_))
 	}
 	if !utils.IsNilOrEmpty(r.platform) {
-		queryParams.Set("platform", parameterToString(r.platform))
+		queryParams.Set("platform", queryParameterToString(r.platform))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(r.sort))
+		queryParams.Set("sort", queryParameterToString(r.sort))
 	}
 	if !utils.IsNilOrEmpty(r.order) {
-		queryParams.Set("order", parameterToString(r.order))
+		queryParams.Set("order", queryParameterToString(r.order))
 	}
 
 	// optional params if any
@@ -2525,22 +2525,22 @@ func (c *APIClient) GetDestinationsWithContext(ctx context.Context, r ApiGetDest
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(r.type_))
+		queryParams.Set("type", queryParameterToString(r.type_))
 	}
 	if !utils.IsNilOrEmpty(r.authenticationID) {
-		queryParams.Set("authenticationID", parameterToString(r.authenticationID))
+		queryParams.Set("authenticationID", queryParameterToString(r.authenticationID))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(r.sort))
+		queryParams.Set("sort", queryParameterToString(r.sort))
 	}
 	if !utils.IsNilOrEmpty(r.order) {
-		queryParams.Set("order", parameterToString(r.order))
+		queryParams.Set("order", queryParameterToString(r.order))
 	}
 
 	// optional params if any
@@ -3071,28 +3071,28 @@ func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequ
 	}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.status) {
-		queryParams.Set("status", parameterToString(r.status))
+		queryParams.Set("status", queryParameterToString(r.status))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(r.type_))
+		queryParams.Set("type", queryParameterToString(r.type_))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(r.sort))
+		queryParams.Set("sort", queryParameterToString(r.sort))
 	}
 	if !utils.IsNilOrEmpty(r.order) {
-		queryParams.Set("order", parameterToString(r.order))
+		queryParams.Set("order", queryParameterToString(r.order))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", parameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", parameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(r.endDate))
 	}
 
 	// optional params if any
@@ -3466,28 +3466,28 @@ func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest,
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.status) {
-		queryParams.Set("status", parameterToString(r.status))
+		queryParams.Set("status", queryParameterToString(r.status))
 	}
 	if !utils.IsNilOrEmpty(r.taskID) {
-		queryParams.Set("taskID", parameterToString(r.taskID))
+		queryParams.Set("taskID", queryParameterToString(r.taskID))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(r.sort))
+		queryParams.Set("sort", queryParameterToString(r.sort))
 	}
 	if !utils.IsNilOrEmpty(r.order) {
-		queryParams.Set("order", parameterToString(r.order))
+		queryParams.Set("order", queryParameterToString(r.order))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", parameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", parameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(r.endDate))
 	}
 
 	// optional params if any
@@ -3825,22 +3825,22 @@ func (c *APIClient) GetSourcesWithContext(ctx context.Context, r ApiGetSourcesRe
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(r.type_))
+		queryParams.Set("type", queryParameterToString(r.type_))
 	}
 	if !utils.IsNilOrEmpty(r.authenticationID) {
-		queryParams.Set("authenticationID", parameterToString(r.authenticationID))
+		queryParams.Set("authenticationID", queryParameterToString(r.authenticationID))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(r.sort))
+		queryParams.Set("sort", queryParameterToString(r.sort))
 	}
 	if !utils.IsNilOrEmpty(r.order) {
-		queryParams.Set("order", parameterToString(r.order))
+		queryParams.Set("order", queryParameterToString(r.order))
 	}
 
 	// optional params if any
@@ -4232,31 +4232,31 @@ func (c *APIClient) GetTasksWithContext(ctx context.Context, r ApiGetTasksReques
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", parameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.action) {
-		queryParams.Set("action", parameterToString(r.action))
+		queryParams.Set("action", queryParameterToString(r.action))
 	}
 	if !utils.IsNilOrEmpty(r.enabled) {
-		queryParams.Set("enabled", parameterToString(r.enabled))
+		queryParams.Set("enabled", queryParameterToString(r.enabled))
 	}
 	if !utils.IsNilOrEmpty(r.sourceID) {
-		queryParams.Set("sourceID", parameterToString(r.sourceID))
+		queryParams.Set("sourceID", queryParameterToString(r.sourceID))
 	}
 	if !utils.IsNilOrEmpty(r.destinationID) {
-		queryParams.Set("destinationID", parameterToString(r.destinationID))
+		queryParams.Set("destinationID", queryParameterToString(r.destinationID))
 	}
 	if !utils.IsNilOrEmpty(r.triggerType) {
-		queryParams.Set("triggerType", parameterToString(r.triggerType))
+		queryParams.Set("triggerType", queryParameterToString(r.triggerType))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
-		queryParams.Set("sort", parameterToString(r.sort))
+		queryParams.Set("sort", queryParameterToString(r.sort))
 	}
 	if !utils.IsNilOrEmpty(r.order) {
-		queryParams.Set("order", parameterToString(r.order))
+		queryParams.Set("order", queryParameterToString(r.order))
 	}
 
 	// optional params if any

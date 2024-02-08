@@ -82,16 +82,13 @@ func (src NumericFilters) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *NumericFilters) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj NumericFilters) GetActualInstance() any {
 	if obj.ArrayOfMixedSearchFilters != nil {
-		return obj.ArrayOfMixedSearchFilters
+		return *obj.ArrayOfMixedSearchFilters
 	}
 
 	if obj.String != nil {
-		return obj.String
+		return *obj.String
 	}
 
 	// all schemas are nil

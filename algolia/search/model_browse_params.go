@@ -104,16 +104,13 @@ func (src BrowseParams) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *BrowseParams) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj BrowseParams) GetActualInstance() any {
 	if obj.BrowseParamsObject != nil {
-		return obj.BrowseParamsObject
+		return *obj.BrowseParamsObject
 	}
 
 	if obj.SearchParamsString != nil {
-		return obj.SearchParamsString
+		return *obj.SearchParamsString
 	}
 
 	// all schemas are nil

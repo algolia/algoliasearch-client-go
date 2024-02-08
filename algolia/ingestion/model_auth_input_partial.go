@@ -172,28 +172,25 @@ func (src AuthInputPartial) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *AuthInputPartial) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj AuthInputPartial) GetActualInstance() any {
 	if obj.AuthAPIKeyPartial != nil {
-		return obj.AuthAPIKeyPartial
+		return *obj.AuthAPIKeyPartial
 	}
 
 	if obj.AuthAlgoliaPartial != nil {
-		return obj.AuthAlgoliaPartial
+		return *obj.AuthAlgoliaPartial
 	}
 
 	if obj.AuthBasicPartial != nil {
-		return obj.AuthBasicPartial
+		return *obj.AuthBasicPartial
 	}
 
 	if obj.AuthGoogleServiceAccountPartial != nil {
-		return obj.AuthGoogleServiceAccountPartial
+		return *obj.AuthGoogleServiceAccountPartial
 	}
 
 	if obj.AuthOAuthPartial != nil {
-		return obj.AuthOAuthPartial
+		return *obj.AuthOAuthPartial
 	}
 
 	// all schemas are nil

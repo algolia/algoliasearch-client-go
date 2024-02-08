@@ -87,16 +87,13 @@ func (src ReRankingApplyFilter) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *ReRankingApplyFilter) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj ReRankingApplyFilter) GetActualInstance() any {
 	if obj.ArrayOfMixedSearchFilters != nil {
-		return obj.ArrayOfMixedSearchFilters
+		return *obj.ArrayOfMixedSearchFilters
 	}
 
 	if obj.String != nil {
-		return obj.String
+		return *obj.String
 	}
 
 	// all schemas are nil

@@ -99,12 +99,32 @@ func getUserAgent() string {
 	return fmt.Sprintf("Algolia for Go (4.0.0-beta.0); Go (%s); Search (4.0.0-beta.0)", runtime.Version())
 }
 
+// queryParameterToString convert any query parameters to string.
+func queryParameterToString(obj any) string {
+	return strings.ReplaceAll(url.QueryEscape(parameterToString(obj)), "+", "%20")
+}
+
 // parameterToString convert any parameters to string.
 func parameterToString(obj any) string {
-	if reflect.TypeOf(obj).Kind() == reflect.Slice {
-		return strings.Trim(strings.ReplaceAll(fmt.Sprint(obj), " ", ","), "[]")
-	} else if t, ok := obj.(time.Time); ok {
+	objKind := reflect.TypeOf(obj).Kind()
+	if objKind == reflect.Slice {
+		var result []string
+		sliceValue := reflect.ValueOf(obj)
+		for i := 0; i < sliceValue.Len(); i++ {
+			element := sliceValue.Index(i).Interface()
+			result = append(result, parameterToString(element))
+		}
+		return strings.Join(result, ",")
+	}
+
+	if t, ok := obj.(time.Time); ok {
 		return t.Format(time.RFC3339)
+	}
+
+	if objKind == reflect.Struct {
+		if actualObj, ok := obj.(interface{ GetActualInstance() any }); ok {
+			return parameterToString(actualObj.GetActualInstance())
+		}
 	}
 
 	return fmt.Sprintf("%v", obj)
@@ -215,7 +235,7 @@ func (c *APIClient) decode(v any, b []byte) error {
 		return nil
 	}
 
-	if actualObj, ok := v.(interface{ GetActualInstance() any }); ok { // oneOf, anyOf schemas
+	if actualObj, ok := v.(interface{ GetActualInstance() any }); ok { // oneOf schemas
 		if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
 			if err := unmarshalObj.UnmarshalJSON(b); err != nil {
 				return fmt.Errorf("failed to unmarshal one of in response body: %w", err)

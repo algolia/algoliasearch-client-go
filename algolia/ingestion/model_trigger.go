@@ -112,20 +112,17 @@ func (src Trigger) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *Trigger) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj Trigger) GetActualInstance() any {
 	if obj.OnDemandTrigger != nil {
-		return obj.OnDemandTrigger
+		return *obj.OnDemandTrigger
 	}
 
 	if obj.ScheduleTrigger != nil {
-		return obj.ScheduleTrigger
+		return *obj.ScheduleTrigger
 	}
 
 	if obj.SubscriptionTrigger != nil {
-		return obj.SubscriptionTrigger
+		return *obj.SubscriptionTrigger
 	}
 
 	// all schemas are nil

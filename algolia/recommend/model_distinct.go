@@ -82,16 +82,13 @@ func (src Distinct) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *Distinct) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj Distinct) GetActualInstance() any {
 	if obj.Bool != nil {
-		return obj.Bool
+		return *obj.Bool
 	}
 
 	if obj.Int32 != nil {
-		return obj.Int32
+		return *obj.Int32
 	}
 
 	// all schemas are nil

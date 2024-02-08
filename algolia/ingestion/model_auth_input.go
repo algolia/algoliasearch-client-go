@@ -172,28 +172,25 @@ func (src AuthInput) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *AuthInput) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj AuthInput) GetActualInstance() any {
 	if obj.AuthAPIKey != nil {
-		return obj.AuthAPIKey
+		return *obj.AuthAPIKey
 	}
 
 	if obj.AuthAlgolia != nil {
-		return obj.AuthAlgolia
+		return *obj.AuthAlgolia
 	}
 
 	if obj.AuthBasic != nil {
-		return obj.AuthBasic
+		return *obj.AuthBasic
 	}
 
 	if obj.AuthGoogleServiceAccount != nil {
-		return obj.AuthGoogleServiceAccount
+		return *obj.AuthGoogleServiceAccount
 	}
 
 	if obj.AuthOAuth != nil {
-		return obj.AuthOAuth
+		return *obj.AuthOAuth
 	}
 
 	// all schemas are nil

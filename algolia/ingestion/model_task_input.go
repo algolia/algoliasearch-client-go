@@ -82,16 +82,13 @@ func (src TaskInput) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *TaskInput) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj TaskInput) GetActualInstance() any {
 	if obj.OnDemandDateUtilsInput != nil {
-		return obj.OnDemandDateUtilsInput
+		return *obj.OnDemandDateUtilsInput
 	}
 
 	if obj.ScheduleDateUtilsInput != nil {
-		return obj.ScheduleDateUtilsInput
+		return *obj.ScheduleDateUtilsInput
 	}
 
 	// all schemas are nil

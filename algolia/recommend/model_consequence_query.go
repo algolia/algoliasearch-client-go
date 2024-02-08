@@ -82,16 +82,13 @@ func (src ConsequenceQuery) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *ConsequenceQuery) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj ConsequenceQuery) GetActualInstance() any {
 	if obj.ConsequenceQueryObject != nil {
-		return obj.ConsequenceQueryObject
+		return *obj.ConsequenceQueryObject
 	}
 
 	if obj.String != nil {
-		return obj.String
+		return *obj.String
 	}
 
 	// all schemas are nil

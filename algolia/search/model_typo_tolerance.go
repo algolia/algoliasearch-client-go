@@ -82,16 +82,13 @@ func (src TypoTolerance) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *TypoTolerance) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj TypoTolerance) GetActualInstance() any {
 	if obj.TypoToleranceEnum != nil {
-		return obj.TypoToleranceEnum
+		return *obj.TypoToleranceEnum
 	}
 
 	if obj.Bool != nil {
-		return obj.Bool
+		return *obj.Bool
 	}
 
 	// all schemas are nil

@@ -696,56 +696,53 @@ func (src EventsItems) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *EventsItems) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj EventsItems) GetActualInstance() any {
 	if obj.AddedToCartObjectIDs != nil {
-		return obj.AddedToCartObjectIDs
+		return *obj.AddedToCartObjectIDs
 	}
 
 	if obj.AddedToCartObjectIDsAfterSearch != nil {
-		return obj.AddedToCartObjectIDsAfterSearch
+		return *obj.AddedToCartObjectIDsAfterSearch
 	}
 
 	if obj.ClickedFilters != nil {
-		return obj.ClickedFilters
+		return *obj.ClickedFilters
 	}
 
 	if obj.ClickedObjectIDs != nil {
-		return obj.ClickedObjectIDs
+		return *obj.ClickedObjectIDs
 	}
 
 	if obj.ClickedObjectIDsAfterSearch != nil {
-		return obj.ClickedObjectIDsAfterSearch
+		return *obj.ClickedObjectIDsAfterSearch
 	}
 
 	if obj.ConvertedFilters != nil {
-		return obj.ConvertedFilters
+		return *obj.ConvertedFilters
 	}
 
 	if obj.ConvertedObjectIDs != nil {
-		return obj.ConvertedObjectIDs
+		return *obj.ConvertedObjectIDs
 	}
 
 	if obj.ConvertedObjectIDsAfterSearch != nil {
-		return obj.ConvertedObjectIDsAfterSearch
+		return *obj.ConvertedObjectIDsAfterSearch
 	}
 
 	if obj.PurchasedObjectIDs != nil {
-		return obj.PurchasedObjectIDs
+		return *obj.PurchasedObjectIDs
 	}
 
 	if obj.PurchasedObjectIDsAfterSearch != nil {
-		return obj.PurchasedObjectIDsAfterSearch
+		return *obj.PurchasedObjectIDsAfterSearch
 	}
 
 	if obj.ViewedFilters != nil {
-		return obj.ViewedFilters
+		return *obj.ViewedFilters
 	}
 
 	if obj.ViewedObjectIDs != nil {
-		return obj.ViewedObjectIDs
+		return *obj.ViewedObjectIDs
 	}
 
 	// all schemas are nil

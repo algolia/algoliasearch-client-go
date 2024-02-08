@@ -26,7 +26,7 @@ func QueryParamOption(name string, val any) Option {
 	return Option{
 		optionType: "query",
 		name:       name,
-		value:      parameterToString(val),
+		value:      queryParameterToString(val),
 	}
 }
 
@@ -1403,7 +1403,7 @@ func (c *APIClient) ClearRulesWithContext(ctx context.Context, r ApiClearRulesRe
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -1545,7 +1545,7 @@ func (c *APIClient) ClearSynonymsWithContext(ctx context.Context, r ApiClearSyno
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -1685,7 +1685,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -1826,7 +1826,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -1985,7 +1985,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -2150,7 +2150,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -2841,7 +2841,7 @@ func (c *APIClient) DeleteRuleWithContext(ctx context.Context, r ApiDeleteRuleRe
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -3120,7 +3120,7 @@ func (c *APIClient) DeleteSynonymWithContext(ctx context.Context, r ApiDeleteSyn
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -3589,16 +3589,16 @@ func (c *APIClient) GetLogsWithContext(ctx context.Context, r ApiGetLogsRequest,
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", parameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.length) {
-		queryParams.Set("length", parameterToString(r.length))
+		queryParams.Set("length", queryParameterToString(r.length))
 	}
 	if !utils.IsNilOrEmpty(r.indexName) {
-		queryParams.Set("indexName", parameterToString(r.indexName))
+		queryParams.Set("indexName", queryParameterToString(r.indexName))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
-		queryParams.Set("type", parameterToString(r.type_))
+		queryParams.Set("type", queryParameterToString(r.type_))
 	}
 
 	// optional params if any
@@ -3757,7 +3757,7 @@ func (c *APIClient) GetObjectWithContext(ctx context.Context, r ApiGetObjectRequ
 	}
 
 	if !utils.IsNilOrEmpty(r.attributesToRetrieve) {
-		queryParams.Set("attributesToRetrieve", parameterToString(r.attributesToRetrieve))
+		queryParams.Set("attributesToRetrieve", queryParameterToString(r.attributesToRetrieve))
 	}
 
 	// optional params if any
@@ -4826,7 +4826,7 @@ func (c *APIClient) HasPendingMappingsWithContext(ctx context.Context, r ApiHasP
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.getClusters) {
-		queryParams.Set("getClusters", parameterToString(r.getClusters))
+		queryParams.Set("getClusters", queryParameterToString(r.getClusters))
 	}
 
 	// optional params if any
@@ -5134,10 +5134,10 @@ func (c *APIClient) ListIndicesWithContext(ctx context.Context, r ApiListIndices
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
-		queryParams.Set("hitsPerPage", parameterToString(r.hitsPerPage))
+		queryParams.Set("hitsPerPage", queryParameterToString(r.hitsPerPage))
 	}
 
 	// optional params if any
@@ -5281,10 +5281,10 @@ func (c *APIClient) ListUserIdsWithContext(ctx context.Context, r ApiListUserIds
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", parameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(r.page))
 	}
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
-		queryParams.Set("hitsPerPage", parameterToString(r.hitsPerPage))
+		queryParams.Set("hitsPerPage", queryParameterToString(r.hitsPerPage))
 	}
 
 	// optional params if any
@@ -5758,7 +5758,7 @@ func (c *APIClient) PartialUpdateObjectWithContext(ctx context.Context, r ApiPar
 	}
 
 	if !utils.IsNilOrEmpty(r.createIfNotExists) {
-		queryParams.Set("createIfNotExists", parameterToString(r.createIfNotExists))
+		queryParams.Set("createIfNotExists", queryParameterToString(r.createIfNotExists))
 	}
 
 	// optional params if any
@@ -6460,7 +6460,7 @@ func (c *APIClient) SaveRuleWithContext(ctx context.Context, r ApiSaveRuleReques
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -6644,10 +6644,10 @@ func (c *APIClient) SaveRulesWithContext(ctx context.Context, r ApiSaveRulesRequ
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 	if !utils.IsNilOrEmpty(r.clearExistingRules) {
-		queryParams.Set("clearExistingRules", parameterToString(r.clearExistingRules))
+		queryParams.Set("clearExistingRules", queryParameterToString(r.clearExistingRules))
 	}
 
 	// optional params if any
@@ -6836,7 +6836,7 @@ func (c *APIClient) SaveSynonymWithContext(ctx context.Context, r ApiSaveSynonym
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -7020,10 +7020,10 @@ func (c *APIClient) SaveSynonymsWithContext(ctx context.Context, r ApiSaveSynony
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 	if !utils.IsNilOrEmpty(r.replaceExistingSynonyms) {
-		queryParams.Set("replaceExistingSynonyms", parameterToString(r.replaceExistingSynonyms))
+		queryParams.Set("replaceExistingSynonyms", queryParameterToString(r.replaceExistingSynonyms))
 	}
 
 	// optional params if any
@@ -8308,7 +8308,7 @@ func (c *APIClient) SetSettingsWithContext(ctx context.Context, r ApiSetSettings
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", parameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
 	}
 
 	// optional params if any

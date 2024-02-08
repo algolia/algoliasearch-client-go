@@ -82,16 +82,13 @@ func (src DestinationInput) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *DestinationInput) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj DestinationInput) GetActualInstance() any {
 	if obj.DestinationIndexName != nil {
-		return obj.DestinationIndexName
+		return *obj.DestinationIndexName
 	}
 
 	if obj.DestinationIndexPrefix != nil {
-		return obj.DestinationIndexPrefix
+		return *obj.DestinationIndexPrefix
 	}
 
 	// all schemas are nil

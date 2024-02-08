@@ -82,16 +82,13 @@ func (src Value) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *Value) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj Value) GetActualInstance() any {
 	if obj.Float64 != nil {
-		return obj.Float64
+		return *obj.Float64
 	}
 
 	if obj.String != nil {
-		return obj.String
+		return *obj.String
 	}
 
 	// all schemas are nil

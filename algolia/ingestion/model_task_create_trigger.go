@@ -112,20 +112,17 @@ func (src TaskCreateTrigger) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *TaskCreateTrigger) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj TaskCreateTrigger) GetActualInstance() any {
 	if obj.OnDemandTriggerInput != nil {
-		return obj.OnDemandTriggerInput
+		return *obj.OnDemandTriggerInput
 	}
 
 	if obj.ScheduleTriggerInput != nil {
-		return obj.ScheduleTriggerInput
+		return *obj.ScheduleTriggerInput
 	}
 
 	if obj.SubscriptionTrigger != nil {
-		return obj.SubscriptionTrigger
+		return *obj.SubscriptionTrigger
 	}
 
 	// all schemas are nil

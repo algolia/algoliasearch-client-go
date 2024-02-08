@@ -82,16 +82,13 @@ func (src RecommendationsHit) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *RecommendationsHit) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj RecommendationsHit) GetActualInstance() any {
 	if obj.RecommendHit != nil {
-		return obj.RecommendHit
+		return *obj.RecommendHit
 	}
 
 	if obj.TrendingFacetHit != nil {
-		return obj.TrendingFacetHit
+		return *obj.TrendingFacetHit
 	}
 
 	// all schemas are nil

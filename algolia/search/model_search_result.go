@@ -104,16 +104,13 @@ func (src SearchResult) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *SearchResult) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj SearchResult) GetActualInstance() any {
 	if obj.SearchForFacetValuesResponse != nil {
-		return obj.SearchForFacetValuesResponse
+		return *obj.SearchForFacetValuesResponse
 	}
 
 	if obj.SearchResponse != nil {
-		return obj.SearchResponse
+		return *obj.SearchResponse
 	}
 
 	// all schemas are nil

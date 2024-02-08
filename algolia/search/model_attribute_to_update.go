@@ -82,16 +82,13 @@ func (src AttributeToUpdate) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *AttributeToUpdate) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj AttributeToUpdate) GetActualInstance() any {
 	if obj.BuiltInOperation != nil {
-		return obj.BuiltInOperation
+		return *obj.BuiltInOperation
 	}
 
 	if obj.String != nil {
-		return obj.String
+		return *obj.String
 	}
 
 	// all schemas are nil

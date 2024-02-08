@@ -82,16 +82,13 @@ func (src AroundRadius) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *AroundRadius) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj AroundRadius) GetActualInstance() any {
 	if obj.AroundRadiusAll != nil {
-		return obj.AroundRadiusAll
+		return *obj.AroundRadiusAll
 	}
 
 	if obj.Int32 != nil {
-		return obj.Int32
+		return *obj.Int32
 	}
 
 	// all schemas are nil

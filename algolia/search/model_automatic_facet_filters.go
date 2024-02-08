@@ -82,16 +82,13 @@ func (src AutomaticFacetFilters) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *AutomaticFacetFilters) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj AutomaticFacetFilters) GetActualInstance() any {
 	if obj.ArrayOfAutomaticFacetFilter != nil {
-		return obj.ArrayOfAutomaticFacetFilter
+		return *obj.ArrayOfAutomaticFacetFilter
 	}
 
 	if obj.ArrayOfString != nil {
-		return obj.ArrayOfString
+		return *obj.ArrayOfString
 	}
 
 	// all schemas are nil

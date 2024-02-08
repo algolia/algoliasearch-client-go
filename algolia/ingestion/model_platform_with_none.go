@@ -82,16 +82,13 @@ func (src PlatformWithNone) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *PlatformWithNone) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj PlatformWithNone) GetActualInstance() any {
 	if obj.Platform != nil {
-		return obj.Platform
+		return *obj.Platform
 	}
 
 	if obj.PlatformNone != nil {
-		return obj.PlatformNone
+		return *obj.PlatformNone
 	}
 
 	// all schemas are nil

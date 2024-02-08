@@ -82,16 +82,13 @@ func (src AddABTestsVariant) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *AddABTestsVariant) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj AddABTestsVariant) GetActualInstance() any {
 	if obj.AbTestsVariant != nil {
-		return obj.AbTestsVariant
+		return *obj.AbTestsVariant
 	}
 
 	if obj.AbTestsVariantSearchParams != nil {
-		return obj.AbTestsVariantSearchParams
+		return *obj.AbTestsVariantSearchParams
 	}
 
 	// all schemas are nil

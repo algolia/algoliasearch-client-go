@@ -22,7 +22,7 @@ func QueryParamOption(name string, val any) Option {
 	return Option{
 		optionType: "query",
 		name:       name,
-		value:      parameterToString(val),
+		value:      queryParameterToString(val),
 	}
 }
 
@@ -124,7 +124,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -265,7 +265,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -424,7 +424,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 
@@ -589,7 +589,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, parameterToString(v))
+			queryParams.Set(k, queryParameterToString(v))
 		}
 	}
 

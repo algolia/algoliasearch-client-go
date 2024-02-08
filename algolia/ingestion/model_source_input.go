@@ -202,32 +202,29 @@ func (src SourceInput) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *SourceInput) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj SourceInput) GetActualInstance() any {
 	if obj.SourceBigCommerce != nil {
-		return obj.SourceBigCommerce
+		return *obj.SourceBigCommerce
 	}
 
 	if obj.SourceBigQuery != nil {
-		return obj.SourceBigQuery
+		return *obj.SourceBigQuery
 	}
 
 	if obj.SourceCSV != nil {
-		return obj.SourceCSV
+		return *obj.SourceCSV
 	}
 
 	if obj.SourceCommercetools != nil {
-		return obj.SourceCommercetools
+		return *obj.SourceCommercetools
 	}
 
 	if obj.SourceDocker != nil {
-		return obj.SourceDocker
+		return *obj.SourceDocker
 	}
 
 	if obj.SourceJSON != nil {
-		return obj.SourceJSON
+		return *obj.SourceJSON
 	}
 
 	// all schemas are nil

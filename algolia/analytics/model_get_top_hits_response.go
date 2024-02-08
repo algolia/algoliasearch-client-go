@@ -82,16 +82,13 @@ func (src GetTopHitsResponse) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *GetTopHitsResponse) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj GetTopHitsResponse) GetActualInstance() any {
 	if obj.TopHitsResponse != nil {
-		return obj.TopHitsResponse
+		return *obj.TopHitsResponse
 	}
 
 	if obj.TopHitsResponseWithAnalytics != nil {
-		return obj.TopHitsResponseWithAnalytics
+		return *obj.TopHitsResponseWithAnalytics
 	}
 
 	// all schemas are nil

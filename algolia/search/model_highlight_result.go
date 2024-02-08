@@ -112,20 +112,17 @@ func (src HighlightResult) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *HighlightResult) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj HighlightResult) GetActualInstance() any {
 	if obj.HighlightResultOption != nil {
-		return obj.HighlightResultOption
+		return *obj.HighlightResultOption
 	}
 
 	if obj.ArrayOfHighlightResultOption != nil {
-		return obj.ArrayOfHighlightResultOption
+		return *obj.ArrayOfHighlightResultOption
 	}
 
 	if obj.MapmapOfStringHighlightResultOption != nil {
-		return obj.MapmapOfStringHighlightResultOption
+		return *obj.MapmapOfStringHighlightResultOption
 	}
 
 	// all schemas are nil

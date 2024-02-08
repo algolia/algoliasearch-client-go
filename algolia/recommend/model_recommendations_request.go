@@ -142,24 +142,21 @@ func (src RecommendationsRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *RecommendationsRequest) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj RecommendationsRequest) GetActualInstance() any {
 	if obj.RecommendationsQuery != nil {
-		return obj.RecommendationsQuery
+		return *obj.RecommendationsQuery
 	}
 
 	if obj.RecommendedForYouQuery != nil {
-		return obj.RecommendedForYouQuery
+		return *obj.RecommendedForYouQuery
 	}
 
 	if obj.TrendingFacetsQuery != nil {
-		return obj.TrendingFacetsQuery
+		return *obj.TrendingFacetsQuery
 	}
 
 	if obj.TrendingItemsQuery != nil {
-		return obj.TrendingItemsQuery
+		return *obj.TrendingItemsQuery
 	}
 
 	// all schemas are nil

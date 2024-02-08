@@ -82,16 +82,13 @@ func (src Promote) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj *Promote) GetActualInstance() any {
-	if obj == nil {
-		return nil
-	}
+func (obj Promote) GetActualInstance() any {
 	if obj.PromoteObjectID != nil {
-		return obj.PromoteObjectID
+		return *obj.PromoteObjectID
 	}
 
 	if obj.PromoteObjectIDs != nil {
-		return obj.PromoteObjectIDs
+		return *obj.PromoteObjectIDs
 	}
 
 	// all schemas are nil
