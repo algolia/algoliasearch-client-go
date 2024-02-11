@@ -2072,8 +2072,8 @@ func (r *ApiGetAuthenticationsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiGetAuthenticationsRequest represents the request with all the parameters for the API call.
 type ApiGetAuthenticationsRequest struct {
-	itemsPerPage int32
-	page         int32
+	itemsPerPage *int32
+	page         *int32
 	type_        []AuthenticationType
 	platform     []PlatformWithNone
 	sort         AuthenticationSortKeys
@@ -2087,13 +2087,13 @@ func (c *APIClient) NewApiGetAuthenticationsRequest() ApiGetAuthenticationsReque
 
 // WithItemsPerPage adds the itemsPerPage to the ApiGetAuthenticationsRequest and returns the request for chaining.
 func (r ApiGetAuthenticationsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetAuthenticationsRequest {
-	r.itemsPerPage = itemsPerPage
+	r.itemsPerPage = &itemsPerPage
 	return r
 }
 
 // WithPage adds the page to the ApiGetAuthenticationsRequest and returns the request for chaining.
 func (r ApiGetAuthenticationsRequest) WithPage(page int32) ApiGetAuthenticationsRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
@@ -2172,10 +2172,10 @@ func (c *APIClient) GetAuthenticationsWithContext(ctx context.Context, r ApiGetA
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(*r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", queryParameterToString(r.type_))
@@ -2425,8 +2425,8 @@ func (r *ApiGetDestinationsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiGetDestinationsRequest represents the request with all the parameters for the API call.
 type ApiGetDestinationsRequest struct {
-	itemsPerPage     int32
-	page             int32
+	itemsPerPage     *int32
+	page             *int32
 	type_            []DestinationType
 	authenticationID []string
 	sort             DestinationSortKeys
@@ -2440,13 +2440,13 @@ func (c *APIClient) NewApiGetDestinationsRequest() ApiGetDestinationsRequest {
 
 // WithItemsPerPage adds the itemsPerPage to the ApiGetDestinationsRequest and returns the request for chaining.
 func (r ApiGetDestinationsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetDestinationsRequest {
-	r.itemsPerPage = itemsPerPage
+	r.itemsPerPage = &itemsPerPage
 	return r
 }
 
 // WithPage adds the page to the ApiGetDestinationsRequest and returns the request for chaining.
 func (r ApiGetDestinationsRequest) WithPage(page int32) ApiGetDestinationsRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
@@ -2525,10 +2525,10 @@ func (c *APIClient) GetDestinationsWithContext(ctx context.Context, r ApiGetDest
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(*r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", queryParameterToString(r.type_))
@@ -2945,14 +2945,14 @@ func (r *ApiGetEventsRequest) UnmarshalJSON(b []byte) error {
 // ApiGetEventsRequest represents the request with all the parameters for the API call.
 type ApiGetEventsRequest struct {
 	runID        string
-	itemsPerPage int32
-	page         int32
+	itemsPerPage *int32
+	page         *int32
 	status       []EventStatus
 	type_        []EventType
 	sort         EventSortKeys
 	order        OrderKeys
-	startDate    string
-	endDate      string
+	startDate    *string
+	endDate      *string
 }
 
 // NewApiGetEventsRequest creates an instance of the ApiGetEventsRequest to be used for the API call.
@@ -2964,13 +2964,13 @@ func (c *APIClient) NewApiGetEventsRequest(runID string) ApiGetEventsRequest {
 
 // WithItemsPerPage adds the itemsPerPage to the ApiGetEventsRequest and returns the request for chaining.
 func (r ApiGetEventsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetEventsRequest {
-	r.itemsPerPage = itemsPerPage
+	r.itemsPerPage = &itemsPerPage
 	return r
 }
 
 // WithPage adds the page to the ApiGetEventsRequest and returns the request for chaining.
 func (r ApiGetEventsRequest) WithPage(page int32) ApiGetEventsRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
@@ -3000,13 +3000,13 @@ func (r ApiGetEventsRequest) WithOrder(order OrderKeys) ApiGetEventsRequest {
 
 // WithStartDate adds the startDate to the ApiGetEventsRequest and returns the request for chaining.
 func (r ApiGetEventsRequest) WithStartDate(startDate string) ApiGetEventsRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetEventsRequest and returns the request for chaining.
 func (r ApiGetEventsRequest) WithEndDate(endDate string) ApiGetEventsRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
@@ -3071,10 +3071,10 @@ func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequ
 	}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(*r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.status) {
 		queryParams.Set("status", queryParameterToString(r.status))
@@ -3089,10 +3089,10 @@ func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequ
 		queryParams.Set("order", queryParameterToString(r.order))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 
 	// optional params if any
@@ -3348,14 +3348,14 @@ func (r *ApiGetRunsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiGetRunsRequest represents the request with all the parameters for the API call.
 type ApiGetRunsRequest struct {
-	itemsPerPage int32
-	page         int32
+	itemsPerPage *int32
+	page         *int32
 	status       []RunStatus
-	taskID       string
+	taskID       *string
 	sort         RunSortKeys
 	order        OrderKeys
-	startDate    string
-	endDate      string
+	startDate    *string
+	endDate      *string
 }
 
 // NewApiGetRunsRequest creates an instance of the ApiGetRunsRequest to be used for the API call.
@@ -3365,13 +3365,13 @@ func (c *APIClient) NewApiGetRunsRequest() ApiGetRunsRequest {
 
 // WithItemsPerPage adds the itemsPerPage to the ApiGetRunsRequest and returns the request for chaining.
 func (r ApiGetRunsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetRunsRequest {
-	r.itemsPerPage = itemsPerPage
+	r.itemsPerPage = &itemsPerPage
 	return r
 }
 
 // WithPage adds the page to the ApiGetRunsRequest and returns the request for chaining.
 func (r ApiGetRunsRequest) WithPage(page int32) ApiGetRunsRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
@@ -3383,7 +3383,7 @@ func (r ApiGetRunsRequest) WithStatus(status []RunStatus) ApiGetRunsRequest {
 
 // WithTaskID adds the taskID to the ApiGetRunsRequest and returns the request for chaining.
 func (r ApiGetRunsRequest) WithTaskID(taskID string) ApiGetRunsRequest {
-	r.taskID = taskID
+	r.taskID = &taskID
 	return r
 }
 
@@ -3401,13 +3401,13 @@ func (r ApiGetRunsRequest) WithOrder(order OrderKeys) ApiGetRunsRequest {
 
 // WithStartDate adds the startDate to the ApiGetRunsRequest and returns the request for chaining.
 func (r ApiGetRunsRequest) WithStartDate(startDate string) ApiGetRunsRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetRunsRequest and returns the request for chaining.
 func (r ApiGetRunsRequest) WithEndDate(endDate string) ApiGetRunsRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
@@ -3466,16 +3466,16 @@ func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest,
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(*r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.status) {
 		queryParams.Set("status", queryParameterToString(r.status))
 	}
 	if !utils.IsNilOrEmpty(r.taskID) {
-		queryParams.Set("taskID", queryParameterToString(r.taskID))
+		queryParams.Set("taskID", queryParameterToString(*r.taskID))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
 		queryParams.Set("sort", queryParameterToString(r.sort))
@@ -3484,10 +3484,10 @@ func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest,
 		queryParams.Set("order", queryParameterToString(r.order))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 
 	// optional params if any
@@ -3725,8 +3725,8 @@ func (r *ApiGetSourcesRequest) UnmarshalJSON(b []byte) error {
 
 // ApiGetSourcesRequest represents the request with all the parameters for the API call.
 type ApiGetSourcesRequest struct {
-	itemsPerPage     int32
-	page             int32
+	itemsPerPage     *int32
+	page             *int32
 	type_            []SourceType
 	authenticationID []string
 	sort             SourceSortKeys
@@ -3740,13 +3740,13 @@ func (c *APIClient) NewApiGetSourcesRequest() ApiGetSourcesRequest {
 
 // WithItemsPerPage adds the itemsPerPage to the ApiGetSourcesRequest and returns the request for chaining.
 func (r ApiGetSourcesRequest) WithItemsPerPage(itemsPerPage int32) ApiGetSourcesRequest {
-	r.itemsPerPage = itemsPerPage
+	r.itemsPerPage = &itemsPerPage
 	return r
 }
 
 // WithPage adds the page to the ApiGetSourcesRequest and returns the request for chaining.
 func (r ApiGetSourcesRequest) WithPage(page int32) ApiGetSourcesRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
@@ -3825,10 +3825,10 @@ func (c *APIClient) GetSourcesWithContext(ctx context.Context, r ApiGetSourcesRe
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(*r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", queryParameterToString(r.type_))
@@ -4105,10 +4105,10 @@ func (r *ApiGetTasksRequest) UnmarshalJSON(b []byte) error {
 
 // ApiGetTasksRequest represents the request with all the parameters for the API call.
 type ApiGetTasksRequest struct {
-	itemsPerPage  int32
-	page          int32
+	itemsPerPage  *int32
+	page          *int32
 	action        []ActionType
-	enabled       bool
+	enabled       *bool
 	sourceID      []string
 	destinationID []string
 	triggerType   []TriggerType
@@ -4123,13 +4123,13 @@ func (c *APIClient) NewApiGetTasksRequest() ApiGetTasksRequest {
 
 // WithItemsPerPage adds the itemsPerPage to the ApiGetTasksRequest and returns the request for chaining.
 func (r ApiGetTasksRequest) WithItemsPerPage(itemsPerPage int32) ApiGetTasksRequest {
-	r.itemsPerPage = itemsPerPage
+	r.itemsPerPage = &itemsPerPage
 	return r
 }
 
 // WithPage adds the page to the ApiGetTasksRequest and returns the request for chaining.
 func (r ApiGetTasksRequest) WithPage(page int32) ApiGetTasksRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
@@ -4141,7 +4141,7 @@ func (r ApiGetTasksRequest) WithAction(action []ActionType) ApiGetTasksRequest {
 
 // WithEnabled adds the enabled to the ApiGetTasksRequest and returns the request for chaining.
 func (r ApiGetTasksRequest) WithEnabled(enabled bool) ApiGetTasksRequest {
-	r.enabled = enabled
+	r.enabled = &enabled
 	return r
 }
 
@@ -4232,16 +4232,16 @@ func (c *APIClient) GetTasksWithContext(ctx context.Context, r ApiGetTasksReques
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		queryParams.Set("itemsPerPage", queryParameterToString(r.itemsPerPage))
+		queryParams.Set("itemsPerPage", queryParameterToString(*r.itemsPerPage))
 	}
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.action) {
 		queryParams.Set("action", queryParameterToString(r.action))
 	}
 	if !utils.IsNilOrEmpty(r.enabled) {
-		queryParams.Set("enabled", queryParameterToString(r.enabled))
+		queryParams.Set("enabled", queryParameterToString(*r.enabled))
 	}
 	if !utils.IsNilOrEmpty(r.sourceID) {
 		queryParams.Set("sourceID", queryParameterToString(r.sourceID))

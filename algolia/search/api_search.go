@@ -1342,7 +1342,7 @@ func (r *ApiClearRulesRequest) UnmarshalJSON(b []byte) error {
 // ApiClearRulesRequest represents the request with all the parameters for the API call.
 type ApiClearRulesRequest struct {
 	indexName         string
-	forwardToReplicas bool
+	forwardToReplicas *bool
 }
 
 // NewApiClearRulesRequest creates an instance of the ApiClearRulesRequest to be used for the API call.
@@ -1354,7 +1354,7 @@ func (c *APIClient) NewApiClearRulesRequest(indexName string) ApiClearRulesReque
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiClearRulesRequest and returns the request for chaining.
 func (r ApiClearRulesRequest) WithForwardToReplicas(forwardToReplicas bool) ApiClearRulesRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
@@ -1403,7 +1403,7 @@ func (c *APIClient) ClearRulesWithContext(ctx context.Context, r ApiClearRulesRe
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -1484,7 +1484,7 @@ func (r *ApiClearSynonymsRequest) UnmarshalJSON(b []byte) error {
 // ApiClearSynonymsRequest represents the request with all the parameters for the API call.
 type ApiClearSynonymsRequest struct {
 	indexName         string
-	forwardToReplicas bool
+	forwardToReplicas *bool
 }
 
 // NewApiClearSynonymsRequest creates an instance of the ApiClearSynonymsRequest to be used for the API call.
@@ -1496,7 +1496,7 @@ func (c *APIClient) NewApiClearSynonymsRequest(indexName string) ApiClearSynonym
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiClearSynonymsRequest and returns the request for chaining.
 func (r ApiClearSynonymsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiClearSynonymsRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
@@ -1545,7 +1545,7 @@ func (c *APIClient) ClearSynonymsWithContext(ctx context.Context, r ApiClearSyno
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -2773,7 +2773,7 @@ func (r *ApiDeleteRuleRequest) UnmarshalJSON(b []byte) error {
 type ApiDeleteRuleRequest struct {
 	indexName         string
 	objectID          string
-	forwardToReplicas bool
+	forwardToReplicas *bool
 }
 
 // NewApiDeleteRuleRequest creates an instance of the ApiDeleteRuleRequest to be used for the API call.
@@ -2786,7 +2786,7 @@ func (c *APIClient) NewApiDeleteRuleRequest(indexName string, objectID string) A
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiDeleteRuleRequest and returns the request for chaining.
 func (r ApiDeleteRuleRequest) WithForwardToReplicas(forwardToReplicas bool) ApiDeleteRuleRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
@@ -2841,7 +2841,7 @@ func (c *APIClient) DeleteRuleWithContext(ctx context.Context, r ApiDeleteRuleRe
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -3052,7 +3052,7 @@ func (r *ApiDeleteSynonymRequest) UnmarshalJSON(b []byte) error {
 type ApiDeleteSynonymRequest struct {
 	indexName         string
 	objectID          string
-	forwardToReplicas bool
+	forwardToReplicas *bool
 }
 
 // NewApiDeleteSynonymRequest creates an instance of the ApiDeleteSynonymRequest to be used for the API call.
@@ -3065,7 +3065,7 @@ func (c *APIClient) NewApiDeleteSynonymRequest(indexName string, objectID string
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiDeleteSynonymRequest and returns the request for chaining.
 func (r ApiDeleteSynonymRequest) WithForwardToReplicas(forwardToReplicas bool) ApiDeleteSynonymRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
@@ -3120,7 +3120,7 @@ func (c *APIClient) DeleteSynonymWithContext(ctx context.Context, r ApiDeleteSyn
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -3503,9 +3503,9 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiGetLogsRequest represents the request with all the parameters for the API call.
 type ApiGetLogsRequest struct {
-	offset    int32
-	length    int32
-	indexName string
+	offset    *int32
+	length    *int32
+	indexName *string
 	type_     LogType
 }
 
@@ -3516,19 +3516,19 @@ func (c *APIClient) NewApiGetLogsRequest() ApiGetLogsRequest {
 
 // WithOffset adds the offset to the ApiGetLogsRequest and returns the request for chaining.
 func (r ApiGetLogsRequest) WithOffset(offset int32) ApiGetLogsRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithLength adds the length to the ApiGetLogsRequest and returns the request for chaining.
 func (r ApiGetLogsRequest) WithLength(length int32) ApiGetLogsRequest {
-	r.length = length
+	r.length = &length
 	return r
 }
 
 // WithIndexName adds the indexName to the ApiGetLogsRequest and returns the request for chaining.
 func (r ApiGetLogsRequest) WithIndexName(indexName string) ApiGetLogsRequest {
-	r.indexName = indexName
+	r.indexName = &indexName
 	return r
 }
 
@@ -3589,13 +3589,13 @@ func (c *APIClient) GetLogsWithContext(ctx context.Context, r ApiGetLogsRequest,
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.length) {
-		queryParams.Set("length", queryParameterToString(r.length))
+		queryParams.Set("length", queryParameterToString(*r.length))
 	}
 	if !utils.IsNilOrEmpty(r.indexName) {
-		queryParams.Set("indexName", queryParameterToString(r.indexName))
+		queryParams.Set("indexName", queryParameterToString(*r.indexName))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
 		queryParams.Set("type", queryParameterToString(r.type_))
@@ -4773,7 +4773,7 @@ func (r *ApiHasPendingMappingsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiHasPendingMappingsRequest represents the request with all the parameters for the API call.
 type ApiHasPendingMappingsRequest struct {
-	getClusters bool
+	getClusters *bool
 }
 
 // NewApiHasPendingMappingsRequest creates an instance of the ApiHasPendingMappingsRequest to be used for the API call.
@@ -4783,7 +4783,7 @@ func (c *APIClient) NewApiHasPendingMappingsRequest() ApiHasPendingMappingsReque
 
 // WithGetClusters adds the getClusters to the ApiHasPendingMappingsRequest and returns the request for chaining.
 func (r ApiHasPendingMappingsRequest) WithGetClusters(getClusters bool) ApiHasPendingMappingsRequest {
-	r.getClusters = getClusters
+	r.getClusters = &getClusters
 	return r
 }
 
@@ -4826,7 +4826,7 @@ func (c *APIClient) HasPendingMappingsWithContext(ctx context.Context, r ApiHasP
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.getClusters) {
-		queryParams.Set("getClusters", queryParameterToString(r.getClusters))
+		queryParams.Set("getClusters", queryParameterToString(*r.getClusters))
 	}
 
 	// optional params if any
@@ -5072,8 +5072,8 @@ func (r *ApiListIndicesRequest) UnmarshalJSON(b []byte) error {
 
 // ApiListIndicesRequest represents the request with all the parameters for the API call.
 type ApiListIndicesRequest struct {
-	page        int32
-	hitsPerPage int32
+	page        *int32
+	hitsPerPage *int32
 }
 
 // NewApiListIndicesRequest creates an instance of the ApiListIndicesRequest to be used for the API call.
@@ -5083,13 +5083,13 @@ func (c *APIClient) NewApiListIndicesRequest() ApiListIndicesRequest {
 
 // WithPage adds the page to the ApiListIndicesRequest and returns the request for chaining.
 func (r ApiListIndicesRequest) WithPage(page int32) ApiListIndicesRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
 // WithHitsPerPage adds the hitsPerPage to the ApiListIndicesRequest and returns the request for chaining.
 func (r ApiListIndicesRequest) WithHitsPerPage(hitsPerPage int32) ApiListIndicesRequest {
-	r.hitsPerPage = hitsPerPage
+	r.hitsPerPage = &hitsPerPage
 	return r
 }
 
@@ -5134,10 +5134,10 @@ func (c *APIClient) ListIndicesWithContext(ctx context.Context, r ApiListIndices
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
-		queryParams.Set("hitsPerPage", queryParameterToString(r.hitsPerPage))
+		queryParams.Set("hitsPerPage", queryParameterToString(*r.hitsPerPage))
 	}
 
 	// optional params if any
@@ -5217,8 +5217,8 @@ func (r *ApiListUserIdsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiListUserIdsRequest represents the request with all the parameters for the API call.
 type ApiListUserIdsRequest struct {
-	page        int32
-	hitsPerPage int32
+	page        *int32
+	hitsPerPage *int32
 }
 
 // NewApiListUserIdsRequest creates an instance of the ApiListUserIdsRequest to be used for the API call.
@@ -5228,13 +5228,13 @@ func (c *APIClient) NewApiListUserIdsRequest() ApiListUserIdsRequest {
 
 // WithPage adds the page to the ApiListUserIdsRequest and returns the request for chaining.
 func (r ApiListUserIdsRequest) WithPage(page int32) ApiListUserIdsRequest {
-	r.page = page
+	r.page = &page
 	return r
 }
 
 // WithHitsPerPage adds the hitsPerPage to the ApiListUserIdsRequest and returns the request for chaining.
 func (r ApiListUserIdsRequest) WithHitsPerPage(hitsPerPage int32) ApiListUserIdsRequest {
-	r.hitsPerPage = hitsPerPage
+	r.hitsPerPage = &hitsPerPage
 	return r
 }
 
@@ -5281,10 +5281,10 @@ func (c *APIClient) ListUserIdsWithContext(ctx context.Context, r ApiListUserIds
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.page) {
-		queryParams.Set("page", queryParameterToString(r.page))
+		queryParams.Set("page", queryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
-		queryParams.Set("hitsPerPage", queryParameterToString(r.hitsPerPage))
+		queryParams.Set("hitsPerPage", queryParameterToString(*r.hitsPerPage))
 	}
 
 	// optional params if any
@@ -5678,7 +5678,7 @@ type ApiPartialUpdateObjectRequest struct {
 	indexName          string
 	objectID           string
 	attributesToUpdate map[string]AttributeToUpdate
-	createIfNotExists  bool
+	createIfNotExists  *bool
 }
 
 // NewApiPartialUpdateObjectRequest creates an instance of the ApiPartialUpdateObjectRequest to be used for the API call.
@@ -5692,7 +5692,7 @@ func (c *APIClient) NewApiPartialUpdateObjectRequest(indexName string, objectID 
 
 // WithCreateIfNotExists adds the createIfNotExists to the ApiPartialUpdateObjectRequest and returns the request for chaining.
 func (r ApiPartialUpdateObjectRequest) WithCreateIfNotExists(createIfNotExists bool) ApiPartialUpdateObjectRequest {
-	r.createIfNotExists = createIfNotExists
+	r.createIfNotExists = &createIfNotExists
 	return r
 }
 
@@ -5758,7 +5758,7 @@ func (c *APIClient) PartialUpdateObjectWithContext(ctx context.Context, r ApiPar
 	}
 
 	if !utils.IsNilOrEmpty(r.createIfNotExists) {
-		queryParams.Set("createIfNotExists", queryParameterToString(r.createIfNotExists))
+		queryParams.Set("createIfNotExists", queryParameterToString(*r.createIfNotExists))
 	}
 
 	// optional params if any
@@ -6385,7 +6385,7 @@ type ApiSaveRuleRequest struct {
 	indexName         string
 	objectID          string
 	rule              *Rule
-	forwardToReplicas bool
+	forwardToReplicas *bool
 }
 
 // NewApiSaveRuleRequest creates an instance of the ApiSaveRuleRequest to be used for the API call.
@@ -6399,7 +6399,7 @@ func (c *APIClient) NewApiSaveRuleRequest(indexName string, objectID string, rul
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveRuleRequest and returns the request for chaining.
 func (r ApiSaveRuleRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveRuleRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
@@ -6460,7 +6460,7 @@ func (c *APIClient) SaveRuleWithContext(ctx context.Context, r ApiSaveRuleReques
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -6567,8 +6567,8 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 type ApiSaveRulesRequest struct {
 	indexName          string
 	rules              []Rule
-	forwardToReplicas  bool
-	clearExistingRules bool
+	forwardToReplicas  *bool
+	clearExistingRules *bool
 }
 
 // NewApiSaveRulesRequest creates an instance of the ApiSaveRulesRequest to be used for the API call.
@@ -6581,13 +6581,13 @@ func (c *APIClient) NewApiSaveRulesRequest(indexName string, rules []Rule) ApiSa
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveRulesRequest and returns the request for chaining.
 func (r ApiSaveRulesRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveRulesRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
 // WithClearExistingRules adds the clearExistingRules to the ApiSaveRulesRequest and returns the request for chaining.
 func (r ApiSaveRulesRequest) WithClearExistingRules(clearExistingRules bool) ApiSaveRulesRequest {
-	r.clearExistingRules = clearExistingRules
+	r.clearExistingRules = &clearExistingRules
 	return r
 }
 
@@ -6644,10 +6644,10 @@ func (c *APIClient) SaveRulesWithContext(ctx context.Context, r ApiSaveRulesRequ
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 	if !utils.IsNilOrEmpty(r.clearExistingRules) {
-		queryParams.Set("clearExistingRules", queryParameterToString(r.clearExistingRules))
+		queryParams.Set("clearExistingRules", queryParameterToString(*r.clearExistingRules))
 	}
 
 	// optional params if any
@@ -6755,7 +6755,7 @@ type ApiSaveSynonymRequest struct {
 	indexName         string
 	objectID          string
 	synonymHit        *SynonymHit
-	forwardToReplicas bool
+	forwardToReplicas *bool
 }
 
 // NewApiSaveSynonymRequest creates an instance of the ApiSaveSynonymRequest to be used for the API call.
@@ -6769,7 +6769,7 @@ func (c *APIClient) NewApiSaveSynonymRequest(indexName string, objectID string, 
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveSynonymRequest and returns the request for chaining.
 func (r ApiSaveSynonymRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveSynonymRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
@@ -6836,7 +6836,7 @@ func (c *APIClient) SaveSynonymWithContext(ctx context.Context, r ApiSaveSynonym
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
@@ -6943,8 +6943,8 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 type ApiSaveSynonymsRequest struct {
 	indexName               string
 	synonymHit              []SynonymHit
-	forwardToReplicas       bool
-	replaceExistingSynonyms bool
+	forwardToReplicas       *bool
+	replaceExistingSynonyms *bool
 }
 
 // NewApiSaveSynonymsRequest creates an instance of the ApiSaveSynonymsRequest to be used for the API call.
@@ -6957,13 +6957,13 @@ func (c *APIClient) NewApiSaveSynonymsRequest(indexName string, synonymHit []Syn
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveSynonymsRequest and returns the request for chaining.
 func (r ApiSaveSynonymsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveSynonymsRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
 // WithReplaceExistingSynonyms adds the replaceExistingSynonyms to the ApiSaveSynonymsRequest and returns the request for chaining.
 func (r ApiSaveSynonymsRequest) WithReplaceExistingSynonyms(replaceExistingSynonyms bool) ApiSaveSynonymsRequest {
-	r.replaceExistingSynonyms = replaceExistingSynonyms
+	r.replaceExistingSynonyms = &replaceExistingSynonyms
 	return r
 }
 
@@ -7020,10 +7020,10 @@ func (c *APIClient) SaveSynonymsWithContext(ctx context.Context, r ApiSaveSynony
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 	if !utils.IsNilOrEmpty(r.replaceExistingSynonyms) {
-		queryParams.Set("replaceExistingSynonyms", queryParameterToString(r.replaceExistingSynonyms))
+		queryParams.Set("replaceExistingSynonyms", queryParameterToString(*r.replaceExistingSynonyms))
 	}
 
 	// optional params if any
@@ -8240,7 +8240,7 @@ func (r *ApiSetSettingsRequest) UnmarshalJSON(b []byte) error {
 type ApiSetSettingsRequest struct {
 	indexName         string
 	indexSettings     *IndexSettings
-	forwardToReplicas bool
+	forwardToReplicas *bool
 }
 
 // NewApiSetSettingsRequest creates an instance of the ApiSetSettingsRequest to be used for the API call.
@@ -8253,7 +8253,7 @@ func (c *APIClient) NewApiSetSettingsRequest(indexName string, indexSettings *In
 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSetSettingsRequest and returns the request for chaining.
 func (r ApiSetSettingsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSetSettingsRequest {
-	r.forwardToReplicas = forwardToReplicas
+	r.forwardToReplicas = &forwardToReplicas
 	return r
 }
 
@@ -8308,7 +8308,7 @@ func (c *APIClient) SetSettingsWithContext(ctx context.Context, r ApiSetSettings
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		queryParams.Set("forwardToReplicas", queryParameterToString(r.forwardToReplicas))
+		queryParams.Set("forwardToReplicas", queryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any

@@ -1059,10 +1059,10 @@ func (r *ApiListABTestsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiListABTestsRequest represents the request with all the parameters for the API call.
 type ApiListABTestsRequest struct {
-	offset      int32
-	limit       int32
-	indexPrefix string
-	indexSuffix string
+	offset      *int32
+	limit       *int32
+	indexPrefix *string
+	indexSuffix *string
 }
 
 // NewApiListABTestsRequest creates an instance of the ApiListABTestsRequest to be used for the API call.
@@ -1072,25 +1072,25 @@ func (c *APIClient) NewApiListABTestsRequest() ApiListABTestsRequest {
 
 // WithOffset adds the offset to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithOffset(offset int32) ApiListABTestsRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithLimit adds the limit to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithLimit(limit int32) ApiListABTestsRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithIndexPrefix adds the indexPrefix to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithIndexPrefix(indexPrefix string) ApiListABTestsRequest {
-	r.indexPrefix = indexPrefix
+	r.indexPrefix = &indexPrefix
 	return r
 }
 
 // WithIndexSuffix adds the indexSuffix to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithIndexSuffix(indexSuffix string) ApiListABTestsRequest {
-	r.indexSuffix = indexSuffix
+	r.indexSuffix = &indexSuffix
 	return r
 }
 
@@ -1139,16 +1139,16 @@ func (c *APIClient) ListABTestsWithContext(ctx context.Context, r ApiListABTests
 	queryParams := url.Values{}
 
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.indexPrefix) {
-		queryParams.Set("indexPrefix", queryParameterToString(r.indexPrefix))
+		queryParams.Set("indexPrefix", queryParameterToString(*r.indexPrefix))
 	}
 	if !utils.IsNilOrEmpty(r.indexSuffix) {
-		queryParams.Set("indexSuffix", queryParameterToString(r.indexSuffix))
+		queryParams.Set("indexSuffix", queryParameterToString(*r.indexSuffix))
 	}
 
 	// optional params if any

@@ -695,9 +695,9 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 // ApiGetAverageClickPositionRequest represents the request with all the parameters for the API call.
 type ApiGetAverageClickPositionRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetAverageClickPositionRequest creates an instance of the ApiGetAverageClickPositionRequest to be used for the API call.
@@ -709,19 +709,19 @@ func (c *APIClient) NewApiGetAverageClickPositionRequest(index string) ApiGetAve
 
 // WithStartDate adds the startDate to the ApiGetAverageClickPositionRequest and returns the request for chaining.
 func (r ApiGetAverageClickPositionRequest) WithStartDate(startDate string) ApiGetAverageClickPositionRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetAverageClickPositionRequest and returns the request for chaining.
 func (r ApiGetAverageClickPositionRequest) WithEndDate(endDate string) ApiGetAverageClickPositionRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetAverageClickPositionRequest and returns the request for chaining.
 func (r ApiGetAverageClickPositionRequest) WithTags(tags string) ApiGetAverageClickPositionRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -776,13 +776,13 @@ func (c *APIClient) GetAverageClickPositionWithContext(ctx context.Context, r Ap
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -881,9 +881,9 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 // ApiGetClickPositionsRequest represents the request with all the parameters for the API call.
 type ApiGetClickPositionsRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetClickPositionsRequest creates an instance of the ApiGetClickPositionsRequest to be used for the API call.
@@ -895,19 +895,19 @@ func (c *APIClient) NewApiGetClickPositionsRequest(index string) ApiGetClickPosi
 
 // WithStartDate adds the startDate to the ApiGetClickPositionsRequest and returns the request for chaining.
 func (r ApiGetClickPositionsRequest) WithStartDate(startDate string) ApiGetClickPositionsRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetClickPositionsRequest and returns the request for chaining.
 func (r ApiGetClickPositionsRequest) WithEndDate(endDate string) ApiGetClickPositionsRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetClickPositionsRequest and returns the request for chaining.
 func (r ApiGetClickPositionsRequest) WithTags(tags string) ApiGetClickPositionsRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -964,13 +964,13 @@ func (c *APIClient) GetClickPositionsWithContext(ctx context.Context, r ApiGetCl
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -1069,9 +1069,9 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 // ApiGetClickThroughRateRequest represents the request with all the parameters for the API call.
 type ApiGetClickThroughRateRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetClickThroughRateRequest creates an instance of the ApiGetClickThroughRateRequest to be used for the API call.
@@ -1083,19 +1083,19 @@ func (c *APIClient) NewApiGetClickThroughRateRequest(index string) ApiGetClickTh
 
 // WithStartDate adds the startDate to the ApiGetClickThroughRateRequest and returns the request for chaining.
 func (r ApiGetClickThroughRateRequest) WithStartDate(startDate string) ApiGetClickThroughRateRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetClickThroughRateRequest and returns the request for chaining.
 func (r ApiGetClickThroughRateRequest) WithEndDate(endDate string) ApiGetClickThroughRateRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetClickThroughRateRequest and returns the request for chaining.
 func (r ApiGetClickThroughRateRequest) WithTags(tags string) ApiGetClickThroughRateRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -1148,13 +1148,13 @@ func (c *APIClient) GetClickThroughRateWithContext(ctx context.Context, r ApiGet
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -1253,9 +1253,9 @@ func (r *ApiGetConversationRateRequest) UnmarshalJSON(b []byte) error {
 // ApiGetConversationRateRequest represents the request with all the parameters for the API call.
 type ApiGetConversationRateRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetConversationRateRequest creates an instance of the ApiGetConversationRateRequest to be used for the API call.
@@ -1267,19 +1267,19 @@ func (c *APIClient) NewApiGetConversationRateRequest(index string) ApiGetConvers
 
 // WithStartDate adds the startDate to the ApiGetConversationRateRequest and returns the request for chaining.
 func (r ApiGetConversationRateRequest) WithStartDate(startDate string) ApiGetConversationRateRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetConversationRateRequest and returns the request for chaining.
 func (r ApiGetConversationRateRequest) WithEndDate(endDate string) ApiGetConversationRateRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetConversationRateRequest and returns the request for chaining.
 func (r ApiGetConversationRateRequest) WithTags(tags string) ApiGetConversationRateRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -1332,13 +1332,13 @@ func (c *APIClient) GetConversationRateWithContext(ctx context.Context, r ApiGet
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -1437,9 +1437,9 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 // ApiGetNoClickRateRequest represents the request with all the parameters for the API call.
 type ApiGetNoClickRateRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetNoClickRateRequest creates an instance of the ApiGetNoClickRateRequest to be used for the API call.
@@ -1451,19 +1451,19 @@ func (c *APIClient) NewApiGetNoClickRateRequest(index string) ApiGetNoClickRateR
 
 // WithStartDate adds the startDate to the ApiGetNoClickRateRequest and returns the request for chaining.
 func (r ApiGetNoClickRateRequest) WithStartDate(startDate string) ApiGetNoClickRateRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetNoClickRateRequest and returns the request for chaining.
 func (r ApiGetNoClickRateRequest) WithEndDate(endDate string) ApiGetNoClickRateRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetNoClickRateRequest and returns the request for chaining.
 func (r ApiGetNoClickRateRequest) WithTags(tags string) ApiGetNoClickRateRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -1516,13 +1516,13 @@ func (c *APIClient) GetNoClickRateWithContext(ctx context.Context, r ApiGetNoCli
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -1621,9 +1621,9 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 // ApiGetNoResultsRateRequest represents the request with all the parameters for the API call.
 type ApiGetNoResultsRateRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetNoResultsRateRequest creates an instance of the ApiGetNoResultsRateRequest to be used for the API call.
@@ -1635,19 +1635,19 @@ func (c *APIClient) NewApiGetNoResultsRateRequest(index string) ApiGetNoResultsR
 
 // WithStartDate adds the startDate to the ApiGetNoResultsRateRequest and returns the request for chaining.
 func (r ApiGetNoResultsRateRequest) WithStartDate(startDate string) ApiGetNoResultsRateRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetNoResultsRateRequest and returns the request for chaining.
 func (r ApiGetNoResultsRateRequest) WithEndDate(endDate string) ApiGetNoResultsRateRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetNoResultsRateRequest and returns the request for chaining.
 func (r ApiGetNoResultsRateRequest) WithTags(tags string) ApiGetNoResultsRateRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -1700,13 +1700,13 @@ func (c *APIClient) GetNoResultsRateWithContext(ctx context.Context, r ApiGetNoR
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -1805,9 +1805,9 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 // ApiGetSearchesCountRequest represents the request with all the parameters for the API call.
 type ApiGetSearchesCountRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetSearchesCountRequest creates an instance of the ApiGetSearchesCountRequest to be used for the API call.
@@ -1819,19 +1819,19 @@ func (c *APIClient) NewApiGetSearchesCountRequest(index string) ApiGetSearchesCo
 
 // WithStartDate adds the startDate to the ApiGetSearchesCountRequest and returns the request for chaining.
 func (r ApiGetSearchesCountRequest) WithStartDate(startDate string) ApiGetSearchesCountRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetSearchesCountRequest and returns the request for chaining.
 func (r ApiGetSearchesCountRequest) WithEndDate(endDate string) ApiGetSearchesCountRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetSearchesCountRequest and returns the request for chaining.
 func (r ApiGetSearchesCountRequest) WithTags(tags string) ApiGetSearchesCountRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -1884,13 +1884,13 @@ func (c *APIClient) GetSearchesCountWithContext(ctx context.Context, r ApiGetSea
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -2007,11 +2007,11 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 // ApiGetSearchesNoClicksRequest represents the request with all the parameters for the API call.
 type ApiGetSearchesNoClicksRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	limit     int32
-	offset    int32
-	tags      string
+	startDate *string
+	endDate   *string
+	limit     *int32
+	offset    *int32
+	tags      *string
 }
 
 // NewApiGetSearchesNoClicksRequest creates an instance of the ApiGetSearchesNoClicksRequest to be used for the API call.
@@ -2023,31 +2023,31 @@ func (c *APIClient) NewApiGetSearchesNoClicksRequest(index string) ApiGetSearche
 
 // WithStartDate adds the startDate to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithStartDate(startDate string) ApiGetSearchesNoClicksRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithEndDate(endDate string) ApiGetSearchesNoClicksRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithLimit(limit int32) ApiGetSearchesNoClicksRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithOffset(offset int32) ApiGetSearchesNoClicksRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithTags(tags string) ApiGetSearchesNoClicksRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -2104,19 +2104,19 @@ func (c *APIClient) GetSearchesNoClicksWithContext(ctx context.Context, r ApiGet
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -2233,11 +2233,11 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 // ApiGetSearchesNoResultsRequest represents the request with all the parameters for the API call.
 type ApiGetSearchesNoResultsRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	limit     int32
-	offset    int32
-	tags      string
+	startDate *string
+	endDate   *string
+	limit     *int32
+	offset    *int32
+	tags      *string
 }
 
 // NewApiGetSearchesNoResultsRequest creates an instance of the ApiGetSearchesNoResultsRequest to be used for the API call.
@@ -2249,31 +2249,31 @@ func (c *APIClient) NewApiGetSearchesNoResultsRequest(index string) ApiGetSearch
 
 // WithStartDate adds the startDate to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithStartDate(startDate string) ApiGetSearchesNoResultsRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithEndDate(endDate string) ApiGetSearchesNoResultsRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithLimit(limit int32) ApiGetSearchesNoResultsRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithOffset(offset int32) ApiGetSearchesNoResultsRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithTags(tags string) ApiGetSearchesNoResultsRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -2330,19 +2330,19 @@ func (c *APIClient) GetSearchesNoResultsWithContext(ctx context.Context, r ApiGe
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -2582,11 +2582,11 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 // ApiGetTopCountriesRequest represents the request with all the parameters for the API call.
 type ApiGetTopCountriesRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	limit     int32
-	offset    int32
-	tags      string
+	startDate *string
+	endDate   *string
+	limit     *int32
+	offset    *int32
+	tags      *string
 }
 
 // NewApiGetTopCountriesRequest creates an instance of the ApiGetTopCountriesRequest to be used for the API call.
@@ -2598,31 +2598,31 @@ func (c *APIClient) NewApiGetTopCountriesRequest(index string) ApiGetTopCountrie
 
 // WithStartDate adds the startDate to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithStartDate(startDate string) ApiGetTopCountriesRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithEndDate(endDate string) ApiGetTopCountriesRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithLimit(limit int32) ApiGetTopCountriesRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithOffset(offset int32) ApiGetTopCountriesRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithTags(tags string) ApiGetTopCountriesRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -2679,19 +2679,19 @@ func (c *APIClient) GetTopCountriesWithContext(ctx context.Context, r ApiGetTopC
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -2817,12 +2817,12 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 // ApiGetTopFilterAttributesRequest represents the request with all the parameters for the API call.
 type ApiGetTopFilterAttributesRequest struct {
 	index     string
-	search    string
-	startDate string
-	endDate   string
-	limit     int32
-	offset    int32
-	tags      string
+	search    *string
+	startDate *string
+	endDate   *string
+	limit     *int32
+	offset    *int32
+	tags      *string
 }
 
 // NewApiGetTopFilterAttributesRequest creates an instance of the ApiGetTopFilterAttributesRequest to be used for the API call.
@@ -2834,37 +2834,37 @@ func (c *APIClient) NewApiGetTopFilterAttributesRequest(index string) ApiGetTopF
 
 // WithSearch adds the search to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithSearch(search string) ApiGetTopFilterAttributesRequest {
-	r.search = search
+	r.search = &search
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithStartDate(startDate string) ApiGetTopFilterAttributesRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithEndDate(endDate string) ApiGetTopFilterAttributesRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithLimit(limit int32) ApiGetTopFilterAttributesRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithOffset(offset int32) ApiGetTopFilterAttributesRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithTags(tags string) ApiGetTopFilterAttributesRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -2923,22 +2923,22 @@ func (c *APIClient) GetTopFilterAttributesWithContext(ctx context.Context, r Api
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.search) {
-		queryParams.Set("search", queryParameterToString(r.search))
+		queryParams.Set("search", queryParameterToString(*r.search))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -3074,12 +3074,12 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 type ApiGetTopFilterForAttributeRequest struct {
 	attribute string
 	index     string
-	search    string
-	startDate string
-	endDate   string
-	limit     int32
-	offset    int32
-	tags      string
+	search    *string
+	startDate *string
+	endDate   *string
+	limit     *int32
+	offset    *int32
+	tags      *string
 }
 
 // NewApiGetTopFilterForAttributeRequest creates an instance of the ApiGetTopFilterForAttributeRequest to be used for the API call.
@@ -3092,37 +3092,37 @@ func (c *APIClient) NewApiGetTopFilterForAttributeRequest(attribute string, inde
 
 // WithSearch adds the search to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithSearch(search string) ApiGetTopFilterForAttributeRequest {
-	r.search = search
+	r.search = &search
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithStartDate(startDate string) ApiGetTopFilterForAttributeRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithEndDate(endDate string) ApiGetTopFilterForAttributeRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithLimit(limit int32) ApiGetTopFilterForAttributeRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithOffset(offset int32) ApiGetTopFilterForAttributeRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithTags(tags string) ApiGetTopFilterForAttributeRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -3187,22 +3187,22 @@ func (c *APIClient) GetTopFilterForAttributeWithContext(ctx context.Context, r A
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.search) {
-		queryParams.Set("search", queryParameterToString(r.search))
+		queryParams.Set("search", queryParameterToString(*r.search))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -3328,12 +3328,12 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 // ApiGetTopFiltersNoResultsRequest represents the request with all the parameters for the API call.
 type ApiGetTopFiltersNoResultsRequest struct {
 	index     string
-	search    string
-	startDate string
-	endDate   string
-	limit     int32
-	offset    int32
-	tags      string
+	search    *string
+	startDate *string
+	endDate   *string
+	limit     *int32
+	offset    *int32
+	tags      *string
 }
 
 // NewApiGetTopFiltersNoResultsRequest creates an instance of the ApiGetTopFiltersNoResultsRequest to be used for the API call.
@@ -3345,37 +3345,37 @@ func (c *APIClient) NewApiGetTopFiltersNoResultsRequest(index string) ApiGetTopF
 
 // WithSearch adds the search to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithSearch(search string) ApiGetTopFiltersNoResultsRequest {
-	r.search = search
+	r.search = &search
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithStartDate(startDate string) ApiGetTopFiltersNoResultsRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithEndDate(endDate string) ApiGetTopFiltersNoResultsRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithLimit(limit int32) ApiGetTopFiltersNoResultsRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithOffset(offset int32) ApiGetTopFiltersNoResultsRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithTags(tags string) ApiGetTopFiltersNoResultsRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -3434,22 +3434,22 @@ func (c *APIClient) GetTopFiltersNoResultsWithContext(ctx context.Context, r Api
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.search) {
-		queryParams.Set("search", queryParameterToString(r.search))
+		queryParams.Set("search", queryParameterToString(*r.search))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -3584,13 +3584,13 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 // ApiGetTopHitsRequest represents the request with all the parameters for the API call.
 type ApiGetTopHitsRequest struct {
 	index          string
-	search         string
-	clickAnalytics bool
-	startDate      string
-	endDate        string
-	limit          int32
-	offset         int32
-	tags           string
+	search         *string
+	clickAnalytics *bool
+	startDate      *string
+	endDate        *string
+	limit          *int32
+	offset         *int32
+	tags           *string
 }
 
 // NewApiGetTopHitsRequest creates an instance of the ApiGetTopHitsRequest to be used for the API call.
@@ -3602,43 +3602,43 @@ func (c *APIClient) NewApiGetTopHitsRequest(index string) ApiGetTopHitsRequest {
 
 // WithSearch adds the search to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithSearch(search string) ApiGetTopHitsRequest {
-	r.search = search
+	r.search = &search
 	return r
 }
 
 // WithClickAnalytics adds the clickAnalytics to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithClickAnalytics(clickAnalytics bool) ApiGetTopHitsRequest {
-	r.clickAnalytics = clickAnalytics
+	r.clickAnalytics = &clickAnalytics
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithStartDate(startDate string) ApiGetTopHitsRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithEndDate(endDate string) ApiGetTopHitsRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithLimit(limit int32) ApiGetTopHitsRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithOffset(offset int32) ApiGetTopHitsRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithTags(tags string) ApiGetTopHitsRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -3699,25 +3699,25 @@ func (c *APIClient) GetTopHitsWithContext(ctx context.Context, r ApiGetTopHitsRe
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.search) {
-		queryParams.Set("search", queryParameterToString(r.search))
+		queryParams.Set("search", queryParameterToString(*r.search))
 	}
 	if !utils.IsNilOrEmpty(r.clickAnalytics) {
-		queryParams.Set("clickAnalytics", queryParameterToString(r.clickAnalytics))
+		queryParams.Set("clickAnalytics", queryParameterToString(*r.clickAnalytics))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -3861,14 +3861,14 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 // ApiGetTopSearchesRequest represents the request with all the parameters for the API call.
 type ApiGetTopSearchesRequest struct {
 	index          string
-	clickAnalytics bool
-	startDate      string
-	endDate        string
+	clickAnalytics *bool
+	startDate      *string
+	endDate        *string
 	orderBy        OrderBy
 	direction      Direction
-	limit          int32
-	offset         int32
-	tags           string
+	limit          *int32
+	offset         *int32
+	tags           *string
 }
 
 // NewApiGetTopSearchesRequest creates an instance of the ApiGetTopSearchesRequest to be used for the API call.
@@ -3880,19 +3880,19 @@ func (c *APIClient) NewApiGetTopSearchesRequest(index string) ApiGetTopSearchesR
 
 // WithClickAnalytics adds the clickAnalytics to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithClickAnalytics(clickAnalytics bool) ApiGetTopSearchesRequest {
-	r.clickAnalytics = clickAnalytics
+	r.clickAnalytics = &clickAnalytics
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithStartDate(startDate string) ApiGetTopSearchesRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithEndDate(endDate string) ApiGetTopSearchesRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
@@ -3910,19 +3910,19 @@ func (r ApiGetTopSearchesRequest) WithDirection(direction Direction) ApiGetTopSe
 
 // WithLimit adds the limit to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithLimit(limit int32) ApiGetTopSearchesRequest {
-	r.limit = limit
+	r.limit = &limit
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithOffset(offset int32) ApiGetTopSearchesRequest {
-	r.offset = offset
+	r.offset = &offset
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithTags(tags string) ApiGetTopSearchesRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -3985,13 +3985,13 @@ func (c *APIClient) GetTopSearchesWithContext(ctx context.Context, r ApiGetTopSe
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.clickAnalytics) {
-		queryParams.Set("clickAnalytics", queryParameterToString(r.clickAnalytics))
+		queryParams.Set("clickAnalytics", queryParameterToString(*r.clickAnalytics))
 	}
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.orderBy) {
 		queryParams.Set("orderBy", queryParameterToString(r.orderBy))
@@ -4000,13 +4000,13 @@ func (c *APIClient) GetTopSearchesWithContext(ctx context.Context, r ApiGetTopSe
 		queryParams.Set("direction", queryParameterToString(r.direction))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		queryParams.Set("limit", queryParameterToString(r.limit))
+		queryParams.Set("limit", queryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.offset) {
-		queryParams.Set("offset", queryParameterToString(r.offset))
+		queryParams.Set("offset", queryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
@@ -4105,9 +4105,9 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 // ApiGetUsersCountRequest represents the request with all the parameters for the API call.
 type ApiGetUsersCountRequest struct {
 	index     string
-	startDate string
-	endDate   string
-	tags      string
+	startDate *string
+	endDate   *string
+	tags      *string
 }
 
 // NewApiGetUsersCountRequest creates an instance of the ApiGetUsersCountRequest to be used for the API call.
@@ -4119,19 +4119,19 @@ func (c *APIClient) NewApiGetUsersCountRequest(index string) ApiGetUsersCountReq
 
 // WithStartDate adds the startDate to the ApiGetUsersCountRequest and returns the request for chaining.
 func (r ApiGetUsersCountRequest) WithStartDate(startDate string) ApiGetUsersCountRequest {
-	r.startDate = startDate
+	r.startDate = &startDate
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetUsersCountRequest and returns the request for chaining.
 func (r ApiGetUsersCountRequest) WithEndDate(endDate string) ApiGetUsersCountRequest {
-	r.endDate = endDate
+	r.endDate = &endDate
 	return r
 }
 
 // WithTags adds the tags to the ApiGetUsersCountRequest and returns the request for chaining.
 func (r ApiGetUsersCountRequest) WithTags(tags string) ApiGetUsersCountRequest {
-	r.tags = tags
+	r.tags = &tags
 	return r
 }
 
@@ -4184,13 +4184,13 @@ func (c *APIClient) GetUsersCountWithContext(ctx context.Context, r ApiGetUsersC
 
 	queryParams.Set("index", queryParameterToString(r.index))
 	if !utils.IsNilOrEmpty(r.startDate) {
-		queryParams.Set("startDate", queryParameterToString(r.startDate))
+		queryParams.Set("startDate", queryParameterToString(*r.startDate))
 	}
 	if !utils.IsNilOrEmpty(r.endDate) {
-		queryParams.Set("endDate", queryParameterToString(r.endDate))
+		queryParams.Set("endDate", queryParameterToString(*r.endDate))
 	}
 	if !utils.IsNilOrEmpty(r.tags) {
-		queryParams.Set("tags", queryParameterToString(r.tags))
+		queryParams.Set("tags", queryParameterToString(*r.tags))
 	}
 
 	// optional params if any
