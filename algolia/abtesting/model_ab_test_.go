@@ -4,6 +4,8 @@ package abtesting
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // ABTest struct for ABTest.
@@ -11,13 +13,13 @@ type ABTest struct {
 	// Unique A/B test ID.
 	AbTestID int32 `json:"abTestID"`
 	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on click data. A value of 0.95 or over is considered to be _significant_.
-	ClickSignificance float64 `json:"clickSignificance"`
+	ClickSignificance utils.NullableFloat64 `json:"clickSignificance"`
 	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on conversion. A value of 0.95 or over is considered to be _significant_.
-	ConversionSignificance float64 `json:"conversionSignificance"`
+	ConversionSignificance utils.NullableFloat64 `json:"conversionSignificance"`
 	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on add-to-cart data. A value of 0.95 or over is considered to be _significant_.
-	AddToCartSignificance float64 `json:"addToCartSignificance"`
+	AddToCartSignificance utils.NullableFloat64 `json:"addToCartSignificance"`
 	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on purchase data. A value of 0.95 or over is considered to be _significant_.
-	PurchaseSignificance float64 `json:"purchaseSignificance"`
+	PurchaseSignificance utils.NullableFloat64 `json:"purchaseSignificance"`
 	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on revenue data. A value of 0.95 or over is considered to be _significant_.
 	RevenueSignificance map[string]float64 `json:"revenueSignificance"`
 	// Update date timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format.
@@ -38,7 +40,7 @@ type ABTest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewABTest(abTestID int32, clickSignificance float64, conversionSignificance float64, addToCartSignificance float64, purchaseSignificance float64, revenueSignificance map[string]float64, updatedAt string, createdAt string, endAt string, name string, status string, variants []Variant) *ABTest {
+func NewABTest(abTestID int32, clickSignificance utils.NullableFloat64, conversionSignificance utils.NullableFloat64, addToCartSignificance utils.NullableFloat64, purchaseSignificance utils.NullableFloat64, revenueSignificance map[string]float64, updatedAt string, createdAt string, endAt string, name string, status string, variants []Variant) *ABTest {
 	this := &ABTest{}
 	this.AbTestID = abTestID
 	this.ClickSignificance = clickSignificance
@@ -86,106 +88,115 @@ func (o *ABTest) SetAbTestID(v int32) *ABTest {
 }
 
 // GetClickSignificance returns the ClickSignificance field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *ABTest) GetClickSignificance() float64 {
-	if o == nil {
+	if o == nil || o.ClickSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.ClickSignificance
+	return *o.ClickSignificance.Get()
 }
 
 // GetClickSignificanceOk returns a tuple with the ClickSignificance field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetClickSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ClickSignificance, true
+	return o.ClickSignificance.Get(), o.ClickSignificance.IsSet()
 }
 
 // SetClickSignificance sets field value.
 func (o *ABTest) SetClickSignificance(v float64) *ABTest {
-	o.ClickSignificance = v
+	o.ClickSignificance.Set(&v)
 	return o
 }
 
 // GetConversionSignificance returns the ConversionSignificance field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *ABTest) GetConversionSignificance() float64 {
-	if o == nil {
+	if o == nil || o.ConversionSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.ConversionSignificance
+	return *o.ConversionSignificance.Get()
 }
 
 // GetConversionSignificanceOk returns a tuple with the ConversionSignificance field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetConversionSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ConversionSignificance, true
+	return o.ConversionSignificance.Get(), o.ConversionSignificance.IsSet()
 }
 
 // SetConversionSignificance sets field value.
 func (o *ABTest) SetConversionSignificance(v float64) *ABTest {
-	o.ConversionSignificance = v
+	o.ConversionSignificance.Set(&v)
 	return o
 }
 
 // GetAddToCartSignificance returns the AddToCartSignificance field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *ABTest) GetAddToCartSignificance() float64 {
-	if o == nil {
+	if o == nil || o.AddToCartSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.AddToCartSignificance
+	return *o.AddToCartSignificance.Get()
 }
 
 // GetAddToCartSignificanceOk returns a tuple with the AddToCartSignificance field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetAddToCartSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AddToCartSignificance, true
+	return o.AddToCartSignificance.Get(), o.AddToCartSignificance.IsSet()
 }
 
 // SetAddToCartSignificance sets field value.
 func (o *ABTest) SetAddToCartSignificance(v float64) *ABTest {
-	o.AddToCartSignificance = v
+	o.AddToCartSignificance.Set(&v)
 	return o
 }
 
 // GetPurchaseSignificance returns the PurchaseSignificance field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *ABTest) GetPurchaseSignificance() float64 {
-	if o == nil {
+	if o == nil || o.PurchaseSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.PurchaseSignificance
+	return *o.PurchaseSignificance.Get()
 }
 
 // GetPurchaseSignificanceOk returns a tuple with the PurchaseSignificance field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetPurchaseSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PurchaseSignificance, true
+	return o.PurchaseSignificance.Get(), o.PurchaseSignificance.IsSet()
 }
 
 // SetPurchaseSignificance sets field value.
 func (o *ABTest) SetPurchaseSignificance(v float64) *ABTest {
-	o.PurchaseSignificance = v
+	o.PurchaseSignificance.Set(&v)
 	return o
 }
 
 // GetRevenueSignificance returns the RevenueSignificance field value.
+// If the value is explicit nil, the zero value for map[string]float64 will be returned.
 func (o *ABTest) GetRevenueSignificance() map[string]float64 {
 	if o == nil {
 		var ret map[string]float64
@@ -197,8 +208,9 @@ func (o *ABTest) GetRevenueSignificance() map[string]float64 {
 
 // GetRevenueSignificanceOk returns a tuple with the RevenueSignificance field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetRevenueSignificanceOk() (*map[string]float64, bool) {
-	if o == nil {
+	if o == nil || o.RevenueSignificance == nil {
 		return nil, false
 	}
 	return &o.RevenueSignificance, true
@@ -366,18 +378,18 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 		toSerialize["abTestID"] = o.AbTestID
 	}
 	if true {
-		toSerialize["clickSignificance"] = o.ClickSignificance
+		toSerialize["clickSignificance"] = o.ClickSignificance.Get()
 	}
 	if true {
-		toSerialize["conversionSignificance"] = o.ConversionSignificance
+		toSerialize["conversionSignificance"] = o.ConversionSignificance.Get()
 	}
 	if true {
-		toSerialize["addToCartSignificance"] = o.AddToCartSignificance
+		toSerialize["addToCartSignificance"] = o.AddToCartSignificance.Get()
 	}
 	if true {
-		toSerialize["purchaseSignificance"] = o.PurchaseSignificance
+		toSerialize["purchaseSignificance"] = o.PurchaseSignificance.Get()
 	}
-	if true {
+	if o.RevenueSignificance != nil {
 		toSerialize["revenueSignificance"] = o.RevenueSignificance
 	}
 	if true {

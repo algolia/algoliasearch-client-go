@@ -4,6 +4,8 @@ package analytics
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // GetConversationRateResponse struct for GetConversationRateResponse.
@@ -11,7 +13,7 @@ type GetConversationRateResponse struct {
 	// [Click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
 	Rate float64 `json:"rate"`
 	// Number of tracked searches. This is the number of search requests where the `clickAnalytics` parameter is `true`.
-	TrackedSearchCount int32 `json:"trackedSearchCount"`
+	TrackedSearchCount utils.NullableInt32 `json:"trackedSearchCount"`
 	// Number of converted clicks.
 	ConversionCount int32 `json:"conversionCount"`
 	// Conversion events.
@@ -22,7 +24,7 @@ type GetConversationRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetConversationRateResponse(rate float64, trackedSearchCount int32, conversionCount int32, dates []ConversionRateEvent) *GetConversationRateResponse {
+func NewGetConversationRateResponse(rate float64, trackedSearchCount utils.NullableInt32, conversionCount int32, dates []ConversionRateEvent) *GetConversationRateResponse {
 	this := &GetConversationRateResponse{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
@@ -62,27 +64,29 @@ func (o *GetConversationRateResponse) SetRate(v float64) *GetConversationRateRes
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
+// If the value is explicit nil, the zero value for int32 will be returned.
 func (o *GetConversationRateResponse) GetTrackedSearchCount() int32 {
-	if o == nil {
+	if o == nil || o.TrackedSearchCount.Get() == nil {
 		var ret int32
 		return ret
 	}
 
-	return o.TrackedSearchCount
+	return *o.TrackedSearchCount.Get()
 }
 
 // GetTrackedSearchCountOk returns a tuple with the TrackedSearchCount field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *GetConversationRateResponse) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TrackedSearchCount, true
+	return o.TrackedSearchCount.Get(), o.TrackedSearchCount.IsSet()
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *GetConversationRateResponse) SetTrackedSearchCount(v int32) *GetConversationRateResponse {
-	o.TrackedSearchCount = v
+	o.TrackedSearchCount.Set(&v)
 	return o
 }
 
@@ -142,7 +146,7 @@ func (o GetConversationRateResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["rate"] = o.Rate
 	}
 	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+		toSerialize["trackedSearchCount"] = o.TrackedSearchCount.Get()
 	}
 	if true {
 		toSerialize["conversionCount"] = o.ConversionCount

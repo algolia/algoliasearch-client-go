@@ -4,6 +4,8 @@ package analytics
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // TopSearchWithAnalytics struct for TopSearchWithAnalytics.
@@ -19,7 +21,7 @@ type TopSearchWithAnalytics struct {
 	// [Conversion rate (CR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
 	ConversionRate float64 `json:"conversionRate"`
 	// Number of tracked searches. This is the number of search requests where the `clickAnalytics` parameter is `true`.
-	TrackedSearchCount int32 `json:"trackedSearchCount"`
+	TrackedSearchCount utils.NullableInt32 `json:"trackedSearchCount"`
 	// Number of click events.
 	ClickCount int32 `json:"clickCount"`
 	// Number of converted clicks.
@@ -32,7 +34,7 @@ type TopSearchWithAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopSearchWithAnalytics(search string, count int32, clickThroughRate float64, averageClickPosition int32, conversionRate float64, trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32) *TopSearchWithAnalytics {
+func NewTopSearchWithAnalytics(search string, count int32, clickThroughRate float64, averageClickPosition int32, conversionRate float64, trackedSearchCount utils.NullableInt32, clickCount int32, conversionCount int32, nbHits int32) *TopSearchWithAnalytics {
 	this := &TopSearchWithAnalytics{}
 	this.Search = search
 	this.Count = count
@@ -177,27 +179,29 @@ func (o *TopSearchWithAnalytics) SetConversionRate(v float64) *TopSearchWithAnal
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
+// If the value is explicit nil, the zero value for int32 will be returned.
 func (o *TopSearchWithAnalytics) GetTrackedSearchCount() int32 {
-	if o == nil {
+	if o == nil || o.TrackedSearchCount.Get() == nil {
 		var ret int32
 		return ret
 	}
 
-	return o.TrackedSearchCount
+	return *o.TrackedSearchCount.Get()
 }
 
 // GetTrackedSearchCountOk returns a tuple with the TrackedSearchCount field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *TopSearchWithAnalytics) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TrackedSearchCount, true
+	return o.TrackedSearchCount.Get(), o.TrackedSearchCount.IsSet()
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *TopSearchWithAnalytics) SetTrackedSearchCount(v int32) *TopSearchWithAnalytics {
-	o.TrackedSearchCount = v
+	o.TrackedSearchCount.Set(&v)
 	return o
 }
 
@@ -294,7 +298,7 @@ func (o TopSearchWithAnalytics) MarshalJSON() ([]byte, error) {
 		toSerialize["conversionRate"] = o.ConversionRate
 	}
 	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+		toSerialize["trackedSearchCount"] = o.TrackedSearchCount.Get()
 	}
 	if true {
 		toSerialize["clickCount"] = o.ClickCount

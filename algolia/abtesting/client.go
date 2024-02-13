@@ -173,16 +173,14 @@ func (c *APIClient) prepareRequest(
 		return nil, fmt.Errorf("failed to parse the path: %w", err)
 	}
 
-	// Adding Query Param
-	query := url.Query()
+	var queryString []string
 	for k, v := range queryParams {
-		for _, iv := range v {
-			query.Add(k, iv)
+		for _, value := range v {
+			queryString = append(queryString, k+"="+value)
 		}
 	}
 
-	// Encode the parameters.
-	url.RawQuery = query.Encode()
+	url.RawQuery = strings.Join(queryString, "&")
 
 	// Generate a new request
 
