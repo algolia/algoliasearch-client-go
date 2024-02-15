@@ -34,6 +34,7 @@ func NewEmptyListABTestsResponse() *ListABTestsResponse {
 }
 
 // GetAbtests returns the Abtests field value.
+// If the value is explicit nil, the zero value for []ABTest will be returned.
 func (o *ListABTestsResponse) GetAbtests() []ABTest {
 	if o == nil {
 		var ret []ABTest
@@ -45,8 +46,9 @@ func (o *ListABTestsResponse) GetAbtests() []ABTest {
 
 // GetAbtestsOk returns a tuple with the Abtests field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ListABTestsResponse) GetAbtestsOk() ([]ABTest, bool) {
-	if o == nil {
+	if o == nil || o.Abtests == nil {
 		return nil, false
 	}
 	return o.Abtests, true
@@ -110,7 +112,7 @@ func (o *ListABTestsResponse) SetTotal(v int32) *ListABTestsResponse {
 
 func (o ListABTestsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
+	if o.Abtests != nil {
 		toSerialize["abtests"] = o.Abtests
 	}
 	if true {
