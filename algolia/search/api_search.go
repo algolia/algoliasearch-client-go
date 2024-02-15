@@ -25,7 +25,7 @@ type Option struct {
 func QueryParamOption(name string, val any) Option {
 	return Option{
 		optionType: "query",
-		name:       name,
+		name:       queryParameterToString(name),
 		value:      queryParameterToString(val),
 	}
 }
