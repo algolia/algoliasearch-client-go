@@ -8,8 +8,6 @@ import (
 
 // BaseQuerySuggestionsConfigurationResponse struct for BaseQuerySuggestionsConfigurationResponse.
 type BaseQuerySuggestionsConfigurationResponse struct {
-	// Your Algolia application ID.
-	AppId *string `json:"appId,omitempty"`
 	// API key used to read from your source index.
 	SourceIndicesAPIKey *string `json:"sourceIndicesAPIKey,omitempty"`
 	// API key used to write and configure your Query Suggestions index.
@@ -19,12 +17,6 @@ type BaseQuerySuggestionsConfigurationResponse struct {
 }
 
 type BaseQuerySuggestionsConfigurationResponseOption func(f *BaseQuerySuggestionsConfigurationResponse)
-
-func WithBaseQuerySuggestionsConfigurationResponseAppId(val string) BaseQuerySuggestionsConfigurationResponseOption {
-	return func(f *BaseQuerySuggestionsConfigurationResponse) {
-		f.AppId = &val
-	}
-}
 
 func WithBaseQuerySuggestionsConfigurationResponseSourceIndicesAPIKey(val string) BaseQuerySuggestionsConfigurationResponseOption {
 	return func(f *BaseQuerySuggestionsConfigurationResponse) {
@@ -59,39 +51,6 @@ func NewBaseQuerySuggestionsConfigurationResponse(opts ...BaseQuerySuggestionsCo
 // NewEmptyBaseQuerySuggestionsConfigurationResponse return a pointer to an empty BaseQuerySuggestionsConfigurationResponse object.
 func NewEmptyBaseQuerySuggestionsConfigurationResponse() *BaseQuerySuggestionsConfigurationResponse {
 	return &BaseQuerySuggestionsConfigurationResponse{}
-}
-
-// GetAppId returns the AppId field value if set, zero value otherwise.
-func (o *BaseQuerySuggestionsConfigurationResponse) GetAppId() string {
-	if o == nil || o.AppId == nil {
-		var ret string
-		return ret
-	}
-	return *o.AppId
-}
-
-// GetAppIdOk returns a tuple with the AppId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseQuerySuggestionsConfigurationResponse) GetAppIdOk() (*string, bool) {
-	if o == nil || o.AppId == nil {
-		return nil, false
-	}
-	return o.AppId, true
-}
-
-// HasAppId returns a boolean if a field has been set.
-func (o *BaseQuerySuggestionsConfigurationResponse) HasAppId() bool {
-	if o != nil && o.AppId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAppId gets a reference to the given string and assigns it to the AppId field.
-func (o *BaseQuerySuggestionsConfigurationResponse) SetAppId(v string) *BaseQuerySuggestionsConfigurationResponse {
-	o.AppId = &v
-	return o
 }
 
 // GetSourceIndicesAPIKey returns the SourceIndicesAPIKey field value if set, zero value otherwise.
@@ -195,9 +154,6 @@ func (o *BaseQuerySuggestionsConfigurationResponse) SetExternalIndicesAPIKey(v s
 
 func (o BaseQuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.AppId != nil {
-		toSerialize["appId"] = o.AppId
-	}
 	if o.SourceIndicesAPIKey != nil {
 		toSerialize["sourceIndicesAPIKey"] = o.SourceIndicesAPIKey
 	}
@@ -217,7 +173,6 @@ func (o BaseQuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error)
 
 func (o BaseQuerySuggestionsConfigurationResponse) String() string {
 	out := ""
-	out += fmt.Sprintf("  appId=%v\n", o.AppId)
 	out += fmt.Sprintf("  sourceIndicesAPIKey=%v\n", o.SourceIndicesAPIKey)
 	out += fmt.Sprintf("  suggestionsIndicesAPIKey=%v\n", o.SuggestionsIndicesAPIKey)
 	out += fmt.Sprintf("  externalIndicesAPIKey=%v\n", o.ExternalIndicesAPIKey)
