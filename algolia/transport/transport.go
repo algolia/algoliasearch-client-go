@@ -146,7 +146,7 @@ func (t *Transport) request(req *http.Request, host Host, timeout time.Duration,
 
 func shouldCompress(c compression.Compression, method string, body any) bool {
 	isValidMethod := method == http.MethodPut || method == http.MethodPost
-	isCompressionEnabled := c != compression.None
+	isCompressionEnabled := c != compression.NONE
 	isBodyNonEmpty := body != nil
 	return isCompressionEnabled && isValidMethod && isBodyNonEmpty
 }

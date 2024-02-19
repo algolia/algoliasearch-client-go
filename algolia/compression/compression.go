@@ -3,6 +3,6 @@ package compression
 type Compression int
 
 const (
-	None Compression = iota
+	NONE Compression = iota
 	GZIP
 )

@@ -76,7 +76,7 @@ func debugRequest(req *http.Request) string {
 	case "gzip":
 		req.Body, body = extractBody(req.Body, compression.GZIP)
 	default:
-		req.Body, body = extractBody(req.Body, compression.None)
+		req.Body, body = extractBody(req.Body, compression.NONE)
 	}
 
 	msg := "> ALGOLIA DEBUG request:\n"
@@ -101,7 +101,7 @@ func debugResponse(res *http.Response) string {
 	}
 
 	var body string
-	res.Body, body = extractBody(res.Body, compression.None)
+	res.Body, body = extractBody(res.Body, compression.NONE)
 
 	msg := "> ALGOLIA DEBUG response:\n"
 	msg += fmt.Sprintf("\tbody=\n\t%s\n", prettyPrintJSON(body))
