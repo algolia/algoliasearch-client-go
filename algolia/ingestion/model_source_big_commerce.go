@@ -9,7 +9,7 @@ import (
 // SourceBigCommerce struct for SourceBigCommerce.
 type SourceBigCommerce struct {
 	// The store hash identifying the store the shopper is signing in to.
-	StoreHash         *string                `json:"storeHash,omitempty"`
+	StoreHash         string                 `json:"storeHash"`
 	Channel           *BigCommerceChannel    `json:"channel,omitempty"`
 	CustomFields      []string               `json:"customFields,omitempty"`
 	ProductMetafields []BigCommerceMetafield `json:"productMetafields,omitempty"`
@@ -17,12 +17,6 @@ type SourceBigCommerce struct {
 }
 
 type SourceBigCommerceOption func(f *SourceBigCommerce)
-
-func WithSourceBigCommerceStoreHash(val string) SourceBigCommerceOption {
-	return func(f *SourceBigCommerce) {
-		f.StoreHash = &val
-	}
-}
 
 func WithSourceBigCommerceChannel(val BigCommerceChannel) SourceBigCommerceOption {
 	return func(f *SourceBigCommerce) {
@@ -52,8 +46,9 @@ func WithSourceBigCommerceVariantMetafields(val []BigCommerceMetafield) SourceBi
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSourceBigCommerce(opts ...SourceBigCommerceOption) *SourceBigCommerce {
+func NewSourceBigCommerce(storeHash string, opts ...SourceBigCommerceOption) *SourceBigCommerce {
 	this := &SourceBigCommerce{}
+	this.StoreHash = storeHash
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -65,36 +60,28 @@ func NewEmptySourceBigCommerce() *SourceBigCommerce {
 	return &SourceBigCommerce{}
 }
 
-// GetStoreHash returns the StoreHash field value if set, zero value otherwise.
+// GetStoreHash returns the StoreHash field value.
 func (o *SourceBigCommerce) GetStoreHash() string {
-	if o == nil || o.StoreHash == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.StoreHash
+
+	return o.StoreHash
 }
 
-// GetStoreHashOk returns a tuple with the StoreHash field value if set, nil otherwise
+// GetStoreHashOk returns a tuple with the StoreHash field value
 // and a boolean to check if the value has been set.
 func (o *SourceBigCommerce) GetStoreHashOk() (*string, bool) {
-	if o == nil || o.StoreHash == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.StoreHash, true
+	return &o.StoreHash, true
 }
 
-// HasStoreHash returns a boolean if a field has been set.
-func (o *SourceBigCommerce) HasStoreHash() bool {
-	if o != nil && o.StoreHash != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStoreHash gets a reference to the given string and assigns it to the StoreHash field.
+// SetStoreHash sets field value.
 func (o *SourceBigCommerce) SetStoreHash(v string) *SourceBigCommerce {
-	o.StoreHash = &v
+	o.StoreHash = v
 	return o
 }
 
@@ -232,7 +219,7 @@ func (o *SourceBigCommerce) SetVariantMetafields(v []BigCommerceMetafield) *Sour
 
 func (o SourceBigCommerce) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.StoreHash != nil {
+	if true {
 		toSerialize["storeHash"] = o.StoreHash
 	}
 	if o.Channel != nil {

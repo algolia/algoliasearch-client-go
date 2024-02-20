@@ -53,19 +53,41 @@ func SourceUpdateDockerAsSourceUpdateInput(v *SourceUpdateDocker) *SourceUpdateI
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into SourceBigQuery
-	err = newStrictDecoder(data).Decode(&dst.SourceBigQuery)
-	if err == nil && validateStruct(dst.SourceBigQuery) == nil {
-		jsonSourceBigQuery, _ := json.Marshal(dst.SourceBigQuery)
-		if string(jsonSourceBigQuery) == "{}" { // empty struct
-			dst.SourceBigQuery = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.SourceBigQuery = nil
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]any
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup (SourceBigQuery).")
 	}
 
+	// Hold the schema validity between checks
+	validSchemaForModel := true
+
+	// If the model wasn't discriminated yet, continue checking for other discriminating properties
+	if validSchemaForModel {
+		// Check if the model holds a property 'projectID'
+		if _, ok := jsonDict["projectID"]; !ok {
+			validSchemaForModel = false
+		}
+	}
+
+	if validSchemaForModel {
+		// try to unmarshal data into SourceBigQuery
+		err = newStrictDecoder(data).Decode(&dst.SourceBigQuery)
+		if err == nil && validateStruct(dst.SourceBigQuery) == nil {
+			jsonSourceBigQuery, _ := json.Marshal(dst.SourceBigQuery)
+			if string(jsonSourceBigQuery) == "{}" { // empty struct
+				dst.SourceBigQuery = nil
+			} else {
+				return nil
+			}
+		} else {
+			dst.SourceBigQuery = nil
+		}
+	}
+
+	// Reset the schema validity for the next class check
+	validSchemaForModel = true
 	// try to unmarshal data into SourceCSV
 	err = newStrictDecoder(data).Decode(&dst.SourceCSV)
 	if err == nil && validateStruct(dst.SourceCSV) == nil {

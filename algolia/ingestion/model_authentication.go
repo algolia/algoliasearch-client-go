@@ -6,15 +6,15 @@ import (
 	"fmt"
 )
 
-// Authentication An authentication is used to login into a Source or a Destination.
+// Authentication An authentication is used to login into a Source or a Destination, with obfuscated input.
 type Authentication struct {
 	// The authentication UUID.
 	AuthenticationID string             `json:"authenticationID"`
 	Type             AuthenticationType `json:"type"`
 	// An human readable name describing the object.
-	Name     string    `json:"name"`
-	Platform *Platform `json:"platform,omitempty"`
-	Input    AuthInput `json:"input"`
+	Name     string           `json:"name"`
+	Platform NullablePlatform `json:"platform,omitempty"`
+	Input    AuthInputPartial `json:"input"`
 	// Date of creation (RFC3339 format).
 	CreatedAt string `json:"createdAt"`
 	// Date of last update (RFC3339 format).
@@ -23,9 +23,9 @@ type Authentication struct {
 
 type AuthenticationOption func(f *Authentication)
 
-func WithAuthenticationPlatform(val Platform) AuthenticationOption {
+func WithAuthenticationPlatform(val NullablePlatform) AuthenticationOption {
 	return func(f *Authentication) {
-		f.Platform = &val
+		f.Platform = val
 	}
 }
 
@@ -39,7 +39,7 @@ func WithAuthenticationUpdatedAt(val string) AuthenticationOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAuthentication(authenticationID string, type_ AuthenticationType, name string, input AuthInput, createdAt string, opts ...AuthenticationOption) *Authentication {
+func NewAuthentication(authenticationID string, type_ AuthenticationType, name string, input AuthInputPartial, createdAt string, opts ...AuthenticationOption) *Authentication {
 	this := &Authentication{}
 	this.AuthenticationID = authenticationID
 	this.Type = type_
@@ -132,43 +132,54 @@ func (o *Authentication) SetName(v string) *Authentication {
 	return o
 }
 
-// GetPlatform returns the Platform field value if set, zero value otherwise.
+// GetPlatform returns the Platform field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Authentication) GetPlatform() Platform {
-	if o == nil || o.Platform == nil {
+	if o == nil || o.Platform.Get() == nil {
 		var ret Platform
 		return ret
 	}
-	return *o.Platform
+	return *o.Platform.Get()
 }
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Authentication) GetPlatformOk() (*Platform, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Platform, true
+	return o.Platform.Get(), o.Platform.IsSet()
 }
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *Authentication) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && o.Platform.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPlatform gets a reference to the given Platform and assigns it to the Platform field.
+// SetPlatform gets a reference to the given NullablePlatform and assigns it to the Platform field.
 func (o *Authentication) SetPlatform(v Platform) *Authentication {
-	o.Platform = &v
+	o.Platform.Set(&v)
 	return o
 }
 
+// SetPlatformNil sets the value for Platform to be an explicit nil.
+func (o *Authentication) SetPlatformNil() {
+	o.Platform.Set(nil)
+}
+
+// UnsetPlatform ensures that no value is present for Platform, not even an explicit nil.
+func (o *Authentication) UnsetPlatform() {
+	o.Platform.Unset()
+}
+
 // GetInput returns the Input field value.
-func (o *Authentication) GetInput() AuthInput {
+func (o *Authentication) GetInput() AuthInputPartial {
 	if o == nil {
-		var ret AuthInput
+		var ret AuthInputPartial
 		return ret
 	}
 
@@ -177,7 +188,7 @@ func (o *Authentication) GetInput() AuthInput {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *Authentication) GetInputOk() (*AuthInput, bool) {
+func (o *Authentication) GetInputOk() (*AuthInputPartial, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -185,7 +196,7 @@ func (o *Authentication) GetInputOk() (*AuthInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *Authentication) SetInput(v *AuthInput) *Authentication {
+func (o *Authentication) SetInput(v *AuthInputPartial) *Authentication {
 	o.Input = *v
 	return o
 }
@@ -259,8 +270,8 @@ func (o Authentication) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.Platform != nil {
-		toSerialize["platform"] = o.Platform
+	if o.Platform.IsSet() {
+		toSerialize["platform"] = o.Platform.Get()
 	}
 	if true {
 		toSerialize["input"] = o.Input

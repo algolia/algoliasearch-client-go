@@ -10,9 +10,10 @@ import (
 type DestinationUpdate struct {
 	Type *DestinationType `json:"type,omitempty"`
 	// An human readable name describing the object.
-	Name             *string           `json:"name,omitempty"`
-	Input            *DestinationInput `json:"input,omitempty"`
-	AuthenticationID *string           `json:"authenticationID,omitempty"`
+	Name  *string           `json:"name,omitempty"`
+	Input *DestinationInput `json:"input,omitempty"`
+	// The authentication UUID.
+	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 
 type DestinationUpdateOption func(f *DestinationUpdate)

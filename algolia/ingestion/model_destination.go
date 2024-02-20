@@ -17,7 +17,8 @@ type Destination struct {
 	// Date of creation (RFC3339 format).
 	CreatedAt string `json:"createdAt"`
 	// Date of last update (RFC3339 format).
-	UpdatedAt        *string `json:"updatedAt,omitempty"`
+	UpdatedAt *string `json:"updatedAt,omitempty"`
+	// The authentication UUID.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 

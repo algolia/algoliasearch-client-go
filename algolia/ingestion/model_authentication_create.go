@@ -10,16 +10,16 @@ import (
 type AuthenticationCreate struct {
 	Type AuthenticationType `json:"type"`
 	// An human readable name describing the object.
-	Name     string    `json:"name"`
-	Platform *Platform `json:"platform,omitempty"`
-	Input    AuthInput `json:"input"`
+	Name     string           `json:"name"`
+	Platform NullablePlatform `json:"platform,omitempty"`
+	Input    AuthInput        `json:"input"`
 }
 
 type AuthenticationCreateOption func(f *AuthenticationCreate)
 
-func WithAuthenticationCreatePlatform(val Platform) AuthenticationCreateOption {
+func WithAuthenticationCreatePlatform(val NullablePlatform) AuthenticationCreateOption {
 	return func(f *AuthenticationCreate) {
-		f.Platform = &val
+		f.Platform = val
 	}
 }
 
@@ -93,37 +93,48 @@ func (o *AuthenticationCreate) SetName(v string) *AuthenticationCreate {
 	return o
 }
 
-// GetPlatform returns the Platform field value if set, zero value otherwise.
+// GetPlatform returns the Platform field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AuthenticationCreate) GetPlatform() Platform {
-	if o == nil || o.Platform == nil {
+	if o == nil || o.Platform.Get() == nil {
 		var ret Platform
 		return ret
 	}
-	return *o.Platform
+	return *o.Platform.Get()
 }
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *AuthenticationCreate) GetPlatformOk() (*Platform, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Platform, true
+	return o.Platform.Get(), o.Platform.IsSet()
 }
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *AuthenticationCreate) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && o.Platform.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPlatform gets a reference to the given Platform and assigns it to the Platform field.
+// SetPlatform gets a reference to the given NullablePlatform and assigns it to the Platform field.
 func (o *AuthenticationCreate) SetPlatform(v Platform) *AuthenticationCreate {
-	o.Platform = &v
+	o.Platform.Set(&v)
 	return o
+}
+
+// SetPlatformNil sets the value for Platform to be an explicit nil.
+func (o *AuthenticationCreate) SetPlatformNil() {
+	o.Platform.Set(nil)
+}
+
+// UnsetPlatform ensures that no value is present for Platform, not even an explicit nil.
+func (o *AuthenticationCreate) UnsetPlatform() {
+	o.Platform.Unset()
 }
 
 // GetInput returns the Input field value.
@@ -159,8 +170,8 @@ func (o AuthenticationCreate) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.Platform != nil {
-		toSerialize["platform"] = o.Platform
+	if o.Platform.IsSet() {
+		toSerialize["platform"] = o.Platform.Get()
 	}
 	if true {
 		toSerialize["input"] = o.Input
