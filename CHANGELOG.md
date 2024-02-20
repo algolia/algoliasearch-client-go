@@ -1,3 +1,8 @@
+## [4.0.0-beta.1](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.0...4.0.0-beta.1)
+
+- [6624759e1](https://github.com/algolia/api-clients-automation/commit/6624759e1) feat(specs): add CustomFields to CT Source Input ([#2742](https://github.com/algolia/api-clients-automation/pull/2742)) by [@damcou](https://github.com/damcou/)
+- [ef37e65b7](https://github.com/algolia/api-clients-automation/commit/ef37e65b7) fix(clients): add e2e tests for analytics API ([#2737](https://github.com/algolia/api-clients-automation/pull/2737)) by [@millotp](https://github.com/millotp/)
+
 ## [4.0.0-beta.0](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-alpha.44...4.0.0-beta.0)
 
 - [366c9949d](https://github.com/algolia/api-clients-automation/commit/366c9949d) fix(go): support http ([#2639](https://github.com/algolia/api-clients-automation/pull/2639)) by [@millotp](https://github.com/millotp/)
