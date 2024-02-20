@@ -53,9 +53,9 @@ func NewEmptyCommercetoolsCustomFields() *CommercetoolsCustomFields {
 	return &CommercetoolsCustomFields{}
 }
 
-// GetInventory returns the Inventory field value if set, zero value otherwise.
+// GetInventory returns the Inventory field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CommercetoolsCustomFields) GetInventory() []string {
-	if o == nil || o.Inventory == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -64,6 +64,7 @@ func (o *CommercetoolsCustomFields) GetInventory() []string {
 
 // GetInventoryOk returns a tuple with the Inventory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *CommercetoolsCustomFields) GetInventoryOk() ([]string, bool) {
 	if o == nil || o.Inventory == nil {
 		return nil, false
@@ -86,9 +87,9 @@ func (o *CommercetoolsCustomFields) SetInventory(v []string) *CommercetoolsCusto
 	return o
 }
 
-// GetPrice returns the Price field value if set, zero value otherwise.
+// GetPrice returns the Price field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CommercetoolsCustomFields) GetPrice() []string {
-	if o == nil || o.Price == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -97,6 +98,7 @@ func (o *CommercetoolsCustomFields) GetPrice() []string {
 
 // GetPriceOk returns a tuple with the Price field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *CommercetoolsCustomFields) GetPriceOk() ([]string, bool) {
 	if o == nil || o.Price == nil {
 		return nil, false
@@ -119,9 +121,9 @@ func (o *CommercetoolsCustomFields) SetPrice(v []string) *CommercetoolsCustomFie
 	return o
 }
 
-// GetCategory returns the Category field value if set, zero value otherwise.
+// GetCategory returns the Category field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CommercetoolsCustomFields) GetCategory() []string {
-	if o == nil || o.Category == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -130,6 +132,7 @@ func (o *CommercetoolsCustomFields) GetCategory() []string {
 
 // GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *CommercetoolsCustomFields) GetCategoryOk() ([]string, bool) {
 	if o == nil || o.Category == nil {
 		return nil, false
