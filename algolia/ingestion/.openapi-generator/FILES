@@ -26,6 +26,7 @@ model_authentication_update_response.go
 model_big_commerce_channel.go
 model_big_commerce_metafield.go
 model_big_query_data_type.go
+model_commercetools_custom_fields.go
 model_delete_response.go
 model_destination.go
 model_destination_create.go

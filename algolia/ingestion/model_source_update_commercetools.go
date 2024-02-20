@@ -11,7 +11,8 @@ type SourceUpdateCommercetools struct {
 	// Unique and immutable key of the referenced Store.
 	StoreKeys []string `json:"storeKeys,omitempty"`
 	// Array of locales that must match the following pattern: ^[a-z]{2}(-[A-Z]{2})?$. For example [\"fr-FR\", \"en\"].
-	Locales []string `json:"locales,omitempty"`
+	Locales      []string                   `json:"locales,omitempty"`
+	CustomFields *CommercetoolsCustomFields `json:"customFields,omitempty"`
 }
 
 type SourceUpdateCommercetoolsOption func(f *SourceUpdateCommercetools)
@@ -25,6 +26,12 @@ func WithSourceUpdateCommercetoolsStoreKeys(val []string) SourceUpdateCommerceto
 func WithSourceUpdateCommercetoolsLocales(val []string) SourceUpdateCommercetoolsOption {
 	return func(f *SourceUpdateCommercetools) {
 		f.Locales = val
+	}
+}
+
+func WithSourceUpdateCommercetoolsCustomFields(val CommercetoolsCustomFields) SourceUpdateCommercetoolsOption {
+	return func(f *SourceUpdateCommercetools) {
+		f.CustomFields = &val
 	}
 }
 
@@ -111,6 +118,39 @@ func (o *SourceUpdateCommercetools) SetLocales(v []string) *SourceUpdateCommerce
 	return o
 }
 
+// GetCustomFields returns the CustomFields field value if set, zero value otherwise.
+func (o *SourceUpdateCommercetools) GetCustomFields() CommercetoolsCustomFields {
+	if o == nil || o.CustomFields == nil {
+		var ret CommercetoolsCustomFields
+		return ret
+	}
+	return *o.CustomFields
+}
+
+// GetCustomFieldsOk returns a tuple with the CustomFields field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceUpdateCommercetools) GetCustomFieldsOk() (*CommercetoolsCustomFields, bool) {
+	if o == nil || o.CustomFields == nil {
+		return nil, false
+	}
+	return o.CustomFields, true
+}
+
+// HasCustomFields returns a boolean if a field has been set.
+func (o *SourceUpdateCommercetools) HasCustomFields() bool {
+	if o != nil && o.CustomFields != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomFields gets a reference to the given CommercetoolsCustomFields and assigns it to the CustomFields field.
+func (o *SourceUpdateCommercetools) SetCustomFields(v *CommercetoolsCustomFields) *SourceUpdateCommercetools {
+	o.CustomFields = v
+	return o
+}
+
 func (o SourceUpdateCommercetools) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.StoreKeys != nil {
@@ -118,6 +158,9 @@ func (o SourceUpdateCommercetools) MarshalJSON() ([]byte, error) {
 	}
 	if o.Locales != nil {
 		toSerialize["locales"] = o.Locales
+	}
+	if o.CustomFields != nil {
+		toSerialize["customFields"] = o.CustomFields
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -131,6 +174,7 @@ func (o SourceUpdateCommercetools) String() string {
 	out := ""
 	out += fmt.Sprintf("  storeKeys=%v\n", o.StoreKeys)
 	out += fmt.Sprintf("  locales=%v\n", o.Locales)
+	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 	return fmt.Sprintf("SourceUpdateCommercetools {\n%s}", out)
 }
 

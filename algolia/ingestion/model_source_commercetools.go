@@ -14,7 +14,8 @@ type SourceCommercetools struct {
 	Url        string   `json:"url"`
 	ProjectKey string   `json:"projectKey"`
 	// Determines the value that will be stored in the Algolia record if there's no inventory information on the product.
-	FallbackIsInStockValue *bool `json:"fallbackIsInStockValue,omitempty"`
+	FallbackIsInStockValue *bool                      `json:"fallbackIsInStockValue,omitempty"`
+	CustomFields           *CommercetoolsCustomFields `json:"customFields,omitempty"`
 }
 
 type SourceCommercetoolsOption func(f *SourceCommercetools)
@@ -34,6 +35,12 @@ func WithSourceCommercetoolsLocales(val []string) SourceCommercetoolsOption {
 func WithSourceCommercetoolsFallbackIsInStockValue(val bool) SourceCommercetoolsOption {
 	return func(f *SourceCommercetools) {
 		f.FallbackIsInStockValue = &val
+	}
+}
+
+func WithSourceCommercetoolsCustomFields(val CommercetoolsCustomFields) SourceCommercetoolsOption {
+	return func(f *SourceCommercetools) {
+		f.CustomFields = &val
 	}
 }
 
@@ -205,6 +212,39 @@ func (o *SourceCommercetools) SetFallbackIsInStockValue(v bool) *SourceCommercet
 	return o
 }
 
+// GetCustomFields returns the CustomFields field value if set, zero value otherwise.
+func (o *SourceCommercetools) GetCustomFields() CommercetoolsCustomFields {
+	if o == nil || o.CustomFields == nil {
+		var ret CommercetoolsCustomFields
+		return ret
+	}
+	return *o.CustomFields
+}
+
+// GetCustomFieldsOk returns a tuple with the CustomFields field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceCommercetools) GetCustomFieldsOk() (*CommercetoolsCustomFields, bool) {
+	if o == nil || o.CustomFields == nil {
+		return nil, false
+	}
+	return o.CustomFields, true
+}
+
+// HasCustomFields returns a boolean if a field has been set.
+func (o *SourceCommercetools) HasCustomFields() bool {
+	if o != nil && o.CustomFields != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomFields gets a reference to the given CommercetoolsCustomFields and assigns it to the CustomFields field.
+func (o *SourceCommercetools) SetCustomFields(v *CommercetoolsCustomFields) *SourceCommercetools {
+	o.CustomFields = v
+	return o
+}
+
 func (o SourceCommercetools) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.StoreKeys != nil {
@@ -222,6 +262,9 @@ func (o SourceCommercetools) MarshalJSON() ([]byte, error) {
 	if o.FallbackIsInStockValue != nil {
 		toSerialize["fallbackIsInStockValue"] = o.FallbackIsInStockValue
 	}
+	if o.CustomFields != nil {
+		toSerialize["customFields"] = o.CustomFields
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceCommercetools: %w", err)
@@ -237,6 +280,7 @@ func (o SourceCommercetools) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  projectKey=%v\n", o.ProjectKey)
 	out += fmt.Sprintf("  fallbackIsInStockValue=%v\n", o.FallbackIsInStockValue)
+	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 	return fmt.Sprintf("SourceCommercetools {\n%s}", out)
 }
 
