@@ -8716,10 +8716,6 @@ func (c *APIClient) WaitForApiKeyWithContext(
 					return false
 				}
 
-				if apiKey.GetValidity() != response.GetValidity() {
-					return false
-				}
-
 				slices.Sort(apiKey.Acl)
 				slices.Sort(response.Acl)
 
