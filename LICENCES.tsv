@@ -1,0 +1,6 @@
+package	licence
+github.com/stretchr/testify	MIT
+github.com/davecgh/go-spew	ISC
+github.com/pmezard/go-difflib	BSD-3-Clause
+gopkg.in/check.v1	BSD-2-Clause
+gopkg.in/yaml.v2	Apache-2.0

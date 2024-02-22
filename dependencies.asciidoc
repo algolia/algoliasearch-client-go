@@ -1,0 +1,51 @@
+// Generated documentation. Please do not edit.
+:page_id: dependencies
+ifdef::env-github[]
+****
+This data is confidential.
+****
+endif::[]
+
+[id="{p}-{page_id}"]
+= Third-party dependencies
+
+This page lists the third-party dependencies used to build {n}.
+
+[float]
+[id="{p}-dependencies-direct"]
+== Direct dependencies
+
+[options="header"]
+|===
+| Name | Version | Licence
+
+| link:https://github.com/stretchr/testify[$$github.com/stretchr/testify$$] | v1.5.1 | MIT
+|===
+
+
+[float]
+[id="{p}-dependencies-indirect"]
+== Indirect dependencies
+
+[options="header"]
+|===
+| Name | Version | Licence
+
+| link:https://github.com/davecgh/go-spew[$$github.com/davecgh/go-spew$$] | v1.1.1 | ISC
+| link:https://github.com/pmezard/go-difflib[$$github.com/pmezard/go-difflib$$] | v1.0.0 | BSD-3-Clause
+| link:https://gopkg.in/check.v1[$$gopkg.in/check.v1$$] | v0.0.0-20161208181325-20d25e280405 | BSD-2-Clause
+| link:https://gopkg.in/yaml.v2[$$gopkg.in/yaml.v2$$] | v2.2.8 | Apache-2.0
+|===
+
+
+[float]
+[id="{p}-dependencies-image"]
+== Container image dependencies
+
+Dependencies included in the {n} container image.
+
+[options="header",format="csv"]
+|===
+Name, Version, Licence, URL
+include::container-image-dependencies.csv[]
+|===
