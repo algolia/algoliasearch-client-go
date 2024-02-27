@@ -11,8 +11,11 @@ type SourceUpdateCommercetools struct {
 	// Unique and immutable key of the referenced Store.
 	StoreKeys []string `json:"storeKeys,omitempty"`
 	// Array of locales that must match the following pattern: ^[a-z]{2}(-[A-Z]{2})?$. For example [\"fr-FR\", \"en\"].
-	Locales      []string                   `json:"locales,omitempty"`
-	CustomFields *CommercetoolsCustomFields `json:"customFields,omitempty"`
+	Locales []string `json:"locales,omitempty"`
+	Url     *string  `json:"url,omitempty"`
+	// Determines the value that will be stored in the Algolia record if there's no inventory information on the product.
+	FallbackIsInStockValue *bool                      `json:"fallbackIsInStockValue,omitempty"`
+	CustomFields           *CommercetoolsCustomFields `json:"customFields,omitempty"`
 }
 
 type SourceUpdateCommercetoolsOption func(f *SourceUpdateCommercetools)
@@ -26,6 +29,18 @@ func WithSourceUpdateCommercetoolsStoreKeys(val []string) SourceUpdateCommerceto
 func WithSourceUpdateCommercetoolsLocales(val []string) SourceUpdateCommercetoolsOption {
 	return func(f *SourceUpdateCommercetools) {
 		f.Locales = val
+	}
+}
+
+func WithSourceUpdateCommercetoolsUrl(val string) SourceUpdateCommercetoolsOption {
+	return func(f *SourceUpdateCommercetools) {
+		f.Url = &val
+	}
+}
+
+func WithSourceUpdateCommercetoolsFallbackIsInStockValue(val bool) SourceUpdateCommercetoolsOption {
+	return func(f *SourceUpdateCommercetools) {
+		f.FallbackIsInStockValue = &val
 	}
 }
 
@@ -118,6 +133,72 @@ func (o *SourceUpdateCommercetools) SetLocales(v []string) *SourceUpdateCommerce
 	return o
 }
 
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *SourceUpdateCommercetools) GetUrl() string {
+	if o == nil || o.Url == nil {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceUpdateCommercetools) GetUrlOk() (*string, bool) {
+	if o == nil || o.Url == nil {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *SourceUpdateCommercetools) HasUrl() bool {
+	if o != nil && o.Url != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *SourceUpdateCommercetools) SetUrl(v string) *SourceUpdateCommercetools {
+	o.Url = &v
+	return o
+}
+
+// GetFallbackIsInStockValue returns the FallbackIsInStockValue field value if set, zero value otherwise.
+func (o *SourceUpdateCommercetools) GetFallbackIsInStockValue() bool {
+	if o == nil || o.FallbackIsInStockValue == nil {
+		var ret bool
+		return ret
+	}
+	return *o.FallbackIsInStockValue
+}
+
+// GetFallbackIsInStockValueOk returns a tuple with the FallbackIsInStockValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceUpdateCommercetools) GetFallbackIsInStockValueOk() (*bool, bool) {
+	if o == nil || o.FallbackIsInStockValue == nil {
+		return nil, false
+	}
+	return o.FallbackIsInStockValue, true
+}
+
+// HasFallbackIsInStockValue returns a boolean if a field has been set.
+func (o *SourceUpdateCommercetools) HasFallbackIsInStockValue() bool {
+	if o != nil && o.FallbackIsInStockValue != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFallbackIsInStockValue gets a reference to the given bool and assigns it to the FallbackIsInStockValue field.
+func (o *SourceUpdateCommercetools) SetFallbackIsInStockValue(v bool) *SourceUpdateCommercetools {
+	o.FallbackIsInStockValue = &v
+	return o
+}
+
 // GetCustomFields returns the CustomFields field value if set, zero value otherwise.
 func (o *SourceUpdateCommercetools) GetCustomFields() CommercetoolsCustomFields {
 	if o == nil || o.CustomFields == nil {
@@ -159,6 +240,12 @@ func (o SourceUpdateCommercetools) MarshalJSON() ([]byte, error) {
 	if o.Locales != nil {
 		toSerialize["locales"] = o.Locales
 	}
+	if o.Url != nil {
+		toSerialize["url"] = o.Url
+	}
+	if o.FallbackIsInStockValue != nil {
+		toSerialize["fallbackIsInStockValue"] = o.FallbackIsInStockValue
+	}
 	if o.CustomFields != nil {
 		toSerialize["customFields"] = o.CustomFields
 	}
@@ -174,6 +261,8 @@ func (o SourceUpdateCommercetools) String() string {
 	out := ""
 	out += fmt.Sprintf("  storeKeys=%v\n", o.StoreKeys)
 	out += fmt.Sprintf("  locales=%v\n", o.Locales)
+	out += fmt.Sprintf("  url=%v\n", o.Url)
+	out += fmt.Sprintf("  fallbackIsInStockValue=%v\n", o.FallbackIsInStockValue)
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 	return fmt.Sprintf("SourceUpdateCommercetools {\n%s}", out)
 }
