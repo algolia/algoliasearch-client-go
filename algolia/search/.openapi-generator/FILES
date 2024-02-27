@@ -9,6 +9,7 @@ model_advanced_syntax_features.go
 model_alternatives_as_exact.go
 model_anchoring.go
 model_api_key.go
+model_api_key_operation.go
 model_around_precision.go
 model_around_precision_from_value_inner.go
 model_around_radius.go
@@ -143,6 +144,7 @@ model_search_type_default.go
 model_search_type_facet.go
 model_search_user_ids_params.go
 model_search_user_ids_response.go
+model_secured_api_key_restrictions.go
 model_semantic_search.go
 model_snippet_result.go
 model_snippet_result_option.go

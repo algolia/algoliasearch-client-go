@@ -8593,6 +8593,44 @@ func (c *APIClient) WaitForTaskWithContext(
 
 /*
 WaitForApiKey waits for an API key to be created, deleted or updated.
+It returns the API key response if the operation was successful.
+It returns an error if the operation failed.
+
+The operation can be one of the following:
+  - "add": wait for the API key to be created
+  - "delete": wait for the API key to be deleted
+  - "update": wait for the API key to be updated
+
+If the operation is "update", the apiKey parameter must be set.
+If the operation is "delete" or "add", the apiKey parameter is not used.
+
+	@param operation ApiKeyOperation - Operation type - add, delete or update.
+	@param key string - API key.
+	@param apiKey *ApiKey - API key structure - required for update operation.
+	@param opts ...Option - Optional parameters for the request.
+	@return *GetApiKeyResponse - API key response.
+	@return error - Error if any.
+*/
+func (c *APIClient) WaitForApiKey(
+	operation ApiKeyOperation,
+	key string,
+	apiKey *ApiKey,
+	opts ...Option,
+) (*GetApiKeyResponse, error) {
+	return c.WaitForApiKeyWithContext(
+		context.Background(),
+		operation,
+		key,
+		apiKey,
+		nil,
+		nil,
+		nil,
+		opts...,
+	)
+}
+
+/*
+WaitForApiKey waits for an API key to be created, deleted or updated.
 Wraps WaitForApiKeyWithContext with context.Background().
 It returns the API key response if the operation was successful.
 It returns an error if the operation failed.
@@ -8609,9 +8647,9 @@ The maxDelay parameter is the maximum delay between each retry.
 If the operation is "update", the apiKey parameter must be set.
 If the operation is "delete" or "add", the apiKey parameter is not used.
 
+	@param operation ApiKeyOperation - Operation type - add, delete or update.
 	@param key string - API key.
 	@param apiKey *ApiKey - API key structure - required for update operation.
-	@param operation string - Operation type - add, delete or update.
 	@param maxRetries *int - Maximum number of retries.
 	@param initialDelay *time.Duration - Initial delay between retries.
 	@param maxDelay *time.Duration - Maximum delay between retries.
@@ -8619,10 +8657,10 @@ If the operation is "delete" or "add", the apiKey parameter is not used.
 	@return *GetApiKeyResponse - API key response.
 	@return error - Error if any.
 */
-func (c *APIClient) WaitForApiKey(
+func (c *APIClient) WaitForApiKeyWitOptions(
+	operation ApiKeyOperation,
 	key string,
 	apiKey *ApiKey,
-	operation string,
 	maxRetries *int,
 	initialDelay *time.Duration,
 	maxDelay *time.Duration,
@@ -8630,9 +8668,9 @@ func (c *APIClient) WaitForApiKey(
 ) (*GetApiKeyResponse, error) {
 	return c.WaitForApiKeyWithContext(
 		context.Background(),
+		operation,
 		key,
 		apiKey,
-		operation,
 		maxRetries,
 		initialDelay,
 		maxDelay,
@@ -8658,9 +8696,9 @@ If the operation is "update", the apiKey parameter must be set.
 If the operation is "delete" or "add", the apiKey parameter is not used.
 
 	@param ctx context.Context - The context that will be drilled down to the actual request.
+	@param operation ApiKeyOperation - Operation type - add, delete or update.
 	@param key string - API key.
 	@param apiKey *ApiKey - API key structure - required for update operation.
-	@param operation string - Operation type - add, delete or update.
 	@param maxRetries *int - Maximum number of retries.
 	@param initialDelay *time.Duration - Initial delay between retries.
 	@param maxDelay *time.Duration - Maximum delay between retries.
@@ -8670,19 +8708,19 @@ If the operation is "delete" or "add", the apiKey parameter is not used.
 */
 func (c *APIClient) WaitForApiKeyWithContext(
 	ctx context.Context,
+	operation ApiKeyOperation,
 	key string,
 	apiKey *ApiKey,
-	operation string,
 	maxRetries *int,
 	initialDelay *time.Duration,
 	maxDelay *time.Duration,
 	opts ...Option,
 ) (*GetApiKeyResponse, error) {
-	if operation != "add" && operation != "delete" && operation != "update" {
+	if operation != APIKEYOPERATION_ADD && operation != APIKEYOPERATION_DELETE && operation != APIKEYOPERATION_UPDATE {
 		return nil, &errs.WaitKeyOperationError{}
 	}
 
-	if operation == "update" {
+	if operation == APIKEYOPERATION_UPDATE {
 		if apiKey == nil {
 			return nil, &errs.WaitKeyUpdateError{}
 		}
@@ -8747,9 +8785,9 @@ func (c *APIClient) WaitForApiKeyWithContext(
 		},
 		func(response *GetApiKeyResponse, err error) bool {
 			switch operation {
-			case "add":
+			case APIKEYOPERATION_ADD:
 				return err == nil && response != nil && response.CreatedAt > 0
-			case "delete":
+			case APIKEYOPERATION_DELETE:
 				if _, ok := err.(*APIError); ok {
 					apiErr := err.(*APIError)
 
