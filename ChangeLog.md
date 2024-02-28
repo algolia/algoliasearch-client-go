@@ -2,9 +2,9 @@
 
 ## [3.31.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.30.1...v3.31.1) (2024-02-28)
 
-- fix(transport): clone headers when creating a request (#753)
-
 ## Fix
+
+- fix(transport): clone headers when creating a request (#753)
 
 ## [3.31.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.30.1...v3.31.0) (2023-08-25)
 
