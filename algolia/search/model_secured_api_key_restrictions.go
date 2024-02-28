@@ -12,7 +12,7 @@ type SecuredAPIKeyRestrictions struct {
 	// Filters that apply to every search made with the secured API key. You can add extra filters at search time with the filters query parameter. For example, if you set the filter group:admin on your generated API key, and you add groups:press OR groups:visitors with the filters query parameter, your final search filter is equivalent to groups:admin AND (groups:press OR groups:visitors).
 	Filters *string `json:"filters,omitempty"`
 	// Unix timestamp used to set the expiration date of the API key.
-	ValidUntil *float32 `json:"validUntil,omitempty"`
+	ValidUntil *int64 `json:"validUntil,omitempty"`
 	// Index names that can be queried.
 	RestrictIndices []string `json:"restrictIndices,omitempty"`
 	// IPv4 network allowed to use the generated key. Use this to protect against API key leaking and reuse. You can only provide a single source, but you can specify a range of IPs (for example, 192.168.1.0/24).
@@ -35,7 +35,7 @@ func WithSecuredAPIKeyRestrictionsFilters(val string) SecuredAPIKeyRestrictionsO
 	}
 }
 
-func WithSecuredAPIKeyRestrictionsValidUntil(val float32) SecuredAPIKeyRestrictionsOption {
+func WithSecuredAPIKeyRestrictionsValidUntil(val int64) SecuredAPIKeyRestrictionsOption {
 	return func(f *SecuredAPIKeyRestrictions) {
 		f.ValidUntil = &val
 	}
@@ -143,9 +143,9 @@ func (o *SecuredAPIKeyRestrictions) SetFilters(v string) *SecuredAPIKeyRestricti
 }
 
 // GetValidUntil returns the ValidUntil field value if set, zero value otherwise.
-func (o *SecuredAPIKeyRestrictions) GetValidUntil() float32 {
+func (o *SecuredAPIKeyRestrictions) GetValidUntil() int64 {
 	if o == nil || o.ValidUntil == nil {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.ValidUntil
@@ -153,7 +153,7 @@ func (o *SecuredAPIKeyRestrictions) GetValidUntil() float32 {
 
 // GetValidUntilOk returns a tuple with the ValidUntil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecuredAPIKeyRestrictions) GetValidUntilOk() (*float32, bool) {
+func (o *SecuredAPIKeyRestrictions) GetValidUntilOk() (*int64, bool) {
 	if o == nil || o.ValidUntil == nil {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *SecuredAPIKeyRestrictions) HasValidUntil() bool {
 	return false
 }
 
-// SetValidUntil gets a reference to the given float32 and assigns it to the ValidUntil field.
-func (o *SecuredAPIKeyRestrictions) SetValidUntil(v float32) *SecuredAPIKeyRestrictions {
+// SetValidUntil gets a reference to the given int64 and assigns it to the ValidUntil field.
+func (o *SecuredAPIKeyRestrictions) SetValidUntil(v int64) *SecuredAPIKeyRestrictions {
 	o.ValidUntil = &v
 	return o
 }

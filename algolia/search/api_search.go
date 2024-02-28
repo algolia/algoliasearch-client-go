@@ -3,6 +3,10 @@ package search
 
 import (
 	"context"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -8802,4 +8806,62 @@ func (c *APIClient) WaitForApiKeyWithContext(
 		initialDelay,
 		maxDelay,
 	)
+}
+
+// GenerateSecuredApiKey generates a public API key intended to restrict access
+// to certain records. This new key is built upon the existing key named
+// `parentApiKey` and the following options:.
+func (c *APIClient) GenerateSecuredApiKey(parentApiKey string, restrictions *SecuredAPIKeyRestrictions) (string, error) {
+	h := hmac.New(sha256.New, []byte(parentApiKey))
+
+	message, err := encodeRestrictions(restrictions)
+	if err != nil {
+		return "", err
+	}
+	_, err = h.Write([]byte(message))
+	if err != nil {
+		return "", fmt.Errorf("failed to compute HMAC: %w", err)
+	}
+
+	checksum := hex.EncodeToString(h.Sum(nil))
+	key := base64.StdEncoding.EncodeToString([]byte(checksum + message))
+
+	return key, nil
+}
+
+func encodeRestrictions(restrictions *SecuredAPIKeyRestrictions) (string, error) {
+	toSerialize := map[string]any{}
+	if restrictions.Filters != nil {
+		toSerialize["filters"] = *restrictions.Filters
+	}
+	if restrictions.ValidUntil != nil {
+		toSerialize["validUntil"] = *restrictions.ValidUntil
+	}
+	if restrictions.RestrictIndices != nil {
+		toSerialize["restrictIndices"] = restrictions.RestrictIndices
+	}
+	if restrictions.RestrictSources != nil {
+		toSerialize["restrictSources"] = *restrictions.RestrictSources
+	}
+	if restrictions.UserToken != nil {
+		toSerialize["userToken"] = *restrictions.UserToken
+	}
+	if restrictions.SearchParams != nil {
+		// merge with searchParams
+		serializedParams, err := restrictions.SearchParams.MarshalJSON()
+		if err != nil {
+			return "", fmt.Errorf("failed to marshal SearchParams: %w", err)
+		}
+		err = json.Unmarshal(serializedParams, &toSerialize)
+		if err != nil {
+			return "", fmt.Errorf("failed to unmarshal SearchParams: %w", err)
+		}
+	}
+
+	queryString := make([]string, 0, len(toSerialize))
+	for k, v := range toSerialize {
+		queryString = append(queryString, k+"="+queryParameterToString(v))
+	}
+
+	return strings.Join(queryString, "&"), nil
 }
