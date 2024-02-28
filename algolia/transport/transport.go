@@ -87,7 +87,7 @@ func (t *Transport) Request(
 ) error {
 	var (
 		ctx       = iopt.ExtractContext(opts...)
-		headers   = t.headers
+		headers   = t.headers.Clone()
 		urlParams = make(map[string]string)
 	)
 
