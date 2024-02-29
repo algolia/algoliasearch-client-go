@@ -62,7 +62,9 @@ type SearchResponse struct {
 	ServerUsed *string `json:"serverUsed,omitempty"`
 	// Lets you store custom data in your indices.
 	UserData map[string]interface{} `json:"userData,omitempty"`
-	Hits     []Hit                  `json:"hits"`
+	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
+	QueryID *string `json:"queryID,omitempty"`
+	Hits    []Hit   `json:"hits"`
 	// Text to search for in an index.
 	Query string `json:"query"`
 	// URL-encoded string of all search parameters.
@@ -203,6 +205,12 @@ func WithSearchResponseServerUsed(val string) SearchResponseOption {
 func WithSearchResponseUserData(val map[string]interface{}) SearchResponseOption {
 	return func(f *SearchResponse) {
 		f.UserData = val
+	}
+}
+
+func WithSearchResponseQueryID(val string) SearchResponseOption {
+	return func(f *SearchResponse) {
+		f.QueryID = &val
 	}
 }
 
@@ -1091,6 +1099,39 @@ func (o *SearchResponse) SetUserData(v map[string]interface{}) *SearchResponse {
 	return o
 }
 
+// GetQueryID returns the QueryID field value if set, zero value otherwise.
+func (o *SearchResponse) GetQueryID() string {
+	if o == nil || o.QueryID == nil {
+		var ret string
+		return ret
+	}
+	return *o.QueryID
+}
+
+// GetQueryIDOk returns a tuple with the QueryID field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchResponse) GetQueryIDOk() (*string, bool) {
+	if o == nil || o.QueryID == nil {
+		return nil, false
+	}
+	return o.QueryID, true
+}
+
+// HasQueryID returns a boolean if a field has been set.
+func (o *SearchResponse) HasQueryID() bool {
+	if o != nil && o.QueryID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryID gets a reference to the given string and assigns it to the QueryID field.
+func (o *SearchResponse) SetQueryID(v string) *SearchResponse {
+	o.QueryID = &v
+	return o
+}
+
 // GetHits returns the Hits field value.
 func (o *SearchResponse) GetHits() []Hit {
 	if o == nil {
@@ -1259,6 +1300,9 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+	if o.QueryID != nil {
+		toSerialize["queryID"] = o.QueryID
+	}
 	if true {
 		toSerialize["hits"] = o.Hits
 	}
@@ -1325,6 +1369,7 @@ func (o *SearchResponse) UnmarshalJSON(bytes []byte) error {
 	delete(additionalProperties, "serverTimeMS")
 	delete(additionalProperties, "serverUsed")
 	delete(additionalProperties, "userData")
+	delete(additionalProperties, "queryID")
 	delete(additionalProperties, "hits")
 	delete(additionalProperties, "query")
 	delete(additionalProperties, "params")
@@ -1362,6 +1407,7 @@ func (o SearchResponse) String() string {
 	out += fmt.Sprintf("  serverTimeMS=%v\n", o.ServerTimeMS)
 	out += fmt.Sprintf("  serverUsed=%v\n", o.ServerUsed)
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
+	out += fmt.Sprintf("  queryID=%v\n", o.QueryID)
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
