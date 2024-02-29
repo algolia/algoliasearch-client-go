@@ -61,7 +61,9 @@ type BaseSearchResponse struct {
 	// Host name of the server that processed the request.
 	ServerUsed *string `json:"serverUsed,omitempty"`
 	// Lets you store custom data in your indices.
-	UserData             interface{} `json:"userData,omitempty"`
+	UserData interface{} `json:"userData,omitempty"`
+	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
+	QueryID              *string `json:"queryID,omitempty"`
 	AdditionalProperties map[string]any
 }
 
@@ -198,6 +200,12 @@ func WithBaseSearchResponseServerUsed(val string) BaseSearchResponseOption {
 func WithBaseSearchResponseUserData(val interface{}) BaseSearchResponseOption {
 	return func(f *BaseSearchResponse) {
 		f.UserData = val
+	}
+}
+
+func WithBaseSearchResponseQueryID(val string) BaseSearchResponseOption {
+	return func(f *BaseSearchResponse) {
+		f.QueryID = &val
 	}
 }
 
@@ -1084,6 +1092,39 @@ func (o *BaseSearchResponse) SetUserData(v interface{}) *BaseSearchResponse {
 	return o
 }
 
+// GetQueryID returns the QueryID field value if set, zero value otherwise.
+func (o *BaseSearchResponse) GetQueryID() string {
+	if o == nil || o.QueryID == nil {
+		var ret string
+		return ret
+	}
+	return *o.QueryID
+}
+
+// GetQueryIDOk returns a tuple with the QueryID field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseSearchResponse) GetQueryIDOk() (*string, bool) {
+	if o == nil || o.QueryID == nil {
+		return nil, false
+	}
+	return o.QueryID, true
+}
+
+// HasQueryID returns a boolean if a field has been set.
+func (o *BaseSearchResponse) HasQueryID() bool {
+	if o != nil && o.QueryID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryID gets a reference to the given string and assigns it to the QueryID field.
+func (o *BaseSearchResponse) SetQueryID(v string) *BaseSearchResponse {
+	o.QueryID = &v
+	return o
+}
+
 func (o *BaseSearchResponse) SetAdditionalProperty(key string, value any) *BaseSearchResponse {
 	if o.AdditionalProperties == nil {
 		o.AdditionalProperties = make(map[string]any)
@@ -1177,6 +1218,9 @@ func (o BaseSearchResponse) MarshalJSON() ([]byte, error) {
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+	if o.QueryID != nil {
+		toSerialize["queryID"] = o.QueryID
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -1234,6 +1278,7 @@ func (o *BaseSearchResponse) UnmarshalJSON(bytes []byte) error {
 	delete(additionalProperties, "serverTimeMS")
 	delete(additionalProperties, "serverUsed")
 	delete(additionalProperties, "userData")
+	delete(additionalProperties, "queryID")
 	o.AdditionalProperties = additionalProperties
 
 	return nil
@@ -1268,6 +1313,7 @@ func (o BaseSearchResponse) String() string {
 	out += fmt.Sprintf("  serverTimeMS=%v\n", o.ServerTimeMS)
 	out += fmt.Sprintf("  serverUsed=%v\n", o.ServerUsed)
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
+	out += fmt.Sprintf("  queryID=%v\n", o.QueryID)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
