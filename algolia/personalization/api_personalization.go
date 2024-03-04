@@ -707,6 +707,9 @@ Returns, as part of the response, a date until which the data can safely be cons
 
 It might take a couple hours for the deletion request to be fully processed.
 
+Required API Key ACLs:
+  - recommendation
+
 Request can be constructed by NewApiDeleteUserProfileRequest with parameters below.
 
 	@param userToken string - userToken representing the user for which to fetch the Personalization profile.
@@ -794,6 +797,9 @@ func (c *APIClient) GetPersonalizationStrategy(opts ...Option) (*Personalization
 GetPersonalizationStrategy
 
 The strategy contains information on the events and facets that impact user profiles and personalized search results.
+
+Required API Key ACLs:
+  - recommendation
 
 Request can be constructed by NewApiGetPersonalizationStrategyRequest with parameters below.
 
@@ -913,6 +919,9 @@ GetUserTokenProfile
 Get the user profile built from Personalization strategy.
 
 The profile is structured by facet name used in the strategy. Each facet value is mapped to its score. Each score represents the user affinity for a specific facet value given the userToken past events and the Personalization strategy defined. Scores are bounded to 20. The last processed event timestamp is provided using the ISO 8601 format for debugging purposes.
+
+Required API Key ACLs:
+  - recommendation
 
 Request can be constructed by NewApiGetUserTokenProfileRequest with parameters below.
 
@@ -1038,6 +1047,9 @@ func (c *APIClient) SetPersonalizationStrategy(r ApiSetPersonalizationStrategyRe
 SetPersonalizationStrategy
 
 A strategy defines the events and facets that impact user profiles and personalized search results.
+
+Required API Key ACLs:
+  - recommendation
 
 Request can be constructed by NewApiSetPersonalizationStrategyRequest with parameters below.
 

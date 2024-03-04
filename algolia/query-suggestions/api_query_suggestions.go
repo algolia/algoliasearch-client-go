@@ -96,6 +96,9 @@ Create a new Query Suggestions configuration.
 
 You can have up to 100 configurations per Algolia application.
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiCreateConfigRequest with parameters below.
 
 	@param querySuggestionsConfigurationWithIndex QuerySuggestionsConfigurationWithIndex
@@ -836,6 +839,9 @@ Delete a Query Suggestions configuration.
 Deleting only removes the configuration and stops updates to the Query Suggestions index.
 The Query Suggestions index itself is not deleted.
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiDeleteConfigRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
@@ -923,6 +929,9 @@ func (c *APIClient) GetAllConfigs(opts ...Option) ([]QuerySuggestionsConfigurati
 GetAllConfigs
 
 List all Query Suggestions configurations of your Algolia application.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
 
@@ -1038,6 +1047,9 @@ func (c *APIClient) GetConfig(r ApiGetConfigRequest, opts ...Option) (*QuerySugg
 GetConfig
 
 Get a single Query Suggestions configuration.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetConfigRequest with parameters below.
 
@@ -1159,6 +1171,9 @@ GetConfigStatus
 
 Report the status of a Query Suggestions index.
 
+Required API Key ACLs:
+  - settings
+
 Request can be constructed by NewApiGetConfigStatusRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
@@ -1278,6 +1293,9 @@ func (c *APIClient) GetLogFile(r ApiGetLogFileRequest, opts ...Option) (*GetLogF
 GetLogFile
 
 Get the logs for a single Query Suggestions index.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetLogFileRequest with parameters below.
 
@@ -1415,6 +1433,9 @@ func (c *APIClient) UpdateConfig(r ApiUpdateConfigRequest, opts ...Option) (*Bas
 UpdateConfig
 
 Update a QuerySuggestions configuration.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiUpdateConfigRequest with parameters below.
 

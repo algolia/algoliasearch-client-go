@@ -723,6 +723,9 @@ DeleteRecommendRule
 
 Delete a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -874,6 +877,9 @@ func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Optio
 GetRecommendRule
 
 Return a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
 
@@ -1027,6 +1033,9 @@ GetRecommendStatus
 
 Some operations, such as deleting a Recommend rule, will respond with a `taskID` value. Use this value here to check the status of that task.
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -1161,6 +1170,9 @@ Returns results from either recommendation or trending models:
 
   - **Recommendations** are provided by the [Related Products](https://www.algolia.com/doc/guides/algolia-recommend/overview/#related-products-and-related-content) and [Frequently Bought Together](https://www.algolia.com/doc/guides/algolia-recommend/overview/#frequently-bought-together) models
   - **Trending** models are [Trending Items and Trending Facet Values](https://www.algolia.com/doc/guides/algolia-recommend/overview/#trending-items-and-trending-facet-values).
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiGetRecommendationsRequest with parameters below.
 
@@ -1312,6 +1324,9 @@ func (c *APIClient) SearchRecommendRules(r ApiSearchRecommendRulesRequest, opts 
 SearchRecommendRules
 
 List [Recommend rules](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
 

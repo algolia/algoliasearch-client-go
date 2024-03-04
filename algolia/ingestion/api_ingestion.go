@@ -94,6 +94,11 @@ CreateAuthentication
 
 Create a authentication.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiCreateAuthenticationRequest with parameters below.
 
 	@param authenticationCreate AuthenticationCreate -
@@ -223,6 +228,11 @@ CreateDestination
 
 Create a destination.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiCreateDestinationRequest with parameters below.
 
 	@param destinationCreate DestinationCreate -
@@ -351,6 +361,11 @@ func (c *APIClient) CreateSource(r ApiCreateSourceRequest, opts ...Option) (*Sou
 CreateSource
 
 Create a source.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiCreateSourceRequest with parameters below.
 
@@ -1212,6 +1227,11 @@ DeleteAuthentication
 
 Soft delete the authentication of the given authenticationID.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiDeleteAuthenticationRequest with parameters below.
 
 	@param authenticationID string - The authentication UUID.
@@ -1334,6 +1354,11 @@ DeleteDestination
 
 Soft delete the destination of the given destinationID.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiDeleteDestinationRequest with parameters below.
 
 	@param destinationID string - The destination UUID.
@@ -1455,6 +1480,11 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...Option) (*Del
 DeleteSource
 
 Soft delete the source of the given sourceID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 
@@ -1695,6 +1725,11 @@ DisableTask
 
 Disable the task of the given taskID.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiDisableTaskRequest with parameters below.
 
 	@param taskID string - The task UUID.
@@ -1817,6 +1852,11 @@ EnableTask
 
 Enable the task of the given taskID.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiEnableTaskRequest with parameters below.
 
 	@param taskID string - The task UUID.
@@ -1938,6 +1978,11 @@ func (c *APIClient) GetAuthentication(r ApiGetAuthenticationRequest, opts ...Opt
 GetAuthentication
 
 Get the authentication of the given authenticationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetAuthenticationRequest with parameters below.
 
@@ -2150,6 +2195,11 @@ GetAuthentications
 
 Get a list of authentications for the given query parameters, with pagination details.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiGetAuthenticationsRequest with parameters below.
 
 	@param itemsPerPage int32 - The number of items per page to return.
@@ -2291,6 +2341,11 @@ func (c *APIClient) GetDestination(r ApiGetDestinationRequest, opts ...Option) (
 GetDestination
 
 Get the destination of the given destinationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetDestinationRequest with parameters below.
 
@@ -2503,6 +2558,11 @@ GetDestinations
 
 Get a list of destinations for the given query parameters, with pagination details.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiGetDestinationsRequest with parameters below.
 
 	@param itemsPerPage int32 - The number of items per page to return.
@@ -2645,6 +2705,11 @@ GetDockerSourceStreams
 
 Retrieve a stream listing for a given Singer specification compatible docker type source ID.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiGetDockerSourceStreamsRequest with parameters below.
 
 	@param sourceID string - The source UUID.
@@ -2778,6 +2843,11 @@ func (c *APIClient) GetEvent(r ApiGetEventRequest, opts ...Option) (*Event, erro
 GetEvent
 
 Get a single event for a specific runID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetEventRequest with parameters below.
 
@@ -3042,6 +3112,11 @@ GetEvents
 
 Get a list of events associated to the given runID, for the given query parameters.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiGetEventsRequest with parameters below.
 
 	@param runID string - The run UUID.
@@ -3196,6 +3271,11 @@ func (c *APIClient) GetRun(r ApiGetRunRequest, opts ...Option) (*Run, error) {
 GetRun
 
 Get a single run for the given ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetRunRequest with parameters below.
 
@@ -3442,6 +3522,11 @@ GetRuns
 
 Get a list of runs for the given query parameters, with pagination details.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiGetRunsRequest with parameters below.
 
 	@param itemsPerPage int32 - The number of items per page to return.
@@ -3591,6 +3676,11 @@ func (c *APIClient) GetSource(r ApiGetSourceRequest, opts ...Option) (*Source, e
 GetSource
 
 Get the source of the given sourceID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetSourceRequest with parameters below.
 
@@ -3803,6 +3893,11 @@ GetSources
 
 Get a list of sources for the given query parameters, with pagination details.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiGetSourcesRequest with parameters below.
 
 	@param itemsPerPage int32 - The number of items per page to return.
@@ -3944,6 +4039,11 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...Option) (*Task, error) 
 GetTask
 
 Get the task of the given taskID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiGetTaskRequest with parameters below.
 
@@ -4207,6 +4307,11 @@ GetTasks
 
 Get a list of tasks for the given query parameters, with pagination details.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiGetTasksRequest with parameters below.
 
 	@param itemsPerPage int32 - The number of items per page to return.
@@ -4361,6 +4466,11 @@ RunTask
 
 Run the task of the given taskID.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiRunTaskRequest with parameters below.
 
 	@param taskID string - The task UUID.
@@ -4487,6 +4597,11 @@ func (c *APIClient) SearchAuthentications(r ApiSearchAuthenticationsRequest, opt
 SearchAuthentications
 
 Search among authentications with a defined set of parameters.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiSearchAuthenticationsRequest with parameters below.
 
@@ -4617,6 +4732,11 @@ SearchDestinations
 
 Search among destinations with a defined set of parameters.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiSearchDestinationsRequest with parameters below.
 
 	@param destinationSearch DestinationSearch
@@ -4745,6 +4865,11 @@ func (c *APIClient) SearchSources(r ApiSearchSourcesRequest, opts ...Option) ([]
 SearchSources
 
 Search among sources with a defined set of parameters.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiSearchSourcesRequest with parameters below.
 
@@ -4875,6 +5000,11 @@ SearchTasks
 
 Search among tasks with a defined set of parameters.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiSearchTasksRequest with parameters below.
 
 	@param taskSearch TaskSearch
@@ -4998,6 +5128,11 @@ func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscover
 TriggerDockerSourceDiscover
 
 Trigger a stream listing request for a Singer specification compatible docker type source.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiTriggerDockerSourceDiscoverRequest with parameters below.
 
@@ -5137,6 +5272,11 @@ func (c *APIClient) UpdateAuthentication(r ApiUpdateAuthenticationRequest, opts 
 UpdateAuthentication
 
 Update the authentication of the given authenticationID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateAuthenticationRequest with parameters below.
 
@@ -5284,6 +5424,11 @@ UpdateDestination
 
 Update the destination of the given destinationID.
 
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
 Request can be constructed by NewApiUpdateDestinationRequest with parameters below.
 
 	@param destinationID string - The destination UUID.
@@ -5429,6 +5574,11 @@ func (c *APIClient) UpdateSource(r ApiUpdateSourceRequest, opts ...Option) (*Sou
 UpdateSource
 
 Update the source of the given sourceID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateSourceRequest with parameters below.
 

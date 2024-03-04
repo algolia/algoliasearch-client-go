@@ -92,6 +92,9 @@ AddABTests
 
 Creates an A/B test.
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiAddABTestsRequest with parameters below.
 
 	@param addABTestsRequest AddABTestsRequest
@@ -828,6 +831,9 @@ DeleteABTest
 Delete an A/B test.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiDeleteABTestRequest with parameters below.
 
 	@param id int32 - Unique A/B test ID.
@@ -946,6 +952,9 @@ GetABTest
 
 Get specific details for an A/B test.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetABTestRequest with parameters below.
 
@@ -1119,6 +1128,9 @@ ListABTests
 
 List all A/B tests.
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiListABTestsRequest with parameters below.
 
 	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
@@ -1254,6 +1266,9 @@ StopABTest
 If stopped, the test is over and can't be restarted. There is now only one index, receiving 100% of all search requests.
 The data gathered for stopped A/B tests is retained.
 To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiStopABTestRequest with parameters below.
 

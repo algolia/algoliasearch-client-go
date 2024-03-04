@@ -104,6 +104,9 @@ Add a new API key with specific permissions and restrictions.
 The request must be authenticated with the admin API key.
 The response returns an API key string.
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiAddApiKeyRequest with parameters below.
 
 	@param apiKey ApiKey
@@ -263,6 +266,9 @@ To update only some attributes of an existing record, use the [`partial` operati
 
 To add multiple records to your index in a single API request, use the [`batch` operation](#tag/Records/operation/batch).
 
+Required API Key ACLs:
+  - addObject
+
 Request can be constructed by NewApiAddOrUpdateObjectRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -399,6 +405,9 @@ func (c *APIClient) AppendSource(r ApiAppendSourceRequest, opts ...Option) (*Cre
 AppendSource
 
 Add a source to the list of allowed sources.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiAppendSourceRequest with parameters below.
 
@@ -540,6 +549,9 @@ AssignUserId
 
 Assign or move a user ID to a cluster.
 The time it takes to move a user is proportional to the amount of data linked to the user ID.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiAssignUserIdRequest with parameters below.
 
@@ -831,6 +843,9 @@ BatchAssignUserIds
 Assign multiple user IDs to a cluster.
 **You can't _move_ users with this operation.**.
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiBatchAssignUserIdsRequest with parameters below.
 
 	@param xAlgoliaUserID string - userID to assign.
@@ -975,6 +990,9 @@ func (c *APIClient) BatchDictionaryEntries(r ApiBatchDictionaryEntriesRequest, o
 BatchDictionaryEntries
 
 Add or remove a batch of dictionary entries.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiBatchDictionaryEntriesRequest with parameters below.
 
@@ -1121,6 +1139,9 @@ Retrieve up to 1,000 records per call.
 Supports full-text search and filters. For better performance, it doesn't support:
 - The `distinct` query parameter - Sorting by typos, proximity, words, or geographical distance.
 
+Required API Key ACLs:
+  - browse
+
 Request can be constructed by NewApiBrowseRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -1247,6 +1268,9 @@ func (c *APIClient) ClearObjects(r ApiClearObjectsRequest, opts ...Option) (*Upd
 ClearObjects
 
 Delete the records but leave settings and index-specific API keys untouched.
+
+Required API Key ACLs:
+  - deleteIndex
 
 Request can be constructed by NewApiClearObjectsRequest with parameters below.
 
@@ -1384,6 +1408,9 @@ func (c *APIClient) ClearRules(r ApiClearRulesRequest, opts ...Option) (*Updated
 ClearRules
 
 Delete all rules in the index.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiClearRulesRequest with parameters below.
 
@@ -1526,6 +1553,9 @@ func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...Option) (*U
 ClearSynonyms
 
 Delete all synonyms in the index.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiClearSynonymsRequest with parameters below.
 
@@ -2266,6 +2296,9 @@ DeleteApiKey
 Delete an existing API key.
 The request must be authenticated with the admin API key.
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiDeleteApiKeyRequest with parameters below.
 
 	@param key string - API key.
@@ -2405,6 +2438,9 @@ DeleteBy
 This operation doesn't support all the query options, only its filters (numeric, facet, or tag) and geo queries.
 It doesn't accept empty filters or queries.
 
+Required API Key ACLs:
+  - deleteIndex
+
 Request can be constructed by NewApiDeleteByRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -2531,6 +2567,9 @@ func (c *APIClient) DeleteIndex(r ApiDeleteIndexRequest, opts ...Option) (*Delet
 DeleteIndex
 
 Delete an existing index.
+
+Required API Key ACLs:
+  - deleteIndex
 
 Request can be constructed by NewApiDeleteIndexRequest with parameters below.
 
@@ -2663,6 +2702,9 @@ func (c *APIClient) DeleteObject(r ApiDeleteObjectRequest, opts ...Option) (*Del
 DeleteObject
 
 To delete a set of records matching a query, use the [`deleteByQuery` operation](#tag/Records/operation/deleteBy) instead.
+
+Required API Key ACLs:
+  - deleteObject
 
 Request can be constructed by NewApiDeleteObjectRequest with parameters below.
 
@@ -2818,6 +2860,9 @@ DeleteRule
 
 Delete a rule by its `objectID`. To find the `objectID` for rules, use the [`search` operation](#tag/Rules/operation/searchRules).
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiDeleteRuleRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -2947,6 +2992,9 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...Option) (*Del
 DeleteSource
 
 Remove a source from the list of allowed sources.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 
@@ -3096,6 +3144,9 @@ func (c *APIClient) DeleteSynonym(r ApiDeleteSynonymRequest, opts ...Option) (*D
 DeleteSynonym
 
 Delete a synonym by its `objectID`. To find the object IDs of your synonyms, use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiDeleteSynonymRequest with parameters below.
 
@@ -3314,6 +3365,9 @@ GetDictionaryLanguages
 
 Lists Algolia's [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/) and any customizations applied to each language's [stop word](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/), [plural](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-plurals-and-other-declensions/), and [segmentation (compound)](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) features.
 
+Required API Key ACLs:
+  - settings
+
 Request can be constructed by NewApiGetDictionaryLanguagesRequest with parameters below.
 
 	@return map[string]Languages
@@ -3396,6 +3450,9 @@ func (c *APIClient) GetDictionarySettings(opts ...Option) (*GetDictionarySetting
 GetDictionarySettings
 
 Get the languages for which [stop words are turned off](#tag/Dictionaries/operation/setDictionarySettings).
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetDictionarySettingsRequest with parameters below.
 
@@ -3573,6 +3630,9 @@ Logs are held for the last seven days. There's also a logging limit of 1,000 API
 This request counts towards your [operations quota](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-) but doesn't appear in the logs itself.
 > **Note**: To fetch the logs for a Distributed Search Network (DSN) cluster, target the [DSN's endpoint](https://www.algolia.com/doc/guides/scaling/distributed-search-network-dsn/#accessing-dsn-servers).
 
+Required API Key ACLs:
+  - logs
+
 Request can be constructed by NewApiGetLogsRequest with parameters below.
 
 	@param offset int32 - First log entry to retrieve. Sorted by decreasing date with 0 being the most recent.
@@ -3734,6 +3794,9 @@ GetObject
 
 To get more than one record, use the [`objects` operation](#tag/Records/operation/getObjects).
 
+Required API Key ACLs:
+  - search
+
 Request can be constructed by NewApiGetObjectRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -3869,6 +3932,9 @@ GetObjects
 
 Retrieve one or more records, potentially from different indices, in a single API operation. Results will be received in the same order as the requests.
 
+Required API Key ACLs:
+  - search
+
 Request can be constructed by NewApiGetObjectsRequest with parameters below.
 
 	@param getObjectsParams GetObjectsParams - Request object.
@@ -4003,6 +4069,9 @@ GetRule
 
 Get a rule by its `objectID`. To find the `objectID` for rules, use the [`search` operation](#tag/Rules/operation/searchRules).
 
+Required API Key ACLs:
+  - settings
+
 Request can be constructed by NewApiGetRuleRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -4128,6 +4197,9 @@ GetSettings
 
 Return an object containing an index's [configuration settings](https://www.algolia.com/doc/api-reference/settings-api-parameters/).
 
+Required API Key ACLs:
+  - search
+
 Request can be constructed by NewApiGetSettingsRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -4215,6 +4287,9 @@ func (c *APIClient) GetSources(opts ...Option) ([]Source, error) {
 GetSources
 
 Get all allowed sources (IP addresses).
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiGetSourcesRequest with parameters below.
 
@@ -4342,6 +4417,9 @@ func (c *APIClient) GetSynonym(r ApiGetSynonymRequest, opts ...Option) (*Synonym
 GetSynonym
 
 Get a syonym by its `objectID`. To find the object IDs for your synonyms, use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiGetSynonymRequest with parameters below.
 
@@ -4480,6 +4558,9 @@ GetTask
 
 Some operations, such as copying an index, will respond with a `taskID` value. Use this value here to check the status of that task.
 
+Required API Key ACLs:
+  - addObject
+
 Request can be constructed by NewApiGetTaskRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -4571,6 +4652,9 @@ GetTopUserIds
 
 Get the IDs of the 10 users with the highest number of records per cluster.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiGetTopUserIdsRequest with parameters below.
 
@@ -4688,6 +4772,9 @@ GetUserId
 
 Returns the userID data stored in the mapping.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiGetUserIdRequest with parameters below.
 
@@ -4813,6 +4900,9 @@ HasPendingMappings
 
 To determine when the time-consuming process of creating a large batch of users or migrating users from one cluster to another is complete, this operation retrieves the status of the process.
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiHasPendingMappingsRequest with parameters below.
 
 	@param getClusters bool - Indicates whether to include the cluster's pending mapping state in the response.
@@ -4901,6 +4991,9 @@ ListApiKeys
 
 List all API keys associated with your Algolia application, including their permissions and restrictions.
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiListApiKeysRequest with parameters below.
 
 	@return ListApiKeysResponse
@@ -4983,6 +5076,9 @@ func (c *APIClient) ListClusters(opts ...Option) (*ListClustersResponse, error) 
 ListClusters
 
 List the available clusters in a multi-cluster setup.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiListClustersRequest with parameters below.
 
@@ -5119,6 +5215,9 @@ func (c *APIClient) ListIndices(r ApiListIndicesRequest, opts ...Option) (*ListI
 ListIndices
 
 List indices in an Algolia application.
+
+Required API Key ACLs:
+  - listIndexes
 
 Request can be constructed by NewApiListIndicesRequest with parameters below.
 
@@ -5266,6 +5365,9 @@ ListUserIds
 
 List the userIDs assigned to a multi-cluster application.
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiListUserIdsRequest with parameters below.
 
@@ -5552,6 +5654,9 @@ The choice between moving or copying an index depends on your needs. Choose:
 
 > **Note**: When considering copying or moving, be aware of the [rate limitations](https://www.algolia.com/doc/guides/scaling/algolia-service-limits/#application-record-and-index-limits) on these processes and the [impact on your analytics data](https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices/concepts/indices-analytics/).
 
+Required API Key ACLs:
+  - addObject
+
 Request can be constructed by NewApiOperationIndexRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -5727,6 +5832,9 @@ PartialUpdateObject
 Add new attributes or update current ones in an existing record.
 You can use any first-level attribute but not nested attributes. If you specify a [nested attribute](https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/creating-and-using-nested-attributes/), the engine treats it as a replacement for its first-level ancestor.
 
+Required API Key ACLs:
+  - addObject
+
 Request can be constructed by NewApiPartialUpdateObjectRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -5867,6 +5975,9 @@ RemoveUserId
 
 Remove a userID and its associated data from the multi-clusters.
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiRemoveUserIdRequest with parameters below.
 
 	@param userID string - userID to assign.
@@ -5992,6 +6103,9 @@ ReplaceSources
 
 Replace all allowed sources.
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiReplaceSourcesRequest with parameters below.
 
 	@param source []Source - Allowed sources.
@@ -6115,6 +6229,9 @@ RestoreApiKey
 
 Restore a deleted API key, along with its associated permissions.
 The request must be authenticated with the admin API key.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiRestoreApiKeyRequest with parameters below.
 
@@ -6258,6 +6375,9 @@ Add a record (object) to an index or replace it.
 If the record doesn't contain an `objectID`, Algolia automatically adds it.
 If you use an existing `objectID`, the existing record is replaced with the new one.
 To add multiple records to your index in a single API request, use the [`batch` operation](#tag/Records/operation/batch).
+
+Required API Key ACLs:
+  - addObject
 
 Request can be constructed by NewApiSaveObjectRequest with parameters below.
 
@@ -6431,6 +6551,9 @@ func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...Option) (*UpdatedRule
 SaveRule
 
 To create or update more than one rule, use the [`batch` operation](#tag/Rules/operation/saveRules).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSaveRuleRequest with parameters below.
 
@@ -6620,6 +6743,9 @@ SaveRules
 
 Create or update multiple rules.
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiSaveRulesRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -6807,6 +6933,9 @@ Add a [synonym](https://www.algolia.com/doc/guides/managing-results/optimize-sea
 If the synonym `objectID` doesn't exist, Algolia adds a new one.
 If you use an existing synonym `objectID`, the existing synonym is replaced with the new one.
 To add multiple synonyms in a single API request, use the [`batch` operation](#tag/Synonyms/operation/saveSynonyms).
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSaveSynonymRequest with parameters below.
 
@@ -6996,6 +7125,9 @@ SaveSynonyms
 
 Create or update multiple synonyms.
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiSaveSynonymsRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -7137,6 +7269,9 @@ Search
 
 Send multiple search queries to one or more indices.
 
+Required API Key ACLs:
+  - search
+
 Request can be constructed by NewApiSearchRequest with parameters below.
 
 	@param searchMethodParams SearchMethodParams - Query requests and strategies. Results will be received in the same order as the queries.
@@ -7275,6 +7410,9 @@ func (c *APIClient) SearchDictionaryEntries(r ApiSearchDictionaryEntriesRequest,
 SearchDictionaryEntries
 
 Search for standard and [custom](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/) entries in the [stop words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-stop-words/), [plurals](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-plurals-and-other-declensions/), or [segmentation (compounds)](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) dictionaries.
+
+Required API Key ACLs:
+  - settings
 
 Request can be constructed by NewApiSearchDictionaryEntriesRequest with parameters below.
 
@@ -7431,6 +7569,9 @@ SearchForFacetValues
 [Search for a facet's values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values), optionally restricting the returned values to those contained in records matching other search criteria.
 > **Note**: Pagination isn't supported (`page` and `hitsPerPage` are ignored). By default, the engine returns a maximum of 10 values but you can adjust this with `maxFacetHits`.
 
+Required API Key ACLs:
+  - search
+
 Request can be constructed by NewApiSearchForFacetValuesRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -7580,6 +7721,9 @@ SearchRules
 
 Search for rules in your index. You can control the search with parameters. To list all rules, send an empty request body.
 
+Required API Key ACLs:
+  - settings
+
 Request can be constructed by NewApiSearchRulesRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -7723,6 +7867,9 @@ func (c *APIClient) SearchSingleIndex(r ApiSearchSingleIndexRequest, opts ...Opt
 SearchSingleIndex
 
 Return records that match the query.
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiSearchSingleIndexRequest with parameters below.
 
@@ -7868,6 +8015,9 @@ SearchSynonyms
 
 Search for synonyms in your index. You can control and filter the search with parameters. To get all synonyms, send an empty request body.
 
+Required API Key ACLs:
+  - settings
+
 Request can be constructed by NewApiSearchSynonymsRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -8002,6 +8152,9 @@ SearchUserIds
 Since it can take up to a few seconds to get the data from the different clusters, the response isn't real-time.
 To ensure rapid updates, the user IDs index isn't built at the same time as the mapping. Instead, it's built every 12 hours, at the same time as the update of user ID usage. For example, if you add or move a user ID, the search will show an old value until the next time the mapping is rebuilt (every 12 hours).
 
+Required API Key ACLs:
+  - admin
+
 Request can be constructed by NewApiSearchUserIdsRequest with parameters below.
 
 	@param searchUserIdsParams SearchUserIdsParams
@@ -8128,6 +8281,9 @@ func (c *APIClient) SetDictionarySettings(r ApiSetDictionarySettingsRequest, opt
 SetDictionarySettings
 
 Set stop word settings for a specific language.
+
+Required API Key ACLs:
+  - editSettings
 
 Request can be constructed by NewApiSetDictionarySettingsRequest with parameters below.
 
@@ -8285,6 +8441,9 @@ SetSettings
 
 Update the specified [index settings](https://www.algolia.com/doc/api-reference/settings-api-parameters/). Specifying null for a setting resets it to its default value.
 
+Required API Key ACLs:
+  - editSettings
+
 Request can be constructed by NewApiSetSettingsRequest with parameters below.
 
 	@param indexName string - Index on which to perform the request.
@@ -8437,6 +8596,9 @@ UpdateApiKey
 Replace the permissions of an existing API key.
 Any unspecified parameter resets that permission to its default value.
 The request must be authenticated with the admin API key.
+
+Required API Key ACLs:
+  - admin
 
 Request can be constructed by NewApiUpdateApiKeyRequest with parameters below.
 

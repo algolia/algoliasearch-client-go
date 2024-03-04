@@ -752,6 +752,9 @@ GetAverageClickPosition
 Return the average click position for the complete time range and for individual days.
 > **Note**: If all `positions` have a `clickCount` of `0` or `null`, it means Algolia didn't receive any click events for tracked searches. A _tracked_ search is a search request where the `clickAnalytics` parameter is `true`.
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiGetAverageClickPositionRequest with parameters below.
 
 	@param index string - Index name to target.
@@ -940,6 +943,9 @@ Show the number of clicks events and their associated position in the search res
 
 > **Note**: If all `positions` have a `clickCount` of `0` or `null`, it means Algolia didn't receive any click events for tracked searches. A _tracked_ search is a search request where the `clickAnalytics` parameter is `true`.
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiGetClickPositionsRequest with parameters below.
 
 	@param index string - Index name to target.
@@ -1123,6 +1129,9 @@ func (c *APIClient) GetClickThroughRate(r ApiGetClickThroughRateRequest, opts ..
 GetClickThroughRate
 
 Returns a [click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetClickThroughRateRequest with parameters below.
 
@@ -1308,6 +1317,9 @@ GetConversationRate
 
 Return a [conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiGetConversationRateRequest with parameters below.
 
 	@param index string - Index name to target.
@@ -1491,6 +1503,9 @@ func (c *APIClient) GetNoClickRate(r ApiGetNoClickRateRequest, opts ...Option) (
 GetNoClickRate
 
 Returns the rate at which searches don't lead to any clicks. The endpoint returns a value for the complete given time range, as well as a value per day. It also returns the count of searches and searches without clicks.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 
@@ -1676,6 +1691,9 @@ GetNoResultsRate
 
 Returns the rate at which searches didn't return any results.
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiGetNoResultsRateRequest with parameters below.
 
 	@param index string - Index name to target.
@@ -1859,6 +1877,9 @@ func (c *APIClient) GetSearchesCount(r ApiGetSearchesCountRequest, opts ...Optio
 GetSearchesCount
 
 Returns the number of searches within a time range.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetSearchesCountRequest with parameters below.
 
@@ -2077,6 +2098,9 @@ func (c *APIClient) GetSearchesNoClicks(r ApiGetSearchesNoClicksRequest, opts ..
 GetSearchesNoClicks
 
 Return the most popular of the last 1,000 searches that didn't lead to any clicks.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters below.
 
@@ -2304,6 +2328,9 @@ GetSearchesNoResults
 
 Returns the most popular of the latest 1,000 searches that didn't return any results.
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters below.
 
 	@param index string - Index name to target.
@@ -2446,6 +2473,9 @@ GetStatus
 
 Return the latest update time of the Analytics API for an index. If the index has been recently created or no search has been performed yet, `updatedAt` will be `null`.
 > **Note**: The Analytics API is updated every 5&nbsp;minutes.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetStatusRequest with parameters below.
 
@@ -2652,6 +2682,9 @@ func (c *APIClient) GetTopCountries(r ApiGetTopCountriesRequest, opts ...Option)
 GetTopCountries
 
 Returns top countries. Limited to the 1,000 most frequent ones.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetTopCountriesRequest with parameters below.
 
@@ -2895,6 +2928,9 @@ func (c *APIClient) GetTopFilterAttributes(r ApiGetTopFilterAttributesRequest, o
 GetTopFilterAttributes
 
 Return the most popular [filterable attributes](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/) in the 1,000 most recently used filters.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetTopFilterAttributesRequest with parameters below.
 
@@ -3155,6 +3191,9 @@ GetTopFilterForAttribute
 
 Returns the most popular filter values for an attribute in the 1,000 most recently used filters.
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiGetTopFilterForAttributeRequest with parameters below.
 
 	@param attribute string - Attribute name.
@@ -3406,6 +3445,9 @@ func (c *APIClient) GetTopFiltersNoResults(r ApiGetTopFiltersNoResultsRequest, o
 GetTopFiltersNoResults
 
 Returns top filters for filter-enabled searches that don't return results. Limited to the 1,000 most recently used filters.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameters below.
 
@@ -3670,6 +3712,9 @@ func (c *APIClient) GetTopHits(r ApiGetTopHitsRequest, opts ...Option) (*GetTopH
 GetTopHits
 
 Return the most popular clicked results in the last 1,000 searches.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 
@@ -3956,6 +4001,9 @@ GetTopSearches
 
 Returns the most popular of the latest 1,000 searches. For each search, also returns the number of hits.
 
+Required API Key ACLs:
+  - analytics
+
 Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 
 	@param index string - Index name to target.
@@ -4159,6 +4207,9 @@ func (c *APIClient) GetUsersCount(r ApiGetUsersCountRequest, opts ...Option) (*G
 GetUsersCount
 
 Return the count of unique users.
+
+Required API Key ACLs:
+  - analytics
 
 Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 
