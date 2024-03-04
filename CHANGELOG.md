@@ -1,3 +1,7 @@
+## [4.0.0-beta.5](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.4...4.0.0-beta.5)
+
+- [115dd1778](https://github.com/algolia/api-clients-automation/commit/115dd1778) chore(go): add missing ACLs in description, remove duplicated deprecation notice ([#2825](https://github.com/algolia/api-clients-automation/pull/2825)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-beta.4](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.3...4.0.0-beta.4)
 
 - [a138c2fef](https://github.com/algolia/api-clients-automation/commit/a138c2fef) fix(specs): add `queryID` to search response ([#2801](https://github.com/algolia/api-clients-automation/pull/2801)) by [@aallam](https://github.com/aallam/)
