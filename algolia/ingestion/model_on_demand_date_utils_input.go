@@ -11,17 +11,29 @@ type OnDemandDateUtilsInput struct {
 	// The start date of the extraction (RFC3339 format).
 	StartDate string `json:"startDate"`
 	// The end date of the extraction (RFC3339 format).
-	EndDate string `json:"endDate"`
+	EndDate string        `json:"endDate"`
+	Mapping *MappingInput `json:"mapping,omitempty"`
+}
+
+type OnDemandDateUtilsInputOption func(f *OnDemandDateUtilsInput)
+
+func WithOnDemandDateUtilsInputMapping(val MappingInput) OnDemandDateUtilsInputOption {
+	return func(f *OnDemandDateUtilsInput) {
+		f.Mapping = &val
+	}
 }
 
 // NewOnDemandDateUtilsInput instantiates a new OnDemandDateUtilsInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewOnDemandDateUtilsInput(startDate string, endDate string) *OnDemandDateUtilsInput {
+func NewOnDemandDateUtilsInput(startDate string, endDate string, opts ...OnDemandDateUtilsInputOption) *OnDemandDateUtilsInput {
 	this := &OnDemandDateUtilsInput{}
 	this.StartDate = startDate
 	this.EndDate = endDate
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -80,6 +92,39 @@ func (o *OnDemandDateUtilsInput) SetEndDate(v string) *OnDemandDateUtilsInput {
 	return o
 }
 
+// GetMapping returns the Mapping field value if set, zero value otherwise.
+func (o *OnDemandDateUtilsInput) GetMapping() MappingInput {
+	if o == nil || o.Mapping == nil {
+		var ret MappingInput
+		return ret
+	}
+	return *o.Mapping
+}
+
+// GetMappingOk returns a tuple with the Mapping field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OnDemandDateUtilsInput) GetMappingOk() (*MappingInput, bool) {
+	if o == nil || o.Mapping == nil {
+		return nil, false
+	}
+	return o.Mapping, true
+}
+
+// HasMapping returns a boolean if a field has been set.
+func (o *OnDemandDateUtilsInput) HasMapping() bool {
+	if o != nil && o.Mapping != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMapping gets a reference to the given MappingInput and assigns it to the Mapping field.
+func (o *OnDemandDateUtilsInput) SetMapping(v *MappingInput) *OnDemandDateUtilsInput {
+	o.Mapping = v
+	return o
+}
+
 func (o OnDemandDateUtilsInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -87,6 +132,9 @@ func (o OnDemandDateUtilsInput) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["endDate"] = o.EndDate
+	}
+	if o.Mapping != nil {
+		toSerialize["mapping"] = o.Mapping
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -100,6 +148,7 @@ func (o OnDemandDateUtilsInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  startDate=%v\n", o.StartDate)
 	out += fmt.Sprintf("  endDate=%v\n", o.EndDate)
+	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
 	return fmt.Sprintf("OnDemandDateUtilsInput {\n%s}", out)
 }
 

@@ -9,16 +9,28 @@ import (
 // ScheduleDateUtilsInput The input for a `schedule` task whose source is of type `bigquery` and for which extracted data spans a fixed number of days.
 type ScheduleDateUtilsInput struct {
 	// The timeframe of the extraction, in number of days from today.
-	Timeframe int32 `json:"timeframe"`
+	Timeframe int32         `json:"timeframe"`
+	Mapping   *MappingInput `json:"mapping,omitempty"`
+}
+
+type ScheduleDateUtilsInputOption func(f *ScheduleDateUtilsInput)
+
+func WithScheduleDateUtilsInputMapping(val MappingInput) ScheduleDateUtilsInputOption {
+	return func(f *ScheduleDateUtilsInput) {
+		f.Mapping = &val
+	}
 }
 
 // NewScheduleDateUtilsInput instantiates a new ScheduleDateUtilsInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewScheduleDateUtilsInput(timeframe int32) *ScheduleDateUtilsInput {
+func NewScheduleDateUtilsInput(timeframe int32, opts ...ScheduleDateUtilsInputOption) *ScheduleDateUtilsInput {
 	this := &ScheduleDateUtilsInput{}
 	this.Timeframe = timeframe
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -52,10 +64,46 @@ func (o *ScheduleDateUtilsInput) SetTimeframe(v int32) *ScheduleDateUtilsInput {
 	return o
 }
 
+// GetMapping returns the Mapping field value if set, zero value otherwise.
+func (o *ScheduleDateUtilsInput) GetMapping() MappingInput {
+	if o == nil || o.Mapping == nil {
+		var ret MappingInput
+		return ret
+	}
+	return *o.Mapping
+}
+
+// GetMappingOk returns a tuple with the Mapping field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScheduleDateUtilsInput) GetMappingOk() (*MappingInput, bool) {
+	if o == nil || o.Mapping == nil {
+		return nil, false
+	}
+	return o.Mapping, true
+}
+
+// HasMapping returns a boolean if a field has been set.
+func (o *ScheduleDateUtilsInput) HasMapping() bool {
+	if o != nil && o.Mapping != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMapping gets a reference to the given MappingInput and assigns it to the Mapping field.
+func (o *ScheduleDateUtilsInput) SetMapping(v *MappingInput) *ScheduleDateUtilsInput {
+	o.Mapping = v
+	return o
+}
+
 func (o ScheduleDateUtilsInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["timeframe"] = o.Timeframe
+	}
+	if o.Mapping != nil {
+		toSerialize["mapping"] = o.Mapping
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -68,6 +116,7 @@ func (o ScheduleDateUtilsInput) MarshalJSON() ([]byte, error) {
 func (o ScheduleDateUtilsInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  timeframe=%v\n", o.Timeframe)
+	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
 	return fmt.Sprintf("ScheduleDateUtilsInput {\n%s}", out)
 }
 
