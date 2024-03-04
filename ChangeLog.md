@@ -1,5 +1,12 @@
 # ChangeLog
 
+## [3.31.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.0...v3.31.1) (2024-03-04)
+
+## Fix
+
+- fix(transport): clone headers when creating a request (#753) ([835301ce](https://github.com/algolia/algoliasearch-client-go/commit/835301ce))
+- fix(transport): set header when compression is enabled instead of adding a new one (#755) ([a07f0bf8](https://github.com/algolia/algoliasearch-client-go/commit/a07f0bf8))
+
 ## [3.31.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.30.1...v3.31.0) (2023-08-25)
 
 ## Fix
