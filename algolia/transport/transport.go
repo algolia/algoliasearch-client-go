@@ -286,7 +286,7 @@ func buildRequest(
 	if isCompressionEnabled {
 		switch c {
 		case compression.GZIP:
-			req.Header.Add("Content-Encoding", "gzip")
+			req.Header.Set("Content-Encoding", "gzip")
 		default:
 			// Do nothing
 		}
