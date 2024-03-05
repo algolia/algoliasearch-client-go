@@ -1,3 +1,7 @@
+## [4.0.0-beta.6](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.5...4.0.0-beta.6)
+
+- [234427491](https://github.com/algolia/api-clients-automation/commit/234427491) feat(specs): Add MappingInput to Task Inputs ([#2787](https://github.com/algolia/api-clients-automation/pull/2787)) by [@jsok](https://github.com/jsok/)
+
 ## [4.0.0-beta.5](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.4...4.0.0-beta.5)
 
 - [115dd1778](https://github.com/algolia/api-clients-automation/commit/115dd1778) chore(go): add missing ACLs in description, remove duplicated deprecation notice ([#2825](https://github.com/algolia/api-clients-automation/pull/2825)) by [@shortcuts](https://github.com/shortcuts/)
