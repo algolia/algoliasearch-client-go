@@ -17,7 +17,7 @@ type QueryRes struct {
 	Extensions                 map[string]map[string]interface{} `json:"extensions"`
 	Facets                     map[string]map[string]int         `json:"facets"`
 	FacetsStats                map[string]FacetStat              `json:"facets_stats"`
-	Hits                       []map[string]interface{}          `json:"hits"`
+	Hits                       []Hit                             `json:"hits"`
 	HitsPerPage                int                               `json:"hitsPerPage"`
 	Index                      string                            `json:"index"`
 	IndexUsed                  string                            `json:"indexUsed"`
@@ -75,6 +75,35 @@ type RankingInfo struct {
 	Words             int `json:"words"`
 }
 
+type Hit struct {
+	ObjectID string
+	raw      json.RawMessage
+}
+
+func (f *Hit) UnmarshalJSON(data []byte) error {
+	f.raw = data
+
+	// handle objectID
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(data, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["objectID"]; found {
+		err = json.Unmarshal(raw, &f.ObjectID)
+		if err != nil {
+			return fmt.Errorf("error reading 'ObjectID': %w", err)
+		}
+	}
+
+	return nil
+}
+
+func (f *Hit) MarshalJSON() ([]byte, error) {
+	return f.raw, nil
+}
+
 func (r QueryRes) UnmarshalHits(v interface{}) error {
 	hitsPayload, err := json.Marshal(r.Hits)
 	if err != nil {
@@ -96,12 +125,8 @@ func (r QueryRes) UnmarshalUserData(v interface{}) error {
 // objectID is not found, -1 is returned.
 func (r QueryRes) GetObjectPosition(objectID string) int {
 	for i, hit := range r.Hits {
-		itf, ok := hit["objectID"]
-		if !ok {
-			continue
-		}
-		hitObjectID, ok := itf.(string)
-		if ok && hitObjectID == objectID {
+		hitObjectID := hit.ObjectID
+		if hitObjectID == objectID {
 			return i
 		}
 	}
