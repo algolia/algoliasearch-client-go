@@ -12,7 +12,7 @@ type SearchNoResultEvent struct {
 	Search string `json:"search"`
 	// Number of occurrences.
 	Count int32 `json:"count"`
-	// Number of hits the search query matched.
+	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
 }
 

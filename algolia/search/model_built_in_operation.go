@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-// BuiltInOperation To update an attribute without pushing the entire record, you can use these built-in operations.
+// BuiltInOperation Update to perform on the attribute.
 type BuiltInOperation struct {
 	Operation BuiltInOperationType `json:"_operation"`
-	// Value that corresponds to the operation, for example an `Increment` or `Decrement` step, `Add` or `Remove` value.
+	// Value that corresponds to the operation, for example an `Increment` or `Decrement` step, or an `Add` or `Remove` value.
 	Value string `json:"value"`
 }
 

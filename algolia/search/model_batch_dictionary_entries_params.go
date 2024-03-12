@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// BatchDictionaryEntriesParams `batchDictionaryEntries` parameters.
+// BatchDictionaryEntriesParams Request body for updating dictionary entries.
 type BatchDictionaryEntriesParams struct {
-	// Incidates whether to replace all custom entries in the dictionary with the ones sent with this request.
+	// Whether to replace all custom entries in the dictionary with the ones sent with this request.
 	ClearExistingDictionaryEntries *bool `json:"clearExistingDictionaryEntries,omitempty"`
-	// Operations to batch.
+	// List of additions and deletions to your dictionaries.
 	Requests []BatchDictionaryEntriesRequest `json:"requests"`
 }
 

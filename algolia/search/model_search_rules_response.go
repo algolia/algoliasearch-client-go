@@ -8,9 +8,9 @@ import (
 
 // SearchRulesResponse struct for SearchRulesResponse.
 type SearchRulesResponse struct {
-	// Fetched rules.
+	// Rules that matched the search criteria.
 	Hits []Rule `json:"hits"`
-	// Number of fetched rules.
+	// Number of rules that matched the search criteria.
 	NbHits int32 `json:"nbHits"`
 	// Current page.
 	Page int32 `json:"page"`

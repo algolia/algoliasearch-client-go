@@ -8,8 +8,9 @@ import (
 
 // SearchHits struct for SearchHits.
 type SearchHits struct {
+	// Search results (hits).  Hits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.
 	Hits []Hit `json:"hits"`
-	// Text to search for in an index.
+	// Search query.
 	Query string `json:"query"`
 	// URL-encoded string of all search parameters.
 	Params               string `json:"params"`

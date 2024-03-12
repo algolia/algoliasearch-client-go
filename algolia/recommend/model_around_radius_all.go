@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// AroundRadiusAll the model 'AroundRadiusAll'.
+// AroundRadiusAll Return all records with a valid `_geoloc` attribute. Don't filter by distance.
 type AroundRadiusAll string
 
 // List of aroundRadiusAll.

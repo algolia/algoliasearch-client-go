@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Params Additional search parameters.
+// Params Parameters to apply to this search.  You can use all search parameters, plus special `automaticFacetFilters`, `automaticOptionalFacetFilters`, and `query`.
 type Params struct {
 	Query                         *ConsequenceQuery      `json:"query,omitempty"`
 	AutomaticFacetFilters         *AutomaticFacetFilters `json:"automaticFacetFilters,omitempty"`

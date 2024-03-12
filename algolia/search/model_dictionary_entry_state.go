@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// DictionaryEntryState Indicates whether a dictionary entry is active (`enabled`) or inactive (`disabled`).
+// DictionaryEntryState Whether a dictionary entry is active.
 type DictionaryEntryState string
 
 // List of dictionaryEntryState.

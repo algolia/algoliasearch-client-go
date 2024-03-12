@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// Hit A single hit.
+// Hit Search result.  A hit is a record from your index, augmented with special attributes for highlighting, snippeting, and ranking.
 type Hit struct {
-	// Unique object identifier.
+	// Unique record identifier.
 	ObjectID string `json:"objectID"`
-	// Show highlighted section and words matched on a query.
+	// Surround words that match the query with HTML tags for highlighting.
 	HighlightResult *map[string]HighlightResult `json:"_highlightResult,omitempty"`
-	// Snippeted attributes show parts of the matched attributes. Only returned when attributesToSnippet is non-empty.
+	// Snippets that show the context around a matching search query.
 	SnippetResult        *map[string]SnippetResult `json:"_snippetResult,omitempty"`
 	RankingInfo          *RankingInfo              `json:"_rankingInfo,omitempty"`
 	DistinctSeqID        *int32                    `json:"_distinctSeqID,omitempty"`

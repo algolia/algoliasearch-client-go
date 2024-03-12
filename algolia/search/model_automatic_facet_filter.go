@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// AutomaticFacetFilter Automatic facet Filter.
+// AutomaticFacetFilter Filter or optional filter to be applied to the search.
 type AutomaticFacetFilter struct {
-	// Attribute to filter on. This must match a facet placeholder in the Rule's pattern.
+	// Facet name to be applied as filter. The name must match placeholders in the `pattern` parameter. For example, with `pattern: {facet:genre}`, `automaticFacetFilters` must be `genre`.
 	Facet string `json:"facet"`
-	// Score for the filter. Typically used for optional or disjunctive filters.
+	// Filter scores to give different weights to individual filters.
 	Score *int32 `json:"score,omitempty"`
-	// Whether the filter is disjunctive (true) or conjunctive (false).
+	// Whether the filter is disjunctive or conjunctive.  If true the filter has multiple matches, multiple occurrences are combined with the logical `OR` operation. If false, multiple occurrences are combined with the logical `AND` operation.
 	Disjunctive *bool `json:"disjunctive,omitempty"`
 }
 

@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// DictionaryLanguage Custom entries for a dictionary.
+// DictionaryLanguage Dictionary type. If `null`, this dictionary type isn't supported for the language.
 type DictionaryLanguage struct {
-	// If `0`, the dictionary hasn't been customized and only contains standard entries provided by Algolia. If `null`, that feature isn't available or isn't supported for that language.
+	// Number of custom dictionary entries.
 	NbCustomEntries *int32 `json:"nbCustomEntries,omitempty"`
 }
 

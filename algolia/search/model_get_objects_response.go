@@ -8,7 +8,7 @@ import (
 
 // GetObjectsResponse struct for GetObjectsResponse.
 type GetObjectsResponse struct {
-	// Retrieved results.
+	// Retrieved records.
 	Results []map[string]interface{} `json:"results"`
 }
 

@@ -8,35 +8,35 @@ import (
 
 // Log struct for Log.
 type Log struct {
-	// Timestamp in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// Timestamp of the API request in ISO 8601 format.
 	Timestamp string `json:"timestamp"`
-	// HTTP method of the performed request.
+	// HTTP method of the request.
 	Method string `json:"method"`
-	// HTTP response code.
+	// HTTP status code of the response.
 	AnswerCode string `json:"answer_code"`
-	// Request body. Truncated after 1,000 characters.
+	// Request body.
 	QueryBody string `json:"query_body"`
-	// Answer body. Truncated after 1,000 characters.
+	// Response body.
 	Answer string `json:"answer"`
-	// Request URL.
+	// URL of the API endpoint.
 	Url string `json:"url"`
 	// IP address of the client that performed the request.
 	Ip string `json:"ip"`
-	// Request headers (API key is obfuscated).
+	// Request headers (API keys are obfuscated).
 	QueryHeaders string `json:"query_headers"`
 	// SHA1 signature of the log entry.
 	Sha1 string `json:"sha1"`
-	// Number of API calls.
+	// Number of API requests.
 	NbApiCalls string `json:"nb_api_calls"`
-	// Processing time for the query. Doesn't include network time.
+	// Processing time for the query in milliseconds. This doesn't include latency due to the network.
 	ProcessingTimeMs string `json:"processing_time_ms"`
 	// Index targeted by the query.
 	Index *string `json:"index,omitempty"`
 	// Query parameters sent with the request.
 	QueryParams *string `json:"query_params,omitempty"`
-	// Number of hits returned for the query.
+	// Number of search results (hits) returned for the query.
 	QueryNbHits *string `json:"query_nb_hits,omitempty"`
-	// Performed queries for the given request.
+	// Queries performed for the given request.
 	InnerQueries []LogQuery `json:"inner_queries,omitempty"`
 }
 

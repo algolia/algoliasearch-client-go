@@ -26,7 +26,7 @@ type TopSearchWithAnalytics struct {
 	ClickCount int32 `json:"clickCount"`
 	// Number of converted clicks.
 	ConversionCount int32 `json:"conversionCount"`
-	// Number of hits the search query matched.
+	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
 }
 

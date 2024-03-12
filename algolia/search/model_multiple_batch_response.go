@@ -8,9 +8,9 @@ import (
 
 // MultipleBatchResponse struct for MultipleBatchResponse.
 type MultipleBatchResponse struct {
-	// TaskIDs per index.
+	// Task IDs. One for each index.
 	TaskID map[string]int64 `json:"taskID"`
-	// Unique object (record) identifiers.
+	// Unique record identifiers.
 	ObjectIDs []string `json:"objectIDs"`
 }
 

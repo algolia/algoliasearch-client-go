@@ -119,6 +119,7 @@ model_save_object_response.go
 model_save_synonym_response.go
 model_scope_type.go
 model_search_dictionary_entries_params.go
+model_search_dictionary_entries_response.go
 model_search_for_facet_values_request.go
 model_search_for_facet_values_response.go
 model_search_for_facets.go

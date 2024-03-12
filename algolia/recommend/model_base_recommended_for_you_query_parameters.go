@@ -8,7 +8,7 @@ import (
 
 // BaseRecommendedForYouQueryParameters struct for BaseRecommendedForYouQueryParameters.
 type BaseRecommendedForYouQueryParameters struct {
-	// Associates a [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/) with the current search.
+	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/).
 	UserToken string `json:"userToken"`
 }
 

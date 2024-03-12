@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// SnippetResultOption Snippeted attributes show parts of the matched attributes. Only returned when attributesToSnippet is non-empty.
+// SnippetResultOption Snippets that show the context around a matching search query.
 type SnippetResultOption struct {
-	// Markup text with `facetQuery` matches highlighted.
+	// Highlighted attribute value, including HTML tags.
 	Value      string     `json:"value"`
 	MatchLevel MatchLevel `json:"matchLevel"`
 }

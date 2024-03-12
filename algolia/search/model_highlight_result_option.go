@@ -6,12 +6,12 @@ import (
 	"fmt"
 )
 
-// HighlightResultOption Show highlighted section and words matched on a query.
+// HighlightResultOption Surround words that match the query with HTML tags for highlighting.
 type HighlightResultOption struct {
-	// Markup text with `facetQuery` matches highlighted.
+	// Highlighted attribute value, including HTML tags.
 	Value      string     `json:"value"`
 	MatchLevel MatchLevel `json:"matchLevel"`
-	// List of words from the query that matched the object.
+	// List of matched words from the search query.
 	MatchedWords []string `json:"matchedWords"`
 	// Whether the entire attribute value is highlighted.
 	FullyHighlighted *bool `json:"fullyHighlighted,omitempty"`

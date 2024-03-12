@@ -14,7 +14,7 @@ type RecommendationsResults struct {
 	AbTestVariantID *int32 `json:"abTestVariantID,omitempty"`
 	// Computed geographical location.
 	AroundLatLng *string `json:"aroundLatLng,omitempty"`
-	// Automatically-computed radius.
+	// Distance from a central coordinate provided by `aroundLatLng`.
 	AutomaticRadius *string     `json:"automaticRadius,omitempty"`
 	Exhaustive      *Exhaustive `json:"exhaustive,omitempty"`
 	// See the `facetsCount` field of the `exhaustive` object in the response.
@@ -26,7 +26,7 @@ type RecommendationsResults struct {
 	// See the `typo` field of the `exhaustive` object in the response.
 	// Deprecated
 	ExhaustiveTypo *bool `json:"exhaustiveTypo,omitempty"`
-	// Mapping of each facet name to the corresponding facet counts.
+	// Facet counts.
 	Facets *map[string]map[string]int32 `json:"facets,omitempty"`
 	// Statistics for numerical facets.
 	FacetsStats *map[string]FacetsStats `json:"facets_stats,omitempty"`
@@ -38,13 +38,13 @@ type RecommendationsResults struct {
 	IndexUsed *string `json:"indexUsed,omitempty"`
 	// Warnings about the query.
 	Message *string `json:"message,omitempty"`
-	// Number of hits the search query matched.
+	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
-	// Number of pages of results for the current query.
+	// Number of pages of results.
 	NbPages int32 `json:"nbPages"`
 	// Number of hits selected and sorted by the relevant sort algorithm.
 	NbSortedHits *int32 `json:"nbSortedHits,omitempty"`
-	// Page to retrieve (the first page is `0`, not `1`).
+	// Page of search results to retrieve.
 	Page int32 `json:"page"`
 	// Post-[normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/#what-does-normalization-mean) query string that will be searched.
 	ParsedQuery *string `json:"parsedQuery,omitempty"`
@@ -60,12 +60,12 @@ type RecommendationsResults struct {
 	ServerTimeMS *int32 `json:"serverTimeMS,omitempty"`
 	// Host name of the server that processed the request.
 	ServerUsed *string `json:"serverUsed,omitempty"`
-	// Lets you store custom data in your indices.
+	// An object with custom data.  You can store up to 32&nbsp;kB as custom data.
 	UserData map[string]interface{} `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID *string              `json:"queryID,omitempty"`
 	Hits    []RecommendationsHit `json:"hits"`
-	// Text to search for in an index.
+	// Search query.
 	Query *string `json:"query,omitempty"`
 	// URL-encoded string of all search parameters.
 	Params *string `json:"params,omitempty"`

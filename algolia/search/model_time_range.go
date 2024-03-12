@@ -8,9 +8,9 @@ import (
 
 // TimeRange struct for TimeRange.
 type TimeRange struct {
-	// Lower bound of the time range (Unix timestamp).
+	// When the rule should start to be active, in Unix epoch time.
 	From int32 `json:"from"`
-	// Upper bound of the time range (Unix timestamp).
+	// When the rule should stop to be active, in Unix epoch time.
 	Until int32 `json:"until"`
 }
 

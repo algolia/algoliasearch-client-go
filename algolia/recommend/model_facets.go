@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// Facets Ordering of facets (widgets).
+// Facets Order of facet names.
 type Facets struct {
-	// Pinned order of facet lists.
+	// Explicit order of facets or facet values.  This setting lets you always show specific facets or facet values at the top of the list.
 	Order []string `json:"order,omitempty"`
 }
 

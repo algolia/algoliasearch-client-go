@@ -6,16 +6,16 @@ import (
 	"fmt"
 )
 
-// Consequence [Consequences](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#consequences) of a rule.
+// Consequence Effect of the rule.  For more information, see [Consequences](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#consequences).
 type Consequence struct {
 	Params *ConsequenceParams `json:"params,omitempty"`
-	// Records to promote.
+	// Records you want to pin to a specific position in the search results.  You can promote up to 300 records, either individually, or as groups of up to 100 records each.
 	Promote []Promote `json:"promote,omitempty"`
-	// Only use in combination with the `promote` consequence. When `true`, promoted results will be restricted to match the filters of the current search. When `false`, the promoted results will show up regardless of the filters.
+	// Whether promoted records must match an active filter for the consequence to be applied.  This ensures that user actions (filtering the search) are given a higher precedence. For example, if you promote a record with the `color: red` attribute, and the user filters the search for `color: blue`, the \"red\" record won't be shown.
 	FilterPromotes *bool `json:"filterPromotes,omitempty"`
-	// Records to hide. By default, you can hide up to 50 records per rule.
+	// Records you want to hide from the search results.
 	Hide []ConsequenceHide `json:"hide,omitempty"`
-	// Custom JSON object that will be appended to the userData array in the response. This object isn't interpreted by the API. It's limited to 1kB of minified JSON.
+	// A JSON object with custom data that will be appended to the `userData` array in the response. This object isn't interpreted by the API and is limited to 1&nbsp;kB of minified JSON.
 	UserData interface{} `json:"userData,omitempty"`
 }
 

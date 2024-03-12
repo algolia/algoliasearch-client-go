@@ -8,7 +8,7 @@ import (
 
 // TrendingItemsQuery struct for TrendingItemsQuery.
 type TrendingItemsQuery struct {
-	// Algolia index name.
+	// Index name.
 	IndexName string `json:"indexName"`
 	// Recommendations with a confidence score lower than `threshold` won't appear in results. > **Note**: Each recommendation has a confidence score of 0 to 100. The closer the score is to 100, the more relevant the recommendations are.
 	Threshold *int32 `json:"threshold,omitempty"`

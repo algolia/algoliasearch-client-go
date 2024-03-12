@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SortRemainingBy How to display the remaining items:    - `count`: facet count (descending).   - `alpha`: alphabetical (ascending).   - `hidden`: show only pinned values.
+// SortRemainingBy Order of facet values that aren't explicitly positioned with the `order` setting.  <dl> <dt><code>count</code></dt> <dd> Order remaining facet values by decreasing count. The count is the number of matching records containing this facet value. </dd> <dt><code>alpha</code></dt> <dd>Sort facet values alphabetically.</dd> <dt><code>hidden</code></dt> <dd>Don't show facet values that aren't explicitly positioned.</dd> </dl>.
 type SortRemainingBy string
 
 // List of sortRemainingBy.

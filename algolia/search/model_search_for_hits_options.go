@@ -8,7 +8,7 @@ import (
 
 // SearchForHitsOptions struct for SearchForHitsOptions.
 type SearchForHitsOptions struct {
-	// Algolia index name.
+	// Index name.
 	IndexName string             `json:"indexName"`
 	Type      *SearchTypeDefault `json:"type,omitempty"`
 }

@@ -8,14 +8,14 @@ import (
 
 // RecommendationsQuery struct for RecommendationsQuery.
 type RecommendationsQuery struct {
-	// Algolia index name.
+	// Index name.
 	IndexName string `json:"indexName"`
 	// Recommendations with a confidence score lower than `threshold` won't appear in results. > **Note**: Each recommendation has a confidence score of 0 to 100. The closer the score is to 100, the more relevant the recommendations are.
 	Threshold *int32 `json:"threshold,omitempty"`
 	// Maximum number of recommendations to retrieve. If 0, all recommendations will be returned.
 	MaxRecommendations *int32               `json:"maxRecommendations,omitempty"`
 	Model              RecommendationModels `json:"model"`
-	// Unique object identifier.
+	// Unique record identifier.
 	ObjectID           string              `json:"objectID"`
 	QueryParameters    *SearchParamsObject `json:"queryParameters,omitempty"`
 	FallbackParameters *SearchParamsObject `json:"fallbackParameters,omitempty"`

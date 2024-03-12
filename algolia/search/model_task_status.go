@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TaskStatus _published_ if the task has been processed, _notPublished_ otherwise.
+// TaskStatus Task status, `published` if the task is completed, `notPublished` otherwise.
 type TaskStatus string
 
 // List of taskStatus.

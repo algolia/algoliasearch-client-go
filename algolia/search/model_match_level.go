@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// MatchLevel Indicates how well the attribute matched the search query.
+// MatchLevel Whether the whole query string matches or only a part.
 type MatchLevel string
 
 // List of matchLevel.

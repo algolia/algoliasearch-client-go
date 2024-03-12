@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TagFilters - [Filter hits by tags](https://www.algolia.com/doc/api-reference/api-parameters/tagFilters/).
+// TagFilters - Filter the search by values of the special `_tags` attribute.  **Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**  Different from regular facets, `_tags` can only be used for filtering (including or excluding records). You won't get a facet count. The same combination and escaping rules apply as for `facetFilters`.
 type TagFilters struct {
 	ArrayOfMixedSearchFilters *[]MixedSearchFilters
 	String                    *string

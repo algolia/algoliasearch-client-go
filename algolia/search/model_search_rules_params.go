@@ -10,19 +10,17 @@ import (
 
 // SearchRulesParams Rules search parameters.
 type SearchRulesParams struct {
-	// Rule object query.
+	// Search query for rules.
 	Query     *string    `json:"query,omitempty"`
 	Anchoring *Anchoring `json:"anchoring,omitempty"`
-	// Restricts responses to the specified [contextual rule](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#creating-contextual-rules).
+	// Only return rules that match the context (exact match).
 	Context *string `json:"context,omitempty"`
-	// Requested page (the first page is page 0).
+	// Requested page of the API response.
 	Page *int32 `json:"page,omitempty"`
 	// Maximum number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
-	// Restricts responses to enabled rules. When not specified (default), _all_ rules are retrieved.
+	// If `true`, return only enabled rules. If `false`, return only inactive rules. By default, _all_ rules are returned.
 	Enabled utils.NullableBool `json:"enabled,omitempty"`
-	// Request options to send with the API call.
-	RequestOptions []map[string]interface{} `json:"requestOptions,omitempty"`
 }
 
 type SearchRulesParamsOption func(f *SearchRulesParams)
@@ -60,12 +58,6 @@ func WithSearchRulesParamsHitsPerPage(val int32) SearchRulesParamsOption {
 func WithSearchRulesParamsEnabled(val utils.NullableBool) SearchRulesParamsOption {
 	return func(f *SearchRulesParams) {
 		f.Enabled = val
-	}
-}
-
-func WithSearchRulesParamsRequestOptions(val []map[string]interface{}) SearchRulesParamsOption {
-	return func(f *SearchRulesParams) {
-		f.RequestOptions = val
 	}
 }
 
@@ -295,39 +287,6 @@ func (o *SearchRulesParams) UnsetEnabled() {
 	o.Enabled.Unset()
 }
 
-// GetRequestOptions returns the RequestOptions field value if set, zero value otherwise.
-func (o *SearchRulesParams) GetRequestOptions() []map[string]interface{} {
-	if o == nil || o.RequestOptions == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-	return o.RequestOptions
-}
-
-// GetRequestOptionsOk returns a tuple with the RequestOptions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SearchRulesParams) GetRequestOptionsOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.RequestOptions == nil {
-		return nil, false
-	}
-	return o.RequestOptions, true
-}
-
-// HasRequestOptions returns a boolean if a field has been set.
-func (o *SearchRulesParams) HasRequestOptions() bool {
-	if o != nil && o.RequestOptions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRequestOptions gets a reference to the given []map[string]interface{} and assigns it to the RequestOptions field.
-func (o *SearchRulesParams) SetRequestOptions(v []map[string]interface{}) *SearchRulesParams {
-	o.RequestOptions = v
-	return o
-}
-
 func (o SearchRulesParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Query != nil {
@@ -348,9 +307,6 @@ func (o SearchRulesParams) MarshalJSON() ([]byte, error) {
 	if o.Enabled.IsSet() {
 		toSerialize["enabled"] = o.Enabled.Get()
 	}
-	if o.RequestOptions != nil {
-		toSerialize["requestOptions"] = o.RequestOptions
-	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchRulesParams: %w", err)
@@ -367,7 +323,6 @@ func (o SearchRulesParams) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
-	out += fmt.Sprintf("  requestOptions=%v\n", o.RequestOptions)
 	return fmt.Sprintf("SearchRulesParams {\n%s}", out)
 }
 

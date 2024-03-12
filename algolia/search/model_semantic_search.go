@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// SemanticSearch Settings for the semantic search part of NeuralSearch. Only used when `mode` is _neuralSearch_.
+// SemanticSearch Settings for the semantic search part of NeuralSearch. Only used when `mode` is `neuralSearch`.
 type SemanticSearch struct {
-	// Indices from which to collect click and conversion events. If null, the current index and replica group will be used as the event source.
+	// Indices from which to collect click and conversion events.  If null, the current index and all its replicas are used.
 	EventSources []string `json:"eventSources,omitempty"`
 }
 

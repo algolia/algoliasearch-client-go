@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// ReRankingApplyFilter - When [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/) is enabled, only records that match these filters will be affected by Dynamic Re-Ranking.
+// ReRankingApplyFilter - Restrict [Dynamic Re-ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/) to records that match these filters.
 type ReRankingApplyFilter struct {
 	ArrayOfMixedSearchFilters *[]MixedSearchFilters
 	String                    *string

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// DictionarySettingsParams Enable or turn off the built-in Algolia stop words for a specific language.
+// DictionarySettingsParams Turn on or off the built-in Algolia stop words for a specific language.
 type DictionarySettingsParams struct {
 	DisableStandardEntries StandardEntries `json:"disableStandardEntries"`
 }

@@ -8,16 +8,16 @@ import (
 
 // Rule Rule object.
 type Rule struct {
-	// Unique identifier for a rule object.
+	// Unique identifier of a rule object.
 	ObjectID string `json:"objectID"`
-	// [Conditions](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#conditions) required to activate a rule. You can use up to 25 conditions per rule.
+	// Conditions that trigger a rule.  Some consequences require specific conditions or don't require any condition. For more information, see [Conditions](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#conditions).
 	Conditions  []Condition  `json:"conditions,omitempty"`
 	Consequence *Consequence `json:"consequence,omitempty"`
-	// Description of the rule's purpose. This can be helpful for display in the Algolia dashboard.
+	// Description of the rule's purpose to help you distinguish between different rules.
 	Description *string `json:"description,omitempty"`
-	// Indicates whether to enable the rule. If it isn't enabled, it isn't applied at query time.
+	// Whether the rule is active.
 	Enabled *bool `json:"enabled,omitempty"`
-	// If you specify a validity period, the rule _only_ applies only during that period. If specified, the array must not be empty.
+	// Time periods when the rule is active.
 	Validity []TimeRange `json:"validity,omitempty"`
 }
 

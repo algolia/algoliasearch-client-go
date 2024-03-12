@@ -6,15 +6,15 @@ import (
 	"fmt"
 )
 
-// SearchDictionaryEntriesParams `searchDictionaryEntries` parameters.
+// SearchDictionaryEntriesParams Search parameter.
 type SearchDictionaryEntriesParams struct {
-	// Text to search for in an index.
+	// Search query.
 	Query string `json:"query"`
-	// Page to retrieve (the first page is `0`, not `1`).
+	// Page of search results to retrieve.
 	Page *int32 `json:"page,omitempty"`
 	// Number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
-	// [Supported language ISO code](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/).
+	// ISO code of a [supported language](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/).
 	Language *string `json:"language,omitempty"`
 }
 

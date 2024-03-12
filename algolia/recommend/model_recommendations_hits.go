@@ -9,7 +9,7 @@ import (
 // RecommendationsHits struct for RecommendationsHits.
 type RecommendationsHits struct {
 	Hits []RecommendationsHit `json:"hits"`
-	// Text to search for in an index.
+	// Search query.
 	Query *string `json:"query,omitempty"`
 	// URL-encoded string of all search parameters.
 	Params *string `json:"params,omitempty"`

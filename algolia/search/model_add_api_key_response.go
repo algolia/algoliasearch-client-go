@@ -10,7 +10,7 @@ import (
 type AddApiKeyResponse struct {
 	// API key.
 	Key string `json:"key"`
-	// Timestamp of creation in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// Timestamp of creation in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
 	CreatedAt string `json:"createdAt"`
 }
 

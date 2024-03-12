@@ -8,10 +8,10 @@ import (
 
 // SearchSynonymsParams struct for SearchSynonymsParams.
 type SearchSynonymsParams struct {
-	// Text to search for in an index.
+	// Search query.
 	Query *string      `json:"query,omitempty"`
 	Type  *SynonymType `json:"type,omitempty"`
-	// Page to retrieve (the first page is `0`, not `1`).
+	// Page of search results to retrieve.
 	Page *int32 `json:"page,omitempty"`
 	// Number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`

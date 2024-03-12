@@ -8,7 +8,7 @@ import (
 
 // SearchParamsQuery struct for SearchParamsQuery.
 type SearchParamsQuery struct {
-	// Text to search for in an index.
+	// Search query.
 	Query *string `json:"query,omitempty"`
 }
 

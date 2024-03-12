@@ -10,9 +10,9 @@ import (
 type SearchUserIdsResponse struct {
 	// User objects that match the query.
 	Hits []UserHit `json:"hits"`
-	// Number of hits the search query matched.
+	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
-	// Page to retrieve (the first page is `0`, not `1`).
+	// Page of search results to retrieve.
 	Page int32 `json:"page"`
 	// Maximum number of hits per page.
 	HitsPerPage int32 `json:"hitsPerPage"`

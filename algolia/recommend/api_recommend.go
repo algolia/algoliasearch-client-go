@@ -709,9 +709,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param objectID string - Unique record (object) identifier.
+	@param objectID string - Unique record identifier.
 	@return DeletedAtResponse
 */
 func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ...Option) (*DeletedAtResponse, error) {
@@ -728,9 +728,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param objectID string - Unique record (object) identifier.
+	@param objectID string - Unique record identifier.
 	@return DeletedAtResponse
 */
 func (c *APIClient) DeleteRecommendRuleWithContext(ctx context.Context, r ApiDeleteRecommendRuleRequest, opts ...Option) (*DeletedAtResponse, error) {
@@ -864,9 +864,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param objectID string - Unique record (object) identifier.
+	@param objectID string - Unique record identifier.
 	@return RuleResponse
 */
 func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Option) (*RuleResponse, error) {
@@ -883,9 +883,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param objectID string - Unique record (object) identifier.
+	@param objectID string - Unique record identifier.
 	@return RuleResponse
 */
 func (c *APIClient) GetRecommendRuleWithContext(ctx context.Context, r ApiGetRecommendRuleRequest, opts ...Option) (*RuleResponse, error) {
@@ -1019,7 +1019,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param taskID int64 - Unique identifier of a task. Numeric value (up to 64bits).
 	@return GetRecommendTaskResponse
@@ -1038,7 +1038,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param taskID int64 - Unique identifier of a task. Numeric value (up to 64bits).
 	@return GetRecommendTaskResponse
@@ -1311,7 +1311,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param searchRecommendRulesParams SearchRecommendRulesParams
 	@return SearchRecommendRulesResponse
@@ -1330,7 +1330,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
 
-	@param indexName string - Index on which to perform the request.
+	@param indexName string - Name of the index on which to perform the operation.
 	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param searchRecommendRulesParams SearchRecommendRulesParams
 	@return SearchRecommendRulesResponse

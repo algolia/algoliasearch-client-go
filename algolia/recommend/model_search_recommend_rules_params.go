@@ -10,11 +10,11 @@ import (
 
 // SearchRecommendRulesParams Recommend rules search parameters.
 type SearchRecommendRulesParams struct {
-	// Full-text query.
+	// Search query.
 	Query *string `json:"query,omitempty"`
 	// Restricts responses to the specified [contextual rule](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#creating-contextual-rules).
 	Context *string `json:"context,omitempty"`
-	// Requested page (the first page is page 0).
+	// Requested page of the API response.
 	Page *int32 `json:"page,omitempty"`
 	// Maximum number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`

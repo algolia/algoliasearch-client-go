@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// AutomaticFacetFilters - Names of facets to which automatic filtering must be applied; they must match the facet name of a facet value placeholder in the query pattern.
+// AutomaticFacetFilters - Filter to be applied to the search.  You can use this to respond to search queries that match a facet value. For example, if users search for \"comedy\", which matches a facet value of the \"genre\" facet, you can filter the results to show the top-ranked comedy movies.
 type AutomaticFacetFilters struct {
 	ArrayOfAutomaticFacetFilter *[]AutomaticFacetFilter
 	ArrayOfString               *[]string

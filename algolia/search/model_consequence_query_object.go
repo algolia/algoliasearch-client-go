@@ -8,9 +8,9 @@ import (
 
 // ConsequenceQueryObject struct for ConsequenceQueryObject.
 type ConsequenceQueryObject struct {
-	// Words to remove.
+	// Words to remove from the search query.
 	Remove []string `json:"remove,omitempty"`
-	// Edits to apply.
+	// Changes to make to the search query.
 	Edits []Edit `json:"edits,omitempty"`
 }
 

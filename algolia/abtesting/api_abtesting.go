@@ -1113,8 +1113,8 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiListABTestsRequest with parameters below.
 
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
-	@param limit int32 - Number of records to return (page size).
+	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.
 	@param indexPrefix string - Only return A/B tests for indices starting with this prefix.
 	@param indexSuffix string - Only return A/B tests for indices ending with this suffix.
 	@return ListABTestsResponse
@@ -1133,8 +1133,8 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiListABTestsRequest with parameters below.
 
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
-	@param limit int32 - Number of records to return (page size).
+	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.
 	@param indexPrefix string - Only return A/B tests for indices starting with this prefix.
 	@param indexSuffix string - Only return A/B tests for indices ending with this suffix.
 	@return ListABTestsResponse

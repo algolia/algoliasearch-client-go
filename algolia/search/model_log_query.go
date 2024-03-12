@@ -10,7 +10,7 @@ import (
 type LogQuery struct {
 	// Index targeted by the query.
 	IndexName *string `json:"index_name,omitempty"`
-	// User identifier.
+	// A user identifier.
 	UserToken *string `json:"user_token,omitempty"`
 	// Unique query identifier.
 	QueryId *string `json:"query_id,omitempty"`

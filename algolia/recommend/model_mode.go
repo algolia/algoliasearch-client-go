@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Mode Search mode the index will use to query for results.
+// Mode Search mode the index will use to query for results.  This setting only applies to indices, for which Algolia enabled NeuralSearch for you.
 type Mode string
 
 // List of mode.

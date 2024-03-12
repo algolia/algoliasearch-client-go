@@ -12,7 +12,7 @@ type TopSearch struct {
 	Search string `json:"search"`
 	// Number of tracked _and_ untracked searches (where the `clickAnalytics` parameter isn't `true`).
 	Count int32 `json:"count"`
-	// Number of hits the search query matched.
+	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
 }
 

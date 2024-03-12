@@ -8,13 +8,15 @@ import (
 
 // Condition struct for Condition.
 type Condition struct {
-	// Query pattern syntax.
+	// Query pattern that triggers the rule.  You can use either a literal string, or a special pattern `{facet:ATTRIBUTE}`, where `ATTRIBUTE` is a facet name. The rule is triggered if the query matches the literal string or a value of the specified facet. For example, with `pattern: {facet:genre}`, the rule is triggered when users search for a genre, such as \"comedy\".
 	Pattern   *string    `json:"pattern,omitempty"`
 	Anchoring *Anchoring `json:"anchoring,omitempty"`
-	// Whether the pattern matches on plurals, synonyms, and typos.
+	// Whether the pattern should match plurals, synonyms, and typos.
 	Alternatives *bool `json:"alternatives,omitempty"`
-	// Rule context format: [A-Za-z0-9_-]+).
+	// An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter. For example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`. A rule context must only contain alphanumeric characters.
 	Context *string `json:"context,omitempty"`
+	// Filters that trigger the rule.  You can add add filters using the syntax `facet:value` so that the rule is triggered, when the specific filter is selected. You can use `filters` on its own or combine it with the `pattern` parameter.
+	Filters *string `json:"filters,omitempty"`
 }
 
 type ConditionOption func(f *Condition)
@@ -40,6 +42,12 @@ func WithConditionAlternatives(val bool) ConditionOption {
 func WithConditionContext(val string) ConditionOption {
 	return func(f *Condition) {
 		f.Context = &val
+	}
+}
+
+func WithConditionFilters(val string) ConditionOption {
+	return func(f *Condition) {
+		f.Filters = &val
 	}
 }
 
@@ -192,6 +200,39 @@ func (o *Condition) SetContext(v string) *Condition {
 	return o
 }
 
+// GetFilters returns the Filters field value if set, zero value otherwise.
+func (o *Condition) GetFilters() string {
+	if o == nil || o.Filters == nil {
+		var ret string
+		return ret
+	}
+	return *o.Filters
+}
+
+// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Condition) GetFiltersOk() (*string, bool) {
+	if o == nil || o.Filters == nil {
+		return nil, false
+	}
+	return o.Filters, true
+}
+
+// HasFilters returns a boolean if a field has been set.
+func (o *Condition) HasFilters() bool {
+	if o != nil && o.Filters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFilters gets a reference to the given string and assigns it to the Filters field.
+func (o *Condition) SetFilters(v string) *Condition {
+	o.Filters = &v
+	return o
+}
+
 func (o Condition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Pattern != nil {
@@ -205,6 +246,9 @@ func (o Condition) MarshalJSON() ([]byte, error) {
 	}
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
+	}
+	if o.Filters != nil {
+		toSerialize["filters"] = o.Filters
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -220,6 +264,7 @@ func (o Condition) String() string {
 	out += fmt.Sprintf("  anchoring=%v\n", o.Anchoring)
 	out += fmt.Sprintf("  alternatives=%v\n", o.Alternatives)
 	out += fmt.Sprintf("  context=%v\n", o.Context)
+	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	return fmt.Sprintf("Condition {\n%s}", out)
 }
 

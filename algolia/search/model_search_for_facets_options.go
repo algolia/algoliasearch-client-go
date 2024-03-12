@@ -10,11 +10,11 @@ import (
 type SearchForFacetsOptions struct {
 	// Facet name.
 	Facet string `json:"facet"`
-	// Algolia index name.
+	// Index name.
 	IndexName string `json:"indexName"`
 	// Text to search inside the facet's values.
 	FacetQuery *string `json:"facetQuery,omitempty"`
-	// Maximum number of facet hits to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
+	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
 	MaxFacetHits *int32          `json:"maxFacetHits,omitempty"`
 	Type         SearchTypeFacet `json:"type"`
 }

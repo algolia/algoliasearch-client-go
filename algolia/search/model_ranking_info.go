@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// RankingInfo struct for RankingInfo.
+// RankingInfo Object with detailed information about the record's ranking.
 type RankingInfo struct {
-	// This field is reserved for advanced usage.
+	// Whether a filter matched the query.
 	Filters int32 `json:"filters"`
-	// Position of the most important matched attribute in the attributes to index list.
+	// Position of the first matched word in the best matching attribute of the record.
 	FirstMatchedWord int32 `json:"firstMatchedWord"`
 	// Distance between the geo location in the search query and the best matching geo location in the record, divided by the geo precision (in meters).
 	GeoDistance int32 `json:"geoDistance"`
@@ -22,15 +22,15 @@ type RankingInfo struct {
 	NbExactWords int32 `json:"nbExactWords"`
 	// Number of typos encountered when matching the record.
 	NbTypos int32 `json:"nbTypos"`
-	// Present and set to true if a Rule promoted the hit.
+	// Whether the record was promoted by a rule.
 	Promoted bool `json:"promoted"`
-	// When the query contains more than one word, the sum of the distances between matched words (in meters).
+	// Number of words between multiple matches in the query plus 1. For single word queries, `proximityDistance` is 0.
 	ProximityDistance *int32 `json:"proximityDistance,omitempty"`
-	// Custom ranking for the object, expressed as a single integer value.
+	// Overall ranking of the record, expressed as a single integer. This attribute is internal.
 	UserScore int32 `json:"userScore"`
-	// Number of matched words, including prefixes and typos.
+	// Number of matched words.
 	Words int32 `json:"words"`
-	// Wether the record are promoted by the re-ranking strategy.
+	// Whether the record is re-ranked.
 	PromotedByReRanking *bool `json:"promotedByReRanking,omitempty"`
 }
 

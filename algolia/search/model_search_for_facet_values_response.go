@@ -8,6 +8,7 @@ import (
 
 // SearchForFacetValuesResponse struct for SearchForFacetValuesResponse.
 type SearchForFacetValuesResponse struct {
+	// Matching facet values.
 	FacetHits []FacetHits `json:"facetHits"`
 	// See the `facetsCount` field of the `exhaustive` object in the response.
 	// Deprecated

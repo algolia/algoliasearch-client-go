@@ -8,11 +8,11 @@ import (
 
 // RecommendHit Recommend hit.
 type RecommendHit struct {
-	// Unique object identifier.
+	// Unique record identifier.
 	ObjectID string `json:"objectID"`
-	// Show highlighted section and words matched on a query.
+	// Surround words that match the query with HTML tags for highlighting.
 	HighlightResult *map[string]HighlightResult `json:"_highlightResult,omitempty"`
-	// Snippeted attributes show parts of the matched attributes. Only returned when attributesToSnippet is non-empty.
+	// Snippets that show the context around a matching search query.
 	SnippetResult *map[string]SnippetResult `json:"_snippetResult,omitempty"`
 	RankingInfo   *RankingInfo              `json:"_rankingInfo,omitempty"`
 	DistinctSeqID *int32                    `json:"_distinctSeqID,omitempty"`

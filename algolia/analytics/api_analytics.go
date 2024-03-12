@@ -736,9 +736,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAverageClickPositionRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetAverageClickPositionResponse
 */
@@ -757,9 +757,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAverageClickPositionRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetAverageClickPositionResponse
 */
@@ -926,9 +926,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetClickPositionsRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetClickPositionsResponse
 */
@@ -948,9 +948,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetClickPositionsRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetClickPositionsResponse
 */
@@ -1115,9 +1115,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetClickThroughRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetClickThroughRateResponse
 */
@@ -1135,9 +1135,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetClickThroughRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetClickThroughRateResponse
 */
@@ -1302,9 +1302,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetConversationRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetConversationRateResponse
 */
@@ -1322,9 +1322,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetConversationRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetConversationRateResponse
 */
@@ -1489,9 +1489,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetNoClickRateResponse
 */
@@ -1509,9 +1509,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetNoClickRateResponse
 */
@@ -1676,9 +1676,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetNoResultsRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetNoResultsRateResponse
 */
@@ -1696,9 +1696,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetNoResultsRateRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetNoResultsRateResponse
 */
@@ -1863,9 +1863,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSearchesCountRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetSearchesCountResponse
 */
@@ -1883,9 +1883,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSearchesCountRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetSearchesCountResponse
 */
@@ -2082,11 +2082,11 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetSearchesNoClicksResponse
 */
@@ -2104,11 +2104,11 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetSearchesNoClicksResponse
 */
@@ -2311,11 +2311,11 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetSearchesNoResultsResponse
 */
@@ -2333,11 +2333,11 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetSearchesNoResultsResponse
 */
@@ -2461,7 +2461,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetStatusRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@return GetStatusResponse
 */
 func (c *APIClient) GetStatus(r ApiGetStatusRequest, opts ...Option) (*GetStatusResponse, error) {
@@ -2479,7 +2479,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetStatusRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@return GetStatusResponse
 */
 func (c *APIClient) GetStatusWithContext(ctx context.Context, r ApiGetStatusRequest, opts ...Option) (*GetStatusResponse, error) {
@@ -2666,11 +2666,11 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopCountriesRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopCountriesResponse
 */
@@ -2688,11 +2688,11 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopCountriesRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopCountriesResponse
 */
@@ -2911,12 +2911,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopFilterAttributesRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopFilterAttributesResponse
 */
@@ -2934,12 +2934,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopFilterAttributesRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopFilterAttributesResponse
 */
@@ -3173,12 +3173,12 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetTopFilterForAttributeRequest with parameters below.
 
 	@param attribute string - Attribute name.
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopFilterForAttributeResponse
 */
@@ -3197,12 +3197,12 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetTopFilterForAttributeRequest with parameters below.
 
 	@param attribute string - Attribute name.
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopFilterForAttributeResponse
 */
@@ -3428,12 +3428,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopFiltersNoResultsResponse
 */
@@ -3451,12 +3451,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopFiltersNoResultsResponse
 */
@@ -3694,13 +3694,13 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
 	@param clickAnalytics bool - Whether to include [click and conversion](https://www.algolia.com/doc/guides/sending-events/getting-started/) rates for a search.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopHitsResponse
 */
@@ -3718,13 +3718,13 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param search string - User query.
 	@param clickAnalytics bool - Whether to include [click and conversion](https://www.algolia.com/doc/guides/sending-events/getting-started/) rates for a search.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopHitsResponse
 */
@@ -3981,14 +3981,14 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param clickAnalytics bool - Whether to include [click and conversion](https://www.algolia.com/doc/guides/sending-events/getting-started/) rates for a search.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param orderBy OrderBy - Reorder the results.
 	@param direction Direction - Sorting direction of the results: ascending or descending.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopSearchesResponse
 */
@@ -4006,14 +4006,14 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 
-	@param index string - Index name to target.
+	@param index string - Index name.
 	@param clickAnalytics bool - Whether to include [click and conversion](https://www.algolia.com/doc/guides/sending-events/getting-started/) rates for a search.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param orderBy OrderBy - Reorder the results.
 	@param direction Direction - Sorting direction of the results: ascending or descending.
-	@param limit int32 - Number of records to return (page size).
-	@param offset int32 - Position of the starting record. Used for paging. 0 is the first record.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetTopSearchesResponse
 */
@@ -4193,9 +4193,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetUsersCountResponse
 */
@@ -4213,9 +4213,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 
-	@param index string - Index name to target.
-	@param startDate string - Start date (a string in the format `YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (a string in the format `YYYY-MM-DD`) of the period to analyze.
+	@param index string - Index name.
+	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
+	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
 	@param tags string - Filter analytics on the [`analyticsTags`](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) set at search time. Multiple tags can be combined with the operators OR and AND. If a tag contains characters like spaces or parentheses, it must be URL-encoded.
 	@return GetUsersCountResponse
 */

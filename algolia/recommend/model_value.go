@@ -8,7 +8,7 @@ import (
 
 // Value struct for Value.
 type Value struct {
-	// Pinned order of facet lists.
+	// Explicit order of facets or facet values.  This setting lets you always show specific facets or facet values at the top of the list.
 	Order           []string         `json:"order,omitempty"`
 	SortRemainingBy *SortRemainingBy `json:"sortRemainingBy,omitempty"`
 }

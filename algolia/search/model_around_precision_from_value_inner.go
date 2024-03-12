@@ -6,9 +6,11 @@ import (
 	"fmt"
 )
 
-// AroundPrecisionFromValueInner struct for AroundPrecisionFromValueInner.
+// AroundPrecisionFromValueInner Range object with lower and upper values in meters to define custom ranges.
 type AroundPrecisionFromValueInner struct {
-	From  *int32 `json:"from,omitempty"`
+	// Lower boundary of a range in meters. The Geo ranking criterion considers all records within the range to be equal.
+	From *int32 `json:"from,omitempty"`
+	// Upper boundary of a range in meters. The Geo ranking criterion considers all records within the range to be equal.
 	Value *int32 `json:"value,omitempty"`
 }
 

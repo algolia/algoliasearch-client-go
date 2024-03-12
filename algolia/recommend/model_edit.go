@@ -11,7 +11,7 @@ type Edit struct {
 	Type *EditType `json:"type,omitempty"`
 	// Text or patterns to remove from the query string.
 	Delete *string `json:"delete,omitempty"`
-	// Text that should be inserted in place of the removed text inside the query string.
+	// Text to be added in place of the deleted text inside the query string.
 	Insert *string `json:"insert,omitempty"`
 }
 
