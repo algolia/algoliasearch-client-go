@@ -89,6 +89,7 @@ model_source_create.go
 model_source_create_response.go
 model_source_csv.go
 model_source_docker.go
+model_source_ga4_big_query_export.go
 model_source_input.go
 model_source_json.go
 model_source_search.go
@@ -99,6 +100,9 @@ model_source_update_commercetools.go
 model_source_update_docker.go
 model_source_update_input.go
 model_source_update_response.go
+model_streaming_trigger.go
+model_streaming_trigger_type.go
+model_streaming_utils_input.go
 model_subscription_trigger.go
 model_subscription_trigger_type.go
 model_task.go

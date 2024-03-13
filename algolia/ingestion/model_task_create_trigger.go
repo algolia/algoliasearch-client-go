@@ -10,6 +10,7 @@ import (
 type TaskCreateTrigger struct {
 	OnDemandTriggerInput *OnDemandTriggerInput
 	ScheduleTriggerInput *ScheduleTriggerInput
+	StreamingTrigger     *StreamingTrigger
 	SubscriptionTrigger  *SubscriptionTrigger
 }
 
@@ -31,6 +32,13 @@ func ScheduleTriggerInputAsTaskCreateTrigger(v *ScheduleTriggerInput) *TaskCreat
 func SubscriptionTriggerAsTaskCreateTrigger(v *SubscriptionTrigger) *TaskCreateTrigger {
 	return &TaskCreateTrigger{
 		SubscriptionTrigger: v,
+	}
+}
+
+// StreamingTriggerAsTaskCreateTrigger is a convenience function that returns StreamingTrigger wrapped in TaskCreateTrigger.
+func StreamingTriggerAsTaskCreateTrigger(v *StreamingTrigger) *TaskCreateTrigger {
+	return &TaskCreateTrigger{
+		StreamingTrigger: v,
 	}
 }
 
@@ -61,6 +69,19 @@ func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.ScheduleTriggerInput = nil
+	}
+
+	// try to unmarshal data into StreamingTrigger
+	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
+	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
+		jsonStreamingTrigger, _ := json.Marshal(dst.StreamingTrigger)
+		if string(jsonStreamingTrigger) == "{}" { // empty struct
+			dst.StreamingTrigger = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.StreamingTrigger = nil
 	}
 
 	// try to unmarshal data into SubscriptionTrigger
@@ -99,6 +120,15 @@ func (src TaskCreateTrigger) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.StreamingTrigger != nil {
+		serialized, err := json.Marshal(&src.StreamingTrigger)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of StreamingTrigger of TaskCreateTrigger: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.SubscriptionTrigger != nil {
 		serialized, err := json.Marshal(&src.SubscriptionTrigger)
 		if err != nil {
@@ -119,6 +149,10 @@ func (obj TaskCreateTrigger) GetActualInstance() any {
 
 	if obj.ScheduleTriggerInput != nil {
 		return *obj.ScheduleTriggerInput
+	}
+
+	if obj.StreamingTrigger != nil {
+		return *obj.StreamingTrigger
 	}
 
 	if obj.SubscriptionTrigger != nil {

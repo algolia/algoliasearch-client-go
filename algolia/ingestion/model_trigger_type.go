@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TriggerType The type of the task reflect how it can be used:   - onDemand: a task that runs manually   - schedule: a task that runs regularly, following a given cron expression   - subscription: a task that runs after a subscription event is received from an integration (e.g. Webhook).
+// TriggerType The type of the task reflect how it can be used:   - onDemand: a task that runs manually   - schedule: a task that runs regularly, following a given cron expression   - subscription: a task that runs after a subscription event is received from an integration (e.g. Webhook).   - streaming: a task that runs continuously.
 type TriggerType string
 
 // List of TriggerType.
@@ -14,6 +14,7 @@ const (
 	TRIGGERTYPE_ON_DEMAND    TriggerType = "onDemand"
 	TRIGGERTYPE_SCHEDULE     TriggerType = "schedule"
 	TRIGGERTYPE_SUBSCRIPTION TriggerType = "subscription"
+	TRIGGERTYPE_STREAMING    TriggerType = "streaming"
 )
 
 // All allowed values of TriggerType enum.
@@ -21,6 +22,7 @@ var AllowedTriggerTypeEnumValues = []TriggerType{
 	"onDemand",
 	"schedule",
 	"subscription",
+	"streaming",
 }
 
 func (v *TriggerType) UnmarshalJSON(src []byte) error {

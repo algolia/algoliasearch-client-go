@@ -10,6 +10,7 @@ import (
 type SourceUpdateInput struct {
 	SourceBigQuery            *SourceBigQuery
 	SourceCSV                 *SourceCSV
+	SourceGA4BigQueryExport   *SourceGA4BigQueryExport
 	SourceJSON                *SourceJSON
 	SourceUpdateCommercetools *SourceUpdateCommercetools
 	SourceUpdateDocker        *SourceUpdateDocker
@@ -43,6 +44,13 @@ func SourceBigQueryAsSourceUpdateInput(v *SourceBigQuery) *SourceUpdateInput {
 	}
 }
 
+// SourceGA4BigQueryExportAsSourceUpdateInput is a convenience function that returns SourceGA4BigQueryExport wrapped in SourceUpdateInput.
+func SourceGA4BigQueryExportAsSourceUpdateInput(v *SourceGA4BigQueryExport) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceGA4BigQueryExport: v,
+	}
+}
+
 // SourceUpdateDockerAsSourceUpdateInput is a convenience function that returns SourceUpdateDocker wrapped in SourceUpdateInput.
 func SourceUpdateDockerAsSourceUpdateInput(v *SourceUpdateDocker) *SourceUpdateInput {
 	return &SourceUpdateInput{
@@ -57,11 +65,53 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	var jsonDict map[string]any
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup (SourceBigQuery).")
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup (SourceGA4BigQueryExport).")
 	}
 
 	// Hold the schema validity between checks
 	validSchemaForModel := true
+
+	// If the model wasn't discriminated yet, continue checking for other discriminating properties
+	if validSchemaForModel {
+		// Check if the model holds a property 'projectID'
+		if _, ok := jsonDict["projectID"]; !ok {
+			validSchemaForModel = false
+		}
+	}
+
+	// If the model wasn't discriminated yet, continue checking for other discriminating properties
+	if validSchemaForModel {
+		// Check if the model holds a property 'datasetID'
+		if _, ok := jsonDict["datasetID"]; !ok {
+			validSchemaForModel = false
+		}
+	}
+
+	// If the model wasn't discriminated yet, continue checking for other discriminating properties
+	if validSchemaForModel {
+		// Check if the model holds a property 'tablePrefix'
+		if _, ok := jsonDict["tablePrefix"]; !ok {
+			validSchemaForModel = false
+		}
+	}
+
+	if validSchemaForModel {
+		// try to unmarshal data into SourceGA4BigQueryExport
+		err = newStrictDecoder(data).Decode(&dst.SourceGA4BigQueryExport)
+		if err == nil && validateStruct(dst.SourceGA4BigQueryExport) == nil {
+			jsonSourceGA4BigQueryExport, _ := json.Marshal(dst.SourceGA4BigQueryExport)
+			if string(jsonSourceGA4BigQueryExport) == "{}" { // empty struct
+				dst.SourceGA4BigQueryExport = nil
+			} else {
+				return nil
+			}
+		} else {
+			dst.SourceGA4BigQueryExport = nil
+		}
+	}
+
+	// Reset the schema validity for the next class check
+	validSchemaForModel = true
 
 	// If the model wasn't discriminated yet, continue checking for other discriminating properties
 	if validSchemaForModel {
@@ -163,6 +213,15 @@ func (src SourceUpdateInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.SourceGA4BigQueryExport != nil {
+		serialized, err := json.Marshal(&src.SourceGA4BigQueryExport)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceGA4BigQueryExport of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.SourceJSON != nil {
 		serialized, err := json.Marshal(&src.SourceJSON)
 		if err != nil {
@@ -201,6 +260,10 @@ func (obj SourceUpdateInput) GetActualInstance() any {
 
 	if obj.SourceCSV != nil {
 		return *obj.SourceCSV
+	}
+
+	if obj.SourceGA4BigQueryExport != nil {
+		return *obj.SourceGA4BigQueryExport
 	}
 
 	if obj.SourceJSON != nil {

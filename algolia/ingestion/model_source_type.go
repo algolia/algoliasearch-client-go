@@ -11,12 +11,13 @@ type SourceType string
 
 // List of SourceType.
 const (
-	SOURCETYPE_BIGCOMMERCE   SourceType = "bigcommerce"
-	SOURCETYPE_COMMERCETOOLS SourceType = "commercetools"
-	SOURCETYPE_JSON          SourceType = "json"
-	SOURCETYPE_CSV           SourceType = "csv"
-	SOURCETYPE_BIGQUERY      SourceType = "bigquery"
-	SOURCETYPE_DOCKER        SourceType = "docker"
+	SOURCETYPE_BIGCOMMERCE         SourceType = "bigcommerce"
+	SOURCETYPE_COMMERCETOOLS       SourceType = "commercetools"
+	SOURCETYPE_JSON                SourceType = "json"
+	SOURCETYPE_CSV                 SourceType = "csv"
+	SOURCETYPE_BIGQUERY            SourceType = "bigquery"
+	SOURCETYPE_DOCKER              SourceType = "docker"
+	SOURCETYPE_GA4_BIGQUERY_EXPORT SourceType = "ga4BigqueryExport"
 )
 
 // All allowed values of SourceType enum.
@@ -27,6 +28,7 @@ var AllowedSourceTypeEnumValues = []SourceType{
 	"csv",
 	"bigquery",
 	"docker",
+	"ga4BigqueryExport",
 }
 
 func (v *SourceType) UnmarshalJSON(src []byte) error {

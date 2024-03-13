@@ -10,6 +10,7 @@ import (
 type TaskInput struct {
 	OnDemandDateUtilsInput *OnDemandDateUtilsInput
 	ScheduleDateUtilsInput *ScheduleDateUtilsInput
+	StreamingUtilsInput    *StreamingUtilsInput
 }
 
 // OnDemandDateUtilsInputAsTaskInput is a convenience function that returns OnDemandDateUtilsInput wrapped in TaskInput.
@@ -23,6 +24,13 @@ func OnDemandDateUtilsInputAsTaskInput(v *OnDemandDateUtilsInput) *TaskInput {
 func ScheduleDateUtilsInputAsTaskInput(v *ScheduleDateUtilsInput) *TaskInput {
 	return &TaskInput{
 		ScheduleDateUtilsInput: v,
+	}
+}
+
+// StreamingUtilsInputAsTaskInput is a convenience function that returns StreamingUtilsInput wrapped in TaskInput.
+func StreamingUtilsInputAsTaskInput(v *StreamingUtilsInput) *TaskInput {
+	return &TaskInput{
+		StreamingUtilsInput: v,
 	}
 }
 
@@ -55,6 +63,19 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 		dst.ScheduleDateUtilsInput = nil
 	}
 
+	// try to unmarshal data into StreamingUtilsInput
+	err = newStrictDecoder(data).Decode(&dst.StreamingUtilsInput)
+	if err == nil && validateStruct(dst.StreamingUtilsInput) == nil {
+		jsonStreamingUtilsInput, _ := json.Marshal(dst.StreamingUtilsInput)
+		if string(jsonStreamingUtilsInput) == "{}" { // empty struct
+			dst.StreamingUtilsInput = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.StreamingUtilsInput = nil
+	}
+
 	return fmt.Errorf("Data failed to match schemas in oneOf(TaskInput)")
 }
 
@@ -78,6 +99,15 @@ func (src TaskInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.StreamingUtilsInput != nil {
+		serialized, err := json.Marshal(&src.StreamingUtilsInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of StreamingUtilsInput of TaskInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -89,6 +119,10 @@ func (obj TaskInput) GetActualInstance() any {
 
 	if obj.ScheduleDateUtilsInput != nil {
 		return *obj.ScheduleDateUtilsInput
+	}
+
+	if obj.StreamingUtilsInput != nil {
+		return *obj.StreamingUtilsInput
 	}
 
 	// all schemas are nil

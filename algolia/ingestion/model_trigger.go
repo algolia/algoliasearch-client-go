@@ -10,6 +10,7 @@ import (
 type Trigger struct {
 	OnDemandTrigger     *OnDemandTrigger
 	ScheduleTrigger     *ScheduleTrigger
+	StreamingTrigger    *StreamingTrigger
 	SubscriptionTrigger *SubscriptionTrigger
 }
 
@@ -31,6 +32,13 @@ func ScheduleTriggerAsTrigger(v *ScheduleTrigger) *Trigger {
 func SubscriptionTriggerAsTrigger(v *SubscriptionTrigger) *Trigger {
 	return &Trigger{
 		SubscriptionTrigger: v,
+	}
+}
+
+// StreamingTriggerAsTrigger is a convenience function that returns StreamingTrigger wrapped in Trigger.
+func StreamingTriggerAsTrigger(v *StreamingTrigger) *Trigger {
+	return &Trigger{
+		StreamingTrigger: v,
 	}
 }
 
@@ -61,6 +69,19 @@ func (dst *Trigger) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.ScheduleTrigger = nil
+	}
+
+	// try to unmarshal data into StreamingTrigger
+	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
+	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
+		jsonStreamingTrigger, _ := json.Marshal(dst.StreamingTrigger)
+		if string(jsonStreamingTrigger) == "{}" { // empty struct
+			dst.StreamingTrigger = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.StreamingTrigger = nil
 	}
 
 	// try to unmarshal data into SubscriptionTrigger
@@ -99,6 +120,15 @@ func (src Trigger) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.StreamingTrigger != nil {
+		serialized, err := json.Marshal(&src.StreamingTrigger)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of StreamingTrigger of Trigger: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.SubscriptionTrigger != nil {
 		serialized, err := json.Marshal(&src.SubscriptionTrigger)
 		if err != nil {
@@ -119,6 +149,10 @@ func (obj Trigger) GetActualInstance() any {
 
 	if obj.ScheduleTrigger != nil {
 		return *obj.ScheduleTrigger
+	}
+
+	if obj.StreamingTrigger != nil {
+		return *obj.StreamingTrigger
 	}
 
 	if obj.SubscriptionTrigger != nil {
