@@ -11,7 +11,7 @@ type ObjectDataAfterSearch struct {
 	// Unique identifier for a search query, used to track purchase events with multiple records that originate from different searches.
 	QueryID *string `json:"queryID,omitempty"`
 	Price   *Price  `json:"price,omitempty"`
-	// The quantity of a product that has been purchased or added to the cart. The total value of a purchase is the sum of `quantity` multiplied with the `price` for each purchased item.
+	// Quantity of a product that has been purchased or added to the cart. The total purchase value is the sum of `quantity` multiplied with the `price` for each purchased item.
 	Quantity *int32    `json:"quantity,omitempty"`
 	Discount *Discount `json:"discount,omitempty"`
 }

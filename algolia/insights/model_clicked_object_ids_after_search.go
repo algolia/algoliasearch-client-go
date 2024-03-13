@@ -8,22 +8,22 @@ import (
 
 // ClickedObjectIDsAfterSearch Click event after an Algolia request.  Use this event to track when users click items in the search results. If you're building your category pages with Algolia, you'll also use this event.
 type ClickedObjectIDsAfterSearch struct {
-	// The name of the event, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
+	// Event name, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName string     `json:"eventName"`
 	EventType ClickEvent `json:"eventType"`
-	// The name of an Algolia index.
+	// Index name to which the event's items belong.
 	Index string `json:"index"`
-	// The object IDs of the records that are part of the event.
+	// Object IDs of the records that are part of the event.
 	ObjectIDs []string `json:"objectIDs"`
-	// The position of the clicked item the search results.  The first search result has a position of 1 (not 0). You must provide 1 `position` for each `objectID`.
+	// Position of the clicked item the search results.  You must provide 1 `position` for each `objectID`.
 	Positions []int32 `json:"positions"`
 	// Unique identifier for a search query.  The query ID is required for events related to search or browse requests. If you add `clickAnalytics: true` as a search request parameter, the query ID is included in the API response.
 	QueryID string `json:"queryID"`
-	// An anonymous or pseudonymous user identifier.  > **Note**: Never include personally identifiable information in user tokens.
+	// Anonymous or pseudonymous user identifier.  Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/).
 	UserToken string `json:"userToken"`
-	// An identifier for authenticated users.  > **Note**: Never include personally identifiable information in user tokens.
+	// Identifier for authenticated users.  When the user signs in, you can get an identifier from your system and send it as `authenticatedUserToken`. This lets you keep using the `userToken` from before the user signed in, while providing a reliable way to identify users across sessions. Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/).
 	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
-	// The timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
+	// Timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 

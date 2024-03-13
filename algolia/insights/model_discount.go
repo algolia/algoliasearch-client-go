@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Discount - The absolute value of the discount for this product, in units of `currency`.
+// Discount - Absolute value of the discount for this product, in units of `currency`.
 type Discount struct {
 	Float64 *float64
 	String  *string

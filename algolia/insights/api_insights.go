@@ -680,12 +680,12 @@ func (c *APIClient) NewApiDeleteUserTokenRequest(userToken string) ApiDeleteUser
 /*
 DeleteUserToken Wraps DeleteUserTokenWithContext using context.Background.
 
-Delete all events related to a certain user token from events metrics and analytics.
-To delete a personalization user profile, see [Delete a user profile](https://www.algolia.com/doc/rest-api/personalization/#delete-a-user-profile).
+Deletes all events related to the specified user token from events metrics and analytics.
+To delete a personalization user profile, see [Delete a user profile](/specs/personalization#tag/profiles/operation/deleteUserProfile).
 
 Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
 
-	@param userToken string - The user token for which to delete all associated events.
+	@param userToken string - User token for which to delete all associated events.
 */
 func (c *APIClient) DeleteUserToken(r ApiDeleteUserTokenRequest, opts ...Option) error {
 	return c.DeleteUserTokenWithContext(context.Background(), r, opts...)
@@ -694,12 +694,12 @@ func (c *APIClient) DeleteUserToken(r ApiDeleteUserTokenRequest, opts ...Option)
 /*
 DeleteUserToken
 
-Delete all events related to a certain user token from events metrics and analytics.
-To delete a personalization user profile, see [Delete a user profile](https://www.algolia.com/doc/rest-api/personalization/#delete-a-user-profile).
+Deletes all events related to the specified user token from events metrics and analytics.
+To delete a personalization user profile, see [Delete a user profile](/specs/personalization#tag/profiles/operation/deleteUserProfile).
 
 Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
 
-	@param userToken string - The user token for which to delete all associated events.
+	@param userToken string - User token for which to delete all associated events.
 */
 func (c *APIClient) DeleteUserTokenWithContext(ctx context.Context, r ApiDeleteUserTokenRequest, opts ...Option) error {
 	var postBody any
@@ -800,7 +800,7 @@ func (c *APIClient) NewApiPushEventsRequest(insightsEvents *InsightsEvents) ApiP
 /*
 PushEvents Wraps PushEventsWithContext using context.Background.
 
-Send a list of events to the Insights API.
+Sends a list of events to the Insights API.
 
 You can include up to 1,000 events in a single request,
 but the request body must be smaller than 2&nbsp;MB.
@@ -817,7 +817,7 @@ func (c *APIClient) PushEvents(r ApiPushEventsRequest, opts ...Option) (*EventsR
 /*
 PushEvents
 
-Send a list of events to the Insights API.
+Sends a list of events to the Insights API.
 
 You can include up to 1,000 events in a single request,
 but the request body must be smaller than 2&nbsp;MB.

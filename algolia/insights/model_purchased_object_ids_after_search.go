@@ -8,23 +8,23 @@ import (
 
 // PurchasedObjectIDsAfterSearch Use this event to track when users make a purchase after a previous Algolia request. If you're building your category pages with Algolia, you'll also use this event.
 type PurchasedObjectIDsAfterSearch struct {
-	// The name of the event, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
+	// Event name, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName    string          `json:"eventName"`
 	EventType    ConversionEvent `json:"eventType"`
 	EventSubtype PurchaseEvent   `json:"eventSubtype"`
-	// The name of an Algolia index.
+	// Index name to which the event's items belong.
 	Index string `json:"index"`
-	// The object IDs of the records that are part of the event.
+	// Object IDs of the records that are part of the event.
 	ObjectIDs []string `json:"objectIDs"`
-	// An anonymous or pseudonymous user identifier.  > **Note**: Never include personally identifiable information in user tokens.
+	// Anonymous or pseudonymous user identifier.  Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/).
 	UserToken string `json:"userToken"`
-	// An identifier for authenticated users.  > **Note**: Never include personally identifiable information in user tokens.
+	// Identifier for authenticated users.  When the user signs in, you can get an identifier from your system and send it as `authenticatedUserToken`. This lets you keep using the `userToken` from before the user signed in, while providing a reliable way to identify users across sessions. Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/).
 	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
 	// Three-letter [currency code](https://www.iso.org/iso-4217-currency-codes.html).
 	Currency *string `json:"currency,omitempty"`
 	// Extra information about the records involved in a purchase or add-to-cart events.  If provided, it must be the same length as `objectIDs`.
 	ObjectData []ObjectDataAfterSearch `json:"objectData,omitempty"`
-	// The timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
+	// Timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	Value     *Value `json:"value,omitempty"`
 }
