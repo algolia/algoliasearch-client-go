@@ -21,7 +21,7 @@ import (
 	iopt "github.com/algolia/algoliasearch-client-go/v3/algolia/internal/opt"
 )
 
-const version = "3.31.0"
+const version = "3.31.1"
 
 type Transport struct {
 	requester     Requester
@@ -87,7 +87,7 @@ func (t *Transport) Request(
 ) error {
 	var (
 		ctx       = iopt.ExtractContext(opts...)
-		headers   = t.headers
+		headers   = t.headers.Clone()
 		urlParams = make(map[string]string)
 	)
 
@@ -286,7 +286,7 @@ func buildRequest(
 	if isCompressionEnabled {
 		switch c {
 		case compression.GZIP:
-			req.Header.Add("Content-Encoding", "gzip")
+			req.Header.Set("Content-Encoding", "gzip")
 		default:
 			// Do nothing
 		}
