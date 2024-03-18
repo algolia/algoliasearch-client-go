@@ -103,8 +103,8 @@ type SearchForHits struct {
 	RemoveStopWords                  *RemoveStopWords `json:"removeStopWords,omitempty"`
 	// Characters for which diacritics should be preserved.  By default, Algolia removes diacritics from letters. For example, `é` becomes `e`. If this causes issues in your search, you can specify characters that should keep their diacritics.
 	KeepDiacriticsOnCharacters *string `json:"keepDiacriticsOnCharacters,omitempty"`
-	// [ISO code](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) for language-specific settings such as plurals, stop words, and word-detection dictionaries.  This setting sets a default list of languages used by the `removeStopWords` and `ignorePlurals` settings. This setting also sets a dictionary for word detection in the logogram-based [CJK](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/#normalization-for-logogram-based-languages-cjk) languages. To support this, you must place the CJK language **first**.   **You should always specify a query language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/).
-	QueryLanguages []string `json:"queryLanguages,omitempty"`
+	// Languages for language-specific query processing steps such as plurals, stop-word removal, and word-detection dictionaries.  This setting sets a default list of languages used by the `removeStopWords` and `ignorePlurals` settings. This setting also sets a dictionary for word detection in the logogram-based [CJK](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/#normalization-for-logogram-based-languages-cjk) languages. To support this, you must place the CJK language **first**.  **You should always specify a query language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/).
+	QueryLanguages []SupportedLanguage `json:"queryLanguages,omitempty"`
 	// Whether to split compound words into their building blocks.  For more information, see [Word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/#splitting-compound-words). Word segmentation is supported for these languages: German, Dutch, Finnish, Swedish, and Norwegian.
 	DecompoundQuery *bool `json:"decompoundQuery,omitempty"`
 	// Whether to enable rules.
@@ -464,7 +464,7 @@ func WithSearchForHitsKeepDiacriticsOnCharacters(val string) SearchForHitsOption
 	}
 }
 
-func WithSearchForHitsQueryLanguages(val []string) SearchForHitsOption {
+func WithSearchForHitsQueryLanguages(val []SupportedLanguage) SearchForHitsOption {
 	return func(f *SearchForHits) {
 		f.QueryLanguages = val
 	}
@@ -2355,9 +2355,9 @@ func (o *SearchForHits) SetKeepDiacriticsOnCharacters(v string) *SearchForHits {
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
-func (o *SearchForHits) GetQueryLanguages() []string {
+func (o *SearchForHits) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
-		var ret []string
+		var ret []SupportedLanguage
 		return ret
 	}
 	return o.QueryLanguages
@@ -2365,7 +2365,7 @@ func (o *SearchForHits) GetQueryLanguages() []string {
 
 // GetQueryLanguagesOk returns a tuple with the QueryLanguages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchForHits) GetQueryLanguagesOk() ([]string, bool) {
+func (o *SearchForHits) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
@@ -2381,8 +2381,8 @@ func (o *SearchForHits) HasQueryLanguages() bool {
 	return false
 }
 
-// SetQueryLanguages gets a reference to the given []string and assigns it to the QueryLanguages field.
-func (o *SearchForHits) SetQueryLanguages(v []string) *SearchForHits {
+// SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
+func (o *SearchForHits) SetQueryLanguages(v []SupportedLanguage) *SearchForHits {
 	o.QueryLanguages = v
 	return o
 }

@@ -85,6 +85,7 @@ model_semantic_search.go
 model_snippet_result.go
 model_snippet_result_option.go
 model_sort_remaining_by.go
+model_supported_language.go
 model_tag_filters.go
 model_task_status.go
 model_trending_facet_hit.go

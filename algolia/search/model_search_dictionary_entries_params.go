@@ -13,9 +13,8 @@ type SearchDictionaryEntriesParams struct {
 	// Page of search results to retrieve.
 	Page *int32 `json:"page,omitempty"`
 	// Number of hits per page.
-	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
-	// ISO code of a [supported language](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/).
-	Language *string `json:"language,omitempty"`
+	HitsPerPage *int32             `json:"hitsPerPage,omitempty"`
+	Language    *SupportedLanguage `json:"language,omitempty"`
 }
 
 type SearchDictionaryEntriesParamsOption func(f *SearchDictionaryEntriesParams)
@@ -32,7 +31,7 @@ func WithSearchDictionaryEntriesParamsHitsPerPage(val int32) SearchDictionaryEnt
 	}
 }
 
-func WithSearchDictionaryEntriesParamsLanguage(val string) SearchDictionaryEntriesParamsOption {
+func WithSearchDictionaryEntriesParamsLanguage(val SupportedLanguage) SearchDictionaryEntriesParamsOption {
 	return func(f *SearchDictionaryEntriesParams) {
 		f.Language = &val
 	}
@@ -148,9 +147,9 @@ func (o *SearchDictionaryEntriesParams) SetHitsPerPage(v int32) *SearchDictionar
 }
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
-func (o *SearchDictionaryEntriesParams) GetLanguage() string {
+func (o *SearchDictionaryEntriesParams) GetLanguage() SupportedLanguage {
 	if o == nil || o.Language == nil {
-		var ret string
+		var ret SupportedLanguage
 		return ret
 	}
 	return *o.Language
@@ -158,7 +157,7 @@ func (o *SearchDictionaryEntriesParams) GetLanguage() string {
 
 // GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchDictionaryEntriesParams) GetLanguageOk() (*string, bool) {
+func (o *SearchDictionaryEntriesParams) GetLanguageOk() (*SupportedLanguage, bool) {
 	if o == nil || o.Language == nil {
 		return nil, false
 	}
@@ -174,8 +173,8 @@ func (o *SearchDictionaryEntriesParams) HasLanguage() bool {
 	return false
 }
 
-// SetLanguage gets a reference to the given string and assigns it to the Language field.
-func (o *SearchDictionaryEntriesParams) SetLanguage(v string) *SearchDictionaryEntriesParams {
+// SetLanguage gets a reference to the given SupportedLanguage and assigns it to the Language field.
+func (o *SearchDictionaryEntriesParams) SetLanguage(v SupportedLanguage) *SearchDictionaryEntriesParams {
 	o.Language = &v
 	return o
 }

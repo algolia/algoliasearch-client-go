@@ -152,6 +152,7 @@ model_snippet_result_option.go
 model_sort_remaining_by.go
 model_source.go
 model_standard_entries.go
+model_supported_language.go
 model_synonym_hit.go
 model_synonym_type.go
 model_tag_filters.go

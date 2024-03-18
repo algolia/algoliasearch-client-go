@@ -9,9 +9,8 @@ import (
 // DictionaryEntry Dictionary entry.
 type DictionaryEntry struct {
 	// Unique identifier for the dictionary entry.
-	ObjectID string `json:"objectID"`
-	// ISO code of a [supported language](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/).
-	Language string `json:"language"`
+	ObjectID string            `json:"objectID"`
+	Language SupportedLanguage `json:"language"`
 	// Matching dictionary word for `stopwords` and `compounds` dictionaries.
 	Word *string `json:"word,omitempty"`
 	// Matching words in the `plurals` dictionary including declensions.
@@ -54,7 +53,7 @@ func WithDictionaryEntryState(val DictionaryEntryState) DictionaryEntryOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDictionaryEntry(objectID string, language string, opts ...DictionaryEntryOption) *DictionaryEntry {
+func NewDictionaryEntry(objectID string, language SupportedLanguage, opts ...DictionaryEntryOption) *DictionaryEntry {
 	this := &DictionaryEntry{}
 	this.ObjectID = objectID
 	this.Language = language
@@ -95,9 +94,9 @@ func (o *DictionaryEntry) SetObjectID(v string) *DictionaryEntry {
 }
 
 // GetLanguage returns the Language field value.
-func (o *DictionaryEntry) GetLanguage() string {
+func (o *DictionaryEntry) GetLanguage() SupportedLanguage {
 	if o == nil {
-		var ret string
+		var ret SupportedLanguage
 		return ret
 	}
 
@@ -106,7 +105,7 @@ func (o *DictionaryEntry) GetLanguage() string {
 
 // GetLanguageOk returns a tuple with the Language field value
 // and a boolean to check if the value has been set.
-func (o *DictionaryEntry) GetLanguageOk() (*string, bool) {
+func (o *DictionaryEntry) GetLanguageOk() (*SupportedLanguage, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -114,7 +113,7 @@ func (o *DictionaryEntry) GetLanguageOk() (*string, bool) {
 }
 
 // SetLanguage sets field value.
-func (o *DictionaryEntry) SetLanguage(v string) *DictionaryEntry {
+func (o *DictionaryEntry) SetLanguage(v SupportedLanguage) *DictionaryEntry {
 	o.Language = v
 	return o
 }

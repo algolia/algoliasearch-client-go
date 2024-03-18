@@ -8,14 +8,14 @@ import (
 
 // IgnorePlurals - Treat singular, plurals, and other forms of declensions as equivalent. You should only use this feature for the languages used in your index.
 type IgnorePlurals struct {
-	ArrayOfString *[]string
-	Bool          *bool
+	ArrayOfSupportedLanguage *[]SupportedLanguage
+	Bool                     *bool
 }
 
-// []stringAsIgnorePlurals is a convenience function that returns []string wrapped in IgnorePlurals.
-func ArrayOfStringAsIgnorePlurals(v []string) *IgnorePlurals {
+// []SupportedLanguageAsIgnorePlurals is a convenience function that returns []SupportedLanguage wrapped in IgnorePlurals.
+func ArrayOfSupportedLanguageAsIgnorePlurals(v []SupportedLanguage) *IgnorePlurals {
 	return &IgnorePlurals{
-		ArrayOfString: &v,
+		ArrayOfSupportedLanguage: &v,
 	}
 }
 
@@ -29,17 +29,17 @@ func BoolAsIgnorePlurals(v bool) *IgnorePlurals {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *IgnorePlurals) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into ArrayOfString
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfString)
-	if err == nil && validateStruct(dst.ArrayOfString) == nil {
-		jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
-		if string(jsonArrayOfString) == "{}" { // empty struct
-			dst.ArrayOfString = nil
+	// try to unmarshal data into ArrayOfSupportedLanguage
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfSupportedLanguage)
+	if err == nil && validateStruct(dst.ArrayOfSupportedLanguage) == nil {
+		jsonArrayOfSupportedLanguage, _ := json.Marshal(dst.ArrayOfSupportedLanguage)
+		if string(jsonArrayOfSupportedLanguage) == "{}" { // empty struct
+			dst.ArrayOfSupportedLanguage = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.ArrayOfString = nil
+		dst.ArrayOfSupportedLanguage = nil
 	}
 
 	// try to unmarshal data into Bool
@@ -60,10 +60,10 @@ func (dst *IgnorePlurals) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src IgnorePlurals) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfString != nil {
-		serialized, err := json.Marshal(&src.ArrayOfString)
+	if src.ArrayOfSupportedLanguage != nil {
+		serialized, err := json.Marshal(&src.ArrayOfSupportedLanguage)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfString of IgnorePlurals: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfSupportedLanguage of IgnorePlurals: %w", err)
 		}
 
 		return serialized, nil
@@ -83,8 +83,8 @@ func (src IgnorePlurals) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj IgnorePlurals) GetActualInstance() any {
-	if obj.ArrayOfString != nil {
-		return *obj.ArrayOfString
+	if obj.ArrayOfSupportedLanguage != nil {
+		return *obj.ArrayOfSupportedLanguage
 	}
 
 	if obj.Bool != nil {
