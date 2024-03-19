@@ -1,3 +1,7 @@
+## [4.0.0-beta.8](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.7...4.0.0-beta.8)
+
+- [7dc719cbe](https://github.com/algolia/api-clients-automation/commit/7dc719cbe) fix(specs): make languages an enum ([#2865](https://github.com/algolia/api-clients-automation/pull/2865)) by [@kai687](https://github.com/kai687/)
+
 ## [4.0.0-beta.7](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.6...4.0.0-beta.7)
 
 - [0f8d4432b](https://github.com/algolia/api-clients-automation/commit/0f8d4432b) feat(specs): insights api reference ([#2859](https://github.com/algolia/api-clients-automation/pull/2859)) by [@kai687](https://github.com/kai687/)
