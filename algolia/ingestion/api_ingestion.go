@@ -639,7 +639,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 		returnValue map[string]interface{}
 	)
 
-	requestPath := "/1{path}"
+	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
 
 	headers := make(map[string]string)
@@ -780,7 +780,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 		returnValue map[string]interface{}
 	)
 
-	requestPath := "/1{path}"
+	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
 
 	headers := make(map[string]string)
@@ -939,7 +939,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 		returnValue map[string]interface{}
 	)
 
-	requestPath := "/1{path}"
+	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
 
 	headers := make(map[string]string)
@@ -1104,7 +1104,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 		returnValue map[string]interface{}
 	)
 
-	requestPath := "/1{path}"
+	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
 
 	headers := make(map[string]string)
