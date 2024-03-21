@@ -8,9 +8,9 @@ import (
 
 // TopSearch struct for TopSearch.
 type TopSearch struct {
-	// User query.
+	// Search query.
 	Search string `json:"search"`
-	// Number of tracked _and_ untracked searches (where the `clickAnalytics` parameter isn't `true`).
+	// Number of searches.
 	Count int32 `json:"count"`
 	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`

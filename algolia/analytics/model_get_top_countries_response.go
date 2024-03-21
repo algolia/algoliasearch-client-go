@@ -8,7 +8,7 @@ import (
 
 // GetTopCountriesResponse struct for GetTopCountriesResponse.
 type GetTopCountriesResponse struct {
-	// Countries
+	// Countries and number of searches.
 	Countries []TopCountry `json:"countries"`
 }
 

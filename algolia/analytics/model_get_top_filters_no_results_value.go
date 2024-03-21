@@ -9,9 +9,8 @@ import (
 // GetTopFiltersNoResultsValue struct for GetTopFiltersNoResultsValue.
 type GetTopFiltersNoResultsValue struct {
 	// Attribute name.
-	Attribute string `json:"attribute"`
-	// Operator.
-	Operator string `json:"operator"`
+	Attribute string   `json:"attribute"`
+	Operator  Operator `json:"operator"`
 	// Attribute value.
 	Value string `json:"value"`
 }
@@ -20,7 +19,7 @@ type GetTopFiltersNoResultsValue struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetTopFiltersNoResultsValue(attribute string, operator string, value string) *GetTopFiltersNoResultsValue {
+func NewGetTopFiltersNoResultsValue(attribute string, operator Operator, value string) *GetTopFiltersNoResultsValue {
 	this := &GetTopFiltersNoResultsValue{}
 	this.Attribute = attribute
 	this.Operator = operator
@@ -59,9 +58,9 @@ func (o *GetTopFiltersNoResultsValue) SetAttribute(v string) *GetTopFiltersNoRes
 }
 
 // GetOperator returns the Operator field value.
-func (o *GetTopFiltersNoResultsValue) GetOperator() string {
+func (o *GetTopFiltersNoResultsValue) GetOperator() Operator {
 	if o == nil {
-		var ret string
+		var ret Operator
 		return ret
 	}
 
@@ -70,7 +69,7 @@ func (o *GetTopFiltersNoResultsValue) GetOperator() string {
 
 // GetOperatorOk returns a tuple with the Operator field value
 // and a boolean to check if the value has been set.
-func (o *GetTopFiltersNoResultsValue) GetOperatorOk() (*string, bool) {
+func (o *GetTopFiltersNoResultsValue) GetOperatorOk() (*Operator, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -78,7 +77,7 @@ func (o *GetTopFiltersNoResultsValue) GetOperatorOk() (*string, bool) {
 }
 
 // SetOperator sets field value.
-func (o *GetTopFiltersNoResultsValue) SetOperator(v string) *GetTopFiltersNoResultsValue {
+func (o *GetTopFiltersNoResultsValue) SetOperator(v Operator) *GetTopFiltersNoResultsValue {
 	o.Operator = v
 	return o
 }

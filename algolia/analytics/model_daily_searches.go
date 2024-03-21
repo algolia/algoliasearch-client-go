@@ -6,32 +6,32 @@ import (
 	"fmt"
 )
 
-// SearchEvent struct for SearchEvent.
-type SearchEvent struct {
-	// Date of the event in the format YYYY-MM-DD.
+// DailySearches struct for DailySearches.
+type DailySearches struct {
+	// Date in the format YYYY-MM-DD.
 	Date string `json:"date"`
 	// Number of occurrences.
 	Count int32 `json:"count"`
 }
 
-// NewSearchEvent instantiates a new SearchEvent object
+// NewDailySearches instantiates a new DailySearches object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSearchEvent(date string, count int32) *SearchEvent {
-	this := &SearchEvent{}
+func NewDailySearches(date string, count int32) *DailySearches {
+	this := &DailySearches{}
 	this.Date = date
 	this.Count = count
 	return this
 }
 
-// NewEmptySearchEvent return a pointer to an empty SearchEvent object.
-func NewEmptySearchEvent() *SearchEvent {
-	return &SearchEvent{}
+// NewEmptyDailySearches return a pointer to an empty DailySearches object.
+func NewEmptyDailySearches() *DailySearches {
+	return &DailySearches{}
 }
 
 // GetDate returns the Date field value.
-func (o *SearchEvent) GetDate() string {
+func (o *DailySearches) GetDate() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -42,7 +42,7 @@ func (o *SearchEvent) GetDate() string {
 
 // GetDateOk returns a tuple with the Date field value
 // and a boolean to check if the value has been set.
-func (o *SearchEvent) GetDateOk() (*string, bool) {
+func (o *DailySearches) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -50,13 +50,13 @@ func (o *SearchEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *SearchEvent) SetDate(v string) *SearchEvent {
+func (o *DailySearches) SetDate(v string) *DailySearches {
 	o.Date = v
 	return o
 }
 
 // GetCount returns the Count field value.
-func (o *SearchEvent) GetCount() int32 {
+func (o *DailySearches) GetCount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -67,7 +67,7 @@ func (o *SearchEvent) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value
 // and a boolean to check if the value has been set.
-func (o *SearchEvent) GetCountOk() (*int32, bool) {
+func (o *DailySearches) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,12 +75,12 @@ func (o *SearchEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *SearchEvent) SetCount(v int32) *SearchEvent {
+func (o *DailySearches) SetCount(v int32) *DailySearches {
 	o.Count = v
 	return o
 }
 
-func (o SearchEvent) MarshalJSON() ([]byte, error) {
+func (o DailySearches) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["date"] = o.Date
@@ -90,51 +90,51 @@ func (o SearchEvent) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal SearchEvent: %w", err)
+		return nil, fmt.Errorf("failed to marshal DailySearches: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o SearchEvent) String() string {
+func (o DailySearches) String() string {
 	out := ""
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
-	return fmt.Sprintf("SearchEvent {\n%s}", out)
+	return fmt.Sprintf("DailySearches {\n%s}", out)
 }
 
-type NullableSearchEvent struct {
-	value *SearchEvent
+type NullableDailySearches struct {
+	value *DailySearches
 	isSet bool
 }
 
-func (v NullableSearchEvent) Get() *SearchEvent {
+func (v NullableDailySearches) Get() *DailySearches {
 	return v.value
 }
 
-func (v *NullableSearchEvent) Set(val *SearchEvent) {
+func (v *NullableDailySearches) Set(val *DailySearches) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSearchEvent) IsSet() bool {
+func (v NullableDailySearches) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSearchEvent) Unset() {
+func (v *NullableDailySearches) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSearchEvent(val *SearchEvent) *NullableSearchEvent {
-	return &NullableSearchEvent{value: val, isSet: true}
+func NewNullableDailySearches(val *DailySearches) *NullableDailySearches {
+	return &NullableDailySearches{value: val, isSet: true}
 }
 
-func (v NullableSearchEvent) MarshalJSON() ([]byte, error) {
+func (v NullableDailySearches) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableSearchEvent) UnmarshalJSON(src []byte) error {
+func (v *NullableDailySearches) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

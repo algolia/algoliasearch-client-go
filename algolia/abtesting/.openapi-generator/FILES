@@ -8,7 +8,7 @@ model_ab_tests_variant.go
 model_ab_tests_variant_search_params.go
 model_add_ab_tests_request.go
 model_add_ab_tests_variant.go
-model_currencies_value.go
+model_currency.go
 model_custom_search_params.go
 model_error_base.go
 model_filter_effects.go

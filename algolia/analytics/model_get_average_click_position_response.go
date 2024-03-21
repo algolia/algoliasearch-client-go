@@ -4,23 +4,25 @@ package analytics
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // GetAverageClickPositionResponse struct for GetAverageClickPositionResponse.
 type GetAverageClickPositionResponse struct {
-	// Average count of all click events.
-	Average float64 `json:"average"`
-	// Number of click events.
+	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	Average utils.NullableFloat64 `json:"average"`
+	// Number of clicks associated with this search.
 	ClickCount int32 `json:"clickCount"`
-	// Average click positions.
-	Dates []AverageClickEvent `json:"dates"`
+	// Daily average click positions.
+	Dates []DailyAverageClicks `json:"dates"`
 }
 
 // NewGetAverageClickPositionResponse instantiates a new GetAverageClickPositionResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetAverageClickPositionResponse(average float64, clickCount int32, dates []AverageClickEvent) *GetAverageClickPositionResponse {
+func NewGetAverageClickPositionResponse(average utils.NullableFloat64, clickCount int32, dates []DailyAverageClicks) *GetAverageClickPositionResponse {
 	this := &GetAverageClickPositionResponse{}
 	this.Average = average
 	this.ClickCount = clickCount
@@ -34,27 +36,29 @@ func NewEmptyGetAverageClickPositionResponse() *GetAverageClickPositionResponse 
 }
 
 // GetAverage returns the Average field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *GetAverageClickPositionResponse) GetAverage() float64 {
-	if o == nil {
+	if o == nil || o.Average.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.Average
+	return *o.Average.Get()
 }
 
 // GetAverageOk returns a tuple with the Average field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *GetAverageClickPositionResponse) GetAverageOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Average, true
+	return o.Average.Get(), o.Average.IsSet()
 }
 
 // SetAverage sets field value.
 func (o *GetAverageClickPositionResponse) SetAverage(v float64) *GetAverageClickPositionResponse {
-	o.Average = v
+	o.Average.Set(&v)
 	return o
 }
 
@@ -84,9 +88,9 @@ func (o *GetAverageClickPositionResponse) SetClickCount(v int32) *GetAverageClic
 }
 
 // GetDates returns the Dates field value.
-func (o *GetAverageClickPositionResponse) GetDates() []AverageClickEvent {
+func (o *GetAverageClickPositionResponse) GetDates() []DailyAverageClicks {
 	if o == nil {
-		var ret []AverageClickEvent
+		var ret []DailyAverageClicks
 		return ret
 	}
 
@@ -95,7 +99,7 @@ func (o *GetAverageClickPositionResponse) GetDates() []AverageClickEvent {
 
 // GetDatesOk returns a tuple with the Dates field value
 // and a boolean to check if the value has been set.
-func (o *GetAverageClickPositionResponse) GetDatesOk() ([]AverageClickEvent, bool) {
+func (o *GetAverageClickPositionResponse) GetDatesOk() ([]DailyAverageClicks, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,7 +107,7 @@ func (o *GetAverageClickPositionResponse) GetDatesOk() ([]AverageClickEvent, boo
 }
 
 // SetDates sets field value.
-func (o *GetAverageClickPositionResponse) SetDates(v []AverageClickEvent) *GetAverageClickPositionResponse {
+func (o *GetAverageClickPositionResponse) SetDates(v []DailyAverageClicks) *GetAverageClickPositionResponse {
 	o.Dates = v
 	return o
 }
@@ -111,7 +115,7 @@ func (o *GetAverageClickPositionResponse) SetDates(v []AverageClickEvent) *GetAv
 func (o GetAverageClickPositionResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
-		toSerialize["average"] = o.Average
+		toSerialize["average"] = o.Average.Get()
 	}
 	if true {
 		toSerialize["clickCount"] = o.ClickCount

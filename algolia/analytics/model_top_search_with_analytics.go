@@ -10,21 +10,23 @@ import (
 
 // TopSearchWithAnalytics struct for TopSearchWithAnalytics.
 type TopSearchWithAnalytics struct {
-	// User query.
+	// Search query.
 	Search string `json:"search"`
-	// Number of tracked _and_ untracked searches (where the `clickAnalytics` parameter isn't `true`).
+	// Number of searches.
 	Count int32 `json:"count"`
-	// [Click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
-	ClickThroughRate float64 `json:"clickThroughRate"`
-	// Average [position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) of clicked search result.
-	AverageClickPosition int32 `json:"averageClickPosition"`
-	// [Conversion rate (CR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
-	ConversionRate float64 `json:"conversionRate"`
-	// Number of tracked searches. This is the number of search requests where the `clickAnalytics` parameter is `true`.
-	TrackedSearchCount utils.NullableInt32 `json:"trackedSearchCount"`
-	// Number of click events.
+	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
+	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	AverageClickPosition utils.NullableFloat64 `json:"averageClickPosition"`
+	// List of positions in the search results and clicks associated with this search.
+	ClickPositions []ClickPositionsInner `json:"clickPositions"`
+	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
+	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	TrackedSearchCount int32 `json:"trackedSearchCount"`
+	// Number of clicks associated with this search.
 	ClickCount int32 `json:"clickCount"`
-	// Number of converted clicks.
+	// Number of conversions from this search.
 	ConversionCount int32 `json:"conversionCount"`
 	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
@@ -34,12 +36,13 @@ type TopSearchWithAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopSearchWithAnalytics(search string, count int32, clickThroughRate float64, averageClickPosition int32, conversionRate float64, trackedSearchCount utils.NullableInt32, clickCount int32, conversionCount int32, nbHits int32) *TopSearchWithAnalytics {
+func NewTopSearchWithAnalytics(search string, count int32, clickThroughRate utils.NullableFloat64, averageClickPosition utils.NullableFloat64, clickPositions []ClickPositionsInner, conversionRate utils.NullableFloat64, trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32) *TopSearchWithAnalytics {
 	this := &TopSearchWithAnalytics{}
 	this.Search = search
 	this.Count = count
 	this.ClickThroughRate = clickThroughRate
 	this.AverageClickPosition = averageClickPosition
+	this.ClickPositions = clickPositions
 	this.ConversionRate = conversionRate
 	this.TrackedSearchCount = trackedSearchCount
 	this.ClickCount = clickCount
@@ -104,104 +107,133 @@ func (o *TopSearchWithAnalytics) SetCount(v int32) *TopSearchWithAnalytics {
 }
 
 // GetClickThroughRate returns the ClickThroughRate field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *TopSearchWithAnalytics) GetClickThroughRate() float64 {
-	if o == nil {
+	if o == nil || o.ClickThroughRate.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.ClickThroughRate
+	return *o.ClickThroughRate.Get()
 }
 
 // GetClickThroughRateOk returns a tuple with the ClickThroughRate field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *TopSearchWithAnalytics) GetClickThroughRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ClickThroughRate, true
+	return o.ClickThroughRate.Get(), o.ClickThroughRate.IsSet()
 }
 
 // SetClickThroughRate sets field value.
 func (o *TopSearchWithAnalytics) SetClickThroughRate(v float64) *TopSearchWithAnalytics {
-	o.ClickThroughRate = v
+	o.ClickThroughRate.Set(&v)
 	return o
 }
 
 // GetAverageClickPosition returns the AverageClickPosition field value.
-func (o *TopSearchWithAnalytics) GetAverageClickPosition() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.AverageClickPosition
-}
-
-// GetAverageClickPositionOk returns a tuple with the AverageClickPosition field value
-// and a boolean to check if the value has been set.
-func (o *TopSearchWithAnalytics) GetAverageClickPositionOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AverageClickPosition, true
-}
-
-// SetAverageClickPosition sets field value.
-func (o *TopSearchWithAnalytics) SetAverageClickPosition(v int32) *TopSearchWithAnalytics {
-	o.AverageClickPosition = v
-	return o
-}
-
-// GetConversionRate returns the ConversionRate field value.
-func (o *TopSearchWithAnalytics) GetConversionRate() float64 {
-	if o == nil {
+// If the value is explicit nil, the zero value for float64 will be returned.
+func (o *TopSearchWithAnalytics) GetAverageClickPosition() float64 {
+	if o == nil || o.AverageClickPosition.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.ConversionRate
+	return *o.AverageClickPosition.Get()
+}
+
+// GetAverageClickPositionOk returns a tuple with the AverageClickPosition field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *TopSearchWithAnalytics) GetAverageClickPositionOk() (*float64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AverageClickPosition.Get(), o.AverageClickPosition.IsSet()
+}
+
+// SetAverageClickPosition sets field value.
+func (o *TopSearchWithAnalytics) SetAverageClickPosition(v float64) *TopSearchWithAnalytics {
+	o.AverageClickPosition.Set(&v)
+	return o
+}
+
+// GetClickPositions returns the ClickPositions field value.
+func (o *TopSearchWithAnalytics) GetClickPositions() []ClickPositionsInner {
+	if o == nil {
+		var ret []ClickPositionsInner
+		return ret
+	}
+
+	return o.ClickPositions
+}
+
+// GetClickPositionsOk returns a tuple with the ClickPositions field value
+// and a boolean to check if the value has been set.
+func (o *TopSearchWithAnalytics) GetClickPositionsOk() ([]ClickPositionsInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ClickPositions, true
+}
+
+// SetClickPositions sets field value.
+func (o *TopSearchWithAnalytics) SetClickPositions(v []ClickPositionsInner) *TopSearchWithAnalytics {
+	o.ClickPositions = v
+	return o
+}
+
+// GetConversionRate returns the ConversionRate field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
+func (o *TopSearchWithAnalytics) GetConversionRate() float64 {
+	if o == nil || o.ConversionRate.Get() == nil {
+		var ret float64
+		return ret
+	}
+
+	return *o.ConversionRate.Get()
 }
 
 // GetConversionRateOk returns a tuple with the ConversionRate field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *TopSearchWithAnalytics) GetConversionRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ConversionRate, true
+	return o.ConversionRate.Get(), o.ConversionRate.IsSet()
 }
 
 // SetConversionRate sets field value.
 func (o *TopSearchWithAnalytics) SetConversionRate(v float64) *TopSearchWithAnalytics {
-	o.ConversionRate = v
+	o.ConversionRate.Set(&v)
 	return o
 }
 
 // GetTrackedSearchCount returns the TrackedSearchCount field value.
-// If the value is explicit nil, the zero value for int32 will be returned.
 func (o *TopSearchWithAnalytics) GetTrackedSearchCount() int32 {
-	if o == nil || o.TrackedSearchCount.Get() == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
 
-	return *o.TrackedSearchCount.Get()
+	return o.TrackedSearchCount
 }
 
 // GetTrackedSearchCountOk returns a tuple with the TrackedSearchCount field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *TopSearchWithAnalytics) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.TrackedSearchCount.Get(), o.TrackedSearchCount.IsSet()
+	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *TopSearchWithAnalytics) SetTrackedSearchCount(v int32) *TopSearchWithAnalytics {
-	o.TrackedSearchCount.Set(&v)
+	o.TrackedSearchCount = v
 	return o
 }
 
@@ -289,16 +321,19 @@ func (o TopSearchWithAnalytics) MarshalJSON() ([]byte, error) {
 		toSerialize["count"] = o.Count
 	}
 	if true {
-		toSerialize["clickThroughRate"] = o.ClickThroughRate
+		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
 	}
 	if true {
-		toSerialize["averageClickPosition"] = o.AverageClickPosition
+		toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
 	}
 	if true {
-		toSerialize["conversionRate"] = o.ConversionRate
+		toSerialize["clickPositions"] = o.ClickPositions
 	}
 	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount.Get()
+		toSerialize["conversionRate"] = o.ConversionRate.Get()
+	}
+	if true {
+		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	}
 	if true {
 		toSerialize["clickCount"] = o.ClickCount
@@ -323,6 +358,7 @@ func (o TopSearchWithAnalytics) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  clickThroughRate=%v\n", o.ClickThroughRate)
 	out += fmt.Sprintf("  averageClickPosition=%v\n", o.AverageClickPosition)
+	out += fmt.Sprintf("  clickPositions=%v\n", o.ClickPositions)
 	out += fmt.Sprintf("  conversionRate=%v\n", o.ConversionRate)
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)

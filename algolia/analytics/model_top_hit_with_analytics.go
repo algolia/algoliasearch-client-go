@@ -10,19 +10,19 @@ import (
 
 // TopHitWithAnalytics struct for TopHitWithAnalytics.
 type TopHitWithAnalytics struct {
-	// Hit.
+	// Object ID of a record that's returned as a search result.
 	Hit string `json:"hit"`
 	// Number of occurrences.
 	Count int32 `json:"count"`
-	// [Click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
-	ClickThroughRate float64 `json:"clickThroughRate"`
-	// [Conversion rate (CR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
-	ConversionRate float64 `json:"conversionRate"`
-	// Number of tracked searches. This is the number of search requests where the `clickAnalytics` parameter is `true`.
-	TrackedSearchCount utils.NullableInt32 `json:"trackedSearchCount"`
-	// Number of click events.
+	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
+	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
+	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	TrackedHitCount int32 `json:"trackedHitCount"`
+	// Number of clicks associated with this search.
 	ClickCount int32 `json:"clickCount"`
-	// Number of converted clicks.
+	// Number of conversions from this search.
 	ConversionCount int32 `json:"conversionCount"`
 }
 
@@ -30,13 +30,13 @@ type TopHitWithAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopHitWithAnalytics(hit string, count int32, clickThroughRate float64, conversionRate float64, trackedSearchCount utils.NullableInt32, clickCount int32, conversionCount int32) *TopHitWithAnalytics {
+func NewTopHitWithAnalytics(hit string, count int32, clickThroughRate utils.NullableFloat64, conversionRate utils.NullableFloat64, trackedHitCount int32, clickCount int32, conversionCount int32) *TopHitWithAnalytics {
 	this := &TopHitWithAnalytics{}
 	this.Hit = hit
 	this.Count = count
 	this.ClickThroughRate = clickThroughRate
 	this.ConversionRate = conversionRate
-	this.TrackedSearchCount = trackedSearchCount
+	this.TrackedHitCount = trackedHitCount
 	this.ClickCount = clickCount
 	this.ConversionCount = conversionCount
 	return this
@@ -98,79 +98,81 @@ func (o *TopHitWithAnalytics) SetCount(v int32) *TopHitWithAnalytics {
 }
 
 // GetClickThroughRate returns the ClickThroughRate field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *TopHitWithAnalytics) GetClickThroughRate() float64 {
-	if o == nil {
+	if o == nil || o.ClickThroughRate.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.ClickThroughRate
+	return *o.ClickThroughRate.Get()
 }
 
 // GetClickThroughRateOk returns a tuple with the ClickThroughRate field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *TopHitWithAnalytics) GetClickThroughRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ClickThroughRate, true
+	return o.ClickThroughRate.Get(), o.ClickThroughRate.IsSet()
 }
 
 // SetClickThroughRate sets field value.
 func (o *TopHitWithAnalytics) SetClickThroughRate(v float64) *TopHitWithAnalytics {
-	o.ClickThroughRate = v
+	o.ClickThroughRate.Set(&v)
 	return o
 }
 
 // GetConversionRate returns the ConversionRate field value.
+// If the value is explicit nil, the zero value for float64 will be returned.
 func (o *TopHitWithAnalytics) GetConversionRate() float64 {
-	if o == nil {
+	if o == nil || o.ConversionRate.Get() == nil {
 		var ret float64
 		return ret
 	}
 
-	return o.ConversionRate
+	return *o.ConversionRate.Get()
 }
 
 // GetConversionRateOk returns a tuple with the ConversionRate field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *TopHitWithAnalytics) GetConversionRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ConversionRate, true
+	return o.ConversionRate.Get(), o.ConversionRate.IsSet()
 }
 
 // SetConversionRate sets field value.
 func (o *TopHitWithAnalytics) SetConversionRate(v float64) *TopHitWithAnalytics {
-	o.ConversionRate = v
+	o.ConversionRate.Set(&v)
 	return o
 }
 
-// GetTrackedSearchCount returns the TrackedSearchCount field value.
-// If the value is explicit nil, the zero value for int32 will be returned.
-func (o *TopHitWithAnalytics) GetTrackedSearchCount() int32 {
-	if o == nil || o.TrackedSearchCount.Get() == nil {
+// GetTrackedHitCount returns the TrackedHitCount field value.
+func (o *TopHitWithAnalytics) GetTrackedHitCount() int32 {
+	if o == nil {
 		var ret int32
 		return ret
 	}
 
-	return *o.TrackedSearchCount.Get()
+	return o.TrackedHitCount
 }
 
-// GetTrackedSearchCountOk returns a tuple with the TrackedSearchCount field value
+// GetTrackedHitCountOk returns a tuple with the TrackedHitCount field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *TopHitWithAnalytics) GetTrackedSearchCountOk() (*int32, bool) {
+func (o *TopHitWithAnalytics) GetTrackedHitCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.TrackedSearchCount.Get(), o.TrackedSearchCount.IsSet()
+	return &o.TrackedHitCount, true
 }
 
-// SetTrackedSearchCount sets field value.
-func (o *TopHitWithAnalytics) SetTrackedSearchCount(v int32) *TopHitWithAnalytics {
-	o.TrackedSearchCount.Set(&v)
+// SetTrackedHitCount sets field value.
+func (o *TopHitWithAnalytics) SetTrackedHitCount(v int32) *TopHitWithAnalytics {
+	o.TrackedHitCount = v
 	return o
 }
 
@@ -233,13 +235,13 @@ func (o TopHitWithAnalytics) MarshalJSON() ([]byte, error) {
 		toSerialize["count"] = o.Count
 	}
 	if true {
-		toSerialize["clickThroughRate"] = o.ClickThroughRate
+		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
 	}
 	if true {
-		toSerialize["conversionRate"] = o.ConversionRate
+		toSerialize["conversionRate"] = o.ConversionRate.Get()
 	}
 	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount.Get()
+		toSerialize["trackedHitCount"] = o.TrackedHitCount
 	}
 	if true {
 		toSerialize["clickCount"] = o.ClickCount
@@ -261,7 +263,7 @@ func (o TopHitWithAnalytics) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  clickThroughRate=%v\n", o.ClickThroughRate)
 	out += fmt.Sprintf("  conversionRate=%v\n", o.ConversionRate)
-	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
+	out += fmt.Sprintf("  trackedHitCount=%v\n", o.TrackedHitCount)
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  conversionCount=%v\n", o.ConversionCount)
 	return fmt.Sprintf("TopHitWithAnalytics {\n%s}", out)

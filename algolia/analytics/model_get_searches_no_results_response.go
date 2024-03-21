@@ -8,15 +8,15 @@ import (
 
 // GetSearchesNoResultsResponse struct for GetSearchesNoResultsResponse.
 type GetSearchesNoResultsResponse struct {
-	// Searches with no results.
-	Searches []SearchNoResultEvent `json:"searches"`
+	// Searches without results.
+	Searches []DailySearchesNoResults `json:"searches"`
 }
 
 // NewGetSearchesNoResultsResponse instantiates a new GetSearchesNoResultsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetSearchesNoResultsResponse(searches []SearchNoResultEvent) *GetSearchesNoResultsResponse {
+func NewGetSearchesNoResultsResponse(searches []DailySearchesNoResults) *GetSearchesNoResultsResponse {
 	this := &GetSearchesNoResultsResponse{}
 	this.Searches = searches
 	return this
@@ -28,9 +28,9 @@ func NewEmptyGetSearchesNoResultsResponse() *GetSearchesNoResultsResponse {
 }
 
 // GetSearches returns the Searches field value.
-func (o *GetSearchesNoResultsResponse) GetSearches() []SearchNoResultEvent {
+func (o *GetSearchesNoResultsResponse) GetSearches() []DailySearchesNoResults {
 	if o == nil {
-		var ret []SearchNoResultEvent
+		var ret []DailySearchesNoResults
 		return ret
 	}
 
@@ -39,7 +39,7 @@ func (o *GetSearchesNoResultsResponse) GetSearches() []SearchNoResultEvent {
 
 // GetSearchesOk returns a tuple with the Searches field value
 // and a boolean to check if the value has been set.
-func (o *GetSearchesNoResultsResponse) GetSearchesOk() ([]SearchNoResultEvent, bool) {
+func (o *GetSearchesNoResultsResponse) GetSearchesOk() ([]DailySearchesNoResults, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -47,7 +47,7 @@ func (o *GetSearchesNoResultsResponse) GetSearchesOk() ([]SearchNoResultEvent, b
 }
 
 // SetSearches sets field value.
-func (o *GetSearchesNoResultsResponse) SetSearches(v []SearchNoResultEvent) *GetSearchesNoResultsResponse {
+func (o *GetSearchesNoResultsResponse) SetSearches(v []DailySearchesNoResults) *GetSearchesNoResultsResponse {
 	o.Searches = v
 	return o
 }

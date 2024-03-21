@@ -6,32 +6,32 @@ import (
 	"fmt"
 )
 
-// UserWithDate struct for UserWithDate.
-type UserWithDate struct {
-	// Date of the event in the format YYYY-MM-DD.
+// DailyUsers struct for DailyUsers.
+type DailyUsers struct {
+	// Date in the format YYYY-MM-DD.
 	Date string `json:"date"`
-	// Number of occurrences.
+	// Number of unique users.
 	Count int32 `json:"count"`
 }
 
-// NewUserWithDate instantiates a new UserWithDate object
+// NewDailyUsers instantiates a new DailyUsers object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewUserWithDate(date string, count int32) *UserWithDate {
-	this := &UserWithDate{}
+func NewDailyUsers(date string, count int32) *DailyUsers {
+	this := &DailyUsers{}
 	this.Date = date
 	this.Count = count
 	return this
 }
 
-// NewEmptyUserWithDate return a pointer to an empty UserWithDate object.
-func NewEmptyUserWithDate() *UserWithDate {
-	return &UserWithDate{}
+// NewEmptyDailyUsers return a pointer to an empty DailyUsers object.
+func NewEmptyDailyUsers() *DailyUsers {
+	return &DailyUsers{}
 }
 
 // GetDate returns the Date field value.
-func (o *UserWithDate) GetDate() string {
+func (o *DailyUsers) GetDate() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -42,7 +42,7 @@ func (o *UserWithDate) GetDate() string {
 
 // GetDateOk returns a tuple with the Date field value
 // and a boolean to check if the value has been set.
-func (o *UserWithDate) GetDateOk() (*string, bool) {
+func (o *DailyUsers) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -50,13 +50,13 @@ func (o *UserWithDate) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *UserWithDate) SetDate(v string) *UserWithDate {
+func (o *DailyUsers) SetDate(v string) *DailyUsers {
 	o.Date = v
 	return o
 }
 
 // GetCount returns the Count field value.
-func (o *UserWithDate) GetCount() int32 {
+func (o *DailyUsers) GetCount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -67,7 +67,7 @@ func (o *UserWithDate) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value
 // and a boolean to check if the value has been set.
-func (o *UserWithDate) GetCountOk() (*int32, bool) {
+func (o *DailyUsers) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,12 +75,12 @@ func (o *UserWithDate) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *UserWithDate) SetCount(v int32) *UserWithDate {
+func (o *DailyUsers) SetCount(v int32) *DailyUsers {
 	o.Count = v
 	return o
 }
 
-func (o UserWithDate) MarshalJSON() ([]byte, error) {
+func (o DailyUsers) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["date"] = o.Date
@@ -90,51 +90,51 @@ func (o UserWithDate) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal UserWithDate: %w", err)
+		return nil, fmt.Errorf("failed to marshal DailyUsers: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o UserWithDate) String() string {
+func (o DailyUsers) String() string {
 	out := ""
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
-	return fmt.Sprintf("UserWithDate {\n%s}", out)
+	return fmt.Sprintf("DailyUsers {\n%s}", out)
 }
 
-type NullableUserWithDate struct {
-	value *UserWithDate
+type NullableDailyUsers struct {
+	value *DailyUsers
 	isSet bool
 }
 
-func (v NullableUserWithDate) Get() *UserWithDate {
+func (v NullableDailyUsers) Get() *DailyUsers {
 	return v.value
 }
 
-func (v *NullableUserWithDate) Set(val *UserWithDate) {
+func (v *NullableDailyUsers) Set(val *DailyUsers) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUserWithDate) IsSet() bool {
+func (v NullableDailyUsers) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUserWithDate) Unset() {
+func (v *NullableDailyUsers) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUserWithDate(val *UserWithDate) *NullableUserWithDate {
-	return &NullableUserWithDate{value: val, isSet: true}
+func NewNullableDailyUsers(val *DailyUsers) *NullableDailyUsers {
+	return &NullableDailyUsers{value: val, isSet: true}
 }
 
-func (v NullableUserWithDate) MarshalJSON() ([]byte, error) {
+func (v NullableDailyUsers) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableUserWithDate) UnmarshalJSON(src []byte) error {
+func (v *NullableDailyUsers) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

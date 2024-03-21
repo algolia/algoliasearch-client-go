@@ -8,8 +8,9 @@ import (
 
 // GetTopSearchesResponse - struct for GetTopSearchesResponse.
 type GetTopSearchesResponse struct {
-	TopSearchesResponse              *TopSearchesResponse
-	TopSearchesResponseWithAnalytics *TopSearchesResponseWithAnalytics
+	TopSearchesResponse                     *TopSearchesResponse
+	TopSearchesResponseWithAnalytics        *TopSearchesResponseWithAnalytics
+	TopSearchesResponseWithRevenueAnalytics *TopSearchesResponseWithRevenueAnalytics
 }
 
 // TopSearchesResponseAsGetTopSearchesResponse is a convenience function that returns TopSearchesResponse wrapped in GetTopSearchesResponse.
@@ -23,6 +24,13 @@ func TopSearchesResponseAsGetTopSearchesResponse(v *TopSearchesResponse) *GetTop
 func TopSearchesResponseWithAnalyticsAsGetTopSearchesResponse(v *TopSearchesResponseWithAnalytics) *GetTopSearchesResponse {
 	return &GetTopSearchesResponse{
 		TopSearchesResponseWithAnalytics: v,
+	}
+}
+
+// TopSearchesResponseWithRevenueAnalyticsAsGetTopSearchesResponse is a convenience function that returns TopSearchesResponseWithRevenueAnalytics wrapped in GetTopSearchesResponse.
+func TopSearchesResponseWithRevenueAnalyticsAsGetTopSearchesResponse(v *TopSearchesResponseWithRevenueAnalytics) *GetTopSearchesResponse {
+	return &GetTopSearchesResponse{
+		TopSearchesResponseWithRevenueAnalytics: v,
 	}
 }
 
@@ -55,6 +63,19 @@ func (dst *GetTopSearchesResponse) UnmarshalJSON(data []byte) error {
 		dst.TopSearchesResponseWithAnalytics = nil
 	}
 
+	// try to unmarshal data into TopSearchesResponseWithRevenueAnalytics
+	err = newStrictDecoder(data).Decode(&dst.TopSearchesResponseWithRevenueAnalytics)
+	if err == nil && validateStruct(dst.TopSearchesResponseWithRevenueAnalytics) == nil {
+		jsonTopSearchesResponseWithRevenueAnalytics, _ := json.Marshal(dst.TopSearchesResponseWithRevenueAnalytics)
+		if string(jsonTopSearchesResponseWithRevenueAnalytics) == "{}" { // empty struct
+			dst.TopSearchesResponseWithRevenueAnalytics = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.TopSearchesResponseWithRevenueAnalytics = nil
+	}
+
 	return fmt.Errorf("Data failed to match schemas in oneOf(GetTopSearchesResponse)")
 }
 
@@ -78,6 +99,15 @@ func (src GetTopSearchesResponse) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.TopSearchesResponseWithRevenueAnalytics != nil {
+		serialized, err := json.Marshal(&src.TopSearchesResponseWithRevenueAnalytics)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of TopSearchesResponseWithRevenueAnalytics of GetTopSearchesResponse: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -89,6 +119,10 @@ func (obj GetTopSearchesResponse) GetActualInstance() any {
 
 	if obj.TopSearchesResponseWithAnalytics != nil {
 		return *obj.TopSearchesResponseWithAnalytics
+	}
+
+	if obj.TopSearchesResponseWithRevenueAnalytics != nil {
+		return *obj.TopSearchesResponseWithRevenueAnalytics
 	}
 
 	// all schemas are nil

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// OrderBy Method for ordering results. `clickThroughRate`, `conversionRate` and `averageClickPosition` are only available if the `clickAnalytics` parameter is `true`.
+// OrderBy Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
 type OrderBy string
 
 // List of orderBy.

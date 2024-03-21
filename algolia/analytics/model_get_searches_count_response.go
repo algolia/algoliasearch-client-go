@@ -10,15 +10,15 @@ import (
 type GetSearchesCountResponse struct {
 	// Number of occurrences.
 	Count int32 `json:"count"`
-	// Search events with their associated dates and hit counts.
-	Dates []SearchEvent `json:"dates"`
+	// Daily number of searches.
+	Dates []DailySearches `json:"dates"`
 }
 
 // NewGetSearchesCountResponse instantiates a new GetSearchesCountResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetSearchesCountResponse(count int32, dates []SearchEvent) *GetSearchesCountResponse {
+func NewGetSearchesCountResponse(count int32, dates []DailySearches) *GetSearchesCountResponse {
 	this := &GetSearchesCountResponse{}
 	this.Count = count
 	this.Dates = dates
@@ -56,9 +56,9 @@ func (o *GetSearchesCountResponse) SetCount(v int32) *GetSearchesCountResponse {
 }
 
 // GetDates returns the Dates field value.
-func (o *GetSearchesCountResponse) GetDates() []SearchEvent {
+func (o *GetSearchesCountResponse) GetDates() []DailySearches {
 	if o == nil {
-		var ret []SearchEvent
+		var ret []DailySearches
 		return ret
 	}
 
@@ -67,7 +67,7 @@ func (o *GetSearchesCountResponse) GetDates() []SearchEvent {
 
 // GetDatesOk returns a tuple with the Dates field value
 // and a boolean to check if the value has been set.
-func (o *GetSearchesCountResponse) GetDatesOk() ([]SearchEvent, bool) {
+func (o *GetSearchesCountResponse) GetDatesOk() ([]DailySearches, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *GetSearchesCountResponse) GetDatesOk() ([]SearchEvent, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetSearchesCountResponse) SetDates(v []SearchEvent) *GetSearchesCountResponse {
+func (o *GetSearchesCountResponse) SetDates(v []DailySearches) *GetSearchesCountResponse {
 	o.Dates = v
 	return o
 }

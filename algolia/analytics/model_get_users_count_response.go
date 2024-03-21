@@ -8,17 +8,17 @@ import (
 
 // GetUsersCountResponse struct for GetUsersCountResponse.
 type GetUsersCountResponse struct {
-	// Number of occurrences.
+	// Number of unique users.
 	Count int32 `json:"count"`
-	// User count.
-	Dates []UserWithDate `json:"dates"`
+	// Daily number of unique users.
+	Dates []DailyUsers `json:"dates"`
 }
 
 // NewGetUsersCountResponse instantiates a new GetUsersCountResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetUsersCountResponse(count int32, dates []UserWithDate) *GetUsersCountResponse {
+func NewGetUsersCountResponse(count int32, dates []DailyUsers) *GetUsersCountResponse {
 	this := &GetUsersCountResponse{}
 	this.Count = count
 	this.Dates = dates
@@ -56,9 +56,9 @@ func (o *GetUsersCountResponse) SetCount(v int32) *GetUsersCountResponse {
 }
 
 // GetDates returns the Dates field value.
-func (o *GetUsersCountResponse) GetDates() []UserWithDate {
+func (o *GetUsersCountResponse) GetDates() []DailyUsers {
 	if o == nil {
-		var ret []UserWithDate
+		var ret []DailyUsers
 		return ret
 	}
 
@@ -67,7 +67,7 @@ func (o *GetUsersCountResponse) GetDates() []UserWithDate {
 
 // GetDatesOk returns a tuple with the Dates field value
 // and a boolean to check if the value has been set.
-func (o *GetUsersCountResponse) GetDatesOk() ([]UserWithDate, bool) {
+func (o *GetUsersCountResponse) GetDatesOk() ([]DailyUsers, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *GetUsersCountResponse) GetDatesOk() ([]UserWithDate, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetUsersCountResponse) SetDates(v []UserWithDate) *GetUsersCountResponse {
+func (o *GetUsersCountResponse) SetDates(v []DailyUsers) *GetUsersCountResponse {
 	o.Dates = v
 	return o
 }

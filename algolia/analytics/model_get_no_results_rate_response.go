@@ -8,21 +8,21 @@ import (
 
 // GetNoResultsRateResponse struct for GetNoResultsRateResponse.
 type GetNoResultsRateResponse struct {
-	// [Click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
+	// No results rate, calculated as number of searches with zero results divided by the total number of searches.
 	Rate float64 `json:"rate"`
-	// Number of occurrences.
+	// Number of searches.
 	Count int32 `json:"count"`
-	// Number of occurrences.
+	// Number of searches without any results.
 	NoResultCount int32 `json:"noResultCount"`
-	// Overall count of searches without results plus a daily breakdown.
-	Dates []NoResultsRateEvent `json:"dates"`
+	// Daily no results rates.
+	Dates []DailyNoResultsRates `json:"dates"`
 }
 
 // NewGetNoResultsRateResponse instantiates a new GetNoResultsRateResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetNoResultsRateResponse(rate float64, count int32, noResultCount int32, dates []NoResultsRateEvent) *GetNoResultsRateResponse {
+func NewGetNoResultsRateResponse(rate float64, count int32, noResultCount int32, dates []DailyNoResultsRates) *GetNoResultsRateResponse {
 	this := &GetNoResultsRateResponse{}
 	this.Rate = rate
 	this.Count = count
@@ -112,9 +112,9 @@ func (o *GetNoResultsRateResponse) SetNoResultCount(v int32) *GetNoResultsRateRe
 }
 
 // GetDates returns the Dates field value.
-func (o *GetNoResultsRateResponse) GetDates() []NoResultsRateEvent {
+func (o *GetNoResultsRateResponse) GetDates() []DailyNoResultsRates {
 	if o == nil {
-		var ret []NoResultsRateEvent
+		var ret []DailyNoResultsRates
 		return ret
 	}
 
@@ -123,7 +123,7 @@ func (o *GetNoResultsRateResponse) GetDates() []NoResultsRateEvent {
 
 // GetDatesOk returns a tuple with the Dates field value
 // and a boolean to check if the value has been set.
-func (o *GetNoResultsRateResponse) GetDatesOk() ([]NoResultsRateEvent, bool) {
+func (o *GetNoResultsRateResponse) GetDatesOk() ([]DailyNoResultsRates, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *GetNoResultsRateResponse) GetDatesOk() ([]NoResultsRateEvent, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetNoResultsRateResponse) SetDates(v []NoResultsRateEvent) *GetNoResultsRateResponse {
+func (o *GetNoResultsRateResponse) SetDates(v []DailyNoResultsRates) *GetNoResultsRateResponse {
 	o.Dates = v
 	return o
 }

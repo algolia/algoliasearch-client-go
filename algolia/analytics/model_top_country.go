@@ -8,7 +8,7 @@ import (
 
 // TopCountry struct for TopCountry.
 type TopCountry struct {
-	// Country.
+	// Country code.
 	Country string `json:"country"`
 	// Number of occurrences.
 	Count int32 `json:"count"`

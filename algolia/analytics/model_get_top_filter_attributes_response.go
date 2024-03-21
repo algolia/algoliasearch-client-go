@@ -8,7 +8,7 @@ import (
 
 // GetTopFilterAttributesResponse struct for GetTopFilterAttributesResponse.
 type GetTopFilterAttributesResponse struct {
-	// Filterable attributes.
+	// Most frequent filters.
 	Attributes []GetTopFilterAttribute `json:"attributes"`
 }
 

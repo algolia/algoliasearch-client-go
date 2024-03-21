@@ -6,24 +6,24 @@ import (
 	"fmt"
 )
 
-// NoClickRateEvent struct for NoClickRateEvent.
-type NoClickRateEvent struct {
-	// [Click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
+// DailyNoClickRates struct for DailyNoClickRates.
+type DailyNoClickRates struct {
+	// No click rate, calculated as number of tracked searches without any click divided by the number of tracked searches.
 	Rate float64 `json:"rate"`
-	// Number of tracked _and_ untracked searches (where the `clickAnalytics` parameter isn't `true`).
+	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	Count int32 `json:"count"`
-	// Number of click events.
+	// Number of times this search was returned as a result without any click.
 	NoClickCount int32 `json:"noClickCount"`
-	// Date of the event in the format YYYY-MM-DD.
+	// Date in the format YYYY-MM-DD.
 	Date string `json:"date"`
 }
 
-// NewNoClickRateEvent instantiates a new NoClickRateEvent object
+// NewDailyNoClickRates instantiates a new DailyNoClickRates object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewNoClickRateEvent(rate float64, count int32, noClickCount int32, date string) *NoClickRateEvent {
-	this := &NoClickRateEvent{}
+func NewDailyNoClickRates(rate float64, count int32, noClickCount int32, date string) *DailyNoClickRates {
+	this := &DailyNoClickRates{}
 	this.Rate = rate
 	this.Count = count
 	this.NoClickCount = noClickCount
@@ -31,13 +31,13 @@ func NewNoClickRateEvent(rate float64, count int32, noClickCount int32, date str
 	return this
 }
 
-// NewEmptyNoClickRateEvent return a pointer to an empty NoClickRateEvent object.
-func NewEmptyNoClickRateEvent() *NoClickRateEvent {
-	return &NoClickRateEvent{}
+// NewEmptyDailyNoClickRates return a pointer to an empty DailyNoClickRates object.
+func NewEmptyDailyNoClickRates() *DailyNoClickRates {
+	return &DailyNoClickRates{}
 }
 
 // GetRate returns the Rate field value.
-func (o *NoClickRateEvent) GetRate() float64 {
+func (o *DailyNoClickRates) GetRate() float64 {
 	if o == nil {
 		var ret float64
 		return ret
@@ -48,7 +48,7 @@ func (o *NoClickRateEvent) GetRate() float64 {
 
 // GetRateOk returns a tuple with the Rate field value
 // and a boolean to check if the value has been set.
-func (o *NoClickRateEvent) GetRateOk() (*float64, bool) {
+func (o *DailyNoClickRates) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -56,13 +56,13 @@ func (o *NoClickRateEvent) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *NoClickRateEvent) SetRate(v float64) *NoClickRateEvent {
+func (o *DailyNoClickRates) SetRate(v float64) *DailyNoClickRates {
 	o.Rate = v
 	return o
 }
 
 // GetCount returns the Count field value.
-func (o *NoClickRateEvent) GetCount() int32 {
+func (o *DailyNoClickRates) GetCount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -73,7 +73,7 @@ func (o *NoClickRateEvent) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value
 // and a boolean to check if the value has been set.
-func (o *NoClickRateEvent) GetCountOk() (*int32, bool) {
+func (o *DailyNoClickRates) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -81,13 +81,13 @@ func (o *NoClickRateEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *NoClickRateEvent) SetCount(v int32) *NoClickRateEvent {
+func (o *DailyNoClickRates) SetCount(v int32) *DailyNoClickRates {
 	o.Count = v
 	return o
 }
 
 // GetNoClickCount returns the NoClickCount field value.
-func (o *NoClickRateEvent) GetNoClickCount() int32 {
+func (o *DailyNoClickRates) GetNoClickCount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -98,7 +98,7 @@ func (o *NoClickRateEvent) GetNoClickCount() int32 {
 
 // GetNoClickCountOk returns a tuple with the NoClickCount field value
 // and a boolean to check if the value has been set.
-func (o *NoClickRateEvent) GetNoClickCountOk() (*int32, bool) {
+func (o *DailyNoClickRates) GetNoClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -106,13 +106,13 @@ func (o *NoClickRateEvent) GetNoClickCountOk() (*int32, bool) {
 }
 
 // SetNoClickCount sets field value.
-func (o *NoClickRateEvent) SetNoClickCount(v int32) *NoClickRateEvent {
+func (o *DailyNoClickRates) SetNoClickCount(v int32) *DailyNoClickRates {
 	o.NoClickCount = v
 	return o
 }
 
 // GetDate returns the Date field value.
-func (o *NoClickRateEvent) GetDate() string {
+func (o *DailyNoClickRates) GetDate() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -123,7 +123,7 @@ func (o *NoClickRateEvent) GetDate() string {
 
 // GetDateOk returns a tuple with the Date field value
 // and a boolean to check if the value has been set.
-func (o *NoClickRateEvent) GetDateOk() (*string, bool) {
+func (o *DailyNoClickRates) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -131,12 +131,12 @@ func (o *NoClickRateEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *NoClickRateEvent) SetDate(v string) *NoClickRateEvent {
+func (o *DailyNoClickRates) SetDate(v string) *DailyNoClickRates {
 	o.Date = v
 	return o
 }
 
-func (o NoClickRateEvent) MarshalJSON() ([]byte, error) {
+func (o DailyNoClickRates) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["rate"] = o.Rate
@@ -152,53 +152,53 @@ func (o NoClickRateEvent) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal NoClickRateEvent: %w", err)
+		return nil, fmt.Errorf("failed to marshal DailyNoClickRates: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o NoClickRateEvent) String() string {
+func (o DailyNoClickRates) String() string {
 	out := ""
 	out += fmt.Sprintf("  rate=%v\n", o.Rate)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  noClickCount=%v\n", o.NoClickCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
-	return fmt.Sprintf("NoClickRateEvent {\n%s}", out)
+	return fmt.Sprintf("DailyNoClickRates {\n%s}", out)
 }
 
-type NullableNoClickRateEvent struct {
-	value *NoClickRateEvent
+type NullableDailyNoClickRates struct {
+	value *DailyNoClickRates
 	isSet bool
 }
 
-func (v NullableNoClickRateEvent) Get() *NoClickRateEvent {
+func (v NullableDailyNoClickRates) Get() *DailyNoClickRates {
 	return v.value
 }
 
-func (v *NullableNoClickRateEvent) Set(val *NoClickRateEvent) {
+func (v *NullableDailyNoClickRates) Set(val *DailyNoClickRates) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableNoClickRateEvent) IsSet() bool {
+func (v NullableDailyNoClickRates) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableNoClickRateEvent) Unset() {
+func (v *NullableDailyNoClickRates) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableNoClickRateEvent(val *NoClickRateEvent) *NullableNoClickRateEvent {
-	return &NullableNoClickRateEvent{value: val, isSet: true}
+func NewNullableDailyNoClickRates(val *DailyNoClickRates) *NullableDailyNoClickRates {
+	return &NullableDailyNoClickRates{value: val, isSet: true}
 }
 
-func (v NullableNoClickRateEvent) MarshalJSON() ([]byte, error) {
+func (v NullableDailyNoClickRates) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableNoClickRateEvent) UnmarshalJSON(src []byte) error {
+func (v *NullableDailyNoClickRates) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

@@ -24,7 +24,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 )
 
-// APIClient manages communication with the Analytics API API v1.0.0
+// APIClient manages communication with the Analytics API API v2.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	appID     string

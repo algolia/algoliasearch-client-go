@@ -8,15 +8,15 @@ import (
 
 // GetClickPositionsResponse struct for GetClickPositionsResponse.
 type GetClickPositionsResponse struct {
-	// Click positions.
-	Positions []ClickPosition `json:"positions"`
+	// List of positions in the search results and clicks associated with this search.
+	Positions []ClickPositionsInner `json:"positions"`
 }
 
 // NewGetClickPositionsResponse instantiates a new GetClickPositionsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetClickPositionsResponse(positions []ClickPosition) *GetClickPositionsResponse {
+func NewGetClickPositionsResponse(positions []ClickPositionsInner) *GetClickPositionsResponse {
 	this := &GetClickPositionsResponse{}
 	this.Positions = positions
 	return this
@@ -28,9 +28,9 @@ func NewEmptyGetClickPositionsResponse() *GetClickPositionsResponse {
 }
 
 // GetPositions returns the Positions field value.
-func (o *GetClickPositionsResponse) GetPositions() []ClickPosition {
+func (o *GetClickPositionsResponse) GetPositions() []ClickPositionsInner {
 	if o == nil {
-		var ret []ClickPosition
+		var ret []ClickPositionsInner
 		return ret
 	}
 
@@ -39,7 +39,7 @@ func (o *GetClickPositionsResponse) GetPositions() []ClickPosition {
 
 // GetPositionsOk returns a tuple with the Positions field value
 // and a boolean to check if the value has been set.
-func (o *GetClickPositionsResponse) GetPositionsOk() ([]ClickPosition, bool) {
+func (o *GetClickPositionsResponse) GetPositionsOk() ([]ClickPositionsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -47,7 +47,7 @@ func (o *GetClickPositionsResponse) GetPositionsOk() ([]ClickPosition, bool) {
 }
 
 // SetPositions sets field value.
-func (o *GetClickPositionsResponse) SetPositions(v []ClickPosition) *GetClickPositionsResponse {
+func (o *GetClickPositionsResponse) SetPositions(v []ClickPositionsInner) *GetClickPositionsResponse {
 	o.Positions = v
 	return o
 }

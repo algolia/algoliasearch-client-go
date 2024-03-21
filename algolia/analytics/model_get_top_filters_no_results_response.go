@@ -8,7 +8,7 @@ import (
 
 // GetTopFiltersNoResultsResponse struct for GetTopFiltersNoResultsResponse.
 type GetTopFiltersNoResultsResponse struct {
-	// Filters with no results.
+	// Filters for searches without any results. If null, the search term specified with the `search` parameter is not a search without results, or the `search` parameter is absent from the request.
 	Values []GetTopFiltersNoResultsValues `json:"values"`
 }
 
@@ -28,6 +28,7 @@ func NewEmptyGetTopFiltersNoResultsResponse() *GetTopFiltersNoResultsResponse {
 }
 
 // GetValues returns the Values field value.
+// If the value is explicit nil, the zero value for []GetTopFiltersNoResultsValues will be returned.
 func (o *GetTopFiltersNoResultsResponse) GetValues() []GetTopFiltersNoResultsValues {
 	if o == nil {
 		var ret []GetTopFiltersNoResultsValues
@@ -39,8 +40,9 @@ func (o *GetTopFiltersNoResultsResponse) GetValues() []GetTopFiltersNoResultsVal
 
 // GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *GetTopFiltersNoResultsResponse) GetValuesOk() ([]GetTopFiltersNoResultsValues, bool) {
-	if o == nil {
+	if o == nil || o.Values == nil {
 		return nil, false
 	}
 	return o.Values, true
@@ -54,7 +56,7 @@ func (o *GetTopFiltersNoResultsResponse) SetValues(v []GetTopFiltersNoResultsVal
 
 func (o GetTopFiltersNoResultsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
+	if o.Values != nil {
 		toSerialize["values"] = o.Values
 	}
 	serialized, err := json.Marshal(toSerialize)

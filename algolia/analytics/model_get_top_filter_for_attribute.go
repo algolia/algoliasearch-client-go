@@ -9,9 +9,8 @@ import (
 // GetTopFilterForAttribute struct for GetTopFilterForAttribute.
 type GetTopFilterForAttribute struct {
 	// Attribute name.
-	Attribute string `json:"attribute"`
-	// Operator.
-	Operator string `json:"operator"`
+	Attribute string   `json:"attribute"`
+	Operator  Operator `json:"operator"`
 	// Attribute value.
 	Value string `json:"value"`
 	// Number of occurrences.
@@ -22,7 +21,7 @@ type GetTopFilterForAttribute struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetTopFilterForAttribute(attribute string, operator string, value string, count int32) *GetTopFilterForAttribute {
+func NewGetTopFilterForAttribute(attribute string, operator Operator, value string, count int32) *GetTopFilterForAttribute {
 	this := &GetTopFilterForAttribute{}
 	this.Attribute = attribute
 	this.Operator = operator
@@ -62,9 +61,9 @@ func (o *GetTopFilterForAttribute) SetAttribute(v string) *GetTopFilterForAttrib
 }
 
 // GetOperator returns the Operator field value.
-func (o *GetTopFilterForAttribute) GetOperator() string {
+func (o *GetTopFilterForAttribute) GetOperator() Operator {
 	if o == nil {
-		var ret string
+		var ret Operator
 		return ret
 	}
 
@@ -73,7 +72,7 @@ func (o *GetTopFilterForAttribute) GetOperator() string {
 
 // GetOperatorOk returns a tuple with the Operator field value
 // and a boolean to check if the value has been set.
-func (o *GetTopFilterForAttribute) GetOperatorOk() (*string, bool) {
+func (o *GetTopFilterForAttribute) GetOperatorOk() (*Operator, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -81,7 +80,7 @@ func (o *GetTopFilterForAttribute) GetOperatorOk() (*string, bool) {
 }
 
 // SetOperator sets field value.
-func (o *GetTopFilterForAttribute) SetOperator(v string) *GetTopFilterForAttribute {
+func (o *GetTopFilterForAttribute) SetOperator(v Operator) *GetTopFilterForAttribute {
 	o.Operator = v
 	return o
 }

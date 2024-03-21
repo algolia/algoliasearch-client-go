@@ -6,24 +6,24 @@ import (
 	"fmt"
 )
 
-// NoResultsRateEvent struct for NoResultsRateEvent.
-type NoResultsRateEvent struct {
-	// Date of the event in the format YYYY-MM-DD.
+// DailyNoResultsRates struct for DailyNoResultsRates.
+type DailyNoResultsRates struct {
+	// Date in the format YYYY-MM-DD.
 	Date string `json:"date"`
-	// Number of occurrences.
+	// Number of searches without any results.
 	NoResultCount int32 `json:"noResultCount"`
-	// Number of tracked _and_ untracked searches (where the `clickAnalytics` parameter isn't `true`).
+	// Number of searches.
 	Count int32 `json:"count"`
-	// [Click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
+	// No results rate, calculated as number of searches with zero results divided by the total number of searches.
 	Rate float64 `json:"rate"`
 }
 
-// NewNoResultsRateEvent instantiates a new NoResultsRateEvent object
+// NewDailyNoResultsRates instantiates a new DailyNoResultsRates object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewNoResultsRateEvent(date string, noResultCount int32, count int32, rate float64) *NoResultsRateEvent {
-	this := &NoResultsRateEvent{}
+func NewDailyNoResultsRates(date string, noResultCount int32, count int32, rate float64) *DailyNoResultsRates {
+	this := &DailyNoResultsRates{}
 	this.Date = date
 	this.NoResultCount = noResultCount
 	this.Count = count
@@ -31,13 +31,13 @@ func NewNoResultsRateEvent(date string, noResultCount int32, count int32, rate f
 	return this
 }
 
-// NewEmptyNoResultsRateEvent return a pointer to an empty NoResultsRateEvent object.
-func NewEmptyNoResultsRateEvent() *NoResultsRateEvent {
-	return &NoResultsRateEvent{}
+// NewEmptyDailyNoResultsRates return a pointer to an empty DailyNoResultsRates object.
+func NewEmptyDailyNoResultsRates() *DailyNoResultsRates {
+	return &DailyNoResultsRates{}
 }
 
 // GetDate returns the Date field value.
-func (o *NoResultsRateEvent) GetDate() string {
+func (o *DailyNoResultsRates) GetDate() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -48,7 +48,7 @@ func (o *NoResultsRateEvent) GetDate() string {
 
 // GetDateOk returns a tuple with the Date field value
 // and a boolean to check if the value has been set.
-func (o *NoResultsRateEvent) GetDateOk() (*string, bool) {
+func (o *DailyNoResultsRates) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -56,13 +56,13 @@ func (o *NoResultsRateEvent) GetDateOk() (*string, bool) {
 }
 
 // SetDate sets field value.
-func (o *NoResultsRateEvent) SetDate(v string) *NoResultsRateEvent {
+func (o *DailyNoResultsRates) SetDate(v string) *DailyNoResultsRates {
 	o.Date = v
 	return o
 }
 
 // GetNoResultCount returns the NoResultCount field value.
-func (o *NoResultsRateEvent) GetNoResultCount() int32 {
+func (o *DailyNoResultsRates) GetNoResultCount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -73,7 +73,7 @@ func (o *NoResultsRateEvent) GetNoResultCount() int32 {
 
 // GetNoResultCountOk returns a tuple with the NoResultCount field value
 // and a boolean to check if the value has been set.
-func (o *NoResultsRateEvent) GetNoResultCountOk() (*int32, bool) {
+func (o *DailyNoResultsRates) GetNoResultCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -81,13 +81,13 @@ func (o *NoResultsRateEvent) GetNoResultCountOk() (*int32, bool) {
 }
 
 // SetNoResultCount sets field value.
-func (o *NoResultsRateEvent) SetNoResultCount(v int32) *NoResultsRateEvent {
+func (o *DailyNoResultsRates) SetNoResultCount(v int32) *DailyNoResultsRates {
 	o.NoResultCount = v
 	return o
 }
 
 // GetCount returns the Count field value.
-func (o *NoResultsRateEvent) GetCount() int32 {
+func (o *DailyNoResultsRates) GetCount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -98,7 +98,7 @@ func (o *NoResultsRateEvent) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value
 // and a boolean to check if the value has been set.
-func (o *NoResultsRateEvent) GetCountOk() (*int32, bool) {
+func (o *DailyNoResultsRates) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -106,13 +106,13 @@ func (o *NoResultsRateEvent) GetCountOk() (*int32, bool) {
 }
 
 // SetCount sets field value.
-func (o *NoResultsRateEvent) SetCount(v int32) *NoResultsRateEvent {
+func (o *DailyNoResultsRates) SetCount(v int32) *DailyNoResultsRates {
 	o.Count = v
 	return o
 }
 
 // GetRate returns the Rate field value.
-func (o *NoResultsRateEvent) GetRate() float64 {
+func (o *DailyNoResultsRates) GetRate() float64 {
 	if o == nil {
 		var ret float64
 		return ret
@@ -123,7 +123,7 @@ func (o *NoResultsRateEvent) GetRate() float64 {
 
 // GetRateOk returns a tuple with the Rate field value
 // and a boolean to check if the value has been set.
-func (o *NoResultsRateEvent) GetRateOk() (*float64, bool) {
+func (o *DailyNoResultsRates) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -131,12 +131,12 @@ func (o *NoResultsRateEvent) GetRateOk() (*float64, bool) {
 }
 
 // SetRate sets field value.
-func (o *NoResultsRateEvent) SetRate(v float64) *NoResultsRateEvent {
+func (o *DailyNoResultsRates) SetRate(v float64) *DailyNoResultsRates {
 	o.Rate = v
 	return o
 }
 
-func (o NoResultsRateEvent) MarshalJSON() ([]byte, error) {
+func (o DailyNoResultsRates) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["date"] = o.Date
@@ -152,53 +152,53 @@ func (o NoResultsRateEvent) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal NoResultsRateEvent: %w", err)
+		return nil, fmt.Errorf("failed to marshal DailyNoResultsRates: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o NoResultsRateEvent) String() string {
+func (o DailyNoResultsRates) String() string {
 	out := ""
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	out += fmt.Sprintf("  noResultCount=%v\n", o.NoResultCount)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  rate=%v\n", o.Rate)
-	return fmt.Sprintf("NoResultsRateEvent {\n%s}", out)
+	return fmt.Sprintf("DailyNoResultsRates {\n%s}", out)
 }
 
-type NullableNoResultsRateEvent struct {
-	value *NoResultsRateEvent
+type NullableDailyNoResultsRates struct {
+	value *DailyNoResultsRates
 	isSet bool
 }
 
-func (v NullableNoResultsRateEvent) Get() *NoResultsRateEvent {
+func (v NullableDailyNoResultsRates) Get() *DailyNoResultsRates {
 	return v.value
 }
 
-func (v *NullableNoResultsRateEvent) Set(val *NoResultsRateEvent) {
+func (v *NullableDailyNoResultsRates) Set(val *DailyNoResultsRates) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableNoResultsRateEvent) IsSet() bool {
+func (v NullableDailyNoResultsRates) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableNoResultsRateEvent) Unset() {
+func (v *NullableDailyNoResultsRates) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableNoResultsRateEvent(val *NoResultsRateEvent) *NullableNoResultsRateEvent {
-	return &NullableNoResultsRateEvent{value: val, isSet: true}
+func NewNullableDailyNoResultsRates(val *DailyNoResultsRates) *NullableDailyNoResultsRates {
+	return &NullableDailyNoResultsRates{value: val, isSet: true}
 }
 
-func (v NullableNoResultsRateEvent) MarshalJSON() ([]byte, error) {
+func (v NullableDailyNoResultsRates) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableNoResultsRateEvent) UnmarshalJSON(src []byte) error {
+func (v *NullableDailyNoResultsRates) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

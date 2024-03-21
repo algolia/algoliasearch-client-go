@@ -25,7 +25,7 @@ type Variant struct {
 	// Variant's [conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
 	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
 	// A/B test currencies.
-	Currencies *map[string]CurrenciesValue `json:"currencies,omitempty"`
+	Currencies *map[string]Currency `json:"currencies,omitempty"`
 	// A/B test description.
 	Description string `json:"description"`
 	// The estimated number of searches that will need to be run to achieve the desired confidence level and statistical power. A `minimumDetectableEffect` must be set in the `configuration` object for this to be used.
@@ -41,8 +41,8 @@ type Variant struct {
 	PurchaseRate utils.NullableFloat64 `json:"purchaseRate"`
 	// Number of searches carried out during the A/B test.
 	SearchCount utils.NullableInt32 `json:"searchCount"`
-	// Number of tracked searches. This is the number of search requests where the `clickAnalytics` parameter is `true`.
-	TrackedSearchCount utils.NullableInt32 `json:"trackedSearchCount"`
+	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	TrackedSearchCount *int32 `json:"trackedSearchCount,omitempty"`
 	// A/B test traffic percentage.
 	TrafficPercentage int32 `json:"trafficPercentage"`
 	// Number of users during the A/B test.
@@ -53,7 +53,7 @@ type Variant struct {
 
 type VariantOption func(f *Variant)
 
-func WithVariantCurrencies(val map[string]CurrenciesValue) VariantOption {
+func WithVariantCurrencies(val map[string]Currency) VariantOption {
 	return func(f *Variant) {
 		f.Currencies = &val
 	}
@@ -71,11 +71,17 @@ func WithVariantFilterEffects(val FilterEffects) VariantOption {
 	}
 }
 
+func WithVariantTrackedSearchCount(val int32) VariantOption {
+	return func(f *Variant) {
+		f.TrackedSearchCount = &val
+	}
+}
+
 // NewVariant instantiates a new Variant object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewVariant(addToCartCount int32, addToCartRate utils.NullableFloat64, averageClickPosition utils.NullableInt32, clickCount int32, clickThroughRate utils.NullableFloat64, conversionCount int32, conversionRate utils.NullableFloat64, description string, index string, noResultCount utils.NullableInt32, purchaseCount int32, purchaseRate utils.NullableFloat64, searchCount utils.NullableInt32, trackedSearchCount utils.NullableInt32, trafficPercentage int32, userCount utils.NullableInt32, trackedUserCount utils.NullableInt32, opts ...VariantOption) *Variant {
+func NewVariant(addToCartCount int32, addToCartRate utils.NullableFloat64, averageClickPosition utils.NullableInt32, clickCount int32, clickThroughRate utils.NullableFloat64, conversionCount int32, conversionRate utils.NullableFloat64, description string, index string, noResultCount utils.NullableInt32, purchaseCount int32, purchaseRate utils.NullableFloat64, searchCount utils.NullableInt32, trafficPercentage int32, userCount utils.NullableInt32, trackedUserCount utils.NullableInt32, opts ...VariantOption) *Variant {
 	this := &Variant{}
 	this.AddToCartCount = addToCartCount
 	this.AddToCartRate = addToCartRate
@@ -90,7 +96,6 @@ func NewVariant(addToCartCount int32, addToCartRate utils.NullableFloat64, avera
 	this.PurchaseCount = purchaseCount
 	this.PurchaseRate = purchaseRate
 	this.SearchCount = searchCount
-	this.TrackedSearchCount = trackedSearchCount
 	this.TrafficPercentage = trafficPercentage
 	this.UserCount = userCount
 	this.TrackedUserCount = trackedUserCount
@@ -289,9 +294,9 @@ func (o *Variant) SetConversionRate(v float64) *Variant {
 }
 
 // GetCurrencies returns the Currencies field value if set, zero value otherwise.
-func (o *Variant) GetCurrencies() map[string]CurrenciesValue {
+func (o *Variant) GetCurrencies() map[string]Currency {
 	if o == nil || o.Currencies == nil {
-		var ret map[string]CurrenciesValue
+		var ret map[string]Currency
 		return ret
 	}
 	return *o.Currencies
@@ -299,7 +304,7 @@ func (o *Variant) GetCurrencies() map[string]CurrenciesValue {
 
 // GetCurrenciesOk returns a tuple with the Currencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Variant) GetCurrenciesOk() (*map[string]CurrenciesValue, bool) {
+func (o *Variant) GetCurrenciesOk() (*map[string]Currency, bool) {
 	if o == nil || o.Currencies == nil {
 		return nil, false
 	}
@@ -315,8 +320,8 @@ func (o *Variant) HasCurrencies() bool {
 	return false
 }
 
-// SetCurrencies gets a reference to the given map[string]CurrenciesValue and assigns it to the Currencies field.
-func (o *Variant) SetCurrencies(v map[string]CurrenciesValue) *Variant {
+// SetCurrencies gets a reference to the given map[string]Currency and assigns it to the Currencies field.
+func (o *Variant) SetCurrencies(v map[string]Currency) *Variant {
 	o.Currencies = &v
 	return o
 }
@@ -543,30 +548,36 @@ func (o *Variant) SetSearchCount(v int32) *Variant {
 	return o
 }
 
-// GetTrackedSearchCount returns the TrackedSearchCount field value.
-// If the value is explicit nil, the zero value for int32 will be returned.
+// GetTrackedSearchCount returns the TrackedSearchCount field value if set, zero value otherwise.
 func (o *Variant) GetTrackedSearchCount() int32 {
-	if o == nil || o.TrackedSearchCount.Get() == nil {
+	if o == nil || o.TrackedSearchCount == nil {
 		var ret int32
 		return ret
 	}
-
-	return *o.TrackedSearchCount.Get()
+	return *o.TrackedSearchCount
 }
 
-// GetTrackedSearchCountOk returns a tuple with the TrackedSearchCount field value
+// GetTrackedSearchCountOk returns a tuple with the TrackedSearchCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Variant) GetTrackedSearchCountOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.TrackedSearchCount == nil {
 		return nil, false
 	}
-	return o.TrackedSearchCount.Get(), o.TrackedSearchCount.IsSet()
+	return o.TrackedSearchCount, true
 }
 
-// SetTrackedSearchCount sets field value.
+// HasTrackedSearchCount returns a boolean if a field has been set.
+func (o *Variant) HasTrackedSearchCount() bool {
+	if o != nil && o.TrackedSearchCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTrackedSearchCount gets a reference to the given int32 and assigns it to the TrackedSearchCount field.
 func (o *Variant) SetTrackedSearchCount(v int32) *Variant {
-	o.TrackedSearchCount.Set(&v)
+	o.TrackedSearchCount = &v
 	return o
 }
 
@@ -699,8 +710,8 @@ func (o Variant) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["searchCount"] = o.SearchCount.Get()
 	}
-	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount.Get()
+	if o.TrackedSearchCount != nil {
+		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	}
 	if true {
 		toSerialize["trafficPercentage"] = o.TrafficPercentage

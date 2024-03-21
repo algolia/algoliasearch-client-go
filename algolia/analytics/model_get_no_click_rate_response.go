@@ -8,21 +8,21 @@ import (
 
 // GetNoClickRateResponse struct for GetNoClickRateResponse.
 type GetNoClickRateResponse struct {
-	// [Click-through rate (CTR)](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
+	// No click rate, calculated as number of tracked searches without any click divided by the number of tracked searches.
 	Rate float64 `json:"rate"`
-	// Number of click events.
+	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	Count int32 `json:"count"`
-	// Number of click events.
+	// Number of times this search was returned as a result without any click.
 	NoClickCount int32 `json:"noClickCount"`
-	// Overall count of searches without clicks plus a daily breakdown.
-	Dates []NoClickRateEvent `json:"dates"`
+	// Daily no click rates.
+	Dates []DailyNoClickRates `json:"dates"`
 }
 
 // NewGetNoClickRateResponse instantiates a new GetNoClickRateResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetNoClickRateResponse(rate float64, count int32, noClickCount int32, dates []NoClickRateEvent) *GetNoClickRateResponse {
+func NewGetNoClickRateResponse(rate float64, count int32, noClickCount int32, dates []DailyNoClickRates) *GetNoClickRateResponse {
 	this := &GetNoClickRateResponse{}
 	this.Rate = rate
 	this.Count = count
@@ -112,9 +112,9 @@ func (o *GetNoClickRateResponse) SetNoClickCount(v int32) *GetNoClickRateRespons
 }
 
 // GetDates returns the Dates field value.
-func (o *GetNoClickRateResponse) GetDates() []NoClickRateEvent {
+func (o *GetNoClickRateResponse) GetDates() []DailyNoClickRates {
 	if o == nil {
-		var ret []NoClickRateEvent
+		var ret []DailyNoClickRates
 		return ret
 	}
 
@@ -123,7 +123,7 @@ func (o *GetNoClickRateResponse) GetDates() []NoClickRateEvent {
 
 // GetDatesOk returns a tuple with the Dates field value
 // and a boolean to check if the value has been set.
-func (o *GetNoClickRateResponse) GetDatesOk() ([]NoClickRateEvent, bool) {
+func (o *GetNoClickRateResponse) GetDatesOk() ([]DailyNoClickRates, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *GetNoClickRateResponse) GetDatesOk() ([]NoClickRateEvent, bool) {
 }
 
 // SetDates sets field value.
-func (o *GetNoClickRateResponse) SetDates(v []NoClickRateEvent) *GetNoClickRateResponse {
+func (o *GetNoClickRateResponse) SetDates(v []DailyNoClickRates) *GetNoClickRateResponse {
 	o.Dates = v
 	return o
 }
