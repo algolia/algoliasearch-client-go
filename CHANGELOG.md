@@ -1,3 +1,7 @@
+## [4.0.0-beta.9](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.8...4.0.0-beta.9)
+
+- [10c9339c8](https://github.com/algolia/api-clients-automation/commit/10c9339c8) fix(specs): more flexible custom methods ([#2889](https://github.com/algolia/api-clients-automation/pull/2889)) by [@damcou](https://github.com/damcou/)
+
 ## [4.0.0-beta.8](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.7...4.0.0-beta.8)
 
 - [7dc719cbe](https://github.com/algolia/api-clients-automation/commit/7dc719cbe) fix(specs): make languages an enum ([#2865](https://github.com/algolia/api-clients-automation/pull/2865)) by [@kai687](https://github.com/kai687/)
