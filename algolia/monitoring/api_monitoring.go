@@ -680,7 +680,7 @@ func (c *APIClient) NewApiGetClusterIncidentsRequest(clusters string) ApiGetClus
 /*
 GetClusterIncidents Wraps GetClusterIncidentsWithContext using context.Background.
 
-List known incidents for selected clusters.
+Retrieves known incidents for the selected clusters.
 
 Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
 
@@ -694,7 +694,7 @@ func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ..
 /*
 GetClusterIncidents
 
-List known incidents for selected clusters.
+Retrieves known incidents for the selected clusters.
 
 Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
 
@@ -797,7 +797,7 @@ func (c *APIClient) NewApiGetClusterStatusRequest(clusters string) ApiGetCluster
 /*
 GetClusterStatus Wraps GetClusterStatusWithContext using context.Background.
 
-Report whether a cluster is operational.
+Retrieves the status of selected clusters.
 
 Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
 
@@ -811,7 +811,7 @@ func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...Optio
 /*
 GetClusterStatus
 
-Report whether a cluster is operational.
+Retrieves the status of selected clusters.
 
 Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
 
@@ -883,7 +883,7 @@ func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClu
 /*
 GetIncidents Wraps GetIncidentsWithContext using context.Background.
 
-List known incidents for all clusters.
+Retrieves known incidents for all clusters.
 
 Request can be constructed by NewApiGetIncidentsRequest with parameters below.
 
@@ -896,7 +896,7 @@ func (c *APIClient) GetIncidents(opts ...Option) (*IncidentsResponse, error) {
 /*
 GetIncidents
 
-List known incidents for all clusters.
+Retrieves known incidents for all clusters.
 
 Request can be constructed by NewApiGetIncidentsRequest with parameters below.
 
@@ -994,7 +994,7 @@ func (c *APIClient) NewApiGetIndexingTimeRequest(clusters string) ApiGetIndexing
 /*
 GetIndexingTime Wraps GetIndexingTimeWithContext using context.Background.
 
-List the average times for indexing operations for selected clusters.
+Retrieves average times for indexing operations for selected clusters.
 
 Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
 
@@ -1008,7 +1008,7 @@ func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...Option)
 /*
 GetIndexingTime
 
-List the average times for indexing operations for selected clusters.
+Retrieves average times for indexing operations for selected clusters.
 
 Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
 
@@ -1029,102 +1029,6 @@ func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetInde
 	if r.clusters == "" {
 		return returnValue, reportError("Parameter `clusters` is required when calling `GetIndexingTime`.")
 	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody)
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
-/*
-GetInventory Wraps GetInventoryWithContext using context.Background.
-
-List the servers belonging to clusters.
-
-The response depends on whether you authenticate your API request:
-
-- With authentication, the response lists the servers assigned to your
-Algolia application's cluster.
-
-- Without authentication, the response lists the servers for all Algolia
-clusters.
-
-Request can be constructed by NewApiGetInventoryRequest with parameters below.
-
-	@return InventoryResponse
-*/
-func (c *APIClient) GetInventory(opts ...Option) (*InventoryResponse, error) {
-	return c.GetInventoryWithContext(context.Background(), opts...)
-}
-
-/*
-GetInventory
-
-List the servers belonging to clusters.
-
-The response depends on whether you authenticate your API request:
-
-- With authentication, the response lists the servers assigned to your
-Algolia application's cluster.
-
-- Without authentication, the response lists the servers for all Algolia
-clusters.
-
-Request can be constructed by NewApiGetInventoryRequest with parameters below.
-
-	@return InventoryResponse
-*/
-func (c *APIClient) GetInventoryWithContext(ctx context.Context, opts ...Option) (*InventoryResponse, error) {
-	var (
-		postBody    any
-		returnValue *InventoryResponse
-	)
-
-	requestPath := "/1/inventory/servers"
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
 
 	// optional params if any
 	for _, opt := range opts {
@@ -1207,7 +1111,7 @@ func (c *APIClient) NewApiGetLatencyRequest(clusters string) ApiGetLatencyReques
 /*
 GetLatency Wraps GetLatencyWithContext using context.Background.
 
-List the average latency for search requests for selected clusters.
+Retrieves the average latency for search requests for selected clusters.
 
 Request can be constructed by NewApiGetLatencyRequest with parameters below.
 
@@ -1221,7 +1125,7 @@ func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...Option) (*Latency
 /*
 GetLatency
 
-List the average latency for search requests for selected clusters.
+Retrieves the average latency for search requests for selected clusters.
 
 Request can be constructed by NewApiGetLatencyRequest with parameters below.
 
@@ -1335,11 +1239,14 @@ func (c *APIClient) NewApiGetMetricsRequest(metric Metric, period Period) ApiGet
 /*
 GetMetrics Wraps GetMetricsWithContext using context.Background.
 
-Report the aggregate value of a metric for a selected period of time.
+Retrieves metrics related to your Algolia infrastructure, aggregated over a selected time window.
+
+Access to this API is available as part of the [Premium or Elevate plans](https://www.algolia.com/pricing).
+You must authenticate requests with the `x-algolia-application-id` and `x-algolia-api-key` headers (using the Monitoring API key).
 
 Request can be constructed by NewApiGetMetricsRequest with parameters below.
 
-	@param metric Metric - Metric to report.  For more information about the individual metrics, see the response. To include all metrics, use `*` as the parameter.
+	@param metric Metric - Metric to report.  For more information about the individual metrics, see the description of the API response. To include all metrics, use `*`.
 	@param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
 	@return InfrastructureResponse
 */
@@ -1350,11 +1257,14 @@ func (c *APIClient) GetMetrics(r ApiGetMetricsRequest, opts ...Option) (*Infrast
 /*
 GetMetrics
 
-Report the aggregate value of a metric for a selected period of time.
+Retrieves metrics related to your Algolia infrastructure, aggregated over a selected time window.
+
+Access to this API is available as part of the [Premium or Elevate plans](https://www.algolia.com/pricing).
+You must authenticate requests with the `x-algolia-application-id` and `x-algolia-api-key` headers (using the Monitoring API key).
 
 Request can be constructed by NewApiGetMetricsRequest with parameters below.
 
-	@param metric Metric - Metric to report.  For more information about the individual metrics, see the response. To include all metrics, use `*` as the parameter.
+	@param metric Metric - Metric to report.  For more information about the individual metrics, see the description of the API response. To include all metrics, use `*`.
 	@param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
 	@return InfrastructureResponse
 */
@@ -1536,17 +1446,105 @@ func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReac
 }
 
 /*
+GetServers Wraps GetServersWithContext using context.Background.
+
+Retrieves the servers that belong to clusters.
+
+The response depends on whether you authenticate your API request:
+
+- With authentication, the response lists the servers assigned to your
+Algolia application's cluster.
+
+- Without authentication, the response lists the servers for all Algolia
+clusters.
+
+Request can be constructed by NewApiGetServersRequest with parameters below.
+
+	@return InventoryResponse
+*/
+func (c *APIClient) GetServers(opts ...Option) (*InventoryResponse, error) {
+	return c.GetServersWithContext(context.Background(), opts...)
+}
+
+/*
+GetServers
+
+Retrieves the servers that belong to clusters.
+
+The response depends on whether you authenticate your API request:
+
+- With authentication, the response lists the servers assigned to your
+Algolia application's cluster.
+
+- Without authentication, the response lists the servers for all Algolia
+clusters.
+
+Request can be constructed by NewApiGetServersRequest with parameters below.
+
+	@return InventoryResponse
+*/
+func (c *APIClient) GetServersWithContext(ctx context.Context, opts ...Option) (*InventoryResponse, error) {
+	var (
+		postBody    any
+		returnValue *InventoryResponse
+	)
+
+	requestPath := "/1/inventory/servers"
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+/*
 GetStatus Wraps GetStatusWithContext using context.Background.
 
-Report whether clusters are operational.
-
-The response depends on whether you authenticate your API request.
-
-- With authentication, the response includes the status of the cluster
-assigned to your Algolia application.
-
-- Without authentication, the response lists the statuses of all public
-Algolia clusters.
+Retrieves the status of all Algolia clusters and instances.
 
 Request can be constructed by NewApiGetStatusRequest with parameters below.
 
@@ -1559,15 +1557,7 @@ func (c *APIClient) GetStatus(opts ...Option) (*StatusResponse, error) {
 /*
 GetStatus
 
-Report whether clusters are operational.
-
-The response depends on whether you authenticate your API request.
-
-- With authentication, the response includes the status of the cluster
-assigned to your Algolia application.
-
-- Without authentication, the response lists the statuses of all public
-Algolia clusters.
+Retrieves the status of all Algolia clusters and instances.
 
 Request can be constructed by NewApiGetStatusRequest with parameters below.
 

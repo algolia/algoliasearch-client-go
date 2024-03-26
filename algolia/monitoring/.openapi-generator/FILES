@@ -3,7 +3,7 @@ api_monitoring.go
 client.go
 configuration.go
 model_error_base.go
-model_get_inventory_403_response.go
+model_get_servers_403_response.go
 model_incident.go
 model_incidents_inner.go
 model_incidents_response.go

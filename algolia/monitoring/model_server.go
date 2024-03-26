@@ -11,10 +11,10 @@ type Server struct {
 	// Server name.
 	Name   *string `json:"name,omitempty"`
 	Region *Region `json:"region,omitempty"`
-	// Included to support legacy applications. Do not rely on this attribute being present in the response. Use `is_replica` instead.
+	// Included to support legacy applications. Use `is_replica` instead.
 	// Deprecated
 	IsSlave *bool `json:"is_slave,omitempty"`
-	// Indicates whether this server is a replica of another server.
+	// Whether this server is a replica of another server.
 	IsReplica *bool `json:"is_replica,omitempty"`
 	// Name of the cluster to which this server belongs.
 	Cluster *string       `json:"cluster,omitempty"`

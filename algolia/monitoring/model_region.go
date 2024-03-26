@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Region The region where the cluster is located.
+// Region Region where the cluster is located.
 type Region string
 
 // List of Region.
