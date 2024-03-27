@@ -11,7 +11,10 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"regexp"
 	"slices"
+	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -9168,28 +9171,11 @@ func (c *APIClient) WaitForApiKeyWithContext(
 	)
 }
 
-// GenerateSecuredApiKey generates a public API key intended to restrict access
-// to certain records. This new key is built upon the existing key named
-// `parentApiKey` and the following options:.
-func (c *APIClient) GenerateSecuredApiKey(parentApiKey string, restrictions *SecuredAPIKeyRestrictions) (string, error) {
-	h := hmac.New(sha256.New, []byte(parentApiKey))
-
-	message, err := encodeRestrictions(restrictions)
-	if err != nil {
-		return "", err
-	}
-	_, err = h.Write([]byte(message))
-	if err != nil {
-		return "", fmt.Errorf("failed to compute HMAC: %w", err)
-	}
-
-	checksum := hex.EncodeToString(h.Sum(nil))
-	key := base64.StdEncoding.EncodeToString([]byte(checksum + message))
-
-	return key, nil
-}
-
 func encodeRestrictions(restrictions *SecuredAPIKeyRestrictions) (string, error) {
+	if restrictions == nil {
+		return "", nil
+	}
+
 	toSerialize := map[string]any{}
 	if restrictions.Filters != nil {
 		toSerialize["filters"] = *restrictions.Filters
@@ -9218,10 +9204,63 @@ func encodeRestrictions(restrictions *SecuredAPIKeyRestrictions) (string, error)
 		}
 	}
 
+	// sort the keys to ensure consistent encoding
+	keys := make([]string, 0, len(toSerialize))
+	for k := range toSerialize {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
 	queryString := make([]string, 0, len(toSerialize))
-	for k, v := range toSerialize {
-		queryString = append(queryString, k+"="+queryParameterToString(v))
+	for _, k := range keys {
+		queryString = append(queryString, k+"="+queryParameterToString(toSerialize[k]))
 	}
 
 	return strings.Join(queryString, "&"), nil
+}
+
+// GenerateSecuredApiKey generates a public API key intended to restrict access
+// to certain records. This new key is built upon the existing key named
+// `parentApiKey` and the following options.
+func (c *APIClient) GenerateSecuredApiKey(parentApiKey string, restrictions *SecuredAPIKeyRestrictions) (string, error) {
+	h := hmac.New(sha256.New, []byte(parentApiKey))
+
+	message, err := encodeRestrictions(restrictions)
+	if err != nil {
+		return "", err
+	}
+	_, err = h.Write([]byte(message))
+	if err != nil {
+		return "", fmt.Errorf("failed to compute HMAC: %w", err)
+	}
+
+	checksum := hex.EncodeToString(h.Sum(nil))
+	key := base64.StdEncoding.EncodeToString([]byte(checksum + message))
+
+	return key, nil
+}
+
+// GetSecuredApiKeyRemainingValidity retrieves the remaining validity of the previously generated `securedApiKey`, the `ValidUntil` parameter must have been provided.
+func (c *APIClient) GetSecuredApiKeyRemainingValidity(securedApiKey string) (time.Duration, error) {
+	if len(securedApiKey) == 0 {
+		return 0, fmt.Errorf("given secured API key is empty: %s", securedApiKey)
+	}
+
+	decoded, err := base64.StdEncoding.DecodeString(securedApiKey)
+	if err != nil {
+		return 0, fmt.Errorf("unable to decode given secured API key: %s", err)
+	}
+
+	submatch := regexp.MustCompile(`validUntil=(\d{1,10})`).FindSubmatch(decoded)
+
+	if len(submatch) != 2 {
+		return 0, fmt.Errorf("unable to find `validUntil` parameter in the given secured API key: %s", string(decoded))
+	}
+
+	ts, err := strconv.Atoi(string(submatch[1]))
+	if err != nil {
+		return 0, fmt.Errorf("invalid format for the received `validUntil` value: %s", string(submatch[1]))
+	}
+
+	return time.Until(time.Unix(int64(ts), 0)), nil
 }
