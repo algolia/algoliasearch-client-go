@@ -9021,7 +9021,7 @@ If the operation is "delete" or "add", the apiKey parameter is not used.
 	@return *GetApiKeyResponse - API key response.
 	@return error - Error if any.
 */
-func (c *APIClient) WaitForApiKeyWitOptions(
+func (c *APIClient) WaitForApiKeyWithOptions(
 	operation ApiKeyOperation,
 	key string,
 	apiKey *ApiKey,
