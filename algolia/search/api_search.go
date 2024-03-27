@@ -9264,3 +9264,96 @@ func (c *APIClient) GetSecuredApiKeyRemainingValidity(securedApiKey string) (tim
 
 	return time.Until(time.Unix(int64(ts), 0)), nil
 }
+
+// ChunkedBatch chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
+func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, action *Action, waitForTasks *bool, batchSize *int) ([]BatchResponse, error) {
+	var (
+		defaultBatchSize   = 1000
+		defaultAction      = ACTION_ADD_OBJECT
+		defaultWaitForTask = false
+	)
+
+	if batchSize == nil {
+		batchSize = &defaultBatchSize
+	}
+
+	if action == nil {
+		action = &defaultAction
+	}
+
+	if waitForTasks == nil {
+		waitForTasks = &defaultWaitForTask
+	}
+
+	requests := make([]BatchRequest, 0, len(objects)%1000)
+	responses := make([]BatchResponse, 0, len(objects)%1000)
+
+	for i, obj := range objects {
+		requests = append(requests, *NewBatchRequest(*action, obj))
+
+		if i%*batchSize == 0 {
+			resp, err := c.Batch(c.NewApiBatchRequest(indexName, NewBatchWriteParams(requests)))
+			if err != nil {
+				return nil, err
+			}
+
+			responses = append(responses, *resp)
+			requests = make([]BatchRequest, 0, len(objects)%1000)
+		}
+	}
+
+	if *waitForTasks {
+		for _, resp := range responses {
+			_, err := c.WaitForTask(indexName, resp.TaskID, nil, nil, nil)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	return responses, nil
+}
+
+type ReplaceAllObjectsResponse struct {
+	CopyOperationResponse *UpdatedAtResponse
+	BatchResponses        []BatchResponse
+	MoveOperationResponse *UpdatedAtResponse
+}
+
+// ReplaceAllObjects replaces all objects (records) in the given `indexName` with the given `objects`. A temporary index is created during this process in order to backup your data.
+func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, batchSize *int) (*ReplaceAllObjectsResponse, error) {
+	tmpIndex := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
+
+	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATIONTYPE_COPY, tmpIndex, WithOperationIndexParamsScope([]ScopeType{SCOPETYPE_RULES, SCOPETYPE_SETTINGS, SCOPETYPE_SYNONYMS}))))
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = c.WaitForTask(indexName, copyResp.TaskID, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	waitForTask := true
+
+	batchResp, err := c.ChunkedBatch(tmpIndex, objects, nil, &waitForTask, batchSize)
+	if err != nil {
+		return nil, err
+	}
+
+	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndex, NewOperationIndexParams(OPERATIONTYPE_MOVE, indexName)))
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = c.WaitForTask(indexName, moveResp.TaskID, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return &ReplaceAllObjectsResponse{
+		CopyOperationResponse: copyResp,
+		BatchResponses:        batchResp,
+		MoveOperationResponse: moveResp,
+	}, nil
+}
