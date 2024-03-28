@@ -6,8 +6,9 @@ import (
 	"fmt"
 )
 
-// AuthAPIKeyPartial Authentication input used for token credentials.
+// AuthAPIKeyPartial Credentials for authenticating with an API key.
 type AuthAPIKeyPartial struct {
+	// API key. This field is `null` in the API response.
 	Key *string `json:"key,omitempty"`
 }
 

@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// TaskUpdateResponse The response from the API after a task update.
+// TaskUpdateResponse API response for updating a task.
 type TaskUpdateResponse struct {
-	// The task UUID.
+	// Universally unique identifier (UUID) of a task.
 	TaskID string `json:"taskID"`
-	// Date of last update (RFC3339 format).
+	// Date of last update in RFC3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

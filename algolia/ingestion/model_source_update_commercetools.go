@@ -8,12 +8,11 @@ import (
 
 // SourceUpdateCommercetools struct for SourceUpdateCommercetools.
 type SourceUpdateCommercetools struct {
-	// Unique and immutable key of the referenced Store.
 	StoreKeys []string `json:"storeKeys,omitempty"`
-	// Array of locales that must match the following pattern: ^[a-z]{2}(-[A-Z]{2})?$. For example [\"fr-FR\", \"en\"].
+	// Locales for your commercetools stores.
 	Locales []string `json:"locales,omitempty"`
 	Url     *string  `json:"url,omitempty"`
-	// Determines the value that will be stored in the Algolia record if there's no inventory information on the product.
+	// Whether a fallback value is stored in the Algolia record if there's no inventory information about the product.
 	FallbackIsInStockValue *bool                      `json:"fallbackIsInStockValue,omitempty"`
 	CustomFields           *CommercetoolsCustomFields `json:"customFields,omitempty"`
 }

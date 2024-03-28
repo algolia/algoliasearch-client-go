@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-// AuthenticationCreate The payload when creating an authentication.
+// AuthenticationCreate Request body for creating a new authentication resource.
 type AuthenticationCreate struct {
 	Type AuthenticationType `json:"type"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name     string           `json:"name"`
 	Platform NullablePlatform `json:"platform,omitempty"`
 	Input    AuthInput        `json:"input"`

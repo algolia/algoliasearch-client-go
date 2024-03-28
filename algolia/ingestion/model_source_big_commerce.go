@@ -8,7 +8,7 @@ import (
 
 // SourceBigCommerce struct for SourceBigCommerce.
 type SourceBigCommerce struct {
-	// The store hash identifying the store the shopper is signing in to.
+	// Store hash identifying your BigCommerce store.
 	StoreHash         string                 `json:"storeHash"`
 	Channel           *BigCommerceChannel    `json:"channel,omitempty"`
 	CustomFields      []string               `json:"customFields,omitempty"`

@@ -8,11 +8,11 @@ import (
 
 // SourceGA4BigQueryExport struct for SourceGA4BigQueryExport.
 type SourceGA4BigQueryExport struct {
-	// GCP project ID that the BigQuery Export writes to.
+	// GCP project ID that the BigQuery export writes to.
 	ProjectID string `json:"projectID"`
-	// BigQuery dataset ID that the BigQuery Export writes to.
+	// BigQuery dataset ID that the BigQuery export writes to.
 	DatasetID string `json:"datasetID"`
-	// Prefix of the tables that the BigQuery Export writes to (i.e. events_intraday_ for streaming, events_ for daily).
+	// Prefix of the tables that the BigQuery Export writes to.
 	TablePrefix string `json:"tablePrefix"`
 }
 

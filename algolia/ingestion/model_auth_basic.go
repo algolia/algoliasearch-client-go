@@ -6,9 +6,11 @@ import (
 	"fmt"
 )
 
-// AuthBasic Authentication input for Basic login with username and password.
+// AuthBasic Credentials for authenticating with user name and password.
 type AuthBasic struct {
+	// Username.
 	Username string `json:"username"`
+	// Password. This field is `null` in the API response.
 	Password string `json:"password"`
 }
 

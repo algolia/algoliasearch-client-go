@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// RunSortKeys Used to sort the Run list endpoint.
+// RunSortKeys Property by which to sort the list of task runs.
 type RunSortKeys string
 
 // List of runSortKeys.

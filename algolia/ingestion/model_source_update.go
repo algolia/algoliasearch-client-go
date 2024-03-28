@@ -8,9 +8,10 @@ import (
 
 // SourceUpdate struct for SourceUpdate.
 type SourceUpdate struct {
+	// Descriptive name of the source.
 	Name  *string            `json:"name,omitempty"`
 	Input *SourceUpdateInput `json:"input,omitempty"`
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 

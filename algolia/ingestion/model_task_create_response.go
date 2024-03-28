@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// TaskCreateResponse The response from the API after a task creation.
+// TaskCreateResponse API response for creating a task.
 type TaskCreateResponse struct {
-	// The task UUID.
+	// Universally unique identifier (UUID) of a task.
 	TaskID string `json:"taskID"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

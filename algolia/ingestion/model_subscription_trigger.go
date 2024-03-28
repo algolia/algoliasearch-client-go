@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SubscriptionTrigger The trigger input for a task of type 'subscription'.
+// SubscriptionTrigger Trigger input for subscription tasks.
 type SubscriptionTrigger struct {
 	Type SubscriptionTriggerType `json:"type"`
 }

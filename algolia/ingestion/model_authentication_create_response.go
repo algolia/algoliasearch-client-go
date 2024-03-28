@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// AuthenticationCreateResponse Response from the API when the Authentication is successfully created.
+// AuthenticationCreateResponse API response for the successful creation of an authentication resource.
 type AuthenticationCreateResponse struct {
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID string `json:"authenticationID"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name string `json:"name"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

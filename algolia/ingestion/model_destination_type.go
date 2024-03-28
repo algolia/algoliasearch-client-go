@@ -6,21 +6,19 @@ import (
 	"fmt"
 )
 
-// DestinationType Type of the Destination, defines in which Algolia product the data will be stored.
+// DestinationType Destination type.  <dl> <dt><code>search</code></dt> <dd>Data is stored in an Algolia index.</dd> <dt><code>insights</code></dt> <dd>Data is recorded as user events in the Insights API.</dd> </dl>.
 type DestinationType string
 
 // List of DestinationType.
 const (
 	DESTINATIONTYPE_SEARCH   DestinationType = "search"
 	DESTINATIONTYPE_INSIGHTS DestinationType = "insights"
-	DESTINATIONTYPE_FLOW     DestinationType = "flow"
 )
 
 // All allowed values of DestinationType enum.
 var AllowedDestinationTypeEnumValues = []DestinationType{
 	"search",
 	"insights",
-	"flow",
 }
 
 func (v *DestinationType) UnmarshalJSON(src []byte) error {

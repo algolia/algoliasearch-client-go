@@ -8,18 +8,18 @@ import (
 
 // SourceBigQuery struct for SourceBigQuery.
 type SourceBigQuery struct {
-	// Project ID of the BigQuery Source.
+	// Project ID of the BigQuery source.
 	ProjectID string `json:"projectID"`
-	// Dataset ID of the BigQuery Source.
+	// Dataset ID of the BigQuery source.
 	DatasetID string            `json:"datasetID"`
 	DataType  *BigQueryDataType `json:"dataType,omitempty"`
-	// Table name (for default BQ).
+	// Table name for the BigQuery export.
 	Table *string `json:"table,omitempty"`
-	// Table prefix (for Google Analytics).
+	// Table prefix for a Google Analytics 4 data export to BigQuery.
 	TablePrefix *string `json:"tablePrefix,omitempty"`
 	// Custom SQL request to extract data from the BigQuery table.
 	CustomSQLRequest *string `json:"customSQLRequest,omitempty"`
-	// The name of the column that contains the unique ID, used as `objectID` in Algolia.
+	// Name of a column that contains a unique ID which will be used as `objectID` in Algolia.
 	UniqueIDColumn *string `json:"uniqueIDColumn,omitempty"`
 }
 

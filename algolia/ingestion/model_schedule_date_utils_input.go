@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// ScheduleDateUtilsInput The input for a `schedule` task whose source is of type `bigquery` and for which extracted data spans a fixed number of days.
+// ScheduleDateUtilsInput Input for scheduled tasks whose source is of type `bigquery` and for which extracted data spans a fixed number of days.
 type ScheduleDateUtilsInput struct {
-	// The timeframe of the extraction, in number of days from today.
+	// Number of days in the past until the current day for which to extract Big Query data.
 	Timeframe int32         `json:"timeframe"`
 	Mapping   *MappingInput `json:"mapping,omitempty"`
 }

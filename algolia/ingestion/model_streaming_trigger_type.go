@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// StreamingTriggerType A task that runs continuously.
+// StreamingTriggerType Task runs continuously.
 type StreamingTriggerType string
 
 // List of StreamingTriggerType.

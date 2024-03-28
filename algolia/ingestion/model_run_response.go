@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// RunResponse The response from the run task API, containing an Observability Run ID and the time it was created at.
+// RunResponse API response for running a task.
 type RunResponse struct {
-	// The run UUID.
+	// Universally unique identifier (UUID) of a task run.
 	RunID string `json:"runID"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-// ScheduleTriggerInput The trigger input for a task of type 'schedule'.
+// ScheduleTriggerInput Trigger input for scheduled tasks.
 type ScheduleTriggerInput struct {
 	Type ScheduleTriggerType `json:"type"`
-	// A cron expression that represent at which regularity the task should run.
+	// Cron expression for the task's schedule.
 	Cron string `json:"cron"`
 }
 

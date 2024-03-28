@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// OnDemandDateUtilsInput The input for an `onDemand` task whose source is of type `bigquery` and for which extracted data spans a given time range.
+// OnDemandDateUtilsInput Input for a manually-triggered task whose source is of type `bigquery` and for which extracted data spans a given time range.
 type OnDemandDateUtilsInput struct {
-	// The start date of the extraction (RFC3339 format).
+	// Earliest date in RFC3339 format of the extracted data from Big Query.
 	StartDate string `json:"startDate"`
-	// The end date of the extraction (RFC3339 format).
+	// Latest date in RFC3339 format of the extracted data from Big Query.
 	EndDate string        `json:"endDate"`
 	Mapping *MappingInput `json:"mapping,omitempty"`
 }

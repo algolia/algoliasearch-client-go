@@ -8,9 +8,9 @@ import (
 
 // BigCommerceMetafield struct for BigCommerceMetafield.
 type BigCommerceMetafield struct {
-	// The namespace of the metafield.
+	// Namespace of the metafield.
 	Namespace string `json:"namespace"`
-	// The key identifier of the metafield.
+	// Key identifier of the metafield.
 	Key string `json:"key"`
 }
 

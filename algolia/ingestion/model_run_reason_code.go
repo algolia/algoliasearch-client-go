@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// RunReasonCode An identifier that pairs with the outcome reason.
+// RunReasonCode A code for the task run's outcome. A readable description of the code is included in the `reason` response property.
 type RunReasonCode string
 
 // List of RunReasonCode.

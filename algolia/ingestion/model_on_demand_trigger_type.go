@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// OnDemandTriggerType A task which is manually executed via the run task endpoint.
+// OnDemandTriggerType Task is run manually, with the `/run` endpoint.
 type OnDemandTriggerType string
 
 // List of OnDemandTriggerType.

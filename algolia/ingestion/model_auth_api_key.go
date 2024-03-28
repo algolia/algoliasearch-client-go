@@ -6,8 +6,9 @@ import (
 	"fmt"
 )
 
-// AuthAPIKey Authentication input used for token credentials.
+// AuthAPIKey Credentials for authenticating with an API key.
 type AuthAPIKey struct {
+	// API key. This field is `null` in the API response.
 	Key string `json:"key"`
 }
 

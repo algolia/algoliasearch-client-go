@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// ListTasksResponse A list of tasks with pagination details.
+// ListTasksResponse Configured tasks and pagination information.
 type ListTasksResponse struct {
 	Tasks      []Task     `json:"tasks"`
 	Pagination Pagination `json:"pagination"`

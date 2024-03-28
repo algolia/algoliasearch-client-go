@@ -8,9 +8,9 @@ import (
 
 // DockerSourceDiscover struct for DockerSourceDiscover.
 type DockerSourceDiscover struct {
-	// The run UUID.
+	// Universally unique identifier (UUID) of a task run.
 	RunID string `json:"runID"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

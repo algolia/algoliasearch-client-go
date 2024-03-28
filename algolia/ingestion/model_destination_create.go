@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// DestinationCreate The payload when creating a destination.
+// DestinationCreate API request body for creating a new destination.
 type DestinationCreate struct {
 	Type DestinationType `json:"type"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name  string           `json:"name"`
 	Input DestinationInput `json:"input"`
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 

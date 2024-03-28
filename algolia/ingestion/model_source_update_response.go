@@ -8,10 +8,11 @@ import (
 
 // SourceUpdateResponse struct for SourceUpdateResponse.
 type SourceUpdateResponse struct {
-	// The source UUID.
+	// Universally uniqud identifier (UUID) of a source.
 	SourceID string `json:"sourceID"`
-	Name     string `json:"name"`
-	// Date of last update (RFC3339 format).
+	// Descriptive name of the source.
+	Name string `json:"name"`
+	// Date of last update in RFC3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

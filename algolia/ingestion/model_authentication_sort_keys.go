@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// AuthenticationSortKeys Used to sort the Authentication list endpoint.
+// AuthenticationSortKeys Property by which to sort the list of authentication resources.
 type AuthenticationSortKeys string
 
 // List of authenticationSortKeys.

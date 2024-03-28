@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// AuthAlgolia struct for AuthAlgolia.
+// AuthAlgolia Credentials for authenticating with Algolia.
 type AuthAlgolia struct {
-	// Algolia Application ID.
+	// Algolia application ID.
 	AppID string `json:"appID"`
-	// Algolia API Key, with the correct rights to push to an index and change settings.
+	// Algolia API key with the ACL: `addObject`, `deleteObject`, `settings`, `editSettings`, `listIndexes`, `deleteIndex`. This field is `null` in the API response.
 	ApiKey string `json:"apiKey"`
 }
 

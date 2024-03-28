@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// AuthenticationSearch Payload to search for multiple authentications, based on the given `authenticationIDs`.
+// AuthenticationSearch Request body for searching for authentication resources.
 type AuthenticationSearch struct {
 	AuthenticationIDs []string `json:"authenticationIDs"`
 }

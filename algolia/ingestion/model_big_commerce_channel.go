@@ -8,9 +8,9 @@ import (
 
 // BigCommerceChannel struct for BigCommerceChannel.
 type BigCommerceChannel struct {
-	// The ID of the bigcommerce channel.
+	// ID of the BigCommerce channel.
 	Id int32 `json:"id"`
-	// An array of currencies for the given channel `ID`, a currency is a trigram string that represents the currency code.
+	// Currencies for the given channel.
 	Currencies []string `json:"currencies,omitempty"`
 }
 

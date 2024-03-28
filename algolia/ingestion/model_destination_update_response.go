@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// DestinationUpdateResponse Response from the API when the Destination is successfully updated.
+// DestinationUpdateResponse API response for updating a destination.
 type DestinationUpdateResponse struct {
-	// The destination UUID.
+	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID string `json:"destinationID"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name string `json:"name"`
-	// Date of last update (RFC3339 format).
+	// Date of last update in RFC3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

@@ -8,9 +8,9 @@ import (
 
 // Event An event describe a step of the task execution flow..
 type Event struct {
-	// The event UUID.
+	// Universally unique identifier (UUID) of an event.
 	EventID string `json:"eventID"`
-	// The run UUID.
+	// Universally unique identifier (UUID) of a task run.
 	RunID string `json:"runID"`
 	// The parent event, the cause of this event.
 	ParentID *string     `json:"parentID,omitempty"`
@@ -19,7 +19,7 @@ type Event struct {
 	// The extracted record batch size.
 	BatchSize int32                  `json:"batchSize"`
 	Data      map[string]interface{} `json:"data,omitempty"`
-	// Date of publish (RFC3339 format).
+	// Date of publish RFC3339 format.
 	PublishedAt string `json:"publishedAt"`
 }
 

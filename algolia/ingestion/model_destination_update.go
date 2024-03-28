@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// DestinationUpdate Payload to partially update a Destination.
+// DestinationUpdate API request body for updating a destination.
 type DestinationUpdate struct {
 	Type *DestinationType `json:"type,omitempty"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name  *string           `json:"name,omitempty"`
 	Input *DestinationInput `json:"input,omitempty"`
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 

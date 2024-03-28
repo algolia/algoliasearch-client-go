@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// TriggerUpdateInput The trigger input for a task update.
+// TriggerUpdateInput Trigger for a task update.
 type TriggerUpdateInput struct {
-	// A cron expression that represent at which regularity the task should run.
+	// Cron expression for the task's schedule.
 	Cron string `json:"cron"`
 }
 

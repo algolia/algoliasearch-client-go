@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// RunOutcome the model 'RunOutcome'.
+// RunOutcome Task run outcome.
 type RunOutcome string
 
 // List of RunOutcome.

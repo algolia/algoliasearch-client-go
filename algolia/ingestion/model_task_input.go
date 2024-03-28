@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TaskInput - struct for TaskInput.
+// TaskInput - Configuration of the task, depending on its type.
 type TaskInput struct {
 	OnDemandDateUtilsInput *OnDemandDateUtilsInput
 	ScheduleDateUtilsInput *ScheduleDateUtilsInput

@@ -8,10 +8,11 @@ import (
 
 // SourceCreateResponse struct for SourceCreateResponse.
 type SourceCreateResponse struct {
-	// The source UUID.
+	// Universally uniqud identifier (UUID) of a source.
 	SourceID string `json:"sourceID"`
-	Name     string `json:"name"`
-	// Date of creation (RFC3339 format).
+	// Descriptive name of the source.
+	Name string `json:"name"`
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

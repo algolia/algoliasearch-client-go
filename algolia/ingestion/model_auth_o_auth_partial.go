@@ -6,14 +6,16 @@ import (
 	"fmt"
 )
 
-// AuthOAuthPartial Authentication input for OAuth login.
+// AuthOAuthPartial Credentials for authenticating with OAuth 2.0.
 type AuthOAuthPartial struct {
-	// The OAuth endpoint URL.
+	// URL for the OAuth endpoint.
 	Url *string `json:"url,omitempty"`
-	// The clientID.
+	// Client ID.
 	ClientId *string `json:"client_id,omitempty"`
-	// The secret.
+	// Client secret. This field is `null` in the API response.
 	ClientSecret *string `json:"client_secret,omitempty"`
+	// OAuth scope.
+	Scope *string `json:"scope,omitempty"`
 }
 
 type AuthOAuthPartialOption func(f *AuthOAuthPartial)
@@ -33,6 +35,12 @@ func WithAuthOAuthPartialClientId(val string) AuthOAuthPartialOption {
 func WithAuthOAuthPartialClientSecret(val string) AuthOAuthPartialOption {
 	return func(f *AuthOAuthPartial) {
 		f.ClientSecret = &val
+	}
+}
+
+func WithAuthOAuthPartialScope(val string) AuthOAuthPartialOption {
+	return func(f *AuthOAuthPartial) {
+		f.Scope = &val
 	}
 }
 
@@ -152,6 +160,39 @@ func (o *AuthOAuthPartial) SetClientSecret(v string) *AuthOAuthPartial {
 	return o
 }
 
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *AuthOAuthPartial) GetScope() string {
+	if o == nil || o.Scope == nil {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthOAuthPartial) GetScopeOk() (*string, bool) {
+	if o == nil || o.Scope == nil {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *AuthOAuthPartial) HasScope() bool {
+	if o != nil && o.Scope != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *AuthOAuthPartial) SetScope(v string) *AuthOAuthPartial {
+	o.Scope = &v
+	return o
+}
+
 func (o AuthOAuthPartial) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Url != nil {
@@ -162,6 +203,9 @@ func (o AuthOAuthPartial) MarshalJSON() ([]byte, error) {
 	}
 	if o.ClientSecret != nil {
 		toSerialize["client_secret"] = o.ClientSecret
+	}
+	if o.Scope != nil {
+		toSerialize["scope"] = o.Scope
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -176,6 +220,7 @@ func (o AuthOAuthPartial) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  client_id=%v\n", o.ClientId)
 	out += fmt.Sprintf("  client_secret=%v\n", o.ClientSecret)
+	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 	return fmt.Sprintf("AuthOAuthPartial {\n%s}", out)
 }
 

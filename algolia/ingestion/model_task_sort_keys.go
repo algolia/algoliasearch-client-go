@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TaskSortKeys Used to sort the Task list endpoint.
+// TaskSortKeys Property by which to sort the list of tasks.
 type TaskSortKeys string
 
 // List of taskSortKeys.

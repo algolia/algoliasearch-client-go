@@ -8,22 +8,22 @@ import (
 
 // Task struct for Task.
 type Task struct {
-	// The task UUID.
+	// Universally unique identifier (UUID) of a task.
 	TaskID string `json:"taskID"`
-	// The source UUID.
+	// Universally uniqud identifier (UUID) of a source.
 	SourceID string `json:"sourceID"`
-	// The destination UUID.
+	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID string     `json:"destinationID"`
 	Trigger       Trigger    `json:"trigger"`
 	Input         *TaskInput `json:"input,omitempty"`
-	// Whether the task is enabled or not.
+	// Whether the task is enabled.
 	Enabled bool `json:"enabled"`
-	// A percentage representing the accepted failure threshold to determine if a `run` succeeded or not.
+	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Action           ActionType `json:"action"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update (RFC3339 format).
+	// Date of last update in RFC3339 format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 

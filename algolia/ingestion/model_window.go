@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// Window The window parameter represents the holds the dates used to query the Observability data from the database in a given window.
+// Window Time window by which to filter the observability data.
 type Window struct {
-	// A date in format RFC3339 representing the oldest possible data in query window.
+	// Date in RFC3339 format representing the oldest data in the time window.
 	StartDate string `json:"startDate"`
-	// A date in format RFC3339 representing the newest possible data in query window.
+	// Date in RFC3339 format representing the newest data in the time window.
 	EndDate string `json:"endDate"`
 }
 

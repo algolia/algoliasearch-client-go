@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// AuthenticationType Type of the Authentication, defines what kind of object is stored in the input.
+// AuthenticationType Type of authentication. This determines the type of credentials required in the `input` object.
 type AuthenticationType string
 
 // List of AuthenticationType.

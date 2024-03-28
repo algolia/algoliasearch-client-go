@@ -6,11 +6,15 @@ import (
 	"fmt"
 )
 
-// Pagination struct for Pagination.
+// Pagination Paginated API response.
 type Pagination struct {
-	NbPages      int32 `json:"nbPages"`
-	Page         int32 `json:"page"`
-	NbItems      int32 `json:"nbItems"`
+	// Number of pages in the API response.
+	NbPages int32 `json:"nbPages"`
+	// Page of the API response to retrieve.
+	Page int32 `json:"page"`
+	// Number of items in the API response.
+	NbItems int32 `json:"nbItems"`
+	// Number of items per page.
 	ItemsPerPage int32 `json:"itemsPerPage"`
 }
 

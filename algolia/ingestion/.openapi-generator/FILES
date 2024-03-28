@@ -54,6 +54,7 @@ model_list_events_response.go
 model_list_sources_response.go
 model_list_tasks_response.go
 model_mapping_field_directive.go
+model_mapping_format_schema.go
 model_mapping_input.go
 model_mapping_kit_action.go
 model_mapping_type_csv.go

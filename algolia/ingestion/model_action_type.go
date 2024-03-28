@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// ActionType The action to perform on the Algolia index.
+// ActionType Action to perform on the Algolia index.
 type ActionType string
 
 // List of ActionType.

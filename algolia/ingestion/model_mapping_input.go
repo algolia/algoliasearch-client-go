@@ -6,18 +6,17 @@ import (
 	"fmt"
 )
 
-// MappingInput Transformations to apply to source, serialized as a JSON string.
+// MappingInput Transformations to apply to the source, serialized as a JSON string.
 type MappingInput struct {
-	// Name of the mapping format schema, `mappingkit/v1` is currently the only supported format.
-	Format  string             `json:"format"`
-	Actions []MappingKitAction `json:"actions"`
+	Format  MappingFormatSchema `json:"format"`
+	Actions []MappingKitAction  `json:"actions"`
 }
 
 // NewMappingInput instantiates a new MappingInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMappingInput(format string, actions []MappingKitAction) *MappingInput {
+func NewMappingInput(format MappingFormatSchema, actions []MappingKitAction) *MappingInput {
 	this := &MappingInput{}
 	this.Format = format
 	this.Actions = actions
@@ -30,9 +29,9 @@ func NewEmptyMappingInput() *MappingInput {
 }
 
 // GetFormat returns the Format field value.
-func (o *MappingInput) GetFormat() string {
+func (o *MappingInput) GetFormat() MappingFormatSchema {
 	if o == nil {
-		var ret string
+		var ret MappingFormatSchema
 		return ret
 	}
 
@@ -41,7 +40,7 @@ func (o *MappingInput) GetFormat() string {
 
 // GetFormatOk returns a tuple with the Format field value
 // and a boolean to check if the value has been set.
-func (o *MappingInput) GetFormatOk() (*string, bool) {
+func (o *MappingInput) GetFormatOk() (*MappingFormatSchema, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -49,7 +48,7 @@ func (o *MappingInput) GetFormatOk() (*string, bool) {
 }
 
 // SetFormat sets field value.
-func (o *MappingInput) SetFormat(v string) *MappingInput {
+func (o *MappingInput) SetFormat(v MappingFormatSchema) *MappingInput {
 	o.Format = v
 	return o
 }

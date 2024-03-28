@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceSortKeys Used to sort the Source list endpoint.
+// SourceSortKeys Property by which to sort the list of sources.
 type SourceSortKeys string
 
 // List of sourceSortKeys.

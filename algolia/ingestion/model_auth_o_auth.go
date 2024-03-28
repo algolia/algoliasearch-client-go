@@ -6,25 +6,38 @@ import (
 	"fmt"
 )
 
-// AuthOAuth Authentication input for OAuth login.
+// AuthOAuth Credentials for authenticating with OAuth 2.0.
 type AuthOAuth struct {
-	// The OAuth endpoint URL.
+	// URL for the OAuth endpoint.
 	Url string `json:"url"`
-	// The clientID.
+	// Client ID.
 	ClientId string `json:"client_id"`
-	// The secret.
+	// Client secret. This field is `null` in the API response.
 	ClientSecret string `json:"client_secret"`
+	// OAuth scope.
+	Scope *string `json:"scope,omitempty"`
+}
+
+type AuthOAuthOption func(f *AuthOAuth)
+
+func WithAuthOAuthScope(val string) AuthOAuthOption {
+	return func(f *AuthOAuth) {
+		f.Scope = &val
+	}
 }
 
 // NewAuthOAuth instantiates a new AuthOAuth object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAuthOAuth(url string, clientId string, clientSecret string) *AuthOAuth {
+func NewAuthOAuth(url string, clientId string, clientSecret string, opts ...AuthOAuthOption) *AuthOAuth {
 	this := &AuthOAuth{}
 	this.Url = url
 	this.ClientId = clientId
 	this.ClientSecret = clientSecret
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -108,6 +121,39 @@ func (o *AuthOAuth) SetClientSecret(v string) *AuthOAuth {
 	return o
 }
 
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *AuthOAuth) GetScope() string {
+	if o == nil || o.Scope == nil {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthOAuth) GetScopeOk() (*string, bool) {
+	if o == nil || o.Scope == nil {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *AuthOAuth) HasScope() bool {
+	if o != nil && o.Scope != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *AuthOAuth) SetScope(v string) *AuthOAuth {
+	o.Scope = &v
+	return o
+}
+
 func (o AuthOAuth) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -118,6 +164,9 @@ func (o AuthOAuth) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["client_secret"] = o.ClientSecret
+	}
+	if o.Scope != nil {
+		toSerialize["scope"] = o.Scope
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -132,6 +181,7 @@ func (o AuthOAuth) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  client_id=%v\n", o.ClientId)
 	out += fmt.Sprintf("  client_secret=%v\n", o.ClientSecret)
+	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 	return fmt.Sprintf("AuthOAuth {\n%s}", out)
 }
 

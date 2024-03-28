@@ -8,7 +8,7 @@ import (
 
 // DestinationIndexPrefix struct for DestinationIndexPrefix.
 type DestinationIndexPrefix struct {
-	// The prefix of the final index name.
+	// String added to the beginning of all indices created by this destination.
 	IndexPrefix string `json:"indexPrefix"`
 }
 

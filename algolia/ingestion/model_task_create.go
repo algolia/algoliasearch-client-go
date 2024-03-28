@@ -6,17 +6,17 @@ import (
 	"fmt"
 )
 
-// TaskCreate The payload for a task creation.
+// TaskCreate API request body for creating a task.
 type TaskCreate struct {
-	// The source UUID.
+	// Universally uniqud identifier (UUID) of a source.
 	SourceID string `json:"sourceID"`
-	// The destination UUID.
+	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID string            `json:"destinationID"`
 	Trigger       TaskCreateTrigger `json:"trigger"`
 	Action        ActionType        `json:"action"`
-	// Whether the task is enabled or not.
+	// Whether the task is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// A percentage representing the accepted failure threshold to determine if a `run` succeeded or not.
+	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Input            *TaskInput `json:"input,omitempty"`
 }

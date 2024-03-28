@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// RunStatus the model 'RunStatus'.
+// RunStatus Task run status.
 type RunStatus string
 
 // List of RunStatus.

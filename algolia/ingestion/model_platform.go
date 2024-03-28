@@ -6,19 +6,21 @@ import (
 	"fmt"
 )
 
-// Platform Describe which platform the Authentication is used for.
+// Platform Name of an ecommerce platform with which to authenticate. This determines which authentication type you can select.
 type Platform string
 
 // List of Platform.
 const (
 	PLATFORM_BIGCOMMERCE   Platform = "bigcommerce"
 	PLATFORM_COMMERCETOOLS Platform = "commercetools"
+	PLATFORM_SHOPIFY       Platform = "shopify"
 )
 
 // All allowed values of Platform enum.
 var AllowedPlatformEnumValues = []Platform{
 	"bigcommerce",
 	"commercetools",
+	"shopify",
 }
 
 func (v *Platform) UnmarshalJSON(src []byte) error {

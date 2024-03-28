@@ -6,14 +6,14 @@ import (
 	"fmt"
 )
 
-// ScheduleTrigger The trigger information for a task of type 'schedule'.
+// ScheduleTrigger Trigger information for scheduled tasks.
 type ScheduleTrigger struct {
 	Type ScheduleTriggerType `json:"type"`
-	// A cron expression that represent at which regularity the task should run.
+	// Cron expression for the task's schedule.
 	Cron string `json:"cron"`
-	// The last time the scheduled task ran (RFC3339 format).
+	// The last time the scheduled task ran in RFC3339 format.
 	LastRun *string `json:"lastRun,omitempty"`
-	// The next scheduled run of the task (RFC3339 format).
+	// The next scheduled run of the task in RFC3339 format.
 	NextRun string `json:"nextRun"`
 }
 

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// CommercetoolsCustomFields Custom fields from Commercetools to index in the records (see https://docs.commercetools.com/tutorials/custom-types).
+// CommercetoolsCustomFields Custom fields from commercetools to add to the records.  For more information, see [Using Custom Types and Custom Fields](https://docs.commercetools.com/tutorials/custom-types).
 type CommercetoolsCustomFields struct {
 	// Inventory custom fields.
 	Inventory []string `json:"inventory,omitempty"`

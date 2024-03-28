@@ -10,11 +10,11 @@ import (
 type SourceDocker struct {
 	ImageType DockerImageType `json:"imageType"`
 	Registry  DockerRegistry  `json:"registry"`
-	// The name of the image to pull.
+	// Docker image name.
 	Image string `json:"image"`
-	// The version of the image, defaults to `latest`.
+	// Docker image version.
 	Version *string `json:"version,omitempty"`
-	// The configuration of the spec.
+	// Configuration of the spec.
 	Configuration map[string]interface{} `json:"configuration"`
 }
 

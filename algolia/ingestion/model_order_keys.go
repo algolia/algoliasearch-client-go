@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// OrderKeys Used to order a sorted request.
+// OrderKeys Ascending or descending sort order.
 type OrderKeys string
 
 // List of orderKeys.

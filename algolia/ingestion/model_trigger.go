@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Trigger - struct for Trigger.
+// Trigger - Trigger that runs the task.
 type Trigger struct {
 	OnDemandTrigger     *OnDemandTrigger
 	ScheduleTrigger     *ScheduleTrigger

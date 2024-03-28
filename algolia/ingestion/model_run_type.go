@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// RunType the model 'RunType'.
+// RunType Task run type.
 type RunType string
 
 // List of RunType.

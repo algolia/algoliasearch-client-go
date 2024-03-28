@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// ScheduleTriggerType A task which is triggered by a schedule (cron expression).
+// ScheduleTriggerType Task runs on a schedule.
 type ScheduleTriggerType string
 
 // List of ScheduleTriggerType.

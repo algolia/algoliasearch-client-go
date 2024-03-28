@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// PlatformNone Used to filter Authentication without platform property.
+// PlatformNone Authentication resource not tied to any ecommerce platform, used for filtering.
 type PlatformNone string
 
 // List of platformNone.

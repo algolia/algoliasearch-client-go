@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// DockerRegistry The registry where the image is stored.
+// DockerRegistry Container registry name from where to pull the image.
 type DockerRegistry string
 
 // List of DockerRegistry.

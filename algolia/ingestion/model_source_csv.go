@@ -8,11 +8,11 @@ import (
 
 // SourceCSV struct for SourceCSV.
 type SourceCSV struct {
-	// The URL of the file.
+	// URL of the file.
 	Url string `json:"url"`
-	// The name of the column that contains the unique ID, used as `objectID` in Algolia.
+	// Name of a column that contains a unique ID which will be used as `objectID` in Algolia.
 	UniqueIDColumn *string `json:"uniqueIDColumn,omitempty"`
-	// Mapping of type for every column. For example {\"myColumn\": \"boolean\", \"myOtherColumn\": \"json\"}.
+	// Key-value pairs of column names and their expected types.
 	Mapping *map[string]MappingTypeCSV `json:"mapping,omitempty"`
 	Method  *MethodType                `json:"method,omitempty"`
 	// The character used to split the value on each line, default to a comma (\\r, \\n, 0xFFFD, and space are forbidden).

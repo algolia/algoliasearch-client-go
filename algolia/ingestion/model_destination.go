@@ -6,19 +6,19 @@ import (
 	"fmt"
 )
 
-// Destination A destination describe how the data is indexed on the Algolia side.
+// Destination Destinations are Algolia resources like indices or event streams.
 type Destination struct {
-	// The destination UUID.
+	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID string          `json:"destinationID"`
 	Type          DestinationType `json:"type"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name  string           `json:"name"`
 	Input DestinationInput `json:"input"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update (RFC3339 format).
+	// Date of last update in RFC3339 format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 

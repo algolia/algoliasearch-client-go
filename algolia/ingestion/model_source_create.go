@@ -8,10 +8,11 @@ import (
 
 // SourceCreate struct for SourceCreate.
 type SourceCreate struct {
-	Type  SourceType  `json:"type"`
+	Type SourceType `json:"type"`
+	// Descriptive name of the source.
 	Name  string      `json:"name"`
 	Input SourceInput `json:"input"`
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 

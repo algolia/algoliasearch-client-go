@@ -9,11 +9,11 @@ import (
 // SourceUpdateDocker struct for SourceUpdateDocker.
 type SourceUpdateDocker struct {
 	Registry *DockerRegistry `json:"registry,omitempty"`
-	// The name of the image to pull.
+	// Docker image name.
 	Image *string `json:"image,omitempty"`
-	// The version of the image, defaults to `latest`.
+	// Docker image version.
 	Version *string `json:"version,omitempty"`
-	// The configuration of the spec.
+	// Configuration of the spec.
 	Configuration map[string]interface{} `json:"configuration"`
 }
 

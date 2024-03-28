@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// StreamingTrigger The trigger input for a task of type 'streaming'.
+// StreamingTrigger Trigger input for continuously running tasks.
 type StreamingTrigger struct {
 	Type StreamingTriggerType `json:"type"`
 }

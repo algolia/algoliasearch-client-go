@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-// OnDemandTrigger The trigger information of a task of type `onDemand`.
+// OnDemandTrigger Trigger information for manually-triggered tasks.
 type OnDemandTrigger struct {
 	Type OnDemandTriggerType `json:"type"`
-	// The last time the scheduled task ran (RFC3339 format).
+	// The last time the scheduled task ran in RFC3339 format.
 	LastRun *string `json:"lastRun,omitempty"`
 }
 

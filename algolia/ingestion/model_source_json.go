@@ -8,9 +8,9 @@ import (
 
 // SourceJSON struct for SourceJSON.
 type SourceJSON struct {
-	// The URL of the file.
+	// URL of the file.
 	Url string `json:"url"`
-	// The name of the column that contains the unique ID, used as `objectID` in Algolia.
+	// Name of a column that contains a unique ID which will be used as `objectID` in Algolia.
 	UniqueIDColumn *string     `json:"uniqueIDColumn,omitempty"`
 	Method         *MethodType `json:"method,omitempty"`
 }

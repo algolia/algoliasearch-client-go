@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// OnDemandTriggerInput The trigger information of a task of type `onDemand`.
+// OnDemandTriggerInput Trigger information for manually-triggered tasks.
 type OnDemandTriggerInput struct {
 	Type OnDemandTriggerType `json:"type"`
 }

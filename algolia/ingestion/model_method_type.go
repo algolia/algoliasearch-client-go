@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// MethodType the model 'MethodType'.
+// MethodType HTTP method to be used for retrieving your data.
 type MethodType string
 
 // List of MethodType.

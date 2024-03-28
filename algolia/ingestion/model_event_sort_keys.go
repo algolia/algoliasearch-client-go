@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// EventSortKeys Used to sort the Event list endpoint.
+// EventSortKeys Property by which to sort the list of task run events.
 type EventSortKeys string
 
 // List of eventSortKeys.

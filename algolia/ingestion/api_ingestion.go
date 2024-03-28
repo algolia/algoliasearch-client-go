@@ -73,7 +73,7 @@ func (c *APIClient) NewApiCreateAuthenticationRequest(authenticationCreate *Auth
 /*
 CreateAuthentication Wraps CreateAuthenticationWithContext using context.Background.
 
-Create a authentication.
+Creates a new authentication resource.
 
 Required API Key ACLs:
   - addObject
@@ -92,7 +92,7 @@ func (c *APIClient) CreateAuthentication(r ApiCreateAuthenticationRequest, opts 
 /*
 CreateAuthentication
 
-Create a authentication.
+Creates a new authentication resource.
 
 Required API Key ACLs:
   - addObject
@@ -207,7 +207,7 @@ func (c *APIClient) NewApiCreateDestinationRequest(destinationCreate *Destinatio
 /*
 CreateDestination Wraps CreateDestinationWithContext using context.Background.
 
-Create a destination.
+Creates a new destination.
 
 Required API Key ACLs:
   - addObject
@@ -226,7 +226,7 @@ func (c *APIClient) CreateDestination(r ApiCreateDestinationRequest, opts ...Opt
 /*
 CreateDestination
 
-Create a destination.
+Creates a new destination.
 
 Required API Key ACLs:
   - addObject
@@ -341,7 +341,7 @@ func (c *APIClient) NewApiCreateSourceRequest(sourceCreate *SourceCreate) ApiCre
 /*
 CreateSource Wraps CreateSourceWithContext using context.Background.
 
-Create a source.
+Creates a new source.
 
 Required API Key ACLs:
   - addObject
@@ -360,7 +360,7 @@ func (c *APIClient) CreateSource(r ApiCreateSourceRequest, opts ...Option) (*Sou
 /*
 CreateSource
 
-Create a source.
+Creates a new source.
 
 Required API Key ACLs:
   - addObject
@@ -475,11 +475,11 @@ func (c *APIClient) NewApiCreateTaskRequest(taskCreate *TaskCreate) ApiCreateTas
 /*
 CreateTask Wraps CreateTaskWithContext using context.Background.
 
-Create a task.
+Creates a new task.
 
 Request can be constructed by NewApiCreateTaskRequest with parameters below.
 
-	@param taskCreate TaskCreate -
+	@param taskCreate TaskCreate - Request body for creating a task.
 	@return TaskCreateResponse
 */
 func (c *APIClient) CreateTask(r ApiCreateTaskRequest, opts ...Option) (*TaskCreateResponse, error) {
@@ -489,11 +489,11 @@ func (c *APIClient) CreateTask(r ApiCreateTaskRequest, opts ...Option) (*TaskCre
 /*
 CreateTask
 
-Create a task.
+Creates a new task.
 
 Request can be constructed by NewApiCreateTaskRequest with parameters below.
 
-	@param taskCreate TaskCreate -
+	@param taskCreate TaskCreate - Request body for creating a task.
 	@return TaskCreateResponse
 */
 func (c *APIClient) CreateTaskWithContext(ctx context.Context, r ApiCreateTaskRequest, opts ...Option) (*TaskCreateResponse, error) {
@@ -1206,7 +1206,7 @@ func (c *APIClient) NewApiDeleteAuthenticationRequest(authenticationID string) A
 /*
 DeleteAuthentication Wraps DeleteAuthenticationWithContext using context.Background.
 
-Soft delete the authentication of the given authenticationID.
+Deletes an authentication resource. You can't delete authentication resources that are used by a source or a destination.
 
 Required API Key ACLs:
   - addObject
@@ -1215,7 +1215,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteAuthenticationRequest with parameters below.
 
-	@param authenticationID string - The authentication UUID.
+	@param authenticationID string - Unique identifier of an authentication resource.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteAuthentication(r ApiDeleteAuthenticationRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1225,7 +1225,7 @@ func (c *APIClient) DeleteAuthentication(r ApiDeleteAuthenticationRequest, opts 
 /*
 DeleteAuthentication
 
-Soft delete the authentication of the given authenticationID.
+Deletes an authentication resource. You can't delete authentication resources that are used by a source or a destination.
 
 Required API Key ACLs:
   - addObject
@@ -1234,7 +1234,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteAuthenticationRequest with parameters below.
 
-	@param authenticationID string - The authentication UUID.
+	@param authenticationID string - Unique identifier of an authentication resource.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteAuthenticationWithContext(ctx context.Context, r ApiDeleteAuthenticationRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1333,7 +1333,7 @@ func (c *APIClient) NewApiDeleteDestinationRequest(destinationID string) ApiDele
 /*
 DeleteDestination Wraps DeleteDestinationWithContext using context.Background.
 
-Soft delete the destination of the given destinationID.
+Deletes a destination by its ID. You can't delete destinations that are referenced in tasks.
 
 Required API Key ACLs:
   - addObject
@@ -1342,7 +1342,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteDestinationRequest with parameters below.
 
-	@param destinationID string - The destination UUID.
+	@param destinationID string - Unique identifier of a destination.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteDestination(r ApiDeleteDestinationRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1352,7 +1352,7 @@ func (c *APIClient) DeleteDestination(r ApiDeleteDestinationRequest, opts ...Opt
 /*
 DeleteDestination
 
-Soft delete the destination of the given destinationID.
+Deletes a destination by its ID. You can't delete destinations that are referenced in tasks.
 
 Required API Key ACLs:
   - addObject
@@ -1361,7 +1361,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteDestinationRequest with parameters below.
 
-	@param destinationID string - The destination UUID.
+	@param destinationID string - Unique identifier of a destination.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteDestinationWithContext(ctx context.Context, r ApiDeleteDestinationRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1460,7 +1460,7 @@ func (c *APIClient) NewApiDeleteSourceRequest(sourceID string) ApiDeleteSourceRe
 /*
 DeleteSource Wraps DeleteSourceWithContext using context.Background.
 
-Soft delete the source of the given sourceID.
+Deletes a source by its ID. You can't delete sources that are referenced in tasks.
 
 Required API Key ACLs:
   - addObject
@@ -1469,7 +1469,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1479,7 +1479,7 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...Option) (*Del
 /*
 DeleteSource
 
-Soft delete the source of the given sourceID.
+Deletes a source by its ID. You can't delete sources that are referenced in tasks.
 
 Required API Key ACLs:
   - addObject
@@ -1488,7 +1488,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteSourceWithContext(ctx context.Context, r ApiDeleteSourceRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1587,11 +1587,11 @@ func (c *APIClient) NewApiDeleteTaskRequest(taskID string) ApiDeleteTaskRequest 
 /*
 DeleteTask Wraps DeleteTaskWithContext using context.Background.
 
-Soft delete the task of the given taskID.
+Deletes a task by its ID.
 
 Request can be constructed by NewApiDeleteTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteTask(r ApiDeleteTaskRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1601,11 +1601,11 @@ func (c *APIClient) DeleteTask(r ApiDeleteTaskRequest, opts ...Option) (*DeleteR
 /*
 DeleteTask
 
-Soft delete the task of the given taskID.
+Deletes a task by its ID.
 
 Request can be constructed by NewApiDeleteTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return DeleteResponse
 */
 func (c *APIClient) DeleteTaskWithContext(ctx context.Context, r ApiDeleteTaskRequest, opts ...Option) (*DeleteResponse, error) {
@@ -1704,7 +1704,7 @@ func (c *APIClient) NewApiDisableTaskRequest(taskID string) ApiDisableTaskReques
 /*
 DisableTask Wraps DisableTaskWithContext using context.Background.
 
-Disable the task of the given taskID.
+Disables a task.
 
 Required API Key ACLs:
   - addObject
@@ -1713,7 +1713,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDisableTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return TaskUpdateResponse
 */
 func (c *APIClient) DisableTask(r ApiDisableTaskRequest, opts ...Option) (*TaskUpdateResponse, error) {
@@ -1723,7 +1723,7 @@ func (c *APIClient) DisableTask(r ApiDisableTaskRequest, opts ...Option) (*TaskU
 /*
 DisableTask
 
-Disable the task of the given taskID.
+Disables a task.
 
 Required API Key ACLs:
   - addObject
@@ -1732,7 +1732,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiDisableTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return TaskUpdateResponse
 */
 func (c *APIClient) DisableTaskWithContext(ctx context.Context, r ApiDisableTaskRequest, opts ...Option) (*TaskUpdateResponse, error) {
@@ -1831,7 +1831,7 @@ func (c *APIClient) NewApiEnableTaskRequest(taskID string) ApiEnableTaskRequest 
 /*
 EnableTask Wraps EnableTaskWithContext using context.Background.
 
-Enable the task of the given taskID.
+Enables a task.
 
 Required API Key ACLs:
   - addObject
@@ -1840,7 +1840,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiEnableTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return TaskUpdateResponse
 */
 func (c *APIClient) EnableTask(r ApiEnableTaskRequest, opts ...Option) (*TaskUpdateResponse, error) {
@@ -1850,7 +1850,7 @@ func (c *APIClient) EnableTask(r ApiEnableTaskRequest, opts ...Option) (*TaskUpd
 /*
 EnableTask
 
-Enable the task of the given taskID.
+Enables a task.
 
 Required API Key ACLs:
   - addObject
@@ -1859,7 +1859,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiEnableTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return TaskUpdateResponse
 */
 func (c *APIClient) EnableTaskWithContext(ctx context.Context, r ApiEnableTaskRequest, opts ...Option) (*TaskUpdateResponse, error) {
@@ -1958,7 +1958,7 @@ func (c *APIClient) NewApiGetAuthenticationRequest(authenticationID string) ApiG
 /*
 GetAuthentication Wraps GetAuthenticationWithContext using context.Background.
 
-Get the authentication of the given authenticationID.
+Retrieves an authentication resource by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -1967,7 +1967,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAuthenticationRequest with parameters below.
 
-	@param authenticationID string - The authentication UUID.
+	@param authenticationID string - Unique identifier of an authentication resource.
 	@return Authentication
 */
 func (c *APIClient) GetAuthentication(r ApiGetAuthenticationRequest, opts ...Option) (*Authentication, error) {
@@ -1977,7 +1977,7 @@ func (c *APIClient) GetAuthentication(r ApiGetAuthenticationRequest, opts ...Opt
 /*
 GetAuthentication
 
-Get the authentication of the given authenticationID.
+Retrieves an authentication resource by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -1986,7 +1986,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAuthenticationRequest with parameters below.
 
-	@param authenticationID string - The authentication UUID.
+	@param authenticationID string - Unique identifier of an authentication resource.
 	@return Authentication
 */
 func (c *APIClient) GetAuthenticationWithContext(ctx context.Context, r ApiGetAuthenticationRequest, opts ...Option) (*Authentication, error) {
@@ -2169,7 +2169,7 @@ func (r ApiGetAuthenticationsRequest) WithOrder(order OrderKeys) ApiGetAuthentic
 /*
 GetAuthentications Wraps GetAuthenticationsWithContext using context.Background.
 
-Get a list of authentications for the given query parameters, with pagination details.
+Retrieves a list of all authentication resources.
 
 Required API Key ACLs:
   - addObject
@@ -2178,12 +2178,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAuthenticationsRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param type_ []AuthenticationType - The type of the authentications to retrieve.
-	@param platform []PlatformWithNone - The platform of the authentications to retrieve.
-	@param sort AuthenticationSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []AuthenticationType - Type of authentication resource to retrieve.
+	@param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
+	@param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListAuthenticationsResponse
 */
 func (c *APIClient) GetAuthentications(r ApiGetAuthenticationsRequest, opts ...Option) (*ListAuthenticationsResponse, error) {
@@ -2193,7 +2193,7 @@ func (c *APIClient) GetAuthentications(r ApiGetAuthenticationsRequest, opts ...O
 /*
 GetAuthentications
 
-Get a list of authentications for the given query parameters, with pagination details.
+Retrieves a list of all authentication resources.
 
 Required API Key ACLs:
   - addObject
@@ -2202,12 +2202,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAuthenticationsRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param type_ []AuthenticationType - The type of the authentications to retrieve.
-	@param platform []PlatformWithNone - The platform of the authentications to retrieve.
-	@param sort AuthenticationSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []AuthenticationType - Type of authentication resource to retrieve.
+	@param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
+	@param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListAuthenticationsResponse
 */
 func (c *APIClient) GetAuthenticationsWithContext(ctx context.Context, r ApiGetAuthenticationsRequest, opts ...Option) (*ListAuthenticationsResponse, error) {
@@ -2321,7 +2321,7 @@ func (c *APIClient) NewApiGetDestinationRequest(destinationID string) ApiGetDest
 /*
 GetDestination Wraps GetDestinationWithContext using context.Background.
 
-Get the destination of the given destinationID.
+Retrieves a destination by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -2330,7 +2330,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetDestinationRequest with parameters below.
 
-	@param destinationID string - The destination UUID.
+	@param destinationID string - Unique identifier of a destination.
 	@return Destination
 */
 func (c *APIClient) GetDestination(r ApiGetDestinationRequest, opts ...Option) (*Destination, error) {
@@ -2340,7 +2340,7 @@ func (c *APIClient) GetDestination(r ApiGetDestinationRequest, opts ...Option) (
 /*
 GetDestination
 
-Get the destination of the given destinationID.
+Retrieves a destination by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -2349,7 +2349,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetDestinationRequest with parameters below.
 
-	@param destinationID string - The destination UUID.
+	@param destinationID string - Unique identifier of a destination.
 	@return Destination
 */
 func (c *APIClient) GetDestinationWithContext(ctx context.Context, r ApiGetDestinationRequest, opts ...Option) (*Destination, error) {
@@ -2532,7 +2532,7 @@ func (r ApiGetDestinationsRequest) WithOrder(order OrderKeys) ApiGetDestinations
 /*
 GetDestinations Wraps GetDestinationsWithContext using context.Background.
 
-Get a list of destinations for the given query parameters, with pagination details.
+Retrieves a list of destinations.
 
 Required API Key ACLs:
   - addObject
@@ -2541,12 +2541,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetDestinationsRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param type_ []DestinationType - The type of the destinations to retrieve.
-	@param authenticationID []string - The authenticationIDs of the destinations to retrieve.
-	@param sort DestinationSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []DestinationType - Destination type.
+	@param authenticationID []string - Authentication ID used by destinations.
+	@param sort DestinationSortKeys - Property by which to sort the destinations.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListDestinationsResponse
 */
 func (c *APIClient) GetDestinations(r ApiGetDestinationsRequest, opts ...Option) (*ListDestinationsResponse, error) {
@@ -2556,7 +2556,7 @@ func (c *APIClient) GetDestinations(r ApiGetDestinationsRequest, opts ...Option)
 /*
 GetDestinations
 
-Get a list of destinations for the given query parameters, with pagination details.
+Retrieves a list of destinations.
 
 Required API Key ACLs:
   - addObject
@@ -2565,12 +2565,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetDestinationsRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param type_ []DestinationType - The type of the destinations to retrieve.
-	@param authenticationID []string - The authenticationIDs of the destinations to retrieve.
-	@param sort DestinationSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []DestinationType - Destination type.
+	@param authenticationID []string - Authentication ID used by destinations.
+	@param sort DestinationSortKeys - Property by which to sort the destinations.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListDestinationsResponse
 */
 func (c *APIClient) GetDestinationsWithContext(ctx context.Context, r ApiGetDestinationsRequest, opts ...Option) (*ListDestinationsResponse, error) {
@@ -2684,7 +2684,9 @@ func (c *APIClient) NewApiGetDockerSourceStreamsRequest(sourceID string) ApiGetD
 /*
 GetDockerSourceStreams Wraps GetDockerSourceStreamsWithContext using context.Background.
 
-Retrieve a stream listing for a given Singer specification compatible docker type source ID.
+Retrieves a stream listing for a source.
+
+Listing streams only works with sources with `type: docker` and `imageType: singer`.
 
 Required API Key ACLs:
   - addObject
@@ -2693,7 +2695,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetDockerSourceStreamsRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return DockerSourceStreams
 */
 func (c *APIClient) GetDockerSourceStreams(r ApiGetDockerSourceStreamsRequest, opts ...Option) (*DockerSourceStreams, error) {
@@ -2703,7 +2705,9 @@ func (c *APIClient) GetDockerSourceStreams(r ApiGetDockerSourceStreamsRequest, o
 /*
 GetDockerSourceStreams
 
-Retrieve a stream listing for a given Singer specification compatible docker type source ID.
+Retrieves a stream listing for a source.
+
+Listing streams only works with sources with `type: docker` and `imageType: singer`.
 
 Required API Key ACLs:
   - addObject
@@ -2712,7 +2716,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetDockerSourceStreamsRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return DockerSourceStreams
 */
 func (c *APIClient) GetDockerSourceStreamsWithContext(ctx context.Context, r ApiGetDockerSourceStreamsRequest, opts ...Option) (*DockerSourceStreams, error) {
@@ -2822,7 +2826,7 @@ func (c *APIClient) NewApiGetEventRequest(runID string, eventID string) ApiGetEv
 /*
 GetEvent Wraps GetEventWithContext using context.Background.
 
-Get a single event for a specific runID.
+Retrieves a single task run event by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -2831,8 +2835,8 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetEventRequest with parameters below.
 
-	@param runID string - The run UUID.
-	@param eventID string - The event UUID.
+	@param runID string - Unique identifier of a task run.
+	@param eventID string - Unique identifier of an event.
 	@return Event
 */
 func (c *APIClient) GetEvent(r ApiGetEventRequest, opts ...Option) (*Event, error) {
@@ -2842,7 +2846,7 @@ func (c *APIClient) GetEvent(r ApiGetEventRequest, opts ...Option) (*Event, erro
 /*
 GetEvent
 
-Get a single event for a specific runID.
+Retrieves a single task run event by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -2851,8 +2855,8 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetEventRequest with parameters below.
 
-	@param runID string - The run UUID.
-	@param eventID string - The event UUID.
+	@param runID string - Unique identifier of a task run.
+	@param eventID string - Unique identifier of an event.
 	@return Event
 */
 func (c *APIClient) GetEventWithContext(ctx context.Context, r ApiGetEventRequest, opts ...Option) (*Event, error) {
@@ -3083,7 +3087,7 @@ func (r ApiGetEventsRequest) WithEndDate(endDate string) ApiGetEventsRequest {
 /*
 GetEvents Wraps GetEventsWithContext using context.Background.
 
-Get a list of events associated to the given runID, for the given query parameters.
+Retrieves a list of events for a task run, identified by it's ID.
 
 Required API Key ACLs:
   - addObject
@@ -3092,15 +3096,15 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetEventsRequest with parameters below.
 
-	@param runID string - The run UUID.
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param status []EventStatus - Filter the status of the events.
-	@param type_ []EventType - Filter the type of the events.
-	@param sort EventSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
-	@param startDate string - The start date (in RFC3339 format) of the events fetching window. Defaults to 'now'-3 hours if omitted.
-	@param endDate string - The end date (in RFC3339 format) of the events fetching window. Defaults to 'now' days if omitted.
+	@param runID string - Unique identifier of a task run.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param status []EventStatus - Event status for filtering the list of task runs.
+	@param type_ []EventType - Event type for filtering the list of task runs.
+	@param sort EventSortKeys - Property by which to sort the list of task run events.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@param startDate string - Date and time in RFC3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
+	@param endDate string - Date and time in RFC3339 format for the latest events to retrieve. By default, the current time is used.
 	@return ListEventsResponse
 */
 func (c *APIClient) GetEvents(r ApiGetEventsRequest, opts ...Option) (*ListEventsResponse, error) {
@@ -3110,7 +3114,7 @@ func (c *APIClient) GetEvents(r ApiGetEventsRequest, opts ...Option) (*ListEvent
 /*
 GetEvents
 
-Get a list of events associated to the given runID, for the given query parameters.
+Retrieves a list of events for a task run, identified by it's ID.
 
 Required API Key ACLs:
   - addObject
@@ -3119,15 +3123,15 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetEventsRequest with parameters below.
 
-	@param runID string - The run UUID.
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param status []EventStatus - Filter the status of the events.
-	@param type_ []EventType - Filter the type of the events.
-	@param sort EventSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
-	@param startDate string - The start date (in RFC3339 format) of the events fetching window. Defaults to 'now'-3 hours if omitted.
-	@param endDate string - The end date (in RFC3339 format) of the events fetching window. Defaults to 'now' days if omitted.
+	@param runID string - Unique identifier of a task run.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param status []EventStatus - Event status for filtering the list of task runs.
+	@param type_ []EventType - Event type for filtering the list of task runs.
+	@param sort EventSortKeys - Property by which to sort the list of task run events.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@param startDate string - Date and time in RFC3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
+	@param endDate string - Date and time in RFC3339 format for the latest events to retrieve. By default, the current time is used.
 	@return ListEventsResponse
 */
 func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequest, opts ...Option) (*ListEventsResponse, error) {
@@ -3251,7 +3255,7 @@ func (c *APIClient) NewApiGetRunRequest(runID string) ApiGetRunRequest {
 /*
 GetRun Wraps GetRunWithContext using context.Background.
 
-Get a single run for the given ID.
+Retrieve a single task run by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -3260,7 +3264,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRunRequest with parameters below.
 
-	@param runID string - The run UUID.
+	@param runID string - Unique identifier of a task run.
 	@return Run
 */
 func (c *APIClient) GetRun(r ApiGetRunRequest, opts ...Option) (*Run, error) {
@@ -3270,7 +3274,7 @@ func (c *APIClient) GetRun(r ApiGetRunRequest, opts ...Option) (*Run, error) {
 /*
 GetRun
 
-Get a single run for the given ID.
+Retrieve a single task run by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -3279,7 +3283,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRunRequest with parameters below.
 
-	@param runID string - The run UUID.
+	@param runID string - Unique identifier of a task run.
 	@return Run
 */
 func (c *APIClient) GetRunWithContext(ctx context.Context, r ApiGetRunRequest, opts ...Option) (*Run, error) {
@@ -3494,7 +3498,7 @@ func (r ApiGetRunsRequest) WithEndDate(endDate string) ApiGetRunsRequest {
 /*
 GetRuns Wraps GetRunsWithContext using context.Background.
 
-Get a list of runs for the given query parameters, with pagination details.
+Retrieve a list of task runs.
 
 Required API Key ACLs:
   - addObject
@@ -3503,14 +3507,14 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRunsRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param status []RunStatus - Filter the status of the runs.
-	@param taskID string - Filter by taskID.
-	@param sort RunSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
-	@param startDate string - The start date (in RFC3339 format) of the runs fetching window. Defaults to 'now'-7 days if omitted.
-	@param endDate string - The end date (in RFC3339 format) of the runs fetching window. Defaults to 'now' days if omitted.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param status []RunStatus - Run status for filtering the list of task runs.
+	@param taskID string - Task ID for filtering the list of task runs.
+	@param sort RunSortKeys - Property by which to sort the list of task runs.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@param startDate string - Date in RFC3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
+	@param endDate string - Date in RFC3339 format for the latest run to retrieve. By default, the current day is used.
 	@return RunListResponse
 */
 func (c *APIClient) GetRuns(r ApiGetRunsRequest, opts ...Option) (*RunListResponse, error) {
@@ -3520,7 +3524,7 @@ func (c *APIClient) GetRuns(r ApiGetRunsRequest, opts ...Option) (*RunListRespon
 /*
 GetRuns
 
-Get a list of runs for the given query parameters, with pagination details.
+Retrieve a list of task runs.
 
 Required API Key ACLs:
   - addObject
@@ -3529,14 +3533,14 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetRunsRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param status []RunStatus - Filter the status of the runs.
-	@param taskID string - Filter by taskID.
-	@param sort RunSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
-	@param startDate string - The start date (in RFC3339 format) of the runs fetching window. Defaults to 'now'-7 days if omitted.
-	@param endDate string - The end date (in RFC3339 format) of the runs fetching window. Defaults to 'now' days if omitted.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param status []RunStatus - Run status for filtering the list of task runs.
+	@param taskID string - Task ID for filtering the list of task runs.
+	@param sort RunSortKeys - Property by which to sort the list of task runs.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@param startDate string - Date in RFC3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
+	@param endDate string - Date in RFC3339 format for the latest run to retrieve. By default, the current day is used.
 	@return RunListResponse
 */
 func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest, opts ...Option) (*RunListResponse, error) {
@@ -3656,7 +3660,7 @@ func (c *APIClient) NewApiGetSourceRequest(sourceID string) ApiGetSourceRequest 
 /*
 GetSource Wraps GetSourceWithContext using context.Background.
 
-Get the source of the given sourceID.
+Retrieve a source by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -3665,7 +3669,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSourceRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return Source
 */
 func (c *APIClient) GetSource(r ApiGetSourceRequest, opts ...Option) (*Source, error) {
@@ -3675,7 +3679,7 @@ func (c *APIClient) GetSource(r ApiGetSourceRequest, opts ...Option) (*Source, e
 /*
 GetSource
 
-Get the source of the given sourceID.
+Retrieve a source by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -3684,7 +3688,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSourceRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return Source
 */
 func (c *APIClient) GetSourceWithContext(ctx context.Context, r ApiGetSourceRequest, opts ...Option) (*Source, error) {
@@ -3867,7 +3871,7 @@ func (r ApiGetSourcesRequest) WithOrder(order OrderKeys) ApiGetSourcesRequest {
 /*
 GetSources Wraps GetSourcesWithContext using context.Background.
 
-Get a list of sources for the given query parameters, with pagination details.
+Retrieves a list of sources.
 
 Required API Key ACLs:
   - addObject
@@ -3876,12 +3880,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSourcesRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param type_ []SourceType - The type of the sources to retrieve.
-	@param authenticationID []string - The authenticationIDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication.
-	@param sort SourceSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []SourceType - Source type. Some sources require authentication.
+	@param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
+	@param sort SourceSortKeys - Property by which to sort the list of sources.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListSourcesResponse
 */
 func (c *APIClient) GetSources(r ApiGetSourcesRequest, opts ...Option) (*ListSourcesResponse, error) {
@@ -3891,7 +3895,7 @@ func (c *APIClient) GetSources(r ApiGetSourcesRequest, opts ...Option) (*ListSou
 /*
 GetSources
 
-Get a list of sources for the given query parameters, with pagination details.
+Retrieves a list of sources.
 
 Required API Key ACLs:
   - addObject
@@ -3900,12 +3904,12 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetSourcesRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param type_ []SourceType - The type of the sources to retrieve.
-	@param authenticationID []string - The authenticationIDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication.
-	@param sort SourceSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []SourceType - Source type. Some sources require authentication.
+	@param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
+	@param sort SourceSortKeys - Property by which to sort the list of sources.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListSourcesResponse
 */
 func (c *APIClient) GetSourcesWithContext(ctx context.Context, r ApiGetSourcesRequest, opts ...Option) (*ListSourcesResponse, error) {
@@ -4019,7 +4023,7 @@ func (c *APIClient) NewApiGetTaskRequest(taskID string) ApiGetTaskRequest {
 /*
 GetTask Wraps GetTaskWithContext using context.Background.
 
-Get the task of the given taskID.
+Retrieves a task by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -4028,7 +4032,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return Task
 */
 func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...Option) (*Task, error) {
@@ -4038,7 +4042,7 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...Option) (*Task, error) 
 /*
 GetTask
 
-Get the task of the given taskID.
+Retrieves a task by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -4047,7 +4051,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return Task
 */
 func (c *APIClient) GetTaskWithContext(ctx context.Context, r ApiGetTaskRequest, opts ...Option) (*Task, error) {
@@ -4278,7 +4282,7 @@ func (r ApiGetTasksRequest) WithOrder(order OrderKeys) ApiGetTasksRequest {
 /*
 GetTasks Wraps GetTasksWithContext using context.Background.
 
-Get a list of tasks for the given query parameters, with pagination details.
+Retrieves a list of tasks.
 
 Required API Key ACLs:
   - addObject
@@ -4287,15 +4291,15 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTasksRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param action []ActionType - The action of the tasks to retrieve.
-	@param enabled bool - Whether the task is enabled or not.
-	@param sourceID []string - The sourceIDs of the tasks to retrieve.
-	@param destinationID []string - The destinationIDs of the tasks to retrieve.
-	@param triggerType []TriggerType - The trigger type of the task.
-	@param sort TaskSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param action []ActionType - Actions for filtering the list of tasks.
+	@param enabled bool - Whether to filter the list of tasks by the `enabled` status.
+	@param sourceID []string - Source IDs for filtering the list of tasks.
+	@param destinationID []string - Destination IDs for filtering the list of tasks.
+	@param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
+	@param sort TaskSortKeys - Property by which to sort the list of tasks.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListTasksResponse
 */
 func (c *APIClient) GetTasks(r ApiGetTasksRequest, opts ...Option) (*ListTasksResponse, error) {
@@ -4305,7 +4309,7 @@ func (c *APIClient) GetTasks(r ApiGetTasksRequest, opts ...Option) (*ListTasksRe
 /*
 GetTasks
 
-Get a list of tasks for the given query parameters, with pagination details.
+Retrieves a list of tasks.
 
 Required API Key ACLs:
   - addObject
@@ -4314,15 +4318,15 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetTasksRequest with parameters below.
 
-	@param itemsPerPage int32 - The number of items per page to return.
-	@param page int32 - The page number to fetch, starting at 1.
-	@param action []ActionType - The action of the tasks to retrieve.
-	@param enabled bool - Whether the task is enabled or not.
-	@param sourceID []string - The sourceIDs of the tasks to retrieve.
-	@param destinationID []string - The destinationIDs of the tasks to retrieve.
-	@param triggerType []TriggerType - The trigger type of the task.
-	@param sort TaskSortKeys - The key by which the list should be sorted.
-	@param order OrderKeys - The order of the returned list.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param action []ActionType - Actions for filtering the list of tasks.
+	@param enabled bool - Whether to filter the list of tasks by the `enabled` status.
+	@param sourceID []string - Source IDs for filtering the list of tasks.
+	@param destinationID []string - Destination IDs for filtering the list of tasks.
+	@param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
+	@param sort TaskSortKeys - Property by which to sort the list of tasks.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListTasksResponse
 */
 func (c *APIClient) GetTasksWithContext(ctx context.Context, r ApiGetTasksRequest, opts ...Option) (*ListTasksResponse, error) {
@@ -4445,7 +4449,7 @@ func (c *APIClient) NewApiRunTaskRequest(taskID string) ApiRunTaskRequest {
 /*
 RunTask Wraps RunTaskWithContext using context.Background.
 
-Run the task of the given taskID.
+Runs a task. You can check the status of task runs with the observability endpoints.
 
 Required API Key ACLs:
   - addObject
@@ -4454,7 +4458,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiRunTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return RunResponse
 */
 func (c *APIClient) RunTask(r ApiRunTaskRequest, opts ...Option) (*RunResponse, error) {
@@ -4464,7 +4468,7 @@ func (c *APIClient) RunTask(r ApiRunTaskRequest, opts ...Option) (*RunResponse, 
 /*
 RunTask
 
-Run the task of the given taskID.
+Runs a task. You can check the status of task runs with the observability endpoints.
 
 Required API Key ACLs:
   - addObject
@@ -4473,7 +4477,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiRunTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@return RunResponse
 */
 func (c *APIClient) RunTaskWithContext(ctx context.Context, r ApiRunTaskRequest, opts ...Option) (*RunResponse, error) {
@@ -4577,7 +4581,7 @@ func (c *APIClient) NewApiSearchAuthenticationsRequest(authenticationSearch *Aut
 /*
 SearchAuthentications Wraps SearchAuthenticationsWithContext using context.Background.
 
-Search among authentications with a defined set of parameters.
+Searches for authentication resources.
 
 Required API Key ACLs:
   - addObject
@@ -4596,7 +4600,7 @@ func (c *APIClient) SearchAuthentications(r ApiSearchAuthenticationsRequest, opt
 /*
 SearchAuthentications
 
-Search among authentications with a defined set of parameters.
+Searches for authentication resources.
 
 Required API Key ACLs:
   - addObject
@@ -4711,7 +4715,7 @@ func (c *APIClient) NewApiSearchDestinationsRequest(destinationSearch *Destinati
 /*
 SearchDestinations Wraps SearchDestinationsWithContext using context.Background.
 
-Search among destinations with a defined set of parameters.
+Searches for destinations.
 
 Required API Key ACLs:
   - addObject
@@ -4730,7 +4734,7 @@ func (c *APIClient) SearchDestinations(r ApiSearchDestinationsRequest, opts ...O
 /*
 SearchDestinations
 
-Search among destinations with a defined set of parameters.
+Searches for destinations.
 
 Required API Key ACLs:
   - addObject
@@ -4845,7 +4849,7 @@ func (c *APIClient) NewApiSearchSourcesRequest(sourceSearch *SourceSearch) ApiSe
 /*
 SearchSources Wraps SearchSourcesWithContext using context.Background.
 
-Search among sources with a defined set of parameters.
+Searches for sources.
 
 Required API Key ACLs:
   - addObject
@@ -4864,7 +4868,7 @@ func (c *APIClient) SearchSources(r ApiSearchSourcesRequest, opts ...Option) ([]
 /*
 SearchSources
 
-Search among sources with a defined set of parameters.
+Searches for sources.
 
 Required API Key ACLs:
   - addObject
@@ -4979,7 +4983,7 @@ func (c *APIClient) NewApiSearchTasksRequest(taskSearch *TaskSearch) ApiSearchTa
 /*
 SearchTasks Wraps SearchTasksWithContext using context.Background.
 
-Search among tasks with a defined set of parameters.
+Searches for tasks.
 
 Required API Key ACLs:
   - addObject
@@ -4998,7 +5002,7 @@ func (c *APIClient) SearchTasks(r ApiSearchTasksRequest, opts ...Option) ([]Task
 /*
 SearchTasks
 
-Search among tasks with a defined set of parameters.
+Searches for tasks.
 
 Required API Key ACLs:
   - addObject
@@ -5108,7 +5112,8 @@ func (c *APIClient) NewApiTriggerDockerSourceDiscoverRequest(sourceID string) Ap
 /*
 TriggerDockerSourceDiscover Wraps TriggerDockerSourceDiscoverWithContext using context.Background.
 
-Trigger a stream listing request for a Singer specification compatible docker type source.
+Triggers a stream-listing request for a source.
+Triggering stream-listing requests only works with sources with `type: docker` and `imageType: singer`.
 
 Required API Key ACLs:
   - addObject
@@ -5117,7 +5122,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiTriggerDockerSourceDiscoverRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return DockerSourceDiscover
 */
 func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscoverRequest, opts ...Option) (*DockerSourceDiscover, error) {
@@ -5127,7 +5132,8 @@ func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscover
 /*
 TriggerDockerSourceDiscover
 
-Trigger a stream listing request for a Singer specification compatible docker type source.
+Triggers a stream-listing request for a source.
+Triggering stream-listing requests only works with sources with `type: docker` and `imageType: singer`.
 
 Required API Key ACLs:
   - addObject
@@ -5136,7 +5142,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiTriggerDockerSourceDiscoverRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@return DockerSourceDiscover
 */
 func (c *APIClient) TriggerDockerSourceDiscoverWithContext(ctx context.Context, r ApiTriggerDockerSourceDiscoverRequest, opts ...Option) (*DockerSourceDiscover, error) {
@@ -5251,7 +5257,7 @@ func (c *APIClient) NewApiUpdateAuthenticationRequest(authenticationID string, a
 /*
 UpdateAuthentication Wraps UpdateAuthenticationWithContext using context.Background.
 
-Update the authentication of the given authenticationID.
+Updates an authentication resource.
 
 Required API Key ACLs:
   - addObject
@@ -5260,7 +5266,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiUpdateAuthenticationRequest with parameters below.
 
-	@param authenticationID string - The authentication UUID.
+	@param authenticationID string - Unique identifier of an authentication resource.
 	@param authenticationUpdate AuthenticationUpdate
 	@return AuthenticationUpdateResponse
 */
@@ -5271,7 +5277,7 @@ func (c *APIClient) UpdateAuthentication(r ApiUpdateAuthenticationRequest, opts 
 /*
 UpdateAuthentication
 
-Update the authentication of the given authenticationID.
+Updates an authentication resource.
 
 Required API Key ACLs:
   - addObject
@@ -5280,7 +5286,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiUpdateAuthenticationRequest with parameters below.
 
-	@param authenticationID string - The authentication UUID.
+	@param authenticationID string - Unique identifier of an authentication resource.
 	@param authenticationUpdate AuthenticationUpdate
 	@return AuthenticationUpdateResponse
 */
@@ -5402,7 +5408,7 @@ func (c *APIClient) NewApiUpdateDestinationRequest(destinationID string, destina
 /*
 UpdateDestination Wraps UpdateDestinationWithContext using context.Background.
 
-Update the destination of the given destinationID.
+Updates the destination by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -5411,7 +5417,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiUpdateDestinationRequest with parameters below.
 
-	@param destinationID string - The destination UUID.
+	@param destinationID string - Unique identifier of a destination.
 	@param destinationUpdate DestinationUpdate
 	@return DestinationUpdateResponse
 */
@@ -5422,7 +5428,7 @@ func (c *APIClient) UpdateDestination(r ApiUpdateDestinationRequest, opts ...Opt
 /*
 UpdateDestination
 
-Update the destination of the given destinationID.
+Updates the destination by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -5431,7 +5437,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiUpdateDestinationRequest with parameters below.
 
-	@param destinationID string - The destination UUID.
+	@param destinationID string - Unique identifier of a destination.
 	@param destinationUpdate DestinationUpdate
 	@return DestinationUpdateResponse
 */
@@ -5553,7 +5559,7 @@ func (c *APIClient) NewApiUpdateSourceRequest(sourceID string, sourceUpdate *Sou
 /*
 UpdateSource Wraps UpdateSourceWithContext using context.Background.
 
-Update the source of the given sourceID.
+Updates a source by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -5562,7 +5568,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiUpdateSourceRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@param sourceUpdate SourceUpdate
 	@return SourceUpdateResponse
 */
@@ -5573,7 +5579,7 @@ func (c *APIClient) UpdateSource(r ApiUpdateSourceRequest, opts ...Option) (*Sou
 /*
 UpdateSource
 
-Update the source of the given sourceID.
+Updates a source by its ID.
 
 Required API Key ACLs:
   - addObject
@@ -5582,7 +5588,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiUpdateSourceRequest with parameters below.
 
-	@param sourceID string - The source UUID.
+	@param sourceID string - Unique identifier of a source.
 	@param sourceUpdate SourceUpdate
 	@return SourceUpdateResponse
 */
@@ -5704,11 +5710,11 @@ func (c *APIClient) NewApiUpdateTaskRequest(taskID string, taskUpdate *TaskUpdat
 /*
 UpdateTask Wraps UpdateTaskWithContext using context.Background.
 
-Update the task of the given taskID.
+Updates a task by its ID.
 
 Request can be constructed by NewApiUpdateTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@param taskUpdate TaskUpdate
 	@return TaskUpdateResponse
 */
@@ -5719,11 +5725,11 @@ func (c *APIClient) UpdateTask(r ApiUpdateTaskRequest, opts ...Option) (*TaskUpd
 /*
 UpdateTask
 
-Update the task of the given taskID.
+Updates a task by its ID.
 
 Request can be constructed by NewApiUpdateTaskRequest with parameters below.
 
-	@param taskID string - The task UUID.
+	@param taskID string - Unique identifier of a task.
 	@param taskUpdate TaskUpdate
 	@return TaskUpdateResponse
 */

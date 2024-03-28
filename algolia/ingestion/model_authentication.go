@@ -6,18 +6,18 @@ import (
 	"fmt"
 )
 
-// Authentication An authentication is used to login into a Source or a Destination, with obfuscated input.
+// Authentication Resource representing the information required to authenticate with a source or a destination.
 type Authentication struct {
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID string             `json:"authenticationID"`
 	Type             AuthenticationType `json:"type"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name     string           `json:"name"`
 	Platform NullablePlatform `json:"platform,omitempty"`
 	Input    AuthInputPartial `json:"input"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update (RFC3339 format).
+	// Date of last update in RFC3339 format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 

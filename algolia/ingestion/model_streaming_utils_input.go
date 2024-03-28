@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// StreamingUtilsInput The input for a `streaming` task whose source is of type `ga4BigqueryExport` and for which extracted data is continuously streamed.
+// StreamingUtilsInput Input for a `streaming` task whose source is of type `ga4BigqueryExport` and for which extracted data is continuously streamed.
 type StreamingUtilsInput struct {
 	Mapping MappingInput `json:"mapping"`
 }

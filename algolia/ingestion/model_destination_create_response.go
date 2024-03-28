@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// DestinationCreateResponse Response from the API when the Destination is successfully created.
+// DestinationCreateResponse API response for creating a new destination.
 type DestinationCreateResponse struct {
-	// The destination UUID.
+	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID string `json:"destinationID"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name string `json:"name"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

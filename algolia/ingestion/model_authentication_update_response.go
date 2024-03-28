@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// AuthenticationUpdateResponse Response from the API when the Authentication is successfully updated.
+// AuthenticationUpdateResponse API response for a successful update of an authentication resource.
 type AuthenticationUpdateResponse struct {
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID string `json:"authenticationID"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name string `json:"name"`
-	// Date of last update (RFC3339 format).
+	// Date of last update in RFC3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

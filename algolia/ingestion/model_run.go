@@ -8,25 +8,25 @@ import (
 
 // Run struct for Run.
 type Run struct {
-	// The run UUID.
+	// Universally unique identifier (UUID) of a task run.
 	RunID string `json:"runID"`
 	AppID string `json:"appID"`
-	// The task UUID.
+	// Universally unique identifier (UUID) of a task.
 	TaskID   string       `json:"taskID"`
 	Status   RunStatus    `json:"status"`
 	Progress *RunProgress `json:"progress,omitempty"`
 	Outcome  *RunOutcome  `json:"outcome,omitempty"`
-	// A percentage representing the accepted failure threshold to determine if a `run` succeeded or not.
+	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32 `json:"failureThreshold,omitempty"`
-	// Explains the result of outcome.
+	// More information about the task run's outcome.
 	Reason     *string        `json:"reason,omitempty"`
 	ReasonCode *RunReasonCode `json:"reasonCode,omitempty"`
 	Type       RunType        `json:"type"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of start (RFC3339 format).
+	// Date of start in RFC3339 format.
 	StartedAt *string `json:"startedAt,omitempty"`
-	// Date of finish (RFC3339 format).
+	// Date of finish in RFC3339 format.
 	FinishedAt *string `json:"finishedAt,omitempty"`
 }
 

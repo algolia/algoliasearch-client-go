@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// DestinationSearch Payload to search for multiple destinations, based on the given `destinationIDs`.
+// DestinationSearch API request body for searching destinations.
 type DestinationSearch struct {
 	DestinationIDs []string `json:"destinationIDs"`
 }

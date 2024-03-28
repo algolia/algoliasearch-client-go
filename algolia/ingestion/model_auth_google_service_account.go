@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// AuthGoogleServiceAccount Authentication input to connect to a Google service (e.g. BigQuery).
+// AuthGoogleServiceAccount Credentials for authenticating with a Google service account, such as BigQuery.
 type AuthGoogleServiceAccount struct {
-	// Email address of the Service Account.
+	// Email address of the Google service account.
 	ClientEmail string `json:"clientEmail"`
-	// Private key of the Service Account.
+	// Private key of the Google service account. This field is `null` in the API response.
 	PrivateKey string `json:"privateKey"`
 }
 

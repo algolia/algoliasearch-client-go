@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// DockerImageType The type of the image.
+// DockerImageType Image type.
 type DockerImageType string
 
 // List of DockerImageType.

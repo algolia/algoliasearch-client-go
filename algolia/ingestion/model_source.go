@@ -8,16 +8,16 @@ import (
 
 // Source struct for Source.
 type Source struct {
-	// The source UUID.
+	// Universally uniqud identifier (UUID) of a source.
 	SourceID string      `json:"sourceID"`
 	Type     SourceType  `json:"type"`
 	Name     string      `json:"name"`
 	Input    SourceInput `json:"input"`
-	// The authentication UUID.
+	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
-	// Date of creation (RFC3339 format).
+	// Date of creation in RFC3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update (RFC3339 format).
+	// Date of last update in RFC3339 format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 

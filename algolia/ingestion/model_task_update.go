@@ -6,15 +6,15 @@ import (
 	"fmt"
 )
 
-// TaskUpdate The payload for a task update.
+// TaskUpdate API request body for updating a task.
 type TaskUpdate struct {
-	// The destination UUID.
+	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID *string             `json:"destinationID,omitempty"`
 	Trigger       *TriggerUpdateInput `json:"trigger,omitempty"`
 	Input         *TaskInput          `json:"input,omitempty"`
-	// Whether the task is enabled or not.
+	// Whether the task is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// A percentage representing the accepted failure threshold to determine if a `run` succeeded or not.
+	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32 `json:"failureThreshold,omitempty"`
 }
 

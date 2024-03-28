@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// RecordType Determines the indexing strategy to use for a given e-commerce source.
+// RecordType Record type for ecommerce sources.
 type RecordType string
 
 // List of RecordType.

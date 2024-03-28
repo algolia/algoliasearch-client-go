@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// DestinationSortKeys Used to sort the Destination list endpoint.
+// DestinationSortKeys Property by which to sort the destinations.
 type DestinationSortKeys string
 
 // List of destinationSortKeys.

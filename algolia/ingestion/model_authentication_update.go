@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-// AuthenticationUpdate Payload to partially update an Authentication.
+// AuthenticationUpdate Request body for updating an authentication resource.
 type AuthenticationUpdate struct {
 	Type *AuthenticationType `json:"type,omitempty"`
-	// An human readable name describing the object.
+	// Descriptive name for the resource.
 	Name     *string           `json:"name,omitempty"`
 	Platform NullablePlatform  `json:"platform,omitempty"`
 	Input    *AuthInputPartial `json:"input,omitempty"`

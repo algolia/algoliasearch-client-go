@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SubscriptionTriggerType A task which is triggered by an external subscription (e.g. Webhook).
+// SubscriptionTriggerType Task runs after receiving subscribed event.
 type SubscriptionTriggerType string
 
 // List of SubscriptionTriggerType.

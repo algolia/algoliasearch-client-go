@@ -6,9 +6,11 @@ import (
 	"fmt"
 )
 
-// AuthBasicPartial Authentication input for Basic login with username and password.
+// AuthBasicPartial Credentials for authenticating with user name and password.
 type AuthBasicPartial struct {
+	// Username.
 	Username *string `json:"username,omitempty"`
+	// Password. This field is `null` in the API response.
 	Password *string `json:"password,omitempty"`
 }
 
