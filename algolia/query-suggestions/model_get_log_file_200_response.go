@@ -13,7 +13,7 @@ type GetLogFile200Response struct {
 	Level     *LogLevel `json:"level,omitempty"`
 	// Details about this log entry.
 	Message *string `json:"message,omitempty"`
-	// Level indicating the position of a suggestion in a hierarchy of records.   For example, a `contextLevel` of 1 indicates that this suggestion belongs to a previous suggestion with `contextLevel` 0.
+	// Level indicating the position of a suggestion in a hierarchy of records.  For example, a `contextLevel` of 1 indicates that this suggestion belongs to a previous suggestion with `contextLevel` 0.
 	ContextLevel *int32 `json:"contextLevel,omitempty"`
 }
 

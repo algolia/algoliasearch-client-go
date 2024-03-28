@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Languages - Set the language for deduplicating singular and plural suggestions. If specified, only the more popular form is included.
+// Languages - Languages for deduplicating singular and plural suggestions. If specified, only the more popular form is included.
 type Languages struct {
 	ArrayOfString *[]string
 	Bool          *bool

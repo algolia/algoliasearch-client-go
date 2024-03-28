@@ -10,19 +10,16 @@ import (
 type SourceIndex struct {
 	// Name of the Algolia index to use as source for query suggestions.
 	IndexName string `json:"indexName"`
-	// If true, Query Suggestions uses all replicas of the primary index to find popular searches. If false, only the primary index is used.
-	Replicas *bool `json:"replicas,omitempty"`
-	// [Analytics tags](https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/) for filtering the popular searches.
+	// If true, Query Suggestions uses all replica indices to find popular searches. If false, only the primary index is used.
+	Replicas      *bool    `json:"replicas,omitempty"`
 	AnalyticsTags []string `json:"analyticsTags,omitempty"`
-	// Facets to use as top categories with your suggestions.  If provided, Query Suggestions adds the top facet values to each suggestion.
-	Facets []Facet `json:"facets,omitempty"`
-	// Minimum number of hits required to be included as a suggestion.  A search query must at least generate `minHits` hits to be included in the Query Suggestions index.
+	Facets        []Facet  `json:"facets,omitempty"`
+	// Minimum number of hits required to be included as a suggestion.  A search query must at least generate `minHits` search results to be included in the Query Suggestions index.
 	MinHits *int32 `json:"minHits,omitempty"`
 	// Minimum letters required to be included as a suggestion.  A search query must be at least `minLetters` long to be included in the Query Suggestions index.
 	MinLetters *int32     `json:"minLetters,omitempty"`
 	Generate   [][]string `json:"generate,omitempty"`
-	// Algolia indices with popular searches to use as query suggestions.  Records of these indices must have these attributes:    - `query`: search query which will be added as a suggestion   - `count`: measure of popularity of that search query  For example, you can export popular searches from an external analytics tool, such as Google Analytics or Adobe Analytics, and feed this data into an external Algolia index. You can use this external index to generate query suggestions until your Algolia analytics has collected enough data.
-	External []string `json:"external,omitempty"`
+	External   []string   `json:"external,omitempty"`
 }
 
 type SourceIndexOption func(f *SourceIndex)
@@ -279,9 +276,9 @@ func (o *SourceIndex) SetMinLetters(v int32) *SourceIndex {
 	return o
 }
 
-// GetGenerate returns the Generate field value if set, zero value otherwise.
+// GetGenerate returns the Generate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceIndex) GetGenerate() [][]string {
-	if o == nil || o.Generate == nil {
+	if o == nil {
 		var ret [][]string
 		return ret
 	}
@@ -290,6 +287,7 @@ func (o *SourceIndex) GetGenerate() [][]string {
 
 // GetGenerateOk returns a tuple with the Generate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *SourceIndex) GetGenerateOk() ([][]string, bool) {
 	if o == nil || o.Generate == nil {
 		return nil, false

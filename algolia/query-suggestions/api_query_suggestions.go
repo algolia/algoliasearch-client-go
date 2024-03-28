@@ -73,7 +73,7 @@ func (c *APIClient) NewApiCreateConfigRequest(querySuggestionsConfigurationWithI
 /*
 CreateConfig Wraps CreateConfigWithContext using context.Background.
 
-Create a new Query Suggestions configuration.
+Creates a new Query Suggestions configuration.
 
 You can have up to 100 configurations per Algolia application.
 
@@ -92,7 +92,7 @@ func (c *APIClient) CreateConfig(r ApiCreateConfigRequest, opts ...Option) (*Bas
 /*
 CreateConfig
 
-Create a new Query Suggestions configuration.
+Creates a new Query Suggestions configuration.
 
 You can have up to 100 configurations per Algolia application.
 
@@ -814,10 +814,10 @@ func (c *APIClient) NewApiDeleteConfigRequest(indexName string) ApiDeleteConfigR
 /*
 DeleteConfig Wraps DeleteConfigWithContext using context.Background.
 
-Delete a Query Suggestions configuration.
+Deletes a Query Suggestions configuration.
 
 Deleting only removes the configuration and stops updates to the Query Suggestions index.
-The Query Suggestions index itself is not deleted.
+To delete the Query Suggestions index itself, use the Search API and the [Delete an index](/specs/search#tag/Indices/operation/deleteIndex) operation.
 
 Required API Key ACLs:
   - editSettings
@@ -834,10 +834,10 @@ func (c *APIClient) DeleteConfig(r ApiDeleteConfigRequest, opts ...Option) (*Bas
 /*
 DeleteConfig
 
-Delete a Query Suggestions configuration.
+Deletes a Query Suggestions configuration.
 
 Deleting only removes the configuration and stops updates to the Query Suggestions index.
-The Query Suggestions index itself is not deleted.
+To delete the Query Suggestions index itself, use the Search API and the [Delete an index](/specs/search#tag/Indices/operation/deleteIndex) operation.
 
 Required API Key ACLs:
   - editSettings
@@ -912,7 +912,7 @@ func (c *APIClient) DeleteConfigWithContext(ctx context.Context, r ApiDeleteConf
 /*
 GetAllConfigs Wraps GetAllConfigsWithContext using context.Background.
 
-List all Query Suggestions configurations of your Algolia application.
+Retrieves all Query Suggestions configurations of your Algolia application.
 
 Required API Key ACLs:
   - settings
@@ -928,7 +928,7 @@ func (c *APIClient) GetAllConfigs(opts ...Option) ([]QuerySuggestionsConfigurati
 /*
 GetAllConfigs
 
-List all Query Suggestions configurations of your Algolia application.
+Retrieves all Query Suggestions configurations of your Algolia application.
 
 Required API Key ACLs:
   - settings
@@ -1029,7 +1029,7 @@ func (c *APIClient) NewApiGetConfigRequest(indexName string) ApiGetConfigRequest
 /*
 GetConfig Wraps GetConfigWithContext using context.Background.
 
-Get a single Query Suggestions configuration.
+Retrieves a single Query Suggestions configuration by its index name.
 
 Required API Key ACLs:
   - settings
@@ -1046,7 +1046,7 @@ func (c *APIClient) GetConfig(r ApiGetConfigRequest, opts ...Option) (*QuerySugg
 /*
 GetConfig
 
-Get a single Query Suggestions configuration.
+Retrieves a single Query Suggestions configuration by its index name.
 
 Required API Key ACLs:
   - settings
@@ -1152,7 +1152,7 @@ func (c *APIClient) NewApiGetConfigStatusRequest(indexName string) ApiGetConfigS
 /*
 GetConfigStatus Wraps GetConfigStatusWithContext using context.Background.
 
-Report the status of a Query Suggestions index.
+Reports the status of a Query Suggestions index.
 
 Required API Key ACLs:
   - settings
@@ -1169,7 +1169,7 @@ func (c *APIClient) GetConfigStatus(r ApiGetConfigStatusRequest, opts ...Option)
 /*
 GetConfigStatus
 
-Report the status of a Query Suggestions index.
+Reports the status of a Query Suggestions index.
 
 Required API Key ACLs:
   - settings
@@ -1275,7 +1275,7 @@ func (c *APIClient) NewApiGetLogFileRequest(indexName string) ApiGetLogFileReque
 /*
 GetLogFile Wraps GetLogFileWithContext using context.Background.
 
-Get the logs for a single Query Suggestions index.
+Retrieves the logs for a single Query Suggestions index.
 
 Required API Key ACLs:
   - settings
@@ -1292,7 +1292,7 @@ func (c *APIClient) GetLogFile(r ApiGetLogFileRequest, opts ...Option) (*GetLogF
 /*
 GetLogFile
 
-Get the logs for a single Query Suggestions index.
+Retrieves the logs for a single Query Suggestions index.
 
 Required API Key ACLs:
   - settings
@@ -1414,7 +1414,7 @@ func (c *APIClient) NewApiUpdateConfigRequest(indexName string, querySuggestions
 /*
 UpdateConfig Wraps UpdateConfigWithContext using context.Background.
 
-Update a QuerySuggestions configuration.
+Updates a QuerySuggestions configuration.
 
 Required API Key ACLs:
   - editSettings
@@ -1432,7 +1432,7 @@ func (c *APIClient) UpdateConfig(r ApiUpdateConfigRequest, opts ...Option) (*Bas
 /*
 UpdateConfig
 
-Update a QuerySuggestions configuration.
+Updates a QuerySuggestions configuration.
 
 Required API Key ACLs:
   - editSettings

@@ -6,82 +6,35 @@ import (
 	"fmt"
 )
 
-// QuerySuggestionsConfigurationResponse struct for QuerySuggestionsConfigurationResponse.
+// QuerySuggestionsConfigurationResponse API response for retrieving Query Suggestions configurations.
 type QuerySuggestionsConfigurationResponse struct {
-	// API key used to read from your source index.
-	SourceIndicesAPIKey *string `json:"sourceIndicesAPIKey,omitempty"`
-	// API key used to write and configure your Query Suggestions index.
-	SuggestionsIndicesAPIKey *string `json:"suggestionsIndicesAPIKey,omitempty"`
-	// API key used to read from external Algolia indices.
-	ExternalIndicesAPIKey *string `json:"externalIndicesAPIKey,omitempty"`
-	// Query Suggestions index name.
+	// Algolia application ID to which this Query Suggestions configuration belongs.
+	AppID string `json:"appID"`
+	// Name of the Query Suggestions index.
 	IndexName string `json:"indexName"`
 	// Algolia indices from which to get the popular searches for query suggestions.
 	SourceIndices []SourceIndex `json:"sourceIndices"`
-	Languages     *Languages    `json:"languages,omitempty"`
-	// Patterns to exclude from query suggestions.
-	Exclude []string `json:"exclude,omitempty"`
-	// Turn on personalized query suggestions.
-	EnablePersonalization *bool `json:"enablePersonalization,omitempty"`
-	// Allow suggestions with special characters.
-	AllowSpecialCharacters *bool `json:"allowSpecialCharacters,omitempty"`
-}
-
-type QuerySuggestionsConfigurationResponseOption func(f *QuerySuggestionsConfigurationResponse)
-
-func WithQuerySuggestionsConfigurationResponseSourceIndicesAPIKey(val string) QuerySuggestionsConfigurationResponseOption {
-	return func(f *QuerySuggestionsConfigurationResponse) {
-		f.SourceIndicesAPIKey = &val
-	}
-}
-
-func WithQuerySuggestionsConfigurationResponseSuggestionsIndicesAPIKey(val string) QuerySuggestionsConfigurationResponseOption {
-	return func(f *QuerySuggestionsConfigurationResponse) {
-		f.SuggestionsIndicesAPIKey = &val
-	}
-}
-
-func WithQuerySuggestionsConfigurationResponseExternalIndicesAPIKey(val string) QuerySuggestionsConfigurationResponseOption {
-	return func(f *QuerySuggestionsConfigurationResponse) {
-		f.ExternalIndicesAPIKey = &val
-	}
-}
-
-func WithQuerySuggestionsConfigurationResponseLanguages(val Languages) QuerySuggestionsConfigurationResponseOption {
-	return func(f *QuerySuggestionsConfigurationResponse) {
-		f.Languages = &val
-	}
-}
-
-func WithQuerySuggestionsConfigurationResponseExclude(val []string) QuerySuggestionsConfigurationResponseOption {
-	return func(f *QuerySuggestionsConfigurationResponse) {
-		f.Exclude = val
-	}
-}
-
-func WithQuerySuggestionsConfigurationResponseEnablePersonalization(val bool) QuerySuggestionsConfigurationResponseOption {
-	return func(f *QuerySuggestionsConfigurationResponse) {
-		f.EnablePersonalization = &val
-	}
-}
-
-func WithQuerySuggestionsConfigurationResponseAllowSpecialCharacters(val bool) QuerySuggestionsConfigurationResponseOption {
-	return func(f *QuerySuggestionsConfigurationResponse) {
-		f.AllowSpecialCharacters = &val
-	}
+	Languages     Languages     `json:"languages"`
+	Exclude       []string      `json:"exclude"`
+	// Whether to turn on personalized query suggestions.
+	EnablePersonalization bool `json:"enablePersonalization"`
+	// Whether to include suggestions with special characters.
+	AllowSpecialCharacters bool `json:"allowSpecialCharacters"`
 }
 
 // NewQuerySuggestionsConfigurationResponse instantiates a new QuerySuggestionsConfigurationResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewQuerySuggestionsConfigurationResponse(indexName string, sourceIndices []SourceIndex, opts ...QuerySuggestionsConfigurationResponseOption) *QuerySuggestionsConfigurationResponse {
+func NewQuerySuggestionsConfigurationResponse(appID string, indexName string, sourceIndices []SourceIndex, languages Languages, exclude []string, enablePersonalization bool, allowSpecialCharacters bool) *QuerySuggestionsConfigurationResponse {
 	this := &QuerySuggestionsConfigurationResponse{}
+	this.AppID = appID
 	this.IndexName = indexName
 	this.SourceIndices = sourceIndices
-	for _, opt := range opts {
-		opt(this)
-	}
+	this.Languages = languages
+	this.Exclude = exclude
+	this.EnablePersonalization = enablePersonalization
+	this.AllowSpecialCharacters = allowSpecialCharacters
 	return this
 }
 
@@ -90,102 +43,28 @@ func NewEmptyQuerySuggestionsConfigurationResponse() *QuerySuggestionsConfigurat
 	return &QuerySuggestionsConfigurationResponse{}
 }
 
-// GetSourceIndicesAPIKey returns the SourceIndicesAPIKey field value if set, zero value otherwise.
-func (o *QuerySuggestionsConfigurationResponse) GetSourceIndicesAPIKey() string {
-	if o == nil || o.SourceIndicesAPIKey == nil {
+// GetAppID returns the AppID field value.
+func (o *QuerySuggestionsConfigurationResponse) GetAppID() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SourceIndicesAPIKey
+
+	return o.AppID
 }
 
-// GetSourceIndicesAPIKeyOk returns a tuple with the SourceIndicesAPIKey field value if set, nil otherwise
+// GetAppIDOk returns a tuple with the AppID field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetSourceIndicesAPIKeyOk() (*string, bool) {
-	if o == nil || o.SourceIndicesAPIKey == nil {
+func (o *QuerySuggestionsConfigurationResponse) GetAppIDOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SourceIndicesAPIKey, true
+	return &o.AppID, true
 }
 
-// HasSourceIndicesAPIKey returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationResponse) HasSourceIndicesAPIKey() bool {
-	if o != nil && o.SourceIndicesAPIKey != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSourceIndicesAPIKey gets a reference to the given string and assigns it to the SourceIndicesAPIKey field.
-func (o *QuerySuggestionsConfigurationResponse) SetSourceIndicesAPIKey(v string) *QuerySuggestionsConfigurationResponse {
-	o.SourceIndicesAPIKey = &v
-	return o
-}
-
-// GetSuggestionsIndicesAPIKey returns the SuggestionsIndicesAPIKey field value if set, zero value otherwise.
-func (o *QuerySuggestionsConfigurationResponse) GetSuggestionsIndicesAPIKey() string {
-	if o == nil || o.SuggestionsIndicesAPIKey == nil {
-		var ret string
-		return ret
-	}
-	return *o.SuggestionsIndicesAPIKey
-}
-
-// GetSuggestionsIndicesAPIKeyOk returns a tuple with the SuggestionsIndicesAPIKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetSuggestionsIndicesAPIKeyOk() (*string, bool) {
-	if o == nil || o.SuggestionsIndicesAPIKey == nil {
-		return nil, false
-	}
-	return o.SuggestionsIndicesAPIKey, true
-}
-
-// HasSuggestionsIndicesAPIKey returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationResponse) HasSuggestionsIndicesAPIKey() bool {
-	if o != nil && o.SuggestionsIndicesAPIKey != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSuggestionsIndicesAPIKey gets a reference to the given string and assigns it to the SuggestionsIndicesAPIKey field.
-func (o *QuerySuggestionsConfigurationResponse) SetSuggestionsIndicesAPIKey(v string) *QuerySuggestionsConfigurationResponse {
-	o.SuggestionsIndicesAPIKey = &v
-	return o
-}
-
-// GetExternalIndicesAPIKey returns the ExternalIndicesAPIKey field value if set, zero value otherwise.
-func (o *QuerySuggestionsConfigurationResponse) GetExternalIndicesAPIKey() string {
-	if o == nil || o.ExternalIndicesAPIKey == nil {
-		var ret string
-		return ret
-	}
-	return *o.ExternalIndicesAPIKey
-}
-
-// GetExternalIndicesAPIKeyOk returns a tuple with the ExternalIndicesAPIKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetExternalIndicesAPIKeyOk() (*string, bool) {
-	if o == nil || o.ExternalIndicesAPIKey == nil {
-		return nil, false
-	}
-	return o.ExternalIndicesAPIKey, true
-}
-
-// HasExternalIndicesAPIKey returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationResponse) HasExternalIndicesAPIKey() bool {
-	if o != nil && o.ExternalIndicesAPIKey != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalIndicesAPIKey gets a reference to the given string and assigns it to the ExternalIndicesAPIKey field.
-func (o *QuerySuggestionsConfigurationResponse) SetExternalIndicesAPIKey(v string) *QuerySuggestionsConfigurationResponse {
-	o.ExternalIndicesAPIKey = &v
+// SetAppID sets field value.
+func (o *QuerySuggestionsConfigurationResponse) SetAppID(v string) *QuerySuggestionsConfigurationResponse {
+	o.AppID = v
 	return o
 }
 
@@ -239,49 +118,43 @@ func (o *QuerySuggestionsConfigurationResponse) SetSourceIndices(v []SourceIndex
 	return o
 }
 
-// GetLanguages returns the Languages field value if set, zero value otherwise.
+// GetLanguages returns the Languages field value.
 func (o *QuerySuggestionsConfigurationResponse) GetLanguages() Languages {
-	if o == nil || o.Languages == nil {
+	if o == nil {
 		var ret Languages
 		return ret
 	}
-	return *o.Languages
+
+	return o.Languages
 }
 
-// GetLanguagesOk returns a tuple with the Languages field value if set, nil otherwise
+// GetLanguagesOk returns a tuple with the Languages field value
 // and a boolean to check if the value has been set.
 func (o *QuerySuggestionsConfigurationResponse) GetLanguagesOk() (*Languages, bool) {
-	if o == nil || o.Languages == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Languages, true
+	return &o.Languages, true
 }
 
-// HasLanguages returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationResponse) HasLanguages() bool {
-	if o != nil && o.Languages != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLanguages gets a reference to the given Languages and assigns it to the Languages field.
+// SetLanguages sets field value.
 func (o *QuerySuggestionsConfigurationResponse) SetLanguages(v *Languages) *QuerySuggestionsConfigurationResponse {
-	o.Languages = v
+	o.Languages = *v
 	return o
 }
 
-// GetExclude returns the Exclude field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetExclude returns the Exclude field value.
+// If the value is explicit nil, the zero value for []string will be returned.
 func (o *QuerySuggestionsConfigurationResponse) GetExclude() []string {
 	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Exclude
 }
 
-// GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
+// GetExcludeOk returns a tuple with the Exclude field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *QuerySuggestionsConfigurationResponse) GetExcludeOk() ([]string, bool) {
@@ -291,97 +164,66 @@ func (o *QuerySuggestionsConfigurationResponse) GetExcludeOk() ([]string, bool) 
 	return o.Exclude, true
 }
 
-// HasExclude returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationResponse) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExclude gets a reference to the given []string and assigns it to the Exclude field.
+// SetExclude sets field value.
 func (o *QuerySuggestionsConfigurationResponse) SetExclude(v []string) *QuerySuggestionsConfigurationResponse {
 	o.Exclude = v
 	return o
 }
 
-// GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
+// GetEnablePersonalization returns the EnablePersonalization field value.
 func (o *QuerySuggestionsConfigurationResponse) GetEnablePersonalization() bool {
-	if o == nil || o.EnablePersonalization == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.EnablePersonalization
+
+	return o.EnablePersonalization
 }
 
-// GetEnablePersonalizationOk returns a tuple with the EnablePersonalization field value if set, nil otherwise
+// GetEnablePersonalizationOk returns a tuple with the EnablePersonalization field value
 // and a boolean to check if the value has been set.
 func (o *QuerySuggestionsConfigurationResponse) GetEnablePersonalizationOk() (*bool, bool) {
-	if o == nil || o.EnablePersonalization == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.EnablePersonalization, true
+	return &o.EnablePersonalization, true
 }
 
-// HasEnablePersonalization returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationResponse) HasEnablePersonalization() bool {
-	if o != nil && o.EnablePersonalization != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
+// SetEnablePersonalization sets field value.
 func (o *QuerySuggestionsConfigurationResponse) SetEnablePersonalization(v bool) *QuerySuggestionsConfigurationResponse {
-	o.EnablePersonalization = &v
+	o.EnablePersonalization = v
 	return o
 }
 
-// GetAllowSpecialCharacters returns the AllowSpecialCharacters field value if set, zero value otherwise.
+// GetAllowSpecialCharacters returns the AllowSpecialCharacters field value.
 func (o *QuerySuggestionsConfigurationResponse) GetAllowSpecialCharacters() bool {
-	if o == nil || o.AllowSpecialCharacters == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.AllowSpecialCharacters
+
+	return o.AllowSpecialCharacters
 }
 
-// GetAllowSpecialCharactersOk returns a tuple with the AllowSpecialCharacters field value if set, nil otherwise
+// GetAllowSpecialCharactersOk returns a tuple with the AllowSpecialCharacters field value
 // and a boolean to check if the value has been set.
 func (o *QuerySuggestionsConfigurationResponse) GetAllowSpecialCharactersOk() (*bool, bool) {
-	if o == nil || o.AllowSpecialCharacters == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.AllowSpecialCharacters, true
+	return &o.AllowSpecialCharacters, true
 }
 
-// HasAllowSpecialCharacters returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationResponse) HasAllowSpecialCharacters() bool {
-	if o != nil && o.AllowSpecialCharacters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowSpecialCharacters gets a reference to the given bool and assigns it to the AllowSpecialCharacters field.
+// SetAllowSpecialCharacters sets field value.
 func (o *QuerySuggestionsConfigurationResponse) SetAllowSpecialCharacters(v bool) *QuerySuggestionsConfigurationResponse {
-	o.AllowSpecialCharacters = &v
+	o.AllowSpecialCharacters = v
 	return o
 }
 
 func (o QuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.SourceIndicesAPIKey != nil {
-		toSerialize["sourceIndicesAPIKey"] = o.SourceIndicesAPIKey
-	}
-	if o.SuggestionsIndicesAPIKey != nil {
-		toSerialize["suggestionsIndicesAPIKey"] = o.SuggestionsIndicesAPIKey
-	}
-	if o.ExternalIndicesAPIKey != nil {
-		toSerialize["externalIndicesAPIKey"] = o.ExternalIndicesAPIKey
+	if true {
+		toSerialize["appID"] = o.AppID
 	}
 	if true {
 		toSerialize["indexName"] = o.IndexName
@@ -389,16 +231,16 @@ func (o QuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["sourceIndices"] = o.SourceIndices
 	}
-	if o.Languages != nil {
+	if true {
 		toSerialize["languages"] = o.Languages
 	}
 	if o.Exclude != nil {
 		toSerialize["exclude"] = o.Exclude
 	}
-	if o.EnablePersonalization != nil {
+	if true {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
-	if o.AllowSpecialCharacters != nil {
+	if true {
 		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	}
 	serialized, err := json.Marshal(toSerialize)
@@ -411,9 +253,7 @@ func (o QuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
 
 func (o QuerySuggestionsConfigurationResponse) String() string {
 	out := ""
-	out += fmt.Sprintf("  sourceIndicesAPIKey=%v\n", o.SourceIndicesAPIKey)
-	out += fmt.Sprintf("  suggestionsIndicesAPIKey=%v\n", o.SuggestionsIndicesAPIKey)
-	out += fmt.Sprintf("  externalIndicesAPIKey=%v\n", o.ExternalIndicesAPIKey)
+	out += fmt.Sprintf("  appID=%v\n", o.AppID)
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  sourceIndices=%v\n", o.SourceIndices)
 	out += fmt.Sprintf("  languages=%v\n", o.Languages)

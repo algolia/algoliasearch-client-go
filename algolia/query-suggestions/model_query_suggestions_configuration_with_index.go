@@ -8,17 +8,16 @@ import (
 
 // QuerySuggestionsConfigurationWithIndex Query Suggestions configuration.
 type QuerySuggestionsConfigurationWithIndex struct {
-	// Query Suggestions index name.
-	IndexName string `json:"indexName"`
 	// Algolia indices from which to get the popular searches for query suggestions.
 	SourceIndices []SourceIndex `json:"sourceIndices"`
 	Languages     *Languages    `json:"languages,omitempty"`
-	// Patterns to exclude from query suggestions.
-	Exclude []string `json:"exclude,omitempty"`
-	// Turn on personalized query suggestions.
+	Exclude       []string      `json:"exclude,omitempty"`
+	// Whether to turn on personalized query suggestions.
 	EnablePersonalization *bool `json:"enablePersonalization,omitempty"`
-	// Allow suggestions with special characters.
+	// Whether to include suggestions with special characters.
 	AllowSpecialCharacters *bool `json:"allowSpecialCharacters,omitempty"`
+	// Name of the Query Suggestions index.
+	IndexName string `json:"indexName"`
 }
 
 type QuerySuggestionsConfigurationWithIndexOption func(f *QuerySuggestionsConfigurationWithIndex)
@@ -51,10 +50,10 @@ func WithQuerySuggestionsConfigurationWithIndexAllowSpecialCharacters(val bool) 
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewQuerySuggestionsConfigurationWithIndex(indexName string, sourceIndices []SourceIndex, opts ...QuerySuggestionsConfigurationWithIndexOption) *QuerySuggestionsConfigurationWithIndex {
+func NewQuerySuggestionsConfigurationWithIndex(sourceIndices []SourceIndex, indexName string, opts ...QuerySuggestionsConfigurationWithIndexOption) *QuerySuggestionsConfigurationWithIndex {
 	this := &QuerySuggestionsConfigurationWithIndex{}
-	this.IndexName = indexName
 	this.SourceIndices = sourceIndices
+	this.IndexName = indexName
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -64,31 +63,6 @@ func NewQuerySuggestionsConfigurationWithIndex(indexName string, sourceIndices [
 // NewEmptyQuerySuggestionsConfigurationWithIndex return a pointer to an empty QuerySuggestionsConfigurationWithIndex object.
 func NewEmptyQuerySuggestionsConfigurationWithIndex() *QuerySuggestionsConfigurationWithIndex {
 	return &QuerySuggestionsConfigurationWithIndex{}
-}
-
-// GetIndexName returns the IndexName field value.
-func (o *QuerySuggestionsConfigurationWithIndex) GetIndexName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.IndexName
-}
-
-// GetIndexNameOk returns a tuple with the IndexName field value
-// and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) GetIndexNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IndexName, true
-}
-
-// SetIndexName sets field value.
-func (o *QuerySuggestionsConfigurationWithIndex) SetIndexName(v string) *QuerySuggestionsConfigurationWithIndex {
-	o.IndexName = v
-	return o
 }
 
 // GetSourceIndices returns the SourceIndices field value.
@@ -249,11 +223,33 @@ func (o *QuerySuggestionsConfigurationWithIndex) SetAllowSpecialCharacters(v boo
 	return o
 }
 
+// GetIndexName returns the IndexName field value.
+func (o *QuerySuggestionsConfigurationWithIndex) GetIndexName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.IndexName
+}
+
+// GetIndexNameOk returns a tuple with the IndexName field value
+// and a boolean to check if the value has been set.
+func (o *QuerySuggestionsConfigurationWithIndex) GetIndexNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IndexName, true
+}
+
+// SetIndexName sets field value.
+func (o *QuerySuggestionsConfigurationWithIndex) SetIndexName(v string) *QuerySuggestionsConfigurationWithIndex {
+	o.IndexName = v
+	return o
+}
+
 func (o QuerySuggestionsConfigurationWithIndex) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
 	if true {
 		toSerialize["sourceIndices"] = o.SourceIndices
 	}
@@ -269,6 +265,9 @@ func (o QuerySuggestionsConfigurationWithIndex) MarshalJSON() ([]byte, error) {
 	if o.AllowSpecialCharacters != nil {
 		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	}
+	if true {
+		toSerialize["indexName"] = o.IndexName
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal QuerySuggestionsConfigurationWithIndex: %w", err)
@@ -279,12 +278,12 @@ func (o QuerySuggestionsConfigurationWithIndex) MarshalJSON() ([]byte, error) {
 
 func (o QuerySuggestionsConfigurationWithIndex) String() string {
 	out := ""
-	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  sourceIndices=%v\n", o.SourceIndices)
 	out += fmt.Sprintf("  languages=%v\n", o.Languages)
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
+	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	return fmt.Sprintf("QuerySuggestionsConfigurationWithIndex {\n%s}", out)
 }
 
