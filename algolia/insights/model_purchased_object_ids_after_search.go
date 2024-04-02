@@ -23,7 +23,7 @@ type PurchasedObjectIDsAfterSearch struct {
 	// Three-letter [currency code](https://www.iso.org/iso-4217-currency-codes.html).
 	Currency *string `json:"currency,omitempty"`
 	// Extra information about the records involved in a purchase or add-to-cart events.  If provided, it must be the same length as `objectIDs`.
-	ObjectData []ObjectDataAfterSearch `json:"objectData,omitempty"`
+	ObjectData []ObjectDataAfterSearch `json:"objectData"`
 	// Timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	Value     *Value `json:"value,omitempty"`
@@ -43,12 +43,6 @@ func WithPurchasedObjectIDsAfterSearchCurrency(val string) PurchasedObjectIDsAft
 	}
 }
 
-func WithPurchasedObjectIDsAfterSearchObjectData(val []ObjectDataAfterSearch) PurchasedObjectIDsAfterSearchOption {
-	return func(f *PurchasedObjectIDsAfterSearch) {
-		f.ObjectData = val
-	}
-}
-
 func WithPurchasedObjectIDsAfterSearchTimestamp(val int64) PurchasedObjectIDsAfterSearchOption {
 	return func(f *PurchasedObjectIDsAfterSearch) {
 		f.Timestamp = &val
@@ -65,7 +59,7 @@ func WithPurchasedObjectIDsAfterSearchValue(val Value) PurchasedObjectIDsAfterSe
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewPurchasedObjectIDsAfterSearch(eventName string, eventType ConversionEvent, eventSubtype PurchaseEvent, index string, objectIDs []string, userToken string, opts ...PurchasedObjectIDsAfterSearchOption) *PurchasedObjectIDsAfterSearch {
+func NewPurchasedObjectIDsAfterSearch(eventName string, eventType ConversionEvent, eventSubtype PurchaseEvent, index string, objectIDs []string, userToken string, objectData []ObjectDataAfterSearch, opts ...PurchasedObjectIDsAfterSearchOption) *PurchasedObjectIDsAfterSearch {
 	this := &PurchasedObjectIDsAfterSearch{}
 	this.EventName = eventName
 	this.EventType = eventType
@@ -73,6 +67,7 @@ func NewPurchasedObjectIDsAfterSearch(eventName string, eventType ConversionEven
 	this.Index = index
 	this.ObjectIDs = objectIDs
 	this.UserToken = userToken
+	this.ObjectData = objectData
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -300,34 +295,26 @@ func (o *PurchasedObjectIDsAfterSearch) SetCurrency(v string) *PurchasedObjectID
 	return o
 }
 
-// GetObjectData returns the ObjectData field value if set, zero value otherwise.
+// GetObjectData returns the ObjectData field value.
 func (o *PurchasedObjectIDsAfterSearch) GetObjectData() []ObjectDataAfterSearch {
-	if o == nil || o.ObjectData == nil {
+	if o == nil {
 		var ret []ObjectDataAfterSearch
 		return ret
 	}
+
 	return o.ObjectData
 }
 
-// GetObjectDataOk returns a tuple with the ObjectData field value if set, nil otherwise
+// GetObjectDataOk returns a tuple with the ObjectData field value
 // and a boolean to check if the value has been set.
 func (o *PurchasedObjectIDsAfterSearch) GetObjectDataOk() ([]ObjectDataAfterSearch, bool) {
-	if o == nil || o.ObjectData == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.ObjectData, true
 }
 
-// HasObjectData returns a boolean if a field has been set.
-func (o *PurchasedObjectIDsAfterSearch) HasObjectData() bool {
-	if o != nil && o.ObjectData != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetObjectData gets a reference to the given []ObjectDataAfterSearch and assigns it to the ObjectData field.
+// SetObjectData sets field value.
 func (o *PurchasedObjectIDsAfterSearch) SetObjectData(v []ObjectDataAfterSearch) *PurchasedObjectIDsAfterSearch {
 	o.ObjectData = v
 	return o
@@ -425,7 +412,7 @@ func (o PurchasedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
 	}
-	if o.ObjectData != nil {
+	if true {
 		toSerialize["objectData"] = o.ObjectData
 	}
 	if o.Timestamp != nil {
