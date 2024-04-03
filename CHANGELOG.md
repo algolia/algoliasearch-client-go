@@ -1,3 +1,11 @@
+## [4.0.0-beta.10](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.9...4.0.0-beta.10)
+
+- [10e08c9e7](https://github.com/algolia/api-clients-automation/commit/10e08c9e7) fix(specs): query suggestions api ([#2924](https://github.com/algolia/api-clients-automation/pull/2924)) by [@kai687](https://github.com/kai687/)
+- [b153b397e](https://github.com/algolia/api-clients-automation/commit/b153b397e) fix(specs): ingestion api reference ([#2918](https://github.com/algolia/api-clients-automation/pull/2918)) by [@kai687](https://github.com/kai687/)
+- [2a673e2d3](https://github.com/algolia/api-clients-automation/commit/2a673e2d3) feat(go): add `ChunkedBatch` and `ReplaceAllObjects` ([#2935](https://github.com/algolia/api-clients-automation/pull/2935)) by [@shortcuts](https://github.com/shortcuts/)
+- [21ebc89e7](https://github.com/algolia/api-clients-automation/commit/21ebc89e7) feat(go): add `GetSecuredApiKeyRemainingValidity` helper, fix `GenerateSecuredApiKey` encoding ([#2934](https://github.com/algolia/api-clients-automation/pull/2934)) by [@shortcuts](https://github.com/shortcuts/)
+- [351c23fbf](https://github.com/algolia/api-clients-automation/commit/351c23fbf) fix(go): typo in method name ([#2932](https://github.com/algolia/api-clients-automation/pull/2932)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-beta.9](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.8...4.0.0-beta.9)
 
 - [10c9339c8](https://github.com/algolia/api-clients-automation/commit/10c9339c8) fix(specs): more flexible custom methods ([#2889](https://github.com/algolia/api-clients-automation/pull/2889)) by [@damcou](https://github.com/damcou/)
