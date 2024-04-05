@@ -4,6 +4,8 @@ client.go
 configuration.go
 model_action_type.go
 model_auth_algolia.go
+model_auth_algolia_insights.go
+model_auth_algolia_insights_partial.go
 model_auth_algolia_partial.go
 model_auth_api_key.go
 model_auth_api_key_partial.go

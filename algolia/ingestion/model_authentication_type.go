@@ -16,6 +16,7 @@ const (
 	AUTHENTICATIONTYPE_API_KEY                AuthenticationType = "apiKey"
 	AUTHENTICATIONTYPE_OAUTH                  AuthenticationType = "oauth"
 	AUTHENTICATIONTYPE_ALGOLIA                AuthenticationType = "algolia"
+	AUTHENTICATIONTYPE_ALGOLIA_INSIGHTS       AuthenticationType = "algoliaInsights"
 )
 
 // All allowed values of AuthenticationType enum.
@@ -25,6 +26,7 @@ var AllowedAuthenticationTypeEnumValues = []AuthenticationType{
 	"apiKey",
 	"oauth",
 	"algolia",
+	"algoliaInsights",
 }
 
 func (v *AuthenticationType) UnmarshalJSON(src []byte) error {

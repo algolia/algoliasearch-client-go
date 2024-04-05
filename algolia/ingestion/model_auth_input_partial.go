@@ -9,6 +9,7 @@ import (
 // AuthInputPartial - struct for AuthInputPartial.
 type AuthInputPartial struct {
 	AuthAPIKeyPartial               *AuthAPIKeyPartial
+	AuthAlgoliaInsightsPartial      *AuthAlgoliaInsightsPartial
 	AuthAlgoliaPartial              *AuthAlgoliaPartial
 	AuthBasicPartial                *AuthBasicPartial
 	AuthGoogleServiceAccountPartial *AuthGoogleServiceAccountPartial
@@ -50,6 +51,13 @@ func AuthAlgoliaPartialAsAuthInputPartial(v *AuthAlgoliaPartial) *AuthInputParti
 	}
 }
 
+// AuthAlgoliaInsightsPartialAsAuthInputPartial is a convenience function that returns AuthAlgoliaInsightsPartial wrapped in AuthInputPartial.
+func AuthAlgoliaInsightsPartialAsAuthInputPartial(v *AuthAlgoliaInsightsPartial) *AuthInputPartial {
+	return &AuthInputPartial{
+		AuthAlgoliaInsightsPartial: v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 	var err error
@@ -64,6 +72,19 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.AuthAPIKeyPartial = nil
+	}
+
+	// try to unmarshal data into AuthAlgoliaInsightsPartial
+	err = newStrictDecoder(data).Decode(&dst.AuthAlgoliaInsightsPartial)
+	if err == nil && validateStruct(dst.AuthAlgoliaInsightsPartial) == nil {
+		jsonAuthAlgoliaInsightsPartial, _ := json.Marshal(dst.AuthAlgoliaInsightsPartial)
+		if string(jsonAuthAlgoliaInsightsPartial) == "{}" { // empty struct
+			dst.AuthAlgoliaInsightsPartial = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.AuthAlgoliaInsightsPartial = nil
 	}
 
 	// try to unmarshal data into AuthAlgoliaPartial
@@ -132,6 +153,15 @@ func (src AuthInputPartial) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.AuthAlgoliaInsightsPartial != nil {
+		serialized, err := json.Marshal(&src.AuthAlgoliaInsightsPartial)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthAlgoliaInsightsPartial of AuthInputPartial: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.AuthAlgoliaPartial != nil {
 		serialized, err := json.Marshal(&src.AuthAlgoliaPartial)
 		if err != nil {
@@ -175,6 +205,10 @@ func (src AuthInputPartial) MarshalJSON() ([]byte, error) {
 func (obj AuthInputPartial) GetActualInstance() any {
 	if obj.AuthAPIKeyPartial != nil {
 		return *obj.AuthAPIKeyPartial
+	}
+
+	if obj.AuthAlgoliaInsightsPartial != nil {
+		return *obj.AuthAlgoliaInsightsPartial
 	}
 
 	if obj.AuthAlgoliaPartial != nil {

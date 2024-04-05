@@ -10,6 +10,7 @@ import (
 type AuthInput struct {
 	AuthAPIKey               *AuthAPIKey
 	AuthAlgolia              *AuthAlgolia
+	AuthAlgoliaInsights      *AuthAlgoliaInsights
 	AuthBasic                *AuthBasic
 	AuthGoogleServiceAccount *AuthGoogleServiceAccount
 	AuthOAuth                *AuthOAuth
@@ -50,6 +51,13 @@ func AuthAlgoliaAsAuthInput(v *AuthAlgolia) *AuthInput {
 	}
 }
 
+// AuthAlgoliaInsightsAsAuthInput is a convenience function that returns AuthAlgoliaInsights wrapped in AuthInput.
+func AuthAlgoliaInsightsAsAuthInput(v *AuthAlgoliaInsights) *AuthInput {
+	return &AuthInput{
+		AuthAlgoliaInsights: v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	var err error
@@ -77,6 +85,19 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.AuthAlgolia = nil
+	}
+
+	// try to unmarshal data into AuthAlgoliaInsights
+	err = newStrictDecoder(data).Decode(&dst.AuthAlgoliaInsights)
+	if err == nil && validateStruct(dst.AuthAlgoliaInsights) == nil {
+		jsonAuthAlgoliaInsights, _ := json.Marshal(dst.AuthAlgoliaInsights)
+		if string(jsonAuthAlgoliaInsights) == "{}" { // empty struct
+			dst.AuthAlgoliaInsights = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.AuthAlgoliaInsights = nil
 	}
 
 	// try to unmarshal data into AuthBasic
@@ -141,6 +162,15 @@ func (src AuthInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.AuthAlgoliaInsights != nil {
+		serialized, err := json.Marshal(&src.AuthAlgoliaInsights)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AuthAlgoliaInsights of AuthInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.AuthBasic != nil {
 		serialized, err := json.Marshal(&src.AuthBasic)
 		if err != nil {
@@ -179,6 +209,10 @@ func (obj AuthInput) GetActualInstance() any {
 
 	if obj.AuthAlgolia != nil {
 		return *obj.AuthAlgolia
+	}
+
+	if obj.AuthAlgoliaInsights != nil {
+		return *obj.AuthAlgoliaInsights
 	}
 
 	if obj.AuthBasic != nil {
